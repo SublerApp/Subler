@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class MP42FileImporter;
 @class MP42Metadata;
 
 @protocol SBFileImportDelegate
