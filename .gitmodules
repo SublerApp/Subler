@@ -1,0 +1,3 @@
+[submodule "mp42foundation"]
+	path = mp42foundation
+	url = https://bitbucket.org/galad87/mp42foundation.git
