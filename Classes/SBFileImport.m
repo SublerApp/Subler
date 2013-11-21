@@ -161,12 +161,18 @@
                 [[actionCell menu] addItem:item];
                 
                 NSArray *formatArray = [NSArray arrayWithObjects:MP42SubtitleFormatTx3g, nil];
-                for (NSString* format in formatArray) {
+                for (NSString *format in formatArray) {
                     item = [[[NSMenuItem alloc] initWithTitle:format action:NULL keyEquivalent:@""] autorelease];
                     [item setTag:tag++];
                     [item setEnabled:YES];
                     [[actionCell menu] addItem:item];
                 }
+            }
+            else if ([track isMemberOfClass:[MP42ClosedCaptionTrack class]]) {
+                NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:@"Passthru" action:NULL keyEquivalent:@""] autorelease];
+                [item setTag:0];
+                [item setEnabled:YES];
+                [[actionCell menu] addItem:item];
             }
             else if ([track isMemberOfClass:[MP42AudioTrack class]]) {
                 NSInteger tag = 0;
