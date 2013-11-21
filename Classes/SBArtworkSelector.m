@@ -16,19 +16,33 @@
     NSURL *_url;
     NSString *_urlString;
 	NSString *_artworkProviderName;
+    NSData *_data;
+    NSInteger _version;
+
+    id _delegate;
 }
+
+@property (atomic, retain) NSData *data;
+@property (atomic) NSInteger version;
+@property (nonatomic, assign) id delegate;
+
 @end
 
 @implementation myImageObject
 
-- (void) dealloc {
+@synthesize data = _data;
+@synthesize version = _version;
+@synthesize delegate = _delegate;
+
+- (void)dealloc {
     [_url release];
     [_urlString release];
 	[_artworkProviderName release];
+    [_data release];
     [super dealloc];
 }
 
-- (void) setURL:(NSURL *)url {
+- (void)setURL:(NSURL *)url {
     if(_url != url){
         [_url release];
         [_urlString release];
@@ -37,27 +51,46 @@
     }
 }
 
-- (NSURL *) url {
+- (NSURL *)url {
     return _url;
 }
 
-- (void) setArtworkProviderName:(NSString *)artworkProviderName {
+- (void)setArtworkProviderName:(NSString *)artworkProviderName {
 	_artworkProviderName = [artworkProviderName retain];
 }
 
-- (NSString *) imageRepresentationType {
+- (NSString *)imageRepresentationType {
     return IKImageBrowserNSDataRepresentationType;
 }
 
-- (id)  imageRepresentation {
-    return [MetadataImporter downloadDataOrGetFromCache:_url];
+- (id)imageRepresentation {
+    @synchronized(self) {
+        if (!self.version) {
+            self.version = 1;
+            // Get the data outside the main thread
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                self.data = [MetadataImporter downloadDataOrGetFromCache:_url];
+                self.version = 2;
+                // We got the data, tell the controller to update the view
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.delegate reloadData];
+                });
+            });
+        }
+    }
+
+    return self.data;
 }
 
-- (NSString *) imageUID {
+- (NSString *)imageUID {
     return _urlString;
 }
 
-- (NSString *) imageTitle {
+- (NSUInteger)imageVersion{
+    return self.version;
+}
+
+- (NSString *)imageTitle {
 	NSArray *a = [_artworkProviderName componentsSeparatedByString:@"|"];
 	if ([a count] > 0) {
 		return [a objectAtIndex:0];
@@ -65,7 +98,7 @@
 	return nil;
 }
 
-- (NSString *) imageSubtitle {
+- (NSString *)imageSubtitle {
 	NSArray *a = [_artworkProviderName componentsSeparatedByString:@"|"];
 	if ([a count] > 1) {
 		return [a objectAtIndex:1];
@@ -97,6 +130,7 @@
     myImageObject *m;
     for (int i = 0; (i < 10) && ([imageURLsUnloaded count] > 0); i++) {
         m = [[myImageObject alloc] init];
+        [m setDelegate:self];
         [m setURL:[imageURLsUnloaded objectAtIndex:0]];
 		[m setArtworkProviderName:[artworkProviderNames objectAtIndex:[images count]]];
         [imageURLsUnloaded removeObjectAtIndex:0];
@@ -112,6 +146,7 @@
     myImageObject *m;
     for (int i = 0; (i < 10) && ([imageURLsUnloaded count] > 0); i++) {
         m = [[myImageObject alloc] init];
+        [m setDelegate:self];
         [m setURL:[imageURLsUnloaded objectAtIndex:0]];
 		[m setArtworkProviderName:[artworkProviderNames objectAtIndex:[images count]]];
         [imageURLsUnloaded removeObjectAtIndex:0];
@@ -129,6 +164,10 @@
     [imageBrowser setNeedsDisplay:YES];
 }
 
+- (void)reloadData {
+    [imageBrowser reloadData];
+}
+
 #pragma mark Finishing up
 
 - (IBAction) addArtwork:(id)sender {
@@ -140,6 +179,7 @@
 }
 
 - (void) dealloc {
+    [images makeObjectsPerformSelector:@selector(setDelegate:) withObject:nil];
     [images release];
     [imageURLsUnloaded release];
 	[artworkProviderNames release];
