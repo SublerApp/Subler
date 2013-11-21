@@ -95,6 +95,13 @@
 			remoteGlobalIDString = A9B9C1EC182391DF00416A4E;
 			remoteInfo = MP42Foundation;
 		};
+		A98C6F83183E6C39007E5AE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A925AA7B18378D7800BE84D4 /* MP42Foundation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A910B5A318394E900064028F;
+			remoteInfo = mp42;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -382,6 +389,7 @@
 			children = (
 				A925AA8218378D7900BE84D4 /* MP42Foundation.framework */,
 				A925AA8418378D7900BE84D4 /* MP42FoundationFoundationTests.xctest */,
+				A98C6F84183E6C39007E5AE5 /* libmp42.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -558,6 +566,13 @@
 			fileType = wrapper.cfbundle;
 			path = MP42FoundationFoundationTests.xctest;
 			remoteRef = A925AA8318378D7900BE84D4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A98C6F84183E6C39007E5AE5 /* libmp42.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libmp42.a;
+			remoteRef = A98C6F83183E6C39007E5AE5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
