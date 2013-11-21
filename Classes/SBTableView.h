@@ -18,8 +18,10 @@
 
 @interface SBTableView : NSTableView<SBTableViewDelegate> {
     NSArray *_pasteboardTypes;
+    NSInteger _defaultEditingColumn;
 }
 - (void)keyDown:(NSEvent *)event;
-@property(readwrite, retain) NSArray* _pasteboardTypes;
+@property(readwrite, retain) NSArray *pasteboardTypes;
+@property(readwrite) NSInteger defaultEditingColumn;
 @end
 

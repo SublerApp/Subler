@@ -17,7 +17,7 @@
 
     NSDictionary *detailBoldAttr;
 
-    IBOutlet SBTableView  *chapterTableView;
+    IBOutlet SBTableView    *chapterTableView;
     IBOutlet NSButton       *removeChapter;
 }
 
