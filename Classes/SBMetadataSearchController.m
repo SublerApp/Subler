@@ -16,7 +16,7 @@
 #import "SBDocument.h"
 #import "MetadataImporter.h"
 
-@interface SBMetadataSearchController () <SBArtworkSelectorDelegate>
+@interface SBMetadataSearchController () <NSTableViewDelegate, SBArtworkSelectorDelegate>
 
 @end
 
@@ -360,9 +360,7 @@
             }
         }
     }
-    if ([delegate respondsToSelector:@selector(metadataImportDone:)]) {
-        [delegate performSelector:@selector(metadataImportDone:) withObject:selectedResult];
-    }
+    [delegate metadataImportDone:selectedResult];
 }
 
 - (IBAction) closeWindow: (id) sender
@@ -370,13 +368,16 @@
 	if (currentSearcher)
 		[currentSearcher cancel];
 
-    if ([delegate respondsToSelector:@selector(metadataImportDone:)]) {
-        [delegate performSelector:@selector(metadataImportDone:) withObject:nil];
-    }
+    [delegate metadataImportDone:nil];
 }
 
 - (void) dealloc
 {
+    [resultsTable setDelegate:nil];
+    [resultsTable setDataSource:nil];
+    [metadataTable setDelegate:nil];
+    [metadataTable setDataSource:nil];
+
     [detailBoldAttr release];
 
     [selectedResultTagsArray release];

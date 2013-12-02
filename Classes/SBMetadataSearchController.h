@@ -16,8 +16,9 @@
 - (void)metadataImportDone:(MP42Metadata *)metadataToBeImported;
 @end
 
-@interface SBMetadataSearchController : NSWindowController <NSTableViewDelegate> {
-    id                           delegate;
+@interface SBMetadataSearchController : NSWindowController {
+    id <SBMetadataSearchControllerDelegate> delegate;
+
     NSDictionary                 *detailBoldAttr;
 
     IBOutlet NSTabView           *searchMode;
@@ -53,7 +54,7 @@
 }
 
 #pragma mark Initialization
-- (instancetype)initWithDelegate:(id)del;
+- (instancetype)initWithDelegate:(id <SBMetadataSearchControllerDelegate>)del;
 
 #pragma mark Metadata provider
 - (void) createLanguageMenus;

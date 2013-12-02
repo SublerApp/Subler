@@ -26,7 +26,7 @@
 
 #define SublerTableViewDataType @"SublerTableViewDataType"
 
-@interface SBDocument () <MP42FileDelegate, SBFileImportDelegate>
+@interface SBDocument () <MP42FileDelegate, SBFileImportDelegate, SBMetadataSearchControllerDelegate>
 
 @end
 
