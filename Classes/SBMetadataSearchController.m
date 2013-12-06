@@ -176,6 +176,8 @@
 #pragma mark Search for results
 
 - (IBAction) searchForResults: (id) sender {
+    [addButton setEnabled:NO];
+
     if (currentSearcher) {
         [currentSearcher cancel];
         currentSearcher = nil;
