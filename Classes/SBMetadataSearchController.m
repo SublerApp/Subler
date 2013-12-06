@@ -220,7 +220,8 @@
     [resultsTable reloadData];
     [metadataTable reloadData];
     [self tableViewSelectionDidChange:[NSNotification notificationWithName:@"tableViewSelectionDidChange" object:resultsTable]];
-    [[self window] makeFirstResponder:resultsTable];
+    if ([resultsArray count])
+        [[self window] makeFirstResponder:resultsTable];
 	currentSearcher = nil;
 }
 
