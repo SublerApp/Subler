@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
 		<string key="IBDocument.SystemVersion">13A603</string>
-		<string key="IBDocument.InterfaceBuilderVersion">4511</string>
+		<string key="IBDocument.InterfaceBuilderVersion">4514</string>
 		<string key="IBDocument.AppKitVersion">1265</string>
 		<string key="IBDocument.HIToolboxVersion">695.00</string>
 		<dictionary class="NSMutableDictionary" key="IBDocument.PluginVersions">
-			<string key="com.apple.InterfaceBuilder.CocoaPlugin">4511</string>
-			<string key="com.apple.imagekit.ibplugin">3336</string>
+			<string key="com.apple.InterfaceBuilder.CocoaPlugin">4514</string>
+			<string key="com.apple.imagekit.ibplugin">3338</string>
 		</dictionary>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IKImageBrowserView</string>
@@ -82,7 +82,7 @@
 													<array class="NSMutableArray" key="NSSubviews">
 														<object class="NSTableView" id="617005783">
 															<reference key="NSNextResponder" ref="862602990"/>
-															<int key="NSvFlags">1792</int>
+															<int key="NSvFlags">5888</int>
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrameSize">{446, 181}</string>
 															<reference key="NSSuperview" ref="862602990"/>
@@ -633,7 +633,7 @@
 											<string key="NSFrame">{{76, 7}, {33, 22}}</string>
 											<reference key="NSSuperview" ref="421749083"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView"/>
+											<reference key="NSNextKeyView" ref="445979726"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSPopUpButtonCell" key="NSCell" id="786216324">
 												<int key="NSCellFlags">71303232</int>
@@ -701,7 +701,7 @@
 									<array class="NSMutableArray" key="NSSubviews">
 										<object class="NSScrollView" id="617901758">
 											<reference key="NSNextResponder" ref="957766012"/>
-											<int key="NSvFlags">10002</int>
+											<int key="NSvFlags">5906</int>
 											<array class="NSMutableArray" key="NSSubviews">
 												<object class="NSClipView" id="599125754">
 													<reference key="NSNextResponder" ref="617901758"/>
@@ -870,7 +870,7 @@
 															</set>
 															<string key="NSFrameSize">{446, 197}</string>
 															<reference key="NSSuperview" ref="599125754"/>
-															<reference key="NSNextKeyView" ref="4046335"/>
+															<reference key="NSNextKeyView" ref="1045104480"/>
 															<bool key="NSViewWantsBestResolutionOpenGLSurface">YES</bool>
 															<bool key="constrainsToOriginalSize">NO</bool>
 															<bool key="cellsHaveSubtitle">NO</bool>
@@ -922,7 +922,7 @@
 											<object class="NSPSMatrix" key="NSFrameMatrix"/>
 											<string key="NSFrame">{{17, 36}, {448, 199}}</string>
 											<reference key="NSSuperview" ref="957766012"/>
-											<reference key="NSNextKeyView" ref="599125754"/>
+											<reference key="NSNextKeyView" ref="4046335"/>
 											<int key="NSsFlags">133650</int>
 											<reference key="NSVScroller" ref="1045104480"/>
 											<reference key="NSHScroller" ref="4046335"/>
@@ -988,6 +988,7 @@
 											<object class="NSPSMatrix" key="NSFrameMatrix"/>
 											<string key="NSFrame">{{350, 11}, {115, 15}}</string>
 											<reference key="NSSuperview" ref="957766012"/>
+											<reference key="NSNextKeyView" ref="445979726"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSSliderCell" key="NSCell" id="301382375">
 												<int key="NSCellFlags">-2147221248</int>
