@@ -14,6 +14,10 @@
 - (void)_copySelectionFromTableView:(NSTableView *)tableView;
 - (void)_cutSelectionFromTableView:(NSTableView *)tableView;
 - (void)_pasteToTableView:(NSTableView *)tableView;
+
+- (NSInteger)tableView:(NSTableView *)tableView
+    spanForTableColumn:(NSTableColumn *)tableColumn
+                   row:(NSInteger)row;
 @end
 
 @interface SBTableView : NSTableView<SBTableViewDelegate> {

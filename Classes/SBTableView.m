@@ -97,6 +97,62 @@
     return YES;
 }
 
+- (NSRect)frameOfCellAtColumn:(NSInteger)column row:(NSInteger)row
+{
+    if (![[self delegate] respondsToSelector:@selector(tableView:spanForTableColumn:row:)]) {
+        return [super frameOfCellAtColumn:column row:row];
+    }
+
+    NSInteger colspan = [(SBTableView *)[self delegate]
+               tableView:self
+               spanForTableColumn:
+               [[self tableColumns] objectAtIndex:column]
+               row:row];
+    if (colspan == 0) {
+        return NSZeroRect;
+    }
+    if (colspan == 1) {
+        return [super frameOfCellAtColumn:column row:row];
+    } else {     // 2 or more, it's responsibility of data source to provide reasonable number
+        NSRect merged
+        = [super frameOfCellAtColumn:column row:row];
+        // start out with this one
+        int i;
+        for (i = 1; i < colspan; i++ ) {   // start from next one
+            NSRect next
+            = [super frameOfCellAtColumn:column+i row:row];
+            merged = NSUnionRect(merged,next);
+        }
+
+        return merged;
+    }
+}
+
+- (void)drawRow:(NSInteger)inRow clipRect:(NSRect)inClipRect
+{
+    NSRect newClipRect = inClipRect;
+
+    if ([[self delegate] respondsToSelector:@selector(tableView:spanForTableColumn:row:)]) {
+        NSInteger colspan = 0;
+        NSInteger firstCol = [[self columnIndexesInRect:inClipRect] firstIndex];
+        // Does the FIRST one of these have a zero-colspan?  If so, extend range.
+        while (colspan == 0) {
+            colspan = [(SBTableView *)[self delegate]
+                       tableView:self
+                       spanForTableColumn:[[self tableColumns]
+                                           objectAtIndex:firstCol]
+                       row:inRow];
+            if (colspan == 0) {
+                firstCol--;
+                newClipRect = NSUnionRect(newClipRect,
+                                          [self frameOfCellAtColumn:firstCol row:inRow]);
+            }
+        }
+    }
+
+    [super drawRow:inRow clipRect:newClipRect];
+}
+
 - (void) dealloc
 {
     [_pasteboardTypes release];
