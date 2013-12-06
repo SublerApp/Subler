@@ -10,7 +10,7 @@
 
 @implementation SBImageBrowserView
 
-@synthesize _pasteboardTypes;
+@synthesize pasteboardTypes = _pasteboardTypes;
 
 - (BOOL)validateMenuItem:(NSMenuItem *)item
 {
@@ -18,28 +18,27 @@
     SEL action = [item action];
 
     if (action == @selector(paste:)) {
-        if (![self pasteboardHasSupportedType] || ![delegate respondsToSelector:@selector(_pasteToImageBrowserView:)])
+        if (![self pasteboardHasSupportedType] || ![delegate respondsToSelector:@selector(_pasteToImageBrowserView:)]) {
             return NO;
-        else
+        } else {
             return YES;
-    }
-    else
+        }
+    } else {
         return [super validateMenuItem:item];
+    }
 }
 
 - (IBAction)paste:(id)sender
 {
     if ([[self delegate] respondsToSelector:@selector(_pasteToImageBrowserView:)])
-        [(SBImageBrowserView *)[self delegate] _pasteToImageBrowserView:self];
+        [(id <SBImageBrowserViewDelegate>)[self delegate] _pasteToImageBrowserView:self];
 }
 
 - (BOOL)pasteboardHasSupportedType {
     // has the pasteboard got a type we support?
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
-    NSString *bestType = [pb availableTypeFromArray:_pasteboardTypes];
+    NSString *bestType = [pb availableTypeFromArray:self.pasteboardTypes];
     return (bestType != nil);
-
-    return YES;
 }
 
 - (void)dealloc

@@ -13,10 +13,8 @@
 - (void)_pasteToImageBrowserView:(IKImageBrowserView *)ImageBrowserView;
 @end
 
-@interface SBImageBrowserView : IKImageBrowserView <SBImageBrowserViewDelegate> {
+@interface SBImageBrowserView : IKImageBrowserView {
     NSArray *_pasteboardTypes;
 }
-
-@property(readwrite, retain) NSArray* _pasteboardTypes;
-
+@property(readwrite, retain) NSArray *pasteboardTypes;
 @end

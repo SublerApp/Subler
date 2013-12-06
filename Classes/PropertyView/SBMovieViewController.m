@@ -85,7 +85,7 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
 
     dct = [[NSMutableDictionary alloc] init];
 
-    [imageBrowser set_pasteboardTypes:[NSArray arrayWithObjects: NSPasteboardTypeTIFF, NSPasteboardTypePNG, nil]];
+    [imageBrowser setPasteboardTypes:[NSArray arrayWithObjects: NSPasteboardTypeTIFF, NSPasteboardTypePNG, nil]];
     [imageBrowser setZoomValue:1.0];
     [imageBrowser reloadData];
 }
