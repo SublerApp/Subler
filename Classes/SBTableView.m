@@ -42,26 +42,26 @@
     if ([self selectedRow] == -1)
         return;
     else if ([[self delegate] respondsToSelector:@selector(_deleteSelectionFromTableView:)])
-        [(SBTableView *)[self delegate] _deleteSelectionFromTableView:self];
+        [(id <SBTableViewDelegate>)[self delegate] _deleteSelectionFromTableView:self];
 }
 
 - (IBAction)copy:(id)sender {
     if ([self selectedRow] == -1)
         return;
     else if ([[self delegate] respondsToSelector:@selector(_copySelectionFromTableView:)])
-        [(SBTableView *)[self delegate] _copySelectionFromTableView:self];
+        [(id <SBTableViewDelegate>)[self delegate] _copySelectionFromTableView:self];
 }
 
 - (IBAction)cut:(id)sender {
     if ([self selectedRow] == -1)
         return;
     else if ([[self delegate] respondsToSelector:@selector(_cutSelectionFromTableView:)])
-        [(SBTableView *)[self delegate] _cutSelectionFromTableView:self];
+        [(id <SBTableViewDelegate>)[self delegate] _cutSelectionFromTableView:self];
 }
 
 - (IBAction)paste:(id)sender {
     if ([[self delegate] respondsToSelector:@selector(_pasteToTableView:)])
-        [(SBTableView *)[self delegate] _pasteToTableView:self];
+        [(id <SBTableViewDelegate>)[self delegate] _pasteToTableView:self];
 }
 
 - (BOOL)pasteboardHasSupportedType {
@@ -101,7 +101,7 @@
         return [super frameOfCellAtColumn:column row:row];
     }
 
-    NSInteger colspan = [(SBTableView *)[self delegate]
+    NSInteger colspan = [(id <SBTableViewDelegate>)[self delegate]
                tableView:self
                spanForTableColumn:
                [[self tableColumns] objectAtIndex:column]
@@ -111,17 +111,15 @@
     }
     if (colspan == 1) {
         return [super frameOfCellAtColumn:column row:row];
-    } else {     // 2 or more, it's responsibility of data source to provide reasonable number
-        NSRect merged
-        = [super frameOfCellAtColumn:column row:row];
+    } else {
+        // 2 or more, it's responsibility of delegate to provide reasonable number
+        NSRect merged = [super frameOfCellAtColumn:column row:row];
         // start out with this one
-        int i;
-        for (i = 1; i < colspan; i++ ) {   // start from next one
-            NSRect next
-            = [super frameOfCellAtColumn:column+i row:row];
+        for (NSInteger i = 1; i < colspan; i++ ) {
+            // start from next one
+            NSRect next = [super frameOfCellAtColumn:column+i row:row];
             merged = NSUnionRect(merged,next);
         }
-
         return merged;
     }
 }
@@ -133,17 +131,15 @@
     if ([[self delegate] respondsToSelector:@selector(tableView:spanForTableColumn:row:)]) {
         NSInteger colspan = 0;
         NSInteger firstCol = [[self columnIndexesInRect:inClipRect] firstIndex];
-        // Does the FIRST one of these have a zero-colspan?  If so, extend range.
+        // Does the FIRST one of these have a zero-colspan? If so, extend range.
         while (colspan == 0) {
-            colspan = [(SBTableView *)[self delegate]
+            colspan = [(id <SBTableViewDelegate>)[self delegate]
                        tableView:self
-                       spanForTableColumn:[[self tableColumns]
-                                           objectAtIndex:firstCol]
+                       spanForTableColumn:[[self tableColumns] objectAtIndex:firstCol]
                        row:inRow];
             if (colspan == 0) {
                 firstCol--;
-                newClipRect = NSUnionRect(newClipRect,
-                                          [self frameOfCellAtColumn:firstCol row:inRow]);
+                newClipRect = NSUnionRect(newClipRect, [self frameOfCellAtColumn:firstCol row:inRow]);
             }
         }
     }

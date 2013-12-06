@@ -20,7 +20,7 @@
                    row:(NSInteger)row;
 @end
 
-@interface SBTableView : NSTableView<SBTableViewDelegate> {
+@interface SBTableView : NSTableView {
     NSArray *_pasteboardTypes;
     NSInteger _defaultEditingColumn;
 }
