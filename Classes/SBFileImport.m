@@ -116,7 +116,7 @@
     if ([[_tracks objectAtIndex:row] isKindOfClass:[MP42Track class]])
         return 1;
 
-    return 4;
+    return 6;
 }
 
 - (NSCell *)tableView:(NSTableView *)tableView dataCellForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex
@@ -254,7 +254,7 @@
 
         if ([tableColumn.identifier isEqualToString:@"trackAction"])
             return [_actionArray objectAtIndex:rowIndex];
-    } else if ([tableColumn.identifier isEqualToString:@"trackId"]) {
+    } else if ([tableColumn isEqual:[[tableView tableColumns] objectAtIndex:1]]) {
             return object;
     }
 
@@ -272,10 +272,46 @@
         [_actionArray replaceObjectAtIndex:rowIndex withObject:anObject];
 }
 
+- (void)toggleSelectionCheck:(BOOL)value
+{
+    NSIndexSet *selection = [tracksTableView selectedRowIndexes];
+    NSInteger clickedRow = [tracksTableView clickedRow];
+
+    if (clickedRow != -1 && ![selection containsIndex:clickedRow])
+        selection = [NSIndexSet indexSetWithIndex:clickedRow];
+
+    [selection enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        [_importCheckArray replaceObjectAtIndex:idx withObject:@(value)];
+    }];
+
+    [tracksTableView reloadDataForRowIndexes:selection columnIndexes:[NSIndexSet indexSetWithIndex:0]];
+}
+
+- (IBAction)checkSelected:(id)sender
+{
+    [self toggleSelectionCheck:YES];
+}
+
+- (IBAction)uncheckSelected:(id)sender
+{
+    [self toggleSelectionCheck:NO];
+}
+
+- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem
+{
+    SEL action = [anItem action];
+
+    if (action == @selector(uncheckSelected:) || action == @selector(checkSelected:))
+        if ([tracksTableView selectedRow] != -1 || [tracksTableView clickedRow] != -1)
+            return YES;
+
+    return NO;
+}
+
 - (IBAction)closeWindow:(id)sender
 {
-    [tableView setDelegate:nil];
-    [tableView setDataSource:nil];
+    [tracksTableView setDelegate:nil];
+    [tracksTableView setDataSource:nil];
     [NSApp endSheet:[self window] returnCode:NSOKButton];
     [[self window] orderOut:self];
 }
@@ -379,8 +415,8 @@
 
     [tracks release];
 
-    [tableView setDelegate:nil];
-    [tableView setDataSource:nil];
+    [tracksTableView setDelegate:nil];
+    [tracksTableView setDataSource:nil];
     [NSApp endSheet:[self window] returnCode:NSOKButton];
     [[self window] orderOut:self];
 }

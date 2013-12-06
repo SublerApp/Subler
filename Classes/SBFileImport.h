@@ -22,16 +22,18 @@
     NSMutableArray		*_importCheckArray;
     NSMutableArray      *_actionArray;
 
-	id delegate;
-	IBOutlet NSTableView *tableView;
+	id<SBFileImportDelegate> delegate;
+	IBOutlet NSTableView *tracksTableView;
 	IBOutlet NSButton    *addTracksButton;
     IBOutlet NSButton    *importMetadata;
-    IBOutlet NSProgressIndicator *loadProgressBar;
 }
 
 - (instancetype)initWithDelegate:(id <SBFileImportDelegate>)del andFiles:(NSArray *)files error:(NSError **)outError;
 
 - (IBAction)closeWindow:(id)sender;
 - (IBAction)addTracks:(id)sender;
+
+- (IBAction)checkSelected:(id)sender;
+- (IBAction)uncheckSelected:(id)sender;
 
 @end
