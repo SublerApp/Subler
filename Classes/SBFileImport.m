@@ -95,11 +95,28 @@
 
 - (BOOL)tableView:(NSTableView *)tableView isGroupRow:(NSInteger)row
 {
-    id object = [_tracks objectAtIndex:row];
-    if ([object isKindOfClass:[MP42Track class]])
+    if ([[_tracks objectAtIndex:row] isKindOfClass:[MP42Track class]])
         return NO;
 
     return  YES;
+}
+
+- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row
+{
+    if ([[_tracks objectAtIndex:row] isKindOfClass:[MP42Track class]])
+        return YES;
+
+    return  NO;
+}
+
+- (NSInteger)tableView:(NSTableView *)tableView
+    spanForTableColumn:(NSTableColumn *)tableColumn
+                   row:(NSInteger)row
+{
+    if ([[_tracks objectAtIndex:row] isKindOfClass:[MP42Track class]])
+        return 1;
+
+    return 4;
 }
 
 - (NSCell *)tableView:(NSTableView *)tableView dataCellForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex
@@ -237,9 +254,9 @@
 
         if ([tableColumn.identifier isEqualToString:@"trackAction"])
             return [_actionArray objectAtIndex:rowIndex];
-        }
-    else if ([tableColumn.identifier isEqualToString:@"trackName"])
+    } else if ([tableColumn.identifier isEqualToString:@"trackId"]) {
             return object;
+    }
 
     return nil;
 }
