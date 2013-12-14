@@ -342,8 +342,7 @@ static NSString *fileType = @"mp4";
 
     if ([type isEqualToString:@"com.apple.m4a-audio"] || [type isEqualToString:@"com.apple.m4v-video"] || [type isEqualToString:@"public.mpeg-4"]) {
         mp4File = [[MP42File alloc] initWithExistingFile:url andDelegate:self];
-    }
-    else {
+    } else {
         mp4File = [[MP42File alloc] initWithDelegate:self];
         MP42FileImporter *fileImporter = [[MP42FileImporter alloc] initWithURL:url
                                                                          error:outError];
