@@ -14,8 +14,8 @@
 		8D15AC310486D014006FF6A4 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.mm */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		A9CEC004185C4D5B00CE039E /* libmp4v2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9CEBFF4185C4D5B00CE039E /* libmp4v2.a */; };
 		A9DAC2FD133204BD007CA155 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DAC2FC133204BD007CA155 /* AppDelegate.m */; };
-		A9DC819C115DF59900FCD230 /* libmp4v2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9DC818C115DF59900FCD230 /* libmp4v2.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,23 +33,23 @@
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D15AC360486D014006FF6A4 /* MP4Dump-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MP4Dump-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* MP4Dump.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MP4Dump.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9CEBFF4185C4D5B00CE039E /* libmp4v2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp4v2.a; sourceTree = "<group>"; };
+		A9CEBFF6185C4D5B00CE039E /* chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chapter.h; sourceTree = "<group>"; };
+		A9CEBFF7185C4D5B00CE039E /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
+		A9CEBFF8185C4D5B00CE039E /* file_prop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_prop.h; sourceTree = "<group>"; };
+		A9CEBFF9185C4D5B00CE039E /* general.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = general.h; sourceTree = "<group>"; };
+		A9CEBFFA185C4D5B00CE039E /* isma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = isma.h; sourceTree = "<group>"; };
+		A9CEBFFB185C4D5B00CE039E /* itmf_generic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itmf_generic.h; sourceTree = "<group>"; };
+		A9CEBFFC185C4D5B00CE039E /* itmf_tags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itmf_tags.h; sourceTree = "<group>"; };
+		A9CEBFFD185C4D5B00CE039E /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
+		A9CEBFFE185C4D5B00CE039E /* project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = project.h; sourceTree = "<group>"; };
+		A9CEBFFF185C4D5B00CE039E /* sample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sample.h; sourceTree = "<group>"; };
+		A9CEC000185C4D5B00CE039E /* streaming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = streaming.h; sourceTree = "<group>"; };
+		A9CEC001185C4D5B00CE039E /* track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = track.h; sourceTree = "<group>"; };
+		A9CEC002185C4D5B00CE039E /* track_prop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = track_prop.h; sourceTree = "<group>"; };
+		A9CEC003185C4D5B00CE039E /* mp4v2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mp4v2.h; sourceTree = "<group>"; };
 		A9DAC2FB133204BD007CA155 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A9DAC2FC133204BD007CA155 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A9DC818C115DF59900FCD230 /* libmp4v2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp4v2.a; sourceTree = "<group>"; };
-		A9DC818E115DF59900FCD230 /* chapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chapter.h; sourceTree = "<group>"; };
-		A9DC818F115DF59900FCD230 /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
-		A9DC8190115DF59900FCD230 /* file_prop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_prop.h; sourceTree = "<group>"; };
-		A9DC8191115DF59900FCD230 /* general.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = general.h; sourceTree = "<group>"; };
-		A9DC8192115DF59900FCD230 /* isma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = isma.h; sourceTree = "<group>"; };
-		A9DC8193115DF59900FCD230 /* itmf_generic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itmf_generic.h; sourceTree = "<group>"; };
-		A9DC8194115DF59900FCD230 /* itmf_tags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itmf_tags.h; sourceTree = "<group>"; };
-		A9DC8195115DF59900FCD230 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
-		A9DC8196115DF59900FCD230 /* project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = project.h; sourceTree = "<group>"; };
-		A9DC8197115DF59900FCD230 /* sample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sample.h; sourceTree = "<group>"; };
-		A9DC8198115DF59900FCD230 /* streaming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = streaming.h; sourceTree = "<group>"; };
-		A9DC8199115DF59900FCD230 /* track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = track.h; sourceTree = "<group>"; };
-		A9DC819A115DF59900FCD230 /* track_prop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = track_prop.h; sourceTree = "<group>"; };
-		A9DC819B115DF59900FCD230 /* mp4v2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mp4v2.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +58,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
-				A9DC819C115DF59900FCD230 /* libmp4v2.a in Frameworks */,
+				A9CEC004185C4D5B00CE039E /* libmp4v2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,7 +68,7 @@
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A9DC818B115DF59900FCD230 /* mp4v2 */,
+				A9CEBFF3185C4D5B00CE039E /* mp4v2 */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -145,33 +145,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A9DC818B115DF59900FCD230 /* mp4v2 */ = {
+		A9CEBFF3185C4D5B00CE039E /* mp4v2 */ = {
 			isa = PBXGroup;
 			children = (
-				A9DC818D115DF59900FCD230 /* mp4v2 */,
-				A9DC818C115DF59900FCD230 /* libmp4v2.a */,
-				A9DC819B115DF59900FCD230 /* mp4v2.h */,
+				A9CEBFF4185C4D5B00CE039E /* libmp4v2.a */,
+				A9CEBFF5185C4D5B00CE039E /* mp4v2 */,
+				A9CEC003185C4D5B00CE039E /* mp4v2.h */,
 			);
 			name = mp4v2;
-			path = ../../mp4v2;
-			sourceTree = SOURCE_ROOT;
+			path = ../../MP42Foundation/mp4v2;
+			sourceTree = "<group>";
 		};
-		A9DC818D115DF59900FCD230 /* mp4v2 */ = {
+		A9CEBFF5185C4D5B00CE039E /* mp4v2 */ = {
 			isa = PBXGroup;
 			children = (
-				A9DC818E115DF59900FCD230 /* chapter.h */,
-				A9DC818F115DF59900FCD230 /* file.h */,
-				A9DC8190115DF59900FCD230 /* file_prop.h */,
-				A9DC8191115DF59900FCD230 /* general.h */,
-				A9DC8192115DF59900FCD230 /* isma.h */,
-				A9DC8193115DF59900FCD230 /* itmf_generic.h */,
-				A9DC8194115DF59900FCD230 /* itmf_tags.h */,
-				A9DC8195115DF59900FCD230 /* platform.h */,
-				A9DC8196115DF59900FCD230 /* project.h */,
-				A9DC8197115DF59900FCD230 /* sample.h */,
-				A9DC8198115DF59900FCD230 /* streaming.h */,
-				A9DC8199115DF59900FCD230 /* track.h */,
-				A9DC819A115DF59900FCD230 /* track_prop.h */,
+				A9CEBFF6185C4D5B00CE039E /* chapter.h */,
+				A9CEBFF7185C4D5B00CE039E /* file.h */,
+				A9CEBFF8185C4D5B00CE039E /* file_prop.h */,
+				A9CEBFF9185C4D5B00CE039E /* general.h */,
+				A9CEBFFA185C4D5B00CE039E /* isma.h */,
+				A9CEBFFB185C4D5B00CE039E /* itmf_generic.h */,
+				A9CEBFFC185C4D5B00CE039E /* itmf_tags.h */,
+				A9CEBFFD185C4D5B00CE039E /* platform.h */,
+				A9CEBFFE185C4D5B00CE039E /* project.h */,
+				A9CEBFFF185C4D5B00CE039E /* sample.h */,
+				A9CEC000185C4D5B00CE039E /* streaming.h */,
+				A9CEC001185C4D5B00CE039E /* track.h */,
+				A9CEC002185C4D5B00CE039E /* track_prop.h */,
 			);
 			path = mp4v2;
 			sourceTree = "<group>";
@@ -202,6 +202,8 @@
 /* Begin PBXProject section */
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "MP4Dump" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
@@ -299,7 +301,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../mp4v2\"",
+					"\"$(SRCROOT)/../../MP42Foundation/mp4v2\"",
 				);
 				PRODUCT_NAME = MP4Dump;
 			};
@@ -317,7 +319,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../mp4v2\"",
+					"\"$(SRCROOT)/../../MP42Foundation/mp4v2\"",
 				);
 				PRODUCT_NAME = MP4Dump;
 			};
@@ -331,7 +333,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../mp4v2\"/**";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../MP42Foundation/mp4v2\"/**";
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.8;
@@ -345,7 +347,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../mp4v2\"/**";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../MP42Foundation/mp4v2\"/**";
 				PREBINDING = NO;
 				SDKROOT = macosx10.8;
 			};
