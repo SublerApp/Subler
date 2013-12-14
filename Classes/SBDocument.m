@@ -295,6 +295,12 @@
         case 2:
             requiredFileType = MP42FileTypeM4A;
             break;
+        case 3:
+            requiredFileType = MP42FileTypeM4A;
+            break;
+        case 4:
+            requiredFileType = MP42FileTypeM4R;
+            break;
         default:
             requiredFileType = MP42FileTypeM4V;
             break;

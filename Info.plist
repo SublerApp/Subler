@@ -125,6 +125,18 @@
 			<key>NSDocumentClass</key>
 			<string>SBDocument</string>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>m4r</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Ringtone</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>NSDocumentClass</key>
+			<string>SBDocument</string>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
