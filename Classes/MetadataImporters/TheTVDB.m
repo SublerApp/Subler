@@ -23,7 +23,7 @@ static NSArray *TVDBlanguages;
 
 + (void)initialize {
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/api/%@/languages.xml", API_KEY]];
-	NSData *languagesXML = [MetadataImporter downloadDataOrGetFromCache:url];
+	NSData *languagesXML = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBReturnCacheElseLoad];
 	NSDictionary *languages = [XMLReader dictionaryForXMLData:languagesXML error:NULL];
 
     NSArray *languagesArray = [languages retrieveArrayForPath:@"Languages.Language"];
@@ -50,7 +50,7 @@ static NSArray *TVDBlanguages;
 	NSURL *url;
 	// search for series
 	url = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/api/GetSeries.php?seriesname=%@&language=all", [MetadataImporter urlEncoded:aSeriesName]]];
-	NSData *seriesXML = [MetadataImporter downloadDataOrGetFromCache:url];
+	NSData *seriesXML = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	NSDictionary *series = [XMLReader dictionaryForXMLData:seriesXML error:NULL];
 	if (!series) return nil;
 	NSArray *seriesArray = [series retrieveArrayForPath:@"Data.Series"];
@@ -68,7 +68,7 @@ static NSArray *TVDBlanguages;
 
 	// search for series
 	url = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/api/GetSeries.php?seriesname=%@&language=all", [MetadataImporter urlEncoded:aSeriesName]]];
-	NSData *seriesXML = [MetadataImporter downloadDataOrGetFromCache:url];
+	NSData *seriesXML = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	NSDictionary *series = [XMLReader dictionaryForXMLData:seriesXML error:NULL];
 
 	if (!series) return nil;
@@ -96,7 +96,7 @@ static NSArray *TVDBlanguages;
                 continue;
 
             url = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/api/%@/series/%@/all/%@.xml", API_KEY, seriesID, lang]];
-            NSData *episodesXML = [MetadataImporter downloadDataOrGetFromCache:url];
+            NSData *episodesXML = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
             NSDictionary *episodes = [XMLReader dictionaryForXMLData:episodesXML error:NULL];
 
             if (!episodes)
@@ -144,7 +144,7 @@ static NSArray *TVDBlanguages;
 	[newArtworkProviderNames addObjectsFromArray:[aMetadata artworkProviderNames]];
 
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/api/%@/series/%@/banners.xml", API_KEY, [[aMetadata tagsDict] valueForKey:@"TheTVDB Series ID"]]];
-	NSData *bannersXML = [MetadataImporter downloadDataOrGetFromCache:url];
+	NSData *bannersXML = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	NSDictionary *banners = [XMLReader dictionaryForXMLData:bannersXML error:NULL];
 	if (!banners) return nil;
 	NSArray *bannersArray = [banners retrieveArrayForPath:@"Banners.Banner"];

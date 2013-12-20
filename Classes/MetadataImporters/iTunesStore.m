@@ -118,7 +118,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 	} else {
 		url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&attribute=showTerm&entity=tvEpisode&limit=200", country, [language lowercaseString], [MetadataImporter urlEncoded:aSeriesName]]];
 	}
-	NSData *jsonData = [MetadataImporter downloadDataOrGetFromCache:url];
+	NSData *jsonData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	if (jsonData) {
 		JSONDecoder *jsonDecoder = [JSONDecoder decoder];
 		NSDictionary *d = [jsonDecoder objectWithData:jsonData];
@@ -156,7 +156,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 	NSString *country = [store valueForKey:@"country2"];
 	NSString *language = [store valueForKey:@"language2"];
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&entity=tvEpisode", country, [language lowercaseString], [MetadataImporter urlEncoded:[NSString stringWithFormat:@"%@ %@", aSeriesName, aEpisodeTitle]]]];
-	NSData *jsonData = [MetadataImporter downloadDataOrGetFromCache:url];
+	NSData *jsonData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	if (jsonData) {
 		JSONDecoder *jsonDecoder = [JSONDecoder decoder];
 		NSDictionary *d = [jsonDecoder objectWithData:jsonData];
@@ -178,7 +178,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 	NSString *country = [store valueForKey:@"country2"];
 	NSString *language = [store valueForKey:@"language2"];
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&entity=movie", country, language, [MetadataImporter urlEncoded:aMovieName]]];
-	NSData *jsonData = [MetadataImporter downloadDataOrGetFromCache:url];
+	NSData *jsonData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	if (jsonData) {
 		JSONDecoder *jsonDecoder = [JSONDecoder decoder];
 		NSDictionary *d = [jsonDecoder objectWithData:jsonData];
@@ -205,7 +205,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 	}
 	
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&entity=movie&limit=150", country, language, [MetadataImporter urlEncoded:aMovieTitle]]];
-	NSData *jsonData = [MetadataImporter downloadDataOrGetFromCache:url];
+	NSData *jsonData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	if (jsonData) {
 		JSONDecoder *jsonDecoder = [JSONDecoder decoder];
 		NSDictionary *d = [jsonDecoder objectWithData:jsonData];
@@ -226,7 +226,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 	NSString *country = [store valueForKey:@"country2"];
 	NSString *language = [store valueForKey:@"language2"];
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/lookup?country=%@&lang=%@&id=%@", country, [language lowercaseString], [[aMetadata tagsDict] valueForKey:@"playlistID"]]];
-	NSData *jsonData = [MetadataImporter downloadDataOrGetFromCache:url];
+	NSData *jsonData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	if (jsonData) {
 		JSONDecoder *jsonDecoder = [JSONDecoder decoder];
 		NSDictionary *d = [jsonDecoder objectWithData:jsonData];
@@ -242,7 +242,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 }
 
 - (MP42Metadata *) loadMovieMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage {
-	NSData *xmlData = [MetadataImporter downloadDataOrGetFromCache:[NSURL URLWithString:[[aMetadata tagsDict] valueForKey:@"iTunes URL"]]];
+	NSData *xmlData = [MetadataImporter downloadDataFromURL:[NSURL URLWithString:[[aMetadata tagsDict] valueForKey:@"iTunes URL"]] withCachePolicy:SBDefaultPolicy];
 	if (xmlData) {
 		NSXMLDocument *xml = [[NSXMLDocument alloc] initWithData:xmlData options:NSXMLDocumentTidyHTML error:NULL];
 		NSArray *p = [iTunesStore readPeople:@"Actor" fromXML:xml];

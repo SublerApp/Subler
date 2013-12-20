@@ -69,7 +69,7 @@
             self.version = 1;
             // Get the data outside the main thread
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                self.data = [MetadataImporter downloadDataOrGetFromCache:_url];
+                self.data = [MetadataImporter downloadDataFromURL:_url withCachePolicy:SBDefaultPolicy];
                 self.version = 2;
                 // We got the data, tell the controller to update the view
                 dispatch_async(dispatch_get_main_queue(), ^{

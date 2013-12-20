@@ -306,7 +306,7 @@
 
             [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
                 dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{
-                    NSData *artworkData = [MetadataImporter downloadDataOrGetFromCache:[selectedResult.artworkFullsizeURLs objectAtIndex:idx]];
+                    NSData *artworkData = [MetadataImporter downloadDataFromURL:[selectedResult.artworkFullsizeURLs objectAtIndex:idx] withCachePolicy:SBDefaultPolicy];
 
                     // Hack, download smaller iTunes version if big iTunes version is not available
                     if (!artworkData) {
@@ -314,7 +314,7 @@
                         if ([provider isEqualToString:@"iTunes"]) {
                             NSURL *url = [selectedResult.artworkFullsizeURLs objectAtIndex:idx];
                             url = [[url URLByDeletingPathExtension] URLByAppendingPathExtension:@"600x600-75.jpg"];
-                            artworkData = [MetadataImporter downloadDataOrGetFromCache:url];
+                            artworkData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
                         }
                     }
 

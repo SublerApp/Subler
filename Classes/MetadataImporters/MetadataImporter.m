@@ -129,31 +129,36 @@
 	return [NSString stringWithString:r];
 }
 
-+ (NSData *)downloadDataOrGetFromCache:(NSURL *)url {
++ (NSData *)downloadDataFromURL:(NSURL *)url withCachePolicy:(SBCachePolicy)policy {
 	NSString *path = nil;
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 	if ([paths count]) {
 		NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
 		path = [[paths objectAtIndex:0] stringByAppendingPathComponent:bundleName];
 	}
+
 	NSString *filename = [path stringByAppendingPathComponent:[MetadataImporter md5String:[url absoluteString]]];
 	NSString *extension = [[url path] pathExtension];
 	filename = [filename stringByAppendingPathExtension:extension];
-	if ([[NSFileManager defaultManager] fileExistsAtPath:filename]) {
+
+	if ([[NSFileManager defaultManager] fileExistsAtPath:filename] && policy != SBReloadIgnoringLocalCacheData) {
 		NSDictionary* attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:filename error:nil];
 		if (attrs) {
 			NSDate *date = [attrs fileCreationDate];
 			NSTimeInterval oldness = [date timeIntervalSinceNow];
 			// if less than 2 hours old
-			if (([[[[url absoluteString] pathExtension] lowercaseString] isEqualToString:@"jpg"]) || (oldness > -60 * 60 * 2)) {
-				return [NSData dataWithContentsOfFile:filename];
+			if ([extension caseInsensitiveCompare:@"jpg"] == NSOrderedSame ||
+                (oldness > -60 * 60 * 2) ||
+                policy == SBReturnCacheElseLoad) {
+                    return [NSData dataWithContentsOfFile:filename];
 			}
 		}
 	}
+
     NSError *outError = nil;
 	NSData *r = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&outError];
-    
-    if (!outError && r)
+
+    if (r)
         [r writeToFile:filename atomically:NO];
 
 	return r;

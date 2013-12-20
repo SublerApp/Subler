@@ -16,10 +16,16 @@
     BOOL isCancelled;
 }
 
+typedef enum SBCachePolicy : NSUInteger {
+    SBDefaultPolicy = 0,
+    SBReturnCacheElseLoad,
+    SBReloadIgnoringLocalCacheData,
+} SBCachePolicy;
+
 #pragma mark Helper routines
 + (NSDictionary *) parseFilename: (NSString *) filename;
 + (NSString *) urlEncoded:(NSString *)s;
-+ (NSData *) downloadDataOrGetFromCache:(NSURL *)url;
++ (NSData *)downloadDataFromURL:(NSURL *)url withCachePolicy:(SBCachePolicy)policy;
 
 #pragma mark Static methods
 + (NSArray *) languagesForProvider:(NSString *)aProvider;

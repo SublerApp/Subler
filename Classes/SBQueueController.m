@@ -270,7 +270,7 @@ static NSString *fileType = @"mp4";
 
 - (MP42Image *)loadArtwork:(NSURL*)url
 {
-    NSData *artworkData = [MetadataImporter downloadDataOrGetFromCache:url];
+    NSData *artworkData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
     if (artworkData && [artworkData length]) {
         MP42Image *artwork = [[MP42Image alloc] initWithData:artworkData type:MP42_ART_JPEG];
         if (artwork != nil) {

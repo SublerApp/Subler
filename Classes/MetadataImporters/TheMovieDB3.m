@@ -27,7 +27,7 @@
 - (NSArray *) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage {
 	NSString *lang = [MP42Languages iso6391CodeFor:aLanguage];
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/search/movie?api_key=%@&query=%@&language=%@", API_KEY, [MetadataImporter urlEncoded:aMovieTitle], lang]];
-	NSData *jsonData = [MetadataImporter downloadDataOrGetFromCache:url];
+	NSData *jsonData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	if (jsonData) {
 		JSONDecoder *jsonDecoder = [JSONDecoder decoder];
 		NSDictionary *d = [jsonDecoder objectWithData:jsonData];
@@ -52,7 +52,7 @@
 
     // load image variables from configuration
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/configuration?api_key=%@", API_KEY]];
-	NSData *jsonData = [MetadataImporter downloadDataOrGetFromCache:url];
+	NSData *jsonData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
     NSArray *posters = [r valueForKeyPath:@"images.posters"];
 
     if (jsonData && posters && [posters isKindOfClass:[NSArray class]]) {
@@ -100,7 +100,7 @@
 	NSString *lang = [MP42Languages iso6391CodeFor:aLanguage];
 	NSNumber *theMovieDBID = [[aMetadata tagsDict] valueForKey:@"TheMovieDB ID"];
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/movie/%@?api_key=%@&language=%@&append_to_response=casts,releases,images", theMovieDBID, API_KEY, lang]];
-	NSData *jsonData = [MetadataImporter downloadDataOrGetFromCache:url];
+	NSData *jsonData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	if (jsonData) {
 		JSONDecoder *jsonDecoder = [JSONDecoder decoder];
 		NSDictionary *d = [jsonDecoder objectWithData:jsonData];
