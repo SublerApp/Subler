@@ -24,11 +24,11 @@
 
 #pragma mark Initialization
 
-- (instancetype)initWithDelegate:(id)del
+- (instancetype)initWithDelegate:(id <SBMetadataSearchControllerDelegate>)del
 {
 	if ((self = [super initWithWindowNibName:@"MetadataSearch"])) {        
 		delegate = del;
-        
+
         NSMutableParagraphStyle * ps = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
         [ps setHeadIndent: -10.0];
         [ps setAlignment:NSRightTextAlignment];

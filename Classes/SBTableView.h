@@ -27,4 +27,3 @@
 @property(readwrite, retain) NSArray *pasteboardTypes;
 @property(readwrite) NSInteger defaultEditingColumn;
 @end
-
