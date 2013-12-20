@@ -17,16 +17,39 @@
 
 #define API_KEY @"3498815BE9484A62"
 
+static NSArray *TVDBlanguages;
+
 @implementation TheTVDB
 
++ (void)initialize {
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/api/%@/languages.xml", API_KEY]];
+	NSData *languagesXML = [MetadataImporter downloadDataOrGetFromCache:url];
+	NSDictionary *languages = [XMLReader dictionaryForXMLData:languagesXML error:NULL];
+
+    NSArray *languagesArray = [languages retrieveArrayForPath:@"Languages.Language"];
+    NSMutableArray *languagesResult = [NSMutableArray array];
+
+    if (languagesArray && [languagesArray isKindOfClass:[NSArray class]] && [languagesArray count]) {
+        for (NSDictionary *language in languagesArray) {
+            NSString *lang = [language valueForKeyPath:@"abbreviation.text"];
+            if (lang && [lang isKindOfClass:[NSString class]]) {
+                iso639_lang_t *isoLanguage = lang_for_code_s([lang UTF8String]);
+                [languagesResult addObject:[NSString stringWithUTF8String:isoLanguage->eng_name]];
+            }
+        }
+    }
+
+    TVDBlanguages = [[NSArray arrayWithArray:languagesResult] retain];
+}
+
 - (NSArray *) languages {
-	return [[MP42Languages defaultManager] languages];
+    return TVDBlanguages;
 }
 
 - (NSArray *) searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage {
 	NSURL *url;
 	// search for series
-	url = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/api/GetSeries.php?seriesname=%@", [MetadataImporter urlEncoded:aSeriesName]]];
+	url = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/api/GetSeries.php?seriesname=%@&language=all", [MetadataImporter urlEncoded:aSeriesName]]];
 	NSData *seriesXML = [MetadataImporter downloadDataOrGetFromCache:url];
 	NSDictionary *series = [XMLReader dictionaryForXMLData:seriesXML error:NULL];
 	if (!series) return nil;
@@ -44,7 +67,7 @@
 	NSURL *url;
 
 	// search for series
-	url = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/api/GetSeries.php?seriesname=%@", [MetadataImporter urlEncoded:aSeriesName]]];
+	url = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/api/GetSeries.php?seriesname=%@&language=all", [MetadataImporter urlEncoded:aSeriesName]]];
 	NSData *seriesXML = [MetadataImporter downloadDataOrGetFromCache:url];
 	NSDictionary *series = [XMLReader dictionaryForXMLData:seriesXML error:NULL];
 
@@ -163,8 +186,14 @@
     [metadata setTag:[aSeries retrieveForPath:@"Overview.text"] forKey:@"Series Description"];
     [metadata setTag:[TheTVDB cleanPeopleList:[aSeries retrieveForPath:@"Genre.text"]] forKey:@"Genre"];
 
-    [metadata setTag:[NSNumber numberWithUnsignedInteger:
-                      [[MP42Ratings defaultManager] ratingIndexForiTunesCountry:@"USA" media:@"TV" ratingString:[aSeries retrieveForPath:@"ContentRating.text"]]] forKey:@"Rating"];
+    NSString *ratingString = [aSeries retrieveForPath:@"ContentRating.text"];
+    if (ratingString && [ratingString length]) {
+        [metadata setTag:[NSNumber numberWithUnsignedInteger:
+                          [[MP42Ratings defaultManager] ratingIndexForiTunesCountry:@"USA"
+                                                                              media:@"TV"
+                                                                       ratingString:ratingString]]
+                  forKey:@"Rating"];
+    }
 
     [metadata setTag:[aSeries retrieveForPath:@"Network.text"] forKey:@"TV Network"];
 	[metadata setTag:[aEpisode retrieveForPath:@"SeasonNumber.text"] forKey:@"TV Season"];
