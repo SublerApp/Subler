@@ -26,20 +26,22 @@ static NSArray *TVDBlanguages;
 	NSData *languagesXML = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBReturnCacheElseLoad];
 	NSDictionary *languages = [XMLReader dictionaryForXMLData:languagesXML error:NULL];
 
-    NSArray *languagesArray = [languages retrieveArrayForPath:@"Languages.Language"];
-    NSMutableArray *languagesResult = [NSMutableArray array];
+    if (languages) {
+        NSArray *languagesArray = [languages retrieveArrayForPath:@"Languages.Language"];
+        NSMutableArray *languagesResult = [NSMutableArray array];
 
-    if (languagesArray && [languagesArray isKindOfClass:[NSArray class]] && [languagesArray count]) {
-        for (NSDictionary *language in languagesArray) {
-            NSString *lang = [language valueForKeyPath:@"abbreviation.text"];
-            if (lang && [lang isKindOfClass:[NSString class]]) {
-                iso639_lang_t *isoLanguage = lang_for_code_s([lang UTF8String]);
-                [languagesResult addObject:[NSString stringWithUTF8String:isoLanguage->eng_name]];
+        if (languagesArray && [languagesArray isKindOfClass:[NSArray class]] && [languagesArray count]) {
+            for (NSDictionary *language in languagesArray) {
+                NSString *lang = [language valueForKeyPath:@"abbreviation.text"];
+                if (lang && [lang isKindOfClass:[NSString class]]) {
+                    iso639_lang_t *isoLanguage = lang_for_code_s([lang UTF8String]);
+                    [languagesResult addObject:[NSString stringWithUTF8String:isoLanguage->eng_name]];
+                }
             }
         }
-    }
 
-    TVDBlanguages = [[NSArray arrayWithArray:languagesResult] retain];
+        TVDBlanguages = [[NSArray arrayWithArray:languagesResult] retain];
+    }
 }
 
 - (NSArray *) languages {
