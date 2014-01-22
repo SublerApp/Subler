@@ -161,11 +161,11 @@
     [self updateSearchButtonVisibility];
 }
 
-- (void) searchTVSeriesNameDone:(NSMutableArray *)seriesArray {
+- (void)searchTVSeriesNameDone:(NSArray *)seriesArray {
     if (tvSeriesNameSearchArray)
         [tvSeriesNameSearchArray release];
 
-    tvSeriesNameSearchArray = [seriesArray retain];
+    tvSeriesNameSearchArray = [seriesArray mutableCopy];
     [tvSeriesNameSearchArray sortUsingSelector:@selector(compare:)];
     [tvSeriesName noteNumberOfItemsChanged];
     [tvSeriesName reloadData];

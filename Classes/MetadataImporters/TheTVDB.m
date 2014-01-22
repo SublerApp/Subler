@@ -56,11 +56,11 @@ static NSArray *TVDBlanguages;
 	NSDictionary *series = [XMLReader dictionaryForXMLData:seriesXML error:NULL];
 	if (!series) return nil;
 	NSArray *seriesArray = [series retrieveArrayForPath:@"Data.Series"];
-	NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:[seriesArray count]];
+	NSMutableSet *results = [[NSMutableSet alloc] initWithCapacity:[seriesArray count]];
 	for (NSDictionary *s in seriesArray) {
 		[results addObject:[s retrieveForPath:@"SeriesName.text"]];
 	}
-	return [results autorelease];
+	return [[results autorelease] allObjects];
 }
 
 - (NSArray *) searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum {
@@ -76,20 +76,22 @@ static NSArray *TVDBlanguages;
 	if (!series) return nil;
 
 	NSArray *seriesObject = [series retrieveForPath:@"Data.Series"];
-	NSMutableArray *seriesIDs = [[NSMutableArray alloc] init];;
+	NSMutableSet *seriesIDs = [[NSMutableSet alloc] init];;
 	if ([seriesObject isKindOfClass:[NSArray class]]) {
-        for (NSDictionary *s in seriesObject)
-            if ([aSeriesName isEqualToString:[s retrieveForPath:@"SeriesName.text"]])
+        for (NSDictionary *s in seriesObject) {
+            if ([aSeriesName isEqualToString:[s retrieveForPath:@"SeriesName.text"]]) {
                 [seriesIDs addObject:[s retrieveForPath:@"seriesid.text"]];
+            }
+        }
 
         if (![seriesIDs count])
             [seriesIDs addObject:[series retrieveForPath:@"Data.Series.0.seriesid.text"]];
-	}
-    else {
+	} else {
         NSString *seriesID = [series retrieveForPath:@"Data.Series.seriesid.text"];
         if (seriesID)
             [seriesIDs addObject:seriesID];
 	}
+
     NSMutableArray *results = [[NSMutableArray alloc] init];
 
     if ([seriesIDs count]) {

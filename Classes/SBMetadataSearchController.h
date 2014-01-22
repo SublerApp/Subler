@@ -64,7 +64,7 @@
 
 #pragma mark Search input fields
 - (void) updateSearchButtonVisibility;
-- (void) searchTVSeriesNameDone:(NSMutableArray *)seriesArray;
+- (void) searchTVSeriesNameDone:(NSArray *)seriesArray;
 
 #pragma mark Search for metadata
 - (IBAction) searchForResults:(id)sender;
