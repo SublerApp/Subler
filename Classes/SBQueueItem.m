@@ -16,17 +16,7 @@
 @synthesize destURL;
 @synthesize mp4File;
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-
-    }
-
-    return self;
-}
-
-- (instancetype)initWithURL:(NSURL*)URL {
+- (instancetype)initWithURL:(NSURL *)URL {
     self = [super init];
     if (self) {
         fileURL = [URL retain];
@@ -41,7 +31,7 @@
     return self;
 }
 
-+ (instancetype)itemWithURL:(NSURL*)URL
++ (instancetype)itemWithURL:(NSURL *)URL
 {
     return [[[SBQueueItem alloc] initWithURL:URL] autorelease];
 }
@@ -69,12 +59,12 @@
     return self;
 }
 
-+ (instancetype)itemWithMP4:(MP42File*)MP4
++ (instancetype)itemWithMP4:(MP42File *)MP4
 {
     return [[[SBQueueItem alloc] initWithMP4:MP4] autorelease];
 }
 
-- (id)initWithMP4:(MP42File*)MP4 url:(NSURL*)URL attributes:(NSDictionary*)dict
+- (id)initWithMP4:(MP42File *)MP4 url:(NSURL *)URL attributes:(NSDictionary *)dict
 {
     if (self = [super init])
     {
@@ -89,7 +79,7 @@
     return self;
 }
 
-+ (instancetype)itemWithMP4:(MP42File*)MP4 url:(NSURL*)URL attributes:(NSDictionary*)dict
++ (instancetype)itemWithMP4:(MP42File *)MP4 url:(NSURL *)URL attributes:(NSDictionary *)dict
 {
     return [[[SBQueueItem alloc] initWithMP4:MP4 url:URL attributes:dict] autorelease];
 }
@@ -99,7 +89,7 @@
     return status;
 }
 
-- (void) setStatus:(SBQueueItemStatus)itemStatus
+- (void)setStatus:(SBQueueItemStatus)itemStatus
 {
     status = itemStatus;
     if (status == SBQueueItemStatusCompleted) {
