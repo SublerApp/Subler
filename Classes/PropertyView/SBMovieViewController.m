@@ -670,34 +670,22 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 #pragma mark -
 #pragma mark IKImageBrowserDelegate
 
-- (void)imageBrowser:(IKImageBrowserView *) aBrowser cellWasDoubleClickedAtIndex:(NSUInteger) index
-{
-}
-
-- (void)imageBrowserSelectionDidChange:(IKImageBrowserView *) aBrowser
+- (void)imageBrowserSelectionDidChange:(IKImageBrowserView *)aBrowser
 {
     NSIndexSet *rowIndexes = [aBrowser selectionIndexes];
-    
+
     if ([rowIndexes count])
         [removeArtwork setEnabled:YES];
     else
         [removeArtwork setEnabled:NO];
 }
 
-- (IBAction) zoomSliderDidChange:(id)sender {
+- (IBAction)zoomSliderDidChange:(id)sender {
     [imageBrowser setZoomValue:[sender floatValue]];
-    [imageBrowser setNeedsDisplay:YES];
 }
 
-- (IBAction) removeArtwork:(id) sender {
-    NSIndexSet *rowIndexes = [imageBrowser selectionIndexes];
-
-    metadata.isEdited = YES;
-    metadata.isArtworkEdited = YES;
-
-    [metadata.artworks removeObjectsAtIndexes: rowIndexes];
-    [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
-
+- (IBAction)removeArtwork:(id)sender {
+    [self imageBrowser:imageBrowser removeItemsAtIndexes:[imageBrowser selectionIndexes]];
     [imageBrowser reloadData];
 }
 
@@ -708,30 +696,27 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     if ([item isKindOfClass:[NSURL class]]) {
         if ([item getResourceValue:&type forKey:NSURLTypeIdentifierKey error:&error]) {
-            if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)@"public.jpeg")) {
+            if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)@"public.jpeg")) {
                 MP42Image *artwork = [[MP42Image alloc] initWithData:[NSData dataWithContentsOfURL:item] type:MP42_ART_JPEG];
                 [metadata.artworks addObject:artwork];
                 [artwork release];
-            }
-            else {
-                NSImage * artworkImage = [[NSImage alloc] initWithContentsOfURL:item];
+            } else {
+                NSImage *artworkImage = [[NSImage alloc] initWithContentsOfURL:item];
                 MP42Image *artwork = [[MP42Image alloc] initWithImage:artworkImage];
                 [metadata.artworks addObject:artwork];
-                
                 [artwork release];
                 [artworkImage release];
             }
             return YES;
         }
-    }
-    else if ([item isKindOfClass:[NSImage class]]) {
+    } else if ([item isKindOfClass:[NSImage class]]) {
         MP42Image *artwork = [[MP42Image alloc] initWithImage:item];
         [metadata.artworks addObject:artwork];
         [artwork release];
         return YES;
-    }
-    else if ([item isKindOfClass:[MP42Image class]]) {
+    } else if ([item isKindOfClass:[MP42Image class]]) {
         [metadata.artworks addObject:item];
+        return YES;
     }
 
     return NO;
