@@ -57,6 +57,7 @@
 		A9D47B5917B239E200900BCA /* EncodeCanceled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5517B239E200900BCA /* EncodeCanceled@2x.png */; };
 		A9D47B5A17B239E200900BCA /* EncodeComplete.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5617B239E200900BCA /* EncodeComplete.png */; };
 		A9D47B5B17B239E200900BCA /* EncodeComplete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5717B239E200900BCA /* EncodeComplete@2x.png */; };
+		A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */; };
 		A9F284A0133C9F6E00F10951 /* close.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9F2849D133C9F6E00F10951 /* close.pdf */; };
 		A9F284A1133C9F6E00F10951 /* close-over.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9F2849E133C9F6E00F10951 /* close-over.pdf */; };
 		A9F284A2133C9F6E00F10951 /* close-pressed.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9F2849F133C9F6E00F10951 /* close-pressed.pdf */; };
@@ -207,6 +208,8 @@
 		A9D47B5517B239E200900BCA /* EncodeCanceled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EncodeCanceled@2x.png"; path = "images/EncodeCanceled@2x.png"; sourceTree = "<group>"; };
 		A9D47B5617B239E200900BCA /* EncodeComplete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EncodeComplete.png; path = images/EncodeComplete.png; sourceTree = "<group>"; };
 		A9D47B5717B239E200900BCA /* EncodeComplete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EncodeComplete@2x.png"; path = "images/EncodeComplete@2x.png"; sourceTree = "<group>"; };
+		A9D73C5018BF3F1100C6FFA6 /* SBQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueue.h; path = Classes/SBQueue.h; sourceTree = "<group>"; };
+		A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueue.m; path = Classes/SBQueue.m; sourceTree = "<group>"; };
 		A9ED7B21180067A2008FD3A8 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A9F2849D133C9F6E00F10951 /* close.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = close.pdf; path = images/close.pdf; sourceTree = "<group>"; };
 		A9F2849E133C9F6E00F10951 /* close-over.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "close-over.pdf"; path = "images/close-over.pdf"; sourceTree = "<group>"; };
@@ -311,6 +314,8 @@
 				A9B46ABE12B79D1C0040517A /* SBDocument.m */,
 				A961475F13F567E10068F161 /* SBQueueController.h */,
 				A961476013F567E10068F161 /* SBQueueController.m */,
+				A9D73C5018BF3F1100C6FFA6 /* SBQueue.h */,
+				A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */,
 				A982D0BE140AB66400B92357 /* SBQueueItem.h */,
 				A982D0BF140AB66400B92357 /* SBQueueItem.m */,
 				A961476113F567E10068F161 /* SBPresetManager.h */,
@@ -654,6 +659,7 @@
 				A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */,
 				CD71FEA312F1B5AF00F0A98D /* SBMetadataSearchController.m in Sources */,
 				CD71FF1D12F1C4A900F0A98D /* TheTVDB.m in Sources */,
+				A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */,
 				A9AB485717F0AEAC000AA72E /* SBSoundViewController.m in Sources */,
 				CD56963212FAAD680029FADB /* SBArtworkSelector.m in Sources */,
 				A936E03E130BE10200CA5527 /* MAAttachedWindow.m in Sources */,
