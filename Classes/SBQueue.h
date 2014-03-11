@@ -21,6 +21,11 @@ typedef NS_ENUM(NSUInteger, SBQueueStatus) {
     SBQueueStatusCancelled,
 };
 
+extern NSString *SBQueueWorkingNotification;
+extern NSString *SBQueueCompletedNotification;
+extern NSString *SBQueueFailedNotification;
+extern NSString *SBQueueCancelledNotification;
+
 @interface SBQueue : NSObject {
     @private
     dispatch_queue_t   _queue;

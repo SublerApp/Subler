@@ -9,49 +9,37 @@
 #import <Cocoa/Cocoa.h>
 #import <IOKit/pwr_mgt/IOPMLib.h>
 
+#import "SBQueue.h"
+
 @class SBQueueItem;
 @class SBTableView;
 @class MP42File;
 
-typedef enum SBQueueStatus : NSUInteger {
-    SBQueueStatusUnknown = 0,
-    SBQueueStatusWorking,
-    SBQueueStatusCompleted,
-    SBQueueStatusFailed,
-    SBQueueStatusCancelled,
-} SBQueueStatus;
-
 @interface SBQueueController : NSWindowController {
-    IBOutlet NSButton *start;
-    IBOutlet NSButton *open;
+    IBOutlet NSButton *_start;
+    IBOutlet NSButton *_open;
 
-    IBOutlet NSTextField *countLabel;
-    IBOutlet NSProgressIndicator *progressIndicator;
+    IBOutlet NSTextField *_countLabel;
+    IBOutlet NSProgressIndicator *_progressIndicator;
 
-    IBOutlet NSButton *OptimizeOption;
-    IBOutlet NSButton *MetadataOption;
-    IBOutlet NSButton *ITunesGroupsOption;
-    IBOutlet NSButton *AutoStartOption;
-    IBOutlet NSBox    *optionsBox;
-    BOOL optionsStatus;
+    IBOutlet NSButton *_optimizeOption;
+    IBOutlet NSButton *_metadataOption;
+    IBOutlet NSButton *_organizeGroupsOption;
+    IBOutlet NSButton *_autoStartOption;
+    IBOutlet NSBox    *_optionsBox;
+    BOOL _optionsStatus;
 
     IBOutlet NSScrollView   *tableScrollView;
     IBOutlet SBTableView    *tableView;
 
-    NSURL *destination;
-    BOOL customDestination;
     IBOutlet NSPopUpButton *destButton;
 
     NSImage *docImg;
 
-    dispatch_queue_t   queue;
-    MP42File           *_currentMP4;
+    NSURL *destination;
+    BOOL customDestination;
 
-    NSMutableArray     *filesArray;
-    SBQueueStatus      status;
-
-    IOPMAssertionID _assertionID;
-    BOOL            _cancelled;
+    SBQueue *_queue;
 }
 
 @property(readonly) SBQueueStatus status;
@@ -61,7 +49,7 @@ typedef enum SBQueueStatus : NSUInteger {
 - (void)start:(id)sender;
 - (void)stop:(id)sender;
 
-- (void)addItem:(SBQueueItem*)item;
+- (void)addItem:(SBQueueItem *)item;
 
 - (BOOL)saveQueueToDisk;
 

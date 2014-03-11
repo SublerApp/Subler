@@ -18,6 +18,11 @@
 
 static NSString *fileType = @"mp4";
 
+NSString *SBQueueWorkingNotification = @"SBQueueWorkingNotification";
+NSString *SBQueueCompletedNotification = @"SBQueueCompletedNotification";
+NSString *SBQueueFailedNotification = @"SBQueueFailedNotification";
+NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
+
 @interface SBQueue () <MP42FileDelegate>
 
 @property (atomic) SBQueueStatus status;
@@ -39,7 +44,6 @@ static NSString *fileType = @"mp4";
     self = [super init];
     if (self) {
         _queue = dispatch_queue_create("org.subler.Queue", NULL);
-
         _URL = [queueURL copy];
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:[queueURL path]]) {
@@ -80,8 +84,7 @@ static NSString *fileType = @"mp4";
 
 #pragma mark - item management
 
-- (void)addItem:(SBQueueItem *)item
-{
+- (void)addItem:(SBQueueItem *)item {
     [self.items addObject:item];
 }
 
@@ -94,6 +97,7 @@ static NSString *fileType = @"mp4";
     for (SBQueueItem *item in self.items)
         if ([item status] != SBQueueItemStatusCompleted)
             count++;
+
     return count;
 }
 
@@ -135,8 +139,7 @@ static NSString *fileType = @"mp4";
 
 #pragma mark - item preprocessing
 
-- (NSArray *)loadSubtitles:(NSURL *)url
-{
+- (NSArray *)loadSubtitles:(NSURL *)url {
     NSError *outError;
     NSMutableArray *tracksArray = [[NSMutableArray alloc] init];
     NSArray *directory = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[url URLByDeletingLastPathComponent]
@@ -171,8 +174,7 @@ static NSString *fileType = @"mp4";
     return [tracksArray autorelease];
 }
 
-- (MP42Image *)loadArtwork:(NSURL *)url
-{
+- (MP42Image *)loadArtwork:(NSURL *)url {
     NSData *artworkData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
     if (artworkData && [artworkData length]) {
         MP42Image *artwork = [[MP42Image alloc] initWithData:artworkData type:MP42_ART_JPEG];
@@ -184,8 +186,7 @@ static NSString *fileType = @"mp4";
     return nil;
 }
 
-- (MP42Metadata *)searchMetadataForFile:(NSURL *)url
-{
+- (MP42Metadata *)searchMetadataForFile:(NSURL *)url {
     id currentSearcher = nil;
     MP42Metadata *metadata = nil;
 
@@ -350,6 +351,7 @@ static NSString *fileType = @"mp4";
                     break;
                 }
 
+                [self handleSBStatusWorking];
                 noErr = [self processItem:item error:&outError];
 
                 // Check results
@@ -387,13 +389,21 @@ static NSString *fileType = @"mp4";
             }
         }
 
+        // Save to disk
+        [self saveQueueToDisk];
+
         // Disable sleep assertion
         [self enableSleep];
+        [self handleSBStatusCompleted];
 
     });
 }
 
-- (BOOL)processItem:(SBQueueItem *)item error:(NSError **)outError{
+
+/**
+ * Processes a SBQueueItem.
+ */
+- (BOOL)processItem:(SBQueueItem *)item error:(NSError **)outError {
     NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue])
         [attributes setObject:@YES forKey:MP42GenerateChaptersPreviewTrack];
@@ -408,14 +418,6 @@ static NSString *fileType = @"mp4";
     _currentMP4 = [item mp4File];
     [_currentMP4 setDelegate:self];
 
-    // Update the UI
-    dispatch_async(dispatch_get_main_queue(), ^{
-        /*NSInteger itemIndex = [filesArray indexOfObject:item];
-         [countLabel setStringValue:[NSString stringWithFormat:@"Processing file %ld of %lu.",(long)itemIndex + 1, (unsigned long)[filesArray count]]];
-         [[NSApp dockTile] setBadgeLabel:[NSString stringWithFormat:@"%lu", (unsigned long)[filesArray count] - itemIndex]];
-         [tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:itemIndex] columnIndexes:[NSIndexSet indexSetWithIndex:0]];*/
-    });
-
     // Set the destination url
     if (![item destURL]) {
         if (!_currentMP4 && self.destination /*&& customDestination*/) {
@@ -426,8 +428,9 @@ static NSString *fileType = @"mp4";
     }
 
     // The file has been added directly to the queue
-    if (!_currentMP4 && item.URL)
+    if (!_currentMP4 && item.URL) {
         _currentMP4 = [self prepareQueueItem:item.URL error:outError];
+    }
 
     NSDictionary *dict = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[_currentMP4.URL path] error:NULL];
     NSNumber *freeSpace = [dict objectForKey:NSFileSystemFreeSize];
@@ -458,9 +461,40 @@ static NSString *fileType = @"mp4";
 }
 
 - (void)stop {
-
+    _cancelled = YES;
 }
 
+/**
+ * Processes SBQueueStatusWorking state information. Current implementation just
+ * sends SBQueueWorkingNotification.
+ */
+- (void)handleSBStatusWorking {
+    [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueWorkingNotification object:self];
+}
+
+/**
+ * Processes SBQueueStatusCompleted state information. Current implementation just
+ * sends SBQueueCompletedNotification.
+ */
+- (void)handleSBStatusCompleted {
+    [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueCompletedNotification object:self];
+}
+
+/**
+ * Processes SBQueueStatusFailed state information. Current implementation just
+ * sends SBQueueFailedNotification.
+ */
+- (void)handleSBStatusFailed {
+    [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueFailedNotification object:self];
+}
+
+/**
+ * Processes SBQueueStatusCancelled state information. Current implementation just
+ * sends SBQueueCancelledNotification.
+ */
+- (void)handleSBStatusCancelled {
+    [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueCancelledNotification object:self];
+}
 
 - (void)dealloc {
     dispatch_release(_queue);
