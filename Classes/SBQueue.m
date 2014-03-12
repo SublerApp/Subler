@@ -357,7 +357,8 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
                 // Check results
                 if (_cancelled) {
                     item.status = SBQueueItemStatusCancelled;
-                    self.status = SBQueueStatusCancelled;
+                    [item release];
+                    [self handleSBStatusCancelled];
                     break;
                 } else if (noErr) {
                     if (self.optimize) {
@@ -395,10 +396,8 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
         // Disable sleep assertion
         [self enableSleep];
         [self handleSBStatusCompleted];
-
     });
 }
-
 
 /**
  * Processes a SBQueueItem.
@@ -477,6 +476,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
  * sends SBQueueCompletedNotification.
  */
 - (void)handleSBStatusCompleted {
+    self.status = SBQueueStatusCompleted;
     [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueCompletedNotification object:self];
 }
 
@@ -485,6 +485,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
  * sends SBQueueFailedNotification.
  */
 - (void)handleSBStatusFailed {
+    self.status = SBQueueStatusFailed;
     [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueFailedNotification object:self];
 }
 
@@ -493,6 +494,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
  * sends SBQueueCancelledNotification.
  */
 - (void)handleSBStatusCancelled {
+    self.status = SBQueueStatusCancelled;
     [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueCancelledNotification object:self];
 }
 
