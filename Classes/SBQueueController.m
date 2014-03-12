@@ -38,8 +38,7 @@
 
 @synthesize queue = _queue;
 
-+ (SBQueueController *)sharedManager
-{
++ (SBQueueController *)sharedManager {
     static dispatch_once_t pred;
     static SBQueueController *sharedManager = nil;
 
@@ -47,8 +46,7 @@
     return sharedManager;
 }
 
-- (id)init
-{
+- (id)init {
     if (self = [super initWithWindowNibName:@"Queue"]) {
         _queue = [[SBQueue alloc] initWithURL:[self queueURL]];
         [self removeCompletedItems:self];
@@ -58,8 +56,9 @@
     return self;
 }
 
-- (void)awakeFromNib
-{
+- (void)windowDidLoad {
+    [super windowDidLoad];
+
     [_progressIndicator setHidden:YES];
     [_countLabel setStringValue:@"Empty"];
 
@@ -85,11 +84,6 @@
     [docImg setSize:NSMakeSize(16, 16)];
 
     [self prepareDestPopup];
-}
-
-- (void)windowDidLoad
-{
-    [super windowDidLoad];
 
     [tableView registerForDraggedTypes: [NSArray arrayWithObjects: NSFilenamesPboardType, SublerBatchTableViewDataType, nil]];
 
@@ -113,8 +107,7 @@
     [self updateUI];
 }
 
-- (NSURL *)queueURL
-{
+- (NSURL *)queueURL {
     NSURL *appSupportURL = nil;
     NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
                                                             NSUserDomainMask,
@@ -135,8 +128,7 @@
     return [self.queue saveQueueToDisk];
 }
 
-- (NSMenuItem *)prepareDestPopupItem:(NSURL*) dest
-{
+- (NSMenuItem *)prepareDestPopupItem:(NSURL*) dest {
     NSMenuItem *folderItem = [[NSMenuItem alloc] initWithTitle:[dest lastPathComponent] action:@selector(destination:) keyEquivalent:@""];
     [folderItem setTag:10];
 
@@ -148,8 +140,7 @@
     return [folderItem autorelease];
 }
 
-- (void)prepareDestPopup
-{
+- (void)prepareDestPopup {
     NSMenuItem *folderItem = nil;
 
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]) {
@@ -193,8 +184,7 @@
     }
 }
 
-- (IBAction)destination:(id)sender
-{
+- (IBAction)destination:(id)sender {
     if ([sender tag] == 10) {
         customDestination = YES;
         [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBQueueDestinationSelected"];
@@ -204,8 +194,7 @@
     }
 }
 
-- (void)updateDockTile
-{
+- (void)updateDockTile {
     NSUInteger count = [self.queue readyCount];
 
     if (count)
@@ -214,8 +203,7 @@
         [[NSApp dockTile] setBadgeLabel:nil];
 }
 
-- (void)updateUI
-{
+- (void)updateUI {
     [tableView reloadData];
     if (self.queue.status != SBQueueStatusWorking) {
         [_countLabel setStringValue:[NSString stringWithFormat:@"%lu files in queue.", (unsigned long)[self.queue count]]];
@@ -223,8 +211,7 @@
     }
 }
 
-- (void)start:(id)sender
-{
+- (void)start:(id)sender {
     if (self.queue.status == SBQueueStatusWorking)
         return;
 
@@ -243,13 +230,11 @@
     });
 }
 
-- (void)stop:(id)sender
-{
+- (void)stop:(id)sender {
     [self.queue stop];
 }
 
-- (IBAction)toggleStartStop:(id)sender
-{
+- (IBAction)toggleStartStop:(id)sender {
     if (self.queue.status == SBQueueStatusWorking) {
         [self stop:sender];
     } else {
@@ -257,8 +242,7 @@
     }
 }
 
-- (IBAction)toggleOptions:(id)sender
-{
+- (IBAction)toggleOptions:(id)sender {
     NSInteger value = 0;
     if (_optionsStatus) {
         value = -kOptionsPanelHeight;
@@ -284,8 +268,7 @@
 
 #pragma mark Open methods
 
-- (IBAction)open:(id)sender
-{
+- (IBAction)open:(id)sender {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     panel.allowsMultipleSelection = YES;
     panel.canChooseFiles = YES;
@@ -310,8 +293,7 @@
     }];
 }
 
-- (IBAction)chooseDestination:(id)sender
-{
+- (IBAction)chooseDestination:(id)sender {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     panel.allowsMultipleSelection = NO;
     panel.canChooseFiles = NO;
@@ -355,13 +337,11 @@
 
 #pragma mark TableView
 
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
-{
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
     return [self.queue count];
 }
 
-- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
-{
+- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
     if ([aTableColumn.identifier isEqualToString:@"nameColumn"])
         return [[[self.queue itemAtIndex:rowIndex] URL] lastPathComponent];
 
@@ -380,8 +360,7 @@
     return nil;
 }
 
-- (void)_deleteSelectionFromTableView:(NSTableView *)aTableView
-{
+- (void)_deleteSelectionFromTableView:(NSTableView *)aTableView {
     NSMutableIndexSet *rowIndexes = [[aTableView selectedRowIndexes] mutableCopy];
     NSInteger clickedRow = [aTableView clickedRow];
     NSUInteger selectedIndex = -1;
@@ -424,8 +403,7 @@
     [rowIndexes release];
 }
 
-- (IBAction)edit:(id)sender
-{
+- (IBAction)edit:(id)sender {
     /*SBQueueItem *item = [[self.queue itemAtIndex:[tableView clickedRow]] retain];
     
     [self removeItems:[NSArray arrayWithObject:item]];
@@ -442,19 +420,16 @@
     [item release];*/
 }
 
-- (IBAction)showInFinder:(id)sender
-{
+- (IBAction)showInFinder:(id)sender {
     SBQueueItem *item = [self.queue itemAtIndex:[tableView clickedRow]];
     [[NSWorkspace sharedWorkspace] selectFile:[item.destURL path] inFileViewerRootedAtPath:nil];
 }
 
-- (IBAction)removeSelectedItems:(id)sender
-{
+- (IBAction)removeSelectedItems:(id)sender {
     [self _deleteSelectionFromTableView:tableView];
 }
 
-- (IBAction)removeCompletedItems:(id)sender
-{
+- (IBAction)removeCompletedItems:(id)sender {
     NSIndexSet *indexes = [self.queue removeCompletedItems];
 
     if ([indexes count]) {
@@ -475,8 +450,7 @@
     }
 }
 
-- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem
-{
+- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem {
     SEL action = [anItem action];
 
     if (action == @selector(removeSelectedItems:))
@@ -508,8 +482,7 @@
 
 #pragma mark Drag & Drop
 
-- (BOOL)tableView:(NSTableView *)tv writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard
-{
+- (BOOL)tableView:(NSTableView *)tv writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
     // Copy the row numbers to the pasteboard.    
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
     [pboard declareTypes:[NSArray arrayWithObject:SublerBatchTableViewDataType] owner:self];
@@ -585,8 +558,7 @@
     return NO;
 }
 
-- (void)addItem:(SBQueueItem *)item
-{
+- (void)addItem:(SBQueueItem *)item {
     [self addItems:[NSArray arrayWithObject:item] atIndexes:nil];
     [self updateUI];
 
@@ -594,8 +566,7 @@
         [self start:self];
 }
 
-- (void)addItems:(NSArray *)items atIndexes:(NSIndexSet *)indexes;
-{
+- (void)addItems:(NSArray *)items atIndexes:(NSIndexSet *)indexes; {
     NSMutableIndexSet *mutableIndexes = [indexes mutableCopy];
     if ([indexes count] == [items count]) {
         for (id item in [items reverseObjectEnumerator]) {
@@ -627,8 +598,7 @@
     [mutableIndexes release];
 }
 
-- (void)removeItems:(NSArray *)items
-{
+- (void)removeItems:(NSArray *)items {
     NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
 
     for (id item in items) {
