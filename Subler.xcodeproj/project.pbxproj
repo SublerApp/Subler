@@ -44,6 +44,7 @@
 		A9AB486617F0AEFD000AA72E /* MovieView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB485E17F0AEFD000AA72E /* MovieView.xib */; };
 		A9AB486717F0AEFD000AA72E /* SoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB486017F0AEFD000AA72E /* SoundView.xib */; };
 		A9AB486817F0AEFD000AA72E /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB486217F0AEFD000AA72E /* VideoView.xib */; };
+		A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */; };
 		A9B46A8C12B79B240040517A /* SBFileImport.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A7F12B79B240040517A /* SBFileImport.m */; };
 		A9B46A8E12B79B240040517A /* SBPrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A8312B79B240040517A /* SBPrefsController.m */; };
 		A9B46A8F12B79B240040517A /* SBTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A8512B79B240040517A /* SBTableView.m */; };
@@ -183,6 +184,8 @@
 		A9AB485F17F0AEFD000AA72E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Classes/PropertyView/English.lproj/MovieView.xib; sourceTree = "<group>"; };
 		A9AB486117F0AEFD000AA72E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Classes/PropertyView/English.lproj/SoundView.xib; sourceTree = "<group>"; };
 		A9AB486317F0AEFD000AA72E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Classes/PropertyView/English.lproj/VideoView.xib; sourceTree = "<group>"; };
+		A9AF6A7318D0496400FAAB08 /* SBQueueAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueAction.h; path = Classes/SBQueueAction.h; sourceTree = "<group>"; };
+		A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueAction.m; path = Classes/SBQueueAction.m; sourceTree = "<group>"; };
 		A9B3411B1679CA3E00E6EE0C /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		A9B46A7E12B79B240040517A /* SBFileImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBFileImport.h; path = Classes/SBFileImport.h; sourceTree = "<group>"; };
 		A9B46A7F12B79B240040517A /* SBFileImport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBFileImport.m; path = Classes/SBFileImport.m; sourceTree = "<group>"; };
@@ -312,12 +315,7 @@
 			children = (
 				A9B46ABD12B79D1C0040517A /* SBDocument.h */,
 				A9B46ABE12B79D1C0040517A /* SBDocument.m */,
-				A961475F13F567E10068F161 /* SBQueueController.h */,
-				A961476013F567E10068F161 /* SBQueueController.m */,
-				A9D73C5018BF3F1100C6FFA6 /* SBQueue.h */,
-				A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */,
-				A982D0BE140AB66400B92357 /* SBQueueItem.h */,
-				A982D0BF140AB66400B92357 /* SBQueueItem.m */,
+				A9AF6A7818D0537F00FAAB08 /* Queue */,
 				A961476113F567E10068F161 /* SBPresetManager.h */,
 				A961476213F567E10068F161 /* SBPresetManager.m */,
 				A9B46A7E12B79B240040517A /* SBFileImport.h */,
@@ -416,6 +414,21 @@
 				A90B023910F3290A000416F3 /* Prefs.xib */,
 			);
 			name = NIBs;
+			sourceTree = "<group>";
+		};
+		A9AF6A7818D0537F00FAAB08 /* Queue */ = {
+			isa = PBXGroup;
+			children = (
+				A961475F13F567E10068F161 /* SBQueueController.h */,
+				A961476013F567E10068F161 /* SBQueueController.m */,
+				A9D73C5018BF3F1100C6FFA6 /* SBQueue.h */,
+				A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */,
+				A982D0BE140AB66400B92357 /* SBQueueItem.h */,
+				A982D0BF140AB66400B92357 /* SBQueueItem.m */,
+				A9AF6A7318D0496400FAAB08 /* SBQueueAction.h */,
+				A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */,
+			);
+			name = Queue;
 			sourceTree = "<group>";
 		};
 		A9FD5D150F3C692400817716 /* PropertyView */ = {
@@ -666,6 +679,7 @@
 				A961476313F567E10068F161 /* SBQueueController.m in Sources */,
 				A961476413F567E10068F161 /* SBPresetManager.m in Sources */,
 				A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */,
+				A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */,
 				CDC06FCE1747494D003C1D0A /* iTunesStore.m in Sources */,
 				CD03087417576A550093A0BE /* TheMovieDB3.m in Sources */,
 				CD03087917576AE50093A0BE /* MetadataImporter.m in Sources */,

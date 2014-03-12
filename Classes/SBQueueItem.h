@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "SBQueueAction.h"
+
 @class MP42File;
 
 typedef enum SBQueueItemStatus : NSInteger {
@@ -20,21 +22,21 @@ typedef enum SBQueueItemStatus : NSInteger {
 } SBQueueItemStatus;
 
 @interface SBQueueItem : NSObject <NSCoding> {
-    MP42File *mp4File;
-    NSURL   *fileURL;
-    NSURL   *destURL;
-    NSDictionary *attributes;
+    MP42File *_mp4File;
+    NSURL    *_fileURL;
+    NSURL    *_destURL;
+    NSDictionary   *_attributes;
+    NSMutableArray *_actions;
 
-    SBQueueItemStatus status;
-    BOOL humanEdited;
+    SBQueueItemStatus _status;
 }
 
-@property (atomic, readonly) MP42File *mp4File;
-@property (atomic, readonly) NSDictionary *attributes;
-@property (atomic, readonly) NSURL *URL;
-@property (atomic, retain, readwrite) NSURL *destURL;
+@property (nonatomic, readonly) MP42File *mp4File;
+@property (nonatomic, readonly) NSDictionary *attributes;
+@property (nonatomic, readonly) NSURL *URL;
+@property (nonatomic, retain, readwrite) NSURL *destURL;
 
-@property (atomic, readwrite) SBQueueItemStatus status;
+@property (nonatomic, readwrite) SBQueueItemStatus status;
 
 - (instancetype)initWithURL:(NSURL *)URL;
 + (instancetype)itemWithURL:(NSURL *)URL;
@@ -44,5 +46,9 @@ typedef enum SBQueueItemStatus : NSInteger {
 
 + (instancetype)itemWithMP4:(MP42File *)MP4;
 + (instancetype)itemWithMP4:(MP42File *)MP4 url:(NSURL *)URL attributes:(NSDictionary *)dict;
+
+- (void)addAction:(id<SBQueueActionProtocol>)action;
+
+- (BOOL)prepareItem:(NSError **)outError;
 
 @end

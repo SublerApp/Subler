@@ -10,7 +10,6 @@
 #import "SBQueueItem.h"
 #import "SBDocument.h"
 #import "SBTableView.h"
-#import "MetadataImporter.h"
 
 #import <MP42Foundation/MP42Utilities.h>
 
@@ -72,20 +71,20 @@
     frame.size.height -= kOptionsPanelHeight;
     frame.origin.y += kOptionsPanelHeight;
 
-    [tableScrollView setAutoresizingMask:NSViewNotSizable | NSViewMinYMargin];
+    [_tableScrollView setAutoresizingMask:NSViewNotSizable | NSViewMinYMargin];
     [_optionsBox setAutoresizingMask:NSViewNotSizable | NSViewMinYMargin];
 
     [[self window] setFrame:frame display:YES animate:NO];
 
-    [tableScrollView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    [_tableScrollView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
     [_optionsBox setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin];
 
-    docImg = [[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode('MOOV')] retain];
-    [docImg setSize:NSMakeSize(16, 16)];
+    _docImg = [[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode('MOOV')] retain];
+    [_docImg setSize:NSMakeSize(16, 16)];
 
     [self prepareDestPopup];
 
-    [tableView registerForDraggedTypes: [NSArray arrayWithObjects: NSFilenamesPboardType, SublerBatchTableViewDataType, nil]];
+    [_tableView registerForDraggedTypes: [NSArray arrayWithObjects: NSFilenamesPboardType, SublerBatchTableViewDataType, nil]];
 
     NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
 
@@ -144,7 +143,7 @@
     NSMenuItem *folderItem = nil;
 
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]) {
-        destination = [[NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]] retain];
+        _destination = [[NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]] retain];
 
 #ifdef SB_SANDBOX
         if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestinationBookmark"]) {
@@ -161,35 +160,35 @@
                                              error:&error] retain];
         }
 #endif
-        if (![[NSFileManager defaultManager] fileExistsAtPath:[destination path] isDirectory:nil])
-            destination = nil;
+        if (![[NSFileManager defaultManager] fileExistsAtPath:[_destination path] isDirectory:nil])
+            _destination = nil;
     }
 
-    if (!destination) {
+    if (!_destination) {
         NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSMoviesDirectory,
                                                                 NSUserDomainMask,
                                                                 YES);
         if ([allPaths count])
-            destination = [[NSURL fileURLWithPath:[allPaths lastObject]] retain];;
+            _destination = [[NSURL fileURLWithPath:[allPaths lastObject]] retain];;
     }
 
-    folderItem = [self prepareDestPopupItem:destination];
+    folderItem = [self prepareDestPopupItem:_destination];
 
-    [[destButton menu] insertItem:[NSMenuItem separatorItem] atIndex:0];
-    [[destButton menu] insertItem:folderItem atIndex:0];
+    [[_destButton menu] insertItem:[NSMenuItem separatorItem] atIndex:0];
+    [[_destButton menu] insertItem:folderItem atIndex:0];
 
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestinationSelected"] boolValue]) {
-        [destButton selectItem:folderItem];
-        customDestination = YES;
+        [_destButton selectItem:folderItem];
+        _customDestination = YES;
     }
 }
 
 - (IBAction)destination:(id)sender {
     if ([sender tag] == 10) {
-        customDestination = YES;
+        _customDestination = YES;
         [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBQueueDestinationSelected"];
     } else {
-        customDestination = NO;
+        _customDestination = NO;
         [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"SBQueueDestinationSelected"];
     }
 }
@@ -204,7 +203,7 @@
 }
 
 - (void)updateUI {
-    [tableView reloadData];
+    [_tableView reloadData];
     if (self.queue.status != SBQueueStatusWorking) {
         [_countLabel setStringValue:[NSString stringWithFormat:@"%lu files in queue.", (unsigned long)[self.queue count]]];
         [self updateDockTile];
@@ -247,8 +246,7 @@
     if (_optionsStatus) {
         value = -kOptionsPanelHeight;
         _optionsStatus = NO;
-    }
-    else {
+    } else {
         value = kOptionsPanelHeight;
         _optionsStatus = YES;
     }
@@ -257,12 +255,12 @@
     frame.size.height += value;
     frame.origin.y -= value;
 
-    [tableScrollView setAutoresizingMask:NSViewNotSizable | NSViewMinYMargin];
+    [_tableScrollView setAutoresizingMask:NSViewNotSizable | NSViewMinYMargin];
     [_optionsBox setAutoresizingMask:NSViewNotSizable | NSViewMinYMargin];
 
     [[self window] setFrame:frame display:YES animate:YES];
 
-    [tableScrollView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    [_tableScrollView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
     [_optionsBox setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin];
 }
 
@@ -279,8 +277,18 @@
         if (result == NSFileHandlingPanelOKButton) {
             NSMutableArray *items = [[NSMutableArray alloc] init];
 
-            for (NSURL *url in [panel URLs])
-                [items addObject:[SBQueueItem itemWithURL:url]];
+            for (NSURL *url in [panel URLs]) {
+                SBQueueItem *item = [SBQueueItem itemWithURL:url];
+                if ([_metadataOption state] == NSOnState) {
+                    [item addAction:[[[SBQueueMetadataAction alloc] init] autorelease]];
+                    [item addAction:[[[SBQueueSubtitlesAction alloc] init] autorelease]];
+                }
+                if ([_organizeGroupsOption state] == NSOnState) {
+                    [item addAction:[[[SBQueueOrganizeGroupsAction alloc] init] autorelease]];
+                }
+
+                [items addObject:item];
+            }
 
             [self addItems:items atIndexes:nil];
             [items release];
@@ -303,15 +311,15 @@
     [panel setPrompt:@"Select"];
     [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
-            destination = [[panel URL] retain];
+            _destination = [[panel URL] retain];
 
             NSMenuItem *folderItem = [self prepareDestPopupItem:[panel URL]];
 
-            [[destButton menu] removeItemAtIndex:0];
-            [[destButton menu] insertItem:folderItem atIndex:0];
+            [[_destButton menu] removeItemAtIndex:0];
+            [[_destButton menu] insertItem:folderItem atIndex:0];
 
-            [destButton selectItem:folderItem];
-            customDestination = YES;
+            [_destButton selectItem:folderItem];
+            _customDestination = YES;
 
 #ifdef SB_SANDBOX
             NSData *bookmark = nil;
@@ -331,7 +339,7 @@
             [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBQueueDestinationSelected"];
         }
         else
-            [destButton selectItemAtIndex:2];
+            [_destButton selectItemAtIndex:2];
     }];
 }
 
@@ -354,7 +362,7 @@
         else if (batchStatus == SBQueueItemStatusFailed)
             return [NSImage imageNamed:@"EncodeCanceled"];
         else
-            return docImg;
+            return _docImg;
     }
 
     return nil;
@@ -421,12 +429,12 @@
 }
 
 - (IBAction)showInFinder:(id)sender {
-    SBQueueItem *item = [self.queue itemAtIndex:[tableView clickedRow]];
+    SBQueueItem *item = [self.queue itemAtIndex:[_tableView clickedRow]];
     [[NSWorkspace sharedWorkspace] selectFile:[item.destURL path] inFileViewerRootedAtPath:nil];
 }
 
 - (IBAction)removeSelectedItems:(id)sender {
-    [self _deleteSelectionFromTableView:tableView];
+    [self _deleteSelectionFromTableView:_tableView];
 }
 
 - (IBAction)removeCompletedItems:(id)sender {
@@ -435,12 +443,12 @@
     if ([indexes count]) {
         if ([NSTableView instancesRespondToSelector:@selector(beginUpdates)]) {
 #if __MAC_OS_X_VERSION_MAX_ALLOWED > 1060
-            [tableView beginUpdates];
-            [tableView removeRowsAtIndexes:indexes withAnimation:NSTableViewAnimationEffectFade];
-            [tableView endUpdates];
+            [_tableView beginUpdates];
+            [_tableView removeRowsAtIndexes:indexes withAnimation:NSTableViewAnimationEffectFade];
+            [_tableView endUpdates];
 #endif
         } else {
-            [tableView reloadData];
+            [_tableView reloadData];
         }
 
         if (self.queue.status != SBQueueStatusWorking) {
@@ -454,12 +462,12 @@
     SEL action = [anItem action];
 
     if (action == @selector(removeSelectedItems:))
-        if ([tableView selectedRow] != -1 || [tableView clickedRow] != -1)
+        if ([_tableView selectedRow] != -1 || [_tableView clickedRow] != -1)
             return YES;
 
     if (action == @selector(showInFinder:)) {
-        if ([tableView clickedRow] != -1) {
-            SBQueueItem *item = [self.queue itemAtIndex:[tableView clickedRow]];
+        if ([_tableView clickedRow] != -1) {
+            SBQueueItem *item = [self.queue itemAtIndex:[_tableView clickedRow]];
             if ([item status] == SBQueueItemStatusCompleted)
                 return YES;
         }
@@ -512,7 +520,7 @@
 {
     NSPasteboard *pboard = [info draggingPasteboard];
 
-    if (tableView == [info draggingSource]) { // From self
+    if (_tableView == [info draggingSource]) { // From self
         NSData *rowData = [pboard dataForType:SublerBatchTableViewDataType];
         NSIndexSet *rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
         NSUInteger i = [rowIndexes countOfIndexesInRange:NSMakeRange(0, row)];

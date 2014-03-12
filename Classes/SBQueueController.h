@@ -29,15 +29,15 @@
     IBOutlet NSBox    *_optionsBox;
     BOOL _optionsStatus;
 
-    IBOutlet NSScrollView   *tableScrollView;
-    IBOutlet SBTableView    *tableView;
+    IBOutlet NSScrollView   *_tableScrollView;
+    IBOutlet SBTableView    *_tableView;
 
-    IBOutlet NSPopUpButton *destButton;
+    IBOutlet NSPopUpButton *_destButton;
 
-    NSImage *docImg;
+    NSImage *_docImg;
 
-    NSURL *destination;
-    BOOL customDestination;
+    NSURL *_destination;
+    BOOL _customDestination;
 
     SBQueue *_queue;
 }

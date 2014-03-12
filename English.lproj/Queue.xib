@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="_autoStartOption" destination="41" id="cHt-hh-1fu"/>
                 <outlet property="_countLabel" destination="12" id="BMB-K6-Foo"/>
+                <outlet property="_destButton" destination="66" id="Tfd-Ed-si6"/>
                 <outlet property="_metadataOption" destination="39" id="MeV-UG-OYW"/>
                 <outlet property="_open" destination="16" id="r2p-1j-93j"/>
                 <outlet property="_optimizeOption" destination="37" id="eOf-57-gHN"/>
@@ -16,9 +17,9 @@
                 <outlet property="_organizeGroupsOption" destination="93" id="GHr-Mj-KXS"/>
                 <outlet property="_progressIndicator" destination="91" id="Kds-4b-YzV"/>
                 <outlet property="_start" destination="14" id="V2n-b3-u1j"/>
+                <outlet property="_tableScrollView" destination="3" id="AjG-kV-Ymx"/>
+                <outlet property="_tableView" destination="7" id="N5e-Ro-a6f"/>
                 <outlet property="destButton" destination="66" id="76"/>
-                <outlet property="tableScrollView" destination="3" id="58"/>
-                <outlet property="tableView" destination="7" id="28"/>
                 <outlet property="window" destination="1" id="25"/>
             </connections>
         </customObject>
@@ -185,7 +186,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <popUpButtonCell key="cell" type="push" title="Same as file" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="69" id="67">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
+                                                    <font key="font" metaFont="menu"/>
                                                     <menu key="menu" title="OtherViews" id="68">
                                                         <items>
                                                             <menuItem title="Same as file" state="on" id="69">

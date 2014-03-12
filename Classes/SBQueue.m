@@ -37,7 +37,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 @implementation SBQueue
 
 @synthesize status = _status, destination = _destination;
-@synthesize optimize = _optimize, fetchMetadata = _fetchMetadata, organizeGroups = _organizeGroups;
+@synthesize optimize = _optimize;
 @synthesize items = _items, URL = _URL, queue = _queue;
 
 - (instancetype)initWithURL:(NSURL *)queueURL {
@@ -137,177 +137,6 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
     return [indexes autorelease];
 }
 
-#pragma mark - item preprocessing
-
-- (NSArray *)loadSubtitles:(NSURL *)url {
-    NSError *outError;
-    NSMutableArray *tracksArray = [[NSMutableArray alloc] init];
-    NSArray *directory = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[url URLByDeletingLastPathComponent]
-                                                       includingPropertiesForKeys:nil
-                                                                          options:NSDirectoryEnumerationSkipsSubdirectoryDescendants |
-                          NSDirectoryEnumerationSkipsHiddenFiles |
-                          NSDirectoryEnumerationSkipsPackageDescendants
-                                                                            error:nil];
-
-    for (NSURL *dirUrl in directory) {
-        if ([[dirUrl pathExtension] isEqualToString:@"srt"]) {
-            NSComparisonResult result;
-            NSString *movieFilename = [[url URLByDeletingPathExtension] lastPathComponent];
-            NSString *subtitleFilename = [[dirUrl URLByDeletingPathExtension] lastPathComponent];
-            NSRange range = { 0, [movieFilename length] };
-
-            if ([movieFilename length] <= [subtitleFilename length]) {
-                result = [subtitleFilename compare:movieFilename options:NSCaseInsensitiveSearch range:range];
-
-                if (result == NSOrderedSame) {
-                    MP42FileImporter *fileImporter = [[[MP42FileImporter alloc] initWithURL:dirUrl
-                                                                                      error:&outError] autorelease];
-
-                    for (MP42Track *track in fileImporter.tracks) {
-                        [tracksArray addObject:track];
-                    }
-                }
-            }
-        }
-    }
-
-    return [tracksArray autorelease];
-}
-
-- (MP42Image *)loadArtwork:(NSURL *)url {
-    NSData *artworkData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
-    if (artworkData && [artworkData length]) {
-        MP42Image *artwork = [[MP42Image alloc] initWithData:artworkData type:MP42_ART_JPEG];
-        if (artwork != nil) {
-            return [artwork autorelease];
-        }
-    }
-
-    return nil;
-}
-
-- (MP42Metadata *)searchMetadataForFile:(NSURL *)url {
-    id currentSearcher = nil;
-    MP42Metadata *metadata = nil;
-
-    // Parse FileName and search for metadata
-    NSDictionary *parsed = [MetadataImporter parseFilename:[url lastPathComponent]];
-    NSString *type = (NSString *)[parsed valueForKey:@"type"];
-    if ([@"movie" isEqualToString:type]) {
-		currentSearcher = [MetadataImporter defaultMovieProvider];
-		NSString *language = [MetadataImporter defaultMovieLanguage];
-		NSArray *results = [currentSearcher searchMovie:[parsed valueForKey:@"title"] language:language];
-        if ([results count])
-			metadata = [currentSearcher loadMovieMetadata:[results objectAtIndex:0] language:language];
-    } else if ([@"tv" isEqualToString:type]) {
-		currentSearcher = [MetadataImporter defaultTVProvider];
-		NSString *language = [MetadataImporter defaultTVLanguage];
-		NSArray *results = [currentSearcher searchTVSeries:[parsed valueForKey:@"seriesName"]
-                                                  language:language seasonNum:[parsed valueForKey:@"seasonNum"]
-                                                episodeNum:[parsed valueForKey:@"episodeNum"]];
-        if ([results count])
-			metadata = [currentSearcher loadTVMetadata:[results objectAtIndex:0] language:language];
-    }
-
-    if (metadata.artworkThumbURLs && [metadata.artworkThumbURLs count]) {
-        NSURL *artworkURL = nil;
-        if ([type isEqualToString:@"movie"]) {
-            artworkURL = [metadata.artworkFullsizeURLs objectAtIndex:0];
-        } else if ([type isEqualToString:@"tv"]) {
-            if ([metadata.artworkFullsizeURLs count] > 1) {
-                int i = 0;
-                for (NSString *artworkProviderName in metadata.artworkProviderNames) {
-                    NSArray *a = [artworkProviderName componentsSeparatedByString:@"|"];
-                    if ([a count] > 1 && ![[a objectAtIndex:1] isEqualToString:@"episode"]) {
-                        artworkURL = [metadata.artworkFullsizeURLs objectAtIndex:i];
-                        break;
-                    }
-                    i++;
-                }
-            } else {
-                artworkURL = [metadata.artworkFullsizeURLs objectAtIndex:0];
-            }
-        }
-
-        MP42Image *artwork = [self loadArtwork:artworkURL];
-
-        if (artwork)
-            [metadata.artworks addObject:artwork];
-    }
-
-    return metadata;
-}
-
-- (MP42File *)prepareQueueItem:(NSURL*)url error:(NSError**)outError {
-    NSString *type;
-    MP42File *mp4File = nil;
-
-    [url getResourceValue:&type forKey:NSURLTypeIdentifierKey error:outError];
-
-    if ([type isEqualToString:@"com.apple.m4a-audio"] || [type isEqualToString:@"com.apple.m4v-video"] || [type isEqualToString:@"public.mpeg-4"]) {
-        mp4File = [[MP42File alloc] initWithExistingFile:url andDelegate:self];
-    } else {
-        mp4File = [[MP42File alloc] initWithDelegate:self];
-        MP42FileImporter *fileImporter = [[MP42FileImporter alloc] initWithURL:url
-                                                                         error:outError];
-
-        for (MP42Track *track in fileImporter.tracks) {
-            if ([track.format isEqualToString:MP42AudioFormatAC3]) {
-                if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioConvertAC3"] boolValue]) {
-                    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepAC3"] boolValue] ||
-                        ![(MP42AudioTrack *)track fallbackTrack]) {
-                        MP42AudioTrack *copy = [track copy];
-                        [copy setNeedConversion:YES];
-                        [copy setMixdownType:SBDolbyPlIIMixdown];
-
-                        [(MP42AudioTrack *)track setFallbackTrack:copy];
-
-                        [mp4File addTrack:copy];
-
-                        [copy release];
-                    } else {
-                        track.needConversion = YES;
-                    }
-                }
-            }
-
-            if ([track.format isEqualToString:MP42AudioFormatDTS] ||
-                ([track.format isEqualToString:MP42SubtitleFormatVobSub] && [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBSubtitleConvertBitmap"] boolValue]))
-                track.needConversion = YES;
-
-            if (isTrackMuxable(track.format) || trackNeedConversion(track.format))
-                [mp4File addTrack:track];
-        }
-        [fileImporter release];
-    }
-
-    // Search for external subtitles files
-    NSArray *subtitles = [self loadSubtitles:url];
-    for (MP42SubtitleTrack *subTrack in subtitles) {
-        [mp4File addTrack:subTrack];
-    }
-
-    // Search for metadata
-    if (self.fetchMetadata) {
-        MP42Metadata *metadata = [self searchMetadataForFile:url];
-
-        for (MP42Track *track in mp4File.tracks)
-            if ([track isKindOfClass:[MP42VideoTrack class]]) {
-                int hdVideo = isHdVideo([((MP42VideoTrack *) track) trackWidth], [((MP42VideoTrack *) track) trackHeight]);
-
-                if (hdVideo)
-                    [mp4File.metadata setTag:@(hdVideo) forKey:@"HD Video"];
-            }
-
-        [[mp4File metadata] mergeMetadata:metadata];
-    }
-    
-    if (self.organizeGroups)
-        [mp4File organizeAlternateGroups];
-    
-    return [mp4File autorelease];
-}
-
 #pragma mark - Queue control
 
 - (void)disableSleep {
@@ -322,8 +151,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
     }
 }
 
-- (void)start
-{
+- (void)start {
     if (self.status == SBQueueStatusWorking) {
         return;
     } else {
@@ -428,7 +256,8 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
     // The file has been added directly to the queue
     if (!_currentMP4 && item.URL) {
-        _currentMP4 = [self prepareQueueItem:item.URL error:outError];
+        [item prepareItem:outError];
+        _currentMP4 = item.mp4File;
     }
 
     NSDictionary *dict = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[_currentMP4.URL path] error:NULL];
@@ -461,6 +290,10 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
 - (void)stop {
     _cancelled = YES;
+}
+
+- (void)progressStatus:(CGFloat)progress {
+    NSLog(@"%f", progress);
 }
 
 /**

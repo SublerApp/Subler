@@ -41,16 +41,12 @@ extern NSString *SBQueueCancelledNotification;
     BOOL            _cancelled;
 
     BOOL _optimize;
-    BOOL _fetchMetadata;
-    BOOL _organizeGroups;
 }
 
 @property (atomic, readonly) SBQueueStatus status;
 
 @property (atomic, copy) NSURL *destination;
 @property (atomic) BOOL optimize;
-@property (atomic) BOOL fetchMetadata;
-@property (atomic) BOOL organizeGroups;
 
 - (instancetype)initWithURL:(NSURL *)queueURL;
 
