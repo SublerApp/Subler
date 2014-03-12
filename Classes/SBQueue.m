@@ -16,8 +16,6 @@
 #import <MP42Foundation/MP42Image.h>
 #import <MP42Foundation/MP42Utilities.h>
 
-static NSString *fileType = @"mp4";
-
 NSString *SBQueueWorkingNotification = @"SBQueueWorkingNotification";
 NSString *SBQueueCompletedNotification = @"SBQueueCompletedNotification";
 NSString *SBQueueFailedNotification = @"SBQueueFailedNotification";
@@ -30,14 +28,18 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 @property (nonatomic, copy) NSURL *URL;
 @property (nonatomic, retain) NSMutableArray *items;
 
+@property (atomic, retain) MP42File *currentMP4;
+@property (nonatomic) NSUInteger currentIndex;
+
 @property (nonatomic) dispatch_queue_t queue;
 
 @end
 
 @implementation SBQueue
 
-@synthesize status = _status, destination = _destination;
+@synthesize status = _status;
 @synthesize optimize = _optimize;
+@synthesize currentMP4 = _currentMP4, currentIndex = _currentIndex;
 @synthesize items = _items, URL = _URL, queue = _queue;
 
 - (instancetype)initWithURL:(NSURL *)queueURL {
@@ -151,6 +153,9 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
     }
 }
 
+/*
+ * Starts the queue.
+ */
 - (void)start {
     if (self.status == SBQueueStatusWorking) {
         return;
@@ -169,6 +174,11 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
             @autoreleasepool {
                 __block SBQueueItem *item = nil;
 
+                // Save the queue
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self saveQueueToDisk];
+                });
+
                 // Get the first item available in the queue
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     item = [[self firstItemInQueue] retain];
@@ -179,7 +189,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
                     break;
                 }
 
-                [self handleSBStatusWorking];
+                [self handleSBStatusWorking:0];
                 noErr = [self processItem:item error:&outError];
 
                 // Check results
@@ -190,7 +200,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
                     break;
                 } else if (noErr) {
                     if (self.optimize) {
-                        noErr = [_currentMP4 optimize];
+                        noErr = [self.currentMP4 optimize];
                     }
                 }
 
@@ -198,17 +208,8 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
                     item.status = SBQueueItemStatusCompleted;
                 } else {
                     item.status = SBQueueItemStatusFailed;
-                    if (outError) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [NSApp presentError:outError];
-                        });
-                    }
+                    [self handleSBStatusFailed:outError];
                 }
-
-                // Save the queue
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self saveQueueToDisk];
-                });
 
                 [item release];
             }
@@ -242,23 +243,16 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
     BOOL noErr = YES;
 
-    _currentMP4 = [item mp4File];
-    [_currentMP4 setDelegate:self];
-
-    // Set the destination url
-    if (![item destURL]) {
-        if (!_currentMP4 && self.destination /*&& customDestination*/) {
-            item.destURL = [[[self.destination URLByAppendingPathComponent:[item.URL lastPathComponent]] URLByDeletingPathExtension] URLByAppendingPathExtension:fileType];
-        } else {
-            item.destURL = [[item.URL URLByDeletingPathExtension] URLByAppendingPathExtension:fileType];
-        }
-    }
+    self.currentMP4 = [item mp4File];
+    self.currentIndex = [self.items indexOfObject:item];
 
     // The file has been added directly to the queue
     if (!_currentMP4 && item.URL) {
         [item prepareItem:outError];
-        _currentMP4 = item.mp4File;
+        self.currentMP4 = item.mp4File;
     }
+
+    self.currentMP4.delegate = self;
 
     NSDictionary *dict = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[_currentMP4.URL path] error:NULL];
     NSNumber *freeSpace = [dict objectForKey:NSFileSystemFreeSize];
@@ -266,16 +260,16 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
         NSLog(@"Not enough disk space");
     }
 
-    // We have an existing mp4 file, update it
     if (!_cancelled) {
-        if ([_currentMP4 hasFileRepresentation])
-            noErr = [_currentMP4 updateMP4FileWithAttributes:attributes error:outError];
-        // Write the new file to disk
-        else if (_currentMP4 && item.destURL) {
-            [attributes addEntriesFromDictionary:[item attributes]];
-            noErr = [_currentMP4 writeToUrl:[item destURL]
-                               withAttributes:attributes
-                                        error:outError];
+        if ([self.currentMP4 hasFileRepresentation]) {
+            // We have an existing mp4 file, update it
+            noErr = [self.currentMP4 updateMP4FileWithAttributes:attributes error:outError];
+        } else if (self.currentMP4 && item.destURL) {
+            // Write the new file to disk
+            [attributes addEntriesFromDictionary:item.attributes];
+            noErr = [self.currentMP4 writeToUrl:item.destURL
+                                 withAttributes:attributes
+                                          error:outError];
         }
     }
 
@@ -288,20 +282,26 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
     return noErr;
 }
 
+/**
+ * Stops the queue and abort the current work.
+ */
 - (void)stop {
     _cancelled = YES;
+    [self.currentMP4 cancel];
 }
 
 - (void)progressStatus:(CGFloat)progress {
-    NSLog(@"%f", progress);
+    [self handleSBStatusWorking:progress];
 }
 
 /**
  * Processes SBQueueStatusWorking state information. Current implementation just
  * sends SBQueueWorkingNotification.
  */
-- (void)handleSBStatusWorking {
-    [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueWorkingNotification object:self];
+- (void)handleSBStatusWorking:(CGFloat)progress {
+    NSString *info = [NSString stringWithFormat:@"Processing file %ld of %lu.",(long)self.currentIndex + 1, (unsigned long)[self.items count]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueWorkingNotification object:self userInfo:@{@"ProgressString": info,
+                                                                                                                 @"Progress": @(progress)}];
 }
 
 /**
@@ -317,9 +317,9 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
  * Processes SBQueueStatusFailed state information. Current implementation just
  * sends SBQueueFailedNotification.
  */
-- (void)handleSBStatusFailed {
+- (void)handleSBStatusFailed:(NSError *)error {
     self.status = SBQueueStatusFailed;
-    [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueFailedNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueFailedNotification object:self userInfo:@{@"Error" : error}];
 }
 
 /**

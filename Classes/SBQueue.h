@@ -32,9 +32,9 @@ extern NSString *SBQueueCancelledNotification;
     SBQueueStatus      _status;
 
     MP42File           *_currentMP4;
+    NSUInteger          _currentIndex;
     NSMutableArray     *_items;
     NSURL              *_URL;
-    NSURL              *_destination;
 
     IOPMAssertionID _assertionID;
     IOReturn        _io_success;
@@ -44,8 +44,6 @@ extern NSString *SBQueueCancelledNotification;
 }
 
 @property (atomic, readonly) SBQueueStatus status;
-
-@property (atomic, copy) NSURL *destination;
 @property (atomic) BOOL optimize;
 
 - (instancetype)initWithURL:(NSURL *)queueURL;

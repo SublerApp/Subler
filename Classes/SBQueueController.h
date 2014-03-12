@@ -46,9 +46,6 @@
 
 + (SBQueueController *)sharedManager;
 
-- (void)start:(id)sender;
-- (void)stop:(id)sender;
-
 - (void)addItem:(SBQueueItem *)item;
 
 - (BOOL)saveQueueToDisk;

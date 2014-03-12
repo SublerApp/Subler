@@ -15,6 +15,7 @@
 typedef enum SBQueueItemStatus : NSInteger {
     SBQueueItemtatusUnknown = 0,
     SBQueueItemStatusReady,
+    SBQueueItemStatusEditing,
     SBQueueItemStatusWorking,
     SBQueueItemStatusCompleted,
     SBQueueItemStatusFailed,
@@ -34,7 +35,7 @@ typedef enum SBQueueItemStatus : NSInteger {
 @property (nonatomic, readonly) MP42File *mp4File;
 @property (nonatomic, readonly) NSDictionary *attributes;
 @property (nonatomic, readonly) NSURL *URL;
-@property (nonatomic, retain, readwrite) NSURL *destURL;
+@property (nonatomic, copy, readwrite) NSURL *destURL;
 
 @property (nonatomic, readwrite) SBQueueItemStatus status;
 

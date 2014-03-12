@@ -13,6 +13,7 @@
 
 #import <MP42Foundation/MP42Utilities.h>
 
+static NSString *fileType = @"mp4";
 
 #define SublerBatchTableViewDataType @"SublerBatchTableViewDataType"
 #define kOptionsPanelHeight 88
@@ -20,6 +21,9 @@
 @interface SBQueueController () <NSTableViewDelegate, NSTableViewDataSource, SBTableViewDelegate>
 
 @property (readonly) SBQueue *queue;
+
+- (void)start:(id)sender;
+- (void)stop:(id)sender;
 
 - (void)updateUI;
 - (void)updateDockTile;
@@ -86,21 +90,31 @@
 
     [_tableView registerForDraggedTypes: [NSArray arrayWithObjects: NSFilenamesPboardType, SublerBatchTableViewDataType, nil]];
 
+    // Register to the queue notifications
     NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
 
     [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueWorkingNotification object:nil queue:mainQueue usingBlock:^(NSNotification *note) {
-        [_countLabel setStringValue:@"Working"];
+        NSDictionary *info = [note userInfo];
+        [_countLabel setStringValue:[info valueForKey:@"ProgressString"]];
+        [_progressIndicator setIndeterminate:NO];
+        [_progressIndicator setDoubleValue:[[info valueForKey:@"Progress"] doubleValue]];
     }];
 
     [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueCompletedNotification object:nil queue:mainQueue usingBlock:^(NSNotification *note) {
         [_progressIndicator setHidden:YES];
         [_progressIndicator stopAnimation:self];
         [_progressIndicator setDoubleValue:0];
+        [_progressIndicator setIndeterminate:YES];
         [_start setTitle:@"Start"];
         [_countLabel setStringValue:@"Done"];
 
         [self updateDockTile];
         [self updateUI];
+    }];
+
+    [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueFailedNotification object:nil queue:mainQueue usingBlock:^(NSNotification *note) {
+        NSDictionary *info = [note userInfo];
+        [NSApp presentError:[info valueForKey:@"Error"]];
     }];
 
     [self updateUI];
@@ -278,15 +292,7 @@
             NSMutableArray *items = [[NSMutableArray alloc] init];
 
             for (NSURL *url in [panel URLs]) {
-                SBQueueItem *item = [SBQueueItem itemWithURL:url];
-                if ([_metadataOption state] == NSOnState) {
-                    [item addAction:[[[SBQueueMetadataAction alloc] init] autorelease]];
-                    [item addAction:[[[SBQueueSubtitlesAction alloc] init] autorelease]];
-                }
-                if ([_organizeGroupsOption state] == NSOnState) {
-                    [item addAction:[[[SBQueueOrganizeGroupsAction alloc] init] autorelease]];
-                }
-
+                SBQueueItem *item = [self createItemWithURL:url];
                 [items addObject:item];
             }
 
@@ -412,20 +418,19 @@
 }
 
 - (IBAction)edit:(id)sender {
-    /*SBQueueItem *item = [[self.queue itemAtIndex:[tableView clickedRow]] retain];
+    SBQueueItem *item = [[self.queue itemAtIndex:[_tableView clickedRow]] retain];
     
     [self removeItems:[NSArray arrayWithObject:item]];
     [self updateUI];
 
-    MP42File *mp4;
     if (!item.mp4File)
-        mp4 = [self prepareQueueItem:item.URL error:NULL];
-    else
-        mp4 = item.mp4File;
+        [item prepareItem:NULL];
+
+    MP42File *mp4 = item.mp4File;
 
     SBDocument *doc = [[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:NULL];
     [doc setMp4File:mp4];
-    [item release];*/
+    [item release];
 }
 
 - (IBAction)showInFinder:(id)sender {
@@ -546,7 +551,7 @@
             NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
 
             for (NSURL *url in items) {
-                [queueItems addObject:[SBQueueItem itemWithURL:url]];
+                [queueItems addObject:[self createItemWithURL:url]];
                 [indexes addIndex:row];
             }
 
@@ -564,6 +569,22 @@
     }
 
     return NO;
+}
+
+- (SBQueueItem *)createItemWithURL:(NSURL *)url {
+    SBQueueItem *item = [SBQueueItem itemWithURL:url];
+
+    if ([_metadataOption state] == NSOnState) {
+        [item addAction:[[[SBQueueMetadataAction alloc] init] autorelease]];
+        [item addAction:[[[SBQueueSubtitlesAction alloc] init] autorelease]];
+    }
+    if ([_organizeGroupsOption state] == NSOnState) {
+        [item addAction:[[[SBQueueOrganizeGroupsAction alloc] init] autorelease]];
+    }
+
+    item.destURL = [[[_destination URLByAppendingPathComponent:[url lastPathComponent]] URLByDeletingPathExtension] URLByAppendingPathExtension:fileType];
+
+    return item;
 }
 
 - (void)addItem:(SBQueueItem *)item {

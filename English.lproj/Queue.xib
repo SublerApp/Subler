@@ -256,6 +256,13 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="U9H-ZG-j7u"/>
+                <menuItem title="Edit…" id="qHz-Zh-l5L">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="edit:" target="-2" id="4Pr-Wx-RXw"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="NnU-9u-KGQ"/>
                 <menuItem title="Reveal in Finder" id="8gi-57-i6u">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
