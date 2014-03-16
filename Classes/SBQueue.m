@@ -7,7 +7,6 @@
 //
 
 #import "SBQueue.h"
-#import "SBQueueItem.h"
 
 #import "MetadataImporter.h"
 
@@ -145,6 +144,18 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
         index = [self.items indexOfObject:item];
     });
     return index;
+}
+
+- (NSIndexSet *)indexesOfItemsWithStatus:(SBQueueItemStatus)status {
+    NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
+    dispatch_sync(self.itemsQueue, ^{
+        [self.items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if (((SBQueueItem *)obj).status == status) {
+                [indexes addIndex:idx];
+            }
+        }];
+    });
+    return indexes;
 }
 
 - (void)insertItem:(SBQueueItem *)anItem atIndex:(NSUInteger)index {
@@ -314,6 +325,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 #endif
 
     [attributes release];
+
     return noErr;
 }
 

@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <IOKit/pwr_mgt/IOPMLib.h>
 
-@class SBQueueItem;
+#import "SBQueueItem.h"
+
 @class MP42File;
 
 typedef NS_ENUM(NSUInteger, SBQueueStatus) {
@@ -58,6 +59,7 @@ extern NSString *SBQueueCancelledNotification;
 
 - (SBQueueItem *)itemAtIndex:(NSUInteger)index;
 - (NSUInteger)indexOfItem:(SBQueueItem *)item;
+- (NSIndexSet *)indexesOfItemsWithStatus:(SBQueueItemStatus)status;
 - (NSArray *)itemsAtIndexes:(NSIndexSet *)indexes;
 
 - (void)insertItem:(SBQueueItem *)anItem atIndex:(NSUInteger)index;

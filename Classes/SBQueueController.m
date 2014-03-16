@@ -93,14 +93,14 @@ static NSString *fileType = @"mp4";
     // Register to the queue notifications
     NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
 
-    [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueWorkingNotification object:nil queue:mainQueue usingBlock:^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueWorkingNotification object:self.queue queue:mainQueue usingBlock:^(NSNotification *note) {
         NSDictionary *info = [note userInfo];
         [_countLabel setStringValue:[info valueForKey:@"ProgressString"]];
         [_progressIndicator setIndeterminate:NO];
         [_progressIndicator setDoubleValue:[[info valueForKey:@"Progress"] doubleValue]];
     }];
 
-    [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueCompletedNotification object:nil queue:mainQueue usingBlock:^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueCompletedNotification object:self.queue queue:mainQueue usingBlock:^(NSNotification *note) {
         [_progressIndicator setHidden:YES];
         [_progressIndicator stopAnimation:self];
         [_progressIndicator setDoubleValue:0];
@@ -112,7 +112,7 @@ static NSString *fileType = @"mp4";
         [self updateUI];
     }];
 
-    [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueFailedNotification object:nil queue:mainQueue usingBlock:^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueFailedNotification object:self.queue queue:mainQueue usingBlock:^(NSNotification *note) {
         NSDictionary *info = [note userInfo];
         [NSApp presentError:[info valueForKey:@"Error"]];
     }];
@@ -443,7 +443,7 @@ static NSString *fileType = @"mp4";
 }
 
 - (IBAction)removeCompletedItems:(id)sender {
-    NSIndexSet *indexes = [self.queue removeCompletedItems];
+    NSIndexSet *indexes = [self.queue indexesOfItemsWithStatus:SBQueueItemStatusCompleted];
 
     if ([indexes count]) {
         if ([NSTableView instancesRespondToSelector:@selector(beginUpdates)]) {
@@ -451,6 +451,7 @@ static NSString *fileType = @"mp4";
             [_tableView beginUpdates];
             [_tableView removeRowsAtIndexes:indexes withAnimation:NSTableViewAnimationEffectFade];
             [_tableView endUpdates];
+            [self.queue removeItemsAtIndexes:indexes];
 #endif
         } else {
             [_tableView reloadData];
@@ -478,9 +479,14 @@ static NSString *fileType = @"mp4";
         }
     }
 
-    if (action == @selector(edit:))
-        return YES;
-    
+    if (action == @selector(edit:)) {
+        if ([_tableView clickedRow] != -1) {
+            SBQueueItem *item = [self.queue itemAtIndex:[_tableView clickedRow]];
+            if (item.status == SBQueueItemStatusReady)
+                return YES;
+        }
+    }
+
     if (action == @selector(removeCompletedItems:))
         return YES;
 
