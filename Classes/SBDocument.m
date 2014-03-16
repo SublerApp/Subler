@@ -720,11 +720,17 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     importWindow = [[SBFileImport alloc] initWithDelegate:self andFiles:fileURLs error:&error];
 
-    if (importWindow)
-        [NSApp beginSheet:[importWindow window] modalForWindow:documentWindow
-            modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:importWindow];
-    else if (error)
+    if (importWindow) {
+		if ([importWindow onlyContainsSubtitleTracks]) { //execute always. Maybe we should do this only for subtitle
+			[importWindow addTracks:nil];
+			[self sheetDidEnd:nil returnCode:NSOKButton contextInfo:nil];
+		} else { // show the dialog
+			[NSApp beginSheet:[importWindow window] modalForWindow:documentWindow
+				modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:importWindow];
+		}
+    } else if (error) {
             [self presentError:error modalForWindow:documentWindow delegate:nil didPresentSelector:NULL contextInfo:nil];
+    }
 }
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;{

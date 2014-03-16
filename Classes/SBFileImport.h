@@ -33,6 +33,8 @@
 - (IBAction)closeWindow:(id)sender;
 - (IBAction)addTracks:(id)sender;
 
+- (BOOL)onlyContainsSubtitleTracks;
+
 - (IBAction)checkSelected:(id)sender;
 - (IBAction)uncheckSelected:(id)sender;
 

@@ -35,7 +35,7 @@
 	return self;
 }
 
-- (void)awakeFromNib
+- (void)_prepareActionArray
 {
     _importCheckArray = [[NSMutableArray alloc] initWithCapacity:[_tracks count]];
     _actionArray = [[NSMutableArray alloc] initWithCapacity:[_tracks count]];
@@ -84,8 +84,24 @@
         [importMetadata setEnabled:YES];
     else
         [importMetadata setEnabled:NO];
+}
 
+- (void)awakeFromNib
+{
+	[self _prepareActionArray];
     [addTracksButton setEnabled:YES];
+}
+
+- (BOOL)onlyContainsSubtitleTracks
+{
+	BOOL onlySubtitle = YES;
+    for (id track in _tracks) {
+        if ([track isKindOfClass:[MP42Track class]]) {
+			if (![track isMemberOfClass:[MP42SubtitleTrack class]])
+				onlySubtitle = NO;
+		}
+    }
+	return onlySubtitle;
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)t
@@ -318,6 +334,9 @@
 
 - (IBAction)addTracks:(id)sender
 {
+    if (!_actionArray) // if add tracks is called directly, need to prepare actions
+        [self _prepareActionArray];
+
     NSMutableArray *tracks = [[NSMutableArray alloc] init];
     NSInteger i = 0;
 
