@@ -28,10 +28,12 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 @property (nonatomic, copy) NSURL *URL;
 @property (nonatomic, retain) NSMutableArray *items;
 
-@property (atomic, retain) MP42File *currentMP4;
-@property (nonatomic) NSUInteger currentIndex;
+@property (atomic, retain) SBQueueItem *currentItem;
+@property (atomic) NSUInteger currentIndex;
+@property (atomic) BOOL cancelled;
 
-@property (nonatomic) dispatch_queue_t queue;
+@property (nonatomic) dispatch_queue_t workQueue;
+@property (nonatomic) dispatch_queue_t itemsQueue;
 
 @end
 
@@ -39,13 +41,15 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
 @synthesize status = _status;
 @synthesize optimize = _optimize;
-@synthesize currentMP4 = _currentMP4, currentIndex = _currentIndex;
-@synthesize items = _items, URL = _URL, queue = _queue;
+@synthesize currentItem = _currentItem, currentIndex = _currentIndex;
+@synthesize cancelled = _cancelled;
+@synthesize items = _items, itemsQueue = _itemsQueue, URL = _URL, workQueue = _workQueue;
 
 - (instancetype)initWithURL:(NSURL *)queueURL {
     self = [super init];
     if (self) {
-        _queue = dispatch_queue_create("org.subler.Queue", NULL);
+        _workQueue = dispatch_queue_create("org.subler.WorkQueue", NULL);
+        _itemsQueue = dispatch_queue_create("org.subler.ItemsQueue", NULL);
         _URL = [queueURL copy];
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:[queueURL path]]) {
@@ -71,70 +75,106 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 }
 
 - (BOOL)saveQueueToDisk {
-    return [NSKeyedArchiver archiveRootObject:self.items toFile:[self.URL path]];
+    __block BOOL noErr = YES;
+    dispatch_sync(self.itemsQueue, ^{
+        noErr = [NSKeyedArchiver archiveRootObject:self.items toFile:[self.URL path]];
+    });
+    return noErr;
 }
 
 
 - (SBQueueItem *)firstItemInQueue
 {
-    for (SBQueueItem *item in self.items)
-        if ((item.status != SBQueueItemStatusCompleted) && (item.status != SBQueueItemStatusFailed))
-            return item;
-
-    return nil;
+    __block SBQueueItem *firstItem = nil;
+    dispatch_sync(self.itemsQueue, ^{
+        for (SBQueueItem *item in self.items) {
+            if ((item.status != SBQueueItemStatusCompleted) && (item.status != SBQueueItemStatusFailed)) {
+                firstItem = [item retain];
+                break;
+            }
+        }
+    });
+    return [firstItem autorelease];
 }
 
 #pragma mark - item management
 
 - (void)addItem:(SBQueueItem *)item {
-    [self.items addObject:item];
+    dispatch_sync(self.itemsQueue, ^{
+        [self.items addObject:item];
+    });
 }
 
 - (NSUInteger)count {
-    return [self.items count];
+    __block NSUInteger count = 0;
+    dispatch_sync(self.itemsQueue, ^{
+        count =  [self.items count];
+    });
+    return count;
 }
 
 - (NSUInteger)readyCount {
-    NSUInteger count = 0;
-    for (SBQueueItem *item in self.items)
-        if ([item status] != SBQueueItemStatusCompleted)
-            count++;
-
+    __block NSUInteger count = 0;
+    dispatch_sync(self.itemsQueue, ^{
+        for (SBQueueItem *item in self.items)
+            if ([item status] != SBQueueItemStatusCompleted)
+                count++;
+    });
     return count;
 }
 
 - (SBQueueItem *)itemAtIndex:(NSUInteger)index {
-    return [self.items objectAtIndex:index];
+    __block SBQueueItem *item = nil;
+    dispatch_sync(self.itemsQueue, ^{
+        item = [self.items objectAtIndex:index];
+    });
+    return item;
 }
 
 - (NSArray *)itemsAtIndexes:(NSIndexSet *)indexes {
-    return [self.items objectsAtIndexes:indexes];
+    __block NSArray *items = nil;
+    dispatch_sync(self.itemsQueue, ^{
+        items =  [self.items objectsAtIndexes:indexes];
+    });
+    return items;
 }
 
 - (NSUInteger)indexOfItem:(SBQueueItem *)item {
-    return [self.items indexOfObject:item];
+    __block NSUInteger index = NSNotFound;
+    dispatch_sync(self.itemsQueue, ^{
+        index = [self.items indexOfObject:item];
+    });
+    return index;
 }
 
 - (void)insertItem:(SBQueueItem *)anItem atIndex:(NSUInteger)index {
-    [self.items insertObject:anItem atIndex:index];
+    dispatch_sync(self.itemsQueue, ^{
+        [self.items insertObject:anItem atIndex:index];
+    });
 }
 
 - (void)removeItemsAtIndexes:(NSIndexSet *)indexes {
-    [self.items removeObjectsAtIndexes:indexes];
+    dispatch_sync(self.itemsQueue, ^{
+        [self.items removeObjectsAtIndexes:indexes];
+    });
 }
 
 - (void)removeItem:(SBQueueItem *)item {
-    [self.items removeObject:item];
+    dispatch_sync(self.itemsQueue, ^{
+        [self.items removeObject:item];
+    });
 }
 
 - (NSIndexSet *)removeCompletedItems {
     NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
 
-    for (SBQueueItem *item in self.items)
-        if ([item status] == SBQueueItemStatusCompleted)
-            [indexes addIndex:[self.items indexOfObject:item]];
+    dispatch_sync(self.itemsQueue, ^{
+        for (SBQueueItem *item in self.items)
+            if ([item status] == SBQueueItemStatusCompleted)
+                [indexes addIndex:[self.items indexOfObject:item]];
 
-    [self.items removeObjectsAtIndexes:indexes];
+        [self.items removeObjectsAtIndexes:indexes];
+    });
 
     return [indexes autorelease];
 }
@@ -166,52 +206,44 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
     // Enable sleep assertion
     [self disableSleep];
 
-    dispatch_async(self.queue, ^{
+    dispatch_async(self.workQueue, ^{
         NSError *outError = nil;
         BOOL noErr = NO;
 
         for (;;) {
             @autoreleasepool {
-                __block SBQueueItem *item = nil;
-
                 // Save the queue
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self saveQueueToDisk];
-                });
+                [self saveQueueToDisk];
 
                 // Get the first item available in the queue
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    item = [[self firstItemInQueue] retain];
-                    item.status = SBQueueItemStatusWorking;
-                });
+                self.currentItem = [[self firstItemInQueue] retain];
 
-                if (item == nil) {
+                if (!self.currentItem) {
                     break;
                 }
 
-                [self handleSBStatusWorking:0];
-                noErr = [self processItem:item error:&outError];
+                self.currentIndex = [self.items indexOfObject:self.currentItem];
+                self.currentItem.status = SBQueueItemStatusWorking;
+
+                [self handleSBStatusWorking:self.currentIndex];
+                noErr = [self processItem:self.currentItem optimize:self.optimize error:&outError];
 
                 // Check results
-                if (_cancelled) {
-                    item.status = SBQueueItemStatusCancelled;
-                    [item release];
+                if (self.cancelled) {
+                    self.currentItem.status = SBQueueItemStatusCancelled;
+                    [self.currentItem release];
                     [self handleSBStatusCancelled];
                     break;
-                } else if (noErr) {
-                    if (self.optimize) {
-                        noErr = [self.currentMP4 optimize];
-                    }
                 }
 
                 if (noErr) {
-                    item.status = SBQueueItemStatusCompleted;
+                    self.currentItem.status = SBQueueItemStatusCompleted;
                 } else {
-                    item.status = SBQueueItemStatusFailed;
+                    self.currentItem.status = SBQueueItemStatusFailed;
                     [self handleSBStatusFailed:outError];
                 }
 
-                [item release];
+                [self.currentItem release];
             }
 
             if (self.status == SBQueueStatusCancelled) {
@@ -231,7 +263,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 /**
  * Processes a SBQueueItem.
  */
-- (BOOL)processItem:(SBQueueItem *)item error:(NSError **)outError {
+- (BOOL)processItem:(SBQueueItem *)item optimize:(BOOL)optimize error:(NSError **)outError {
     NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue])
         [attributes setObject:@YES forKey:MP42GenerateChaptersPreviewTrack];
@@ -242,35 +274,38 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 #endif
 
     BOOL noErr = YES;
-
-    self.currentMP4 = [item mp4File];
-    self.currentIndex = [self.items indexOfObject:item];
+    MP42File *file = nil;
 
     // The file has been added directly to the queue
-    if (!_currentMP4 && item.URL) {
+    if (!item.mp4File && item.URL) {
         [item prepareItem:outError];
-        self.currentMP4 = item.mp4File;
+        file = item.mp4File;
     }
 
-    self.currentMP4.delegate = self;
+    file.delegate = self;
 
-    NSDictionary *dict = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[_currentMP4.URL path] error:NULL];
+    NSDictionary *dict = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[file.URL path] error:NULL];
     NSNumber *freeSpace = [dict objectForKey:NSFileSystemFreeSize];
-    if (freeSpace && [_currentMP4 dataSize] > [freeSpace longLongValue]) {
+    if (freeSpace && [file dataSize] > [freeSpace longLongValue]) {
         NSLog(@"Not enough disk space");
+        [self stop];
     }
 
-    if (!_cancelled) {
-        if ([self.currentMP4 hasFileRepresentation]) {
+    if (!self.cancelled) {
+        if ([file hasFileRepresentation]) {
             // We have an existing mp4 file, update it
-            noErr = [self.currentMP4 updateMP4FileWithAttributes:attributes error:outError];
-        } else if (self.currentMP4 && item.destURL) {
+            noErr = [file updateMP4FileWithAttributes:attributes error:outError];
+        } else if (file && item.destURL) {
             // Write the new file to disk
             [attributes addEntriesFromDictionary:item.attributes];
-            noErr = [self.currentMP4 writeToUrl:item.destURL
+            noErr = [file writeToUrl:item.destURL
                                  withAttributes:attributes
                                           error:outError];
         }
+    }
+
+    if (noErr && optimize) {
+        [file optimize];
     }
 
 #ifdef SB_SANDBOX
@@ -286,8 +321,8 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
  * Stops the queue and abort the current work.
  */
 - (void)stop {
-    _cancelled = YES;
-    [self.currentMP4 cancel];
+    self.cancelled = YES;
+    [self.currentItem.mp4File cancel];
 }
 
 - (void)progressStatus:(CGFloat)progress {
@@ -319,7 +354,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
  */
 - (void)handleSBStatusFailed:(NSError *)error {
     self.status = SBQueueStatusFailed;
-    [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueFailedNotification object:self userInfo:@{@"Error" : error}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueFailedNotification object:self userInfo:@{@"Error" : error != nil ? error : [NSNull null]}];
 }
 
 /**
@@ -332,7 +367,8 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 }
 
 - (void)dealloc {
-    dispatch_release(_queue);
+    dispatch_release(_workQueue);
+    dispatch_release(_itemsQueue);
 
     [_items release];
     [_URL release];

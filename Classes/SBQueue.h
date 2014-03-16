@@ -27,10 +27,11 @@ extern NSString *SBQueueCancelledNotification;
 
 @interface SBQueue : NSObject {
     @private
-    dispatch_queue_t   _queue;
+    dispatch_queue_t   _workQueue;
+    dispatch_queue_t   _itemsQueue;
     SBQueueStatus      _status;
 
-    MP42File           *_currentMP4;
+    SBQueueItem        *_currentItem;
     NSUInteger          _currentIndex;
     NSMutableArray     *_items;
     NSURL              *_URL;
