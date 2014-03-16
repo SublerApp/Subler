@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import <IOKit/pwr_mgt/IOPMLib.h>
 
 @class SBQueueItem;
