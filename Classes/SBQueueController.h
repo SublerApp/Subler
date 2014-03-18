@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <IOKit/pwr_mgt/IOPMLib.h>
 
 #import "SBQueue.h"
 
@@ -25,11 +24,11 @@
     IBOutlet NSScrollView   *_tableScrollView;
     IBOutlet SBTableView    *_tableView;
 
-    NSMutableDictionary *_options;
+    IBOutlet NSWindow *_detachedWindow;
     NSPopover *_popover;
 
+    NSMutableDictionary *_options;
     NSImage *_docImg;
-    NSURL *_destination;
 
     SBQueue *_queue;
 }

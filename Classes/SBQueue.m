@@ -227,7 +227,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
                 [self saveQueueToDisk];
 
                 // Get the first item available in the queue
-                self.currentItem = [[self firstItemInQueue] retain];
+                self.currentItem = [self firstItemInQueue];
 
                 if (!self.currentItem) {
                     break;
@@ -242,7 +242,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
                 // Check results
                 if (self.cancelled) {
                     self.currentItem.status = SBQueueItemStatusCancelled;
-                    [self.currentItem release];
+                    self.currentItem = nil;
                     [self handleSBStatusCancelled];
                     break;
                 }
@@ -254,7 +254,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
                     [self handleSBStatusFailed:outError];
                 }
 
-                [self.currentItem release];
+                self.currentItem = nil;
             }
 
             if (self.status == SBQueueStatusCancelled) {

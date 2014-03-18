@@ -9,11 +9,6 @@
 #import <Cocoa/Cocoa.h>
 
 @interface SBOptionsViewController : NSViewController {
-    IBOutlet NSButton *_optimizeOption;
-    IBOutlet NSButton *_metadataOption;
-    IBOutlet NSButton *_organizeGroupsOption;
-    IBOutlet NSButton *_autoStartOption;
-
     IBOutlet NSPopUpButton *_destButton;
 
     NSMutableDictionary *_options;

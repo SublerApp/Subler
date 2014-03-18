@@ -110,21 +110,50 @@ static NSString *fileType = @"mp4";
 
 - (void)initOptions {
     _options = [[NSMutableDictionary alloc] init];
-    [_options setObject:@YES forKey:@"Organize"];
-    [_options setObject:@YES forKey:@"Metadata"];
-    [_options setObject:@NO forKey:@"AutoStart"];
-    [_options setObject:@YES forKey:@"Optimize"];
+    [_options setObject:@YES forKey:@"SBQueueOrganize"];
+    [_options setObject:@YES forKey:@"SBQueueMetadata"];
+    [_options setObject:@NO forKey:@"SBQueueAutoStart"];
+    [_options setObject:@YES forKey:@"SBQueueOptimize"];
+
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]) {
+        [_options setObject:[NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]] forKey:@"SBQueueDestination"];
+    } else {
+        [_options setObject:nil forKey:@"SBQueueDestination"];
+    }
 }
 
-- (void)createPopover
-{
+- (NSURL *)queueURL {
+    NSURL *appSupportURL = nil;
+    NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
+                                                            NSUserDomainMask,
+                                                            YES);
+    if ([allPaths count]) {
+        appSupportURL = [NSURL fileURLWithPath:[[[allPaths lastObject] stringByAppendingPathComponent:@"Subler"]
+                                                stringByAppendingPathComponent:@"queue.sbqueue"] isDirectory:YES];
+        return appSupportURL;
+    } else {
+        return nil;
+    }
+}
+
+- (SBQueueStatus)status {
+    return self.queue.status;
+}
+
+- (BOOL)saveQueueToDisk {
+    return [self.queue saveQueueToDisk];
+}
+
+#pragma mark - NSPopover delegate
+
+- (void)createPopover {
     if (self.popover == nil) {
         // create and setup our popover
         _popover = [[NSPopover alloc] init];
 
         // the popover retains us and we retain the popover,
         // we drop the popover whenever it is closed to avoid a cycle
-        self.popover.contentViewController = [[SBOptionsViewController alloc] initWithOptions:self.options];
+        self.popover.contentViewController = [[[SBOptionsViewController alloc] initWithOptions:self.options] autorelease];
 
         self.popover.appearance = NSPopoverAppearanceMinimal;
         self.popover.animates = YES;
@@ -139,32 +168,17 @@ static NSString *fileType = @"mp4";
 }
 
 - (NSWindow *)detachableWindowForPopover:(NSPopover *)popover {
-    NSWindow *window = [[NSWindow alloc] init];
-    window.contentView = popover.contentViewController.view;
+    _detachedWindow.contentView = [[SBOptionsViewController alloc] initWithOptions:self.options].view;
 
-    return window;
+    return _detachedWindow;
 }
 
-- (NSURL *)queueURL {
-    NSURL *appSupportURL = nil;
-    NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
-                                                            NSUserDomainMask,
-                                                            YES);
-    if ([allPaths count]) {
-        appSupportURL = [NSURL fileURLWithPath:[[[allPaths lastObject] stringByAppendingPathComponent:@"Subler"] stringByAppendingPathComponent:@"queue.sbqueue"] isDirectory:YES];
-        return appSupportURL;
-    } else {
-        return nil;
-    }
+- (void)popoverDidClose:(NSNotification *)notification {
+    self.popover = nil;
 }
 
-- (SBQueueStatus)status {
-    return self.queue.status;
-}
+#pragma mark - UI methods
 
-- (BOOL)saveQueueToDisk {
-    return [self.queue saveQueueToDisk];
-}
 
 - (void)updateDockTile {
     NSUInteger count = [self.queue readyCount];
@@ -247,9 +261,6 @@ static NSString *fileType = @"mp4";
             [items release];
 
             [self updateUI];
-
-            //if ([_autoStartOption state])
-            //    [self start:self];
         }
     }];
 }
@@ -476,19 +487,20 @@ static NSString *fileType = @"mp4";
 - (SBQueueItem *)createItemWithURL:(NSURL *)url {
     SBQueueItem *item = [SBQueueItem itemWithURL:url];
 
-    if ([[self.options objectForKey:@"Metadata"] boolValue]) {
+    if ([[self.options objectForKey:@"SBQueueMetadata"] boolValue]) {
         [item addAction:[[[SBQueueMetadataAction alloc] init] autorelease]];
         [item addAction:[[[SBQueueSubtitlesAction alloc] init] autorelease]];
     }
-    if ([[self.options objectForKey:@"Organize"] boolValue]) {
+    if ([[self.options objectForKey:@"SBQueueOrganize"] boolValue]) {
         [item addAction:[[[SBQueueOrganizeGroupsAction alloc] init] autorelease]];
     }
 
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]) {
-        _destination = [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]];
+    NSURL *destination = [self.options objectForKey:@"SBQueueDestination"];
+    if (destination) {
+        destination = [[[destination URLByAppendingPathComponent:[url lastPathComponent]] URLByDeletingPathExtension] URLByAppendingPathExtension:fileType];
     }
 
-    item.destURL = [[[_destination URLByAppendingPathComponent:[url lastPathComponent]] URLByDeletingPathExtension] URLByAppendingPathExtension:fileType];
+    item.destURL = destination;
 
     return item;
 }
@@ -524,7 +536,7 @@ static NSString *fileType = @"mp4";
     if ([undo isUndoing] || [undo isRedoing])
         [self updateUI];
 
-    if ([[self.options objectForKey:@"Autostart"] boolValue])
+    if ([[self.options objectForKey:@"SBQueueAutoStart"] boolValue])
         [self start:self];
 
     [mutableIndexes release];

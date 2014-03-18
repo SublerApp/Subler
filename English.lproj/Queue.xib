@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="SBQueueController">
             <connections>
                 <outlet property="_countLabel" destination="12" id="BMB-K6-Foo"/>
+                <outlet property="_detachedWindow" destination="zHc-NF-Zeh" id="Cr1-ha-Wmx"/>
                 <outlet property="_open" destination="16" id="r2p-1j-93j"/>
                 <outlet property="_optionsBox" destination="57" id="M8z-YA-4ex"/>
                 <outlet property="_progressIndicator" destination="91" id="Kds-4b-YzV"/>
@@ -181,6 +182,16 @@
             </connections>
         </menu>
         <userDefaultsController representsSharedInstance="YES" id="46"/>
+        <window title="Queue Options" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="zHc-NF-Zeh" userLabel="Window - Detached Options">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="283" y="305" width="316" height="133"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <view key="contentView" id="hhb-jZ-DWa">
+                <rect key="frame" x="0.0" y="0.0" width="316" height="133"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </view>
+        </window>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>

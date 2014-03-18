@@ -40,40 +40,15 @@
 - (void)loadView {
     [super loadView];
     [self prepareDestPopup];
-    //[self prepareOptions];
-}
-
-- (void)prepareOptions {
-    if (self.options) {
-        [_optimizeOption setState:[[self.options objectForKey:@"Optimize"] boolValue]];
-        [_metadataOption setState:[[self.options objectForKey:@"Metadata"] boolValue]];
-        [_organizeGroupsOption setState:[[self.options objectForKey:@"Organize"] boolValue]];
-        [_autoStartOption setState:[[self.options objectForKey:@"AutoStart"] boolValue]];
-    }
 }
 
 - (void)prepareDestPopup {
     NSMenuItem *folderItem = nil;
 
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]) {
-        _destination = [[NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]] retain];
+    if ([self.options valueForKey:@"SBQueueDestination"]) {
+        _destination = [[self.options valueForKey:@"SBQueueDestination"] retain];
 
-#ifdef SB_SANDBOX
-        if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestinationBookmark"]) {
-            BOOL bookmarkDataIsStale;
-            NSError *error;
-            NSData *bookmarkData = [[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestinationBookmark"];
-
-            [destination release];
-            destination = [[NSURL
-                            URLByResolvingBookmarkData:bookmarkData
-                            options:NSURLBookmarkResolutionWithSecurityScope
-                            relativeToURL:nil
-                            bookmarkDataIsStale:&bookmarkDataIsStale
-                            error:&error] retain];
-        }
-#endif
-        if (![[NSFileManager defaultManager] fileExistsAtPath:[_destination path] isDirectory:nil])
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[_destination path] isDirectory:nil])
             _destination = nil;
     }
 
@@ -128,21 +103,7 @@
             [_destButton selectItem:folderItem];
             _customDestination = YES;
 
-#ifdef SB_SANDBOX
-            NSData *bookmark = nil;
-            NSError *error = nil;
-            bookmark = [[panel URL] bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope
-                             includingResourceValuesForKeys:nil
-                                              relativeToURL:nil // Make it app-scoped
-                                                      error:&error];
-            if (error) {
-                NSLog(@"Error creating bookmark for URL (%@): %@", [panel URL], error);
-                [NSApp presentError:error];
-            }
-
-            [[NSUserDefaults standardUserDefaults] setValue:bookmark forKey:@"SBQueueDestinationBookmark"];
-#endif
-            [[NSUserDefaults standardUserDefaults] setValue:[[panel URL] path] forKey:@"SBQueueDestination"];
+            [self.options setValue:[panel URL] forKey:@"SBQueueDestination"];
             [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBQueueDestinationSelected"];
         }
         else
