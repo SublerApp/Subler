@@ -22,22 +22,14 @@
     IBOutlet NSTextField *_countLabel;
     IBOutlet NSProgressIndicator *_progressIndicator;
 
-    IBOutlet NSButton *_optimizeOption;
-    IBOutlet NSButton *_metadataOption;
-    IBOutlet NSButton *_organizeGroupsOption;
-    IBOutlet NSButton *_autoStartOption;
-    IBOutlet NSBox    *_optionsBox;
-    BOOL _optionsStatus;
-
     IBOutlet NSScrollView   *_tableScrollView;
     IBOutlet SBTableView    *_tableView;
 
-    IBOutlet NSPopUpButton *_destButton;
+    NSMutableDictionary *_options;
+    NSPopover *_popover;
 
     NSImage *_docImg;
-
     NSURL *_destination;
-    BOOL _customDestination;
 
     SBQueue *_queue;
 }
@@ -60,7 +52,5 @@
 - (IBAction)toggleOptions:(id)sender;
 
 - (IBAction)open:(id)sender;
-- (IBAction)chooseDestination:(id)sender;
-- (IBAction)destination:(id)sender;
 
 @end

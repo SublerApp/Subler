@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13D12" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13D17" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1060" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5053"/>
@@ -7,19 +7,13 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBQueueController">
             <connections>
-                <outlet property="_autoStartOption" destination="41" id="cHt-hh-1fu"/>
                 <outlet property="_countLabel" destination="12" id="BMB-K6-Foo"/>
-                <outlet property="_destButton" destination="66" id="Tfd-Ed-si6"/>
-                <outlet property="_metadataOption" destination="39" id="MeV-UG-OYW"/>
                 <outlet property="_open" destination="16" id="r2p-1j-93j"/>
-                <outlet property="_optimizeOption" destination="37" id="eOf-57-gHN"/>
                 <outlet property="_optionsBox" destination="57" id="M8z-YA-4ex"/>
-                <outlet property="_organizeGroupsOption" destination="93" id="GHr-Mj-KXS"/>
                 <outlet property="_progressIndicator" destination="91" id="Kds-4b-YzV"/>
                 <outlet property="_start" destination="14" id="V2n-b3-u1j"/>
                 <outlet property="_tableScrollView" destination="3" id="AjG-kV-Ymx"/>
                 <outlet property="_tableView" destination="7" id="N5e-Ro-a6f"/>
-                <outlet property="destButton" destination="66" id="76"/>
                 <outlet property="window" destination="1" id="25"/>
             </connections>
         </customObject>
@@ -28,15 +22,15 @@
         <window title="Queue" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="SBQueuePosition" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="233" y="759" width="488" height="421"/>
+            <rect key="contentRect" x="233" y="759" width="488" height="332"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
-            <value key="minSize" type="size" width="454" height="200"/>
+            <value key="minSize" type="size" width="300" height="200"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="488" height="421"/>
+                <rect key="frame" x="0.0" y="0.0" width="488" height="332"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="3">
-                        <rect key="frame" x="-1" y="135" width="490" height="287"/>
+                        <rect key="frame" x="-1" y="46" width="490" height="287"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="ix7-yM-0F6">
                             <rect key="frame" x="1" y="1" width="488" height="285"/>
@@ -93,14 +87,14 @@
                         </scroller>
                     </scrollView>
                     <box autoresizesSubviews="NO" borderType="none" id="57">
-                        <rect key="frame" x="-4" y="-30" width="496" height="166"/>
+                        <rect key="frame" x="-4" y="-4" width="496" height="51"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <view key="contentView">
-                            <rect key="frame" x="0.0" y="0.0" width="496" height="151"/>
+                            <rect key="frame" x="0.0" y="0.0" width="496" height="36"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" id="12">
-                                    <rect key="frame" x="16" y="133" width="186" height="17"/>
+                                    <rect key="frame" x="17" y="18" width="186" height="17"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Queue items" id="13">
                                         <font key="font" metaFont="system"/>
@@ -109,7 +103,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button verticalHuggingPriority="750" id="14">
-                                    <rect key="frame" x="349" y="123" width="70" height="32"/>
+                                    <rect key="frame" x="349" y="8" width="70" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <buttonCell key="cell" type="push" title="Start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="15">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -120,7 +114,7 @@
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" id="16">
-                                    <rect key="frame" x="415" y="123" width="38" height="32"/>
+                                    <rect key="frame" x="415" y="8" width="38" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <buttonCell key="cell" type="push" title="+" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="17">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -130,99 +124,11 @@
                                         <action selector="open:" target="-2" id="19"/>
                                     </connections>
                                 </button>
-                                <box autoresizesSubviews="NO" borderType="line" id="34">
-                                    <rect key="frame" x="-12" y="-3" width="521" height="133"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <view key="contentView">
-                                        <rect key="frame" x="1" y="1" width="519" height="117"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <subviews>
-                                            <button id="37">
-                                                <rect key="frame" x="32" y="83" width="80" height="18"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="check" title="Optimize" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="38">
-                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <binding destination="46" name="value" keyPath="values.SBQueueOptimize" id="48"/>
-                                                </connections>
-                                            </button>
-                                            <button id="39">
-                                                <rect key="frame" x="116" y="83" width="118" height="18"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="check" title="Fetch Metadata" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="40">
-                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <binding destination="46" name="value" keyPath="values.SBQueueMetadata" id="50"/>
-                                                </connections>
-                                            </button>
-                                            <button id="41">
-                                                <rect key="frame" x="369" y="83" width="89" height="18"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="check" title="Auto-Start" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="42">
-                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <binding destination="46" name="value" keyPath="values.SBQueueAutoStart" id="52"/>
-                                                </connections>
-                                            </button>
-                                            <button id="93">
-                                                <rect key="frame" x="238" y="83" width="129" height="18"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="check" title="Organize Groups" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="94">
-                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <binding destination="46" name="value" keyPath="values.SBQueueITunesGroups" id="96"/>
-                                                </connections>
-                                            </button>
-                                            <popUpButton verticalHuggingPriority="750" id="66">
-                                                <rect key="frame" x="227" y="44" width="180" height="26"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <popUpButtonCell key="cell" type="push" title="Same as file" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="69" id="67">
-                                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="menu"/>
-                                                    <menu key="menu" title="OtherViews" id="68">
-                                                        <items>
-                                                            <menuItem title="Same as file" state="on" id="69">
-                                                                <connections>
-                                                                    <action selector="destination:" target="-2" id="77"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem isSeparatorItem="YES" id="74"/>
-                                                            <menuItem title="Other…" id="70">
-                                                                <connections>
-                                                                    <action selector="chooseDestination:" target="-2" id="75"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                        </items>
-                                                    </menu>
-                                                </popUpButtonCell>
-                                            </popUpButton>
-                                            <textField verticalHuggingPriority="750" id="72">
-                                                <rect key="frame" x="113" y="50" width="109" height="17"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Default location:" id="73">
-                                                    <font key="font" metaFont="system"/>
-                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
-                                        </subviews>
-                                    </view>
-                                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </box>
                                 <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="53">
-                                    <rect key="frame" x="451" y="127" width="29" height="26"/>
+                                    <rect key="frame" x="444.99999962354099" y="8" width="38" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="54">
-                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSActionTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="54">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
@@ -230,7 +136,7 @@
                                     </connections>
                                 </button>
                                 <progressIndicator maxValue="100" indeterminate="YES" style="bar" id="91">
-                                    <rect key="frame" x="197" y="130" width="150" height="20"/>
+                                    <rect key="frame" x="197" y="15" width="150" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 </progressIndicator>
                             </subviews>
@@ -277,6 +183,7 @@
         <userDefaultsController representsSharedInstance="YES" id="46"/>
     </objects>
     <resources>
+        <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSFollowLinkFreestandingTemplate" width="10" height="10"/>
     </resources>
 </document>

@@ -7,6 +7,8 @@
 //
 
 #import "SBQueueController.h"
+#import "SBOptionsViewController.h"
+
 #import "SBQueueItem.h"
 #import "SBDocument.h"
 #import "SBTableView.h"
@@ -18,9 +20,12 @@ static NSString *fileType = @"mp4";
 #define SublerBatchTableViewDataType @"SublerBatchTableViewDataType"
 #define kOptionsPanelHeight 88
 
-@interface SBQueueController () <NSTableViewDelegate, NSTableViewDataSource, SBTableViewDelegate>
+@interface SBQueueController () <NSPopoverDelegate, NSTableViewDelegate, NSTableViewDataSource, SBTableViewDelegate>
 
 @property (readonly) SBQueue *queue;
+@property NSPopover *popover;
+
+@property NSMutableDictionary *options;
 
 - (void)start:(id)sender;
 - (void)stop:(id)sender;
@@ -28,8 +33,6 @@ static NSString *fileType = @"mp4";
 - (void)updateUI;
 - (void)updateDockTile;
 - (NSURL *)queueURL;
-- (NSMenuItem *)prepareDestPopupItem:(NSURL *)dest;
-- (void)prepareDestPopup;
 
 - (void)addItems:(NSArray *)items atIndexes:(NSIndexSet *)indexes;
 - (void)removeItems:(NSArray *)items;
@@ -40,6 +43,8 @@ static NSString *fileType = @"mp4";
 @implementation SBQueueController
 
 @synthesize queue = _queue;
+@synthesize popover = _popover;
+@synthesize options = _options;
 
 + (SBQueueController *)sharedManager {
     static dispatch_once_t pred;
@@ -65,30 +70,13 @@ static NSString *fileType = @"mp4";
     [_progressIndicator setHidden:YES];
     [_countLabel setStringValue:@"Empty"];
 
-    NSRect frame = [[self window] frame];
-    frame.size.height += kOptionsPanelHeight;
-    frame.origin.y -= kOptionsPanelHeight;
-
-    [[self window] setFrame:frame display:NO animate:NO];
-
-    frame = [[self window] frame];
-    frame.size.height -= kOptionsPanelHeight;
-    frame.origin.y += kOptionsPanelHeight;
-
-    [_tableScrollView setAutoresizingMask:NSViewNotSizable | NSViewMinYMargin];
-    [_optionsBox setAutoresizingMask:NSViewNotSizable | NSViewMinYMargin];
-
-    [[self window] setFrame:frame display:YES animate:NO];
-
-    [_tableScrollView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-    [_optionsBox setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin];
-
     _docImg = [[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode('MOOV')] retain];
     [_docImg setSize:NSMakeSize(16, 16)];
 
-    [self prepareDestPopup];
-
     [_tableView registerForDraggedTypes: [NSArray arrayWithObjects: NSFilenamesPboardType, SublerBatchTableViewDataType, nil]];
+
+    // Init options
+    [self initOptions];
 
     // Register to the queue notifications
     NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
@@ -120,6 +108,43 @@ static NSString *fileType = @"mp4";
     [self updateUI];
 }
 
+- (void)initOptions {
+    _options = [[NSMutableDictionary alloc] init];
+    [_options setObject:@YES forKey:@"Organize"];
+    [_options setObject:@YES forKey:@"Metadata"];
+    [_options setObject:@NO forKey:@"AutoStart"];
+    [_options setObject:@YES forKey:@"Optimize"];
+}
+
+- (void)createPopover
+{
+    if (self.popover == nil) {
+        // create and setup our popover
+        _popover = [[NSPopover alloc] init];
+
+        // the popover retains us and we retain the popover,
+        // we drop the popover whenever it is closed to avoid a cycle
+        self.popover.contentViewController = [[SBOptionsViewController alloc] initWithOptions:self.options];
+
+        self.popover.appearance = NSPopoverAppearanceMinimal;
+        self.popover.animates = YES;
+
+        // AppKit will close the popover when the user interacts with a user interface element outside the popover.
+        // note that interacting with menus or panels that become key only when needed will not cause a transient popover to close.
+        self.popover.behavior = NSPopoverBehaviorSemitransient;
+
+        // so we can be notified when the popover appears or closes
+        self.popover.delegate = self;
+    }
+}
+
+- (NSWindow *)detachableWindowForPopover:(NSPopover *)popover {
+    NSWindow *window = [[NSWindow alloc] init];
+    window.contentView = popover.contentViewController.view;
+
+    return window;
+}
+
 - (NSURL *)queueURL {
     NSURL *appSupportURL = nil;
     NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
@@ -139,72 +164,6 @@ static NSString *fileType = @"mp4";
 
 - (BOOL)saveQueueToDisk {
     return [self.queue saveQueueToDisk];
-}
-
-- (NSMenuItem *)prepareDestPopupItem:(NSURL*) dest {
-    NSMenuItem *folderItem = [[NSMenuItem alloc] initWithTitle:[dest lastPathComponent] action:@selector(destination:) keyEquivalent:@""];
-    [folderItem setTag:10];
-
-    NSImage *menuItemIcon = [[NSWorkspace sharedWorkspace] iconForFile:[dest path]];
-    [menuItemIcon setSize:NSMakeSize(16, 16)];
-
-    [folderItem setImage:menuItemIcon];
-
-    return [folderItem autorelease];
-}
-
-- (void)prepareDestPopup {
-    NSMenuItem *folderItem = nil;
-
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]) {
-        _destination = [[NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]] retain];
-
-#ifdef SB_SANDBOX
-        if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestinationBookmark"]) {
-            BOOL bookmarkDataIsStale;
-            NSError *error;
-            NSData *bookmarkData = [[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestinationBookmark"];
-
-            [destination release];
-            destination = [[NSURL
-                          URLByResolvingBookmarkData:bookmarkData
-                                             options:NSURLBookmarkResolutionWithSecurityScope
-                                             relativeToURL:nil
-                                             bookmarkDataIsStale:&bookmarkDataIsStale
-                                             error:&error] retain];
-        }
-#endif
-        if (![[NSFileManager defaultManager] fileExistsAtPath:[_destination path] isDirectory:nil])
-            _destination = nil;
-    }
-
-    if (!_destination) {
-        NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSMoviesDirectory,
-                                                                NSUserDomainMask,
-                                                                YES);
-        if ([allPaths count])
-            _destination = [[NSURL fileURLWithPath:[allPaths lastObject]] retain];;
-    }
-
-    folderItem = [self prepareDestPopupItem:_destination];
-
-    [[_destButton menu] insertItem:[NSMenuItem separatorItem] atIndex:0];
-    [[_destButton menu] insertItem:folderItem atIndex:0];
-
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestinationSelected"] boolValue]) {
-        [_destButton selectItem:folderItem];
-        _customDestination = YES;
-    }
-}
-
-- (IBAction)destination:(id)sender {
-    if ([sender tag] == 10) {
-        _customDestination = YES;
-        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBQueueDestinationSelected"];
-    } else {
-        _customDestination = NO;
-        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"SBQueueDestinationSelected"];
-    }
 }
 
 - (void)updateDockTile {
@@ -256,26 +215,14 @@ static NSString *fileType = @"mp4";
 }
 
 - (IBAction)toggleOptions:(id)sender {
-    NSInteger value = 0;
-    if (_optionsStatus) {
-        value = -kOptionsPanelHeight;
-        _optionsStatus = NO;
+    [self createPopover];
+
+    if (!self.popover.isShown) {
+        NSButton *targetButton = (NSButton *)sender;
+        [self.popover showRelativeToRect:[targetButton bounds] ofView:sender preferredEdge:NSMaxXEdge];
     } else {
-        value = kOptionsPanelHeight;
-        _optionsStatus = YES;
+        [self.popover close];
     }
-
-    NSRect frame = [[self window] frame];
-    frame.size.height += value;
-    frame.origin.y -= value;
-
-    [_tableScrollView setAutoresizingMask:NSViewNotSizable | NSViewMinYMargin];
-    [_optionsBox setAutoresizingMask:NSViewNotSizable | NSViewMinYMargin];
-
-    [[self window] setFrame:frame display:YES animate:YES];
-
-    [_tableScrollView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-    [_optionsBox setAutoresizingMask:NSViewWidthSizable | NSViewMaxYMargin];
 }
 
 #pragma mark Open methods
@@ -301,51 +248,9 @@ static NSString *fileType = @"mp4";
 
             [self updateUI];
 
-            if ([_autoStartOption state])
-                [self start:self];
+            //if ([_autoStartOption state])
+            //    [self start:self];
         }
-    }];
-}
-
-- (IBAction)chooseDestination:(id)sender {
-    NSOpenPanel *panel = [NSOpenPanel openPanel];
-    panel.allowsMultipleSelection = NO;
-    panel.canChooseFiles = NO;
-    panel.canChooseDirectories = YES;
-    panel.canCreateDirectories = YES;
-
-    [panel setPrompt:@"Select"];
-    [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
-        if (result == NSFileHandlingPanelOKButton) {
-            _destination = [[panel URL] retain];
-
-            NSMenuItem *folderItem = [self prepareDestPopupItem:[panel URL]];
-
-            [[_destButton menu] removeItemAtIndex:0];
-            [[_destButton menu] insertItem:folderItem atIndex:0];
-
-            [_destButton selectItem:folderItem];
-            _customDestination = YES;
-
-#ifdef SB_SANDBOX
-            NSData *bookmark = nil;
-            NSError *error = nil;
-            bookmark = [[panel URL] bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope
-                     includingResourceValuesForKeys:nil
-                                      relativeToURL:nil // Make it app-scoped
-                                              error:&error];
-            if (error) {
-                NSLog(@"Error creating bookmark for URL (%@): %@", [panel URL], error);
-                [NSApp presentError:error];
-            }
-
-            [[NSUserDefaults standardUserDefaults] setValue:bookmark forKey:@"SBQueueDestinationBookmark"];
-#endif
-            [[NSUserDefaults standardUserDefaults] setValue:[[panel URL] path] forKey:@"SBQueueDestination"];
-            [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBQueueDestinationSelected"];
-        }
-        else
-            [_destButton selectItemAtIndex:2];
     }];
 }
 
@@ -490,12 +395,6 @@ static NSString *fileType = @"mp4";
     if (action == @selector(removeCompletedItems:))
         return YES;
 
-    if (action == @selector(chooseDestination:))
-        return YES;
-
-    if (action == @selector(destination:))
-        return YES;
-
     return NO;
 }
 
@@ -567,9 +466,6 @@ static NSString *fileType = @"mp4";
             [indexes release];
             [self updateUI];
 
-            if ([_autoStartOption state])
-                [self start:self];
-
             return YES;
         }
     }
@@ -580,12 +476,16 @@ static NSString *fileType = @"mp4";
 - (SBQueueItem *)createItemWithURL:(NSURL *)url {
     SBQueueItem *item = [SBQueueItem itemWithURL:url];
 
-    if ([_metadataOption state] == NSOnState) {
+    if ([[self.options objectForKey:@"Metadata"] boolValue]) {
         [item addAction:[[[SBQueueMetadataAction alloc] init] autorelease]];
         [item addAction:[[[SBQueueSubtitlesAction alloc] init] autorelease]];
     }
-    if ([_organizeGroupsOption state] == NSOnState) {
+    if ([[self.options objectForKey:@"Organize"] boolValue]) {
         [item addAction:[[[SBQueueOrganizeGroupsAction alloc] init] autorelease]];
+    }
+
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]) {
+        _destination = [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]];
     }
 
     item.destURL = [[[_destination URLByAppendingPathComponent:[url lastPathComponent]] URLByDeletingPathExtension] URLByAppendingPathExtension:fileType];
@@ -596,9 +496,6 @@ static NSString *fileType = @"mp4";
 - (void)addItem:(SBQueueItem *)item {
     [self addItems:[NSArray arrayWithObject:item] atIndexes:nil];
     [self updateUI];
-
-    if ([_autoStartOption state])
-        [self start:self];
 }
 
 - (void)addItems:(NSArray *)items atIndexes:(NSIndexSet *)indexes; {
@@ -627,7 +524,7 @@ static NSString *fileType = @"mp4";
     if ([undo isUndoing] || [undo isRedoing])
         [self updateUI];
 
-    if ([_autoStartOption state])
+    if ([[self.options objectForKey:@"Autostart"] boolValue])
         [self start:self];
 
     [mutableIndexes release];
