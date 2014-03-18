@@ -125,7 +125,7 @@
         if (artwork)
             [metadata.artworks addObject:artwork];
     }
-    
+
     return metadata;
 }
 
@@ -142,6 +142,13 @@
         }
 
     [[item.mp4File metadata] mergeMetadata:metadata];
+}
+
+@end
+
+@implementation SBQueueSetAction
+
+- (void)runAction:(SBQueueItem *)item {
 }
 
 @end

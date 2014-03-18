@@ -13,7 +13,7 @@
 @class MP42File;
 
 typedef enum SBQueueItemStatus : NSInteger {
-    SBQueueItemtatusUnknown = 0,
+    SBQueueItemStatusUnknown = 0,
     SBQueueItemStatusReady,
     SBQueueItemStatusEditing,
     SBQueueItemStatusWorking,

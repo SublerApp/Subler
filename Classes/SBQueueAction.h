@@ -20,5 +20,8 @@
 @interface SBQueueSubtitlesAction : NSObject <SBQueueActionProtocol>
 @end
 
+@interface SBQueueSetAction : NSObject <SBQueueActionProtocol>
+@end
+
 @interface SBQueueOrganizeGroupsAction : NSObject <SBQueueActionProtocol>
 @end

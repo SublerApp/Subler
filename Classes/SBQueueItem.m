@@ -37,6 +37,7 @@
     self = [super init];
     if (self) {
         _actions = [[NSMutableArray alloc] init];
+        _status = SBQueueItemStatusReady;
     }
     return self;
 }

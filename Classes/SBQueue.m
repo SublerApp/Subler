@@ -236,7 +236,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
                 self.currentIndex = [self.items indexOfObject:self.currentItem];
                 self.currentItem.status = SBQueueItemStatusWorking;
 
-                [self handleSBStatusWorking:self.currentIndex];
+                [self handleSBStatusWorking:0 index:self.currentIndex];
                 noErr = [self processItem:self.currentItem optimize:self.optimize error:&outError];
 
                 // Check results
@@ -338,17 +338,18 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 }
 
 - (void)progressStatus:(CGFloat)progress {
-    [self handleSBStatusWorking:progress];
+    [self handleSBStatusWorking:progress index:-1];
 }
 
 /**
  * Processes SBQueueStatusWorking state information. Current implementation just
  * sends SBQueueWorkingNotification.
  */
-- (void)handleSBStatusWorking:(CGFloat)progress {
+- (void)handleSBStatusWorking:(CGFloat)progress index:(NSInteger)index {
     NSString *info = [NSString stringWithFormat:@"Processing file %ld of %lu.",(long)self.currentIndex + 1, (unsigned long)[self.items count]];
     [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueWorkingNotification object:self userInfo:@{@"ProgressString": info,
-                                                                                                                 @"Progress": @(progress)}];
+                                                                                                                 @"Progress": @(progress),
+                                                                                                                 @"ItemIndex": @(index)}];
 }
 
 /**

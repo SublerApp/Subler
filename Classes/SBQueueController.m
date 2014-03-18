@@ -86,6 +86,10 @@ static NSString *fileType = @"mp4";
         [_countLabel setStringValue:[info valueForKey:@"ProgressString"]];
         [_progressIndicator setIndeterminate:NO];
         [_progressIndicator setDoubleValue:[[info valueForKey:@"Progress"] doubleValue]];
+
+        if ([[info valueForKey:@"ItemIndex"] integerValue] != -1) {
+            [self updateUI];
+        }
     }];
 
     [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueCompletedNotification object:self.queue queue:mainQueue usingBlock:^(NSNotification *note) {
@@ -110,6 +114,10 @@ static NSString *fileType = @"mp4";
 
 - (void)initOptions {
     _options = [[NSMutableDictionary alloc] init];
+
+    // Observe the changes to SBQueueOptimize
+    [self addObserver:self forKeyPath:@"options.SBQueueOptimize" options:0 context:NULL];
+
     [_options setObject:@YES forKey:@"SBQueueOrganize"];
     [_options setObject:@YES forKey:@"SBQueueMetadata"];
     [_options setObject:@NO forKey:@"SBQueueAutoStart"];
@@ -136,6 +144,14 @@ static NSString *fileType = @"mp4";
     }
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"options.SBQueueOptimize"]) {
+        self.queue.optimize = [[self.options objectForKey:@"SBQueueOptimize"] boolValue];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
 - (SBQueueStatus)status {
     return self.queue.status;
 }
@@ -154,7 +170,6 @@ static NSString *fileType = @"mp4";
         // the popover retains us and we retain the popover,
         // we drop the popover whenever it is closed to avoid a cycle
         self.popover.contentViewController = [[[SBOptionsViewController alloc] initWithOptions:self.options] autorelease];
-
         self.popover.appearance = NSPopoverAppearanceMinimal;
         self.popover.animates = YES;
 
@@ -178,7 +193,6 @@ static NSString *fileType = @"mp4";
 }
 
 #pragma mark - UI methods
-
 
 - (void)updateDockTile {
     NSUInteger count = [self.queue readyCount];
@@ -383,9 +397,17 @@ static NSString *fileType = @"mp4";
 - (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem {
     SEL action = [anItem action];
 
-    if (action == @selector(removeSelectedItems:))
-        if ([_tableView selectedRow] != -1 || [_tableView clickedRow] != -1)
-            return YES;
+    if (action == @selector(removeSelectedItems:)) {
+        if ([_tableView selectedRow] != -1) {
+            SBQueueItem *item = [self.queue itemAtIndex:[_tableView selectedRow]];
+            if ([item status] != SBQueueItemStatusWorking)
+                return YES;
+        } else if ([_tableView clickedRow] != -1) {
+            SBQueueItem *item = [self.queue itemAtIndex:[_tableView clickedRow]];
+            if ([item status] != SBQueueItemStatusWorking)
+                return YES;
+        }
+    }
 
     if (action == @selector(showInFinder:)) {
         if ([_tableView clickedRow] != -1) {
