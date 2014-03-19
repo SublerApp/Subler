@@ -7,6 +7,9 @@
 //
 
 #import "SBOptionsViewController.h"
+#import "SBPresetManager.h"
+
+#import <MP42Foundation/MP42Metadata.h>
 
 @interface SBOptionsViewController ()
 
@@ -40,6 +43,7 @@
 - (void)loadView {
     [super loadView];
     [self prepareDestPopup];
+    [self prepareSetsPopup];
 }
 
 - (void)prepareDestPopup {
@@ -71,6 +75,47 @@
     }
 }
 
+- (void)prepareSetsPopup {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateSetsMenu:)
+                                                 name:@"SBPresetManagerUpdatedNotification" object:nil];
+    [self updateSetsMenu:self];
+}
+
+- (void)updateSetsMenu:(id)sender {
+    SBPresetManager *presetManager = [SBPresetManager sharedManager];
+    NSMenu *setListMenu = [_setsPopup menu];
+    [setListMenu removeAllItems];
+
+    NSMenuItem *newItem = nil;
+
+    newItem = [[[NSMenuItem alloc] initWithTitle:@"None" action:@selector(applySet:) keyEquivalent:@""] autorelease];
+    [newItem setTarget:self];
+    [newItem setTag:0];
+    [setListMenu addItem:newItem];
+
+    NSUInteger i = 0;
+
+    for (MP42Metadata *set in [presetManager presets]) {
+        newItem = [[NSMenuItem alloc] initWithTitle:set.presetName action:@selector(applySet:) keyEquivalent:@""];
+
+        [newItem setTarget:self];
+        [newItem setTag:i++];
+
+        [setListMenu addItem:newItem];
+        [newItem release];
+    }
+
+    if ([self.options objectForKey:@"SBQueueSet"]) {
+        [_setsPopup selectItemWithTitle:[[self.options objectForKey:@"SBQueueSet"] presetName]];
+    }
+}
+
+- (void)applySet:(id)sender {
+    [self.options setObject:[[SBPresetManager sharedManager].presets objectAtIndex:[sender tag]] forKey:@"SBQueueSet"];
+}
+
+
 - (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem {
     SEL action = [anItem action];
 
@@ -79,7 +124,10 @@
 
     if (action == @selector(destination:))
         return YES;
-    
+
+    if (action == @selector(applySet:))
+        return YES;
+
     return NO;
 }
 
@@ -134,7 +182,9 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
     [_options release];
+
     [super dealloc];
 }
 

@@ -32,7 +32,6 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 @property (atomic) BOOL cancelled;
 
 @property (nonatomic) dispatch_queue_t workQueue;
-@property (nonatomic) dispatch_queue_t itemsQueue;
 
 @end
 
@@ -42,13 +41,12 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 @synthesize optimize = _optimize;
 @synthesize currentItem = _currentItem, currentIndex = _currentIndex;
 @synthesize cancelled = _cancelled;
-@synthesize items = _items, itemsQueue = _itemsQueue, URL = _URL, workQueue = _workQueue;
+@synthesize items = _items, URL = _URL, workQueue = _workQueue;
 
 - (instancetype)initWithURL:(NSURL *)queueURL {
     self = [super init];
     if (self) {
         _workQueue = dispatch_queue_create("org.subler.WorkQueue", NULL);
-        _itemsQueue = dispatch_queue_create("org.subler.ItemsQueue", NULL);
         _URL = [queueURL copy];
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:[queueURL path]]) {
@@ -74,21 +72,17 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 }
 
 - (BOOL)saveQueueToDisk {
-    __block BOOL noErr = YES;
-    dispatch_sync(self.itemsQueue, ^{
-        noErr = [NSKeyedArchiver archiveRootObject:self.items toFile:[self.URL path]];
-    });
-    return noErr;
+    return [NSKeyedArchiver archiveRootObject:self.items toFile:[self.URL path]];
 }
 
 
-- (SBQueueItem *)firstItemInQueue
-{
+- (SBQueueItem *)firstItemInQueue {
     __block SBQueueItem *firstItem = nil;
-    dispatch_sync(self.itemsQueue, ^{
+    dispatch_sync(dispatch_get_main_queue(), ^{
         for (SBQueueItem *item in self.items) {
             if ((item.status != SBQueueItemStatusCompleted) && (item.status != SBQueueItemStatusFailed)) {
                 firstItem = [item retain];
+                firstItem.status = SBQueueItemStatusWorking;
                 break;
             }
         }
@@ -99,93 +93,63 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 #pragma mark - item management
 
 - (void)addItem:(SBQueueItem *)item {
-    dispatch_sync(self.itemsQueue, ^{
-        [self.items addObject:item];
-    });
+    [self.items addObject:item];
 }
 
 - (NSUInteger)count {
-    __block NSUInteger count = 0;
-    dispatch_sync(self.itemsQueue, ^{
-        count =  [self.items count];
-    });
-    return count;
+    return [self.items count];
 }
 
 - (NSUInteger)readyCount {
-    __block NSUInteger count = 0;
-    dispatch_sync(self.itemsQueue, ^{
-        for (SBQueueItem *item in self.items)
-            if ([item status] != SBQueueItemStatusCompleted)
-                count++;
-    });
+    NSUInteger count = 0;
+    for (SBQueueItem *item in self.items)
+        if ([item status] != SBQueueItemStatusCompleted)
+            count++;
     return count;
 }
 
 - (SBQueueItem *)itemAtIndex:(NSUInteger)index {
-    __block SBQueueItem *item = nil;
-    dispatch_sync(self.itemsQueue, ^{
-        item = [self.items objectAtIndex:index];
-    });
-    return item;
+    return [self.items objectAtIndex:index];
 }
 
 - (NSArray *)itemsAtIndexes:(NSIndexSet *)indexes {
-    __block NSArray *items = nil;
-    dispatch_sync(self.itemsQueue, ^{
-        items =  [self.items objectsAtIndexes:indexes];
-    });
-    return items;
+    return [self.items objectsAtIndexes:indexes];
 }
 
 - (NSUInteger)indexOfItem:(SBQueueItem *)item {
-    __block NSUInteger index = NSNotFound;
-    dispatch_sync(self.itemsQueue, ^{
-        index = [self.items indexOfObject:item];
-    });
-    return index;
+    return [self.items indexOfObject:item];
 }
 
 - (NSIndexSet *)indexesOfItemsWithStatus:(SBQueueItemStatus)status {
     NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
-    dispatch_sync(self.itemsQueue, ^{
-        [self.items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if (((SBQueueItem *)obj).status == status) {
-                [indexes addIndex:idx];
-            }
-        }];
-    });
+    [self.items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if (((SBQueueItem *)obj).status == status) {
+            [indexes addIndex:idx];
+        }
+    }];
     return indexes;
 }
 
 - (void)insertItem:(SBQueueItem *)anItem atIndex:(NSUInteger)index {
-    dispatch_sync(self.itemsQueue, ^{
-        [self.items insertObject:anItem atIndex:index];
-    });
+    [self.items insertObject:anItem atIndex:index];
 }
 
 - (void)removeItemsAtIndexes:(NSIndexSet *)indexes {
-    dispatch_sync(self.itemsQueue, ^{
-        [self.items removeObjectsAtIndexes:indexes];
-    });
+    [self.items removeObjectsAtIndexes:indexes];
 }
 
 - (void)removeItem:(SBQueueItem *)item {
-    dispatch_sync(self.itemsQueue, ^{
-        [self.items removeObject:item];
-    });
+    [self.items removeObject:item];
 }
 
 - (NSIndexSet *)removeCompletedItems {
     NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
 
-    dispatch_sync(self.itemsQueue, ^{
-        for (SBQueueItem *item in self.items)
-            if ([item status] == SBQueueItemStatusCompleted)
-                [indexes addIndex:[self.items indexOfObject:item]];
+    for (SBQueueItem *item in self.items)
+        if ([item status] == SBQueueItemStatusCompleted)
+            [indexes addIndex:[self.items indexOfObject:item]];
 
-        [self.items removeObjectsAtIndexes:indexes];
-    });
+    [self.items removeObjectsAtIndexes:indexes];
 
     return [indexes autorelease];
 }
@@ -381,7 +345,6 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
 - (void)dealloc {
     dispatch_release(_workQueue);
-    dispatch_release(_itemsQueue);
 
     [_items release];
     [_URL release];

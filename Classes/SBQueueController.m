@@ -125,8 +125,6 @@ static NSString *fileType = @"mp4";
 
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]) {
         [_options setObject:[NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]] forKey:@"SBQueueDestination"];
-    } else {
-        [_options setObject:nil forKey:@"SBQueueDestination"];
     }
 }
 
@@ -516,6 +514,11 @@ static NSString *fileType = @"mp4";
     if ([[self.options objectForKey:@"SBQueueOrganize"] boolValue]) {
         [item addAction:[[[SBQueueOrganizeGroupsAction alloc] init] autorelease]];
     }
+
+    if ([self.options objectForKey:@"SBQueueSet"]) {
+        [item addAction:[[[SBQueueSetAction alloc] initWithSet:[self.options objectForKey:@"SBQueueSet"]] autorelease]];
+    }
+
 
     NSURL *destination = [self.options objectForKey:@"SBQueueDestination"];
     if (destination) {

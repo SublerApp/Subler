@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class SBQueueItem;
+@class MP42Metadata;
 
 @protocol SBQueueActionProtocol <NSObject>
 - (void)runAction:(SBQueueItem *)item;
@@ -20,7 +21,10 @@
 @interface SBQueueSubtitlesAction : NSObject <SBQueueActionProtocol>
 @end
 
-@interface SBQueueSetAction : NSObject <SBQueueActionProtocol>
+@interface SBQueueSetAction : NSObject <SBQueueActionProtocol> {
+    MP42Metadata *_set;
+}
+- (id)initWithSet:(MP42Metadata *)set;
 @end
 
 @interface SBQueueOrganizeGroupsAction : NSObject <SBQueueActionProtocol>

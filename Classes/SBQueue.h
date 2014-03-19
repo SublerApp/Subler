@@ -29,7 +29,6 @@ extern NSString *SBQueueCancelledNotification;
 @interface SBQueue : NSObject {
     @private
     dispatch_queue_t   _workQueue;
-    dispatch_queue_t   _itemsQueue;
     SBQueueStatus      _status;
 
     SBQueueItem        *_currentItem;

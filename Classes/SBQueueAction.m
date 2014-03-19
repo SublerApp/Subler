@@ -148,7 +148,16 @@
 
 @implementation SBQueueSetAction
 
+- (id)initWithSet:(MP42Metadata *)set {
+    self = [super init];
+    if (self) {
+        _set = [set retain];
+    }
+    return self;
+}
+
 - (void)runAction:(SBQueueItem *)item {
+    [item.mp4File.metadata mergeMetadata:_set];
 }
 
 @end
