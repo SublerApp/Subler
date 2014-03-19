@@ -16,7 +16,6 @@
     NSMutableDictionary *_options;
 
     NSURL *_destination;
-    BOOL _customDestination;
 }
 
 - (instancetype)initWithOptions:(NSMutableDictionary *)options;

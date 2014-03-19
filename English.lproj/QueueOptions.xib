@@ -15,11 +15,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
         <customView id="UlG-O3-eNc" userLabel="OptionsView">
-            <rect key="frame" x="0.0" y="0.0" width="321" height="173"/>
+            <rect key="frame" x="0.0" y="0.0" width="321" height="153"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button id="zEH-aV-Tl7">
-                    <rect key="frame" x="111" y="17" width="71" height="18"/>
+                    <rect key="frame" x="111" y="7" width="71" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Optimize" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="nig-pN-efw">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -34,7 +34,7 @@
                     </connections>
                 </button>
                 <button id="9GN-f6-r2j">
-                    <rect key="frame" x="111" y="137" width="103" height="18"/>
+                    <rect key="frame" x="111" y="127" width="103" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Fetch Metadata" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="QNO-e1-WUJ">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -49,7 +49,7 @@
                     </connections>
                 </button>
                 <button id="MGZ-hB-jhx">
-                    <rect key="frame" x="111" y="35" width="136" height="18"/>
+                    <rect key="frame" x="111" y="25" width="136" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Auto-Start the queue" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="LYO-G0-9jA">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -64,7 +64,7 @@
                     </connections>
                 </button>
                 <button id="ccd-Xn-Dj3">
-                    <rect key="frame" x="111" y="119" width="112" height="18"/>
+                    <rect key="frame" x="111" y="109" width="112" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Organize Groups" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="240-c7-2UW">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -79,14 +79,14 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" id="86l-GG-SpO">
-                    <rect key="frame" x="171" y="95" width="133" height="22"/>
+                    <rect key="frame" x="171" y="85" width="133" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" id="8bb-Gy-KAS">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                         <menu key="menu" title="OtherViews" autoenablesItems="NO" id="BBw-yf-xUC">
                             <items>
-                                <menuItem title="Same as file" id="WKY-e5-5Mn">
+                                <menuItem title="Same as file" tag="10" id="WKY-e5-5Mn">
                                     <connections>
                                         <action selector="destination:" target="-2" id="Iz9-zl-XXa"/>
                                     </connections>
@@ -102,7 +102,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" id="vJ5-JB-k1m">
-                    <rect key="frame" x="112" y="100" width="56" height="14"/>
+                    <rect key="frame" x="112" y="90" width="56" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Location:" id="17e-9u-rVn">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -111,7 +111,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="NhN-Lg-awX">
-                    <rect key="frame" x="112" y="74" width="61" height="14"/>
+                    <rect key="frame" x="112" y="64" width="61" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Apply Set:" id="9gt-mI-zIV">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -120,7 +120,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="Uoo-hZ-D1f">
-                    <rect key="frame" x="18" y="37" width="90" height="14"/>
+                    <rect key="frame" x="18" y="27" width="90" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Global options:" id="NBN-VA-pg2">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -129,7 +129,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="S7L-mA-j3Y">
-                    <rect key="frame" x="49" y="139" width="59" height="14"/>
+                    <rect key="frame" x="49" y="129" width="59" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Add item:" id="9ls-xq-YGz">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -138,7 +138,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" id="DVM-Js-DwK">
-                    <rect key="frame" x="176" y="69" width="128" height="22"/>
+                    <rect key="frame" x="176" y="59" width="128" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="bQx-xN-b3H">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>

@@ -51,8 +51,8 @@
     [self.sourceLabel setStringValue:[self.item.URL path]];
     [self.destinationLabel setStringValue:[self.item.destURL path]];
 
-    NSMutableString *actions = [[NSMutableString alloc] init];
-    for (id<SBQueueActionProtocol> action in self.item.actionsArray) {
+    NSMutableString *actions = [[[NSMutableString alloc] init] autorelease];
+    for (id<SBQueueActionProtocol> action in self.item.actions) {
         [actions appendString:[NSString stringWithFormat:@"%@\n", [action description]]];
     }
 
@@ -63,7 +63,7 @@
     }
 
     NSSize frameSize = self.view.frame.size;
-    frameSize.height += [self.item.actionsArray count] ? self.actionsLabel.frame.size.height * ([self.item.actionsArray count] - 1) : 0;
+    frameSize.height += [self.item.actions count] ? self.actionsLabel.frame.size.height * ([self.item.actions count] - 1) : 0;
     [self.view setFrameSize:frameSize];
 }
 

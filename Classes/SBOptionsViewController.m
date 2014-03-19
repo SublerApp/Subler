@@ -18,11 +18,14 @@
 - (IBAction)chooseDestination:(id)sender;
 - (IBAction)destination:(id)sender;
 
+@property (nonatomic, retain) NSURL *destination;
+
 @end
 
 @implementation SBOptionsViewController
 
 @synthesize options = _options;
+@synthesize destination = _destination;
 
 - (instancetype)initWithOptions:(NSMutableDictionary *)options {
     self = [self init];
@@ -46,32 +49,93 @@
     [self prepareSetsPopup];
 }
 
+- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem {
+    SEL action = [anItem action];
+
+    if (action == @selector(chooseDestination:))
+        return YES;
+
+    if (action == @selector(destination:))
+        return YES;
+
+    if (action == @selector(applySet:))
+        return YES;
+
+    return NO;
+}
+
 - (void)prepareDestPopup {
     NSMenuItem *folderItem = nil;
 
     if ([self.options valueForKey:@"SBQueueDestination"]) {
-        _destination = [[self.options valueForKey:@"SBQueueDestination"] retain];
+        self.destination = [self.options valueForKey:@"SBQueueDestination"];
 
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[_destination path] isDirectory:nil])
-            _destination = nil;
+        if (![[NSFileManager defaultManager] fileExistsAtPath:[self.destination path] isDirectory:nil])
+            self.destination = nil;
     }
 
-    if (!_destination) {
+    if (!self.destination) {
         NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSMoviesDirectory,
                                                                 NSUserDomainMask,
                                                                 YES);
-        if ([allPaths count])
-            _destination = [[NSURL fileURLWithPath:[allPaths lastObject]] retain];;
+        if ([allPaths count]) {
+            self.destination = [NSURL fileURLWithPath:[allPaths lastObject]];
+        }
     }
 
-    folderItem = [self prepareDestPopupItem:_destination];
+    folderItem = [self prepareDestPopupItem:self.destination];
 
     [[_destButton menu] insertItem:[NSMenuItem separatorItem] atIndex:0];
     [[_destButton menu] insertItem:folderItem atIndex:0];
 
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestinationSelected"] boolValue]) {
+    if ([self.options valueForKey:@"SBQueueDestination"]) {
         [_destButton selectItem:folderItem];
-        _customDestination = YES;
+    } else {
+        [_destButton selectItemWithTag:10];
+    }
+}
+
+- (IBAction)chooseDestination:(id)sender {
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    panel.allowsMultipleSelection = NO;
+    panel.canChooseFiles = NO;
+    panel.canChooseDirectories = YES;
+    panel.canCreateDirectories = YES;
+
+    [panel setPrompt:@"Select"];
+    [panel beginSheetModalForWindow:nil completionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            NSMenuItem *folderItem = [self prepareDestPopupItem:[panel URL]];
+
+            [[_destButton menu] removeItemAtIndex:0];
+            [[_destButton menu] insertItem:folderItem atIndex:0];
+
+            [_destButton selectItem:folderItem];
+
+            [self.options setValue:[panel URL] forKey:@"SBQueueDestination"];
+            [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBQueueDestinationSelected"];
+        }
+        else
+            [_destButton selectItemAtIndex:2];
+    }];
+}
+
+- (NSMenuItem *)prepareDestPopupItem:(NSURL*) dest {
+    NSMenuItem *folderItem = [[NSMenuItem alloc] initWithTitle:[dest lastPathComponent] action:@selector(destination:) keyEquivalent:@""];
+
+    NSImage *menuItemIcon = [[NSWorkspace sharedWorkspace] iconForFile:[dest path]];
+    [menuItemIcon setSize:NSMakeSize(16, 16)];
+
+    [folderItem setImage:menuItemIcon];
+
+    return [folderItem autorelease];
+}
+
+- (IBAction)destination:(id)sender {
+    if ([sender tag] == 10) {
+        [self.options removeObjectForKey:@"SBQueueDestination"];
+    } else {
+        [self.options setObject:self.destination forKey:@"SBQueueDestination"];
     }
 }
 
@@ -119,75 +183,10 @@
     }
 }
 
-
-- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem {
-    SEL action = [anItem action];
-
-    if (action == @selector(chooseDestination:))
-        return YES;
-
-    if (action == @selector(destination:))
-        return YES;
-
-    if (action == @selector(applySet:))
-        return YES;
-
-    return NO;
-}
-
-- (IBAction)chooseDestination:(id)sender {
-    NSOpenPanel *panel = [NSOpenPanel openPanel];
-    panel.allowsMultipleSelection = NO;
-    panel.canChooseFiles = NO;
-    panel.canChooseDirectories = YES;
-    panel.canCreateDirectories = YES;
-
-    [panel setPrompt:@"Select"];
-    [panel beginSheetModalForWindow:nil completionHandler:^(NSInteger result) {
-        if (result == NSFileHandlingPanelOKButton) {
-            _destination = [[panel URL] retain];
-
-            NSMenuItem *folderItem = [self prepareDestPopupItem:[panel URL]];
-
-            [[_destButton menu] removeItemAtIndex:0];
-            [[_destButton menu] insertItem:folderItem atIndex:0];
-
-            [_destButton selectItem:folderItem];
-            _customDestination = YES;
-
-            [self.options setValue:[panel URL] forKey:@"SBQueueDestination"];
-            [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBQueueDestinationSelected"];
-        }
-        else
-            [_destButton selectItemAtIndex:2];
-    }];
-}
-
-- (NSMenuItem *)prepareDestPopupItem:(NSURL*) dest {
-    NSMenuItem *folderItem = [[NSMenuItem alloc] initWithTitle:[dest lastPathComponent] action:@selector(destination:) keyEquivalent:@""];
-    [folderItem setTag:10];
-
-    NSImage *menuItemIcon = [[NSWorkspace sharedWorkspace] iconForFile:[dest path]];
-    [menuItemIcon setSize:NSMakeSize(16, 16)];
-
-    [folderItem setImage:menuItemIcon];
-
-    return [folderItem autorelease];
-}
-
-- (IBAction)destination:(id)sender {
-    if ([sender tag] == 10) {
-        _customDestination = YES;
-        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBQueueDestinationSelected"];
-    } else {
-        _customDestination = NO;
-        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"SBQueueDestinationSelected"];
-    }
-}
-
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver: self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_options release];
+    [_destination release];
 
     [super dealloc];
 }

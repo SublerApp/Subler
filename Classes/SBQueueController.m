@@ -264,10 +264,10 @@ static void *SBQueueContex = &SBQueueContex;
         self.popover.contentViewController = nil;
         self.popover = nil;
     }
-    if (self.itemPopover) {
+    /*if (self.itemPopover) {
         self.itemPopover.contentViewController = nil;
         self.itemPopover = nil;
-    }
+    }*/
 }
 
 #pragma mark - UI methods
@@ -276,7 +276,7 @@ static void *SBQueueContex = &SBQueueContex;
     NSUInteger count = [self.queue readyCount];
 
     if (count)
-        [[NSApp dockTile] setBadgeLabel:[NSString stringWithFormat:@"%d", count]];
+        [[NSApp dockTile] setBadgeLabel:[NSString stringWithFormat:@"%lu", (unsigned long)count]];
     else
         [[NSApp dockTile] setBadgeLabel:nil];
 }
@@ -325,7 +325,7 @@ static void *SBQueueContex = &SBQueueContex;
 
     if (!self.popover.isShown) {
         NSButton *targetButton = (NSButton *)sender;
-        [self.popover showRelativeToRect:[targetButton bounds] ofView:sender preferredEdge:NSMaxXEdge];
+        [self.popover showRelativeToRect:[targetButton bounds] ofView:sender preferredEdge:NSMaxYEdge];
     } else {
         [self.popover close];
     }

@@ -37,7 +37,7 @@ typedef enum SBQueueItemStatus : NSInteger {
 @property (nonatomic, readonly) NSURL *URL;
 @property (nonatomic, copy) NSURL *destURL;
 
-@property (nonatomic, readonly) NSArray *actionsArray;
+@property (nonatomic, readonly) NSMutableArray *actions;
 
 @property (nonatomic, readwrite) SBQueueItemStatus status;
 

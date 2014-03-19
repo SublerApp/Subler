@@ -113,10 +113,6 @@
     }
 }
 
-- (NSArray *)actionsArray {
-    return [self.actions copy];
-}
-
 - (void)addAction:(id<SBQueueActionProtocol>)action {
     [self.actions addObject:action];
 }
