@@ -24,11 +24,11 @@ static void *SBQueueContex = &SBQueueContex;
 #define SublerBatchTableViewDataType @"SublerBatchTableViewDataType"
 #define kOptionsPanelHeight 88
 
-@interface SBQueueController () <NSPopoverDelegate, NSTableViewDelegate, NSTableViewDataSource, SBTableViewDelegate>
+@interface SBQueueController () <NSPopoverDelegate, NSWindowDelegate, NSTableViewDelegate, NSTableViewDataSource, SBTableViewDelegate>
 
-@property (readonly) SBQueue *queue;
-@property NSPopover *popover;
-@property NSPopover *itemPopover;
+@property (nonatomic, readonly) SBQueue *queue;
+@property (nonatomic, retain) NSPopover *popover;
+@property (nonatomic, retain) NSPopover *itemPopover;
 
 @property NSMutableDictionary *options;
 
@@ -202,6 +202,8 @@ static void *SBQueueContex = &SBQueueContex;
     }
 }
 
+#pragma mark - Queue methods
+
 - (SBQueueStatus)status {
     return self.queue.status;
 }
@@ -209,6 +211,116 @@ static void *SBQueueContex = &SBQueueContex;
 - (BOOL)saveQueueToDisk {
     [self saveUserDefaults];
     return [self.queue saveQueueToDisk];
+}
+
+- (void)editItem:(SBQueueItem *)item {
+    item.status = SBQueueItemStatusEditing;
+    [self updateUI];
+
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        if (!item.mp4File)
+            [item prepareItem:NULL];
+
+        MP42File *mp4 = item.mp4File;
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            SBDocument *doc = [[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:NULL];
+            [doc setMp4File:mp4];
+
+            [self.itemPopover close];
+
+            [self removeItems:[NSArray arrayWithObject:item]];
+            [self updateUI];
+        });
+        
+        [item release];
+        
+    });
+}
+
+#pragma mark - Queue items creation
+
+- (SBQueueItem *)createItemWithURL:(NSURL *)url {
+    SBQueueItem *item = [SBQueueItem itemWithURL:url];
+
+    if ([[self.options objectForKey:@"SBQueueMetadata"] boolValue]) {
+        [item addAction:[[[SBQueueMetadataAction alloc] init] autorelease]];
+        [item addAction:[[[SBQueueSubtitlesAction alloc] init] autorelease]];
+    }
+    if ([[self.options objectForKey:@"SBQueueOrganize"] boolValue]) {
+        [item addAction:[[[SBQueueOrganizeGroupsAction alloc] init] autorelease]];
+    }
+
+    if ([self.options objectForKey:@"SBQueueSet"]) {
+        [item addAction:[[[SBQueueSetAction alloc] initWithSet:[self.options objectForKey:@"SBQueueSet"]] autorelease]];
+    }
+
+    NSURL *destination = [self.options objectForKey:@"SBQueueDestination"];
+    if (destination) {
+        destination = [[[destination URLByAppendingPathComponent:[url lastPathComponent]] URLByDeletingPathExtension] URLByAppendingPathExtension:fileType];
+    } else {
+        destination = [[url URLByDeletingPathExtension] URLByAppendingPathExtension:fileType];
+    }
+
+    item.destURL = destination;
+
+    return item;
+}
+
+- (void)addItem:(SBQueueItem *)item {
+    [self addItems:[NSArray arrayWithObject:item] atIndexes:nil];
+    [self updateUI];
+}
+
+- (void)addItems:(NSArray *)items atIndexes:(NSIndexSet *)indexes; {
+    NSMutableIndexSet *mutableIndexes = [indexes mutableCopy];
+    if ([indexes count] == [items count]) {
+        for (id item in [items reverseObjectEnumerator]) {
+            [self.queue insertItem:item atIndex:[mutableIndexes firstIndex]];
+            [mutableIndexes removeIndexesInRange:NSMakeRange(0, 1)];
+        }
+    } else if ([indexes count] == 1) {
+        for (id item in [items reverseObjectEnumerator]) {
+            [self.queue insertItem:item atIndex:[mutableIndexes firstIndex]];
+        }
+    } else {
+        for (id item in [items reverseObjectEnumerator]) {
+            [self.queue addItem:item];
+        }
+    }
+
+    NSUndoManager *undo = [[self window] undoManager];
+    [[undo prepareWithInvocationTarget:self] removeItems:items];
+
+    if (![undo isUndoing]) {
+        [undo setActionName:@"Add Queue Item"];
+    }
+    if ([undo isUndoing] || [undo isRedoing])
+        [self updateUI];
+
+    if ([[self.options objectForKey:@"SBQueueAutoStart"] boolValue])
+        [self start:self];
+
+    [mutableIndexes release];
+}
+
+- (void)removeItems:(NSArray *)items {
+    NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
+
+    for (id item in items) {
+        [indexes addIndex:[self.queue indexOfItem:item]];
+        [self.queue removeItem:item];
+    }
+
+    NSUndoManager *undo = [[self window] undoManager];
+    [[undo prepareWithInvocationTarget:self] addItems:items atIndexes:indexes];
+
+    if (![undo isUndoing]) {
+        [undo setActionName:@"Delete Queue Item"];
+    }
+    if ([undo isUndoing] || [undo isRedoing])
+        [self updateUI];
+    
+    [indexes release];
 }
 
 #pragma mark - NSPopover delegate
@@ -234,11 +346,16 @@ static void *SBQueueContex = &SBQueueContex;
 }
 
 - (void)createItemPopover:(SBQueueItem *)item {
+    if (self.itemPopover) {
+        self.itemPopover = nil;
+    }
     _itemPopover = [[NSPopover alloc] init];
 
     // the popover retains us and we retain the popover,
     // we drop the popover whenever it is closed to avoid a cycle
-    self.itemPopover.contentViewController = [[[SBItemViewController alloc] initWithItem:item] autorelease];
+    SBItemViewController *view = [[[SBItemViewController alloc] initWithItem:item] autorelease];
+    view.delegate = self;
+    self.itemPopover.contentViewController = view;
     self.itemPopover.appearance = NSPopoverAppearanceMinimal;
     self.itemPopover.animates = YES;
 
@@ -254,20 +371,20 @@ static void *SBQueueContex = &SBQueueContex;
 - (NSWindow *)detachableWindowForPopover:(NSPopover *)popover {
     if (popover == self.popover) {
         _detachedWindow.contentView = [[SBOptionsViewController alloc] initWithOptions:self.options].view;
+        _detachedWindow.delegate = self;
         return _detachedWindow;
     }
     return nil;
 }
 
 - (void)popoverDidClose:(NSNotification *)notification {
-    if (self.popover) {
-        self.popover.contentViewController = nil;
+    NSPopover *closedPopover = [notification object];
+    if (self.popover == closedPopover) {
         self.popover = nil;
     }
-    /*if (self.itemPopover) {
-        self.itemPopover.contentViewController = nil;
+    if (self.itemPopover == closedPopover) {
         self.itemPopover = nil;
-    }*/
+    }
 }
 
 #pragma mark - UI methods
@@ -328,18 +445,20 @@ static void *SBQueueContex = &SBQueueContex;
         [self.popover showRelativeToRect:[targetButton bounds] ofView:sender preferredEdge:NSMaxYEdge];
     } else {
         [self.popover close];
+        self.popover = nil;
     }
 }
 
 - (IBAction)toggleItemsOptions:(id)sender {
     NSInteger clickedRow = [sender clickedRow];
+    SBQueueItem *item = [self.queue itemAtIndex:clickedRow];
 
-    [self createItemPopover:[self.queue itemAtIndex:clickedRow]];
-
-    if (!self.itemPopover.isShown) {
-        [self.itemPopover showRelativeToRect:[sender frameOfCellAtColumn:2 row:clickedRow] ofView:sender preferredEdge:NSMaxXEdge];
-    } else {
+    if (self.itemPopover.isShown && [(SBItemViewController *)self.itemPopover.contentViewController item] == item) {
         [self.itemPopover close];
+        self.itemPopover = nil;
+    } else {
+        [self createItemPopover:[self.queue itemAtIndex:clickedRow]];
+        [self.itemPopover showRelativeToRect:[sender frameOfCellAtColumn:2 row:clickedRow] ofView:sender preferredEdge:NSMaxXEdge];
     }
 }
 
@@ -383,7 +502,7 @@ static void *SBQueueContex = &SBQueueContex;
         SBQueueItemStatus batchStatus = [[self.queue itemAtIndex:rowIndex] status];
         if (batchStatus == SBQueueItemStatusCompleted)
             return [NSImage imageNamed:@"EncodeComplete"];
-        else if (batchStatus == SBQueueItemStatusWorking)
+        else if (batchStatus == SBQueueItemStatusWorking || batchStatus == SBQueueItemStatusEditing)
             return [NSImage imageNamed:@"EncodeWorking"];
         else if (batchStatus == SBQueueItemStatusFailed)
             return [NSImage imageNamed:@"EncodeCanceled"];
@@ -439,19 +558,7 @@ static void *SBQueueContex = &SBQueueContex;
 
 - (IBAction)edit:(id)sender {
     SBQueueItem *item = [[self.queue itemAtIndex:[_tableView clickedRow]] retain];
-    item.status = SBQueueItemStatusEditing;
-
-    if (!item.mp4File)
-        [item prepareItem:NULL];
-
-    MP42File *mp4 = item.mp4File;
-
-    SBDocument *doc = [[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:NULL];
-    [doc setMp4File:mp4];
-    [item release];
-
-    [self removeItems:[NSArray arrayWithObject:item]];
-    [self updateUI];
+    [self editItem:item];
 }
 
 - (IBAction)showInFinder:(id)sender {
@@ -595,89 +702,6 @@ static void *SBQueueContex = &SBQueueContex;
     }
 
     return NO;
-}
-
-- (SBQueueItem *)createItemWithURL:(NSURL *)url {
-    SBQueueItem *item = [SBQueueItem itemWithURL:url];
-
-    if ([[self.options objectForKey:@"SBQueueMetadata"] boolValue]) {
-        [item addAction:[[[SBQueueMetadataAction alloc] init] autorelease]];
-        [item addAction:[[[SBQueueSubtitlesAction alloc] init] autorelease]];
-    }
-    if ([[self.options objectForKey:@"SBQueueOrganize"] boolValue]) {
-        [item addAction:[[[SBQueueOrganizeGroupsAction alloc] init] autorelease]];
-    }
-
-    if ([self.options objectForKey:@"SBQueueSet"]) {
-        [item addAction:[[[SBQueueSetAction alloc] initWithSet:[self.options objectForKey:@"SBQueueSet"]] autorelease]];
-    }
-
-
-    NSURL *destination = [self.options objectForKey:@"SBQueueDestination"];
-    if (destination) {
-        destination = [[[destination URLByAppendingPathComponent:[url lastPathComponent]] URLByDeletingPathExtension] URLByAppendingPathExtension:fileType];
-    }
-
-    item.destURL = destination;
-
-    return item;
-}
-
-- (void)addItem:(SBQueueItem *)item {
-    [self addItems:[NSArray arrayWithObject:item] atIndexes:nil];
-    [self updateUI];
-}
-
-- (void)addItems:(NSArray *)items atIndexes:(NSIndexSet *)indexes; {
-    NSMutableIndexSet *mutableIndexes = [indexes mutableCopy];
-    if ([indexes count] == [items count]) {
-        for (id item in [items reverseObjectEnumerator]) {
-            [self.queue insertItem:item atIndex:[mutableIndexes firstIndex]];
-            [mutableIndexes removeIndexesInRange:NSMakeRange(0, 1)];
-        }
-    } else if ([indexes count] == 1) {
-        for (id item in [items reverseObjectEnumerator]) {
-            [self.queue insertItem:item atIndex:[mutableIndexes firstIndex]];
-        }
-    } else {
-        for (id item in [items reverseObjectEnumerator]) {
-            [self.queue addItem:item];
-        }
-    }
-
-    NSUndoManager *undo = [[self window] undoManager];
-    [[undo prepareWithInvocationTarget:self] removeItems:items];
-
-    if (![undo isUndoing]) {
-        [undo setActionName:@"Add Queue Item"];
-    }
-    if ([undo isUndoing] || [undo isRedoing])
-        [self updateUI];
-
-    if ([[self.options objectForKey:@"SBQueueAutoStart"] boolValue])
-        [self start:self];
-
-    [mutableIndexes release];
-}
-
-- (void)removeItems:(NSArray *)items {
-    NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
-
-    for (id item in items) {
-        [indexes addIndex:[self.queue indexOfItem:item]];
-        [self.queue removeItem:item];
-    }
-
-    NSUndoManager *undo = [[self window] undoManager];
-    [[undo prepareWithInvocationTarget:self] addItems:items atIndexes:indexes];
-
-    if (![undo isUndoing]) {
-        [undo setActionName:@"Delete Queue Item"];
-    }
-    if ([undo isUndoing] || [undo isRedoing])
-        [self updateUI];
-
-    [indexes release];
 }
 
 @end

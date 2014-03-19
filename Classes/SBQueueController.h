@@ -15,6 +15,7 @@
 @class MP42File;
 
 @interface SBQueueController : NSWindowController {
+@private
     IBOutlet NSButton *_start;
     IBOutlet NSButton *_open;
 
@@ -39,6 +40,7 @@
 + (SBQueueController *)sharedManager;
 
 - (void)addItem:(SBQueueItem *)item;
+- (void)editItem:(SBQueueItem *)item;
 
 - (BOOL)saveQueueToDisk;
 

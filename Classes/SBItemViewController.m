@@ -7,7 +7,9 @@
 //
 
 #import "SBItemViewController.h"
+
 #import "SBQueueItem.h"
+#import "SBQueueController.h"
 
 @interface SBItemViewController ()
 
@@ -24,6 +26,7 @@
 @implementation SBItemViewController
 
 @synthesize item = _item;
+@synthesize delegate = _delegate;
 
 @synthesize nameLabel = _nameLabel;
 @synthesize sourceLabel = _sourceLabel;
@@ -65,6 +68,14 @@
     NSSize frameSize = self.view.frame.size;
     frameSize.height += [self.item.actions count] ? self.actionsLabel.frame.size.height * ([self.item.actions count] - 1) : 0;
     [self.view setFrameSize:frameSize];
+}
+
+- (IBAction)edit:(id)sender {
+    [sender setEnabled:NO];
+
+    if ([self.delegate respondsToSelector:@selector(editItem:)]) {
+        [self.delegate performSelector:@selector(editItem:) withObject:self.item];
+    }
 }
 
 - (void)dealloc {

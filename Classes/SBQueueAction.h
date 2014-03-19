@@ -22,6 +22,7 @@
 @end
 
 @interface SBQueueSetAction : NSObject <SBQueueActionProtocol> {
+@private
     MP42Metadata *_set;
 }
 - (id)initWithSet:(MP42Metadata *)set;

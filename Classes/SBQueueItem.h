@@ -23,6 +23,7 @@ typedef enum SBQueueItemStatus : NSInteger {
 } SBQueueItemStatus;
 
 @interface SBQueueItem : NSObject <NSCoding> {
+@private
     MP42File *_mp4File;
     NSURL    *_fileURL;
     NSURL    *_destURL;

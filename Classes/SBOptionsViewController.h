@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface SBOptionsViewController : NSViewController {
-    @private
+@private
     IBOutlet NSPopUpButton *_destButton;
     IBOutlet NSPopUpButton *_setsPopup;
 

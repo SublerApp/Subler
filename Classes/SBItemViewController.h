@@ -11,7 +11,7 @@
 @class SBQueueItem;
 
 @interface SBItemViewController : NSViewController {
-    @private
+@private
     SBQueueItem *_item;
 
     NSTextField *_nameLabel;
@@ -19,7 +19,12 @@
     NSTextField *_destinationLabel;
 
     NSTextField *_actionsLabel;
+
+    id _delegate;
 }
+
+@property (nonatomic, readonly) SBQueueItem *item;
+@property (nonatomic, assign, readwrite) id delegate;
 
 - (instancetype)initWithItem:(SBQueueItem *)item;
 
