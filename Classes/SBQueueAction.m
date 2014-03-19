@@ -61,6 +61,18 @@
     }
 }
 
+- (NSString *)description {
+    return @"Load Subtitles";
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+}
+
 @end
 
 @implementation SBQueueMetadataAction
@@ -144,6 +156,18 @@
     [[item.mp4File metadata] mergeMetadata:metadata];
 }
 
+- (NSString *)description {
+    return @"Search Metadata";
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+}
+
 @end
 
 @implementation SBQueueSetAction
@@ -160,6 +184,27 @@
     [item.mp4File.metadata mergeMetadata:_set];
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Apply %@ Set", _set.presetName];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    if (self) {
+        _set = [[coder decodeObjectForKey:@"SBQueueActionSet"] retain];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:_set forKey:@"SBQueueActionSet"];
+}
+
+- (void)dealloc {
+    [_set release];
+    [super dealloc];
+}
+
 @end
 
 @implementation SBQueueOrganizeGroupsAction
@@ -167,5 +212,18 @@
 - (void)runAction:(SBQueueItem *)item {
     [item.mp4File organizeAlternateGroups];
 }
+
+- (NSString *)description {
+    return @"Organize Groups";
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+}
+
 
 @end

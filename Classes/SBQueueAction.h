@@ -11,7 +11,7 @@
 @class SBQueueItem;
 @class MP42Metadata;
 
-@protocol SBQueueActionProtocol <NSObject>
+@protocol SBQueueActionProtocol <NSObject, NSCoding>
 - (void)runAction:(SBQueueItem *)item;
 @end
 
