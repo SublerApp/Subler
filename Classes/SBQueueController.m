@@ -12,8 +12,10 @@
 #import "SBQueueItem.h"
 #import "SBDocument.h"
 #import "SBTableView.h"
+#import "SBPresetManager.h"
 
 #import <MP42Foundation/MP42Utilities.h>
+#import <MP42Foundation/MP42Metadata.h>
 
 static NSString *fileType = @"mp4";
 
@@ -57,6 +59,7 @@ static NSString *fileType = @"mp4";
 - (id)init {
     if (self = [super initWithWindowNibName:@"Queue"]) {
         _queue = [[SBQueue alloc] initWithURL:[self queueURL]];
+        [self registerUserDefaults];
         [self removeCompletedItems:self];
         [self updateDockTile];
     }
@@ -112,20 +115,50 @@ static NSString *fileType = @"mp4";
     [self updateUI];
 }
 
+#pragma mark - User Defaults
+
+- (void)registerUserDefaults {
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{ @"SBQueueOrganize" : @YES,
+                                                               @"SBQueueMetadata" : @NO,
+                                                               @"SBQueueAutoStart": @NO,
+                                                               @"SBQueueOptimize" : @YES }];
+}
+
+/**
+ * Save the queue user defaults
+ */
+- (void)saveUserDefaults {
+    [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:@"SBQueueOrganize"] forKey:@"SBQueueOrganize"];
+    [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:@"SBQueueMetadata"] forKey:@"SBQueueMetadata"];
+    [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:@"SBQueueAutoStart"] forKey:@"SBQueueAutoStart"];
+    [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:@"SBQueueOptimize"] forKey:@"SBQueueOptimize"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[self.options objectForKey:@"SBQueueDestination"] path] forKey:@"SBQueueDestination"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[self.options objectForKey:@"SBQueueSet"] presetName] forKey:@"SBQueueSet"];
+}
+
+/**
+ * Init the options dictionary
+ * and register the KVO observer
+ */
 - (void)initOptions {
     _options = [[NSMutableDictionary alloc] init];
 
-    // Observe the changes to SBQueueOptimize
-    [self addObserver:self forKeyPath:@"options.SBQueueOptimize" options:0 context:NULL];
-
-    [_options setObject:@YES forKey:@"SBQueueOrganize"];
-    [_options setObject:@YES forKey:@"SBQueueMetadata"];
-    [_options setObject:@NO forKey:@"SBQueueAutoStart"];
-    [_options setObject:@YES forKey:@"SBQueueOptimize"];
+    [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueOrganize"] forKey:@"SBQueueOrganize"];
+    [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueMetadata"] forKey:@"SBQueueMetadata"];
+    [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueAutoStart"] forKey:@"SBQueueAutoStart"];
+    [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueOptimize"] forKey:@"SBQueueOptimize"];
 
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]) {
         [_options setObject:[NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]] forKey:@"SBQueueDestination"];
     }
+
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueSet"]) {
+        MP42Metadata *set = [[SBPresetManager sharedManager] setWithName:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueSet"]];
+        [_options setObject:set forKey:@"SBQueueSet"];
+    }
+
+    // Observe the changes to SBQueueOptimize
+    [self addObserver:self forKeyPath:@"options.SBQueueOptimize" options:NSKeyValueObservingOptionInitial context:NULL];
 }
 
 - (NSURL *)queueURL {
@@ -155,6 +188,7 @@ static NSString *fileType = @"mp4";
 }
 
 - (BOOL)saveQueueToDisk {
+    [self saveUserDefaults];
     return [self.queue saveQueueToDisk];
 }
 
@@ -347,9 +381,7 @@ static NSString *fileType = @"mp4";
 
 - (IBAction)edit:(id)sender {
     SBQueueItem *item = [[self.queue itemAtIndex:[_tableView clickedRow]] retain];
-    
-    [self removeItems:[NSArray arrayWithObject:item]];
-    [self updateUI];
+    item.status = SBQueueItemStatusEditing;
 
     if (!item.mp4File)
         [item prepareItem:NULL];
@@ -359,6 +391,9 @@ static NSString *fileType = @"mp4";
     SBDocument *doc = [[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:NULL];
     [doc setMp4File:mp4];
     [item release];
+
+    [self removeItems:[NSArray arrayWithObject:item]];
+    [self updateUI];
 }
 
 - (IBAction)showInFinder:(id)sender {

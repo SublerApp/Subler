@@ -91,7 +91,7 @@
 
     newItem = [[[NSMenuItem alloc] initWithTitle:@"None" action:@selector(applySet:) keyEquivalent:@""] autorelease];
     [newItem setTarget:self];
-    [newItem setTag:0];
+    [newItem setTag:-1];
     [setListMenu addItem:newItem];
 
     NSUInteger i = 0;
@@ -112,7 +112,11 @@
 }
 
 - (void)applySet:(id)sender {
-    [self.options setObject:[[SBPresetManager sharedManager].presets objectAtIndex:[sender tag]] forKey:@"SBQueueSet"];
+    if ([sender tag] > -1) {
+        [self.options setObject:[[SBPresetManager sharedManager].presets objectAtIndex:[sender tag]] forKey:@"SBQueueSet"];
+    } else {
+        [self.options removeObjectForKey:@"SBQueueSet"];
+    }
 }
 
 

@@ -36,7 +36,6 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
                                                              @"m4v",            @"SBSaveFormat",
                                                              @"0",              @"defaultSaveFormat",
-                                                             @"YES",            @"SBQueueOptimize",
                                                              @"YES",            @"SBOrganizeAlternateGroups",
                                                              @"1",              @"SBAudioMixdown",
                                                              @"96",             @"SBAudioBitrate",

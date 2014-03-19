@@ -123,6 +123,15 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
     return noErr;
 }
 
+- (MP42Metadata *)setWithName:(NSString *)name {
+    for (MP42Metadata *set in _presets) {
+        if ([set.presetName isEqualToString:name]) {
+            return set;
+        }
+    }
+    return nil;
+}
+
 - (BOOL)removePresetAtIndex:(NSUInteger)index
 {
     NSString *name = [[_presets objectAtIndex:index] presetName];
