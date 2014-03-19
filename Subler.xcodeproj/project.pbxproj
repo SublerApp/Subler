@@ -52,6 +52,8 @@
 		A9B46A9E12B79B990040517A /* ButtonToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A9412B79B990040517A /* ButtonToolbarItem.m */; };
 		A9B46AA412B79BB10040517A /* Subler.icns in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AA312B79BB10040517A /* Subler.icns */; };
 		A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46ABE12B79D1C0040517A /* SBDocument.m */; };
+		A9BC410318D9AB8700F8C92C /* SBItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BC410218D9AB8700F8C92C /* SBItemViewController.m */; };
+		A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BC410618D9ABC000F8C92C /* QueueItem.xib */; };
 		A9C055370F6D395B00AF15B5 /* FileImport.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C055360F6D395B00AF15B5 /* FileImport.xib */; };
 		A9C9E34413FBC1EB00CA3B4E /* EncodeWorking.png in Resources */ = {isa = PBXBuildFile; fileRef = A9C9E34113FBC1EB00CA3B4E /* EncodeWorking.png */; };
 		A9D47B5817B239E200900BCA /* EncodeCanceled.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5417B239E200900BCA /* EncodeCanceled.png */; };
@@ -204,6 +206,9 @@
 		A9B46ABE12B79D1C0040517A /* SBDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SBDocument.m; path = Classes/SBDocument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A9B46AC112B79E230040517A /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = English; path = English.lproj/SBDocument.xib; sourceTree = "<group>"; };
 		A9B4EE4E1643EBF3009AF6BC /* Subler.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Subler.entitlements; sourceTree = "<group>"; };
+		A9BC410118D9AB8700F8C92C /* SBItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBItemViewController.h; path = Classes/SBItemViewController.h; sourceTree = "<group>"; };
+		A9BC410218D9AB8700F8C92C /* SBItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBItemViewController.m; path = Classes/SBItemViewController.m; sourceTree = "<group>"; };
+		A9BC410718D9ABC000F8C92C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/QueueItem.xib; sourceTree = "<group>"; };
 		A9C055330F6D394F00AF15B5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FileImport.xib; sourceTree = "<group>"; };
 		A9C0603F168315C500FE3D98 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
 		A9C0957F0F7B6C8C00170CAF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
@@ -417,6 +422,7 @@
 				CD4E6E5B12F744210095C84F /* ArtworkSelector.xib */,
 				A961476513F568210068F161 /* Queue.xib */,
 				A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */,
+				A9BC410618D9ABC000F8C92C /* QueueItem.xib */,
 				A90B023910F3290A000416F3 /* Prefs.xib */,
 			);
 			name = NIBs;
@@ -429,6 +435,8 @@
 				A961476013F567E10068F161 /* SBQueueController.m */,
 				A9EEA5EF18D65490008B54B4 /* SBOptionsViewController.h */,
 				A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */,
+				A9BC410118D9AB8700F8C92C /* SBItemViewController.h */,
+				A9BC410218D9AB8700F8C92C /* SBItemViewController.m */,
 				A9D73C5018BF3F1100C6FFA6 /* SBQueue.h */,
 				A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */,
 				A982D0BE140AB66400B92357 /* SBQueueItem.h */,
@@ -631,6 +639,7 @@
 				A9D47B5A17B239E200900BCA /* EncodeComplete.png in Resources */,
 				A975644E132A325C0051ED08 /* info-over.pdf in Resources */,
 				A975644F132A325C0051ED08 /* info-pressed.pdf in Resources */,
+				A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */,
 				A9F284A0133C9F6E00F10951 /* close.pdf in Resources */,
 				A9F284A1133C9F6E00F10951 /* close-over.pdf in Resources */,
 				A9F284A2133C9F6E00F10951 /* close-pressed.pdf in Resources */,
@@ -670,6 +679,7 @@
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */,
 				A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */,
+				A9BC410318D9AB8700F8C92C /* SBItemViewController.m in Sources */,
 				A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */,
 				A9B46A8C12B79B240040517A /* SBFileImport.m in Sources */,
 				A9B46A8E12B79B240040517A /* SBPrefsController.m in Sources */,
@@ -795,6 +805,14 @@
 				A9B46AC112B79E230040517A /* English */,
 			);
 			name = SBDocument.xib;
+			sourceTree = "<group>";
+		};
+		A9BC410618D9ABC000F8C92C /* QueueItem.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9BC410718D9ABC000F8C92C /* English */,
+			);
+			name = QueueItem.xib;
 			sourceTree = "<group>";
 		};
 		A9C055360F6D395B00AF15B5 /* FileImport.xib */ = {

@@ -8,6 +8,7 @@
 
 #import "SBQueueController.h"
 #import "SBOptionsViewController.h"
+#import "SBItemViewController.h"
 
 #import "SBQueueItem.h"
 #import "SBDocument.h"
@@ -18,6 +19,7 @@
 #import <MP42Foundation/MP42Metadata.h>
 
 static NSString *fileType = @"mp4";
+static void *SBQueueContex = &SBQueueContex;
 
 #define SublerBatchTableViewDataType @"SublerBatchTableViewDataType"
 #define kOptionsPanelHeight 88
@@ -26,8 +28,21 @@ static NSString *fileType = @"mp4";
 
 @property (readonly) SBQueue *queue;
 @property NSPopover *popover;
+@property NSPopover *itemPopover;
 
 @property NSMutableDictionary *options;
+
+- (IBAction)removeSelectedItems:(id)sender;
+- (IBAction)removeCompletedItems:(id)sender;
+
+- (IBAction)edit:(id)sender;
+- (IBAction)showInFinder:(id)sender;
+
+- (IBAction)toggleStartStop:(id)sender;
+- (IBAction)toggleOptions:(id)sender;
+- (IBAction)toggleItemsOptions:(id)sender;
+
+- (IBAction)open:(id)sender;
 
 - (void)start:(id)sender;
 - (void)stop:(id)sender;
@@ -46,6 +61,7 @@ static NSString *fileType = @"mp4";
 
 @synthesize queue = _queue;
 @synthesize popover = _popover;
+@synthesize itemPopover = _itemPopover;
 @synthesize options = _options;
 
 + (SBQueueController *)sharedManager {
@@ -71,8 +87,8 @@ static NSString *fileType = @"mp4";
     [super windowDidLoad];
 
     [_progressIndicator setHidden:YES];
-    [_countLabel setStringValue:@"Empty"];
 
+    // Load a generic movie icon to display in the table view
     _docImg = [[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode('MOOV')] retain];
     [_docImg setSize:NSMakeSize(16, 16)];
 
@@ -112,6 +128,7 @@ static NSString *fileType = @"mp4";
         [NSApp presentError:[info valueForKey:@"Error"]];
     }];
 
+    // Update the UI the first time
     [self updateUI];
 }
 
@@ -158,7 +175,7 @@ static NSString *fileType = @"mp4";
     }
 
     // Observe the changes to SBQueueOptimize
-    [self addObserver:self forKeyPath:@"options.SBQueueOptimize" options:NSKeyValueObservingOptionInitial context:NULL];
+    [self addObserver:self forKeyPath:@"options.SBQueueOptimize" options:NSKeyValueObservingOptionInitial context:SBQueueContex];
 }
 
 - (NSURL *)queueURL {
@@ -176,8 +193,10 @@ static NSString *fileType = @"mp4";
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"options.SBQueueOptimize"]) {
-        self.queue.optimize = [[self.options objectForKey:@"SBQueueOptimize"] boolValue];
+    if (context == SBQueueContex) {
+        if ([keyPath isEqualToString:@"options.SBQueueOptimize"]) {
+            self.queue.optimize = [[self.options objectForKey:@"SBQueueOptimize"] boolValue];
+        }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -214,14 +233,41 @@ static NSString *fileType = @"mp4";
     }
 }
 
-- (NSWindow *)detachableWindowForPopover:(NSPopover *)popover {
-    _detachedWindow.contentView = [[SBOptionsViewController alloc] initWithOptions:self.options].view;
+- (void)createItemPopover:(SBQueueItem *)item {
+    _itemPopover = [[NSPopover alloc] init];
 
-    return _detachedWindow;
+    // the popover retains us and we retain the popover,
+    // we drop the popover whenever it is closed to avoid a cycle
+    self.itemPopover.contentViewController = [[[SBItemViewController alloc] initWithItem:item] autorelease];
+    self.itemPopover.appearance = NSPopoverAppearanceMinimal;
+    self.itemPopover.animates = YES;
+
+    // AppKit will close the popover when the user interacts with a user interface element outside the popover.
+    // note that interacting with menus or panels that become key only when needed will not cause a transient popover to close.
+    self.itemPopover.behavior = NSPopoverBehaviorSemitransient;
+
+    // so we can be notified when the popover appears or closes
+    self.itemPopover.delegate = self;
+
+}
+
+- (NSWindow *)detachableWindowForPopover:(NSPopover *)popover {
+    if (popover == self.popover) {
+        _detachedWindow.contentView = [[SBOptionsViewController alloc] initWithOptions:self.options].view;
+        return _detachedWindow;
+    }
+    return nil;
 }
 
 - (void)popoverDidClose:(NSNotification *)notification {
-    self.popover = nil;
+    if (self.popover) {
+        self.popover.contentViewController = nil;
+        self.popover = nil;
+    }
+    if (self.itemPopover) {
+        self.itemPopover.contentViewController = nil;
+        self.itemPopover = nil;
+    }
 }
 
 #pragma mark - UI methods
@@ -255,7 +301,7 @@ static NSString *fileType = @"mp4";
     [self.queue start];
 }
 
-- (void)progressStatus: (CGFloat)progress {
+- (void)progressStatus:(CGFloat)progress {
     dispatch_async(dispatch_get_main_queue(), ^{
         [_progressIndicator setIndeterminate:NO];
         [_progressIndicator setDoubleValue:progress];
@@ -282,6 +328,18 @@ static NSString *fileType = @"mp4";
         [self.popover showRelativeToRect:[targetButton bounds] ofView:sender preferredEdge:NSMaxXEdge];
     } else {
         [self.popover close];
+    }
+}
+
+- (IBAction)toggleItemsOptions:(id)sender {
+    NSInteger clickedRow = [sender clickedRow];
+
+    [self createItemPopover:[self.queue itemAtIndex:clickedRow]];
+
+    if (!self.itemPopover.isShown) {
+        [self.itemPopover showRelativeToRect:[sender frameOfCellAtColumn:2 row:clickedRow] ofView:sender preferredEdge:NSMaxXEdge];
+    } else {
+        [self.itemPopover close];
     }
 }
 

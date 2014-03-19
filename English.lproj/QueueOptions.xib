@@ -49,9 +49,9 @@
                     </connections>
                 </button>
                 <button id="MGZ-hB-jhx">
-                    <rect key="frame" x="111" y="35" width="79" height="18"/>
+                    <rect key="frame" x="111" y="35" width="136" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Auto-Start" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="LYO-G0-9jA">
+                    <buttonCell key="cell" type="check" title="Auto-Start the queue" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="LYO-G0-9jA">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
@@ -140,16 +140,10 @@
                 <popUpButton verticalHuggingPriority="750" id="DVM-Js-DwK">
                     <rect key="frame" x="176" y="69" width="128" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="w3H-dW-Kp2" id="bQx-xN-b3H">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="bQx-xN-b3H">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
-                        <menu key="menu" title="OtherViews" id="4en-ZA-qlS">
-                            <items>
-                                <menuItem title="Item 1" state="on" id="w3H-dW-Kp2"/>
-                                <menuItem title="Item 2" id="fk2-Cj-YDq"/>
-                                <menuItem title="Item 3" id="Zeq-hi-goU"/>
-                            </items>
-                        </menu>
+                        <menu key="menu" title="OtherViews" id="4en-ZA-qlS"/>
                     </popUpButtonCell>
                 </popUpButton>
             </subviews>

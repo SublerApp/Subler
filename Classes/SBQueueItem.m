@@ -16,7 +16,6 @@
 @interface SBQueueItem ()
 
 @property (nonatomic, readwrite, retain) MP42File *mp4File;
-
 @property (nonatomic, readwrite) NSMutableArray *actions;
 
 @end
@@ -114,6 +113,10 @@
     }
 }
 
+- (NSArray *)actionsArray {
+    return [self.actions copy];
+}
+
 - (void)addAction:(id<SBQueueActionProtocol>)action {
     [self.actions addObject:action];
 }
@@ -176,12 +179,13 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-    [coder encodeInt:1 forKey:@"SBQueueItemTagEncodeVersion"];
+    [coder encodeInt:2 forKey:@"SBQueueItemTagEncodeVersion"];
 
     [coder encodeObject:_mp4File forKey:@"SBQueueItemMp4File"];
     [coder encodeObject:_fileURL forKey:@"SBQueueItemFileURL"];
     [coder encodeObject:_destURL forKey:@"SBQueueItemDestURL"];
     [coder encodeObject:_attributes forKey:@"SBQueueItemAttributes"];
+    [coder encodeObject:_actions forKey:@"SBQueueItemActions"];
 
     [coder encodeInt:_status forKey:@"SBQueueItemStatus"];
 }
@@ -194,6 +198,7 @@
     _fileURL = [[decoder decodeObjectForKey:@"SBQueueItemFileURL"] retain];
     _destURL = [[decoder decodeObjectForKey:@"SBQueueItemDestURL"] retain];
     _attributes = [[decoder decodeObjectForKey:@"SBQueueItemAttributes"] retain];
+    _actions = [[decoder decodeObjectForKey:@"SBQueueItemActions"] retain];
 
     _status = [decoder decodeIntForKey:@"SBQueueItemStatus"];
 

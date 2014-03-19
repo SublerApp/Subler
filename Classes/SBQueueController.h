@@ -26,6 +26,7 @@
 
     IBOutlet NSWindow *_detachedWindow;
     NSPopover *_popover;
+    NSPopover *_itemPopover;
 
     NSMutableDictionary *_options;
     NSImage *_docImg;
@@ -40,16 +41,5 @@
 - (void)addItem:(SBQueueItem *)item;
 
 - (BOOL)saveQueueToDisk;
-
-- (IBAction)removeSelectedItems:(id)sender;
-- (IBAction)removeCompletedItems:(id)sender;
-
-- (IBAction)edit:(id)sender;
-- (IBAction)showInFinder:(id)sender;
-
-- (IBAction)toggleStartStop:(id)sender;
-- (IBAction)toggleOptions:(id)sender;
-
-- (IBAction)open:(id)sender;
 
 @end
