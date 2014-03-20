@@ -11,6 +11,7 @@
                 <outlet property="destinationLabel" destination="eTa-uz-sjk" id="ivS-cY-3Jt"/>
                 <outlet property="nameLabel" destination="ITP-pW-XrQ" id="o3b-Gi-Mey"/>
                 <outlet property="sourceLabel" destination="aBh-Is-f6Q" id="xCJ-Zl-gZ6"/>
+                <outlet property="spinner" destination="fCV-gk-gLV" id="1Vf-98-EBX"/>
                 <outlet property="view" destination="c22-O7-iKe" id="eHa-ul-BOp"/>
             </connections>
         </customObject>
@@ -84,9 +85,9 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" id="J0r-57-7ab">
-                    <rect key="frame" x="20" y="9" width="35" height="17"/>
+                    <rect key="frame" x="20" y="9" width="46" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Edit" bezelStyle="roundedRect" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cEO-ol-OLW">
+                    <buttonCell key="cell" type="roundRect" title="Edit…" bezelStyle="roundedRect" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cEO-ol-OLW">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
@@ -94,6 +95,10 @@
                         <action selector="edit:" target="-2" id="ZCT-Of-7Vv"/>
                     </connections>
                 </button>
+                <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="fCV-gk-gLV">
+                    <rect key="frame" x="75" y="10" width="16" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </progressIndicator>
             </subviews>
         </customView>
     </objects>

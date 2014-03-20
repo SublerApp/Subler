@@ -21,6 +21,8 @@
 
 @property (assign) IBOutlet NSTextField *actionsLabel;
 
+@property (assign) IBOutlet NSProgressIndicator *spinner;
+
 @end
 
 @implementation SBItemViewController
@@ -33,6 +35,8 @@
 @synthesize destinationLabel = _destinationLabel;
 
 @synthesize actionsLabel = _actionsLabel;
+
+@synthesize spinner = _spinner;
 
 - (instancetype)initWithItem:(SBQueueItem *)item {
     self = [self init];
@@ -72,6 +76,7 @@
 
 - (IBAction)edit:(id)sender {
     [sender setEnabled:NO];
+    [self.spinner startAnimation:sender];
 
     if ([self.delegate respondsToSelector:@selector(editItem:)]) {
         [self.delegate performSelector:@selector(editItem:) withObject:self.item];

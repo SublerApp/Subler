@@ -52,7 +52,7 @@
                                             </imageCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         </tableColumn>
-                                        <tableColumn identifier="nameColumn" editable="NO" width="329" minWidth="40" maxWidth="3000" id="8">
+                                        <tableColumn identifier="nameColumn" editable="NO" width="321" minWidth="40" maxWidth="3000" id="8">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="nameColumn">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -65,15 +65,15 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         </tableColumn>
-                                        <tableColumn identifier="actionColumn" width="16" minWidth="16" maxWidth="16" id="AOY-6b-kkZ">
+                                        <tableColumn identifier="actionColumn" width="24" minWidth="24" maxWidth="24" id="AOY-6b-kkZ">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="actionColumn">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                             </tableHeaderCell>
-                                            <buttonCell key="dataCell" type="inline" bezelStyle="inline" image="NSActionTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="charWrapping" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="N2p-Ol-NaN">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="smallSystemBold"/>
+                                            <buttonCell key="dataCell" type="recessed" bezelStyle="recessed" image="info" imagePosition="left" alignment="left" alternateImage="info-over" lineBreakMode="charWrapping" imageScaling="proportionallyUpOrDown" inset="2" id="N2p-Ol-NaN">
+                                                <behavior key="behavior" lightByContents="YES"/>
+                                                <font key="font" metaFont="systemBold" size="12"/>
                                                 <connections>
                                                     <action selector="toggleItemsOptions:" target="-2" id="Ab6-c1-OBN"/>
                                                 </connections>
@@ -109,7 +109,7 @@
                         </textFieldCell>
                     </textField>
                     <progressIndicator maxValue="100" indeterminate="YES" style="bar" id="91">
-                        <rect key="frame" x="199" y="13" width="169" height="20"/>
+                        <rect key="frame" x="199" y="13" width="168.99999973655406" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     </progressIndicator>
                 </subviews>
@@ -224,5 +224,7 @@
         <image name="NSAddTemplate" width="8" height="8"/>
         <image name="NSFollowLinkFreestandingTemplate" width="10" height="10"/>
         <image name="NSGoRightTemplate" width="9" height="9"/>
+        <image name="info" width="16" height="16"/>
+        <image name="info-over" width="16" height="16"/>
     </resources>
 </document>
