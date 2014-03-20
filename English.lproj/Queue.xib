@@ -10,6 +10,7 @@
                 <outlet property="_countLabel" destination="12" id="BMB-K6-Foo"/>
                 <outlet property="_detachedWindow" destination="zHc-NF-Zeh" id="Cr1-ha-Wmx"/>
                 <outlet property="_progressIndicator" destination="91" id="Kds-4b-YzV"/>
+                <outlet property="_startItem" destination="xBN-FT-Sv0" id="Pyh-8B-bce"/>
                 <outlet property="_tableScrollView" destination="3" id="AjG-kV-Ymx"/>
                 <outlet property="_tableView" destination="7" id="N5e-Ro-a6f"/>
                 <outlet property="window" destination="1" id="25"/>

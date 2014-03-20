@@ -254,9 +254,9 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
     // The file has been added directly to the queue
     if (!item.mp4File && item.URL) {
         [item prepareItem:outError];
-        file = item.mp4File;
     }
 
+    file = item.mp4File;
     file.delegate = self;
 
     NSDictionary *dict = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[file.URL path] error:NULL];
