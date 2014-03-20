@@ -8,19 +8,12 @@
 
 #import "SBQueue.h"
 
-#import "MetadataImporter.h"
-
-#import <MP42Foundation/MP42File.h>
-#import <MP42Foundation/MP42FileImporter.h>
-#import <MP42Foundation/MP42Image.h>
-#import <MP42Foundation/MP42Utilities.h>
-
 NSString *SBQueueWorkingNotification = @"SBQueueWorkingNotification";
 NSString *SBQueueCompletedNotification = @"SBQueueCompletedNotification";
 NSString *SBQueueFailedNotification = @"SBQueueFailedNotification";
 NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
-@interface SBQueue () <MP42FileDelegate>
+@interface SBQueue ()
 
 @property (atomic) SBQueueStatus status;
 
@@ -199,9 +192,10 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
                 self.currentIndex = [self.items indexOfObject:self.currentItem];
                 self.currentItem.status = SBQueueItemStatusWorking;
+                self.currentItem.delegate = self;
 
                 [self handleSBStatusWorking:0 index:self.currentIndex];
-                noErr = [self processItem:self.currentItem optimize:self.optimize error:&outError];
+                noErr = [self.currentItem processItem:self.optimize error:&outError];
 
                 // Check results
                 if (self.cancelled) {
@@ -218,6 +212,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
                     [self handleSBStatusFailed:outError];
                 }
 
+                self.currentItem.delegate = nil;
                 self.currentItem = nil;
             }
 
@@ -233,64 +228,6 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
         [self enableSleep];
         [self handleSBStatusCompleted];
     });
-}
-
-/**
- * Processes a SBQueueItem.
- */
-- (BOOL)processItem:(SBQueueItem *)item optimize:(BOOL)optimize error:(NSError **)outError {
-    NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue])
-        [attributes setObject:@YES forKey:MP42GenerateChaptersPreviewTrack];
-
-#ifdef SB_SANDBOX
-    if([destination respondsToSelector:@selector(startAccessingSecurityScopedResource)])
-        [destination startAccessingSecurityScopedResource];
-#endif
-
-    BOOL noErr = YES;
-    MP42File *file = nil;
-
-    // The file has been added directly to the queue
-    if (!item.mp4File && item.URL) {
-        [item prepareItem:outError];
-    }
-
-    file = item.mp4File;
-    file.delegate = self;
-
-    NSDictionary *dict = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[file.URL path] error:NULL];
-    NSNumber *freeSpace = [dict objectForKey:NSFileSystemFreeSize];
-    if (freeSpace && [file dataSize] > [freeSpace longLongValue]) {
-        NSLog(@"Not enough disk space");
-        [self stop];
-    }
-
-    if (!self.cancelled) {
-        if ([file hasFileRepresentation]) {
-            // We have an existing mp4 file, update it
-            noErr = [file updateMP4FileWithAttributes:attributes error:outError];
-        } else if (file && item.destURL) {
-            // Write the new file to disk
-            [attributes addEntriesFromDictionary:item.attributes];
-            noErr = [file writeToUrl:item.destURL
-                                 withAttributes:attributes
-                                          error:outError];
-        }
-    }
-
-    if (noErr && optimize) {
-        [file optimize];
-    }
-
-#ifdef SB_SANDBOX
-    if([destination respondsToSelector:@selector(stopAccessingSecurityScopedResource)])
-        [destination stopAccessingSecurityScopedResource];
-#endif
-
-    [attributes release];
-
-    return noErr;
 }
 
 /**

@@ -13,10 +13,11 @@
 #import <MP42Foundation/MP42FileImporter.h>
 #import <MP42Foundation/MP42Utilities.h>
 
-@interface SBQueueItem ()
+@interface SBQueueItem () <MP42FileDelegate>
 
 @property (nonatomic, readwrite, retain) MP42File *mp4File;
 @property (nonatomic, readwrite) NSMutableArray *actions;
+@property (atomic) BOOL cancelled;
 
 @end
 
@@ -26,10 +27,13 @@
 
 @synthesize attributes = _attributes;
 @synthesize actions = _actions;
+@synthesize cancelled = _cancelled;
 
 @synthesize URL = _fileURL;
 @synthesize destURL = _destURL;
 @synthesize mp4File = _mp4File;
+
+@synthesize delegate = _delegate;
 
 - (instancetype)init
 {
@@ -162,6 +166,64 @@
     }
 
     return YES;
+}
+
+- (BOOL)processItem:(BOOL)optimize error:(NSError **)outError {
+#ifdef SB_SANDBOX
+    if([destination respondsToSelector:@selector(startAccessingSecurityScopedResource)])
+        [destination startAccessingSecurityScopedResource];
+#endif
+
+    BOOL noErr = YES;
+
+    // The file has been added directly to the queue
+    if (!self.mp4File && self.URL) {
+        [self prepareItem:outError];
+    }
+
+    self.mp4File.delegate = self;
+
+    NSDictionary *dict = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[self.mp4File.URL path] error:NULL];
+    NSNumber *freeSpace = [dict objectForKey:NSFileSystemFreeSize];
+    if (freeSpace && [self.mp4File dataSize] > [freeSpace longLongValue]) {
+        NSLog(@"Not enough disk space");
+        [self cancel];
+    }
+
+    if (!self.cancelled) {
+        if ([self.mp4File hasFileRepresentation]) {
+            // We have an existing mp4 file, update it
+            noErr = [self.mp4File updateMP4FileWithAttributes:self.attributes error:outError];
+        } else if (self.mp4File && self.destURL) {
+            // Write the new file to disk
+            noErr = [self.mp4File writeToUrl:self.destURL
+                              withAttributes:self.attributes
+                                       error:outError];
+        }
+    }
+
+    if (noErr && optimize) {
+        noErr = [self.mp4File optimize];
+    }
+
+#ifdef SB_SANDBOX
+    if([destination respondsToSelector:@selector(stopAccessingSecurityScopedResource)])
+        [destination stopAccessingSecurityScopedResource];
+#endif
+
+    self.mp4File = nil;
+    [self.actions removeAllObjects];
+
+    return noErr;
+}
+
+- (void)cancel {
+    self.cancelled = YES;
+    [self.mp4File cancel];
+}
+
+- (void)progressStatus:(CGFloat)progress {
+    [self.delegate progressStatus:progress];
 }
 
 - (void)dealloc {

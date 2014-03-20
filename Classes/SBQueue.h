@@ -11,8 +11,6 @@
 
 #import "SBQueueItem.h"
 
-@class MP42File;
-
 typedef NS_ENUM(NSUInteger, SBQueueStatus) {
     SBQueueStatusUnknown = 0,
     SBQueueStatusWorking,
