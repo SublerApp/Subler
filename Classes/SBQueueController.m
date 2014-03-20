@@ -116,7 +116,7 @@ static void *SBQueueContex = &SBQueueContex;
         [_progressIndicator stopAnimation:self];
         [_progressIndicator setDoubleValue:0];
         [_progressIndicator setIndeterminate:YES];
-        [_start setTitle:@"Start"];
+        [_startItem setImage:[NSImage imageNamed:NSImageNameGoRightTemplate]];
         [_countLabel setStringValue:@"Done"];
 
         [self updateDockTile];
@@ -204,15 +204,25 @@ static void *SBQueueContex = &SBQueueContex;
 
 #pragma mark - Queue methods
 
+/*
+ * The queue status
+ */
 - (SBQueueStatus)status {
     return self.queue.status;
 }
 
+/*
+ * Saves the queue and the user defaults.
+ */
 - (BOOL)saveQueueToDisk {
     [self saveUserDefaults];
     return [self.queue saveQueueToDisk];
 }
 
+/*
+ * Opens a SBQueueItem in a new document window
+ * and removes it from the queue.
+ */
 - (void)editItem:(SBQueueItem *)item {
     item.status = SBQueueItemStatusEditing;
     [self updateUI];
@@ -231,14 +241,15 @@ static void *SBQueueContex = &SBQueueContex;
             [self removeItems:[NSArray arrayWithObject:item]];
             [self updateUI];
         });
-        
-        [item release];
-        
     });
 }
 
 #pragma mark - Queue items creation
 
+/**
+ *  Creates a new SBQueueItem from an NSURL,
+ *  and adds the current actions to it.
+ */
 - (SBQueueItem *)createItemWithURL:(NSURL *)url {
     SBQueueItem *item = [SBQueueItem itemWithURL:url];
 
@@ -266,11 +277,18 @@ static void *SBQueueContex = &SBQueueContex;
     return item;
 }
 
+/**
+ *  Adds a SBQueueItem to the queue
+ */
 - (void)addItem:(SBQueueItem *)item {
     [self addItems:[NSArray arrayWithObject:item] atIndexes:nil];
     [self updateUI];
 }
 
+/**
+ *  Adds an array of SBQueueItem to the queue.
+ *  Implements the undo manager.
+ */
 - (void)addItems:(NSArray *)items atIndexes:(NSIndexSet *)indexes; {
     NSMutableIndexSet *mutableIndexes = [indexes mutableCopy];
     if ([indexes count] == [items count]) {
@@ -303,6 +321,10 @@ static void *SBQueueContex = &SBQueueContex;
     [mutableIndexes release];
 }
 
+/**
+ *  Removes an array of SBQueueItemfromto the queue.
+ *  Implements the undo manager.
+ */
 - (void)removeItems:(NSArray *)items {
     NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
 
@@ -319,12 +341,15 @@ static void *SBQueueContex = &SBQueueContex;
     }
     if ([undo isUndoing] || [undo isRedoing])
         [self updateUI];
-    
+
     [indexes release];
 }
 
 #pragma mark - NSPopover delegate
 
+/*
+ *  Creates a popover with the queue options.
+ */
 - (void)createPopover {
     if (self.popover == nil) {
         // create and setup our popover
@@ -345,11 +370,11 @@ static void *SBQueueContex = &SBQueueContex;
     }
 }
 
+/*
+ *  Creates a popover with a SBQueueItem
+ */
 - (void)createItemPopover:(SBQueueItem *)item {
-    if (self.itemPopover) {
-        self.itemPopover = nil;
-    }
-    _itemPopover = [[NSPopover alloc] init];
+    self.itemPopover = [[[NSPopover alloc] init] autorelease];
 
     // the popover retains us and we retain the popover,
     // we drop the popover whenever it is closed to avoid a cycle
@@ -389,6 +414,9 @@ static void *SBQueueContex = &SBQueueContex;
 
 #pragma mark - UI methods
 
+/*
+ *  Updates the count on the app dock icon.
+ */
 - (void)updateDockTile {
     NSUInteger count = [self.queue readyCount];
 
@@ -410,19 +438,12 @@ static void *SBQueueContex = &SBQueueContex;
     if (self.queue.status == SBQueueStatusWorking)
         return;
 
-    [_start setTitle:@"Stop"];
+    [_startItem setImage:[NSImage imageNamed:@"stopTemplate"]];
     [_countLabel setStringValue:@"Working."];
     [_progressIndicator setHidden:NO];
     [_progressIndicator startAnimation:self];
 
     [self.queue start];
-}
-
-- (void)progressStatus:(CGFloat)progress {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [_progressIndicator setIndeterminate:NO];
-        [_progressIndicator setDoubleValue:progress];
-    });
 }
 
 - (void)stop:(id)sender {
@@ -559,6 +580,7 @@ static void *SBQueueContex = &SBQueueContex;
 - (IBAction)edit:(id)sender {
     SBQueueItem *item = [[self.queue itemAtIndex:[_tableView clickedRow]] retain];
     [self editItem:item];
+    [item release];
 }
 
 - (IBAction)showInFinder:(id)sender {
@@ -627,6 +649,10 @@ static void *SBQueueContex = &SBQueueContex;
         return YES;
 
     return NO;
+}
+
+- (BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem {
+    return YES;
 }
 
 #pragma mark Drag & Drop

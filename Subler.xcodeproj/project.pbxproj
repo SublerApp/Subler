@@ -55,6 +55,7 @@
 		A9BC410318D9AB8700F8C92C /* SBItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BC410218D9AB8700F8C92C /* SBItemViewController.m */; };
 		A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BC410618D9ABC000F8C92C /* QueueItem.xib */; };
 		A9C055370F6D395B00AF15B5 /* FileImport.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C055360F6D395B00AF15B5 /* FileImport.xib */; };
+		A9C4259318DB6D1F00E99DB8 /* stopTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9C4259218DB6D1F00E99DB8 /* stopTemplate.pdf */; };
 		A9C9E34413FBC1EB00CA3B4E /* EncodeWorking.png in Resources */ = {isa = PBXBuildFile; fileRef = A9C9E34113FBC1EB00CA3B4E /* EncodeWorking.png */; };
 		A9D47B5817B239E200900BCA /* EncodeCanceled.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5417B239E200900BCA /* EncodeCanceled.png */; };
 		A9D47B5917B239E200900BCA /* EncodeCanceled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5517B239E200900BCA /* EncodeCanceled@2x.png */; };
@@ -212,6 +213,7 @@
 		A9C055330F6D394F00AF15B5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FileImport.xib; sourceTree = "<group>"; };
 		A9C0603F168315C500FE3D98 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
 		A9C0957F0F7B6C8C00170CAF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
+		A9C4259218DB6D1F00E99DB8 /* stopTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = stopTemplate.pdf; path = images/stopTemplate.pdf; sourceTree = "<group>"; };
 		A9C8182C0F74D6E300019BFF /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
 		A9C9E34113FBC1EB00CA3B4E /* EncodeWorking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EncodeWorking.png; path = images/EncodeWorking.png; sourceTree = "<group>"; };
 		A9D47B5417B239E200900BCA /* EncodeCanceled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EncodeCanceled.png; path = images/EncodeCanceled.png; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				A975644B132A325C0051ED08 /* info-over.pdf */,
 				A975644C132A325C0051ED08 /* info-pressed.pdf */,
 				A9B46AA312B79BB10040517A /* Subler.icns */,
+				A9C4259218DB6D1F00E99DB8 /* stopTemplate.pdf */,
 				A95C881C0F827BFB00F51A22 /* ToolbarRemoveTemplate.png */,
 				A96371B7164695070083BB80 /* ToolbarRemoveTemplate@2x.png */,
 				A98739FD13FBB09B00B795A7 /* ToolbarActionTemplate.png */,
@@ -632,6 +635,7 @@
 				A90B023B10F3290A000416F3 /* Prefs.xib in Resources */,
 				A9AB486417F0AEFD000AA72E /* ChapterView.xib in Resources */,
 				A9AB486817F0AEFD000AA72E /* VideoView.xib in Resources */,
+				A9C4259318DB6D1F00E99DB8 /* stopTemplate.pdf in Resources */,
 				A9B46AA412B79BB10040517A /* Subler.icns in Resources */,
 				CD71FEA612F1B62600F0A98D /* MetadataSearch.xib in Resources */,
 				CD4E6E5D12F744210095C84F /* ArtworkSelector.xib in Resources */,

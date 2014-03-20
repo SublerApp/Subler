@@ -16,9 +16,6 @@
 
 @interface SBQueueController : NSWindowController {
 @private
-    IBOutlet NSButton *_start;
-    IBOutlet NSButton *_open;
-
     IBOutlet NSTextField *_countLabel;
     IBOutlet NSProgressIndicator *_progressIndicator;
 
@@ -26,6 +23,8 @@
     IBOutlet SBTableView    *_tableView;
 
     IBOutlet NSWindow *_detachedWindow;
+    IBOutlet NSToolbarItem *_startItem;
+
     NSPopover *_popover;
     NSPopover *_itemPopover;
 
