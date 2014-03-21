@@ -7,10 +7,11 @@
 //
 
 #import "SBQueueController.h"
+#import "SBQueueItem.h"
+
 #import "SBOptionsViewController.h"
 #import "SBItemViewController.h"
 
-#import "SBQueueItem.h"
 #import "SBDocument.h"
 #import "SBTableView.h"
 #import "SBPresetManager.h"

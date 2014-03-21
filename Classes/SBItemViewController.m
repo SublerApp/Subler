@@ -76,7 +76,7 @@
 
 - (IBAction)edit:(id)sender {
     [sender setEnabled:NO];
-    [self.spinner startAnimation:sender];
+    [self.spinner setHidden:NO];
 
     if ([self.delegate respondsToSelector:@selector(editItem:)]) {
         [self.delegate performSelector:@selector(editItem:) withObject:self.item];
