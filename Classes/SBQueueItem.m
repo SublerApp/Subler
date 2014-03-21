@@ -13,6 +13,8 @@
 #import <MP42Foundation/MP42FileImporter.h>
 #import <MP42Foundation/MP42Utilities.h>
 
+#define ALMOST_4GiB 4100000000
+
 @interface SBQueueItem () <MP42FileDelegate>
 
 @property (nonatomic, readwrite, retain) MP42File *mp4File;
@@ -35,8 +37,9 @@
 
 @synthesize delegate = _delegate;
 
-- (instancetype)init
-{
+#pragma mark Initializers
+
+- (instancetype)init {
     self = [super init];
     if (self) {
         _actions = [[NSMutableArray alloc] init];
@@ -52,7 +55,7 @@
 
         NSFileManager *fileManager = [NSFileManager defaultManager];
         unsigned long long originalFileSize = [[[fileManager attributesOfItemAtPath:[_fileURL path] error:nil] valueForKey:NSFileSize] unsignedLongLongValue];
-        if (originalFileSize > 4200000000) {
+        if (originalFileSize > ALMOST_4GiB) {
             _attributes = [[NSDictionary alloc] initWithObjectsAndKeys:@YES, MP4264BitData, nil];
         }
     }
@@ -108,18 +111,20 @@
     return [[[SBQueueItem alloc] initWithMP4:MP4 url:URL attributes:dict] autorelease];
 }
 
+#pragma mark Public methods
+
 - (void)setStatus:(SBQueueItemStatus)itemStatus {
     _status = itemStatus;
     if (_status == SBQueueItemStatusCompleted) {
-        if (self.mp4File) {
-            self.mp4File = nil;
-        }
+        self.mp4File = nil;
     }
 }
 
 - (void)addAction:(id<SBQueueActionProtocol>)action {
     [self.actions addObject:action];
 }
+
+#pragma mark Item processing
 
 - (BOOL)prepareItem:(NSError **)outError {
     NSString *type;
@@ -169,32 +174,40 @@
 }
 
 - (BOOL)processItem:(BOOL)optimize error:(NSError **)outError {
+    BOOL noErr = YES;
+
 #ifdef SB_SANDBOX
-    if([destination respondsToSelector:@selector(startAccessingSecurityScopedResource)])
+    if ([destination respondsToSelector:@selector(startAccessingSecurityScopedResource)])
         [destination startAccessingSecurityScopedResource];
 #endif
 
-    BOOL noErr = YES;
-
     // The file has been added directly to the queue
     if (!self.mp4File && self.URL) {
-        [self prepareItem:outError];
+        noErr = [self prepareItem:outError];
     }
+
+    if (!noErr) { goto bail; }
 
     self.mp4File.delegate = self;
 
-    NSDictionary *dict = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[self.mp4File.URL path] error:NULL];
+    // Check if there is enough space on the dest disk
+    NSDictionary *dict = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[[self.destURL URLByDeletingLastPathComponent] path] error:NULL];
     NSNumber *freeSpace = [dict objectForKey:NSFileSystemFreeSize];
     if (freeSpace && [self.mp4File dataSize] > [freeSpace longLongValue]) {
-        NSLog(@"Not enough disk space");
-        [self cancel];
+        noErr = NO;
+        if (outError) {
+            NSDictionary *errorDetail = @{ NSLocalizedDescriptionKey : @"Not enough disk space",
+                                           NSLocalizedRecoverySuggestionErrorKey : @"" };
+            *outError = [NSError errorWithDomain:@"SBQueueItemError" code:10 userInfo:errorDetail];
+        }
+        goto bail;
     }
 
     if (!self.cancelled) {
-        if ([self.mp4File hasFileRepresentation]) {
+        if ([self.URL isEqualTo:self.destURL] && [self.mp4File hasFileRepresentation]) {
             // We have an existing mp4 file, update it
             noErr = [self.mp4File updateMP4FileWithAttributes:self.attributes error:outError];
-        } else if (self.mp4File && self.destURL) {
+        } else {
             // Write the new file to disk
             noErr = [self.mp4File writeToUrl:self.destURL
                               withAttributes:self.attributes
@@ -202,17 +215,30 @@
         }
     }
 
-    if (noErr && optimize) {
+    if (!noErr) { goto bail; }
+
+    // Optimize the file
+    if (!self.cancelled && optimize) {
         noErr = [self.mp4File optimize];
     }
 
-#ifdef SB_SANDBOX
-    if([destination respondsToSelector:@selector(stopAccessingSecurityScopedResource)])
-        [destination stopAccessingSecurityScopedResource];
-#endif
+    if (!noErr) {
+        if (outError) {
+            NSDictionary *errorDetail = @{ NSLocalizedDescriptionKey : @"The file couldn't be optimized",
+                                           NSLocalizedRecoverySuggestionErrorKey : @"An error occurred while optimizing." };
+            *outError = [NSError errorWithDomain:@"SBQueueItemError" code:11 userInfo:errorDetail];
+        }
+        goto bail;
+    }
 
+bail:
     self.mp4File = nil;
     [self.actions removeAllObjects];
+
+#ifdef SB_SANDBOX
+    if ([destination respondsToSelector:@selector(stopAccessingSecurityScopedResource)])
+        [destination stopAccessingSecurityScopedResource];
+#endif
 
     return noErr;
 }
@@ -222,19 +248,13 @@
     [self.mp4File cancel];
 }
 
+#pragma mark MP42File delegate
+
 - (void)progressStatus:(CGFloat)progress {
     [self.delegate progressStatus:progress];
 }
 
-- (void)dealloc {
-    [_attributes release];
-    [_actions release];
-    [_fileURL release];
-    [_destURL release];
-    [_mp4File release];
-    
-    [super dealloc];
-}
+#pragma mark NSCoding
 
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeInt:2 forKey:@"SBQueueItemTagEncodeVersion"];
@@ -261,6 +281,16 @@
     _status = [decoder decodeIntForKey:@"SBQueueItemStatus"];
 
     return self;
+}
+
+- (void)dealloc {
+    [_attributes release];
+    [_actions release];
+    [_fileURL release];
+    [_destURL release];
+    [_mp4File release];
+
+    [super dealloc];
 }
 
 @end
