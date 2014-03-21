@@ -11,6 +11,8 @@
 #import "SBQueueItem.h"
 #import "SBQueueController.h"
 
+static void *SBItemViewContex = &SBItemViewContex;
+
 @interface SBItemViewController ()
 
 @property SBQueueItem *item;
@@ -21,6 +23,7 @@
 
 @property (assign) IBOutlet NSTextField *actionsLabel;
 
+@property (assign) IBOutlet NSButton *editButton;
 @property (assign) IBOutlet NSProgressIndicator *spinner;
 
 @end
@@ -36,6 +39,7 @@
 
 @synthesize actionsLabel = _actionsLabel;
 
+@synthesize editButton = _editButton;
 @synthesize spinner = _spinner;
 
 - (instancetype)initWithItem:(SBQueueItem *)item {
@@ -72,10 +76,28 @@
     NSSize frameSize = self.view.frame.size;
     frameSize.height += [self.item.actions count] ? self.actionsLabel.frame.size.height * ([self.item.actions count] - 1) : 0;
     [self.view setFrameSize:frameSize];
+
+    // Observe the item status
+    [self addObserver:self forKeyPath:@"item.status" options:NSKeyValueObservingOptionInitial context:SBItemViewContex];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (context == SBItemViewContex) {
+        // Disable the edit button if the item status
+        // is different from ready
+        if ([keyPath isEqualToString:@"item.status"]) {
+            if (self.item.status != SBQueueItemStatusReady) {
+                [self.editButton setEnabled:NO];
+            } else {
+                [self.editButton setEnabled:YES];
+            }
+        }
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 - (IBAction)edit:(id)sender {
-    [sender setEnabled:NO];
     [self.spinner setHidden:NO];
 
     if ([self.delegate respondsToSelector:@selector(editItem:)]) {
@@ -85,6 +107,11 @@
 
 - (void)dealloc {
     [_item release];
+
+    @try {
+        [self removeObserver:self forKeyPath:@"item.status"];
+    } @catch (NSException * __unused exception) {}
+
     [super dealloc];
 }
 

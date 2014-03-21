@@ -14,6 +14,7 @@
     IBOutlet NSPopUpButton *_setsPopup;
 
     NSMutableDictionary *_options;
+    NSMutableArray *_sets;
 
     NSURL *_destination;
 }

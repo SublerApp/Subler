@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13D17" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1060" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5053"/>
@@ -8,7 +8,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="SBOptionsViewController">
             <connections>
                 <outlet property="_destButton" destination="86l-GG-SpO" id="bE1-31-17X"/>
-                <outlet property="_setsPopup" destination="DVM-Js-DwK" id="971-id-uEe"/>
                 <outlet property="view" destination="UlG-O3-eNc" id="hzl-ex-WZi"/>
             </connections>
         </customObject>
@@ -145,8 +144,36 @@
                         <font key="font" metaFont="smallSystem"/>
                         <menu key="menu" title="OtherViews" id="4en-ZA-qlS"/>
                     </popUpButtonCell>
+                    <connections>
+                        <binding destination="vyv-na-Xpo" name="content" keyPath="arrangedObjects" id="HIJ-Fo-c7b">
+                            <dictionary key="options">
+                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                <string key="NSNoSelectionPlaceholder">None</string>
+                                <string key="NSNotApplicablePlaceholder">None</string>
+                                <string key="NSNullPlaceholder">None</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="vyv-na-Xpo" name="contentValues" keyPath="arrangedObjects.presetName" previousBinding="HIJ-Fo-c7b" id="P6E-1t-NzK">
+                            <dictionary key="options">
+                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                            </dictionary>
+                        </binding>
+                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueSet" previousBinding="P6E-1t-NzK" id="76d-3o-xTk"/>
+                    </connections>
                 </popUpButton>
             </subviews>
         </customView>
+        <arrayController objectClassName="Set" automaticallyPreparesContent="YES" id="vyv-na-Xpo" userLabel="Set Controller">
+            <declaredKeys>
+                <string>presetName</string>
+            </declaredKeys>
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="sets" id="zFp-g2-I2n">
+                    <dictionary key="options">
+                        <bool key="NSValidatesImmediately" value="YES"/>
+                    </dictionary>
+                </binding>
+            </connections>
+        </arrayController>
     </objects>
 </document>

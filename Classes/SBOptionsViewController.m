@@ -13,7 +13,8 @@
 
 @interface SBOptionsViewController ()
 
-@property NSMutableDictionary *options;
+@property (nonatomic) NSMutableDictionary *options;
+@property (nonatomic, copy) NSMutableArray *sets;
 
 - (IBAction)chooseDestination:(id)sender;
 - (IBAction)destination:(id)sender;
@@ -25,12 +26,15 @@
 @implementation SBOptionsViewController
 
 @synthesize options = _options;
+@synthesize sets = _sets;
+
 @synthesize destination = _destination;
 
 - (instancetype)initWithOptions:(NSMutableDictionary *)options {
     self = [self init];
     if (self) {
         _options = [options retain];
+        _sets = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -56,9 +60,6 @@
         return YES;
 
     if (action == @selector(destination:))
-        return YES;
-
-    if (action == @selector(applySet:))
         return YES;
 
     return NO;
@@ -147,45 +148,13 @@
 }
 
 - (void)updateSetsMenu:(id)sender {
-    SBPresetManager *presetManager = [SBPresetManager sharedManager];
-    NSMenu *setListMenu = [_setsPopup menu];
-    [setListMenu removeAllItems];
-
-    NSMenuItem *newItem = nil;
-
-    newItem = [[[NSMenuItem alloc] initWithTitle:@"None" action:@selector(applySet:) keyEquivalent:@""] autorelease];
-    [newItem setTarget:self];
-    [newItem setTag:-1];
-    [setListMenu addItem:newItem];
-
-    NSUInteger i = 0;
-
-    for (MP42Metadata *set in [presetManager presets]) {
-        newItem = [[NSMenuItem alloc] initWithTitle:set.presetName action:@selector(applySet:) keyEquivalent:@""];
-
-        [newItem setTarget:self];
-        [newItem setTag:i++];
-
-        [setListMenu addItem:newItem];
-        [newItem release];
-    }
-
-    if ([self.options objectForKey:@"SBQueueSet"]) {
-        [_setsPopup selectItemWithTitle:[[self.options objectForKey:@"SBQueueSet"] presetName]];
-    }
-}
-
-- (void)applySet:(id)sender {
-    if ([sender tag] > -1) {
-        [self.options setObject:[[SBPresetManager sharedManager].presets objectAtIndex:[sender tag]] forKey:@"SBQueueSet"];
-    } else {
-        [self.options removeObjectForKey:@"SBQueueSet"];
-    }
+    self.sets = [[SBPresetManager sharedManager].presets mutableCopy];
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_options release];
+    [_sets release];
     [_destination release];
 
     [super dealloc];

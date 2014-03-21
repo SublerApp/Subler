@@ -20,6 +20,7 @@
 
     NSTextField *_actionsLabel;
 
+    NSButton *_editButton;
     NSProgressIndicator *_spinner;
 
     id _delegate;
