@@ -30,6 +30,9 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="item.URL.lastPathComponent" id="euN-2P-iJ4"/>
+                    </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" id="MHQ-kr-DVS">
                     <rect key="frame" x="18" y="56" width="73" height="14"/>
@@ -57,6 +60,9 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="item.destURL.path" id="sAH-pe-Ka6"/>
+                    </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" id="990-0E-nlL">
                     <rect key="frame" x="46" y="74" width="45" height="14"/>
@@ -75,6 +81,9 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="item.URL.path" id="Tyf-L8-CbJ"/>
+                    </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="pW0-Ga-LFI">
                     <rect key="frame" x="97" y="34" width="265" height="14"/>

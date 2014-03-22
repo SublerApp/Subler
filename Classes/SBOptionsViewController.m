@@ -14,7 +14,7 @@
 @interface SBOptionsViewController ()
 
 @property (nonatomic) NSMutableDictionary *options;
-@property (nonatomic, copy) NSMutableArray *sets;
+@property (nonatomic, retain) NSMutableArray *sets;
 
 - (IBAction)chooseDestination:(id)sender;
 - (IBAction)destination:(id)sender;
@@ -148,7 +148,7 @@
 }
 
 - (void)updateSetsMenu:(id)sender {
-    self.sets = [[SBPresetManager sharedManager].presets mutableCopy];
+    self.sets = [[[SBPresetManager sharedManager].presets mutableCopy] autorelease];
 }
 
 - (void)dealloc {

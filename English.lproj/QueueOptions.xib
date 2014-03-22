@@ -145,7 +145,7 @@
                         <menu key="menu" title="OtherViews" id="4en-ZA-qlS"/>
                     </popUpButtonCell>
                     <connections>
-                        <binding destination="vyv-na-Xpo" name="content" keyPath="arrangedObjects" id="HIJ-Fo-c7b">
+                        <binding destination="vyv-na-Xpo" name="content" keyPath="arrangedObjects" id="4rl-TJ-0yZ">
                             <dictionary key="options">
                                 <bool key="NSInsertsNullPlaceholder" value="YES"/>
                                 <string key="NSNoSelectionPlaceholder">None</string>
@@ -153,12 +153,16 @@
                                 <string key="NSNullPlaceholder">None</string>
                             </dictionary>
                         </binding>
-                        <binding destination="vyv-na-Xpo" name="contentValues" keyPath="arrangedObjects.presetName" previousBinding="HIJ-Fo-c7b" id="P6E-1t-NzK">
+                        <binding destination="vyv-na-Xpo" name="contentValues" keyPath="arrangedObjects.presetName" previousBinding="4rl-TJ-0yZ" id="QqS-yf-Kdq">
                             <dictionary key="options">
                                 <bool key="NSInsertsNullPlaceholder" value="YES"/>
                             </dictionary>
                         </binding>
-                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueSet" previousBinding="P6E-1t-NzK" id="76d-3o-xTk"/>
+                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueSet" previousBinding="QqS-yf-Kdq" id="YcS-AE-oRP">
+                            <dictionary key="options">
+                                <bool key="NSValidatesImmediately" value="YES"/>
+                            </dictionary>
+                        </binding>
                     </connections>
                 </popUpButton>
             </subviews>

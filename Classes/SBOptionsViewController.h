@@ -11,7 +11,6 @@
 @interface SBOptionsViewController : NSViewController {
 @private
     IBOutlet NSPopUpButton *_destButton;
-    IBOutlet NSPopUpButton *_setsPopup;
 
     NSMutableDictionary *_options;
     NSMutableArray *_sets;

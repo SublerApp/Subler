@@ -14,10 +14,6 @@
 @private
     SBQueueItem *_item;
 
-    NSTextField *_nameLabel;
-    NSTextField *_sourceLabel;
-    NSTextField *_destinationLabel;
-
     NSTextField *_actionsLabel;
 
     NSButton *_editButton;

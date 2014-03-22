@@ -17,10 +17,6 @@ static void *SBItemViewContex = &SBItemViewContex;
 
 @property SBQueueItem *item;
 
-@property (assign) IBOutlet NSTextField *nameLabel;
-@property (assign) IBOutlet NSTextField *sourceLabel;
-@property (assign) IBOutlet NSTextField *destinationLabel;
-
 @property (assign) IBOutlet NSTextField *actionsLabel;
 
 @property (assign) IBOutlet NSButton *editButton;
@@ -32,10 +28,6 @@ static void *SBItemViewContex = &SBItemViewContex;
 
 @synthesize item = _item;
 @synthesize delegate = _delegate;
-
-@synthesize nameLabel = _nameLabel;
-@synthesize sourceLabel = _sourceLabel;
-@synthesize destinationLabel = _destinationLabel;
 
 @synthesize actionsLabel = _actionsLabel;
 
@@ -57,10 +49,6 @@ static void *SBItemViewContex = &SBItemViewContex;
 
 - (void)loadView {
     [super loadView];
-
-    [self.nameLabel setStringValue:[self.item.URL lastPathComponent]];
-    [self.sourceLabel setStringValue:[self.item.URL path]];
-    [self.destinationLabel setStringValue:[self.item.destURL path]];
 
     NSMutableString *actions = [[[NSMutableString alloc] init] autorelease];
     for (id<SBQueueActionProtocol> action in self.item.actions) {
