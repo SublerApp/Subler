@@ -23,7 +23,6 @@ static NSString *fileType = @"mp4";
 static void *SBQueueContex = &SBQueueContex;
 
 #define SublerBatchTableViewDataType @"SublerBatchTableViewDataType"
-#define kOptionsPanelHeight 88
 
 @interface SBQueueController () <NSPopoverDelegate, NSWindowDelegate, NSTableViewDelegate, NSTableViewDataSource, SBTableViewDelegate>
 

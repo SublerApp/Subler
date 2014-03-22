@@ -149,6 +149,9 @@
 
 - (void)updateSetsMenu:(id)sender {
     self.sets = [[[SBPresetManager sharedManager].presets mutableCopy] autorelease];
+    if (![self.sets containsObject:[self.options objectForKey:@"SBQueueSet"]]) {
+        [self.options removeObjectForKey:@"SBQueueSet"];
+    }
 }
 
 - (void)dealloc {

@@ -19,7 +19,6 @@
     IBOutlet NSTextField *_countLabel;
     IBOutlet NSProgressIndicator *_progressIndicator;
 
-    IBOutlet NSScrollView   *_tableScrollView;
     IBOutlet SBTableView    *_tableView;
 
     IBOutlet NSWindow *_detachedWindow;

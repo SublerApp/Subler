@@ -74,7 +74,7 @@ static void *SBItemViewContex = &SBItemViewContex;
         // Disable the edit button if the item status
         // is different from ready
         if ([keyPath isEqualToString:@"item.status"]) {
-            if (self.item.status != SBQueueItemStatusReady) {
+            if (self.item.status != SBQueueItemStatusReady && self.item.status != SBQueueItemStatusEditing) {
                 [self.editButton setEnabled:NO];
             } else {
                 [self.editButton setEnabled:YES];
