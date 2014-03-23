@@ -14,8 +14,6 @@
 @private
     SBQueueItem *_item;
 
-    NSTextField *_actionsLabel;
-
     NSButton *_editButton;
     NSProgressIndicator *_spinner;
 

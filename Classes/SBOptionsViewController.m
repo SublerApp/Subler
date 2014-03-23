@@ -115,13 +115,13 @@
 
             [self.options setValue:[panel URL] forKey:@"SBQueueDestination"];
             [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBQueueDestinationSelected"];
-        }
-        else
+        } else {
             [_destButton selectItemAtIndex:2];
+        }
     }];
 }
 
-- (NSMenuItem *)prepareDestPopupItem:(NSURL*) dest {
+- (NSMenuItem *)prepareDestPopupItem:(NSURL *)dest {
     NSMenuItem *folderItem = [[NSMenuItem alloc] initWithTitle:[dest lastPathComponent] action:@selector(destination:) keyEquivalent:@""];
 
     NSImage *menuItemIcon = [[NSWorkspace sharedWorkspace] iconForFile:[dest path]];

@@ -13,14 +13,14 @@
 
 static void *SBItemViewContex = &SBItemViewContex;
 
+#define TABLE_ROW_HEIGHT 14
+
 @interface SBItemViewController ()
 
-@property SBQueueItem *item;
+@property (nonatomic) SBQueueItem *item;
 
-@property (assign) IBOutlet NSTextField *actionsLabel;
-
-@property (assign) IBOutlet NSButton *editButton;
-@property (assign) IBOutlet NSProgressIndicator *spinner;
+@property (nonatomic, assign) IBOutlet NSButton *editButton;
+@property (nonatomic, assign) IBOutlet NSProgressIndicator *spinner;
 
 @end
 
@@ -28,8 +28,6 @@ static void *SBItemViewContex = &SBItemViewContex;
 
 @synthesize item = _item;
 @synthesize delegate = _delegate;
-
-@synthesize actionsLabel = _actionsLabel;
 
 @synthesize editButton = _editButton;
 @synthesize spinner = _spinner;
@@ -50,23 +48,11 @@ static void *SBItemViewContex = &SBItemViewContex;
 - (void)loadView {
     [super loadView];
 
-    NSMutableString *actions = [[[NSMutableString alloc] init] autorelease];
-    for (id<SBQueueActionProtocol> action in self.item.actions) {
-        [actions appendString:[NSString stringWithFormat:@"%@\n", [action description]]];
-    }
-
-    if ([actions length]) {
-        [self.actionsLabel setStringValue:actions];
-    } else {
-        [self.actionsLabel setStringValue:@"None"];
-    }
-
-    NSSize frameSize = self.view.frame.size;
-    frameSize.height += [self.item.actions count] ? self.actionsLabel.frame.size.height * ([self.item.actions count] - 1) : 0;
-    [self.view setFrameSize:frameSize];
-
     // Observe the item status
-    [self addObserver:self forKeyPath:@"item.status" options:NSKeyValueObservingOptionInitial context:SBItemViewContex];
+    [self addObserver:self forKeyPath:@"item.status" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:SBItemViewContex];
+
+    // Observe the item actions
+    [self addObserver:self forKeyPath:@"item.actions" options:NSKeyValueObservingOptionInitial context:SBItemViewContex];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -74,11 +60,16 @@ static void *SBItemViewContex = &SBItemViewContex;
         // Disable the edit button if the item status
         // is different from ready
         if ([keyPath isEqualToString:@"item.status"]) {
-            if (self.item.status != SBQueueItemStatusReady && self.item.status != SBQueueItemStatusEditing) {
+            SBQueueItemStatus newStatus = [[change valueForKey:NSKeyValueChangeNewKey] integerValue];
+            if (newStatus != SBQueueItemStatusReady && newStatus != SBQueueItemStatusEditing) {
                 [self.editButton setEnabled:NO];
             } else {
                 [self.editButton setEnabled:YES];
             }
+        } else if ([keyPath isEqualToString:@"item.actions"]) {
+            NSSize frameSize = self.view.frame.size;
+            frameSize.height += [self.item.actions count] ? TABLE_ROW_HEIGHT * ([self.item.actions count] - 1) : 0;
+            [self.view setFrameSize:frameSize];
         }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -98,6 +89,7 @@ static void *SBItemViewContex = &SBItemViewContex;
 
     @try {
         [self removeObserver:self forKeyPath:@"item.status"];
+        [self removeObserver:self forKeyPath:@"item.actions"];
     } @catch (NSException * __unused exception) {}
 
     [super dealloc];

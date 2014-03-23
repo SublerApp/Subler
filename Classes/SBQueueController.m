@@ -224,7 +224,7 @@ static void *SBQueueContex = &SBQueueContex;
  * and removes it from the queue.
  */
 - (void)editItem:(SBQueueItem *)item {
-    item.status = SBQueueItemStatusEditing;
+    item.status = SBQueueItemStatusWorking;
     [self updateUI];
 
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
