@@ -9,7 +9,6 @@
 #import "SBItemViewController.h"
 
 #import "SBQueueItem.h"
-#import "SBQueueController.h"
 
 static void *SBItemViewContex = &SBItemViewContex;
 
@@ -49,10 +48,16 @@ static void *SBItemViewContex = &SBItemViewContex;
     [super loadView];
 
     // Observe the item status
-    [self addObserver:self forKeyPath:@"item.status" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:SBItemViewContex];
+    [self addObserver:self
+           forKeyPath:@"item.status"
+              options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+              context:SBItemViewContex];
 
     // Observe the item actions
-    [self addObserver:self forKeyPath:@"item.actions" options:NSKeyValueObservingOptionInitial context:SBItemViewContex];
+    [self addObserver:self
+           forKeyPath:@"item.actions"
+              options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+              context:SBItemViewContex];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -67,9 +72,12 @@ static void *SBItemViewContex = &SBItemViewContex;
                 [self.editButton setEnabled:YES];
             }
         } else if ([keyPath isEqualToString:@"item.actions"]) {
+            NSInteger count = [[change objectForKey:NSKeyValueChangeNewKey] count] - [[change objectForKey:NSKeyValueChangeOldKey] count];
             NSSize frameSize = self.view.frame.size;
-            frameSize.height += [self.item.actions count] ? TABLE_ROW_HEIGHT * ([self.item.actions count] - 1) : 0;
-            [self.view setFrameSize:frameSize];
+            frameSize.height += TABLE_ROW_HEIGHT * (count >= 0 ? count - 1 : count);
+            if ([self.delegate respondsToSelector:@selector(setPopoverSize:)]) {
+                [self.delegate setPopoverSize:frameSize];
+            }
         }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];

@@ -10,6 +10,13 @@
 
 @class SBQueueItem;
 
+@protocol SBItemViewDelegate <NSObject>
+
+- (void)setPopoverSize:(NSSize)size;
+- (void)editItem:(SBQueueItem *)item;
+
+@end
+
 @interface SBItemViewController : NSViewController {
 @private
     SBQueueItem *_item;

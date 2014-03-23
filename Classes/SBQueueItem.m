@@ -18,7 +18,7 @@
 @interface SBQueueItem () <MP42FileDelegate>
 
 @property (nonatomic, readwrite, retain) MP42File *mp4File;
-@property (nonatomic, readwrite) NSMutableArray *actions;
+@property (nonatomic, readwrite) NSMutableArray *actionsInternal;
 @property (atomic) BOOL cancelled;
 
 @end
@@ -28,7 +28,7 @@
 @synthesize status = _status;
 
 @synthesize attributes = _attributes;
-@synthesize actions = _actions;
+@synthesize actionsInternal = _actions;
 @synthesize cancelled = _cancelled;
 
 @synthesize URL = _fileURL;
@@ -111,6 +111,16 @@
     return [[[SBQueueItem alloc] initWithMP4:MP4 url:URL attributes:dict] autorelease];
 }
 
++ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey {
+    BOOL automatic = NO;
+    if ([theKey isEqualToString:@"actions"]) {
+        automatic = NO;
+    } else {
+        automatic = [super automaticallyNotifiesObserversForKey:theKey];
+    }
+    return automatic;
+}
+
 #pragma mark Public methods
 
 - (void)setStatus:(SBQueueItemStatus)itemStatus {
@@ -121,7 +131,25 @@
 }
 
 - (void)addAction:(id<SBQueueActionProtocol>)action {
-    [self.actions addObject:action];
+    if (self.status != SBQueueItemStatusWorking) {
+        [self willChangeValueForKey:@"actions"];
+        [self.actionsInternal addObject:action];
+        [self didChangeValueForKey:@"actions"];
+    }
+}
+
+- (void)removeAction:(id<SBQueueActionProtocol>)action {
+    if (self.status != SBQueueItemStatusWorking) {
+        [self willChangeValueForKey:@"actions"];
+        if ([self.actionsInternal containsObject:action]) {
+            [self.actionsInternal removeObject:action];
+        }
+        [self didChangeValueForKey:@"actions"];
+    }
+}
+
+- (NSArray *)actions {
+    return [[self.actionsInternal copy] autorelease];
 }
 
 #pragma mark Item processing
@@ -233,7 +261,10 @@
 
 bail:
     self.mp4File = nil;
-    [self.actions removeAllObjects];
+
+    [self willChangeValueForKey:@"actions"];
+    [self.actionsInternal removeAllObjects];
+    [self didChangeValueForKey:@"actions"];
 
 #ifdef SB_SANDBOX
     if ([destination respondsToSelector:@selector(stopAccessingSecurityScopedResource)])

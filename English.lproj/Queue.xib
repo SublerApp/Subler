@@ -208,7 +208,7 @@
                 <outlet property="delegate" destination="-2" id="84"/>
             </connections>
         </menu>
-        <window title="Queue Options" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="zHc-NF-Zeh" userLabel="Window - Detached Options" customClass="NSPanel">
+        <window title="Queue Options" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="zHc-NF-Zeh" userLabel="Window - Detached Options" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="283" y="305" width="321" height="163"/>

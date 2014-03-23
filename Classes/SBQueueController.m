@@ -29,6 +29,7 @@ static void *SBQueueContex = &SBQueueContex;
 @property (nonatomic, readonly) SBQueue *queue;
 @property (nonatomic, retain) NSPopover *popover;
 @property (nonatomic, retain) NSPopover *itemPopover;
+@property (nonatomic, retain) SBOptionsViewController *windowController;
 
 @property NSMutableDictionary *options;
 
@@ -62,6 +63,7 @@ static void *SBQueueContex = &SBQueueContex;
 @synthesize queue = _queue;
 @synthesize popover = _popover;
 @synthesize itemPopover = _itemPopover;
+@synthesize windowController = _windowController;
 @synthesize options = _options;
 
 + (SBQueueController *)sharedManager {
@@ -393,13 +395,24 @@ static void *SBQueueContex = &SBQueueContex;
 
 }
 
+- (void)setPopoverSize:(NSSize)size {
+    self.itemPopover.contentSize = size;
+}
+
 - (NSWindow *)detachableWindowForPopover:(NSPopover *)popover {
     if (popover == self.popover) {
-        _detachedWindow.contentView = [[SBOptionsViewController alloc] initWithOptions:self.options].view;
+        if (!self.windowController) {
+            self.windowController = [[[SBOptionsViewController alloc] initWithOptions:self.options] autorelease];
+        }
+        _detachedWindow.contentView = _windowController.view;
         _detachedWindow.delegate = self;
         return _detachedWindow;
     }
     return nil;
+}
+
+- (void)windowWillClose:(NSNotification *)notification {
+    self.windowController = nil;
 }
 
 - (void)popoverDidClose:(NSNotification *)notification {

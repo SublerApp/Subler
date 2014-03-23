@@ -43,7 +43,7 @@ typedef enum SBQueueItemStatus : NSInteger {
 @property (nonatomic, readonly) NSURL *URL;
 @property (nonatomic, copy) NSURL *destURL;
 
-@property (nonatomic, readonly) NSMutableArray *actions;
+@property (nonatomic, readonly) NSArray *actions;
 @property (nonatomic, readonly) NSDictionary *attributes;
 
 @property (nonatomic, assign) id delegate;
@@ -54,6 +54,7 @@ typedef enum SBQueueItemStatus : NSInteger {
 + (instancetype)itemWithMP4:(MP42File *)MP4 url:(NSURL *)URL attributes:(NSDictionary *)dict;
 
 - (void)addAction:(id<SBQueueActionProtocol>)action;
+- (void)removeAction:(id<SBQueueActionProtocol>)action;
 
 - (BOOL)prepareItem:(NSError **)outError;
 - (BOOL)processItem:(BOOL)optimize error:(NSError **)outError;

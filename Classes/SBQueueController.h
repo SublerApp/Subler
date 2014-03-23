@@ -11,6 +11,8 @@
 #import "SBQueue.h"
 
 @class SBQueueItem;
+@class SBOptionsViewController;
+
 @class SBTableView;
 @class MP42File;
 
@@ -26,6 +28,7 @@
 
     NSPopover *_popover;
     NSPopover *_itemPopover;
+    SBOptionsViewController *_windowController;
 
     NSMutableDictionary *_options;
     NSImage *_docImg;
