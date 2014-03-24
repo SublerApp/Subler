@@ -235,7 +235,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
  */
 - (void)stop {
     self.cancelled = YES;
-    [self.currentItem.mp4File cancel];
+    [self.currentItem cancel];
 }
 
 - (void)progressStatus:(CGFloat)progress {

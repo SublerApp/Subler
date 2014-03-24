@@ -145,12 +145,12 @@
     // Search for metadata
     MP42Metadata *metadata = [self searchMetadataForFile:item.URL];
 
-    for (MP42Track *track in item.mp4File.tracks)
+    for (MP42Track *track in [item.mp4File tracksWithMediaType:MP42MediaTypeVideo])
         if ([track isKindOfClass:[MP42VideoTrack class]]) {
             int hdVideo = isHdVideo([((MP42VideoTrack *) track) trackWidth], [((MP42VideoTrack *) track) trackHeight]);
 
             if (hdVideo)
-                [item.mp4File.metadata setTag:@(hdVideo) forKey:@"HD Video"];
+                [metadata setTag:@(hdVideo) forKey:@"HD Video"];
         }
 
     [[item.mp4File metadata] mergeMetadata:metadata];

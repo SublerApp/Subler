@@ -58,5 +58,6 @@ typedef enum SBQueueItemStatus : NSInteger {
 
 - (BOOL)prepareItem:(NSError **)outError;
 - (BOOL)processItem:(BOOL)optimize error:(NSError **)outError;
+- (void)cancel;
 
 @end
