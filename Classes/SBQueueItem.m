@@ -67,24 +67,13 @@
     return [[[SBQueueItem alloc] initWithURL:URL] autorelease];
 }
 
-- (id)initWithMP4:(MP42File*)MP4 {
+- (instancetype)initWithMP4:(MP42File *)MP4 {
     self = [self init];
     if (self) {
         _mp4File = [MP4 retain];
 
-        if ([MP4 URL]) {
-            _fileURL = [[MP4 URL] retain];
-        } else {
-            for (NSUInteger i = 0; i < [_mp4File tracksCount]; i++) {
-                MP42Track *track = [_mp4File trackAtIndex:i];
-                if ([track sourceURL]) {
-                    _fileURL = [[track sourceURL] retain];
-                    break;
-                }
-            }
-        }
-
-        _status = SBQueueItemStatusReady;
+        _fileURL = [[NSURL fileURLWithPath:[MP4.URL path]] retain];
+        _destURL = [[NSURL fileURLWithPath:[MP4.URL path]] retain];
     }
 
     return self;
@@ -94,14 +83,14 @@
     return [[[SBQueueItem alloc] initWithMP4:MP4] autorelease];
 }
 
-- (id)initWithMP4:(MP42File *)MP4 url:(NSURL *)URL attributes:(NSDictionary *)dict {
+- (instancetype)initWithMP4:(MP42File *)MP4 url:(NSURL *)URL attributes:(NSDictionary *)dict {
     if (self = [self init]) {
         _mp4File = [MP4 retain];
+
         _fileURL = [URL copy];
         _destURL = [URL copy];
-        _attributes = [dict copy];
 
-        _status = SBQueueItemStatusReady;
+        _attributes = [dict copy];
     }
 
     return self;
@@ -110,6 +99,8 @@
 + (instancetype)itemWithMP4:(MP42File *)MP4 url:(NSURL *)URL attributes:(NSDictionary *)dict {
     return [[[SBQueueItem alloc] initWithMP4:MP4 url:URL attributes:dict] autorelease];
 }
+
+#pragma mark KVO
 
 + (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey {
     BOOL automatic = NO;
@@ -253,7 +244,7 @@
     if (!noErr) {
         if (outError) {
             NSDictionary *errorDetail = @{ NSLocalizedDescriptionKey : @"The file couldn't be optimized",
-                                           NSLocalizedRecoverySuggestionErrorKey : @"An error occurred while optimizing." };
+                                           NSLocalizedRecoverySuggestionErrorKey : @"An error occurred while optimizing the file." };
             *outError = [NSError errorWithDomain:@"SBQueueItemError" code:11 userInfo:errorDetail];
         }
         goto bail;

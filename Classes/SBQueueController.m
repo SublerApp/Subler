@@ -45,16 +45,6 @@ static void *SBQueueContex = &SBQueueContex;
 
 - (IBAction)open:(id)sender;
 
-- (void)start:(id)sender;
-- (void)stop:(id)sender;
-
-- (void)updateUI;
-- (void)updateDockTile;
-- (NSURL *)queueURL;
-
-- (void)addItems:(NSArray *)items atIndexes:(NSIndexSet *)indexes;
-- (void)removeItems:(NSArray *)items;
-
 @end
 
 
