@@ -129,6 +129,7 @@ static void *SBQueueContex = &SBQueueContex;
 - (void)registerUserDefaults {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{ @"SBQueueOrganize" : @YES,
                                                                @"SBQueueMetadata" : @NO,
+                                                               @"SBQueueSubtitles": @YES,
                                                                @"SBQueueAutoStart": @NO,
                                                                @"SBQueueOptimize" : @YES }];
 }
@@ -139,6 +140,7 @@ static void *SBQueueContex = &SBQueueContex;
 - (void)saveUserDefaults {
     [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:@"SBQueueOrganize"] forKey:@"SBQueueOrganize"];
     [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:@"SBQueueMetadata"] forKey:@"SBQueueMetadata"];
+    [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:@"SBQueueSubtitles"] forKey:@"SBQueueSubtitles"];
     [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:@"SBQueueAutoStart"] forKey:@"SBQueueAutoStart"];
     [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:@"SBQueueOptimize"] forKey:@"SBQueueOptimize"];
     [[NSUserDefaults standardUserDefaults] setValue:[[self.options objectForKey:@"SBQueueDestination"] path] forKey:@"SBQueueDestination"];
@@ -154,6 +156,7 @@ static void *SBQueueContex = &SBQueueContex;
 
     [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueOrganize"] forKey:@"SBQueueOrganize"];
     [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueMetadata"] forKey:@"SBQueueMetadata"];
+    [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueSubtitles"] forKey:@"SBQueueSubtitles"];
     [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueAutoStart"] forKey:@"SBQueueAutoStart"];
     [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueOptimize"] forKey:@"SBQueueOptimize"];
 
@@ -247,8 +250,12 @@ static void *SBQueueContex = &SBQueueContex;
 
     if ([[self.options objectForKey:@"SBQueueMetadata"] boolValue]) {
         [item addAction:[[[SBQueueMetadataAction alloc] init] autorelease]];
+    }
+
+    if ([[self.options objectForKey:@"SBQueueSubtitles"] boolValue]) {
         [item addAction:[[[SBQueueSubtitlesAction alloc] init] autorelease]];
     }
+
     if ([[self.options objectForKey:@"SBQueueOrganize"] boolValue]) {
         [item addAction:[[[SBQueueOrganizeGroupsAction alloc] init] autorelease]];
     }
