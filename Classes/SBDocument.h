@@ -11,7 +11,7 @@
 @class MP42File;
 
 @interface SBDocument : NSDocument <NSTableViewDelegate> {
-    MP42File  *mp4File;
+    MP42File  *_mp4File;
     IBOutlet NSWindow       *documentWindow;
 
     IBOutlet NSTableView    *fileTracksTable;
