@@ -33,26 +33,25 @@
 
 + (void)registerUserDefaults
 {    
-    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                             @"m4v",            @"SBSaveFormat",
-                                                             @"0",              @"defaultSaveFormat",
-                                                             @"YES",            @"SBOrganizeAlternateGroups",
-                                                             @"1",              @"SBAudioMixdown",
-                                                             @"96",             @"SBAudioBitrate",
-                                                             @"YES",            @"SBAudioConvertAC3",
-                                                             @"YES",            @"SBAudioKeepAC3",
-                                                             @"YES",            @"SBSubtitleConvertBitmap",
-                                                             @"All countries",  @"SBRatingsCountry",
-                                                             @"m4v",            @"SBSaveFormat",
-                                                             @"NO",             @"mp464bitOffset",
-                                                             @"YES",            @"chaptersPreviewTrack",
-                                                             @"TheMovieDB",     @"SBMetadataPreference|Movie",
-                                                             @"USA (English)",  @"SBMetadataPreference|Movie|iTunes Store|Language",
-                                                             @"English",        @"SBMetadataPreference|Movie|TheMovieDB|Language",
-                                                             @"TheTVDB",        @"SBMetadataPreference|TV",
-                                                             @"USA (English)",  @"SBMetadataPreference|TV|iTunes Store|Language",
-                                                             @"English",        @"SBMetadataPreference|TV|TheTVDB|Language",
-                                                             nil]];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"SBSaveFormat":                  @"m4v",
+                                                              @"defaultSaveFormat":             @"0",
+                                                              @"SBOrganizeAlternateGroups":     @"YES",
+                                                              @"SBAudioMixdown":                @"1",
+                                                              @"SBAudioBitrate":                @"96",
+                                                              @"SBAudioConvertAC3":             @"YES",
+                                                              @"SBAudioKeepAC3":                @"YES",
+                                                              @"SBSubtitleConvertBitmap":       @"YES",
+                                                              @"SBRatingsCountry":              @"All countries",
+                                                              @"SBSaveFormat":                  @"m4v",
+                                                              @"mp464bitOffset":                @"NO",
+                                                              @"chaptersPreviewTrack":          @"YES",
+
+                                                              @"SBMetadataPreference|Movie": @"TheMovieDB",
+                                                              @"SBMetadataPreference|Movie|iTunes Store|Language": @"USA (English)",
+                                                              @"SBMetadataPreference|Movie|TheMovieDB|Language": @"English",
+                                                              @"SBMetadataPreference|TV": @"TheTVDB",
+                                                              @"SBMetadataPreference|TV|iTunes Store|Language": @"USA (English)",
+                                                              @"SBMetadataPreference|TV|TheTVDB|Language": @"English"}];
 }
 
 - (instancetype)init
@@ -104,17 +103,17 @@
 
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
 {
-    return [self toolbarDefaultItemIdentifiers: toolbar];
+    return [self toolbarDefaultItemIdentifiers:toolbar];
 }
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
 {
-    return [self toolbarAllowedItemIdentifiers: toolbar];
+    return [self toolbarAllowedItemIdentifiers:toolbar];
 }
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
 {
-    return [NSArray arrayWithObjects: TOOLBAR_GENERAL, TOOLBAR_SETS, TOOLBAR_ADVANCED, nil];
+    return @[TOOLBAR_GENERAL, TOOLBAR_SETS, TOOLBAR_ADVANCED];
 }
 
 - (IBAction)clearRecentSearches:(id)sender {
