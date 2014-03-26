@@ -37,7 +37,7 @@
     NSComboBoxCell          *genreCell;
 
     NSDictionary    *tags;
-    NSArray         *tagsArray;
+    NSArray         *_tagsArray;
     NSArray         *tagsMenu;
     NSDictionary    *detailBoldAttr;
 

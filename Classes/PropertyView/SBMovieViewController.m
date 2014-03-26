@@ -19,11 +19,16 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
 #import <MP42Foundation/MP42File.h>
 
 @interface SBMovieViewController () <SBTableViewDelegate, SBImageBrowserViewDelegate>
+
+@property (nonatomic, retain) NSArray *tagsArray;
+
 - (void) updateSetsMenu: (id)sender;
 
 @end
 
 @implementation SBMovieViewController
+
+@synthesize tagsArray = _tagsArray;
 
 - (void)awakeFromNib
 {
@@ -104,9 +109,8 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
 
 - (void) updateTagsArray
 {
-    [tagsArray autorelease];
     NSArray *context = [metadata availableMetadata];
-    tagsArray = [[tags allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    self.tagsArray = [[tags allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         NSInteger right = [context indexOfObject:obj2];
         NSInteger left = [context indexOfObject:obj1];
         
@@ -115,7 +119,6 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
         else
             return NSOrderedAscending;
     }];
-    [tagsArray retain];
 }
 
 - (void) add:(NSDictionary *) data
@@ -169,7 +172,7 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
 
     while (current_index != NSNotFound) {
         if ([tagsTableView editedRow] == -1) {
-            NSString *tagName = [tagsArray objectAtIndex:current_index];
+            NSString *tagName = [self.tagsArray objectAtIndex:current_index];
             [tagDict setObject:[metadata.tagsDict valueForKey:tagName] forKey:tagName];
         }
         current_index = [rowIndexes indexLessThanIndex: current_index];
@@ -370,7 +373,7 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
     NSString *string = @"";
 
     while (current_index != NSNotFound) {
-        NSString *tagName = [tagsArray objectAtIndex:current_index];
+        NSString *tagName = [self.tagsArray objectAtIndex:current_index];
         NSString *tagValue = [tags objectForKey:tagName];
         string = [string stringByAppendingFormat:@"%@: %@\n",tagName, tagValue];
         [data setValue:tagValue forKey:tagName];
@@ -438,7 +441,7 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
     NSCell *cell = nil;
     NSString *tagName = nil;
     if (tableColumn != nil)
-        tagName= [tagsArray objectAtIndex:row];
+        tagName = [self.tagsArray objectAtIndex:row];
 
     if ([tableColumn.identifier isEqualToString:@"name"]) {
         cell = [tableColumn dataCell];
@@ -464,10 +467,10 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
              row:(NSInteger)rowIndex
 {
     if ([tableColumn.identifier isEqualToString:@"name"])
-        return [self boldString:[tagsArray objectAtIndex:rowIndex]];
+        return [self boldString:[self.tagsArray objectAtIndex:rowIndex]];
 
     if ([tableColumn.identifier isEqualToString:@"value"]) 
-        return [tags objectForKey:[tagsArray objectAtIndex:rowIndex]];
+        return [tags objectForKey:[self.tagsArray objectAtIndex:rowIndex]];
 
     return nil;
 }
@@ -477,7 +480,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     forTableColumn: (NSTableColumn *) tableColumn 
                row: (NSInteger) rowIndex
 {
-    NSString *tagName = [tagsArray objectAtIndex:rowIndex];
+    NSString *tagName = [self.tagsArray objectAtIndex:rowIndex];
     [dct removeAllObjects];
 
     if ([tableColumn.identifier isEqualToString:@"value"]) {
@@ -488,14 +491,14 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (CGFloat) tableView: (NSTableView *) tableView
           heightOfRow: (NSInteger) rowIndex
 {
-    NSString *key = [tagsArray objectAtIndex:rowIndex];
+    NSString *key = [self.tagsArray objectAtIndex:rowIndex];
     CGFloat height;
 
     if (!(height = [[dct objectForKey:key] floatValue])) {
         //calculate new row height
         NSRect r = NSMakeRect(0,0,width,1000.0);
         NSTextFieldCell *cell = [tabCol dataCellForRow:rowIndex];
-        [cell setObjectValue:[tags objectForKey:[tagsArray objectAtIndex:rowIndex]]];
+        [cell setObjectValue:[tags objectForKey:[self.tagsArray objectAtIndex:rowIndex]]];
         height = [cell cellSizeForBounds:r].height; // Slow, but we cache it.
         [dct setObject:@(height) forKey:key];
     }
@@ -795,7 +798,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     [tagsTableView setDataSource:nil];
     [tagsTableView setDelegate:nil];
 
-    [tagsArray release];
+    [_tagsArray release];
     [tagsMenu release];
     [tabCol release];
     [detailBoldAttr release];
