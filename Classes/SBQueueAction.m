@@ -29,7 +29,7 @@
                                                                             error:nil];
 
     for (NSURL *dirUrl in directory) {
-        if ([[dirUrl pathExtension] isEqualToString:@"srt"]) {
+        if ([[dirUrl pathExtension] caseInsensitiveCompare:@"srt"] == NSOrderedSame) {
             NSComparisonResult result;
             NSString *movieFilename = [[url URLByDeletingPathExtension] lastPathComponent];
             NSString *subtitleFilename = [[dirUrl URLByDeletingPathExtension] lastPathComponent];
