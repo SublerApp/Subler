@@ -116,8 +116,7 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="7CCC4E53-430A-4EDF-8C9B-E7533A5972A1" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="DiU-kc-8B9">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="F1DC4F94-9258-4B59-BF72-12DFD3EAD22C" label="Add Item" paletteLabel="Add Item" image="NSAddTemplate" id="IS0-Xx-A4a" customClass="ButtonToolbarItem">
-                        <nil key="toolTip"/>
+                    <toolbarItem implicitItemIdentifier="F1DC4F94-9258-4B59-BF72-12DFD3EAD22C" label="Add Item" paletteLabel="Add Item" toolTip="Add an item to the queue" image="NSAddTemplate" id="IS0-Xx-A4a" customClass="ButtonToolbarItem">
                         <size key="minSize" width="34" height="25"/>
                         <size key="maxSize" width="34" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="Ki3-3j-eme">
@@ -132,8 +131,7 @@
                             <action selector="open:" target="-2" id="DgV-4h-anl"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="3A0E823A-894C-494B-9554-6425D7D7B736" label="Settings" paletteLabel="Settings" image="NSActionTemplate" id="5Tt-V1-Lwx" customClass="ButtonToolbarItem">
-                        <nil key="toolTip"/>
+                    <toolbarItem implicitItemIdentifier="3A0E823A-894C-494B-9554-6425D7D7B736" label="Settings" paletteLabel="Settings" toolTip="Show the settings window" image="NSActionTemplate" id="5Tt-V1-Lwx" customClass="ButtonToolbarItem">
                         <size key="minSize" width="34" height="25"/>
                         <size key="maxSize" width="34" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="Eam-QC-F1x">
@@ -148,8 +146,7 @@
                             <action selector="toggleOptions:" target="-2" id="Rvh-ys-fiO"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="261B6090-DD1C-42D3-B0D8-2308962EE7D9" label="Start" paletteLabel="Start" image="NSGoRightTemplate" id="xBN-FT-Sv0" customClass="ButtonToolbarItem">
-                        <nil key="toolTip"/>
+                    <toolbarItem implicitItemIdentifier="261B6090-DD1C-42D3-B0D8-2308962EE7D9" label="Start" paletteLabel="Start" toolTip="Start/Stop the queue" image="NSGoRightTemplate" id="xBN-FT-Sv0" customClass="ButtonToolbarItem">
                         <size key="minSize" width="34" height="25"/>
                         <size key="maxSize" width="34" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="cSb-W5-RNU">

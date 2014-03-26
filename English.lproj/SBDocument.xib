@@ -178,10 +178,9 @@
                     </splitView>
                 </subviews>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="61E0A00C-CBF2-4937-9418-AC0758672070" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="100097">
+            <toolbar key="toolbar" implicitIdentifier="61E0A00C-CBF2-4937-9418-AC0758672070" explicitIdentifier="SBDocumentToolbar26" displayMode="iconOnly" sizeMode="regular" id="100097">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="3594B023-F131-4DE6-8067-263D9BF3F6BB" label="Add Track" paletteLabel="Add Track" image="NSAddTemplate" id="100247" customClass="ButtonToolbarItem">
-                        <nil key="toolTip"/>
+                    <toolbarItem implicitItemIdentifier="3594B023-F131-4DE6-8067-263D9BF3F6BB" label="Add Track" paletteLabel="Add Track" toolTip="Add tracks from external files" image="NSAddTemplate" id="100247" customClass="ButtonToolbarItem">
                         <size key="minSize" width="34" height="25"/>
                         <size key="maxSize" width="34" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="100248">
@@ -275,8 +274,7 @@
                             </popUpButtonCell>
                         </popUpButton>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="1A1981DF-4B61-4138-AF89-2C08EB9862B2" label="Delete Track" paletteLabel="Delete Track" image="ToolbarRemoveTemplate" id="100164" customClass="ButtonToolbarItem">
-                        <nil key="toolTip"/>
+                    <toolbarItem implicitItemIdentifier="1A1981DF-4B61-4138-AF89-2C08EB9862B2" label="Delete Track" paletteLabel="Delete Track" toolTip="Delete the selected track" image="ToolbarRemoveTemplate" id="100164" customClass="ButtonToolbarItem">
                         <size key="minSize" width="34" height="25"/>
                         <size key="maxSize" width="34" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="100162">
@@ -291,8 +289,7 @@
                             <action selector="deleteTrack:" target="-2" id="100171"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="81E322E1-B40D-46EB-A3CD-24C0B28B5EDA" label="Search" paletteLabel="Search" image="NSRevealFreestandingTemplate" id="100302" customClass="ButtonToolbarItem">
-                        <nil key="toolTip"/>
+                    <toolbarItem implicitItemIdentifier="81E322E1-B40D-46EB-A3CD-24C0B28B5EDA" label="Search" paletteLabel="Search" toolTip="Search metadata online" image="NSRevealFreestandingTemplate" id="100302" customClass="ButtonToolbarItem">
                         <size key="minSize" width="34" height="25"/>
                         <size key="maxSize" width="34" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="100303">
@@ -307,8 +304,7 @@
                             <action selector="searchMetadata:" target="-2" id="100309"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="864986A8-F5EB-412B-A345-094EA449A2EA" label="Send to Queue" paletteLabel="Send to Queue" image="ToolbarActionTemplate" id="100312" customClass="ButtonToolbarItem">
-                        <nil key="toolTip"/>
+                    <toolbarItem implicitItemIdentifier="864986A8-F5EB-412B-A345-094EA449A2EA" label="Send to Queue" paletteLabel="Send to Queue" toolTip="Send the current document to the queue" image="ToolbarActionTemplate" id="100312" customClass="ButtonToolbarItem">
                         <size key="minSize" width="34" height="25"/>
                         <size key="maxSize" width="34" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="100313">

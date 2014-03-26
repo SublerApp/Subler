@@ -32,7 +32,7 @@
                         </binding>
                     </connections>
                 </button>
-                <button id="9GN-f6-r2j">
+                <button toolTip="Search metadata online" id="9GN-f6-r2j">
                     <rect key="frame" x="111" y="139" width="103" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Fetch Metadata" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="QNO-e1-WUJ">
@@ -62,7 +62,7 @@
                         </binding>
                     </connections>
                 </button>
-                <button id="ccd-Xn-Dj3">
+                <button toolTip="Organize the mp4 alternate groups" id="ccd-Xn-Dj3">
                     <rect key="frame" x="111" y="121" width="112" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Organize Groups" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="240-c7-2UW">
@@ -77,7 +77,7 @@
                         </binding>
                     </connections>
                 </button>
-                <button id="etc-K7-Atw">
+                <button toolTip="Load the external srt subtitles file" id="etc-K7-Atw">
                     <rect key="frame" x="111" y="103" width="143" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Load external subtitles" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="59T-kp-mV1">
