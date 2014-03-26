@@ -11,6 +11,7 @@
 @class SBTableView;
 @class SBArtworkSelector;
 @class MP42Metadata;
+@class MetadataImporter;
 
 @protocol SBMetadataSearchControllerDelegate
 - (void)metadataImportDone:(MP42Metadata *)metadataToBeImported;
@@ -35,7 +36,7 @@
 	IBOutlet NSPopUpButton       *tvMetadataProvider;
     
     IBOutlet NSButton            *searchButton;
-    id                            currentSearcher;
+    MetadataImporter             *currentSearcher;
 
     NSArray                      *resultsArray;
     IBOutlet NSTableView         *resultsTable;
