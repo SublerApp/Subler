@@ -31,7 +31,7 @@ static void *SBQueueContex = &SBQueueContex;
 @property (nonatomic, retain) NSPopover *itemPopover;
 @property (nonatomic, retain) SBOptionsViewController *windowController;
 
-@property NSMutableDictionary *options;
+@property (nonatomic, readonly) NSMutableDictionary *options;
 
 - (IBAction)removeSelectedItems:(id)sender;
 - (IBAction)removeCompletedItems:(id)sender;

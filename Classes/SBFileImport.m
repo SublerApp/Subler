@@ -30,6 +30,11 @@
                 [_tracks addObjectsFromArray:importer.tracks];
             }
         }
+
+        if (![_tracks count]) {
+            [self release];
+            return nil;
+        }
 	}
 
 	return self;
