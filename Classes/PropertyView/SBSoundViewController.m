@@ -13,7 +13,7 @@
 
 - (void)awakeFromNib
 {
-    [alternateGroup selectItemAtIndex:track.alternate_group];
+    [alternateGroup selectItemAtIndex:(NSInteger)track.alternate_group];
 
     _fallbacks = [[NSMutableArray alloc] init];
 
@@ -86,7 +86,7 @@
 
 - (IBAction)setTrackVolume:(id)sender
 {
-    float value = [sender doubleValue] / 100;
+    float value = [sender floatValue] / 100;
     if (track.volume != value) {
         track.volume = value;
         [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
@@ -130,7 +130,7 @@
 
 - (IBAction)setAltenateGroup:(id)sender
 {
-    uint8_t tagName = [[sender selectedItem] tag];
+    NSInteger tagName = [[sender selectedItem] tag];
     
     if (track.alternate_group != tagName) {
         track.alternate_group = tagName;

@@ -90,7 +90,7 @@
 }
 
 - (IBAction)removeChapter:(id)sender {
-    NSUInteger current_index = [chapterTableView selectedRow];
+    NSInteger current_index = [chapterTableView selectedRow];
     if (current_index < [track chapterCount]) {
         [track removeChapterAtIndex:current_index];
 

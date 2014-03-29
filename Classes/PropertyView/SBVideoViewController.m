@@ -70,7 +70,7 @@ static NSString *getLevelName(uint8_t level) {
     [offsetX setStringValue: [NSString stringWithFormat:@"%d", track.offsetX]];
     [offsetY setStringValue: [NSString stringWithFormat:@"%d", track.offsetY]];
     
-    [alternateGroup selectItemAtIndex:track.alternate_group];
+    [alternateGroup selectItemAtIndex:(NSInteger)track.alternate_group];
 
     if ([track.format isEqualToString:MP42VideoFormatH264] && track.origProfile && track.origLevel) {
         [profileLevelUnchanged setTitle:[NSString stringWithFormat:@"Current profile: %@ @ %@", 
@@ -163,7 +163,7 @@ static NSString *getLevelName(uint8_t level) {
         if (track.trackWidth != i) {
             if ([preserveAspectRatio state] == NSOnState) {
                 track.trackHeight = (track.trackHeight / track.trackWidth) * i;
-                [trackHeight setIntegerValue:track.trackHeight];
+                [trackHeight setIntegerValue:(NSInteger)track.trackHeight];
             }
             track.trackWidth = i;
 
@@ -227,7 +227,7 @@ static NSString *getLevelName(uint8_t level) {
 
 - (IBAction)setAltenateGroup:(id)sender
 {
-    uint8_t tagName = [[sender selectedItem] tag];
+    NSInteger tagName = [[sender selectedItem] tag];
     
     if (track.alternate_group != tagName) {
         track.alternate_group = tagName;

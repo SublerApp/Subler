@@ -537,7 +537,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (IBAction) changeMediaKind: (id) sender
 {
-    uint8_t tagName = [[sender selectedItem] tag];
+    uint8_t tagName = (uint8_t)[[sender selectedItem] tag];
 
     if (metadata.mediaKind != tagName) {
         metadata.mediaKind = tagName;
@@ -548,7 +548,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (IBAction) changecContentRating: (id) sender
 {
-    uint8_t tagName = [[sender selectedItem] tag];
+    uint8_t tagName = (uint8_t)[[sender selectedItem] tag];
 
     if (metadata.contentRating != tagName) {
         metadata.contentRating = tagName;
@@ -561,7 +561,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     uint8_t newValue;
     if (sender == gapless)
-        newValue = [gapless state];
+        newValue = (uint8_t)[gapless state];
     else {
         newValue = ![gapless state];
         [gapless setState:newValue];
@@ -583,9 +583,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (IBAction) changePodcast: (id) sender
 {
     uint8_t newValue;
-    if (sender == podcast)
-        newValue = [podcast state];
-    else {
+    if (sender == podcast) {
+        newValue = (uint8_t)[podcast state];
+    } else {
         newValue = ![podcast state];
         [podcast setState:newValue];
     }
@@ -605,7 +605,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (IBAction) changehdVideo: (id) sender
 {
-    uint8_t tagName = [[sender selectedItem] tag];
+    uint8_t tagName = (uint8_t)[[sender selectedItem] tag];
     
     if (metadata.hdVideo != tagName) {
         metadata.hdVideo = tagName;

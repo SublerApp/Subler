@@ -51,12 +51,12 @@ typedef enum _MAWindowPosition {
 
 @interface MAAttachedWindow : NSWindow {
     NSColor *borderColor;
-    float borderWidth;
-    float viewMargin;
-    float arrowBaseWidth;
-    float arrowHeight;
+    CGFloat borderWidth;
+    CGFloat viewMargin;
+    CGFloat arrowBaseWidth;
+    CGFloat arrowHeight;
     BOOL hasArrow;
-    float cornerRadius;
+    CGFloat cornerRadius;
     BOOL drawsRoundCornerBesideArrow;
     
 @private
@@ -65,7 +65,7 @@ typedef enum _MAWindowPosition {
     __weak NSWindow *_window;
     NSPoint _point;
     MAWindowPosition _side;
-    float _distance;
+    CGFloat _distance;
     NSRect _viewFrame;
     BOOL _resizing;
 }
@@ -123,20 +123,20 @@ typedef enum _MAWindowPosition {
 // Accessor methods
 - (NSColor *)borderColor;
 - (void)setBorderColor:(NSColor *)value;
-- (float)borderWidth;
-- (void)setBorderWidth:(float)value;                   // See note 1 below.
-- (float)viewMargin;
-- (void)setViewMargin:(float)value;                    // See note 2 below.
-- (float)arrowBaseWidth;
-- (void)setArrowBaseWidth:(float)value;                // See note 2 below.
-- (float)arrowHeight;
-- (void)setArrowHeight:(float)value;                   // See note 2 below.
-- (float)hasArrow;
-- (void)setHasArrow:(float)value;
-- (float)cornerRadius;
-- (void)setCornerRadius:(float)value;                  // See note 2 below.
-- (float)drawsRoundCornerBesideArrow;                  // See note 3 below.
-- (void)setDrawsRoundCornerBesideArrow:(float)value;   // See note 2 below.
+- (CGFloat)borderWidth;
+- (void)setBorderWidth:(CGFloat)value;                   // See note 1 below.
+- (CGFloat)viewMargin;
+- (void)setViewMargin:(CGFloat)value;                    // See note 2 below.
+- (CGFloat)arrowBaseWidth;
+- (void)setArrowBaseWidth:(CGFloat)value;                // See note 2 below.
+- (CGFloat)arrowHeight;
+- (void)setArrowHeight:(CGFloat)value;                   // See note 2 below.
+- (CGFloat)hasArrow;
+- (void)setHasArrow:(CGFloat)value;
+- (CGFloat)cornerRadius;
+- (void)setCornerRadius:(CGFloat)value;                  // See note 2 below.
+- (CGFloat)drawsRoundCornerBesideArrow;                  // See note 3 below.
+- (void)setDrawsRoundCornerBesideArrow:(CGFloat)value;   // See note 2 below.
 - (void)setBackgroundImage:(NSImage *)value;
 - (NSColor *)windowBackgroundColor;                    // See note 4 below.
 - (void)setBackgroundColor:(NSColor *)value;

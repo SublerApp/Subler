@@ -147,7 +147,8 @@
 
     for (MP42Track *track in [item.mp4File tracksWithMediaType:MP42MediaTypeVideo])
         if ([track isKindOfClass:[MP42VideoTrack class]]) {
-            int hdVideo = isHdVideo([((MP42VideoTrack *) track) trackWidth], [((MP42VideoTrack *) track) trackHeight]);
+            MP42VideoTrack *videoTrack = (MP42VideoTrack *)track;
+            int hdVideo = isHdVideo((uint64_t)videoTrack.trackWidth, (uint64_t)videoTrack.trackHeight);
 
             if (hdVideo)
                 [metadata setTag:@(hdVideo) forKey:@"HD Video"];

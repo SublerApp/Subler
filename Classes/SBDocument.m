@@ -482,7 +482,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     }
     else if ([tableColumn.identifier isEqualToString:@"trackEnabled"]) {
         if (!(track.enabled  == [anObject integerValue])) {
-            track.enabled = [anObject integerValue];
+            track.enabled = [anObject boolValue];
             [self updateChangeCount:NSChangeDone];
         }
     }
@@ -770,7 +770,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
         for (MP42Track *track in self.mp4.tracks)
             if ([track isKindOfClass:[MP42VideoTrack class]]) {
-                int hdVideo = isHdVideo([((MP42VideoTrack *) track) trackWidth], [((MP42VideoTrack *) track) trackHeight]);
+                MP42VideoTrack *videoTrack = (MP42VideoTrack *)track;
+                int hdVideo = isHdVideo((uint64_t)videoTrack.trackWidth, (uint64_t)videoTrack.trackHeight);
 
                 if (hdVideo)
                     [self.mp4.metadata setTag:@(hdVideo) forKey:@"HD Video"];
