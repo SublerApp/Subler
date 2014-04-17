@@ -56,26 +56,16 @@
 {
     [super windowControllerDidLoadNib:aController];
 
-    languages = [[[MP42Languages defaultManager] languages] copy];
+    languages = [[[MP42Languages defaultManager] languages] retain];
+    _optimize = NO;
 
-    SBMovieViewController *controller = [[SBMovieViewController alloc] initWithNibName:@"MovieView" bundle:nil];
-    [controller setFile:self.mp4];
-    if (controller !=nil){
-        propertyView = controller;
-        [[propertyView view] setAutoresizingMask:( NSViewWidthSizable | NSViewHeightSizable )];
-        [[propertyView view] setFrame:[targetView bounds]];
-        [targetView addSubview: [propertyView view]];
-    }
-
-    [documentWindow recalculateKeyViewLoop];
+    [self tableViewSelectionDidChange:nil];
+    [sendToQueue setImage:[NSImage imageNamed:NSImageNameShareTemplate]];
 
     [fileTracksTable registerForDraggedTypes:[NSArray arrayWithObjects:SublerTableViewDataType, nil]];
     [documentWindow registerForDraggedTypes:[NSArray arrayWithObjects:
                                    NSColorPboardType, NSFilenamesPboardType, nil]];
 
-    _optimize = NO;
-
-    [sendToQueue setImage:[NSImage imageNamed:NSImageNameShareTemplate]];
 }
 
 - (id)initWithType:(NSString *)typeName error:(NSError **)outError
@@ -107,9 +97,9 @@
             [newFile release];
             [fileTracksTable reloadData];
             [self tableViewSelectionDidChange:nil];
-        }
-        else
+        } else {
             [self close];
+        }
     }
 }
 
@@ -135,8 +125,7 @@
     [self updateChangeCount:NSChangeCleared];
 
     if (outError != NULL && !self.mp4) {
-		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];   
-        
+		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
         return NO;
 	}
     return YES;
@@ -421,9 +410,6 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)t
 {
-    if (!self.mp4)
-        return 0;
-
     return [self.mp4 tracksCount];
 }
 
@@ -436,12 +422,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     if (!track)
         return nil;
 
-    if ([tableColumn.identifier isEqualToString:@"trackId"]) {
-        if ([track Id] == 0)
-            return @"na";
-        else
-            return [NSString stringWithFormat:@"%d", [track Id]];
-    }
+    if ([tableColumn.identifier isEqualToString:@"trackId"])
+        return (track.Id == 0) ? @"na" : [NSString stringWithFormat:@"%d", track.Id];
 
     if ([tableColumn.identifier isEqualToString:@"trackName"])
         return track.name;
@@ -490,51 +472,43 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-    if ([propertyView view] != nil)
-		[[propertyView view] removeFromSuperview];	// remove the current view
+    if ([propertyView view] != nil) {
+        // remove the current view
+		[[propertyView view] removeFromSuperview];
+    }
 
-    [[self undoManager] removeAllActionsWithTarget:propertyView];  // remove the undo items from the dealloced view
+    // remove the undo items from the dealloced view
+    [[self undoManager] removeAllActionsWithTarget:propertyView];
 
-	if (propertyView != nil)
-		[propertyView release];		// remove the current view controller
+	if (propertyView != nil) {
+        // remove the current view controller
+        [propertyView release];
+    }
 
     NSInteger row = [fileTracksTable selectedRow];
-    if (row == -1)
-    {
-        SBMovieViewController *controller = [[SBMovieViewController alloc] initWithNibName:@"MovieView" bundle:nil];
+
+    id controller = nil;
+    id track = (row != -1) ? [self.mp4 trackAtIndex:row] : nil;
+
+    if (row == -1) {
+        controller = [[SBMovieViewController alloc] initWithNibName:@"MovieView" bundle:nil];
         [controller setFile:self.mp4];
-        if (controller !=nil)
-            propertyView = controller;
-    }
-    else if (row != -1 && [[self.mp4 trackAtIndex:row] isMemberOfClass:[MP42ChapterTrack class]])
-    {
-        SBChapterViewController *controller = [[SBChapterViewController alloc] initWithNibName:@"ChapterView" bundle:nil];
-        [controller setTrack:(MP42ChapterTrack *)[self.mp4 trackAtIndex:row]];
-        if (controller !=nil)
-            propertyView = controller;
-    }
-    else if (row != -1 && [[self.mp4 trackAtIndex:row] isKindOfClass:[MP42VideoTrack class]])
-    {
-        SBVideoViewController *controller = [[SBVideoViewController alloc] initWithNibName:@"VideoView" bundle:nil];
-        [controller setTrack:(MP42VideoTrack *)[self.mp4 trackAtIndex:row]];
+    } else if ([track isMemberOfClass:[MP42ChapterTrack class]]) {
+        controller = [[SBChapterViewController alloc] initWithNibName:@"ChapterView" bundle:nil];
+        [controller setTrack:track];
+    } else if ([track isKindOfClass:[MP42VideoTrack class]]) {
+        controller = [[SBVideoViewController alloc] initWithNibName:@"VideoView" bundle:nil];
+        [controller setTrack:track];
         [controller setFile:self.mp4];
-        if (controller !=nil)
-            propertyView = controller;
-    }
-    else if (row != -1 && [[self.mp4 trackAtIndex:row] isKindOfClass:[MP42AudioTrack class]])
-    {
-        SBSoundViewController *controller = [[SBSoundViewController alloc] initWithNibName:@"SoundView" bundle:nil];
-        [controller setTrack:(MP42AudioTrack *)[self.mp4 trackAtIndex:row]];
+    } else if ([track isKindOfClass:[MP42AudioTrack class]]) {
+        controller = [[SBSoundViewController alloc] initWithNibName:@"SoundView" bundle:nil];
+        [controller setTrack:track];
         [controller setFile:self.mp4];
-        if (controller !=nil)
-            propertyView = controller;
+    } else {
+        controller = [[SBEmptyViewController alloc] initWithNibName:@"EmptyView" bundle:nil];
     }
-    else
-    {
-        SBEmptyViewController *controller = [[SBEmptyViewController alloc] initWithNibName:@"EmptyView" bundle:nil];
-        if (controller !=nil)
-                propertyView = controller;
-    }
+
+    propertyView = controller;
 
     // embed the current view to our host view
 	[targetView addSubview: [propertyView view]];
@@ -614,9 +588,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         SBQueueItem *item = [SBQueueItem itemWithMP4:self.mp4];
         [queue addItem:item];
         [self close];
-    }
-    else {
-        NSSavePanel * panel = [NSSavePanel savePanel];
+    } else {
+        NSSavePanel *panel = [NSSavePanel savePanel];
         [self prepareSavePanel:panel];
 
         [panel setPrompt:@"Send To Queue"];
@@ -952,9 +925,14 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (void)dealloc
 {
     [propertyView release];
+    propertyView = nil;
+
     [languages release];
+    languages = nil;
 
     [_mp4File release];
+    _mp4File = nil;
+
     [super dealloc];
 }
 

@@ -30,7 +30,7 @@
     IBOutlet NSToolbarItem  *searchMetadata;
     IBOutlet NSToolbarItem  *sendToQueue;
 
-    NSMutableArray          *languages;
+    NSArray          *languages;
 
     NSViewController        *propertyView;
     IBOutlet NSView         *targetView;
