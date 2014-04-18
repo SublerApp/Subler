@@ -58,15 +58,10 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
 
 - (NSString *)appSupportPath
 {
-    NSString *appSupportPath = nil;
-
     NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
                                                             NSUserDomainMask,
                                                             YES);
-    if ([allPaths count])
-        appSupportPath = [[allPaths objectAtIndex:0] stringByAppendingPathComponent:@"Subler"];
-
-    return appSupportPath;
+    return [[allPaths firstObject] stringByAppendingPathComponent:@"Subler"];
 }
 
 - (BOOL)loadPresets

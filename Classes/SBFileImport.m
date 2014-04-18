@@ -85,7 +85,7 @@
         }
     }
 
-    if ([[_fileImporters objectAtIndex:0] metadata])
+    if ([[_fileImporters firstObject] metadata])
         [importMetadata setEnabled:YES];
     else
         [importMetadata setEnabled:NO];
@@ -433,7 +433,7 @@
 
     MP42Metadata *metadata = nil;
     if ([importMetadata state])
-        metadata = [[[(MP42FileImporter *)[_fileImporters objectAtIndex:0] metadata] retain] autorelease];
+        metadata = [[[(MP42FileImporter *)[_fileImporters firstObject] metadata] retain] autorelease];
 
     [delegate importDoneWithTracks:tracks andMetadata: metadata];
 

@@ -81,8 +81,8 @@
     self = [super init];
     if (self) {
         _language = [MetadataImporter defaultMovieLanguage];
-        _movieProvider = @"TheMovieDB";
-        _tvShowProvider = @"TheTVDB";
+        _movieProvider = [[MetadataImporter movieProviders] firstObject];
+        _tvShowProvider = [[MetadataImporter tvProviders] firstObject];
     }
     return self;
 }
@@ -120,22 +120,20 @@
 		currentSearcher = [MetadataImporter importerForProvider:_movieProvider];
 		NSString *language = [MetadataImporter defaultMovieLanguage];
 		NSArray *results = [currentSearcher searchMovie:[parsed valueForKey:@"title"] language:language];
-        if ([results count])
-			metadata = [currentSearcher loadMovieMetadata:[results objectAtIndex:0] language:language];
+        metadata = [currentSearcher loadMovieMetadata:[results firstObject] language:language];
     } else if ([@"tv" isEqualToString:type]) {
 		currentSearcher = [MetadataImporter importerForProvider:_tvShowProvider];
 		NSString *language = [MetadataImporter defaultTVLanguage];
 		NSArray *results = [currentSearcher searchTVSeries:[parsed valueForKey:@"seriesName"]
                                                   language:language seasonNum:[parsed valueForKey:@"seasonNum"]
                                                 episodeNum:[parsed valueForKey:@"episodeNum"]];
-        if ([results count])
-			metadata = [currentSearcher loadTVMetadata:[results objectAtIndex:0] language:language];
+        metadata = [currentSearcher loadTVMetadata:[results firstObject] language:language];
     }
 
     if (metadata.artworkThumbURLs && [metadata.artworkThumbURLs count]) {
         NSURL *artworkURL = nil;
         if ([type isEqualToString:@"movie"]) {
-            artworkURL = [metadata.artworkFullsizeURLs objectAtIndex:0];
+            artworkURL = [metadata.artworkFullsizeURLs firstObject];
         } else if ([type isEqualToString:@"tv"]) {
             if ([metadata.artworkFullsizeURLs count] > 1) {
                 int i = 0;
@@ -148,7 +146,7 @@
                     i++;
                 }
             } else {
-                artworkURL = [metadata.artworkFullsizeURLs objectAtIndex:0];
+                artworkURL = [metadata.artworkFullsizeURLs firstObject];
             }
         }
 

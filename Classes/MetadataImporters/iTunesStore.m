@@ -162,9 +162,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 		NSDictionary *d = [jsonDecoder objectWithData:jsonData];
         if ([d isKindOfClass:[NSDictionary class]]) {
             NSArray *results = [iTunesStore metadataForResults:d store:store];
-            if ([results count] > 0) {
-                return [results objectAtIndex:0];
-            }
+                return [results firstObject];
         }
 	}
 	return nil;
@@ -184,9 +182,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 		NSDictionary *d = [jsonDecoder objectWithData:jsonData];
         if ([d isKindOfClass:[NSDictionary class]]) {
             NSArray *results = [iTunesStore metadataForResults:d store:store];
-            if ([results count] > 0) {
-                return [results objectAtIndex:0];
-            }
+            return [results firstObject];
         }
 	}
 	return nil;
@@ -233,7 +229,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
         if ([d isKindOfClass:[NSDictionary class]]) {
             NSArray *resultsArray = [d valueForKey:@"results"];
             if ([resultsArray count] > 0) {
-                NSDictionary *r = [resultsArray objectAtIndex:0];
+                NSDictionary *r = [resultsArray firstObject];
                 [aMetadata setTag:[r valueForKey:@"longDescription"] forKey:@"Series Description"];
             }
         }

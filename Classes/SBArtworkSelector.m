@@ -92,10 +92,7 @@
 
 - (NSString *)imageTitle {
 	NSArray *a = [_artworkProviderName componentsSeparatedByString:@"|"];
-	if ([a count] > 0) {
-		return [a objectAtIndex:0];
-	}
-	return nil;
+    return [a firstObject];
 }
 
 - (NSString *)imageSubtitle {

@@ -407,7 +407,7 @@
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 	if ([paths count]) {
 		NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
-		path = [[paths objectAtIndex:0] stringByAppendingPathComponent:bundleName];
+		path = [[paths firstObject] stringByAppendingPathComponent:bundleName];
 	}
 	NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
 	for (NSString *filename in contents) {
