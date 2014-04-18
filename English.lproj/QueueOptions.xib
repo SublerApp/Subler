@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D43" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1060" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5053"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBOptionsViewController">
@@ -14,7 +14,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
         <customView id="UlG-O3-eNc" userLabel="OptionsView">
-            <rect key="frame" x="0.0" y="0.0" width="321" height="165"/>
+            <rect key="frame" x="0.0" y="0.0" width="321" height="236"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button id="zEH-aV-Tl7">
@@ -33,7 +33,7 @@
                     </connections>
                 </button>
                 <button toolTip="Search metadata online" id="9GN-f6-r2j">
-                    <rect key="frame" x="111" y="139" width="103" height="18"/>
+                    <rect key="frame" x="111" y="210" width="103" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Fetch Metadata" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="QNO-e1-WUJ">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -93,10 +93,10 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" id="86l-GG-SpO">
-                    <rect key="frame" x="171" y="51" width="133" height="22"/>
+                    <rect key="frame" x="171" y="59" width="133" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" id="8bb-Gy-KAS">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                    <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" imagePosition="left" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" id="8bb-Gy-KAS">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                         <menu key="menu" title="OtherViews" autoenablesItems="NO" id="BBw-yf-xUC">
                             <items>
@@ -116,7 +116,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" id="vJ5-JB-k1m">
-                    <rect key="frame" x="112" y="56" width="56" height="14"/>
+                    <rect key="frame" x="112" y="61" width="56" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Location:" id="17e-9u-rVn">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -133,6 +133,30 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <textField verticalHuggingPriority="750" id="eTL-yP-QQ5">
+                    <rect key="frame" x="140" y="189" width="47" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Movies:" id="W6m-cd-JMe">
+                        <font key="font" metaFont="smallSystemBold"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="enabled" keyPath="self.options.SBQueueMetadata" id="2eU-MV-o1B"/>
+                    </connections>
+                </textField>
+                <textField verticalHuggingPriority="750" id="bDo-OD-bck">
+                    <rect key="frame" x="124" y="169" width="63" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="TV Shows:" id="PCe-Pw-D2s">
+                        <font key="font" metaFont="smallSystemBold"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="enabled" keyPath="self.options.SBQueueMetadata" id="Xd6-EH-Zdj"/>
+                    </connections>
+                </textField>
                 <textField verticalHuggingPriority="750" id="Uoo-hZ-D1f">
                     <rect key="frame" x="18" y="27" width="90" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -143,7 +167,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="S7L-mA-j3Y">
-                    <rect key="frame" x="49" y="141" width="59" height="14"/>
+                    <rect key="frame" x="49" y="212" width="59" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Add item:" id="9ls-xq-YGz">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -152,10 +176,10 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" id="DVM-Js-DwK">
-                    <rect key="frame" x="176" y="77" width="128" height="22"/>
+                    <rect key="frame" x="176" y="80" width="128" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="bQx-xN-b3H">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                    <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bQx-xN-b3H">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                         <menu key="menu" title="OtherViews" id="4en-ZA-qlS"/>
                     </popUpButtonCell>
@@ -174,6 +198,90 @@
                             </dictionary>
                         </binding>
                         <binding destination="-2" name="selectedObject" keyPath="options.SBQueueSet" previousBinding="QqS-yf-Kdq" id="YcS-AE-oRP">
+                            <dictionary key="options">
+                                <bool key="NSValidatesImmediately" value="YES"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </popUpButton>
+                <popUpButton verticalHuggingPriority="750" id="ZVm-yi-3cE">
+                    <rect key="frame" x="193" y="189" width="111" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CbR-eu-sGI">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                        <menu key="menu" title="OtherViews" id="ptP-wd-Rxc"/>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="-2" name="content" keyPath="self.moviesProviders" id="crR-iB-g3d">
+                            <dictionary key="options">
+                                <string key="NSNoSelectionPlaceholder">None</string>
+                                <string key="NSNotApplicablePlaceholder">None</string>
+                                <string key="NSNullPlaceholder">None</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="-2" name="enabled" keyPath="self.options.SBQueueMetadata" id="IHE-rh-qMI"/>
+                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueMovieProvider" previousBinding="crR-iB-g3d" id="zMN-ZS-xkn">
+                            <dictionary key="options">
+                                <bool key="NSValidatesImmediately" value="YES"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </popUpButton>
+                <popUpButton verticalHuggingPriority="750" id="tLh-V3-OfB">
+                    <rect key="frame" x="193" y="167" width="111" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UOb-Qe-IPw">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                        <menu key="menu" title="OtherViews" id="ytE-Us-3gv"/>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="-2" name="content" keyPath="self.tvShowsProviders" id="Rh9-LC-qBz">
+                            <dictionary key="options">
+                                <string key="NSNoSelectionPlaceholder">None</string>
+                                <string key="NSNotApplicablePlaceholder">None</string>
+                                <string key="NSNullPlaceholder">None</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="-2" name="enabled" keyPath="self.options.SBQueueMetadata" id="WZY-iH-YJ5"/>
+                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueTVShowProvider" previousBinding="Rh9-LC-qBz" id="29h-lK-saO">
+                            <dictionary key="options">
+                                <bool key="NSValidatesImmediately" value="YES"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </popUpButton>
+                <textField verticalHuggingPriority="750" id="BWL-Nn-iGH">
+                    <rect key="frame" x="124" y="147" width="62" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Language:" id="1dC-y4-0rx">
+                        <font key="font" metaFont="smallSystemBold"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="enabled" keyPath="self.options.SBQueueMetadata" id="A11-N0-4xV"/>
+                    </connections>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" id="Ce4-O7-Iu4">
+                    <rect key="frame" x="193" y="145" width="111" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nqF-p0-mT7">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                        <menu key="menu" title="OtherViews" id="U0q-ED-kQf"/>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="-2" name="content" keyPath="self.languages" id="6NP-iD-sJZ">
+                            <dictionary key="options">
+                                <string key="NSNoSelectionPlaceholder">None</string>
+                                <string key="NSNotApplicablePlaceholder">None</string>
+                                <string key="NSNullPlaceholder">None</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="-2" name="enabled" keyPath="self.options.SBQueueMetadata" id="P1S-72-eFU"/>
+                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueProviderLanguage" previousBinding="6NP-iD-sJZ" id="NQo-71-Vl8">
                             <dictionary key="options">
                                 <bool key="NSValidatesImmediately" value="YES"/>
                             </dictionary>

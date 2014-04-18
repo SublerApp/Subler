@@ -7,7 +7,6 @@
 //
 
 #import "SBItemViewController.h"
-
 #import "SBQueueItem.h"
 
 static void *SBItemViewContex = &SBItemViewContex;

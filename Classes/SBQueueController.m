@@ -131,18 +131,23 @@ static void *SBQueueContex = &SBQueueContex;
                                                                @"SBQueueMetadata" : @NO,
                                                                @"SBQueueSubtitles": @YES,
                                                                @"SBQueueAutoStart": @NO,
-                                                               @"SBQueueOptimize" : @YES }];
+                                                               @"SBQueueOptimize" : @YES,
+                                                               @"SBQueueMovieProvider" : @"TheMovieDB",
+                                                               @"SBQueueTVShowProvider" : @"TheTVDB",
+                                                               @"SBQueueProviderLanguage" : @"English"}];
 }
 
 /**
  * Save the queue user defaults
  */
 - (void)saveUserDefaults {
-    [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:@"SBQueueOrganize"] forKey:@"SBQueueOrganize"];
-    [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:@"SBQueueMetadata"] forKey:@"SBQueueMetadata"];
-    [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:@"SBQueueSubtitles"] forKey:@"SBQueueSubtitles"];
-    [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:@"SBQueueAutoStart"] forKey:@"SBQueueAutoStart"];
-    [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:@"SBQueueOptimize"] forKey:@"SBQueueOptimize"];
+    NSArray *keys = @[@"SBQueueOrganize", @"SBQueueMetadata", @"SBQueueSubtitles", @"SBQueueAutoStart", @"SBQueueOptimize",
+                      @"SBQueueMovieProvider", @"SBQueueTVShowProvider", @"SBQueueProviderLanguage"];
+
+    [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:obj] forKey:obj];
+    }];
+
     [[NSUserDefaults standardUserDefaults] setValue:[[self.options objectForKey:@"SBQueueDestination"] path] forKey:@"SBQueueDestination"];
     [[NSUserDefaults standardUserDefaults] setValue:[[self.options objectForKey:@"SBQueueSet"] presetName] forKey:@"SBQueueSet"];
 }
@@ -154,11 +159,12 @@ static void *SBQueueContex = &SBQueueContex;
 - (void)initOptions {
     _options = [[NSMutableDictionary alloc] init];
 
-    [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueOrganize"] forKey:@"SBQueueOrganize"];
-    [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueMetadata"] forKey:@"SBQueueMetadata"];
-    [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueSubtitles"] forKey:@"SBQueueSubtitles"];
-    [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueAutoStart"] forKey:@"SBQueueAutoStart"];
-    [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueOptimize"] forKey:@"SBQueueOptimize"];
+    NSArray *keys = @[@"SBQueueOrganize", @"SBQueueMetadata", @"SBQueueSubtitles", @"SBQueueAutoStart", @"SBQueueOptimize",
+                      @"SBQueueMovieProvider", @"SBQueueTVShowProvider", @"SBQueueProviderLanguage"];
+
+    [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:obj] forKey:obj];
+    }];
 
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]) {
         [_options setObject:[NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]] forKey:@"SBQueueDestination"];
@@ -249,7 +255,9 @@ static void *SBQueueContex = &SBQueueContex;
     SBQueueItem *item = [SBQueueItem itemWithURL:url];
 
     if ([[self.options objectForKey:@"SBQueueMetadata"] boolValue]) {
-        [item addAction:[[[SBQueueMetadataAction alloc] init] autorelease]];
+        [item addAction:[[[SBQueueMetadataAction alloc] initWithLanguage:[self.options objectForKey:@"SBQueueProviderLanguage"]
+                                                           movieProvider:[self.options objectForKey:@"SBQueueMovieProvider"]
+                                                          tvShowProvider:[self.options objectForKey:@"SBQueueTVShowProvider"]] autorelease]];
     }
 
     if ([[self.options objectForKey:@"SBQueueSubtitles"] boolValue]) {

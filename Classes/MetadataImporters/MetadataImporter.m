@@ -164,7 +164,14 @@
 	return r;
 }
 
-#pragma mark Static methods
+#pragma mark Class methods
+
++ (NSArray *) movieProviders {
+    return @[@"TheMovieDB", @"iTunes Store"];
+}
++ (NSArray *) tvProviders {
+    return @[@"TheTVDB", @"iTunes Store"];
+}
 
 + (NSArray *) languagesForProvider:(NSString *)aProvider {
 	MetadataImporter *m = [MetadataImporter importerForProvider:aProvider];

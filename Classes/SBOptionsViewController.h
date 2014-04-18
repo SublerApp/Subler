@@ -15,6 +15,10 @@
     NSMutableDictionary *_options;
     NSMutableArray *_sets;
 
+    NSArray *_moviesProviders;
+    NSArray *_tvShowsProviders;
+    NSArray *_languages;
+
     NSURL *_destination;
 }
 

@@ -77,6 +77,26 @@
 
 @implementation SBQueueMetadataAction
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _language = [MetadataImporter defaultMovieLanguage];
+        _movieProvider = @"TheMovieDB";
+        _tvShowProvider = @"TheTVDB";
+    }
+    return self;
+}
+
+- (instancetype)initWithLanguage:(NSString *)language movieProvider:(NSString *)movieProvider tvShowProvider:(NSString *)tvShowProvider {
+    self = [self init];
+    if (self) {
+        _language = language;
+        _movieProvider = movieProvider;
+        _tvShowProvider = tvShowProvider;
+    }
+    return self;
+}
+
 - (MP42Image *)loadArtwork:(NSURL *)url {
     NSData *artworkData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
     if (artworkData && [artworkData length]) {
@@ -97,13 +117,13 @@
     NSDictionary *parsed = [MetadataImporter parseFilename:[url lastPathComponent]];
     NSString *type = (NSString *)[parsed valueForKey:@"type"];
     if ([@"movie" isEqualToString:type]) {
-		currentSearcher = [MetadataImporter defaultMovieProvider];
+		currentSearcher = [MetadataImporter importerForProvider:_movieProvider];
 		NSString *language = [MetadataImporter defaultMovieLanguage];
 		NSArray *results = [currentSearcher searchMovie:[parsed valueForKey:@"title"] language:language];
         if ([results count])
 			metadata = [currentSearcher loadMovieMetadata:[results objectAtIndex:0] language:language];
     } else if ([@"tv" isEqualToString:type]) {
-		currentSearcher = [MetadataImporter defaultTVProvider];
+		currentSearcher = [MetadataImporter importerForProvider:_tvShowProvider];
 		NSString *language = [MetadataImporter defaultTVLanguage];
 		NSArray *results = [currentSearcher searchTVSeries:[parsed valueForKey:@"seriesName"]
                                                   language:language seasonNum:[parsed valueForKey:@"seasonNum"]

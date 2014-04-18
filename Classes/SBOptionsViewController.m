@@ -10,11 +10,18 @@
 #import "SBPresetManager.h"
 
 #import <MP42Foundation/MP42Metadata.h>
+#import <MP42Foundation/MP42Languages.h>
+
+#import "MetadataImporter.h"
 
 @interface SBOptionsViewController ()
 
 @property (nonatomic) NSMutableDictionary *options;
 @property (nonatomic, retain) NSMutableArray *sets;
+
+@property (nonatomic, retain) NSArray *moviesProviders;
+@property (nonatomic, retain) NSArray *tvShowsProviders;
+@property (nonatomic, retain) NSArray *languages;
 
 - (IBAction)chooseDestination:(id)sender;
 - (IBAction)destination:(id)sender;
@@ -27,6 +34,9 @@
 
 @synthesize options = _options;
 @synthesize sets = _sets;
+@synthesize moviesProviders = _moviesProviders;
+@synthesize tvShowsProviders = _tvShowsProviders;
+@synthesize languages = _languages;
 
 @synthesize destination = _destination;
 
@@ -35,6 +45,10 @@
     if (self) {
         _options = [options retain];
         _sets = [[NSMutableArray alloc] init];
+        _moviesProviders = [[MetadataImporter movieProviders] retain];
+        _tvShowsProviders = [[MetadataImporter tvProviders] retain];
+        _languages = [[[MP42Languages defaultManager] languages] retain];
+
     }
     return self;
 }
@@ -159,6 +173,9 @@
     [_options release];
     [_sets release];
     [_destination release];
+
+    [_moviesProviders release];
+    [_tvShowsProviders release];
 
     [super dealloc];
 }

@@ -27,7 +27,9 @@ typedef enum SBCachePolicy : NSUInteger {
 + (NSString *) urlEncoded:(NSString *)s;
 + (NSData *)downloadDataFromURL:(NSURL *)url withCachePolicy:(SBCachePolicy)policy;
 
-#pragma mark Static methods
+#pragma mark Class methods
++ (NSArray *) movieProviders;
++ (NSArray *) tvProviders;
 + (NSArray *) languagesForProvider:(NSString *)aProvider;
 + (instancetype) importerForProvider:(NSString *)aProviderName;
 + (instancetype) defaultMovieProvider;
