@@ -47,7 +47,7 @@
         _sets = [[NSMutableArray alloc] init];
         _moviesProviders = [[MetadataImporter movieProviders] retain];
         _tvShowsProviders = [[MetadataImporter tvProviders] retain];
-        _languages = [[[MP42Languages defaultManager] languages] retain];
+        _languages = [[[MP42Languages defaultManager] iso6391languages] retain];
 
     }
     return self;

@@ -21,7 +21,7 @@
 @implementation TheMovieDB3
 
 - (NSArray *) languages {
-	return [[MP42Languages defaultManager] languages];
+	return [[MP42Languages defaultManager] iso6391languages];
 }
 
 - (NSArray *) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage {
