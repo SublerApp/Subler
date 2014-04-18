@@ -124,6 +124,49 @@ static void *SBQueueContex = &SBQueueContex;
     [self updateUI];
 }
 
+#pragma mark - User Interface Validation
+
+- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem {
+    SEL action = [anItem action];
+
+    if (action == @selector(removeSelectedItems:)) {
+        if ([_tableView selectedRow] != -1) {
+            SBQueueItem *item = [self.queue itemAtIndex:[_tableView selectedRow]];
+            if ([item status] != SBQueueItemStatusWorking)
+                return YES;
+        } else if ([_tableView clickedRow] != -1) {
+            SBQueueItem *item = [self.queue itemAtIndex:[_tableView clickedRow]];
+            if ([item status] != SBQueueItemStatusWorking)
+                return YES;
+        }
+    }
+
+    if (action == @selector(showInFinder:)) {
+        if ([_tableView clickedRow] != -1) {
+            SBQueueItem *item = [self.queue itemAtIndex:[_tableView clickedRow]];
+            if ([item status] == SBQueueItemStatusCompleted)
+                return YES;
+        }
+    }
+
+    if (action == @selector(edit:)) {
+        if ([_tableView clickedRow] != -1) {
+            SBQueueItem *item = [self.queue itemAtIndex:[_tableView clickedRow]];
+            if (item.status == SBQueueItemStatusReady)
+                return YES;
+        }
+    }
+
+    if (action == @selector(removeCompletedItems:))
+        return YES;
+
+    return NO;
+}
+
+- (BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem {
+    return YES;
+}
+
 #pragma mark - User Defaults
 
 - (void)registerUserDefaults {
@@ -630,47 +673,6 @@ static void *SBQueueContex = &SBQueueContex;
             [self updateDockTile];
         }
     }
-}
-
-- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem {
-    SEL action = [anItem action];
-
-    if (action == @selector(removeSelectedItems:)) {
-        if ([_tableView selectedRow] != -1) {
-            SBQueueItem *item = [self.queue itemAtIndex:[_tableView selectedRow]];
-            if ([item status] != SBQueueItemStatusWorking)
-                return YES;
-        } else if ([_tableView clickedRow] != -1) {
-            SBQueueItem *item = [self.queue itemAtIndex:[_tableView clickedRow]];
-            if ([item status] != SBQueueItemStatusWorking)
-                return YES;
-        }
-    }
-
-    if (action == @selector(showInFinder:)) {
-        if ([_tableView clickedRow] != -1) {
-            SBQueueItem *item = [self.queue itemAtIndex:[_tableView clickedRow]];
-            if ([item status] == SBQueueItemStatusCompleted)
-                return YES;
-        }
-    }
-
-    if (action == @selector(edit:)) {
-        if ([_tableView clickedRow] != -1) {
-            SBQueueItem *item = [self.queue itemAtIndex:[_tableView clickedRow]];
-            if (item.status == SBQueueItemStatusReady)
-                return YES;
-        }
-    }
-
-    if (action == @selector(removeCompletedItems:))
-        return YES;
-
-    return NO;
-}
-
-- (BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem {
-    return YES;
 }
 
 #pragma mark Drag & Drop
