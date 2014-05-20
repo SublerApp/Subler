@@ -120,14 +120,18 @@
 		currentSearcher = [MetadataImporter importerForProvider:_movieProvider];
 		NSString *language = [MetadataImporter defaultMovieLanguage];
 		NSArray *results = [currentSearcher searchMovie:[parsed valueForKey:@"title"] language:language];
-        metadata = [currentSearcher loadMovieMetadata:[results firstObject] language:language];
+        if ([results count]) {
+            metadata = [currentSearcher loadMovieMetadata:[results firstObject] language:language];
+        }
     } else if ([@"tv" isEqualToString:type]) {
 		currentSearcher = [MetadataImporter importerForProvider:_tvShowProvider];
 		NSString *language = [MetadataImporter defaultTVLanguage];
 		NSArray *results = [currentSearcher searchTVSeries:[parsed valueForKey:@"seriesName"]
                                                   language:language seasonNum:[parsed valueForKey:@"seasonNum"]
                                                 episodeNum:[parsed valueForKey:@"episodeNum"]];
-        metadata = [currentSearcher loadTVMetadata:[results firstObject] language:language];
+        if ([results count]) {
+            metadata = [currentSearcher loadTVMetadata:[results firstObject] language:language];
+        }
     }
 
     if (metadata.artworkThumbURLs && [metadata.artworkThumbURLs count]) {
