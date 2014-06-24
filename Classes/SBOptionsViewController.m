@@ -14,6 +14,8 @@
 
 #import "MetadataImporter.h"
 
+static void *SBOptionsViewContex = &SBOptionsViewContex;
+
 @interface SBOptionsViewController ()
 
 @property (nonatomic) NSMutableDictionary *options;
@@ -21,7 +23,8 @@
 
 @property (nonatomic, retain) NSArray *moviesProviders;
 @property (nonatomic, retain) NSArray *tvShowsProviders;
-@property (nonatomic, retain) NSArray *languages;
+@property (nonatomic, retain) NSArray *movieLanguages;
+@property (nonatomic, retain) NSArray *tvShowLanguages;
 
 - (IBAction)chooseDestination:(id)sender;
 - (IBAction)destination:(id)sender;
@@ -36,7 +39,8 @@
 @synthesize sets = _sets;
 @synthesize moviesProviders = _moviesProviders;
 @synthesize tvShowsProviders = _tvShowsProviders;
-@synthesize languages = _languages;
+@synthesize movieLanguages = _movieLanguages;
+@synthesize tvShowLanguages = _tvShowLanguages;
 
 @synthesize destination = _destination;
 
@@ -47,7 +51,6 @@
         _sets = [[NSMutableArray alloc] init];
         _moviesProviders = [[MetadataImporter movieProviders] retain];
         _tvShowsProviders = [[MetadataImporter tvProviders] retain];
-        _languages = [[[MP42Languages defaultManager] iso6391languages] retain];
 
     }
     return self;
@@ -63,6 +66,19 @@
 
 - (void)loadView {
     [super loadView];
+
+    // Observe the providers changes
+    // to update the specific provider languages popup
+    [self addObserver:self
+           forKeyPath:@"options.SBQueueMovieProvider"
+              options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+              context:SBOptionsViewContex];
+
+    [self addObserver:self
+           forKeyPath:@"options.SBQueueTVShowProvider"
+              options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+              context:SBOptionsViewContex];
+
     [self prepareDestPopup];
     [self prepareSetsPopup];
 }
@@ -78,6 +94,23 @@
 
     return NO;
 }
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (context == SBOptionsViewContex) {
+        // Update the languages popup
+        if ([keyPath isEqualToString:@"options.SBQueueMovieProvider"]) {
+            NSString *newProvider = [change valueForKey:NSKeyValueChangeNewKey];
+            self.movieLanguages = [MetadataImporter languagesForProvider:newProvider];
+        } else if ([keyPath isEqualToString:@"options.SBQueueTVShowProvider"]) {
+            NSString *newProvider = [change valueForKey:NSKeyValueChangeNewKey];
+            self.tvShowLanguages = [MetadataImporter languagesForProvider:newProvider];
+        } else {
+            [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        }
+    }
+}
+
+#pragma mark Destination PopUp
 
 - (void)prepareDestPopup {
     NSMenuItem *folderItem = nil;
@@ -154,6 +187,8 @@
     }
 }
 
+#pragma mark Sets PopUp
+
 - (void)prepareSetsPopup {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateSetsMenu:)
@@ -176,6 +211,14 @@
 
     [_moviesProviders release];
     [_tvShowsProviders release];
+
+    [_movieLanguages release];
+    [_tvShowLanguages release];
+
+    @try {
+        [self removeObserver:self forKeyPath:@"options.SBQueueMovieProvider"];
+        [self removeObserver:self forKeyPath:@"options.SBQueueTVShowProvider"];
+    } @catch (NSException * __unused exception) {}
 
     [super dealloc];
 }

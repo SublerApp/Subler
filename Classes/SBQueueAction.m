@@ -80,17 +80,26 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _language = [MetadataImporter defaultMovieLanguage];
+        _movieLanguage = [MetadataImporter defaultMovieLanguage];
+        _tvShowLanguage = [MetadataImporter defaultTVLanguage];
         _movieProvider = [[MetadataImporter movieProviders] firstObject];
         _tvShowProvider = [[MetadataImporter tvProviders] firstObject];
     }
     return self;
 }
 
-- (instancetype)initWithLanguage:(NSString *)language movieProvider:(NSString *)movieProvider tvShowProvider:(NSString *)tvShowProvider {
+- (instancetype)initWithMovieLanguage:(NSString *)movieLang
+                       tvShowLanguage:(NSString *)tvLang
+                        movieProvider:(NSString *)movieProvider
+                       tvShowProvider:(NSString *)tvShowProvider {
+    if (!movieLang || !tvLang || !movieProvider || !tvShowProvider) {
+        return nil;
+    }
+
     self = [self init];
     if (self) {
-        _language = language;
+        _movieLanguage = movieLang;
+        _tvShowLanguage = tvLang;
         _movieProvider = movieProvider;
         _tvShowProvider = tvShowProvider;
     }
@@ -118,19 +127,17 @@
     NSString *type = (NSString *)[parsed valueForKey:@"type"];
     if ([@"movie" isEqualToString:type]) {
 		currentSearcher = [MetadataImporter importerForProvider:_movieProvider];
-		NSString *language = [MetadataImporter defaultMovieLanguage];
-		NSArray *results = [currentSearcher searchMovie:[parsed valueForKey:@"title"] language:language];
+		NSArray *results = [currentSearcher searchMovie:[parsed valueForKey:@"title"] language:_movieLanguage];
         if ([results count]) {
-            metadata = [currentSearcher loadMovieMetadata:[results firstObject] language:language];
+            metadata = [currentSearcher loadMovieMetadata:[results firstObject] language:_movieLanguage];
         }
     } else if ([@"tv" isEqualToString:type]) {
 		currentSearcher = [MetadataImporter importerForProvider:_tvShowProvider];
-		NSString *language = [MetadataImporter defaultTVLanguage];
 		NSArray *results = [currentSearcher searchTVSeries:[parsed valueForKey:@"seriesName"]
-                                                  language:language seasonNum:[parsed valueForKey:@"seasonNum"]
+                                                  language:_tvShowLanguage seasonNum:[parsed valueForKey:@"seasonNum"]
                                                 episodeNum:[parsed valueForKey:@"episodeNum"]];
         if ([results count]) {
-            metadata = [currentSearcher loadTVMetadata:[results firstObject] language:language];
+            metadata = [currentSearcher loadTVMetadata:[results firstObject] language:_tvShowLanguage];
         }
     }
 

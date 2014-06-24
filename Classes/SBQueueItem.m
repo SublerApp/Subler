@@ -146,6 +146,10 @@
 #pragma mark Item processing
 
 - (BOOL)prepareItem:(NSError **)outError {
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[self.URL path]]) {
+        return NO;
+    }
+
     NSString *type;
     [self.URL getResourceValue:&type forKey:NSURLTypeIdentifierKey error:outError];
 

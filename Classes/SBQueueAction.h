@@ -24,11 +24,13 @@
  */
 @interface SBQueueMetadataAction : NSObject <SBQueueActionProtocol> {
 @private
-    NSString *_language;
+    NSString *_movieLanguage;
+    NSString *_tvShowLanguage;
     NSString *_movieProvider;
     NSString *_tvShowProvider;
 }
-- (instancetype)initWithLanguage:(NSString *)language
+- (instancetype)initWithMovieLanguage:(NSString *)movieLang
+                       tvShowLanguage:(NSString *)tvLang
                    movieProvider:(NSString *)movieProvider
                   tvShowProvider:(NSString *)tvShowProvider;
 @end

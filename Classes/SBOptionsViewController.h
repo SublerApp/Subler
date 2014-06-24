@@ -17,7 +17,8 @@
 
     NSArray *_moviesProviders;
     NSArray *_tvShowsProviders;
-    NSArray *_languages;
+    NSArray *_movieLanguages;
+    NSArray *_tvShowLanguages;
 
     NSURL *_destination;
 }

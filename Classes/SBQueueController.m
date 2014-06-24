@@ -117,7 +117,9 @@ static void *SBQueueContex = &SBQueueContex;
 
     [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueFailedNotification object:self.queue queue:mainQueue usingBlock:^(NSNotification *note) {
         NSDictionary *info = [note userInfo];
-        [NSApp presentError:[info valueForKey:@"Error"]];
+        if ([[info valueForKey:@"Error"] isMemberOfClass:[NSError class]]) {
+            [NSApp presentError:[info valueForKey:@"Error"]];
+        }
     }];
 
     // Update the UI the first time
@@ -177,7 +179,8 @@ static void *SBQueueContex = &SBQueueContex;
                                                                @"SBQueueOptimize" : @YES,
                                                                @"SBQueueMovieProvider" : @"TheMovieDB",
                                                                @"SBQueueTVShowProvider" : @"TheTVDB",
-                                                               @"SBQueueProviderLanguage" : @"English"}];
+                                                               @"SBQueueMovieProviderLanguage" : @"English",
+                                                               @"SBQueueTVShowProviderLanguage" : @"English"}];
 }
 
 /**
@@ -185,7 +188,7 @@ static void *SBQueueContex = &SBQueueContex;
  */
 - (void)saveUserDefaults {
     NSArray *keys = @[@"SBQueueOrganize", @"SBQueueMetadata", @"SBQueueSubtitles", @"SBQueueAutoStart", @"SBQueueOptimize",
-                      @"SBQueueMovieProvider", @"SBQueueTVShowProvider", @"SBQueueProviderLanguage"];
+                      @"SBQueueMovieProvider", @"SBQueueTVShowProvider", @"SBQueueMovieProviderLanguage", @"SBQueueTVShowProviderLanguage"];
 
     [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:obj] forKey:obj];
@@ -203,7 +206,7 @@ static void *SBQueueContex = &SBQueueContex;
     _options = [[NSMutableDictionary alloc] init];
 
     NSArray *keys = @[@"SBQueueOrganize", @"SBQueueMetadata", @"SBQueueSubtitles", @"SBQueueAutoStart", @"SBQueueOptimize",
-                      @"SBQueueMovieProvider", @"SBQueueTVShowProvider", @"SBQueueProviderLanguage"];
+                      @"SBQueueMovieProvider", @"SBQueueTVShowProvider", @"SBQueueMovieProviderLanguage", @"SBQueueTVShowProviderLanguage"];
 
     [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:obj] forKey:obj];
@@ -298,7 +301,8 @@ static void *SBQueueContex = &SBQueueContex;
     SBQueueItem *item = [SBQueueItem itemWithURL:url];
 
     if ([[self.options objectForKey:@"SBQueueMetadata"] boolValue]) {
-        [item addAction:[[[SBQueueMetadataAction alloc] initWithLanguage:[self.options objectForKey:@"SBQueueProviderLanguage"]
+        [item addAction:[[[SBQueueMetadataAction alloc] initWithMovieLanguage:[self.options objectForKey:@"SBQueueMovieProviderLanguage"]
+                                                               tvShowLanguage:[self.options objectForKey:@"SBQueueTVShowProviderLanguage"]
                                                            movieProvider:[self.options objectForKey:@"SBQueueMovieProvider"]
                                                           tvShowProvider:[self.options objectForKey:@"SBQueueTVShowProvider"]] autorelease]];
     }
