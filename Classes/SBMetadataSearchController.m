@@ -57,13 +57,13 @@
     MP42File *mp4File = [((SBDocument *) delegate) mp4File];
 	
     NSString *filename = nil;
-    for (NSUInteger i = 0; i < [mp4File tracksCount]; i++) {
-        MP42Track *track = [mp4File trackAtIndex:i];
-        if ([track sourceURL]) {
-            filename = [[track sourceURL] lastPathComponent];
+    for (MP42Track *track in mp4File.tracks) {
+        if (track.sourceURL) {
+            filename = [track.sourceURL lastPathComponent];
             break;
         }
     }
+
     if (!filename) return;
 
     NSDictionary *parsed = [MetadataImporter parseFilename:filename];

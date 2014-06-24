@@ -161,7 +161,15 @@
 
 - (void)saveDidEnd:(id)sender {
     /* Post an event so our event loop wakes up */
-    [NSApp postEvent:[NSEvent otherEventWithType:NSApplicationDefined location:NSZeroPoint modifierFlags:0 timestamp:0 windowNumber:0 context:NULL subtype:0 data1:0 data2:0] atStart:NO];
+    [NSApp postEvent:[NSEvent otherEventWithType:NSApplicationDefined
+                                        location:NSZeroPoint
+                                   modifierFlags:0
+                                       timestamp:0
+                                    windowNumber:0
+                                         context:NULL
+                                         subtype:0
+                                           data1:0
+                                           data2:0] atStart:NO];
 }
 
 - (BOOL)writeSafelyToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName
@@ -256,10 +264,9 @@
 		[_currentSavePanel setAllowedFileTypes:[NSArray arrayWithObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBSaveFormat"]]];
 
     NSString *filename = nil;
-    for (NSUInteger i = 0; i < [self.mp4 tracksCount]; i++) {
-        MP42Track *track = [self.mp4 trackAtIndex:i];
-        if ([track sourceURL]) {
-            filename = [[[track sourceURL] lastPathComponent] stringByDeletingPathExtension];
+    for (MP42Track *track in self.mp4.tracks) {
+        if (track.sourceURL) {
+            filename = [[track.sourceURL lastPathComponent] stringByDeletingPathExtension];
             break;
         }
     }
@@ -410,7 +417,7 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)t
 {
-    return [self.mp4 tracksCount];
+    return self.mp4.tracks.count;
 }
 
 - (id)tableView:(NSTableView *)tableView
@@ -536,12 +543,14 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
                  proposedRow:(NSInteger)row
        proposedDropOperation:(NSTableViewDropOperation)op
 {
-    if (op == NSTableViewDropAbove && row < [self.mp4 tracksCount]) {
-        if(![[self.mp4 trackAtIndex:row] muxed])
+    NSUInteger count = self.mp4.tracks.count;
+    if (op == NSTableViewDropAbove && row < count) {
+        if (![[self.mp4 trackAtIndex:row] muxed]) {
             return NSDragOperationEvery;
-    }
-    else if (op == NSTableViewDropAbove && row == [self.mp4 tracksCount])
+        }
+    } else if (op == NSTableViewDropAbove && row == count) {
         return NSDragOperationEvery;
+    }
 
     return NSDragOperationNone;
 }
