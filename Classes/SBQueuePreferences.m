@@ -55,7 +55,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
     return self;
 }
 
-- (void)registerUserDefaults {
++ (void)registerUserDefaults {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{ SBQueueOrganize : @YES,
                                                                SBQueueMetadata : @NO,
                                                                SBQueueSubtitles: @YES,

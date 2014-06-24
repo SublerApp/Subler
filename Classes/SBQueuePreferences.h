@@ -24,13 +24,14 @@ extern NSString * const SBQueueTVShowProviderLanguage;
 extern NSString * const SBQueueDestination;
 
 @interface SBQueuePreferences : NSObject {
+@private
     NSMutableDictionary *_options;
 }
 
 @property (readonly) NSMutableDictionary *options;
 @property (readonly) NSURL *queueURL;
 
-- (void)registerUserDefaults;
++ (void)registerUserDefaults;
 - (void)saveUserDefaults;
 
 @end

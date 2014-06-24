@@ -67,8 +67,8 @@ static void *SBQueueContex = &SBQueueContex;
 
 - (id)init {
     if (self = [super initWithWindowNibName:@"Queue"]) {
+        [SBQueuePreferences registerUserDefaults];
         _prefs = [[SBQueuePreferences alloc] init];
-        [_prefs registerUserDefaults];
         _options = _prefs.options;
 
         _queue = [[SBQueue alloc] initWithURL:_prefs.queueURL];
