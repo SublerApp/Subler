@@ -147,6 +147,11 @@
 
 - (BOOL)prepareItem:(NSError **)outError {
     if (![[NSFileManager defaultManager] fileExistsAtPath:[self.URL path]]) {
+        if (outError) {
+            NSDictionary *errorDetail = @{ NSLocalizedDescriptionKey : @"File not found",
+                                           NSLocalizedRecoverySuggestionErrorKey : @"The source file couldn't be found." };
+            *outError = [NSError errorWithDomain:@"SBQueueItemError" code:10 userInfo:errorDetail];
+        }
         return NO;
     }
 

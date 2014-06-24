@@ -56,6 +56,7 @@
 		A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BC410618D9ABC000F8C92C /* QueueItem.xib */; };
 		A9C055370F6D395B00AF15B5 /* FileImport.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C055360F6D395B00AF15B5 /* FileImport.xib */; };
 		A9C4259318DB6D1F00E99DB8 /* stopTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9C4259218DB6D1F00E99DB8 /* stopTemplate.pdf */; };
+		A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C828F4195950C3004C4718 /* SBQueuePreferences.m */; };
 		A9C9E34413FBC1EB00CA3B4E /* EncodeWorking.png in Resources */ = {isa = PBXBuildFile; fileRef = A9C9E34113FBC1EB00CA3B4E /* EncodeWorking.png */; };
 		A9D47B5817B239E200900BCA /* EncodeCanceled.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5417B239E200900BCA /* EncodeCanceled.png */; };
 		A9D47B5917B239E200900BCA /* EncodeCanceled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5517B239E200900BCA /* EncodeCanceled@2x.png */; };
@@ -215,6 +216,8 @@
 		A9C0957F0F7B6C8C00170CAF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		A9C4259218DB6D1F00E99DB8 /* stopTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = stopTemplate.pdf; path = images/stopTemplate.pdf; sourceTree = "<group>"; };
 		A9C8182C0F74D6E300019BFF /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
+		A9C828F3195950C3004C4718 /* SBQueuePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueuePreferences.h; path = Classes/SBQueuePreferences.h; sourceTree = "<group>"; };
+		A9C828F4195950C3004C4718 /* SBQueuePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueuePreferences.m; path = Classes/SBQueuePreferences.m; sourceTree = "<group>"; };
 		A9C9E34113FBC1EB00CA3B4E /* EncodeWorking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EncodeWorking.png; path = images/EncodeWorking.png; sourceTree = "<group>"; };
 		A9D47B5417B239E200900BCA /* EncodeCanceled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EncodeCanceled.png; path = images/EncodeCanceled.png; sourceTree = "<group>"; };
 		A9D47B5517B239E200900BCA /* EncodeCanceled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EncodeCanceled@2x.png"; path = "images/EncodeCanceled@2x.png"; sourceTree = "<group>"; };
@@ -436,6 +439,8 @@
 			children = (
 				A961475F13F567E10068F161 /* SBQueueController.h */,
 				A961476013F567E10068F161 /* SBQueueController.m */,
+				A9C828F3195950C3004C4718 /* SBQueuePreferences.h */,
+				A9C828F4195950C3004C4718 /* SBQueuePreferences.m */,
 				A9EEA5EF18D65490008B54B4 /* SBOptionsViewController.h */,
 				A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */,
 				A9BC410118D9AB8700F8C92C /* SBItemViewController.h */,
@@ -697,6 +702,7 @@
 				CD71FF1D12F1C4A900F0A98D /* TheTVDB.m in Sources */,
 				A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */,
 				A9AB485717F0AEAC000AA72E /* SBSoundViewController.m in Sources */,
+				A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */,
 				CD56963212FAAD680029FADB /* SBArtworkSelector.m in Sources */,
 				A936E03E130BE10200CA5527 /* MAAttachedWindow.m in Sources */,
 				A961476313F567E10068F161 /* SBQueueController.m in Sources */,

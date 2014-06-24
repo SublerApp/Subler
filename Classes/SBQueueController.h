@@ -12,6 +12,7 @@
 
 @class SBQueueItem;
 @class SBOptionsViewController;
+@class SBQueuePreferences;
 
 @class SBTableView;
 @class MP42File;
@@ -21,7 +22,7 @@
     IBOutlet NSTextField *_countLabel;
     IBOutlet NSProgressIndicator *_progressIndicator;
 
-    IBOutlet SBTableView    *_tableView;
+    IBOutlet SBTableView *_tableView;
 
     IBOutlet NSWindow *_detachedWindow;
     IBOutlet NSToolbarItem *_startItem;
@@ -30,7 +31,9 @@
     NSPopover *_itemPopover;
     SBOptionsViewController *_windowController;
 
+    SBQueuePreferences *_prefs;
     NSMutableDictionary *_options;
+
     NSImage *_docImg;
 
     SBQueue *_queue;

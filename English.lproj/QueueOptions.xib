@@ -273,6 +273,12 @@
                         <menu key="menu" title="OtherViews" id="U0q-ED-kQf"/>
                     </popUpButtonCell>
                     <connections>
+                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueTVShowProviderLanguage" previousBinding="aF7-XO-EMK" id="8zl-Qa-wBq">
+                            <dictionary key="options">
+                                <bool key="NSValidatesImmediately" value="YES"/>
+                            </dictionary>
+                        </binding>
+                        <binding destination="-2" name="enabled" keyPath="self.options.SBQueueMetadata" id="P1S-72-eFU"/>
                         <binding destination="-2" name="content" keyPath="self.tvShowLanguages" id="aF7-XO-EMK">
                             <dictionary key="options">
                                 <string key="NSNoSelectionPlaceholder">None</string>
@@ -280,12 +286,6 @@
                                 <string key="NSNullPlaceholder">None</string>
                             </dictionary>
                         </binding>
-                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueTVShowProviderLanguage" previousBinding="aF7-XO-EMK" id="8zl-Qa-wBq">
-                            <dictionary key="options">
-                                <bool key="NSValidatesImmediately" value="YES"/>
-                            </dictionary>
-                        </binding>
-                        <binding destination="-2" name="enabled" keyPath="self.options.SBQueueMetadata" id="P1S-72-eFU"/>
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" id="73q-gi-fe2">
@@ -309,6 +309,11 @@
                         <menu key="menu" title="OtherViews" id="0QM-sv-vRX"/>
                     </popUpButtonCell>
                     <connections>
+                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueMovieProviderLanguage" previousBinding="3w0-jj-Nkk" id="I8g-ge-lPH">
+                            <dictionary key="options">
+                                <bool key="NSValidatesImmediately" value="YES"/>
+                            </dictionary>
+                        </binding>
                         <binding destination="-2" name="content" keyPath="self.movieLanguages" id="3w0-jj-Nkk">
                             <dictionary key="options">
                                 <string key="NSNoSelectionPlaceholder">None</string>
@@ -317,11 +322,6 @@
                             </dictionary>
                         </binding>
                         <binding destination="-2" name="enabled" keyPath="self.options.SBQueueMetadata" id="ABT-BG-W0N"/>
-                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueMovieProviderLanguage" previousBinding="3w0-jj-Nkk" id="I8g-ge-lPH">
-                            <dictionary key="options">
-                                <bool key="NSValidatesImmediately" value="YES"/>
-                            </dictionary>
-                        </binding>
                     </connections>
                 </popUpButton>
             </subviews>

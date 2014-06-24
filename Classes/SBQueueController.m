@@ -7,6 +7,7 @@
 //
 
 #import "SBQueueController.h"
+#import "SBQueuePreferences.h"
 #import "SBQueueItem.h"
 
 #import "SBOptionsViewController.h"
@@ -14,10 +15,8 @@
 
 #import "SBDocument.h"
 #import "SBTableView.h"
-#import "SBPresetManager.h"
 
 #import <MP42Foundation/MP42Utilities.h>
-#import <MP42Foundation/MP42Metadata.h>
 
 static NSString *fileType = @"mp4";
 static void *SBQueueContex = &SBQueueContex;
@@ -32,6 +31,7 @@ static void *SBQueueContex = &SBQueueContex;
 @property (nonatomic, retain) SBOptionsViewController *windowController;
 
 @property (nonatomic, readonly) NSMutableDictionary *options;
+@property (nonatomic, readonly) SBQueuePreferences *prefs;
 
 - (IBAction)removeSelectedItems:(id)sender;
 - (IBAction)removeCompletedItems:(id)sender;
@@ -55,6 +55,7 @@ static void *SBQueueContex = &SBQueueContex;
 @synthesize itemPopover = _itemPopover;
 @synthesize windowController = _windowController;
 @synthesize options = _options;
+@synthesize prefs = _prefs;
 
 + (SBQueueController *)sharedManager {
     static dispatch_once_t pred;
@@ -66,8 +67,12 @@ static void *SBQueueContex = &SBQueueContex;
 
 - (id)init {
     if (self = [super initWithWindowNibName:@"Queue"]) {
-        _queue = [[SBQueue alloc] initWithURL:[self queueURL]];
-        [self registerUserDefaults];
+        _prefs = [[SBQueuePreferences alloc] init];
+        [_prefs registerUserDefaults];
+        _options = _prefs.options;
+
+        _queue = [[SBQueue alloc] initWithURL:_prefs.queueURL];
+
         [self removeCompletedItems:self];
         [self updateDockTile];
     }
@@ -86,8 +91,9 @@ static void *SBQueueContex = &SBQueueContex;
 
     [_tableView registerForDraggedTypes: [NSArray arrayWithObjects: NSFilenamesPboardType, SublerBatchTableViewDataType, nil]];
 
-    // Init options
-    [self initOptions];
+
+    // Observe the changes to SBQueueOptimize
+    [self addObserver:self forKeyPath:@"options.SBQueueOptimize" options:NSKeyValueObservingOptionInitial context:SBQueueContex];
 
     // Register to the queue notifications
     NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
@@ -169,80 +175,10 @@ static void *SBQueueContex = &SBQueueContex;
     return YES;
 }
 
-#pragma mark - User Defaults
-
-- (void)registerUserDefaults {
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{ @"SBQueueOrganize" : @YES,
-                                                               @"SBQueueMetadata" : @NO,
-                                                               @"SBQueueSubtitles": @YES,
-                                                               @"SBQueueAutoStart": @NO,
-                                                               @"SBQueueOptimize" : @YES,
-                                                               @"SBQueueMovieProvider" : @"TheMovieDB",
-                                                               @"SBQueueTVShowProvider" : @"TheTVDB",
-                                                               @"SBQueueMovieProviderLanguage" : @"English",
-                                                               @"SBQueueTVShowProviderLanguage" : @"English"}];
-}
-
-/**
- * Save the queue user defaults
- */
-- (void)saveUserDefaults {
-    NSArray *keys = @[@"SBQueueOrganize", @"SBQueueMetadata", @"SBQueueSubtitles", @"SBQueueAutoStart", @"SBQueueOptimize",
-                      @"SBQueueMovieProvider", @"SBQueueTVShowProvider", @"SBQueueMovieProviderLanguage", @"SBQueueTVShowProviderLanguage"];
-
-    [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:obj] forKey:obj];
-    }];
-
-    [[NSUserDefaults standardUserDefaults] setValue:[[self.options objectForKey:@"SBQueueDestination"] path] forKey:@"SBQueueDestination"];
-    [[NSUserDefaults standardUserDefaults] setValue:[[self.options objectForKey:@"SBQueueSet"] presetName] forKey:@"SBQueueSet"];
-}
-
-/**
- * Init the options dictionary
- * and register the KVO observer
- */
-- (void)initOptions {
-    _options = [[NSMutableDictionary alloc] init];
-
-    NSArray *keys = @[@"SBQueueOrganize", @"SBQueueMetadata", @"SBQueueSubtitles", @"SBQueueAutoStart", @"SBQueueOptimize",
-                      @"SBQueueMovieProvider", @"SBQueueTVShowProvider", @"SBQueueMovieProviderLanguage", @"SBQueueTVShowProviderLanguage"];
-
-    [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:obj] forKey:obj];
-    }];
-
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]) {
-        [_options setObject:[NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueDestination"]] forKey:@"SBQueueDestination"];
-    }
-
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueSet"]) {
-        MP42Metadata *set = [[SBPresetManager sharedManager] setWithName:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBQueueSet"]];
-        [_options setObject:set forKey:@"SBQueueSet"];
-    }
-
-    // Observe the changes to SBQueueOptimize
-    [self addObserver:self forKeyPath:@"options.SBQueueOptimize" options:NSKeyValueObservingOptionInitial context:SBQueueContex];
-}
-
-- (NSURL *)queueURL {
-    NSURL *appSupportURL = nil;
-    NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
-                                                            NSUserDomainMask,
-                                                            YES);
-    if ([allPaths count]) {
-        appSupportURL = [NSURL fileURLWithPath:[[[allPaths lastObject] stringByAppendingPathComponent:@"Subler"]
-                                                stringByAppendingPathComponent:@"queue.sbqueue"] isDirectory:YES];
-        return appSupportURL;
-    } else {
-        return nil;
-    }
-}
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (context == SBQueueContex) {
         if ([keyPath isEqualToString:@"options.SBQueueOptimize"]) {
-            self.queue.optimize = [[self.options objectForKey:@"SBQueueOptimize"] boolValue];
+            self.queue.optimize = [[self.options objectForKey:SBQueueOptimize] boolValue];
         }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -262,7 +198,7 @@ static void *SBQueueContex = &SBQueueContex;
  * Saves the queue and the user defaults.
  */
 - (BOOL)saveQueueToDisk {
-    [self saveUserDefaults];
+    [self.prefs saveUserDefaults];
     return [self.queue saveQueueToDisk];
 }
 
@@ -300,26 +236,26 @@ static void *SBQueueContex = &SBQueueContex;
 - (SBQueueItem *)createItemWithURL:(NSURL *)url {
     SBQueueItem *item = [SBQueueItem itemWithURL:url];
 
-    if ([[self.options objectForKey:@"SBQueueMetadata"] boolValue]) {
-        [item addAction:[[[SBQueueMetadataAction alloc] initWithMovieLanguage:[self.options objectForKey:@"SBQueueMovieProviderLanguage"]
-                                                               tvShowLanguage:[self.options objectForKey:@"SBQueueTVShowProviderLanguage"]
-                                                           movieProvider:[self.options objectForKey:@"SBQueueMovieProvider"]
-                                                          tvShowProvider:[self.options objectForKey:@"SBQueueTVShowProvider"]] autorelease]];
+    if ([[self.options objectForKey:SBQueueMetadata] boolValue]) {
+        [item addAction:[[[SBQueueMetadataAction alloc] initWithMovieLanguage:[self.options objectForKey:SBQueueMovieProviderLanguage]
+                                                               tvShowLanguage:[self.options objectForKey:SBQueueTVShowProviderLanguage]
+                                                           movieProvider:[self.options objectForKey:SBQueueMovieProvider]
+                                                          tvShowProvider:[self.options objectForKey:SBQueueTVShowProvider]] autorelease]];
     }
 
-    if ([[self.options objectForKey:@"SBQueueSubtitles"] boolValue]) {
+    if ([[self.options objectForKey:SBQueueSubtitles] boolValue]) {
         [item addAction:[[[SBQueueSubtitlesAction alloc] init] autorelease]];
     }
 
-    if ([[self.options objectForKey:@"SBQueueOrganize"] boolValue]) {
+    if ([[self.options objectForKey:SBQueueOrganize] boolValue]) {
         [item addAction:[[[SBQueueOrganizeGroupsAction alloc] init] autorelease]];
     }
 
-    if ([self.options objectForKey:@"SBQueueSet"]) {
-        [item addAction:[[[SBQueueSetAction alloc] initWithSet:[self.options objectForKey:@"SBQueueSet"]] autorelease]];
+    if ([self.options objectForKey:SBQueueSet]) {
+        [item addAction:[[[SBQueueSetAction alloc] initWithSet:[self.options objectForKey:SBQueueSet]] autorelease]];
     }
 
-    NSURL *destination = [self.options objectForKey:@"SBQueueDestination"];
+    NSURL *destination = [self.options objectForKey:SBQueueDestination];
     if (destination) {
         destination = [[[destination URLByAppendingPathComponent:[url lastPathComponent]] URLByDeletingPathExtension] URLByAppendingPathExtension:fileType];
     } else {
@@ -369,7 +305,7 @@ static void *SBQueueContex = &SBQueueContex;
     if ([undo isUndoing] || [undo isRedoing])
         [self updateUI];
 
-    if ([[self.options objectForKey:@"SBQueueAutoStart"] boolValue])
+    if ([[self.options objectForKey:SBQueueAutoStart] boolValue])
         [self start:self];
 
     [mutableIndexes release];
@@ -456,8 +392,11 @@ static void *SBQueueContex = &SBQueueContex;
         if (!self.windowController) {
             self.windowController = [[[SBOptionsViewController alloc] initWithOptions:self.options] autorelease];
         }
-        _detachedWindow.contentView = _windowController.view;
+        NSRect contentFrame = NSMakeRect(0, 0, self.windowController.view.frame.size.width, self.windowController.view.frame.size.height + 20);
+
+        _detachedWindow.contentView = self.windowController.view;
         _detachedWindow.delegate = self;
+        [_detachedWindow setFrame:contentFrame display:NO];
         return _detachedWindow;
     }
     return nil;
