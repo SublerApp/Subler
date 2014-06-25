@@ -226,7 +226,7 @@
         if (outError) {
             NSDictionary *errorDetail = @{ NSLocalizedDescriptionKey : @"Not enough disk space",
                                            NSLocalizedRecoverySuggestionErrorKey : @"" };
-            *outError = [NSError errorWithDomain:@"SBQueueItemError" code:10 userInfo:errorDetail];
+            *outError = [NSError errorWithDomain:@"SBQueueItemError" code:12 userInfo:errorDetail];
         }
         goto bail;
     }

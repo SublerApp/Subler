@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D43" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13E19" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1060" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
@@ -205,13 +205,13 @@
                 <outlet property="delegate" destination="-2" id="84"/>
             </connections>
         </menu>
-        <window title="Queue Options" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="zHc-NF-Zeh" userLabel="Window - Detached Options" customClass="NSPanel">
+        <window title="Queue Options" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="SBQueueOptionsWindow" animationBehavior="default" id="zHc-NF-Zeh" userLabel="Window - Detached Options" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="283" y="305" width="321" height="238"/>
+            <rect key="contentRect" x="187" y="1037" width="334" height="262"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" id="hhb-jZ-DWa">
-                <rect key="frame" x="0.0" y="0.0" width="321" height="238"/>
+                <rect key="frame" x="0.0" y="0.0" width="334" height="262"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
         </window>

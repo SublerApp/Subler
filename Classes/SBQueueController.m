@@ -340,7 +340,7 @@ static void *SBQueueContex = &SBQueueContex;
 /*
  *  Creates a popover with the queue options.
  */
-- (void)createPopover {
+- (void)createOptionsPopover {
     if (self.popover == nil) {
         // create and setup our popover
         _popover = [[NSPopover alloc] init];
@@ -358,6 +358,16 @@ static void *SBQueueContex = &SBQueueContex;
         // so we can be notified when the popover appears or closes
         self.popover.delegate = self;
     }
+}
+
+-(NSWindow *)createOptionsWindow {
+    if (!self.windowController) {
+        self.windowController = [[[SBOptionsViewController alloc] initWithOptions:self.options] autorelease];
+    }
+    _detachedWindow.contentView = self.windowController.view;
+    _detachedWindow.delegate = self;
+
+    return _detachedWindow;
 }
 
 /*
@@ -389,15 +399,7 @@ static void *SBQueueContex = &SBQueueContex;
 
 - (NSWindow *)detachableWindowForPopover:(NSPopover *)popover {
     if (popover == self.popover) {
-        if (!self.windowController) {
-            self.windowController = [[[SBOptionsViewController alloc] initWithOptions:self.options] autorelease];
-        }
-        NSRect contentFrame = NSMakeRect(0, 0, self.windowController.view.frame.size.width, self.windowController.view.frame.size.height + 20);
-
-        _detachedWindow.contentView = self.windowController.view;
-        _detachedWindow.delegate = self;
-        [_detachedWindow setFrame:contentFrame display:NO];
-        return _detachedWindow;
+        return [self createOptionsWindow];
     }
     return nil;
 }
@@ -463,14 +465,19 @@ static void *SBQueueContex = &SBQueueContex;
 }
 
 - (IBAction)toggleOptions:(id)sender {
-    [self createPopover];
+    if (NSClassFromString(@"NSPopover")) {
+        [self createOptionsPopover];
 
-    if (!self.popover.isShown) {
-        NSButton *targetButton = (NSButton *)sender;
-        [self.popover showRelativeToRect:[targetButton bounds] ofView:sender preferredEdge:NSMaxYEdge];
+        if (!self.popover.isShown) {
+            NSButton *targetButton = (NSButton *)sender;
+            [self.popover showRelativeToRect:[targetButton bounds] ofView:sender preferredEdge:NSMaxYEdge];
+        } else {
+            [self.popover close];
+            self.popover = nil;
+        }
     } else {
-        [self.popover close];
-        self.popover = nil;
+        NSWindow *optionsWindow = [self createOptionsWindow];
+        [optionsWindow makeKeyAndOrderFront:sender];
     }
 }
 
@@ -478,12 +485,14 @@ static void *SBQueueContex = &SBQueueContex;
     NSInteger clickedRow = [sender clickedRow];
     SBQueueItem *item = [self.queue itemAtIndex:clickedRow];
 
-    if (self.itemPopover.isShown && [(SBItemViewController *)self.itemPopover.contentViewController item] == item) {
-        [self.itemPopover close];
-        self.itemPopover = nil;
-    } else {
-        [self createItemPopover:[self.queue itemAtIndex:clickedRow]];
-        [self.itemPopover showRelativeToRect:[sender frameOfCellAtColumn:2 row:clickedRow] ofView:sender preferredEdge:NSMaxXEdge];
+    if (NSClassFromString(@"NSPopover")) {
+        if (self.itemPopover.isShown && [(SBItemViewController *)self.itemPopover.contentViewController item] == item) {
+            [self.itemPopover close];
+            self.itemPopover = nil;
+        } else {
+            [self createItemPopover:[self.queue itemAtIndex:clickedRow]];
+            [self.itemPopover showRelativeToRect:[sender frameOfCellAtColumn:2 row:clickedRow] ofView:sender preferredEdge:NSMaxXEdge];
+        }
     }
 }
 
