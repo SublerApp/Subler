@@ -230,6 +230,12 @@
         }
         goto bail;
     }
+    
+    // Convert from a file reference url to a normal url
+    // the file will be replaced if optimized, and the reference url
+    // may point to nil
+    [_fileURL autorelease];
+    _fileURL = [[self.URL filePathURL] retain];
 
     if (!self.cancelled) {
         if ([self.URL isEqualTo:self.destURL] && [self.mp4File hasFileRepresentation]) {
