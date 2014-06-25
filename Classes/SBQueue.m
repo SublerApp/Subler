@@ -96,7 +96,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 - (NSUInteger)readyCount {
     NSUInteger count = 0;
     for (SBQueueItem *item in self.items)
-        if ([item status] != SBQueueItemStatusCompleted)
+        if ([item status] == SBQueueItemStatusReady)
             count++;
     return count;
 }
@@ -199,7 +199,9 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
                 // Check results
                 if (self.cancelled) {
-                    self.currentItem.status = SBQueueItemStatusCancelled;
+                    if (outError.code != 12) {
+                        self.currentItem.status = SBQueueItemStatusCancelled;
+                    }
                     self.currentItem = nil;
                     [self handleSBStatusCancelled];
                     break;
