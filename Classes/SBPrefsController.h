@@ -11,6 +11,7 @@
 @class SBTableView;
 
 @interface SBPrefsController : NSWindowController <NSToolbarDelegate, NSWindowDelegate> {
+@private
     IBOutlet NSView *generalView, *advancedView, *setsView;
 
     id _popover;

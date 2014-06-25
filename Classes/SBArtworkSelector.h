@@ -14,6 +14,7 @@
 @end
 
 @interface SBArtworkSelector : NSWindowController {
+@private
     id <SBArtworkSelectorDelegate>  delegate;
     IBOutlet IKImageBrowserView     *imageBrowser;
     IBOutlet NSSlider               *slider;

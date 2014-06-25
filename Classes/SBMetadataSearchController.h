@@ -18,6 +18,7 @@
 @end
 
 @interface SBMetadataSearchController : NSWindowController {
+@private
     id <SBMetadataSearchControllerDelegate> delegate;
 
     NSDictionary                 *detailBoldAttr;

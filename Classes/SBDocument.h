@@ -11,6 +11,7 @@
 @class MP42File;
 
 @interface SBDocument : NSDocument <NSTableViewDelegate> {
+@private
     MP42File  *_mp4File;
     IBOutlet NSWindow       *documentWindow;
 

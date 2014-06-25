@@ -12,6 +12,7 @@
 @class MP42Metadata;
 
 @interface MetadataImporter : NSObject {
+@private
     SBMetadataSearchController *mCallback;
     BOOL isCancelled;
 }

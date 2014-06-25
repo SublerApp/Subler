@@ -13,6 +13,7 @@
 extern NSString *SBPresetManagerUpdatedNotification;
 
 @interface SBPresetManager : NSObject {
+@private
     NSMutableArray *_presets;
 }
 

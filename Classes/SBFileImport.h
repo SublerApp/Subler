@@ -15,6 +15,7 @@
 @end
 
 @interface SBFileImport : NSWindowController <NSTableViewDelegate> {
+@private
     NSArray         *_fileURLs;
     NSMutableArray  *_fileImporters;
     NSMutableArray  *_tracks;
