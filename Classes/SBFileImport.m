@@ -355,15 +355,15 @@
                         MP42AudioTrack *copy = [track copy];
                         [copy setNeedConversion:YES];
                         [copy setMixdownType:SBDolbyPlIIMixdown];
-                        
+
                         [(MP42AudioTrack *)track setFallbackTrack:copy];
 
                         [tracks addObject:copy];
                         [copy release];
-                    }
-                    else if (conversion)
+                    } else if (conversion) {
                         [track setNeedConversion:YES];
-                    
+                    }
+
                     switch (conversion) {
                         case 6:
                             [track setEnabled:NO];
@@ -385,12 +385,11 @@
                             [(MP42AudioTrack *)track setMixdownType:SBDolbyPlIIMixdown];
                             break;
                     }
-                }
-                else if ([track isMemberOfClass:[MP42SubtitleTrack class]]) {
-                    if (conversion)
+                } else if ([track isMemberOfClass:[MP42SubtitleTrack class]]) {
+                    if (conversion) {
                         [track setNeedConversion:YES];
-                }
-                else if ([track isMemberOfClass:[MP42VideoTrack class]]) {
+                    }
+                } else if ([track isMemberOfClass:[MP42VideoTrack class]]) {
                     if ([[track.sourceURL pathExtension] caseInsensitiveCompare:@"264"] == NSOrderedSame ||
                         [[track.sourceURL pathExtension] caseInsensitiveCompare:@"h264"] == NSOrderedSame) {
                         switch(conversion) {
