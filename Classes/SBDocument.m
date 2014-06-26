@@ -216,7 +216,7 @@
         }
         if (_optimize) {
             [saveOperationName setStringValue:@"Optimizing…"];
-            [self.mp4 optimize];
+            success = [self.mp4 optimize];
             _optimize = NO;
         }
 
