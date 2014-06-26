@@ -102,7 +102,7 @@
 	BOOL onlySubtitle = YES;
     for (id track in _tracks) {
         if ([track isKindOfClass:[MP42Track class]]) {
-			if (![track isMemberOfClass:[MP42SubtitleTrack class]])
+			if (![track isMemberOfClass:[MP42SubtitleTrack class]] || ![[(MP42Track *)track format] isEqualToString:MP42SubtitleFormatTx3g])
 				onlySubtitle = NO;
 		}
     }
