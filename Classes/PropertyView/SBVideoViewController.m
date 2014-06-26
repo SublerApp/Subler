@@ -183,7 +183,7 @@ static NSString *getLevelName(uint8_t level) {
     else if (sender == offsetX) {
         i = [offsetX integerValue];
         if (track.offsetX != i) {
-            track.offsetX = i;
+            track.offsetX = (uint32_t)i;
 
             [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
             track.isEdited = YES;
@@ -192,7 +192,7 @@ static NSString *getLevelName(uint8_t level) {
     else if (sender == offsetY) {
         i = [offsetY integerValue];
         if (track.offsetY != i) {
-            track.offsetY = i;
+            track.offsetY = (uint32_t)i;
 
             [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
             track.isEdited = YES;
