@@ -167,9 +167,9 @@
 
 - (IBAction)toggleInfoWindow:(id)sender
 {
-    if (_currentRow == [tableView clickedRow] && _popover)
+    if (_currentRow == [tableView clickedRow] && _popover) {
         [self closePopOver:sender];
-    else {
+    } else {
         _currentRow = [tableView clickedRow];
         [self closePopOver:sender];
 
@@ -183,8 +183,7 @@
             ((NSPopover *)_popover).contentSize = NSMakeSize(480.0f, 500.0f);
 
             [_popover showRelativeToRect:[tableView frameOfCellAtColumn:1 row:_currentRow] ofView:tableView preferredEdge:NSMaxYEdge];
-        }
-        else {
+        } else {
             NSInteger row = [tableView selectedRow];
 
             NSRect cellFrame = [tableView frameOfCellAtColumn:1 row:row];
