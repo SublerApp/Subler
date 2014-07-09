@@ -38,6 +38,8 @@ typedef enum SBCachePolicy : NSUInteger {
 + (NSString *) defaultMovieLanguage;
 + (NSString *) defaultTVLanguage;
 
++ (NSString *) defaultLanguageForProvider:(NSString *)provider;
+
 #pragma mark Asynchronous searching
 - (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage callback:(SBMetadataSearchController *)aCallback;
 - (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum callback:(SBMetadataSearchController *)aCallback;

@@ -208,6 +208,14 @@
 	return [defaults valueForKey:[NSString stringWithFormat:@"SBMetadataPreference|TV|%@|Language", [defaults valueForKey:@"SBMetadataPreference|TV"]]];
 }
 
++ (NSString *) defaultLanguageForProvider:(NSString *)provider {
+    if ([provider isEqualToString:@"iTunes Store"]) {
+        return @"USA (English)";
+    } else {
+        return @"English";
+    }
+}
+
 #pragma mark Asynchronous searching
 
 - (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage callback:(SBMetadataSearchController *)aCallback {

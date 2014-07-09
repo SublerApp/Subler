@@ -101,9 +101,11 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
         if ([keyPath isEqualToString:@"options.SBQueueMovieProvider"]) {
             NSString *newProvider = [change valueForKey:NSKeyValueChangeNewKey];
             self.movieLanguages = [MetadataImporter languagesForProvider:newProvider];
+            [self.options setValue:[MetadataImporter defaultLanguageForProvider:newProvider] forKeyPath:@"SBQueueMovieProviderLanguage"];
         } else if ([keyPath isEqualToString:@"options.SBQueueTVShowProvider"]) {
             NSString *newProvider = [change valueForKey:NSKeyValueChangeNewKey];
             self.tvShowLanguages = [MetadataImporter languagesForProvider:newProvider];
+            [self.options setValue:[MetadataImporter defaultLanguageForProvider:newProvider] forKeyPath:@"SBQueueTVShowProviderLanguage"];
         } else {
             [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
         }
@@ -161,6 +163,7 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
             [_destButton selectItem:folderItem];
 
             [self.options setValue:[panel URL] forKey:@"SBQueueDestination"];
+            self.destination = panel.URL;
             [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBQueueDestinationSelected"];
         } else {
             [_destButton selectItemAtIndex:2];
