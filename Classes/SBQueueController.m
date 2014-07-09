@@ -18,7 +18,6 @@
 
 #import <MP42Foundation/MP42Utilities.h>
 
-static NSString *fileType = @"mp4";
 static void *SBQueueContex = &SBQueueContex;
 
 #define SublerBatchTableViewDataType @"SublerBatchTableViewDataType"
@@ -86,7 +85,7 @@ static void *SBQueueContex = &SBQueueContex;
     [_progressIndicator setHidden:YES];
 
     // Load a generic movie icon to display in the table view
-    _docImg = [[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode('MOOV')] retain];
+    _docImg = [[[NSWorkspace sharedWorkspace] iconForFileType:@"public.movie"] retain];
     [_docImg setSize:NSMakeSize(16, 16)];
 
     [_tableView registerForDraggedTypes: [NSArray arrayWithObjects: NSFilenamesPboardType, SublerBatchTableViewDataType, nil]];
@@ -117,7 +116,6 @@ static void *SBQueueContex = &SBQueueContex;
         [_startItem setImage:[NSImage imageNamed:NSImageNameGoRightTemplate]];
         [_countLabel setStringValue:@"Done"];
 
-        [self updateDockTile];
         [self updateUI];
     }];
 
@@ -257,9 +255,11 @@ static void *SBQueueContex = &SBQueueContex;
 
     NSURL *destination = [self.options objectForKey:SBQueueDestination];
     if (destination) {
-        destination = [[[destination URLByAppendingPathComponent:[url lastPathComponent]] URLByDeletingPathExtension] URLByAppendingPathExtension:fileType];
+        destination = [[[destination URLByAppendingPathComponent:[url lastPathComponent]] URLByDeletingPathExtension]
+                       URLByAppendingPathExtension:[self.options objectForKey:SBQueueFileType]];
     } else {
-        destination = [[url URLByDeletingPathExtension] URLByAppendingPathExtension:fileType];
+        destination = [[url URLByDeletingPathExtension]
+                       URLByAppendingPathExtension:[self.options objectForKey:SBQueueFileType]];
     }
 
     item.destURL = destination;
@@ -434,9 +434,10 @@ static void *SBQueueContex = &SBQueueContex;
 
 - (void)updateUI {
     [_tableView reloadData];
+    [self updateDockTile];
+
     if (self.queue.status != SBQueueStatusWorking) {
         [_countLabel setStringValue:[NSString stringWithFormat:@"%lu files in queue.", (unsigned long)[self.queue count]]];
-        [self updateDockTile];
     }
 }
 

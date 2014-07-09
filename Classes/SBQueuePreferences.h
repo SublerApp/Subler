@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const SBQueueFileType;
 extern NSString * const SBQueueOrganize;
 extern NSString * const SBQueueMetadata;
 extern NSString * const SBQueueSubtitles;

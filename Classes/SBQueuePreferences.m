@@ -11,6 +11,7 @@
 
 #import <MP42Foundation/MP42Metadata.h>
 
+NSString * const SBQueueFileType = @"SBQueueFileType";
 NSString * const SBQueueOrganize = @"SBQueueOrganize";
 NSString * const SBQueueMetadata = @"SBQueueMetadata";
 NSString * const SBQueueSubtitles = @"SBQueueSubtitles";
@@ -56,7 +57,8 @@ NSString * const SBQueueSet = @"SBQueueSet";
 }
 
 + (void)registerUserDefaults {
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{ SBQueueOrganize : @YES,
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{ SBQueueFileType : @"mp4",
+                                                               SBQueueOrganize : @YES,
                                                                SBQueueMetadata : @NO,
                                                                SBQueueSubtitles: @YES,
                                                                SBQueueAutoStart: @NO,
