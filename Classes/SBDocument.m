@@ -210,7 +210,7 @@
                 if ([_64bit_time state]) [attributes setObject:@YES forKey:MP4264BitTime];
                 success = [self.mp4 writeToUrl:absoluteURL withAttributes:attributes error:&inError];
                 break;
-            case NSSaveToOperation:
+            default:
                 // not implemented
                 break;
         }
