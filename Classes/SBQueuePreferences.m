@@ -36,7 +36,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
     if (self) {
         _options = [[NSMutableDictionary alloc] init];
 
-        NSArray *keys = @[SBQueueOrganize, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize,
+        NSArray *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize,
                          SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage];
 
         [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -73,7 +73,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
  * Save the queue user defaults
  */
 - (void)saveUserDefaults {
-    NSArray *keys = @[SBQueueOrganize, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize,
+    NSArray *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize,
                       SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage];
 
     [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
