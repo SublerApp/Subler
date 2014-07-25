@@ -67,12 +67,6 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
     [ps setHeadIndent: -10.0];
     [ps setAlignment:NSRightTextAlignment];
 
-    detailBoldAttr = [[NSDictionary dictionaryWithObjectsAndKeys:
-                      [NSFont boldSystemFontOfSize:11.0], NSFontAttributeName,
-                      ps, NSParagraphStyleAttributeName,
-                      [NSColor grayColor], NSForegroundColorAttributeName,
-                       nil] retain];
-
     [mediaKind selectItemWithTag:metadata.mediaKind];
     [contentRating selectItemWithTag:metadata.contentRating];
     [hdVideo selectItemWithTag:metadata.hdVideo];
@@ -424,11 +418,6 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
     }
 }
 
-- (NSAttributedString *) boldString: (NSString *) string
-{
-    return [[[NSAttributedString alloc] initWithString:string attributes:detailBoldAttr] autorelease];
-}
-
 /* TableView delegate methods */
 
 - (NSInteger) numberOfRowsInTableView: (NSTableView *) t
@@ -467,7 +456,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
              row:(NSInteger)rowIndex
 {
     if ([tableColumn.identifier isEqualToString:@"name"])
-        return [self boldString:[self.tagsArray objectAtIndex:rowIndex]];
+        return [self.tagsArray objectAtIndex:rowIndex];
 
     if ([tableColumn.identifier isEqualToString:@"value"]) 
         return [tags objectForKey:[self.tagsArray objectAtIndex:rowIndex]];
@@ -517,6 +506,17 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
            mouseLocation: (NSPoint) mouseLocation
 {
     return nil;
+}
+
+- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex
+{
+    if ([tableColumn.identifier isEqualToString:@"name"]) {
+        if ([[tableView selectedRowIndexes] containsIndex:rowIndex]) {
+            [cell setTextColor:[NSColor whiteColor]];
+        } else {
+            [cell setTextColor:[NSColor grayColor]];
+        }
+    }
 }
 
 - (void)tableViewColumnDidResize: (NSNotification* )notification
@@ -801,7 +801,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     [_tagsArray release];
     [tagsMenu release];
     [tabCol release];
-    [detailBoldAttr release];
     [ratingCell release];
     [genreCell release];
     [dct release];
