@@ -167,7 +167,7 @@
         for (MP42Track *track in fileImporter.tracks) {
             if ([track.format isEqualToString:MP42AudioFormatAC3]) {
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioConvertAC3"] boolValue]) {
-                    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepAC3"] boolValue] ||
+                    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepAC3"] boolValue] &&
                         ![(MP42AudioTrack *)track fallbackTrack]) {
                         MP42AudioTrack *copy = [track copy];
                         [copy setNeedConversion:YES];
