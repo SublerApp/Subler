@@ -253,10 +253,15 @@ static void *SBQueueContex = &SBQueueContex;
         [item addAction:[[[SBQueueSetAction alloc] initWithSet:[self.options objectForKey:SBQueueSet]] autorelease]];
     }
 
+    id type;
+    [url getResourceValue:&type forKey:NSURLTypeIdentifierKey error:NULL];
+
     NSURL *destination = [self.options objectForKey:SBQueueDestination];
     if (destination) {
         destination = [[[destination URLByAppendingPathComponent:[url lastPathComponent]] URLByDeletingPathExtension]
                        URLByAppendingPathExtension:[self.options objectForKey:SBQueueFileType]];
+    } else  if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)@"public.mpeg-4")) {
+        destination = [[url copy] autorelease];
     } else {
         destination = [[url URLByDeletingPathExtension]
                        URLByAppendingPathExtension:[self.options objectForKey:SBQueueFileType]];
