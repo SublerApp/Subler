@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13D12" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="14A299l" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1060" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5053"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBVideoViewController">
@@ -40,11 +40,11 @@
                     <tabViewItems>
                         <tabViewItem label="Visual Settings" identifier="1" id="6">
                             <view key="view" id="9">
-                                <rect key="frame" x="10" y="25" width="482" height="264"/>
+                                <rect key="frame" x="10" y="29" width="482" height="260"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" title="Box" borderType="none" titlePosition="noTitle" id="36">
-                                        <rect key="frame" x="14" y="4" width="454" height="260"/>
+                                        <rect key="frame" x="14" y="0.0" width="454" height="260"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <view key="contentView">
                                             <rect key="frame" x="0.0" y="0.0" width="454" height="260"/>
@@ -321,7 +321,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" id="162">
-                                                    <rect key="frame" x="163" y="15" width="275" height="44"/>
+                                                    <rect key="frame" x="163" y="-1" width="275" height="60"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="163">
                                                         <font key="font" metaFont="miniSystem"/>
