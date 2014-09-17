@@ -98,14 +98,24 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (context == SBOptionsViewContex) {
         // Update the languages popup
-        if ([keyPath isEqualToString:@"options.SBQueueMovieProvider"]) {
+        if ([keyPath isEqualToString:@"options.SBQueueMovieProvider"]){
             NSString *newProvider = [change valueForKey:NSKeyValueChangeNewKey];
+
+            NSString *oldLanguage = [self.options valueForKey:@"SBQueueMovieProviderLanguage"];
             self.movieLanguages = [MetadataImporter languagesForProvider:newProvider];
-            [self.options setValue:[MetadataImporter defaultLanguageForProvider:newProvider] forKeyPath:@"SBQueueMovieProviderLanguage"];
+
+            if (![self.movieLanguages containsObject:oldLanguage]) {
+                [self.options setValue:[MetadataImporter defaultLanguageForProvider:newProvider] forKeyPath:@"SBQueueMovieProviderLanguage"];
+            }
         } else if ([keyPath isEqualToString:@"options.SBQueueTVShowProvider"]) {
             NSString *newProvider = [change valueForKey:NSKeyValueChangeNewKey];
+
+            NSString *oldLanguage = [self.options valueForKey:@"SBQueueTVShowProviderLanguage"];
+
             self.tvShowLanguages = [MetadataImporter languagesForProvider:newProvider];
-            [self.options setValue:[MetadataImporter defaultLanguageForProvider:newProvider] forKeyPath:@"SBQueueTVShowProviderLanguage"];
+            if (![self.tvShowLanguages containsObject:oldLanguage]) {
+                [self.options setValue:[MetadataImporter defaultLanguageForProvider:newProvider] forKeyPath:@"SBQueueTVShowProviderLanguage"];
+            }
         } else {
             [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
         }
