@@ -24,5 +24,6 @@
 - (void) setTrack:(MP42ChapterTrack *)track;
 - (IBAction) addChapter: (id) sender;
 - (IBAction) removeChapter: (id) sender;
+- (IBAction) renameChapters: (id) sender;
 
 @end

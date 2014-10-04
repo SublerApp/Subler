@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13D12" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="14A379a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1060" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5053"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBChapterViewController">
@@ -24,18 +24,18 @@
                     <tabViewItems>
                         <tabViewItem label="Chapters" identifier="1" id="11">
                             <view key="view" id="12">
-                                <rect key="frame" x="10" y="25" width="482" height="241"/>
+                                <rect key="frame" x="10" y="29" width="482" height="237"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="19">
-                                        <rect key="frame" x="17" y="36" width="448" height="199"/>
+                                        <rect key="frame" x="17" y="36" width="448" height="195"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="gfP-N5-8Ji">
-                                            <rect key="frame" x="1" y="17" width="446" height="181"/>
+                                            <rect key="frame" x="1" y="0.0" width="446" height="194"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="14" headerView="23" id="22" customClass="SBTableView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="446" height="181"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="446" height="177"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -328,7 +328,7 @@
                                             <rect key="frame" x="1" y="193" width="411" height="11"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="37" controlSize="small" horizontal="NO" id="20">
+                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" controlSize="small" horizontal="NO" id="20">
                                             <rect key="frame" x="412" y="17" width="11" height="176"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -338,7 +338,7 @@
                                         </tableHeaderView>
                                     </scrollView>
                                     <button verticalHuggingPriority="750" id="31">
-                                        <rect key="frame" x="40" y="7" width="24" height="22"/>
+                                        <rect key="frame" x="42" y="7" width="26" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="32">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -349,7 +349,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" id="42">
-                                        <rect key="frame" x="17" y="7" width="24" height="22"/>
+                                        <rect key="frame" x="17" y="7" width="26" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="43">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -359,6 +359,27 @@
                                             <action selector="addChapter:" target="-2" id="50"/>
                                         </connections>
                                     </button>
+                                    <popUpButton appearanceType="aqua" verticalHuggingPriority="750" id="IvH-Ff-dyN">
+                                        <rect key="frame" x="76" y="7" width="33" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <popUpButtonCell key="cell" type="smallSquare" bezelStyle="smallSquare" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="frw-Vk-Gwo">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <menu key="menu" title="OtherViews" id="T3N-JJ-mWq">
+                                                <items>
+                                                    <menuItem image="NSSmartBadgeTemplate" hidden="YES" id="B0i-yb-Nf4">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Rename every chapter" id="SOg-Lz-v5L">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="renameChapters:" target="-2" id="82u-lm-Qty"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </popUpButtonCell>
+                                    </popUpButton>
                                 </subviews>
                             </view>
                         </tabViewItem>
@@ -368,7 +389,8 @@
         </customView>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="8" height="8"/>
-        <image name="NSRemoveTemplate" width="8" height="8"/>
+        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
+        <image name="NSSmartBadgeTemplate" width="14" height="14"/>
     </resources>
 </document>
