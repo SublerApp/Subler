@@ -535,10 +535,9 @@ static void *SBQueueContex = &SBQueueContex;
 }
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
-    if ([aTableColumn.identifier isEqualToString:@"nameColumn"])
+    if ([aTableColumn.identifier isEqualToString:@"nameColumn"]) {
         return [[[self.queue itemAtIndex:rowIndex] URL] lastPathComponent];
-
-    if ([aTableColumn.identifier isEqualToString:@"statusColumn"]) {
+    } else if ([aTableColumn.identifier isEqualToString:@"statusColumn"]) {
         SBQueueItemStatus batchStatus = [[self.queue itemAtIndex:rowIndex] status];
         if (batchStatus == SBQueueItemStatusCompleted)
             return [NSImage imageNamed:@"EncodeComplete"];
