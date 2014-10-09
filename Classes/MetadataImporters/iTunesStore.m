@@ -240,15 +240,16 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 - (MP42Metadata *) loadMovieMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage {
 	NSData *xmlData = [MetadataImporter downloadDataFromURL:[NSURL URLWithString:[[aMetadata tagsDict] valueForKey:@"iTunes URL"]] withCachePolicy:SBDefaultPolicy];
 	if (xmlData) {
+        NSDictionary *store = [iTunesStore getStoreFor:aLanguage];
 		NSXMLDocument *xml = [[NSXMLDocument alloc] initWithData:xmlData options:NSXMLDocumentTidyHTML error:NULL];
-		NSArray *p = [iTunesStore readPeople:@"Actor" fromXML:xml];
+		NSArray *p = [iTunesStore readPeople:[store valueForKey:@"actor"] fromXML:xml];
 		if (p && [p count]) [aMetadata setTag:[p componentsJoinedByString:@", "] forKey:@"Cast"];
-		p = [iTunesStore readPeople:@"Director" fromXML:xml];
+		p = [iTunesStore readPeople:[store valueForKey:@"director"] fromXML:xml];
 		if (p && [p count]) [aMetadata setTag:[p componentsJoinedByString:@", "] forKey:@"Director"];
 		if (p && [p count]) [aMetadata setTag:[p componentsJoinedByString:@", "] forKey:@"Artist"];
-		p = [iTunesStore readPeople:@"Producer" fromXML:xml];
+		p = [iTunesStore readPeople:[store valueForKey:@"producer"] fromXML:xml];
 		if (p && [p count]) [aMetadata setTag:[p componentsJoinedByString:@", "] forKey:@"Producers"];
-		p = [iTunesStore readPeople:@"Screenwriter" fromXML:xml];
+		p = [iTunesStore readPeople:[store valueForKey:@"screenwriter"] fromXML:xml];
 		if (p && [p count]) [aMetadata setTag:[p componentsJoinedByString:@", "] forKey:@"Screenwriters"];
 		NSArray *nodes = [xml nodesForXPath:[NSString stringWithFormat:@"//li[@class='copyright']"] error:NULL];
 		for (NSXMLNode *n in nodes) {
