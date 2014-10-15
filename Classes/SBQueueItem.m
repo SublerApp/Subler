@@ -13,7 +13,7 @@
 #import <MP42Foundation/MP42FileImporter.h>
 #import <MP42Foundation/MP42Utilities.h>
 
-#define ALMOST_4GiB 4100000000
+#define ALMOST_4GiB 4000000000
 
 @interface SBQueueItem () <MP42FileDelegate>
 
