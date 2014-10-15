@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="14A388a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1060" identifier="macosx"/>
         <development version="5100" identifier="xcode"/>
@@ -52,7 +52,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="622" height="133"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="L1j-2Q-wsZ">
-                                            <rect key="frame" x="1" y="17" width="620" height="115"/>
+                                            <rect key="frame" x="1" y="0.0" width="620" height="132"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="100032" id="100031" customClass="SBTableView">
@@ -500,9 +500,11 @@ Gw
                         </binding>
                     </connections>
                 </popUpButton>
-                <button toolTip="Enable 64bit timescale and duration support. Normally, it's only needed if a track will be longer than 10 hours." id="100190">
+                <button id="100190">
                     <rect key="frame" x="89" y="8" width="105" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <string key="toolTip">Note: don't use this option if you are not sure of what it is doing, it's not needed in almost every case.
+Enable 64bit timescale and duration support. Normally, it's only needed if a track will be longer than 10 hours.</string>
                     <buttonCell key="cell" type="check" title="64 bits times" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="100191">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -528,7 +530,7 @@ Gw
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
-        <image name="NSAddTemplate" width="8" height="8"/>
+        <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRevealFreestandingTemplate" width="14" height="14"/>
         <image name="ToolbarActionTemplate" width="24" height="24"/>
         <image name="ToolbarRemoveTemplate" width="16" height="16"/>
