@@ -214,7 +214,7 @@
                 // not implemented
                 break;
         }
-        if (_optimize) {
+        if (success && _optimize) {
             [saveOperationName setStringValue:@"Optimizing…"];
             success = [self.mp4 optimize];
             _optimize = NO;
@@ -242,6 +242,7 @@
         IOPMAssertionRelease(assertionID);
 
     *outError = [inError autorelease];
+    [*outError retain];
 
     [attributes release];
     [self saveDidComplete:outError URL:absoluteURL];
@@ -397,18 +398,22 @@
 
 - (BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem
 {
-    if (toolbarItem == addTracks)
-            return YES;
+    if (toolbarItem == addTracks) {
+        return YES;
+    }
 
-    else if (toolbarItem == deleteTrack)
+    if (toolbarItem == deleteTrack) {
         if ([fileTracksTable selectedRow] != -1 && [NSApp isActive])
                 return YES;
+    }
 
-    if (toolbarItem == searchMetadata)
+    if (toolbarItem == searchMetadata) {
         return YES;
+    }
 
-    if (toolbarItem == sendToQueue)
+    if (toolbarItem == sendToQueue) {
         return YES;
+    }
 
     return NO;
 }
