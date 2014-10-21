@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6246" systemVersion="14A361c" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1060" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6246"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBItemViewController">
@@ -58,7 +58,7 @@
                         </binding>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" allowsExpansionToolTips="YES" setsMaxLayoutWidthAtFirstLayout="YES" id="eTa-uz-sjk">
+                <textField verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="eTa-uz-sjk">
                     <rect key="frame" x="95" y="51" width="321" height="28"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="charWrapping" selectable="YES" sendsActionOnEndEditing="YES" title="url" id="5mD-V5-53a">
@@ -79,7 +79,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" allowsExpansionToolTips="YES" setsMaxLayoutWidthAtFirstLayout="YES" id="aBh-Is-f6Q">
+                <textField verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="aBh-Is-f6Q">
                     <rect key="frame" x="95" y="83" width="321" height="28"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="charWrapping" selectable="YES" sendsActionOnEndEditing="YES" title="url" id="OJa-Jm-vq4">
@@ -92,7 +92,7 @@
                     </connections>
                 </textField>
                 <button verticalHuggingPriority="750" id="J0r-57-7ab">
-                    <rect key="frame" x="20" y="8" width="46" height="17"/>
+                    <rect key="frame" x="20" y="8" width="51" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <buttonCell key="cell" type="roundRect" title="Edit…" bezelStyle="roundedRect" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cEO-ol-OLW">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -103,7 +103,7 @@
                     </connections>
                 </button>
                 <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="fCV-gk-gLV">
-                    <rect key="frame" x="75" y="9" width="16" height="16"/>
+                    <rect key="frame" x="79" y="9" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </progressIndicator>
                 <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="14" horizontalPageScroll="10" verticalLineScroll="14" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="Skr-vw-eHq">
