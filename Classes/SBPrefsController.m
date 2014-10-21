@@ -199,7 +199,7 @@
                                                    atDistance:0];
 
             [_popover setBackgroundColor:[NSColor colorWithCalibratedRed:0.98 green:0.98 blue:1 alpha:0.9]];
-            [_popover setDelegate:self];
+            [(MAAttachedWindow *)_popover setDelegate:self];
             [(MAAttachedWindow *)_popover setCornerRadius:6];
 
             [[self window] addChildWindow:_popover ordered:NSWindowAbove];
