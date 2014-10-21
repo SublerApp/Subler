@@ -237,6 +237,15 @@
                     [item setEnabled:YES];
                     [[actionCell menu] addItem:item];
                 }
+                
+                if ([track.format isEqualTo:MP42AudioFormatDTS])
+                {
+                    item = [[[NSMenuItem alloc] initWithTitle:@"Passthru + AAC" action:NULL keyEquivalent:@""] autorelease];
+                    [item setTag:tag++];
+                    [item setEnabled:YES];
+                    [[actionCell menu] addItem:item];
+                }
+                
             }
             else if ([track isMemberOfClass:[MP42ChapterTrack class]]) {
                 NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:@"Passthru" action:NULL keyEquivalent:@""] autorelease];
