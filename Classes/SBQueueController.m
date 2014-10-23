@@ -412,7 +412,7 @@ static void *SBQueueContex = &SBQueueContex;
 }
 
 - (NSWindow *)detachableWindowForPopover:(NSPopover *)popover {
-    if (NSAppKitVersionNumber <= NSAppKitVersionNumber10_9) {
+    if (NSAppKitVersionNumber <= 1343) {
         if (popover == self.popover) {
             return [self createOptionsWindow];
         }
