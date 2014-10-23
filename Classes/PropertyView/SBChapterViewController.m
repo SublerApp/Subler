@@ -49,7 +49,7 @@
 {
     MP42TextSample * chapter = [track chapterAtIndex:rowIndex];
     if ([tableColumn.identifier isEqualToString:@"time"])
-        return [self boldString:SMPTEStringFromTime(chapter.timestamp, 1000)];  
+        return [self boldString:StringFromTime(chapter.timestamp, 1000)];  
 
     if ([tableColumn.identifier isEqualToString:@"title"])
         return chapter.title;
@@ -72,7 +72,7 @@
         }
     }
     else if ([tableColumn.identifier isEqualToString:@"time"]) {
-        MP42Duration timestamp = TimeFromSMPTEString(anObject, 1000);
+        MP42Duration timestamp = TimeFromString(anObject, 1000);
         if (!(chapter.timestamp == timestamp)) {
             [track setTimestamp:timestamp forChapter:chapter];
 
