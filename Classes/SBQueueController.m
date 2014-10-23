@@ -113,7 +113,7 @@ static void *SBQueueContex = &SBQueueContex;
         [_progressIndicator stopAnimation:self];
         [_progressIndicator setDoubleValue:0];
         [_progressIndicator setIndeterminate:YES];
-        [_startItem setImage:[NSImage imageNamed:NSImageNameGoRightTemplate]];
+        [_startItem setImage:[NSImage imageNamed:@"playBackTemplate"]];
         [_countLabel setStringValue:@"Done"];
 
         [self updateUI];

@@ -32,6 +32,7 @@
 		A984DB530F52D679001A20B2 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A984DB4A0F52D644001A20B2 /* Sparkle.framework */; };
 		A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A984DB730F52DD4B001A20B2 /* dsa_pub.pem */; };
 		A98739FE13FBB09B00B795A7 /* ToolbarActionTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = A98739FD13FBB09B00B795A7 /* ToolbarActionTemplate.png */; };
+		A99BF39619F90F6300BDBE50 /* playBackTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A99BF39519F90F6300BDBE50 /* playBackTemplate.pdf */; };
 		A99EEA3F12B801AE002367D3 /* SBDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AC012B79E230040517A /* SBDocument.xib */; };
 		A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */; };
 		A9AB485417F0AEAC000AA72E /* SBChapterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484B17F0AEAC000AA72E /* SBChapterViewController.m */; };
@@ -173,6 +174,7 @@
 		A98739FD13FBB09B00B795A7 /* ToolbarActionTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ToolbarActionTemplate.png; path = images/ToolbarActionTemplate.png; sourceTree = "<group>"; };
 		A991319913F0615700DCAA12 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A991319B13F0668300DCAA12 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		A99BF39519F90F6300BDBE50 /* playBackTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = playBackTemplate.pdf; path = images/playBackTemplate.pdf; sourceTree = "<group>"; };
 		A9AB484717F0AEA2000AA72E /* SBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBAppDelegate.h; path = Classes/SBAppDelegate.h; sourceTree = "<group>"; };
 		A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBAppDelegate.m; path = Classes/SBAppDelegate.m; sourceTree = "<group>"; };
 		A9AB484A17F0AEAC000AA72E /* SBChapterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterViewController.h; path = Classes/PropertyView/SBChapterViewController.h; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				A975644B132A325C0051ED08 /* info-over.pdf */,
 				A975644C132A325C0051ED08 /* info-pressed.pdf */,
 				A9B46AA312B79BB10040517A /* Subler.icns */,
+				A99BF39519F90F6300BDBE50 /* playBackTemplate.pdf */,
 				A9C4259218DB6D1F00E99DB8 /* stopTemplate.pdf */,
 				A95C881C0F827BFB00F51A22 /* ToolbarRemoveTemplate.png */,
 				A96371B7164695070083BB80 /* ToolbarRemoveTemplate@2x.png */,
@@ -644,6 +647,7 @@
 				A9B46AA412B79BB10040517A /* Subler.icns in Resources */,
 				CD71FEA612F1B62600F0A98D /* MetadataSearch.xib in Resources */,
 				CD4E6E5D12F744210095C84F /* ArtworkSelector.xib in Resources */,
+				A99BF39619F90F6300BDBE50 /* playBackTemplate.pdf in Resources */,
 				A975644D132A325C0051ED08 /* info.pdf in Resources */,
 				A9D47B5A17B239E200900BCA /* EncodeComplete.png in Resources */,
 				A975644E132A325C0051ED08 /* info-over.pdf in Resources */,
