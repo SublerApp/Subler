@@ -225,16 +225,14 @@
     });
 
     while (!done) {
-        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-        @try {
-            NSEvent *event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:[NSDate distantFuture] inMode:NSDefaultRunLoopMode dequeue:YES];
-            if (event) [NSApp sendEvent:event];
-        }
-        @catch (NSException *localException) {
-            NSLog(@"Exception thrown during save: %@", localException);
-        }
-        @finally {
-            [pool drain];
+        @autoreleasepool {
+            @try {
+                NSEvent *event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:[NSDate distantFuture] inMode:NSDefaultRunLoopMode dequeue:YES];
+                if (event) [NSApp sendEvent:event];
+            }
+            @catch (NSException *localException) {
+                NSLog(@"Exception thrown during save: %@", localException);
+            }
         }
     }
 
