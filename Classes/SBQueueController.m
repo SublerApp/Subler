@@ -402,10 +402,22 @@ static void *SBQueueContex = &SBQueueContex;
     self.itemPopover.contentSize = size;
 }
 
-- (NSWindow *)detachableWindowForPopover:(NSPopover *)popover {
+- (BOOL)popoverShouldDetach:(NSPopover *)popover
+{
     if (popover == self.popover) {
-        return [self createOptionsWindow];
+        return YES;
     }
+
+    return NO;
+}
+
+- (NSWindow *)detachableWindowForPopover:(NSPopover *)popover {
+    if (NSAppKitVersionNumber <= NSAppKitVersionNumber10_9) {
+        if (popover == self.popover) {
+            return [self createOptionsWindow];
+        }
+    }
+
     return nil;
 }
 

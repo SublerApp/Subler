@@ -7,10 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBItemViewController">
             <connections>
-                <outlet property="destinationLabel" destination="eTa-uz-sjk" id="ivS-cY-3Jt"/>
                 <outlet property="editButton" destination="J0r-57-7ab" id="aR4-lN-fpm"/>
-                <outlet property="nameLabel" destination="ITP-pW-XrQ" id="o3b-Gi-Mey"/>
-                <outlet property="sourceLabel" destination="aBh-Is-f6Q" id="xCJ-Zl-gZ6"/>
                 <outlet property="spinner" destination="fCV-gk-gLV" id="1Vf-98-EBX"/>
                 <outlet property="view" destination="c22-O7-iKe" id="eHa-ul-BOp"/>
             </connections>
@@ -106,7 +103,7 @@
                     <rect key="frame" x="79" y="9" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </progressIndicator>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="14" horizontalPageScroll="10" verticalLineScroll="14" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="Skr-vw-eHq">
+                <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="14" horizontalPageScroll="10" verticalLineScroll="14" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="Skr-vw-eHq">
                     <rect key="frame" x="97" y="28" width="317" height="19"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="hrx-7s-pPn">
