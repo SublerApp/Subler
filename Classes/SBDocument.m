@@ -154,7 +154,11 @@
         [*outError release];
     }
 
-    [self reloadFile:absoluteURL];
+    if (*outError && [*outError code] == 101) {
+        // Write persmission error, don't reload the file
+    } else {
+        [self reloadFile:absoluteURL];
+    }
 
     return YES;
 }
