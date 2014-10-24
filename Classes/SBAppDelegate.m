@@ -11,6 +11,9 @@
 #import "SBPresetManager.h"
 #import "SBQueueController.h"
 #import "SBPrefsController.h"
+#import "SBDebugLogController.h"
+
+#import <MP42Foundation/MP42File.h>
 
 #define DONATE_NAG_TIME (60 * 60 * 24 * 7)
 
@@ -21,6 +24,12 @@
     documentController = [[SBDocumentController alloc] init];
 
     [SBPrefsController registerUserDefaults];
+
+    debugLogController = [[SBDebugLogController alloc] init];
+
+    [MP42File redirectLogUsingBlock:^(NSString *text) {
+        [debugLogController log:text];
+    }];
 
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBShowQueueWindow"])
         [[SBQueueController sharedManager] showWindow:self];
@@ -125,6 +134,11 @@
         prefController = [[SBPrefsController alloc] init];
     }
     [prefController showWindow:self];
+}
+
+- (IBAction) showDebugLog:(id)sender
+{
+    [debugLogController showWindow:self];
 }
 
 - (IBAction) donate:(id)sender

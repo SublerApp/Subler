@@ -57,6 +57,8 @@
 		A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BC410618D9ABC000F8C92C /* QueueItem.xib */; };
 		A9C055370F6D395B00AF15B5 /* FileImport.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C055360F6D395B00AF15B5 /* FileImport.xib */; };
 		A9C4259318DB6D1F00E99DB8 /* stopTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9C4259218DB6D1F00E99DB8 /* stopTemplate.pdf */; };
+		A9C5FA6E19FA22590051F3FF /* SBDebugLogController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C5FA6C19FA22590051F3FF /* SBDebugLogController.m */; };
+		A9C5FA7419FA2FEC0051F3FF /* SBDebugLogWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C5FA7219FA2FEC0051F3FF /* SBDebugLogWindow.xib */; };
 		A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C828F4195950C3004C4718 /* SBQueuePreferences.m */; };
 		A9C9E34413FBC1EB00CA3B4E /* EncodeWorking.png in Resources */ = {isa = PBXBuildFile; fileRef = A9C9E34113FBC1EB00CA3B4E /* EncodeWorking.png */; };
 		A9D47B5817B239E200900BCA /* EncodeCanceled.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5417B239E200900BCA /* EncodeCanceled.png */; };
@@ -217,6 +219,9 @@
 		A9C0603F168315C500FE3D98 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
 		A9C0957F0F7B6C8C00170CAF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		A9C4259218DB6D1F00E99DB8 /* stopTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = stopTemplate.pdf; path = images/stopTemplate.pdf; sourceTree = "<group>"; };
+		A9C5FA6B19FA22590051F3FF /* SBDebugLogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBDebugLogController.h; path = Classes/SBDebugLogController.h; sourceTree = "<group>"; };
+		A9C5FA6C19FA22590051F3FF /* SBDebugLogController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBDebugLogController.m; path = Classes/SBDebugLogController.m; sourceTree = "<group>"; };
+		A9C5FA7319FA2FEC0051F3FF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SBDebugLogWindow.xib; sourceTree = "<group>"; };
 		A9C8182C0F74D6E300019BFF /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
 		A9C828F3195950C3004C4718 /* SBQueuePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueuePreferences.h; path = Classes/SBQueuePreferences.h; sourceTree = "<group>"; };
 		A9C828F4195950C3004C4718 /* SBQueuePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueuePreferences.m; path = Classes/SBQueuePreferences.m; sourceTree = "<group>"; };
@@ -347,6 +352,8 @@
 				A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */,
 				CD71FF1A12F1C46900F0A98D /* MetadataImporters */,
 				A9FD5D150F3C692400817716 /* PropertyView */,
+				A9C5FA6B19FA22590051F3FF /* SBDebugLogController.h */,
+				A9C5FA6C19FA22590051F3FF /* SBDebugLogController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -433,6 +440,7 @@
 				A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */,
 				A9BC410618D9ABC000F8C92C /* QueueItem.xib */,
 				A90B023910F3290A000416F3 /* Prefs.xib */,
+				A9C5FA7219FA2FEC0051F3FF /* SBDebugLogWindow.xib */,
 			);
 			name = NIBs;
 			sourceTree = "<group>";
@@ -638,6 +646,7 @@
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
 				A9D47B5917B239E200900BCA /* EncodeCanceled@2x.png in Resources */,
 				A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */,
+				A9C5FA7419FA2FEC0051F3FF /* SBDebugLogWindow.xib in Resources */,
 				A9C055370F6D395B00AF15B5 /* FileImport.xib in Resources */,
 				A95C881D0F827BFB00F51A22 /* ToolbarRemoveTemplate.png in Resources */,
 				A90B023B10F3290A000416F3 /* Prefs.xib in Resources */,
@@ -704,6 +713,7 @@
 				A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */,
 				CD71FEA312F1B5AF00F0A98D /* SBMetadataSearchController.m in Sources */,
 				CD71FF1D12F1C4A900F0A98D /* TheTVDB.m in Sources */,
+				A9C5FA6E19FA22590051F3FF /* SBDebugLogController.m in Sources */,
 				A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */,
 				A9AB485717F0AEAC000AA72E /* SBSoundViewController.m in Sources */,
 				A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */,
@@ -835,6 +845,14 @@
 				A9C055330F6D394F00AF15B5 /* English */,
 			);
 			name = FileImport.xib;
+			sourceTree = "<group>";
+		};
+		A9C5FA7219FA2FEC0051F3FF /* SBDebugLogWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9C5FA7319FA2FEC0051F3FF /* English */,
+			);
+			name = SBDebugLogWindow.xib;
 			sourceTree = "<group>";
 		};
 		A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */ = {
