@@ -32,9 +32,11 @@
 }
 
 - (void)log:(NSString *)string {
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:string];
-    [[self.logView textStorage] appendAttributedString:attributedString];
-    [attributedString release];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:string];
+        [[self.logView textStorage] appendAttributedString:attributedString];
+        [attributedString release];
+    });
 }
 
 - (IBAction)clearLog:(id)sender {
