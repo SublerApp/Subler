@@ -9,9 +9,11 @@
 #import <Cocoa/Cocoa.h>
 
 @interface SBDebugLogController : NSWindowController {
-    NSTextView *logView;
+    NSTextView  *_logView;
+    NSURL       *_fileURL;
 }
 
+- (instancetype)initWithLogFile:(NSURL *)fileURL;
 - (void)log:(NSString *)string;
 
 @end

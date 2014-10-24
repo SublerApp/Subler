@@ -25,7 +25,11 @@
 
     [SBPrefsController registerUserDefaults];
 
-    debugLogController = [[SBDebugLogController alloc] init];
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
+                                                            NSUserDomainMask,
+                                                            YES) firstObject] stringByAppendingPathComponent:@"Subler/debugLog.txt"];
+
+    debugLogController = [[SBDebugLogController alloc] initWithLogFile:[NSURL fileURLWithPath:path]];
 
     [MP42File redirectLogUsingBlock:^(NSString *text) {
         [debugLogController log:text];

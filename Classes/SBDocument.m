@@ -943,6 +943,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     [propertyView release];
     propertyView = nil;
 
+    [fileTracksTable setDelegate:nil];
+    [fileTracksTable setDataSource:nil];
+
     [languages release];
     languages = nil;
 
