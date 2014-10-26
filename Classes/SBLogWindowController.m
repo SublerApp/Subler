@@ -6,46 +6,42 @@
 //
 //
 
-#import "SBDebugLogController.h"
+#import "SBLogWindowController.h"
+#import "SBLogger.h"
 
-@interface SBDebugLogController ()
+@interface SBLogWindowController ()
 
 @property (assign) IBOutlet NSTextView *logView;
-@property (readonly) NSURL *fileURL;
+@property (readonly) SBLogger *logger;
 
 @end
 
-@implementation SBDebugLogController
+@implementation SBLogWindowController
 
 @synthesize logView = _logView;
-@synthesize fileURL = _fileURL;
+@synthesize logger = _logger;
 
 - (instancetype)init {
-    if ((self = [super initWithWindowNibName:@"SBDebugLogWindow"])) {
+    if ((self = [super initWithWindowNibName:@"SBLogWindow"])) {
         [self window];
     }
 
     return self;
 }
 
-- (instancetype)initWithLogFile:(NSURL *)fileURL {
+- (instancetype)initWithLogger:(SBLogger *)logger {
+    NSAssert(!_logger, @"Logger is nil");
     self = [self init];
 
     if (self) {
-        _fileURL = [fileURL copy];
-        [[NSFileManager defaultManager] removeItemAtURL:_fileURL error:nil];
+        _logger = [logger retain];
+        _logger.delegate = self;
     }
 
     return self;
 }
 
-- (void)log:(NSString *)string {
-    if (self.fileURL) {
-        FILE *f = fopen([self.fileURL fileSystemRepresentation], "a");
-        fprintf(f, "%s", [string UTF8String]);
-        fclose(f);
-    }
-
+- (void)writeToLog:(NSString *)string {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:string];
         [[self.logView textStorage] appendAttributedString:attributedString];
@@ -55,6 +51,15 @@
 
 - (IBAction)clearLog:(id)sender {
     [[self.logView textStorage] deleteCharactersInRange:NSMakeRange(0, [[self.logView textStorage] length])];
+    [self.logger clearLog];
+}
+
+- (void)dealloc
+{
+    [_logger release];
+    _logger = nil;
+
+    [super dealloc];
 }
 
 @end

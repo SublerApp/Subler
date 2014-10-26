@@ -11,7 +11,8 @@
 #import "SBPresetManager.h"
 #import "SBQueueController.h"
 #import "SBPrefsController.h"
-#import "SBDebugLogController.h"
+#import "SBLogWindowController.h"
+#import "SBLogger.h"
 
 #import <MP42Foundation/MP42File.h>
 
@@ -29,11 +30,11 @@
                                                             NSUserDomainMask,
                                                             YES) firstObject] stringByAppendingPathComponent:@"Subler/debugLog.txt"];
 
-    debugLogController = [[SBDebugLogController alloc] initWithLogFile:[NSURL fileURLWithPath:path]];
+    SBLogger *logger = [[SBLogger alloc] initWithLogFile:[NSURL fileURLWithPath:path]];
+    [logger clearLog];
 
-    [MP42File redirectLogUsingBlock:^(NSString *text) {
-        [debugLogController log:text];
-    }];
+    debugLogController = [[SBLogWindowController alloc] initWithLogger:logger];
+    [MP42File setGlobalLogger:logger];
 
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBShowQueueWindow"])
         [[SBQueueController sharedManager] showWindow:self];

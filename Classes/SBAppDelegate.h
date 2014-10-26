@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class SBPrefsController;
-@class SBDebugLogController;
+@class SBLogWindowController;
 
 @interface SBDocumentController : NSDocumentController
 
@@ -17,7 +17,7 @@
 
 @interface SBAppDelegate : NSObject {
     SBPrefsController *prefController;
-    SBDebugLogController *debugLogController;
+    SBLogWindowController *debugLogController;
 	SBDocumentController *documentController;
 }
 
