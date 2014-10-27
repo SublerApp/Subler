@@ -58,8 +58,7 @@
     }
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [_fileURL release];
     _fileURL = nil;
 
