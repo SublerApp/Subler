@@ -47,6 +47,7 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
     [ratingCell setFont:[NSFont systemFontOfSize:11]];
     [ratingCell setControlSize:NSSmallControlSize];
     [ratingCell setBordered:NO];
+
 	NSArray *ratings = [[MP42Ratings defaultManager] ratings];
     for (NSString *rating in ratings) {
 		[[ratingCell menu] addItem:[[[NSMenuItem alloc] initWithTitle:rating action:NULL keyEquivalent:@""] autorelease]];
@@ -81,6 +82,7 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
     [tagsTableView setDoubleAction:@selector(doubleClickAction:)];
     [tagsTableView setTarget:self];
     tagsTableView.pasteboardTypes = @[MetadataPBoardType];
+    [tagsTableView scrollRowToVisible:0];
 
     dct = [[NSMutableDictionary alloc] init];
 
@@ -122,6 +124,7 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
     for (NSString *key in metadataKeys) {
         [metadata setTag:[data valueForKey:key] forKey:key];
     }
+
     NSUndoManager *undo = [[self view] undoManager];
     [[undo prepareWithInvocationTarget:self] remove:data];
 
@@ -140,6 +143,7 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
     for (NSString *key in metadataKeys) {
         [metadata removeTagForKey:key];
     }
+
     NSUndoManager *undo = [[self view] undoManager];
     [[undo prepareWithInvocationTarget:self] add:data];
 
@@ -341,6 +345,8 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
 
 /* NSTableView additions for copy & paste and more */
 
+#pragma mark - Table View delegate
+
 - (IBAction)doubleClickAction:(id)sender
 {
     // make sure they clicked a real cell and not a header or empty row
@@ -534,6 +540,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     else
         [removeTag setEnabled:NO];
 }
+
+#pragma mark - Other options
 
 - (IBAction) changeMediaKind: (id) sender
 {
