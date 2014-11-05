@@ -36,6 +36,8 @@
     debugLogController = [[SBLogWindowController alloc] initWithLogger:logger];
     [MP42File setGlobalLogger:logger];
 
+    [logger release];
+
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBShowQueueWindow"])
         [[SBQueueController sharedManager] showWindow:self];
 }
