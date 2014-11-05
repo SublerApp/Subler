@@ -8,11 +8,10 @@
 
 #import "SBArtworkSelector.h"
 #import "MetadataImporter.h"
-#import <MP42Foundation/MP42Image.h>
 
 #pragma mark IKImageBrowserItem data source objects
 
-@interface myImageObject : NSObject{
+@interface SBArtworkImageObject : NSObject {
     NSURL *_url;
     NSString *_urlString;
 	NSString *_artworkProviderName;
@@ -20,21 +19,43 @@
     NSInteger _version;
 
     id _delegate;
+    BOOL _isCancelled;
 }
 
-@property (atomic, retain) NSData *data;
-@property (atomic) NSInteger version;
-@property (nonatomic, assign) id delegate;
+@property (atomic, assign) id delegate;
 
 @end
 
-@implementation myImageObject
+@interface SBArtworkImageObject ()
+
+@property (atomic, retain) NSData *data;
+@property (atomic) NSInteger version;
+@property (atomic) BOOL isCancelled;
+
+@end
+
+@implementation SBArtworkImageObject
 
 @synthesize data = _data;
 @synthesize version = _version;
 @synthesize delegate = _delegate;
 
+@synthesize isCancelled = _isCancelled;
+
+- (instancetype)initWithURL:(NSURL *)url artworkProviderName:(NSString *)artworkProvider delegate:(id)delegate
+{
+    self = [super init];
+    if (self) {
+        _url = [url copy];
+        _urlString = [[url absoluteString] retain];
+        _artworkProviderName = [artworkProvider copy];
+        _delegate = delegate;
+    }
+    return self;
+}
+
 - (void)dealloc {
+    self.delegate = nil;
     [_url release];
     [_urlString release];
 	[_artworkProviderName release];
@@ -42,21 +63,9 @@
     [super dealloc];
 }
 
-- (void)setURL:(NSURL *)url {
-    if(_url != url){
-        [_url release];
-        [_urlString release];
-        _url = [url retain];
-        _urlString = [[url absoluteString] retain];
-    }
-}
-
-- (NSURL *)url {
-    return _url;
-}
-
-- (void)setArtworkProviderName:(NSString *)artworkProviderName {
-	_artworkProviderName = [artworkProviderName retain];
+- (void)cancel {
+    self.isCancelled = YES;
+    self.delegate = nil;
 }
 
 - (NSString *)imageRepresentationType {
@@ -69,12 +78,16 @@
             self.version = 1;
             // Get the data outside the main thread
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                self.data = [MetadataImporter downloadDataFromURL:_url withCachePolicy:SBDefaultPolicy];
-                self.version = 2;
-                // We got the data, tell the controller to update the view
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate reloadData];
-                });
+                if (!self.isCancelled) {
+                    self.data = [MetadataImporter downloadDataFromURL:_url withCachePolicy:SBDefaultPolicy];
+                    self.version = 2;
+                    // We got the data, tell the controller to update the view
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (!self.isCancelled) {
+                            [self.delegate reloadData];
+                        }
+                    });
+                }
             });
         }
     }
@@ -112,7 +125,7 @@
 #pragma mark Initialization
 
 - (instancetype)initWithDelegate:(id <SBArtworkSelectorDelegate>)del imageURLs:(NSArray *)imageURLs artworkProviderNames:(NSArray *)aArtworkProviderNames {
-	if ((self = [super initWithWindowNibName:@"ArtworkSelector"])) {        
+	if ((self = [super initWithWindowNibName:@"ArtworkSelector"])) {
 		delegate = del;
         imageURLsUnloaded = [[NSMutableArray alloc] initWithArray:imageURLs];
 		artworkProviderNames = [aArtworkProviderNames retain];
@@ -124,12 +137,10 @@
 
 - (void)awakeFromNib {
     images = [[NSMutableArray alloc] initWithCapacity:[imageURLsUnloaded count]];
-    myImageObject *m;
     for (int i = 0; (i < 10) && ([imageURLsUnloaded count] > 0); i++) {
-        m = [[myImageObject alloc] init];
-        [m setDelegate:self];
-        [m setURL:[imageURLsUnloaded objectAtIndex:0]];
-		[m setArtworkProviderName:[artworkProviderNames objectAtIndex:[images count]]];
+        SBArtworkImageObject *m = [[SBArtworkImageObject alloc] initWithURL:[imageURLsUnloaded objectAtIndex:0]
+                                  artworkProviderName:[artworkProviderNames objectAtIndex:[images count]]
+                                             delegate:self];
         [imageURLsUnloaded removeObjectAtIndex:0];
         [images addObject:m];
         [m release];
@@ -140,12 +151,10 @@
 }
 
 - (IBAction) loadMoreArtwork:(id)sender {
-    myImageObject *m;
     for (int i = 0; (i < 10) && ([imageURLsUnloaded count] > 0); i++) {
-        m = [[myImageObject alloc] init];
-        [m setDelegate:self];
-        [m setURL:[imageURLsUnloaded objectAtIndex:0]];
-		[m setArtworkProviderName:[artworkProviderNames objectAtIndex:[images count]]];
+        SBArtworkImageObject *m = [[SBArtworkImageObject alloc] initWithURL:[imageURLsUnloaded objectAtIndex:0]
+                                  artworkProviderName:[artworkProviderNames objectAtIndex:[images count]]
+                                             delegate:self];
         [imageURLsUnloaded removeObjectAtIndex:0];
         [images addObject:m];
         [m release];
@@ -176,8 +185,12 @@
 }
 
 - (void) dealloc {
-    [images makeObjectsPerformSelector:@selector(setDelegate:) withObject:nil];
+    [imageBrowser setDelegate:nil];
+    [imageBrowser setDataSource:nil];
+
+    [images makeObjectsPerformSelector:@selector(cancel)];
     [images release];
+
     [imageURLsUnloaded release];
 	[artworkProviderNames release];
     [super dealloc];
