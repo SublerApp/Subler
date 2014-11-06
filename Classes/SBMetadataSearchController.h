@@ -10,6 +10,7 @@
 
 @class SBTableView;
 @class SBArtworkSelector;
+
 @class MP42Metadata;
 @class MetadataImporter;
 
@@ -21,6 +22,8 @@
 @private
     id <SBMetadataSearchControllerDelegate> delegate;
 
+    NSString    *_searchString;
+
     NSDictionary                 *detailBoldAttr;
 
     IBOutlet NSTabView           *searchMode;
@@ -30,20 +33,20 @@
 	IBOutlet NSPopUpButton       *movieMetadataProvider;
     
     IBOutlet NSComboBox          *tvSeriesName;
-    NSMutableArray               *tvSeriesNameSearchArray;
+    NSMutableArray               *_tvSeriesNameSearchArray;
     IBOutlet NSTextField         *tvSeasonNum;
     IBOutlet NSTextField         *tvEpisodeNum;
     IBOutlet NSPopUpButton       *tvLanguage;
 	IBOutlet NSPopUpButton       *tvMetadataProvider;
     
     IBOutlet NSButton            *searchButton;
-    MetadataImporter             *currentSearcher;
+    MetadataImporter             *_currentSearcher;
 
-    NSArray                      *resultsArray;
+    NSArray                      *_resultsArray;
     IBOutlet NSTableView         *resultsTable;
-    MP42Metadata                 *selectedResult;
-    NSDictionary                 *selectedResultTags;
-    NSArray                      *selectedResultTagsArray;
+    MP42Metadata                 *_selectedResult;
+    NSDictionary                 *_selectedResultTags;
+    NSArray                      *_selectedResultTagsArray;
     IBOutlet SBTableView         *metadataTable;
 
     IBOutlet NSButton            *addButton;
@@ -56,39 +59,7 @@
 }
 
 #pragma mark Initialization
-- (instancetype)initWithDelegate:(id <SBMetadataSearchControllerDelegate>)del;
-
-#pragma mark Metadata provider
-- (void) createLanguageMenus;
-- (void) metadataProvidersSelectDefaultLanguage;
-- (IBAction) metadataProviderLanguageSelected:(id)sender;
-- (IBAction) metadataProviderSelected:(id)sender;
-
-#pragma mark Search input fields
-- (void) updateSearchButtonVisibility;
-- (void) searchTVSeriesNameDone:(NSArray *)seriesArray;
-
-#pragma mark Search for metadata
-- (IBAction) searchForResults:(id)sender;
-- (void) searchForResultsDone:(NSArray *)metadataArray;
-
-#pragma mark Load additional metadata
-- (IBAction) loadAdditionalMetadata:(id)sender;
-- (void) loadAdditionalMetadataDone:(MP42Metadata *)metadata;
-
-#pragma mark Select artwork
-- (void) selectArtwork;
-- (void) selectArtworkDone:(NSIndexSet *)indexes;
-
-#pragma mark Load artwork
-- (void) loadArtworks:(NSIndexSet *)indexes;
-
-#pragma mark Finishing up
-- (void) addMetadata;
-- (IBAction) closeWindow: (id) sender;
-
-#pragma mark Miscellaneous
-- (NSAttributedString *) boldString: (NSString *) string;
+- (instancetype)initWithDelegate:(id <SBMetadataSearchControllerDelegate>)del searchString:(NSString *)searchString;
 
 #pragma mark Static methods
 + (void) clearRecentSearches;

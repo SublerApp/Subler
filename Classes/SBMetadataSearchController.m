@@ -6,7 +6,7 @@
 //  Copyright 2011 Douglas Stebila. All rights reserved.
 //
 #import <MP42Foundation/MP42Image.h>
-#import <MP42Foundation/MP42File.h>
+#import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Languages.h>
 
 #import <MP42Foundation/RegexKitLite.h>
@@ -18,16 +18,65 @@
 
 @interface SBMetadataSearchController () <NSTableViewDelegate, SBArtworkSelectorDelegate>
 
+@property (readwrite, retain) MetadataImporter *currentSearcher;
+@property (readwrite, retain) NSArray *resultsArray;
+
+@property (readwrite, retain) MP42Metadata *selectedResult;
+
+@property (readwrite, retain) NSDictionary *selectedResultTags;
+@property (readwrite, retain) NSArray      *selectedResultTagsArray;
+
+@property (readwrite, retain) NSMutableArray *tvSeriesNameSearchArray;
+
+#pragma mark Metadata provider
+- (void) createLanguageMenus;
+- (void) metadataProvidersSelectDefaultLanguage;
+- (IBAction) metadataProviderLanguageSelected:(id)sender;
+- (IBAction) metadataProviderSelected:(id)sender;
+
+#pragma mark Search input fields
+- (void) updateSearchButtonVisibility;
+- (void) searchTVSeriesNameDone:(NSArray *)seriesArray;
+
+#pragma mark Search for metadata
+- (IBAction) searchForResults:(id)sender;
+- (void) searchForResultsDone:(NSArray *)metadataArray;
+
+#pragma mark Load additional metadata
+- (IBAction) loadAdditionalMetadata:(id)sender;
+
+#pragma mark Select artwork
+- (void) selectArtwork;
+- (void) selectArtworkDone:(NSIndexSet *)indexes;
+
+#pragma mark Load artwork
+- (void) loadArtworks:(NSIndexSet *)indexes;
+
+#pragma mark Finishing up
+- (void) addMetadata;
+- (IBAction) closeWindow: (id) sender;
+
+#pragma mark Miscellaneous
+- (NSAttributedString *) boldString: (NSString *) string;
+
 @end
 
 @implementation SBMetadataSearchController
 
+@synthesize currentSearcher = _currentSearcher;
+@synthesize resultsArray = _resultsArray;
+@synthesize selectedResult = _selectedResult;
+@synthesize selectedResultTags = _selectedResultTags;
+@synthesize selectedResultTagsArray = _selectedResultTagsArray;
+@synthesize tvSeriesNameSearchArray = _tvSeriesNameSearchArray;
+
 #pragma mark Initialization
 
-- (instancetype)initWithDelegate:(id <SBMetadataSearchControllerDelegate>)del
+- (instancetype)initWithDelegate:(id <SBMetadataSearchControllerDelegate>)del searchString:(NSString *)searchString
 {
 	if ((self = [super initWithWindowNibName:@"MetadataSearch"])) {        
 		delegate = del;
+        _searchString = [searchString copy];
 
         NSMutableParagraphStyle * ps = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
         [ps setHeadIndent: -10.0];
@@ -54,36 +103,29 @@
 	[self metadataProviderSelected:movieMetadataProvider];
 	[self metadataProviderSelected:tvMetadataProvider];
 
-    MP42File *mp4File = [((SBDocument *) delegate) mp4File];
-	
-    NSString *filename = nil;
-    for (MP42Track *track in mp4File.tracks) {
-        if (track.sourceURL) {
-            filename = [track.sourceURL lastPathComponent];
-            break;
+    if (_searchString) {
+        NSDictionary *parsed = [MetadataImporter parseFilename:_searchString];
+        if (parsed) {
+
+            if ([@"movie" isEqualToString:(NSString *) [parsed valueForKey:@"type"]]) {
+                [searchMode selectTabViewItemAtIndex:0];
+                if ([parsed valueForKey:@"title"]) [movieName setStringValue:[parsed valueForKey:@"title"]];
+            } else if ([@"tv" isEqualToString:(NSString *) [parsed valueForKey:@"type"]]) {
+                [searchMode selectTabViewItemAtIndex:1];
+                [[self window] makeFirstResponder:tvSeriesName];
+                if ([parsed valueForKey:@"seriesName"]) [((NSTextField *) tvSeriesName) setStringValue:[parsed valueForKey:@"seriesName"]];
+                if ([parsed valueForKey:@"seasonNum"]) [tvSeasonNum setStringValue:[parsed valueForKey:@"seasonNum"]];
+                if ([parsed valueForKey:@"episodeNum"]) [tvEpisodeNum setStringValue:[parsed valueForKey:@"episodeNum"]];
+                // just in case this is actually a movie, set the text in the movie field for the user's convenience
+                [movieName setStringValue:[_searchString stringByDeletingPathExtension]];
+            }
+
+            [self updateSearchButtonVisibility];
+
+            if ([searchButton isEnabled]) {
+                [self searchForResults:nil];
+            }
         }
-    }
-
-    if (!filename) return;
-
-    NSDictionary *parsed = [MetadataImporter parseFilename:filename];
-    if (!parsed) return;
-    
-    if ([@"movie" isEqualToString:(NSString *) [parsed valueForKey:@"type"]]) {
-        [searchMode selectTabViewItemAtIndex:0];
-        if ([parsed valueForKey:@"title"]) [movieName setStringValue:[parsed valueForKey:@"title"]];
-    } else if ([@"tv" isEqualToString:(NSString *) [parsed valueForKey:@"type"]]) {
-        [searchMode selectTabViewItemAtIndex:1];
-        [[self window] makeFirstResponder:tvSeriesName];
-        if ([parsed valueForKey:@"seriesName"]) [((NSTextField *) tvSeriesName) setStringValue:[parsed valueForKey:@"seriesName"]];
-        if ([parsed valueForKey:@"seasonNum"]) [tvSeasonNum setStringValue:[parsed valueForKey:@"seasonNum"]];
-        if ([parsed valueForKey:@"episodeNum"]) [tvEpisodeNum setStringValue:[parsed valueForKey:@"episodeNum"]];
-        // just in case this is actually a movie, set the text in the movie field for the user's convenience
-        [movieName setStringValue:[filename stringByDeletingPathExtension]];
-    }
-    [self updateSearchButtonVisibility];
-    if ([searchButton isEnabled]) {
-        [self searchForResults:nil];
     }
     
     return;
@@ -97,6 +139,7 @@
 	for (NSString *lang in langs) {
 		[movieLanguage addItemWithTitle:lang];
 	}
+
 	[tvLanguage removeAllItems];
 	langs = [MetadataImporter languagesForProvider:[[tvMetadataProvider selectedItem] title]];
 	for (NSString *lang in langs) {
@@ -162,15 +205,10 @@
 }
 
 - (void)searchTVSeriesNameDone:(NSArray *)seriesArray {
-    if (tvSeriesNameSearchArray)
-        [tvSeriesNameSearchArray release];
-
-    tvSeriesNameSearchArray = [seriesArray mutableCopy];
-    [tvSeriesNameSearchArray sortUsingSelector:@selector(compare:)];
+    self.tvSeriesNameSearchArray = [[seriesArray mutableCopy] autorelease];
+    [self.tvSeriesNameSearchArray sortUsingSelector:@selector(compare:)];
     [tvSeriesName noteNumberOfItemsChanged];
     [tvSeriesName reloadData];
-
-	currentSearcher = nil;
 }
 
 #pragma mark Search for results
@@ -178,98 +216,119 @@
 - (IBAction) searchForResults: (id) sender {
     [addButton setEnabled:NO];
 
-    if (currentSearcher) {
-        [currentSearcher cancel];
-        currentSearcher = nil;
+    if (self.currentSearcher) {
+        [self.currentSearcher cancel];
     }
 
     if ([[[searchMode selectedTabViewItem] label] isEqualToString:@"Movie"] && [[movieName stringValue] length]) {
-        [progress startAnimation:self];
-        [progress setHidden:NO];
-		[progressText setStringValue:[NSString stringWithFormat:@"Searching %@ for movie information…",
-                                      [[movieMetadataProvider selectedItem] title]]];
-		[progressText setHidden:NO];
-		currentSearcher = [MetadataImporter importerForProvider:[[movieMetadataProvider selectedItem] title]];
-		[currentSearcher searchMovie:[movieName stringValue] language:[movieLanguage titleOfSelectedItem] callback:self];
+
+        [self startProgressReportWithString:[NSString stringWithFormat:@"Searching %@ for movie information…",
+                                             [[movieMetadataProvider selectedItem] title]]];
+
+		self.currentSearcher = [MetadataImporter importerForProvider:[[movieMetadataProvider selectedItem] title]];
+		[self.currentSearcher searchMovie:[movieName stringValue]
+                            language:[movieLanguage titleOfSelectedItem]
+                   completionHandler:^(NSArray *results) {
+                       [self searchForResultsDone:results];
+                   }];
+
     } else if ([[[searchMode selectedTabViewItem] label] isEqualToString:@"TV Episode"] && [[tvSeriesName stringValue] length]) {
-        [progress startAnimation:self];
-        [progress setHidden:NO];
-		[progressText setStringValue:[NSString stringWithFormat:@"Searching %@ for episode information…",
-                                      [[tvMetadataProvider selectedItem] title]]];
-		[progressText setHidden:NO];
-		currentSearcher = [MetadataImporter importerForProvider:[[tvMetadataProvider selectedItem] title]];
-		[currentSearcher searchTVSeries:[tvSeriesName stringValue] language:[tvLanguage titleOfSelectedItem] seasonNum:[tvSeasonNum stringValue] episodeNum:[tvEpisodeNum stringValue] callback:self];
-    }
-    else {
+
+        [self startProgressReportWithString:[NSString stringWithFormat:@"Searching %@ for episode information…",
+                                             [[tvMetadataProvider selectedItem] title]]];
+
+		self.currentSearcher = [MetadataImporter importerForProvider:[[tvMetadataProvider selectedItem] title]];
+		[self.currentSearcher searchTVSeries:[tvSeriesName stringValue]
+                               language:[tvLanguage titleOfSelectedItem]
+                              seasonNum:[tvSeasonNum stringValue]
+                             episodeNum:[tvEpisodeNum stringValue]
+                      completionHandler:^(NSArray *results) {
+                          [self searchForResultsDone:results];
+                      }];
+
+    } else {
+
         // Nothing to search, reset the table view
-        [resultsArray release];
-        resultsArray = nil;
-        selectedResult = nil;
+        self.resultsArray = nil;
+        self.selectedResult = nil;
         [resultsTable reloadData];
         [metadataTable reloadData];
     }
 }
 
-- (void) searchForResultsDone:(NSArray *)_resultsArray {
-    if (resultsArray)
-        [resultsArray release];
+- (void) searchForResultsDone:(NSArray *)results {
+    self.resultsArray = nil;
 
-    [progressText setHidden:YES];
-    [progress setHidden:YES];
-    [progress stopAnimation:self];
-    resultsArray = [_resultsArray retain];
-    selectedResult = nil;
+    [self stopProgressReport];
+
+    self.resultsArray = results;
+    self.selectedResult = nil;
+
     [resultsTable reloadData];
     [metadataTable reloadData];
+
     [self tableViewSelectionDidChange:[NSNotification notificationWithName:@"tableViewSelectionDidChange" object:resultsTable]];
-    if ([resultsArray count])
+
+    if ([self.resultsArray count])
         [[self window] makeFirstResponder:resultsTable];
-	currentSearcher = nil;
 }
 
 #pragma mark Load additional metadata
 
-- (IBAction) loadAdditionalMetadata:(id) sender {
-    if (currentSearcher) {
-        [currentSearcher cancel];
-        currentSearcher = nil;
-    }
+- (void)startProgressReportWithString:(NSString *)progressString
+{
+    [progress startAnimation:self];
+    [progress setHidden:NO];
+    [progressText setStringValue:progressString];
+    [progressText setHidden:NO];
 
-    [addButton setEnabled:NO];
-    if ([[[searchMode selectedTabViewItem] label] isEqualToString:@"Movie"]) {
-        [progress startAnimation:self];
-        [progress setHidden:NO];
-        [progressText setStringValue:@"Downloading additional movie metadata…"];
-        [progressText setHidden:NO];
-		currentSearcher = [MetadataImporter importerForProvider:[[movieMetadataProvider selectedItem] title]];
-		[currentSearcher loadMovieMetadata:selectedResult language:[[movieLanguage selectedItem] title] callback:self];
-    } else if ([[[searchMode selectedTabViewItem] label] isEqualToString:@"TV Episode"]) {
-        [progress startAnimation:self];
-        [progress setHidden:NO];
-        [progressText setStringValue:@"Downloading additional TV metadata…"];
-        [progressText setHidden:NO];
-		currentSearcher = [MetadataImporter importerForProvider:[[tvMetadataProvider selectedItem] title]];
-		[currentSearcher loadTVMetadata:selectedResult language:[[tvLanguage selectedItem] title] callback:self];
-    }
+    [resultsTable setEnabled:NO];
+    [metadataTable setEnabled:NO];
 }
 
-- (void) loadAdditionalMetadataDone:(MP42Metadata *)metadata {
+- (void)stopProgressReport
+{
     [progress setHidden:YES];
     [progressText setHidden:YES];
     [progress stopAnimation:self];
-    selectedResult = metadata;
-    [self selectArtwork];
-	currentSearcher = nil;
+
+    [resultsTable setEnabled:YES];
+    [metadataTable setEnabled:YES];
+}
+
+- (IBAction) loadAdditionalMetadata:(id) sender {
+    if (self.currentSearcher) {
+        [self.currentSearcher cancel];
+    }
+
+    [addButton setEnabled:NO];
+    if (self.selectedResult.mediaKind == 9) {
+        [self startProgressReportWithString:@"Downloading additional movie metadata…"];
+		self.currentSearcher = [MetadataImporter importerForProvider:[[movieMetadataProvider selectedItem] title]];
+    } else if (self.selectedResult.mediaKind == 10) {
+        [self startProgressReportWithString:@"Downloading additional TV metadata…"];
+		self.currentSearcher = [MetadataImporter importerForProvider:[[tvMetadataProvider selectedItem] title]];
+    }
+
+    [self.currentSearcher loadFullMetadata:self.selectedResult language:[[movieLanguage selectedItem] title] completionHandler:^(MP42Metadata *metadata) {
+        [self stopProgressReport];
+
+        self.selectedResult = metadata;
+        [self selectArtwork];
+    }];
+
 }
 
 #pragma mark Select artwork
 
 - (void) selectArtwork {
-    if (selectedResult.artworkThumbURLs && [selectedResult.artworkThumbURLs count]) {
-        if ([selectedResult.artworkThumbURLs count] == 1) {
+    if (self.selectedResult.artworkThumbURLs && [self.selectedResult.artworkThumbURLs count]) {
+        if ([self.selectedResult.artworkThumbURLs count] == 1) {
             [self loadArtworks:[NSIndexSet indexSetWithIndex:0]];
         } else {
-            artworkSelectorWindow = [[SBArtworkSelector alloc] initWithDelegate:self imageURLs:selectedResult.artworkThumbURLs artworkProviderNames:selectedResult.artworkProviderNames];
+            artworkSelectorWindow = [[SBArtworkSelector alloc] initWithDelegate:self
+                                                                      imageURLs:self.selectedResult.artworkThumbURLs
+                                                           artworkProviderNames:self.selectedResult.artworkProviderNames];
             [NSApp beginSheet:[artworkSelectorWindow window] modalForWindow:[self window] modalDelegate:nil didEndSelector:NULL contextInfo:nil];
         }
     } else {
@@ -306,13 +365,13 @@
 
             [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
                 dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{
-                    NSData *artworkData = [MetadataImporter downloadDataFromURL:[selectedResult.artworkFullsizeURLs objectAtIndex:idx] withCachePolicy:SBDefaultPolicy];
+                    NSData *artworkData = [MetadataImporter downloadDataFromURL:[self.selectedResult.artworkFullsizeURLs objectAtIndex:idx] withCachePolicy:SBDefaultPolicy];
 
                     // Hack, download smaller iTunes version if big iTunes version is not available
                     if (!artworkData) {
-                        NSString *provider = [selectedResult.artworkProviderNames objectAtIndex:idx];
+                        NSString *provider = [self.selectedResult.artworkProviderNames objectAtIndex:idx];
                         if ([provider isEqualToString:@"iTunes"]) {
-                            NSURL *url = [selectedResult.artworkFullsizeURLs objectAtIndex:idx];
+                            NSURL *url = [self.selectedResult.artworkFullsizeURLs objectAtIndex:idx];
                             url = [[url URLByDeletingPathExtension] URLByAppendingPathExtension:@"600x600-75.jpg"];
                             artworkData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
                         }
@@ -322,7 +381,7 @@
                     if (artworkData && [artworkData length]) {
                         MP42Image *artwork = [[MP42Image alloc] initWithData:artworkData type:MP42_ART_JPEG];
                         dispatch_sync(dispatch_get_main_queue(), ^{
-                            [selectedResult.artworks addObject:artwork];
+                            [self.selectedResult.artworks addObject:artwork];
                         });
                         [artwork release];
                     }
@@ -335,8 +394,7 @@
                 [self addMetadata];
             });
         });
-    }
-    else {
+    } else {
         [self addMetadata];
     }
 }
@@ -345,51 +403,51 @@
 
 - (void) addMetadata {
     // save TV series name in user preferences
-    if ([[[searchMode selectedTabViewItem] label] isEqualToString:@"TV Episode"]) {
+    if (self.selectedResult.mediaKind == 10) {
         NSArray *previousTVseries = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Previously used TV series"];
         NSMutableArray *newTVseries;
-        NSString *formattedTVshowName = [selectedResultTags objectForKey:@"TV Show"];
+        NSString *formattedTVshowName = [self.selectedResultTags objectForKey:@"TV Show"];
+
         if (previousTVseries == nil) {
-            newTVseries = [NSMutableArray arrayWithCapacity:1];
+            newTVseries = [NSMutableArray array];
             [newTVseries addObject:formattedTVshowName];
             [[NSUserDefaults standardUserDefaults] setObject:newTVseries forKey:@"Previously used TV series"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        } else {
-            if ([previousTVseries indexOfObject:formattedTVshowName] == NSNotFound) {
-                newTVseries = [NSMutableArray arrayWithArray:previousTVseries];
-                [newTVseries addObject:formattedTVshowName];
-                [[NSUserDefaults standardUserDefaults] setObject:newTVseries forKey:@"Previously used TV series"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-            }
+        } else if ([previousTVseries indexOfObject:formattedTVshowName] == NSNotFound) {
+            newTVseries = [NSMutableArray arrayWithArray:previousTVseries];
+            [newTVseries addObject:formattedTVshowName];
+            [[NSUserDefaults standardUserDefaults] setObject:newTVseries forKey:@"Previously used TV series"];
         }
     }
-    [delegate metadataImportDone:selectedResult];
+    [delegate metadataImportDone:self.selectedResult];
 }
 
 - (IBAction) closeWindow: (id) sender
 {
-	if (currentSearcher)
-		[currentSearcher cancel];
+    if (self.currentSearcher) {
+		[self.currentSearcher cancel];
+    }
 
     [delegate metadataImportDone:nil];
 }
 
 - (void) dealloc
 {
-    [resultsTable setDelegate:nil];
-    [resultsTable setDataSource:nil];
-    [metadataTable setDelegate:nil];
+    if (self.currentSearcher) {
+        [self.currentSearcher cancel];
+        self.currentSearcher = nil;
+    }
+
     [metadataTable setDataSource:nil];
+    [metadataTable setDelegate:nil];
+    [resultsTable setDataSource:nil];
+    [resultsTable setDelegate:nil];
+
+    self.selectedResultTagsArray = nil;
+    self.tvSeriesNameSearchArray = nil;
+    self.resultsArray = nil;
+    self.selectedResult = nil;
 
     [detailBoldAttr release];
-
-    [selectedResultTagsArray release];
-    [tvSeriesNameSearchArray release];
-    [resultsArray release];
-
-	if (currentSearcher) {
-		[currentSearcher cancel];
-    }
 
     [super dealloc];
 }
@@ -445,20 +503,25 @@
 - (void)comboBoxWillPopUp:(NSNotification *)notification {
     if ([notification object] == tvSeriesName) {
         if ([[tvSeriesName stringValue] length] == 0) {
-            [tvSeriesNameSearchArray release];
-            tvSeriesNameSearchArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"Previously used TV series"]];
-            [tvSeriesNameSearchArray sortUsingSelector:@selector(compare:)];
+            self.tvSeriesNameSearchArray = [[[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"Previously used TV series"]] autorelease];
+            [self.tvSeriesNameSearchArray sortUsingSelector:@selector(compare:)];
             [tvSeriesName reloadData];
         } else if ([[tvSeriesName stringValue] length] > 3) {
-            [tvSeriesNameSearchArray release];
-            tvSeriesNameSearchArray = [[NSMutableArray alloc] initWithCapacity:1];
-            [tvSeriesNameSearchArray addObject:@"searching…"];
+            self.tvSeriesNameSearchArray = [NSMutableArray array];
+            [self.tvSeriesNameSearchArray addObject:@"searching…"];
+
             [tvSeriesName reloadData];
-            [currentSearcher cancel];
-            currentSearcher = [MetadataImporter defaultTVProvider];
-			[currentSearcher searchTVSeries:[tvSeriesName stringValue] language:[[tvLanguage selectedItem] title] callback:self];
+            [self.currentSearcher cancel];
+
+            self.currentSearcher = [MetadataImporter defaultTVProvider];
+			[self.currentSearcher searchTVSeries:[tvSeriesName stringValue] language:[[tvLanguage selectedItem] title] completionHandler:^(NSArray *results) {
+                self.tvSeriesNameSearchArray = [[results mutableCopy] autorelease];
+                [self.tvSeriesNameSearchArray sortUsingSelector:@selector(compare:)];
+                [tvSeriesName noteNumberOfItemsChanged];
+                [tvSeriesName reloadData];
+            }];
         } else {
-            tvSeriesNameSearchArray = nil;
+            self.tvSeriesNameSearchArray = nil;
             [tvSeriesName reloadData];
         }
     }
@@ -469,18 +532,14 @@
     // bug to fix!
     //NSLog(@"in numberOfItemsInComboBox; box numberOfVisibleItems = %d, cell numberOfVisibleItems = %d", (int) [comboBox numberOfVisibleItems], (int) [[comboBox cell] numberOfVisibleItems]);
     if (comboBox == tvSeriesName) {
-        if (tvSeriesNameSearchArray != nil) {
-            return [tvSeriesNameSearchArray count];
-        }
+        return self.tvSeriesNameSearchArray.count;
     }
     return 0;
 }
 
 - (id)comboBox:(NSComboBox *)comboBox objectValueForItemAtIndex:(NSInteger)index {
     if (comboBox == tvSeriesName) {
-        if (tvSeriesNameSearchArray != nil) {
-            return [tvSeriesNameSearchArray objectAtIndex:index];
-        }
+        return [self.tvSeriesNameSearchArray objectAtIndex:index];
     }
     return nil;
 }
@@ -491,12 +550,12 @@
 
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView {
     if (tableView == resultsTable) {
-        if (resultsArray != nil) {
-            return [resultsArray count];
+        if (self.resultsArray != nil) {
+            return self.resultsArray.count;
         }
     } else if (tableView == (NSTableView *) metadataTable) {
-        if (selectedResult != nil) {
-            return [selectedResultTagsArray count];
+        if (self.selectedResult != nil) {
+            return self.selectedResultTagsArray.count;
         }
     }
     return 0;
@@ -504,21 +563,21 @@
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     if (tableView == resultsTable) {
-        if (resultsArray != nil) {
-            MP42Metadata *result = [resultsArray objectAtIndex:rowIndex];
-            if ((result.mediaKind == 10) && ([resultsArray count] > 1)) { // TV show
+        if (self.resultsArray != nil) {
+            MP42Metadata *result = [self.resultsArray objectAtIndex:rowIndex];
+            if ((result.mediaKind == 10) && ([self.resultsArray count] > 1)) { // TV show
                 return [NSString stringWithFormat:@"%@x%@ - %@", [result.tagsDict valueForKey:@"TV Season"], [result.tagsDict valueForKey:@"TV Episode #"], [result.tagsDict valueForKey:@"Name"]];
             } else {
                 return [result.tagsDict valueForKey:@"Name"];
             }
         }
     } else if (tableView == (NSTableView *) metadataTable) {
-        if (selectedResult != nil) {
+        if (self.selectedResult != nil) {
             if ([tableColumn.identifier isEqualToString:@"name"]) {
-                return [self boldString:[selectedResultTagsArray objectAtIndex:rowIndex]];
+                return [self boldString:[self.selectedResultTagsArray objectAtIndex:rowIndex]];
             }
             if ([tableColumn.identifier isEqualToString:@"value"]) {
-                return [selectedResultTags objectForKey:[selectedResultTagsArray objectAtIndex:rowIndex]];
+                return [self.selectedResultTags objectForKey:[self.selectedResultTagsArray objectAtIndex:rowIndex]];
             }
         }
     }
@@ -541,11 +600,10 @@ static NSInteger sortFunction (id ldict, id rdict, void *context) {
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
     if ([aNotification object] == resultsTable || [aNotification object] ==  metadataTable) {
-        if (/*resultsArray && */[resultsArray count] > 0) {
-            selectedResult = [resultsArray objectAtIndex:[resultsTable selectedRow]];
-            selectedResultTags = selectedResult.tagsDict;
-            if (selectedResultTagsArray) [selectedResultTagsArray release];
-            selectedResultTagsArray = [[[selectedResultTags allKeys] sortedArrayUsingFunction:sortFunction context:[selectedResult availableMetadata]] retain];
+        if (self.resultsArray && [self.resultsArray count] > 0 && [resultsTable selectedRow] > -1) {
+            self.selectedResult = [self.resultsArray objectAtIndex:[resultsTable selectedRow]];
+            self.selectedResultTags = self.selectedResult.tagsDict;
+            self.selectedResultTagsArray = [[self.selectedResultTags allKeys] sortedArrayUsingFunction:sortFunction context:[self.selectedResult availableMetadata]];
             [metadataTable reloadData];
             [addButton setEnabled:YES];
             [addButton setKeyEquivalent:@"\r"];

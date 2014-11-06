@@ -628,8 +628,16 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (IBAction)searchMetadata:(id)sender
 {
-    importWindow = [[SBMetadataSearchController alloc] initWithDelegate:self];
-    
+    NSString *filename = nil;
+    for (MP42Track *track in self.mp4File.tracks) {
+        if (track.sourceURL) {
+            filename = [track.sourceURL lastPathComponent];
+            break;
+        }
+    }
+
+    importWindow = [[SBMetadataSearchController alloc] initWithDelegate:self searchString:filename];
+
     [NSApp beginSheet:[importWindow window] modalForWindow:documentWindow
         modalDelegate:nil didEndSelector:NULL contextInfo:nil];
 }
@@ -754,6 +762,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (void)metadataImportDone:(MP42Metadata *)metadataToBeImported
 {
+    [metadataToBeImported retain];
     if (metadataToBeImported) {
         [self.mp4.metadata mergeMetadata:metadataToBeImported];
 
@@ -771,12 +780,14 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     [NSApp endSheet:[importWindow window]];
     [[importWindow window] orderOut:self];
-    [importWindow autorelease], importWindow = nil;
+    [importWindow release], importWindow = nil;
 
     if (metadataToBeImported) {
         [self tableViewSelectionDidChange:nil];
         [self updateChangeCount:NSChangeDone];
     }
+
+    [metadataToBeImported release];
 }
 
 - (void)addMetadata:(NSURL *)URL

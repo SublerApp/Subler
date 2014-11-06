@@ -21,7 +21,15 @@
 #import "TheTVDB.h"
 
 
+@interface MetadataImporter ()
+
+@property (readwrite) BOOL isCancelled;
+
+@end
+
 @implementation MetadataImporter
+
+@synthesize isCancelled = _isCancelled;
 
 #pragma mark Helper routines
 
@@ -217,70 +225,64 @@
 }
 
 #pragma mark Asynchronous searching
-
-- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage callback:(SBMetadataSearchController *)aCallback {
-    mCallback = aCallback;
+- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage completionHandler:(void(^)(NSArray *results))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         @autoreleasepool {
             NSArray *results = [self searchTVSeries:aSeries language:aLanguage];
-            if (!isCancelled) {
-                [mCallback performSelectorOnMainThread:@selector(searchTVSeriesNameDone:) withObject:results waitUntilDone:YES];
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (!self.isCancelled) {
+                    handler(results);
+                }
+            });
         }
     });
 }
 
-- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum callback:(SBMetadataSearchController *)aCallback {
-    mCallback = aCallback;
+- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum completionHandler:(void(^)(NSArray *results))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         @autoreleasepool {
             NSArray *results = [self searchTVSeries:aSeries language:aLanguage seasonNum:aSeasonNum episodeNum:aEpisodeNum];
-            if (!isCancelled) {
-                [mCallback performSelectorOnMainThread:@selector(searchForResultsDone:) withObject:results waitUntilDone:YES];
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (!self.isCancelled) {
+                    handler(results);
+                }
+            });
         }
     });
 }
 
-- (void) loadTVMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage callback:(SBMetadataSearchController *)aCallback {
-    mCallback = aCallback;
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        @autoreleasepool {
-            [self loadTVMetadata:aMetadata language:aLanguage];
-            if (!isCancelled) {
-                [mCallback performSelectorOnMainThread:@selector(loadAdditionalMetadataDone:) withObject:aMetadata waitUntilDone:YES];
-            }
-        }
-    });
-}
-
-- (void) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage callback:(SBMetadataSearchController *)aCallback {
-    mCallback = aCallback;
+- (void) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage completionHandler:(void(^)(NSArray *results))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         @autoreleasepool {
             NSArray *results = [self searchMovie:aMovieTitle language:aLanguage];
-            if (!isCancelled)
-                [mCallback performSelectorOnMainThread:@selector(searchForResultsDone:) withObject:results waitUntilDone:YES];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (!self.isCancelled) {
+                    handler(results);
+                }
+            });
         }
     });
 }
 
-- (void) loadMovieMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage callback:(SBMetadataSearchController *)aCallback {
-    mCallback = aCallback;
+- (void) loadFullMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage completionHandler:(void(^)(MP42Metadata *metadata))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         @autoreleasepool {
-            [self loadMovieMetadata:aMetadata language:aLanguage];
-            if (!isCancelled) {
-                [mCallback performSelectorOnMainThread:@selector(loadAdditionalMetadataDone:) withObject:aMetadata waitUntilDone:YES];
+            if (aMetadata.mediaKind == 9) {
+                [self loadMovieMetadata:aMetadata language:aLanguage];
+            } else if (aMetadata.mediaKind == 10) {
+                [self loadTVMetadata:aMetadata language:aLanguage];
             }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (!self.isCancelled) {
+                    handler(aMetadata);
+                }
+            });
         }
     });
 }
 
 - (void)cancel {
-    @synchronized(self) {
-        isCancelled = YES;
-    }
+    self.isCancelled = YES;
 }
 
 #pragma mark Methods to be overridden
@@ -320,13 +322,6 @@
 	@throw [NSException exceptionWithName:NSInternalInconsistencyException
 								   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
 								 userInfo:nil];
-}
-
-#pragma mark Finishing up
-
-- (void) dealloc {
-    mCallback = nil;
-    [super dealloc];
 }
 
 @end

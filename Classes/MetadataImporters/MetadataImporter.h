@@ -8,13 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class SBMetadataSearchController;
 @class MP42Metadata;
 
 @interface MetadataImporter : NSObject {
 @private
-    SBMetadataSearchController *mCallback;
-    BOOL isCancelled;
+    BOOL _isCancelled;
 }
 
 typedef enum SBCachePolicy : NSUInteger {
@@ -41,11 +39,13 @@ typedef enum SBCachePolicy : NSUInteger {
 + (NSString *) defaultLanguageForProvider:(NSString *)provider;
 
 #pragma mark Asynchronous searching
-- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage callback:(SBMetadataSearchController *)aCallback;
-- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum callback:(SBMetadataSearchController *)aCallback;
-- (void) loadTVMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage callback:(SBMetadataSearchController *)aCallback;
-- (void) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage callback:(SBMetadataSearchController *)aCallback;
-- (void) loadMovieMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage callback:(SBMetadataSearchController *)aCallback;
+- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage completionHandler:(void(^)(NSArray *results))handler;
+- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum completionHandler:(void(^)(NSArray *results))handler;
+
+- (void) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage completionHandler:(void(^)(NSArray *results))handler;
+
+- (void) loadFullMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage completionHandler:(void(^)(MP42Metadata *metadata))handler;
+
 - (void) cancel;
 
 #pragma Methods to be overridden
