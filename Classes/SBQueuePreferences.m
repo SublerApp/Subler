@@ -49,7 +49,9 @@ NSString * const SBQueueSet = @"SBQueueSet";
 
         if ([[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]) {
             MP42Metadata *set = [[SBPresetManager sharedManager] setWithName:[[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]];
-            [_options setObject:set forKey:SBQueueSet];
+            if (set) {
+                [_options setObject:set forKey:SBQueueSet];
+            }
         }
 
     }
