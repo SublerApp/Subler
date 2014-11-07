@@ -30,7 +30,7 @@
 
 - (void)setTrack:(MP42ChapterTrack *)chapterTrack
 {
-    track = chapterTrack;
+    track = [chapterTrack retain];
 }
 
 - (NSAttributedString *)boldString:(NSString *)string
@@ -118,6 +118,8 @@
 
 - (void)dealloc
 {
+    [track release];
+
     [detailBoldAttr release];
     [super dealloc];
 }

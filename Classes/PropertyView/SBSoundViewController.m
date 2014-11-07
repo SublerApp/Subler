@@ -76,12 +76,12 @@
 
 - (void)setFile:(MP42File *)mp4
 {
-    mp4file = mp4;
+    mp4file = [mp4 retain];
 }
 
 - (void)setTrack:(MP42AudioTrack *)soundTrack
 {
-    track = soundTrack;
+    track = [soundTrack retain];
 }
 
 - (IBAction)setTrackVolume:(id)sender
@@ -140,6 +140,9 @@
 
 - (void)dealloc
 {
+    [track release];
+    [mp4file release];
+
     [_fallbacks release];
     [_follows release];
     

@@ -93,13 +93,13 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
 
 - (void) setFile: (MP42File *)file
 {
-    metadata = file.metadata;
+    metadata = [file.metadata retain];
     tags = metadata.tagsDict;
 }
 
 - (void) setMetadata: (MP42Metadata *)data
 {
-    metadata = data;
+    metadata = [data retain];
     tags = data.tagsDict;
 }
 
@@ -812,6 +812,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     [ratingCell release];
     [genreCell release];
     [dct release];
+
+    [metadata release];
+
     [super dealloc];
 }
 

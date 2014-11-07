@@ -146,12 +146,12 @@ static NSString *getLevelName(uint8_t level) {
 
 - (void)setTrack:(MP42VideoTrack *)videoTrack
 {
-    track = videoTrack;
+    track = [videoTrack retain];
 }
 
 - (void)setFile:(MP42File *)mp4
 {
-    mp4file = mp4;
+    mp4file = [mp4 retain];
 }
 
 - (IBAction)setSize:(id)sender
@@ -313,7 +313,11 @@ static NSString *getLevelName(uint8_t level) {
 
 - (void)dealloc
 {
+    [track release];
+    [mp4file release];
+
     [_forced release];
+
     [super dealloc];
 }
 
