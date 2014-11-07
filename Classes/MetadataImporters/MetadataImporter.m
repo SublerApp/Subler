@@ -227,46 +227,39 @@
 #pragma mark Asynchronous searching
 - (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage completionHandler:(void(^)(NSArray *results))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        @autoreleasepool {
             NSArray *results = [self searchTVSeries:aSeries language:aLanguage];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (!self.isCancelled) {
                     handler(results);
                 }
             });
-        }
     });
 }
 
 - (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum completionHandler:(void(^)(NSArray *results))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        @autoreleasepool {
             NSArray *results = [self searchTVSeries:aSeries language:aLanguage seasonNum:aSeasonNum episodeNum:aEpisodeNum];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (!self.isCancelled) {
                     handler(results);
                 }
             });
-        }
     });
 }
 
 - (void) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage completionHandler:(void(^)(NSArray *results))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        @autoreleasepool {
             NSArray *results = [self searchMovie:aMovieTitle language:aLanguage];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (!self.isCancelled) {
                     handler(results);
                 }
             });
-        }
     });
 }
 
 - (void) loadFullMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage completionHandler:(void(^)(MP42Metadata *metadata))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        @autoreleasepool {
             if (aMetadata.mediaKind == 9) {
                 [self loadMovieMetadata:aMetadata language:aLanguage];
             } else if (aMetadata.mediaKind == 10) {
@@ -277,7 +270,6 @@
                     handler(aMetadata);
                 }
             });
-        }
     });
 }
 

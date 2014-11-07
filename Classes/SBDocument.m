@@ -96,10 +96,9 @@
 - (void)reloadFile:(NSURL *)absoluteURL
 {
     if (absoluteURL) {
-        MP42File *newFile = [[MP42File alloc] initWithExistingFile:absoluteURL andDelegate:self];
-        if (newFile) {
-            self.mp4 = newFile;
-            [newFile release];
+        self.mp4 = [[[MP42File alloc] initWithExistingFile:absoluteURL andDelegate:self] autorelease];
+
+        if (self.mp4) {
             [fileTracksTable reloadData];
             [self tableViewSelectionDidChange:nil];
         } else {

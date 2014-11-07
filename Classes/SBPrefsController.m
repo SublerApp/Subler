@@ -198,7 +198,7 @@
                                                        onSide:MAPositionBottom
                                                    atDistance:0];
 
-            [_popover setBackgroundColor:[NSColor colorWithCalibratedRed:0.98 green:0.98 blue:1 alpha:0.9]];
+            [_popover setBackgroundColor:[NSColor colorWithCalibratedRed:0.98f green:0.98f blue:1.0f alpha:0.9f]];
             [(MAAttachedWindow *)_popover setDelegate:self];
             [(MAAttachedWindow *)_popover setCornerRadius:6];
 

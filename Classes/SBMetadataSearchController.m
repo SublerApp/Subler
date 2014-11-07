@@ -420,6 +420,11 @@
     }
     [delegate metadataImportDone:self.selectedResult];
 
+    [metadataTable setDataSource:nil];
+    [metadataTable setDelegate:nil];
+    [resultsTable setDataSource:nil];
+    [resultsTable setDelegate:nil];
+
     [NSApp endSheet:[self window] returnCode:1];
 }
 
@@ -441,9 +446,11 @@
     [self.currentSearcher cancel];
     self.currentSearcher = nil;
 
-    self.selectedResultTagsArray = nil;
     self.resultsArray = nil;
     self.selectedResult = nil;
+
+    self.selectedResultTags = nil;
+    self.selectedResultTagsArray = nil;
 
     self.tvSeriesNameSearchArray = nil;
 
