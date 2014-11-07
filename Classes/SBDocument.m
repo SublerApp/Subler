@@ -675,9 +675,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
                 if (hdVideo)
                     [self.mp4.metadata setTag:@(hdVideo) forKey:@"HD Video"];
-
-                [self updateChangeCount:NSChangeDone];
             }
+        [self updateChangeCount:NSChangeDone];
     }
 
     [metadataToBeImported release];

@@ -109,7 +109,7 @@
 - (IBAction)renameChapters:(id)sender {
     [track.chapters enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSString *title = [NSString stringWithFormat:@"Chapter %lu", (unsigned long) idx + 1];
-        [(MP42TextSample *)obj setTitle:title];
+        [track setTitle:title forChapter:(MP42TextSample *)obj];
     }];
 
     [chapterTableView reloadData];
