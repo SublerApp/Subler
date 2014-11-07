@@ -7,7 +7,7 @@
 //
 
 #import "SBPresetManager.h"
-#import <MP42Foundation/MP42File.h>
+#import <MP42Foundation/MP42Metadata.h>
 
 /// Notification sent to update presets lists.
 NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotification";

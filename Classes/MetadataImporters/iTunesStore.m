@@ -6,7 +6,7 @@
 //  Copyright 2011 Douglas Stebila. All rights reserved.
 //
 
-#import <MP42Foundation/MP42File.h>
+#import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Ratings.h>
 #import <MP42Foundation/JSONKit.h>
 
