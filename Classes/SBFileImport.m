@@ -457,8 +457,8 @@
 
     [tracksTableView setDelegate:nil];
     [tracksTableView setDataSource:nil];
+
     [NSApp endSheet:[self window] returnCode:NSOKButton];
-    [[self window] orderOut:self];
 }
 
 - (void)dealloc

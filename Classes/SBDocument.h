@@ -46,6 +46,8 @@
     BOOL _optimize;
 }
 
+- (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError **)outError;
+
 - (IBAction)selectFile:(id)sender;
 - (IBAction)deleteTrack:(id)sender;
 - (IBAction)sendToQueue:(id)sender;
@@ -69,7 +71,6 @@
 
 - (void)showImportSheet:(NSArray *)fileURLs;
 
-- (MP42File *)mp4File;
 - (void)setMp4File:(MP42File *)mp4;
 
 @end

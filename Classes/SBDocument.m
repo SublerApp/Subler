@@ -68,6 +68,11 @@
 
 }
 
+- (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError **)outError
+{
+    return nil;
+}
+
 - (id)initWithType:(NSString *)typeName error:(NSError **)outError
 {
     if (self = [super initWithType:typeName error:outError])
@@ -597,6 +602,18 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 #pragma mark Various things
 
+- (void)didEndSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
+{
+    [[importWindow window] orderOut:nil];
+    [importWindow autorelease], importWindow = nil;
+
+    // IKImageBrowserView is a bit problematic, do the refresh at the end of the run loop
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [fileTracksTable reloadData];
+        [self tableViewSelectionDidChange:nil];
+    });
+}
+
 - (IBAction)sendToQueue:(id)sender
 {
     SBQueueController *queue =  [SBQueueController sharedManager];
@@ -629,7 +646,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (IBAction)searchMetadata:(id)sender
 {
     NSString *filename = nil;
-    for (MP42Track *track in self.mp4File.tracks) {
+    for (MP42Track *track in self.mp4.tracks) {
         if (track.sourceURL) {
             filename = [track.sourceURL lastPathComponent];
             break;
@@ -638,8 +655,32 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     importWindow = [[SBMetadataSearchController alloc] initWithDelegate:self searchString:filename];
 
-    [NSApp beginSheet:[importWindow window] modalForWindow:documentWindow
-        modalDelegate:nil didEndSelector:NULL contextInfo:nil];
+    [NSApp beginSheet:[importWindow window]
+       modalForWindow:documentWindow
+        modalDelegate:self
+       didEndSelector:@selector(didEndSheet:returnCode:contextInfo:)
+          contextInfo:nil];
+}
+
+- (void)metadataImportDone:(MP42Metadata *)metadataToBeImported
+{
+    [metadataToBeImported retain];
+    if (metadataToBeImported) {
+        [self.mp4.metadata mergeMetadata:metadataToBeImported];
+
+        for (MP42Track *track in self.mp4.tracks)
+            if ([track isKindOfClass:[MP42VideoTrack class]]) {
+                MP42VideoTrack *videoTrack = (MP42VideoTrack *)track;
+                int hdVideo = isHdVideo((uint64_t)videoTrack.trackWidth, (uint64_t)videoTrack.trackHeight);
+
+                if (hdVideo)
+                    [self.mp4.metadata setTag:@(hdVideo) forKey:@"HD Video"];
+
+                [self updateChangeCount:NSChangeDone];
+            }
+    }
+
+    [metadataToBeImported release];
 }
 
 - (IBAction)showTrackOffsetSheet:(id)sender
@@ -723,24 +764,14 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     if (importWindow) {
 		if ([importWindow onlyContainsSubtitleTracks]) { //execute always. Maybe we should do this only for subtitle
 			[importWindow addTracks:nil];
-			[self sheetDidEnd:nil returnCode:NSOKButton contextInfo:nil];
+			[self didEndSheet:nil returnCode:NSOKButton contextInfo:nil];
 		} else { // show the dialog
 			[NSApp beginSheet:[importWindow window] modalForWindow:documentWindow
-				modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:(__bridge void *)(importWindow)];
+				modalDelegate:self didEndSelector:@selector(didEndSheet:returnCode:contextInfo:) contextInfo:NULL];
 		}
     } else if (error) {
             [self presentError:error modalForWindow:documentWindow delegate:nil didPresentSelector:NULL contextInfo:nil];
     }
-}
-
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;{
-    [importWindow autorelease], importWindow = nil;
-
-    // IKImageBrowserView is a bit problematic, do the refresh at the end of the run loop
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [fileTracksTable reloadData];
-        [self tableViewSelectionDidChange:nil];
-    });
 }
 
 - (void)importDoneWithTracks:(NSArray *)tracksToBeImported andMetadata:(MP42Metadata *)metadata
@@ -758,36 +789,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         [self.mp4.metadata mergeMetadata:metadata];
         [self updateChangeCount:NSChangeDone];
     }
-}
-
-- (void)metadataImportDone:(MP42Metadata *)metadataToBeImported
-{
-    [metadataToBeImported retain];
-    if (metadataToBeImported) {
-        [self.mp4.metadata mergeMetadata:metadataToBeImported];
-
-        for (MP42Track *track in self.mp4.tracks)
-            if ([track isKindOfClass:[MP42VideoTrack class]]) {
-                MP42VideoTrack *videoTrack = (MP42VideoTrack *)track;
-                int hdVideo = isHdVideo((uint64_t)videoTrack.trackWidth, (uint64_t)videoTrack.trackHeight);
-
-                if (hdVideo)
-                    [self.mp4.metadata setTag:@(hdVideo) forKey:@"HD Video"];
-
-                [self updateChangeCount:NSChangeDone];
-            }
-    }
-
-    [NSApp endSheet:[importWindow window]];
-    [[importWindow window] orderOut:self];
-    [importWindow release], importWindow = nil;
-
-    if (metadataToBeImported) {
-        [self tableViewSelectionDidChange:nil];
-        [self updateChangeCount:NSChangeDone];
-    }
-
-    [metadataToBeImported release];
 }
 
 - (void)addMetadata:(NSURL *)URL
@@ -937,10 +938,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         return YES;
     }
     return NO;
-}
-
-- (MP42File *)mp4File {
-    return self.mp4;
 }
 
 - (void)setMp4File:(MP42File *)mp4 {

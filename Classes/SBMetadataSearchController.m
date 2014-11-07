@@ -419,33 +419,33 @@
         }
     }
     [delegate metadataImportDone:self.selectedResult];
+
+    [NSApp endSheet:[self window] returnCode:1];
 }
 
 - (IBAction) closeWindow: (id) sender
 {
-    if (self.currentSearcher) {
-		[self.currentSearcher cancel];
-    }
-
-    [delegate metadataImportDone:nil];
-}
-
-- (void) dealloc
-{
-    if (self.currentSearcher) {
-        [self.currentSearcher cancel];
-        self.currentSearcher = nil;
-    }
+    [self.currentSearcher cancel];
+    self.currentSearcher = nil;
 
     [metadataTable setDataSource:nil];
     [metadataTable setDelegate:nil];
     [resultsTable setDataSource:nil];
     [resultsTable setDelegate:nil];
 
+    [NSApp endSheet:[self window] returnCode:0];
+}
+
+- (void) dealloc
+{
+    [self.currentSearcher cancel];
+    self.currentSearcher = nil;
+
     self.selectedResultTagsArray = nil;
-    self.tvSeriesNameSearchArray = nil;
     self.resultsArray = nil;
     self.selectedResult = nil;
+
+    self.tvSeriesNameSearchArray = nil;
 
     [detailBoldAttr release];
 
@@ -550,13 +550,9 @@
 
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView {
     if (tableView == resultsTable) {
-        if (self.resultsArray != nil) {
             return self.resultsArray.count;
-        }
     } else if (tableView == (NSTableView *) metadataTable) {
-        if (self.selectedResult != nil) {
             return self.selectedResultTagsArray.count;
-        }
     }
     return 0;
 }
