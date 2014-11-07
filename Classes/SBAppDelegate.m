@@ -26,9 +26,17 @@
 
     [SBPrefsController registerUserDefaults];
 
-    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
-                                                            NSUserDomainMask,
-                                                            YES) firstObject] stringByAppendingPathComponent:@"Subler/debugLog.txt"];
+    NSString *appSupportPath = [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
+                                                                     NSUserDomainMask,
+                                                                     YES) firstObject] stringByAppendingPathComponent:@"Subler"];
+
+    if (![[NSFileManager defaultManager] fileExistsAtPath:appSupportPath]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:appSupportPath withIntermediateDirectories:YES attributes:nil error:NULL];
+    }
+
+    NSString *path = [appSupportPath stringByAppendingPathComponent:@"debugLog.txt"];
+
+
 
     SBLogger *logger = [[SBLogger alloc] initWithLogFile:[NSURL fileURLWithPath:path]];
     [logger clearLog];
