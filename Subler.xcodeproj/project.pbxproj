@@ -67,6 +67,7 @@
 		A9D47B5A17B239E200900BCA /* EncodeComplete.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5617B239E200900BCA /* EncodeComplete.png */; };
 		A9D47B5B17B239E200900BCA /* EncodeComplete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5717B239E200900BCA /* EncodeComplete@2x.png */; };
 		A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */; };
+		A9E2C9C91A1770EC00A417C9 /* EncodeWorking@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E2C9C81A1770EC00A417C9 /* EncodeWorking@2x.png */; };
 		A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */; };
 		A9EEA5F818D654B9008B54B4 /* QueueOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */; };
 		A9F284A0133C9F6E00F10951 /* close.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9F2849D133C9F6E00F10951 /* close.pdf */; };
@@ -235,6 +236,7 @@
 		A9D47B5717B239E200900BCA /* EncodeComplete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EncodeComplete@2x.png"; path = "images/EncodeComplete@2x.png"; sourceTree = "<group>"; };
 		A9D73C5018BF3F1100C6FFA6 /* SBQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueue.h; path = Classes/SBQueue.h; sourceTree = "<group>"; };
 		A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueue.m; path = Classes/SBQueue.m; sourceTree = "<group>"; };
+		A9E2C9C81A1770EC00A417C9 /* EncodeWorking@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EncodeWorking@2x.png"; path = "images/EncodeWorking@2x.png"; sourceTree = "<group>"; };
 		A9ED7B21180067A2008FD3A8 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A9EEA5EF18D65490008B54B4 /* SBOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBOptionsViewController.h; path = Classes/SBOptionsViewController.h; sourceTree = "<group>"; };
 		A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBOptionsViewController.m; path = Classes/SBOptionsViewController.m; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 				A9D47B5617B239E200900BCA /* EncodeComplete.png */,
 				A9D47B5717B239E200900BCA /* EncodeComplete@2x.png */,
 				A9C9E34113FBC1EB00CA3B4E /* EncodeWorking.png */,
+				A9E2C9C81A1770EC00A417C9 /* EncodeWorking@2x.png */,
 				CD4A86A71234AFA10054970A /* ParseFilename */,
 				CDE8E451174CBBD4009410B5 /* iTunesStores.json */,
 			);
@@ -655,6 +658,7 @@
 				A9C055370F6D395B00AF15B5 /* FileImport.xib in Resources */,
 				A95C881D0F827BFB00F51A22 /* ToolbarRemoveTemplate.png in Resources */,
 				A90B023B10F3290A000416F3 /* Prefs.xib in Resources */,
+				A9E2C9C91A1770EC00A417C9 /* EncodeWorking@2x.png in Resources */,
 				A9AB486417F0AEFD000AA72E /* ChapterView.xib in Resources */,
 				A9AB486817F0AEFD000AA72E /* VideoView.xib in Resources */,
 				A9C4259318DB6D1F00E99DB8 /* stopTemplate.pdf in Resources */,
