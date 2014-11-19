@@ -75,6 +75,7 @@
         MP42Duration timestamp = TimeFromString(anObject, 1000);
         if (!(chapter.timestamp == timestamp)) {
             [track setTimestamp:timestamp forChapter:chapter];
+            [chapterTableView reloadData];
 
             [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
         }
