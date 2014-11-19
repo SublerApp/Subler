@@ -361,38 +361,34 @@
         [metadataTable setEnabled:NO];
 
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            dispatch_group_t group = dispatch_group_create();
 
             [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-                dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{
-                    NSData *artworkData = [MetadataImporter downloadDataFromURL:[self.selectedResult.artworkFullsizeURLs objectAtIndex:idx] withCachePolicy:SBDefaultPolicy];
+                NSData *artworkData = [MetadataImporter downloadDataFromURL:[self.selectedResult.artworkFullsizeURLs objectAtIndex:idx] withCachePolicy:SBDefaultPolicy];
 
-                    // Hack, download smaller iTunes version if big iTunes version is not available
-                    if (!artworkData) {
-                        NSString *provider = [self.selectedResult.artworkProviderNames objectAtIndex:idx];
-                        if ([provider isEqualToString:@"iTunes"]) {
-                            NSURL *url = [self.selectedResult.artworkFullsizeURLs objectAtIndex:idx];
-                            url = [[url URLByDeletingPathExtension] URLByAppendingPathExtension:@"600x600-75.jpg"];
-                            artworkData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
-                        }
+                // Hack, download smaller iTunes version if big iTunes version is not available
+                if (!artworkData) {
+                    NSString *provider = [self.selectedResult.artworkProviderNames objectAtIndex:idx];
+                    if ([provider isEqualToString:@"iTunes"]) {
+                        NSURL *url = [self.selectedResult.artworkFullsizeURLs objectAtIndex:idx];
+                        url = [[url URLByDeletingPathExtension] URLByAppendingPathExtension:@"600x600-75.jpg"];
+                        artworkData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
                     }
+                }
 
-                    // Add artwork to metadata object
-                    if (artworkData && [artworkData length]) {
-                        MP42Image *artwork = [[MP42Image alloc] initWithData:artworkData type:MP42_ART_JPEG];
-                        dispatch_sync(dispatch_get_main_queue(), ^{
-                            [self.selectedResult.artworks addObject:artwork];
-                        });
-                        [artwork release];
-                    }
-                });
+                // Add artwork to metadata object
+                if (artworkData && [artworkData length]) {
+                    MP42Image *artwork = [[MP42Image alloc] initWithData:artworkData type:MP42_ART_JPEG];
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        [self.selectedResult.artworks addObject:artwork];
+                    });
+                    [artwork release];
+                }
             }];
 
-            dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-            dispatch_release(group);
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [self addMetadata];
             });
+
         });
     } else {
         [self addMetadata];
