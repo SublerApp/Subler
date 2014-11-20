@@ -378,9 +378,7 @@
                 // Add artwork to metadata object
                 if (artworkData && [artworkData length]) {
                     MP42Image *artwork = [[MP42Image alloc] initWithData:artworkData type:MP42_ART_JPEG];
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                        [self.selectedResult.artworks addObject:artwork];
-                    });
+                    [self.selectedResult.artworks addObject:artwork];
                     [artwork release];
                 }
             }];
