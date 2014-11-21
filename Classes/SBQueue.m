@@ -195,7 +195,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
                 self.currentItem.delegate = self;
 
                 [self handleSBStatusWorking:0 index:self.currentIndex];
-                noErr = [self.currentItem processItem:self.optimize error:&outError];
+                noErr = [self.currentItem processWithOptions:self.optimize error:&outError];
 
                 // Check results
                 if (self.cancelled) {

@@ -210,7 +210,7 @@ static void *SBQueueContex = &SBQueueContex;
 
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         if (!item.mp4File)
-            [item prepareItem:NULL];
+            [item prepare:NULL];
 
         MP42File *mp4 = item.mp4File;
         dispatch_sync(dispatch_get_main_queue(), ^{

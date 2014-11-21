@@ -55,9 +55,18 @@
 
         NSFileManager *fileManager = [NSFileManager defaultManager];
         unsigned long long originalFileSize = [[[fileManager attributesOfItemAtPath:[_fileURL path] error:nil] valueForKey:NSFileSize] unsignedLongLongValue];
+
+        NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+
         if (originalFileSize > ALMOST_4GiB) {
-            _attributes = [[NSDictionary alloc] initWithObjectsAndKeys:@YES, MP4264BitData, nil];
+            [attributes setObject:@YES forKey:MP4264BitData];
         }
+
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue]) {
+            [attributes setObject:@YES forKey:MP42GenerateChaptersPreviewTrack];
+        }
+
+        _attributes = [attributes copy];
     }
 
     return self;
@@ -145,7 +154,7 @@
 
 #pragma mark Item processing
 
-- (BOOL)prepareItem:(NSError **)outError {
+- (BOOL)prepare:(NSError **)outError {
     if (![[NSFileManager defaultManager] fileExistsAtPath:[self.URL path]]) {
         if (outError) {
             NSDictionary *errorDetail = @{ NSLocalizedDescriptionKey : @"File not found",
@@ -230,7 +239,7 @@
     return YES;
 }
 
-- (BOOL)processItem:(BOOL)optimize error:(NSError **)outError {
+- (BOOL)processWithOptions:(BOOL)optimize error:(NSError **)outError {
     BOOL noErr = YES;
 
 #ifdef SB_SANDBOX
@@ -240,7 +249,7 @@
 
     // The file has been added directly to the queue
     if (!self.mp4File && self.URL) {
-        noErr = [self prepareItem:outError];
+        noErr = [self prepare:outError];
     }
 
     if (!noErr) { goto bail; }
