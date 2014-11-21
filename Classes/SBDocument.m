@@ -629,8 +629,12 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         [panel beginSheetModalForWindow:documentWindow completionHandler:^(NSInteger result) {
             if (result == NSFileHandlingPanelOKButton) {
                 NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+
                 if ([_64bit_data state]) [attributes setObject:@YES forKey:MP4264BitData];
                 if ([_64bit_time state]) [attributes setObject:@YES forKey:MP4264BitTime];
+                if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue]) {
+                    [attributes setObject:@YES forKey:MP42GenerateChaptersPreviewTrack];
+                }
 
                 SBQueueItem *item = [SBQueueItem itemWithMP4:self.mp4 url:[panel URL] attributes:attributes];
                 [queue addItem:item];
