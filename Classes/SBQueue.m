@@ -151,7 +151,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
 - (void)disableSleep {
     CFStringRef reasonForActivity= CFSTR("Subler Queue Started");
-    _io_success = IOPMAssertionCreateWithName(kIOPMAssertionTypeNoDisplaySleep,
+    _io_success = IOPMAssertionCreateWithName(kIOPMAssertionTypeNoIdleSleep,
                                                       kIOPMAssertionLevelOn, reasonForActivity, &_assertionID);
 }
 

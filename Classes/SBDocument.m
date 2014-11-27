@@ -203,7 +203,7 @@
     IOPMAssertionID assertionID;
     // Enable sleep assertion
     CFStringRef reasonForActivity= CFSTR("Subler Save Operation");
-    IOReturn io_success = IOPMAssertionCreateWithName(kIOPMAssertionTypeNoDisplaySleep,
+    IOReturn io_success = IOPMAssertionCreateWithName(kIOPMAssertionTypeNoIdleSleep,
                                                       kIOPMAssertionLevelOn, reasonForActivity, &assertionID);
 
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
