@@ -59,13 +59,28 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
 - (instancetype)init {
     self = [super initWithNibName:@"QueueOptions" bundle:nil];
     if (self) {
-
     }
     return self;
 }
 
 - (void)loadView {
     [super loadView];
+
+    // Hack to fix crappy anti-aliasing on Yosemite
+    // unfortunately it fixes the checkboxes anti-aliasing,
+    // but break the popup buttons one…
+    if (NSClassFromString(@"NSVisualEffectView")) {
+        self.view.wantsLayer = YES;
+
+        for (NSButton *subview in self.view.subviews) {
+            if ([subview isKindOfClass:[NSButton class]]) {
+                NSAttributedString *string = [[NSAttributedString alloc] initWithString:subview.title
+                                                                             attributes:@{NSForegroundColorAttributeName:[NSColor labelColor],
+                                                                                        NSFontAttributeName:[NSFont labelFontOfSize:11]}];
+                subview.attributedTitle = string;
+            }
+        }
+    }
 
     // Observe the providers changes
     // to update the specific provider languages popup
