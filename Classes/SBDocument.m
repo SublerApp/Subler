@@ -636,7 +636,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
                     [attributes setObject:@YES forKey:MP42GenerateChaptersPreviewTrack];
                 }
 
-                SBQueueItem *item = [SBQueueItem itemWithMP4:self.mp4 url:[panel URL] attributes:attributes];
+                SBQueueItem *item = [SBQueueItem itemWithMP4:self.mp4 url:panel.URL attributes:attributes];
                 [queue addItem:item];
 
                 [attributes release];

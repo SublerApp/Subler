@@ -83,6 +83,14 @@
 
         _fileURL = [[NSURL fileURLWithPath:[MP4.URL path]] retain];
         _destURL = [[NSURL fileURLWithPath:[MP4.URL path]] retain];
+
+        NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue]) {
+            [attributes setObject:@YES forKey:MP42GenerateChaptersPreviewTrack];
+        }
+
+        _attributes = [attributes copy];
     }
 
     return self;
