@@ -264,19 +264,21 @@
 
     self.mp4File.delegate = self;
 
-    // Check if there is enough space on the dest disk
-    NSDictionary *dict = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[[self.destURL URLByDeletingLastPathComponent] path] error:NULL];
-    NSNumber *freeSpace = [dict objectForKey:NSFileSystemFreeSize];
-    if (freeSpace && [self.mp4File dataSize] > [freeSpace longLongValue]) {
-        noErr = NO;
-        if (outError) {
-            NSDictionary *errorDetail = @{ NSLocalizedDescriptionKey : @"Not enough disk space",
-                                           NSLocalizedRecoverySuggestionErrorKey : @"" };
-            *outError = [NSError errorWithDomain:@"SBQueueItemError" code:12 userInfo:errorDetail];
+    // Check if there is enough space on the destination disk
+    if (![self.URL isEqualTo:self.destURL]) {
+        NSDictionary *dict = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[[self.destURL URLByDeletingLastPathComponent] path] error:NULL];
+        NSNumber *freeSpace = [dict objectForKey:NSFileSystemFreeSize];
+        if (freeSpace && [self.mp4File dataSize] > [freeSpace longLongValue]) {
+            noErr = NO;
+            if (outError) {
+                NSDictionary *errorDetail = @{ NSLocalizedDescriptionKey : @"Not enough disk space",
+                                               NSLocalizedRecoverySuggestionErrorKey : @"" };
+                *outError = [NSError errorWithDomain:@"SBQueueItemError" code:12 userInfo:errorDetail];
+            }
+            goto bail;
         }
-        goto bail;
     }
-    
+
     // Convert from a file reference url to a normal url
     // the file will be replaced if optimized, and the reference url
     // may point to nil
