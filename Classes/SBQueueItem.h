@@ -34,9 +34,11 @@ typedef enum SBQueueItemStatus : NSInteger {
     id _delegate;
 
     SBQueueItemStatus _status;
+    NSString *_localizedWorkingDescription;
 }
 
 @property (nonatomic, readwrite) SBQueueItemStatus status;
+@property (nonatomic, readonly) NSString *localizedWorkingDescription;
 
 @property (nonatomic, readonly) MP42File *mp4File;
 

@@ -249,7 +249,12 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
  * sends SBQueueWorkingNotification.
  */
 - (void)handleSBStatusWorking:(CGFloat)progress index:(NSInteger)index {
-    NSString *info = [NSString stringWithFormat:@"Processing file %ld of %lu.",(long)self.currentIndex + 1, (unsigned long)[self.items count]];
+    NSString *description = self.currentItem.localizedWorkingDescription;
+    if (!description) {
+        description = NSLocalizedString(@"Working", @"");
+    }
+    NSString *info = [NSString stringWithFormat:@"%@, item %ld of %lu.", description, (long)self.currentIndex + 1, (unsigned long)self.items.count];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueWorkingNotification object:self userInfo:@{@"ProgressString": info,
                                                                                                                  @"Progress": @(progress),
                                                                                                                  @"ItemIndex": @(index)}];

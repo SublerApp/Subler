@@ -17,6 +17,8 @@
 
 @interface SBQueueItem () <MP42FileDelegate>
 
+@property (nonatomic, readwrite) NSString *localizedWorkingDescription;
+
 @property (nonatomic, readwrite, retain) MP42File *mp4File;
 @property (nonatomic, readwrite) NSMutableArray *actionsInternal;
 @property (atomic) BOOL cancelled;
@@ -26,6 +28,7 @@
 @implementation SBQueueItem
 
 @synthesize status = _status;
+@synthesize localizedWorkingDescription = _localizedWorkingDescription;
 
 @synthesize attributes = _attributes;
 @synthesize actionsInternal = _actions;
@@ -241,8 +244,12 @@
     }
 
     for (id<SBQueueActionProtocol> action in self.actions) {
+        self.localizedWorkingDescription = action.localizedDescription;
+        [self progressStatus:0];
         [action runAction:self];
     }
+
+    self.localizedWorkingDescription = nil;
 
     return YES;
 }

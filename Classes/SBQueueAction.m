@@ -62,7 +62,11 @@
 }
 
 - (NSString *)description {
-    return @"Load Subtitles";
+    return NSLocalizedString(@"Load Subtitles", @"");
+}
+
+- (NSString *)localizedDescription {
+    return NSLocalizedString(@"Loading subtitles", @"");
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -187,7 +191,11 @@
 }
 
 - (NSString *)description {
-    return @"Search Metadata";
+    return NSLocalizedString(@"Search Metadata", @"");
+}
+
+- (NSString *)localizedDescription {
+    return NSLocalizedString(@"Searching metadata", @"");
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -215,7 +223,11 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Apply %@ Set", _set.presetName];
+    return [NSString stringWithFormat:NSLocalizedString(@"Apply %@ Set", @""), _set.presetName];
+}
+
+- (NSString *)localizedDescription {
+    return [NSString stringWithFormat:NSLocalizedString(@"Applying %@ set", @""), _set.presetName];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -244,7 +256,11 @@
 }
 
 - (NSString *)description {
-    return @"Organize Groups";
+    return NSLocalizedString(@"Organize Groups", @"");
+}
+
+- (NSString *)localizedDescription {
+    return NSLocalizedString(@"Organizing groups", @"");
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {

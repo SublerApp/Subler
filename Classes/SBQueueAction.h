@@ -17,6 +17,7 @@
  */
 @protocol SBQueueActionProtocol <NSObject, NSCoding>
 - (void)runAction:(SBQueueItem *)item;
+@property (nonatomic, readonly) NSString *localizedDescription;
 @end
 
 /**
