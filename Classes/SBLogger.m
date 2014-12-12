@@ -54,6 +54,11 @@
     }
 }
 
+- (void)writeErrorToLog:(NSError *)error {
+    [self writeToLog:[NSString stringWithFormat:@"%@\n", error.localizedDescription]];
+    [self writeToLog:[NSString stringWithFormat:@"%@\n", error.localizedRecoverySuggestion]];
+}
+
 - (void)clearLog {
     if (self.fileURL) {
         [[NSFileManager defaultManager] removeItemAtURL:self.fileURL error:nil];

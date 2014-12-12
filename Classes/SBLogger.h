@@ -18,7 +18,6 @@
 
 - (instancetype)initWithLogFile:(NSURL *)fileURL;
 
-- (void)writeToLog:(NSString *)string;
 - (void)clearLog;
 
 @end
