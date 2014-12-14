@@ -152,6 +152,8 @@
             [buttonCell setControlSize:NSSmallControlSize];
             [buttonCell setTitle:@""];
 
+            buttonCell.enabled = (isTrackMuxable(track.format) || trackNeedConversion(track.format)) ? YES : NO;
+
             return [buttonCell autorelease];
         }
 
