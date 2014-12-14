@@ -98,10 +98,10 @@
     if (absoluteURL) {
         self.mp4 = [[[MP42File alloc] initWithExistingFile:absoluteURL andDelegate:self] autorelease];
 
-        if (self.mp4) {
-            [fileTracksTable reloadData];
-            [self tableViewSelectionDidChange:nil];
-        } else {
+        [fileTracksTable reloadData];
+        [self tableViewSelectionDidChange:nil];
+
+        if (!self.mp4) {
             [self close];
         }
     }
@@ -144,9 +144,15 @@
 
 - (BOOL)saveDidComplete:(NSError **)outError URL:(NSURL *)absoluteURL
 {
-    [NSApp endSheet: savingWindow];
+    [NSApp endSheet:savingWindow];
     [savingWindow orderOut:self];
     [optBar stopAnimation:self];
+
+    if (*outError && [*outError code] == 101) {
+        // Write permission error, don't reload the file
+    } else {
+        [self reloadFile:absoluteURL];
+    }
 
     if (*outError) {
         [self presentError:*outError
@@ -156,12 +162,6 @@
                contextInfo:NULL];
 
         [*outError release];
-    }
-
-    if (*outError && [*outError code] == 101) {
-        // Write persmission error, don't reload the file
-    } else {
-        [self reloadFile:absoluteURL];
     }
 
     return YES;
