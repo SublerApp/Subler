@@ -23,7 +23,7 @@
 
 - (instancetype)init {
     if ((self = [super initWithWindowNibName:@"SBLogWindow"])) {
-        [self window];
+        (void)[self window];
     }
 
     return self;

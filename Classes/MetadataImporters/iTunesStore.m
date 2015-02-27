@@ -315,11 +315,15 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
             NSString *season = nil;
 			if (![[store valueForKey:@"season"] isEqualToString:@""]) {
 				NSArray *sa = [[s lowercaseString] componentsSeparatedByString:[NSString stringWithFormat:@", %@ ", [store valueForKey:@"season"]]];
-				if ([sa count] > 1) {
-                    season = [sa objectAtIndex:1];
-				} else {
-					season = @"1";
-				}
+				if (sa.count <= 1) {
+                    sa = [[s lowercaseString] componentsSeparatedByString:[NSString stringWithFormat:@", %@ ", @"book"]];
+                }
+
+                if ([sa count] > 1) {
+                    season = [NSString stringWithFormat:@"%ld",(long) [[sa objectAtIndex:1] integerValue]];
+                } else {
+                    season = @"1";
+                }
 			}
             if (season) {
                 [metadata setTag:season forKey:@"TV Season"];

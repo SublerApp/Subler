@@ -606,11 +606,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     [[importWindow window] orderOut:nil];
     [importWindow autorelease], importWindow = nil;
 
-    // IKImageBrowserView is a bit problematic, do the refresh at the end of the run loop
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [fileTracksTable reloadData];
-        [self tableViewSelectionDidChange:nil];
-    });
+    [fileTracksTable reloadData];
+    [self tableViewSelectionDidChange:nil];
 }
 
 - (IBAction)sendToQueue:(id)sender

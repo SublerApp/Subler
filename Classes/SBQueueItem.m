@@ -289,8 +289,10 @@
     // Convert from a file reference url to a normal url
     // the file will be replaced if optimized, and the reference url
     // may point to nil
+    [self willChangeValueForKey:@"fileURL"];
     [_fileURL autorelease];
     _fileURL = [[self.URL filePathURL] retain];
+    [self didChangeValueForKey:@"fileURL"];
 
     if (!self.cancelled) {
         if ([self.URL isEqualTo:self.destURL] && [self.mp4File hasFileRepresentation]) {
@@ -308,7 +310,9 @@
 
     // Optimize the file
     if (!self.cancelled && optimize) {
+        self.localizedWorkingDescription = NSLocalizedString(@"Optimizing", @"");
         noErr = [self.mp4File optimize];
+        self.localizedWorkingDescription = nil;
     }
 
     if (!noErr) {
