@@ -518,7 +518,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     if ([tableColumn.identifier isEqualToString:@"name"]) {
         if ([[tableView selectedRowIndexes] containsIndex:rowIndex]) {
-            [cell setTextColor:[NSColor whiteColor]];
+            [cell setTextColor:[NSColor blackColor]];
         } else {
             [cell setTextColor:[NSColor grayColor]];
         }
