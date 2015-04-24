@@ -733,13 +733,31 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     [self updateChangeCount:NSChangeDone];
 }
 
+- (void)updateChapters:(MP42ChapterTrack *)chapters fromCSVFile:(NSURL *)URL
+{
+    NSError *error;
+    if ([chapters updateFromCSVFile:URL error:&error]) {
+        [self tableViewSelectionDidChange:nil];
+        [self updateChangeCount:NSChangeDone];
+    }
+    else {
+        [self presentError:error modalForWindow:documentWindow delegate:nil didPresentSelector:NULL contextInfo:nil];
+    }
+}
+
 - (IBAction)selectFile:(id)sender
 {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     panel.allowsMultipleSelection = NO;
     panel.canChooseFiles = YES;
     panel.canChooseDirectories = NO;
-    [panel setAllowedFileTypes:supportedFileFormat()];
+    MP42ChapterTrack *chapters = [self.mp4 chapters];
+    if (nil != chapters) {
+        [panel setAllowedFileTypes:[supportedFileFormat() arrayByAddingObject:@"csv"]];
+    }
+    else {
+        [panel setAllowedFileTypes:supportedFileFormat()];
+    }
 
     [panel beginSheetModalForWindow:documentWindow completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
@@ -747,6 +765,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
             if ([fileExtension caseInsensitiveCompare: @"txt"] == NSOrderedSame)
                 [self addChapterTrack:[panel.URLs objectAtIndex: 0]];
+            else if ([fileExtension caseInsensitiveCompare: @"csv"] == NSOrderedSame)
+                [self updateChapters:chapters fromCSVFile:[panel.URLs objectAtIndex: 0]];
             else
                 [self performSelectorOnMainThread:@selector(showImportSheet:)
                                        withObject:panel.URLs waitUntilDone: NO];
@@ -960,3 +980,4 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 }
 
 @end
+
