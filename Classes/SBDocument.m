@@ -83,7 +83,7 @@
 
 + (BOOL)canConcurrentlyReadDocumentsOfType:(NSString *)type
 {
-    return NO;
+    return YES;
 }
 
 - (BOOL)isEntireFileLoaded
@@ -142,50 +142,42 @@
 
 #pragma mark Save methods
 
-- (BOOL)saveDidComplete:(NSError **)outError URL:(NSURL *)absoluteURL
+- (BOOL)canAsynchronouslyWriteToURL:(NSURL *)url
+                             ofType:(NSString *)typeName
+                   forSaveOperation:(NSSaveOperationType)saveOperation
+{
+    return YES;
+}
+
+- (BOOL)saveDidComplete:(NSError *)outError URL:(NSURL *)absoluteURL
 {
     [NSApp endSheet:savingWindow];
     [savingWindow orderOut:self];
     [optBar stopAnimation:self];
 
-    if (*outError && [*outError code] == 101) {
+    if (outError && [outError code] == 101) {
         // Write permission error, don't reload the file
     } else {
         [self reloadFile:absoluteURL];
     }
 
-    if (*outError) {
-        [self presentError:*outError
+    if (outError) {
+        [self presentError:outError
             modalForWindow:documentWindow
                   delegate:nil
         didPresentSelector:NULL
                contextInfo:NULL];
 
-        [*outError release];
+        [outError release];
     }
 
     return YES;
 }
 
-- (void)saveDidEnd:(id)sender {
-    /* Post an event so our event loop wakes up */
-    [NSApp postEvent:[NSEvent otherEventWithType:NSApplicationDefined
-                                        location:NSZeroPoint
-                                   modifierFlags:0
-                                       timestamp:0
-                                    windowNumber:0
-                                         context:NULL
-                                         subtype:0
-                                           data1:0
-                                           data2:0] atStart:NO];
-}
-
 - (BOOL)writeSafelyToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName
         forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError **)outError;
 {
-    __block BOOL success = NO;
-    __block int32_t done = 0;
-    __block NSError *inError = NULL;
+    NSError *inError = nil;
 
     NSMutableDictionary * attributes = [[NSMutableDictionary alloc] init];
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue])
@@ -193,65 +185,58 @@
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBOrganizeAlternateGroups"] boolValue])
         [attributes setObject:@YES forKey:MP42OrganizeAlternateGroups];
 
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [optBar setIndeterminate:YES];
+        [optBar startAnimation:self];
+        [saveOperationName setStringValue:@"Saving…"];
+        [NSApp beginSheet:savingWindow modalForWindow:documentWindow
+            modalDelegate:nil didEndSelector:NULL contextInfo:nil];
+    });
 
-    [optBar setIndeterminate:YES];
-    [optBar startAnimation:self];
-    [saveOperationName setStringValue:@"Saving…"];
-    [NSApp beginSheet:savingWindow modalForWindow:documentWindow
-        modalDelegate:nil didEndSelector:NULL contextInfo:nil];
+    [self unblockUserInteraction];
 
     IOPMAssertionID assertionID;
     // Enable sleep assertion
     CFStringRef reasonForActivity= CFSTR("Subler Save Operation");
     IOReturn io_success = IOPMAssertionCreateWithName(kIOPMAssertionTypeNoIdleSleep,
                                                       kIOPMAssertionLevelOn, reasonForActivity, &assertionID);
+    BOOL success = NO;
 
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        switch (saveOperation) {
-            case NSSaveOperation:
-                // movie file already exists, so we'll just update
-                // the movie resource
-                success = [self.mp4 updateMP4FileWithAttributes:attributes error:&inError];
-                break;
-            case NSSaveAsOperation:
-                if ([_64bit_data state]) [attributes setObject:@YES forKey:MP4264BitData];
-                if ([_64bit_time state]) [attributes setObject:@YES forKey:MP4264BitTime];
-                success = [self.mp4 writeToUrl:absoluteURL withAttributes:attributes error:&inError];
-                break;
-            default:
-                // not implemented
-                break;
-        }
-        if (success && _optimize) {
-            [saveOperationName setStringValue:@"Optimizing…"];
-            success = [self.mp4 optimize];
-            _optimize = NO;
-        }
-
-        done = 1;
-        [inError retain];
-    });
-
-    while (!done) {
-        @autoreleasepool {
-            @try {
-                NSEvent *event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:[NSDate distantFuture] inMode:NSDefaultRunLoopMode dequeue:YES];
-                if (event) [NSApp sendEvent:event];
-            }
-            @catch (NSException *localException) {
-                NSLog(@"Exception thrown during save: %@", localException);
-            }
-        }
+    switch (saveOperation) {
+        case NSSaveOperation:
+            // movie file already exists, so we'll just update
+            // the movie resource
+            success = [self.mp4 updateMP4FileWithAttributes:attributes error:&inError];
+            break;
+        case NSSaveAsOperation:
+            if ([_64bit_data state]) [attributes setObject:@YES forKey:MP4264BitData];
+            if ([_64bit_time state]) [attributes setObject:@YES forKey:MP4264BitTime];
+            success = [self.mp4 writeToUrl:absoluteURL withAttributes:attributes error:&inError];
+            break;
+        default:
+            NSAssert(NO, @"Unhandled save operation");
+            break;
     }
 
-    if (io_success == kIOReturnSuccess)
-        IOPMAssertionRelease(assertionID);
+    if (success && _optimize) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [saveOperationName setStringValue:@"Optimizing…"];
+        });
+        success = [self.mp4 optimize];
+        _optimize = NO;
+    }
 
-    *outError = [inError autorelease];
-    [*outError retain];
+
+    if (io_success == kIOReturnSuccess) {
+        IOPMAssertionRelease(assertionID);
+    }
 
     [attributes release];
-    [self saveDidComplete:outError URL:absoluteURL];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self saveDidComplete:inError URL:absoluteURL];
+    });
+
     return success;
 }
 
