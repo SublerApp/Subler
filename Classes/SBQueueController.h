@@ -43,6 +43,8 @@
 
 + (SBQueueController *)sharedManager;
 
+- (IBAction)open:(id)sender;
+
 - (void)addItem:(SBQueueItem *)item;
 - (void)editItem:(SBQueueItem *)item;
 

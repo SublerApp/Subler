@@ -140,6 +140,11 @@
     return NO;
 }
 
+- (IBAction)openInQueue:(id)sender
+{
+    [[SBQueueController sharedManager] open:sender];
+}
+
 - (IBAction) showBatchWindow: (id) sender
 {
     [[SBQueueController sharedManager] showWindow:self];
