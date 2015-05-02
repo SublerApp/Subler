@@ -185,13 +185,15 @@
 }
 
 - (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL display:(BOOL)displayDocument error:(NSError **)outError {
-    SBDocument *doc = nil;
+    __block SBDocument *doc = nil;
 
     if ([[[absoluteURL path] pathExtension] caseInsensitiveCompare: @"mkv"] == NSOrderedSame ||
         [[[absoluteURL path] pathExtension] caseInsensitiveCompare: @"mka"] == NSOrderedSame ||
         [[[absoluteURL path] pathExtension] caseInsensitiveCompare: @"mks"] == NSOrderedSame ||
         [[[absoluteURL path] pathExtension] caseInsensitiveCompare: @"mov"] == NSOrderedSame) {
-        doc = [self openUntitledDocumentAndDisplay:displayDocument error:outError];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            doc = [self openUntitledDocumentAndDisplay:displayDocument error:outError];
+        });
         [doc performSelectorOnMainThread:@selector(showImportSheet:) withObject:[NSArray arrayWithObject:absoluteURL] waitUntilDone:NO];
         return doc;
     }

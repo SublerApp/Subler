@@ -73,10 +73,11 @@
     return nil;
 }
 
-- (id)initWithType:(NSString *)typeName error:(NSError **)outError
+- (instancetype)initWithType:(NSString *)typeName error:(NSError **)outError
 {
-    if (self = [super initWithType:typeName error:outError])
+    if (self = [super initWithType:typeName error:outError]) {
         self.mp4 = [[[MP42File alloc] initWithDelegate:self] autorelease];
+    }
 
     return self;
 }
@@ -177,8 +178,6 @@
 - (BOOL)writeSafelyToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName
         forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError **)outError;
 {
-    NSError *inError = nil;
-
     NSMutableDictionary * attributes = [[NSMutableDictionary alloc] init];
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue])
         [attributes setObject:@YES forKey:MP42GenerateChaptersPreviewTrack];
@@ -201,6 +200,7 @@
     IOReturn io_success = IOPMAssertionCreateWithName(kIOPMAssertionTypeNoIdleSleep,
                                                       kIOPMAssertionLevelOn, reasonForActivity, &assertionID);
     BOOL success = NO;
+    NSError *inError = nil;
 
     switch (saveOperation) {
         case NSSaveOperation:
@@ -218,6 +218,8 @@
             break;
     }
 
+    [attributes release];
+
     if (success && _optimize) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [saveOperationName setStringValue:@"Optimizing…"];
@@ -226,12 +228,9 @@
         _optimize = NO;
     }
 
-
     if (io_success == kIOReturnSuccess) {
         IOPMAssertionRelease(assertionID);
     }
-
-    [attributes release];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self saveDidComplete:inError URL:absoluteURL];
@@ -965,4 +964,3 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 }
 
 @end
-
