@@ -14,8 +14,6 @@
 #import "SBTableView.h"
 #import "SBMovieViewController.h"
 
-#import "MAAttachedWindow.h"
-
 #define TOOLBAR_GENERAL     @"TOOLBAR_GENERAL"
 #define TOOLBAR_ADVANCED    @"TOOLBAR_ADVANCED"
 #define TOOLBAR_SETS        @"TOOLBAR_SETS"
@@ -150,13 +148,8 @@
 
 - (IBAction)closePopOver:(id)sender
 {
-    if(_popover) {
-        if (!NSClassFromString(@"NSPopover")) {
-            [[self window] removeChildWindow:_popover];
-            [_popover orderOut:self];
-        }
-        else
-            [_popover close];
+    if (_popover) {
+        [_popover close];
 
         [_popover release];
         _popover = nil;
@@ -177,41 +170,11 @@
         _controller = [[SBMovieViewController alloc] initWithNibName:@"MovieView" bundle:nil];
         [_controller setMetadata:[[presetManager presets] objectAtIndex:_currentRow]];
 
-        if (NSClassFromString(@"NSPopover")) {
-            _popover = [[NSPopover alloc] init];
-            ((NSPopover *)_popover).contentViewController = _controller;
-            ((NSPopover *)_popover).contentSize = NSMakeSize(480.0f, 500.0f);
+        _popover = [[NSPopover alloc] init];
+        _popover.contentViewController = _controller;
+        _popover.contentSize = NSMakeSize(480.0f, 500.0f);
 
-            [_popover showRelativeToRect:[tableView frameOfCellAtColumn:1 row:_currentRow] ofView:tableView preferredEdge:NSMaxYEdge];
-        } else {
-            NSInteger row = [tableView selectedRow];
-
-            NSRect cellFrame = [tableView frameOfCellAtColumn:1 row:row];
-            NSRect tableFrame = [[[tableView superview] superview]frame];
-
-            NSPoint windowPoint = NSMakePoint(NSMidX(cellFrame) + 20,
-                                              NSHeight(tableFrame) + tableFrame.origin.y - cellFrame.origin.y - (cellFrame.size.height / 2) - 8);
-
-            _popover = [[MAAttachedWindow alloc] initWithView:[_controller view]
-                                              attachedToPoint:windowPoint
-                                                     inWindow:[self window]
-                                                       onSide:MAPositionBottom
-                                                   atDistance:0];
-
-            [_popover setBackgroundColor:[NSColor colorWithCalibratedRed:0.98f green:0.98f blue:1.0f alpha:0.9f]];
-            [(MAAttachedWindow *)_popover setDelegate:self];
-            [(MAAttachedWindow *)_popover setCornerRadius:6];
-
-            [[self window] addChildWindow:_popover ordered:NSWindowAbove];
-
-            [_popover setAlphaValue:0.0];
-
-            [NSAnimationContext beginGrouping];
-            [[NSAnimationContext currentContext] setDuration:0.2];
-            [_popover makeKeyAndOrderFront:self];
-            [[_popover animator] setAlphaValue:1.0];
-            [NSAnimationContext endGrouping];
-        }
+        [_popover showRelativeToRect:[tableView frameOfCellAtColumn:1 row:_currentRow] ofView:tableView preferredEdge:NSMaxYEdge];
     }
 }
 

@@ -14,7 +14,7 @@
 @private
     IBOutlet NSView *generalView, *advancedView, *setsView;
 
-    id _popover;
+    NSPopover *_popover;
     SBMovieViewController *_controller;
     NSInteger _currentRow;
 
