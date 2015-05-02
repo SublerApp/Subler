@@ -85,6 +85,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+#ifdef DONATION
     BOOL firstLaunch = YES;
 
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"FirstLaunch"])
@@ -129,6 +130,7 @@
 
     if (firstLaunch)
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FirstLaunch"];
+#endif
     
     [SBQueueController sharedManager];
 }
