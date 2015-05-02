@@ -483,19 +483,14 @@ static void *SBQueueContex = &SBQueueContex;
 }
 
 - (IBAction)toggleOptions:(id)sender {
-    if (NSClassFromString(@"NSPopover")) {
-        [self createOptionsPopover];
+    [self createOptionsPopover];
 
-        if (!self.popover.isShown) {
-            NSButton *targetButton = (NSButton *)sender;
-            [self.popover showRelativeToRect:[targetButton bounds] ofView:sender preferredEdge:NSMaxYEdge];
-        } else {
-            [self.popover close];
-            self.popover = nil;
-        }
+    if (!self.popover.isShown) {
+        NSButton *targetButton = (NSButton *)sender;
+        [self.popover showRelativeToRect:[targetButton bounds] ofView:sender preferredEdge:NSMaxYEdge];
     } else {
-        NSWindow *optionsWindow = [self createOptionsWindow];
-        [optionsWindow makeKeyAndOrderFront:sender];
+        [self.popover close];
+        self.popover = nil;
     }
 }
 
@@ -503,14 +498,12 @@ static void *SBQueueContex = &SBQueueContex;
     NSInteger clickedRow = [sender clickedRow];
     SBQueueItem *item = [self.queue itemAtIndex:clickedRow];
 
-    if (NSClassFromString(@"NSPopover")) {
-        if (self.itemPopover.isShown && [(SBItemViewController *)self.itemPopover.contentViewController item] == item) {
-            [self.itemPopover close];
-            self.itemPopover = nil;
-        } else {
-            [self createItemPopover:[self.queue itemAtIndex:clickedRow]];
-            [self.itemPopover showRelativeToRect:[sender frameOfCellAtColumn:2 row:clickedRow] ofView:sender preferredEdge:NSMaxXEdge];
-        }
+    if (self.itemPopover.isShown && [(SBItemViewController *)self.itemPopover.contentViewController item] == item) {
+        [self.itemPopover close];
+        self.itemPopover = nil;
+    } else {
+        [self createItemPopover:[self.queue itemAtIndex:clickedRow]];
+        [self.itemPopover showRelativeToRect:[sender frameOfCellAtColumn:2 row:clickedRow] ofView:sender preferredEdge:NSMaxXEdge];
     }
 }
 
@@ -521,7 +514,7 @@ static void *SBQueueContex = &SBQueueContex;
     panel.allowsMultipleSelection = YES;
     panel.canChooseFiles = YES;
     panel.canChooseDirectories = YES;
-    [panel setAllowedFileTypes:supportedFileFormat()];
+    panel.allowedFileTypes = supportedFileFormat();
 
     [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
@@ -584,20 +577,11 @@ static void *SBQueueContex = &SBQueueContex;
             [rowIndexes removeIndex:[self.queue indexOfItem:item]];
 
     if ([rowIndexes count]) {
-        if ([NSTableView instancesRespondToSelector:@selector(beginUpdates)]) {
-            #if __MAC_OS_X_VERSION_MAX_ALLOWED > 1060
             [aTableView beginUpdates];
             [aTableView removeRowsAtIndexes:rowIndexes withAnimation:NSTableViewAnimationEffectFade];
             [aTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedIndex] byExtendingSelection:NO];
             [self removeItems:array];
             [aTableView endUpdates];
-            #endif
-        }
-        else {
-            [self removeItems:array];
-            [aTableView reloadData];
-            [aTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedIndex] byExtendingSelection:NO];
-        }
 
         if (self.queue.status != SBQueueStatusWorking) {
             [_countLabel setStringValue:[NSString stringWithFormat:@"%lu files in queue.", (unsigned long)[self.queue count]]];
@@ -626,16 +610,10 @@ static void *SBQueueContex = &SBQueueContex;
     NSIndexSet *indexes = [self.queue indexesOfItemsWithStatus:SBQueueItemStatusCompleted];
 
     if ([indexes count]) {
-        if ([NSTableView instancesRespondToSelector:@selector(beginUpdates)]) {
-#if __MAC_OS_X_VERSION_MAX_ALLOWED > 1060
             [_tableView beginUpdates];
             [_tableView removeRowsAtIndexes:indexes withAnimation:NSTableViewAnimationEffectFade];
             [_tableView endUpdates];
             [self.queue removeItemsAtIndexes:indexes];
-#endif
-        } else {
-            [_tableView reloadData];
-        }
 
         if (self.queue.status != SBQueueStatusWorking) {
             [_countLabel setStringValue:[NSString stringWithFormat:@"%lu files in queue.", (unsigned long)[self.queue count]]];
