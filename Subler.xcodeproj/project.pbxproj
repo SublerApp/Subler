@@ -121,7 +121,7 @@
 		A941B4DF134A531400E22F45 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = tessdata;
+			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
 			);
