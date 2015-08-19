@@ -171,8 +171,7 @@
 
 - (IBAction) help:(id)sender
 {
-    [[NSWorkspace sharedWorkspace] openURL: [NSURL
-                                             URLWithString:@"http://code.google.com/p/subler/wiki/Documentation"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://bitbucket.org/galad87/subler/wiki/Home"]];
 }
 
 - (IBAction) linkDonate:(id)sender
@@ -207,7 +206,7 @@
 
             SBDocument *doc = [self openUntitledDocumentAndDisplay:displayDocument error:&outError];
             [doc performSelectorOnMainThread:@selector(showImportSheet:) withObject:[NSArray arrayWithObject:url] waitUntilDone:NO];
-            completionHandler(doc, NO, NULL);
+            completionHandler(doc, NO, outError);
         });
     }
     else {

@@ -11,6 +11,8 @@
 
 @class MP42File;
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef enum SBQueueItemStatus : NSInteger {
     SBQueueItemStatusUnknown = 0,
     SBQueueItemStatusReady,
@@ -38,9 +40,9 @@ typedef enum SBQueueItemStatus : NSInteger {
 }
 
 @property (nonatomic, readwrite) SBQueueItemStatus status;
-@property (nonatomic, readonly) NSString *localizedWorkingDescription;
+@property (nonatomic, readonly, nullable) NSString *localizedWorkingDescription;
 
-@property (nonatomic, readonly) MP42File *mp4File;
+@property (nonatomic, readonly, nullable) MP42File *mp4File;
 
 @property (nonatomic, readonly) NSURL *URL;
 @property (nonatomic, copy) NSURL *destURL;
@@ -48,7 +50,7 @@ typedef enum SBQueueItemStatus : NSInteger {
 @property (nonatomic, readonly) NSArray *actions;
 @property (nonatomic, readonly) NSDictionary *attributes;
 
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, assign, nullable) id delegate;
 
 + (instancetype)itemWithURL:(NSURL *)URL;
 
@@ -63,3 +65,5 @@ typedef enum SBQueueItemStatus : NSInteger {
 - (void)cancel;
 
 @end
+
+NS_ASSUME_NONNULL_END

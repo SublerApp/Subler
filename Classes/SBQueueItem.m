@@ -205,9 +205,10 @@
                 }
             }
 
-            // DTS -> always convert.
+            // DTS -> convert only if specified in the prefs.
             if ([track.format isEqualToString:MP42AudioFormatDTS]) {
-                if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioDtsPassthrough"] boolValue]) {
+                if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioConvertDts"] boolValue]) {
+                    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepDts"] boolValue]) {
                         MP42AudioTrack *copy = [track copy];
                         copy.needConversion = YES;
                         copy.mixdownType = SBDolbyPlIIMixdown;
@@ -215,20 +216,19 @@
                         [self.mp4File addTrack:copy];
                         
                         [copy release];
-                }
-                else {
-                    track.needConversion = YES;
+                    }
+                    else {
+                        track.needConversion = YES;
+                    }
                 }
             }
-        
-            
+
             // VobSub -> only if specified in the prefs.
             if (([track.format isEqualToString:MP42SubtitleFormatVobSub] && [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBSubtitleConvertBitmap"] boolValue]))
                 track.needConversion = YES;
 
             // If an audio track needs to be converted, apply the mixdown from the preferences.
-            if ([track isMemberOfClass:[MP42AudioTrack class]] && track.needConversion)
-            {
+            if ([track isMemberOfClass:[MP42AudioTrack class]] && track.needConversion) {
                 NSInteger mixdown = [[[NSUserDefaults standardUserDefaults]
                   valueForKey:@"SBAudioMixdown"] integerValue];
                 MP42AudioTrack *audioTrack = (MP42AudioTrack *)track;
@@ -252,8 +252,9 @@
                 }
             }
 
-            if (isTrackMuxable(track.format) || trackNeedConversion(track.format))
+            if (isTrackMuxable(track.format) || trackNeedConversion(track.format)) {
                 [self.mp4File addTrack:track];
+            }
         }
         [fileImporter release];
     }

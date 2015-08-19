@@ -22,6 +22,8 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
 
 @implementation SBPresetManager
 
+@synthesize presets = _presets;
+
 + (SBPresetManager *)sharedManager
 {
     static dispatch_once_t pred;
@@ -31,8 +33,9 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
     return sharedPresetManager;
 }
 
-- (id)init {
-    if ((self = [super init])) {
+- (instancetype)init {
+    self = [super init];
+    if (self) {
         _presets = [[NSMutableArray alloc] init];
 
         [self loadPresets];
@@ -48,7 +51,7 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
 
 - (void)newSetFromExistingMetadata:(MP42Metadata *)set
 {
-    id newSet = [set copy];
+    MP42Metadata *newSet = [set copy];
     [_presets addObject:newSet];
     [newSet release];
 
@@ -71,8 +74,9 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
     NSString *appSupportPath = [self appSupportPath];
     MP42Metadata *newPreset;
 
-    if (!appSupportPath)
+    if (!appSupportPath) {
         return NO;
+    }
 
     NSDirectoryEnumerator *dirEnum = [fileManager enumeratorAtPath:appSupportPath];
     while ((file = [dirEnum nextObject])) {
@@ -89,10 +93,12 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
         }
     }
 
-    if (![_presets count])
+    if (!_presets.count) {
         return NO;
-    else
+    }
+    else {
         return YES;
+    }
 }
 
 - (BOOL)savePresets
@@ -101,12 +107,13 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
     NSString *appSupportPath = [self appSupportPath];
     BOOL noErr = YES;
 
-
-    if (!appSupportPath)
+    if (!appSupportPath) {
         return NO;
+    }
 
-    if (![fileManager fileExistsAtPath:appSupportPath])
+    if (![fileManager fileExistsAtPath:appSupportPath]) {
         [fileManager createDirectoryAtPath:appSupportPath withIntermediateDirectories:noErr attributes:nil error:NULL];
+    }
 
     for (MP42Metadata  *object in _presets) {
         if ([object isEdited]) {
@@ -137,14 +144,14 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
     return [self removePresetWithName:name];
 }
 
-
 - (BOOL)removePresetWithName:(NSString *)name
 {
     BOOL err = NO;
     NSString *appSupportPath = [self appSupportPath];
 
-    if (!appSupportPath)
+    if (!appSupportPath) {
         return NO;
+    }
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
     err = [fileManager removeItemAtPath:[NSString stringWithFormat:@"%@/%@.sbpreset", appSupportPath, name]
@@ -152,7 +159,5 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
 
     return err;
 }
-
-@synthesize presets = _presets;
 
 @end

@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class SBQueueItem;
 
 @protocol SBItemViewDelegate <NSObject>
@@ -28,8 +30,10 @@
 }
 
 @property (nonatomic, readonly) SBQueueItem *item;
-@property (nonatomic, assign, readwrite) id delegate;
+@property (nonatomic, assign, readwrite) id<SBItemViewDelegate> delegate;
 
 - (instancetype)initWithItem:(SBQueueItem *)item;
 
 @end
+
+NS_ASSUME_NONNULL_END

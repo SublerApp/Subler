@@ -225,7 +225,7 @@
 }
 
 #pragma mark Asynchronous searching
-- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage completionHandler:(void(^)(NSArray *results))handler {
+- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage completionHandler:(void(^)(NSArray<MP42Metadata *> * _Nullable results))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
             NSArray *results = [self searchTVSeries:aSeries language:aLanguage];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -236,7 +236,7 @@
     });
 }
 
-- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum completionHandler:(void(^)(NSArray *results))handler {
+- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum completionHandler:(void(^)(NSArray<MP42Metadata *> * _Nullable results))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
             NSArray *results = [self searchTVSeries:aSeries language:aLanguage seasonNum:aSeasonNum episodeNum:aEpisodeNum];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -247,7 +247,7 @@
     });
 }
 
-- (void) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage completionHandler:(void(^)(NSArray *results))handler {
+- (void) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage completionHandler:(void(^)(NSArray<MP42Metadata *> * _Nullable results))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
             NSArray *results = [self searchMovie:aMovieTitle language:aLanguage];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -258,7 +258,7 @@
     });
 }
 
-- (void) loadFullMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage completionHandler:(void(^)(MP42Metadata *metadata))handler {
+- (void) loadFullMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage completionHandler:(void(^)(MP42Metadata * _Nullable metadata))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
             if (aMetadata.mediaKind == 9) {
                 [self loadMovieMetadata:aMetadata language:aLanguage];
@@ -279,7 +279,7 @@
 
 #pragma mark Methods to be overridden
 
-- (NSArray *) languages {
+- (NSArray<NSString *> *) languages {
 	@throw [NSException exceptionWithName:NSInternalInconsistencyException
 								   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
 								 userInfo:nil];

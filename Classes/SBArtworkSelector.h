@@ -20,13 +20,13 @@
     IBOutlet NSSlider               *slider;
     IBOutlet NSButton               *addArtworkButton;
     IBOutlet NSButton               *loadMoreArtworkButton;
-    NSMutableArray                  *imageURLsUnloaded;
+    NSMutableArray<NSURL *>         *imageURLsUnloaded;
     NSMutableArray                  *images;
-	NSArray							*artworkProviderNames;
+	NSArray<NSString *>						*artworkProviderNames;
 }
 
 #pragma mark Initialization
-- (instancetype)initWithDelegate:(id <SBArtworkSelectorDelegate>)del imageURLs:(NSArray *)imageURLs artworkProviderNames:(NSArray *)artworkProviderNames;
+- (instancetype)initWithDelegate:(id <SBArtworkSelectorDelegate>)del imageURLs:(NSArray<NSURL *> *)imageURLs artworkProviderNames:(NSArray<NSString *> *)artworkProviderNames;
 
 #pragma mark Load images
 - (IBAction) loadMoreArtwork:(id)sender;

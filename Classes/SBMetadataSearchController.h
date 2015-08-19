@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class SBTableView;
 @class SBArtworkSelector;
 
@@ -66,3 +68,5 @@
 + (void) deleteCachedMetadata;
 
 @end
+
+NS_ASSUME_NONNULL_END

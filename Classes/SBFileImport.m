@@ -358,8 +358,9 @@
 
 - (IBAction)addTracks:(id)sender
 {
-    if (!_actionArray) // if add tracks is called directly, need to prepare actions
+    if (!_actionArray) { // if add tracks is called directly, need to prepare actions
         [self _prepareActionArray];
+    }
 
     NSMutableArray *tracks = [[NSMutableArray alloc] init];
     NSInteger i = 0;

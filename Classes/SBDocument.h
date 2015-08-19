@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class MP42File;
 
 @interface SBDocument : NSDocument {
@@ -72,3 +74,5 @@
 - (void)showImportSheet:(NSArray *)fileURLs;
 
 @end
+
+NS_ASSUME_NONNULL_END

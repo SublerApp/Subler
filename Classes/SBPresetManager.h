@@ -8,13 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class MP42Metadata;
 
 extern NSString *SBPresetManagerUpdatedNotification;
 
 @interface SBPresetManager : NSObject {
 @private
-    NSMutableArray *_presets;
+    NSMutableArray<MP42Metadata *> *_presets;
 }
 
 + (SBPresetManager *)sharedManager;
@@ -25,6 +27,8 @@ extern NSString *SBPresetManagerUpdatedNotification;
 - (MP42Metadata *)setWithName:(NSString *)name;
 - (BOOL)removePresetAtIndex:(NSUInteger)index;
 
-@property(readonly) NSArray *presets;
+@property(readonly) NSArray<MP42Metadata *> *presets;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -22,7 +22,7 @@ static void *SBQueueContex = &SBQueueContex;
 
 #define SublerBatchTableViewDataType @"SublerBatchTableViewDataType"
 
-@interface SBQueueController () <NSPopoverDelegate, NSWindowDelegate, NSTableViewDelegate, NSTableViewDataSource, SBTableViewDelegate>
+@interface SBQueueController () <NSPopoverDelegate, NSWindowDelegate, NSTableViewDelegate, NSTableViewDataSource, SBTableViewDelegate, SBItemViewDelegate>
 
 @property (nonatomic, readonly) SBQueue *queue;
 @property (nonatomic, retain) NSPopover *popover;
@@ -64,7 +64,7 @@ static void *SBQueueContex = &SBQueueContex;
     return sharedManager;
 }
 
-- (id)init {
+- (instancetype)init {
     if (self = [super initWithWindowNibName:@"Queue"]) {
         [SBQueuePreferences registerUserDefaults];
         _prefs = [[SBQueuePreferences alloc] init];
@@ -185,14 +185,14 @@ static void *SBQueueContex = &SBQueueContex;
 
 #pragma mark - Queue methods
 
-/*
+/**
  * The queue status
  */
 - (SBQueueStatus)status {
     return self.queue.status;
 }
 
-/*
+/**
  * Saves the queue and the user defaults.
  */
 - (BOOL)saveQueueToDisk {
@@ -200,7 +200,7 @@ static void *SBQueueContex = &SBQueueContex;
     return [self.queue saveQueueToDisk];
 }
 
-/*
+/**
  * Opens a SBQueueItem in a new document window
  * and removes it from the queue.
  */
@@ -209,21 +209,34 @@ static void *SBQueueContex = &SBQueueContex;
     [self updateUI];
 
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        if (!item.mp4File)
-            [item prepare:NULL];
+        __block NSError *error;
+        BOOL result = NO;
+
+        if (!item.mp4File) {
+            result = [item prepare:&error];
+            if (result == NO) {
+                NSLog(@"%@", error);
+            }
+
+        }
 
         MP42File *mp4 = item.mp4File;
         dispatch_sync(dispatch_get_main_queue(), ^{
-            SBDocument *doc = [[SBDocument alloc] initWithMP4:mp4 error:NULL];
-            [[NSDocumentController sharedDocumentController] addDocument:doc];
-            [doc makeWindowControllers];
-            [doc showWindows];
-            [doc release];
+            SBDocument *doc = [[SBDocument alloc] initWithMP4:mp4 error:&error];
 
-            [self.itemPopover close];
+            if (doc) {
+                [[NSDocumentController sharedDocumentController] addDocument:doc];
+                [doc makeWindowControllers];
+                [doc showWindows];
+                [doc release];
 
-            [self removeItems:[NSArray arrayWithObject:item]];
-            [self updateUI];
+                [self.itemPopover close];
+
+                [self removeItems:[NSArray arrayWithObject:item]];
+                [self updateUI];
+            } else {
+                NSLog(@"%@", error);
+            }
         });
     });
 }
@@ -345,7 +358,7 @@ static void *SBQueueContex = &SBQueueContex;
 
 #pragma mark - NSPopover delegate
 
-/*
+/**
  *  Creates a popover with the queue options.
  */
 - (void)createOptionsPopover {
@@ -378,7 +391,7 @@ static void *SBQueueContex = &SBQueueContex;
     return _detachedWindow;
 }
 
-/*
+/**
  *  Creates a popover with a SBQueueItem
  */
 - (void)createItemPopover:(SBQueueItem *)item {
@@ -440,7 +453,7 @@ static void *SBQueueContex = &SBQueueContex;
 
 #pragma mark - UI methods
 
-/*
+/**
  *  Updates the count on the app dock icon.
  */
 - (void)updateDockTile {

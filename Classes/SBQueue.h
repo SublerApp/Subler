@@ -11,6 +11,8 @@
 
 #import "SBQueueItem.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSUInteger, SBQueueStatus) {
     SBQueueStatusUnknown = 0,
     SBQueueStatusWorking,
@@ -57,7 +59,7 @@ extern NSString *SBQueueCancelledNotification;
 - (SBQueueItem *)itemAtIndex:(NSUInteger)index;
 - (NSUInteger)indexOfItem:(SBQueueItem *)item;
 - (NSIndexSet *)indexesOfItemsWithStatus:(SBQueueItemStatus)status;
-- (NSArray *)itemsAtIndexes:(NSIndexSet *)indexes;
+- (NSArray<SBQueueItem *> *)itemsAtIndexes:(NSIndexSet *)indexes;
 
 - (void)insertItem:(SBQueueItem *)anItem atIndex:(NSUInteger)index;
 
@@ -69,3 +71,6 @@ extern NSString *SBQueueCancelledNotification;
 - (BOOL)saveQueueToDisk;
 
 @end
+
+NS_ASSUME_NONNULL_END
+

@@ -28,9 +28,8 @@
 }
 
 - (void)testExample {
-    SBQueueSetAction *action = [[SBQueueSetAction alloc] init];
     // This is an example of a functional test case.
-    XCTAssert(action, @"Pass");
+    //XCTAssert(action, @"Pass");
 }
 
 - (void)testPerformanceExample {

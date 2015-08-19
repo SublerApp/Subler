@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString * const SBQueueFileType;
 extern NSString * const SBQueueOrganize;
 extern NSString * const SBQueueMetadata;
@@ -36,3 +38,5 @@ extern NSString * const SBQueueDestination;
 - (void)saveUserDefaults;
 
 @end
+
+NS_ASSUME_NONNULL_END

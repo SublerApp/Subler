@@ -11,6 +11,8 @@
 @class SBQueueItem;
 @class MP42Metadata;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  SBQueue actions protocol, actions can be run by
  *  the queue's items.
@@ -57,3 +59,5 @@
  */
 @interface SBQueueOrganizeGroupsAction : NSObject <SBQueueActionProtocol>
 @end
+
+NS_ASSUME_NONNULL_END

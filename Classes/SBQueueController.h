@@ -7,8 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
 #import "SBQueue.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class SBQueueItem;
 @class SBOptionsViewController;
@@ -51,3 +52,5 @@
 - (BOOL)saveQueueToDisk;
 
 @end
+
+NS_ASSUME_NONNULL_END

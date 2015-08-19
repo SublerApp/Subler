@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class MP42Metadata;
 
 @protocol SBFileImportDelegate
@@ -40,3 +42,5 @@
 - (IBAction)uncheckSelected:(id)sender;
 
 @end
+
+NS_ASSUME_NONNULL_END
