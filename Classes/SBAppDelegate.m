@@ -207,8 +207,8 @@
 
             SBDocument *doc = [self openUntitledDocumentAndDisplay:displayDocument error:&outError];
             [doc performSelectorOnMainThread:@selector(showImportSheet:) withObject:[NSArray arrayWithObject:url] waitUntilDone:NO];
+            completionHandler(doc, NO, NULL);
         });
-
     }
     else {
         [super openDocumentWithContentsOfURL:url display:displayDocument completionHandler:completionHandler];
