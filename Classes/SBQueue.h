@@ -31,7 +31,7 @@ extern NSString *SBQueueCancelledNotification;
 
     SBQueueItem        *_currentItem;
     NSUInteger          _currentIndex;
-    NSMutableArray     *_items;
+    NSMutableArray<SBQueueItem *> *_items;
     NSURL              *_URL;
 
     IOPMAssertionID _assertionID;

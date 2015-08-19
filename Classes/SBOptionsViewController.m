@@ -178,7 +178,7 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
     panel.canCreateDirectories = YES;
 
     [panel setPrompt:@"Select"];
-    [panel beginSheetModalForWindow:nil completionHandler:^(NSInteger result) {
+    [panel beginWithCompletionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
             NSMenuItem *folderItem = [self prepareDestPopupItem:[panel URL]];
 

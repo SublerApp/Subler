@@ -214,8 +214,11 @@ static void *SBQueueContex = &SBQueueContex;
 
         MP42File *mp4 = item.mp4File;
         dispatch_sync(dispatch_get_main_queue(), ^{
-            SBDocument *doc = [[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:NULL];
-            [doc setMp4File:mp4];
+            SBDocument *doc = [[SBDocument alloc] initWithMP4:mp4 error:NULL];
+            [[NSDocumentController sharedDocumentController] addDocument:doc];
+            [doc makeWindowControllers];
+            [doc showWindows];
+            [doc release];
 
             [self.itemPopover close];
 
@@ -599,7 +602,7 @@ static void *SBQueueContex = &SBQueueContex;
 
 - (IBAction)showInFinder:(id)sender {
     SBQueueItem *item = [self.queue itemAtIndex:[_tableView clickedRow]];
-    [[NSWorkspace sharedWorkspace] selectFile:[item.destURL path] inFileViewerRootedAtPath:nil];
+    [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[item.destURL]];
 }
 
 - (IBAction)removeSelectedItems:(id)sender {

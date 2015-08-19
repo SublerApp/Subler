@@ -659,10 +659,11 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     for (index = [itemIndexes lastIndex]; index != NSNotFound; index = [itemIndexes indexLessThanIndex:index]) {
         NSArray *representations = [[[metadata.artworks objectAtIndex:index] image] representations];
-        NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations
-                                                              usingType:NSTIFFFileType properties:nil];
-
-        [pasteboard setData:bitmapData forType:NSTIFFPboardType];
+        if (representations) {
+            NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations
+                                                                          usingType:NSTIFFFileType properties:@{}];
+            [pasteboard setData:bitmapData forType:NSTIFFPboardType];
+        }
     }
 
     return [itemIndexes count];

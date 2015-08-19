@@ -54,7 +54,7 @@
 - (instancetype)initWithURL:(NSURL *)URL {
     self = [self init];
     if (self) {
-        _fileURL = [URL retain];
+        _fileURL = [[URL filePathURL] retain];
 
         NSFileManager *fileManager = [NSFileManager defaultManager];
         unsigned long long originalFileSize = [[[fileManager attributesOfItemAtPath:[_fileURL path] error:nil] valueForKey:NSFileSize] unsignedLongLongValue];
