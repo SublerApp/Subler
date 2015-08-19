@@ -10,7 +10,7 @@
 
 @class MP42File;
 
-@interface SBDocument : NSDocument <NSTableViewDelegate> {
+@interface SBDocument : NSDocument {
 @private
     MP42File  *_mp4File;
     IBOutlet NSWindow       *documentWindow;
@@ -70,7 +70,5 @@
 - (IBAction)export:(id)sender;
 
 - (void)showImportSheet:(NSArray *)fileURLs;
-
-- (void)setMp4File:(MP42File *)mp4;
 
 @end

@@ -26,7 +26,7 @@
 
 #define SublerTableViewDataType @"SublerTableViewDataType"
 
-@interface SBDocument () <MP42FileDelegate, SBFileImportDelegate, SBMetadataSearchControllerDelegate>
+@interface SBDocument () <NSTableViewDelegate, MP42FileDelegate, SBFileImportDelegate, SBMetadataSearchControllerDelegate>
 
 @property (nonatomic, retain) MP42File *mp4;
 
@@ -70,7 +70,11 @@
 
 - (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError **)outError
 {
-    return nil;
+    if (self = [super initWithType:@"Video-MPEG4" error:outError]) {
+        self.mp4 = mp4File;
+    }
+
+    return self;
 }
 
 - (instancetype)initWithType:(NSString *)typeName error:(NSError **)outError
@@ -136,11 +140,6 @@
     return YES;
 }
 
-+ (BOOL)autosavesInPlace
-{
-    return NO;
-}
-
 #pragma mark Save methods
 
 - (BOOL)canAsynchronouslyWriteToURL:(NSURL *)url
@@ -175,14 +174,20 @@
     return YES;
 }
 
-- (BOOL)writeSafelyToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName
-        forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError **)outError;
+- (void)saveToURL:(NSURL *)url ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation completionHandler:(void (^)(NSError * _Nullable))completionHandler
+{
+    [super saveToURL:url ofType:typeName forSaveOperation:saveOperation completionHandler:completionHandler];
+}
+
+- (BOOL)writeSafelyToURL:(NSURL *)url ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError * _Nullable *)outError
 {
     NSMutableDictionary * attributes = [[NSMutableDictionary alloc] init];
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue])
         [attributes setObject:@YES forKey:MP42GenerateChaptersPreviewTrack];
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBOrganizeAlternateGroups"] boolValue])
         [attributes setObject:@YES forKey:MP42OrganizeAlternateGroups];
+
+    [self unblockUserInteraction];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [optBar setIndeterminate:YES];
@@ -192,7 +197,6 @@
             modalDelegate:nil didEndSelector:NULL contextInfo:nil];
     });
 
-    [self unblockUserInteraction];
 
     IOPMAssertionID assertionID;
     // Enable sleep assertion
@@ -211,7 +215,7 @@
         case NSSaveAsOperation:
             if ([_64bit_data state]) [attributes setObject:@YES forKey:MP4264BitData];
             if ([_64bit_time state]) [attributes setObject:@YES forKey:MP4264BitTime];
-            success = [self.mp4 writeToUrl:absoluteURL withAttributes:attributes error:&inError];
+            success = [self.mp4 writeToUrl:url withAttributes:attributes error:&inError];
             break;
         default:
             NSAssert(NO, @"Unhandled save operation");
@@ -233,7 +237,7 @@
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self saveDidComplete:inError URL:absoluteURL];
+        [self saveDidComplete:inError URL:url];
     });
 
     return success;
@@ -941,12 +945,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         return YES;
     }
     return NO;
-}
-
-- (void)setMp4File:(MP42File *)mp4 {
-    self.mp4 = mp4;
-    [fileTracksTable reloadData];
-    [self tableViewSelectionDidChange:nil];
 }
 
 - (void)dealloc

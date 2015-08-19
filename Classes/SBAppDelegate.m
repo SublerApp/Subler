@@ -142,6 +142,7 @@
 
 - (IBAction)openInQueue:(id)sender
 {
+    [[SBQueueController sharedManager] showWindow:self];
     [[SBQueueController sharedManager] open:sender];
 }
 
@@ -184,27 +185,44 @@
 
 @implementation SBDocumentController
 
-- (id) init
+- (instancetype)init
 {
 	return [super init];
 }
 
-- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL display:(BOOL)displayDocument error:(NSError **)outError {
-    __block SBDocument *doc = nil;
+- (void)openDocumentWithContentsOfURL:(NSURL * _Nonnull)url
+                              display:(BOOL)displayDocument
+                    completionHandler:(void (^ _Nonnull)(NSDocument * _Nullable document,
+                                                         BOOL documentWasAlreadyOpen,
+                                                         NSError * _Nullable error))completionHandler
+{
+    NSString *extension = url.pathExtension;
+    if ([extension caseInsensitiveCompare: @"mkv"] == NSOrderedSame ||
+        [extension caseInsensitiveCompare: @"mka"] == NSOrderedSame ||
+        [extension caseInsensitiveCompare: @"mks"] == NSOrderedSame ||
+        [extension caseInsensitiveCompare: @"mov"] == NSOrderedSame) {
 
-    if ([[[absoluteURL path] pathExtension] caseInsensitiveCompare: @"mkv"] == NSOrderedSame ||
-        [[[absoluteURL path] pathExtension] caseInsensitiveCompare: @"mka"] == NSOrderedSame ||
-        [[[absoluteURL path] pathExtension] caseInsensitiveCompare: @"mks"] == NSOrderedSame ||
-        [[[absoluteURL path] pathExtension] caseInsensitiveCompare: @"mov"] == NSOrderedSame) {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            doc = [self openUntitledDocumentAndDisplay:displayDocument error:outError];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSError *outError;
+
+            SBDocument *doc = [self openUntitledDocumentAndDisplay:displayDocument error:&outError];
+            [doc performSelectorOnMainThread:@selector(showImportSheet:) withObject:[NSArray arrayWithObject:url] waitUntilDone:NO];
         });
-        [doc performSelectorOnMainThread:@selector(showImportSheet:) withObject:[NSArray arrayWithObject:absoluteURL] waitUntilDone:NO];
-        return doc;
+
     }
     else {
-        return [super openDocumentWithContentsOfURL:absoluteURL display:displayDocument error:outError];
+        [super openDocumentWithContentsOfURL:url display:displayDocument completionHandler:completionHandler];
     }
+}
+
+- (nullable __kindof NSDocument *)documentForURL:(NSURL *)url
+{
+    for (NSDocument *doc in self.documents) {
+        if ([doc.fileURL isEqualTo:url.filePathURL]) {
+            return doc;
+        }
+    }
+    return nil;
 }
 
 @end
