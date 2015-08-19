@@ -37,6 +37,7 @@
                                                               @"SBAudioMixdown":                @"1",
                                                               @"SBAudioBitrate":                @"96",
                                                               @"SBAudioConvertAC3":             @"YES",
+                                                              @"SBAudioDtsPassthrough":         @"NO",
                                                               @"SBAudioKeepAC3":                @"YES",
                                                               @"SBSubtitleConvertBitmap":       @"YES",
                                                               @"SBRatingsCountry":              @"All countries",

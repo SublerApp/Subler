@@ -206,9 +206,24 @@
             }
 
             // DTS -> always convert.
+            if ([track.format isEqualToString:MP42AudioFormatDTS]) {
+                if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioDtsPassthrough"] boolValue]) {
+                        MP42AudioTrack *copy = [track copy];
+                        copy.needConversion = YES;
+                        copy.mixdownType = SBDolbyPlIIMixdown;
+                        
+                        [self.mp4File addTrack:copy];
+                        
+                        [copy release];
+                }
+                else {
+                    track.needConversion = YES;
+                }
+            }
+        
+            
             // VobSub -> only if specified in the prefs.
-            if ([track.format isEqualToString:MP42AudioFormatDTS] ||
-                ([track.format isEqualToString:MP42SubtitleFormatVobSub] && [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBSubtitleConvertBitmap"] boolValue]))
+            if (([track.format isEqualToString:MP42SubtitleFormatVobSub] && [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBSubtitleConvertBitmap"] boolValue]))
                 track.needConversion = YES;
 
             // If an audio track needs to be converted, apply the mixdown from the preferences.
