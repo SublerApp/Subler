@@ -116,8 +116,8 @@
     return self;
 }
 
-+ (instancetype)itemWithMP4:(MP42File *)MP4 url:(NSURL *)URL attributes:(NSDictionary *)dict {
-    return [[[SBQueueItem alloc] initWithMP4:MP4 url:URL attributes:dict] autorelease];
++ (instancetype)itemWithMP4:(MP42File *)MP4 destinationURL:(NSURL *)destURL attributes:(NSDictionary *)dict {
+    return [[[SBQueueItem alloc] initWithMP4:MP4 url:destURL attributes:dict] autorelease];
 }
 
 #pragma mark KVO

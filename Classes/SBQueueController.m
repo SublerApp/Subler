@@ -88,7 +88,7 @@ static void *SBQueueContex = &SBQueueContex;
     _docImg = [[[NSWorkspace sharedWorkspace] iconForFileType:@"public.movie"] retain];
     [_docImg setSize:NSMakeSize(16, 16)];
 
-    [_tableView registerForDraggedTypes: [NSArray arrayWithObjects: NSFilenamesPboardType, SublerBatchTableViewDataType, nil]];
+    [_tableView registerForDraggedTypes:@[NSFilenamesPboardType, SublerBatchTableViewDataType]];
 
 
     // Observe the changes to SBQueueOptimize
@@ -232,7 +232,7 @@ static void *SBQueueContex = &SBQueueContex;
 
                 [self.itemPopover close];
 
-                [self removeItems:[NSArray arrayWithObject:item]];
+                [self removeItems:@[item]];
                 [self updateUI];
             } else {
                 NSLog(@"%@", error);
@@ -292,7 +292,7 @@ static void *SBQueueContex = &SBQueueContex;
  *  Adds a SBQueueItem to the queue
  */
 - (void)addItem:(SBQueueItem *)item {
-    [self addItems:[NSArray arrayWithObject:item] atIndexes:nil];
+    [self addItems:@[item] atIndexes:nil];
     [self updateUI];
 }
 
@@ -300,7 +300,7 @@ static void *SBQueueContex = &SBQueueContex;
  *  Adds an array of SBQueueItem to the queue.
  *  Implements the undo manager.
  */
-- (void)addItems:(NSArray *)items atIndexes:(NSIndexSet *)indexes; {
+- (void)addItems:(NSArray<SBQueueItem *> *)items atIndexes:(NSIndexSet *)indexes; {
     NSMutableIndexSet *mutableIndexes = [indexes mutableCopy];
     if ([indexes count] == [items count]) {
         for (id item in [items reverseObjectEnumerator]) {
@@ -336,7 +336,7 @@ static void *SBQueueContex = &SBQueueContex;
  *  Removes an array of SBQueueItemfromto the queue.
  *  Implements the undo manager.
  */
-- (void)removeItems:(NSArray *)items {
+- (void)removeItems:(NSArray<SBQueueItem *> *)items {
     NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
 
     for (id item in items) {
@@ -534,7 +534,7 @@ static void *SBQueueContex = &SBQueueContex;
 
     [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
-            NSMutableArray *items = [[NSMutableArray alloc] init];
+            NSMutableArray<SBQueueItem *> *items = [[NSMutableArray alloc] init];
 
             for (NSURL *url in [panel URLs]) {
                 SBQueueItem *item = [self createItemWithURL:url];
@@ -585,7 +585,7 @@ static void *SBQueueContex = &SBQueueContex;
         [rowIndexes addIndex:clickedRow];
     }
 
-    NSArray *array = [self.queue itemsAtIndexes:rowIndexes];
+    NSArray<SBQueueItem *> *array = [self.queue itemsAtIndexes:rowIndexes];
 
     // A item with a status of SBQueueItemStatusWorking can not be removed
     for (SBQueueItem *item in array)
@@ -643,7 +643,7 @@ static void *SBQueueContex = &SBQueueContex;
 - (BOOL)tableView:(NSTableView *)tv writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
     // Copy the row numbers to the pasteboard.    
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
-    [pboard declareTypes:[NSArray arrayWithObject:SublerBatchTableViewDataType] owner:self];
+    [pboard declareTypes:@[SublerBatchTableViewDataType] owner:self];
     [pboard setData:data forType:SublerBatchTableViewDataType];
     return YES;
 }
@@ -676,7 +676,7 @@ static void *SBQueueContex = &SBQueueContex;
         NSUInteger i = [rowIndexes countOfIndexesInRange:NSMakeRange(0, row)];
         row -= i;
 
-        NSArray *objects = [self.queue itemsAtIndexes:rowIndexes];
+        NSArray<SBQueueItem *> *objects = [self.queue itemsAtIndexes:rowIndexes];
         [self.queue removeItemsAtIndexes:rowIndexes];
 
         for (id object in [objects reverseObjectEnumerator])
@@ -690,8 +690,7 @@ static void *SBQueueContex = &SBQueueContex;
         return YES;
     } else { // From other documents
         if ([[pboard types] containsObject:NSURLPboardType] ) {
-            NSArray *items = [pboard readObjectsForClasses:
-                               [NSArray arrayWithObject: [NSURL class]] options: nil];
+            NSArray *items = [pboard readObjectsForClasses:@[[NSURL class]] options: nil];
             NSMutableArray *queueItems = [[NSMutableArray alloc] init];
             NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
 

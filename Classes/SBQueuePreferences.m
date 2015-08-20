@@ -75,7 +75,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
  * Save the queue user defaults
  */
 - (void)saveUserDefaults {
-    NSArray *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize,
+    NSArray<NSString *> *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize,
                       SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage];
 
     [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

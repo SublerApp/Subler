@@ -28,10 +28,11 @@ typedef enum SBQueueItemStatus : NSInteger {
     MP42File *_mp4File;
     NSURL    *_fileURL;
     NSURL    *_destURL;
-    NSDictionary   *_attributes;
-    NSMutableArray *_actions;
 
-    BOOL            _cancelled;
+    NSDictionary<NSString *, id> *_attributes;
+    NSMutableArray<id<SBQueueActionProtocol>> *_actions;
+
+    BOOL _cancelled;
 
     id _delegate;
 
@@ -47,15 +48,15 @@ typedef enum SBQueueItemStatus : NSInteger {
 @property (nonatomic, readonly) NSURL *URL;
 @property (nonatomic, copy) NSURL *destURL;
 
-@property (nonatomic, readonly) NSArray *actions;
-@property (nonatomic, readonly) NSDictionary *attributes;
+@property (nonatomic, readonly) NSArray<id<SBQueueActionProtocol>> *actions;
+@property (nonatomic, readonly) NSDictionary<NSString *, id> *attributes;
 
 @property (nonatomic, assign, nullable) id delegate;
 
 + (instancetype)itemWithURL:(NSURL *)URL;
 
 + (instancetype)itemWithMP4:(MP42File *)MP4;
-+ (instancetype)itemWithMP4:(MP42File *)MP4 url:(NSURL *)URL attributes:(NSDictionary *)dict;
++ (instancetype)itemWithMP4:(MP42File *)MP4 destinationURL:(NSURL *)destURL attributes:(NSDictionary *)dict;
 
 - (void)addAction:(id<SBQueueActionProtocol>)action;
 - (void)removeAction:(id<SBQueueActionProtocol>)action;

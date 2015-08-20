@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSButton *_editButton;
     NSProgressIndicator *_spinner;
 
-    id _delegate;
+    id<SBItemViewDelegate> _delegate;
 }
 
 @property (nonatomic, readonly) SBQueueItem *item;

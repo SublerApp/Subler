@@ -286,7 +286,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 			}
 		}
 	}
-	return nil;
+	return @[];
 }
 
 + (NSArray *) metadataForResults:(NSDictionary *)dict store:(NSDictionary *)store {

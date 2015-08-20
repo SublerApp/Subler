@@ -201,12 +201,18 @@
         [extension caseInsensitiveCompare: @"mks"] == NSOrderedSame ||
         [extension caseInsensitiveCompare: @"mov"] == NSOrderedSame) {
 
+        CFRetain(completionHandler);
+
         dispatch_async(dispatch_get_main_queue(), ^{
             NSError *outError;
 
-            SBDocument *doc = [self openUntitledDocumentAndDisplay:displayDocument error:&outError];
-            [doc performSelectorOnMainThread:@selector(showImportSheet:) withObject:[NSArray arrayWithObject:url] waitUntilDone:NO];
+            SBDocument *doc = [[self openUntitledDocumentAndDisplay:displayDocument error:&outError] retain];
             completionHandler(doc, NO, outError);
+            if (doc) {
+                [doc showImportSheet:@[url]];
+            }
+            CFRelease(completionHandler);
+            [doc release];
         });
     }
     else {
