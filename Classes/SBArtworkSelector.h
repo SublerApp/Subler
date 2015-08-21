@@ -20,9 +20,10 @@
     IBOutlet NSSlider               *slider;
     IBOutlet NSButton               *addArtworkButton;
     IBOutlet NSButton               *loadMoreArtworkButton;
+
     NSMutableArray<NSURL *>         *imageURLsUnloaded;
     NSMutableArray                  *images;
-	NSArray<NSString *>						*artworkProviderNames;
+	NSArray<NSString *>             *artworkProviderNames;
 }
 
 #pragma mark Initialization

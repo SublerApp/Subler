@@ -50,7 +50,7 @@ typedef enum SBCachePolicy : NSUInteger {
 
 - (void) cancel;
 
-#pragma Methods to be overridden
+#pragma mark Methods to be overridden
 - (NSArray<NSString *> *) languages;
 
 - (NSArray<MP42Metadata *> * _Nullable) searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage;

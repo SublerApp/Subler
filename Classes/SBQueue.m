@@ -175,11 +175,11 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
     [self disableSleep];
 
     dispatch_async(self.workQueue, ^{
-        NSError *outError = nil;
-        BOOL noErr = NO;
-
         for (;;) {
             @autoreleasepool {
+                NSError *outError = nil;
+                BOOL noErr = NO;
+
                 // Save the queue
                 [self saveQueueToDisk];
 

@@ -204,7 +204,7 @@
         CFRetain(completionHandler);
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSError *outError;
+            NSError *outError = nil;
 
             SBDocument *doc = [[self openUntitledDocumentAndDisplay:displayDocument error:&outError] retain];
             completionHandler(doc, NO, outError);

@@ -149,39 +149,8 @@
     return YES;
 }
 
-- (BOOL)saveDidComplete:(NSError *)outError URL:(NSURL *)absoluteURL
-{
-    [NSApp endSheet:savingWindow];
-    [savingWindow orderOut:self];
-    [optBar stopAnimation:self];
-
-    if (outError && [outError code] == 101) {
-        // Write permission error, don't reload the file
-    } else {
-        [self reloadFile:absoluteURL];
-    }
-
-    if (outError) {
-        [self presentError:outError
-            modalForWindow:documentWindow
-                  delegate:nil
-        didPresentSelector:NULL
-               contextInfo:NULL];
-
-        [outError release];
-    }
-
-    return YES;
-}
-
 - (BOOL)writeSafelyToURL:(NSURL *)url ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError * _Nullable *)outError
 {
-    NSMutableDictionary * attributes = [[NSMutableDictionary alloc] init];
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue])
-        [attributes setObject:@YES forKey:MP42GenerateChaptersPreviewTrack];
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBOrganizeAlternateGroups"] boolValue])
-        [attributes setObject:@YES forKey:MP42OrganizeAlternateGroups];
-
     dispatch_async(dispatch_get_main_queue(), ^{
         [optBar setIndeterminate:YES];
         [optBar startAnimation:self];
@@ -197,20 +166,32 @@
     CFStringRef reasonForActivity= CFSTR("Subler Save Operation");
     IOReturn io_success = IOPMAssertionCreateWithName(kIOPMAssertionTypeNoIdleSleep,
                                                       kIOPMAssertionLevelOn, reasonForActivity, &assertionID);
-    BOOL success = NO;
+    BOOL result = NO;
     NSError *inError = nil;
+
+    NSMutableDictionary<NSString *, NSNumber *> * attributes = [[NSMutableDictionary alloc] init];
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue]) {
+        attributes[MP42GenerateChaptersPreviewTrack] = @YES;
+    }
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBOrganizeAlternateGroups"] boolValue]) {
+        attributes[MP42OrganizeAlternateGroups] = @YES;
+    }
 
     switch (saveOperation) {
         case NSSaveOperation:
             // movie file already exists, so we'll just update
-            // the movie resource
-            success = [self.mp4 updateMP4FileWithAttributes:attributes error:&inError];
+            // the movie resource.
+            result = [self.mp4 updateMP4FileWithAttributes:attributes error:&inError];
             break;
+
         case NSSaveAsOperation:
-            if ([_64bit_data state]) [attributes setObject:@YES forKey:MP4264BitData];
-            if ([_64bit_time state]) [attributes setObject:@YES forKey:MP4264BitTime];
-            success = [self.mp4 writeToUrl:url withAttributes:attributes error:&inError];
+            // movie doesn not exist, create a new one from scratch.
+            if ([_64bit_data state]) { attributes[MP4264BitData] = @YES; }
+            if ([_64bit_time state]) { attributes[MP4264BitTime] = @YES; }
+
+            result = [self.mp4 writeToUrl:url withAttributes:attributes error:&inError];
             break;
+
         default:
             NSAssert(NO, @"Unhandled save operation");
             break;
@@ -218,11 +199,11 @@
 
     [attributes release];
 
-    if (success && _optimize) {
+    if (result && _optimize) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [saveOperationName setStringValue:@"Optimizing…"];
         });
-        success = [self.mp4 optimize];
+        result = [self.mp4 optimize];
         _optimize = NO;
     }
 
@@ -231,17 +212,33 @@
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self saveDidComplete:inError URL:url];
+        [NSApp endSheet:savingWindow];
+        [savingWindow orderOut:self];
+        [optBar stopAnimation:self];
+
+        if (inError && inError.code == 101) {
+            // Write permission error, don't reload the file
+        } else {
+            [self reloadFile:url];
+        }
+
+        if (inError) {
+            [self presentError:inError
+                modalForWindow:documentWindow
+                      delegate:nil
+            didPresentSelector:NULL
+                   contextInfo:NULL];
+        }
     });
 
-    return success;
+    return result;
 }
 
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel
 {
     _currentSavePanel = savePanel;
-    [savePanel setExtensionHidden:NO];
-    [savePanel setAccessoryView:saveView];
+    savePanel.extensionHidden = NO;
+    savePanel.accessoryView = saveView;
 
     NSArray<NSString *> *formats = [self writableTypesForSaveOperation:NSSaveAsOperation];
 
@@ -251,6 +248,7 @@
     }
 
     [fileFormat selectItemAtIndex:[[[NSUserDefaults standardUserDefaults] valueForKey:@"defaultSaveFormat"] integerValue]];
+
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBSaveFormat"]) {
         _currentSavePanel.allowedFileTypes = @[[[NSUserDefaults standardUserDefaults] valueForKey:@"SBSaveFormat"]];
     }
@@ -258,13 +256,13 @@
     NSString *filename = nil;
     for (MP42Track *track in self.mp4.tracks) {
         if (track.sourceURL) {
-            filename = [[track.sourceURL lastPathComponent] stringByDeletingPathExtension];
+            filename = track.sourceURL.lastPathComponent.stringByDeletingPathExtension;
             break;
         }
     }
 
     if (filename) {
-        [savePanel performSelector:@selector(setNameFieldStringValue:) withObject:filename];
+        savePanel.nameFieldStringValue = filename;
     }
 
     if (self.mp4.dataSize > 4200000000) {
@@ -274,7 +272,7 @@
     return YES;
 }
 
-- (IBAction)setSaveFormat:(id)sender
+- (IBAction)setSaveFormat:(NSPopUpButton *)sender
 {
     NSString *requiredFileType = nil;
     NSInteger index = [sender indexOfSelectedItem];
@@ -317,12 +315,13 @@
 
 - (IBAction)sendToExternalApp:(id)sender
 {
-    /* send to itunes after save */
-    NSAppleScript *myScript = [[NSAppleScript alloc] initWithSource:
-                               [NSString stringWithFormat:@"%@%@%@", @"tell application \"iTunes\" to open (POSIX file \"", [[self fileURL] path], @"\")"]];
+    // Send to itunes after save.
+    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+    NSString *appPath = [workspace fullPathForApplication:@"iTunes"];
 
-    [myScript executeAndReturnError: nil];
-    [myScript release];
+    if (appPath) {
+        [workspace openFile:self.fileURL.path withApplication:appPath];
+    }
 }
 
 #pragma mark Interface validation

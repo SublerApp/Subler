@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface iTunesStore : MetadataImporter
 
 #pragma mark iTunes stores
-+ (NSDictionary * __nullable) getStoreFor:(NSString *)aLanguageString;
++ (nullable NSDictionary *) getStoreFor:(NSString *)aLanguageString;
 
 #pragma mark Quick iTunes search for metadata
 + (MP42Metadata *) quickiTunesSearchTV:(NSString *)aSeriesName episodeTitle:(NSString *)aEpisodeTitle;

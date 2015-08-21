@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
     IBOutlet NSToolbarItem  *searchMetadata;
     IBOutlet NSToolbarItem  *sendToQueue;
 
-    NSArray          *languages;
+    NSArray<NSString *> *languages;
 
     NSViewController        *propertyView;
     IBOutlet NSView         *targetView;
@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)setTrackOffset:(id)sender;
 - (IBAction)closeOffsetSheet:(id)sender;
 
-- (IBAction)setSaveFormat:(id)sender;
+- (IBAction)setSaveFormat:(NSPopUpButton *)sender;
 - (IBAction)cancelSaveOperation:(id)sender;
 - (IBAction)sendToExternalApp:(id)sender;
 
