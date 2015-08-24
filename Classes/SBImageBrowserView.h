@@ -16,5 +16,5 @@
 @interface SBImageBrowserView : IKImageBrowserView {
     NSArray *_pasteboardTypes;
 }
-@property(readwrite, retain) NSArray *pasteboardTypes;
+@property(nonatomic, readwrite, retain) NSArray *pasteboardTypes;
 @end

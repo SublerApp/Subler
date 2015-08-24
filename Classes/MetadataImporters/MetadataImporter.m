@@ -23,7 +23,7 @@
 
 @interface MetadataImporter ()
 
-@property (readwrite) BOOL isCancelled;
+@property (atomic, readwrite) BOOL isCancelled;
 
 @end
 

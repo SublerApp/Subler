@@ -11,8 +11,8 @@
 
 @interface SBLogWindowController ()
 
-@property (assign) IBOutlet NSTextView *logView;
-@property (readonly) SBLogger *logger;
+@property (nonatomic, assign) IBOutlet NSTextView *logView;
+@property (nonatomic, readonly) SBLogger *logger;
 
 @end
 

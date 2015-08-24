@@ -18,15 +18,15 @@
 
 @interface SBMetadataSearchController () <NSTableViewDelegate, SBArtworkSelectorDelegate>
 
-@property (readwrite, retain) MetadataImporter *currentSearcher;
-@property (readwrite, retain) NSArray *resultsArray;
+@property (nonatomic, readwrite, retain) MetadataImporter *currentSearcher;
+@property (nonatomic, readwrite, retain) NSArray<MP42Metadata *> *resultsArray;
 
-@property (readwrite, retain) MP42Metadata *selectedResult;
+@property (nonatomic, readwrite, retain) MP42Metadata *selectedResult;
 
-@property (readwrite, retain) NSDictionary *selectedResultTags;
-@property (readwrite, retain) NSArray      *selectedResultTagsArray;
+@property (nonatomic, readwrite, retain) NSDictionary *selectedResultTags;
+@property (nonatomic, readwrite, retain) NSArray<NSString *> *selectedResultTagsArray;
 
-@property (readwrite, retain) NSMutableArray *tvSeriesNameSearchArray;
+@property (nonatomic, readwrite, retain) NSMutableArray<NSString *> *tvSeriesNameSearchArray;
 
 #pragma mark Metadata provider
 - (void) createLanguageMenus;
@@ -360,23 +360,26 @@
         [resultsTable setEnabled:NO];
         [metadataTable setEnabled:NO];
 
+        NSArray<NSURL *> *URLs = [self.selectedResult.artworkFullsizeURLs copy];
+        NSArray<NSString *> *providerNames = [self.selectedResult.artworkProviderNames copy];
+
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
 
             [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-                NSData *artworkData = [MetadataImporter downloadDataFromURL:[self.selectedResult.artworkFullsizeURLs objectAtIndex:idx] withCachePolicy:SBDefaultPolicy];
+                NSData *artworkData = [MetadataImporter downloadDataFromURL:URLs[idx] withCachePolicy:SBDefaultPolicy];
 
                 // Hack, download smaller iTunes version if big iTunes version is not available
                 if (!artworkData) {
-                    NSString *provider = [self.selectedResult.artworkProviderNames objectAtIndex:idx];
+                    NSString *provider = providerNames[idx];
                     if ([provider isEqualToString:@"iTunes"]) {
-                        NSURL *url = [self.selectedResult.artworkFullsizeURLs objectAtIndex:idx];
+                        NSURL *url = URLs[idx];
                         url = [[url URLByDeletingPathExtension] URLByAppendingPathExtension:@"600x600-75.jpg"];
                         artworkData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
                     }
                 }
 
                 // Add artwork to metadata object
-                if (artworkData && [artworkData length]) {
+                if (artworkData && artworkData.length) {
                     MP42Image *artwork = [[MP42Image alloc] initWithData:artworkData type:MP42_ART_JPEG];
                     [self.selectedResult.artworks addObject:artwork];
                     [artwork release];
@@ -386,8 +389,11 @@
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [self addMetadata];
             });
-
         });
+
+        [URLs release];
+        [providerNames release];
+
     } else {
         [self addMetadata];
     }

@@ -11,7 +11,7 @@
 
 @interface SBLogger ()
 
-@property (readonly) NSURL *fileURL;
+@property (nonatomic, readonly) NSURL *fileURL;
 
 @end
 

@@ -24,6 +24,6 @@
     NSArray *_pasteboardTypes;
     NSInteger _defaultEditingColumn;
 }
-@property(readwrite, retain) NSArray *pasteboardTypes;
-@property(readwrite) NSInteger defaultEditingColumn;
+@property(nonatomic, readwrite, retain) NSArray *pasteboardTypes;
+@property(nonatomic, readwrite) NSInteger defaultEditingColumn;
 @end
