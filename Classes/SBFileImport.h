@@ -10,33 +10,37 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class MP42FileImporter;
+@class MP42Track;
 @class MP42Metadata;
 
 @protocol SBFileImportDelegate
-- (void)importDoneWithTracks:(NSArray *)tracksToBeImported andMetadata:(MP42Metadata *)metadata;
+- (void)importDoneWithTracks:(NSArray<MP42Track *> *)tracksToBeImported andMetadata:(MP42Metadata *)metadata;
 @end
 
 @interface SBFileImport : NSWindowController <NSTableViewDelegate> {
 @private
-    NSArray         *_fileURLs;
-    NSMutableArray  *_fileImporters;
+    NSArray<NSURL *>  *_fileURLs;
+
+    NSMutableArray<MP42FileImporter *> *_fileImporters;
     NSMutableArray  *_tracks;
     
-    NSMutableArray		*_importCheckArray;
-    NSMutableArray      *_actionArray;
+    NSMutableArray<NSNumber *> *_importCheckArray;
+    NSMutableArray<NSNumber *> *_actionArray;
 
-	id<SBFileImportDelegate> delegate;
+	id<SBFileImportDelegate> _delegate;
+
 	IBOutlet NSTableView *tracksTableView;
 	IBOutlet NSButton    *addTracksButton;
     IBOutlet NSButton    *importMetadata;
 }
 
-- (instancetype)initWithDelegate:(id <SBFileImportDelegate>)del andFiles:(NSArray *)files error:(NSError **)outError;
+- (instancetype)initWithURLs:(NSArray *)fileURLs delegate:(id <SBFileImportDelegate>)delegate error:(NSError **)error;
 
 - (IBAction)closeWindow:(id)sender;
 - (IBAction)addTracks:(id)sender;
 
-- (BOOL)onlyContainsSubtitleTracks;
+@property (nonatomic, readonly) BOOL onlyContainsSubtitleTracks;
 
 - (IBAction)checkSelected:(id)sender;
 - (IBAction)uncheckSelected:(id)sender;

@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
     SBOptionsViewController *_windowController;
 
     SBQueuePreferences *_prefs;
-    NSMutableDictionary *_options;
+    NSMutableDictionary<NSString *, id> *_options;
 
     NSImage *_docImg;
 

@@ -211,7 +211,7 @@
 #pragma mark IKImageBrowserDelegate
 
 - (void) imageBrowser:(IKImageBrowserView *) aBrowser cellWasDoubleClickedAtIndex:(NSUInteger) index {
-    [self addArtwork:nil];
+    [self addArtwork:self];
 }
 
 - (void) imageBrowserSelectionDidChange:(IKImageBrowserView *) aBrowser {

@@ -12,7 +12,6 @@
 @class SBLogWindowController;
 
 @interface SBDocumentController : NSDocumentController
-
 @end
 
 @interface SBAppDelegate : NSObject {

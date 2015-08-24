@@ -39,7 +39,7 @@
                                                               @"SBAudioConvertAC3":             @"YES",
                                                               @"SBAudioKeepAC3":                @"YES",
                                                               @"SBAudioConvertDts":             @"YES",
-                                                              @"SBAudioKeepDTS":                @"NO",
+                                                              @"SBAudioKeepDts":                @"NO",
                                                               @"SBSubtitleConvertBitmap":       @"YES",
                                                               @"SBRatingsCountry":              @"All countries",
                                                               @"SBSaveFormat":                  @"m4v",

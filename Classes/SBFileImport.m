@@ -13,25 +13,26 @@
 
 @implementation SBFileImport
 
-- (instancetype)initWithDelegate:(id <SBFileImportDelegate>)del andFiles:(NSArray *)files error:(NSError **)outError
+- (instancetype)initWithURLs:(NSArray *)fileURLs delegate:(id <SBFileImportDelegate>)delegate error:(NSError **)error
 {
 	if ((self = [super initWithWindowNibName:@"FileImport"])) {
-		delegate = del;
-        _fileURLs = [files retain];
-        _fileImporters = [[NSMutableArray alloc] initWithCapacity:[files count]];
+		_delegate = delegate;
+        _fileURLs = [fileURLs copy];
+        _fileImporters = [[NSMutableArray alloc] initWithCapacity:fileURLs.count];
         _tracks = [[NSMutableArray alloc] init];
 
-        for (NSURL *file in files) {
-            MP42FileImporter *importer = [[MP42FileImporter alloc] initWithURL:file error:outError];
+        // Load the files.
+        for (NSURL *url in fileURLs) {
+            MP42FileImporter *importer = [[MP42FileImporter alloc] initWithURL:url error:error];
             if (importer) {
-                [_tracks addObject:[file lastPathComponent]];
+                [_tracks addObject:url.lastPathComponent];
                 [_fileImporters addObject:importer];
                 [importer release];
                 [_tracks addObjectsFromArray:importer.tracks];
             }
         }
 
-        if (![_tracks count]) {
+        if (!_tracks.count) {
             [self release];
             return nil;
         }
@@ -40,19 +41,26 @@
 	return self;
 }
 
+/**
+ * Fills the checkboxes and actions menu defaults
+ */
 - (void)_prepareActionArray
 {
-    _importCheckArray = [[NSMutableArray alloc] initWithCapacity:[_tracks count]];
-    _actionArray = [[NSMutableArray alloc] initWithCapacity:[_tracks count]];
+    _importCheckArray = [[NSMutableArray alloc] initWithCapacity:_tracks.count];
+    _actionArray = [[NSMutableArray alloc] initWithCapacity:_tracks.count];
 
     for (id object in _tracks) {
         if ([object isKindOfClass:[MP42Track class]]) {
+
+            // Set the checkbox state
             if (isTrackMuxable([object format]) || trackNeedConversion([object format])) {
                 [_importCheckArray addObject:@YES];
             } else {
                 [_importCheckArray addObject:@NO];
             }
 
+            // Set the action menu selection
+            // AC-3 Specific actions
             if ([[object format] isEqualToString:MP42AudioFormatAC3] &&
                 [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioConvertAC3"] boolValue]) {
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepAC3"] boolValue] &&
@@ -64,34 +72,56 @@
                     [_actionArray addObject:@([[[NSUserDefaults standardUserDefaults]
                                                 valueForKey:@"SBAudioMixdown"] integerValue])];
                 }
-            } else if ([[object format] isEqualToString:MP42AudioFormatDTS]) {
-                [_actionArray addObject:@1];
-            } else if ([[object format] isEqualToString:MP42SubtitleFormatVobSub] &&
+            }
+            // DTS Specific actions
+            else if ([[object format] isEqualToString:MP42AudioFormatDTS] &&
+                     [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioConvertDts"] boolValue]) {
+                if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepDts"] boolValue] &&
+                    [object fallbackTrack] == nil) {
+                    [_actionArray addObject:@6];
+                } else if ([object fallbackTrack]) {
+                    [_actionArray addObject:@0];
+                } else {
+                    [_actionArray addObject:@([[[NSUserDefaults standardUserDefaults]
+                                                valueForKey:@"SBAudioMixdown"] integerValue])];
+                }
+            }
+            // Vobsub
+            else if ([[object format] isEqualToString:MP42SubtitleFormatVobSub] &&
                        [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBSubtitleConvertBitmap"] boolValue]) {
                 [_actionArray addObject:@1];
-            } else if (!trackNeedConversion([object format])) {
+            }
+            // Generic actions
+            else if (!trackNeedConversion([object format])) {
                 [_actionArray addObject:@0];
-            } else if ([object isMemberOfClass:[MP42AudioTrack class]]) {
+            }
+            else if ([object isMemberOfClass:[MP42AudioTrack class]]) {
                 [_actionArray addObject:@([[[NSUserDefaults standardUserDefaults]
                                                                  valueForKey:@"SBAudioMixdown"] integerValue])];
-            } else if ([object isMemberOfClass:[MP42ChapterTrack class]]) {
+            }
+            // Chapters
+            else if ([object isMemberOfClass:[MP42ChapterTrack class]]) {
                 [_actionArray addObject:@0];
-            } else {
+            }
+            else {
                 [_actionArray addObject:@1];
             }
-        } else {
+        }
+        else {
             [_importCheckArray addObject:@YES];
             [_actionArray addObject:@0];
         }
     }
 
-    if ([[_fileImporters firstObject] metadata])
+    if (_fileImporters.firstObject.metadata) {
         [importMetadata setEnabled:YES];
-    else
+    }
+    else {
         [importMetadata setEnabled:NO];
+    }
 }
 
-- (void)awakeFromNib
+- (void)windowDidLoad
 {
 	[self _prepareActionArray];
     [addTracksButton setEnabled:YES];
@@ -111,21 +141,23 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)t
 {
-    return [_tracks count];
+    return _tracks.count;
 }
 
 - (BOOL)tableView:(NSTableView *)tableView isGroupRow:(NSInteger)row
 {
-    if ([[_tracks objectAtIndex:row] isKindOfClass:[MP42Track class]])
+    if ([_tracks[row] isKindOfClass:[MP42Track class]]) {
         return NO;
+    }
 
     return  YES;
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row
 {
-    if ([[_tracks objectAtIndex:row] isKindOfClass:[MP42Track class]])
+    if ([_tracks[row] isKindOfClass:[MP42Track class]]) {
         return YES;
+    }
 
     return  NO;
 }
@@ -134,8 +166,9 @@
     spanForTableColumn:(NSTableColumn *)tableColumn
                    row:(NSInteger)row
 {
-    if ([[_tracks objectAtIndex:row] isKindOfClass:[MP42Track class]])
+    if ([_tracks[row] isKindOfClass:[MP42Track class]]) {
         return 1;
+    }
 
     return 6;
 }
@@ -143,7 +176,7 @@
 - (NSCell *)tableView:(NSTableView *)tableView dataCellForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex
 {
     NSCell *cell = nil;
-    MP42Track *track = [_tracks objectAtIndex:rowIndex];
+    MP42Track *track = _tracks[rowIndex];
 
     if ([track isKindOfClass:[MP42Track class]]) {
         if ([tableColumn.identifier isEqualToString:@"check"]) {
@@ -168,7 +201,7 @@
                 if ([[track.sourceURL pathExtension] caseInsensitiveCompare: @"264"] == NSOrderedSame ||
                     [[track.sourceURL pathExtension] caseInsensitiveCompare: @"h264"] == NSOrderedSame) {
                     NSInteger i = 0;
-                    NSArray *formatArray = [NSArray arrayWithObjects:@"23.976", @"24", @"25", @"29.97", @"30", @"50", @"59.96", @"60", nil];
+                    NSArray<NSString *> *formatArray = @[@"23.976", @"24", @"25", @"29.97", @"30", @"50", @"59.96", @"60"];
                     NSInteger tags[8] = {2398, 24, 25, 2997, 30, 50, 5994, 60};
 
                     for (NSString* format in formatArray) {
@@ -184,23 +217,27 @@
                     [item setEnabled:YES];
                     [[actionCell menu] addItem:item];
 
-                    if (isTrackMuxable(track.format))
+                    if (isTrackMuxable(track.format)) {
                         [item setEnabled:YES];
-                    else
+                    }
+                    else {
                         [item setEnabled:NO];
                     }
+                }
             }
             else if ([track isMemberOfClass:[MP42SubtitleTrack class]]) {
                 NSInteger tag = 0;
                 NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:@"Passthru" action:NULL keyEquivalent:@""] autorelease];
                 [item setTag:tag++];
-                if (!trackNeedConversion(track.format))
+                if (!trackNeedConversion(track.format)) {
                     [item setEnabled:YES];
-                else
+                }
+                else {
                     [item setEnabled:NO];
+                }
                 [[actionCell menu] addItem:item];
                 
-                NSArray *formatArray = [NSArray arrayWithObjects:MP42SubtitleFormatTx3g, nil];
+                NSArray<NSString *> *formatArray = @[MP42SubtitleFormatTx3g];
                 for (NSString *format in formatArray) {
                     item = [[[NSMenuItem alloc] initWithTitle:format action:NULL keyEquivalent:@""] autorelease];
                     [item setTag:tag++];
@@ -232,22 +269,14 @@
                     [[actionCell menu] addItem:item];
                 }
 
-                if ([track.format isEqualTo:MP42AudioFormatAC3])
+                if ([track.format isEqualTo:MP42AudioFormatAC3] || [track.format isEqualTo:MP42AudioFormatDTS])
                 {
-                    item = [[[NSMenuItem alloc] initWithTitle:@"AAC + AC-3" action:NULL keyEquivalent:@""] autorelease];
+                    item = [[[NSMenuItem alloc] initWithTitle:@"AAC + Passthru" action:NULL keyEquivalent:@""] autorelease];
                     [item setTag:tag++];
                     [item setEnabled:YES];
                     [[actionCell menu] addItem:item];
                 }
-                
-                if ([track.format isEqualTo:MP42AudioFormatDTS])
-                {
-                    item = [[[NSMenuItem alloc] initWithTitle:@"Passthru + AAC" action:NULL keyEquivalent:@""] autorelease];
-                    [item setTag:tag++];
-                    [item setEnabled:YES];
-                    [[actionCell menu] addItem:item];
-                }
-                
+
             }
             else if ([track isMemberOfClass:[MP42ChapterTrack class]]) {
                 NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:@"Passthru" action:NULL keyEquivalent:@""] autorelease];
@@ -268,10 +297,11 @@
     objectValueForTableColumn:(NSTableColumn *)tableColumn
                 row:(NSInteger)rowIndex
 {
-    id object = [_tracks objectAtIndex:rowIndex];
+    id object = _tracks[rowIndex];
 
-    if (!object)
+    if (!object) {
         return nil;
+    }
 
     if ([object isKindOfClass:[MP42Track class]]) {
         if( [tableColumn.identifier isEqualToString: @"check"] )
@@ -306,10 +336,12 @@
    forTableColumn:(NSTableColumn *)tableColumn
               row:(NSInteger)rowIndex
 {
-    if ([tableColumn.identifier isEqualToString: @"check"])
+    if ([tableColumn.identifier isEqualToString: @"check"]) {
         [_importCheckArray replaceObjectAtIndex:rowIndex withObject:anObject];
-    if ([tableColumn.identifier isEqualToString:@"trackAction"])
+    }
+    if ([tableColumn.identifier isEqualToString:@"trackAction"]) {
         [_actionArray replaceObjectAtIndex:rowIndex withObject:anObject];
+    }
 }
 
 - (void)toggleSelectionCheck:(BOOL)value
@@ -317,8 +349,9 @@
     NSIndexSet *selection = [tracksTableView selectedRowIndexes];
     NSInteger clickedRow = [tracksTableView clickedRow];
 
-    if (clickedRow != -1 && ![selection containsIndex:clickedRow])
+    if (clickedRow != -1 && ![selection containsIndex:clickedRow]) {
         selection = [NSIndexSet indexSetWithIndex:clickedRow];
+    }
 
     [selection enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         [_importCheckArray replaceObjectAtIndex:idx withObject:@(value)];
@@ -451,10 +484,12 @@
     }
 
     MP42Metadata *metadata = nil;
-    if ([importMetadata state])
-        metadata = [[[(MP42FileImporter *)[_fileImporters firstObject] metadata] retain] autorelease];
 
-    [delegate importDoneWithTracks:tracks andMetadata: metadata];
+    if ([importMetadata state]) {
+        metadata = [[[[_fileImporters firstObject] metadata] retain] autorelease];
+    }
+
+    [_delegate importDoneWithTracks:tracks andMetadata: metadata];
 
     [tracks release];
 

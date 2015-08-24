@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol SBArtworkSelectorDelegate <NSObject>
 - (void)selectArtworkDone:(NSURL *)url;
 @end
@@ -40,3 +42,5 @@
 - (IBAction) addNoArtwork:(id)sender;
 
 @end
+
+NS_ASSUME_NONNULL_END

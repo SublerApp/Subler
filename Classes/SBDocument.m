@@ -41,17 +41,6 @@
     return @"SBDocument";
 }
 
-- (void)awakeFromNib
-{
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"rememberWindowSize"] integerValue]) {
-        [documentWindow setFrameAutosaveName:@"documentSave"];
-        [documentWindow setFrameUsingName:@"documentSave"];
-        [splitView setAutosaveName:@"splitViewSave"];
-    }
-
-    [optBar setUsesThreadedAnimation:NO];
-}
-
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
@@ -65,6 +54,13 @@
     [fileTracksTable registerForDraggedTypes:@[SublerTableViewDataType]];
     [documentWindow registerForDraggedTypes:@[NSFilenamesPboardType]];
 
+    [optBar setUsesThreadedAnimation:NO];
+
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"rememberWindowSize"] integerValue]) {
+        [documentWindow setFrameAutosaveName:@"documentSave"];
+        [documentWindow setFrameUsingName:@"documentSave"];
+        [splitView setAutosaveName:@"splitViewSave"];
+    }
 }
 
 - (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError **)outError
@@ -436,7 +432,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         return track.formatSummary;
 
     if ([tableColumn.identifier isEqualToString:@"trackEnabled"])
-        return @(track.enabled);
+        return @(track.isEnabled);
 
     if ([tableColumn.identifier isEqualToString:@"trackDuration"])
         return track.timeString;
@@ -769,7 +765,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     NSError *error = nil;
 
-    importWindow = [[SBFileImport alloc] initWithDelegate:self andFiles:fileURLs error:&error];
+    importWindow = [[SBFileImport alloc] initWithURLs:fileURLs delegate:self error:&error];
 
     if (importWindow) {
 		if ([importWindow onlyContainsSubtitleTracks]) { //execute always. Maybe we should do this only for subtitle
@@ -918,7 +914,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     NSPasteboard *pboard = [sender draggingPasteboard];
     NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
 
-    if ( [[pboard types] containsObject:NSFilenamesPboardType] ) {
+    if ([pboard.types containsObject:NSFilenamesPboardType]) {
          if (sourceDragMask & NSDragOperationCopy) {
             return NSDragOperationCopy;
          }
@@ -931,27 +927,29 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     if ( [[pboard types] containsObject:NSURLPboardType] ) {
         NSArray *items = [pboard readObjectsForClasses:@[[NSURL class]] options:nil];
-        NSMutableArray<NSURL *> *supItems = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray<NSURL *> *supportedItems = [[[NSMutableArray alloc] init] autorelease];
 
-        for (NSURL *file in items) {
-            if ([[file pathExtension] caseInsensitiveCompare: @"txt"] == NSOrderedSame) {
-                [self addChapterTrack:file];
+        for (NSURL *url in items) {
+            NSString *pathExtension = url.pathExtension;
+            if ([pathExtension caseInsensitiveCompare: @"txt"] == NSOrderedSame) {
+                [self addChapterTrack:url];
             }
-            else if ([[file pathExtension] caseInsensitiveCompare: @"xml"] == NSOrderedSame ||
-                     [[file pathExtension] caseInsensitiveCompare: @"nfo"] == NSOrderedSame) {
-                [self addMetadata:file];
+            else if ([pathExtension caseInsensitiveCompare: @"xml"] == NSOrderedSame ||
+                     [pathExtension caseInsensitiveCompare: @"nfo"] == NSOrderedSame) {
+                [self addMetadata:url];
             }
-            else if (isFileFormatSupported([file pathExtension])) {
-                [supItems addObject:file];
+            else if (isFileFormatSupported(pathExtension)) {
+                [supportedItems addObject:url];
             }
         }
         
-        if (supItems.count) {
-            [self showImportSheet:supItems];
+        if (supportedItems.count) {
+            [self showImportSheet:supportedItems];
         }
 
         return YES;
     }
+
     return NO;
 }
 
