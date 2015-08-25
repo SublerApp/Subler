@@ -25,6 +25,7 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface XMLReader : NSObject  <NSXMLParserDelegate> {
 	
@@ -33,15 +34,16 @@
     NSError **errorPointer;
 }
 
-+ (NSDictionary *)dictionaryForXMLData:(NSData *)data error:(NSError **)errorPointer;
-+ (NSDictionary *)dictionaryForXMLString:(NSString *)string error:(NSError **)errorPointer;
++ (nullable NSDictionary *)dictionaryForXMLData:(NSData *)data error:(NSError **)errorPointer;
++ (nullable NSDictionary *)dictionaryForXMLString:(NSString *)string error:(NSError **)errorPointer;
 
 @end
 
 @interface NSDictionary (XMLReaderNavigation)
 
-- (id)retrieveForPath:(NSString *)navPath;
-- (NSArray *)retrieveArrayForPath:(NSString *)navPath;
+- (nullable id)retrieveForPath:(NSString *)navPath;
+- (nullable NSArray *)retrieveArrayForPath:(NSString *)navPath;
 
 @end
 
+NS_ASSUME_NONNULL_END
