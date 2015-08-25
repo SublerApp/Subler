@@ -87,7 +87,7 @@ static void *SBItemViewContex = &SBItemViewContex;
     [self.spinner setHidden:NO];
 
     if ([self.delegate respondsToSelector:@selector(editItem:)]) {
-        [self.delegate performSelector:@selector(editItem:) withObject:self.item];
+        [self.delegate editItem:self.item];
     }
 }
 

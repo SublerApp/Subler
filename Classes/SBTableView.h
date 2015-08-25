@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol SBTableViewDelegate
 @optional
 - (void)_deleteSelectionFromTableView:(NSTableView *)tableView;
@@ -21,9 +23,11 @@
 @end
 
 @interface SBTableView : NSTableView {
-    NSArray *_pasteboardTypes;
+    NSArray<NSString *> *_pasteboardTypes;
     NSInteger _defaultEditingColumn;
 }
-@property(nonatomic, readwrite, retain) NSArray *pasteboardTypes;
+@property(nonatomic, readwrite, retain) NSArray<NSString *> *pasteboardTypes;
 @property(nonatomic, readwrite) NSInteger defaultEditingColumn;
 @end
+
+NS_ASSUME_NONNULL_END

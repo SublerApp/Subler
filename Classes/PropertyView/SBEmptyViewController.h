@@ -8,8 +8,5 @@
 
 #import <Cocoa/Cocoa.h>
 
-
-@interface SBEmptyViewController : NSViewController {
-}
-
+@interface SBEmptyViewController : NSViewController
 @end

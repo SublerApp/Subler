@@ -8,10 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @interface SBView : NSView {
     IBOutlet NSViewController *viewController;
-
 }
 
 @end

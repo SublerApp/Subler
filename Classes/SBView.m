@@ -8,7 +8,6 @@
 
 #import "SBView.h"
 
-
 @implementation SBView
 
 - (void)setViewController:(NSViewController *)newController

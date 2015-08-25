@@ -11,8 +11,10 @@
 
 @implementation SBSoundViewController
 
-- (void)awakeFromNib
+- (void)loadView
 {
+    [super loadView];
+
     [alternateGroup selectItemAtIndex:(NSInteger)track.alternate_group];
 
     _fallbacks = [[NSMutableArray alloc] init];

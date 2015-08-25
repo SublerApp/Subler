@@ -135,9 +135,10 @@
 
 #pragma mark Load images
 
-- (void)awakeFromNib {
-    images = [[NSMutableArray alloc] initWithCapacity:[imageURLsUnloaded count]];
-    for (int i = 0; (i < 10) && ([imageURLsUnloaded count] > 0); i++) {
+- (void)windowDidLoad {
+    images = [[NSMutableArray alloc] initWithCapacity:imageURLsUnloaded.count];
+
+    for (NSUInteger i = 0; (i < 10) && (imageURLsUnloaded.count > 0); i++) {
         SBArtworkImageObject *m = [[SBArtworkImageObject alloc] initWithURL:[imageURLsUnloaded objectAtIndex:0]
                                   artworkProviderName:[artworkProviderNames objectAtIndex:[images count]]
                                              delegate:self];
@@ -145,13 +146,14 @@
         [images addObject:m];
         [m release];
     }
+
     [loadMoreArtworkButton setEnabled:([imageURLsUnloaded count] > 0)];
     [imageBrowser reloadData];
     [imageBrowser setSelectionIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
 }
 
 - (IBAction) loadMoreArtwork:(id)sender {
-    for (int i = 0; (i < 10) && ([imageURLsUnloaded count] > 0); i++) {
+    for (NSUInteger i = 0; (i < 10) && (imageURLsUnloaded.count > 0); i++) {
         SBArtworkImageObject *m = [[SBArtworkImageObject alloc] initWithURL:[imageURLsUnloaded objectAtIndex:0]
                                   artworkProviderName:[artworkProviderNames objectAtIndex:[images count]]
                                              delegate:self];
@@ -177,11 +179,11 @@
 #pragma mark Finishing up
 
 - (IBAction) addArtwork:(id)sender {
-    [delegate performSelector:@selector(selectArtworkDone:) withObject:[[[imageBrowser selectionIndexes] retain] autorelease]];
+    [delegate selectArtworkDone:imageBrowser.selectionIndexes];
 }
 
 - (IBAction) addNoArtwork:(id)sender {
-    [delegate performSelector:@selector(selectArtworkDone:) withObject:nil];
+    [delegate selectArtworkDone:[NSIndexSet indexSet]];
 }
 
 - (void) dealloc {

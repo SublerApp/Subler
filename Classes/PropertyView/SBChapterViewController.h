@@ -10,6 +10,8 @@
 #import <MP42Foundation/MP42File.h>
 #import <MP42Foundation/MP42ChapterTrack.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class SBTableView;
 
 @interface SBChapterViewController : NSViewController {
@@ -27,3 +29,5 @@
 - (IBAction) renameChapters: (id) sender;
 
 @end
+
+NS_ASSUME_NONNULL_END

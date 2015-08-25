@@ -13,12 +13,14 @@
 
 @implementation SBChapterViewController
 
-- (void)awakeFromNib
+- (void)loadView
 {
+    [super loadView];
+
     NSMutableParagraphStyle * ps = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
     [ps setHeadIndent: -10.0];
     [ps setAlignment:NSRightTextAlignment];
-    
+
     detailBoldAttr = [[NSDictionary dictionaryWithObjectsAndKeys:
                        [NSFont boldSystemFontOfSize:11.0], NSFontAttributeName,
                        ps, NSParagraphStyleAttributeName,
@@ -47,12 +49,15 @@
     objectValueForTableColumn:(NSTableColumn *)tableColumn
                           row:(NSInteger)rowIndex
 {
-    MP42TextSample * chapter = [track chapterAtIndex:rowIndex];
-    if ([tableColumn.identifier isEqualToString:@"time"])
-        return [self boldString:StringFromTime(chapter.timestamp, 1000)];  
+    MP42TextSample *chapter = [track chapterAtIndex:rowIndex];
 
-    if ([tableColumn.identifier isEqualToString:@"title"])
+    if ([tableColumn.identifier isEqualToString:@"time"]) {
+        return [self boldString:StringFromTime(chapter.timestamp, 1000)];
+    }
+
+    if ([tableColumn.identifier isEqualToString:@"title"]) {
         return chapter.title;
+    }
 
     return nil;
 }
@@ -84,10 +89,12 @@
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-    if ([chapterTableView selectedRow] != -1)
+    if ([chapterTableView selectedRow] != -1) {
         [removeChapter setEnabled:YES];
-    else
+    }
+    else {
         [removeChapter setEnabled:NO];
+    }
 }
 
 - (IBAction)removeChapter:(id)sender {
@@ -96,7 +103,7 @@
         [track removeChapterAtIndex:current_index];
 
         [chapterTableView reloadData];
-        [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+        [[[[[self view] window] windowController] document] updateChangeCount:NSChangeDone];
     }
 }
 
@@ -104,7 +111,7 @@
     [track addChapter:@"Chapter" duration:0];
 
     [chapterTableView reloadData];
-    [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+    [[[[[self view] window] windowController] document] updateChangeCount:NSChangeDone];
 }
 
 - (IBAction)renameChapters:(id)sender {
@@ -120,8 +127,8 @@
 - (void)dealloc
 {
     [track release];
-
     [detailBoldAttr release];
+
     [super dealloc];
 }
 

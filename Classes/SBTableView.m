@@ -14,6 +14,24 @@
 @synthesize defaultEditingColumn = _defaultEditingColumn;
 @synthesize pasteboardTypes = _pasteboardTypes;
 
+- (instancetype)initWithFrame:(NSRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        _pasteboardTypes = @[];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        _pasteboardTypes = @[];
+    }
+    return self;
+}
+
 - (void)keyDown:(NSEvent *)event
 {
     id delegate = [self delegate];

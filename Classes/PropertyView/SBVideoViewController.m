@@ -56,8 +56,10 @@ static NSString *getLevelName(uint8_t level) {
     }
 }
 
-- (void)awakeFromNib
+- (void)loadView
 {
+    [super loadView];
+
     [sampleWidth setStringValue: [NSString stringWithFormat:@"%lld", track.width]];
     [sampleHeight setStringValue: [NSString stringWithFormat:@"%lld", track.height]];
     

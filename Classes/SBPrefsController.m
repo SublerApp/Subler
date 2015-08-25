@@ -65,7 +65,7 @@
     return self;
 }
 
-- (void)awakeFromNib
+- (void)windowDidLoad
 {
     NSToolbar *toolbar = [[[NSToolbar alloc] initWithIdentifier: @"Preferences Toolbar"] autorelease];
     [toolbar setDelegate:self];

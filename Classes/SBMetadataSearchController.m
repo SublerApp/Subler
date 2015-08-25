@@ -347,7 +347,7 @@
 #pragma mark Load artwork
 
 - (void) loadArtworks:(NSIndexSet *)indexes {
-    if (indexes) {
+    if (indexes.count) {
         [progress startAnimation:self];
         [progress setHidden:NO];
         [progressText setStringValue:@"Downloading artwork…"];

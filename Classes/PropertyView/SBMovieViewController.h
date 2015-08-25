@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class MP42File;
 @class MP42Metadata;
 @class SBTableView;
@@ -36,9 +38,9 @@
     NSPopUpButtonCell       *ratingCell;
     NSComboBoxCell          *genreCell;
 
-    NSDictionary    *tags;
-    NSArray         *_tagsArray;
-    NSArray         *tagsMenu;
+    NSDictionary<NSString *, id> *tags;
+    NSArray<NSString *> *_tagsArray;
+    NSArray<NSString *> *tagsMenu;
     NSDictionary    *detailBoldAttr;
 
     NSMutableDictionary  *dct;
@@ -75,3 +77,5 @@
 - (IBAction) removeArtwork: (id) sender;
 
 @end
+
+NS_ASSUME_NONNULL_END

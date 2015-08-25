@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class MP42File;
 @class MP42VideoTrack;
 @class MP42SubtitleTrack;
@@ -60,3 +62,5 @@
 - (IBAction)setForcedTrack:(id)sender;
 
 @end
+
+NS_ASSUME_NONNULL_END

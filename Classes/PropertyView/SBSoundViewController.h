@@ -8,6 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+@class MP42Track;
 @class MP42AudioTrack;
 @class MP42File;
 
@@ -15,8 +18,8 @@
     MP42AudioTrack *track;
     MP42File       *mp4file;
 
-    NSMutableArray *_fallbacks;
-    NSMutableArray *_follows;
+    NSMutableArray<MP42AudioTrack *> *_fallbacks;
+    NSMutableArray<__kindof MP42Track *> *_follows;
 
     IBOutlet NSSlider *volume;
     IBOutlet NSPopUpButton *alternateGroup;
@@ -33,3 +36,5 @@
 - (IBAction)setFollowsTrack:(id)sender;
 
 @end
+
+NS_ASSUME_NONNULL_END

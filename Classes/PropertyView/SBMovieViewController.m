@@ -6,7 +6,7 @@
 //  Copyright 2009 Damiano Galassi. All rights reserved.
 //
 
-NSString *MetadataPBoardType = @"MetadataPBoardType";
+NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
 
 #import "SBMovieViewController.h"
 #import "SBTableView.h"
@@ -20,7 +20,7 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
 
 @interface SBMovieViewController () <SBTableViewDelegate, SBImageBrowserViewDelegate>
 
-@property (nonatomic, retain) NSArray *tagsArray;
+@property (nonatomic, retain) NSArray<NSString *> *tagsArray;
 
 - (void) updateSetsMenu: (id)sender;
 
@@ -30,8 +30,10 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
 
 @synthesize tagsArray = _tagsArray;
 
-- (void)awakeFromNib
+- (void)loadView
 {
+    [super loadView];
+
     [self updateSetsMenu:self];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -39,8 +41,9 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
                                                  name:@"SBPresetManagerUpdatedNotification" object:nil];
 
     tagsMenu = [[metadata writableMetadata] retain];
-    for (id tag in tagsMenu)
+    for (id tag in tagsMenu) {
         [tagList addItemWithTitle:tag];
+    }
 
     ratingCell = [[NSPopUpButtonCell alloc] init];
     [ratingCell setAutoenablesItems:NO];
@@ -105,7 +108,7 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
 
 - (void) updateTagsArray
 {
-    NSArray *context = [metadata availableMetadata];
+    NSArray<NSString *> *context = [metadata availableMetadata];
     self.tagsArray = [[tags allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         NSInteger right = [context indexOfObject:obj2];
         NSInteger left = [context indexOfObject:obj1];
@@ -215,8 +218,9 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
 - (IBAction) addMetadataSet: (id)sender
 {
     NSArray *metadataKeys = nil;
-    if ([sender tag] == 0)
+    if ([sender tag] == 0) {
         metadataKeys = [self allSet];
+    }
     else if ([sender tag] == 1) {
         metadataKeys = [self movieSet];
         metadata.mediaKind = 9;
@@ -278,8 +282,9 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
     SBPresetManager *presetManager = [SBPresetManager sharedManager];
     NSMenu * setListMenu = [setList menu];
 
-    while ([setListMenu numberOfItems] > 1)
+    while ([setListMenu numberOfItems] > 1) {
         [setListMenu removeItemAtIndex: 1];
+    }
     
     NSMenuItem *newItem = [[[NSMenuItem alloc] initWithTitle:@"Save Set" action:@selector(showSaveSet:) keyEquivalent:@""] autorelease];
     [newItem setTarget:self];
@@ -302,15 +307,16 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
     [newItem setTag: 2];
     [setListMenu addItem:newItem];
 
-    if ([[presetManager presets] count])
+    if (presetManager.presets.count) {
         [setListMenu addItem:[NSMenuItem separatorItem]];
+    }
 
     NSUInteger i = 0;
-
-    for (MP42Metadata *set in [presetManager presets]) {
+    for (MP42Metadata *set in presetManager.presets) {
         newItem = [[NSMenuItem alloc] initWithTitle:[set presetName] action:@selector(applySet:) keyEquivalent:@""];
-        if (i < 9)
+        if (i < 9) {
             [newItem setKeyEquivalent:[NSString stringWithFormat:@"%lu", (unsigned long)i+1]];
+        }
 
         [newItem setTarget:self];
         [newItem setTag:i++];
@@ -381,8 +387,7 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
         current_index = [rowIndexes indexLessThanIndex: current_index];
     }
 
-    NSArray *types = [NSArray arrayWithObjects:
-                      MetadataPBoardType, NSStringPboardType, nil];
+    NSArray *types = @[MetadataPBoardType, NSStringPboardType];
     [pb declareTypes:types owner:nil];
     [pb setString:string forType: NSStringPboardType];
     [pb setData:[NSArchiver archivedDataWithRootObject:data] forType:MetadataPBoardType];
@@ -414,8 +419,9 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
     NSArray *copiedItems = [pasteboard readObjectsForClasses:classes options:options];
 
     if (copiedItems != nil) {
-        for (id item in copiedItems)
+        for (id item in copiedItems) {
             [self addArtwork:item];
+        }
 
         metadata.isArtworkEdited = YES;
         metadata.isEdited = YES;
@@ -435,6 +441,7 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
 {
     NSCell *cell = nil;
     NSString *tagName = nil;
+
     if (tableColumn != nil)
         tagName = [self.tagsArray objectAtIndex:row];
 
@@ -448,11 +455,13 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
         else if ([tagName isEqualToString:@"Genre"]) {
             cell = genreCell;
         }
-        else
+        else {
             cell = [tableColumn dataCell];
+        }
     }
-    else
+    else {
         cell = nil;
+    }
 
     return cell;
 }
@@ -461,11 +470,13 @@ NSString *MetadataPBoardType = @"MetadataPBoardType";
 objectValueForTableColumn:(NSTableColumn *)tableColumn 
              row:(NSInteger)rowIndex
 {
-    if ([tableColumn.identifier isEqualToString:@"name"])
-        return [self.tagsArray objectAtIndex:rowIndex];
+    if ([tableColumn.identifier isEqualToString:@"name"]) {
+        return self.tagsArray[rowIndex];
+    }
 
-    if ([tableColumn.identifier isEqualToString:@"value"]) 
-        return [tags objectForKey:[self.tagsArray objectAtIndex:rowIndex]];
+    if ([tableColumn.identifier isEqualToString:@"value"]) {
+        return tags[self.tagsArray[rowIndex]];
+    }
 
     return nil;
 }
@@ -498,13 +509,15 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         [dct setObject:@(height) forKey:key];
     }
 
-    if (height < 14.0)
+    if (height < 14.0) {
         return 14.0;
-    else
+    }
+    else {
         return height;
+    }
 }
 
-- (NSString *) tableView: (NSTableView *) aTableView 
+- (NSString *) tableView: (NSTableView *) aTableView
           toolTipForCell: (NSCell *) aCell 
                     rect: (NSRectPointer) rect 
              tableColumn: (NSTableColumn *) aTableColumn
@@ -568,8 +581,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (IBAction) changeGapless: (id) sender
 {
     uint8_t newValue;
-    if (sender == gapless)
+    if (sender == gapless) {
         newValue = (uint8_t)[gapless state];
+    }
     else {
         newValue = ![gapless state];
         [gapless setState:newValue];
@@ -642,8 +656,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     NSArray *objects = [metadata.artworks objectsAtIndexes:indexes];
     [metadata.artworks removeObjectsAtIndexes:indexes];
 
-    for (id object in [objects reverseObjectEnumerator])
+    for (id object in objects.reverseObjectEnumerator) {
         [metadata.artworks insertObject:object atIndex:destinationIndex];
+    }
 
     metadata.isEdited = YES;
     metadata.isArtworkEdited = YES;
@@ -655,7 +670,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (NSUInteger)imageBrowser:(IKImageBrowserView *) aBrowser writeItemsAtIndexes:(NSIndexSet *) itemIndexes toPasteboard:(NSPasteboard *)pasteboard
 {
     NSInteger index;
-    [pasteboard declareTypes:[NSArray arrayWithObject:NSTIFFPboardType] owner:nil];
+    [pasteboard declareTypes:@[NSTIFFPboardType] owner:nil];
 
     for (index = [itemIndexes lastIndex]; index != NSNotFound; index = [itemIndexes indexLessThanIndex:index]) {
         NSArray *representations = [[[metadata.artworks objectAtIndex:index] image] representations];
@@ -686,10 +701,12 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     NSIndexSet *rowIndexes = [aBrowser selectionIndexes];
 
-    if ([rowIndexes count])
+    if (rowIndexes.count) {
         [removeArtwork setEnabled:YES];
-    else
+    }
+    else {
         [removeArtwork setEnabled:NO];
+    }
 }
 
 - (IBAction)zoomSliderDidChange:(id)sender {
@@ -740,17 +757,18 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     panel.allowsMultipleSelection = YES;
     panel.canChooseFiles = YES;
     panel.canChooseDirectories = NO;
-    [panel setAllowedFileTypes:[NSArray arrayWithObject:@"public.image"]];
+    panel.allowedFileTypes = @[@"public.image"];
 
-    [panel beginSheetModalForWindow: [[self view] window] completionHandler:^(NSInteger result) {
+    [panel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
-            
-            for (NSURL *url in [panel URLs])
+
+            for (NSURL *url in panel.URLs) {
                 [self addArtwork:url];
+            }
 
             metadata.isArtworkEdited = YES;
             metadata.isEdited = YES;
-            [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+            [[[[[self view] window] windowController] document] updateChangeCount:NSChangeDone];
             [imageBrowser reloadData];
         }
     }];
@@ -771,19 +789,19 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     BOOL edited = NO;
     NSPasteboard *pasteboard = [sender draggingPasteboard];
 
-    NSArray *classes = [NSArray arrayWithObjects:[NSURL class], [NSImage class], nil];
-    NSDictionary *options = [NSDictionary dictionaryWithObject:[NSImage imageTypes]
-                                                        forKey:NSPasteboardURLReadingContentsConformToTypesKey];
+    NSArray *classes = @[[NSURL class], [NSImage class]];
+    NSDictionary *options = @{NSPasteboardURLReadingContentsConformToTypesKey: [NSImage imageTypes]};
     NSArray *draggedItems = [pasteboard readObjectsForClasses:classes options:options];
 
     if (draggedItems) {
-        for (id dragItem in draggedItems)
+        for (id dragItem in draggedItems) {
             edited = [self addArtwork:dragItem];
+        }
 
         if (edited) {
             metadata.isArtworkEdited = YES;
             metadata.isEdited = YES;
-            [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+            [[[[[self view] window] windowController] document] updateChangeCount:NSChangeDone];
             [imageBrowser reloadData];
 
             return YES;

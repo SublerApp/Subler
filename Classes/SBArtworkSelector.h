@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol SBArtworkSelectorDelegate <NSObject>
-- (void)selectArtworkDone:(NSURL *)url;
+- (void)selectArtworkDone:(NSIndexSet *)indexes;
 @end
 
 @interface SBArtworkSelector : NSWindowController {

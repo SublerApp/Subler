@@ -697,8 +697,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (IBAction)deleteTrack:(id)sender
 {
-    if ([fileTracksTable selectedRow] == -1  || [fileTracksTable editedRow] != -1)
+    if ([fileTracksTable selectedRow] == -1  || [fileTracksTable editedRow] != -1) {
         return;
+    }
 
     [self.mp4 removeTrackAtIndex:[fileTracksTable selectedRow]];
 
@@ -738,25 +739,29 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     panel.allowsMultipleSelection = NO;
     panel.canChooseFiles = YES;
     panel.canChooseDirectories = NO;
-    MP42ChapterTrack *chapters = [self.mp4 chapters];
-    if (nil != chapters) {
-        [panel setAllowedFileTypes:[supportedFileFormat() arrayByAddingObject:@"csv"]];
+
+    MP42ChapterTrack *chapters = self.mp4.chapters;
+    if (chapters) {
+        panel.allowedFileTypes = [supportedFileFormat() arrayByAddingObject:@"csv"];
     }
     else {
-        [panel setAllowedFileTypes:supportedFileFormat()];
+        panel.allowedFileTypes = supportedFileFormat();
     }
 
     [panel beginSheetModalForWindow:documentWindow completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
-            NSString *fileExtension = [[panel.URLs objectAtIndex: 0] pathExtension];
+            NSString *fileExtension = panel.URLs.firstObject.pathExtension;
 
-            if ([fileExtension caseInsensitiveCompare: @"txt"] == NSOrderedSame)
+            if ([fileExtension caseInsensitiveCompare: @"txt"] == NSOrderedSame) {
                 [self addChapterTrack:[panel.URLs objectAtIndex: 0]];
-            else if ([fileExtension caseInsensitiveCompare: @"csv"] == NSOrderedSame)
-                [self updateChapters:chapters fromCSVFile:[panel.URLs objectAtIndex: 0]];
-            else
+            }
+            else if ([fileExtension caseInsensitiveCompare: @"csv"] == NSOrderedSame) {
+                [self updateChapters:chapters fromCSVFile:panel.URLs.firstObject];
+            }
+            else {
                 [self performSelectorOnMainThread:@selector(showImportSheet:)
                                        withObject:panel.URLs waitUntilDone: NO];
+            }
         }
     }];
 }
@@ -768,14 +773,16 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     importWindow = [[SBFileImport alloc] initWithURLs:fileURLs delegate:self error:&error];
 
     if (importWindow) {
-		if ([importWindow onlyContainsSubtitleTracks]) { //execute always. Maybe we should do this only for subtitle
+		if ([importWindow onlyContainsSubtitleTracks]) {
 			[importWindow addTracks:self];
 			[self didEndSheet:nil returnCode:NSOKButton contextInfo:nil];
-		} else { // show the dialog
+		}
+        else { // show the dialog
 			[NSApp beginSheet:[importWindow window] modalForWindow:documentWindow
 				modalDelegate:self didEndSelector:@selector(didEndSheet:returnCode:contextInfo:) contextInfo:NULL];
 		}
-    } else if (error) {
+    }
+    else if (error) {
             [self presentError:error modalForWindow:documentWindow delegate:nil didPresentSelector:NULL contextInfo:nil];
     }
 }
@@ -875,9 +882,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (IBAction)addChaptersEvery:(id)sender
 {
-    MP42ChapterTrack *chapterTrack = [self.mp4 chapters];
+    MP42ChapterTrack *chapterTrack = self.mp4.chapters;
     NSInteger minutes = [sender tag] * 60 * 1000;
-    NSInteger i, y = 1;
 
     if (!chapterTrack) {
         chapterTrack = [[MP42ChapterTrack alloc] init];
@@ -886,14 +892,16 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         [chapterTrack release];
     }
 
-    if (minutes)
-        for (i = 0, y = 1; i < self.mp4.duration; i += minutes, y++) {
+    if (minutes) {
+        for (NSInteger i = 0, y = 1; i < self.mp4.duration; i += minutes, y++) {
             [chapterTrack addChapter:[NSString stringWithFormat:@"Chapter %ld", (long)y]
                             duration:i];
         }
-    else
+    }
+    else {
         [chapterTrack addChapter:@"Chapter 1"
                         duration:self.mp4.duration];
+    }
 
     [fileTracksTable reloadData];
     [self reloadPropertyView];

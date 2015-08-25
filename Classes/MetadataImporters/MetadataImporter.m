@@ -166,8 +166,9 @@
     NSError *outError = nil;
 	NSData *r = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&outError];
 
-    if (r)
+    if (r) {
         [r writeToFile:filename atomically:NO];
+    }
 
 	return r;
 }
