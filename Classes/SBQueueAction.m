@@ -19,9 +19,9 @@
 @implementation SBQueueSubtitlesAction
 
 - (NSArray *)loadSubtitles:(NSURL *)url {
-    NSError *outError;
-    NSMutableArray *tracksArray = [[NSMutableArray alloc] init];
-    NSArray *directory = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[url URLByDeletingLastPathComponent]
+    NSError *error = nil;
+    NSMutableArray<MP42Track *> *tracksArray = [[NSMutableArray alloc] init];
+    NSArray<NSURL *> *directory = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[url URLByDeletingLastPathComponent]
                                                        includingPropertiesForKeys:nil
                                                                           options:NSDirectoryEnumerationSkipsSubdirectoryDescendants |
                                                                                   NSDirectoryEnumerationSkipsHiddenFiles |
@@ -29,18 +29,18 @@
                                                                             error:nil];
 
     for (NSURL *dirUrl in directory) {
-        if ([[dirUrl pathExtension] caseInsensitiveCompare:@"srt"] == NSOrderedSame) {
+        if ([dirUrl.pathExtension caseInsensitiveCompare:@"srt"] == NSOrderedSame) {
             NSComparisonResult result;
             NSString *movieFilename = [[url URLByDeletingPathExtension] lastPathComponent];
             NSString *subtitleFilename = [[dirUrl URLByDeletingPathExtension] lastPathComponent];
             NSRange range = { 0, [movieFilename length] };
 
-            if ([movieFilename length] <= [subtitleFilename length]) {
+            if (movieFilename.length <= subtitleFilename.length) {
                 result = [subtitleFilename compare:movieFilename options:NSCaseInsensitiveSearch range:range];
 
                 if (result == NSOrderedSame) {
                     MP42FileImporter *fileImporter = [[[MP42FileImporter alloc] initWithURL:dirUrl
-                                                                                      error:&outError] autorelease];
+                                                                                      error:&error] autorelease];
 
                     for (MP42Track *track in fileImporter.tracks) {
                         [tracksArray addObject:track];
@@ -55,7 +55,7 @@
 
 - (void)runAction:(SBQueueItem *)item {
     // Search for external subtitles files
-    NSArray *subtitles = [self loadSubtitles:item.URL];
+    NSArray<MP42SubtitleTrack *> *subtitles = [self loadSubtitles:item.URL];
     for (MP42SubtitleTrack *subTrack in subtitles) {
         [item.mp4File addTrack:subTrack];
     }

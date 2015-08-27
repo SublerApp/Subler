@@ -179,7 +179,7 @@
     [self.URL getResourceValue:&type forKey:NSURLTypeIdentifierKey error:outError];
 
     if ([type isEqualToString:@"com.apple.m4a-audio"] || [type isEqualToString:@"com.apple.m4v-video"] || [type isEqualToString:@"public.mpeg-4"]) {
-       self.mp4File = [[[MP42File alloc] initWithExistingFile:self.URL andDelegate:nil] autorelease];
+       self.mp4File = [[[MP42File alloc] initWithURL:self.URL delegate:nil] autorelease];
     } else {
         self.mp4File = [[[MP42File alloc] init] autorelease];
         MP42FileImporter *fileImporter = [[MP42FileImporter alloc] initWithURL:self.URL error:outError];
