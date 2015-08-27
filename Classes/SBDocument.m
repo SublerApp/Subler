@@ -94,23 +94,9 @@
     return NO;
 }
 
-- (void)reloadFile:(NSURL *)absoluteURL
-{
-    if (absoluteURL) {
-        self.mp4 = [[[MP42File alloc] initWithExistingFile:absoluteURL andDelegate:self] autorelease];
-
-        [fileTracksTable reloadData];
-        [self reloadPropertyView];
-
-        if (!self.mp4) {
-            [self close];
-        }
-    }
-}
-
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
 {
-    self.mp4 = [[[MP42File alloc] initWithExistingFile:absoluteURL andDelegate:self] autorelease];
+    self.mp4 = [[[MP42File alloc] initWithURL:absoluteURL delegate:self] autorelease];
 
     if (outError != NULL && !self.mp4) {
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
@@ -123,7 +109,7 @@
 
 - (BOOL)revertToContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
 {
-    self.mp4 = [[[MP42File alloc] initWithExistingFile:absoluteURL andDelegate:self] autorelease];
+    self.mp4 = [[[MP42File alloc] initWithURL:absoluteURL delegate:self] autorelease];
 
     [fileTracksTable reloadData];
     [self reloadPropertyView];
@@ -163,7 +149,6 @@
     IOReturn io_success = IOPMAssertionCreateWithName(kIOPMAssertionTypeNoIdleSleep,
                                                       kIOPMAssertionLevelOn, reasonForActivity, &assertionID);
     BOOL result = NO;
-    NSError *inError = nil;
 
     NSMutableDictionary<NSString *, NSNumber *> * attributes = [[NSMutableDictionary alloc] init];
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue]) {
@@ -177,15 +162,15 @@
         case NSSaveOperation:
             // movie file already exists, so we'll just update
             // the movie resource.
-            result = [self.mp4 updateMP4FileWithAttributes:attributes error:&inError];
+            result = [self.mp4 updateMP4FileWithAttributes:attributes error:outError];
             break;
 
         case NSSaveAsOperation:
-            // movie doesn not exist, create a new one from scratch.
+            // movie does not exist, create a new one from scratch.
             if ([_64bit_data state]) { attributes[MP4264BitData] = @YES; }
             if ([_64bit_time state]) { attributes[MP4264BitTime] = @YES; }
 
-            result = [self.mp4 writeToUrl:url withAttributes:attributes error:&inError];
+            result = [self.mp4 writeToUrl:url withAttributes:attributes error:outError];
             break;
 
         default:
@@ -207,24 +192,31 @@
         IOPMAssertionRelease(assertionID);
     }
 
+
+    NSError *error = *outError;
+    MP42File *reloadedFile = nil;
+
+    if (result == YES) {
+        reloadedFile = [[[MP42File alloc] initWithURL:url delegate:self] autorelease];
+    }
+
     dispatch_async(dispatch_get_main_queue(), ^{
         [NSApp endSheet:savingWindow];
         [savingWindow orderOut:self];
         [optBar stopAnimation:self];
 
-        if (inError && inError.code == 101) {
-            // Write permission error, don't reload the file
-        } else {
-            [self reloadFile:url];
+        if (result == YES && error) {
+            [self presentError:error
+                modalForWindow:documentWindow
+                        delegate:nil
+            didPresentSelector:NULL
+                    contextInfo:NULL];
         }
 
-        if (inError) {
-            [self presentError:inError
-                modalForWindow:documentWindow
-                      delegate:nil
-            didPresentSelector:NULL
-                   contextInfo:NULL];
+        if (reloadedFile) {
+            self.mp4 = reloadedFile;
         }
+
     });
 
     return result;
@@ -816,7 +808,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     }
     else {
         MP42File *file = nil;
-        if ((file = [[MP42File alloc] initWithExistingFile:URL andDelegate:self])) {
+        if ((file = [[MP42File alloc] initWithURL:URL delegate:self])) {
             [self.mp4.metadata mergeMetadata:file.metadata];
             [file release];
         }
