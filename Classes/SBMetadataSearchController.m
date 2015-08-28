@@ -373,7 +373,7 @@
                     NSString *provider = providerNames[idx];
                     if ([provider isEqualToString:@"iTunes"]) {
                         NSURL *url = URLs[idx];
-                        url = [[url URLByDeletingPathExtension] URLByAppendingPathExtension:@"600x600-75.jpg"];
+                        url = [[url URLByDeletingPathExtension] URLByAppendingPathExtension:@"600x600bb-85.jpg"];
                         artworkData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
                     }
                 }

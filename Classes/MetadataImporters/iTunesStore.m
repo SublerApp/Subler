@@ -359,19 +359,24 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 		} else if ([trackExplicitness isEqualToString:@"cleaned"]) {
 			[metadata setContentRating:2];
 		}
-		// artwork
+
+		// artworks
 		NSString *artworkString = [r valueForKey:@"artworkUrl100"];
+
         if (artworkString) {
-            NSMutableArray *artworkThumbURLs = [[NSMutableArray alloc] initWithCapacity:1];
+
+            NSMutableArray<NSURL *> *artworkThumbURLs = [[NSMutableArray alloc] initWithCapacity:1];
             [artworkThumbURLs addObject:[NSURL URLWithString:artworkString]];
             [metadata setArtworkThumbURLs: artworkThumbURLs];
             [artworkThumbURLs release];
-            artworkString = [artworkString stringByReplacingOccurrencesOfString:@"100x100-75." withString:@""];
+
+            artworkString = [artworkString stringByReplacingOccurrencesOfString:@"100x100bb-85" withString:@"2100x2100bb-92"];
             NSMutableArray *artworkFullsizeURLs = [[NSMutableArray alloc] initWithCapacity:1];
             [artworkFullsizeURLs addObject:[NSURL URLWithString:artworkString]];
             [metadata setArtworkFullsizeURLs: artworkFullsizeURLs];
             [artworkFullsizeURLs release];
-            NSMutableArray *artworkProviderNames = [[NSMutableArray alloc] initWithCapacity:1];
+
+            NSMutableArray<NSString *> *artworkProviderNames = [[NSMutableArray alloc] initWithCapacity:1];
             [artworkProviderNames addObject:@"iTunes"];
             [metadata setArtworkProviderNames:artworkProviderNames];
             [artworkProviderNames release];
