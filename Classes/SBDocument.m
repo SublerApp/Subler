@@ -82,7 +82,7 @@
 }
 
 
-#pragma mark Read methods
+#pragma mark - Read methods
 
 + (BOOL)canConcurrentlyReadDocumentsOfType:(NSString *)type
 {
@@ -122,7 +122,30 @@
     return YES;
 }
 
-#pragma mark Save methods
+#pragma mark - Save methods
+
+- (IBAction)cancelSaveOperation:(id)sender
+{
+    [cancelSave setEnabled:NO];
+    [self.mp4 cancel];
+}
+
+- (IBAction)saveAndOptimize:(id)sender
+{
+    _optimize = YES;
+    [self saveDocument:sender];
+}
+
+- (IBAction)sendToExternalApp:(id)sender
+{
+    // Send to itunes after save.
+    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+    NSString *appPath = [workspace fullPathForApplication:@"iTunes"];
+
+    if (appPath) {
+        [workspace openFile:self.fileURL.path withApplication:appPath];
+    }
+}
 
 - (BOOL)canAsynchronouslyWriteToURL:(NSURL *)url
                              ofType:(NSString *)typeName
@@ -149,14 +172,7 @@
     IOReturn io_success = IOPMAssertionCreateWithName(kIOPMAssertionTypeNoIdleSleep,
                                                       kIOPMAssertionLevelOn, reasonForActivity, &assertionID);
     BOOL result = NO;
-
-    NSMutableDictionary<NSString *, NSNumber *> * attributes = [[NSMutableDictionary alloc] init];
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue]) {
-        attributes[MP42GenerateChaptersPreviewTrack] = @YES;
-    }
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBOrganizeAlternateGroups"] boolValue]) {
-        attributes[MP42OrganizeAlternateGroups] = @YES;
-    }
+    NSDictionary<NSString *, NSNumber *> *attributes = [self saveAttributes];
 
     switch (saveOperation) {
         case NSSaveOperation:
@@ -167,9 +183,6 @@
 
         case NSSaveAsOperation:
             // movie does not exist, create a new one from scratch.
-            if (_64bit_data.state) { attributes[MP4264BitData] = @YES; }
-            if (_64bit_time.state) { attributes[MP4264BitTime] = @YES; }
-
             result = [self.mp4 writeToUrl:url withAttributes:attributes error:outError];
             break;
 
@@ -177,8 +190,6 @@
             NSAssert(NO, @"Unhandled save operation");
             break;
     }
-
-    [attributes release];
 
     if (result && _optimize) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -222,6 +233,8 @@
     return result;
 }
 
+#pragma mark - Save panel
+
 - (BOOL)prepareSavePanel:(NSSavePanel *)savePanel
 {
     _currentSavePanel = savePanel;
@@ -254,7 +267,7 @@
     }
 
     if (self.mp4.dataSize > 4200000000) {
-        [_64bit_data setState:NSOnState];
+        _64bit_data.state = NSOnState;
     }
 
     return YES;
@@ -263,7 +276,8 @@
 - (IBAction)setSaveFormat:(NSPopUpButton *)sender
 {
     NSString *requiredFileType = nil;
-    NSInteger index = [sender indexOfSelectedItem];
+    NSInteger index = sender.indexOfSelectedItem;
+
     switch (index) {
         case 0:
             requiredFileType = MP42FileTypeM4V;
@@ -285,34 +299,27 @@
             break;
     }
 
-    [_currentSavePanel setAllowedFileTypes:@[requiredFileType]];
+    _currentSavePanel.allowedFileTypes = @[requiredFileType];
     [[NSUserDefaults standardUserDefaults] setObject:requiredFileType forKey:@"SBSaveFormat"];
 }
 
-- (IBAction)cancelSaveOperation:(id)sender
-{
-    [cancelSave setEnabled:NO];
-    [self.mp4 cancel];
-}
+- (NSDictionary<NSString *, NSNumber *> *)saveAttributes {
+    NSMutableDictionary<NSString *, NSNumber *> * attributes = [[NSMutableDictionary alloc] init];
 
-- (IBAction)saveAndOptimize:(id)sender
-{
-    _optimize = YES;
-    [self saveDocument:sender];
-}
-
-- (IBAction)sendToExternalApp:(id)sender
-{
-    // Send to itunes after save.
-    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-    NSString *appPath = [workspace fullPathForApplication:@"iTunes"];
-
-    if (appPath) {
-        [workspace openFile:self.fileURL.path withApplication:appPath];
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue]) {
+        attributes[MP42GenerateChaptersPreviewTrack] = @YES;
     }
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBOrganizeAlternateGroups"] boolValue]) {
+        attributes[MP42OrganizeAlternateGroups] = @YES;
+    }
+
+    if (_64bit_data.state) { attributes[MP4264BitData] = @YES; }
+    if (_64bit_time.state) { attributes[MP4264BitTime] = @YES; }
+
+    return [attributes autorelease];
 }
 
-#pragma mark Interface validation
+#pragma mark - Interface validation
 
 - (void)progressStatus:(CGFloat)progress
 {
@@ -398,7 +405,7 @@
     return NO;
 }
 
-#pragma mark table datasource
+#pragma mark - Table Data Source
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
@@ -547,12 +554,13 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id <NSDraggingInfo>)info
               row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation
 {
-    NSPasteboard* pboard = [info draggingPasteboard];
-    NSData* rowData = [pboard dataForType:SublerTableViewDataType];
-    NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
-    NSInteger dragRow = [rowIndexes firstIndex];
+    NSPasteboard *pboard = [info draggingPasteboard];
+    NSData *rowData = [pboard dataForType:SublerTableViewDataType];
+    NSIndexSet *rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
+    NSInteger dragRow = rowIndexes.firstIndex;
     
     [self.mp4 moveTrackAtIndex:dragRow toIndex:row];
+
     [fileTracksTable reloadData];
     return YES;
 }
@@ -562,7 +570,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     return YES;
 }
 
-/* NSComboBoxCell dataSource */
+#pragma mark - NSComboBoxCell dataSource
 
 - (NSInteger)numberOfItemsInComboBoxCell:(NSComboBoxCell *)comboBoxCell
 {
@@ -577,7 +585,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     return [languages indexOfObject: string];
 }
 
-#pragma mark Various things
+#pragma mark - Various things
 
 - (void)didEndSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
 {
@@ -603,18 +611,11 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
         [panel beginSheetModalForWindow:documentWindow completionHandler:^(NSInteger result) {
             if (result == NSFileHandlingPanelOKButton) {
-                NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
-
-                if (_64bit_data.state) { attributes[MP4264BitData] = @YES; }
-                if (_64bit_time.state) { attributes[MP4264BitTime] = @YES; }
-                if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue]) {
-                    attributes[MP42GenerateChaptersPreviewTrack] = @YES;
-                }
+                NSDictionary *attributes = [self saveAttributes];
 
                 SBQueueItem *item = [SBQueueItem itemWithMP4:self.mp4 destinationURL:panel.URL attributes:attributes];
                 [queue addItem:item];
 
-                [attributes release];
                 [self close];
             }
         }];
@@ -835,12 +836,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (IBAction)export:(id)sender
 {
-    NSString *filename = self.fileURL.URLByDeletingPathExtension.lastPathComponent;
-
     NSSavePanel *panel = [NSSavePanel savePanel];
-    panel.canSelectHiddenExtension = YES;
-    panel.nameFieldStringValue = filename;
 
+    NSString *filename = self.fileURL.URLByDeletingPathExtension.lastPathComponent;
     NSInteger row = fileTracksTable.selectedRow;
 
     if (row != -1 && [[self.mp4 trackAtIndex:row] isKindOfClass:[MP42SubtitleTrack class]]) {
@@ -851,6 +849,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         filename = [filename stringByAppendingString:@" - Chapters"];
         panel.allowedFileTypes = @[@"txt"];
     }
+
+    panel.canSelectHiddenExtension = YES;
+    panel.nameFieldStringValue = filename;
 
     [panel beginSheetModalForWindow:documentWindow completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
