@@ -133,15 +133,15 @@
 
 - (BOOL)writeSafelyToURL:(NSURL *)url ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError * _Nullable *)outError
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    [self unblockUserInteraction];
+
+    dispatch_sync(dispatch_get_main_queue(), ^{
         [optBar setIndeterminate:YES];
         [optBar startAnimation:self];
         [saveOperationName setStringValue:@"Saving…"];
         [NSApp beginSheet:savingWindow modalForWindow:documentWindow
             modalDelegate:nil didEndSelector:NULL contextInfo:nil];
     });
-
-    [self unblockUserInteraction];
 
     IOPMAssertionID assertionID;
     // Enable sleep assertion
@@ -192,18 +192,17 @@
         IOPMAssertionRelease(assertionID);
     }
 
-
     NSError *error = *outError;
     MP42File *reloadedFile = nil;
 
     if (result == YES) {
-        reloadedFile = [[[MP42File alloc] initWithURL:url delegate:self] autorelease];
+        reloadedFile = [[MP42File alloc] initWithURL:url delegate:self];
     }
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [NSApp endSheet:savingWindow];
-        [savingWindow orderOut:self];
+    dispatch_sync(dispatch_get_main_queue(), ^{
         [optBar stopAnimation:self];
+        [savingWindow orderOut:self];
+        [NSApp endSheet:savingWindow];
 
         if (result == YES && error) {
             [self presentError:error
@@ -215,6 +214,7 @@
 
         if (reloadedFile) {
             self.mp4 = reloadedFile;
+            [reloadedFile release];
         }
 
     });
@@ -469,15 +469,13 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (void)reloadPropertyView
 {
-    if ([propertyView view] != nil) {
+    if (propertyView.view != nil) {
+        // remove the undo items from the dealloced view
+        [[self undoManager] removeAllActionsWithTarget:propertyView];
+
         // remove the current view
-		[[propertyView view] removeFromSuperview];
-    }
+		[propertyView.view removeFromSuperview];
 
-    // remove the undo items from the dealloced view
-    [[self undoManager] removeAllActionsWithTarget:propertyView];
-
-	if (propertyView != nil) {
         // remove the current view controller
         [propertyView release];
     }
@@ -508,7 +506,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     propertyView = controller;
 
     // embed the current view to our host view
-	[targetView addSubview: [propertyView view]];
+	[targetView addSubview:propertyView.view];
     [documentWindow recalculateKeyViewLoop];
 
 	// make sure we automatically resize the controller's view to the current window size
@@ -519,8 +517,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (BOOL)tableView:(NSTableView *)tv writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard
 {
     // Copy the row numbers to the pasteboard.
-    if ([[self.mp4 trackAtIndex:[rowIndexes firstIndex]] muxed])
+    if ([[self.mp4 trackAtIndex:[rowIndexes firstIndex]] muxed]) {
         return NO;
+    }
 
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
     [pboard declareTypes:@[SublerTableViewDataType] owner:self];
@@ -652,8 +651,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
                 MP42VideoTrack *videoTrack = (MP42VideoTrack *)track;
                 int hdVideo = isHdVideo((uint64_t)videoTrack.trackWidth, (uint64_t)videoTrack.trackHeight);
 
-                if (hdVideo)
-                    [self.mp4.metadata setTag:@(hdVideo) forKey:@"HD Video"];
+                if (hdVideo) {
+                    self.mp4.metadata[@"HD Video"] = @(hdVideo);
+                }
             }
         [self updateChangeCount:NSChangeDone];
     }
@@ -955,6 +955,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (void)dealloc
 {
+    [fileTracksTable setDelegate:nil];
+    [fileTracksTable setDataSource:nil];
+
     [propertyView release];
     propertyView = nil;
 

@@ -420,10 +420,10 @@
     }
     [delegate metadataImportDone:self.selectedResult];
 
-    [metadataTable setDataSource:nil];
     [metadataTable setDelegate:nil];
-    [resultsTable setDataSource:nil];
+    [metadataTable setDataSource:nil];
     [resultsTable setDelegate:nil];
+    [resultsTable setDataSource:nil];
 
     [NSApp endSheet:[self window] returnCode:1];
 }
@@ -433,10 +433,10 @@
     [self.currentSearcher cancel];
     self.currentSearcher = nil;
 
-    [metadataTable setDataSource:nil];
     [metadataTable setDelegate:nil];
-    [resultsTable setDataSource:nil];
+    [metadataTable setDataSource:nil];
     [resultsTable setDelegate:nil];
+    [resultsTable setDataSource:nil];
 
     [NSApp endSheet:[self window] returnCode:0];
 }
@@ -593,10 +593,12 @@ static NSInteger sortFunction (id ldict, id rdict, void *context) {
     NSInteger right = [(NSArray*) context indexOfObject:rdict];
     NSInteger left = [(NSArray*) context indexOfObject:ldict];
     
-    if (right < left)
+    if (right < left) {
         rc = NSOrderedDescending;
-    else
+    }
+    else {
         rc = NSOrderedAscending;
+    }
     
     return rc;
 }

@@ -1,8 +1,7 @@
-/*  HBExceptionAlertController.h $
-
- This file is part of the HandBrake source code.
- Homepage: <http://handbrake.fr/>.
- It may be used under the terms of the GNU General Public License. */
+//
+//  SBLogger.m
+//  Subler
+//
 
 #import <Cocoa/Cocoa.h>
 
@@ -11,11 +10,14 @@ typedef NS_ENUM(NSUInteger, SBExceptionAlertControllerResult) {
     SBExceptionAlertControllerResultContinue,
 };
 
-@interface SBExceptionAlertController : NSWindowController
+@interface SBExceptionAlertController : NSWindowController {
+    NSString *_exceptionMessage;
+    NSAttributedString *_exceptionBacktrace;
+}
 
 // Properties are used by bindings
-@property (copy) NSString *exceptionMessage;
-@property (copy) NSAttributedString *exceptionBacktrace;
+@property (nonatomic, copy) NSString *exceptionMessage;
+@property (nonatomic, copy) NSAttributedString *exceptionBacktrace;
 
 - (IBAction)btnCrashClicked:(id)sender;
 - (IBAction)btnContinueClicked:(id)sender;

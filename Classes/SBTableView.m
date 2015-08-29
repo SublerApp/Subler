@@ -18,7 +18,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _pasteboardTypes = @[];
+        _pasteboardTypes = [@[] retain];
     }
     return self;
 }
@@ -27,7 +27,7 @@
 {
     self = [super initWithCoder:coder];
     if (self) {
-        _pasteboardTypes = @[];
+        _pasteboardTypes = [@[] retain];
     }
     return self;
 }
@@ -170,9 +170,11 @@
     [super drawRow:inRow clipRect:newClipRect];
 }
 
-- (void) dealloc
+- (void)dealloc
 {
     [_pasteboardTypes release];
+    _pasteboardTypes = nil;
+
     [super dealloc];
 }
 

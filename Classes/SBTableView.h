@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSArray<NSString *> *_pasteboardTypes;
     NSInteger _defaultEditingColumn;
 }
-@property(nonatomic, readwrite, retain) NSArray<NSString *> *pasteboardTypes;
+@property(nonatomic, readwrite, copy) NSArray<NSString *> *pasteboardTypes;
 @property(nonatomic, readwrite) NSInteger defaultEditingColumn;
 @end
 

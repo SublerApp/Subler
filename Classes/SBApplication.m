@@ -1,8 +1,7 @@
-/*  HBApplication.m $
-
- This file is part of the HandBrake source code.
- Homepage: <http://handbrake.fr/>.
- It may be used under the terms of the GNU General Public License. */
+//
+//  SBLogger.m
+//  Subler
+//
 
 #import "SBApplication.h"
 #import "SBExceptionAlertController.h"
@@ -17,14 +16,15 @@ static void CrashMyApplication()
 - (NSAttributedString *)_formattedExceptionBacktrace:(NSArray *)backtrace
 {
     NSMutableAttributedString *result = [[NSMutableAttributedString alloc] init];
-    for (__strong NSString *s in backtrace)
+    for (NSString *s in backtrace)
     {
         s = [s stringByAppendingString:@"\n"];
         NSAttributedString *attrS = [[NSAttributedString alloc] initWithString:s];
         [result appendAttributedString:attrS];
+        [attrS release];
     }
     [result addAttribute:NSFontAttributeName value:[NSFont fontWithName:@"Monaco" size:10] range:NSMakeRange(0, result.length)];
-    return result;    
+    return [result autorelease];
 }
 
 - (void)reportException:(NSException *)exception
@@ -37,11 +37,7 @@ static void CrashMyApplication()
         {
             // Create a string based on the exception
             NSString *exceptionMessage = [NSString stringWithFormat:@"%@\nReason: %@\nUser Info: %@", exception.name, exception.reason, exception.userInfo];
-            // Always log to console for history
-
-            //[HBUtilities writeToActivityLog:"Exception raised:\n%s", exceptionMessage.UTF8String];
-            //[HBUtilities writeToActivityLog:"Backtrace:\n%s", exception.callStackSymbols.description.UTF8String];
-
+            
             SBExceptionAlertController *alertController = [[SBExceptionAlertController alloc] init];
             alertController.exceptionMessage = exceptionMessage;
             alertController.exceptionBacktrace = [self _formattedExceptionBacktrace:exception.callStackSymbols];

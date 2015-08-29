@@ -16,7 +16,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _pasteboardTypes = @[];
+        _pasteboardTypes = [@[] retain];
     }
     return self;
 }
@@ -25,7 +25,7 @@
 {
     self = [super initWithCoder:coder];
     if (self) {
-        _pasteboardTypes = @[];
+        _pasteboardTypes = [@[] retain];
     }
     return self;
 }
@@ -62,6 +62,8 @@
 - (void)dealloc
 {
     [_pasteboardTypes release];
+    _pasteboardTypes = nil;
+
     [super dealloc];
 }
 

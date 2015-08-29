@@ -40,7 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSDictionary<NSString *, id> *tags;
     NSArray<NSString *> *_tagsArray;
-    NSArray<NSString *> *tagsMenu;
     NSDictionary    *detailBoldAttr;
 
     NSMutableDictionary  *dct;

@@ -167,8 +167,9 @@
 
         MP42Image *artwork = [self loadArtwork:artworkURL];
 
-        if (artwork)
+        if (artwork) {
             [metadata.artworks addObject:artwork];
+        }
     }
 
     return metadata;
@@ -183,11 +184,12 @@
             MP42VideoTrack *videoTrack = (MP42VideoTrack *)track;
             int hdVideo = isHdVideo((uint64_t)videoTrack.trackWidth, (uint64_t)videoTrack.trackHeight);
 
-            if (hdVideo)
-                [metadata setTag:@(hdVideo) forKey:@"HD Video"];
+            if (hdVideo) {
+                metadata[@"HD Video"] = @(hdVideo);
+            }
         }
 
-    [[item.mp4File metadata] mergeMetadata:metadata];
+    [item.mp4File.metadata mergeMetadata:metadata];
 }
 
 - (NSString *)description {

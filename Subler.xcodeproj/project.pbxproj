@@ -17,6 +17,10 @@
 		A91F622D0FB0A56F00B96B33 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A91F622C0FB0A56F00B96B33 /* libicucore.dylib */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A95688A21B91B0F3004456A6 /* NSArray+Subscripting.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A11B91B0F3004456A6 /* NSArray+Subscripting.m */; settings = {ASSET_TAGS = (); }; };
+		A95688A91B91B11B004456A6 /* NSDictionary+Subscript.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A41B91B11B004456A6 /* NSDictionary+Subscript.m */; settings = {ASSET_TAGS = (); }; };
+		A95688AA1B91B11B004456A6 /* NSMutableArray+Subscript.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A61B91B11B004456A6 /* NSMutableArray+Subscript.m */; settings = {ASSET_TAGS = (); }; };
+		A95688AB1B91B11B004456A6 /* NSMutableDictionary+Subscript.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A81B91B11B004456A6 /* NSMutableDictionary+Subscript.m */; settings = {ASSET_TAGS = (); }; };
 		A95B8DA91B09F37800F2F152 /* Subler_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B8DA81B09F37800F2F152 /* Subler_Tests.m */; };
 		A95C881D0F827BFB00F51A22 /* ToolbarRemoveTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = A95C881C0F827BFB00F51A22 /* ToolbarRemoveTemplate.png */; };
 		A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */; };
@@ -67,6 +71,9 @@
 		A9D47B5A17B239E200900BCA /* EncodeComplete.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5617B239E200900BCA /* EncodeComplete.png */; };
 		A9D47B5B17B239E200900BCA /* EncodeComplete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5717B239E200900BCA /* EncodeComplete@2x.png */; };
 		A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */; };
+		A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B991B918D5C00F1E40C /* SBApplication.m */; settings = {ASSET_TAGS = (); }; };
+		A9DA3B9D1B918D5C00F1E40C /* SBExceptionAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B9B1B918D5C00F1E40C /* SBExceptionAlertController.m */; settings = {ASSET_TAGS = (); }; };
+		A9DA3BA31B918D6F00F1E40C /* ExceptionAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9DA3BA11B918D6F00F1E40C /* ExceptionAlert.xib */; settings = {ASSET_TAGS = (); }; };
 		A9E2C9C91A1770EC00A417C9 /* EncodeWorking@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E2C9C81A1770EC00A417C9 /* EncodeWorking@2x.png */; };
 		A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */; };
 		A9EEA5F818D654B9008B54B4 /* QueueOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */; };
@@ -165,6 +172,14 @@
 		A917286419FD289F00348DF8 /* SBLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBLogger.h; path = Classes/SBLogger.h; sourceTree = "<group>"; };
 		A91F622C0FB0A56F00B96B33 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 		A925AA7B18378D7800BE84D4 /* MP42Foundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP42Foundation.xcodeproj; path = MP42Foundation/MP42Foundation.xcodeproj; sourceTree = "<group>"; };
+		A95688A01B91B0F3004456A6 /* NSArray+Subscripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+Subscripting.h"; path = "Classes/Compatibility/NSArray+Subscripting.h"; sourceTree = "<group>"; };
+		A95688A11B91B0F3004456A6 /* NSArray+Subscripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+Subscripting.m"; path = "Classes/Compatibility/NSArray+Subscripting.m"; sourceTree = "<group>"; };
+		A95688A31B91B11B004456A6 /* NSDictionary+Subscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Subscript.h"; path = "Classes/Compatibility/NSDictionary+Subscript.h"; sourceTree = "<group>"; };
+		A95688A41B91B11B004456A6 /* NSDictionary+Subscript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Subscript.m"; path = "Classes/Compatibility/NSDictionary+Subscript.m"; sourceTree = "<group>"; };
+		A95688A51B91B11B004456A6 /* NSMutableArray+Subscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+Subscript.h"; path = "Classes/Compatibility/NSMutableArray+Subscript.h"; sourceTree = "<group>"; };
+		A95688A61B91B11B004456A6 /* NSMutableArray+Subscript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+Subscript.m"; path = "Classes/Compatibility/NSMutableArray+Subscript.m"; sourceTree = "<group>"; };
+		A95688A71B91B11B004456A6 /* NSMutableDictionary+Subscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableDictionary+Subscript.h"; path = "Classes/Compatibility/NSMutableDictionary+Subscript.h"; sourceTree = "<group>"; };
+		A95688A81B91B11B004456A6 /* NSMutableDictionary+Subscript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+Subscript.m"; path = "Classes/Compatibility/NSMutableDictionary+Subscript.m"; sourceTree = "<group>"; };
 		A95B8DA41B09F37700F2F152 /* Subler Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subler Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95B8DA71B09F37700F2F152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A95B8DA81B09F37800F2F152 /* Subler_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subler_Tests.m; sourceTree = "<group>"; };
@@ -244,6 +259,11 @@
 		A9D47B5717B239E200900BCA /* EncodeComplete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EncodeComplete@2x.png"; path = "images/EncodeComplete@2x.png"; sourceTree = "<group>"; };
 		A9D73C5018BF3F1100C6FFA6 /* SBQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueue.h; path = Classes/SBQueue.h; sourceTree = "<group>"; };
 		A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueue.m; path = Classes/SBQueue.m; sourceTree = "<group>"; };
+		A9DA3B991B918D5C00F1E40C /* SBApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBApplication.m; path = Classes/SBApplication.m; sourceTree = "<group>"; };
+		A9DA3B9A1B918D5C00F1E40C /* SBExceptionAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBExceptionAlertController.h; path = Classes/SBExceptionAlertController.h; sourceTree = "<group>"; };
+		A9DA3B9B1B918D5C00F1E40C /* SBExceptionAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBExceptionAlertController.m; path = Classes/SBExceptionAlertController.m; sourceTree = "<group>"; };
+		A9DA3BA01B918D6200F1E40C /* SBApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBApplication.h; path = Classes/SBApplication.h; sourceTree = "<group>"; };
+		A9DA3BA21B918D6F00F1E40C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ExceptionAlert.xib; sourceTree = "<group>"; };
 		A9E2C9C81A1770EC00A417C9 /* EncodeWorking@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EncodeWorking@2x.png"; path = "images/EncodeWorking@2x.png"; sourceTree = "<group>"; };
 		A9ED7B21180067A2008FD3A8 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A9EEA5EF18D65490008B54B4 /* SBOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBOptionsViewController.h; path = Classes/SBOptionsViewController.h; sourceTree = "<group>"; };
@@ -374,10 +394,8 @@
 				A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */,
 				CD71FF1A12F1C46900F0A98D /* MetadataImporters */,
 				A9FD5D150F3C692400817716 /* PropertyView */,
-				A9C5FA6B19FA22590051F3FF /* SBLogWindowController.h */,
-				A9C5FA6C19FA22590051F3FF /* SBLogWindowController.m */,
-				A917286419FD289F00348DF8 /* SBLogger.h */,
-				A917286019FD288B00348DF8 /* SBLogger.m */,
+				A95688AC1B91B35A004456A6 /* Activity Log */,
+				A956889F1B91AFF7004456A6 /* Compatibility */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -446,6 +464,36 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A956889F1B91AFF7004456A6 /* Compatibility */ = {
+			isa = PBXGroup;
+			children = (
+				A95688A01B91B0F3004456A6 /* NSArray+Subscripting.h */,
+				A95688A11B91B0F3004456A6 /* NSArray+Subscripting.m */,
+				A95688A31B91B11B004456A6 /* NSDictionary+Subscript.h */,
+				A95688A41B91B11B004456A6 /* NSDictionary+Subscript.m */,
+				A95688A51B91B11B004456A6 /* NSMutableArray+Subscript.h */,
+				A95688A61B91B11B004456A6 /* NSMutableArray+Subscript.m */,
+				A95688A71B91B11B004456A6 /* NSMutableDictionary+Subscript.h */,
+				A95688A81B91B11B004456A6 /* NSMutableDictionary+Subscript.m */,
+			);
+			name = Compatibility;
+			sourceTree = "<group>";
+		};
+		A95688AC1B91B35A004456A6 /* Activity Log */ = {
+			isa = PBXGroup;
+			children = (
+				A9C5FA6B19FA22590051F3FF /* SBLogWindowController.h */,
+				A9C5FA6C19FA22590051F3FF /* SBLogWindowController.m */,
+				A917286419FD289F00348DF8 /* SBLogger.h */,
+				A917286019FD288B00348DF8 /* SBLogger.m */,
+				A9DA3BA01B918D6200F1E40C /* SBApplication.h */,
+				A9DA3B991B918D5C00F1E40C /* SBApplication.m */,
+				A9DA3B9A1B918D5C00F1E40C /* SBExceptionAlertController.h */,
+				A9DA3B9B1B918D5C00F1E40C /* SBExceptionAlertController.m */,
+			);
+			name = "Activity Log";
+			sourceTree = "<group>";
+		};
 		A95B8DA51B09F37700F2F152 /* Subler Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -481,6 +529,7 @@
 				A9BC410618D9ABC000F8C92C /* QueueItem.xib */,
 				A90B023910F3290A000416F3 /* Prefs.xib */,
 				A9C5FA7219FA2FEC0051F3FF /* SBLogWindow.xib */,
+				A9DA3BA11B918D6F00F1E40C /* ExceptionAlert.xib */,
 			);
 			name = NIBs;
 			sourceTree = "<group>";
@@ -712,6 +761,7 @@
 				A9D47B5917B239E200900BCA /* EncodeCanceled@2x.png in Resources */,
 				A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */,
 				A9C5FA7419FA2FEC0051F3FF /* SBLogWindow.xib in Resources */,
+				A9DA3BA31B918D6F00F1E40C /* ExceptionAlert.xib in Resources */,
 				A9C055370F6D395B00AF15B5 /* FileImport.xib in Resources */,
 				A95C881D0F827BFB00F51A22 /* ToolbarRemoveTemplate.png in Resources */,
 				A90B023B10F3290A000416F3 /* Prefs.xib in Resources */,
@@ -772,8 +822,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
+				A95688A91B91B11B004456A6 /* NSDictionary+Subscript.m in Sources */,
 				A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */,
 				A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */,
+				A9DA3B9D1B918D5C00F1E40C /* SBExceptionAlertController.m in Sources */,
 				A9BC410318D9AB8700F8C92C /* SBItemViewController.m in Sources */,
 				A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */,
 				A9B46A8C12B79B240040517A /* SBFileImport.m in Sources */,
@@ -790,9 +842,12 @@
 				A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */,
 				A9AB485717F0AEAC000AA72E /* SBSoundViewController.m in Sources */,
 				A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */,
+				A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */,
 				CD56963212FAAD680029FADB /* SBArtworkSelector.m in Sources */,
 				A961476313F567E10068F161 /* SBQueueController.m in Sources */,
 				A961476413F567E10068F161 /* SBPresetManager.m in Sources */,
+				A95688AA1B91B11B004456A6 /* NSMutableArray+Subscript.m in Sources */,
+				A95688AB1B91B11B004456A6 /* NSMutableDictionary+Subscript.m in Sources */,
 				A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */,
 				A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */,
 				CDC06FCE1747494D003C1D0A /* iTunesStore.m in Sources */,
@@ -802,6 +857,7 @@
 				CD03087917576AE50093A0BE /* MetadataImporter.m in Sources */,
 				CD3F2A881761A143000D4C73 /* XMLReader.m in Sources */,
 				A9AB485517F0AEAC000AA72E /* SBEmptyViewController.m in Sources */,
+				A95688A21B91B0F3004456A6 /* NSArray+Subscripting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -939,6 +995,14 @@
 				A9C5FA7319FA2FEC0051F3FF /* English */,
 			);
 			name = SBLogWindow.xib;
+			sourceTree = "<group>";
+		};
+		A9DA3BA11B918D6F00F1E40C /* ExceptionAlert.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9DA3BA21B918D6F00F1E40C /* English */,
+			);
+			name = ExceptionAlert.xib;
 			sourceTree = "<group>";
 		};
 		A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */ = {

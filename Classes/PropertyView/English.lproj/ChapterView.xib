@@ -398,6 +398,7 @@
                 </tabView>
             </subviews>
             <animations/>
+            <point key="canvasLocation" x="532" y="445"/>
         </customView>
     </objects>
     <resources>

@@ -40,8 +40,8 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
                                              selector:@selector(updateSetsMenu:)
                                                  name:@"SBPresetManagerUpdatedNotification" object:nil];
 
-    tagsMenu = [[metadata writableMetadata] retain];
-    for (id tag in tagsMenu) {
+    NSArray<NSString *> *tagsMenu = [metadata writableMetadata];
+    for (NSString *tag in tagsMenu) {
         [tagList addItemWithTitle:tag];
     }
 
@@ -94,13 +94,13 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
     [imageBrowser reloadData];
 }
 
-- (void) setFile: (MP42File *)file
+- (void)setFile:(MP42File *)file
 {
     metadata = [file.metadata retain];
     tags = metadata.tagsDict;
 }
 
-- (void) setMetadata: (MP42Metadata *)data
+- (void)setMetadata:(MP42Metadata *)data
 {
     metadata = [data retain];
     tags = data.tagsDict;
@@ -820,13 +820,12 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 
-    [imageBrowser setDataSource:nil];
     [imageBrowser setDelegate:nil];
-    [tagsTableView setDataSource:nil];
+    [imageBrowser setDataSource:nil];
     [tagsTableView setDelegate:nil];
+    [tagsTableView setDataSource:nil];
 
     [_tagsArray release];
-    [tagsMenu release];
     [tabCol release];
     [ratingCell release];
     [genreCell release];

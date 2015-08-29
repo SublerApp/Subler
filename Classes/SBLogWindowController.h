@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SBLogger;
 
 @interface SBLogWindowController : NSWindowController <MP42Logging> {
+    @private
     NSTextView  *_logView;
     SBLogger    *_logger;
 }
