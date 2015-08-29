@@ -1,5 +1,5 @@
 //
-//  SBLogger.m
+//  NSMutableArray+Subscript.h
 //  Subler
 //
 

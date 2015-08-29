@@ -167,8 +167,8 @@
 
         case NSSaveAsOperation:
             // movie does not exist, create a new one from scratch.
-            if ([_64bit_data state]) { attributes[MP4264BitData] = @YES; }
-            if ([_64bit_time state]) { attributes[MP4264BitTime] = @YES; }
+            if (_64bit_data.state) { attributes[MP4264BitData] = @YES; }
+            if (_64bit_time.state) { attributes[MP4264BitTime] = @YES; }
 
             result = [self.mp4 writeToUrl:url withAttributes:attributes error:outError];
             break;
@@ -597,18 +597,18 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         [self close];
     } else {
         NSSavePanel *panel = [NSSavePanel savePanel];
-        [self prepareSavePanel:panel];
+        panel.prompt = NSLocalizedString(@"Send To Queue", nil);
 
-        [panel setPrompt:@"Send To Queue"];
+        [self prepareSavePanel:panel];
 
         [panel beginSheetModalForWindow:documentWindow completionHandler:^(NSInteger result) {
             if (result == NSFileHandlingPanelOKButton) {
                 NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
 
-                if ([_64bit_data state]) [attributes setObject:@YES forKey:MP4264BitData];
-                if ([_64bit_time state]) [attributes setObject:@YES forKey:MP4264BitTime];
+                if (_64bit_data.state) { attributes[MP4264BitData] = @YES; }
+                if (_64bit_time.state) { attributes[MP4264BitTime] = @YES; }
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue]) {
-                    [attributes setObject:@YES forKey:MP42GenerateChaptersPreviewTrack];
+                    attributes[MP42GenerateChaptersPreviewTrack] = @YES;
                 }
 
                 SBQueueItem *item = [SBQueueItem itemWithMP4:self.mp4 destinationURL:panel.URL attributes:attributes];
@@ -626,7 +626,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     NSString *filename = nil;
     for (MP42Track *track in self.mp4.tracks) {
         if (track.sourceURL) {
-            filename = [track.sourceURL lastPathComponent];
+            filename = track.sourceURL.lastPathComponent;
             break;
         }
     }
@@ -801,7 +801,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (void)addMetadata:(NSURL *)URL
 {
-    if ([[URL pathExtension] isEqualToString:@"xml"] || [[URL pathExtension] isEqualToString:@"nfo"]) {
+    if ([URL.pathExtension isEqualToString:@"xml"] || [URL.pathExtension isEqualToString:@"nfo"]) {
         MP42Metadata *xmlMetadata = [[MP42Metadata alloc] initWithFileURL:URL];
         [self.mp4.metadata mergeMetadata:xmlMetadata];
         [xmlMetadata release];
@@ -835,9 +835,13 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (IBAction)export:(id)sender
 {
-    NSInteger row = [fileTracksTable selectedRow];
-    NSSavePanel * panel = [NSSavePanel savePanel];
-    NSString *filename = [[[[self fileURL] path] stringByDeletingPathExtension] lastPathComponent];
+    NSString *filename = self.fileURL.URLByDeletingPathExtension.lastPathComponent;
+
+    NSSavePanel *panel = [NSSavePanel savePanel];
+    panel.canSelectHiddenExtension = YES;
+    panel.nameFieldStringValue = filename;
+
+    NSInteger row = fileTracksTable.selectedRow;
 
     if (row != -1 && [[self.mp4 trackAtIndex:row] isKindOfClass:[MP42SubtitleTrack class]]) {
         panel.allowedFileTypes = @[@"srt"];
@@ -848,20 +852,20 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         panel.allowedFileTypes = @[@"txt"];
     }
 
-    [panel setCanSelectHiddenExtension: YES];
-    [panel setNameFieldStringValue:filename];
-    
     [panel beginSheetModalForWindow:documentWindow completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
-            id track = [self.mp4 trackAtIndex:[fileTracksTable selectedRow]];
-            
-            if (![track exportToURL: [panel URL] error: nil]) {
-                NSAlert * alert = [[NSAlert alloc] init];
+
+            NSError *error;
+            id track = [self.mp4 trackAtIndex:row];
+
+            if (![track exportToURL:panel.URL error:&error]) {
+
+                NSAlert *alert = [[NSAlert alloc] init];
                 [alert addButtonWithTitle: NSLocalizedString(@"OK", "Export alert panel -> button")];
                 [alert setMessageText: NSLocalizedString(@"File Could Not Be Saved", "Export alert panel -> title")];
                 [alert setInformativeText: [NSString stringWithFormat:
                                             NSLocalizedString(@"There was a problem creating the file \"%@\".",
-                                                              "Export alert panel -> message"), [[[panel URL] path] lastPathComponent]]];
+                                                              "Export alert panel -> message"), panel.URL.lastPathComponent]];
                 [alert setAlertStyle: NSWarningAlertStyle];
                 
                 [alert runModal];

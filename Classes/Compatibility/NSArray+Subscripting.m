@@ -1,5 +1,5 @@
 //
-//  SBLogger.m
+//  NSArray+Subscripting.m
 //  Subler
 //
 
@@ -11,9 +11,7 @@
 + (void)load
 {
     Class class = [self class];
-
     SEL swizzledSelector = @selector(dg_objectAtIndexedSubscript:);
-
     Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
 
     class_addMethod([NSArray class],
@@ -23,8 +21,7 @@
                 );
 }
 
-- (id)dg_objectAtIndexedSubscript:(NSInteger)index
-{
+- (id)dg_objectAtIndexedSubscript:(NSInteger)index {
     return [self objectAtIndex:index];
 }
 

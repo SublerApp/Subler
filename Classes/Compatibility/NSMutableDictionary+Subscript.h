@@ -1,5 +1,5 @@
 //
-//  SBLogger.m
+//  NSMutableDictionary+Subscript.h
 //  Subler
 //
 

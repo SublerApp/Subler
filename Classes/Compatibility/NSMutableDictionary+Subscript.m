@@ -1,5 +1,5 @@
 //
-//  SBLogger.m
+//  NSMutableDictionary+Subscript.m
 //  Subler
 //
 
@@ -8,10 +8,8 @@
 
 @implementation NSMutableDictionary (Subscript)
 
-+ (void)load
-{
++ (void)load {
     Class class = [self class];
-
     SEL swizzledSelector = @selector(dg_setObject:forKeyedSubscript:);
     Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
 
@@ -22,8 +20,7 @@
                     );
 }
 
-- (void)dg_setObject:(id)object forKeyedSubscript:(id < NSCopying >)aKey
-{
+- (void)dg_setObject:(id)object forKeyedSubscript:(id < NSCopying >)aKey {
     [self setObject:object forKey:aKey];
 }
 

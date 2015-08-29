@@ -1,5 +1,5 @@
 //
-//  SBLogger.m
+//  NSMutableArray+Subscript.m
 //  Subler
 //
 
@@ -11,7 +11,6 @@
 + (void)load
 {
     Class class = [self class];
-
     SEL swizzledSelector = @selector(dg_setObject:atIndexedSubscript:);
     Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
 
@@ -22,22 +21,17 @@
                     );
 }
 
-- (void)dg_setObject:(id)anObject atIndexedSubscript:(NSUInteger)index
-{
-    if(anObject == nil)
-    {
+- (void)dg_setObject:(id)anObject atIndexedSubscript:(NSUInteger)index {
+    if (anObject == nil) {
         [NSException raise:NSInvalidArgumentException format:@"setObject:atIndexedSubscript does not allow objects to be nil"];
     }
-    if(index > self.count)
-    {
+    if (index > self.count) {
         [NSException raise:NSRangeException format:@"setObject:atIndexedSubscript does not allow the index to be out of array bounds"];
     }
-    if(index == self.count)
-    {
+    if (index == self.count) {
         [self addObject:anObject];
     }
-    else
-    {
+    else {
         [self replaceObjectAtIndex:index withObject:anObject];
     }
 }

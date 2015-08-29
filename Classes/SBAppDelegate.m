@@ -88,20 +88,21 @@
 #ifdef DONATION
     BOOL firstLaunch = YES;
 
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"FirstLaunch"])
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"FirstLaunch"]) {
         firstLaunch = NO;
+    }
 
-    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"WarningDonate"]) {        
-        NSDate * lastDonateDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"DonateAskDate"];
+    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"WarningDonate"]) {
+        NSDate *lastDonateDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"DonateAskDate"];
         const BOOL timePassed = !lastDonateDate || (-1 * [lastDonateDate timeIntervalSinceNow]) >= DONATE_NAG_TIME;
 
         if (!firstLaunch && timePassed) {
             [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"DonateAskDate"];
 
-            NSAlert * alert = [[NSAlert alloc] init];
+            NSAlert *alert = [[NSAlert alloc] init];
             [alert setMessageText: NSLocalizedString(@"Support Subler", "Donation -> title")];
 
-            NSString * donateMessage = [NSString stringWithFormat: @"%@",
+            NSString *donateMessage = [NSString stringWithFormat: @"%@",
                                         NSLocalizedString(@" A lot of time and effort have gone into development, coding, and refinement."
                                                           " If you enjoy using it, please consider showing your appreciation with a donation.", "Donation -> message")];
 
@@ -114,22 +115,26 @@
 
             const BOOL allowNeverAgain = lastDonateDate != nil; //hide the "don't show again" check the first time - give them time to try the app
             [alert setShowsSuppressionButton:allowNeverAgain];
-            if (allowNeverAgain)
+            if (allowNeverAgain) {
                 [[alert suppressionButton] setTitle:NSLocalizedString(@"Don't ask me about this ever again.", "Donation -> button")];
+            }
 
             const NSInteger donateResult = [alert runModal];
-            if (donateResult == NSAlertFirstButtonReturn)
+            if (donateResult == NSAlertFirstButtonReturn) {
                 [self linkDonate:self];
+            }
 
-            if (allowNeverAgain)
+            if (allowNeverAgain) {
                 [[NSUserDefaults standardUserDefaults] setBool:([[alert suppressionButton] state] != NSOnState) forKey:@"WarningDonate"];
+            }
 
             [alert release];
         }
     }
 
-    if (firstLaunch)
+    if (firstLaunch) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FirstLaunch"];
+    }
 #endif
     
     [SBQueueController sharedManager];
@@ -183,11 +188,6 @@
 @end
 
 @implementation SBDocumentController
-
-- (instancetype)init
-{
-	return [super init];
-}
 
 - (void)openDocumentWithContentsOfURL:(NSURL * _Nonnull)url
                               display:(BOOL)displayDocument
