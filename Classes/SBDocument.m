@@ -207,7 +207,7 @@
     MP42File *reloadedFile = nil;
 
     if (result == YES) {
-        reloadedFile = [[MP42File alloc] initWithURL:url delegate:self];
+        reloadedFile = [[MP42File alloc] initWithURL:[NSURL fileURLWithPath:url.path] delegate:self];
     }
 
     dispatch_sync(dispatch_get_main_queue(), ^{
@@ -226,6 +226,9 @@
         if (reloadedFile) {
             self.mp4 = reloadedFile;
             [reloadedFile release];
+
+            [fileTracksTable reloadData];
+            [self reloadPropertyView];
         }
 
     });
