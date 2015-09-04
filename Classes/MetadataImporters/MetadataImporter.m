@@ -116,6 +116,7 @@
 }
 
 + (NSString *)urlEncoded:(NSString *)string {
+    string = [string precomposedStringWithCompatibilityMapping];
     CFStringRef urlString = CFURLCreateStringByAddingPercentEscapes(
                                                                     NULL,
                                                                     (CFStringRef) string,
