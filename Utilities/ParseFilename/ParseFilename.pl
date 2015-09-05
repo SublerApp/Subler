@@ -14,6 +14,7 @@ if ($file->isTVshow()) {
 } elsif ($file->isEpisode()) {
 	print "tv" . "\n";
 	print $file->{name} . "\n";
+	print $file->{season} . "\n";
 	print $file->{episode} . "\n";
 	print $file->{part} . "\n";
 } elsif ($file->isMovie()) {

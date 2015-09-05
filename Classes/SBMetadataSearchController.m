@@ -190,7 +190,7 @@
                 return;
             }
         }
-    } 
+    }
     [searchButton setEnabled:NO];
 }
 

@@ -33,13 +33,14 @@
 
 #pragma mark Helper routines
 
-+ (NSDictionary *)parseFilename:(NSString *)filename
++ (NSDictionary<NSString *, NSString *> *)parseFilename:(NSString *)filename
 {
-    NSMutableDictionary *results = nil;
+    NSMutableDictionary<NSString *, NSString *> *results = nil;
 
     NSParameterAssert(filename);
     NSParameterAssert(filename.length);
 
+    // Try with the usual anime filename
     NSString *regexString  = @"^\\[(.+)\\](?:(?:\\s|_)+)?([^()]+)(?:(?:\\s|_)+)(?:(?:-\\s|-_|Ep)+)([0-9][0-9]?)";
     NSDictionary *resultDictionary = [filename dictionaryByMatchingRegex:regexString
                                                      withKeysAndCaptures:@"fanSubGroup", 1, @"seriesName", 2,  @"episodeNumber", 3, nil];
@@ -55,11 +56,12 @@
         
         return [results autorelease];
     }
-    
+
+    // Else use the ParseFilename perl script
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:@"/usr/bin/perl"];
     
-    NSMutableArray *args = [[NSMutableArray alloc] initWithCapacity:3];
+    NSMutableArray<NSString *> *args = [[NSMutableArray alloc] initWithCapacity:3];
     NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"ParseFilename" ofType:@""];
     [args addObject:[NSString stringWithFormat:@"-I%@/lib", path]];
     [args addObject:[NSString stringWithFormat:@"%@/ParseFilename.pl", path]];
@@ -76,33 +78,48 @@
     
     NSData *outputData = [[stdOut fileHandleForReading] readDataToEndOfFile];
     NSString *outputString = [[NSString alloc] initWithData:outputData encoding:NSUTF8StringEncoding];
-    NSArray *lines = [outputString componentsSeparatedByString:@"\n"];
+    NSArray<NSString *> *lines = [outputString componentsSeparatedByString:@"\n"];
     
-    if ([lines count]) {
-        if ([(NSString *) [lines objectAtIndex:0] isEqualToString:@"tv"]) {
-            if ([lines count] >= 4) {
+    if (lines.count) {
+
+        if ([lines.firstObject isEqualToString:@"tv"]) {
+
+            if (lines.count >= 4) {
+
                 results = [[NSMutableDictionary alloc] initWithCapacity:4];
-                [results setValue:@"tv" forKey:@"type"];
-				NSString *newSeriesName=[[lines objectAtIndex:1]
-                                         stringByReplacingOccurrencesOfString:@"."
-                                         withString:@" "];
-                [results setValue:newSeriesName forKey:@"seriesName"];
-                [results setValue:[lines objectAtIndex:2] forKey:@"seasonNum"];
-                [results setValue:[lines objectAtIndex:3] forKey:@"episodeNum"];
+                results[@"type"] = @"tv";
+
+				NSString *newSeriesName=[lines[1] stringByReplacingOccurrencesOfString:@"."
+                                                                            withString:@" "];
+                results[@"seriesName"] = newSeriesName;
+
+                if ([lines[2] integerValue]) {
+                    results[@"seasonNum"] = lines[2];
+                }
+                else {
+                    results[@"seasonNum"] = @"0";
+                }
+
+                results[@"episodeNum"] = lines[3];
             }
-        } else if ([(NSString *) [lines objectAtIndex:0] isEqualToString:@"movie"]) {
-            if ([lines count] >= 2) {
-                results = [[NSMutableDictionary alloc] initWithCapacity:4];
-                [results setValue:@"movie" forKey:@"type"];
-				NSString *newTitle=[[lines objectAtIndex:1]
-                                    stringByReplacingOccurrencesOfString:@"."
-                                    withString:@" "];
+        }
+        else if ([lines.firstObject isEqualToString:@"movie"]) {
+
+            if (lines.count >= 2) {
+
+                results = [[NSMutableDictionary alloc] initWithCapacity:2];
+                results[@"type"] = @"movie";
+
+				NSString *newTitle=[lines[1] stringByReplacingOccurrencesOfString:@"."
+                                                                       withString:@" "];
+
                 newTitle = [newTitle stringByReplacingOccurrencesOfString:@"(" withString:@" "];
                 newTitle = [newTitle stringByReplacingOccurrencesOfString:@")" withString:@" "];
                 newTitle = [newTitle stringByReplacingOccurrencesOfString:@"[" withString:@" "];
                 newTitle = [newTitle stringByReplacingOccurrencesOfString:@"]" withString:@" "];
                 newTitle = [newTitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                [results setValue:newTitle forKey:@"title"];
+
+                results[@"title"] = newTitle;
             }
         }
     }

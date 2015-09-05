@@ -24,7 +24,7 @@ typedef enum SBCachePolicy : NSUInteger {
 } SBCachePolicy;
 
 #pragma mark Helper routines
-+ (NSDictionary *)parseFilename:(NSString *)filename;
++ (NSDictionary<NSString *, NSString *> *)parseFilename:(NSString *)filename;
 + (NSString *)urlEncoded:(NSString *)string;
 + (nullable NSData *)downloadDataFromURL:(NSURL *)url withCachePolicy:(SBCachePolicy)policy;
 

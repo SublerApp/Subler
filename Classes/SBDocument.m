@@ -635,6 +635,10 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         }
     }
 
+    if (!filename) {
+        filename = self.fileURL.lastPathComponent;
+    }
+
     importWindow = [[SBMetadataSearchController alloc] initWithDelegate:self searchString:filename];
 
     [NSApp beginSheet:[importWindow window]
