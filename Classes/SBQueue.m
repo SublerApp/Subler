@@ -240,7 +240,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
     [self.currentItem cancel];
 }
 
-- (void)progressStatus:(CGFloat)progress {
+- (void)progressStatus:(double)progress {
     [self handleSBStatusWorking:progress index:-1];
 }
 

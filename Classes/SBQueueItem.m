@@ -15,7 +15,7 @@
 
 #define ALMOST_4GiB 4000000000
 
-@interface SBQueueItem () <MP42FileDelegate>
+@interface SBQueueItem ()
 
 @property (nonatomic, readwrite) NSString *localizedWorkingDescription;
 
@@ -179,7 +179,7 @@
     [self.URL getResourceValue:&type forKey:NSURLTypeIdentifierKey error:outError];
 
     if ([type isEqualToString:@"com.apple.m4a-audio"] || [type isEqualToString:@"com.apple.m4v-video"] || [type isEqualToString:@"public.mpeg-4"]) {
-       self.mp4File = [[[MP42File alloc] initWithURL:self.URL delegate:nil] autorelease];
+       self.mp4File = [[[MP42File alloc] initWithURL:self.URL] autorelease];
     } else {
         self.mp4File = [[[MP42File alloc] init] autorelease];
         MP42FileImporter *fileImporter = [[MP42FileImporter alloc] initWithURL:self.URL error:outError];
@@ -261,7 +261,7 @@
 
     for (id<SBQueueActionProtocol> action in self.actions) {
         self.localizedWorkingDescription = action.localizedDescription;
-        [self progressStatus:0];
+        [self.delegate progressStatus:0];
         [action runAction:self];
     }
 
@@ -285,7 +285,9 @@
 
     if (!noErr) { goto bail; }
 
-    self.mp4File.delegate = self;
+    self.mp4File.progressHandler = ^(double progress){
+        [self.delegate progressStatus:progress];
+    };
 
     // Check if there is enough space on the destination disk
     if (![self.URL isEqualTo:self.destURL]) {
@@ -341,6 +343,7 @@
     }
 
 bail:
+    self.mp4File.progressHandler = nil;
     self.mp4File = nil;
 
     [self willChangeValueForKey:@"actions"];
@@ -359,8 +362,6 @@ bail:
     self.cancelled = YES;
     [self.mp4File cancel];
 }
-
-#pragma mark MP42File delegate
 
 - (void)progressStatus:(CGFloat)progress {
     [self.delegate progressStatus:progress];

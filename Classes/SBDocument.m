@@ -26,7 +26,7 @@
 
 #define SublerTableViewDataType @"SublerTableViewDataType"
 
-@interface SBDocument () <NSTableViewDelegate, MP42FileDelegate, SBFileImportDelegate, SBMetadataSearchControllerDelegate>
+@interface SBDocument () <NSTableViewDelegate, SBFileImportDelegate, SBMetadataSearchControllerDelegate>
 
 @property (nonatomic, retain) MP42File *mp4;
 
@@ -75,7 +75,7 @@
 - (instancetype)initWithType:(NSString *)typeName error:(NSError **)outError
 {
     if (self = [super initWithType:typeName error:outError]) {
-        self.mp4 = [[[MP42File alloc] initWithDelegate:self] autorelease];
+        self.mp4 = [[[MP42File alloc] init] autorelease];
     }
 
     return self;
@@ -96,7 +96,7 @@
 
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
 {
-    self.mp4 = [[[MP42File alloc] initWithURL:absoluteURL delegate:self] autorelease];
+    self.mp4 = [[[MP42File alloc] initWithURL:absoluteURL] autorelease];
 
     if (outError != NULL && !self.mp4) {
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
@@ -109,7 +109,7 @@
 
 - (BOOL)revertToContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
 {
-    self.mp4 = [[[MP42File alloc] initWithURL:absoluteURL delegate:self] autorelease];
+    self.mp4 = [[[MP42File alloc] initWithURL:absoluteURL] autorelease];
 
     [fileTracksTable reloadData];
     [self reloadPropertyView];
@@ -174,6 +174,13 @@
     BOOL result = NO;
     NSDictionary<NSString *, NSNumber *> *attributes = [self saveAttributes];
 
+    self.mp4.progressHandler = ^(double progress){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [optBar setIndeterminate:NO];
+            [optBar setDoubleValue:progress];
+        });
+    };
+
     switch (saveOperation) {
         case NSSaveOperation:
             // movie file already exists, so we'll just update
@@ -199,6 +206,8 @@
         _optimize = NO;
     }
 
+    self.mp4.progressHandler = nil;
+
     if (io_success == kIOReturnSuccess) {
         IOPMAssertionRelease(assertionID);
     }
@@ -207,7 +216,7 @@
     MP42File *reloadedFile = nil;
 
     if (result == YES) {
-        reloadedFile = [[MP42File alloc] initWithURL:[NSURL fileURLWithPath:url.path] delegate:self];
+        reloadedFile = [[MP42File alloc] initWithURL:[NSURL fileURLWithPath:url.path]];
     }
 
     dispatch_sync(dispatch_get_main_queue(), ^{
@@ -323,14 +332,6 @@
 }
 
 #pragma mark - Interface validation
-
-- (void)progressStatus:(CGFloat)progress
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [optBar setIndeterminate:NO];
-        [optBar setDoubleValue:progress];
-    });
-}
 
 - (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem
 {
@@ -816,7 +817,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     }
     else {
         MP42File *file = nil;
-        if ((file = [[MP42File alloc] initWithURL:URL delegate:self])) {
+        if ((file = [[MP42File alloc] initWithURL:URL])) {
             [self.mp4.metadata mergeMetadata:file.metadata];
             [file release];
         }
