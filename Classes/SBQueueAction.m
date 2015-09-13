@@ -102,12 +102,22 @@
 
     self = [self init];
     if (self) {
-        _movieLanguage = movieLang;
-        _tvShowLanguage = tvLang;
-        _movieProvider = movieProvider;
-        _tvShowProvider = tvShowProvider;
+        _movieLanguage = [movieLang copy];
+        _tvShowLanguage = [tvLang copy];
+        _movieProvider = [movieProvider copy];
+        _tvShowProvider = [tvShowProvider copy];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [_movieLanguage release];
+    [_tvShowLanguage release];
+    [_movieProvider release];
+    [_tvShowProvider release];
+
+    [super dealloc];
 }
 
 - (MP42Image *)loadArtwork:(NSURL *)url {
