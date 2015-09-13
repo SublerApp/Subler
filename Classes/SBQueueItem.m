@@ -261,7 +261,7 @@
 
     for (id<SBQueueActionProtocol> action in self.actions) {
         self.localizedWorkingDescription = action.localizedDescription;
-        [self.delegate progressStatus:0];
+        [self progressStatus:0];
         [action runAction:self];
     }
 
@@ -286,7 +286,7 @@
     if (!noErr) { goto bail; }
 
     self.mp4File.progressHandler = ^(double progress){
-        [self.delegate progressStatus:progress];
+        [self progressStatus:progress];
     };
 
     // Check if there is enough space on the destination disk
@@ -363,7 +363,7 @@ bail:
     [self.mp4File cancel];
 }
 
-- (void)progressStatus:(CGFloat)progress {
+- (void)progressStatus:(double)progress {
     [self.delegate progressStatus:progress];
 }
 
