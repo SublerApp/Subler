@@ -20,6 +20,8 @@
 #import "SBMetadataSearchController.h"
 #import "SBArtworkSelector.h"
 
+#import "SBMediaTagsController.h"
+
 #import <MP42Foundation/MP42File.h>
 #import <MP42Foundation/MP42Languages.h>
 #import <MP42Foundation/MP42Utilities.h>
@@ -86,7 +88,7 @@
 
 + (BOOL)canConcurrentlyReadDocumentsOfType:(NSString *)type
 {
-    return YES;
+    return NO;
 }
 
 - (BOOL)isEntireFileLoaded
@@ -373,6 +375,9 @@
     if (action == @selector(showTrackOffsetSheet:) && [fileTracksTable selectedRow] != -1)
         return YES;
 
+    if (action == @selector(showMediaCharacteristicTags:) && [fileTracksTable selectedRow] != -1)
+        return YES;
+
     if (action == @selector(addChaptersEvery:))
         return YES;
     
@@ -593,8 +598,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (void)didEndSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
 {
-    [[importWindow window] orderOut:nil];
-    [importWindow autorelease], importWindow = nil;
+    [_sheet.window orderOut:nil];
+    [_sheet autorelease], _sheet = nil;
 
     [fileTracksTable reloadData];
     [self reloadPropertyView];
@@ -640,9 +645,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         filename = self.fileURL.lastPathComponent;
     }
 
-    importWindow = [[SBMetadataSearchController alloc] initWithDelegate:self searchString:filename];
+    _sheet = [[SBMetadataSearchController alloc] initWithDelegate:self searchString:filename];
 
-    [NSApp beginSheet:[importWindow window]
+    [NSApp beginSheet:_sheet.window
        modalForWindow:documentWindow
         modalDelegate:self
        didEndSelector:@selector(didEndSheet:returnCode:contextInfo:)
@@ -686,7 +691,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     [self updateChangeCount:NSChangeDone];
 
-    [NSApp endSheet: offsetWindow];
+    [NSApp endSheet:offsetWindow];
     [offsetWindow orderOut:self];
 }
 
@@ -694,6 +699,26 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     [NSApp endSheet: offsetWindow];
     [offsetWindow orderOut:self];
+}
+
+- (IBAction)showMediaCharacteristicTags:(id)sender
+{
+    _sheet = [[SBMediaTagsController alloc] initWithTrack:self.mp4.tracks[fileTracksTable.selectedRow]];
+
+    [NSApp beginSheet:_sheet.window
+       modalForWindow:documentWindow
+        modalDelegate:self
+       didEndSelector:@selector(mediaSheetDidEnd:returnCode:contextInfo:)
+          contextInfo:nil];
+}
+
+- (void)mediaSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    if (returnCode == NSOKButton) {
+        [self updateChangeCount:NSChangeDone];
+    }
+    [_sheet.window orderOut:self];
+    [_sheet release];
+    _sheet = nil;
 }
 
 - (IBAction)deleteTrack:(id)sender
@@ -771,15 +796,15 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     NSError *error = nil;
 
-    importWindow = [[SBFileImport alloc] initWithURLs:fileURLs delegate:self error:&error];
+    _sheet = [[SBFileImport alloc] initWithURLs:fileURLs delegate:self error:&error];
 
-    if (importWindow) {
-		if ([importWindow onlyContainsSubtitleTracks]) {
-			[importWindow addTracks:self];
+    if (_sheet) {
+		if ([(SBFileImport *)_sheet onlyContainsSubtitleTracks]) {
+			[(SBFileImport *)_sheet addTracks:self];
 			[self didEndSheet:nil returnCode:NSOKButton contextInfo:nil];
 		}
         else { // show the dialog
-			[NSApp beginSheet:[importWindow window] modalForWindow:documentWindow
+			[NSApp beginSheet:_sheet.window modalForWindow:documentWindow
 				modalDelegate:self didEndSelector:@selector(didEndSheet:returnCode:contextInfo:) contextInfo:NULL];
 		}
     }
@@ -968,9 +993,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (void)dealloc
 {
-    [fileTracksTable setDelegate:nil];
-    [fileTracksTable setDataSource:nil];
-
     [propertyView release];
     propertyView = nil;
 

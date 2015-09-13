@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSViewController        *propertyView;
     IBOutlet NSView         *targetView;
-    id                      importWindow;
+    NSWindowController      *_sheet;
 
     IBOutlet NSWindow       *offsetWindow;
     IBOutlet NSTextField    *offset;
