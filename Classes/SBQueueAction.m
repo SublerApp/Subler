@@ -18,9 +18,12 @@
 
 @implementation SBQueueSubtitlesAction
 
-- (NSArray *)loadSubtitles:(NSURL *)url {
+/**
+ *  Loads the subtitles in the parent directory
+ */
+- (NSArray<MP42SubtitleTrack *> *)loadSubtitles:(NSURL *)url {
     NSError *error = nil;
-    NSMutableArray<MP42Track *> *tracksArray = [[NSMutableArray alloc] init];
+    NSMutableArray<MP42SubtitleTrack *> *tracksArray = [[NSMutableArray alloc] init];
     NSArray<NSURL *> *directory = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[url URLByDeletingLastPathComponent]
                                                        includingPropertiesForKeys:nil
                                                                           options:NSDirectoryEnumerationSkipsSubdirectoryDescendants |
@@ -33,7 +36,7 @@
             NSComparisonResult result;
             NSString *movieFilename = [[url URLByDeletingPathExtension] lastPathComponent];
             NSString *subtitleFilename = [[dirUrl URLByDeletingPathExtension] lastPathComponent];
-            NSRange range = { 0, [movieFilename length] };
+            NSRange range = { 0, movieFilename.length };
 
             if (movieFilename.length <= subtitleFilename.length) {
                 result = [subtitleFilename compare:movieFilename options:NSCaseInsensitiveSearch range:range];
@@ -42,7 +45,7 @@
                     MP42FileImporter *fileImporter = [[[MP42FileImporter alloc] initWithURL:dirUrl
                                                                                       error:&error] autorelease];
 
-                    for (MP42Track *track in fileImporter.tracks) {
+                    for (MP42SubtitleTrack *track in fileImporter.tracks) {
                         [tracksArray addObject:track];
                     }
                 }
@@ -122,7 +125,7 @@
 
 - (MP42Image *)loadArtwork:(NSURL *)url {
     NSData *artworkData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
-    if (artworkData && [artworkData length]) {
+    if (artworkData && artworkData.length) {
         MP42Image *artwork = [[MP42Image alloc] initWithData:artworkData type:MP42_ART_JPEG];
         if (artwork != nil) {
             return [artwork autorelease];
@@ -137,41 +140,46 @@
     MP42Metadata *metadata = nil;
 
     // Parse FileName and search for metadata
-    NSDictionary *parsed = [MetadataImporter parseFilename:[url lastPathComponent]];
-    NSString *type = (NSString *)[parsed valueForKey:@"type"];
+    NSDictionary<NSString *, NSString *> *parsed = [MetadataImporter parseFilename:url.lastPathComponent];
+    NSString *type = parsed[@"type"];
+
     if ([@"movie" isEqualToString:type]) {
 		currentSearcher = [MetadataImporter importerForProvider:_movieProvider];
-		NSArray *results = [currentSearcher searchMovie:[parsed valueForKey:@"title"] language:_movieLanguage];
-        if ([results count]) {
-            metadata = [currentSearcher loadMovieMetadata:[results firstObject] language:_movieLanguage];
+		NSArray<MP42Metadata *> *results = [currentSearcher searchMovie:parsed[@"title"] language:_movieLanguage];
+        if (results.count) {
+            metadata = [currentSearcher loadMovieMetadata:results.firstObject language:_movieLanguage];
         }
-    } else if ([@"tv" isEqualToString:type]) {
+    }
+    else if ([@"tv" isEqualToString:type]) {
 		currentSearcher = [MetadataImporter importerForProvider:_tvShowProvider];
-		NSArray *results = [currentSearcher searchTVSeries:[parsed valueForKey:@"seriesName"]
-                                                  language:_tvShowLanguage seasonNum:[parsed valueForKey:@"seasonNum"]
-                                                episodeNum:[parsed valueForKey:@"episodeNum"]];
-        if ([results count]) {
-            metadata = [currentSearcher loadTVMetadata:[results firstObject] language:_tvShowLanguage];
+		NSArray *results = [currentSearcher searchTVSeries:parsed[@"seriesName"]
+                                                  language:_tvShowLanguage
+                                                 seasonNum:parsed[@"seasonNum"]
+                                                episodeNum:parsed[@"episodeNum"]];
+        if (results.count) {
+            metadata = [currentSearcher loadTVMetadata:results.firstObject language:_tvShowLanguage];
         }
     }
 
-    if (metadata.artworkThumbURLs && [metadata.artworkThumbURLs count]) {
+    if (metadata.artworkThumbURLs && metadata.artworkThumbURLs.count) {
         NSURL *artworkURL = nil;
         if ([type isEqualToString:@"movie"]) {
             artworkURL = [metadata.artworkFullsizeURLs firstObject];
-        } else if ([type isEqualToString:@"tv"]) {
-            if ([metadata.artworkFullsizeURLs count] > 1) {
+        }
+        else if ([type isEqualToString:@"tv"]) {
+            if (metadata.artworkFullsizeURLs.count > 1) {
                 int i = 0;
                 for (NSString *artworkProviderName in metadata.artworkProviderNames) {
-                    NSArray *a = [artworkProviderName componentsSeparatedByString:@"|"];
-                    if ([a count] > 1 && ![[a objectAtIndex:1] isEqualToString:@"episode"]) {
-                        artworkURL = [metadata.artworkFullsizeURLs objectAtIndex:i];
+                    NSArray<NSString *> *a = [artworkProviderName componentsSeparatedByString:@"|"];
+                    if (a.count > 1 && ![a[1] isEqualToString:@"episode"]) {
+                        artworkURL = metadata.artworkFullsizeURLs[i];
                         break;
                     }
                     i++;
                 }
-            } else {
-                artworkURL = [metadata.artworkFullsizeURLs firstObject];
+            }
+            else {
+                artworkURL = metadata.artworkFullsizeURLs.firstObject;
             }
         }
 
@@ -235,7 +243,7 @@
 - (id)initWithSet:(MP42Metadata *)set {
     self = [super init];
     if (self) {
-        _set = [set retain];
+        _set = [set copy];
     }
     return self;
 }
