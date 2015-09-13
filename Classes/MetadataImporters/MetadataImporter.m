@@ -313,14 +313,14 @@
 								 userInfo:nil];
 }
 
-- (NSArray *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage  {
+- (NSArray<MP42Metadata *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage  {
 	TheTVDB *searcher = [[TheTVDB alloc] init];
 	NSArray *a = [searcher searchTVSeries:aSeriesName language:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV|TheTVDB|Language"]];
 	[searcher release];
 	return a;
 }
 
-- (NSArray *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum {
+- (NSArray<MP42Metadata *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum {
 	@throw [NSException exceptionWithName:NSInternalInconsistencyException
 								   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
 								 userInfo:nil];
@@ -332,7 +332,7 @@
 								 userInfo:nil];
 }
 
-- (NSArray *)searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage {
+- (NSArray<MP42Metadata *> *)searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage {
 	@throw [NSException exceptionWithName:NSInternalInconsistencyException
 								   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
 								 userInfo:nil];
