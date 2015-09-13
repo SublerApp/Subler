@@ -38,6 +38,7 @@
 		A984DB530F52D679001A20B2 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A984DB4A0F52D644001A20B2 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A984DB730F52DD4B001A20B2 /* dsa_pub.pem */; };
 		A98739FE13FBB09B00B795A7 /* ToolbarActionTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = A98739FD13FBB09B00B795A7 /* ToolbarActionTemplate.png */; };
+		A998DABF1BA54CFF004D7969 /* SBMediaTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */; settings = {ASSET_TAGS = (); }; };
 		A99BF39619F90F6300BDBE50 /* playBackTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A99BF39519F90F6300BDBE50 /* playBackTemplate.pdf */; };
 		A99EEA3F12B801AE002367D3 /* SBDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AC012B79E230040517A /* SBDocument.xib */; };
 		A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */; };
@@ -206,6 +207,7 @@
 		A98739FD13FBB09B00B795A7 /* ToolbarActionTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ToolbarActionTemplate.png; path = images/ToolbarActionTemplate.png; sourceTree = "<group>"; };
 		A991319913F0615700DCAA12 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A991319B13F0668300DCAA12 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		A998DABE1BA54CFF004D7969 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SBMediaTagsController.xib; sourceTree = "<group>"; };
 		A99BF39519F90F6300BDBE50 /* playBackTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = playBackTemplate.pdf; path = images/playBackTemplate.pdf; sourceTree = "<group>"; };
 		A9AB484717F0AEA2000AA72E /* SBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBAppDelegate.h; path = Classes/SBAppDelegate.h; sourceTree = "<group>"; };
 		A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBAppDelegate.m; path = Classes/SBAppDelegate.m; sourceTree = "<group>"; };
@@ -519,6 +521,7 @@
 		A961475E13F5676E0068F161 /* NIBs */ = {
 			isa = PBXGroup;
 			children = (
+				A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */,
 				A9B46AC012B79E230040517A /* SBDocument.xib */,
 				A9AB485A17F0AEFD000AA72E /* ChapterView.xib */,
 				A9AB485C17F0AEFD000AA72E /* EmptyView.xib */,
@@ -785,6 +788,7 @@
 				A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */,
 				A9F284A0133C9F6E00F10951 /* close.pdf in Resources */,
 				A9F284A1133C9F6E00F10951 /* close-over.pdf in Resources */,
+				A998DABF1BA54CFF004D7969 /* SBMediaTagsController.xib in Resources */,
 				A9F284A2133C9F6E00F10951 /* close-pressed.pdf in Resources */,
 				A961476713F568210068F161 /* Queue.xib in Resources */,
 				A98739FE13FBB09B00B795A7 /* ToolbarActionTemplate.png in Resources */,
@@ -929,6 +933,14 @@
 				A961476613F568210068F161 /* English */,
 			);
 			name = Queue.xib;
+			sourceTree = "<group>";
+		};
+		A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A998DABE1BA54CFF004D7969 /* English */,
+			);
+			name = SBMediaTagsController.xib;
 			sourceTree = "<group>";
 		};
 		A9AB485A17F0AEFD000AA72E /* ChapterView.xib */ = {
