@@ -229,6 +229,9 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
         // Disable sleep assertion
         [self enableSleep];
         [self handleSBStatusCompleted];
+
+        // Reset cancelled state
+        self.cancelled = NO;
     });
 }
 

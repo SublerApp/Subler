@@ -564,7 +564,7 @@ static void *SBQueueContex = &SBQueueContex;
             return [NSImage imageNamed:@"EncodeComplete"];
         else if (batchStatus == SBQueueItemStatusWorking || batchStatus == SBQueueItemStatusEditing)
             return [NSImage imageNamed:@"EncodeWorking"];
-        else if (batchStatus == SBQueueItemStatusFailed)
+        else if (batchStatus == SBQueueItemStatusFailed || batchStatus == SBQueueItemStatusCancelled)
             return [NSImage imageNamed:@"EncodeCanceled"];
         else
             return _docImg;
