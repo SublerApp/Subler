@@ -28,6 +28,7 @@
 		A961476413F567E10068F161 /* SBPresetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A961476213F567E10068F161 /* SBPresetManager.m */; };
 		A961476713F568210068F161 /* Queue.xib in Resources */ = {isa = PBXBuildFile; fileRef = A961476513F568210068F161 /* Queue.xib */; };
 		A96371B8164695070083BB80 /* ToolbarRemoveTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A96371B7164695070083BB80 /* ToolbarRemoveTemplate@2x.png */; };
+		A96946531BA3F83D0048C004 /* SBMediaTagsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A96946511BA3F83D0048C004 /* SBMediaTagsController.m */; settings = {ASSET_TAGS = (); }; };
 		A9707B9317B139780010F3DB /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD56966E12FAAFA90029FADB /* Quartz.framework */; };
 		A975644D132A325C0051ED08 /* info.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A975644A132A325C0051ED08 /* info.pdf */; };
 		A975644E132A325C0051ED08 /* info-over.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A975644B132A325C0051ED08 /* info-over.pdf */; };
@@ -192,6 +193,8 @@
 		A961476213F567E10068F161 /* SBPresetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBPresetManager.m; path = Classes/SBPresetManager.m; sourceTree = "<group>"; };
 		A961476613F568210068F161 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Queue.xib; sourceTree = "<group>"; };
 		A96371B7164695070083BB80 /* ToolbarRemoveTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ToolbarRemoveTemplate@2x.png"; path = "images/ToolbarRemoveTemplate@2x.png"; sourceTree = "<group>"; };
+		A96946501BA3F83D0048C004 /* SBMediaTagsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMediaTagsController.h; path = Classes/SBMediaTagsController.h; sourceTree = "<group>"; };
+		A96946511BA3F83D0048C004 /* SBMediaTagsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMediaTagsController.m; path = Classes/SBMediaTagsController.m; sourceTree = "<group>"; };
 		A975644A132A325C0051ED08 /* info.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = info.pdf; path = images/info.pdf; sourceTree = "<group>"; };
 		A975644B132A325C0051ED08 /* info-over.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "info-over.pdf"; path = "images/info-over.pdf"; sourceTree = "<group>"; };
 		A975644C132A325C0051ED08 /* info-pressed.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "info-pressed.pdf"; path = "images/info-pressed.pdf"; sourceTree = "<group>"; };
@@ -386,6 +389,8 @@
 				A9B46A7F12B79B240040517A /* SBFileImport.m */,
 				CD71FEA112F1B5AF00F0A98D /* SBMetadataSearchController.h */,
 				CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */,
+				A96946501BA3F83D0048C004 /* SBMediaTagsController.h */,
+				A96946511BA3F83D0048C004 /* SBMediaTagsController.m */,
 				CD56963012FAAD680029FADB /* SBArtworkSelector.h */,
 				CD56963112FAAD680029FADB /* SBArtworkSelector.m */,
 				A9B46A8212B79B240040517A /* SBPrefsController.h */,
@@ -833,6 +838,7 @@
 				A9B46A8F12B79B240040517A /* SBTableView.m in Sources */,
 				A9B46A9012B79B240040517A /* SBView.m in Sources */,
 				A9B46A9E12B79B990040517A /* ButtonToolbarItem.m in Sources */,
+				A96946531BA3F83D0048C004 /* SBMediaTagsController.m in Sources */,
 				A9AB485417F0AEAC000AA72E /* SBChapterViewController.m in Sources */,
 				A9AB485817F0AEAC000AA72E /* SBVideoViewController.m in Sources */,
 				A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */,
