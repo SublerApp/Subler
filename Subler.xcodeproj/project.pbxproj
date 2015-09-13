@@ -521,7 +521,6 @@
 		A961475E13F5676E0068F161 /* NIBs */ = {
 			isa = PBXGroup;
 			children = (
-				A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */,
 				A9B46AC012B79E230040517A /* SBDocument.xib */,
 				A9AB485A17F0AEFD000AA72E /* ChapterView.xib */,
 				A9AB485C17F0AEFD000AA72E /* EmptyView.xib */,
@@ -537,6 +536,7 @@
 				A9BC410618D9ABC000F8C92C /* QueueItem.xib */,
 				A90B023910F3290A000416F3 /* Prefs.xib */,
 				A9C5FA7219FA2FEC0051F3FF /* SBLogWindow.xib */,
+				A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */,
 				A9DA3BA11B918D6F00F1E40C /* ExceptionAlert.xib */,
 			);
 			name = NIBs;

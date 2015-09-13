@@ -12,36 +12,106 @@
 #pragma mark - Helpers
 
 @interface SBMediaTag : NSObject {
+@private
     BOOL _state;
-    NSString *_name;
-    NSString *_localizedName;
+    NSString *_value;
+    NSString *_localizedTitle;
     NSString *_localizedDescription;
-
 }
 
++ (NSArray<NSString *> *)predefinedTags;
++ (NSArray<NSString *> *)predefinedTagsForMediaType:(NSString *)mediaType;
++ (nullable NSString *)localizedDescriptionForTag:(NSString *)tag;
+
 @property (nonatomic, readwrite) BOOL state;
-@property (nonatomic, readonly, nonnull) NSString *name;
+@property (nonatomic, readonly, nonnull) NSString *value;
+@property (nonatomic, readonly, nonnull) NSString *localizedTitle;
+@property (nonatomic, readonly, nonnull) NSString *localizedDescription;
 
 @end
 
 @implementation SBMediaTag
 
-- (instancetype)initWithName:(NSString *)name state:(BOOL)state {
+- (instancetype)initWithValue:(NSString *)value state:(BOOL)state {
     self = [super init];
     if (self) {
         _state = state;
-        _name = [name copy];
+        _value = [value copy];
+        _localizedTitle = [[SBMediaTag localizedDescriptionForTag:_value] copy];
+
+        if (_localizedTitle == nil) {
+            _localizedTitle = [_value retain];
+        }
     }
 
     return self;
 }
 
++ (NSArray<NSString *> *)predefinedTags {
+    return @[@"public.main-program-content", @"public.auxiliary-content",
+             @"public.subtitles.forced-only", @"public.accessibility.transcribes-spoken-dialog",
+             @"public.accessibility.describes-music-and-sound", @"public.easy-to-read",
+             @"public.accessibility.describes-video", @"public.translation.dubbed",
+             @"public.translation.voice-over", @"public.translation"];
+}
+
++ (NSArray<NSString *> *)predefinedTagsForMediaType:(NSString *)mediaType {
+    NSMutableArray *tags = [NSMutableArray array];
+    [tags addObjectsFromArray:@[@"public.main-program-content",
+                                @"public.auxiliary-content"]];
+
+    if ([mediaType isEqualToString:MP42MediaTypeAudio]) {
+        [tags addObjectsFromArray:@[@"public.accessibility.describes-video",
+                                    @"public.translation.dubbed",
+                                    @"public.translation.voice-over"]];
+    }
+
+    else if ([mediaType isEqualToString:MP42MediaTypeSubtitle] ||
+             [mediaType isEqualToString:MP42MediaTypeClosedCaption]) {
+
+        [tags addObjectsFromArray:@[@"public.subtitles.forced-only",
+                                    @"public.accessibility.transcribes-spoken-dialog",
+                                    @"public.accessibility.describes-music-and-sound",
+                                    @"public.easy-to-read"]];
+
+    }
+
+    else if ([mediaType isEqualToString:MP42MediaTypeSubtitle] ||
+             [mediaType isEqualToString:MP42MediaTypeClosedCaption]) {
+
+        [tags addObjectsFromArray:@[@"public.translation"]];
+    }
+
+    return tags;
+}
+
++ (nullable NSString *)localizedDescriptionForTag:(NSString *)tag {
+    NSDictionary *localizedDescriptions = @{@"public.main-program-content": NSLocalizedString(@"Main Program Content", nil),
+                                            @"public.auxiliary-content": NSLocalizedString(@"Auxiliary Content", nil),
+                                            @"public.subtitles.forced-only": NSLocalizedString(@"Contains Only Forced Subtitles", nil),
+                                            @"public.accessibility.transcribes-spoken-dialog": NSLocalizedString(@"Transcribes Spoken Dialog For Accessibility", nil),
+                                            @"public.accessibility.describes-music-and-sound": NSLocalizedString(@"Describes Music And Sound For Accessibility", nil),
+                                            @"public.easy-to-read": NSLocalizedString(@"Easy To Read", nil),
+                                            @"public.accessibility.describes-video": NSLocalizedString(@"Describes Video For Accessibility", nil),
+                                            @"public.translation.dubbed": NSLocalizedString(@"Dubbed Translation", nil),
+                                            @"public.translation.voice-over": NSLocalizedString(@"Voice Over Translation", nil),
+                                            @"public.translation": NSLocalizedString(@"Language Translation", nil) };
+    return localizedDescriptions[tag];
+}
+
 @synthesize state = _state;
-@synthesize name = _name;
+@synthesize value= _value;
+@synthesize localizedTitle = _localizedTitle;
+@synthesize localizedDescription = _localizedDescription;
 
 - (void)dealloc {
-    [_name release];
-    _name = nil;
+    [_value release];
+    _value = nil;
+    [_localizedTitle release];
+    _localizedTitle = nil;
+    [_localizedDescription release];
+    _localizedDescription = nil;
+
     [super dealloc];
 }
 
@@ -65,7 +135,7 @@
     [_representedTag autorelease];
     _representedTag = [representedTag retain];
 
-    _checkBox.title = _representedTag.name;
+    _checkBox.title = _representedTag.localizedTitle;
     _checkBox.state = _representedTag.state;
 }
 
@@ -93,18 +163,15 @@
     self = [self init];
     if (self) {
         _track = [track retain];
-        NSArray *predefinedTags = @[@"public.main-program-content", @"public.auxiliary-content",
-                           @"public.subtitles.forced-only", @"public.accessibility.transcribes-spoken-dialog",
-                           @"public.accessibility.describes-music-and-sound", @"public.easy-to-read",
-                           @"public.accessibility.describes-video", @"public.translation.dubbed",
-                           @"public.translation.voice-over", @"public.translation"];
+        NSArray<NSString *> *predefinedTags = [SBMediaTag predefinedTagsForMediaType:track.mediaType];
 
         NSMutableArray<SBMediaTag *> *tags = [[NSMutableArray alloc] init];
 
         // Add the predefined tags
         for (NSString *availableTag in predefinedTags) {
             BOOL state = [track.mediaCharacteristicTags containsObject:availableTag] ? YES : NO;
-            SBMediaTag *tag = [[SBMediaTag alloc] initWithName:availableTag state:state];
+            SBMediaTag *tag = [[SBMediaTag alloc] initWithValue:availableTag
+                                                         state:state];
             [tags addObject:tag];
             [tag release];
         }
@@ -114,7 +181,7 @@
         [custom minusSet:[NSSet setWithArray:predefinedTags]];
 
         for (NSString *customTag in custom) {
-            SBMediaTag *tag = [[SBMediaTag alloc] initWithName:customTag state:YES];
+            SBMediaTag *tag = [[SBMediaTag alloc] initWithValue:customTag state:YES];
             [tags addObject:tag];
             [tag release];
         }
@@ -166,7 +233,7 @@
 
     for (SBMediaTag *tag in self.tags) {
         if (tag.state == YES) {
-            [set addObject:tag.name];
+            [set addObject:tag.value];
         }
     }
 
