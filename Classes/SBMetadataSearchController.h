@@ -11,7 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class SBTableView;
-@class SBArtworkSelector;
 
 @class MP42Metadata;
 @class MetadataImporter;
