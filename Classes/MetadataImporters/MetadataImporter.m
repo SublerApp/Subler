@@ -38,7 +38,6 @@
     NSMutableDictionary<NSString *, NSString *> *results = nil;
 
     NSParameterAssert(filename);
-    NSParameterAssert(filename.length);
 
     // Try with the usual anime filename
     NSString *regexString  = @"^\\[(.+)\\](?:(?:\\s|_)+)?([^()]+)(?:(?:\\s|_)+)(?:(?:-\\s|-_|Ep)+)([0-9][0-9]?)";
