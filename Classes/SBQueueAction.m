@@ -202,10 +202,20 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
+
+    _movieLanguage = [[coder decodeObjectForKey:@"_movieLanguage"] retain];
+    _tvShowLanguage = [[coder decodeObjectForKey:@"_tvShowLanguage"] retain];
+    _movieProvider = [[coder decodeObjectForKey:@"_movieProvider"] retain];
+    _tvShowProvider = [[coder decodeObjectForKey:@"_tvShowProvider"] retain];
+
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:_movieLanguage forKey:@"_movieLanguage"];
+    [coder encodeObject:_tvShowLanguage forKey:@"_tvShowLanguage"];
+    [coder encodeObject:_movieProvider forKey:@"_movieProvider"];
+    [coder encodeObject:_tvShowProvider forKey:@"_tvShowProvider"];
 }
 
 @end
