@@ -224,7 +224,7 @@
 {
     NSArray<__kindof NSDocument *> *documents = nil;
     @synchronized(self) {
-        documents = [self.documents copy];
+        documents = [[self.documents copy] autorelease];
     }
 
     for (NSDocument *doc in documents) {
