@@ -11,6 +11,11 @@
 
 #pragma mark - Helpers
 
+NS_ASSUME_NONNULL_BEGIN
+
+/**
+ *  A SBMediaTag is composed of a tag value and a boolean state.
+ */
 @interface SBMediaTag : NSObject {
 @private
     BOOL _state;
@@ -19,16 +24,34 @@
     NSString *_localizedDescription;
 }
 
+/**
+ *  Returns the complete array of the predefined tags.
+ */
 + (NSArray<NSString *> *)predefinedTags;
+
+/**
+ *  Returns the predefined supported media tags
+ *  for a particular media type.
+ *
+ *  @param mediaType a MP42MediaType type.
+ *
+ *  @return an array of NSString with the supported tags.
+ */
 + (NSArray<NSString *> *)predefinedTagsForMediaType:(NSString *)mediaType;
-+ (nullable NSString *)localizedDescriptionForTag:(NSString *)tag;
+
+/**
+ *  Returns the localized human readable title of a partical tag.
+ */
++ (nullable NSString *)localizedTitleForTag:(NSString *)tag;
 
 @property (nonatomic, readwrite) BOOL state;
-@property (nonatomic, readonly, nonnull) NSString *value;
-@property (nonatomic, readonly, nonnull) NSString *localizedTitle;
-@property (nonatomic, readonly, nonnull) NSString *localizedDescription;
+@property (nonatomic, readonly) NSString *value;
+@property (nonatomic, readonly) NSString *localizedTitle;
+@property (nonatomic, readonly) NSString *localizedDescription;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 @implementation SBMediaTag
 
@@ -37,7 +60,7 @@
     if (self) {
         _state = state;
         _value = [value copy];
-        _localizedTitle = [[SBMediaTag localizedDescriptionForTag:_value] copy];
+        _localizedTitle = [[SBMediaTag localizedTitleForTag:_value] copy];
 
         if (_localizedTitle == nil) {
             _localizedTitle = [_value retain];
@@ -76,8 +99,9 @@
 
     }
 
-    else if ([mediaType isEqualToString:MP42MediaTypeSubtitle] ||
-             [mediaType isEqualToString:MP42MediaTypeClosedCaption]) {
+    if ([mediaType isEqualToString:MP42MediaTypeSubtitle] ||
+        [mediaType isEqualToString:MP42MediaTypeClosedCaption] ||
+        [mediaType isEqualToString:MP42MediaTypeAudio]) {
 
         [tags addObjectsFromArray:@[@"public.translation"]];
     }
@@ -85,7 +109,7 @@
     return tags;
 }
 
-+ (nullable NSString *)localizedDescriptionForTag:(NSString *)tag {
++ (nullable NSString *)localizedTitleForTag:(NSString *)tag {
     NSDictionary *localizedDescriptions = @{@"public.main-program-content": NSLocalizedString(@"Main Program Content", nil),
                                             @"public.auxiliary-content": NSLocalizedString(@"Auxiliary Content", nil),
                                             @"public.subtitles.forced-only": NSLocalizedString(@"Contains Only Forced Subtitles", nil),
@@ -117,15 +141,22 @@
 
 @end
 
+NS_ASSUME_NONNULL_BEGIN
+
+/**
+ *  A NSTableCellView that contains a single checkbox.
+ */
 @interface SBCheckBoxTableCellView : NSTableCellView {
     IBOutlet NSButton *_checkBox;
     SBMediaTag *_representedTag;
 }
 
 
-@property (nonatomic, readwrite, retain, nonnull) SBMediaTag *representedTag;
+@property (nonatomic, readwrite, retain) SBMediaTag *representedTag;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 @implementation SBCheckBoxTableCellView
 
