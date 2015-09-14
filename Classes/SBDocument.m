@@ -174,7 +174,7 @@
     IOReturn io_success = IOPMAssertionCreateWithName(kIOPMAssertionTypeNoIdleSleep,
                                                       kIOPMAssertionLevelOn, reasonForActivity, &assertionID);
     BOOL result = NO;
-    NSDictionary<NSString *, NSNumber *> *attributes = [self saveAttributes];
+    NSDictionary<NSString *, NSNumber *> *options = [self saveAttributes];
 
     self.mp4.progressHandler = ^(double progress){
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -187,12 +187,12 @@
         case NSSaveOperation:
             // movie file already exists, so we'll just update
             // the movie resource.
-            result = [self.mp4 updateMP4FileWithAttributes:attributes error:outError];
+            result = [self.mp4 updateMP4FileWithOptions:options error:outError];
             break;
 
         case NSSaveAsOperation:
             // movie does not exist, create a new one from scratch.
-            result = [self.mp4 writeToUrl:url withAttributes:attributes error:outError];
+            result = [self.mp4 writeToUrl:url options:options error:outError];
             break;
 
         default:

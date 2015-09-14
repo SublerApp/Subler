@@ -315,11 +315,11 @@
     if (!self.cancelled) {
         if ([self.URL isEqualTo:self.destURL] && [self.mp4File hasFileRepresentation]) {
             // We have an existing mp4 file, update it
-            noErr = [self.mp4File updateMP4FileWithAttributes:self.attributes error:outError];
+            noErr = [self.mp4File updateMP4FileWithOptions:self.attributes error:outError];
         } else {
             // Write the new file to disk
             noErr = [self.mp4File writeToUrl:self.destURL
-                              withAttributes:self.attributes
+                                     options:self.attributes
                                        error:outError];
         }
     }

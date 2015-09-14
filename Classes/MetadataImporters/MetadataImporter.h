@@ -17,11 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL _isCancelled;
 }
 
-typedef enum SBCachePolicy : NSUInteger {
-    SBDefaultPolicy = 0,
+typedef NS_ENUM(NSUInteger, SBCachePolicy) {
+    SBDefaultPolicy,
     SBReturnCacheElseLoad,
     SBReloadIgnoringLocalCacheData,
-} SBCachePolicy;
+};
 
 #pragma mark Helper routines
 + (NSDictionary<NSString *, NSString *> *)parseFilename:(NSString *)filename;
@@ -53,13 +53,13 @@ typedef enum SBCachePolicy : NSUInteger {
 #pragma mark Methods to be overridden
 - (NSArray<NSString *> *) languages;
 
-- (NSArray<MP42Metadata *> * _Nullable) searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage;
-- (NSArray<MP42Metadata *> * _Nullable) searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(NSString * _Nullable)aSeasonNum episodeNum:(NSString * _Nullable)aEpisodeNum;
+- (nullable NSArray<MP42Metadata *> *) searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage;
+- (nullable NSArray<MP42Metadata *> *) searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(nullable NSString *)aSeasonNum episodeNum:(nullable NSString *)aEpisodeNum;
 
-- (NSArray<MP42Metadata *> * _Nullable) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage;
+- (nullable NSArray<MP42Metadata *> *) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage;
 
-- (MP42Metadata * _Nullable) loadTVMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage;
-- (MP42Metadata * _Nullable) loadMovieMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage;
+- (nullable MP42Metadata *) loadTVMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage;
+- (nullable MP42Metadata *) loadMovieMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage;
 
 @end
 

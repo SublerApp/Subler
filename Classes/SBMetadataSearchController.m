@@ -491,18 +491,21 @@
 #pragma mark NSComboBox delegates and protocols
 
 - (NSString *)comboBox:(NSComboBox *)comboBox completedString:(NSString *)uncompletedString {
-    if (!uncompletedString || ([uncompletedString length] < 1)) return nil;
+
+    if (uncompletedString.length < 1) {
+        return nil;
+    }
+
     if (comboBox == tvSeriesName) {
+
         NSArray *previousTVseries = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Previously used TV series"];
-        if (previousTVseries == nil) return nil;
-        NSEnumerator *previousTVseriesEnum = [previousTVseries objectEnumerator];
-        NSString *s;
-        while ((s = (NSString *) [previousTVseriesEnum nextObject])) {
-            if ([[s lowercaseString] hasPrefix:[uncompletedString lowercaseString]]) {
+        if (previousTVseries == nil) { return nil; }
+
+        for (NSString *s in previousTVseries) {
+            if ([s.lowercaseString hasPrefix:uncompletedString.lowercaseString]) {
                 return s;
             }
         }
-        return nil;
     }
     return nil;
 }
@@ -535,9 +538,6 @@
 }
 
 - (NSInteger)numberOfItemsInComboBox:(NSComboBox *)comboBox {
-    // for some unknown reason, the number of items displayed won't be correct unless these member variables get accessed
-    // bug to fix!
-    //NSLog(@"in numberOfItemsInComboBox; box numberOfVisibleItems = %d, cell numberOfVisibleItems = %d", (int) [comboBox numberOfVisibleItems], (int) [[comboBox cell] numberOfVisibleItems]);
     if (comboBox == tvSeriesName) {
         return self.tvSeriesNameSearchArray.count;
     }
