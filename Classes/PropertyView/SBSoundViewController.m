@@ -26,7 +26,7 @@
         for (MP42AudioTrack *fileTrack in [mp4file tracksWithMediaType:MP42MediaTypeAudio]) {
             if ([[fileTrack format] isEqualToString:MP42AudioFormatAAC]) {
                 NSMenuItem *newItem = [[[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ - %@ - %@",
-                                                                          fileTrack.Id ? [NSString stringWithFormat:@"%d", fileTrack.Id] : @"na",
+                                                                          fileTrack.trackId ? [NSString stringWithFormat:@"%d", fileTrack.trackId] : @"na",
                                                                           fileTrack.name,
                                                                           fileTrack.language]
                                                                   action:@selector(setFallbackTrack:)
@@ -55,7 +55,7 @@
 
     for (MP42SubtitleTrack *fileTrack in [mp4file tracksWithMediaType:MP42MediaTypeSubtitle]) {
         NSMenuItem *newItem = [[[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ - %@ - %@",
-                                                                  fileTrack.Id ? [NSString stringWithFormat:@"%d", fileTrack.Id] : @"na",
+                                                                  fileTrack.trackId ? [NSString stringWithFormat:@"%d", fileTrack.trackId] : @"na",
                                                                   fileTrack.name,
                                                                   fileTrack.language]
                                                           action:@selector(setFollowsTrack:)

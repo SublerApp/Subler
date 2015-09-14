@@ -431,7 +431,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         return nil;
 
     if ([tableColumn.identifier isEqualToString:@"trackId"])
-        return (track.Id == 0) ? @"na" : [NSString stringWithFormat:@"%d", track.Id];
+        return (track.trackId == 0) ? @"na" : [NSString stringWithFormat:@"%d", track.trackId];
 
     if ([tableColumn.identifier isEqualToString:@"trackName"])
         return track.name;

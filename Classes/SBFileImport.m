@@ -308,7 +308,7 @@
             return [_importCheckArray objectAtIndex:rowIndex];
 
         if ([tableColumn.identifier isEqualToString:@"trackId"])
-            return [NSString stringWithFormat:@"%d", [object Id]];
+            return [NSString stringWithFormat:@"%d", [object trackId]];
 
         if ([tableColumn.identifier isEqualToString:@"trackName"])
             return [object name];
@@ -447,31 +447,31 @@
                         [[track.sourceURL pathExtension] caseInsensitiveCompare:@"h264"] == NSOrderedSame) {
                         switch(conversion) {
                             case 0:
-                                [track setId:2398];
+                                track.trackId = 2398;
                                 break;
                             case 1:
-                                [track setId:24];
+                                track.trackId = 24;
                                 break;
                             case 2:
-                                [track setId:25];
+                                track.trackId = 25;
                                 break;
                             case 3:
-                                [track setId:2997];
+                                track.trackId = 2997;
                                 break;
                             case 4:
-                                [track setId:30];
+                                track.trackId = 30;
                                 break;
                             case 5:
-                                [track setId:50];
+                                track.trackId = 50;
                                 break;
                             case 6:
-                                [track setId:5994];
+                                track.trackId = 5994;
                                 break;
                             case 7:
-                                [track setId:60];
+                                track.trackId = 60;
                                 break;
                             default:
-                                [track setId:2398];
+                                track.trackId = 2398;
                                 break;
                         }
                     }

@@ -121,7 +121,7 @@ static NSString *getLevelName(uint8_t level) {
         NSInteger selectedItem = 0;
         for (MP42SubtitleTrack *fileTrack in [mp4file tracksWithMediaType:MP42MediaTypeSubtitle]) {
             NSMenuItem *newItem = [[[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ - %@ - %@",
-                                                                      fileTrack.Id ? [NSString stringWithFormat:@"%d", fileTrack.Id] : @"NA",
+                                                                      fileTrack.trackId ? [NSString stringWithFormat:@"%d", fileTrack.trackId] : @"NA",
                                                                       fileTrack.name,
                                                                       fileTrack.language]
                                                               action:@selector(setForcedTrack:)
