@@ -39,12 +39,12 @@
     NSMutableDictionary<NSString *, NSString *> *results = nil;
 
     // Try with the usual anime filename
-    NSError *error = NULL;
     __block NSDictionary<NSString *, NSString *> *resultDictionary = nil;
-    NSRegularExpression *regex = [NSRegularExpression
-                                  regularExpressionWithPattern:@"^\\[(.+)\\](?:(?:\\s|_)+)?([^()]+)(?:(?:\\s|_)+)(?:(?:-\\s|-_|Ep)+)([0-9][0-9]?)"
-                                  options:NSRegularExpressionCaseInsensitive
-                                  error:&error];
+
+    NSString *pattern = @"^\\[(.+)\\](?:(?:\\s|_)+)?([^()]+)(?:(?:\\s|_)+)(?:(?:-\\s|-_|Ep)+)([0-9]+)";
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:nil];
 
     [regex enumerateMatchesInString:filename
                             options:0
