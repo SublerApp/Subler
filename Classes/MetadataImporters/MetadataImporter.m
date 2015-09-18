@@ -8,7 +8,6 @@
 
 #import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Languages.h>
-#import <MP42Foundation/RegexKitLite.h>
 
 #import "MetadataImporter.h"
 
@@ -35,24 +34,39 @@
 
 + (NSDictionary<NSString *, NSString *> *)parseFilename:(NSString *)filename
 {
-    NSMutableDictionary<NSString *, NSString *> *results = nil;
-
     NSParameterAssert(filename);
 
+    NSMutableDictionary<NSString *, NSString *> *results = nil;
+
     // Try with the usual anime filename
-    NSString *regexString  = @"^\\[(.+)\\](?:(?:\\s|_)+)?([^()]+)(?:(?:\\s|_)+)(?:(?:-\\s|-_|Ep)+)([0-9][0-9]?)";
-    NSDictionary *resultDictionary = [filename dictionaryByMatchingRegex:regexString
-                                                     withKeysAndCaptures:@"fanSubGroup", 1, @"seriesName", 2,  @"episodeNumber", 3, nil];
-    
-    if (resultDictionary != nil && [resultDictionary count]) {
-        results = [[NSMutableDictionary alloc] initWithCapacity:2];
-        NSString *seriesName = [[resultDictionary valueForKey:@"seriesName"] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-        NSInteger episodeNumber = [[resultDictionary valueForKey:@"episodeNumber"] integerValue];
-        [results setValue:@"tv" forKey:@"type"];
-        [results setValue:seriesName forKey:@"seriesName"];
-        [results setValue:@"1" forKey:@"seasonNum"];
-        [results setValue:[NSString stringWithFormat:@"%ld", (long) episodeNumber] forKey:@"episodeNum"];
-        
+    NSError *error = NULL;
+    __block NSDictionary<NSString *, NSString *> *resultDictionary = nil;
+    NSRegularExpression *regex = [NSRegularExpression
+                                  regularExpressionWithPattern:@"^\\[(.+)\\](?:(?:\\s|_)+)?([^()]+)(?:(?:\\s|_)+)(?:(?:-\\s|-_|Ep)+)([0-9][0-9]?)"
+                                  options:NSRegularExpressionCaseInsensitive
+                                  error:&error];
+
+    [regex enumerateMatchesInString:filename
+                            options:0
+                              range:NSMakeRange(0, filename.length)
+                         usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop) {
+
+        resultDictionary = @{ @"fanSubGroup": [filename substringWithRange:[match rangeAtIndex:1]],
+                              @"seriesName": [filename substringWithRange:[match rangeAtIndex:2]],
+                              @"episodeNumber": [filename substringWithRange:[match rangeAtIndex:3]] };
+
+    }];
+
+    if (resultDictionary.count) {
+        results = [[NSMutableDictionary alloc] init];
+        NSString *seriesName = [resultDictionary[@"seriesName"] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+        NSInteger episodeNumber = [resultDictionary[@"episodeNumber"] integerValue];
+
+        results[@"type"] = @"tv";
+        results[@"seriesName"] = seriesName;
+        results[@"seasonNum"] = @"1";
+        results[@"episodeNum"] = [NSString stringWithFormat:@"%ld", (long)episodeNumber];
+
         return [results autorelease];
     }
 
