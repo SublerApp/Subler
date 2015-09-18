@@ -23,6 +23,7 @@
 #import "SBMediaTagsController.h"
 
 #import <MP42Foundation/MP42File.h>
+#import <MP42Foundation/MP42FileImporter.h>
 #import <MP42Foundation/MP42Languages.h>
 #import <MP42Foundation/MP42Utilities.h>
 
@@ -768,10 +769,10 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     MP42ChapterTrack *chapters = self.mp4.chapters;
     if (chapters) {
-        panel.allowedFileTypes = [supportedFileFormat() arrayByAddingObject:@"csv"];
+        panel.allowedFileTypes = [[MP42FileImporter supportedFileFormats] arrayByAddingObject:@"csv"];
     }
     else {
-        panel.allowedFileTypes = supportedFileFormat();
+        panel.allowedFileTypes = [MP42FileImporter supportedFileFormats];
     }
 
     [panel beginSheetModalForWindow:documentWindow completionHandler:^(NSInteger result) {
@@ -976,7 +977,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
                      [pathExtension caseInsensitiveCompare: @"nfo"] == NSOrderedSame) {
                 [self addMetadata:url];
             }
-            else if (isFileFormatSupported(pathExtension)) {
+            else if ([MP42FileImporter canInitWithFileType:pathExtension]) {
                 [supportedItems addObject:url];
             }
         }

@@ -16,7 +16,7 @@
 #import "SBDocument.h"
 #import "SBTableView.h"
 
-#import <MP42Foundation/MP42Utilities.h>
+#import <MP42Foundation/MP42FileImporter.h>
 
 static void *SBQueueContex = &SBQueueContex;
 
@@ -530,7 +530,7 @@ static void *SBQueueContex = &SBQueueContex;
     panel.allowsMultipleSelection = YES;
     panel.canChooseFiles = YES;
     panel.canChooseDirectories = YES;
-    panel.allowedFileTypes = supportedFileFormat();
+    panel.allowedFileTypes = [MP42FileImporter supportedFileFormats];
 
     [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
