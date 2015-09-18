@@ -9,7 +9,6 @@
 #import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Ratings.h>
 #import <MP42Foundation/MP42Languages.h>
-#import <MP42Foundation/JSONKit.h>
 
 #import "SBMetadataSearchController.h"
 
@@ -29,9 +28,10 @@
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/search/movie?api_key=%@&query=%@&language=%@", API_KEY, [MetadataImporter urlEncoded:aMovieTitle], lang]];
 	NSData *jsonData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	if (jsonData) {
-		JSONDecoder *jsonDecoder = [JSONDecoder decoder];
-		NSDictionary *d = [jsonDecoder objectWithData:jsonData];
-		return [TheMovieDB3 metadataForResults:d];
+        NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+        if ([d isKindOfClass:[NSDictionary class]]) {
+            return [TheMovieDB3 metadataForResults:d];
+        }
 	}
 	return nil;
 }
@@ -56,10 +56,9 @@
     NSArray *posters = [r valueForKeyPath:@"images.posters"];
 
     if (jsonData && posters && [posters isKindOfClass:[NSArray class]]) {
-        JSONDecoder *jsonDecoder = [JSONDecoder decoder];
-		NSDictionary *config = [jsonDecoder objectWithData:jsonData];
+        NSDictionary *config = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
 
-		if ([config valueForKey:@"images"]) {
+		if ([config isKindOfClass:[NSDictionary class]] && [config valueForKey:@"images"]) {
 			NSString *imageBaseUrl = [[config valueForKey:@"images"] valueForKey:@"secure_base_url"];
 			NSString *posterThumbnailSize = [[[config valueForKey:@"images"] valueForKey:@"poster_sizes"] objectAtIndex:0];
 			NSString *backdropThumbnailSize = [[[config valueForKey:@"images"] valueForKey:@"backdrop_sizes"] objectAtIndex:0];
@@ -102,13 +101,15 @@
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/movie/%@?api_key=%@&language=%@&append_to_response=casts,releases,images", theMovieDBID, API_KEY, lang]];
 	NSData *jsonData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	if (jsonData) {
-		JSONDecoder *jsonDecoder = [JSONDecoder decoder];
-		NSDictionary *d = [jsonDecoder objectWithData:jsonData];
-		MP42Metadata *r = [TheMovieDB3 metadataForResult:d language:lang];
-		if (r) {
-			[aMetadata mergeMetadata:r];
-		}
-        aMetadata = [self artworksForResult:d metadata:aMetadata];
+        NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+        if ([d isKindOfClass:[NSDictionary class]]) {
+
+            MP42Metadata *r = [TheMovieDB3 metadataForResult:d language:lang];
+            if (r) {
+                [aMetadata mergeMetadata:r];
+            }
+            aMetadata = [self artworksForResult:d metadata:aMetadata];
+        }
 	}
 
 	return aMetadata;
