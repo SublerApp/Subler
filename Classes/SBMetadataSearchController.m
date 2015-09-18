@@ -9,8 +9,6 @@
 #import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Languages.h>
 
-#import <MP42Foundation/RegexKitLite.h>
-
 #import "SBMetadataSearchController.h"
 #import "SBArtworkSelector.h"
 #import "SBDocument.h"
