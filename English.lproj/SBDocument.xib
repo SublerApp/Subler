@@ -32,37 +32,37 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="5" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="120" y="866" width="620" height="450"/>
+            <rect key="contentRect" x="120" y="866" width="690" height="510"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <value key="minSize" type="size" width="350" height="200"/>
             <view key="contentView" id="6">
-                <rect key="frame" x="0.0" y="0.0" width="620" height="450"/>
+                <rect key="frame" x="0.0" y="0.0" width="690" height="510"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <splitView id="100127">
-                        <rect key="frame" x="-1" y="0.0" width="622" height="451"/>
+                        <rect key="frame" x="-1" y="0.0" width="692" height="511"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView id="100128">
-                                <rect key="frame" x="0.0" y="0.0" width="622" height="133"/>
+                                <rect key="frame" x="0.0" y="0.0" width="692" height="144"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="100028">
-                                        <rect key="frame" x="0.0" y="0.0" width="622" height="133"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="692" height="144"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="L1j-2Q-wsZ">
-                                            <rect key="frame" x="1" y="0.0" width="620" height="132"/>
+                                            <rect key="frame" x="1" y="0.0" width="690" height="143"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="100032" id="100031" customClass="SBTableView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="620" height="19"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="690" height="126"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <animations/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn identifier="trackId" editable="NO" width="30" minWidth="30" maxWidth="38" id="100033">
+                                                        <tableColumn identifier="trackId" editable="NO" width="37" minWidth="30" maxWidth="38" id="100033">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Id">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -87,7 +87,7 @@
                                                             </buttonCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
-                                                        <tableColumn identifier="trackName" width="199" minWidth="100" maxWidth="1000" id="100034">
+                                                        <tableColumn identifier="trackName" width="222" minWidth="100" maxWidth="1000" id="100034">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -106,14 +106,14 @@
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Text" id="100123">
+                                                            <textFieldCell key="dataCell" sendsActionOnEndEditing="YES" alignment="right" title="Text" id="100123">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
-                                                        <tableColumn identifier="trackLanguage" width="130" minWidth="130" maxWidth="150" id="100044">
+                                                        <tableColumn identifier="trackLanguage" width="138" minWidth="130" maxWidth="150" id="100044">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Language">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -129,7 +129,7 @@
                                                             </comboBoxCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
-                                                        <tableColumn identifier="trackInfo" editable="NO" width="133" minWidth="80" maxWidth="440" id="100040">
+                                                        <tableColumn identifier="trackInfo" editable="NO" width="165" minWidth="80" maxWidth="440" id="100040">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Format">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -154,7 +154,7 @@
                                         </clipView>
                                         <animations/>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="100030">
-                                            <rect key="frame" x="1" y="116" width="605" height="15"/>
+                                            <rect key="frame" x="1" y="145" width="690" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                         </scroller>
@@ -164,7 +164,7 @@
                                             <animations/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="100032">
-                                            <rect key="frame" x="0.0" y="0.0" width="620" height="17"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="690" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                         </tableHeaderView>
@@ -173,7 +173,7 @@
                                 <animations/>
                             </customView>
                             <customView id="100129">
-                                <rect key="frame" x="0.0" y="142" width="622" height="309"/>
+                                <rect key="frame" x="0.0" y="153" width="692" height="358"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <animations/>
                             </customView>
@@ -208,12 +208,12 @@
                     <toolbarItem implicitItemIdentifier="D956CBF5-52FB-4FBD-934D-00EAD20DF4D4" label="Action" paletteLabel="Action" image="NSActionTemplate" id="100338">
                         <nil key="toolTip"/>
                         <size key="minSize" width="30" height="25"/>
-                        <size key="maxSize" width="38" height="25"/>
+                        <size key="maxSize" width="40" height="25"/>
                         <popUpButton key="view" verticalHuggingPriority="750" id="100332">
-                            <rect key="frame" x="2" y="14" width="38" height="25"/>
+                            <rect key="frame" x="1" y="14" width="40" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <animations/>
-                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="arrowAtCenter" selectedItem="100336" id="100333">
+                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="arrowAtCenter" id="100333">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
                                 <menu key="menu" title="OtherViews" id="100334">
@@ -358,7 +358,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="17"/>
             </connections>
-            <point key="canvasLocation" x="402" y="14"/>
+            <point key="canvasLocation" x="349" y="-6"/>
         </window>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="100175" userLabel="Saving">
