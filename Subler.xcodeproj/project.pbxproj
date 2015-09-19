@@ -14,7 +14,6 @@
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		A90B023B10F3290A000416F3 /* Prefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90B023910F3290A000416F3 /* Prefs.xib */; };
 		A917286119FD288B00348DF8 /* SBLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A917286019FD288B00348DF8 /* SBLogger.m */; };
-		A91F622D0FB0A56F00B96B33 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A91F622C0FB0A56F00B96B33 /* libicucore.dylib */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A95688A21B91B0F3004456A6 /* NSArray+Subscripting.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A11B91B0F3004456A6 /* NSArray+Subscripting.m */; settings = {ASSET_TAGS = (); }; };
@@ -172,7 +171,6 @@
 		A90B023A10F3290A000416F3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Prefs.xib; sourceTree = "<group>"; };
 		A917286019FD288B00348DF8 /* SBLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLogger.m; path = Classes/SBLogger.m; sourceTree = "<group>"; };
 		A917286419FD289F00348DF8 /* SBLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBLogger.h; path = Classes/SBLogger.h; sourceTree = "<group>"; };
-		A91F622C0FB0A56F00B96B33 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 		A925AA7B18378D7800BE84D4 /* MP42Foundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP42Foundation.xcodeproj; path = MP42Foundation/MP42Foundation.xcodeproj; sourceTree = "<group>"; };
 		A95688A01B91B0F3004456A6 /* NSArray+Subscripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+Subscripting.h"; path = "Classes/Compatibility/NSArray+Subscripting.h"; sourceTree = "<group>"; };
 		A95688A11B91B0F3004456A6 /* NSArray+Subscripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+Subscripting.m"; path = "Classes/Compatibility/NSArray+Subscripting.m"; sourceTree = "<group>"; };
@@ -311,7 +309,6 @@
 				A9F7F8E01837C44B0036AE7E /* IOKit.framework in Frameworks */,
 				A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */,
 				A984DB4B0F52D644001A20B2 /* Sparkle.framework in Frameworks */,
-				A91F622D0FB0A56F00B96B33 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,7 +328,6 @@
 				A9ED7B21180067A2008FD3A8 /* IOKit.framework */,
 				A9C0603F168315C500FE3D98 /* libbz2.dylib */,
 				948058B5106E07990037A911 /* libz.dylib */,
-				A91F622C0FB0A56F00B96B33 /* libicucore.dylib */,
 				2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */,
 				13E42FBA07B3F13500E4EEF1 /* CoreData.framework */,
 				2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */,
@@ -382,19 +378,10 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				A9B46ABD12B79D1C0040517A /* SBDocument.h */,
-				A9B46ABE12B79D1C0040517A /* SBDocument.m */,
+				A9FAC5FE1BAC3BAC00525E42 /* Document */,
 				A9AF6A7818D0537F00FAAB08 /* Queue */,
 				A961476113F567E10068F161 /* SBPresetManager.h */,
 				A961476213F567E10068F161 /* SBPresetManager.m */,
-				A9B46A7E12B79B240040517A /* SBFileImport.h */,
-				A9B46A7F12B79B240040517A /* SBFileImport.m */,
-				A96946501BA3F83D0048C004 /* SBMediaTagsController.h */,
-				A96946511BA3F83D0048C004 /* SBMediaTagsController.m */,
-				CD71FEA112F1B5AF00F0A98D /* SBMetadataSearchController.h */,
-				CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */,
-				CD56963012FAAD680029FADB /* SBArtworkSelector.h */,
-				CD56963112FAAD680029FADB /* SBArtworkSelector.m */,
 				A9B46A8212B79B240040517A /* SBPrefsController.h */,
 				A9B46A8312B79B240040517A /* SBPrefsController.m */,
 				A9AB484717F0AEA2000AA72E /* SBAppDelegate.h */,
@@ -561,6 +548,23 @@
 				A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */,
 			);
 			name = Queue;
+			sourceTree = "<group>";
+		};
+		A9FAC5FE1BAC3BAC00525E42 /* Document */ = {
+			isa = PBXGroup;
+			children = (
+				A9B46ABD12B79D1C0040517A /* SBDocument.h */,
+				A9B46ABE12B79D1C0040517A /* SBDocument.m */,
+				A9B46A7E12B79B240040517A /* SBFileImport.h */,
+				A9B46A7F12B79B240040517A /* SBFileImport.m */,
+				A96946501BA3F83D0048C004 /* SBMediaTagsController.h */,
+				A96946511BA3F83D0048C004 /* SBMediaTagsController.m */,
+				CD71FEA112F1B5AF00F0A98D /* SBMetadataSearchController.h */,
+				CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */,
+				CD56963012FAAD680029FADB /* SBArtworkSelector.h */,
+				CD56963112FAAD680029FADB /* SBArtworkSelector.m */,
+			);
+			name = Document;
 			sourceTree = "<group>";
 		};
 		A9FD5D150F3C692400817716 /* PropertyView */ = {
