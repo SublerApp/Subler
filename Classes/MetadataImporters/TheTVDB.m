@@ -29,9 +29,9 @@ static NSArray *TVDBlanguages;
 
         if (languages) {
             NSArray *languagesArray = [languages retrieveArrayForPath:@"Languages.Language"];
-            NSMutableArray *languagesResult = [NSMutableArray array];
+            NSMutableArray<NSString *> *languagesResult = [NSMutableArray array];
 
-            if (languagesArray && [languagesArray isKindOfClass:[NSArray class]] && [languagesArray count]) {
+            if ([languagesArray isKindOfClass:[NSArray class]] && languagesArray.count) {
                 for (NSDictionary *language in languagesArray) {
                     NSString *lang = [language valueForKeyPath:@"abbreviation.text"];
                     if (lang && [lang isKindOfClass:[NSString class]]) {
@@ -41,7 +41,7 @@ static NSArray *TVDBlanguages;
                 }
             }
 
-            TVDBlanguages = [[NSArray arrayWithArray:languagesResult] retain];
+            TVDBlanguages = [languagesResult copy];
         }
     }
 }
