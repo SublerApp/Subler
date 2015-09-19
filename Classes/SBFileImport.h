@@ -35,7 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
     IBOutlet NSButton    *importMetadata;
 }
 
-- (instancetype)initWithURLs:(NSArray *)fileURLs delegate:(id <SBFileImportDelegate>)delegate error:(NSError **)error;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithURLs:(NSArray<NSURL *> *)fileURLs delegate:(id <SBFileImportDelegate>)delegate error:(NSError **)error;
 
 - (IBAction)closeWindow:(id)sender;
 - (IBAction)addTracks:(id)sender;
