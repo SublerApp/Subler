@@ -78,6 +78,7 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
                                                                              attributes:@{NSForegroundColorAttributeName:[NSColor labelColor],
                                                                                         NSFontAttributeName:[NSFont labelFontOfSize:11]}];
                 subview.attributedTitle = string;
+                [string release];
             }
         }
     }
