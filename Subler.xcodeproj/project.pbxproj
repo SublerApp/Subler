@@ -16,10 +16,10 @@
 		A917286119FD288B00348DF8 /* SBLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A917286019FD288B00348DF8 /* SBLogger.m */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		A95688A21B91B0F3004456A6 /* NSArray+Subscripting.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A11B91B0F3004456A6 /* NSArray+Subscripting.m */; settings = {ASSET_TAGS = (); }; };
-		A95688A91B91B11B004456A6 /* NSDictionary+Subscript.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A41B91B11B004456A6 /* NSDictionary+Subscript.m */; settings = {ASSET_TAGS = (); }; };
-		A95688AA1B91B11B004456A6 /* NSMutableArray+Subscript.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A61B91B11B004456A6 /* NSMutableArray+Subscript.m */; settings = {ASSET_TAGS = (); }; };
-		A95688AB1B91B11B004456A6 /* NSMutableDictionary+Subscript.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A81B91B11B004456A6 /* NSMutableDictionary+Subscript.m */; settings = {ASSET_TAGS = (); }; };
+		A95688A21B91B0F3004456A6 /* NSArray+Subscripting.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A11B91B0F3004456A6 /* NSArray+Subscripting.m */; };
+		A95688A91B91B11B004456A6 /* NSDictionary+Subscript.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A41B91B11B004456A6 /* NSDictionary+Subscript.m */; };
+		A95688AA1B91B11B004456A6 /* NSMutableArray+Subscript.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A61B91B11B004456A6 /* NSMutableArray+Subscript.m */; };
+		A95688AB1B91B11B004456A6 /* NSMutableDictionary+Subscript.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A81B91B11B004456A6 /* NSMutableDictionary+Subscript.m */; };
 		A95B8DA91B09F37800F2F152 /* Subler_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B8DA81B09F37800F2F152 /* Subler_Tests.m */; };
 		A95C881D0F827BFB00F51A22 /* ToolbarRemoveTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = A95C881C0F827BFB00F51A22 /* ToolbarRemoveTemplate.png */; };
 		A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */; };
@@ -27,7 +27,7 @@
 		A961476413F567E10068F161 /* SBPresetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A961476213F567E10068F161 /* SBPresetManager.m */; };
 		A961476713F568210068F161 /* Queue.xib in Resources */ = {isa = PBXBuildFile; fileRef = A961476513F568210068F161 /* Queue.xib */; };
 		A96371B8164695070083BB80 /* ToolbarRemoveTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A96371B7164695070083BB80 /* ToolbarRemoveTemplate@2x.png */; };
-		A96946531BA3F83D0048C004 /* SBMediaTagsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A96946511BA3F83D0048C004 /* SBMediaTagsController.m */; settings = {ASSET_TAGS = (); }; };
+		A96946531BA3F83D0048C004 /* SBMediaTagsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A96946511BA3F83D0048C004 /* SBMediaTagsController.m */; };
 		A9707B9317B139780010F3DB /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD56966E12FAAFA90029FADB /* Quartz.framework */; };
 		A975644D132A325C0051ED08 /* info.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A975644A132A325C0051ED08 /* info.pdf */; };
 		A975644E132A325C0051ED08 /* info-over.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A975644B132A325C0051ED08 /* info-over.pdf */; };
@@ -37,7 +37,7 @@
 		A984DB530F52D679001A20B2 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A984DB4A0F52D644001A20B2 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A984DB730F52DD4B001A20B2 /* dsa_pub.pem */; };
 		A98739FE13FBB09B00B795A7 /* ToolbarActionTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = A98739FD13FBB09B00B795A7 /* ToolbarActionTemplate.png */; };
-		A998DABF1BA54CFF004D7969 /* SBMediaTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */; settings = {ASSET_TAGS = (); }; };
+		A998DABF1BA54CFF004D7969 /* SBMediaTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */; };
 		A99BF39619F90F6300BDBE50 /* playBackTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A99BF39519F90F6300BDBE50 /* playBackTemplate.pdf */; };
 		A99EEA3F12B801AE002367D3 /* SBDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AC012B79E230040517A /* SBDocument.xib */; };
 		A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */; };
@@ -72,9 +72,9 @@
 		A9D47B5A17B239E200900BCA /* EncodeComplete.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5617B239E200900BCA /* EncodeComplete.png */; };
 		A9D47B5B17B239E200900BCA /* EncodeComplete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5717B239E200900BCA /* EncodeComplete@2x.png */; };
 		A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */; };
-		A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B991B918D5C00F1E40C /* SBApplication.m */; settings = {ASSET_TAGS = (); }; };
-		A9DA3B9D1B918D5C00F1E40C /* SBExceptionAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B9B1B918D5C00F1E40C /* SBExceptionAlertController.m */; settings = {ASSET_TAGS = (); }; };
-		A9DA3BA31B918D6F00F1E40C /* ExceptionAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9DA3BA11B918D6F00F1E40C /* ExceptionAlert.xib */; settings = {ASSET_TAGS = (); }; };
+		A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B991B918D5C00F1E40C /* SBApplication.m */; };
+		A9DA3B9D1B918D5C00F1E40C /* SBExceptionAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B9B1B918D5C00F1E40C /* SBExceptionAlertController.m */; };
+		A9DA3BA31B918D6F00F1E40C /* ExceptionAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9DA3BA11B918D6F00F1E40C /* ExceptionAlert.xib */; };
 		A9E2C9C91A1770EC00A417C9 /* EncodeWorking@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E2C9C81A1770EC00A417C9 /* EncodeWorking@2x.png */; };
 		A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */; };
 		A9EEA5F818D654B9008B54B4 /* QueueOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */; };
@@ -698,7 +698,7 @@
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0710;
 				TargetAttributes = {
 					A95B8DA31B09F37700F2F152 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -1206,6 +1206,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = "";
