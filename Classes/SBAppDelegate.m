@@ -46,22 +46,27 @@
 
     [logger release];
 
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBShowQueueWindow"])
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBShowQueueWindow"]) {
         [[SBQueueController sharedManager] showWindow:self];
+    }
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
     SBPresetManager *presetManager = [SBPresetManager sharedManager];
     [presetManager savePresets];
     
-    if ([[[SBQueueController sharedManager] window] isVisible])
+    if ([[[SBQueueController sharedManager] window] isVisible]) {
         [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBShowQueueWindow"];
-    else
+    }
+    else {
         [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"SBShowQueueWindow"];
+    }
 
-    if (![[SBQueueController sharedManager] saveQueueToDisk])
-        if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Debug"])
+    if (![[SBQueueController sharedManager] saveQueueToDisk]) {
+        if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Debug"]) {
             NSLog(@"Failed to save queue to disk!");
+        }
+    }
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)app
@@ -74,10 +79,12 @@
                                          NSLocalizedString(@"Your current queue will be lost. Do you want to quit anyway?", nil),
                                          NSLocalizedString(@"Quit", nil), NSLocalizedString(@"Don't Quit", nil), nil);
         
-        if (result == NSAlertDefaultReturn)
+        if (result == NSAlertDefaultReturn) {
             return NSTerminateNow;
-        else
+        }
+        else {
             return NSTerminateCancel;
+        }
     }
 
     return NSTerminateNow;
