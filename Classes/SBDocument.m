@@ -768,12 +768,15 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     panel.canChooseDirectories = NO;
 
     MP42ChapterTrack *chapters = self.mp4.chapters;
+
+    NSMutableArray<NSString *> *supportedFileFormats = [[MP42FileImporter supportedFileFormats] mutableCopy];
+    [supportedFileFormats addObject:@"txt"];
+
     if (chapters) {
-        panel.allowedFileTypes = [[MP42FileImporter supportedFileFormats] arrayByAddingObject:@"csv"];
+        [supportedFileFormats addObject:@"csv"];
     }
-    else {
-        panel.allowedFileTypes = [MP42FileImporter supportedFileFormats];
-    }
+
+    panel.allowedFileTypes = supportedFileFormats;
 
     [panel beginSheetModalForWindow:documentWindow completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
