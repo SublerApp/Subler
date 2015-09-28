@@ -693,10 +693,13 @@ static void *SBQueueContex = &SBQueueContex;
             NSArray *items = [pboard readObjectsForClasses:@[[NSURL class]] options: nil];
             NSMutableArray *queueItems = [[NSMutableArray alloc] init];
             NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
+            NSArray<NSString *> *supportedFileFormats = [MP42FileImporter supportedFileFormats];
 
             for (NSURL *url in items) {
-                [queueItems addObject:[self createItemWithURL:url]];
-                [indexes addIndex:row];
+                if ([supportedFileFormats containsObject:url.pathExtension.lowercaseString]) {
+                    [queueItems addObject:[self createItemWithURL:url]];
+                    [indexes addIndex:row];
+                }
             }
 
             [self addItems:queueItems atIndexes:indexes];
