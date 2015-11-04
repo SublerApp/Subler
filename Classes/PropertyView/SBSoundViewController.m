@@ -19,7 +19,8 @@
 
     _fallbacks = [[NSMutableArray alloc] init];
 
-    if ([[track format] isEqualToString:MP42AudioFormatAC3]) {
+    if ([track.format isEqualToString:MP42AudioFormatAC3] ||
+        [track.format isEqualToString:MP42AudioFormatEAC3]) {
         NSInteger i = 1;
         NSInteger selectedItem = 0;
 

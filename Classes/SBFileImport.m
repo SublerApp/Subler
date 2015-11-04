@@ -61,7 +61,7 @@
 
             // Set the action menu selection
             // AC-3 Specific actions
-            if ([[object format] isEqualToString:MP42AudioFormatAC3] &&
+            if (([[object format] isEqualToString:MP42AudioFormatAC3] || [[object format] isEqualToString:MP42AudioFormatEAC3]) &&
                 [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioConvertAC3"] boolValue]) {
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepAC3"] boolValue] &&
                     [object fallbackTrack] == nil) {
@@ -269,7 +269,9 @@
                     [[actionCell menu] addItem:item];
                 }
 
-                if ([track.format isEqualTo:MP42AudioFormatAC3] || [track.format isEqualTo:MP42AudioFormatDTS])
+                if ([track.format isEqualTo:MP42AudioFormatAC3] ||
+                    [track.format isEqualTo:MP42AudioFormatEAC3] ||
+                    [track.format isEqualTo:MP42AudioFormatDTS])
                 {
                     item = [[[NSMenuItem alloc] initWithTitle:@"AAC + Passthru" action:NULL keyEquivalent:@""] autorelease];
                     [item setTag:tag++];
