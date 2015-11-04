@@ -387,7 +387,6 @@
 				A9AB484717F0AEA2000AA72E /* SBAppDelegate.h */,
 				A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */,
 				CD71FF1A12F1C46900F0A98D /* MetadataImporters */,
-				A9FD5D150F3C692400817716 /* PropertyView */,
 				A95688AC1B91B35A004456A6 /* Activity Log */,
 				A956889F1B91AFF7004456A6 /* Compatibility */,
 			);
@@ -563,6 +562,7 @@
 				CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */,
 				CD56963012FAAD680029FADB /* SBArtworkSelector.h */,
 				CD56963112FAAD680029FADB /* SBArtworkSelector.m */,
+				A9FD5D150F3C692400817716 /* PropertyView */,
 			);
 			name = Document;
 			sourceTree = "<group>";
