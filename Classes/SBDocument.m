@@ -777,6 +777,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     }
 
     panel.allowedFileTypes = supportedFileFormats;
+    [supportedFileFormats release];
 
     [panel beginSheetModalForWindow:documentWindow completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
