@@ -380,7 +380,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
             [metadata setArtworkThumbURLs: artworkThumbURLs];
             [artworkThumbURLs release];
 
-            artworkString = [artworkString stringByReplacingOccurrencesOfString:@"100x100bb" withString:@"10000x10000bb"];
+            artworkString = [artworkString stringByReplacingOccurrencesOfString:@"100x100bb" withString:@"1400x1400bb"];
             NSMutableArray *artworkFullsizeURLs = [[NSMutableArray alloc] initWithCapacity:1];
             [artworkFullsizeURLs addObject:[NSURL URLWithString:artworkString]];
             [metadata setArtworkFullsizeURLs: artworkFullsizeURLs];
