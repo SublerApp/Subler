@@ -300,14 +300,15 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 }
 
 + (NSArray *) metadataForResults:(NSDictionary *)dict store:(NSDictionary *)store {
-    NSMutableArray *returnArray = [[NSMutableArray alloc] initWithCapacity:[[dict valueForKey:@"resultCount"] integerValue]];
+    NSMutableArray *returnArray = [[NSMutableArray alloc] init];
 	NSArray *resultsArray = [dict valueForKey:@"results"];
-	for (int i = 0; i < [resultsArray count]; i++) {
-		NSDictionary *r = [resultsArray objectAtIndex:i];
+
+    for (NSDictionary *r in resultsArray) {
 
         // Skip if the result is not a track (for example an artist or a collection)
-        if (![[r valueForKey:@"wrapperType"] isEqualToString:@"track"])
+        if (![[r valueForKey:@"wrapperType"] isEqualToString:@"track"]) {
             continue;
+        }
 
         MP42Metadata *metadata = [[MP42Metadata alloc] init];
 		if ([[r valueForKey:@"kind"] isEqualToString:@"feature-movie"]) {
@@ -329,7 +330,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
                     sa = [[s lowercaseString] componentsSeparatedByString:[NSString stringWithFormat:@", %@ ", @"book"]];
                 }
 
-                if ([sa count] > 1) {
+                if (sa.count > 1) {
                     season = [NSString stringWithFormat:@"%ld",(long) [[sa objectAtIndex:1] integerValue]];
                 } else {
                     season = @"1";
@@ -351,10 +352,12 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 		}
 		// metadata common to both TV episodes and movies
 		[metadata setTag:[(NSString *) [r valueForKey:@"releaseDate"] substringToIndex:10] forKey:@"Release Date"];
-        if ([r valueForKey:@"shortDescription"])
+        if ([r valueForKey:@"shortDescription"]) {
             [metadata setTag:[r valueForKey:@"shortDescription"] forKey:@"Description"];
-        else
+        }
+        else {
             [metadata setTag:[r valueForKey:@"longDescription"] forKey:@"Description"];
+        }
 		[metadata setTag:[r valueForKey:@"longDescription"] forKey:@"Long Description"];
 		[metadata setTag:[r valueForKey:@"primaryGenreName"] forKey:@"Genre"];
 		[metadata setTag:[NSNumber numberWithUnsignedInteger:[[MP42Ratings defaultManager] ratingIndexForiTunesCountry:[store valueForKey:@"country"] media:(metadata.mediaKind == 9 ? @"movie" : @"TV") ratingString:[r valueForKey:@"contentAdvisoryRating"]]] forKey:@"Rating"];
@@ -374,22 +377,25 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 		NSString *artworkString = [r valueForKey:@"artworkUrl100"];
 
         if (artworkString) {
+            NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(\\{.*?\\})"
+                                                                                   options:NSRegularExpressionCaseInsensitive
+                                                                                     error:nil];
+            NSRange stringRange = NSMakeRange(0, artworkString.length);
+            NSRange matchRange = [regex rangeOfFirstMatchInString:artworkString
+                                                          options:0
+                                                            range:stringRange];
+            if (matchRange.length > 0) {
+                artworkString = [artworkString stringByReplacingCharactersInRange:matchRange withString:@"bb"];
+            }
 
-            NSMutableArray<NSURL *> *artworkThumbURLs = [[NSMutableArray alloc] initWithCapacity:1];
-            [artworkThumbURLs addObject:[NSURL URLWithString:artworkString]];
-            [metadata setArtworkThumbURLs: artworkThumbURLs];
-            [artworkThumbURLs release];
+            NSURL *artworkURL = [NSURL URLWithString:artworkString];
+            NSURL *artworkFullSizeURL = [NSURL URLWithString:[artworkString stringByReplacingOccurrencesOfString:@"100x100bb" withString:@"1200x1200bb"]];
 
-            artworkString = [artworkString stringByReplacingOccurrencesOfString:@"100x100bb" withString:@"1400x1400bb"];
-            NSMutableArray *artworkFullsizeURLs = [[NSMutableArray alloc] initWithCapacity:1];
-            [artworkFullsizeURLs addObject:[NSURL URLWithString:artworkString]];
-            [metadata setArtworkFullsizeURLs: artworkFullsizeURLs];
-            [artworkFullsizeURLs release];
-
-            NSMutableArray<NSString *> *artworkProviderNames = [[NSMutableArray alloc] initWithCapacity:1];
-            [artworkProviderNames addObject:@"iTunes"];
-            [metadata setArtworkProviderNames:artworkProviderNames];
-            [artworkProviderNames release];
+            if (artworkURL) {
+                [metadata setArtworkThumbURLs:@[artworkURL]];
+                [metadata setArtworkFullsizeURLs:@[artworkFullSizeURL]];
+                [metadata setArtworkProviderNames:@[@"iTunes"]];
+            }
         }
 
 		// add to array
