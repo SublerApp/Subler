@@ -391,7 +391,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
             NSURL *artworkURL = [NSURL URLWithString:artworkString];
             NSURL *artworkFullSizeURL = [NSURL URLWithString:[artworkString stringByReplacingOccurrencesOfString:@"100x100bb" withString:@"1200x1200bb"]];
 
-            if (artworkURL) {
+            if (artworkURL && artworkFullSizeURL) {
                 [metadata setArtworkThumbURLs:@[artworkURL]];
                 [metadata setArtworkFullsizeURLs:@[artworkFullSizeURL]];
                 [metadata setArtworkProviderNames:@[@"iTunes"]];
