@@ -457,12 +457,14 @@ static void *SBQueueContex = &SBQueueContex;
  *  Updates the count on the app dock icon.
  */
 - (void)updateDockTile {
-    NSUInteger count = [self.queue readyCount];
+    NSUInteger count = [self.queue readyCount] + ((self.queue.status == SBQueueStatusWorking) ? 1 : 0);
 
-    if (count)
+    if (count) {
         [[NSApp dockTile] setBadgeLabel:[NSString stringWithFormat:@"%lu", (unsigned long)count]];
-    else
+    }
+    else {
         [[NSApp dockTile] setBadgeLabel:nil];
+    }
 }
 
 - (void)updateUI {
