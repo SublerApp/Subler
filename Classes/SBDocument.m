@@ -385,6 +385,9 @@
     if (action == @selector(iTunesFriendlyTrackGroups:))
         return YES;
 
+    if (action == @selector(fixAudioFallbacks:))
+        return YES;
+
 	if (action == @selector(export:) && [fileTracksTable selectedRow] != -1)
 		if ([[self.mp4 trackAtIndex:[fileTracksTable selectedRow]] respondsToSelector:@selector(exportToURL:error:)] &&
             [[self.mp4 trackAtIndex:[fileTracksTable selectedRow]] muxed])
@@ -946,6 +949,13 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (IBAction)iTunesFriendlyTrackGroups:(id)sender
 {
     [self.mp4 organizeAlternateGroups];
+    [fileTracksTable reloadData];
+    [self reloadPropertyView];
+    [self updateChangeCount:NSChangeDone];
+}
+
+- (IBAction)fixAudioFallbacks:(id)sender {
+    [self.mp4 setAutoFallback];
     [fileTracksTable reloadData];
     [self reloadPropertyView];
     [self updateChangeCount:NSChangeDone];

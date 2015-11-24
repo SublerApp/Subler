@@ -13,6 +13,7 @@
 
 NSString * const SBQueueFileType = @"SBQueueFileType";
 NSString * const SBQueueOrganize = @"SBQueueOrganize";
+NSString * const SBQueueFixFallbacks = @"SBQueueFixFallbacks";
 NSString * const SBQueueMetadata = @"SBQueueMetadata";
 NSString * const SBQueueSubtitles = @"SBQueueSubtitles";
 
@@ -36,7 +37,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
     if (self) {
         _options = [[NSMutableDictionary alloc] init];
 
-        NSArray *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize,
+        NSArray *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueFixFallbacks, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize,
                          SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage];
 
         [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -61,6 +62,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
 + (void)registerUserDefaults {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{ SBQueueFileType : @"mp4",
                                                                SBQueueOrganize : @YES,
+                                                               SBQueueFixFallbacks: @NO,
                                                                SBQueueMetadata : @NO,
                                                                SBQueueSubtitles: @YES,
                                                                SBQueueAutoStart: @NO,
@@ -75,7 +77,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
  * Save the queue user defaults
  */
 - (void)saveUserDefaults {
-    NSArray<NSString *> *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize,
+    NSArray<NSString *> *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueFixFallbacks, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize,
                       SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage];
 
     [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

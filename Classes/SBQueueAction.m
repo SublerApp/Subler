@@ -301,5 +301,31 @@
 - (void)encodeWithCoder:(NSCoder *)coder {
 }
 
+@end
+
+/**
+ *  An actions that fix the item tracks' fallbacks.
+ */
+@implementation SBQueueFixFallbacksAction : NSObject
+
+- (void)runAction:(SBQueueItem *)item {
+    [item.mp4File setAutoFallback];
+}
+
+- (NSString *)description {
+    return NSLocalizedString(@"Fixing Fallbacks", @"");
+}
+
+- (NSString *)localizedDescription {
+    return NSLocalizedString(@"Fixing Fallbacks", @"");
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+}
 
 @end

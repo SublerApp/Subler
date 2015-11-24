@@ -60,4 +60,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SBQueueOrganizeGroupsAction : NSObject <SBQueueActionProtocol>
 @end
 
+/**
+ *  An actions that fix the item tracks' fallbacks.
+ */
+@interface SBQueueFixFallbacksAction : NSObject <SBQueueActionProtocol>
+@end
+
 NS_ASSUME_NONNULL_END

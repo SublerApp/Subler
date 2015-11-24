@@ -265,6 +265,10 @@ static void *SBQueueContex = &SBQueueContex;
         [item addAction:[[[SBQueueOrganizeGroupsAction alloc] init] autorelease]];
     }
 
+    if ([[self.options objectForKey:SBQueueFixFallbacks] boolValue]) {
+        [item addAction:[[[SBQueueFixFallbacksAction alloc] init] autorelease]];
+    }
+
     if ([self.options objectForKey:SBQueueSet]) {
         [item addAction:[[[SBQueueSetAction alloc] initWithSet:[self.options objectForKey:SBQueueSet]] autorelease]];
     }
