@@ -17,15 +17,13 @@
 {
     [super loadView];
 
-    NSMutableParagraphStyle * ps = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+    NSMutableParagraphStyle *ps = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
     [ps setHeadIndent: -10.0];
     [ps setAlignment:NSRightTextAlignment];
 
-    detailBoldAttr = [[NSDictionary dictionaryWithObjectsAndKeys:
-                       [NSFont boldSystemFontOfSize:11.0], NSFontAttributeName,
-                       ps, NSParagraphStyleAttributeName,
-                       [NSColor grayColor], NSForegroundColorAttributeName,
-                       nil] retain];
+    detailBoldAttr = [@{ NSFontAttributeName: [NSFont monospacedDigitSystemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightBold],
+                        NSParagraphStyleAttributeName: ps,
+                        NSForegroundColorAttributeName: [NSColor grayColor] } retain];
 
     chapterTableView.defaultEditingColumn = 1;
 }
@@ -94,6 +92,25 @@
     }
     else {
         [removeChapter setEnabled:NO];
+    }
+}
+
+- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex
+{
+    if ([tableColumn.identifier isEqualToString:@"time"]) {
+        if ([[tableView selectedRowIndexes] containsIndex:rowIndex]) {
+            // Without this, the color won't change because
+            // we are using a attributed string.
+            NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:[cell attributedStringValue]];
+            [highlightedString addAttribute:NSForegroundColorAttributeName value:[NSColor blackColor] range:NSMakeRange(0, [highlightedString length])];
+            [cell setAttributedStringValue:highlightedString];
+            [highlightedString release];
+
+            [cell setTextColor:[NSColor blackColor]];
+        }
+        else {
+            [cell setTextColor:[NSColor grayColor]];
+        }
     }
 }
 
