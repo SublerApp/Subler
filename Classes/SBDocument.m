@@ -184,6 +184,10 @@
         });
     };
 
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBOrganizeAlternateGroups"] boolValue]) {
+        [self.mp4 organizeAlternateGroups];
+    }
+
     switch (saveOperation) {
         case NSSaveOperation:
             // movie file already exists, so we'll just update
@@ -323,9 +327,6 @@
 
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue]) {
         attributes[MP42GenerateChaptersPreviewTrack] = @YES;
-    }
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBOrganizeAlternateGroups"] boolValue]) {
-        attributes[MP42OrganizeAlternateGroups] = @YES;
     }
 
     if (_64bit_data.state) { attributes[MP4264BitData] = @YES; }
