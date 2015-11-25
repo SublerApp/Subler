@@ -16,9 +16,9 @@
 
 @implementation SBChapterDB
 
-- (NSArray<SBChapterResult *> *)searchTitle:(NSString *)aTitle duration:(NSUInteger)duration
+- (NSArray<SBChapterResult *> *)searchTitle:(NSString *)title language:(nullable NSString *)language duration:(NSUInteger)duration
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.chapterdb.org/chapters/search?title=%@", [SBMetadataHelper urlEncoded:aTitle]]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.chapterdb.org/chapters/search?title=%@", [SBMetadataHelper urlEncoded:title]]];
 
     NSDictionary *headerOptions = @{@"ApiKey" : API_KEY};
     NSData *xmlData = xmlData = [SBMetadataHelper dataFromUrl:url withHTTPMethod:@"GET" headerOptions:headerOptions error:nil];

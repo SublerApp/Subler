@@ -13,7 +13,6 @@
                 <outlet property="progressText" destination="bkZ-I4-AOn" id="DoB-DJ-QrL"/>
                 <outlet property="resultsTable" destination="4Q0-U2-W6V" id="CQn-uV-G1f"/>
                 <outlet property="searchButton" destination="cCz-52-sHg" id="fLu-y9-7QM"/>
-                <outlet property="searchDuration" destination="lDD-CV-XEt" id="19l-fh-A6J"/>
                 <outlet property="searchTitle" destination="PZG-F6-4dQ" id="2L8-qm-FDY"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="vD9-Oz-kVE"/>
             </connections>
@@ -76,7 +75,7 @@ Gw
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="title" width="265.8203125" minWidth="40" maxWidth="1000" id="htV-Xa-Z7y">
+                                                <tableColumn identifier="title" width="243" minWidth="40" maxWidth="1000" id="htV-Xa-Z7y">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Title">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -89,8 +88,8 @@ Gw
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="chaptercount" editable="NO" width="50" minWidth="10" maxWidth="3.4028234663852886e+38" id="lfp-EW-qOv">
-                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Chapter">
+                                                <tableColumn identifier="chaptercount" editable="NO" width="67" minWidth="10" maxWidth="3.4028234663852886e+38" id="lfp-EW-qOv">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Chapters">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -101,7 +100,7 @@ Gw
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </tableColumn>
-                                                <tableColumn identifier="duration" editable="NO" width="100" minWidth="10" maxWidth="3.4028234663852886e+38" id="wqo-sz-7xt">
+                                                <tableColumn identifier="duration" editable="NO" width="90" minWidth="10" maxWidth="3.4028234663852886e+38" id="wqo-sz-7xt">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Duration">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -113,17 +112,15 @@ Gw
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </tableColumn>
-                                                <tableColumn identifier="confirmations" editable="NO" width="80" minWidth="10" maxWidth="3.4028234663852886e+38" id="rAU-DM-LSF">
+                                                <tableColumn identifier="confirmations" editable="NO" width="96" minWidth="10" maxWidth="3.4028234663852886e+38" id="rAU-DM-LSF">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Confirmations">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </tableHeaderCell>
-                                                    <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="STa-3L-ysZ">
+                                                    <levelIndicatorCell key="dataCell" controlSize="small" state="on" alignment="left" doubleValue="3" maxValue="100" warningValue="3" criticalValue="3" levelIndicatorStyle="relevancy" id="b5O-HU-XVA">
                                                         <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
+                                                    </levelIndicatorCell>
                                                     <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                 </tableColumn>
                                             </tableColumns>
@@ -256,7 +253,7 @@ Gw
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="PZG-F6-4dQ">
-                        <rect key="frame" x="59" y="427" width="277" height="22"/>
+                        <rect key="frame" x="59" y="427" width="375" height="22"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="yrS-im-Pbr">
@@ -273,16 +270,6 @@ Gw
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Title:" id="W86-Ok-9nr">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="lDD-CV-XEt">
-                        <rect key="frame" x="348" y="430" width="88" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                        <animations/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="Duration" id="c4C-yO-p4R">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

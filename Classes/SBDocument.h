@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
     IBOutlet NSToolbarItem  *addTracks;
     IBOutlet NSToolbarItem  *deleteTrack;
     IBOutlet NSToolbarItem  *searchMetadata;
+    IBOutlet NSToolbarItem  *searchChapters;
     IBOutlet NSToolbarItem  *sendToQueue;
 
     NSArray<NSString *> *languages;

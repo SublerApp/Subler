@@ -21,6 +21,7 @@
                 <outlet property="saveOperationName" destination="100177" id="100186"/>
                 <outlet property="saveView" destination="100187" id="100192"/>
                 <outlet property="savingWindow" destination="100175" id="100180"/>
+                <outlet property="searchChapters" destination="3A7-gZ-0ev" id="ntV-rn-nkt"/>
                 <outlet property="searchMetadata" destination="100302" id="100310"/>
                 <outlet property="sendToQueue" destination="100312" id="100316"/>
                 <outlet property="splitView" destination="100127" id="100262"/>
@@ -328,6 +329,22 @@
                         </button>
                         <connections>
                             <action selector="searchMetadata:" target="-2" id="100309"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="B480C798-26BB-4FE2-B30D-57764B1305E0" label="Search Chapters" paletteLabel="Search Chapters" toolTip="Search metadata online" image="NSRevealFreestandingTemplate" id="3A7-gZ-0ev" customClass="ButtonToolbarItem">
+                        <size key="minSize" width="34" height="25"/>
+                        <size key="maxSize" width="34" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="SCB-YC-HmR">
+                            <rect key="frame" x="31" y="14" width="34" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <animations/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRevealFreestandingTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hiJ-Cq-2gk">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="searchChapters:" target="-2" id="ygs-Xb-wHQ"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="864986A8-F5EB-412B-A345-094EA449A2EA" label="Send to Queue" paletteLabel="Send to Queue" toolTip="Send the current document to the queue" image="ToolbarActionTemplate" id="100312" customClass="ButtonToolbarItem">

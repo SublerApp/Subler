@@ -417,6 +417,10 @@
         return YES;
     }
 
+    if (toolbarItem == searchChapters) {
+        return YES;
+    }
+
     if (toolbarItem == sendToQueue) {
         return YES;
     }
@@ -643,15 +647,18 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 #pragma mark - Metadata search
 
-- (IBAction)searchMetadata:(id)sender
-{
-    NSString *filename = nil;
+- (NSString *)sourceFilename {
     for (MP42Track *track in self.mp4.tracks) {
         if (track.sourceURL) {
-            filename = track.sourceURL.lastPathComponent;
-            break;
+            return track.sourceURL.lastPathComponent;
         }
     }
+    return nil;
+}
+
+- (IBAction)searchMetadata:(id)sender
+{
+    NSString *filename = [self sourceFilename];
 
     if (!filename) {
         filename = self.fileURL.lastPathComponent;
@@ -692,6 +699,11 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (IBAction)searchChapters:(id)sender
 {
     NSString *title = self.mp4.metadata[@"Name"];
+
+    if (title.length == 0) {
+        title = [self sourceFilename];
+    }
+
     NSUInteger duration = self.mp4.duration;
 
     _sheet = [[SBChapterSearchController alloc] initWithDelegate:self searchTitle:title andDuration:duration];
