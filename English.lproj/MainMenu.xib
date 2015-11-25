@@ -156,6 +156,12 @@
                                                 <action selector="searchMetadata:" target="-1" id="593"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Search chapters online…" id="blb-EP-gbJ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="searchChapters:" target="-1" id="TBD-2j-3Yu"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Metadata…" id="564">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>

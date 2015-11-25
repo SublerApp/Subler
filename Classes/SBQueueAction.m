@@ -124,7 +124,7 @@
 }
 
 - (MP42Image *)loadArtwork:(NSURL *)url {
-    NSData *artworkData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
+    NSData *artworkData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
     if (artworkData && artworkData.length) {
         MP42Image *artwork = [[MP42Image alloc] initWithData:artworkData type:MP42_ART_JPEG];
         if (artwork != nil) {
@@ -140,7 +140,7 @@
     MP42Metadata *metadata = nil;
 
     // Parse FileName and search for metadata
-    NSDictionary<NSString *, NSString *> *parsed = [MetadataImporter parseFilename:url.lastPathComponent];
+    NSDictionary<NSString *, NSString *> *parsed = [SBMetadataHelper parseFilename:url.lastPathComponent];
     NSString *type = parsed[@"type"];
 
     if ([@"movie" isEqualToString:type]) {

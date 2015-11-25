@@ -7,7 +7,7 @@
 //
 
 #import "SBArtworkSelector.h"
-#import "MetadataImporter.h"
+#import "SBMetadataHelper.h"
 
 #pragma mark IKImageBrowserItem data source objects
 
@@ -79,7 +79,7 @@
             // Get the data outside the main thread
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 if (!self.isCancelled) {
-                    self.data = [MetadataImporter downloadDataFromURL:_url withCachePolicy:SBDefaultPolicy];
+                    self.data = [SBMetadataHelper downloadDataFromURL:_url withCachePolicy:SBDefaultPolicy];
                     self.version = 2;
                     // We got the data, tell the controller to update the view
                     dispatch_async(dispatch_get_main_queue(), ^{

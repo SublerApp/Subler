@@ -102,7 +102,7 @@
 	[self metadataProviderSelected:tvMetadataProvider];
 
     if (_searchString) {
-        NSDictionary *parsed = [MetadataImporter parseFilename:_searchString];
+        NSDictionary *parsed = [SBMetadataHelper parseFilename:_searchString];
         if (parsed) {
 
             if ([@"movie" isEqualToString:(NSString *) [parsed valueForKey:@"type"]]) {
@@ -364,7 +364,7 @@
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
 
             [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-                NSData *artworkData = [MetadataImporter downloadDataFromURL:URLs[idx] withCachePolicy:SBDefaultPolicy];
+                NSData *artworkData = [SBMetadataHelper downloadDataFromURL:URLs[idx] withCachePolicy:SBDefaultPolicy];
 
                 // Hack, download smaller iTunes version if big iTunes version is not available
                 if (!artworkData) {
@@ -372,7 +372,7 @@
                     if ([provider isEqualToString:@"iTunes"]) {
                         NSURL *url = URLs[idx];
                         url = [[url URLByDeletingPathExtension] URLByAppendingPathExtension:@"600x600bb.jpg"];
-                        artworkData = [MetadataImporter downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
+                        artworkData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
                     }
                 }
 

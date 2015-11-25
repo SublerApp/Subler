@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SBMetadataHelper.h"
 
 @class MP42Metadata;
 
@@ -16,17 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 @private
     BOOL _isCancelled;
 }
-
-typedef NS_ENUM(NSUInteger, SBCachePolicy) {
-    SBDefaultPolicy,
-    SBReturnCacheElseLoad,
-    SBReloadIgnoringLocalCacheData,
-};
-
-#pragma mark Helper routines
-+ (NSDictionary<NSString *, NSString *> *)parseFilename:(NSString *)filename;
-+ (NSString *)urlEncoded:(NSString *)string;
-+ (nullable NSData *)downloadDataFromURL:(NSURL *)url withCachePolicy:(SBCachePolicy)policy;
 
 #pragma mark Class methods
 + (NSArray<NSString *> *) movieProviders;

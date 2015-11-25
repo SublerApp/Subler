@@ -12,6 +12,8 @@
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		A901C51E1C04F03F00430DC3 /* SBChapterDB.m in Sources */ = {isa = PBXBuildFile; fileRef = A901C51B1C04F03F00430DC3 /* SBChapterDB.m */; };
+		A901C51F1C04F03F00430DC3 /* SBChapterImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */; };
 		A90B023B10F3290A000416F3 /* Prefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90B023910F3290A000416F3 /* Prefs.xib */; };
 		A917286119FD288B00348DF8 /* SBLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A917286019FD288B00348DF8 /* SBLogger.m */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
@@ -65,12 +67,16 @@
 		A9C4259318DB6D1F00E99DB8 /* stopTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9C4259218DB6D1F00E99DB8 /* stopTemplate.pdf */; };
 		A9C5FA6E19FA22590051F3FF /* SBLogWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C5FA6C19FA22590051F3FF /* SBLogWindowController.m */; };
 		A9C5FA7419FA2FEC0051F3FF /* SBLogWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C5FA7219FA2FEC0051F3FF /* SBLogWindow.xib */; };
+		A9C703121C05E08B00C89151 /* SBMetadataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C703111C05E08B00C89151 /* SBMetadataHelper.m */; };
 		A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C828F4195950C3004C4718 /* SBQueuePreferences.m */; };
 		A9C9E34413FBC1EB00CA3B4E /* EncodeWorking.png in Resources */ = {isa = PBXBuildFile; fileRef = A9C9E34113FBC1EB00CA3B4E /* EncodeWorking.png */; };
 		A9D47B5817B239E200900BCA /* EncodeCanceled.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5417B239E200900BCA /* EncodeCanceled.png */; };
 		A9D47B5917B239E200900BCA /* EncodeCanceled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5517B239E200900BCA /* EncodeCanceled@2x.png */; };
 		A9D47B5A17B239E200900BCA /* EncodeComplete.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5617B239E200900BCA /* EncodeComplete.png */; };
 		A9D47B5B17B239E200900BCA /* EncodeComplete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D47B5717B239E200900BCA /* EncodeComplete@2x.png */; };
+		A9D4B8641C05BC61007845C4 /* SBChapterSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8631C05BC61007845C4 /* SBChapterSearchController.m */; };
+		A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */; };
+		A9D4B86A1C05CBEB007845C4 /* SBChapterResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8691C05CBEB007845C4 /* SBChapterResult.m */; };
 		A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */; };
 		A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B991B918D5C00F1E40C /* SBApplication.m */; };
 		A9DA3B9D1B918D5C00F1E40C /* SBExceptionAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B9B1B918D5C00F1E40C /* SBExceptionAlertController.m */; };
@@ -168,6 +174,10 @@
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Subler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Subler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		948058B5106E07990037A911 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /usr/lib/libz.dylib; sourceTree = "<absolute>"; };
+		A901C51A1C04F03F00430DC3 /* SBChapterDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterDB.h; path = Classes/MetadataImporters/SBChapterDB.h; sourceTree = "<group>"; };
+		A901C51B1C04F03F00430DC3 /* SBChapterDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterDB.m; path = Classes/MetadataImporters/SBChapterDB.m; sourceTree = "<group>"; };
+		A901C51C1C04F03F00430DC3 /* SBChapterImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterImporter.h; path = Classes/MetadataImporters/SBChapterImporter.h; sourceTree = "<group>"; };
+		A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterImporter.m; path = Classes/MetadataImporters/SBChapterImporter.m; sourceTree = "<group>"; };
 		A90B023A10F3290A000416F3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Prefs.xib; sourceTree = "<group>"; };
 		A917286019FD288B00348DF8 /* SBLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLogger.m; path = Classes/SBLogger.m; sourceTree = "<group>"; };
 		A917286419FD289F00348DF8 /* SBLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBLogger.h; path = Classes/SBLogger.h; sourceTree = "<group>"; };
@@ -252,6 +262,8 @@
 		A9C5FA6B19FA22590051F3FF /* SBLogWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBLogWindowController.h; path = Classes/SBLogWindowController.h; sourceTree = "<group>"; };
 		A9C5FA6C19FA22590051F3FF /* SBLogWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLogWindowController.m; path = Classes/SBLogWindowController.m; sourceTree = "<group>"; };
 		A9C5FA7319FA2FEC0051F3FF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SBLogWindow.xib; sourceTree = "<group>"; };
+		A9C703101C05E08B00C89151 /* SBMetadataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataHelper.h; path = Classes/MetadataImporters/SBMetadataHelper.h; sourceTree = "<group>"; };
+		A9C703111C05E08B00C89151 /* SBMetadataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataHelper.m; path = Classes/MetadataImporters/SBMetadataHelper.m; sourceTree = "<group>"; };
 		A9C8182C0F74D6E300019BFF /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
 		A9C828F3195950C3004C4718 /* SBQueuePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueuePreferences.h; path = Classes/SBQueuePreferences.h; sourceTree = "<group>"; };
 		A9C828F4195950C3004C4718 /* SBQueuePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueuePreferences.m; path = Classes/SBQueuePreferences.m; sourceTree = "<group>"; };
@@ -260,6 +272,11 @@
 		A9D47B5517B239E200900BCA /* EncodeCanceled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EncodeCanceled@2x.png"; path = "images/EncodeCanceled@2x.png"; sourceTree = "<group>"; };
 		A9D47B5617B239E200900BCA /* EncodeComplete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EncodeComplete.png; path = images/EncodeComplete.png; sourceTree = "<group>"; };
 		A9D47B5717B239E200900BCA /* EncodeComplete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EncodeComplete@2x.png"; path = "images/EncodeComplete@2x.png"; sourceTree = "<group>"; };
+		A9D4B8621C05BC61007845C4 /* SBChapterSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterSearchController.h; path = Classes/SBChapterSearchController.h; sourceTree = "<group>"; };
+		A9D4B8631C05BC61007845C4 /* SBChapterSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterSearchController.m; path = Classes/SBChapterSearchController.m; sourceTree = "<group>"; };
+		A9D4B8661C05BD04007845C4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SBChapterSearch.xib; sourceTree = "<group>"; };
+		A9D4B8681C05CBEB007845C4 /* SBChapterResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterResult.h; path = Classes/MetadataImporters/SBChapterResult.h; sourceTree = "<group>"; };
+		A9D4B8691C05CBEB007845C4 /* SBChapterResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterResult.m; path = Classes/MetadataImporters/SBChapterResult.m; sourceTree = "<group>"; };
 		A9D73C5018BF3F1100C6FFA6 /* SBQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueue.h; path = Classes/SBQueue.h; sourceTree = "<group>"; };
 		A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueue.m; path = Classes/SBQueue.m; sourceTree = "<group>"; };
 		A9DA3B991B918D5C00F1E40C /* SBApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBApplication.m; path = Classes/SBApplication.m; sourceTree = "<group>"; };
@@ -517,6 +534,7 @@
 				A9C055360F6D395B00AF15B5 /* FileImport.xib */,
 				CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */,
 				CD4E6E5B12F744210095C84F /* ArtworkSelector.xib */,
+				A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */,
 				A961476513F568210068F161 /* Queue.xib */,
 				A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */,
 				A9BC410618D9ABC000F8C92C /* QueueItem.xib */,
@@ -562,6 +580,8 @@
 				CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */,
 				CD56963012FAAD680029FADB /* SBArtworkSelector.h */,
 				CD56963112FAAD680029FADB /* SBArtworkSelector.m */,
+				A9D4B8621C05BC61007845C4 /* SBChapterSearchController.h */,
+				A9D4B8631C05BC61007845C4 /* SBChapterSearchController.m */,
 				A9FD5D150F3C692400817716 /* PropertyView */,
 			);
 			name = Document;
@@ -637,6 +657,8 @@
 		CD71FF1A12F1C46900F0A98D /* MetadataImporters */ = {
 			isa = PBXGroup;
 			children = (
+				A9C703101C05E08B00C89151 /* SBMetadataHelper.h */,
+				A9C703111C05E08B00C89151 /* SBMetadataHelper.m */,
 				CD03087717576AE50093A0BE /* MetadataImporter.h */,
 				CD03087817576AE50093A0BE /* MetadataImporter.m */,
 				CDC06FCC1747494D003C1D0A /* iTunesStore.h */,
@@ -645,6 +667,12 @@
 				CD03087317576A550093A0BE /* TheMovieDB3.m */,
 				CD71FF1B12F1C4A900F0A98D /* TheTVDB.h */,
 				CD71FF1C12F1C4A900F0A98D /* TheTVDB.m */,
+				A901C51C1C04F03F00430DC3 /* SBChapterImporter.h */,
+				A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */,
+				A9D4B8681C05CBEB007845C4 /* SBChapterResult.h */,
+				A9D4B8691C05CBEB007845C4 /* SBChapterResult.m */,
+				A901C51A1C04F03F00430DC3 /* SBChapterDB.h */,
+				A901C51B1C04F03F00430DC3 /* SBChapterDB.m */,
 			);
 			name = MetadataImporters;
 			sourceTree = "<group>";
@@ -791,6 +819,7 @@
 				A975644F132A325C0051ED08 /* info-pressed.pdf in Resources */,
 				A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */,
 				A9F284A0133C9F6E00F10951 /* close.pdf in Resources */,
+				A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */,
 				A9F284A1133C9F6E00F10951 /* close-over.pdf in Resources */,
 				A998DABF1BA54CFF004D7969 /* SBMediaTagsController.xib in Resources */,
 				A9F284A2133C9F6E00F10951 /* close-pressed.pdf in Resources */,
@@ -843,6 +872,7 @@
 				A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */,
 				A9B46A8C12B79B240040517A /* SBFileImport.m in Sources */,
 				A9B46A8E12B79B240040517A /* SBPrefsController.m in Sources */,
+				A9D4B86A1C05CBEB007845C4 /* SBChapterResult.m in Sources */,
 				A9B46A8F12B79B240040517A /* SBTableView.m in Sources */,
 				A9B46A9012B79B240040517A /* SBView.m in Sources */,
 				A9B46A9E12B79B990040517A /* ButtonToolbarItem.m in Sources */,
@@ -850,6 +880,7 @@
 				A9AB485417F0AEAC000AA72E /* SBChapterViewController.m in Sources */,
 				A9AB485817F0AEAC000AA72E /* SBVideoViewController.m in Sources */,
 				A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */,
+				A9C703121C05E08B00C89151 /* SBMetadataHelper.m in Sources */,
 				CD71FEA312F1B5AF00F0A98D /* SBMetadataSearchController.m in Sources */,
 				CD71FF1D12F1C4A900F0A98D /* TheTVDB.m in Sources */,
 				A9C5FA6E19FA22590051F3FF /* SBLogWindowController.m in Sources */,
@@ -858,14 +889,17 @@
 				A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */,
 				A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */,
 				CD56963212FAAD680029FADB /* SBArtworkSelector.m in Sources */,
+				A901C51E1C04F03F00430DC3 /* SBChapterDB.m in Sources */,
 				A961476313F567E10068F161 /* SBQueueController.m in Sources */,
 				A961476413F567E10068F161 /* SBPresetManager.m in Sources */,
 				A95688AA1B91B11B004456A6 /* NSMutableArray+Subscript.m in Sources */,
+				A901C51F1C04F03F00430DC3 /* SBChapterImporter.m in Sources */,
 				A95688AB1B91B11B004456A6 /* NSMutableDictionary+Subscript.m in Sources */,
 				A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */,
 				A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */,
 				CDC06FCE1747494D003C1D0A /* iTunesStore.m in Sources */,
 				A917286119FD288B00348DF8 /* SBLogger.m in Sources */,
+				A9D4B8641C05BC61007845C4 /* SBChapterSearchController.m in Sources */,
 				CD03087417576A550093A0BE /* TheMovieDB3.m in Sources */,
 				A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */,
 				CD03087917576AE50093A0BE /* MetadataImporter.m in Sources */,
@@ -1017,6 +1051,14 @@
 				A9C5FA7319FA2FEC0051F3FF /* English */,
 			);
 			name = SBLogWindow.xib;
+			sourceTree = "<group>";
+		};
+		A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9D4B8661C05BD04007845C4 /* English */,
+			);
+			name = SBChapterSearch.xib;
 			sourceTree = "<group>";
 		};
 		A9DA3BA11B918D6F00F1E40C /* ExceptionAlert.xib */ = {

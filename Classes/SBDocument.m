@@ -20,6 +20,8 @@
 #import "SBMetadataSearchController.h"
 #import "SBArtworkSelector.h"
 
+#import "SBChapterSearchController.h"
+
 #import "SBMediaTagsController.h"
 
 #import <MP42Foundation/MP42File.h>
@@ -29,7 +31,7 @@
 
 #define SublerTableViewDataType @"SublerTableViewDataType"
 
-@interface SBDocument () <NSTableViewDelegate, SBFileImportDelegate, SBMetadataSearchControllerDelegate>
+@interface SBDocument () <NSTableViewDelegate, SBFileImportDelegate, SBMetadataSearchControllerDelegate, SBChapterSearchControllerDelegate>
 
 @property (nonatomic, retain) MP42File *mp4;
 
@@ -368,6 +370,9 @@
     if (action == @selector(searchMetadata:))
         return YES;
 
+    if (action == @selector(searchChapters:))
+        return YES;
+
     if (action == @selector(sendToQueue:))
         return YES;
 
@@ -636,6 +641,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     }
 }
 
+#pragma mark - Metadata search
+
 - (IBAction)searchMetadata:(id)sender
 {
     NSString *filename = nil;
@@ -678,6 +685,46 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     }
 
     [metadataToBeImported release];
+}
+
+#pragma mark - Chapters search
+
+- (IBAction)searchChapters:(id)sender
+{
+    NSString *title = self.mp4.metadata[@"Name"];
+    NSUInteger duration = self.mp4.duration;
+
+    _sheet = [[SBChapterSearchController alloc] initWithDelegate:self searchTitle:title andDuration:duration];
+
+    [NSApp beginSheet:_sheet.window
+       modalForWindow:documentWindow
+        modalDelegate:self
+       didEndSelector:@selector(didEndSheet:returnCode:contextInfo:)
+          contextInfo:nil];
+}
+
+- (void)chapterImportDone:(NSArray<MP42TextSample *> *)chapterToBeImported
+{
+    [chapterToBeImported retain];
+
+    if (chapterToBeImported) {
+
+        MP42ChapterTrack *newChapter = [[MP42ChapterTrack alloc] init];
+        for (MP42TextSample *chapter in chapterToBeImported) {
+            [newChapter addChapter:chapter];
+        }
+        [newChapter setDuration:self.mp4.duration];
+        [self.mp4 addTrack:newChapter];
+        [newChapter release];
+
+        [self updateChangeCount:NSChangeDone];
+
+        [fileTracksTable reloadData];
+        [self reloadPropertyView];
+        [self updateChangeCount:NSChangeDone];
+    }
+
+    [chapterToBeImported release];
 }
 
 - (IBAction)showTrackOffsetSheet:(id)sender
