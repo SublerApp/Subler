@@ -34,10 +34,10 @@
     return nil;
 }
 
-- (void)searchTitle:(NSString *)title duration:(NSUInteger)duration completionHandler:(void(^)(NSArray<SBChapterResult *> * _Nullable results))handler
+- (void)searchTitle:(NSString *)title language:(nullable NSString *)language duration:(NSUInteger)duration completionHandler:(void(^)(NSArray<SBChapterResult *> * _Nullable results))handler
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSArray *results = [self searchTitle:title duration:duration];
+        NSArray *results = [self searchTitle:title language:language duration:duration];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!self.isCancelled) {
                 handler(results);
@@ -51,7 +51,7 @@
     self.isCancelled = YES;
 }
 
-- (NSArray<SBChapterResult *> *)searchTitle:(NSString *)title duration:(NSUInteger)duration
+- (NSArray<SBChapterResult *> *)searchTitle:(NSString *)title language:(nullable NSString *)language duration:(NSUInteger)duration
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]

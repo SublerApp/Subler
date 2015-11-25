@@ -78,16 +78,16 @@
     [self.window makeFirstResponder:searchTitle];
 
     if (_searchString) {
-        NSDictionary *parsed = [SBMetadataHelper parseFilename:_searchString];
+        NSDictionary<NSString *, NSString *>  *parsed = [SBMetadataHelper parseFilename:_searchString];
         if (parsed) {
-
-            if ([@"movie" isEqualToString:(NSString *) [parsed valueForKey:@"type"]]) {
-                if ([parsed valueForKey:@"title"]) searchTitle.stringValue = [parsed valueForKey:@"title"];
-            } else if ([@"tv" isEqualToString:(NSString *) [parsed valueForKey:@"type"]]) {
+            if ([@"movie" isEqualToString:parsed[@"type"]]) {
+                if (parsed[@"title"]) {
+                    searchTitle.stringValue = [parsed valueForKey:@"title"];
+                }
+            }
+            else if ([@"tv" isEqualToString:parsed[@"type"]]) {
                 searchTitle.stringValue = _searchString.stringByDeletingPathExtension;
             }
-
-            searchDuration.stringValue = StringFromTime(_searchDuration, 1000);
 
             [self updateSearchButtonVisibility];
 
@@ -116,6 +116,7 @@
         self.currentSearcher = [SBChapterImporter importerForProvider:[SBChapterImporter defaultProvider]];
 
         [self.currentSearcher searchTitle:searchTitle.stringValue
+                                 language:nil
                                  duration:_searchDuration
                         completionHandler:^(NSArray<SBChapterResult *> *results) {
                             [self searchForResultsDone:results];
@@ -269,7 +270,7 @@
                 return [self monospacedString:StringFromTime(result.duration, 1000)];
             }
             else if ([tableColumn.identifier isEqualToString:@"confirmations"]) {
-                return [self monospacedString:@(result.confirmations).stringValue];
+                return @(result.confirmations);
             }
         }
     }

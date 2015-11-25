@@ -33,7 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSDictionary                 *_detailMonospacedAttr;
     
     IBOutlet NSTextField         *searchTitle;
-    IBOutlet NSTextField         *searchDuration;
     
     NSArray<SBChapterResult *>   *_resultsArray;
     IBOutlet NSTableView         *resultsTable;
@@ -49,7 +48,6 @@ NS_ASSUME_NONNULL_BEGIN
     IBOutlet NSProgressIndicator *progress;
     IBOutlet NSTextField         *progressText;
 }
-
 
 - (instancetype)initWithDelegate:(id <SBChapterSearchControllerDelegate>)del searchTitle:(NSString *)title andDuration:(NSUInteger)duration; 
 
