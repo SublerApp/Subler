@@ -9,7 +9,8 @@
 #import "SBChapterDB.h"
 #import "SBChapterResult.h"
 
-#import <MP42Foundation/MP42ChapterTrack.h>
+#import <MP42Foundation/MP42TextSample.h>
+#import <MP42Foundation/MP42Utilities.h>
 
 #define API_KEY @"ETET7TXFJH45YNYW0I4A"
 
@@ -24,7 +25,7 @@
 
     NSXMLDocument *xml = [[NSXMLDocument alloc] initWithData:xmlData
                                                      options:0
-                                                       error:nil];
+                                                       error:NULL];
 
     NSMutableArray<SBChapterResult *> *resultsArray = [[[NSMutableArray alloc] init] autorelease];
 
@@ -47,7 +48,7 @@
             return filteredArray;
         }
     }
-    
+
     return resultsArray;
 }
 
@@ -92,7 +93,7 @@
     NSArray<NSXMLNode *> *tag = [node nodesForXPath:@"./*:source/*:duration" error:NULL];
     NSString *durationString = tag.firstObject.stringValue;
     if (durationString) {
-        return ParseSubTime(durationString.UTF8String, 1000, NO);
+        return (NSUInteger)TimeFromString(durationString, 1000);
     }
     return 0;
 }
@@ -108,6 +109,8 @@
     NSArray<NSXMLNode *> *times = [child nodesForXPath:@"./*:chapters/*:chapter/@time" error:NULL];
     NSArray<NSXMLNode *> *names = [child nodesForXPath:@"./*:chapters/*:chapter/@name" error:NULL];
 
+    MP42Duration currentTime = 0;
+
     if (times && names) {
 
         for (NSInteger i = 0; i < times.count && i < names.count; i++) {
@@ -116,7 +119,14 @@
             NSString *timestamp = times[i].stringValue;
 
             if (name && timestamp) {
-                unsigned time = ParseSubTime(timestamp.UTF8String, 1000, NO);
+                MP42Duration time = TimeFromString(timestamp, 1000);
+
+                if (time < currentTime) {
+                    break;
+                }
+                else {
+                    currentTime = time;
+                }
 
                 MP42TextSample *chapter = [[MP42TextSample alloc] init];
                 chapter.title = name;
