@@ -100,8 +100,6 @@
 
 - (SBChapterResult *)parseResult:(NSXMLNode *)child
 {
-    NSMutableArray<MP42TextSample *> *chapters = [NSMutableArray array];
-
     NSString *title = [self titleForNode:child];
     NSUInteger confirmations = [self confirmationsForNode:child];
     NSUInteger duration = [self durationForNode:child];
@@ -111,7 +109,9 @@
 
     MP42Duration currentTime = 0;
 
-    if (times && names) {
+    if (title && times && names) {
+
+        NSMutableArray<MP42TextSample *> *chapters = [NSMutableArray array];
 
         for (NSInteger i = 0; i < times.count && i < names.count; i++) {
 
@@ -137,12 +137,14 @@
             }
         }
 
-        SBChapterResult *result = [[SBChapterResult alloc] initWithTitle:title
-                                                                duration:duration
-                                                           confirmations:confirmations
-                                                                chapters:chapters];
+        if (chapters.count) {
+            SBChapterResult *result = [[SBChapterResult alloc] initWithTitle:title
+                                                                    duration:duration
+                                                               confirmations:confirmations
+                                                                    chapters:chapters];
         
-        return [result autorelease];
+            return [result autorelease];
+        }
     }
 
     return nil;
