@@ -190,11 +190,11 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="61E0A00C-CBF2-4937-9418-AC0758672070" explicitIdentifier="SBDocumentToolbar26" displayMode="iconOnly" sizeMode="regular" id="100097">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="3594B023-F131-4DE6-8067-263D9BF3F6BB" label="Add Track" paletteLabel="Add Track" toolTip="Add tracks from external files" image="NSAddTemplate" id="100247" customClass="ButtonToolbarItem">
+                    <toolbarItem implicitItemIdentifier="3594B023-F131-4DE6-8067-263D9BF3F6BB" label="Import" paletteLabel="Import" toolTip="Import tracks from external files" image="NSAddTemplate" id="100247" customClass="ButtonToolbarItem">
                         <size key="minSize" width="34" height="25"/>
                         <size key="maxSize" width="34" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="100248">
-                            <rect key="frame" x="14" y="14" width="34" height="25"/>
+                            <rect key="frame" x="4" y="14" width="34" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <animations/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="100249">
@@ -315,11 +315,11 @@
                             <action selector="deleteTrack:" target="-2" id="100171"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="81E322E1-B40D-46EB-A3CD-24C0B28B5EDA" label="Search" paletteLabel="Search" toolTip="Search metadata online" image="NSRevealFreestandingTemplate" id="100302" customClass="ButtonToolbarItem">
+                    <toolbarItem implicitItemIdentifier="81E322E1-B40D-46EB-A3CD-24C0B28B5EDA" label="Search Metadata" paletteLabel="Search Metadata" toolTip="Search metadata online" image="NSRevealFreestandingTemplate" id="100302" customClass="ButtonToolbarItem">
                         <size key="minSize" width="34" height="25"/>
                         <size key="maxSize" width="34" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="100303">
-                            <rect key="frame" x="5" y="14" width="34" height="25"/>
+                            <rect key="frame" x="32" y="14" width="34" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <animations/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRevealFreestandingTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="100304">
@@ -331,14 +331,14 @@
                             <action selector="searchMetadata:" target="-2" id="100309"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="B480C798-26BB-4FE2-B30D-57764B1305E0" label="Search Chapters" paletteLabel="Search Chapters" toolTip="Search metadata online" image="NSRevealFreestandingTemplate" id="3A7-gZ-0ev" customClass="ButtonToolbarItem">
+                    <toolbarItem implicitItemIdentifier="B480C798-26BB-4FE2-B30D-57764B1305E0" label="Search Chapters" paletteLabel="Search Chapters" toolTip="Search chapters online" image="ToolbarChaptersTemplate" id="3A7-gZ-0ev" customClass="ButtonToolbarItem">
                         <size key="minSize" width="34" height="25"/>
                         <size key="maxSize" width="34" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="SCB-YC-HmR">
                             <rect key="frame" x="31" y="14" width="34" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <animations/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRevealFreestandingTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hiJ-Cq-2gk">
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="ToolbarChaptersTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hiJ-Cq-2gk">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -594,6 +594,7 @@ Enable 64bit timescale and duration support. Normally, it's only needed if a tra
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRevealFreestandingTemplate" width="14" height="14"/>
         <image name="ToolbarActionTemplate" width="24" height="24"/>
+        <image name="ToolbarChaptersTemplate" width="14" height="13"/>
         <image name="ToolbarRemoveTemplate" width="16" height="16"/>
     </resources>
 </document>
