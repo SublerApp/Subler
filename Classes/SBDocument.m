@@ -441,26 +441,43 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     MP42Track *track = [self.mp4 trackAtIndex:rowIndex];
 
-    if (!track)
+    if (!track) {
         return nil;
+    }
 
-    if ([tableColumn.identifier isEqualToString:@"trackId"])
+    if ([tableColumn.identifier isEqualToString:@"trackId"]) {
         return (track.trackId == 0) ? @"na" : [NSString stringWithFormat:@"%d", track.trackId];
+    }
 
-    if ([tableColumn.identifier isEqualToString:@"trackName"])
+    if ([tableColumn.identifier isEqualToString:@"trackName"]) {
         return track.name;
+    }
 
-    if ([tableColumn.identifier isEqualToString:@"trackInfo"])
+    if ([tableColumn.identifier isEqualToString:@"trackInfo"]) {
         return track.formatSummary;
+    }
 
-    if ([tableColumn.identifier isEqualToString:@"trackEnabled"])
+    if ([tableColumn.identifier isEqualToString:@"trackEnabled"]) {
         return @(track.isEnabled);
+    }
 
-    if ([tableColumn.identifier isEqualToString:@"trackDuration"])
-        return track.timeString;
+    if ([tableColumn.identifier isEqualToString:@"trackDuration"]) {
 
-    if ([tableColumn.identifier isEqualToString:@"trackLanguage"])
+        NSFont *font = [NSFont monospacedDigitSystemFontOfSize:[NSFont systemFontSize] weight:NSFontWeightRegular];
+        NSMutableParagraphStyle *ps = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+        ps.alignment = NSTextAlignmentRight;
+
+        NSDictionary *monospacedAttr = @{NSFontAttributeName: font,
+                                         NSParagraphStyleAttributeName: ps};
+
+        [ps release];
+
+        return [[[NSAttributedString alloc] initWithString:track.timeString attributes:monospacedAttr] autorelease];
+    }
+
+    if ([tableColumn.identifier isEqualToString:@"trackLanguage"]) {
         return track.language;
+    }
 
     return nil;
 }
