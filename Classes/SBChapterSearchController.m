@@ -56,9 +56,16 @@
     ps.headIndent = -10.0;
     ps.alignment = NSTextAlignmentRight;
 
-    _detailBoldMonospacedAttr = [@{NSFontAttributeName: [NSFont monospacedDigitSystemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightBold],
-                                  NSParagraphStyleAttributeName: ps,
-                                  NSForegroundColorAttributeName: [NSColor grayColor]} retain];
+    if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
+        _detailBoldMonospacedAttr = [@{NSFontAttributeName: [NSFont monospacedDigitSystemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightBold],
+                                       NSParagraphStyleAttributeName: ps,
+                                       NSForegroundColorAttributeName: [NSColor grayColor]} retain];
+    }
+    else {
+        _detailBoldMonospacedAttr = [@{NSFontAttributeName: [NSFont boldSystemFontOfSize:[NSFont smallSystemFontSize]],
+                                       NSParagraphStyleAttributeName: ps,
+                                       NSForegroundColorAttributeName: [NSColor grayColor]} retain];
+    }
 
     NSMutableParagraphStyle *psL = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
     psL.headIndent = -10.0;
@@ -68,8 +75,14 @@
                         NSForegroundColorAttributeName: [NSColor grayColor]} retain];
 
 
-    _detailMonospacedAttr = [@{NSFontAttributeName: [NSFont monospacedDigitSystemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightRegular],
-                              NSParagraphStyleAttributeName: ps} retain];
+    if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
+        _detailMonospacedAttr = [@{NSFontAttributeName: [NSFont monospacedDigitSystemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightRegular],
+                                   NSParagraphStyleAttributeName: ps} retain];
+    }
+    else {
+        _detailMonospacedAttr = [@{NSFontAttributeName: [NSFont systemFontOfSize:[NSFont smallSystemFontSize]],
+                                   NSParagraphStyleAttributeName: ps} retain];
+    }
 }
 
 - (void)windowDidLoad {

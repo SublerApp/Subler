@@ -463,16 +463,21 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     if ([tableColumn.identifier isEqualToString:@"trackDuration"]) {
 
-        NSFont *font = [NSFont monospacedDigitSystemFontOfSize:[NSFont systemFontSize] weight:NSFontWeightRegular];
-        NSMutableParagraphStyle *ps = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-        ps.alignment = NSTextAlignmentRight;
+        if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
+            NSFont *font = [NSFont monospacedDigitSystemFontOfSize:[NSFont systemFontSize] weight:NSFontWeightRegular];
+            NSMutableParagraphStyle *ps = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+            ps.alignment = NSTextAlignmentRight;
 
-        NSDictionary *monospacedAttr = @{NSFontAttributeName: font,
-                                         NSParagraphStyleAttributeName: ps};
+            NSDictionary *monospacedAttr = @{NSFontAttributeName: font,
+                                             NSParagraphStyleAttributeName: ps};
 
-        [ps release];
+            [ps release];
 
-        return [[[NSAttributedString alloc] initWithString:track.timeString attributes:monospacedAttr] autorelease];
+            return [[[NSAttributedString alloc] initWithString:track.timeString attributes:monospacedAttr] autorelease];
+        }
+        else {
+            return track.timeString;
+        }
     }
 
     if ([tableColumn.identifier isEqualToString:@"trackLanguage"]) {

@@ -21,9 +21,16 @@
     [ps setHeadIndent: -10.0];
     [ps setAlignment:NSRightTextAlignment];
 
-    detailBoldAttr = [@{ NSFontAttributeName: [NSFont monospacedDigitSystemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightBold],
-                        NSParagraphStyleAttributeName: ps,
-                        NSForegroundColorAttributeName: [NSColor grayColor] } retain];
+    if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
+        detailBoldAttr = [@{ NSFontAttributeName: [NSFont monospacedDigitSystemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightBold],
+                             NSParagraphStyleAttributeName: ps,
+                             NSForegroundColorAttributeName: [NSColor grayColor] } retain];
+    }
+    else {
+        detailBoldAttr = [@{ NSFontAttributeName: [NSFont boldSystemFontOfSize:[NSFont smallSystemFontSize]],
+                             NSParagraphStyleAttributeName: ps,
+                             NSForegroundColorAttributeName: [NSColor grayColor] } retain];
+    }
 
     chapterTableView.defaultEditingColumn = 1;
 }
