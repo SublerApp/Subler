@@ -141,7 +141,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleGetInfoString</key>
-	<string>1.0.7, Copyright 2015 Damiano Galassi</string>
+	<string>1.0.8, Copyright 2016 Damiano Galassi</string>
 	<key>CFBundleIconFile</key>
 	<string>Subler.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -153,11 +153,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.7</string>
+	<string>1.0.8</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.7</string>
+	<string>1.0.8</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.video</string>
 	<key>NSAppTransportSecurity</key>
@@ -165,6 +165,15 @@
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>amazonaws.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSTemporaryExceptionMinimumTLSVersion</key>
+				<string>TLSv1.1</string>
+			</dict>
+			<key>chapterdb.org</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>
@@ -209,19 +218,10 @@
 				<key>NSTemporaryExceptionMinimumTLSVersion</key>
 				<string>TLSv1.1</string>
 			</dict>
-			<key>chapterdb.org</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSTemporaryExceptionMinimumTLSVersion</key>
-				<string>TLSv1.1</string>
-			</dict>
 		</dict>
 	</dict>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2009-2015, Damiano Galassi</string>
+	<string>Copyright © 2009-2016, Damiano Galassi</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
