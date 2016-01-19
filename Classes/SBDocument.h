@@ -47,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
     IBOutlet NSButton *_64bit_data;
     IBOutlet NSButton *_64bit_time;
     BOOL _optimize;
+
+    NSDictionary                 *_detailMonospacedAttr;
 }
 
 - (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError **)outError;

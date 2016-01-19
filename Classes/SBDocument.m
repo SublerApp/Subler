@@ -66,6 +66,17 @@
         [documentWindow setFrameUsingName:@"documentSave"];
         [splitView setAutosaveName:@"splitViewSave"];
     }
+
+    if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
+        NSFont *font = [NSFont monospacedDigitSystemFontOfSize:[NSFont systemFontSize] weight:NSFontWeightRegular];
+        NSMutableParagraphStyle *ps = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+        ps.alignment = NSTextAlignmentRight;
+
+        _detailMonospacedAttr = [@{NSFontAttributeName: font,
+                         NSParagraphStyleAttributeName: ps} retain];
+
+        [ps release];
+    }
 }
 
 - (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError **)outError
@@ -463,17 +474,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     if ([tableColumn.identifier isEqualToString:@"trackDuration"]) {
 
-        if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
-            NSFont *font = [NSFont monospacedDigitSystemFontOfSize:[NSFont systemFontSize] weight:NSFontWeightRegular];
-            NSMutableParagraphStyle *ps = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-            ps.alignment = NSTextAlignmentRight;
-
-            NSDictionary *monospacedAttr = @{NSFontAttributeName: font,
-                                             NSParagraphStyleAttributeName: ps};
-
-            [ps release];
-
-            return [[[NSAttributedString alloc] initWithString:track.timeString attributes:monospacedAttr] autorelease];
+        if (_detailMonospacedAttr) {
+            return [[[NSAttributedString alloc] initWithString:track.timeString attributes:_detailMonospacedAttr] autorelease];
         }
         else {
             return track.timeString;
@@ -1098,6 +1100,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     [_mp4File release];
     _mp4File = nil;
+
+    [_detailMonospacedAttr release];
+    _detailMonospacedAttr = nil;
 
     [super dealloc];
 }
