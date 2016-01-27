@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MP42Metadata;
 
 @protocol SBFileImportDelegate
-- (void)importDoneWithTracks:(NSArray<MP42Track *> *)tracksToBeImported andMetadata:(MP42Metadata *)metadata;
+- (void)importDoneWithTracks:(NSArray<MP42Track *> *)tracksToBeImported andMetadata:(nullable MP42Metadata *)metadata;
 @end
 
 @interface SBFileImport : NSWindowController <NSTableViewDelegate> {

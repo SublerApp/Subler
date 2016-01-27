@@ -123,7 +123,7 @@
     [super dealloc];
 }
 
-- (MP42Image *)loadArtwork:(NSURL *)url {
+- (MP42Image *)loadArtwork:(nonnull NSURL *)url {
     NSData *artworkData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
     if (artworkData && artworkData.length) {
         MP42Image *artwork = [[MP42Image alloc] initWithData:artworkData type:MP42_ART_JPEG];
@@ -161,12 +161,10 @@
         }
     }
 
-    if (metadata.artworkThumbURLs && metadata.artworkThumbURLs.count) {
-        NSURL *artworkURL = nil;
-        if ([type isEqualToString:@"movie"]) {
-            artworkURL = [metadata.artworkFullsizeURLs firstObject];
-        }
-        else if ([type isEqualToString:@"tv"]) {
+    if (metadata.artworkFullsizeURLs.count) {
+        NSURL *artworkURL = metadata.artworkFullsizeURLs.firstObject;
+
+        if ([type isEqualToString:@"tv"]) {
             if (metadata.artworkFullsizeURLs.count > 1) {
                 int i = 0;
                 for (NSString *artworkProviderName in metadata.artworkProviderNames) {
@@ -177,9 +175,6 @@
                     }
                     i++;
                 }
-            }
-            else {
-                artworkURL = metadata.artworkFullsizeURLs.firstObject;
             }
         }
 

@@ -146,28 +146,32 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
     if ([self.options valueForKey:@"SBQueueDestination"]) {
         self.destination = [self.options valueForKey:@"SBQueueDestination"];
 
-        if (![[NSFileManager defaultManager] fileExistsAtPath:[self.destination path] isDirectory:nil])
+        if (![[NSFileManager defaultManager] fileExistsAtPath:self.destination.path isDirectory:nil]) {
             self.destination = nil;
+        }
     }
 
     if (!self.destination) {
         NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSMoviesDirectory,
                                                                 NSUserDomainMask,
                                                                 YES);
-        if ([allPaths count]) {
-            self.destination = [NSURL fileURLWithPath:[allPaths lastObject]];
+        if (allPaths.count) {
+            self.destination = [NSURL fileURLWithPath:allPaths.lastObject];
         }
     }
 
-    folderItem = [self prepareDestPopupItem:self.destination];
+    if (self.destination) {
+        folderItem = [self prepareDestPopupItem:self.destination];
 
-    [[_destButton menu] insertItem:[NSMenuItem separatorItem] atIndex:0];
-    [[_destButton menu] insertItem:folderItem atIndex:0];
+        [[_destButton menu] insertItem:[NSMenuItem separatorItem] atIndex:0];
+        [[_destButton menu] insertItem:folderItem atIndex:0];
 
-    if ([self.options valueForKey:@"SBQueueDestination"]) {
-        [_destButton selectItem:folderItem];
-    } else {
-        [_destButton selectItemWithTag:10];
+        if ([self.options valueForKey:@"SBQueueDestination"]) {
+            [_destButton selectItem:folderItem];
+        }
+        else {
+            [_destButton selectItemWithTag:10];
+        }
     }
 }
 
@@ -197,8 +201,8 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
     }];
 }
 
-- (NSMenuItem *)prepareDestPopupItem:(NSURL *)dest {
-    NSMenuItem *folderItem = [[NSMenuItem alloc] initWithTitle:[dest lastPathComponent] action:@selector(destination:) keyEquivalent:@""];
+- (NSMenuItem *)prepareDestPopupItem:(nonnull NSURL *)dest {
+    NSMenuItem *folderItem = [[NSMenuItem alloc] initWithTitle:dest.lastPathComponent action:@selector(destination:) keyEquivalent:@""];
 
     NSImage *menuItemIcon = [[NSWorkspace sharedWorkspace] iconForFile:[dest path]];
     [menuItemIcon setSize:NSMakeSize(16, 16)];

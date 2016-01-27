@@ -467,14 +467,16 @@
 
 + (void) deleteCachedMetadata {
 	NSString *path = nil;
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-	if ([paths count]) {
+	NSArray<NSString *> *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+
+	if (paths.count) {
 		NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
 		path = [[paths firstObject] stringByAppendingPathComponent:bundleName];
-	}
-	NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
-	for (NSString *filename in contents) {
-		[[NSFileManager defaultManager] removeItemAtPath:[path stringByAppendingPathComponent:filename] error:nil];
+
+        NSArray<NSString *> *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
+        for (NSString *filename in contents) {
+            [[NSFileManager defaultManager] removeItemAtPath:[path stringByAppendingPathComponent:filename] error:nil];
+        }
 	}
 }
 

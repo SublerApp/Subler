@@ -491,7 +491,7 @@
         metadata = [[[[_fileImporters firstObject] metadata] retain] autorelease];
     }
 
-    [_delegate importDoneWithTracks:tracks andMetadata: metadata];
+    [_delegate importDoneWithTracks:tracks andMetadata:metadata];
 
     [tracks release];
 
