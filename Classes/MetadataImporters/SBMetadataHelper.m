@@ -11,7 +11,7 @@
 
 @implementation SBMetadataHelper
 
-+ (NSDictionary<NSString *, NSString *> *)parseFilename:(NSString *)filename
++ (nullable NSDictionary<NSString *, NSString *> *)parseFilename:(NSString *)filename
 {
     NSParameterAssert(filename);
 

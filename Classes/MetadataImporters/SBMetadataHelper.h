@@ -19,7 +19,7 @@ typedef NS_ENUM(NSUInteger, SBCachePolicy) {
 };
 
 #pragma mark Helper routines
-+ (NSDictionary<NSString *, NSString *> *)parseFilename:(NSString *)filename;
++ (nullable NSDictionary<NSString *, NSString *> *)parseFilename:(NSString *)filename;
 + (NSString *)urlEncoded:(NSString *)string;
 
 + (nullable NSData *)downloadDataFromURL:(NSURL *)url withCachePolicy:(SBCachePolicy)policy;

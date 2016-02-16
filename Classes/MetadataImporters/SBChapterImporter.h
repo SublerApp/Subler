@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)defaultProvider;
 
-+ (instancetype)importerForProvider:(NSString *)providerName;
++ (nullable instancetype)importerForProvider:(NSString *)providerName;
 - (void) searchTitle:(NSString *)title language:(nullable NSString *)language duration:(NSUInteger)duration completionHandler:(void(^)(NSArray<SBChapterResult *> * _Nullable results))handler;
 - (void) cancel;
 

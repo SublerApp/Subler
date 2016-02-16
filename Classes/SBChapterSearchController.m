@@ -70,10 +70,17 @@
     NSMutableParagraphStyle *psL = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
     psL.headIndent = -10.0;
     psL.alignment = NSTextAlignmentLeft;
-    _detailBoldAttr = [@{NSFontAttributeName: [NSFont systemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightBold],
-                        NSParagraphStyleAttributeName: psL,
-                        NSForegroundColorAttributeName: [NSColor grayColor]} retain];
 
+    if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
+        _detailBoldAttr = [@{NSFontAttributeName: [NSFont systemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightBold],
+                             NSParagraphStyleAttributeName: psL,
+                             NSForegroundColorAttributeName: [NSColor grayColor]} retain];
+    }
+    else {
+        _detailBoldAttr = [@{NSFontAttributeName: [NSFont boldSystemFontOfSize:[NSFont smallSystemFontSize]],
+                                       NSParagraphStyleAttributeName: ps,
+                                       NSForegroundColorAttributeName: [NSColor grayColor]} retain];
+    }
 
     if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
         _detailMonospacedAttr = [@{NSFontAttributeName: [NSFont monospacedDigitSystemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightRegular],

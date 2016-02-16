@@ -171,7 +171,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 
 #pragma mark Quick iTunes search for metadata
 
-+ (MP42Metadata *) quickiTunesSearchTV:(NSString *)aSeriesName episodeTitle:(NSString *)aEpisodeTitle {
++ (nullable MP42Metadata *) quickiTunesSearchTV:(NSString *)aSeriesName episodeTitle:(NSString *)aEpisodeTitle {
 	NSDictionary *store = [iTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV|iTunes Store|Language"]];
 	if (!store) {
 		return nil;
@@ -190,7 +190,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 	return nil;
 }
 
-+ (MP42Metadata *) quickiTunesSearchMovie:(NSString *)aMovieName {
++ (nullable MP42Metadata *) quickiTunesSearchMovie:(NSString *)aMovieName {
 	NSDictionary *store = [iTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|Movie|iTunes Store|Language"]];
 	if (!store) {
 		return nil;

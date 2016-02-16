@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray<NSString *> *) movieProviders;
 + (NSArray<NSString *> *) tvProviders;
 + (NSArray<NSString *> *) languagesForProvider:(NSString *)aProvider;
-+ (instancetype) importerForProvider:(NSString *)aProviderName;
++ (nullable instancetype) importerForProvider:(NSString *)aProviderName;
 + (instancetype) defaultMovieProvider;
 + (instancetype) defaultTVProvider;
 + (NSString *) defaultMovieLanguage;

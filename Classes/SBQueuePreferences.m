@@ -88,12 +88,12 @@ NSString * const SBQueueSet = @"SBQueueSet";
     [[NSUserDefaults standardUserDefaults] setValue:[[self.options objectForKey:SBQueueSet] presetName] forKey:SBQueueSet];
 }
 
-- (NSURL *)queueURL {
+- (nullable NSURL *)queueURL {
     NSURL *appSupportURL = nil;
     NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
                                                             NSUserDomainMask,
                                                             YES);
-    if ([allPaths count]) {
+    if (allPaths.count) {
         appSupportURL = [NSURL fileURLWithPath:[[[allPaths lastObject] stringByAppendingPathComponent:@"Subler"]
                                                 stringByAppendingPathComponent:@"queue.sbqueue"] isDirectory:YES];
         return appSupportURL;

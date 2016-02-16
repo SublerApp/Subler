@@ -13,7 +13,7 @@
 
 @implementation SBFileImport
 
-- (instancetype)initWithURLs:(NSArray<NSURL *> *)fileURLs delegate:(id <SBFileImportDelegate>)delegate error:(NSError **)error
+- (nullable instancetype)initWithURLs:(NSArray<NSURL *> *)fileURLs delegate:(id <SBFileImportDelegate>)delegate error:(NSError **)error
 {
 	if ((self = [super initWithWindowNibName:@"FileImport"])) {
 		_delegate = delegate;

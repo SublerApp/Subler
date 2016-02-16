@@ -26,7 +26,7 @@
     return @"ChapterDB";
 }
 
-+ (instancetype)importerForProvider:(NSString *)aProvider
++ (nullable instancetype)importerForProvider:(NSString *)aProvider
 {
     if ([aProvider isEqualToString:@"ChapterDB"]) {
         return [[[SBChapterDB alloc] init] autorelease];
