@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface iTunesStore : SBMetadataImporter
+@interface SBiTunesStore : SBMetadataImporter
 
 #pragma mark iTunes stores
 + (nullable NSDictionary *) getStoreFor:(NSString *)aLanguageString;

@@ -17,7 +17,7 @@
 
 #define API_KEY @"b0073bafb08b4f68df101eb2325f27dc"
 
-@implementation TheMovieDB3
+@implementation SBTheMovieDB3
 
 - (NSArray<NSString *> *)languages
 {
@@ -35,7 +35,7 @@
 	if (jsonData) {
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
         if ([d isKindOfClass:[NSDictionary class]]) {
-            return [TheMovieDB3 metadataForResults:d];
+            return [SBTheMovieDB3 metadataForResults:d];
         }
 	}
 
@@ -50,7 +50,7 @@
 	NSMutableArray *artworkProviderNames = [NSMutableArray array];
 
     // add iTunes artwork
-    MP42Metadata *iTunesMetadata = [iTunesStore quickiTunesSearchMovie:aMetadata.tagsDict[@"Name"]];
+    MP42Metadata *iTunesMetadata = [SBiTunesStore quickiTunesSearchMovie:aMetadata.tagsDict[@"Name"]];
 
 	if (iTunesMetadata && iTunesMetadata.artworkThumbURLs && iTunesMetadata.artworkFullsizeURLs &&
         (iTunesMetadata.artworkThumbURLs.count == iTunesMetadata.artworkFullsizeURLs.count)) {
@@ -115,7 +115,7 @@
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
         if ([d isKindOfClass:[NSDictionary class]]) {
 
-            MP42Metadata *r = [TheMovieDB3 metadataForResult:d language:lang];
+            MP42Metadata *r = [SBTheMovieDB3 metadataForResult:d language:lang];
             if (r) {
                 [aMetadata mergeMetadata:r];
             }
@@ -164,19 +164,19 @@
     metadata[@"TheMovieDB ID"]      = r[@"id"];
     metadata[@"Name"]               = r[@"title"];
     metadata[@"Release Date"]       = r[@"release_date"];
-    metadata[@"Genre"]              = [TheMovieDB3 commaJoinedSubentriesOf:r[@"genres"] forKey:@"name"];
+    metadata[@"Genre"]              = [SBTheMovieDB3 commaJoinedSubentriesOf:r[@"genres"] forKey:@"name"];
     metadata[@"Description"]        = r[@"overview"];
     metadata[@"Long Description"]   = r[@"overview"];
-    metadata[@"Studio"]             = [TheMovieDB3 commaJoinedSubentriesOf:r[@"production_companies"] forKey:@"name"];
+    metadata[@"Studio"]             = [SBTheMovieDB3 commaJoinedSubentriesOf:r[@"production_companies"] forKey:@"name"];
 
     NSDictionary<NSString *, NSArray *> *casts = r[@"casts"];
-    metadata[@"Cast"]                   = [TheMovieDB3 commaJoinedSubentriesOf:casts[@"cast"] forKey:@"name"];
-    metadata[@"Director"]               = [TheMovieDB3 commaJoinedSubentriesOf:casts[@"crew"] forKey:@"name" withKey:@"job" equalTo:@"Director"];
-    metadata[@"Artist"]                 = [TheMovieDB3 commaJoinedSubentriesOf:casts[@"crew"] forKey:@"name" withKey:@"job" equalTo:@"Director"];
-    metadata[@"Producers"]              = [TheMovieDB3 commaJoinedSubentriesOf:casts[@"crew"] forKey:@"name" withKey:@"job" equalTo:@"Producer"];
-    metadata[@"Executive Producer"]     = [TheMovieDB3 commaJoinedSubentriesOf:casts[@"crew"] forKey:@"name" withKey:@"job" equalTo:@"Executive Producer"];
-    metadata[@"Screenwriters"]          = [TheMovieDB3 commaJoinedSubentriesOf:casts[@"crew"] forKey:@"name" withKey:@"department" equalTo:@"Writing"];
-    metadata[@"Composer"]               = [TheMovieDB3 commaJoinedSubentriesOf:casts[@"crew"] forKey:@"name" withKey:@"job" equalTo:@"Original Music Composer"];
+    metadata[@"Cast"]                   = [SBTheMovieDB3 commaJoinedSubentriesOf:casts[@"cast"] forKey:@"name"];
+    metadata[@"Director"]               = [SBTheMovieDB3 commaJoinedSubentriesOf:casts[@"crew"] forKey:@"name" withKey:@"job" equalTo:@"Director"];
+    metadata[@"Artist"]                 = [SBTheMovieDB3 commaJoinedSubentriesOf:casts[@"crew"] forKey:@"name" withKey:@"job" equalTo:@"Director"];
+    metadata[@"Producers"]              = [SBTheMovieDB3 commaJoinedSubentriesOf:casts[@"crew"] forKey:@"name" withKey:@"job" equalTo:@"Producer"];
+    metadata[@"Executive Producer"]     = [SBTheMovieDB3 commaJoinedSubentriesOf:casts[@"crew"] forKey:@"name" withKey:@"job" equalTo:@"Executive Producer"];
+    metadata[@"Screenwriters"]          = [SBTheMovieDB3 commaJoinedSubentriesOf:casts[@"crew"] forKey:@"name" withKey:@"department" equalTo:@"Writing"];
+    metadata[@"Composer"]               = [SBTheMovieDB3 commaJoinedSubentriesOf:casts[@"crew"] forKey:@"name" withKey:@"job" equalTo:@"Original Music Composer"];
 
     if (language) {
         NSArray<NSDictionary *> *countries = r[@"releases"][@"countries"];
@@ -198,7 +198,7 @@
 
 	for (NSDictionary *r in resultsArray) {
         if ([r isKindOfClass:[NSDictionary class]]) {
-            MP42Metadata *metadata = [TheMovieDB3 metadataForResult:r language:nil];
+            MP42Metadata *metadata = [SBTheMovieDB3 metadataForResult:r language:nil];
             [returnArray addObject:metadata];
         }
 	}

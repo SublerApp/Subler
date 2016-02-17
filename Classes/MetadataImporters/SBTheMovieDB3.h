@@ -10,6 +10,6 @@
 
 #import "SBMetadataImporter.h"
 
-@interface TheMovieDB3 : SBMetadataImporter
+@interface SBTheMovieDB3 : SBMetadataImporter
 
 @end

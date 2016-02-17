@@ -8,6 +8,6 @@
 
 #import "SBMetadataImporter.h"
 
-@interface TheTVDB : SBMetadataImporter
+@interface SBTheTVDB : SBMetadataImporter
 
 @end

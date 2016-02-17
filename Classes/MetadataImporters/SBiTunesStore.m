@@ -12,7 +12,7 @@
 #import "SBiTunesStore.h"
 #import "SBMetadataSearchController.h"
 
-@implementation iTunesStore
+@implementation SBiTunesStore
 
 #pragma mark iTunes stores
 
@@ -118,7 +118,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 	NSString *language = @"EN";
 	NSString *season = @"season";
 
-	NSDictionary *store = [iTunesStore getStoreFor:aLanguage];
+	NSDictionary *store = [SBiTunesStore getStoreFor:aLanguage];
 	if (store) {
 		country = store[@"country2"];
 		language = store[@"language2"];
@@ -144,7 +144,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 
         if ([d isKindOfClass:[NSDictionary class]]) {
 
-            NSArray<MP42Metadata *> *results = [iTunesStore metadataForResults:d store:store];
+            NSArray<MP42Metadata *> *results = [SBiTunesStore metadataForResults:d store:store];
 
             if ((results.count == 0) && ![aLanguage isEqualToString:@"USA (English)"]) {
                 return [self searchTVSeries:aSeriesName language:@"USA (English)" seasonNum:aSeasonNum episodeNum:aEpisodeNum];
@@ -172,7 +172,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 #pragma mark Quick iTunes search for metadata
 
 + (nullable MP42Metadata *) quickiTunesSearchTV:(NSString *)aSeriesName episodeTitle:(NSString *)aEpisodeTitle {
-	NSDictionary *store = [iTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV|iTunes Store|Language"]];
+	NSDictionary *store = [SBiTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV|iTunes Store|Language"]];
 	if (!store) {
 		return nil;
 	}
@@ -183,7 +183,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 	if (jsonData) {
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
         if ([d isKindOfClass:[NSDictionary class]]) {
-            NSArray *results = [iTunesStore metadataForResults:d store:store];
+            NSArray *results = [SBiTunesStore metadataForResults:d store:store];
                 return [results firstObject];
         }
 	}
@@ -191,7 +191,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 }
 
 + (nullable MP42Metadata *) quickiTunesSearchMovie:(NSString *)aMovieName {
-	NSDictionary *store = [iTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|Movie|iTunes Store|Language"]];
+	NSDictionary *store = [SBiTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|Movie|iTunes Store|Language"]];
 	if (!store) {
 		return nil;
 	}
@@ -202,7 +202,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 	if (jsonData) {
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
         if ([d isKindOfClass:[NSDictionary class]]) {
-            NSArray *results = [iTunesStore metadataForResults:d store:store];
+            NSArray *results = [SBiTunesStore metadataForResults:d store:store];
             return [results firstObject];
         }
 	}
@@ -216,7 +216,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 	NSString *country = @"US";
 	NSString *language = @"EN";
 
-	NSDictionary *store = [iTunesStore getStoreFor:aLanguage];
+	NSDictionary *store = [SBiTunesStore getStoreFor:aLanguage];
 	if (store) {
 		country = store[@"country2"];
 		language = store[@"language2"];
@@ -231,7 +231,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 	if (jsonData) {
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
         if ([d isKindOfClass:[NSDictionary class]]) {
-            return [iTunesStore metadataForResults:d store:store];
+            return [SBiTunesStore metadataForResults:d store:store];
         }
 	}
 	return nil;
@@ -240,7 +240,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 #pragma mark Load additional metadata
 
 - (MP42Metadata *) loadTVMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage {
-	NSDictionary *store = [iTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV|iTunes Store|Language"]];
+	NSDictionary *store = [SBiTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV|iTunes Store|Language"]];
 	if (!store) {
 		return nil;
 	}
@@ -264,16 +264,16 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 - (MP42Metadata *) loadMovieMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage {
 	NSData *xmlData = [SBMetadataHelper downloadDataFromURL:[NSURL URLWithString:[[aMetadata tagsDict] valueForKey:@"iTunes URL"]] withCachePolicy:SBDefaultPolicy];
 	if (xmlData) {
-        NSDictionary *store = [iTunesStore getStoreFor:aLanguage];
+        NSDictionary *store = [SBiTunesStore getStoreFor:aLanguage];
 		NSXMLDocument *xml = [[NSXMLDocument alloc] initWithData:xmlData options:NSXMLDocumentTidyHTML error:NULL];
-		NSArray *p = [iTunesStore readPeople:[store valueForKey:@"actor"] fromXML:xml];
+		NSArray *p = [SBiTunesStore readPeople:[store valueForKey:@"actor"] fromXML:xml];
 		if (p && [p count]) [aMetadata setTag:[p componentsJoinedByString:@", "] forKey:@"Cast"];
-		p = [iTunesStore readPeople:[store valueForKey:@"director"] fromXML:xml];
+		p = [SBiTunesStore readPeople:[store valueForKey:@"director"] fromXML:xml];
 		if (p && [p count]) [aMetadata setTag:[p componentsJoinedByString:@", "] forKey:@"Director"];
 		if (p && [p count]) [aMetadata setTag:[p componentsJoinedByString:@", "] forKey:@"Artist"];
-		p = [iTunesStore readPeople:[store valueForKey:@"producer"] fromXML:xml];
+		p = [SBiTunesStore readPeople:[store valueForKey:@"producer"] fromXML:xml];
 		if (p && [p count]) [aMetadata setTag:[p componentsJoinedByString:@", "] forKey:@"Producers"];
-		p = [iTunesStore readPeople:[store valueForKey:@"screenwriter"] fromXML:xml];
+		p = [SBiTunesStore readPeople:[store valueForKey:@"screenwriter"] fromXML:xml];
 		if (p && [p count]) [aMetadata setTag:[p componentsJoinedByString:@", "] forKey:@"Screenwriters"];
 		NSArray *nodes = [xml nodesForXPath:[NSString stringWithFormat:@"//li[@class='copyright']"] error:NULL];
 		for (NSXMLNode *n in nodes) {
