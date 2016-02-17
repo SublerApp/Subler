@@ -17,7 +17,7 @@
 
 #define API_KEY @"3498815BE9484A62"
 
-static NSArray *TVDBlanguages;
+static NSArray<NSString *> *TVDBlanguages;
 
 @implementation TheTVDB
 
@@ -46,7 +46,7 @@ static NSArray *TVDBlanguages;
     }
 }
 
-- (NSArray *) languages {
+- (NSArray<NSString *> *) languages {
     return TVDBlanguages;
 }
 
@@ -237,25 +237,26 @@ static NSArray *TVDBlanguages;
 			[metadata setTag:gueststars forKey:@"Cast"];
 		}
 	}
+
 	// artwork
-	NSMutableArray *artworkThumbURLs = [[NSMutableArray alloc] initWithCapacity:10];
-	NSMutableArray *artworkFullsizeURLs = [[NSMutableArray alloc] initWithCapacity:10];
-	NSMutableArray *artworkProviderNames = [[NSMutableArray alloc] initWithCapacity:10];
-	NSURL *u;
+	NSMutableArray *artworkThumbURLs = [NSMutableArray array];
+	NSMutableArray *artworkFullsizeURLs = [NSMutableArray array];
+	NSMutableArray *artworkProviderNames = [NSMutableArray array];
+
 	if ([aEpisode retrieveForPath:@"filename.text"]) {
-		u = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/banners/%@", [aEpisode retrieveForPath:@"filename.text"]]];
+		NSURL *u = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/banners/%@", [aEpisode retrieveForPath:@"filename.text"]]];
 		[artworkThumbURLs addObject:u];
 		[artworkFullsizeURLs addObject:u];
 		[artworkProviderNames addObject:@"TheTVDB|episode"];
 	}
+
 	[metadata setArtworkThumbURLs: artworkThumbURLs];
 	[metadata setArtworkFullsizeURLs: artworkFullsizeURLs];
 	[metadata setArtworkProviderNames:artworkProviderNames];
-	[artworkThumbURLs release];
-	[artworkFullsizeURLs release];
-	[artworkProviderNames release];
-	// TheTVDB does not provide the following fields normally associated with TV shows in MP42Metadata:
+
+    // TheTVDB does not provide the following fields normally associated with TV shows in MP42Metadata:
 	// "Copyright", "Comments", "Producers", "Artist"
+
 	return [metadata autorelease];
 }
 
