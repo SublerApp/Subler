@@ -137,7 +137,7 @@
 
 - (MP42Metadata *)searchMetadataForFile:(NSURL *)url {
     id currentSearcher = nil;
-    MP42Metadata *metadata = nil;
+    SBMetadataResult *metadata = nil;
 
     // Parse FileName and search for metadata
     NSDictionary<NSString *, NSString *> *parsed = [SBMetadataHelper parseFilename:url.lastPathComponent];
@@ -145,7 +145,7 @@
 
     if ([@"movie" isEqualToString:type]) {
 		currentSearcher = [SBMetadataImporter importerForProvider:_movieProvider];
-		NSArray<MP42Metadata *> *results = [currentSearcher searchMovie:parsed[@"title"] language:_movieLanguage];
+		NSArray<SBMetadataResult *> *results = [currentSearcher searchMovie:parsed[@"title"] language:_movieLanguage];
         if (results.count) {
             metadata = [currentSearcher loadMovieMetadata:results.firstObject language:_movieLanguage];
         }
@@ -185,7 +185,7 @@
         }
     }
 
-    return metadata;
+    return metadata.metadata;
 }
 
 - (void)runAction:(SBQueueItem *)item {

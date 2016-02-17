@@ -6,8 +6,8 @@
 //
 //
 
+#import <Foundation/Foundation.h>
 #import "SBMetadataImporter.h"
 
 @interface SBTheTVDB : SBMetadataImporter
-
 @end

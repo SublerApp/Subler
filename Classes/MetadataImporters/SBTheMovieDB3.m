@@ -6,7 +6,6 @@
 //
 //
 
-#import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Ratings.h>
 #import <MP42Foundation/MP42Languages.h>
 
@@ -24,7 +23,7 @@
 	return [[MP42Languages defaultManager] iso6391languages];
 }
 
-- (NSArray *)searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage
+- (NSArray<SBMetadataResult *> *)searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage
 {
 	NSString *lang = [MP42Languages iso6391CodeFor:aLanguage];
 
@@ -39,10 +38,10 @@
         }
 	}
 
-	return nil;
+	return @[];
 }
 
-- (MP42Metadata *)artworksForResult:(NSDictionary *)r metadata:(MP42Metadata *)aMetadata
+- (SBMetadataResult *)artworksForResult:(NSDictionary *)r metadata:(SBMetadataResult *)aMetadata
 {
     // artwork
 	NSMutableArray *artworkThumbURLs = [NSMutableArray array];
@@ -50,7 +49,7 @@
 	NSMutableArray *artworkProviderNames = [NSMutableArray array];
 
     // add iTunes artwork
-    MP42Metadata *iTunesMetadata = [SBiTunesStore quickiTunesSearchMovie:aMetadata.tagsDict[@"Name"]];
+    SBMetadataResult *iTunesMetadata = [SBiTunesStore quickiTunesSearchMovie:aMetadata[@"Name"]];
 
 	if (iTunesMetadata && iTunesMetadata.artworkThumbURLs && iTunesMetadata.artworkFullsizeURLs &&
         (iTunesMetadata.artworkThumbURLs.count == iTunesMetadata.artworkFullsizeURLs.count)) {
@@ -102,10 +101,10 @@
     return aMetadata;
 }
 
-- (MP42Metadata *)loadMovieMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage
+- (SBMetadataResult *)loadMovieMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage
 {
 	NSString *lang = [MP42Languages iso6391CodeFor:aLanguage];
-	NSNumber *theMovieDBID = aMetadata.tagsDict[@"TheMovieDB ID"];
+	NSNumber *theMovieDBID = aMetadata[@"TheMovieDB ID"];
 
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/movie/%@?api_key=%@&language=%@&append_to_response=casts,releases,images",
                                        theMovieDBID, API_KEY, lang]];
@@ -115,9 +114,9 @@
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
         if ([d isKindOfClass:[NSDictionary class]]) {
 
-            MP42Metadata *r = [SBTheMovieDB3 metadataForResult:d language:lang];
+            SBMetadataResult *r = [SBTheMovieDB3 metadataForResult:d language:lang];
             if (r) {
-                [aMetadata mergeMetadata:r];
+                [aMetadata merge:r];
             }
             aMetadata = [self artworksForResult:d metadata:aMetadata];
         }
@@ -156,9 +155,9 @@
 	return [r componentsJoinedByString:@", "];
 }
 
-+ (MP42Metadata *)metadataForResult:(NSDictionary<NSString *, id> *)r language:(NSString *)language
++ (SBMetadataResult *)metadataForResult:(NSDictionary<NSString *, id> *)r language:(NSString *)language
 {
-	MP42Metadata *metadata = [[MP42Metadata alloc] init];
+	SBMetadataResult *metadata = [[SBMetadataResult alloc] init];
 
 	metadata.mediaKind = 9; // movie
     metadata[@"TheMovieDB ID"]      = r[@"id"];
@@ -191,14 +190,14 @@
     return [metadata autorelease];
 }
 
-+ (NSArray<MP42Metadata *> *)metadataForResults:(NSDictionary *)dict
++ (NSArray<SBMetadataResult *> *)metadataForResults:(NSDictionary *)dict
 {
 	NSArray *resultsArray = dict[@"results"];
-    NSMutableArray<MP42Metadata *> *returnArray = [NSMutableArray array];
+    NSMutableArray<SBMetadataResult *> *returnArray = [NSMutableArray array];
 
 	for (NSDictionary *r in resultsArray) {
         if ([r isKindOfClass:[NSDictionary class]]) {
-            MP42Metadata *metadata = [SBTheMovieDB3 metadataForResult:r language:nil];
+            SBMetadataResult *metadata = [SBTheMovieDB3 metadataForResult:r language:nil];
             [returnArray addObject:metadata];
         }
 	}

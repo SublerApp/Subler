@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "SBMetadataImporter.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -18,12 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable NSDictionary *) getStoreFor:(NSString *)aLanguageString;
 
 #pragma mark Quick iTunes search for metadata
-+ (nullable MP42Metadata *) quickiTunesSearchTV:(NSString *)aSeriesName episodeTitle:(NSString *)aEpisodeTitle;
-+ (nullable MP42Metadata *) quickiTunesSearchMovie:(NSString *)aMovieName;
++ (nullable SBMetadataResult *) quickiTunesSearchTV:(NSString *)aSeriesName episodeTitle:(NSString *)aEpisodeTitle;
++ (nullable SBMetadataResult *) quickiTunesSearchMovie:(NSString *)aMovieName;
 
 #pragma mark Parse results
 + (NSArray<NSString *> *) readPeople:(NSString *)aPeople fromXML:(NSXMLDocument *)aXml;
-+ (NSArray<MP42Metadata *> *) metadataForResults:(NSDictionary *)dict store:(NSDictionary *)store;
++ (NSArray<SBMetadataResult *> *) metadataForResults:(NSDictionary *)dict store:(NSDictionary *)store;
 
 @end
 

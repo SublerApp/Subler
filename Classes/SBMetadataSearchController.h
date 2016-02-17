@@ -12,11 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class SBTableView;
 
-@class MP42Metadata;
+@class SBMetadataResult;
 @class SBMetadataImporter;
 
 @protocol SBMetadataSearchControllerDelegate
-- (void)metadataImportDone:(MP42Metadata *)metadataToBeImported;
+- (void)metadataImportDone:(SBMetadataResult *)metadataToBeImported;
 @end
 
 @interface SBMetadataSearchController : NSWindowController {
@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSArray                      *_resultsArray;
     IBOutlet NSTableView         *resultsTable;
-    MP42Metadata                 *_selectedResult;
+    SBMetadataResult             *_selectedResult;
     NSDictionary                 *_selectedResultTags;
     NSArray                      *_selectedResultTagsArray;
     IBOutlet SBTableView         *metadataTable;

@@ -6,8 +6,8 @@
 //  Copyright 2011 Douglas Stebila. All rights reserved.
 //
 #import <MP42Foundation/MP42Image.h>
-#import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Languages.h>
+#import <MP42Foundation/MP42Metadata.h>
 
 #import "SBMetadataSearchController.h"
 #import "SBArtworkSelector.h"
@@ -17,9 +17,9 @@
 @interface SBMetadataSearchController () <NSTableViewDelegate, SBArtworkSelectorDelegate>
 
 @property (nonatomic, readwrite, retain) SBMetadataImporter *currentSearcher;
-@property (nonatomic, readwrite, retain) NSArray<MP42Metadata *> *resultsArray;
+@property (nonatomic, readwrite, retain) NSArray<SBMetadataResult *> *resultsArray;
 
-@property (nonatomic, readwrite, retain) MP42Metadata *selectedResult;
+@property (nonatomic, readwrite, retain) SBMetadataResult *selectedResult;
 
 @property (nonatomic, readwrite, retain) NSDictionary *selectedResultTags;
 @property (nonatomic, readwrite, retain) NSArray<NSString *> *selectedResultTagsArray;
@@ -308,7 +308,7 @@
 		self.currentSearcher = [SBMetadataImporter importerForProvider:[[tvMetadataProvider selectedItem] title]];
     }
 
-    [self.currentSearcher loadFullMetadata:self.selectedResult language:[[movieLanguage selectedItem] title] completionHandler:^(MP42Metadata *metadata) {
+    [self.currentSearcher loadFullMetadata:self.selectedResult language:[[movieLanguage selectedItem] title] completionHandler:^(SBMetadataResult *metadata) {
         [self stopProgressReport];
 
         self.selectedResult = metadata;
@@ -567,11 +567,11 @@
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     if (tableView == resultsTable) {
         if (self.resultsArray != nil) {
-            MP42Metadata *result = [self.resultsArray objectAtIndex:rowIndex];
+            SBMetadataResult *result = [self.resultsArray objectAtIndex:rowIndex];
             if ((result.mediaKind == 10) && ([self.resultsArray count] > 1)) { // TV show
-                return [NSString stringWithFormat:@"%@x%@ - %@", [result.tagsDict valueForKey:@"TV Season"], [result.tagsDict valueForKey:@"TV Episode #"], [result.tagsDict valueForKey:@"Name"]];
+                return [NSString stringWithFormat:@"%@x%@ - %@", result[@"TV Season"], result[@"TV Episode #"], result[@"Name"]];
             } else {
-                return [result.tagsDict valueForKey:@"Name"];
+                return result[@"Name"];
             }
         }
     } else if (tableView == (NSTableView *) metadataTable) {
@@ -607,8 +607,8 @@ static NSInteger sortFunction (id ldict, id rdict, void *context) {
     if ([aNotification object] == resultsTable || [aNotification object] ==  metadataTable) {
         if (self.resultsArray && [self.resultsArray count] > 0 && [resultsTable selectedRow] > -1) {
             self.selectedResult = [self.resultsArray objectAtIndex:[resultsTable selectedRow]];
-            self.selectedResultTags = self.selectedResult.tagsDict;
-            self.selectedResultTagsArray = [[self.selectedResultTags allKeys] sortedArrayUsingFunction:sortFunction context:[self.selectedResult availableMetadata]];
+            self.selectedResultTags = self.selectedResult.tags;
+            self.selectedResultTagsArray = [[self.selectedResultTags allKeys] sortedArrayUsingFunction:sortFunction context:[MP42Metadata availableMetadata]];
             [metadataTable reloadData];
             [addButton setEnabled:YES];
             [addButton setKeyEquivalent:@"\r"];

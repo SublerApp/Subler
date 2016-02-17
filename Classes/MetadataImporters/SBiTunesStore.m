@@ -6,7 +6,6 @@
 //  Copyright 2011 Douglas Stebila. All rights reserved.
 //
 
-#import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Ratings.h>
 
 #import "SBiTunesStore.h"
@@ -27,7 +26,7 @@
 
         if ([iTunesStores isKindOfClass:[NSArray class]]) {
             for (NSDictionary *store in iTunesStores) {
-                [results addObject:[NSString stringWithFormat:@"%@ (%@)", [store valueForKey:@"country"], [store valueForKey:@"language"]]];
+                [results addObject:[NSString stringWithFormat:@"%@ (%@)", store[@"country"], store[@"language"]]];
             }
         }
     }
@@ -44,7 +43,7 @@
 
         if ([iTunesStores isKindOfClass:[NSArray class]]) {
             for (NSDictionary *store in iTunesStores) {
-                if (aLanguageString && [aLanguageString isEqualToString:[NSString stringWithFormat:@"%@ (%@)", [store valueForKey:@"country"], [store valueForKey:@"language"]]]) {
+                if (aLanguageString && [aLanguageString isEqualToString:[NSString stringWithFormat:@"%@ (%@)", store[@"country"], store[@"language"]]]) {
                     return store;
                 }
             }
@@ -56,13 +55,13 @@
 
 #pragma mark Search for TV episode metadata
 
-NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
+NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 {
-    int v1 = [[[((MP42Metadata *) ep1) tagsDict] valueForKey:@"TV Episode #"] intValue];
-    int v2 = [[[((MP42Metadata *) ep2) tagsDict] valueForKey:@"TV Episode #"] intValue];
+    int v1 = [((SBMetadataResult *) ep1)[@"TV Episode #"] intValue];
+    int v2 = [((SBMetadataResult *) ep2)[@"TV Episode #"] intValue];
 
-    int s1 = [[[((MP42Metadata *) ep1) tagsDict] valueForKey:@"TV Season"] intValue];
-    int s2 = [[[((MP42Metadata *) ep2) tagsDict] valueForKey:@"TV Season"] intValue];
+    int s1 = [((SBMetadataResult *) ep1)[@"TV Season"] intValue];
+    int s2 = [((SBMetadataResult *) ep2)[@"TV Season"] intValue];
 
     if (s1 == s2) {
         if (v1 < v2)
@@ -81,26 +80,26 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 
 - (NSArray *)filterResult:(NSArray *)results tvSeries:(NSString *)aSeriesName seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum {
     NSMutableArray *r = [[NSMutableArray alloc] init];
-    for (MP42Metadata *m in results) {
-        if (!aSeriesName || [[[m tagsDict] valueForKey:@"TV Show"] isEqualToString:aSeriesName]) {
+    for (SBMetadataResult *m in results) {
+        if (!aSeriesName || [m[@"TV Show"] isEqualToString:aSeriesName]) {
             // Episode Number and Season Number
             if ((aEpisodeNum && [aEpisodeNum length]) && (aSeasonNum && [aSeasonNum length])) {
-                if ([[[[m tagsDict] valueForKey:@"TV Episode #"] stringValue] isEqualToString:aEpisodeNum] &&
-                    [[[m tagsDict] valueForKey:@"TV Season"] integerValue] == [aSeasonNum integerValue]) {
+                if ([[m[@"TV Episode #"] stringValue] isEqualToString:aEpisodeNum] &&
+                    [m[@"TV Season"] integerValue] == [aSeasonNum integerValue]) {
                     [r addObject:m];
                 }
 
             }
             // Episode Number only
             else if ((aEpisodeNum && [aEpisodeNum length]) && !(aSeasonNum && [aSeasonNum length])) {
-                if ([[[[m tagsDict] valueForKey:@"TV Episode #"] stringValue] isEqualToString:aEpisodeNum]) {
+                if ([[m[@"TV Episode #"] stringValue] isEqualToString:aEpisodeNum]) {
                     [r addObject:m];
                 }
 
             }
             // Season Number only
             else if (!(aEpisodeNum && [aEpisodeNum length]) && (aSeasonNum && [aSeasonNum length])) {
-                if ([[[m tagsDict] valueForKey:@"TV Season"] integerValue] == [aSeasonNum integerValue]) {
+                if ([m[@"TV Season"] integerValue] == [aSeasonNum integerValue]) {
                     [r addObject:m];
                 }
             }
@@ -112,7 +111,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
     return [r autorelease];
 }
 
-- (NSArray<MP42Metadata *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum
+- (NSArray<SBMetadataResult *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum
 {
 	NSString *country = @"US";
 	NSString *language = @"EN";
@@ -127,7 +126,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 		}
 	}
     else {
-        return nil;
+        return @[];
     }
 
 	NSURL *url;
@@ -144,7 +143,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 
         if ([d isKindOfClass:[NSDictionary class]]) {
 
-            NSArray<MP42Metadata *> *results = [SBiTunesStore metadataForResults:d store:store];
+            NSArray<SBMetadataResult *> *results = [SBiTunesStore metadataForResults:d store:store];
 
             if ((results.count == 0) && ![aLanguage isEqualToString:@"USA (English)"]) {
                 return [self searchTVSeries:aSeriesName language:@"USA (English)" seasonNum:aSeasonNum episodeNum:aEpisodeNum];
@@ -155,29 +154,29 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
             }
 
             // Filter results
-            NSArray<MP42Metadata *> *r = [self filterResult:results tvSeries:aSeriesName seasonNum:aSeasonNum episodeNum:aEpisodeNum];
+            NSArray<SBMetadataResult *> *r = [self filterResult:results tvSeries:aSeriesName seasonNum:aSeasonNum episodeNum:aEpisodeNum];
 
             // If we don't have any result for the exact series name, relax the filter
             if (r.count == 0) {
                 r = [self filterResult:results tvSeries:nil seasonNum:aSeasonNum episodeNum:aEpisodeNum];
             }
 
-            NSArray<MP42Metadata *> *resultsSorted = [r sortedArrayUsingFunction:sortMP42Metadata context:NULL];
+            NSArray<SBMetadataResult *> *resultsSorted = [r sortedArrayUsingFunction:sortSBMetadataResult context:NULL];
             return resultsSorted;
         }
 	}
-	return nil;
+	return @[];
 }
 
 #pragma mark Quick iTunes search for metadata
 
-+ (nullable MP42Metadata *) quickiTunesSearchTV:(NSString *)aSeriesName episodeTitle:(NSString *)aEpisodeTitle {
++ (nullable SBMetadataResult *) quickiTunesSearchTV:(NSString *)aSeriesName episodeTitle:(NSString *)aEpisodeTitle {
 	NSDictionary *store = [SBiTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV|iTunes Store|Language"]];
 	if (!store) {
 		return nil;
 	}
-	NSString *country = [store valueForKey:@"country2"];
-	NSString *language = [store valueForKey:@"language2"];
+	NSString *country = store[@"country2"];
+	NSString *language = store[@"language2"];
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&entity=tvEpisode", country, [language lowercaseString], [SBMetadataHelper urlEncoded:[NSString stringWithFormat:@"%@ %@", aSeriesName, aEpisodeTitle]]]];
 	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	if (jsonData) {
@@ -190,13 +189,13 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 	return nil;
 }
 
-+ (nullable MP42Metadata *) quickiTunesSearchMovie:(NSString *)aMovieName {
++ (nullable SBMetadataResult *) quickiTunesSearchMovie:(NSString *)aMovieName {
 	NSDictionary *store = [SBiTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|Movie|iTunes Store|Language"]];
 	if (!store) {
 		return nil;
 	}
-	NSString *country = [store valueForKey:@"country2"];
-	NSString *language = [store valueForKey:@"language2"];
+	NSString *country = store[@"country2"];
+	NSString *language = store[@"language2"];
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&entity=movie", country, language, [SBMetadataHelper urlEncoded:aMovieName]]];
 	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	if (jsonData) {
@@ -211,7 +210,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 
 #pragma mark Search for movie metadata
 
-- (NSArray<MP42Metadata *> *) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage
+- (NSArray<SBMetadataResult *> *) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage
 {
 	NSString *country = @"US";
 	NSString *language = @"EN";
@@ -222,7 +221,7 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 		language = store[@"language2"];
 	}
     else {
-        return nil;
+        return @[];
     }
 
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&entity=movie&limit=150", country, language, [SBMetadataHelper urlEncoded:aMovieTitle]]];
@@ -234,46 +233,46 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
             return [SBiTunesStore metadataForResults:d store:store];
         }
 	}
-	return nil;
+	return @[];
 }
 
 #pragma mark Load additional metadata
 
-- (MP42Metadata *) loadTVMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage {
+- (SBMetadataResult *)loadTVMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage {
 	NSDictionary *store = [SBiTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV|iTunes Store|Language"]];
 	if (!store) {
 		return nil;
 	}
-	NSString *country = [store valueForKey:@"country2"];
-	NSString *language = [store valueForKey:@"language2"];
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/lookup?country=%@&lang=%@&id=%@", country, [language lowercaseString], [[aMetadata tagsDict] valueForKey:@"playlistID"]]];
+	NSString *country = store[@"country2"];
+	NSString *language = store[@"language2"];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/lookup?country=%@&lang=%@&id=%@", country, language.lowercaseString, aMetadata[@"playlistID"]]];
 	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	if (jsonData) {
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
         if ([d isKindOfClass:[NSDictionary class]]) {
-            NSArray *resultsArray = [d valueForKey:@"results"];
-            if ([resultsArray count] > 0) {
+            NSArray *resultsArray = d[@"results"];
+            if (resultsArray.count > 0) {
                 NSDictionary *r = [resultsArray firstObject];
-                [aMetadata setTag:[r valueForKey:@"longDescription"] forKey:@"Series Description"];
+                aMetadata[@"Series Description"] = r[@"longDescription"];
             }
         }
 	}
 	return aMetadata;
 }
 
-- (MP42Metadata *) loadMovieMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage {
-	NSData *xmlData = [SBMetadataHelper downloadDataFromURL:[NSURL URLWithString:[[aMetadata tagsDict] valueForKey:@"iTunes URL"]] withCachePolicy:SBDefaultPolicy];
+- (SBMetadataResult *) loadMovieMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage {
+	NSData *xmlData = [SBMetadataHelper downloadDataFromURL:[NSURL URLWithString:aMetadata[@"iTunes URL"]] withCachePolicy:SBDefaultPolicy];
 	if (xmlData) {
         NSDictionary *store = [SBiTunesStore getStoreFor:aLanguage];
 		NSXMLDocument *xml = [[NSXMLDocument alloc] initWithData:xmlData options:NSXMLDocumentTidyHTML error:NULL];
-		NSArray *p = [SBiTunesStore readPeople:[store valueForKey:@"actor"] fromXML:xml];
+		NSArray *p = [SBiTunesStore readPeople:store[@"actor"] fromXML:xml];
 		if (p && [p count]) [aMetadata setTag:[p componentsJoinedByString:@", "] forKey:@"Cast"];
-		p = [SBiTunesStore readPeople:[store valueForKey:@"director"] fromXML:xml];
+		p = [SBiTunesStore readPeople:store[@"director"] fromXML:xml];
 		if (p && [p count]) [aMetadata setTag:[p componentsJoinedByString:@", "] forKey:@"Director"];
 		if (p && [p count]) [aMetadata setTag:[p componentsJoinedByString:@", "] forKey:@"Artist"];
-		p = [SBiTunesStore readPeople:[store valueForKey:@"producer"] fromXML:xml];
+		p = [SBiTunesStore readPeople:store[@"producer"] fromXML:xml];
 		if (p && [p count]) [aMetadata setTag:[p componentsJoinedByString:@", "] forKey:@"Producers"];
-		p = [SBiTunesStore readPeople:[store valueForKey:@"screenwriter"] fromXML:xml];
+		p = [SBiTunesStore readPeople:store[@"screenwriter"] fromXML:xml];
 		if (p && [p count]) [aMetadata setTag:[p componentsJoinedByString:@", "] forKey:@"Screenwriters"];
 		NSArray *nodes = [xml nodesForXPath:[NSString stringWithFormat:@"//li[@class='copyright']"] error:NULL];
 		for (NSXMLNode *n in nodes) {
@@ -313,45 +312,49 @@ NSInteger sortMP42Metadata(id ep1, id ep2, void *context)
 	return @[];
 }
 
-+ (NSArray<MP42Metadata *> *) metadataForResults:(NSDictionary *)dict store:(NSDictionary *)store {
++ (NSArray<SBMetadataResult *> *) metadataForResults:(NSDictionary *)dict store:(NSDictionary *)store {
     NSMutableArray *returnArray = [[NSMutableArray alloc] init];
-	NSArray *resultsArray = [dict valueForKey:@"results"];
+	NSArray *resultsArray = dict[@"results"];
 
     for (NSDictionary *r in resultsArray) {
 
         // Skip if the result is not a track (for example an artist or a collection)
-        if (![[r valueForKey:@"wrapperType"] isEqualToString:@"track"]) {
+        if (![r[@"wrapperType"] isEqualToString:@"track"]) {
             continue;
         }
 
-        MP42Metadata *metadata = [[MP42Metadata alloc] init];
-		if ([[r valueForKey:@"kind"] isEqualToString:@"feature-movie"]) {
+        SBMetadataResult *metadata = [[SBMetadataResult alloc] init];
+
+		if ([r[@"kind"] isEqualToString:@"feature-movie"]) {
 			metadata.mediaKind = 9; // movie
-			[metadata setTag:[r valueForKey:@"trackName"] forKey:@"Name"];
-			[metadata setTag:[r valueForKey:@"artistName"] forKey:@"Director"];
-            [metadata setTag:[r valueForKey:@"artistName"] forKey:@"Artist"];
-		} else if ([[r valueForKey:@"kind"] isEqualToString:@"tv-episode"]) {
+            metadata[@"Name"]     = r[@"trackName"];
+            metadata[@"Director"] = r[@"artistName"];
+            metadata[@"Artist"]   = r[@"artistName"];
+		}
+        else if ([r[@"kind"] isEqualToString:@"tv-episode"]) {
 			metadata.mediaKind = 10; // TV show
-			[metadata setTag:[r valueForKey:@"artistName"] forKey:@"TV Show"];
-            [metadata setTag:[r valueForKey:@"artistName"] forKey:@"Artist"];
-            [metadata setTag:[r valueForKey:@"artistName"] forKey:@"Album Artist"];
-            [metadata setTag:[r valueForKey:@"artistName"] forKey:@"Album"];
-			NSString *s = [r valueForKey:@"collectionName"];
+            metadata[@"TV Show"]        = r[@"artistName"];
+            metadata[@"Artist"]         = r[@"artistName"];
+            metadata[@"Album Artist"]   = r[@"artistName"];
+            metadata[@"Album"]          = r[@"artistName"];
+
+			NSString *s = r[@"collectionName"];
             NSString *season = nil;
-			if (![[store valueForKey:@"season"] isEqualToString:@""]) {
-				NSArray *sa = [[s lowercaseString] componentsSeparatedByString:[NSString stringWithFormat:@", %@ ", [store valueForKey:@"season"]]];
+			if ([store[@"season"] length]) {
+				NSArray *sa = [s.lowercaseString componentsSeparatedByString:[NSString stringWithFormat:@", %@ ", store[@"season"]]];
 				if (sa.count <= 1) {
                     sa = [[s lowercaseString] componentsSeparatedByString:[NSString stringWithFormat:@", %@ ", @"book"]];
                 }
 
                 if (sa.count > 1) {
                     season = [NSString stringWithFormat:@"%ld",(long) [[sa objectAtIndex:1] integerValue]];
-                } else {
+                }
+                else {
                     season = @"1";
                 }
 			}
             if (season) {
-                [metadata setTag:season forKey:@"TV Season"];
+                metadata[@"TV Season"] = season;
                 NSString *episodeID = [NSString stringWithFormat:@"%ld%02ld", (long)[season integerValue],
                                        (long)[[r valueForKey:@"trackNumber"] integerValue]];
                 [metadata setTag:episodeID forKey:@"TV Episode ID"];

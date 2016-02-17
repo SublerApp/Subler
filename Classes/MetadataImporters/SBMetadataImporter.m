@@ -6,7 +6,6 @@
 //
 //
 
-#import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Languages.h>
 
 #import "SBMetadataImporter.h"
@@ -80,7 +79,7 @@
 }
 
 #pragma mark Asynchronous searching
-- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage completionHandler:(void(^)(NSArray<MP42Metadata *> * _Nullable results))handler {
+- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage completionHandler:(void(^)(NSArray<SBMetadataResult *> *results))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
             NSArray *results = [self searchTVSeries:aSeries language:aLanguage];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -91,7 +90,7 @@
     });
 }
 
-- (void)searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum completionHandler:(void(^)(NSArray<MP42Metadata *> * _Nullable results))handler {
+- (void)searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum completionHandler:(void(^)(NSArray<SBMetadataResult *> *results))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
             NSArray *results = [self searchTVSeries:aSeries language:aLanguage seasonNum:aSeasonNum episodeNum:aEpisodeNum];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -102,7 +101,7 @@
     });
 }
 
-- (void)searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage completionHandler:(void(^)(NSArray<MP42Metadata *> * _Nullable results))handler {
+- (void)searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage completionHandler:(void(^)(NSArray<SBMetadataResult *> *results))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
             NSArray *results = [self searchMovie:aMovieTitle language:aLanguage];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -113,7 +112,7 @@
     });
 }
 
-- (void)loadFullMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage completionHandler:(void(^)(MP42Metadata * _Nullable metadata))handler {
+- (void)loadFullMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage completionHandler:(void(^)(SBMetadataResult * _Nullable metadata))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
             if (aMetadata.mediaKind == 9) {
                 [self loadMovieMetadata:aMetadata language:aLanguage];
@@ -140,32 +139,32 @@
 								 userInfo:nil];
 }
 
-- (NSArray<MP42Metadata *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage  {
+- (NSArray<SBMetadataResult *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage  {
 	SBTheTVDB *searcher = [[SBTheTVDB alloc] init];
 	NSArray *a = [searcher searchTVSeries:aSeriesName language:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV|TheTVDB|Language"]];
 	[searcher release];
 	return a;
 }
 
-- (NSArray<MP42Metadata *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum {
+- (NSArray<SBMetadataResult *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum {
 	@throw [NSException exceptionWithName:NSInternalInconsistencyException
 								   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
 								 userInfo:nil];
 }
 
-- (MP42Metadata *)loadTVMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage {
+- (SBMetadataResult *)loadTVMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage {
 	@throw [NSException exceptionWithName:NSInternalInconsistencyException
 								   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
 								 userInfo:nil];
 }
 
-- (NSArray<MP42Metadata *> *)searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage {
+- (NSArray<SBMetadataResult *> *)searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage {
 	@throw [NSException exceptionWithName:NSInternalInconsistencyException
 								   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
 								 userInfo:nil];
 }
 
-- (MP42Metadata *)loadMovieMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage {
+- (SBMetadataResult *)loadMovieMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage {
 	@throw [NSException exceptionWithName:NSInternalInconsistencyException
 								   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
 								 userInfo:nil];

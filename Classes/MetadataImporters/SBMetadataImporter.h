@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SBMetadataHelper.h"
+#import "SBMetadataResult.h"
 
 @class MP42Metadata;
 
@@ -31,25 +32,25 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *) defaultLanguageForProvider:(NSString *)provider;
 
 #pragma mark Asynchronous searching
-- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage completionHandler:(void(^)(NSArray<MP42Metadata *> * _Nullable results))handler;
-- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum completionHandler:(void(^)(NSArray<MP42Metadata *> * _Nullable results))handler;
+- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage completionHandler:(void(^)(NSArray<SBMetadataResult *> * _Nullable results))handler;
+- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum completionHandler:(void(^)(NSArray<SBMetadataResult *> * _Nullable results))handler;
 
-- (void) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage completionHandler:(void(^)(NSArray<MP42Metadata *> * _Nullable results))handler;
+- (void) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage completionHandler:(void(^)(NSArray<SBMetadataResult *> * _Nullable results))handler;
 
-- (void) loadFullMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage completionHandler:(void(^)(MP42Metadata * _Nullable metadata))handler;
+- (void) loadFullMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage completionHandler:(void(^)(SBMetadataResult * _Nullable metadata))handler;
 
 - (void) cancel;
 
 #pragma mark Methods to be overridden
 - (NSArray<NSString *> *) languages;
 
-- (nullable NSArray<MP42Metadata *> *) searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage;
-- (nullable NSArray<MP42Metadata *> *) searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(nullable NSString *)aSeasonNum episodeNum:(nullable NSString *)aEpisodeNum;
+- (NSArray<SBMetadataResult *> *) searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage;
+- (NSArray<SBMetadataResult *> *) searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(nullable NSString *)aSeasonNum episodeNum:(nullable NSString *)aEpisodeNum;
 
-- (nullable NSArray<MP42Metadata *> *) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage;
+- (NSArray<SBMetadataResult *> *) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage;
 
-- (nullable MP42Metadata *) loadTVMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage;
-- (nullable MP42Metadata *) loadMovieMetadata:(MP42Metadata *)aMetadata language:(NSString *)aLanguage;
+- (nullable SBMetadataResult *) loadTVMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage;
+- (nullable SBMetadataResult *) loadMovieMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage;
 
 @end
 

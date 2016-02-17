@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)defaultProvider;
 
 + (nullable instancetype)importerForProvider:(NSString *)providerName;
-- (void) searchTitle:(NSString *)title language:(nullable NSString *)language duration:(NSUInteger)duration completionHandler:(void(^)(NSArray<SBChapterResult *> * _Nullable results))handler;
+- (void) searchTitle:(NSString *)title language:(nullable NSString *)language duration:(NSUInteger)duration completionHandler:(void(^)(NSArray<SBChapterResult *> *results))handler;
 - (void) cancel;
 
 #pragma mark Methods to be overridden

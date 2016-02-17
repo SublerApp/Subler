@@ -34,7 +34,7 @@
     return nil;
 }
 
-- (void)searchTitle:(NSString *)title language:(nullable NSString *)language duration:(NSUInteger)duration completionHandler:(void(^)(NSArray<SBChapterResult *> * _Nullable results))handler
+- (void)searchTitle:(NSString *)title language:(nullable NSString *)language duration:(NSUInteger)duration completionHandler:(void(^)(NSArray<SBChapterResult *> *results))handler
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSArray *results = [self searchTitle:title language:language duration:duration];

@@ -19,6 +19,7 @@
 
 #import "SBMetadataSearchController.h"
 #import "SBArtworkSelector.h"
+#import "SBMetadataResult.h"
 
 #import "SBChapterSearchController.h"
 
@@ -697,11 +698,11 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
           contextInfo:nil];
 }
 
-- (void)metadataImportDone:(MP42Metadata *)metadataToBeImported
+- (void)metadataImportDone:(SBMetadataResult *)metadataToBeImported
 {
     [metadataToBeImported retain];
     if (metadataToBeImported) {
-        [self.mp4.metadata mergeMetadata:metadataToBeImported];
+        [self.mp4.metadata mergeMetadata:metadataToBeImported.metadata];
 
         for (MP42Track *track in self.mp4.tracks)
             if ([track isKindOfClass:[MP42VideoTrack class]]) {

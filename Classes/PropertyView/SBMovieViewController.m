@@ -108,7 +108,7 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
 
 - (void) updateTagsArray
 {
-    NSArray<NSString *> *context = [metadata availableMetadata];
+    NSArray<NSString *> *context = [MP42Metadata availableMetadata];
     self.tagsArray = [[tags allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         NSInteger right = [context indexOfObject:obj2];
         NSInteger left = [context indexOfObject:obj1];

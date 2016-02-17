@@ -6,10 +6,8 @@
 //  Copyright 2013 Douglas Stebila. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
+#import <Foundation/Foundation.h>
 #import "SBMetadataImporter.h"
 
 @interface SBTheMovieDB3 : SBMetadataImporter
-
 @end

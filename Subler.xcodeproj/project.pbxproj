@@ -89,6 +89,7 @@
 		A9F284A0133C9F6E00F10951 /* close.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9F2849D133C9F6E00F10951 /* close.pdf */; };
 		A9F284A1133C9F6E00F10951 /* close-over.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9F2849E133C9F6E00F10951 /* close-over.pdf */; };
 		A9F284A2133C9F6E00F10951 /* close-pressed.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9F2849F133C9F6E00F10951 /* close-pressed.pdf */; };
+		A9F442301C75017100AD8786 /* SBMetadataResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F4422F1C75017100AD8786 /* SBMetadataResult.m */; };
 		A9F7F8E01837C44B0036AE7E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9ED7B21180067A2008FD3A8 /* IOKit.framework */; };
 		CD03087417576A550093A0BE /* SBTheMovieDB3.m in Sources */ = {isa = PBXBuildFile; fileRef = CD03087317576A550093A0BE /* SBTheMovieDB3.m */; };
 		CD03087917576AE50093A0BE /* SBMetadataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = CD03087817576AE50093A0BE /* SBMetadataImporter.m */; };
@@ -296,6 +297,8 @@
 		A9F2849D133C9F6E00F10951 /* close.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = close.pdf; path = images/close.pdf; sourceTree = "<group>"; };
 		A9F2849E133C9F6E00F10951 /* close-over.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "close-over.pdf"; path = "images/close-over.pdf"; sourceTree = "<group>"; };
 		A9F2849F133C9F6E00F10951 /* close-pressed.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "close-pressed.pdf"; path = "images/close-pressed.pdf"; sourceTree = "<group>"; };
+		A9F4422E1C75017100AD8786 /* SBMetadataResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataResult.h; path = Classes/MetadataImporters/SBMetadataResult.h; sourceTree = "<group>"; };
+		A9F4422F1C75017100AD8786 /* SBMetadataResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataResult.m; path = Classes/MetadataImporters/SBMetadataResult.m; sourceTree = "<group>"; };
 		CD03087217576A550093A0BE /* SBTheMovieDB3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBTheMovieDB3.h; path = Classes/MetadataImporters/SBTheMovieDB3.h; sourceTree = "<group>"; };
 		CD03087317576A550093A0BE /* SBTheMovieDB3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBTheMovieDB3.m; path = Classes/MetadataImporters/SBTheMovieDB3.m; sourceTree = "<group>"; };
 		CD03087717576AE50093A0BE /* SBMetadataImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataImporter.h; path = Classes/MetadataImporters/SBMetadataImporter.h; sourceTree = "<group>"; };
@@ -667,6 +670,8 @@
 				A9C703111C05E08B00C89151 /* SBMetadataHelper.m */,
 				CD03087717576AE50093A0BE /* SBMetadataImporter.h */,
 				CD03087817576AE50093A0BE /* SBMetadataImporter.m */,
+				A9F4422E1C75017100AD8786 /* SBMetadataResult.h */,
+				A9F4422F1C75017100AD8786 /* SBMetadataResult.m */,
 				CDC06FCC1747494D003C1D0A /* SBiTunesStore.h */,
 				CDC06FCD1747494D003C1D0A /* SBiTunesStore.m */,
 				CD03087217576A550093A0BE /* SBTheMovieDB3.h */,
@@ -905,6 +910,7 @@
 				A95688AB1B91B11B004456A6 /* NSMutableDictionary+Subscript.m in Sources */,
 				A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */,
 				A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */,
+				A9F442301C75017100AD8786 /* SBMetadataResult.m in Sources */,
 				CDC06FCE1747494D003C1D0A /* SBiTunesStore.m in Sources */,
 				A917286119FD288B00348DF8 /* SBLogger.m in Sources */,
 				A9D4B8641C05BC61007845C4 /* SBChapterSearchController.m in Sources */,
