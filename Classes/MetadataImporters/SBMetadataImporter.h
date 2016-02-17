@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MetadataImporter : NSObject {
+@interface SBMetadataImporter : NSObject {
 @private
     BOOL _isCancelled;
 }

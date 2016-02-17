@@ -12,8 +12,8 @@
 
 #import "SBMetadataSearchController.h"
 
-#import "TheMovieDB3.h"
-#import "iTunesStore.h"
+#import "SBTheMovieDB3.h"
+#import "SBiTunesStore.h"
 
 #define API_KEY @"b0073bafb08b4f68df101eb2325f27dc"
 
@@ -63,7 +63,7 @@
     // load image variables from configuration
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/configuration?api_key=%@", API_KEY]];
 	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
-    NSArray *posters = r[@"images.posters"];
+    NSArray *posters = r[@"images"][@"posters"];
 
     if (jsonData && posters && [posters isKindOfClass:[NSArray class]]) {
         NSDictionary *config = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
@@ -169,7 +169,7 @@
     metadata[@"Long Description"]   = r[@"overview"];
     metadata[@"Studio"]             = [TheMovieDB3 commaJoinedSubentriesOf:r[@"production_companies"] forKey:@"name"];
 
-    NSDictionary *casts = r[@"casts"];
+    NSDictionary<NSString *, NSArray *> *casts = r[@"casts"];
     metadata[@"Cast"]                   = [TheMovieDB3 commaJoinedSubentriesOf:casts[@"cast"] forKey:@"name"];
     metadata[@"Director"]               = [TheMovieDB3 commaJoinedSubentriesOf:casts[@"crew"] forKey:@"name" withKey:@"job" equalTo:@"Director"];
     metadata[@"Artist"]                 = [TheMovieDB3 commaJoinedSubentriesOf:casts[@"crew"] forKey:@"name" withKey:@"job" equalTo:@"Director"];

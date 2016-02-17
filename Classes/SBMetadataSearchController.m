@@ -12,11 +12,11 @@
 #import "SBMetadataSearchController.h"
 #import "SBArtworkSelector.h"
 #import "SBDocument.h"
-#import "MetadataImporter.h"
+#import "SBMetadataImporter.h"
 
 @interface SBMetadataSearchController () <NSTableViewDelegate, SBArtworkSelectorDelegate>
 
-@property (nonatomic, readwrite, retain) MetadataImporter *currentSearcher;
+@property (nonatomic, readwrite, retain) SBMetadataImporter *currentSearcher;
 @property (nonatomic, readwrite, retain) NSArray<MP42Metadata *> *resultsArray;
 
 @property (nonatomic, readwrite, retain) MP42Metadata *selectedResult;
@@ -133,13 +133,13 @@
 
 - (void) createLanguageMenus {
 	[movieLanguage removeAllItems];
-	NSArray *langs = [MetadataImporter languagesForProvider:[[movieMetadataProvider selectedItem] title]];
+	NSArray *langs = [SBMetadataImporter languagesForProvider:[[movieMetadataProvider selectedItem] title]];
 	for (NSString *lang in langs) {
 		[movieLanguage addItemWithTitle:lang];
 	}
 
 	[tvLanguage removeAllItems];
-	langs = [MetadataImporter languagesForProvider:[[tvMetadataProvider selectedItem] title]];
+	langs = [SBMetadataImporter languagesForProvider:[[tvMetadataProvider selectedItem] title]];
 	for (NSString *lang in langs) {
 		[tvLanguage addItemWithTitle:lang];
 	}
@@ -223,7 +223,7 @@
         [self startProgressReportWithString:[NSString stringWithFormat:@"Searching %@ for movie information…",
                                              [[movieMetadataProvider selectedItem] title]]];
 
-		self.currentSearcher = [MetadataImporter importerForProvider:[[movieMetadataProvider selectedItem] title]];
+		self.currentSearcher = [SBMetadataImporter importerForProvider:[[movieMetadataProvider selectedItem] title]];
 		[self.currentSearcher searchMovie:[movieName stringValue]
                             language:[movieLanguage titleOfSelectedItem]
                    completionHandler:^(NSArray *results) {
@@ -235,7 +235,7 @@
         [self startProgressReportWithString:[NSString stringWithFormat:@"Searching %@ for episode information…",
                                              [[tvMetadataProvider selectedItem] title]]];
 
-		self.currentSearcher = [MetadataImporter importerForProvider:[[tvMetadataProvider selectedItem] title]];
+		self.currentSearcher = [SBMetadataImporter importerForProvider:[[tvMetadataProvider selectedItem] title]];
 		[self.currentSearcher searchTVSeries:[tvSeriesName stringValue]
                                language:[tvLanguage titleOfSelectedItem]
                               seasonNum:[tvSeasonNum stringValue]
@@ -302,10 +302,10 @@
     [addButton setEnabled:NO];
     if (self.selectedResult.mediaKind == 9) {
         [self startProgressReportWithString:@"Downloading additional movie metadata…"];
-		self.currentSearcher = [MetadataImporter importerForProvider:[[movieMetadataProvider selectedItem] title]];
+		self.currentSearcher = [SBMetadataImporter importerForProvider:[[movieMetadataProvider selectedItem] title]];
     } else if (self.selectedResult.mediaKind == 10) {
         [self startProgressReportWithString:@"Downloading additional TV metadata…"];
-		self.currentSearcher = [MetadataImporter importerForProvider:[[tvMetadataProvider selectedItem] title]];
+		self.currentSearcher = [SBMetadataImporter importerForProvider:[[tvMetadataProvider selectedItem] title]];
     }
 
     [self.currentSearcher loadFullMetadata:self.selectedResult language:[[movieLanguage selectedItem] title] completionHandler:^(MP42Metadata *metadata) {
@@ -523,7 +523,7 @@
             [tvSeriesName reloadData];
             [self.currentSearcher cancel];
 
-            self.currentSearcher = [MetadataImporter defaultTVProvider];
+            self.currentSearcher = [SBMetadataImporter defaultTVProvider];
 			[self.currentSearcher searchTVSeries:[tvSeriesName stringValue] language:[[tvLanguage selectedItem] title] completionHandler:^(NSArray *results) {
                 self.tvSeriesNameSearchArray = [[results mutableCopy] autorelease];
                 [self.tvSeriesNameSearchArray sortUsingSelector:@selector(compare:)];

@@ -90,15 +90,15 @@
 		A9F284A1133C9F6E00F10951 /* close-over.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9F2849E133C9F6E00F10951 /* close-over.pdf */; };
 		A9F284A2133C9F6E00F10951 /* close-pressed.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9F2849F133C9F6E00F10951 /* close-pressed.pdf */; };
 		A9F7F8E01837C44B0036AE7E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9ED7B21180067A2008FD3A8 /* IOKit.framework */; };
-		CD03087417576A550093A0BE /* TheMovieDB3.m in Sources */ = {isa = PBXBuildFile; fileRef = CD03087317576A550093A0BE /* TheMovieDB3.m */; };
-		CD03087917576AE50093A0BE /* MetadataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = CD03087817576AE50093A0BE /* MetadataImporter.m */; };
+		CD03087417576A550093A0BE /* SBTheMovieDB3.m in Sources */ = {isa = PBXBuildFile; fileRef = CD03087317576A550093A0BE /* SBTheMovieDB3.m */; };
+		CD03087917576AE50093A0BE /* SBMetadataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = CD03087817576AE50093A0BE /* SBMetadataImporter.m */; };
 		CD3F2A881761A143000D4C73 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3F2A871761A143000D4C73 /* XMLReader.m */; };
 		CD4E6E5D12F744210095C84F /* ArtworkSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD4E6E5B12F744210095C84F /* ArtworkSelector.xib */; };
 		CD56963212FAAD680029FADB /* SBArtworkSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = CD56963112FAAD680029FADB /* SBArtworkSelector.m */; };
 		CD71FEA312F1B5AF00F0A98D /* SBMetadataSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */; };
 		CD71FEA612F1B62600F0A98D /* MetadataSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */; };
-		CD71FF1D12F1C4A900F0A98D /* TheTVDB.m in Sources */ = {isa = PBXBuildFile; fileRef = CD71FF1C12F1C4A900F0A98D /* TheTVDB.m */; };
-		CDC06FCE1747494D003C1D0A /* iTunesStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC06FCD1747494D003C1D0A /* iTunesStore.m */; };
+		CD71FF1D12F1C4A900F0A98D /* SBTheTVDB.m in Sources */ = {isa = PBXBuildFile; fileRef = CD71FF1C12F1C4A900F0A98D /* SBTheTVDB.m */; };
+		CDC06FCE1747494D003C1D0A /* SBiTunesStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC06FCD1747494D003C1D0A /* SBiTunesStore.m */; };
 		CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */ = {isa = PBXBuildFile; fileRef = CDE8E451174CBBD4009410B5 /* iTunesStores.json */; };
 /* End PBXBuildFile section */
 
@@ -296,10 +296,10 @@
 		A9F2849D133C9F6E00F10951 /* close.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = close.pdf; path = images/close.pdf; sourceTree = "<group>"; };
 		A9F2849E133C9F6E00F10951 /* close-over.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "close-over.pdf"; path = "images/close-over.pdf"; sourceTree = "<group>"; };
 		A9F2849F133C9F6E00F10951 /* close-pressed.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "close-pressed.pdf"; path = "images/close-pressed.pdf"; sourceTree = "<group>"; };
-		CD03087217576A550093A0BE /* TheMovieDB3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TheMovieDB3.h; path = Classes/MetadataImporters/TheMovieDB3.h; sourceTree = "<group>"; };
-		CD03087317576A550093A0BE /* TheMovieDB3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TheMovieDB3.m; path = Classes/MetadataImporters/TheMovieDB3.m; sourceTree = "<group>"; };
-		CD03087717576AE50093A0BE /* MetadataImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MetadataImporter.h; path = Classes/MetadataImporters/MetadataImporter.h; sourceTree = "<group>"; };
-		CD03087817576AE50093A0BE /* MetadataImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MetadataImporter.m; path = Classes/MetadataImporters/MetadataImporter.m; sourceTree = "<group>"; };
+		CD03087217576A550093A0BE /* SBTheMovieDB3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBTheMovieDB3.h; path = Classes/MetadataImporters/SBTheMovieDB3.h; sourceTree = "<group>"; };
+		CD03087317576A550093A0BE /* SBTheMovieDB3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBTheMovieDB3.m; path = Classes/MetadataImporters/SBTheMovieDB3.m; sourceTree = "<group>"; };
+		CD03087717576AE50093A0BE /* SBMetadataImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataImporter.h; path = Classes/MetadataImporters/SBMetadataImporter.h; sourceTree = "<group>"; };
+		CD03087817576AE50093A0BE /* SBMetadataImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataImporter.m; path = Classes/MetadataImporters/SBMetadataImporter.m; sourceTree = "<group>"; };
 		CD3F2A861761A143000D4C73 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLReader.h; path = Others/XMLReader.h; sourceTree = "<group>"; };
 		CD3F2A871761A143000D4C73 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XMLReader.m; path = Others/XMLReader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CD4A86AA1234AFA10054970A /* Simple.pm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = Simple.pm; sourceTree = "<group>"; };
@@ -313,10 +313,10 @@
 		CD71FEA112F1B5AF00F0A98D /* SBMetadataSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataSearchController.h; path = Classes/SBMetadataSearchController.h; sourceTree = "<group>"; };
 		CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataSearchController.m; path = Classes/SBMetadataSearchController.m; sourceTree = "<group>"; };
 		CD71FEA512F1B62600F0A98D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MetadataSearch.xib; sourceTree = "<group>"; };
-		CD71FF1B12F1C4A900F0A98D /* TheTVDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TheTVDB.h; path = Classes/MetadataImporters/TheTVDB.h; sourceTree = "<group>"; };
-		CD71FF1C12F1C4A900F0A98D /* TheTVDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TheTVDB.m; path = Classes/MetadataImporters/TheTVDB.m; sourceTree = "<group>"; };
-		CDC06FCC1747494D003C1D0A /* iTunesStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iTunesStore.h; path = Classes/MetadataImporters/iTunesStore.h; sourceTree = "<group>"; };
-		CDC06FCD1747494D003C1D0A /* iTunesStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iTunesStore.m; path = Classes/MetadataImporters/iTunesStore.m; sourceTree = "<group>"; };
+		CD71FF1B12F1C4A900F0A98D /* SBTheTVDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBTheTVDB.h; path = Classes/MetadataImporters/SBTheTVDB.h; sourceTree = "<group>"; };
+		CD71FF1C12F1C4A900F0A98D /* SBTheTVDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBTheTVDB.m; path = Classes/MetadataImporters/SBTheTVDB.m; sourceTree = "<group>"; };
+		CDC06FCC1747494D003C1D0A /* SBiTunesStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBiTunesStore.h; path = Classes/MetadataImporters/SBiTunesStore.h; sourceTree = "<group>"; };
+		CDC06FCD1747494D003C1D0A /* SBiTunesStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBiTunesStore.m; path = Classes/MetadataImporters/SBiTunesStore.m; sourceTree = "<group>"; };
 		CDE8E451174CBBD4009410B5 /* iTunesStores.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iTunesStores.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -665,14 +665,14 @@
 			children = (
 				A9C703101C05E08B00C89151 /* SBMetadataHelper.h */,
 				A9C703111C05E08B00C89151 /* SBMetadataHelper.m */,
-				CD03087717576AE50093A0BE /* MetadataImporter.h */,
-				CD03087817576AE50093A0BE /* MetadataImporter.m */,
-				CDC06FCC1747494D003C1D0A /* iTunesStore.h */,
-				CDC06FCD1747494D003C1D0A /* iTunesStore.m */,
-				CD03087217576A550093A0BE /* TheMovieDB3.h */,
-				CD03087317576A550093A0BE /* TheMovieDB3.m */,
-				CD71FF1B12F1C4A900F0A98D /* TheTVDB.h */,
-				CD71FF1C12F1C4A900F0A98D /* TheTVDB.m */,
+				CD03087717576AE50093A0BE /* SBMetadataImporter.h */,
+				CD03087817576AE50093A0BE /* SBMetadataImporter.m */,
+				CDC06FCC1747494D003C1D0A /* SBiTunesStore.h */,
+				CDC06FCD1747494D003C1D0A /* SBiTunesStore.m */,
+				CD03087217576A550093A0BE /* SBTheMovieDB3.h */,
+				CD03087317576A550093A0BE /* SBTheMovieDB3.m */,
+				CD71FF1B12F1C4A900F0A98D /* SBTheTVDB.h */,
+				CD71FF1C12F1C4A900F0A98D /* SBTheTVDB.m */,
 				A901C51C1C04F03F00430DC3 /* SBChapterImporter.h */,
 				A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */,
 				A9D4B8681C05CBEB007845C4 /* SBChapterResult.h */,
@@ -890,7 +890,7 @@
 				A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */,
 				A9C703121C05E08B00C89151 /* SBMetadataHelper.m in Sources */,
 				CD71FEA312F1B5AF00F0A98D /* SBMetadataSearchController.m in Sources */,
-				CD71FF1D12F1C4A900F0A98D /* TheTVDB.m in Sources */,
+				CD71FF1D12F1C4A900F0A98D /* SBTheTVDB.m in Sources */,
 				A9C5FA6E19FA22590051F3FF /* SBLogWindowController.m in Sources */,
 				A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */,
 				A9AB485717F0AEAC000AA72E /* SBSoundViewController.m in Sources */,
@@ -905,12 +905,12 @@
 				A95688AB1B91B11B004456A6 /* NSMutableDictionary+Subscript.m in Sources */,
 				A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */,
 				A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */,
-				CDC06FCE1747494D003C1D0A /* iTunesStore.m in Sources */,
+				CDC06FCE1747494D003C1D0A /* SBiTunesStore.m in Sources */,
 				A917286119FD288B00348DF8 /* SBLogger.m in Sources */,
 				A9D4B8641C05BC61007845C4 /* SBChapterSearchController.m in Sources */,
-				CD03087417576A550093A0BE /* TheMovieDB3.m in Sources */,
+				CD03087417576A550093A0BE /* SBTheMovieDB3.m in Sources */,
 				A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */,
-				CD03087917576AE50093A0BE /* MetadataImporter.m in Sources */,
+				CD03087917576AE50093A0BE /* SBMetadataImporter.m in Sources */,
 				CD3F2A881761A143000D4C73 /* XMLReader.m in Sources */,
 				A9AB485517F0AEAC000AA72E /* SBEmptyViewController.m in Sources */,
 				A95688A21B91B0F3004456A6 /* NSArray+Subscripting.m in Sources */,

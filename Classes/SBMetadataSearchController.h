@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SBTableView;
 
 @class MP42Metadata;
-@class MetadataImporter;
+@class SBMetadataImporter;
 
 @protocol SBMetadataSearchControllerDelegate
 - (void)metadataImportDone:(MP42Metadata *)metadataToBeImported;
@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 	IBOutlet NSPopUpButton       *tvMetadataProvider;
     
     IBOutlet NSButton            *searchButton;
-    MetadataImporter             *_currentSearcher;
+    SBMetadataImporter             *_currentSearcher;
 
     NSArray                      *_resultsArray;
     IBOutlet NSTableView         *resultsTable;

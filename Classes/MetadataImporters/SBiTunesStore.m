@@ -9,7 +9,7 @@
 #import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Ratings.h>
 
-#import "iTunesStore.h"
+#import "SBiTunesStore.h"
 #import "SBMetadataSearchController.h"
 
 @implementation iTunesStore

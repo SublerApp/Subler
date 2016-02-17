@@ -9,21 +9,21 @@
 #import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Languages.h>
 
-#import "MetadataImporter.h"
+#import "SBMetadataImporter.h"
 
 #import "SBMetadataSearchController.h"
 
-#import "iTunesStore.h"
-#import "TheMovieDB3.h"
-#import "TheTVDB.h"
+#import "SBiTunesStore.h"
+#import "SBTheMovieDB3.h"
+#import "SBTheTVDB.h"
 
-@interface MetadataImporter ()
+@interface SBMetadataImporter ()
 
 @property (atomic, readwrite) BOOL isCancelled;
 
 @end
 
-@implementation MetadataImporter
+@implementation SBMetadataImporter
 
 @synthesize isCancelled = _isCancelled;
 
@@ -37,7 +37,7 @@
 }
 
 + (NSArray<NSString *> *)languagesForProvider:(NSString *)aProvider {
-	MetadataImporter *m = [MetadataImporter importerForProvider:aProvider];
+	SBMetadataImporter *m = [SBMetadataImporter importerForProvider:aProvider];
 	NSArray *a = [m languages];
 	return a;
 }
@@ -54,11 +54,11 @@
 }
 
 + (instancetype)defaultMovieProvider {
-	return [MetadataImporter importerForProvider:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|Movie"]];
+	return [SBMetadataImporter importerForProvider:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|Movie"]];
 }
 
 + (instancetype)defaultTVProvider {
-	return [MetadataImporter importerForProvider:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV"]];
+	return [SBMetadataImporter importerForProvider:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV"]];
 }
 
 + (NSString *)defaultMovieLanguage {

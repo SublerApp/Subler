@@ -10,9 +10,9 @@
 #import <MP42Foundation/MP42Ratings.h>
 #import <MP42Foundation/MP42Languages.h>
 
-#import "TheTVDB.h"
+#import "SBTheTVDB.h"
 
-#import "iTunesStore.h"
+#import "SBiTunesStore.h"
 #import "XMLReader.h"
 
 #define API_KEY @"3498815BE9484A62"

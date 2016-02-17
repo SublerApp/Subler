@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "MetadataImporter.h"
+#import "SBMetadataImporter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface iTunesStore : MetadataImporter
+@interface iTunesStore : SBMetadataImporter
 
 #pragma mark iTunes stores
 + (nullable NSDictionary *) getStoreFor:(NSString *)aLanguageString;

@@ -6,8 +6,8 @@
 //
 //
 
-#import "MetadataImporter.h"
+#import "SBMetadataImporter.h"
 
-@interface TheTVDB : MetadataImporter
+@interface TheTVDB : SBMetadataImporter
 
 @end

@@ -9,7 +9,7 @@
 #import "SBQueueAction.h"
 
 #import "SBQueueItem.h"
-#import "MetadataImporter.h"
+#import "SBMetadataImporter.h"
 
 #import <MP42Foundation/MP42File.h>
 #import <MP42Foundation/MP42FileImporter.h>
@@ -87,10 +87,10 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _movieLanguage = [MetadataImporter defaultMovieLanguage];
-        _tvShowLanguage = [MetadataImporter defaultTVLanguage];
-        _movieProvider = [[MetadataImporter movieProviders] firstObject];
-        _tvShowProvider = [[MetadataImporter tvProviders] firstObject];
+        _movieLanguage = [SBMetadataImporter defaultMovieLanguage];
+        _tvShowLanguage = [SBMetadataImporter defaultTVLanguage];
+        _movieProvider = [[SBMetadataImporter movieProviders] firstObject];
+        _tvShowProvider = [[SBMetadataImporter tvProviders] firstObject];
     }
     return self;
 }
@@ -144,14 +144,14 @@
     NSString *type = parsed[@"type"];
 
     if ([@"movie" isEqualToString:type]) {
-		currentSearcher = [MetadataImporter importerForProvider:_movieProvider];
+		currentSearcher = [SBMetadataImporter importerForProvider:_movieProvider];
 		NSArray<MP42Metadata *> *results = [currentSearcher searchMovie:parsed[@"title"] language:_movieLanguage];
         if (results.count) {
             metadata = [currentSearcher loadMovieMetadata:results.firstObject language:_movieLanguage];
         }
     }
     else if ([@"tv" isEqualToString:type]) {
-		currentSearcher = [MetadataImporter importerForProvider:_tvShowProvider];
+		currentSearcher = [SBMetadataImporter importerForProvider:_tvShowProvider];
 		NSArray *results = [currentSearcher searchTVSeries:parsed[@"seriesName"]
                                                   language:_tvShowLanguage
                                                  seasonNum:parsed[@"seasonNum"]

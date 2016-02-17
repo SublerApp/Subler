@@ -8,8 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "MetadataImporter.h"
+#import "SBMetadataImporter.h"
 
-@interface TheMovieDB3 : MetadataImporter
+@interface TheMovieDB3 : SBMetadataImporter
 
 @end
