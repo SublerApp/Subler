@@ -7,6 +7,8 @@
 //
 
 #import "SBSoundViewController.h"
+#import "SBMediaTagsController.h"
+
 #import <MP42Foundation/MP42File.h>
 
 @implementation SBSoundViewController
@@ -14,6 +16,13 @@
 - (void)loadView
 {
     [super loadView];
+
+    _mediaTagsController = [[SBMediaTagsController alloc] initWithTrack:track];
+
+    [_mediaTagsController.view setFrame: [mediaTagsView bounds]];
+    [_mediaTagsController.view setAutoresizingMask:( NSViewWidthSizable | NSViewHeightSizable )];
+
+    [mediaTagsView addSubview:_mediaTagsController.view];
 
     [alternateGroup selectItemAtIndex:(NSInteger)track.alternate_group];
 
@@ -148,6 +157,8 @@
 
     [_fallbacks release];
     [_follows release];
+
+    [_mediaTagsController release];
     
     [super dealloc];
 }

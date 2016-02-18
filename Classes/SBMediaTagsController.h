@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Custom media tags are preserved.
  */
-@interface SBMediaTagsController : NSWindowController {
+@interface SBMediaTagsController : NSViewController {
     @private
     MP42Track *_track;
     NSArray<SBMediaTag *> *_tags;

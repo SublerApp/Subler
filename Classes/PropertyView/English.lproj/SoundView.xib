@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15A262e" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10109" systemVersion="15E39d" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8187.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10109"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
@@ -11,6 +11,7 @@
                 <outlet property="alternateGroup" destination="103" id="113"/>
                 <outlet property="fallback" destination="128" id="139"/>
                 <outlet property="follows" destination="142" id="148"/>
+                <outlet property="mediaTagsView" destination="LIS-S6-sws" id="aeF-s7-YxZ"/>
                 <outlet property="view" destination="1" id="4"/>
                 <outlet property="volume" destination="98" id="124"/>
             </connections>
@@ -24,7 +25,6 @@
                 <tabView controlSize="small" id="5">
                     <rect key="frame" x="-11" y="-12" width="502" height="279"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <animations/>
                     <tabViewItems>
                         <tabViewItem label="Sound Settings" identifier="1" id="6">
                             <view key="view" id="9">
@@ -41,7 +41,6 @@
                                                 <textField verticalHuggingPriority="750" id="10">
                                                     <rect key="frame" x="58" y="153" width="48" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <animations/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Volume:" id="11">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -49,9 +48,8 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <slider verticalHuggingPriority="750" id="98">
-                                                    <rect key="frame" x="111" y="146" width="210" height="17"/>
+                                                    <rect key="frame" x="111" y="143" width="210" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <animations/>
                                                     <sliderCell key="cell" controlSize="small" state="on" alignment="left" maxValue="200" doubleValue="100" tickMarkPosition="below" numberOfTickMarks="1" sliderType="linear" id="99">
                                                         <font key="font" metaFont="smallSystem"/>
                                                     </sliderCell>
@@ -62,7 +60,6 @@
                                                 <textField verticalHuggingPriority="750" id="102">
                                                     <rect key="frame" x="13" y="103" width="93" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <animations/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Alternate Group:" id="109">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -72,7 +69,6 @@
                                                 <textField verticalHuggingPriority="750" id="126">
                                                     <rect key="frame" x="55" y="78" width="51" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <animations/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Fallback:" id="127">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -82,7 +78,6 @@
                                                 <popUpButton verticalHuggingPriority="750" id="103">
                                                     <rect key="frame" x="108" y="98" width="87" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <animations/>
                                                     <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="108" id="104">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="smallSystem"/>
@@ -105,7 +100,6 @@
                                                 <popUpButton verticalHuggingPriority="750" id="128">
                                                     <rect key="frame" x="108" y="73" width="216" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <animations/>
                                                     <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="135" id="129">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="smallSystem"/>
@@ -122,7 +116,6 @@
                                                 <textField verticalHuggingPriority="750" id="141">
                                                     <rect key="frame" x="52" y="54" width="54" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <animations/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Subtitles:" id="146">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -132,7 +125,6 @@
                                                 <popUpButton verticalHuggingPriority="750" id="142">
                                                     <rect key="frame" x="108" y="49" width="216" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <animations/>
                                                     <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="145" id="143">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="smallSystem"/>
@@ -149,7 +141,6 @@
                                                 <textField verticalHuggingPriority="750" id="116">
                                                     <rect key="frame" x="292" y="134" width="32" height="11"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <animations/>
                                                     <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+6 db" id="117">
                                                         <font key="font" metaFont="miniSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -159,7 +150,6 @@
                                                 <textField verticalHuggingPriority="750" id="118">
                                                     <rect key="frame" x="197" y="134" width="34" height="11"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <animations/>
                                                     <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+ 0 db" id="119">
                                                         <font key="font" metaFont="miniSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -169,7 +159,6 @@
                                                 <textField verticalHuggingPriority="750" id="120">
                                                     <rect key="frame" x="108" y="134" width="32" height="11"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <animations/>
                                                     <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-∞ db" id="121">
                                                         <font key="font" metaFont="miniSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -177,20 +166,24 @@
                                                     </textFieldCell>
                                                 </textField>
                                             </subviews>
-                                            <animations/>
                                         </view>
-                                        <animations/>
                                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <font key="titleFont" metaFont="message" size="11"/>
                                     </box>
                                 </subviews>
-                                <animations/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Media Characteristics" identifier="" id="22R-da-Q3B">
+                            <view key="view" id="LIS-S6-sws">
+                                <rect key="frame" x="10" y="25" width="482" height="241"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
                     </tabViewItems>
                 </tabView>
             </subviews>
-            <animations/>
+            <point key="canvasLocation" x="565" y="239"/>
         </customView>
     </objects>
 </document>

@@ -7,6 +7,7 @@
 //
 
 #import "SBVideoViewController.h"
+#import "SBMediaTagsController.h"
 #import <MP42Foundation/MP42File.h>
 
 @implementation SBVideoViewController
@@ -59,6 +60,13 @@ static NSString *getLevelName(uint8_t level) {
 - (void)loadView
 {
     [super loadView];
+
+    _mediaTagsController = [[SBMediaTagsController alloc] initWithTrack:track];
+
+    [_mediaTagsController.view setFrame: [mediaTagsView bounds]];
+    [_mediaTagsController.view setAutoresizingMask:( NSViewWidthSizable | NSViewHeightSizable )];
+
+    [mediaTagsView addSubview:_mediaTagsController.view];
 
     [sampleWidth setStringValue: [NSString stringWithFormat:@"%lld", track.width]];
     [sampleHeight setStringValue: [NSString stringWithFormat:@"%lld", track.height]];

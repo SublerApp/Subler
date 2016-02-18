@@ -18,6 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
     MP42VideoTrack *track;
     MP42File       *mp4file;
 
+    NSViewController *_mediaTagsController;
+
+    IBOutlet NSView *mediaTagsView;
+
     IBOutlet NSTextField *sampleWidth;
     IBOutlet NSTextField *sampleHeight;
 

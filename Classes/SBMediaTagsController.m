@@ -124,9 +124,15 @@ NS_ASSUME_NONNULL_END
 }
 
 @synthesize state = _state;
-@synthesize value= _value;
+@synthesize value = _value;
 @synthesize localizedTitle = _localizedTitle;
 @synthesize localizedDescription = _localizedDescription;
+
+- (NSString *)description {
+    NSString *description = [super description];
+    description = [description stringByAppendingFormat:@" %@, state = %d", _value, _state];
+    return description;
+}
 
 - (void)dealloc {
     [_value release];
@@ -184,7 +190,7 @@ NS_ASSUME_NONNULL_END
 @implementation SBMediaTagsController
 
 - (instancetype)init {
-    self = [super initWithWindowNibName:@"SBMediaTagsController"];
+    self = [super initWithNibName:@"SBMediaTagsController" bundle:nil];
     if (self) {
     }
     return self;
@@ -239,8 +245,9 @@ NS_ASSUME_NONNULL_END
     [super dealloc];
 }
 
-- (void)windowDidLoad {
-    [super windowDidLoad];
+- (void)loadView
+{
+    [super loadView];
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
@@ -257,9 +264,11 @@ NS_ASSUME_NONNULL_END
 - (IBAction)setTagState:(NSButton *)sender {
     NSInteger row = [_tableView rowForView:sender];
     self.tags[row].state = sender.state;
+
+    [self updateTrack];
 }
 
-- (IBAction)done:(id)sender {
+- (void)updateTrack {
     NSMutableSet *set = [NSMutableSet set];
 
     for (SBMediaTag *tag in self.tags) {
@@ -270,11 +279,7 @@ NS_ASSUME_NONNULL_END
 
     self.track.mediaCharacteristicTags = set;
 
-    [NSApp endSheet:self.window returnCode:NSOKButton];
-}
-
-- (IBAction)cancel:(id)sender{
-    [NSApp endSheet:self.window returnCode:NSCancelButton];
+    [self.view.window.windowController.document updateChangeCount:NSChangeDone];
 }
 
 @end

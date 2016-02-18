@@ -21,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray<MP42AudioTrack *> *_fallbacks;
     NSMutableArray<__kindof MP42Track *> *_follows;
 
+    NSViewController *_mediaTagsController;
+
+    IBOutlet NSView *mediaTagsView;
     IBOutlet NSSlider *volume;
     IBOutlet NSPopUpButton *alternateGroup;
     IBOutlet NSPopUpButton *fallback;

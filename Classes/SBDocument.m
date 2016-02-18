@@ -23,8 +23,6 @@
 
 #import "SBChapterSearchController.h"
 
-#import "SBMediaTagsController.h"
-
 #import <MP42Foundation/MP42File.h>
 #import <MP42Foundation/MP42FileImporter.h>
 #import <MP42Foundation/MP42Languages.h>
@@ -392,9 +390,6 @@
         return YES;
 
     if (action == @selector(showTrackOffsetSheet:) && [fileTracksTable selectedRow] != -1)
-        return YES;
-
-    if (action == @selector(showMediaCharacteristicTags:) && [fileTracksTable selectedRow] != -1)
         return YES;
 
     if (action == @selector(addChaptersEvery:))
@@ -788,17 +783,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     [NSApp endSheet: offsetWindow];
     [offsetWindow orderOut:self];
-}
-
-- (IBAction)showMediaCharacteristicTags:(id)sender
-{
-    _sheet = [[SBMediaTagsController alloc] initWithTrack:self.mp4.tracks[fileTracksTable.selectedRow]];
-
-    [NSApp beginSheet:_sheet.window
-       modalForWindow:documentWindow
-        modalDelegate:self
-       didEndSelector:@selector(mediaSheetDidEnd:returnCode:contextInfo:)
-          contextInfo:nil];
 }
 
 - (void)mediaSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {

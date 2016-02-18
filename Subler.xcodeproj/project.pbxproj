@@ -583,8 +583,6 @@
 				A9B46ABE12B79D1C0040517A /* SBDocument.m */,
 				A9B46A7E12B79B240040517A /* SBFileImport.h */,
 				A9B46A7F12B79B240040517A /* SBFileImport.m */,
-				A96946501BA3F83D0048C004 /* SBMediaTagsController.h */,
-				A96946511BA3F83D0048C004 /* SBMediaTagsController.m */,
 				CD71FEA112F1B5AF00F0A98D /* SBMetadataSearchController.h */,
 				CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */,
 				CD56963012FAAD680029FADB /* SBArtworkSelector.h */,
@@ -599,6 +597,8 @@
 		A9FD5D150F3C692400817716 /* PropertyView */ = {
 			isa = PBXGroup;
 			children = (
+				A96946501BA3F83D0048C004 /* SBMediaTagsController.h */,
+				A96946511BA3F83D0048C004 /* SBMediaTagsController.m */,
 				A9AB484A17F0AEAC000AA72E /* SBChapterViewController.h */,
 				A9AB484B17F0AEAC000AA72E /* SBChapterViewController.m */,
 				A9AB484C17F0AEAC000AA72E /* SBEmptyViewController.h */,
