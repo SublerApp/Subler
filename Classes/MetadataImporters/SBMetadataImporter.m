@@ -44,9 +44,11 @@
 + (nullable instancetype)importerForProvider:(NSString *)aProvider {
 	if ([aProvider isEqualToString:@"iTunes Store"]) {
 		return [[[SBiTunesStore alloc] init] autorelease];
-	} else if ([aProvider isEqualToString:@"TheMovieDB"]) {
+	}
+    else if ([aProvider isEqualToString:@"TheMovieDB"]) {
 		return [[[SBTheMovieDB3 alloc] init] autorelease];
-	} else if ([aProvider isEqualToString:@"TheTVDB"]) {
+	}
+    else if ([aProvider isEqualToString:@"TheTVDB"]) {
 		return [[[SBTheTVDB alloc] init] autorelease];
 	}
 	return nil;
