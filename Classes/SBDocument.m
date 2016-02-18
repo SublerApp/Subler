@@ -176,7 +176,7 @@
     dispatch_sync(dispatch_get_main_queue(), ^{
         [optBar setIndeterminate:YES];
         [optBar startAnimation:self];
-        [saveOperationName setStringValue:@"Saving…"];
+        [saveOperationName setStringValue:NSLocalizedString(@"Saving…", @"Document Saving sheet.")];
         [NSApp beginSheet:savingWindow modalForWindow:documentWindow
             modalDelegate:nil didEndSelector:NULL contextInfo:nil];
     });
@@ -219,7 +219,7 @@
 
     if (result && _optimize) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [saveOperationName setStringValue:@"Optimizing…"];
+            [saveOperationName setStringValue:NSLocalizedString(@"Optimizing…", @"Document Optimize sheet.")];
         });
         result = [self.mp4 optimize];
         _optimize = NO;

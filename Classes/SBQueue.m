@@ -254,7 +254,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 - (void)handleSBStatusWorking:(CGFloat)progress index:(NSInteger)index {
     NSString *description = self.currentItem.localizedWorkingDescription;
     if (!description) {
-        description = NSLocalizedString(@"Working", @"");
+        description = NSLocalizedString(@"Working", @"Queue Working.");
     }
     NSString *info = [NSString stringWithFormat:@"%@, item %ld of %lu.", description, (long)self.currentIndex + 1, (unsigned long)self.items.count];
 

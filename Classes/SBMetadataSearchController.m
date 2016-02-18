@@ -301,10 +301,10 @@
 
     [addButton setEnabled:NO];
     if (self.selectedResult.mediaKind == 9) {
-        [self startProgressReportWithString:@"Downloading additional movie metadata…"];
+        [self startProgressReportWithString:NSLocalizedString(@"Downloading additional movie metadata…", nil)];
 		self.currentSearcher = [SBMetadataImporter importerForProvider:[[movieMetadataProvider selectedItem] title]];
     } else if (self.selectedResult.mediaKind == 10) {
-        [self startProgressReportWithString:@"Downloading additional TV metadata…"];
+        [self startProgressReportWithString:NSLocalizedString(@"Downloading additional TV metadata…", nil)];
 		self.currentSearcher = [SBMetadataImporter importerForProvider:[[tvMetadataProvider selectedItem] title]];
     }
 
@@ -348,7 +348,7 @@
     if (indexes.count) {
         [progress startAnimation:self];
         [progress setHidden:NO];
-        [progressText setStringValue:@"Downloading artwork…"];
+        [progressText setStringValue:NSLocalizedString(@"Downloading artwork…", nil)];
         [progressText setHidden:NO];
         [tvSeriesName setEnabled:NO];
         [tvSeasonNum setEnabled:NO];

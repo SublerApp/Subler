@@ -182,7 +182,7 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
     panel.canChooseDirectories = YES;
     panel.canCreateDirectories = YES;
 
-    [panel setPrompt:@"Select"];
+    [panel setPrompt:NSLocalizedString(@"Select", @"Select queue destination.")];
     [panel beginWithCompletionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
             NSMenuItem *folderItem = [self prepareDestPopupItem:[panel URL]];

@@ -212,7 +212,7 @@
                     }
                 }
                 else {
-                    NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:@"Passthru" action:NULL keyEquivalent:@""] autorelease];
+                    NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""] autorelease];
                     [item setTag:0];
                     [item setEnabled:YES];
                     [[actionCell menu] addItem:item];
@@ -227,7 +227,7 @@
             }
             else if ([track isMemberOfClass:[MP42SubtitleTrack class]]) {
                 NSInteger tag = 0;
-                NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:@"Passthru" action:NULL keyEquivalent:@""] autorelease];
+                NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru",  @"File Import action menu item.") action:NULL keyEquivalent:@""] autorelease];
                 [item setTag:tag++];
                 if (!trackNeedConversion(track.format)) {
                     [item setEnabled:YES];
@@ -246,14 +246,14 @@
                 }
             }
             else if ([track isMemberOfClass:[MP42ClosedCaptionTrack class]]) {
-                NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:@"Passthru" action:NULL keyEquivalent:@""] autorelease];
+                NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""] autorelease];
                 [item setTag:0];
                 [item setEnabled:YES];
                 [[actionCell menu] addItem:item];
             }
             else if ([track isMemberOfClass:[MP42AudioTrack class]]) {
                 NSInteger tag = 0;
-                NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:@"Passthru" action:NULL keyEquivalent:@""] autorelease];
+                NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""] autorelease];
                 [item setTag:tag++];
                 if (!trackNeedConversion(track.format))
                     [item setEnabled:YES];
@@ -273,7 +273,7 @@
                     [track.format isEqualTo:MP42AudioFormatEAC3] ||
                     [track.format isEqualTo:MP42AudioFormatDTS])
                 {
-                    item = [[[NSMenuItem alloc] initWithTitle:@"AAC + Passthru" action:NULL keyEquivalent:@""] autorelease];
+                    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"AAC + Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""] autorelease];
                     [item setTag:tag++];
                     [item setEnabled:YES];
                     [[actionCell menu] addItem:item];
@@ -281,7 +281,7 @@
 
             }
             else if ([track isMemberOfClass:[MP42ChapterTrack class]]) {
-                NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:@"Passthru" action:NULL keyEquivalent:@""] autorelease];
+                NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""] autorelease];
                 [item setTag:0];
                 [item setEnabled:YES];
                 [[actionCell menu] addItem:item];

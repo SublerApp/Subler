@@ -328,6 +328,8 @@ static NSString *getLevelName(uint8_t level) {
 
     [_forced release];
 
+    [_mediaTagsController release];
+
     [super dealloc];
 }
 

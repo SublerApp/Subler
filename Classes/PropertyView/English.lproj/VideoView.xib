@@ -416,9 +416,13 @@
                             </view>
                         </tabViewItem>
                     </tabViewItems>
+                    <connections>
+                        <binding destination="D8b-lE-U3e" name="selectedIndex" keyPath="values.SBVideoViewSelectedTab" id="GqG-rq-acB"/>
+                    </connections>
                 </tabView>
             </subviews>
             <point key="canvasLocation" x="167" y="-220.5"/>
         </customView>
+        <userDefaultsController representsSharedInstance="YES" id="D8b-lE-U3e"/>
     </objects>
 </document>

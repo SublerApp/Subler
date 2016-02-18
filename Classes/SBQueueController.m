@@ -114,7 +114,7 @@ static void *SBQueueContex = &SBQueueContex;
         [_progressIndicator setDoubleValue:0];
         [_progressIndicator setIndeterminate:YES];
         [_startItem setImage:[NSImage imageNamed:@"playBackTemplate"]];
-        [_countLabel setStringValue:@"Done"];
+        [_countLabel setStringValue:NSLocalizedString(@"Done", @"Queue -> Done")];
 
         [self updateUI];
     }];
@@ -325,7 +325,7 @@ static void *SBQueueContex = &SBQueueContex;
     [[undo prepareWithInvocationTarget:self] removeItems:items];
 
     if (![undo isUndoing]) {
-        [undo setActionName:@"Add Queue Item"];
+        [undo setActionName:NSLocalizedString(@"Add Queue Item", @"Queue -> redo add item.")];
     }
     if ([undo isUndoing] || [undo isRedoing])
         [self updateUI];
@@ -352,7 +352,7 @@ static void *SBQueueContex = &SBQueueContex;
     [[undo prepareWithInvocationTarget:self] addItems:items atIndexes:indexes];
 
     if (![undo isUndoing]) {
-        [undo setActionName:@"Delete Queue Item"];
+        [undo setActionName:NSLocalizedString(@"Delete Queue Item", @"Queue -> Undo delete item.")];
     }
     if ([undo isUndoing] || [undo isRedoing])
         [self updateUI];
@@ -485,7 +485,7 @@ static void *SBQueueContex = &SBQueueContex;
         return;
 
     [_startItem setImage:[NSImage imageNamed:@"stopTemplate"]];
-    [_countLabel setStringValue:@"Working."];
+    [_countLabel setStringValue:NSLocalizedString(@"Working.", @"Queue -> Working")];
     [_progressIndicator setHidden:NO];
     [_progressIndicator startAnimation:self];
 

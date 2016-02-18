@@ -110,16 +110,16 @@ NS_ASSUME_NONNULL_END
 }
 
 + (nullable NSString *)localizedTitleForTag:(NSString *)tag {
-    NSDictionary *localizedDescriptions = @{@"public.main-program-content": NSLocalizedString(@"Main Program Content", nil),
-                                            @"public.auxiliary-content": NSLocalizedString(@"Auxiliary Content", nil),
-                                            @"public.subtitles.forced-only": NSLocalizedString(@"Contains Only Forced Subtitles", nil),
-                                            @"public.accessibility.transcribes-spoken-dialog": NSLocalizedString(@"Transcribes Spoken Dialog For Accessibility", nil),
-                                            @"public.accessibility.describes-music-and-sound": NSLocalizedString(@"Describes Music And Sound For Accessibility", nil),
-                                            @"public.easy-to-read": NSLocalizedString(@"Easy To Read", nil),
-                                            @"public.accessibility.describes-video": NSLocalizedString(@"Describes Video For Accessibility", nil),
-                                            @"public.translation.dubbed": NSLocalizedString(@"Dubbed Translation", nil),
-                                            @"public.translation.voice-over": NSLocalizedString(@"Voice Over Translation", nil),
-                                            @"public.translation": NSLocalizedString(@"Language Translation", nil) };
+    NSDictionary *localizedDescriptions = @{@"public.main-program-content": NSLocalizedString(@"Main Program Content", @"Media characteristic."),
+                                            @"public.auxiliary-content": NSLocalizedString(@"Auxiliary Content", @"Media characteristic."),
+                                            @"public.subtitles.forced-only": NSLocalizedString(@"Contains Only Forced Subtitles", @"Media characteristic."),
+                                            @"public.accessibility.transcribes-spoken-dialog": NSLocalizedString(@"Transcribes Spoken Dialog For Accessibility", @"Media characteristic."),
+                                            @"public.accessibility.describes-music-and-sound": NSLocalizedString(@"Describes Music And Sound For Accessibility", @"Media characteristic."),
+                                            @"public.easy-to-read": NSLocalizedString(@"Easy To Read", @"Media characteristic."),
+                                            @"public.accessibility.describes-video": NSLocalizedString(@"Describes Video For Accessibility", @"Media characteristic."),
+                                            @"public.translation.dubbed": NSLocalizedString(@"Dubbed Translation", @"Media characteristic."),
+                                            @"public.translation.voice-over": NSLocalizedString(@"Voice Over Translation", @"Media characteristic."),
+                                            @"public.translation": NSLocalizedString(@"Language Translation", @"Media characteristic.") };
     return localizedDescriptions[tag];
 }
 

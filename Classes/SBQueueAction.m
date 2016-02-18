@@ -65,11 +65,11 @@
 }
 
 - (NSString *)description {
-    return NSLocalizedString(@"Load Subtitles", @"");
+    return NSLocalizedString(@"Load Subtitles", @"Action description.");
 }
 
 - (NSString *)localizedDescription {
-    return NSLocalizedString(@"Loading subtitles", @"");
+    return NSLocalizedString(@"Loading subtitles", @"Action localized description.");
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -206,11 +206,11 @@
 }
 
 - (NSString *)description {
-    return NSLocalizedString(@"Search Metadata", @"");
+    return NSLocalizedString(@"Search Metadata", @"Action description.");
 }
 
 - (NSString *)localizedDescription {
-    return NSLocalizedString(@"Searching metadata", @"");
+    return NSLocalizedString(@"Searching metadata", @"Action localized description.");
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -281,11 +281,11 @@
 }
 
 - (NSString *)description {
-    return NSLocalizedString(@"Organize Groups", @"");
+    return NSLocalizedString(@"Organize Groups", @"Organize Groups action description");
 }
 
 - (NSString *)localizedDescription {
-    return NSLocalizedString(@"Organizing groups", @"");
+    return NSLocalizedString(@"Organizing groups", @"Organize Groups action local description");
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -308,11 +308,11 @@
 }
 
 - (NSString *)description {
-    return NSLocalizedString(@"Fixing Fallbacks", @"");
+    return NSLocalizedString(@"Fixing Fallbacks", @"Action description.");
 }
 
 - (NSString *)localizedDescription {
-    return NSLocalizedString(@"Fixing Fallbacks", @"");
+    return NSLocalizedString(@"Fixing Fallbacks", @"Action localized description.");
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {

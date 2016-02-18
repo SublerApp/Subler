@@ -75,9 +75,9 @@
     NSInteger result;
     if (status == SBQueueStatusWorking) {
         result = NSRunCriticalAlertPanel(
-                                         NSLocalizedString(@"Are you sure you want to quit Subler?", nil),
-                                         NSLocalizedString(@"Your current queue will be lost. Do you want to quit anyway?", nil),
-                                         NSLocalizedString(@"Quit", nil), NSLocalizedString(@"Don't Quit", nil), nil);
+                                         NSLocalizedString(@"Are you sure you want to quit Subler?", @"Quit alert title."),
+                                         NSLocalizedString(@"Your current queue will be lost. Do you want to quit anyway?", @"Quit alert description."),
+                                         NSLocalizedString(@"Quit", @"Quit alert default action."), NSLocalizedString(@"Don't Quit", @"Quict alert cancel action."), nil);
         
         if (result == NSAlertDefaultReturn) {
             return NSTerminateNow;

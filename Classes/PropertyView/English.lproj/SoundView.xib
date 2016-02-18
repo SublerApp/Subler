@@ -181,9 +181,13 @@
                             </view>
                         </tabViewItem>
                     </tabViewItems>
+                    <connections>
+                        <binding destination="4fy-2Z-RG4" name="selectedIndex" keyPath="values.SBAudioViewSelectedTab" id="1E1-hV-2e3"/>
+                    </connections>
                 </tabView>
             </subviews>
             <point key="canvasLocation" x="238" y="237"/>
         </customView>
+        <userDefaultsController representsSharedInstance="YES" id="4fy-2Z-RG4"/>
     </objects>
 </document>

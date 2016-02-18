@@ -132,7 +132,7 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
     [[undo prepareWithInvocationTarget:self] remove:data];
 
     if (![undo isUndoing]) {
-        [undo setActionName:@"Insert"];
+        [undo setActionName:NSLocalizedString(@"Insert", @"Undo tag insert.")];
     }
 
     [self updateTagsArray];
@@ -151,7 +151,7 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
     [[undo prepareWithInvocationTarget:self] add:data];
 
     if (![undo isUndoing]) {
-        [undo setActionName:@"Delete"];
+        [undo setActionName:NSLocalizedString(@"Delete", @"Undo tag delete")];
     }
 
     [self updateTagsArray];
@@ -194,7 +194,7 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
         [[undo prepareWithInvocationTarget:self] updateMetadata:oldValue
                                                       forKey:key];
         if (![undo isUndoing]) {
-            [undo setActionName:@"Editing"];
+            [undo setActionName:NSLocalizedString(@"Editing", @"Undo tag editing.")];
         }
     }
     [oldValue release];
@@ -286,23 +286,23 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
         [setListMenu removeItemAtIndex: 1];
     }
     
-    NSMenuItem *newItem = [[[NSMenuItem alloc] initWithTitle:@"Save Set" action:@selector(showSaveSet:) keyEquivalent:@""] autorelease];
+    NSMenuItem *newItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Save Set", @"Set menu") action:@selector(showSaveSet:) keyEquivalent:@""] autorelease];
     [newItem setTarget:self];
     [setListMenu addItem:newItem];
 
     [setListMenu addItem:[NSMenuItem separatorItem]];
 
-    newItem = [[[NSMenuItem alloc] initWithTitle:@"All" action:@selector(addMetadataSet:) keyEquivalent:@""] autorelease];
+    newItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"All", @"Set menu All set") action:@selector(addMetadataSet:) keyEquivalent:@""] autorelease];
     [newItem setTarget:self];
     [newItem setTag: 0];
     [setListMenu addItem:newItem];
 
-    newItem = [[[NSMenuItem alloc] initWithTitle:@"Movie" action:@selector(addMetadataSet:) keyEquivalent:@""] autorelease];
+    newItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Movie", @"Set menu Movie set") action:@selector(addMetadataSet:) keyEquivalent:@""] autorelease];
     [newItem setTarget:self];
     [newItem setTag: 1];
     [setListMenu addItem:newItem];
 
-    newItem = [[[NSMenuItem alloc] initWithTitle:@"TV Show" action:@selector(addMetadataSet:) keyEquivalent:@""] autorelease];
+    newItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"TV Show", @"Set menu TV Show Set") action:@selector(addMetadataSet:) keyEquivalent:@""] autorelease];
     [newItem setTarget:self];
     [newItem setTag: 2];
     [setListMenu addItem:newItem];
@@ -598,7 +598,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     [[undo prepareWithInvocationTarget:self] changeGapless: self];
     
     if (![undo isUndoing]) {
-        [undo setActionName:@"Check Gapless"];
+        [undo setActionName:NSLocalizedString(@"Check Gapless", @"Undo check gapless")];
     }
 }
 
@@ -621,7 +621,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     [[undo prepareWithInvocationTarget:self] changePodcast: self];
     
     if (![undo isUndoing]) {
-        [undo setActionName:@"Check Podast"];
+        [undo setActionName:NSLocalizedString(@"Check Podast", @"Undo check podcast")];
     }
 }
 
