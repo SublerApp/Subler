@@ -17,6 +17,7 @@
 {
     [super loadView];
 
+    // Media Tags controls
     _mediaTagsController = [[SBMediaTagsController alloc] initWithTrack:track];
 
     [_mediaTagsController.view setFrame: [mediaTagsView bounds]];
@@ -24,6 +25,7 @@
 
     [mediaTagsView addSubview:_mediaTagsController.view];
 
+    // Standard audio controls
     [alternateGroup selectItemAtIndex:(NSInteger)track.alternate_group];
 
     _fallbacks = [[NSMutableArray alloc] init];
@@ -101,7 +103,7 @@
     float value = [sender floatValue] / 100;
     if (track.volume != value) {
         track.volume = value;
-        [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+        [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }
 
@@ -114,12 +116,12 @@
 
         if (audioTrack != track.fallbackTrack) {
             track.fallbackTrack = audioTrack;
-            [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+            [self.view.window.windowController.document updateChangeCount:NSChangeDone];
         }
     }
     else {
         track.fallbackTrack = nil;
-        [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+        [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }
 
@@ -132,11 +134,12 @@
 
         if (subTrack != track.followsTrack) {
             track.followsTrack = subTrack;
-            [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
-        }    }
+            [self.view.window.windowController.document updateChangeCount:NSChangeDone];
+        }
+    }
     else {
         track.followsTrack = nil;
-        [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+        [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }
 
@@ -146,7 +149,7 @@
     
     if (track.alternate_group != tagName) {
         track.alternate_group = tagName;
-        [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+        [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }
 

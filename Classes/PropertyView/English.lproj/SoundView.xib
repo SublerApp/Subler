@@ -39,16 +39,16 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textField verticalHuggingPriority="750" id="10">
-                                                    <rect key="frame" x="58" y="153" width="48" height="14"/>
+                                                    <rect key="frame" x="-2" y="153" width="108" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Volume:" id="11">
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Volume:" id="11">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <slider verticalHuggingPriority="750" id="98">
-                                                    <rect key="frame" x="111" y="143" width="210" height="20"/>
+                                                    <rect key="frame" x="111" y="145" width="210" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <sliderCell key="cell" controlSize="small" state="on" alignment="left" maxValue="200" doubleValue="100" tickMarkPosition="below" numberOfTickMarks="1" sliderType="linear" id="99">
                                                         <font key="font" metaFont="smallSystem"/>
@@ -58,18 +58,18 @@
                                                     </connections>
                                                 </slider>
                                                 <textField verticalHuggingPriority="750" id="102">
-                                                    <rect key="frame" x="13" y="103" width="93" height="14"/>
+                                                    <rect key="frame" x="-2" y="103" width="108" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Alternate Group:" id="109">
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Alternate Group:" id="109">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" id="126">
-                                                    <rect key="frame" x="55" y="78" width="51" height="14"/>
+                                                    <rect key="frame" x="-2" y="78" width="108" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Fallback:" id="127">
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Fallback:" id="127">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -114,9 +114,9 @@
                                                     </connections>
                                                 </popUpButton>
                                                 <textField verticalHuggingPriority="750" id="141">
-                                                    <rect key="frame" x="52" y="54" width="54" height="14"/>
+                                                    <rect key="frame" x="-2" y="54" width="108" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Subtitles:" id="146">
+                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Subtitles:" id="146">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -139,7 +139,7 @@
                                                     </connections>
                                                 </popUpButton>
                                                 <textField verticalHuggingPriority="750" id="116">
-                                                    <rect key="frame" x="292" y="134" width="32" height="11"/>
+                                                    <rect key="frame" x="292" y="136" width="32" height="11"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+6 db" id="117">
                                                         <font key="font" metaFont="miniSystem"/>
@@ -148,7 +148,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" id="118">
-                                                    <rect key="frame" x="197" y="134" width="34" height="11"/>
+                                                    <rect key="frame" x="197" y="136" width="34" height="11"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+ 0 db" id="119">
                                                         <font key="font" metaFont="miniSystem"/>
@@ -157,7 +157,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" id="120">
-                                                    <rect key="frame" x="108" y="134" width="32" height="11"/>
+                                                    <rect key="frame" x="108" y="136" width="32" height="11"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-∞ db" id="121">
                                                         <font key="font" metaFont="miniSystem"/>
@@ -183,7 +183,7 @@
                     </tabViewItems>
                 </tabView>
             </subviews>
-            <point key="canvasLocation" x="565" y="239"/>
+            <point key="canvasLocation" x="238" y="237"/>
         </customView>
     </objects>
 </document>
