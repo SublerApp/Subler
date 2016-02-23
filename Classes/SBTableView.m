@@ -36,7 +36,12 @@
 {
     id delegate = [self delegate];
 
-    unichar key = [[event charactersIgnoringModifiers] characterAtIndex:0];
+    unichar key = 0;
+    NSString *characters = [event charactersIgnoringModifiers];
+    if (characters.length) {
+        key = [characters characterAtIndex:0];
+    }
+
     if ((key == NSEnterCharacter || key == NSCarriageReturnCharacter) &&
         _defaultEditingColumn > 0) {
         [self editColumn:_defaultEditingColumn row:[self selectedRow] withEvent:nil select:YES];
