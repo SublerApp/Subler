@@ -10,8 +10,6 @@
 
 #import "SBMetadataImporter.h"
 
-#import "SBMetadataSearchController.h"
-
 #import "SBiTunesStore.h"
 #import "SBTheMovieDB3.h"
 #import "SBTheTVDB.h"
