@@ -35,6 +35,7 @@
 #pragma mark Search input fields
 - (void) updateSearchButtonVisibility;
 - (void) searchTVSeriesNameDone:(NSArray *)seriesArray;
+- (NSString *)selectedTvShowName;
 
 #pragma mark Search for metadata
 - (IBAction) searchForResults:(id)sender;
@@ -179,7 +180,7 @@
             return;
         }
     } else if ([[[searchMode selectedTabViewItem] label] isEqualToString:@"TV Episode"]) {
-        if ([[tvSeriesName stringValue] length] > 0) {
+        if ([[self selectedTvShowName] length] > 0) {
             if (([[tvSeasonNum stringValue] length] == 0) && ([[tvEpisodeNum stringValue] length] > 0)) {
                 [searchButton setEnabled:NO];
                 return;
@@ -207,6 +208,17 @@
     [self.tvSeriesNameSearchArray sortUsingSelector:@selector(compare:)];
     [tvSeriesName noteNumberOfItemsChanged];
     [tvSeriesName reloadData];
+}
+
+- (NSString *)selectedTvShowName {
+    NSString *name = nil;
+    NSComboBox *comboBox = tvSeriesName;
+    NSInteger selectedIndex = comboBox.indexOfSelectedItem;
+    if (selectedIndex > -1) {
+        id<NSComboBoxDataSource> dataSource = comboBox.dataSource;
+        name = [dataSource comboBox:comboBox objectValueForItemAtIndex:selectedIndex];
+    }
+    return name;
 }
 
 #pragma mark Search for results
@@ -534,6 +546,12 @@
             self.tvSeriesNameSearchArray = nil;
             [tvSeriesName reloadData];
         }
+    }
+}
+
+- (void)comboBoxSelectionDidChange:(NSNotification *)notification {
+    if ([notification object] == tvSeriesName) {
+        [self updateSearchButtonVisibility];
     }
 }
 
