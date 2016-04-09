@@ -14,7 +14,7 @@
 #import "SBDocument.h"
 #import "SBMetadataImporter.h"
 
-@interface SBMetadataSearchController () <NSTableViewDelegate, SBArtworkSelectorDelegate>
+@interface SBMetadataSearchController () <NSTableViewDelegate, NSComboBoxDelegate, SBArtworkSelectorDelegate>
 
 @property (nonatomic, readwrite, retain) SBMetadataImporter *currentSearcher;
 @property (nonatomic, readwrite, retain) NSArray<SBMetadataResult *> *resultsArray;
@@ -35,7 +35,6 @@
 #pragma mark Search input fields
 - (void) updateSearchButtonVisibility;
 - (void) searchTVSeriesNameDone:(NSArray *)seriesArray;
-- (NSString *)selectedTvShowName;
 
 #pragma mark Search for metadata
 - (IBAction) searchForResults:(id)sender;
@@ -180,7 +179,7 @@
             return;
         }
     } else if ([[[searchMode selectedTabViewItem] label] isEqualToString:@"TV Episode"]) {
-        if ([[self selectedTvShowName] length] > 0) {
+        if ([[tvSeriesName stringValue] length] > 0) {
             if (([[tvSeasonNum stringValue] length] == 0) && ([[tvEpisodeNum stringValue] length] > 0)) {
                 [searchButton setEnabled:NO];
                 return;
@@ -208,17 +207,6 @@
     [self.tvSeriesNameSearchArray sortUsingSelector:@selector(compare:)];
     [tvSeriesName noteNumberOfItemsChanged];
     [tvSeriesName reloadData];
-}
-
-- (NSString *)selectedTvShowName {
-    NSString *name = nil;
-    NSComboBox *comboBox = tvSeriesName;
-    NSInteger selectedIndex = comboBox.indexOfSelectedItem;
-    if (selectedIndex > -1) {
-        id<NSComboBoxDataSource> dataSource = comboBox.dataSource;
-        name = [dataSource comboBox:comboBox objectValueForItemAtIndex:selectedIndex];
-    }
-    return name;
 }
 
 #pragma mark Search for results
@@ -551,8 +539,20 @@
 
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification {
     if ([notification object] == tvSeriesName) {
+        tvSeriesName.stringValue = [self selectedTvShowName];
         [self updateSearchButtonVisibility];
     }
+}
+
+- (NSString *)selectedTvShowName {
+    NSString *name = @"";
+    NSComboBox *comboBox = tvSeriesName;
+    NSInteger selectedIndex = comboBox.indexOfSelectedItem;
+    if (selectedIndex > -1) {
+        id<NSComboBoxDataSource> dataSource = tvSeriesName.dataSource;
+        name = [dataSource comboBox:tvSeriesName objectValueForItemAtIndex:selectedIndex];
+    }
+    return name;
 }
 
 - (NSInteger)numberOfItemsInComboBox:(NSComboBox *)comboBox {
