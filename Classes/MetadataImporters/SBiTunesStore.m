@@ -443,7 +443,11 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
             }
 
             NSURL *artworkURL = [NSURL URLWithString:artworkString];
-            NSURL *artworkFullSizeURL = [NSURL URLWithString:[artworkString stringByReplacingOccurrencesOfString:@"100x100bb" withString:@"1200x1200bb"]];
+            NSURL *artworkFullSizeURL = [NSURL URLWithString:[artworkString stringByReplacingOccurrencesOfString:@"100x100bb" withString:@"1000x1000bb"]];
+
+            if (metadata.mediaKind == 10) {
+                artworkFullSizeURL = [NSURL URLWithString:[artworkString stringByReplacingOccurrencesOfString:@"100x100bb" withString:@"800x800bb"]];
+            }
 
             if (artworkURL && artworkFullSizeURL) {
                 [metadata setArtworkThumbURLs:@[artworkURL]];
