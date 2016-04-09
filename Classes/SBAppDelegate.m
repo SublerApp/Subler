@@ -203,10 +203,22 @@
                                                          NSError * _Nullable error))completionHandler
 {
     NSString *extension = url.pathExtension;
+    MP42File *mp4 = nil;
+
+    if ([extension caseInsensitiveCompare: @"mp4"] == NSOrderedSame ||
+        [extension caseInsensitiveCompare: @"m4v"] == NSOrderedSame ||
+        [extension caseInsensitiveCompare: @"m4a"] == NSOrderedSame ||
+        [extension caseInsensitiveCompare: @"m4r"] == NSOrderedSame ||
+        [extension caseInsensitiveCompare: @"m4b"] == NSOrderedSame) {
+
+        mp4 = [[MP42File alloc] initWithURL:url];
+    }
+
     if ([extension caseInsensitiveCompare: @"mkv"] == NSOrderedSame ||
         [extension caseInsensitiveCompare: @"mka"] == NSOrderedSame ||
         [extension caseInsensitiveCompare: @"mks"] == NSOrderedSame ||
-        [extension caseInsensitiveCompare: @"mov"] == NSOrderedSame) {
+        [extension caseInsensitiveCompare: @"mov"] == NSOrderedSame ||
+        mp4 == nil) {
 
         CFRetain(completionHandler);
 
@@ -225,6 +237,8 @@
     else {
         [super openDocumentWithContentsOfURL:url display:displayDocument completionHandler:completionHandler];
     }
+
+    [mp4 release];
 }
 
 - (nullable __kindof NSDocument *)documentForURL:(NSURL *)url
