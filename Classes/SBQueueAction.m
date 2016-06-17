@@ -24,7 +24,7 @@
 - (NSArray<MP42SubtitleTrack *> *)loadSubtitles:(NSURL *)url {
     NSError *error = nil;
     NSMutableArray<MP42SubtitleTrack *> *tracksArray = [[NSMutableArray alloc] init];
-    NSArray<NSURL *> *directory = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[url URLByDeletingLastPathComponent]
+    NSArray<NSURL *> *directory = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:url.URLByDeletingLastPathComponent
                                                        includingPropertiesForKeys:nil
                                                                           options:NSDirectoryEnumerationSkipsSubdirectoryDescendants |
                                                                                   NSDirectoryEnumerationSkipsHiddenFiles |
@@ -34,16 +34,16 @@
     for (NSURL *dirUrl in directory) {
         if ([dirUrl.pathExtension caseInsensitiveCompare:@"srt"] == NSOrderedSame) {
             NSComparisonResult result;
-            NSString *movieFilename = [[url URLByDeletingPathExtension] lastPathComponent];
-            NSString *subtitleFilename = [[dirUrl URLByDeletingPathExtension] lastPathComponent];
+            NSString *movieFilename = url.URLByDeletingPathExtension.lastPathComponent;
+            NSString *subtitleFilename = dirUrl.URLByDeletingPathExtension.lastPathComponent;
             NSRange range = { 0, movieFilename.length };
 
             if (movieFilename.length <= subtitleFilename.length) {
                 result = [subtitleFilename compare:movieFilename options:NSCaseInsensitiveSearch range:range];
 
                 if (result == NSOrderedSame) {
-                    MP42FileImporter *fileImporter = [[[MP42FileImporter alloc] initWithURL:dirUrl
-                                                                                      error:&error] autorelease];
+                    MP42FileImporter *fileImporter = [[MP42FileImporter alloc] initWithURL:dirUrl
+                                                                                      error:&error];
 
                     for (MP42SubtitleTrack *track in fileImporter.tracks) {
                         [tracksArray addObject:track];
@@ -53,12 +53,12 @@
         }
     }
 
-    return [tracksArray autorelease];
+    return tracksArray;
 }
 
 - (void)runAction:(SBQueueItem *)item {
     // Search for external subtitles files
-    NSArray<MP42SubtitleTrack *> *subtitles = [self loadSubtitles:item.URL];
+    NSArray<MP42SubtitleTrack *> *subtitles = [self loadSubtitles:item.fileURL];
     for (MP42SubtitleTrack *subTrack in subtitles) {
         [item.mp4File addTrack:subTrack];
     }
@@ -89,8 +89,8 @@
     if (self) {
         _movieLanguage = [SBMetadataImporter defaultMovieLanguage];
         _tvShowLanguage = [SBMetadataImporter defaultTVLanguage];
-        _movieProvider = [[SBMetadataImporter movieProviders] firstObject];
-        _tvShowProvider = [[SBMetadataImporter tvProviders] firstObject];
+        _movieProvider = [SBMetadataImporter movieProviders].firstObject;
+        _tvShowProvider = [SBMetadataImporter tvProviders].firstObject;
     }
     return self;
 }
@@ -113,22 +113,13 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [_movieLanguage release];
-    [_tvShowLanguage release];
-    [_movieProvider release];
-    [_tvShowProvider release];
-
-    [super dealloc];
-}
 
 - (MP42Image *)loadArtwork:(nonnull NSURL *)url {
     NSData *artworkData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
     if (artworkData && artworkData.length) {
         MP42Image *artwork = [[MP42Image alloc] initWithData:artworkData type:MP42_ART_JPEG];
         if (artwork != nil) {
-            return [artwork autorelease];
+            return artwork;
         }
     }
 
@@ -190,7 +181,7 @@
 
 - (void)runAction:(SBQueueItem *)item {
     // Search for metadata
-    MP42Metadata *metadata = [self searchMetadataForFile:item.URL];
+    MP42Metadata *metadata = [self searchMetadataForFile:item.fileURL];
 
     for (MP42Track *track in [item.mp4File tracksWithMediaType:MP42MediaTypeVideo])
         if ([track isKindOfClass:[MP42VideoTrack class]]) {
@@ -216,10 +207,10 @@
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
 
-    _movieLanguage = [[coder decodeObjectForKey:@"_movieLanguage"] retain];
-    _tvShowLanguage = [[coder decodeObjectForKey:@"_tvShowLanguage"] retain];
-    _movieProvider = [[coder decodeObjectForKey:@"_movieProvider"] retain];
-    _tvShowProvider = [[coder decodeObjectForKey:@"_tvShowProvider"] retain];
+    _movieLanguage = [coder decodeObjectForKey:@"_movieLanguage"];
+    _tvShowLanguage = [coder decodeObjectForKey:@"_tvShowLanguage"];
+    _movieProvider = [coder decodeObjectForKey:@"_movieProvider"];
+    _tvShowProvider = [coder decodeObjectForKey:@"_tvShowProvider"];
 
     return self;
 }
@@ -235,7 +226,7 @@
 
 @implementation SBQueueSetAction
 
-- (id)initWithSet:(MP42Metadata *)set {
+- (instancetype)initWithSet:(MP42Metadata *)set {
     self = [super init];
     if (self) {
         _set = [set copy];
@@ -258,7 +249,7 @@
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
     if (self) {
-        _set = [[coder decodeObjectForKey:@"SBQueueActionSet"] retain];
+        _set = [coder decodeObjectForKey:@"SBQueueActionSet"];
     }
     return self;
 }
@@ -267,10 +258,6 @@
     [coder encodeObject:_set forKey:@"SBQueueActionSet"];
 }
 
-- (void)dealloc {
-    [_set release];
-    [super dealloc];
-}
 
 @end
 

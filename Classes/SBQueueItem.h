@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef enum SBQueueItemStatus : NSInteger {
+typedef NS_ENUM(NSUInteger, SBQueueItemStatus) {
     SBQueueItemStatusUnknown = 0,
     SBQueueItemStatusReady,
     SBQueueItemStatusEditing,
@@ -21,37 +21,23 @@ typedef enum SBQueueItemStatus : NSInteger {
     SBQueueItemStatusCompleted,
     SBQueueItemStatusFailed,
     SBQueueItemStatusCancelled,
-} SBQueueItemStatus;
 
-@interface SBQueueItem : NSObject <NSCoding> {
-@private
-    MP42File *_mp4File;
-    NSURL    *_fileURL;
-    NSURL    *_destURL;
+};
 
-    NSDictionary<NSString *, id> *_attributes;
-    NSMutableArray<id<SBQueueActionProtocol>> *_actions;
-
-    BOOL _cancelled;
-
-    id _delegate;
-
-    SBQueueItemStatus _status;
-    NSString *_localizedWorkingDescription;
-}
+@interface SBQueueItem : NSObject <NSCoding>
 
 @property (nonatomic, readwrite) SBQueueItemStatus status;
 @property (nonatomic, readonly, nullable) NSString *localizedWorkingDescription;
 
 @property (nonatomic, readonly, nullable) MP42File *mp4File;
 
-@property (nonatomic, readonly) NSURL *URL;
+@property (nonatomic, readonly) NSURL *fileURL;
 @property (nonatomic, copy) NSURL *destURL;
 
 @property (nonatomic, readonly) NSArray<id<SBQueueActionProtocol>> *actions;
 @property (nonatomic, readonly) NSDictionary<NSString *, id> *attributes;
 
-@property (nonatomic, assign, nullable) id delegate;
+@property (nonatomic, weak, nullable) id delegate;
 
 + (instancetype)itemWithURL:(NSURL *)URL;
 

@@ -31,7 +31,7 @@
         }
     }
 
-	return [results autorelease];
+	return results;
 }
 
 + (NSDictionary *)getStoreFor:(NSString *)aLanguageString
@@ -85,32 +85,32 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
     for (SBMetadataResult *m in results) {
         if (!aSeriesName || [m[@"TV Show"] isEqualToString:aSeriesName]) {
             // Episode Number and Season Number
-            if ((aEpisodeNum && [aEpisodeNum length]) && (aSeasonNum && [aSeasonNum length])) {
+            if ((aEpisodeNum && aEpisodeNum.length) && (aSeasonNum && aSeasonNum.length)) {
                 if ([[m[@"TV Episode #"] stringValue] isEqualToString:aEpisodeNum] &&
-                    [m[@"TV Season"] integerValue] == [aSeasonNum integerValue]) {
+                    [m[@"TV Season"] integerValue] == aSeasonNum.integerValue) {
                     [r addObject:m];
                 }
 
             }
             // Episode Number only
-            else if ((aEpisodeNum && [aEpisodeNum length]) && !(aSeasonNum && [aSeasonNum length])) {
+            else if ((aEpisodeNum && aEpisodeNum.length) && !(aSeasonNum && aSeasonNum.length)) {
                 if ([[m[@"TV Episode #"] stringValue] isEqualToString:aEpisodeNum]) {
                     [r addObject:m];
                 }
 
             }
             // Season Number only
-            else if (!(aEpisodeNum && [aEpisodeNum length]) && (aSeasonNum && [aSeasonNum length])) {
-                if ([m[@"TV Season"] integerValue] == [aSeasonNum integerValue]) {
+            else if (!(aEpisodeNum && aEpisodeNum.length) && (aSeasonNum && aSeasonNum.length)) {
+                if ([m[@"TV Season"] integerValue] == aSeasonNum.integerValue) {
                     [r addObject:m];
                 }
             }
-            else if (!(aEpisodeNum && [aEpisodeNum length]) && !(aSeasonNum && [aSeasonNum length])) {
+            else if (!(aEpisodeNum && aEpisodeNum.length) && !(aSeasonNum && aSeasonNum.length)) {
                 [r addObject:m];
             }
         }
     }
-    return [r autorelease];
+    return r;
 }
 
 - (NSArray<SBMetadataResult *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum
@@ -180,13 +180,13 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 	}
 	NSString *country = store[@"country2"];
 	NSString *language = store[@"language2"];
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&entity=tvEpisode", country, [language lowercaseString], [SBMetadataHelper urlEncoded:[NSString stringWithFormat:@"%@ %@", aSeriesName, aEpisodeTitle]]]];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&entity=tvEpisode", country, language.lowercaseString, [SBMetadataHelper urlEncoded:[NSString stringWithFormat:@"%@ %@", aSeriesName, aEpisodeTitle]]]];
 	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	if (jsonData) {
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
         if ([d isKindOfClass:[NSDictionary class]]) {
             NSArray *results = [SBiTunesStore metadataForResults:d store:store];
-                return [results firstObject];
+                return results.firstObject;
         }
 	}
 	return nil;
@@ -206,7 +206,7 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
         if ([d isKindOfClass:[NSDictionary class]]) {
             NSArray *results = [SBiTunesStore metadataForResults:d store:store];
-            return [results firstObject];
+            return results.firstObject;
         }
 	}
 	return nil;
@@ -298,7 +298,7 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 		NSArray *nodes = [xml nodesForXPath:[NSString stringWithFormat:@"//li[@class='copyright']"] error:NULL];
 
 		for (NSXMLNode *n in nodes) {
-			NSString *copyright = [n stringValue];
+			NSString *copyright = n.stringValue;
 			copyright = [copyright stringByReplacingOccurrencesOfString:@". All Rights Reserved." withString:@""];
 			copyright = [copyright stringByReplacingOccurrencesOfString:@". All rights reserved." withString:@""];
 			copyright = [copyright stringByReplacingOccurrencesOfString:@". All Rights Reserved" withString:@""];
@@ -307,7 +307,6 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
             metadata[@"Copyright"] = copyright;
 		}
 
-        [xml release];
     }
 	
     return metadata;
@@ -320,15 +319,14 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 	if (aXml) {
 		NSArray *nodes = [aXml nodesForXPath:[NSString stringWithFormat:@"//div[starts-with(@metrics-loc,'Titledbox_%@')]", aPeople] error:NULL];
 		for (NSXMLNode *n in nodes) {
-			NSXMLDocument *subXML = [[NSXMLDocument alloc] initWithXMLString:[n XMLString] options:0 error:NULL];
+			NSXMLDocument *subXML = [[NSXMLDocument alloc] initWithXMLString:n.XMLString options:0 error:NULL];
 			if (subXML) {
 				NSArray *subNodes = [subXML nodesForXPath:@"//a" error:NULL];
-				NSMutableArray *r = [[NSMutableArray alloc] initWithCapacity:[subNodes count]];
+				NSMutableArray *r = [[NSMutableArray alloc] initWithCapacity:subNodes.count];
 				for (NSXMLNode *sub in subNodes) {
-					[r addObject:[sub stringValue]];
+					[r addObject:sub.stringValue];
 				}
-				[subXML release];
-				return [r autorelease];
+				return r;
 			}
 		}
 	}
@@ -382,7 +380,7 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
             if (season) {
                 metadata[@"TV Season"] = season;
 
-                NSString *episodeID = [NSString stringWithFormat:@"%d%02d", [season intValue], [r[@"trackNumber"] intValue]];
+                NSString *episodeID = [NSString stringWithFormat:@"%d%02d", season.intValue, [r[@"trackNumber"] intValue]];
                 metadata[@"TV Episode ID"] = episodeID;
 
                 metadata[@"Sort Album"] = [NSString stringWithFormat:@"%@, Season %@", r[@"artistName"], season];
@@ -422,9 +420,9 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 
 		NSString *trackExplicitness = r[@"trackExplicitness"];
 		if ([trackExplicitness isEqualToString:@"explicit"]) {
-			[metadata setContentRating:4];
+			metadata.contentRating = 4;
 		} else if ([trackExplicitness isEqualToString:@"cleaned"]) {
-			[metadata setContentRating:2];
+			metadata.contentRating = 2;
 		}
 
 		// Artworks
@@ -450,18 +448,17 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
             }
 
             if (artworkURL && artworkFullSizeURL) {
-                [metadata setArtworkThumbURLs:@[artworkURL]];
-                [metadata setArtworkFullsizeURLs:@[artworkFullSizeURL]];
-                [metadata setArtworkProviderNames:@[@"iTunes"]];
+                metadata.artworkThumbURLs = @[artworkURL];
+                metadata.artworkFullsizeURLs = @[artworkFullSizeURL];
+                metadata.artworkProviderNames = @[@"iTunes"];
             }
         }
 
 		// add to array
         [returnArray addObject:metadata];
-        [metadata release];
 		
 	}
-    return [returnArray autorelease];
+    return returnArray;
 }
 
 @end

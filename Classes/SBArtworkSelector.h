@@ -15,18 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)selectArtworkDone:(NSIndexSet *)indexes;
 @end
 
-@interface SBArtworkSelector : NSWindowController {
-@private
-    id <SBArtworkSelectorDelegate>  delegate;
-    IBOutlet IKImageBrowserView     *imageBrowser;
-    IBOutlet NSSlider               *slider;
-    IBOutlet NSButton               *addArtworkButton;
-    IBOutlet NSButton               *loadMoreArtworkButton;
-
-    NSMutableArray<NSURL *>         *imageURLsUnloaded;
-    NSMutableArray                  *images;
-	NSArray<NSString *>             *artworkProviderNames;
-}
+@interface SBArtworkSelector : NSWindowController
 
 #pragma mark Initialization
 - (instancetype)initWithDelegate:(id <SBArtworkSelectorDelegate>)del imageURLs:(NSArray<NSURL *> *)imageURLs artworkProviderNames:(NSArray<NSString *> *)artworkProviderNames;

@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) cancel;
 
 #pragma mark Methods to be overridden
-- (NSArray<NSString *> *) languages;
+@property (nonatomic, readonly, copy) NSArray<NSString *> * _Nonnull languages;
 
 - (NSArray<SBMetadataResult *> *) searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage;
 - (NSArray<SBMetadataResult *> *) searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(nullable NSString *)aSeasonNum episodeNum:(nullable NSString *)aEpisodeNum;

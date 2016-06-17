@@ -10,30 +10,51 @@
 
 #import <MP42Foundation/MP42Utilities.h>
 
+#import "SBTableView.h"
 #import "SBChapterImporter.h"
 #import "SBChapterResult.h"
 
 @interface SBChapterSearchController () <NSTableViewDelegate>
+{
+    id <SBChapterSearchControllerDelegate> delegate;
 
-@property (nonatomic, readwrite, retain) SBChapterImporter *currentSearcher;
-@property (nonatomic, readwrite, retain) NSArray<SBChapterResult *> *resultsArray;
-@property (nonatomic, readwrite, retain) NSArray<MP42TextSample *> *selectedChaptersArray;
+    NSString    *_searchString;
+    NSUInteger  _searchDuration;
+
+    NSDictionary                 *_detailBoldAttr;
+    NSDictionary                 *_detailBoldMonospacedAttr;
+    NSDictionary                 *_detailMonospacedAttr;
+
+    IBOutlet NSTextField         *searchTitle;
+
+    NSArray<SBChapterResult *>   *_resultsArray;
+    IBOutlet NSTableView         *resultsTable;
+    NSArray                      *_selectedChaptersArray;
+    IBOutlet SBTableView         *chapterTable;
+
+
+    IBOutlet NSButton            *searchButton;
+    IBOutlet NSButton            *addButton;
+
+    SBChapterImporter             *_currentSearcher;
+
+    IBOutlet NSProgressIndicator *progress;
+    IBOutlet NSTextField         *progressText;
+}
+
+@property (nonatomic, readwrite, strong) SBChapterImporter *currentSearcher;
+@property (nonatomic, readwrite, strong) NSArray<SBChapterResult *> *resultsArray;
+@property (nonatomic, readwrite, strong) NSArray<MP42TextSample *> *selectedChaptersArray;
 
 @end
 
 @implementation SBChapterSearchController
-
-@synthesize currentSearcher = _currentSearcher;
-@synthesize resultsArray = _resultsArray;
-@synthesize selectedChaptersArray = _selectedChaptersArray;
-
 
 - (instancetype)initWithDelegate:(id <SBChapterSearchControllerDelegate>)del searchTitle:(NSString *)title andDuration:(NSUInteger)duration
 {
     self = [super initWithWindowNibName:@"SBChapterSearch"];
 
     if (self) {
-
         delegate = del;
         _searchString = [title copy];
         _searchDuration = duration;
@@ -52,43 +73,43 @@
 
 - (void)setupFontAttributes
 {
-    NSMutableParagraphStyle *ps = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+    NSMutableParagraphStyle *ps = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     ps.headIndent = -10.0;
     ps.alignment = NSTextAlignmentRight;
 
     if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
-        _detailBoldMonospacedAttr = [@{NSFontAttributeName: [NSFont monospacedDigitSystemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightBold],
+        _detailBoldMonospacedAttr = @{NSFontAttributeName: [NSFont monospacedDigitSystemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightBold],
                                        NSParagraphStyleAttributeName: ps,
-                                       NSForegroundColorAttributeName: [NSColor grayColor]} retain];
+                                       NSForegroundColorAttributeName: [NSColor grayColor]};
     }
     else {
-        _detailBoldMonospacedAttr = [@{NSFontAttributeName: [NSFont boldSystemFontOfSize:[NSFont smallSystemFontSize]],
+        _detailBoldMonospacedAttr = @{NSFontAttributeName: [NSFont boldSystemFontOfSize:[NSFont smallSystemFontSize]],
                                        NSParagraphStyleAttributeName: ps,
-                                       NSForegroundColorAttributeName: [NSColor grayColor]} retain];
+                                       NSForegroundColorAttributeName: [NSColor grayColor]};
     }
 
-    NSMutableParagraphStyle *psL = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+    NSMutableParagraphStyle *psL = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     psL.headIndent = -10.0;
     psL.alignment = NSTextAlignmentLeft;
 
     if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
-        _detailBoldAttr = [@{NSFontAttributeName: [NSFont systemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightBold],
+        _detailBoldAttr = @{NSFontAttributeName: [NSFont systemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightBold],
                              NSParagraphStyleAttributeName: psL,
-                             NSForegroundColorAttributeName: [NSColor grayColor]} retain];
+                             NSForegroundColorAttributeName: [NSColor grayColor]};
     }
     else {
-        _detailBoldAttr = [@{NSFontAttributeName: [NSFont boldSystemFontOfSize:[NSFont smallSystemFontSize]],
+        _detailBoldAttr = @{NSFontAttributeName: [NSFont boldSystemFontOfSize:[NSFont smallSystemFontSize]],
                                        NSParagraphStyleAttributeName: ps,
-                                       NSForegroundColorAttributeName: [NSColor grayColor]} retain];
+                                       NSForegroundColorAttributeName: [NSColor grayColor]};
     }
 
     if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
-        _detailMonospacedAttr = [@{NSFontAttributeName: [NSFont monospacedDigitSystemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightRegular],
-                                   NSParagraphStyleAttributeName: ps} retain];
+        _detailMonospacedAttr = @{NSFontAttributeName: [NSFont monospacedDigitSystemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightRegular],
+                                   NSParagraphStyleAttributeName: ps};
     }
     else {
-        _detailMonospacedAttr = [@{NSFontAttributeName: [NSFont systemFontOfSize:[NSFont smallSystemFontSize]],
-                                   NSParagraphStyleAttributeName: ps} retain];
+        _detailMonospacedAttr = @{NSFontAttributeName: [NSFont systemFontOfSize:[NSFont smallSystemFontSize]],
+                                   NSParagraphStyleAttributeName: ps};
     }
 }
 
@@ -247,14 +268,14 @@
 - (NSAttributedString *)boldString:(NSString *)string monospaced:(BOOL)monospaced
 {
     if (monospaced) {
-        return [[[NSAttributedString alloc] initWithString:string attributes:_detailBoldMonospacedAttr] autorelease];
+        return [[NSAttributedString alloc] initWithString:string attributes:_detailBoldMonospacedAttr];
     }
-    return [[[NSAttributedString alloc] initWithString:string attributes:_detailBoldAttr] autorelease];
+    return [[NSAttributedString alloc] initWithString:string attributes:_detailBoldAttr];
 }
 
 - (NSAttributedString *)monospacedString:(NSString *)string
 {
-    return [[[NSAttributedString alloc] initWithString:string attributes:_detailMonospacedAttr] autorelease];
+    return [[NSAttributedString alloc] initWithString:string attributes:_detailMonospacedAttr];
 
 }
 
@@ -334,7 +355,7 @@
         if ([tableView.selectedRowIndexes containsIndex:rowIndex]) {
 
             // Without this, the color won't change ...
-            NSMutableAttributedString *highlightedString = [[[NSMutableAttributedString alloc] initWithAttributedString:[cell attributedStringValue]] autorelease];
+            NSMutableAttributedString *highlightedString = [[NSMutableAttributedString alloc] initWithAttributedString:[cell attributedStringValue]];
             [highlightedString addAttribute:NSForegroundColorAttributeName value:[NSColor blackColor] range:NSMakeRange(0, highlightedString.length)];
             [cell setAttributedStringValue:highlightedString];
 

@@ -12,8 +12,24 @@
 #import <MP42Foundation/MP42Utilities.h>
 
 @implementation SBFileImport
+{
+@private
+    NSArray<NSURL *>  *_fileURLs;
 
-- (nullable instancetype)initWithURLs:(NSArray<NSURL *> *)fileURLs delegate:(id <SBFileImportDelegate>)delegate error:(NSError **)error
+    NSMutableArray<MP42FileImporter *> *_fileImporters;
+    NSMutableArray  *_tracks;
+
+    NSMutableArray<NSNumber *> *_importCheckArray;
+    NSMutableArray<NSNumber *> *_actionArray;
+
+    id<SBFileImportDelegate> _delegate;
+
+    IBOutlet NSTableView *tracksTableView;
+    IBOutlet NSButton    *addTracksButton;
+    IBOutlet NSButton    *importMetadata;
+}
+
+- (nullable instancetype)initWithURLs:(NSArray<NSURL *> *)fileURLs delegate:(id <SBFileImportDelegate>)delegate error:(NSError * __autoreleasing *)error
 {
 	if ((self = [super initWithWindowNibName:@"FileImport"])) {
 		_delegate = delegate;
@@ -27,13 +43,11 @@
             if (importer) {
                 [_tracks addObject:url.lastPathComponent];
                 [_fileImporters addObject:importer];
-                [importer release];
                 [_tracks addObjectsFromArray:importer.tracks];
             }
         }
 
         if (!_tracks.count) {
-            [self release];
             return nil;
         }
 	}
@@ -132,7 +146,7 @@
 	BOOL onlySubtitle = YES;
     for (id track in _tracks) {
         if ([track isKindOfClass:[MP42Track class]]) {
-			if (![track isMemberOfClass:[MP42SubtitleTrack class]] || ![[(MP42Track *)track format] isEqualToString:MP42SubtitleFormatTx3g])
+			if (![track isMemberOfClass:[MP42SubtitleTrack class]] || ![((MP42Track *)track).format isEqualToString:MP42SubtitleFormatTx3g])
 				onlySubtitle = NO;
 		}
     }
@@ -182,40 +196,40 @@
         if ([tableColumn.identifier isEqualToString:@"check"]) {
             NSButtonCell *buttonCell = [[NSButtonCell alloc] init];
             [buttonCell setButtonType:NSSwitchButton];
-            [buttonCell setControlSize:NSSmallControlSize];
-            [buttonCell setTitle:@""];
+            buttonCell.controlSize = NSSmallControlSize;
+            buttonCell.title = @"";
 
             buttonCell.enabled = (isTrackMuxable(track.format) || trackNeedConversion(track.format)) ? YES : NO;
 
-            return [buttonCell autorelease];
+            return buttonCell;
         }
 
         if ([tableColumn.identifier isEqualToString:@"trackAction"]) {
             NSPopUpButtonCell *actionCell = [[NSPopUpButtonCell alloc] init];
             [actionCell setAutoenablesItems:NO];
-            [actionCell setFont:[NSFont systemFontOfSize:11]];
-            [actionCell setControlSize:NSSmallControlSize];
+            actionCell.font = [NSFont systemFontOfSize:11];
+            actionCell.controlSize = NSSmallControlSize;
             [actionCell setBordered:NO];
 
             if ([track isMemberOfClass:[MP42VideoTrack class]]) {
-                if ([[track.sourceURL pathExtension] caseInsensitiveCompare: @"264"] == NSOrderedSame ||
-                    [[track.sourceURL pathExtension] caseInsensitiveCompare: @"h264"] == NSOrderedSame) {
+                if ([(track.sourceURL).pathExtension caseInsensitiveCompare: @"264"] == NSOrderedSame ||
+                    [(track.sourceURL).pathExtension caseInsensitiveCompare: @"h264"] == NSOrderedSame) {
                     NSInteger i = 0;
                     NSArray<NSString *> *formatArray = @[@"23.976", @"24", @"25", @"29.97", @"30", @"50", @"59.96", @"60"];
                     NSInteger tags[8] = {2398, 24, 25, 2997, 30, 50, 5994, 60};
 
                     for (NSString* format in formatArray) {
-                        NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:format action:NULL keyEquivalent:@""] autorelease];
-                        [item setTag:tags[i++]];
+                        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:format action:NULL keyEquivalent:@""];
+                        item.tag = tags[i++];
                         [item setEnabled:YES];
-                        [[actionCell menu] addItem:item];
+                        [actionCell.menu addItem:item];
                     }
                 }
                 else {
-                    NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""] autorelease];
-                    [item setTag:0];
+                    NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""];
+                    item.tag = 0;
                     [item setEnabled:YES];
-                    [[actionCell menu] addItem:item];
+                    [actionCell.menu addItem:item];
 
                     if (isTrackMuxable(track.format)) {
                         [item setEnabled:YES];
@@ -227,72 +241,72 @@
             }
             else if ([track isMemberOfClass:[MP42SubtitleTrack class]]) {
                 NSInteger tag = 0;
-                NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru",  @"File Import action menu item.") action:NULL keyEquivalent:@""] autorelease];
-                [item setTag:tag++];
+                NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru",  @"File Import action menu item.") action:NULL keyEquivalent:@""];
+                item.tag = tag++;
                 if (!trackNeedConversion(track.format)) {
                     [item setEnabled:YES];
                 }
                 else {
                     [item setEnabled:NO];
                 }
-                [[actionCell menu] addItem:item];
+                [actionCell.menu addItem:item];
                 
                 NSArray<NSString *> *formatArray = @[MP42SubtitleFormatTx3g];
                 for (NSString *format in formatArray) {
-                    item = [[[NSMenuItem alloc] initWithTitle:format action:NULL keyEquivalent:@""] autorelease];
-                    [item setTag:tag++];
+                    item = [[NSMenuItem alloc] initWithTitle:format action:NULL keyEquivalent:@""];
+                    item.tag = tag++;
                     [item setEnabled:YES];
-                    [[actionCell menu] addItem:item];
+                    [actionCell.menu addItem:item];
                 }
             }
             else if ([track isMemberOfClass:[MP42ClosedCaptionTrack class]]) {
-                NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""] autorelease];
-                [item setTag:0];
+                NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""];
+                item.tag = 0;
                 [item setEnabled:YES];
-                [[actionCell menu] addItem:item];
+                [actionCell.menu addItem:item];
             }
             else if ([track isMemberOfClass:[MP42AudioTrack class]]) {
                 NSInteger tag = 0;
-                NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""] autorelease];
-                [item setTag:tag++];
+                NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""];
+                item.tag = tag++;
                 if (!trackNeedConversion(track.format))
                     [item setEnabled:YES];
                 else
                     [item setEnabled:NO];
-                [[actionCell menu] addItem:item];
+                [actionCell.menu addItem:item];
                 
                 NSArray *formatArray = @[@"AAC - Dolby Pro Logic II", @"AAC - Dolby Pro Logic", @"AAC - Stereo", @"AAC - Mono", @"AAC - Multi-channel"];
                 for (NSString *format in formatArray) {
-                    item = [[[NSMenuItem alloc] initWithTitle:format action:NULL keyEquivalent:@""] autorelease];
-                    [item setTag:tag++];
+                    item = [[NSMenuItem alloc] initWithTitle:format action:NULL keyEquivalent:@""];
+                    item.tag = tag++;
                     [item setEnabled:YES];
-                    [[actionCell menu] addItem:item];
+                    [actionCell.menu addItem:item];
                 }
 
                 if ([track.format isEqualTo:MP42AudioFormatAC3] ||
                     [track.format isEqualTo:MP42AudioFormatEAC3] ||
                     [track.format isEqualTo:MP42AudioFormatDTS])
                 {
-                    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"AAC + Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""] autorelease];
-                    [item setTag:tag++];
+                    item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"AAC + Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""];
+                    item.tag = tag++;
                     [item setEnabled:YES];
-                    [[actionCell menu] addItem:item];
+                    [actionCell.menu addItem:item];
                 }
 
             }
             else if ([track isMemberOfClass:[MP42ChapterTrack class]]) {
-                NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""] autorelease];
-                [item setTag:0];
+                NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""];
+                item.tag = 0;
                 [item setEnabled:YES];
-                [[actionCell menu] addItem:item];
+                [actionCell.menu addItem:item];
             }
             cell = actionCell;
 
-            return [cell autorelease];
+            return cell;
         }
     }
 
-    return [tableColumn dataCell];
+    return tableColumn.dataCell;
 }
 
 - (id)tableView:(NSTableView *)tableView
@@ -307,7 +321,7 @@
 
     if ([object isKindOfClass:[MP42Track class]]) {
         if( [tableColumn.identifier isEqualToString: @"check"] )
-            return [_importCheckArray objectAtIndex:rowIndex];
+            return _importCheckArray[rowIndex];
 
         if ([tableColumn.identifier isEqualToString:@"trackId"])
             return [NSString stringWithFormat:@"%d", [object trackId]];
@@ -325,8 +339,8 @@
             return [object language];
 
         if ([tableColumn.identifier isEqualToString:@"trackAction"])
-            return [_actionArray objectAtIndex:rowIndex];
-    } else if ([tableColumn isEqual:[[tableView tableColumns] objectAtIndex:1]]) {
+            return _actionArray[rowIndex];
+    } else if ([tableColumn isEqual:tableView.tableColumns[1]]) {
             return object;
     }
 
@@ -339,24 +353,24 @@
               row:(NSInteger)rowIndex
 {
     if ([tableColumn.identifier isEqualToString: @"check"]) {
-        [_importCheckArray replaceObjectAtIndex:rowIndex withObject:anObject];
+        _importCheckArray[rowIndex] = anObject;
     }
     if ([tableColumn.identifier isEqualToString:@"trackAction"]) {
-        [_actionArray replaceObjectAtIndex:rowIndex withObject:anObject];
+        _actionArray[rowIndex] = anObject;
     }
 }
 
 - (void)toggleSelectionCheck:(BOOL)value
 {
-    NSIndexSet *selection = [tracksTableView selectedRowIndexes];
-    NSInteger clickedRow = [tracksTableView clickedRow];
+    NSIndexSet *selection = tracksTableView.selectedRowIndexes;
+    NSInteger clickedRow = tracksTableView.clickedRow;
 
     if (clickedRow != -1 && ![selection containsIndex:clickedRow]) {
         selection = [NSIndexSet indexSetWithIndex:clickedRow];
     }
 
     [selection enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        [_importCheckArray replaceObjectAtIndex:idx withObject:@(value)];
+        self->_importCheckArray[idx] = @(value);
     }];
 
     [tracksTableView reloadDataForRowIndexes:selection columnIndexes:[NSIndexSet indexSetWithIndex:0]];
@@ -374,10 +388,10 @@
 
 - (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem
 {
-    SEL action = [anItem action];
+    SEL action = anItem.action;
 
     if (action == @selector(uncheckSelected:) || action == @selector(checkSelected:))
-        if ([tracksTableView selectedRow] != -1 || [tracksTableView clickedRow] != -1)
+        if (tracksTableView.selectedRow != -1 || tracksTableView.clickedRow != -1)
             return YES;
 
     return NO;
@@ -387,8 +401,8 @@
 {
     [tracksTableView setDelegate:nil];
     [tracksTableView setDataSource:nil];
-    [NSApp endSheet:[self window] returnCode:NSOKButton];
-    [[self window] orderOut:self];
+    [NSApp endSheet:self.window returnCode:NSOKButton];
+    [self.window orderOut:self];
 }
 
 - (IBAction)addTracks:(id)sender
@@ -402,19 +416,18 @@
 
     for (MP42Track *track in _tracks) {
         if ([track isKindOfClass:[MP42Track class]]) {
-            if ([[_importCheckArray objectAtIndex: i] boolValue]) {
-                NSUInteger conversion = [[_actionArray objectAtIndex:i] integerValue];
+            if (_importCheckArray[i].boolValue) {
+                NSUInteger conversion = _actionArray[i].integerValue;
 
                 if ([track isMemberOfClass:[MP42AudioTrack class]]) {
                     if (conversion == 6) {
                         MP42AudioTrack *copy = [track copy];
                         [copy setNeedConversion:YES];
-                        [copy setMixdownType:SBDolbyPlIIMixdown];
+                        copy.mixdownType = SBDolbyPlIIMixdown;
 
-                        [(MP42AudioTrack *)track setFallbackTrack:copy];
+                        ((MP42AudioTrack *)track).fallbackTrack = copy;
 
                         [tracks addObject:copy];
-                        [copy release];
                     } else if (conversion) {
                         [track setNeedConversion:YES];
                     }
@@ -427,17 +440,17 @@
                             [(MP42AudioTrack *)track setMixdownType:nil];
                             break;
                         case 4:
-                            [(MP42AudioTrack *)track setMixdownType:SBMonoMixdown];
+                            ((MP42AudioTrack *)track).mixdownType = SBMonoMixdown;
                             break;
                         case 3:
-                            [(MP42AudioTrack *)track setMixdownType:SBStereoMixdown];
+                            ((MP42AudioTrack *)track).mixdownType = SBStereoMixdown;
                             break;
                         case 2:
-                            [(MP42AudioTrack *)track setMixdownType:SBDolbyMixdown];
+                            ((MP42AudioTrack *)track).mixdownType = SBDolbyMixdown;
                             break;
                         case 1:
                         default:
-                            [(MP42AudioTrack *)track setMixdownType:SBDolbyPlIIMixdown];
+                            ((MP42AudioTrack *)track).mixdownType = SBDolbyPlIIMixdown;
                             break;
                     }
                 } else if ([track isMemberOfClass:[MP42SubtitleTrack class]]) {
@@ -445,8 +458,8 @@
                         [track setNeedConversion:YES];
                     }
                 } else if ([track isMemberOfClass:[MP42VideoTrack class]]) {
-                    if ([[track.sourceURL pathExtension] caseInsensitiveCompare:@"264"] == NSOrderedSame ||
-                        [[track.sourceURL pathExtension] caseInsensitiveCompare:@"h264"] == NSOrderedSame) {
+                    if ([(track.sourceURL).pathExtension caseInsensitiveCompare:@"264"] == NSOrderedSame ||
+                        [(track.sourceURL).pathExtension caseInsensitiveCompare:@"h264"] == NSOrderedSame) {
                         switch(conversion) {
                             case 0:
                                 track.trackId = 2398;
@@ -487,30 +500,18 @@
 
     MP42Metadata *metadata = nil;
 
-    if ([importMetadata state]) {
-        metadata = [[[[_fileImporters firstObject] metadata] retain] autorelease];
+    if (importMetadata.state) {
+        metadata = _fileImporters.firstObject.metadata;
     }
 
     [_delegate importDoneWithTracks:tracks andMetadata:metadata];
 
-    [tracks release];
 
     [tracksTableView setDelegate:nil];
     [tracksTableView setDataSource:nil];
 
-    [NSApp endSheet:[self window] returnCode:NSOKButton];
+    [NSApp endSheet:self.window returnCode:NSOKButton];
 }
 
-- (void)dealloc
-{
-    [_fileURLs release];
-    [_fileImporters release];
-    [_tracks release];
-
-    [_importCheckArray release];
-    [_actionArray release];
-
-    [super dealloc];
-}
 
 @end

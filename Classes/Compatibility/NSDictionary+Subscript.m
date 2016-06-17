@@ -21,7 +21,7 @@
 }
 
 -(id)dg_objectForKeyedSubscript:(id)key {
-    return [self objectForKey:key];
+    return self[key];
 }
 
 @end

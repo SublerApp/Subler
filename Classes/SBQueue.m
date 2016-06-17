@@ -14,13 +14,17 @@ NSString *SBQueueFailedNotification = @"SBQueueFailedNotification";
 NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
 @interface SBQueue ()
+{
+    IOPMAssertionID _assertionID;
+    IOReturn        _io_success;
+}
 
 @property (atomic) SBQueueStatus status;
 
 @property (nonatomic, copy) NSURL *URL;
-@property (nonatomic, retain) NSMutableArray *items;
+@property (nonatomic) NSMutableArray *items;
 
-@property (atomic, retain) SBQueueItem *currentItem;
+@property (atomic) SBQueueItem *currentItem;
 @property (atomic) NSUInteger currentIndex;
 @property (atomic) BOOL cancelled;
 
@@ -30,21 +34,15 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
 @implementation SBQueue
 
-@synthesize status = _status;
-@synthesize optimize = _optimize;
-@synthesize currentItem = _currentItem, currentIndex = _currentIndex;
-@synthesize cancelled = _cancelled;
-@synthesize items = _items, URL = _URL, workQueue = _workQueue;
-
 - (instancetype)initWithURL:(NSURL *)queueURL {
     self = [super init];
     if (self) {
         _workQueue = dispatch_queue_create("org.subler.WorkQueue", NULL);
         _URL = [queueURL copy];
 
-        if ([[NSFileManager defaultManager] fileExistsAtPath:[queueURL path]]) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:queueURL.path]) {
             @try {
-                _items = [[NSKeyedUnarchiver unarchiveObjectWithFile:[queueURL path]] retain];
+                _items = [NSKeyedUnarchiver unarchiveObjectWithFile:queueURL.path];
             } @catch (NSException *exception) {
                 [[NSFileManager defaultManager] removeItemAtURL:queueURL error:nil];
                 _items = nil;
@@ -65,7 +63,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 }
 
 - (BOOL)saveQueueToDisk {
-    return [NSKeyedArchiver archiveRootObject:self.items toFile:[self.URL path]];
+    return [NSKeyedArchiver archiveRootObject:self.items toFile:(self.URL).path];
 }
 
 
@@ -74,13 +72,13 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
     dispatch_sync(dispatch_get_main_queue(), ^{
         for (SBQueueItem *item in self.items) {
             if ((item.status != SBQueueItemStatusCompleted) && (item.status != SBQueueItemStatusFailed)) {
-                firstItem = [item retain];
+                firstItem = item;
                 firstItem.status = SBQueueItemStatusWorking;
                 break;
             }
         }
     });
-    return [firstItem autorelease];
+    return firstItem;
 }
 
 #pragma mark - item management
@@ -90,19 +88,19 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 }
 
 - (NSUInteger)count {
-    return [self.items count];
+    return (self.items).count;
 }
 
 - (NSUInteger)readyCount {
     NSUInteger count = 0;
     for (SBQueueItem *item in self.items)
-        if ([item status] == SBQueueItemStatusReady)
+        if (item.status == SBQueueItemStatusReady)
             count++;
     return count;
 }
 
 - (SBQueueItem *)itemAtIndex:(NSUInteger)index {
-    return [self.items objectAtIndex:index];
+    return (self.items)[index];
 }
 
 - (NSArray *)itemsAtIndexes:(NSIndexSet *)indexes {
@@ -139,12 +137,12 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
     NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
 
     for (SBQueueItem *item in self.items)
-        if ([item status] == SBQueueItemStatusCompleted)
+        if (item.status == SBQueueItemStatusCompleted)
             [indexes addIndex:[self.items indexOfObject:item]];
 
     [self.items removeObjectsAtIndexes:indexes];
 
-    return [indexes autorelease];
+    return indexes;
 }
 
 #pragma mark - Queue control
@@ -288,15 +286,6 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 - (void)handleSBStatusCancelled {
     self.status = SBQueueStatusCancelled;
     [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueCancelledNotification object:self];
-}
-
-- (void)dealloc {
-    dispatch_release(_workQueue);
-
-    [_items release];
-    [_URL release];
-
-    [super dealloc];
 }
 
 @end

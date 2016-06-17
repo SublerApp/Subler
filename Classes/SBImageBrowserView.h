@@ -11,14 +11,16 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol SBImageBrowserViewDelegate
+
 @optional
 - (void)_pasteToImageBrowserView:(IKImageBrowserView *)ImageBrowserView;
+
 @end
 
-@interface SBImageBrowserView : IKImageBrowserView {
-    NSArray *_pasteboardTypes;
-}
-@property(nonatomic, readwrite, retain) NSArray<NSString *> *pasteboardTypes;
+@interface SBImageBrowserView : IKImageBrowserView
+
+@property(nonatomic, readwrite, strong) NSArray<NSString *> *pasteboardTypes;
+
 @end
 
 NS_ASSUME_NONNULL_END

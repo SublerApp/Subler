@@ -27,7 +27,7 @@
                                                      options:0
                                                        error:NULL];
 
-    NSMutableArray<SBChapterResult *> *resultsArray = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray<SBChapterResult *> *resultsArray = [[NSMutableArray alloc] init];
 
     if (xml) {
         NSArray<NSXMLNode *> *children = [xml nodesForXPath:@"//*:chapterInfo" error:nil];
@@ -40,7 +40,6 @@
         }
     }
 
-    [xml release];
 
     if (duration > 0) {
         NSArray<SBChapterResult *> *filteredArray = [self filterArray:resultsArray byDuration:duration delta:10000];
@@ -133,7 +132,6 @@
                 chapter.timestamp = time;
 
                 [chapters addObject:chapter];
-                [chapter release];
             }
         }
 
@@ -143,7 +141,7 @@
                                                                confirmations:confirmations
                                                                     chapters:chapters];
         
-            return [result autorelease];
+            return result;
         }
     }
 

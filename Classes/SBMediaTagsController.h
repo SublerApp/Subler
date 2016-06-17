@@ -21,13 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Custom media tags are preserved.
  */
-@interface SBMediaTagsController : NSViewController {
-    @private
-    MP42Track *_track;
-    NSArray<SBMediaTag *> *_tags;
-
-    IBOutlet NSTableView *_tableView;
-}
+@interface SBMediaTagsController : NSViewController
 
 /**
  *  Initializes an SBMediaTagsController with the tags

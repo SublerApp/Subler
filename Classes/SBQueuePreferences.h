@@ -33,7 +33,7 @@ extern NSString * const SBQueueDestination;
 }
 
 @property (nonatomic, readonly) NSMutableDictionary *options;
-@property (nonatomic, readonly, nullable) NSURL *queueURL;
+@property (weak, nonatomic, readonly, nullable) NSURL *queueURL;
 
 + (void)registerUserDefaults;
 - (void)saveUserDefaults;

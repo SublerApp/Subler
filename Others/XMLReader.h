@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 	
     NSMutableArray *dictionaryStack;
     NSMutableString *textInProgress;
-    NSError **errorPointer;
+    NSError * __autoreleasing *errorPointer;
 }
 
 + (nullable NSDictionary *)dictionaryForXMLData:(NSData *)data error:(NSError **)errorPointer;

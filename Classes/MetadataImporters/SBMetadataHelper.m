@@ -39,36 +39,36 @@
     if (resultDictionary.count) {
         results = [[NSMutableDictionary alloc] init];
         NSString *seriesName = [resultDictionary[@"seriesName"] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-        NSInteger episodeNumber = [resultDictionary[@"episodeNumber"] integerValue];
+        NSInteger episodeNumber = (resultDictionary[@"episodeNumber"]).integerValue;
 
         results[@"type"] = @"tv";
         results[@"seriesName"] = seriesName;
         results[@"seasonNum"] = @"1";
         results[@"episodeNum"] = [NSString stringWithFormat:@"%ld", (long)episodeNumber];
 
-        return [results autorelease];
+        return results;
     }
 
     // Else use the ParseFilename perl script
     NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath:@"/usr/bin/perl"];
+    task.launchPath = @"/usr/bin/perl";
 
     NSMutableArray<NSString *> *args = [[NSMutableArray alloc] initWithCapacity:3];
     NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"ParseFilename" ofType:@""];
     [args addObject:[NSString stringWithFormat:@"-I%@/lib", path]];
     [args addObject:[NSString stringWithFormat:@"%@/ParseFilename.pl", path]];
     [args addObject:filename];
-    [task setArguments:args];
+    task.arguments = args;
 
     NSPipe *stdOut = [[NSPipe alloc] init];
-    NSFileHandle *stdOutWrite = [stdOut fileHandleForWriting];
-    [task setStandardOutput:stdOutWrite];
+    NSFileHandle *stdOutWrite = stdOut.fileHandleForWriting;
+    task.standardOutput = stdOutWrite;
 
     [task launch];
     [task waitUntilExit];
     [stdOutWrite closeFile];
 
-    NSData *outputData = [[stdOut fileHandleForReading] readDataToEndOfFile];
+    NSData *outputData = [stdOut.fileHandleForReading readDataToEndOfFile];
     NSString *outputString = [[NSString alloc] initWithData:outputData encoding:NSUTF8StringEncoding];
     NSArray<NSString *> *lines = [outputString componentsSeparatedByString:@"\n"];
 
@@ -85,7 +85,7 @@
                                                                             withString:@" "];
                 results[@"seriesName"] = newSeriesName;
 
-                if ([lines[2] integerValue]) {
+                if ((lines[2]).integerValue) {
                     results[@"seasonNum"] = lines[2];
                 }
                 else {
@@ -116,23 +116,19 @@
         }
     }
 
-    [outputString release];
-    [stdOut release];
-    [args release];
-    [task release];
 
-    return [results autorelease];
+    return results;
 }
 
 + (NSString *)urlEncoded:(NSString *)string {
-    string = [string precomposedStringWithCompatibilityMapping];
+    string = string.precomposedStringWithCompatibilityMapping;
     CFStringRef urlString = CFURLCreateStringByAddingPercentEscapes(
                                                                     NULL,
                                                                     (CFStringRef) string,
                                                                     NULL,
                                                                     (CFStringRef) @"!*'\"();:@&=+$,/?%#[]% ",
                                                                     kCFStringEncodingUTF8);
-    return [(NSString *)urlString autorelease];
+    return CFAutorelease(urlString);
 }
 
 + (NSString *)md5String:(NSString *)s {
@@ -157,11 +153,10 @@
     return [NSString stringWithString:r];
 }
 
-+ (nullable NSData *)downloadDataFromURL:(NSURL *)url withCachePolicy:(SBCachePolicy)policy error:(NSError **)error  {
++ (nullable NSData *)downloadDataFromURL:(NSURL *)url withCachePolicy:(SBCachePolicy)policy error:(NSError * __autoreleasing *)error  {
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
-    NSURL *cacheURL = [[[fileManager URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask]
-                        firstObject] URLByAppendingPathComponent:bundleName];
+    NSString *bundleName = [NSBundle mainBundle].infoDictionary[@"CFBundleIdentifier"];
+    NSURL *cacheURL = [[fileManager URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask].firstObject URLByAppendingPathComponent:bundleName];
 
 
     NSURL *fileURL = [cacheURL URLByAppendingPathComponent:[SBMetadataHelper sha256String:url.absoluteString]];
@@ -194,12 +189,12 @@
 }
 
 #pragma mark NSURLRequest
-+ (nullable NSData *)dataFromUrl:(NSURL *)url withHTTPMethod:(NSString *)method headerOptions:(nullable NSDictionary *)header error:(NSError **)outError
++ (nullable NSData *)dataFromUrl:(NSURL *)url withHTTPMethod:(NSString *)method headerOptions:(nullable NSDictionary *)header error:(NSError * __autoreleasing *)outError
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:30.0];
-    [request setHTTPMethod:method];
+    request.HTTPMethod = method;
 
     if (header) {
         for (NSString *key in header.allKeys) {
@@ -216,7 +211,7 @@
     if (data) {
         NSUInteger statusCode = 0;
         if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-            statusCode = (long)[(NSHTTPURLResponse *)response statusCode];
+            statusCode = (long)((NSHTTPURLResponse *)response).statusCode;
         }
 
         if (statusCode == 200) {

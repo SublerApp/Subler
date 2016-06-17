@@ -35,8 +35,8 @@ static NSArray<NSString *> *TVDBlanguages;
                 for (NSDictionary *language in languagesArray) {
                     NSString *lang = [language valueForKeyPath:@"abbreviation.text"];
                     if (lang && [lang isKindOfClass:[NSString class]]) {
-                        iso639_lang_t *isoLanguage = lang_for_code_s([lang UTF8String]);
-                        [languagesResult addObject:[NSString stringWithUTF8String:isoLanguage->eng_name]];
+                        iso639_lang_t *isoLanguage = lang_for_code_s(lang.UTF8String);
+                        [languagesResult addObject:@(isoLanguage->eng_name)];
                     }
                 }
             }
@@ -66,7 +66,7 @@ static NSArray<NSString *> *TVDBlanguages;
 	for (NSDictionary *s in seriesArray) {
 		[results addObject:[s retrieveForPath:@"SeriesName.text"]];
 	}
-	return [[results autorelease] allObjects];
+	return results.allObjects;
 }
 
 - (NSArray<SBMetadataResult *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum
@@ -137,9 +137,8 @@ static NSArray<NSString *> *TVDBlanguages;
         }
     }
 
-    [seriesIDs release];
 
-	return [results autorelease];
+	return results;
 }
 
 - (SBMetadataResult *)loadTVMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage
@@ -186,9 +185,9 @@ static NSArray<NSString *> *TVDBlanguages;
 			[newArtworkProviderNames addObject:@"TheTVDB|poster"];
 		}
 	}
-	[aMetadata setArtworkThumbURLs:newArtworkThumbURLs];
-	[aMetadata setArtworkFullsizeURLs:newArtworkFullsizeURLs];
-	[aMetadata setArtworkProviderNames:newArtworkProviderNames];
+	aMetadata.artworkThumbURLs = newArtworkThumbURLs;
+	aMetadata.artworkFullsizeURLs = newArtworkFullsizeURLs;
+	aMetadata.artworkProviderNames = newArtworkProviderNames;
 
 	return aMetadata;
 }
@@ -277,14 +276,14 @@ static NSArray<NSString *> *TVDBlanguages;
 		[artworkProviderNames addObject:@"TheTVDB|episode"];
 	}
 
-	[metadata setArtworkThumbURLs: artworkThumbURLs];
-	[metadata setArtworkFullsizeURLs: artworkFullsizeURLs];
-	[metadata setArtworkProviderNames:artworkProviderNames];
+	metadata.artworkThumbURLs = artworkThumbURLs;
+	metadata.artworkFullsizeURLs = artworkFullsizeURLs;
+	metadata.artworkProviderNames = artworkProviderNames;
 
     // TheTVDB does not provide the following fields normally associated with TV shows in SBMetadataResult:
 	// "Copyright", "Comments", "Producers", "Artist"
 
-	return [metadata autorelease];
+	return metadata;
 }
 
 @end

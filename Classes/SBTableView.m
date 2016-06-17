@@ -11,14 +11,11 @@
 
 @implementation SBTableView
 
-@synthesize defaultEditingColumn = _defaultEditingColumn;
-@synthesize pasteboardTypes = _pasteboardTypes;
-
 - (instancetype)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _pasteboardTypes = [@[] retain];
+        _pasteboardTypes = @[];
     }
     return self;
 }
@@ -27,34 +24,34 @@
 {
     self = [super initWithCoder:coder];
     if (self) {
-        _pasteboardTypes = [@[] retain];
+        _pasteboardTypes = @[];
     }
     return self;
 }
 
 - (void)keyDown:(NSEvent *)event
 {
-    id delegate = [self delegate];
+    id delegate = self.delegate;
 
     unichar key = 0;
-    NSString *characters = [event charactersIgnoringModifiers];
+    NSString *characters = event.charactersIgnoringModifiers;
     if (characters.length) {
         key = [characters characterAtIndex:0];
     }
 
     if ((key == NSEnterCharacter || key == NSCarriageReturnCharacter) &&
         _defaultEditingColumn > 0) {
-        [self editColumn:_defaultEditingColumn row:[self selectedRow] withEvent:nil select:YES];
-        [self editColumn:1 row:[self selectedRow] withEvent:nil select:YES];
+        [self editColumn:_defaultEditingColumn row:self.selectedRow withEvent:nil select:YES];
+        [self editColumn:1 row:self.selectedRow withEvent:nil select:YES];
     } else if ((key == NSDeleteCharacter || key == NSDeleteFunctionKey) &&
                [delegate respondsToSelector:@selector(_deleteSelectionFromTableView:)]) {
-        if ([self selectedRow] == -1) {
+        if (self.selectedRow == -1) {
             NSBeep();
         } else {
             [delegate _deleteSelectionFromTableView:self];
         }
         return;
-    } else if (key == 27 && [self selectedRow] != -1) {
+    } else if (key == 27 && self.selectedRow != -1) {
         [self deselectAll:self];
     } else {
         [super keyDown:event];
@@ -63,29 +60,29 @@
 
 - (IBAction)delete:(id)sender
 {
-    if ([self selectedRow] == -1)
+    if (self.selectedRow == -1)
         return;
-    else if ([[self delegate] respondsToSelector:@selector(_deleteSelectionFromTableView:)])
-        [(id <SBTableViewDelegate>)[self delegate] _deleteSelectionFromTableView:self];
+    else if ([self.delegate respondsToSelector:@selector(_deleteSelectionFromTableView:)])
+        [(id <SBTableViewDelegate>)self.delegate _deleteSelectionFromTableView:self];
 }
 
 - (IBAction)copy:(id)sender {
-    if ([self selectedRow] == -1)
+    if (self.selectedRow == -1)
         return;
-    else if ([[self delegate] respondsToSelector:@selector(_copySelectionFromTableView:)])
-        [(id <SBTableViewDelegate>)[self delegate] _copySelectionFromTableView:self];
+    else if ([self.delegate respondsToSelector:@selector(_copySelectionFromTableView:)])
+        [(id <SBTableViewDelegate>)self.delegate _copySelectionFromTableView:self];
 }
 
 - (IBAction)cut:(id)sender {
-    if ([self selectedRow] == -1)
+    if (self.selectedRow == -1)
         return;
-    else if ([[self delegate] respondsToSelector:@selector(_cutSelectionFromTableView:)])
-        [(id <SBTableViewDelegate>)[self delegate] _cutSelectionFromTableView:self];
+    else if ([self.delegate respondsToSelector:@selector(_cutSelectionFromTableView:)])
+        [(id <SBTableViewDelegate>)self.delegate _cutSelectionFromTableView:self];
 }
 
 - (IBAction)paste:(id)sender {
-    if ([[self delegate] respondsToSelector:@selector(_pasteToTableView:)])
-        [(id <SBTableViewDelegate>)[self delegate] _pasteToTableView:self];
+    if ([self.delegate respondsToSelector:@selector(_pasteToTableView:)])
+        [(id <SBTableViewDelegate>)self.delegate _pasteToTableView:self];
 }
 
 - (BOOL)pasteboardHasSupportedType {
@@ -97,21 +94,21 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem *)item
 {
-    id delegate = [self delegate];
-    SEL action = [item action];
+    id delegate = self.delegate;
+    SEL action = item.action;
 
     if (action == @selector(delete:))
-        if ([self selectedRow] == -1 ||
+        if (self.selectedRow == -1 ||
             ![delegate respondsToSelector:@selector(_deleteSelectionFromTableView:)])
             return NO;
 
     if (action == @selector(copy:))
-        if ([self selectedRow] == -1 ||
+        if (self.selectedRow == -1 ||
             ![delegate respondsToSelector:@selector(_copySelectionFromTableView:)])
             return NO;
 
     if (action == @selector(cut:))
-        if ([self selectedRow] == -1 ||
+        if (self.selectedRow == -1 ||
             ![delegate respondsToSelector:@selector(_cutSelectionFromTableView:)])
             return NO;
 
@@ -125,14 +122,14 @@
 
 - (NSRect)frameOfCellAtColumn:(NSInteger)column row:(NSInteger)row
 {
-    if (![[self delegate] respondsToSelector:@selector(tableView:spanForTableColumn:row:)]) {
+    if (![self.delegate respondsToSelector:@selector(tableView:spanForTableColumn:row:)]) {
         return [super frameOfCellAtColumn:column row:row];
     }
 
-    NSInteger colspan = [(id <SBTableViewDelegate>)[self delegate]
+    NSInteger colspan = [(id <SBTableViewDelegate>)self.delegate
                tableView:self
                spanForTableColumn:
-               [[self tableColumns] objectAtIndex:column]
+               self.tableColumns[column]
                row:row];
     if (colspan == 0) {
         return NSZeroRect;
@@ -156,14 +153,14 @@
 {
     NSRect newClipRect = inClipRect;
 
-    if ([[self delegate] respondsToSelector:@selector(tableView:spanForTableColumn:row:)]) {
+    if ([self.delegate respondsToSelector:@selector(tableView:spanForTableColumn:row:)]) {
         NSInteger colspan = 0;
-        NSInteger firstCol = [[self columnIndexesInRect:inClipRect] firstIndex];
+        NSInteger firstCol = [self columnIndexesInRect:inClipRect].firstIndex;
         // Does the FIRST one of these have a zero-colspan? If so, extend range.
         while (colspan == 0) {
-            colspan = [(id <SBTableViewDelegate>)[self delegate]
+            colspan = [(id <SBTableViewDelegate>)self.delegate
                        tableView:self
-                       spanForTableColumn:[[self tableColumns] objectAtIndex:firstCol]
+                       spanForTableColumn:self.tableColumns[firstCol]
                        row:inRow];
             if (colspan == 0) {
                 firstCol--;
@@ -173,14 +170,6 @@
     }
 
     [super drawRow:inRow clipRect:newClipRect];
-}
-
-- (void)dealloc
-{
-    [_pasteboardTypes release];
-    _pasteboardTypes = nil;
-
-    [super dealloc];
 }
 
 @end

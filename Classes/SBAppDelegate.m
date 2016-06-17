@@ -26,9 +26,9 @@
 
     [SBPrefsController registerUserDefaults];
 
-    NSString *appSupportPath = [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
+    NSString *appSupportPath = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
                                                                      NSUserDomainMask,
-                                                                     YES) firstObject] stringByAppendingPathComponent:@"Subler"];
+                                                                     YES).firstObject stringByAppendingPathComponent:@"Subler"];
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:appSupportPath]) {
         [[NSFileManager defaultManager] createDirectoryAtPath:appSupportPath withIntermediateDirectories:YES attributes:nil error:NULL];
@@ -44,7 +44,6 @@
     debugLogController = [[SBLogWindowController alloc] initWithLogger:logger];
     [MP42File setGlobalLogger:logger];
 
-    [logger release];
 
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBShowQueueWindow"]) {
         [[SBQueueController sharedManager] showWindow:self];
@@ -55,7 +54,7 @@
     SBPresetManager *presetManager = [SBPresetManager sharedManager];
     [presetManager savePresets];
     
-    if ([[[SBQueueController sharedManager] window] isVisible]) {
+    if ([SBQueueController sharedManager].window.visible) {
         [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBShowQueueWindow"];
     }
     else {
@@ -71,7 +70,7 @@
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)app
 {
-    SBQueueStatus status= [[SBQueueController sharedManager] status];
+    SBQueueStatus status= [SBQueueController sharedManager].status;
     NSInteger result;
     if (status == SBQueueStatusWorking) {
         result = NSRunCriticalAlertPanel(
@@ -220,32 +219,30 @@
         [extension caseInsensitiveCompare: @"mov"] == NSOrderedSame ||
         mp4 == nil) {
 
-        CFRetain(completionHandler);
+        CFBridgingRetain(completionHandler);
 
         dispatch_async(dispatch_get_main_queue(), ^{
             NSError *outError = nil;
 
-            SBDocument *doc = [[self openUntitledDocumentAndDisplay:displayDocument error:&outError] retain];
+            SBDocument *doc = [self openUntitledDocumentAndDisplay:displayDocument error:&outError];
             completionHandler(doc, NO, outError);
             if (doc) {
                 [doc showImportSheet:@[url]];
             }
-            CFRelease(completionHandler);
-            [doc release];
+            CFRelease((__bridge CFTypeRef)(completionHandler));
         });
     }
     else {
         [super openDocumentWithContentsOfURL:url display:displayDocument completionHandler:completionHandler];
     }
 
-    [mp4 release];
 }
 
 - (nullable __kindof NSDocument *)documentForURL:(NSURL *)url
 {
     NSArray<__kindof NSDocument *> *documents = nil;
     @synchronized(self) {
-        documents = [[self.documents copy] autorelease];
+        documents = [self.documents copy];
     }
 
     for (NSDocument *doc in documents) {

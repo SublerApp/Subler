@@ -63,28 +63,28 @@ static NSString *getLevelName(uint8_t level) {
 
     _mediaTagsController = [[SBMediaTagsController alloc] initWithTrack:track];
 
-    [_mediaTagsController.view setFrame: [mediaTagsView bounds]];
-    [_mediaTagsController.view setAutoresizingMask:( NSViewWidthSizable | NSViewHeightSizable )];
+    (_mediaTagsController.view).frame = mediaTagsView.bounds;
+    (_mediaTagsController.view).autoresizingMask = ( NSViewWidthSizable | NSViewHeightSizable );
 
     [mediaTagsView addSubview:_mediaTagsController.view];
 
-    [sampleWidth setStringValue: [NSString stringWithFormat:@"%lld", track.width]];
-    [sampleHeight setStringValue: [NSString stringWithFormat:@"%lld", track.height]];
+    sampleWidth.stringValue = [NSString stringWithFormat:@"%lld", track.width];
+    sampleHeight.stringValue = [NSString stringWithFormat:@"%lld", track.height];
     
-    [trackWidth setStringValue: [NSString stringWithFormat:@"%d", (uint16_t)track.trackWidth]];
-    [trackHeight setStringValue: [NSString stringWithFormat:@"%d", (uint16_t)track.trackHeight]];
+    trackWidth.stringValue = [NSString stringWithFormat:@"%d", (uint16_t)track.trackWidth];
+    trackHeight.stringValue = [NSString stringWithFormat:@"%d", (uint16_t)track.trackHeight];
 
-    [hSpacing setStringValue: [NSString stringWithFormat:@"%lld", track.hSpacing]];
-    [vSpacing setStringValue: [NSString stringWithFormat:@"%lld", track.vSpacing]];
+    hSpacing.stringValue = [NSString stringWithFormat:@"%lld", track.hSpacing];
+    vSpacing.stringValue = [NSString stringWithFormat:@"%lld", track.vSpacing];
 
-    [offsetX setStringValue: [NSString stringWithFormat:@"%d", track.offsetX]];
-    [offsetY setStringValue: [NSString stringWithFormat:@"%d", track.offsetY]];
+    offsetX.stringValue = [NSString stringWithFormat:@"%d", track.offsetX];
+    offsetY.stringValue = [NSString stringWithFormat:@"%d", track.offsetY];
     
     [alternateGroup selectItemAtIndex:(NSInteger)track.alternate_group];
 
     if ([track.format isEqualToString:MP42VideoFormatH264] && track.origProfile && track.origLevel) {
-        [profileLevelUnchanged setTitle:[NSString stringWithFormat:@"Current profile: %@ @ %@", 
-                                         getProfileName(track.origProfile), getLevelName(track.origLevel)]];
+        profileLevelUnchanged.title = [NSString stringWithFormat:@"Current profile: %@ @ %@", 
+                                         getProfileName(track.origProfile), getLevelName(track.origLevel)];
         if ((track.origProfile == track.newProfile) && (track.origLevel == track.newLevel)) {
             [videoProfile selectItemWithTag:1];
         } else {
@@ -128,15 +128,15 @@ static NSString *getLevelName(uint8_t level) {
         NSInteger i = 1;
         NSInteger selectedItem = 0;
         for (MP42SubtitleTrack *fileTrack in [mp4file tracksWithMediaType:MP42MediaTypeSubtitle]) {
-            NSMenuItem *newItem = [[[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ - %@ - %@",
+            NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ - %@ - %@",
                                                                       fileTrack.trackId ? [NSString stringWithFormat:@"%d", fileTrack.trackId] : @"NA",
                                                                       fileTrack.name,
                                                                       fileTrack.language]
                                                               action:@selector(setForcedTrack:)
-                                                       keyEquivalent:@""] autorelease];
-            [newItem setTarget:self];
-            [newItem setTag:i];
-            [[forced menu] addItem:newItem];
+                                                       keyEquivalent:@""];
+            newItem.target = self;
+            newItem.tag = i;
+            [forced.menu addItem:newItem];
             [_forced addObject:fileTrack];
 
             if (((MP42SubtitleTrack *)track).forcedTrack == fileTrack)
@@ -156,12 +156,12 @@ static NSString *getLevelName(uint8_t level) {
 
 - (void)setTrack:(MP42VideoTrack *)videoTrack
 {
-    track = [videoTrack retain];
+    track = videoTrack;
 }
 
 - (void)setFile:(MP42File *)mp4
 {
-    mp4file = [mp4 retain];
+    mp4file = mp4;
 }
 
 - (IBAction)setSize:(id)sender
@@ -169,42 +169,42 @@ static NSString *getLevelName(uint8_t level) {
     NSInteger i;
 
     if (sender == trackWidth) {
-        i = [trackWidth integerValue];
+        i = trackWidth.integerValue;
         if (track.trackWidth != i) {
-            if ([preserveAspectRatio state] == NSOnState) {
+            if (preserveAspectRatio.state == NSOnState) {
                 track.trackHeight = (track.trackHeight / track.trackWidth) * i;
-                [trackHeight setIntegerValue:(NSInteger)track.trackHeight];
+                trackHeight.integerValue = (NSInteger)track.trackHeight;
             }
             track.trackWidth = i;
 
-            [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+            [self.view.window.windowController.document updateChangeCount:NSChangeDone];
             track.isEdited = YES;
         }
     }
     else if (sender == trackHeight) {
-        i = [trackHeight integerValue];
+        i = trackHeight.integerValue;
         if (track.trackHeight != i) {
             track.trackHeight = i;
 
-            [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+            [self.view.window.windowController.document updateChangeCount:NSChangeDone];
             track.isEdited = YES;
         }
     }
     else if (sender == offsetX) {
-        i = [offsetX integerValue];
+        i = offsetX.integerValue;
         if (track.offsetX != i) {
             track.offsetX = (uint32_t)i;
 
-            [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+            [self.view.window.windowController.document updateChangeCount:NSChangeDone];
             track.isEdited = YES;
         }
     }
     else if (sender == offsetY) {
-        i = [offsetY integerValue];
+        i = offsetY.integerValue;
         if (track.offsetY != i) {
             track.offsetY = (uint32_t)i;
 
-            [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+            [self.view.window.windowController.document updateChangeCount:NSChangeDone];
             track.isEdited = YES;
         }
     }
@@ -215,20 +215,20 @@ static NSString *getLevelName(uint8_t level) {
     NSInteger i;
     
     if (sender == hSpacing) {
-        i = [hSpacing integerValue];
+        i = hSpacing.integerValue;
         if (track.hSpacing != i) {
             track.hSpacing = i;
 
-            [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+            [self.view.window.windowController.document updateChangeCount:NSChangeDone];
             track.isEdited = YES;
         }
     }
     else if (sender == vSpacing) {
-        i = [vSpacing integerValue];
+        i = vSpacing.integerValue;
         if (track.vSpacing != i) {
             track.vSpacing = i;
 
-            [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+            [self.view.window.windowController.document updateChangeCount:NSChangeDone];
             track.isEdited = YES;
         }
     }
@@ -237,17 +237,17 @@ static NSString *getLevelName(uint8_t level) {
 
 - (IBAction)setAltenateGroup:(id)sender
 {
-    NSInteger tagName = [[sender selectedItem] tag];
+    NSInteger tagName = [sender selectedItem].tag;
     
     if (track.alternate_group != tagName) {
         track.alternate_group = tagName;
-        [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+        [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }
 
 - (IBAction)setProfileLevel:(id)sender
 {
-    NSInteger tagName = [[sender selectedItem] tag];
+    NSInteger tagName = [sender selectedItem].tag;
     switch (tagName) {
         case 1:
             track.newProfile = track.origProfile;
@@ -273,14 +273,14 @@ static NSString *getLevelName(uint8_t level) {
             return;
     }
 
-    [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+    [self.view.window.windowController.document updateChangeCount:NSChangeDone];
 }
 
 - (IBAction)setForcedSubtitles:(id)sender
 {
     if ([track isKindOfClass:[MP42SubtitleTrack class]]) {
         MP42SubtitleTrack *subTrack = (MP42SubtitleTrack *)track;
-        NSInteger tagName = [[sender selectedItem] tag];
+        NSInteger tagName = [sender selectedItem].tag;
 
         switch (tagName) {
             case 0:
@@ -299,7 +299,7 @@ static NSString *getLevelName(uint8_t level) {
                 return;
         }
 
-        [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+        [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }
 
@@ -308,29 +308,18 @@ static NSString *getLevelName(uint8_t level) {
     NSInteger index = [sender tag];
 
     if (index) {
-        MP42SubtitleTrack *subTrack = [_forced objectAtIndex:index-1];
+        MP42SubtitleTrack *subTrack = _forced[index-1];
 
         if (subTrack != ((MP42SubtitleTrack *)track).forcedTrack) {
             ((MP42SubtitleTrack *)track).forcedTrack = subTrack;
-            [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+            [self.view.window.windowController.document updateChangeCount:NSChangeDone];
         }
     }
     else {
         ((MP42SubtitleTrack *)track).forcedTrack = nil;
-        [[[[[self view]window] windowController] document] updateChangeCount:NSChangeDone];
+        [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }
 
-- (void)dealloc
-{
-    [track release];
-    [mp4file release];
-
-    [_forced release];
-
-    [_mediaTagsController release];
-
-    [super dealloc];
-}
 
 @end

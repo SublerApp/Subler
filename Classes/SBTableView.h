@@ -22,12 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
                    row:(NSInteger)row;
 @end
 
-@interface SBTableView : NSTableView {
-    NSArray<NSString *> *_pasteboardTypes;
-    NSInteger _defaultEditingColumn;
-}
-@property(nonatomic, readwrite, copy) NSArray<NSString *> *pasteboardTypes;
-@property(nonatomic, readwrite) NSInteger defaultEditingColumn;
+@interface SBTableView : NSTableView
+
+@property (nonatomic, readwrite, copy) NSArray<NSString *> *pasteboardTypes;
+@property (nonatomic, readwrite) NSInteger defaultEditingColumn;
+
 @end
 
 NS_ASSUME_NONNULL_END

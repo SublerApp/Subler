@@ -22,7 +22,7 @@
 }
 
 - (id)dg_objectAtIndexedSubscript:(NSInteger)index {
-    return [self objectAtIndex:index];
+    return self[index];
 }
 
 @end

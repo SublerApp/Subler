@@ -23,14 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
 @private
     SBQueueItem *_item;
 
-    NSButton *_editButton;
-    NSProgressIndicator *_spinner;
+    NSButton *__weak _editButton;
+    NSProgressIndicator *__weak _spinner;
 
-    id<SBItemViewDelegate> _delegate;
+    id<SBItemViewDelegate> __unsafe_unretained _delegate;
 }
 
 @property (nonatomic, readonly) SBQueueItem *item;
-@property (nonatomic, assign, readwrite) id<SBItemViewDelegate> delegate;
+@property (nonatomic, unsafe_unretained, readwrite) id<SBItemViewDelegate> delegate;
 
 - (instancetype)initWithItem:(SBQueueItem *)item;
 

@@ -18,22 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)importDoneWithTracks:(NSArray<MP42Track *> *)tracksToBeImported andMetadata:(nullable MP42Metadata *)metadata;
 @end
 
-@interface SBFileImport : NSWindowController <NSTableViewDelegate> {
-@private
-    NSArray<NSURL *>  *_fileURLs;
-
-    NSMutableArray<MP42FileImporter *> *_fileImporters;
-    NSMutableArray  *_tracks;
-    
-    NSMutableArray<NSNumber *> *_importCheckArray;
-    NSMutableArray<NSNumber *> *_actionArray;
-
-	id<SBFileImportDelegate> _delegate;
-
-	IBOutlet NSTableView *tracksTableView;
-	IBOutlet NSButton    *addTracksButton;
-    IBOutlet NSButton    *importMetadata;
-}
+@interface SBFileImport : NSWindowController <NSTableViewDelegate>
 
 - (instancetype)init NS_UNAVAILABLE;
 - (nullable instancetype)initWithURLs:(NSArray<NSURL *> *)fileURLs delegate:(id <SBFileImportDelegate>)delegate error:(NSError **)error;

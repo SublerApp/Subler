@@ -12,44 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class MP42File;
 
-@interface SBDocument : NSDocument {
-@private
-    MP42File  *_mp4File;
-    IBOutlet NSWindow       *documentWindow;
-
-    IBOutlet NSTableView    *fileTracksTable;
-    IBOutlet NSSplitView    *splitView;
-
-    IBOutlet NSWindow       *savingWindow;
-    IBOutlet NSTextField    *saveOperationName;
-
-    NSSavePanel                     *_currentSavePanel;
-    IBOutlet NSView                 *saveView;
-    IBOutlet NSPopUpButton          *fileFormat;
-    IBOutlet NSProgressIndicator    *optBar;
-
-    IBOutlet NSToolbarItem  *addTracks;
-    IBOutlet NSToolbarItem  *deleteTrack;
-    IBOutlet NSToolbarItem  *searchMetadata;
-    IBOutlet NSToolbarItem  *searchChapters;
-    IBOutlet NSToolbarItem  *sendToQueue;
-
-    NSArray<NSString *> *languages;
-
-    NSViewController        *propertyView;
-    IBOutlet NSView         *targetView;
-    NSWindowController      *_sheet;
-
-    IBOutlet NSWindow       *offsetWindow;
-    IBOutlet NSTextField    *offset;
-
-    IBOutlet NSButton *cancelSave;
-    IBOutlet NSButton *_64bit_data;
-    IBOutlet NSButton *_64bit_time;
-    BOOL _optimize;
-
-    NSDictionary                 *_detailMonospacedAttr;
-}
+@interface SBDocument : NSDocument
 
 - (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError **)outError;
 

@@ -14,8 +14,8 @@
 {
     if (viewController)
     {
-        NSResponder *controllerNextResponder = [viewController nextResponder];
-        [super setNextResponder:controllerNextResponder];
+        NSResponder *controllerNextResponder = viewController.nextResponder;
+        super.nextResponder = controllerNextResponder;
         [viewController setNextResponder:nil];
     }
     
@@ -23,9 +23,9 @@
     
     if (newController)
     {
-        NSResponder *ownNextResponder = [self nextResponder];
-        [super setNextResponder: viewController];
-        [viewController setNextResponder:ownNextResponder];
+        NSResponder *ownNextResponder = self.nextResponder;
+        super.nextResponder = viewController;
+        viewController.nextResponder = ownNextResponder;
     }
 }
 
@@ -33,11 +33,11 @@
 {
     if (viewController)
     {
-        [viewController setNextResponder:newNextResponder];
+        viewController.nextResponder = newNextResponder;
         return;
     }
     
-    [super setNextResponder:newNextResponder];
+    super.nextResponder = newNextResponder;
 }
 
 @end

@@ -37,14 +37,14 @@
 
     snprintf(time, sizeof(time), "[%02d:%02d:%02d]", now->tm_hour, now->tm_min, now->tm_sec);
 
-    return [NSString stringWithUTF8String:time];
+    return @(time);
 }
 
 - (void)writeToLog:(NSString *)string {
     if (self.fileURL) {
-        FILE *f = fopen([[self.fileURL path] fileSystemRepresentation], "a");
+        FILE *f = fopen((self.fileURL).path.fileSystemRepresentation, "a");
         if (f) {
-            fprintf(f, "%s %s", [[self currentTime] UTF8String], [string UTF8String]);
+            fprintf(f, "%s %s", [self currentTime].UTF8String, string.UTF8String);
             fclose(f);
         }
     }
@@ -66,12 +66,9 @@
 }
 
 - (void)dealloc {
-    [_fileURL release];
-    _fileURL = nil;
 
     _delegate = nil;
 
-    [super dealloc];
 }
 
 @end

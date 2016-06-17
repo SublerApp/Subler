@@ -13,9 +13,11 @@
 NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotification";
 
 @interface SBPresetManager ()
-- (BOOL)loadPresets;
-- (BOOL)savePresets;
-- (NSString *)appSupportPath;
+{
+    NSMutableArray<MP42Metadata *> *_presets;
+}
+
+@property (nonatomic, readonly) NSString *appSupportPath;
 - (BOOL)removePresetWithName:(NSString*)name;
 
 @end
@@ -53,7 +55,6 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
 {
     MP42Metadata *newSet = [set copy];
     [_presets addObject:newSet];
-    [newSet release];
 
     [self savePresets];
     [self updateNotification];
@@ -64,7 +65,7 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
     NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
                                                             NSUserDomainMask,
                                                             YES);
-    return [[allPaths firstObject] stringByAppendingPathComponent:@"Subler"];
+    return [allPaths.firstObject stringByAppendingPathComponent:@"Subler"];
 }
 
 - (BOOL)loadPresets
@@ -80,7 +81,7 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
 
     NSDirectoryEnumerator *dirEnum = [fileManager enumeratorAtPath:appSupportPath];
     while ((file = [dirEnum nextObject])) {
-        if ([[file pathExtension] isEqualToString:@"sbpreset"]) {
+        if ([file.pathExtension isEqualToString:@"sbpreset"]) {
             @try {
                 newPreset = [NSKeyedUnarchiver unarchiveObjectWithFile:[appSupportPath stringByAppendingPathComponent:file]];
             }
@@ -116,8 +117,8 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
     }
 
     for (MP42Metadata  *object in _presets) {
-        if ([object isEdited]) {
-            NSString *saveLocation = [NSString stringWithFormat:@"%@/%@.sbpreset", appSupportPath, [object presetName]];
+        if (object.isEdited) {
+            NSString *saveLocation = [NSString stringWithFormat:@"%@/%@.sbpreset", appSupportPath, object.presetName];
                 noErr = [NSKeyedArchiver archiveRootObject:object
                                                 toFile:saveLocation];
         }
@@ -136,7 +137,7 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
 
 - (BOOL)removePresetAtIndex:(NSUInteger)index
 {
-    NSString *name = [[_presets objectAtIndex:index] presetName];
+    NSString *name = _presets[index].presetName;
     [_presets removeObjectAtIndex:index];
 
     [self updateNotification];

@@ -19,38 +19,29 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
 @interface SBOptionsViewController ()
 
 @property (nonatomic) NSMutableDictionary *options;
-@property (nonatomic, retain) NSMutableArray *sets;
+@property (nonatomic, strong) NSMutableArray *sets;
 
-@property (nonatomic, retain) NSArray *moviesProviders;
-@property (nonatomic, retain) NSArray *tvShowsProviders;
-@property (nonatomic, retain) NSArray *movieLanguages;
-@property (nonatomic, retain) NSArray *tvShowLanguages;
+@property (nonatomic, strong) NSArray *moviesProviders;
+@property (nonatomic, strong) NSArray *tvShowsProviders;
+@property (nonatomic, strong) NSArray *movieLanguages;
+@property (nonatomic, strong) NSArray *tvShowLanguages;
 
 - (IBAction)chooseDestination:(id)sender;
 - (IBAction)destination:(id)sender;
 
-@property (nonatomic, retain) NSURL *destination;
+@property (nonatomic, strong) NSURL *destination;
 
 @end
 
 @implementation SBOptionsViewController
 
-@synthesize options = _options;
-@synthesize sets = _sets;
-@synthesize moviesProviders = _moviesProviders;
-@synthesize tvShowsProviders = _tvShowsProviders;
-@synthesize movieLanguages = _movieLanguages;
-@synthesize tvShowLanguages = _tvShowLanguages;
-
-@synthesize destination = _destination;
-
 - (instancetype)initWithOptions:(NSMutableDictionary *)options {
     self = [self init];
     if (self) {
-        _options = [options retain];
+        _options = options;
         _sets = [[NSMutableArray alloc] init];
-        _moviesProviders = [[SBMetadataImporter movieProviders] retain];
-        _tvShowsProviders = [[SBMetadataImporter tvProviders] retain];
+        _moviesProviders = [SBMetadataImporter movieProviders];
+        _tvShowsProviders = [SBMetadataImporter tvProviders];
 
     }
     return self;
@@ -78,7 +69,6 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
                                                                              attributes:@{NSForegroundColorAttributeName:[NSColor labelColor],
                                                                                         NSFontAttributeName:[NSFont labelFontOfSize:11]}];
                 subview.attributedTitle = string;
-                [string release];
             }
         }
     }
@@ -100,7 +90,7 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
 }
 
 - (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem {
-    SEL action = [anItem action];
+    SEL action = anItem.action;
 
     if (action == @selector(chooseDestination:))
         return YES;
@@ -163,8 +153,8 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
     if (self.destination) {
         folderItem = [self prepareDestPopupItem:self.destination];
 
-        [[_destButton menu] insertItem:[NSMenuItem separatorItem] atIndex:0];
-        [[_destButton menu] insertItem:folderItem atIndex:0];
+        [_destButton.menu insertItem:[NSMenuItem separatorItem] atIndex:0];
+        [_destButton.menu insertItem:folderItem atIndex:0];
 
         if ([self.options valueForKey:@"SBQueueDestination"]) {
             [_destButton selectItem:folderItem];
@@ -182,21 +172,21 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
     panel.canChooseDirectories = YES;
     panel.canCreateDirectories = YES;
 
-    [panel setPrompt:NSLocalizedString(@"Select", @"Select queue destination.")];
+    panel.prompt = NSLocalizedString(@"Select", @"Select queue destination.");
     [panel beginWithCompletionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
-            NSMenuItem *folderItem = [self prepareDestPopupItem:[panel URL]];
+            NSMenuItem *folderItem = [self prepareDestPopupItem:panel.URL];
 
-            [[_destButton menu] removeItemAtIndex:0];
-            [[_destButton menu] insertItem:folderItem atIndex:0];
+            [self->_destButton.menu removeItemAtIndex:0];
+            [self->_destButton.menu insertItem:folderItem atIndex:0];
 
-            [_destButton selectItem:folderItem];
+            [self->_destButton selectItem:folderItem];
 
-            [self.options setValue:[panel URL] forKey:@"SBQueueDestination"];
+            [self.options setValue:panel.URL forKey:@"SBQueueDestination"];
             self.destination = panel.URL;
             [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBQueueDestinationSelected"];
         } else {
-            [_destButton selectItemAtIndex:2];
+            [self->_destButton selectItemAtIndex:2];
         }
     }];
 }
@@ -204,19 +194,19 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
 - (NSMenuItem *)prepareDestPopupItem:(nonnull NSURL *)dest {
     NSMenuItem *folderItem = [[NSMenuItem alloc] initWithTitle:dest.lastPathComponent action:@selector(destination:) keyEquivalent:@""];
 
-    NSImage *menuItemIcon = [[NSWorkspace sharedWorkspace] iconForFile:[dest path]];
-    [menuItemIcon setSize:NSMakeSize(16, 16)];
+    NSImage *menuItemIcon = [[NSWorkspace sharedWorkspace] iconForFile:dest.path];
+    menuItemIcon.size = NSMakeSize(16, 16);
 
-    [folderItem setImage:menuItemIcon];
+    folderItem.image = menuItemIcon;
 
-    return [folderItem autorelease];
+    return folderItem;
 }
 
 - (IBAction)destination:(id)sender {
     if ([sender tag] == 10) {
         [self.options removeObjectForKey:@"SBQueueDestination"];
     } else {
-        [self.options setObject:self.destination forKey:@"SBQueueDestination"];
+        (self.options)[@"SBQueueDestination"] = self.destination;
     }
 }
 
@@ -230,30 +220,22 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
 }
 
 - (void)updateSetsMenu:(id)sender {
-    self.sets = [[[SBPresetManager sharedManager].presets mutableCopy] autorelease];
-    if (![self.sets containsObject:[self.options objectForKey:@"SBQueueSet"]]) {
+    self.sets = [[SBPresetManager sharedManager].presets mutableCopy];
+    if (![self.sets containsObject:(self.options)[@"SBQueueSet"]]) {
         [self.options removeObjectForKey:@"SBQueueSet"];
     }
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [_options release];
-    [_sets release];
-    [_destination release];
 
-    [_moviesProviders release];
-    [_tvShowsProviders release];
 
-    [_movieLanguages release];
-    [_tvShowLanguages release];
 
     @try {
         [self removeObserver:self forKeyPath:@"options.SBQueueMovieProvider"];
         [self removeObserver:self forKeyPath:@"options.SBQueueTVShowProvider"];
     } @catch (NSException * __unused exception) {}
 
-    [super dealloc];
 }
 
 @end

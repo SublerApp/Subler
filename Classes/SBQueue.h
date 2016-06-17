@@ -26,35 +26,21 @@ extern NSString *SBQueueCompletedNotification;
 extern NSString *SBQueueFailedNotification;
 extern NSString *SBQueueCancelledNotification;
 
-@interface SBQueue : NSObject {
-    @private
-    dispatch_queue_t   _workQueue;
-    SBQueueStatus      _status;
-
-    SBQueueItem        *_currentItem;
-    NSUInteger          _currentIndex;
-    NSMutableArray<SBQueueItem *> *_items;
-    NSURL              *_URL;
-
-    IOPMAssertionID _assertionID;
-    IOReturn        _io_success;
-    BOOL            _cancelled;
-
-    BOOL _optimize;
-}
+@interface SBQueue : NSObject
 
 @property (atomic, readonly) SBQueueStatus status;
 @property (atomic) BOOL optimize;
 
-- (instancetype)initWithURL:(NSURL *)queueURL;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithURL:(NSURL *)queueURL NS_DESIGNATED_INITIALIZER;
 
 - (void)start;
 - (void)stop;
 
 - (void)addItem:(SBQueueItem *)item;
 
-- (NSUInteger)count;
-- (NSUInteger)readyCount;
+@property (nonatomic, readonly) NSUInteger count;
+@property (nonatomic, readonly) NSUInteger readyCount;
 
 - (SBQueueItem *)itemAtIndex:(NSUInteger)index;
 - (NSUInteger)indexOfItem:(SBQueueItem *)item;
@@ -66,9 +52,9 @@ extern NSString *SBQueueCancelledNotification;
 - (void)removeItemsAtIndexes:(NSIndexSet *)indexes;
 - (void)removeItem:(SBQueueItem *)item;
 
-- (NSIndexSet *)removeCompletedItems;
+@property (nonatomic, readonly, copy) NSIndexSet * _Nonnull removeCompletedItems;
 
-- (BOOL)saveQueueToDisk;
+@property (nonatomic, readonly) BOOL saveQueueToDisk;
 
 @end
 

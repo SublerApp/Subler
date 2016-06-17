@@ -7,8 +7,8 @@
 //
 
 #import "SBQueueController.h"
-#import "SBQueuePreferences.h"
 #import "SBQueueItem.h"
+#import "SBQueuePreferences.h"
 
 #import "SBOptionsViewController.h"
 #import "SBItemViewController.h"
@@ -25,36 +25,27 @@ static void *SBQueueContex = &SBQueueContex;
 @interface SBQueueController () <NSPopoverDelegate, NSWindowDelegate, NSTableViewDelegate, NSTableViewDataSource, SBTableViewDelegate, SBItemViewDelegate>
 
 @property (nonatomic, readonly) SBQueue *queue;
-@property (nonatomic, retain) NSPopover *popover;
-@property (nonatomic, retain) NSPopover *itemPopover;
-@property (nonatomic, retain) SBOptionsViewController *windowController;
-
-@property (nonatomic, readonly) NSMutableDictionary *options;
 @property (nonatomic, readonly) SBQueuePreferences *prefs;
+@property (nonatomic, readonly) NSMutableDictionary<NSString *, id> *options;
 
-- (IBAction)removeSelectedItems:(id)sender;
-- (IBAction)removeCompletedItems:(id)sender;
+@property (nonatomic, weak) IBOutlet SBTableView *table;
 
-- (IBAction)edit:(id)sender;
-- (IBAction)showInFinder:(id)sender;
+@property (nonatomic, readonly) NSImage *docImg;
 
-- (IBAction)toggleStartStop:(id)sender;
-- (IBAction)toggleOptions:(id)sender;
-- (IBAction)toggleItemsOptions:(id)sender;
+@property (nonatomic, strong) NSPopover *popover;
+@property (nonatomic,weak) IBOutlet NSPanel *detachedWindow;
 
-- (IBAction)open:(id)sender;
+@property (nonatomic, strong) NSPopover *itemPopover;
+@property (nonatomic, strong) SBOptionsViewController *windowController;
+
+@property (nonatomic, weak) IBOutlet NSToolbarItem *startItem;
+
+@property (nonatomic, weak) IBOutlet NSTextField *statusLabel;
+@property (nonatomic, weak) IBOutlet NSProgressIndicator *progressBar;
 
 @end
 
-
 @implementation SBQueueController
-
-@synthesize queue = _queue;
-@synthesize popover = _popover;
-@synthesize itemPopover = _itemPopover;
-@synthesize windowController = _windowController;
-@synthesize options = _options;
-@synthesize prefs = _prefs;
 
 + (SBQueueController *)sharedManager {
     static dispatch_once_t pred;
@@ -82,14 +73,14 @@ static void *SBQueueContex = &SBQueueContex;
 - (void)windowDidLoad {
     [super windowDidLoad];
 
-    [_progressIndicator setHidden:YES];
+    [self.progressBar setHidden:YES];
 
     // Load a generic movie icon to display in the table view
-    _docImg = [[[NSWorkspace sharedWorkspace] iconForFileType:@"public.movie"] retain];
-    [_docImg setSize:NSMakeSize(16, 16)];
+    _docImg = [[NSWorkspace sharedWorkspace] iconForFileType:@"public.movie"];
+    _docImg.size = NSMakeSize(16, 16);
 
-    [_tableView registerForDraggedTypes:@[NSFilenamesPboardType, SublerBatchTableViewDataType]];
-
+    // Drag & Drop
+    [self.table registerForDraggedTypes:@[NSFilenamesPboardType, SublerBatchTableViewDataType]];
 
     // Observe the changes to SBQueueOptimize
     [self addObserver:self forKeyPath:@"options.SBQueueOptimize" options:NSKeyValueObservingOptionInitial context:SBQueueContex];
@@ -98,10 +89,10 @@ static void *SBQueueContex = &SBQueueContex;
     NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
 
     [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueWorkingNotification object:self.queue queue:mainQueue usingBlock:^(NSNotification *note) {
-        NSDictionary *info = [note userInfo];
-        [_countLabel setStringValue:[info valueForKey:@"ProgressString"]];
-        [_progressIndicator setIndeterminate:NO];
-        [_progressIndicator setDoubleValue:[[info valueForKey:@"Progress"] doubleValue]];
+        NSDictionary *info = note.userInfo;
+        self.statusLabel.stringValue = [info valueForKey:@"ProgressString"];
+        [self.progressBar setIndeterminate:NO];
+        self.progressBar.doubleValue = [[info valueForKey:@"Progress"] doubleValue];
 
         if ([[info valueForKey:@"ItemIndex"] integerValue] != -1) {
             [self updateUI];
@@ -109,18 +100,18 @@ static void *SBQueueContex = &SBQueueContex;
     }];
 
     [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueCompletedNotification object:self.queue queue:mainQueue usingBlock:^(NSNotification *note) {
-        [_progressIndicator setHidden:YES];
-        [_progressIndicator stopAnimation:self];
-        [_progressIndicator setDoubleValue:0];
-        [_progressIndicator setIndeterminate:YES];
-        [_startItem setImage:[NSImage imageNamed:@"playBackTemplate"]];
-        [_countLabel setStringValue:NSLocalizedString(@"Done", @"Queue -> Done")];
+        [self.progressBar setHidden:YES];
+        [self.progressBar stopAnimation:self];
+        self.progressBar.doubleValue = 0;
+        [self.progressBar setIndeterminate:YES];
+        self.startItem.image = [NSImage imageNamed:@"playBackTemplate"];
+        [self.statusLabel setStringValue:NSLocalizedString(@"Done", @"Queue -> Done")];
 
         [self updateUI];
     }];
 
     [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueFailedNotification object:self.queue queue:mainQueue usingBlock:^(NSNotification *note) {
-        NSDictionary *info = [note userInfo];
+        NSDictionary *info = note.userInfo;
         if ([[info valueForKey:@"Error"] isMemberOfClass:[NSError class]]) {
             [NSApp presentError:[info valueForKey:@"Error"]];
         }
@@ -133,31 +124,31 @@ static void *SBQueueContex = &SBQueueContex;
 #pragma mark - User Interface Validation
 
 - (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem {
-    SEL action = [anItem action];
+    SEL action = anItem.action;
 
     if (action == @selector(removeSelectedItems:)) {
-        if ([_tableView selectedRow] != -1) {
-            SBQueueItem *item = [self.queue itemAtIndex:[_tableView selectedRow]];
-            if ([item status] != SBQueueItemStatusWorking)
+        if (self.table.selectedRow != -1) {
+            SBQueueItem *item = [self.queue itemAtIndex:self.table.selectedRow];
+            if (item.status != SBQueueItemStatusWorking)
                 return YES;
-        } else if ([_tableView clickedRow] != -1) {
-            SBQueueItem *item = [self.queue itemAtIndex:[_tableView clickedRow]];
-            if ([item status] != SBQueueItemStatusWorking)
+        } else if (self.table.clickedRow != -1) {
+            SBQueueItem *item = [self.queue itemAtIndex:self.table.clickedRow];
+            if (item.status != SBQueueItemStatusWorking)
                 return YES;
         }
     }
 
     if (action == @selector(showInFinder:)) {
-        if ([_tableView clickedRow] != -1) {
-            SBQueueItem *item = [self.queue itemAtIndex:[_tableView clickedRow]];
-            if ([item status] == SBQueueItemStatusCompleted)
+        if (self.table.clickedRow != -1) {
+            SBQueueItem *item = [self.queue itemAtIndex:self.table.clickedRow];
+            if (item.status == SBQueueItemStatusCompleted)
                 return YES;
         }
     }
 
     if (action == @selector(edit:)) {
-        if ([_tableView clickedRow] != -1) {
-            SBQueueItem *item = [self.queue itemAtIndex:[_tableView clickedRow]];
+        if (self.table.clickedRow != -1) {
+            SBQueueItem *item = [self.queue itemAtIndex:self.table.clickedRow];
             if (item.status == SBQueueItemStatusReady)
                 return YES;
         }
@@ -176,7 +167,7 @@ static void *SBQueueContex = &SBQueueContex;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (context == SBQueueContex) {
         if ([keyPath isEqualToString:@"options.SBQueueOptimize"]) {
-            self.queue.optimize = [[self.options objectForKey:SBQueueOptimize] boolValue];
+            self.queue.optimize = [(self.options)[SBQueueOptimize] boolValue];
         }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -228,7 +219,6 @@ static void *SBQueueContex = &SBQueueContex;
                 [[NSDocumentController sharedDocumentController] addDocument:doc];
                 [doc makeWindowControllers];
                 [doc showWindows];
-                [doc release];
 
                 [self.itemPopover close];
 
@@ -250,41 +240,41 @@ static void *SBQueueContex = &SBQueueContex;
 - (SBQueueItem *)createItemWithURL:(NSURL *)url {
     SBQueueItem *item = [SBQueueItem itemWithURL:url];
 
-    if ([[self.options objectForKey:SBQueueMetadata] boolValue]) {
-        [item addAction:[[[SBQueueMetadataAction alloc] initWithMovieLanguage:[self.options objectForKey:SBQueueMovieProviderLanguage]
-                                                               tvShowLanguage:[self.options objectForKey:SBQueueTVShowProviderLanguage]
-                                                           movieProvider:[self.options objectForKey:SBQueueMovieProvider]
-                                                          tvShowProvider:[self.options objectForKey:SBQueueTVShowProvider]] autorelease]];
+    if ([(self.options)[SBQueueMetadata] boolValue]) {
+        [item addAction:[[SBQueueMetadataAction alloc] initWithMovieLanguage:(self.options)[SBQueueMovieProviderLanguage]
+                                                               tvShowLanguage:(self.options)[SBQueueTVShowProviderLanguage]
+                                                           movieProvider:(self.options)[SBQueueMovieProvider]
+                                                          tvShowProvider:(self.options)[SBQueueTVShowProvider]]];
     }
 
-    if ([[self.options objectForKey:SBQueueSubtitles] boolValue]) {
-        [item addAction:[[[SBQueueSubtitlesAction alloc] init] autorelease]];
+    if ([(self.options)[SBQueueSubtitles] boolValue]) {
+        [item addAction:[[SBQueueSubtitlesAction alloc] init]];
     }
 
-    if ([[self.options objectForKey:SBQueueOrganize] boolValue]) {
-        [item addAction:[[[SBQueueOrganizeGroupsAction alloc] init] autorelease]];
+    if ([(self.options)[SBQueueOrganize] boolValue]) {
+        [item addAction:[[SBQueueOrganizeGroupsAction alloc] init]];
     }
 
-    if ([[self.options objectForKey:SBQueueFixFallbacks] boolValue]) {
-        [item addAction:[[[SBQueueFixFallbacksAction alloc] init] autorelease]];
+    if ([(self.options)[SBQueueFixFallbacks] boolValue]) {
+        [item addAction:[[SBQueueFixFallbacksAction alloc] init]];
     }
 
-    if ([self.options objectForKey:SBQueueSet]) {
-        [item addAction:[[[SBQueueSetAction alloc] initWithSet:[self.options objectForKey:SBQueueSet]] autorelease]];
+    if ((self.options)[SBQueueSet]) {
+        [item addAction:[[SBQueueSetAction alloc] initWithSet:(self.options)[SBQueueSet]]];
     }
 
     id type;
     [url getResourceValue:&type forKey:NSURLTypeIdentifierKey error:NULL];
 
-    NSURL *destination = [self.options objectForKey:SBQueueDestination];
+    NSURL *destination = (self.options)[SBQueueDestination];
     if (destination) {
-        destination = [[[destination URLByAppendingPathComponent:[url lastPathComponent]] URLByDeletingPathExtension]
-                       URLByAppendingPathExtension:[self.options objectForKey:SBQueueFileType]];
+        destination = [[destination URLByAppendingPathComponent:url.lastPathComponent].URLByDeletingPathExtension
+                       URLByAppendingPathExtension:(self.options)[SBQueueFileType]];
     } else  if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)@"public.mpeg-4")) {
-        destination = [[url copy] autorelease];
+        destination = [url copy];
     } else {
-        destination = [[url URLByDeletingPathExtension]
-                       URLByAppendingPathExtension:[self.options objectForKey:SBQueueFileType]];
+        destination = [url.URLByDeletingPathExtension
+                       URLByAppendingPathExtension:(self.options)[SBQueueFileType]];
     }
 
     item.destURL = destination;
@@ -306,14 +296,14 @@ static void *SBQueueContex = &SBQueueContex;
  */
 - (void)addItems:(NSArray<SBQueueItem *> *)items atIndexes:(NSIndexSet *)indexes; {
     NSMutableIndexSet *mutableIndexes = [indexes mutableCopy];
-    if ([indexes count] == [items count]) {
+    if (indexes.count == items.count) {
         for (id item in [items reverseObjectEnumerator]) {
-            [self.queue insertItem:item atIndex:[mutableIndexes firstIndex]];
+            [self.queue insertItem:item atIndex:mutableIndexes.firstIndex];
             [mutableIndexes removeIndexesInRange:NSMakeRange(0, 1)];
         }
-    } else if ([indexes count] == 1) {
+    } else if (indexes.count == 1) {
         for (id item in [items reverseObjectEnumerator]) {
-            [self.queue insertItem:item atIndex:[mutableIndexes firstIndex]];
+            [self.queue insertItem:item atIndex:mutableIndexes.firstIndex];
         }
     } else {
         for (id item in [items reverseObjectEnumerator]) {
@@ -321,19 +311,18 @@ static void *SBQueueContex = &SBQueueContex;
         }
     }
 
-    NSUndoManager *undo = [[self window] undoManager];
+    NSUndoManager *undo = self.window.undoManager;
     [[undo prepareWithInvocationTarget:self] removeItems:items];
 
-    if (![undo isUndoing]) {
+    if (!undo.undoing) {
         [undo setActionName:NSLocalizedString(@"Add Queue Item", @"Queue -> redo add item.")];
     }
-    if ([undo isUndoing] || [undo isRedoing])
+    if (undo.undoing || undo.redoing)
         [self updateUI];
 
-    if ([[self.options objectForKey:SBQueueAutoStart] boolValue])
+    if ([(self.options)[SBQueueAutoStart] boolValue])
         [self start:self];
 
-    [mutableIndexes release];
 }
 
 /**
@@ -348,16 +337,15 @@ static void *SBQueueContex = &SBQueueContex;
         [self.queue removeItem:item];
     }
 
-    NSUndoManager *undo = [[self window] undoManager];
+    NSUndoManager *undo = self.window.undoManager;
     [[undo prepareWithInvocationTarget:self] addItems:items atIndexes:indexes];
 
-    if (![undo isUndoing]) {
+    if (!undo.undoing) {
         [undo setActionName:NSLocalizedString(@"Delete Queue Item", @"Queue -> Undo delete item.")];
     }
-    if ([undo isUndoing] || [undo isRedoing])
+    if (undo.undoing || undo.redoing)
         [self updateUI];
 
-    [indexes release];
 }
 
 #pragma mark - NSPopover delegate
@@ -372,7 +360,7 @@ static void *SBQueueContex = &SBQueueContex;
 
         // the popover retains us and we retain the popover,
         // we drop the popover whenever it is closed to avoid a cycle
-        self.popover.contentViewController = [[[SBOptionsViewController alloc] initWithOptions:self.options] autorelease];
+        self.popover.contentViewController = [[SBOptionsViewController alloc] initWithOptions:self.options];
         self.popover.appearance = NSPopoverAppearanceMinimal;
         self.popover.animates = YES;
 
@@ -387,7 +375,7 @@ static void *SBQueueContex = &SBQueueContex;
 
 -(NSWindow *)createOptionsWindow {
     if (!self.windowController) {
-        self.windowController = [[[SBOptionsViewController alloc] initWithOptions:self.options] autorelease];
+        self.windowController = [[SBOptionsViewController alloc] initWithOptions:self.options];
     }
     _detachedWindow.contentView = self.windowController.view;
     _detachedWindow.delegate = self;
@@ -399,11 +387,11 @@ static void *SBQueueContex = &SBQueueContex;
  *  Creates a popover with a SBQueueItem
  */
 - (void)createItemPopover:(SBQueueItem *)item {
-    self.itemPopover = [[[NSPopover alloc] init] autorelease];
+    self.itemPopover = [[NSPopover alloc] init];
 
     // the popover retains us and we retain the popover,
     // we drop the popover whenever it is closed to avoid a cycle
-    SBItemViewController *view = [[[SBItemViewController alloc] initWithItem:item] autorelease];
+    SBItemViewController *view = [[SBItemViewController alloc] initWithItem:item];
     view.delegate = self;
     self.itemPopover.contentViewController = view;
     self.itemPopover.appearance = NSPopoverAppearanceMinimal;
@@ -446,7 +434,7 @@ static void *SBQueueContex = &SBQueueContex;
 }
 
 - (void)popoverDidClose:(NSNotification *)notification {
-    NSPopover *closedPopover = [notification object];
+    NSPopover *closedPopover = notification.object;
     if (self.popover == closedPopover) {
         self.popover = nil;
     }
@@ -464,30 +452,31 @@ static void *SBQueueContex = &SBQueueContex;
     NSUInteger count = [self.queue readyCount] + ((self.queue.status == SBQueueStatusWorking) ? 1 : 0);
 
     if (count) {
-        [[NSApp dockTile] setBadgeLabel:[NSString stringWithFormat:@"%lu", (unsigned long)count]];
+        NSApp.dockTile.badgeLabel = [NSString stringWithFormat:@"%lu", (unsigned long)count];
     }
     else {
-        [[NSApp dockTile] setBadgeLabel:nil];
+        [NSApp.dockTile setBadgeLabel:nil];
     }
 }
 
 - (void)updateUI {
-    [_tableView reloadData];
+    [self.table reloadData];
     [self updateDockTile];
 
     if (self.queue.status != SBQueueStatusWorking) {
-        [_countLabel setStringValue:[NSString stringWithFormat:@"%lu files in queue.", (unsigned long)[self.queue count]]];
+        self.statusLabel.stringValue = [NSString stringWithFormat:@"%lu files in queue.", (unsigned long)[self.queue count]];
     }
 }
 
 - (void)start:(id)sender {
-    if (self.queue.status == SBQueueStatusWorking)
+    if (self.queue.status == SBQueueStatusWorking) {
         return;
+    }
 
-    [_startItem setImage:[NSImage imageNamed:@"stopTemplate"]];
-    [_countLabel setStringValue:NSLocalizedString(@"Working.", @"Queue -> Working")];
-    [_progressIndicator setHidden:NO];
-    [_progressIndicator startAnimation:self];
+    self.startItem.image = [NSImage imageNamed:@"stopTemplate"];
+    [self.statusLabel setStringValue:NSLocalizedString(@"Working.", @"Queue -> Working")];
+    [self.progressBar setHidden:NO];
+    [self.progressBar startAnimation:self];
 
     [self.queue start];
 }
@@ -509,7 +498,7 @@ static void *SBQueueContex = &SBQueueContex;
 
     if (!self.popover.isShown) {
         NSButton *targetButton = (NSButton *)sender;
-        [self.popover showRelativeToRect:[targetButton bounds] ofView:sender preferredEdge:NSMaxYEdge];
+        [self.popover showRelativeToRect:targetButton.bounds ofView:sender preferredEdge:NSMaxYEdge];
     } else {
         [self.popover close];
         self.popover = nil;
@@ -520,7 +509,7 @@ static void *SBQueueContex = &SBQueueContex;
     NSInteger clickedRow = [sender clickedRow];
     SBQueueItem *item = [self.queue itemAtIndex:clickedRow];
 
-    if (self.itemPopover.isShown && [(SBItemViewController *)self.itemPopover.contentViewController item] == item) {
+    if (self.itemPopover.isShown && ((SBItemViewController *)self.itemPopover.contentViewController).item == item) {
         [self.itemPopover close];
         self.itemPopover = nil;
     } else {
@@ -538,17 +527,16 @@ static void *SBQueueContex = &SBQueueContex;
     panel.canChooseDirectories = YES;
     panel.allowedFileTypes = [MP42FileImporter supportedFileFormats];
 
-    [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
+    [panel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
             NSMutableArray<SBQueueItem *> *items = [[NSMutableArray alloc] init];
 
-            for (NSURL *url in [panel URLs]) {
+            for (NSURL *url in panel.URLs) {
                 SBQueueItem *item = [self createItemWithURL:url];
                 [items addObject:item];
             }
 
             [self addItems:items atIndexes:nil];
-            [items release];
 
             [self updateUI];
         }
@@ -563,9 +551,9 @@ static void *SBQueueContex = &SBQueueContex;
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
     if ([aTableColumn.identifier isEqualToString:@"nameColumn"]) {
-        return [[[self.queue itemAtIndex:rowIndex] URL] lastPathComponent];
+        return [self.queue itemAtIndex:rowIndex].fileURL.lastPathComponent;
     } else if ([aTableColumn.identifier isEqualToString:@"statusColumn"]) {
-        SBQueueItemStatus batchStatus = [[self.queue itemAtIndex:rowIndex] status];
+        SBQueueItemStatus batchStatus = [self.queue itemAtIndex:rowIndex].status;
         if (batchStatus == SBQueueItemStatusCompleted)
             return [NSImage imageNamed:@"EncodeComplete"];
         else if (batchStatus == SBQueueItemStatusWorking || batchStatus == SBQueueItemStatusEditing)
@@ -580,11 +568,12 @@ static void *SBQueueContex = &SBQueueContex;
 }
 
 - (void)_deleteSelectionFromTableView:(NSTableView *)aTableView {
-    NSMutableIndexSet *rowIndexes = [[aTableView selectedRowIndexes] mutableCopy];
-    NSInteger clickedRow = [aTableView clickedRow];
+    NSMutableIndexSet *rowIndexes = [aTableView.selectedRowIndexes mutableCopy];
+    NSInteger clickedRow = aTableView.clickedRow;
     NSUInteger selectedIndex = -1;
-    if ([rowIndexes count])
-         selectedIndex = [rowIndexes firstIndex];
+    if (rowIndexes.count) {
+         selectedIndex = rowIndexes.firstIndex;
+    }
 
     if (clickedRow != -1 && ![rowIndexes containsIndex:clickedRow]) {
         [rowIndexes removeAllIndexes];
@@ -595,10 +584,10 @@ static void *SBQueueContex = &SBQueueContex;
 
     // A item with a status of SBQueueItemStatusWorking can not be removed
     for (SBQueueItem *item in array)
-        if ([item status] == SBQueueItemStatusWorking)
+        if (item.status == SBQueueItemStatusWorking)
             [rowIndexes removeIndex:[self.queue indexOfItem:item]];
 
-    if ([rowIndexes count]) {
+    if (rowIndexes.count) {
             [aTableView beginUpdates];
             [aTableView removeRowsAtIndexes:rowIndexes withAnimation:NSTableViewAnimationEffectFade];
             [aTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedIndex] byExtendingSelection:NO];
@@ -606,39 +595,37 @@ static void *SBQueueContex = &SBQueueContex;
             [aTableView endUpdates];
 
         if (self.queue.status != SBQueueStatusWorking) {
-            [_countLabel setStringValue:[NSString stringWithFormat:@"%lu files in queue.", (unsigned long)[self.queue count]]];
+            self.statusLabel.stringValue = [NSString stringWithFormat:@"%lu files in queue.", (unsigned long)[self.queue count]];
             [self updateDockTile];
         }
     }
-    [rowIndexes release];
 }
 
 - (IBAction)edit:(id)sender {
-    SBQueueItem *item = [[self.queue itemAtIndex:[_tableView clickedRow]] retain];
+    SBQueueItem *item = [self.queue itemAtIndex:self.table.clickedRow];
     [self editItem:item];
-    [item release];
 }
 
 - (IBAction)showInFinder:(id)sender {
-    SBQueueItem *item = [self.queue itemAtIndex:[_tableView clickedRow]];
+    SBQueueItem *item = [self.queue itemAtIndex:self.table.clickedRow];
     [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[item.destURL]];
 }
 
 - (IBAction)removeSelectedItems:(id)sender {
-    [self _deleteSelectionFromTableView:_tableView];
+    [self _deleteSelectionFromTableView:self.table];
 }
 
 - (IBAction)removeCompletedItems:(id)sender {
     NSIndexSet *indexes = [self.queue indexesOfItemsWithStatus:SBQueueItemStatusCompleted];
 
-    if ([indexes count]) {
-            [_tableView beginUpdates];
-            [_tableView removeRowsAtIndexes:indexes withAnimation:NSTableViewAnimationEffectFade];
-            [_tableView endUpdates];
+    if (indexes.count) {
+            [self.table beginUpdates];
+            [self.table removeRowsAtIndexes:indexes withAnimation:NSTableViewAnimationEffectFade];
+            [self.table endUpdates];
             [self.queue removeItemsAtIndexes:indexes];
 
         if (self.queue.status != SBQueueStatusWorking) {
-            [_countLabel setStringValue:[NSString stringWithFormat:@"%lu files in queue.", (unsigned long)[self.queue count]]];
+            self.statusLabel.stringValue = [NSString stringWithFormat:@"%lu files in queue.", (unsigned long)[self.queue count]];
             [self updateDockTile];
         }
     }
@@ -676,7 +663,7 @@ static void *SBQueueContex = &SBQueueContex;
 {
     NSPasteboard *pboard = [info draggingPasteboard];
 
-    if (_tableView == [info draggingSource]) { // From self
+    if (self.table == [info draggingSource]) { // From self
         NSData *rowData = [pboard dataForType:SublerBatchTableViewDataType];
         NSIndexSet *rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
         NSUInteger i = [rowIndexes countOfIndexesInRange:NSMakeRange(0, row)];
@@ -688,14 +675,14 @@ static void *SBQueueContex = &SBQueueContex;
         for (id object in [objects reverseObjectEnumerator])
             [self.queue insertItem:object atIndex:row];
 
-        NSIndexSet *selectionSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row, [rowIndexes count])];
+        NSIndexSet *selectionSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row, rowIndexes.count)];
 
         [view reloadData];
         [view selectRowIndexes:selectionSet byExtendingSelection:NO];
 
         return YES;
     } else { // From other documents
-        if ([[pboard types] containsObject:NSURLPboardType] ) {
+        if ([pboard.types containsObject:NSURLPboardType] ) {
             NSArray *items = [pboard readObjectsForClasses:@[[NSURL class]] options: nil];
             NSMutableArray *queueItems = [[NSMutableArray alloc] init];
             NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
@@ -710,8 +697,6 @@ static void *SBQueueContex = &SBQueueContex;
 
             [self addItems:queueItems atIndexes:indexes];
 
-            [queueItems release];
-            [indexes release];
             [self updateUI];
 
             return YES;

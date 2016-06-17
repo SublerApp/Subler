@@ -19,7 +19,7 @@
 #define TOOLBAR_SETS        @"TOOLBAR_SETS"
 
 @interface SBPrefsController ()
-- (NSArray *)ratingsCountries;
+@property (nonatomic, readonly, copy) NSArray *ratingsCountries;
 
 - (void)setPrefView:(id)sender;
 - (NSToolbarItem *)toolbarItemWithIdentifier:(NSString *)identifier
@@ -67,12 +67,12 @@
 
 - (void)awakeFromNib
 {
-    NSToolbar *toolbar = [[[NSToolbar alloc] initWithIdentifier: @"Preferences Toolbar"] autorelease];
-    [toolbar setDelegate:self];
+    NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier: @"Preferences Toolbar"];
+    toolbar.delegate = self;
     [toolbar setAllowsUserCustomization:NO];
-    [toolbar setDisplayMode:NSToolbarDisplayModeIconAndLabel];
-    [toolbar setSizeMode:NSToolbarSizeModeRegular];
-    [[self window] setToolbar:toolbar];
+    toolbar.displayMode = NSToolbarDisplayModeIconAndLabel;
+    toolbar.sizeMode = NSToolbarSizeModeRegular;
+    self.window.toolbar = toolbar;
 
     [toolbar setSelectedItemIdentifier:TOOLBAR_GENERAL];
     [self setPrefView:nil];
@@ -126,14 +126,14 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
     SBPresetManager *presetManager = [SBPresetManager sharedManager];
-    return [[presetManager presets] count];
+    return presetManager.presets.count;
 }
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn
             row:(NSInteger)rowIndex {
     if ([aTableColumn.identifier isEqualToString:@"name"]) {
         SBPresetManager *presetManager = [SBPresetManager sharedManager];
-        return [[[presetManager presets] objectAtIndex:rowIndex] presetName];
+        return presetManager.presets[rowIndex].presetName;
     }
     return nil;
 }
@@ -142,7 +142,7 @@
 {
     [self closePopOver:self];
 
-    NSInteger rowIndex = [tableView selectedRow];
+    NSInteger rowIndex = tableView.selectedRow;
     SBPresetManager *presetManager = [SBPresetManager sharedManager];
     [presetManager removePresetAtIndex:rowIndex];
     [tableView reloadData];
@@ -153,24 +153,22 @@
     if (_popover) {
         [_popover close];
 
-        [_popover release];
         _popover = nil;
-        [_controller release];
         _controller = nil;
     }
 }
 
 - (IBAction)toggleInfoWindow:(id)sender
 {
-    if (_currentRow == [tableView clickedRow] && _popover) {
+    if (_currentRow == tableView.clickedRow && _popover) {
         [self closePopOver:sender];
     } else {
-        _currentRow = [tableView clickedRow];
+        _currentRow = tableView.clickedRow;
         [self closePopOver:sender];
 
         SBPresetManager *presetManager = [SBPresetManager sharedManager];
         _controller = [[SBMovieViewController alloc] initWithNibName:@"MovieView" bundle:nil];
-        [_controller setMetadata:[[presetManager presets] objectAtIndex:_currentRow]];
+        [_controller setMetadata:presetManager.presets[_currentRow]];
 
         _popover = [[NSPopover alloc] init];
         _popover.contentViewController = _controller;
@@ -187,7 +185,7 @@
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-    if ([tableView selectedRow] != -1)
+    if (tableView.selectedRow != -1)
         [removeSet setEnabled:YES];
     else
         [removeSet setEnabled:NO];
@@ -212,29 +210,29 @@
             view = setsView;
     }
 
-    NSWindow *window = [self window];
-    if ([window contentView] == view)
+    NSWindow *window = self.window;
+    if (window.contentView == view)
         return;
 
-    NSRect windowRect = [window frame];
-    CGFloat difference = ([view frame].size.height - [[window contentView] frame].size.height);
+    NSRect windowRect = window.frame;
+    CGFloat difference = (view.frame.size.height - window.contentView.frame.size.height);
     windowRect.origin.y -= difference;
     windowRect.size.height += difference;
 
     [view setHidden:YES];
-    [window setContentView:view];
+    window.contentView = view;
     [window setFrame:windowRect display:YES animate:YES];
     [view setHidden:NO];
 
     //set title label
     if (sender)
-        [window setTitle:[sender label]];
+        window.title = [sender label];
     else {
-        NSToolbar *toolbar = [window toolbar];
-        NSString *itemIdentifier = [toolbar selectedItemIdentifier];
-        for (NSToolbarItem *item in [toolbar items])
-            if ([[item itemIdentifier] isEqualToString:itemIdentifier]) {
-                [window setTitle: [item label]];
+        NSToolbar *toolbar = window.toolbar;
+        NSString *itemIdentifier = toolbar.selectedItemIdentifier;
+        for (NSToolbarItem *item in toolbar.items)
+            if ([item.itemIdentifier isEqualToString:itemIdentifier]) {
+                window.title = item.label;
                 break;
             }
     }
@@ -245,11 +243,11 @@
                                        image:(NSImage *)image
 {
     NSToolbarItem *item = [[NSToolbarItem alloc] initWithItemIdentifier:identifier];
-    [item setLabel:label];
-    [item setImage:image];
-    [item setAction:@selector(setPrefView:)];
+    item.label = label;
+    item.image = image;
+    item.action = @selector(setPrefView:);
     [item setAutovalidates:NO];
-    return [item autorelease];
+    return item;
 }
 
 @end

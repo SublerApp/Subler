@@ -21,7 +21,7 @@
 }
 
 - (void)dg_setObject:(id)object forKeyedSubscript:(id < NSCopying >)aKey {
-    [self setObject:object forKey:aKey];
+    self[aKey] = object;
 }
 
 @end

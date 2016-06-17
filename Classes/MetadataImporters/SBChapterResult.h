@@ -21,7 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
     NSArray<MP42TextSample *> *_chapters;
 }
 
-- (instancetype)initWithTitle:(NSString *)title duration:(NSUInteger)duration confirmations:(NSUInteger)confirmations chapters:(NSArray<MP42TextSample *> *)chapters;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithTitle:(NSString *)title duration:(NSUInteger)duration confirmations:(NSUInteger)confirmations chapters:(NSArray<MP42TextSample *> *)chapters NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, readonly) NSString *title;
 @property (nonatomic, readonly) NSUInteger duration;

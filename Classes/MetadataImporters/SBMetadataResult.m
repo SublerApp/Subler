@@ -33,20 +33,6 @@
     return self;
 }
 
--(void)dealloc
-{
-    [_artworks release];
-
-    [_artworkThumbURLs release];
-    [_artworkFullsizeURLs release];
-    [_artworkProviderNames release];
-
-    [_ratingiTunesCode release];
-    [_tagsDict release];
-    
-    [super dealloc];
-}
-
 - (void)merge:(SBMetadataResult *)metadata
 {
     [_tagsDict addEntriesFromDictionary:metadata.tags];
@@ -66,12 +52,12 @@
 
 - (void)setTag:(id)value forKey:(NSString *)key
 {
-    [_tagsDict setObject:value forKey:key];
+    _tagsDict[key] = value;
 }
 
 - (id)objectForKeyedSubscript:(NSString *)key
 {
-    return [_tagsDict objectForKey:key];
+    return _tagsDict[key];
 }
 
 - (void)setObject:(id)obj forKeyedSubscript:(NSString *)key
@@ -102,7 +88,7 @@
     metadata.mediaKind = self.mediaKind;
     metadata.contentRating = self.contentRating;
 
-    return [metadata autorelease];
+    return metadata;
 }
 
 @end

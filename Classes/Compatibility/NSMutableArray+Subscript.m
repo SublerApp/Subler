@@ -32,7 +32,7 @@
         [self addObject:anObject];
     }
     else {
-        [self replaceObjectAtIndex:index withObject:anObject];
+        self[index] = anObject;
     }
 }
 

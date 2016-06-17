@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class SBTableView;
 
 @interface SBChapterViewController : NSViewController {
-    MP42ChapterTrack *track;
 
     NSDictionary *detailBoldAttr;
 
@@ -23,10 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
     IBOutlet NSButton       *removeChapter;
 }
 
-- (void) setTrack:(MP42ChapterTrack *)track;
-- (IBAction) addChapter: (id) sender;
-- (IBAction) removeChapter: (id) sender;
-- (IBAction) renameChapters: (id) sender;
+@property (nonatomic, readwrite, nullable) MP42ChapterTrack *track;
+
+- (IBAction)addChapter:(id)sender;
+- (IBAction)removeChapter:(id)sender;
+- (IBAction)renameChapters:(id)sender;
 
 @end
 

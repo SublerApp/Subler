@@ -52,9 +52,9 @@
 	if (iTunesMetadata && iTunesMetadata.artworkThumbURLs && iTunesMetadata.artworkFullsizeURLs &&
         (iTunesMetadata.artworkThumbURLs.count == iTunesMetadata.artworkFullsizeURLs.count)) {
 
-		[artworkThumbURLs addObjectsFromArray:[iTunesMetadata artworkThumbURLs]];
-		[artworkFullsizeURLs addObjectsFromArray:[iTunesMetadata artworkFullsizeURLs]];
-		[artworkProviderNames addObjectsFromArray:[iTunesMetadata artworkProviderNames]];
+		[artworkThumbURLs addObjectsFromArray:iTunesMetadata.artworkThumbURLs];
+		[artworkFullsizeURLs addObjectsFromArray:iTunesMetadata.artworkFullsizeURLs];
+		[artworkProviderNames addObjectsFromArray:iTunesMetadata.artworkProviderNames];
 	}
 
     // load image variables from configuration
@@ -185,7 +185,7 @@
         }
     }
 
-    return [metadata autorelease];
+    return metadata;
 }
 
 + (NSArray<SBMetadataResult *> *)metadataForResults:(NSDictionary *)dict

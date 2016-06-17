@@ -17,8 +17,8 @@ static void *SBItemViewContex = &SBItemViewContex;
 
 @property (nonatomic) SBQueueItem *item;
 
-@property (nonatomic, assign) IBOutlet NSButton *editButton;
-@property (nonatomic, assign) IBOutlet NSProgressIndicator *spinner;
+@property (nonatomic, weak) IBOutlet NSButton *editButton;
+@property (nonatomic, weak) IBOutlet NSProgressIndicator *spinner;
 
 @end
 
@@ -33,7 +33,7 @@ static void *SBItemViewContex = &SBItemViewContex;
 - (instancetype)initWithItem:(SBQueueItem *)item {
     self = [self init];
     if (self) {
-        _item = [item retain];
+        _item = item;
     }
     return self;
 }
@@ -71,7 +71,7 @@ static void *SBItemViewContex = &SBItemViewContex;
                 [self.editButton setEnabled:YES];
             }
         } else if ([keyPath isEqualToString:@"item.actions"]) {
-            NSInteger count = [[change objectForKey:NSKeyValueChangeNewKey] count] - [[change objectForKey:NSKeyValueChangeOldKey] count];
+            NSInteger count = [change[NSKeyValueChangeNewKey] count] - [change[NSKeyValueChangeOldKey] count];
             NSSize frameSize = self.view.frame.size;
             frameSize.height += TABLE_ROW_HEIGHT * (count >= 0 ? count - 1 : count);
             if ([self.delegate respondsToSelector:@selector(setPopoverSize:)]) {
@@ -92,14 +92,11 @@ static void *SBItemViewContex = &SBItemViewContex;
 }
 
 - (void)dealloc {
-    [_item release];
-
     @try {
         [self removeObserver:self forKeyPath:@"item.status"];
         [self removeObserver:self forKeyPath:@"item.actions"];
     } @catch (NSException * __unused exception) {}
 
-    [super dealloc];
 }
 
 @end

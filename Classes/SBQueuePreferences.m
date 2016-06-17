@@ -41,17 +41,17 @@ NSString * const SBQueueSet = @"SBQueueSet";
                          SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage];
 
         [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [_options setObject:[[NSUserDefaults standardUserDefaults] valueForKey:obj] forKey:obj];
+            self.options[obj] = [[NSUserDefaults standardUserDefaults] valueForKey:obj];
         }];
 
         if ([[NSUserDefaults standardUserDefaults] valueForKey:SBQueueDestination]) {
-            [_options setObject:[NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] valueForKey:SBQueueDestination]] forKey:SBQueueDestination];
+            self.options[SBQueueDestination] = [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] valueForKey:SBQueueDestination]];
         }
 
         if ([[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]) {
             MP42Metadata *set = [[SBPresetManager sharedManager] setWithName:[[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]];
             if (set) {
-                [_options setObject:set forKey:SBQueueSet];
+                self.options[SBQueueSet] = set;
             }
         }
 
@@ -81,11 +81,11 @@ NSString * const SBQueueSet = @"SBQueueSet";
                       SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage];
 
     [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [[NSUserDefaults standardUserDefaults] setValue:[self.options objectForKey:obj] forKey:obj];
+        [[NSUserDefaults standardUserDefaults] setValue:(self.options)[obj] forKey:obj];
     }];
 
-    [[NSUserDefaults standardUserDefaults] setValue:[[self.options objectForKey:SBQueueDestination] path] forKey:SBQueueDestination];
-    [[NSUserDefaults standardUserDefaults] setValue:[[self.options objectForKey:SBQueueSet] presetName] forKey:SBQueueSet];
+    [[NSUserDefaults standardUserDefaults] setValue:[(self.options)[SBQueueDestination] path] forKey:SBQueueDestination];
+    [[NSUserDefaults standardUserDefaults] setValue:[(self.options)[SBQueueSet] presetName] forKey:SBQueueSet];
 }
 
 - (nullable NSURL *)queueURL {
@@ -94,7 +94,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
                                                             NSUserDomainMask,
                                                             YES);
     if (allPaths.count) {
-        appSupportURL = [NSURL fileURLWithPath:[[[allPaths lastObject] stringByAppendingPathComponent:@"Subler"]
+        appSupportURL = [NSURL fileURLWithPath:[[allPaths.lastObject stringByAppendingPathComponent:@"Subler"]
                                                 stringByAppendingPathComponent:@"queue.sbqueue"] isDirectory:YES];
         return appSupportURL;
     } else {

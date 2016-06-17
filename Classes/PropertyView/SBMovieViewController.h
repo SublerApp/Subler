@@ -16,44 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 @class SBTableView;
 @class SBImageBrowserView;
 
-@interface SBMovieViewController : NSViewController {
-    MP42Metadata            *metadata;
+@interface SBMovieViewController : NSViewController
 
-    IBOutlet NSPopUpButton  *tagList;
-    IBOutlet NSPopUpButton  *setList;
-
-    IBOutlet SBTableView    *tagsTableView;
-
-    IBOutlet NSPopUpButton  *mediaKind;
-    IBOutlet NSPopUpButton  *contentRating;
-    IBOutlet NSPopUpButton  *hdVideo;
-    IBOutlet NSButton       *gapless;
-    IBOutlet NSButton       *podcast;
-
-    IBOutlet NSButton       *removeTag;
-
-    IBOutlet NSWindow       *saveWindow;
-    IBOutlet NSTextField    *presetName;
-    
-    NSPopUpButtonCell       *ratingCell;
-    NSComboBoxCell          *genreCell;
-
-    NSDictionary<NSString *, id> *tags;
-    NSArray<NSString *> *_tagsArray;
-    NSDictionary    *detailBoldAttr;
-
-    NSMutableDictionary  *dct;
-    NSTableColumn *tabCol;
-    CGFloat width;
-    
-    IBOutlet SBImageBrowserView *imageBrowser;
-
-    IBOutlet NSButton       *addArtwork;
-    IBOutlet NSButton       *removeArtwork;
-}
-
-- (void) setFile: (MP42File *)file;
-- (void) setMetadata: (MP42Metadata *)data;
+@property (nonatomic, readwrite) MP42Metadata *metadata;
 
 - (IBAction) addTag: (id) sender;
 - (IBAction) removeTag: (id) sender;

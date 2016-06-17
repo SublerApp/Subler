@@ -14,10 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *SBPresetManagerUpdatedNotification;
 
-@interface SBPresetManager : NSObject {
-@private
-    NSMutableArray<MP42Metadata *> *_presets;
-}
+@interface SBPresetManager : NSObject
 
 + (SBPresetManager *)sharedManager;
 

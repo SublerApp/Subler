@@ -10,6 +10,7 @@
 #import "SBQueueController.h"
 #import "SBQueueItem.h"
 #import "SBFileImport.h"
+#import "SBTableView.h"
 
 #import "SBEmptyViewController.h"
 #import "SBMovieViewController.h"
@@ -31,14 +32,48 @@
 #define SublerTableViewDataType @"SublerTableViewDataType"
 
 @interface SBDocument () <NSTableViewDelegate, SBFileImportDelegate, SBMetadataSearchControllerDelegate, SBChapterSearchControllerDelegate>
+{
+    IBOutlet NSSplitView    *splitView;
 
-@property (nonatomic, retain) MP42File *mp4;
+    NSSavePanel                     *_currentSavePanel;
+    IBOutlet NSView                 *saveView;
+    IBOutlet NSPopUpButton          *fileFormat;
+
+    IBOutlet NSToolbarItem  *addTracks;
+    IBOutlet NSToolbarItem  *deleteTrack;
+    IBOutlet NSToolbarItem  *searchMetadata;
+    IBOutlet NSToolbarItem  *searchChapters;
+    IBOutlet NSToolbarItem  *sendToQueue;
+
+    NSArray<NSString *> *languages;
+
+    NSViewController        *propertyView;
+    IBOutlet NSView         *targetView;
+    NSWindowController      *_sheet;
+
+    IBOutlet NSWindow       *offsetWindow;
+    IBOutlet NSTextField    *offset;
+
+    IBOutlet NSButton *cancelSave;
+    IBOutlet NSButton *_64bit_data;
+    IBOutlet NSButton *_64bit_time;
+    BOOL _optimize;
+
+    NSDictionary                 *_detailMonospacedAttr;
+}
+
+@property (nonatomic, weak) IBOutlet NSWindow *documentWindow;
+@property (nonatomic, weak) IBOutlet SBTableView *tracksTable;
+
+@property (nonatomic, weak) IBOutlet NSWindow *saveWindow;
+@property (nonatomic, weak) IBOutlet NSTextField *saveOperationName;
+@property (nonatomic, weak) IBOutlet NSProgressIndicator *progressBar;
+
+@property (nonatomic, strong) MP42File *mp4;
 
 @end
 
 @implementation SBDocument
-
-@synthesize mp4 = _mp4File;
 
 - (NSString *)windowNibName
 {
@@ -49,21 +84,21 @@
 {
     [super windowControllerDidLoadNib:aController];
 
-    languages = [[[MP42Languages defaultManager] languages] retain];
+    languages = [[MP42Languages defaultManager] languages];
     _optimize = NO;
 
     [self reloadPropertyView];
-    [sendToQueue setImage:[NSImage imageNamed:NSImageNameShareTemplate]];
+    sendToQueue.image = [NSImage imageNamed:NSImageNameShareTemplate];
 
-    [fileTracksTable registerForDraggedTypes:@[SublerTableViewDataType]];
-    [documentWindow registerForDraggedTypes:@[NSFilenamesPboardType]];
+    [self.tracksTable registerForDraggedTypes:@[SublerTableViewDataType]];
+    [self.documentWindow registerForDraggedTypes:@[NSFilenamesPboardType]];
 
-    [optBar setUsesThreadedAnimation:NO];
+    [self.progressBar setUsesThreadedAnimation:NO];
 
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"rememberWindowSize"] integerValue]) {
-        [documentWindow setFrameAutosaveName:@"documentSave"];
-        [documentWindow setFrameUsingName:@"documentSave"];
-        [splitView setAutosaveName:@"splitViewSave"];
+        [self.documentWindow setFrameAutosaveName:@"documentSave"];
+        [self.documentWindow setFrameUsingName:@"documentSave"];
+        splitView.autosaveName = @"splitViewSave";
     }
 
     if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
@@ -71,14 +106,13 @@
         NSMutableParagraphStyle *ps = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
         ps.alignment = NSTextAlignmentRight;
 
-        _detailMonospacedAttr = [@{NSFontAttributeName: font,
-                         NSParagraphStyleAttributeName: ps} retain];
+        _detailMonospacedAttr = @{NSFontAttributeName: font,
+                         NSParagraphStyleAttributeName: ps};
 
-        [ps release];
     }
 }
 
-- (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError **)outError
+- (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError * __autoreleasing *)outError
 {
     if (self = [super initWithType:@"Video-MPEG4" error:outError]) {
         self.mp4 = mp4File;
@@ -87,10 +121,10 @@
     return self;
 }
 
-- (instancetype)initWithType:(NSString *)typeName error:(NSError **)outError
+- (instancetype)initWithType:(NSString *)typeName error:(NSError * __autoreleasing *)outError
 {
     if (self = [super initWithType:typeName error:outError]) {
-        self.mp4 = [[[MP42File alloc] init] autorelease];
+        self.mp4 = [[MP42File alloc] init];
     }
 
     return self;
@@ -109,9 +143,9 @@
     return NO;
 }
 
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError * __autoreleasing *)outError
 {
-    self.mp4 = [[[MP42File alloc] initWithURL:absoluteURL] autorelease];
+    self.mp4 = [[MP42File alloc] initWithURL:absoluteURL];
 
     if (outError != NULL && !self.mp4) {
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
@@ -122,11 +156,11 @@
     return YES;
 }
 
-- (BOOL)revertToContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
+- (BOOL)revertToContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError * __autoreleasing *)outError
 {
-    self.mp4 = [[[MP42File alloc] initWithURL:absoluteURL] autorelease];
+    self.mp4 = [[MP42File alloc] initWithURL:absoluteURL];
 
-    [fileTracksTable reloadData];
+    [self.tracksTable reloadData];
     [self reloadPropertyView];
     [self updateChangeCount:NSChangeCleared];
 
@@ -174,11 +208,11 @@
     [self unblockUserInteraction];
 
     dispatch_sync(dispatch_get_main_queue(), ^{
-        [optBar setIndeterminate:YES];
-        [optBar startAnimation:self];
-        [saveOperationName setStringValue:NSLocalizedString(@"Saving…", @"Document Saving sheet.")];
-        [NSApp beginSheet:savingWindow modalForWindow:documentWindow
-            modalDelegate:nil didEndSelector:NULL contextInfo:nil];
+        [self.progressBar setIndeterminate:YES];
+        [self.progressBar startAnimation:self];
+        [self.saveOperationName setStringValue:NSLocalizedString(@"Saving…", @"Document Saving sheet.")];
+
+        [self.windowForSheet beginSheet:self.saveWindow completionHandler:NULL];
     });
 
     IOPMAssertionID assertionID;
@@ -189,10 +223,11 @@
     BOOL result = NO;
     NSDictionary<NSString *, NSNumber *> *options = [self saveAttributes];
 
+    __weak SBDocument *weakSelf = self;
     self.mp4.progressHandler = ^(double progress){
         dispatch_async(dispatch_get_main_queue(), ^{
-            [optBar setIndeterminate:NO];
-            [optBar setDoubleValue:progress];
+            [weakSelf.progressBar setIndeterminate:NO];
+            weakSelf.progressBar.doubleValue = progress;
         });
     };
 
@@ -219,7 +254,7 @@
 
     if (result && _optimize) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [saveOperationName setStringValue:NSLocalizedString(@"Optimizing…", @"Document Optimize sheet.")];
+            [self.saveOperationName setStringValue:NSLocalizedString(@"Optimizing…", @"Document Optimize sheet.")];
         });
         result = [self.mp4 optimize];
         _optimize = NO;
@@ -239,13 +274,13 @@
     }
 
     dispatch_sync(dispatch_get_main_queue(), ^{
-        [optBar stopAnimation:self];
-        [savingWindow orderOut:self];
-        [NSApp endSheet:savingWindow];
+        [self.progressBar stopAnimation:self];
+
+        [self.windowForSheet endSheet:self.saveWindow];
 
         if (result == YES && error) {
             [self presentError:error
-                modalForWindow:documentWindow
+                modalForWindow:self.windowForSheet
                         delegate:nil
             didPresentSelector:NULL
                     contextInfo:NULL];
@@ -253,9 +288,8 @@
 
         if (reloadedFile) {
             self.mp4 = reloadedFile;
-            [reloadedFile release];
 
-            [fileTracksTable reloadData];
+            [self.tracksTable reloadData];
             [self reloadPropertyView];
         }
 
@@ -344,28 +378,28 @@
     if (_64bit_data.state) { attributes[MP4264BitData] = @YES; }
     if (_64bit_time.state) { attributes[MP4264BitTime] = @YES; }
 
-    return [attributes autorelease];
+    return attributes;
 }
 
 #pragma mark - Interface validation
 
 - (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem
 {
-    SEL action = [anItem action];
+    SEL action = anItem.action;
 
     if (action == @selector(saveDocument:))
-        if ([self isDocumentEdited])
+        if (self.documentEdited)
             return YES;
 
     if (action == @selector(saveDocumentAs:))
         return YES;
     
     if (action == @selector(revertDocumentToSaved:))
-        if ([self isDocumentEdited])
+        if (self.documentEdited)
             return YES;
 
     if (action == @selector(saveAndOptimize:))
-        if (![self isDocumentEdited] && [self.mp4 hasFileRepresentation])
+        if (!self.documentEdited && (self.mp4).hasFileRepresentation)
             return YES;
 
     if (action == @selector(selectMetadataFile:))
@@ -389,7 +423,7 @@
     if (action == @selector(sendToExternalApp:))
         return YES;
 
-    if (action == @selector(showTrackOffsetSheet:) && [fileTracksTable selectedRow] != -1)
+    if (action == @selector(showTrackOffsetSheet:) && self.tracksTable.selectedRow != -1)
         return YES;
 
     if (action == @selector(addChaptersEvery:))
@@ -401,9 +435,9 @@
     if (action == @selector(fixAudioFallbacks:))
         return YES;
 
-	if (action == @selector(export:) && [fileTracksTable selectedRow] != -1)
-		if ([[self.mp4 trackAtIndex:[fileTracksTable selectedRow]] respondsToSelector:@selector(exportToURL:error:)] &&
-            [[self.mp4 trackAtIndex:[fileTracksTable selectedRow]] muxed])
+	if (action == @selector(export:) && self.tracksTable.selectedRow != -1)
+		if ([[self.mp4 trackAtIndex:self.tracksTable.selectedRow] respondsToSelector:@selector(exportToURL:error:)] &&
+            [self.mp4 trackAtIndex:self.tracksTable.selectedRow].muxed)
 			return YES;
 
     return NO;
@@ -416,7 +450,7 @@
     }
 
     if (toolbarItem == deleteTrack) {
-        if ([fileTracksTable selectedRow] != -1 && [NSApp isActive])
+        if (self.tracksTable.selectedRow != -1 && NSApp.active)
                 return YES;
     }
 
@@ -471,7 +505,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     if ([tableColumn.identifier isEqualToString:@"trackDuration"]) {
 
         if (_detailMonospacedAttr) {
-            return [[[NSAttributedString alloc] initWithString:track.timeString attributes:_detailMonospacedAttr] autorelease];
+            return [[NSAttributedString alloc] initWithString:track.timeString attributes:_detailMonospacedAttr];
         }
         else {
             return track.timeString;
@@ -521,23 +555,22 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     if (propertyView.view != nil) {
         // remove the undo items from the dealloced view
-        [[self undoManager] removeAllActionsWithTarget:propertyView];
+        [self.undoManager removeAllActionsWithTarget:propertyView];
 
         // remove the current view
 		[propertyView.view removeFromSuperview];
 
         // remove the current view controller
-        [propertyView release];
     }
 
-    NSInteger row = [fileTracksTable selectedRow];
+    NSInteger row = self.tracksTable.selectedRow;
 
     id controller = nil;
     id track = (row != -1) ? [self.mp4 trackAtIndex:row] : nil;
 
     if (row == -1) {
         controller = [[SBMovieViewController alloc] initWithNibName:@"MovieView" bundle:nil];
-        [controller setFile:self.mp4];
+        [controller setMetadata:self.mp4.metadata];
     } else if ([track isMemberOfClass:[MP42ChapterTrack class]]) {
         controller = [[SBChapterViewController alloc] initWithNibName:@"ChapterView" bundle:nil];
         [controller setTrack:track];
@@ -557,17 +590,17 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     // embed the current view to our host view
 	[targetView addSubview:propertyView.view];
-    [documentWindow recalculateKeyViewLoop];
+    [self.documentWindow recalculateKeyViewLoop];
 
 	// make sure we automatically resize the controller's view to the current window size
-	[[propertyView view] setFrame: [targetView bounds]];
-    [[propertyView view] setAutoresizingMask:( NSViewWidthSizable | NSViewHeightSizable )];
+	propertyView.view.frame = targetView.bounds;
+    propertyView.view.autoresizingMask = ( NSViewWidthSizable | NSViewHeightSizable );
 }
 
 - (BOOL)tableView:(NSTableView *)tv writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard
 {
     // Copy the row numbers to the pasteboard.
-    if ([[self.mp4 trackAtIndex:[rowIndexes firstIndex]] muxed]) {
+    if ([self.mp4 trackAtIndex:rowIndexes.firstIndex].muxed) {
         return NO;
     }
 
@@ -584,7 +617,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     NSUInteger count = self.mp4.tracks.count;
     if (op == NSTableViewDropAbove && row < count) {
-        if (![[self.mp4 trackAtIndex:row] muxed]) {
+        if (![self.mp4 trackAtIndex:row].muxed) {
             return NSDragOperationEvery;
         }
     } else if (op == NSTableViewDropAbove && row == count) {
@@ -604,7 +637,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     
     [self.mp4 moveTrackAtIndex:dragRow toIndex:row];
 
-    [fileTracksTable reloadData];
+    [self.tracksTable reloadData];
     return YES;
 }
 
@@ -617,11 +650,11 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (NSInteger)numberOfItemsInComboBoxCell:(NSComboBoxCell *)comboBoxCell
 {
-    return [languages count];
+    return languages.count;
 }
 
 - (id)comboBoxCell:(NSComboBoxCell *)comboBoxCell objectValueForItemAtIndex:(NSInteger)index {
-    return [languages objectAtIndex:index];
+    return languages[index];
 }
 
 - (NSUInteger)comboBoxCell:(NSComboBoxCell *)comboBoxCell indexOfItemWithStringValue:(NSString *)string {
@@ -633,16 +666,16 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (void)didEndSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
 {
     [_sheet.window orderOut:nil];
-    [_sheet autorelease], _sheet = nil;
+    _sheet = nil;
 
-    [fileTracksTable reloadData];
+    [self.tracksTable reloadData];
     [self reloadPropertyView];
 }
 
 - (IBAction)sendToQueue:(id)sender
 {
     SBQueueController *queue =  [SBQueueController sharedManager];
-    if ([self.mp4 hasFileRepresentation]) {
+    if ((self.mp4).hasFileRepresentation) {
         SBQueueItem *item = [SBQueueItem itemWithMP4:self.mp4];
         [queue addItem:item];
         [self close];
@@ -652,7 +685,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
         [self prepareSavePanel:panel];
 
-        [panel beginSheetModalForWindow:documentWindow completionHandler:^(NSInteger result) {
+        [panel beginSheetModalForWindow:self.documentWindow completionHandler:^(NSInteger result) {
             if (result == NSFileHandlingPanelOKButton) {
                 NSDictionary *attributes = [self saveAttributes];
 
@@ -687,7 +720,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     _sheet = [[SBMetadataSearchController alloc] initWithDelegate:self searchString:filename];
 
     [NSApp beginSheet:_sheet.window
-       modalForWindow:documentWindow
+       modalForWindow:self.documentWindow
         modalDelegate:self
        didEndSelector:@selector(didEndSheet:returnCode:contextInfo:)
           contextInfo:nil];
@@ -695,7 +728,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (void)metadataImportDone:(SBMetadataResult *)metadataToBeImported
 {
-    [metadataToBeImported retain];
     if (metadataToBeImported) {
         [self.mp4.metadata mergeMetadata:metadataToBeImported.metadata];
 
@@ -711,7 +743,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         [self updateChangeCount:NSChangeDone];
     }
 
-    [metadataToBeImported release];
 }
 
 #pragma mark - Chapters search
@@ -729,7 +760,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     _sheet = [[SBChapterSearchController alloc] initWithDelegate:self searchTitle:title andDuration:duration];
 
     [NSApp beginSheet:_sheet.window
-       modalForWindow:documentWindow
+       modalForWindow:self.documentWindow
         modalDelegate:self
        didEndSelector:@selector(didEndSheet:returnCode:contextInfo:)
           contextInfo:nil];
@@ -737,7 +768,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (void)chapterImportDone:(NSArray<MP42TextSample *> *)chapterToBeImported
 {
-    [chapterToBeImported retain];
 
     if (chapterToBeImported) {
 
@@ -745,33 +775,31 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         for (MP42TextSample *chapter in chapterToBeImported) {
             [newChapter addChapter:chapter];
         }
-        [newChapter setDuration:self.mp4.duration];
+        newChapter.duration = self.mp4.duration;
         [self.mp4 addTrack:newChapter];
-        [newChapter release];
 
         [self updateChangeCount:NSChangeDone];
 
-        [fileTracksTable reloadData];
+        [self.tracksTable reloadData];
         [self reloadPropertyView];
         [self updateChangeCount:NSChangeDone];
     }
 
-    [chapterToBeImported release];
 }
 
 - (IBAction)showTrackOffsetSheet:(id)sender
 {
-    [offset setStringValue:[NSString stringWithFormat:@"%lld",
-                            [[[self.mp4 tracks] objectAtIndex:[fileTracksTable selectedRow]] startOffset]]];
+    offset.stringValue = [NSString stringWithFormat:@"%lld",
+                            (self.mp4).tracks[self.tracksTable.selectedRow].startOffset];
 
-    [NSApp beginSheet:offsetWindow modalForWindow:documentWindow
+    [NSApp beginSheet:offsetWindow modalForWindow:self.documentWindow
         modalDelegate:nil didEndSelector:NULL contextInfo:nil];
 }
 
 - (IBAction)setTrackOffset:(id)sender
 {
-    MP42Track *selectedTrack = [[self.mp4 tracks] objectAtIndex:[fileTracksTable selectedRow]];
-    [selectedTrack setStartOffset:[offset integerValue]];
+    MP42Track *selectedTrack = (self.mp4).tracks[self.tracksTable.selectedRow];
+    selectedTrack.startOffset = offset.integerValue;
 
     [self updateChangeCount:NSChangeDone];
 
@@ -790,21 +818,20 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         [self updateChangeCount:NSChangeDone];
     }
     [_sheet.window orderOut:self];
-    [_sheet release];
     _sheet = nil;
 }
 
 - (IBAction)deleteTrack:(id)sender
 {
-    if ([fileTracksTable selectedRow] == -1  || [fileTracksTable editedRow] != -1) {
+    if (self.tracksTable.selectedRow == -1  || self.tracksTable.editedRow != -1) {
         return;
     }
 
-    [self.mp4 removeTrackAtIndex:[fileTracksTable selectedRow]];
+    [self.mp4 removeTrackAtIndex:self.tracksTable.selectedRow];
 
     [self.mp4 organizeAlternateGroups];
 
-    [fileTracksTable reloadData];
+    [self.tracksTable reloadData];
     [self reloadPropertyView];
     [self updateChangeCount:NSChangeDone];
 }
@@ -815,7 +842,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     [self.mp4 addTrack:[MP42ChapterTrack chapterTrackFromFile:fileURL]];
 
-    [fileTracksTable reloadData];
+    [self.tracksTable reloadData];
     [self reloadPropertyView];
     [self updateChangeCount:NSChangeDone];
 }
@@ -828,7 +855,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         [self updateChangeCount:NSChangeDone];
     }
     else {
-        [self presentError:error modalForWindow:documentWindow delegate:nil didPresentSelector:NULL contextInfo:nil];
+        [self presentError:error modalForWindow:self.documentWindow delegate:nil didPresentSelector:NULL contextInfo:nil];
     }
 }
 
@@ -849,14 +876,13 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     }
 
     panel.allowedFileTypes = supportedFileFormats;
-    [supportedFileFormats release];
 
-    [panel beginSheetModalForWindow:documentWindow completionHandler:^(NSInteger result) {
+    [panel beginSheetModalForWindow:self.documentWindow completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
             NSString *fileExtension = panel.URLs.firstObject.pathExtension;
 
             if ([fileExtension caseInsensitiveCompare: @"txt"] == NSOrderedSame) {
-                [self addChapterTrack:[panel.URLs objectAtIndex: 0]];
+                [self addChapterTrack:(panel.URLs)[0]];
             }
             else if ([fileExtension caseInsensitiveCompare: @"csv"] == NSOrderedSame) {
                 [self updateChapters:chapters fromCSVFile:panel.URLs.firstObject];
@@ -876,17 +902,17 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     _sheet = [[SBFileImport alloc] initWithURLs:fileURLs delegate:self error:&error];
 
     if (_sheet) {
-		if ([(SBFileImport *)_sheet onlyContainsSubtitleTracks]) {
+		if (((SBFileImport *)_sheet).onlyContainsSubtitleTracks) {
 			[(SBFileImport *)_sheet addTracks:self];
 			[self didEndSheet:nil returnCode:NSOKButton contextInfo:nil];
 		}
         else { // show the dialog
-			[NSApp beginSheet:_sheet.window modalForWindow:documentWindow
+			[NSApp beginSheet:_sheet.window modalForWindow:self.documentWindow
 				modalDelegate:self didEndSelector:@selector(didEndSheet:returnCode:contextInfo:) contextInfo:NULL];
 		}
     }
     else if (error) {
-            [self presentError:error modalForWindow:documentWindow delegate:nil didPresentSelector:NULL contextInfo:nil];
+            [self presentError:error modalForWindow:self.documentWindow delegate:nil didPresentSelector:NULL contextInfo:nil];
     }
 }
 
@@ -915,13 +941,11 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     if ([URL.pathExtension isEqualToString:@"xml"] || [URL.pathExtension isEqualToString:@"nfo"]) {
         MP42Metadata *xmlMetadata = [[MP42Metadata alloc] initWithFileURL:URL];
         [self.mp4.metadata mergeMetadata:xmlMetadata];
-        [xmlMetadata release];
     }
     else {
         MP42File *file = nil;
         if ((file = [[MP42File alloc] initWithURL:URL])) {
             [self.mp4.metadata mergeMetadata:file.metadata];
-            [file release];
         }
     }
 
@@ -937,9 +961,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     panel.canChooseDirectories = NO;
     panel.allowedFileTypes = @[@"mp4", @"m4v", @"m4a", @"xml", @"nfo"];
     
-    [panel beginSheetModalForWindow:documentWindow completionHandler:^(NSInteger result) {
+    [panel beginSheetModalForWindow:self.documentWindow completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
-            [self addMetadata:[panel URL]];
+            [self addMetadata:panel.URL];
         }
     }];
 }
@@ -949,11 +973,11 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     NSSavePanel *panel = [NSSavePanel savePanel];
 
     NSString *filename = self.fileURL.URLByDeletingPathExtension.lastPathComponent;
-    NSInteger row = fileTracksTable.selectedRow;
+    NSInteger row = self.tracksTable.selectedRow;
 
     if (row != -1 && [[self.mp4 trackAtIndex:row] isKindOfClass:[MP42SubtitleTrack class]]) {
         panel.allowedFileTypes = @[@"srt"];
-        filename = [filename stringByAppendingFormat:@".%@", [[self.mp4 trackAtIndex:row] language]];
+        filename = [filename stringByAppendingFormat:@".%@", [self.mp4 trackAtIndex:row].language];
     }
 	else if (row != -1 ) {
         filename = [filename stringByAppendingString:@" - Chapters"];
@@ -963,7 +987,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     panel.canSelectHiddenExtension = YES;
     panel.nameFieldStringValue = filename;
 
-    [panel beginSheetModalForWindow:documentWindow completionHandler:^(NSInteger result) {
+    [panel beginSheetModalForWindow:self.documentWindow completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
 
             NSError *error;
@@ -974,13 +998,12 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
                 NSAlert *alert = [[NSAlert alloc] init];
                 [alert addButtonWithTitle: NSLocalizedString(@"OK", "Export alert panel -> button")];
                 [alert setMessageText: NSLocalizedString(@"File Could Not Be Saved", "Export alert panel -> title")];
-                [alert setInformativeText: [NSString stringWithFormat:
+                alert.informativeText = [NSString stringWithFormat:
                                             NSLocalizedString(@"There was a problem creating the file \"%@\".",
-                                                              "Export alert panel -> message"), panel.URL.lastPathComponent]];
-                [alert setAlertStyle: NSWarningAlertStyle];
+                                                              "Export alert panel -> message"), panel.URL.lastPathComponent];
+                alert.alertStyle = NSWarningAlertStyle;
                 
                 [alert runModal];
-                [alert release];
             }
 
         }
@@ -994,9 +1017,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     if (!chapterTrack) {
         chapterTrack = [[MP42ChapterTrack alloc] init];
-        [chapterTrack setDuration:self.mp4.duration];
+        chapterTrack.duration = self.mp4.duration;
         [self.mp4 addTrack:chapterTrack];
-        [chapterTrack release];
     }
 
     if (minutes) {
@@ -1010,7 +1032,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
                         duration:self.mp4.duration];
     }
 
-    [fileTracksTable reloadData];
+    [self.tracksTable reloadData];
     [self reloadPropertyView];
     [self updateChangeCount:NSChangeDone];
 }
@@ -1018,19 +1040,19 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (IBAction)iTunesFriendlyTrackGroups:(id)sender
 {
     [self.mp4 organizeAlternateGroups];
-    [fileTracksTable reloadData];
+    [self.tracksTable reloadData];
     [self reloadPropertyView];
     [self updateChangeCount:NSChangeDone];
 }
 
 - (IBAction)fixAudioFallbacks:(id)sender {
     [self.mp4 setAutoFallback];
-    [fileTracksTable reloadData];
+    [self.tracksTable reloadData];
     [self reloadPropertyView];
     [self updateChangeCount:NSChangeDone];
 }
 
-// Drag & Drop
+#pragma mark - Drag & Drop
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
     NSPasteboard *pboard = [sender draggingPasteboard];
@@ -1047,9 +1069,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
     NSPasteboard *pboard = [sender draggingPasteboard];
 
-    if ( [[pboard types] containsObject:NSURLPboardType] ) {
+    if ( [pboard.types containsObject:NSURLPboardType] ) {
         NSArray *items = [pboard readObjectsForClasses:@[[NSURL class]] options:nil];
-        NSMutableArray<NSURL *> *supportedItems = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray<NSURL *> *supportedItems = [[NSMutableArray alloc] init];
 
         for (NSURL *url in items) {
             NSString *pathExtension = url.pathExtension;
@@ -1073,23 +1095,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     }
 
     return NO;
-}
-
-- (void)dealloc
-{
-    [propertyView release];
-    propertyView = nil;
-
-    [languages release];
-    languages = nil;
-
-    [_mp4File release];
-    _mp4File = nil;
-
-    [_detailMonospacedAttr release];
-    _detailMonospacedAttr = nil;
-
-    [super dealloc];
 }
 
 @end

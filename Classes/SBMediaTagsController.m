@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_END
         _localizedTitle = [[SBMediaTag localizedTitleForTag:_value] copy];
 
         if (_localizedTitle == nil) {
-            _localizedTitle = [_value retain];
+            _localizedTitle = _value;
         }
     }
 
@@ -123,27 +123,13 @@ NS_ASSUME_NONNULL_END
     return localizedDescriptions[tag];
 }
 
-@synthesize state = _state;
-@synthesize value = _value;
-@synthesize localizedTitle = _localizedTitle;
-@synthesize localizedDescription = _localizedDescription;
-
-- (NSString *)description {
-    NSString *description = [super description];
+- (NSString *)description
+{
+    NSString *description = super.description;
     description = [description stringByAppendingFormat:@" %@, state = %d", _value, _state];
     return description;
 }
 
-- (void)dealloc {
-    [_value release];
-    _value = nil;
-    [_localizedTitle release];
-    _localizedTitle = nil;
-    [_localizedDescription release];
-    _localizedDescription = nil;
-
-    [super dealloc];
-}
 
 @end
 
@@ -157,8 +143,7 @@ NS_ASSUME_NONNULL_BEGIN
     SBMediaTag *_representedTag;
 }
 
-
-@property (nonatomic, readwrite, retain) SBMediaTag *representedTag;
+@property (nonatomic, readwrite, strong) SBMediaTag *representedTag;
 
 @end
 
@@ -166,11 +151,8 @@ NS_ASSUME_NONNULL_END
 
 @implementation SBCheckBoxTableCellView
 
-@synthesize representedTag = _representedTag;
-
 - (void)setRepresentedTag:(SBMediaTag *)representedTag {
-    [_representedTag autorelease];
-    _representedTag = [representedTag retain];
+    _representedTag = representedTag;
 
     _checkBox.title = _representedTag.localizedTitle;
     _checkBox.state = _representedTag.state;
@@ -187,19 +169,19 @@ NS_ASSUME_NONNULL_END
 
 #pragma mark - Main Class
 
-@implementation SBMediaTagsController
+@implementation SBMediaTagsController {
+    IBOutlet NSTableView *_tableView;
+}
 
 - (instancetype)init {
     self = [super initWithNibName:@"SBMediaTagsController" bundle:nil];
-    if (self) {
-    }
     return self;
 }
 
 - (instancetype)initWithTrack:(MP42Track *)track {
     self = [self init];
     if (self) {
-        _track = [track retain];
+        _track = track;
         NSArray<NSString *> *predefinedTags = [SBMediaTag predefinedTagsForMediaType:track.mediaType];
 
         NSMutableArray<SBMediaTag *> *tags = [[NSMutableArray alloc] init];
@@ -210,7 +192,6 @@ NS_ASSUME_NONNULL_END
             SBMediaTag *tag = [[SBMediaTag alloc] initWithValue:availableTag
                                                          state:state];
             [tags addObject:tag];
-            [tag release];
         }
 
         // Keep the custom ones if present
@@ -220,34 +201,18 @@ NS_ASSUME_NONNULL_END
         for (NSString *customTag in custom) {
             SBMediaTag *tag = [[SBMediaTag alloc] initWithValue:customTag state:YES];
             [tags addObject:tag];
-            [tag release];
         }
 
-        [custom release];
 
         _tags = [tags copy];
-        [tags release];
     }
     return self;
 }
 
-@synthesize track = _track;
-@synthesize tags = _tags;
-
-- (void)dealloc {
+- (void)dealloc
+{
     [_tableView setDelegate:nil];
     [_tableView setDataSource:nil];
-    [_track release];
-    _track = nil;
-    [_tags release];
-    _tags = nil;
-
-    [super dealloc];
-}
-
-- (void)loadView
-{
-    [super loadView];
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {

@@ -41,13 +41,13 @@
 
 + (nullable instancetype)importerForProvider:(NSString *)aProvider {
 	if ([aProvider isEqualToString:@"iTunes Store"]) {
-		return [[[SBiTunesStore alloc] init] autorelease];
+		return [[SBiTunesStore alloc] init];
 	}
     else if ([aProvider isEqualToString:@"TheMovieDB"]) {
-		return [[[SBTheMovieDB3 alloc] init] autorelease];
+		return [[SBTheMovieDB3 alloc] init];
 	}
     else if ([aProvider isEqualToString:@"TheTVDB"]) {
-		return [[[SBTheTVDB alloc] init] autorelease];
+		return [[SBTheTVDB alloc] init];
 	}
 	return nil;
 }
@@ -142,7 +142,6 @@
 - (NSArray<SBMetadataResult *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage  {
 	SBTheTVDB *searcher = [[SBTheTVDB alloc] init];
 	NSArray *a = [searcher searchTVSeries:aSeriesName language:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV|TheTVDB|Language"]];
-	[searcher release];
 	return a;
 }
 

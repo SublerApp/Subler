@@ -8,7 +8,6 @@
 
 #import "SBEmptyViewController.h"
 
-
 @implementation SBEmptyViewController
 
 @end

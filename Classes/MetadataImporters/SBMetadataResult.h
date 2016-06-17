@@ -23,8 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSArray<NSURL *>        *_artworkFullsizeURLs;
     NSArray<NSString *>     *_artworkProviderNames;
 
-    NSString *_ratingiTunesCode;
-
     uint8_t _mediaKind;
     uint8_t _contentRating;
 }
@@ -44,11 +42,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) NSMutableArray<MP42Image *> *artworks;
 
-@property (nonatomic, readwrite, retain, nullable) NSArray<NSURL *> *artworkThumbURLs;
-@property (nonatomic, readwrite, retain, nullable) NSArray<NSURL *> *artworkFullsizeURLs;
-@property (nonatomic ,readwrite, retain, nullable) NSArray<NSString *> *artworkProviderNames;
+@property (nonatomic, readwrite, strong, nullable) NSArray<NSURL *> *artworkThumbURLs;
+@property (nonatomic, readwrite, strong, nullable) NSArray<NSURL *> *artworkFullsizeURLs;
+@property (nonatomic ,readwrite, strong, nullable) NSArray<NSString *> *artworkProviderNames;
 
-@property (nonatomic, readonly) MP42Metadata *metadata;
+@property (weak, nonatomic, readonly) MP42Metadata *metadata;
 
 @end
 

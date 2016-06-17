@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10109" systemVersion="15E39d" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11129.15" systemVersion="15G12a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11129.15"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBDocument">
@@ -12,20 +12,20 @@
                 <outlet property="addTracks" destination="100247" id="100251"/>
                 <outlet property="cancelSave" destination="100252" id="100255"/>
                 <outlet property="deleteTrack" destination="100164" id="100170"/>
-                <outlet property="documentWindow" destination="5" id="100064"/>
+                <outlet property="documentWindow" destination="5" id="AIQ-Aj-grJ"/>
                 <outlet property="fileFormat" destination="100215" id="100225"/>
-                <outlet property="fileTracksTable" destination="100031" id="100037"/>
                 <outlet property="offset" destination="100275" id="100288"/>
                 <outlet property="offsetWindow" destination="100271" id="100285"/>
-                <outlet property="optBar" destination="100179" id="100181"/>
-                <outlet property="saveOperationName" destination="100177" id="100186"/>
+                <outlet property="progressBar" destination="100179" id="21T-ul-KQu"/>
+                <outlet property="saveOperationName" destination="100177" id="OuQ-yM-1z7"/>
                 <outlet property="saveView" destination="100187" id="100192"/>
-                <outlet property="savingWindow" destination="100175" id="100180"/>
+                <outlet property="saveWindow" destination="100175" id="lQR-rJ-S5i"/>
                 <outlet property="searchChapters" destination="3A7-gZ-0ev" id="ntV-rn-nkt"/>
                 <outlet property="searchMetadata" destination="100302" id="100310"/>
                 <outlet property="sendToQueue" destination="100312" id="100316"/>
                 <outlet property="splitView" destination="100127" id="100262"/>
                 <outlet property="targetView" destination="100129" id="100142"/>
+                <outlet property="tracksTable" destination="100031" id="yrL-dR-TXc"/>
                 <outlet property="window" destination="5" id="18"/>
             </connections>
         </customObject>
@@ -359,7 +359,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="17"/>
             </connections>
-            <point key="canvasLocation" x="349" y="-6"/>
+            <point key="canvasLocation" x="569" y="0.0"/>
         </window>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="100175" userLabel="Saving">
@@ -400,7 +400,7 @@ Gw
                     </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="393.5" y="411.5"/>
+            <point key="canvasLocation" x="437" y="408"/>
         </window>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="100271" userLabel="Offset">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>

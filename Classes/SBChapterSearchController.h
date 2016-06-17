@@ -11,43 +11,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class SBTableView;
-@class SBChapterResult;
-@class SBChapterImporter;
-
 @protocol SBChapterSearchControllerDelegate
 
 - (void)chapterImportDone:(NSArray<MP42TextSample *> *)chaptersToBeImported;
 
 @end
 
-@interface SBChapterSearchController : NSWindowController {
-@private
-    id <SBChapterSearchControllerDelegate> delegate;
-    
-    NSString    *_searchString;
-    NSUInteger  _searchDuration;
-    
-    NSDictionary                 *_detailBoldAttr;
-    NSDictionary                 *_detailBoldMonospacedAttr;
-    NSDictionary                 *_detailMonospacedAttr;
-    
-    IBOutlet NSTextField         *searchTitle;
-    
-    NSArray<SBChapterResult *>   *_resultsArray;
-    IBOutlet NSTableView         *resultsTable;
-    NSArray                      *_selectedChaptersArray;
-    IBOutlet SBTableView         *chapterTable;
-    
-    
-    IBOutlet NSButton            *searchButton;
-    IBOutlet NSButton            *addButton;
-    
-    SBChapterImporter             *_currentSearcher;
-    
-    IBOutlet NSProgressIndicator *progress;
-    IBOutlet NSTextField         *progressText;
-}
+@interface SBChapterSearchController : NSWindowController
 
 - (instancetype)initWithDelegate:(id <SBChapterSearchControllerDelegate>)del searchTitle:(NSString *)title andDuration:(NSUInteger)duration; 
 

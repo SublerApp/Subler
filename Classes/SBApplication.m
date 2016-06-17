@@ -16,15 +16,14 @@ static void CrashMyApplication()
 - (NSAttributedString *)_formattedExceptionBacktrace:(NSArray *)backtrace
 {
     NSMutableAttributedString *result = [[NSMutableAttributedString alloc] init];
-    for (NSString *s in backtrace)
+    for (__strong NSString *s in backtrace)
     {
         s = [s stringByAppendingString:@"\n"];
         NSAttributedString *attrS = [[NSAttributedString alloc] initWithString:s];
         [result appendAttributedString:attrS];
-        [attrS release];
     }
     [result addAttribute:NSFontAttributeName value:[NSFont fontWithName:@"Monaco" size:10] range:NSMakeRange(0, result.length)];
-    return [result autorelease];
+    return result;
 }
 
 - (void)reportException:(NSException *)exception
