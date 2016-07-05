@@ -10,28 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MP42Track;
 @class MP42AudioTrack;
 @class MP42File;
 
-@interface SBSoundViewController : NSViewController {
-    MP42AudioTrack *track;
-    MP42File       *mp4file;
+@interface SBSoundViewController : NSViewController
 
-    NSMutableArray<MP42AudioTrack *> *_fallbacks;
-    NSMutableArray<__kindof MP42Track *> *_follows;
-
-    NSViewController *_mediaTagsController;
-
-    IBOutlet NSView *mediaTagsView;
-    IBOutlet NSSlider *volume;
-    IBOutlet NSPopUpButton *alternateGroup;
-    IBOutlet NSPopUpButton *fallback;
-    IBOutlet NSPopUpButton *follows;
-}
-
-- (void)setTrack:(MP42AudioTrack *)soundTrack;
-- (void)setFile:(MP42File *)mp4;
+@property (nonatomic, strong, nullable) MP42AudioTrack *soundTrack;
+@property (nonatomic, strong, nullable) MP42File *file;
 
 - (IBAction)setTrackVolume:(id)sender;
 - (IBAction)setAltenateGroup:(id)sender;

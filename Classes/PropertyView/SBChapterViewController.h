@@ -12,15 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class SBTableView;
-
-@interface SBChapterViewController : NSViewController {
-
-    NSDictionary *detailBoldAttr;
-
-    IBOutlet SBTableView    *chapterTableView;
-    IBOutlet NSButton       *removeChapter;
-}
+@interface SBChapterViewController : NSViewController
 
 @property (nonatomic, readwrite, nullable) MP42ChapterTrack *track;
 

@@ -27,16 +27,12 @@
 
     IBOutlet NSTextField         *searchTitle;
 
-    NSArray<SBChapterResult *>   *_resultsArray;
     IBOutlet NSTableView         *resultsTable;
-    NSArray                      *_selectedChaptersArray;
     IBOutlet SBTableView         *chapterTable;
 
 
     IBOutlet NSButton            *searchButton;
     IBOutlet NSButton            *addButton;
-
-    SBChapterImporter             *_currentSearcher;
 
     IBOutlet NSProgressIndicator *progress;
     IBOutlet NSTextField         *progressText;

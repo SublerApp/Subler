@@ -580,7 +580,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         [controller setFile:self.mp4];
     } else if ([track isKindOfClass:[MP42AudioTrack class]]) {
         controller = [[SBSoundViewController alloc] initWithNibName:@"SoundView" bundle:nil];
-        [controller setTrack:track];
+        [controller setSoundTrack:track];
         [controller setFile:self.mp4];
     } else {
         controller = [[SBEmptyViewController alloc] initWithNibName:@"EmptyView" bundle:nil];

@@ -12,6 +12,12 @@
 #import <MP42Foundation/MP42Utilities.h>
 
 @implementation SBChapterViewController
+{
+    NSDictionary *detailBoldAttr;
+
+    IBOutlet SBTableView    *chapterTableView;
+    IBOutlet NSButton       *removeChapter;
+}
 
 - (void)loadView
 {

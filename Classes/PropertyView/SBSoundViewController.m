@@ -12,13 +12,25 @@
 #import <MP42Foundation/MP42File.h>
 
 @implementation SBSoundViewController
+{
+    NSMutableArray<MP42AudioTrack *> *_fallbacks;
+    NSMutableArray<__kindof MP42Track *> *_follows;
+
+    NSViewController *_mediaTagsController;
+
+    IBOutlet NSView *mediaTagsView;
+    IBOutlet NSSlider *volume;
+    IBOutlet NSPopUpButton *alternateGroup;
+    IBOutlet NSPopUpButton *fallback;
+    IBOutlet NSPopUpButton *follows;
+}
 
 - (void)loadView
 {
     [super loadView];
 
     // Media Tags controls
-    _mediaTagsController = [[SBMediaTagsController alloc] initWithTrack:track];
+    _mediaTagsController = [[SBMediaTagsController alloc] initWithTrack:self.soundTrack];
 
     (_mediaTagsController.view).frame = mediaTagsView.bounds;
     (_mediaTagsController.view).autoresizingMask = ( NSViewWidthSizable | NSViewHeightSizable );
@@ -26,16 +38,16 @@
     [mediaTagsView addSubview:_mediaTagsController.view];
 
     // Standard audio controls
-    [alternateGroup selectItemAtIndex:(NSInteger)track.alternate_group];
+    [alternateGroup selectItemAtIndex:(NSInteger)self.soundTrack.alternate_group];
 
     _fallbacks = [[NSMutableArray alloc] init];
 
-    if ([track.format isEqualToString:MP42AudioFormatAC3] ||
-        [track.format isEqualToString:MP42AudioFormatEAC3]) {
+    if ([self.soundTrack.format isEqualToString:MP42AudioFormatAC3] ||
+        [self.soundTrack.format isEqualToString:MP42AudioFormatEAC3]) {
         NSInteger i = 1;
         NSInteger selectedItem = 0;
 
-        for (MP42AudioTrack *fileTrack in [mp4file tracksWithMediaType:MP42MediaTypeAudio]) {
+        for (MP42AudioTrack *fileTrack in [self.file tracksWithMediaType:MP42MediaTypeAudio]) {
             if ([fileTrack.format isEqualToString:MP42AudioFormatAAC]) {
                 NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ - %@ - %@",
                                                                           fileTrack.trackId ? [NSString stringWithFormat:@"%d", fileTrack.trackId] : @"na",
@@ -48,8 +60,9 @@
                 [fallback.menu addItem:newItem];
                 [_fallbacks addObject:fileTrack];
                 
-                if (track.fallbackTrack == fileTrack)
+                if (self.soundTrack.fallbackTrack == fileTrack) {
                     selectedItem = i;
+                }
 
                 i++;
             }
@@ -65,7 +78,7 @@
     NSInteger i = 1;
     NSInteger selectedItem = 0;
 
-    for (MP42SubtitleTrack *fileTrack in [mp4file tracksWithMediaType:MP42MediaTypeSubtitle]) {
+    for (MP42SubtitleTrack *fileTrack in [self.file tracksWithMediaType:MP42MediaTypeSubtitle]) {
         NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ - %@ - %@",
                                                                   fileTrack.trackId ? [NSString stringWithFormat:@"%d", fileTrack.trackId] : @"na",
                                                                   fileTrack.name,
@@ -77,32 +90,23 @@
         [follows.menu addItem:newItem];
         [_follows addObject:fileTrack];
 
-        if (track.followsTrack == fileTrack)
+        if (self.soundTrack.followsTrack == fileTrack) {
             selectedItem = i;
+        }
 
         i++;
     }
 
     [follows selectItemWithTag:selectedItem];
 
-    volume.floatValue = track.volume * 100;
-}
-
-- (void)setFile:(MP42File *)mp4
-{
-    mp4file = mp4;
-}
-
-- (void)setTrack:(MP42AudioTrack *)soundTrack
-{
-    track = soundTrack;
+    volume.floatValue = self.soundTrack.volume * 100;
 }
 
 - (IBAction)setTrackVolume:(id)sender
 {
     float value = [sender floatValue] / 100;
-    if (track.volume != value) {
-        track.volume = value;
+    if (self.soundTrack.volume != value) {
+        self.soundTrack.volume = value;
         [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }
@@ -114,13 +118,13 @@
     if (index) {
         MP42AudioTrack *audioTrack = _fallbacks[index-1];
 
-        if (audioTrack != track.fallbackTrack) {
-            track.fallbackTrack = audioTrack;
+        if (audioTrack != self.soundTrack.fallbackTrack) {
+            self.soundTrack.fallbackTrack = audioTrack;
             [self.view.window.windowController.document updateChangeCount:NSChangeDone];
         }
     }
     else {
-        track.fallbackTrack = nil;
+        self.soundTrack.fallbackTrack = nil;
         [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }
@@ -132,13 +136,13 @@
     if (index) {
         MP42SubtitleTrack *subTrack = _follows[index-1];
 
-        if (subTrack != track.followsTrack) {
-            track.followsTrack = subTrack;
+        if (subTrack != self.soundTrack.followsTrack) {
+            self.soundTrack.followsTrack = subTrack;
             [self.view.window.windowController.document updateChangeCount:NSChangeDone];
         }
     }
     else {
-        track.followsTrack = nil;
+        self.soundTrack.followsTrack = nil;
         [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }
@@ -147,8 +151,8 @@
 {
     NSInteger tagName = [sender selectedItem].tag;
     
-    if (track.alternate_group != tagName) {
-        track.alternate_group = tagName;
+    if (self.soundTrack.alternate_group != tagName) {
+        self.soundTrack.alternate_group = tagName;
         [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }

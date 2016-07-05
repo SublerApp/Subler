@@ -834,9 +834,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     [imageBrowser setDataSource:nil];
     [tagsTableView setDelegate:nil];
     [tagsTableView setDataSource:nil];
-
-
-
 }
 
 @end

@@ -11,6 +11,44 @@
 #import <MP42Foundation/MP42File.h>
 
 @implementation SBVideoViewController
+{
+    MP42VideoTrack *track;
+    MP42File       *mp4file;
+
+    NSViewController *_mediaTagsController;
+
+    IBOutlet NSView *mediaTagsView;
+
+    IBOutlet NSTextField *sampleWidth;
+    IBOutlet NSTextField *sampleHeight;
+
+    IBOutlet NSTextField *trackWidth;
+    IBOutlet NSTextField *trackHeight;
+
+    IBOutlet NSTextField *hSpacing;
+    IBOutlet NSTextField *vSpacing;
+
+    IBOutlet NSTextField *offsetX;
+    IBOutlet NSTextField *offsetY;
+
+    IBOutlet NSPopUpButton *alternateGroup;
+
+    IBOutlet NSPopUpButton *videoProfile;
+    IBOutlet NSTextField *videoProfileLabel;
+    IBOutlet NSTextField *videoProfileDescription;
+
+    IBOutlet NSPopUpButton *forcedSubs;
+    IBOutlet NSTextField *forcedSubsLabel;
+
+    IBOutlet NSPopUpButton *forced;
+    IBOutlet NSTextField *forcedLabel;
+
+    IBOutlet NSButton *preserveAspectRatio;
+
+    IBOutlet NSMenuItem *profileLevelUnchanged;
+    
+    NSMutableArray *_forced;
+}
 
 static NSString *getProfileName(uint8_t profile) {
     switch (profile) {

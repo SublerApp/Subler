@@ -14,6 +14,9 @@ static void *SBItemViewContex = &SBItemViewContex;
 #define TABLE_ROW_HEIGHT 14
 
 @interface SBItemViewController ()
+{
+    id<SBItemViewDelegate> __unsafe_unretained _delegate;
+}
 
 @property (nonatomic) SBQueueItem *item;
 

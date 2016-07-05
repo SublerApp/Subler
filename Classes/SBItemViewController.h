@@ -19,15 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface SBItemViewController : NSViewController {
-@private
-    SBQueueItem *_item;
-
-    NSButton *__weak _editButton;
-    NSProgressIndicator *__weak _spinner;
-
-    id<SBItemViewDelegate> __unsafe_unretained _delegate;
-}
+@interface SBItemViewController : NSViewController
 
 @property (nonatomic, readonly) SBQueueItem *item;
 @property (nonatomic, unsafe_unretained, readwrite) id<SBItemViewDelegate> delegate;

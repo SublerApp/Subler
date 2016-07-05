@@ -14,44 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MP42VideoTrack;
 @class MP42SubtitleTrack;
 
-@interface SBVideoViewController : NSViewController {
-    MP42VideoTrack *track;
-    MP42File       *mp4file;
-
-    NSViewController *_mediaTagsController;
-
-    IBOutlet NSView *mediaTagsView;
-
-    IBOutlet NSTextField *sampleWidth;
-    IBOutlet NSTextField *sampleHeight;
-
-    IBOutlet NSTextField *trackWidth;
-    IBOutlet NSTextField *trackHeight;
-
-    IBOutlet NSTextField *hSpacing;
-    IBOutlet NSTextField *vSpacing;
-
-    IBOutlet NSTextField *offsetX;
-    IBOutlet NSTextField *offsetY;
-
-    IBOutlet NSPopUpButton *alternateGroup;
-
-    IBOutlet NSPopUpButton *videoProfile;
-    IBOutlet NSTextField *videoProfileLabel;
-    IBOutlet NSTextField *videoProfileDescription;
-
-    IBOutlet NSPopUpButton *forcedSubs;
-    IBOutlet NSTextField *forcedSubsLabel;
-
-    IBOutlet NSPopUpButton *forced;
-    IBOutlet NSTextField *forcedLabel;
-
-    IBOutlet NSButton *preserveAspectRatio;
-    
-    IBOutlet NSMenuItem *profileLevelUnchanged;
-    
-    NSMutableArray *_forced;
-}
+@interface SBVideoViewController : NSViewController
 
 - (void)setTrack:(MP42VideoTrack *)videoTrack;
 - (void)setFile:(MP42File *)mp4;
