@@ -210,7 +210,7 @@
         [extension caseInsensitiveCompare: @"m4r"] == NSOrderedSame ||
         [extension caseInsensitiveCompare: @"m4b"] == NSOrderedSame) {
 
-        mp4 = [[MP42File alloc] initWithURL:url];
+        mp4 = [[MP42File alloc] initWithURL:url error:NULL];
     }
 
     if ([extension caseInsensitiveCompare: @"mkv"] == NSOrderedSame ||
@@ -219,39 +219,18 @@
         [extension caseInsensitiveCompare: @"mov"] == NSOrderedSame ||
         mp4 == nil) {
 
-        CFBridgingRetain(completionHandler);
+        NSError *outError = nil;
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSError *outError = nil;
-
-            SBDocument *doc = [self openUntitledDocumentAndDisplay:displayDocument error:&outError];
-            completionHandler(doc, NO, outError);
-            if (doc) {
-                [doc showImportSheet:@[url]];
-            }
-            CFRelease((__bridge CFTypeRef)(completionHandler));
-        });
+        SBDocument *doc = [self openUntitledDocumentAndDisplay:displayDocument error:&outError];
+        completionHandler(doc, NO, outError);
+        if (doc) {
+            [doc showImportSheet:@[url]];
+        }
     }
     else {
         [super openDocumentWithContentsOfURL:url display:displayDocument completionHandler:completionHandler];
     }
 
-}
-
-- (nullable __kindof NSDocument *)documentForURL:(NSURL *)url
-{
-    NSArray<__kindof NSDocument *> *documents = nil;
-    @synchronized(self) {
-        documents = [self.documents copy];
-    }
-
-    for (NSDocument *doc in documents) {
-        if ([doc.fileURL isEqualTo:url.filePathURL]) {
-            return doc;
-        }
-    }
-
-    return nil;
 }
 
 @end

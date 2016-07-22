@@ -145,11 +145,9 @@
 
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError * __autoreleasing *)outError
 {
-    self.mp4 = [[MP42File alloc] initWithURL:absoluteURL];
+    self.mp4 = [[MP42File alloc] initWithURL:absoluteURL error:outError];
 
-    if (outError != NULL && !self.mp4) {
-		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-        
+    if (!self.mp4) {
         return NO;
 	}
 
@@ -158,14 +156,13 @@
 
 - (BOOL)revertToContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError * __autoreleasing *)outError
 {
-    self.mp4 = [[MP42File alloc] initWithURL:absoluteURL];
+    self.mp4 = [[MP42File alloc] initWithURL:absoluteURL error:outError];
 
     [self.tracksTable reloadData];
     [self reloadPropertyView];
     [self updateChangeCount:NSChangeCleared];
 
-    if (outError != NULL && !self.mp4) {
-		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
+    if (!self.mp4) {
         return NO;
 	}
     return YES;
@@ -203,17 +200,50 @@
     return YES;
 }
 
+- (void)showProgressSheet
+{
+    self.progressBar.doubleValue = 0;
+    self.progressBar.indeterminate = YES;
+    self.saveOperationName.stringValue = NSLocalizedString(@"Saving…", @"Document Saving sheet.");
+
+    [self.progressBar startAnimation:self];
+    [self.windowForSheet beginSheet:self.saveWindow completionHandler:NULL];
+}
+
+- (void)endProgressSheet
+{
+    [self.progressBar stopAnimation:self];
+    [self.windowForSheet endSheet:self.saveWindow];
+}
+
+- (void)saveToURL:(NSURL *)url ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation completionHandler:(void (^)(NSError * _Nullable))completionHandler
+{
+    void (^modifiedCompletionhandler)(NSError * _Nullable) = ^void(NSError * _Nullable error) {
+        MP42File *reloadedFile = nil;
+
+        if (error == nil) {
+            reloadedFile = [[MP42File alloc] initWithURL:[NSURL fileURLWithPath:url.path] error:NULL];
+        }
+
+
+        if (reloadedFile) {
+            self.mp4 = reloadedFile;
+
+            [self.tracksTable reloadData];
+            [self reloadPropertyView];
+        }
+
+        [self endProgressSheet];
+        completionHandler(error);
+    };
+
+    [self showProgressSheet];
+    [super saveToURL:url ofType:typeName forSaveOperation:saveOperation completionHandler:modifiedCompletionhandler];
+}
+
 - (BOOL)writeSafelyToURL:(NSURL *)url ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError * _Nullable *)outError
 {
     [self unblockUserInteraction];
-
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.progressBar setIndeterminate:YES];
-        [self.progressBar startAnimation:self];
-        [self.saveOperationName setStringValue:NSLocalizedString(@"Saving…", @"Document Saving sheet.")];
-
-        [self.windowForSheet beginSheet:self.saveWindow completionHandler:NULL];
-    });
 
     IOPMAssertionID assertionID;
     // Enable sleep assertion
@@ -254,7 +284,7 @@
 
     if (result && _optimize) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.saveOperationName setStringValue:NSLocalizedString(@"Optimizing…", @"Document Optimize sheet.")];
+            [weakSelf.saveOperationName setStringValue:NSLocalizedString(@"Optimizing…", @"Document Optimize sheet.")];
         });
         result = [self.mp4 optimize];
         _optimize = NO;
@@ -265,35 +295,6 @@
     if (io_success == kIOReturnSuccess) {
         IOPMAssertionRelease(assertionID);
     }
-
-    NSError *error = *outError;
-    MP42File *reloadedFile = nil;
-
-    if (result == YES) {
-        reloadedFile = [[MP42File alloc] initWithURL:[NSURL fileURLWithPath:url.path]];
-    }
-
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.progressBar stopAnimation:self];
-
-        [self.windowForSheet endSheet:self.saveWindow];
-
-        if (result == YES && error) {
-            [self presentError:error
-                modalForWindow:self.windowForSheet
-                        delegate:nil
-            didPresentSelector:NULL
-                    contextInfo:NULL];
-        }
-
-        if (reloadedFile) {
-            self.mp4 = reloadedFile;
-
-            [self.tracksTable reloadData];
-            [self reloadPropertyView];
-        }
-
-    });
 
     return result;
 }
@@ -944,7 +945,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     }
     else {
         MP42File *file = nil;
-        if ((file = [[MP42File alloc] initWithURL:URL])) {
+        if ((file = [[MP42File alloc] initWithURL:URL error:NULL])) {
             [self.mp4.metadata mergeMetadata:file.metadata];
         }
     }
