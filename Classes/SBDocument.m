@@ -200,6 +200,9 @@
     return YES;
 }
 
+/**
+ * Show the progress modal sheet.
+ */
 - (void)showProgressSheet
 {
     self.progressBar.doubleValue = 0;

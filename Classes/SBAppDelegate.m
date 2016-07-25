@@ -233,4 +233,20 @@
 
 }
 
+- (nullable __kindof NSDocument *)documentForURL:(NSURL *)url
+{
+    NSArray<__kindof NSDocument *> *documents = nil;
+    @synchronized(self) {
+        documents = [self.documents copy];
+    }
+
+    for (NSDocument *doc in documents) {
+        if ([doc.fileURL isEqualTo:url.filePathURL]) {
+            return doc;
+        }
+    }
+
+    return nil;
+}
+
 @end
