@@ -18,10 +18,6 @@
 		A917286119FD288B00348DF8 /* SBLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A917286019FD288B00348DF8 /* SBLogger.m */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		A95688A21B91B0F3004456A6 /* NSArray+Subscripting.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A11B91B0F3004456A6 /* NSArray+Subscripting.m */; };
-		A95688A91B91B11B004456A6 /* NSDictionary+Subscript.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A41B91B11B004456A6 /* NSDictionary+Subscript.m */; };
-		A95688AA1B91B11B004456A6 /* NSMutableArray+Subscript.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A61B91B11B004456A6 /* NSMutableArray+Subscript.m */; };
-		A95688AB1B91B11B004456A6 /* NSMutableDictionary+Subscript.m in Sources */ = {isa = PBXBuildFile; fileRef = A95688A81B91B11B004456A6 /* NSMutableDictionary+Subscript.m */; };
 		A95B8DA91B09F37800F2F152 /* Subler_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B8DA81B09F37800F2F152 /* Subler_Tests.m */; };
 		A95C881D0F827BFB00F51A22 /* ToolbarRemoveTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = A95C881C0F827BFB00F51A22 /* ToolbarRemoveTemplate.png */; };
 		A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */; };
@@ -185,14 +181,6 @@
 		A917286019FD288B00348DF8 /* SBLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLogger.m; path = Classes/SBLogger.m; sourceTree = "<group>"; };
 		A917286419FD289F00348DF8 /* SBLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBLogger.h; path = Classes/SBLogger.h; sourceTree = "<group>"; };
 		A925AA7B18378D7800BE84D4 /* MP42Foundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP42Foundation.xcodeproj; path = MP42Foundation/MP42Foundation.xcodeproj; sourceTree = "<group>"; };
-		A95688A01B91B0F3004456A6 /* NSArray+Subscripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+Subscripting.h"; path = "Classes/Compatibility/NSArray+Subscripting.h"; sourceTree = "<group>"; };
-		A95688A11B91B0F3004456A6 /* NSArray+Subscripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+Subscripting.m"; path = "Classes/Compatibility/NSArray+Subscripting.m"; sourceTree = "<group>"; };
-		A95688A31B91B11B004456A6 /* NSDictionary+Subscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Subscript.h"; path = "Classes/Compatibility/NSDictionary+Subscript.h"; sourceTree = "<group>"; };
-		A95688A41B91B11B004456A6 /* NSDictionary+Subscript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Subscript.m"; path = "Classes/Compatibility/NSDictionary+Subscript.m"; sourceTree = "<group>"; };
-		A95688A51B91B11B004456A6 /* NSMutableArray+Subscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+Subscript.h"; path = "Classes/Compatibility/NSMutableArray+Subscript.h"; sourceTree = "<group>"; };
-		A95688A61B91B11B004456A6 /* NSMutableArray+Subscript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+Subscript.m"; path = "Classes/Compatibility/NSMutableArray+Subscript.m"; sourceTree = "<group>"; };
-		A95688A71B91B11B004456A6 /* NSMutableDictionary+Subscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableDictionary+Subscript.h"; path = "Classes/Compatibility/NSMutableDictionary+Subscript.h"; sourceTree = "<group>"; };
-		A95688A81B91B11B004456A6 /* NSMutableDictionary+Subscript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+Subscript.m"; path = "Classes/Compatibility/NSMutableDictionary+Subscript.m"; sourceTree = "<group>"; };
 		A95B8DA41B09F37700F2F152 /* Subler Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subler Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95B8DA71B09F37700F2F152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A95B8DA81B09F37800F2F152 /* Subler_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subler_Tests.m; sourceTree = "<group>"; };
@@ -412,7 +400,6 @@
 				A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */,
 				CD71FF1A12F1C46900F0A98D /* MetadataImporters */,
 				A95688AC1B91B35A004456A6 /* Activity Log */,
-				A956889F1B91AFF7004456A6 /* Compatibility */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -481,21 +468,6 @@
 				A98C6F84183E6C39007E5AE5 /* libmp42.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		A956889F1B91AFF7004456A6 /* Compatibility */ = {
-			isa = PBXGroup;
-			children = (
-				A95688A01B91B0F3004456A6 /* NSArray+Subscripting.h */,
-				A95688A11B91B0F3004456A6 /* NSArray+Subscripting.m */,
-				A95688A31B91B11B004456A6 /* NSDictionary+Subscript.h */,
-				A95688A41B91B11B004456A6 /* NSDictionary+Subscript.m */,
-				A95688A51B91B11B004456A6 /* NSMutableArray+Subscript.h */,
-				A95688A61B91B11B004456A6 /* NSMutableArray+Subscript.m */,
-				A95688A71B91B11B004456A6 /* NSMutableDictionary+Subscript.h */,
-				A95688A81B91B11B004456A6 /* NSMutableDictionary+Subscript.m */,
-			);
-			name = Compatibility;
 			sourceTree = "<group>";
 		};
 		A95688AC1B91B35A004456A6 /* Activity Log */ = {
@@ -877,7 +849,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
-				A95688A91B91B11B004456A6 /* NSDictionary+Subscript.m in Sources */,
 				A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */,
 				A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */,
 				A9DA3B9D1B918D5C00F1E40C /* SBExceptionAlertController.m in Sources */,
@@ -905,9 +876,7 @@
 				A901C51E1C04F03F00430DC3 /* SBChapterDB.m in Sources */,
 				A961476313F567E10068F161 /* SBQueueController.m in Sources */,
 				A961476413F567E10068F161 /* SBPresetManager.m in Sources */,
-				A95688AA1B91B11B004456A6 /* NSMutableArray+Subscript.m in Sources */,
 				A901C51F1C04F03F00430DC3 /* SBChapterImporter.m in Sources */,
-				A95688AB1B91B11B004456A6 /* NSMutableDictionary+Subscript.m in Sources */,
 				A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */,
 				A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */,
 				A9F442301C75017100AD8786 /* SBMetadataResult.m in Sources */,
@@ -919,7 +888,6 @@
 				CD03087917576AE50093A0BE /* SBMetadataImporter.m in Sources */,
 				CD3F2A881761A143000D4C73 /* XMLReader.m in Sources */,
 				A9AB485517F0AEAC000AA72E /* SBEmptyViewController.m in Sources */,
-				A95688A21B91B0F3004456A6 /* NSArray+Subscripting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
