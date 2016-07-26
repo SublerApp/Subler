@@ -405,8 +405,7 @@
 {
     [tracksTableView setDelegate:nil];
     [tracksTableView setDataSource:nil];
-    [NSApp endSheet:self.window returnCode:NSOKButton];
-    [self.window orderOut:self];
+    [self.window.sheetParent endSheet:self.window returnCode:NSModalResponseCancel];
 }
 
 - (IBAction)addTracks:(id)sender
@@ -514,8 +513,7 @@
     [tracksTableView setDelegate:nil];
     [tracksTableView setDataSource:nil];
 
-    [NSApp endSheet:self.window returnCode:NSOKButton];
+    [self.window.sheetParent endSheet:self.window returnCode:NSModalResponseOK];
 }
-
 
 @end

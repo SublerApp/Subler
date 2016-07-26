@@ -667,15 +667,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 #pragma mark - Various things
 
-- (void)didEndSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
-{
-    [_sheet.window orderOut:nil];
-    _sheet = nil;
-
-    [self.tracksTable reloadData];
-    [self reloadPropertyView];
-}
-
 - (IBAction)sendToQueue:(id)sender
 {
     SBQueueController *queue =  [SBQueueController sharedManager];
@@ -723,11 +714,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     _sheet = [[SBMetadataSearchController alloc] initWithDelegate:self searchString:filename];
 
-    [NSApp beginSheet:_sheet.window
-       modalForWindow:self.documentWindow
-        modalDelegate:self
-       didEndSelector:@selector(didEndSheet:returnCode:contextInfo:)
-          contextInfo:nil];
+    [self.documentWindow beginSheet:_sheet.window completionHandler:NULL];
 }
 
 - (void)metadataImportDone:(SBMetadataResult *)metadataToBeImported
@@ -745,6 +732,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
                 }
             }
         [self updateChangeCount:NSChangeDone];
+        [self.tracksTable reloadData];
+        [self reloadPropertyView];
     }
 
 }
@@ -762,17 +751,11 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     NSUInteger duration = self.mp4.duration;
 
     _sheet = [[SBChapterSearchController alloc] initWithDelegate:self searchTitle:title andDuration:duration];
-
-    [NSApp beginSheet:_sheet.window
-       modalForWindow:self.documentWindow
-        modalDelegate:self
-       didEndSelector:@selector(didEndSheet:returnCode:contextInfo:)
-          contextInfo:nil];
+    [self.documentWindow beginSheet:_sheet.window completionHandler:NULL];
 }
 
 - (void)chapterImportDone:(NSArray<MP42TextSample *> *)chapterToBeImported
 {
-
     if (chapterToBeImported) {
 
         MP42ChapterTrack *newChapter = [[MP42ChapterTrack alloc] init];
@@ -788,7 +771,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         [self reloadPropertyView];
         [self updateChangeCount:NSChangeDone];
     }
-
 }
 
 - (IBAction)showTrackOffsetSheet:(id)sender
@@ -796,33 +778,21 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     offset.stringValue = [NSString stringWithFormat:@"%lld",
                             (self.mp4).tracks[self.tracksTable.selectedRow].startOffset];
 
-    [NSApp beginSheet:offsetWindow modalForWindow:self.documentWindow
-        modalDelegate:nil didEndSelector:NULL contextInfo:nil];
+    [self.documentWindow beginSheet:offsetWindow completionHandler:NULL];
 }
 
 - (IBAction)setTrackOffset:(id)sender
 {
     MP42Track *selectedTrack = (self.mp4).tracks[self.tracksTable.selectedRow];
     selectedTrack.startOffset = offset.integerValue;
-
     [self updateChangeCount:NSChangeDone];
 
-    [NSApp endSheet:offsetWindow];
-    [offsetWindow orderOut:self];
+    [self.documentWindow endSheet:offsetWindow];
 }
 
 - (IBAction)closeOffsetSheet:(id)sender
 {
-    [NSApp endSheet: offsetWindow];
-    [offsetWindow orderOut:self];
-}
-
-- (void)mediaSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    if (returnCode == NSOKButton) {
-        [self updateChangeCount:NSChangeDone];
-    }
-    [_sheet.window orderOut:self];
-    _sheet = nil;
+    [self.documentWindow endSheet:offsetWindow];
 }
 
 - (IBAction)deleteTrack:(id)sender
@@ -908,11 +878,13 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     if (_sheet) {
 		if (((SBFileImport *)_sheet).onlyContainsSubtitleTracks) {
 			[(SBFileImport *)_sheet addTracks:self];
-			[self didEndSheet:nil returnCode:NSOKButton contextInfo:nil];
+            [self.tracksTable reloadData];
+            [self reloadPropertyView];
+            _sheet = nil;
 		}
-        else { // show the dialog
-			[NSApp beginSheet:_sheet.window modalForWindow:self.documentWindow
-				modalDelegate:self didEndSelector:@selector(didEndSheet:returnCode:contextInfo:) contextInfo:NULL];
+        else {
+            // show the dialog
+            [self.documentWindow beginSheet:_sheet.window completionHandler:NULL];
 		}
     }
     else if (error) {

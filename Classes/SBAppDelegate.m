@@ -79,14 +79,18 @@
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)app
 {
     SBQueueStatus status= [SBQueueController sharedManager].status;
-    NSInteger result;
+
     if (status == SBQueueStatusWorking) {
-        result = NSRunCriticalAlertPanel(
-                                         NSLocalizedString(@"Are you sure you want to quit Subler?", @"Quit alert title."),
-                                         NSLocalizedString(@"Your current queue will be lost. Do you want to quit anyway?", @"Quit alert description."),
-                                         NSLocalizedString(@"Quit", @"Quit alert default action."), NSLocalizedString(@"Don't Quit", @"Quict alert cancel action."), nil);
-        
-        if (result == NSAlertDefaultReturn) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        alert.messageText = NSLocalizedString(@"Are you sure you want to quit Subler?", @"Quit alert title.");
+        alert.informativeText = NSLocalizedString(@"Your current queue will be lost. Do you want to quit anyway?", @"Quit alert description.");
+        [alert addButtonWithTitle:NSLocalizedString(@"Quit", @"Quit alert default action.")];
+        [alert addButtonWithTitle:NSLocalizedString(@"Don't Quit", @"Quit alert cancel action.")];
+        alert.alertStyle = NSCriticalAlertStyle;
+
+        NSInteger result = [alert runModal];
+
+        if (result == NSAlertFirstButtonReturn) {
             return NSTerminateNow;
         }
         else {

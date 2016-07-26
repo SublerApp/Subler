@@ -361,7 +361,6 @@ static void *SBQueueContex = &SBQueueContex;
         // the popover retains us and we retain the popover,
         // we drop the popover whenever it is closed to avoid a cycle
         self.popover.contentViewController = [[SBOptionsViewController alloc] initWithOptions:self.options];
-        self.popover.appearance = NSPopoverAppearanceMinimal;
         self.popover.animates = YES;
 
         // AppKit will close the popover when the user interacts with a user interface element outside the popover.
@@ -394,7 +393,6 @@ static void *SBQueueContex = &SBQueueContex;
     SBItemViewController *view = [[SBItemViewController alloc] initWithItem:item];
     view.delegate = self;
     self.itemPopover.contentViewController = view;
-    self.itemPopover.appearance = NSPopoverAppearanceMinimal;
     self.itemPopover.animates = YES;
 
     // AppKit will close the popover when the user interacts with a user interface element outside the popover.

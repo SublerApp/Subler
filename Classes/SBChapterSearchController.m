@@ -223,16 +223,15 @@
     [resultsTable setDelegate:nil];
     [resultsTable setDataSource:nil];
 
-    [NSApp endSheet:self.window returnCode:1];
+    [self.window.sheetParent endSheet:self.window returnCode:NSModalResponseOK];
 }
-
 
 - (IBAction)closeWindow:(id)sender
 {
     [resultsTable setDelegate:nil];
     [resultsTable setDataSource:nil];
 
-    [NSApp endSheet:self.window returnCode:0];
+    [self.window.sheetParent endSheet:self.window returnCode:NSModalResponseCancel];
 }
 
 #pragma mark - Progress

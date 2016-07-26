@@ -342,8 +342,7 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
 
 - (IBAction) showSaveSet: (id)sender
 {
-    [NSApp beginSheet:saveWindow modalForWindow:self.view.window
-        modalDelegate:nil didEndSelector:NULL contextInfo:nil];
+    [self.view.window beginCriticalSheet:saveWindow completionHandler:NULL];
 }
 
 - (IBAction) saveSet: (id) sender
@@ -352,15 +351,13 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
 
     self.metadata.presetName = presetName.stringValue;
     [presetManager newSetFromExistingMetadata: self.metadata];
-    
-    [NSApp endSheet: saveWindow];
-    [saveWindow orderOut:self];
+
+    [self.view.window endSheet:saveWindow];
 }
 
 - (IBAction) closeSaveSheet: (id) sender
 {
-    [NSApp endSheet: saveWindow];
-    [saveWindow orderOut:self];
+    [self.view.window endSheet:saveWindow];
 }
 
 /* NSTableView additions for copy & paste and more */

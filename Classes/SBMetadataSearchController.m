@@ -49,7 +49,7 @@
 
     IBOutlet NSButton            *addButton;
 
-    id                           artworkSelectorWindow;
+    SBArtworkSelector            *artworkSelectorWindow;
 
     IBOutlet NSProgressIndicator *progress;
     IBOutlet NSTextField         *progressText;
@@ -328,7 +328,7 @@
             artworkSelectorWindow = [[SBArtworkSelector alloc] initWithDelegate:self
                                                                       imageURLs:self.selectedResult.artworkThumbURLs
                                                            artworkProviderNames:self.selectedResult.artworkProviderNames];
-            [NSApp beginSheet:[artworkSelectorWindow window] modalForWindow:self.window modalDelegate:nil didEndSelector:NULL contextInfo:nil];
+            [self.window beginSheet:artworkSelectorWindow.window completionHandler:NULL];
         }
     } else {
         [self addMetadata];
@@ -336,8 +336,7 @@
 }
 
 - (void) selectArtworkDone:(NSIndexSet *)indexes {
-    [NSApp endSheet:[artworkSelectorWindow window]];
-    [[artworkSelectorWindow window] orderOut:self];
+    [self.window endSheet:artworkSelectorWindow.window];
     artworkSelectorWindow = nil;
 
     [self loadArtworks:indexes];
@@ -421,7 +420,7 @@
     [resultsTable setDelegate:nil];
     [resultsTable setDataSource:nil];
 
-    [NSApp endSheet:self.window returnCode:1];
+    [self.window.sheetParent endSheet:self.window returnCode:NSModalResponseOK];
 }
 
 - (IBAction) closeWindow: (id) sender
@@ -434,7 +433,7 @@
     [resultsTable setDelegate:nil];
     [resultsTable setDataSource:nil];
 
-    [NSApp endSheet:self.window returnCode:0];
+    [self.window.sheetParent endSheet:self.window returnCode:NSModalResponseCancel];
 }
 
 - (void) dealloc
