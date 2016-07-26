@@ -8,6 +8,7 @@
 
 #import "SBArtworkSelector.h"
 #import "SBMetadataHelper.h"
+#import <Quartz/Quartz.h>
 
 #pragma mark IKImageBrowserItem data source objects
 

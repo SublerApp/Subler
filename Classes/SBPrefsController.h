@@ -10,17 +10,7 @@
 @class SBMovieViewController;
 @class SBTableView;
 
-@interface SBPrefsController : NSWindowController <NSToolbarDelegate, NSWindowDelegate> {
-@private
-    IBOutlet NSView *generalView, *advancedView, *setsView;
-
-    NSPopover *_popover;
-    SBMovieViewController *_controller;
-    NSInteger _currentRow;
-
-    IBOutlet SBTableView *tableView;
-    IBOutlet NSButton    *removeSet;
-}
+@interface SBPrefsController : NSWindowController
 
 + (void)registerUserDefaults;
 

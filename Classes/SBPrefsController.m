@@ -18,7 +18,17 @@
 #define TOOLBAR_ADVANCED    @"TOOLBAR_ADVANCED"
 #define TOOLBAR_SETS        @"TOOLBAR_SETS"
 
-@interface SBPrefsController ()
+@interface SBPrefsController () <NSToolbarDelegate, NSWindowDelegate> {
+@private
+    IBOutlet NSView *generalView, *advancedView, *setsView;
+
+    NSPopover *_popover;
+    SBMovieViewController *_controller;
+    NSInteger _currentRow;
+
+    IBOutlet SBTableView *tableView;
+    IBOutlet NSButton    *removeSet;
+}
 @property (nonatomic, readonly, copy) NSArray *ratingsCountries;
 
 - (void)setPrefView:(id)sender;

@@ -18,6 +18,14 @@
 
 #define DONATE_NAG_TIME (60 * 60 * 24 * 7)
 
+@interface SBAppDelegate ()
+{
+    SBPrefsController *prefController;
+    SBLogWindowController *debugLogController;
+    SBDocumentController *documentController;
+}
+@end
+
 @implementation SBAppDelegate
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification

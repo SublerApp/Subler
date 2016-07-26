@@ -8,17 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class SBPrefsController;
-@class SBLogWindowController;
-
 @interface SBDocumentController : NSDocumentController
 @end
 
-@interface SBAppDelegate : NSObject {
-    SBPrefsController *prefController;
-    SBLogWindowController *debugLogController;
-	SBDocumentController *documentController;
-}
+@interface SBAppDelegate : NSObject
 
 - (IBAction) showBatchWindow: (id) sender;
 - (IBAction) showPrefsWindow: (id) sender;

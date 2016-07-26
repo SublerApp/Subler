@@ -11,7 +11,7 @@
 #import <MP42Foundation/MP42FileImporter.h>
 #import <MP42Foundation/MP42Utilities.h>
 
-@implementation SBFileImport
+@interface SBFileImport () <NSTableViewDelegate>
 {
 @private
     NSArray<NSURL *>  *_fileURLs;
@@ -28,6 +28,10 @@
     IBOutlet NSButton    *addTracksButton;
     IBOutlet NSButton    *importMetadata;
 }
+
+@end
+
+@implementation SBFileImport
 
 - (nullable instancetype)initWithURLs:(NSArray<NSURL *> *)fileURLs delegate:(id <SBFileImportDelegate>)delegate error:(NSError * __autoreleasing *)error
 {

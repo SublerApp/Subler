@@ -10,7 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MP42FileImporter;
 @class MP42Track;
 @class MP42Metadata;
 
@@ -18,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)importDoneWithTracks:(NSArray<MP42Track *> *)tracksToBeImported andMetadata:(nullable MP42Metadata *)metadata;
 @end
 
-@interface SBFileImport : NSWindowController <NSTableViewDelegate>
+@interface SBFileImport : NSWindowController
 
 - (instancetype)init NS_UNAVAILABLE;
 - (nullable instancetype)initWithURLs:(NSArray<NSURL *> *)fileURLs delegate:(id <SBFileImportDelegate>)delegate error:(NSError **)error;
