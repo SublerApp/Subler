@@ -49,7 +49,6 @@
 
     NSViewController        *propertyView;
     IBOutlet NSView         *targetView;
-    NSWindowController      *_sheet;
 
     IBOutlet NSWindow       *offsetWindow;
     IBOutlet NSTextField    *offset;
@@ -70,6 +69,8 @@
 @property (nonatomic, weak) IBOutlet NSProgressIndicator *progressBar;
 
 @property (nonatomic, strong) MP42File *mp4;
+
+@property (nonatomic, strong) NSWindowController *sheetController;
 
 @end
 
@@ -712,9 +713,10 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         filename = self.fileURL.lastPathComponent;
     }
 
-    _sheet = [[SBMetadataSearchController alloc] initWithDelegate:self searchString:filename];
-
-    [self.documentWindow beginSheet:_sheet.window completionHandler:NULL];
+    self.sheetController = [[SBMetadataSearchController alloc] initWithDelegate:self searchString:filename];
+    [self.documentWindow beginSheet:self.sheetController.window completionHandler:^(NSModalResponse returnCode) {
+        self.sheetController = nil;
+    }];
 }
 
 - (void)metadataImportDone:(SBMetadataResult *)metadataToBeImported
@@ -750,8 +752,10 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     NSUInteger duration = self.mp4.duration;
 
-    _sheet = [[SBChapterSearchController alloc] initWithDelegate:self searchTitle:title andDuration:duration];
-    [self.documentWindow beginSheet:_sheet.window completionHandler:NULL];
+    self.sheetController = [[SBChapterSearchController alloc] initWithDelegate:self searchTitle:title andDuration:duration];
+    [self.documentWindow beginSheet:self.sheetController.window completionHandler:^(NSModalResponse returnCode) {
+        self.sheetController = nil;
+    }];
 }
 
 - (void)chapterImportDone:(NSArray<MP42TextSample *> *)chapterToBeImported
@@ -873,18 +877,20 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     NSError *error = nil;
 
-    _sheet = [[SBFileImport alloc] initWithURLs:fileURLs delegate:self error:&error];
+    self.sheetController = [[SBFileImport alloc] initWithURLs:fileURLs delegate:self error:&error];
 
-    if (_sheet) {
-		if (((SBFileImport *)_sheet).onlyContainsSubtitleTracks) {
-			[(SBFileImport *)_sheet addTracks:self];
+    if (self.sheetController) {
+		if (((SBFileImport *)self.sheetController).onlyContainsSubtitleTracks) {
+			[(SBFileImport *)self.sheetController addTracks:self];
             [self.tracksTable reloadData];
             [self reloadPropertyView];
-            _sheet = nil;
+            self.sheetController = nil;
 		}
         else {
             // show the dialog
-            [self.documentWindow beginSheet:_sheet.window completionHandler:NULL];
+            [self.documentWindow beginSheet:self.sheetController.window completionHandler:^(NSModalResponse returnCode) {
+                self.sheetController = nil;
+            }];
 		}
     }
     else if (error) {
@@ -910,6 +916,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         [self.mp4.metadata mergeMetadata:metadata];
         [self updateChangeCount:NSChangeDone];
     }
+
+    [self.tracksTable reloadData];
+    [self reloadPropertyView];
 }
 
 - (void)addMetadata:(NSURL *)URL
