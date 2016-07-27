@@ -20,6 +20,9 @@ NSString * const SBQueueSubtitles = @"SBQueueSubtitles";
 NSString * const SBQueueAutoStart = @"SBQueueAutoStart";
 NSString * const SBQueueOptimize = @"SBQueueOptimize";
 
+NSString * const SBQueueFixTrackLanguage = @"SBQueueFixTrackLanguage";
+NSString * const SBQueueFixTrackLanguageValue = @"SBQueueFixTrackLanguageValue";
+
 NSString * const SBQueueDestination = @"SBQueueDestination";
 
 NSString * const SBQueueMovieProvider = @"SBQueueMovieProvider";
@@ -37,8 +40,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
     if (self) {
         _options = [[NSMutableDictionary alloc] init];
 
-        NSArray *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueFixFallbacks, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize,
-                         SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage];
+        NSArray *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueFixTrackLanguage, SBQueueFixTrackLanguageValue, SBQueueFixFallbacks, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize, SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage];
 
         [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             self.options[obj] = [[NSUserDefaults standardUserDefaults] valueForKey:obj];
@@ -62,6 +64,8 @@ NSString * const SBQueueSet = @"SBQueueSet";
 + (void)registerUserDefaults {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{ SBQueueFileType : @"mp4",
                                                                SBQueueOrganize : @YES,
+                                                               SBQueueFixTrackLanguage: @NO,
+                                                               SBQueueFixTrackLanguageValue: @"English",
                                                                SBQueueFixFallbacks: @NO,
                                                                SBQueueMetadata : @NO,
                                                                SBQueueSubtitles: @YES,
@@ -77,8 +81,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
  * Save the queue user defaults
  */
 - (void)saveUserDefaults {
-    NSArray<NSString *> *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueFixFallbacks, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize,
-                      SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage];
+    NSArray<NSString *> *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueFixTrackLanguage, SBQueueFixTrackLanguageValue, SBQueueFixFallbacks, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize, SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage];
 
     [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [[NSUserDefaults standardUserDefaults] setValue:(self.options)[obj] forKey:obj];

@@ -259,6 +259,10 @@ static void *SBQueueContex = &SBQueueContex;
         [item addAction:[[SBQueueFixFallbacksAction alloc] init]];
     }
 
+    if ([(self.options)[SBQueueFixTrackLanguage] boolValue]) {
+        [item addAction:[[SBQueueSetLanguageAction alloc] initWithLanguage:self.options[SBQueueFixTrackLanguageValue]]];
+    }
+
     if ((self.options)[SBQueueSet]) {
         [item addAction:[[SBQueueSetAction alloc] initWithSet:(self.options)[SBQueueSet]]];
     }

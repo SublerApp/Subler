@@ -16,7 +16,20 @@
 
 static void *SBOptionsViewContex = &SBOptionsViewContex;
 
-@interface SBOptionsViewController ()
+@interface SBOptionsViewController () {
+@private
+    IBOutlet NSPopUpButton *_destButton;
+
+    NSMutableDictionary *_options;
+    NSMutableArray *_sets;
+
+    NSArray *_moviesProviders;
+    NSArray *_tvShowsProviders;
+    NSArray *_movieLanguages;
+    NSArray *_tvShowLanguages;
+
+    NSURL *_destination;
+}
 
 @property (nonatomic) NSMutableDictionary *options;
 @property (nonatomic, strong) NSMutableArray *sets;
@@ -25,6 +38,8 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
 @property (nonatomic, strong) NSArray *tvShowsProviders;
 @property (nonatomic, strong) NSArray *movieLanguages;
 @property (nonatomic, strong) NSArray *tvShowLanguages;
+
+@property (nonatomic, strong) NSArray *languages;
 
 - (IBAction)chooseDestination:(id)sender;
 - (IBAction)destination:(id)sender;
@@ -42,6 +57,7 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
         _sets = [[NSMutableArray alloc] init];
         _moviesProviders = [SBMetadataImporter movieProviders];
         _tvShowsProviders = [SBMetadataImporter tvProviders];
+        _languages = [[MP42Languages defaultManager] languages];
 
     }
     return self;

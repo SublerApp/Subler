@@ -10,20 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SBOptionsViewController : NSViewController {
-@private
-    IBOutlet NSPopUpButton *_destButton;
-
-    NSMutableDictionary *_options;
-    NSMutableArray *_sets;
-
-    NSArray *_moviesProviders;
-    NSArray *_tvShowsProviders;
-    NSArray *_movieLanguages;
-    NSArray *_tvShowLanguages;
-
-    NSURL *_destination;
-}
+@interface SBOptionsViewController : NSViewController
 
 - (instancetype)initWithOptions:(NSMutableDictionary *)options;
 

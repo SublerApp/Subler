@@ -20,6 +20,9 @@ extern NSString * const SBQueueSet;
 extern NSString * const SBQueueAutoStart;
 extern NSString * const SBQueueOptimize;
 
+extern NSString * const SBQueueFixTrackLanguage;
+extern NSString * const SBQueueFixTrackLanguageValue;
+
 extern NSString * const SBQueueMovieProvider;
 extern NSString * const SBQueueTVShowProvider;
 extern NSString * const SBQueueMovieProviderLanguage;
