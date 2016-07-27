@@ -117,7 +117,12 @@
 {
     if (self = [super initWithType:@"Video-MPEG4" error:outError]) {
         self.mp4 = mp4File;
-        self.fileURL = mp4File.URL;
+        if (mp4File.URL){
+            self.fileURL = mp4File.URL;
+        }
+        else {
+            [self updateChangeCount:NSChangeDone];
+        }
     }
 
     return self;
