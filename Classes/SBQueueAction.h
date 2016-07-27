@@ -25,13 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  An actions that fetches metadata online.
  */
-@interface SBQueueMetadataAction : NSObject <SBQueueActionProtocol> {
-@private
-    NSString *_movieLanguage;
-    NSString *_tvShowLanguage;
-    NSString *_movieProvider;
-    NSString *_tvShowProvider;
-}
+@interface SBQueueMetadataAction : NSObject <SBQueueActionProtocol>
 - (instancetype)initWithMovieLanguage:(NSString *)movieLang
                        tvShowLanguage:(NSString *)tvLang
                    movieProvider:(NSString *)movieProvider
@@ -47,10 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  An actions that applies a set to the item.
  */
-@interface SBQueueSetAction : NSObject <SBQueueActionProtocol> {
-@private
-    MP42Metadata *_set;
-}
+@interface SBQueueSetAction : NSObject <SBQueueActionProtocol>
 - (instancetype)initWithSet:(MP42Metadata *)set;
 @end
 
@@ -64,6 +55,13 @@ NS_ASSUME_NONNULL_BEGIN
  *  An actions that fix the item tracks' fallbacks.
  */
 @interface SBQueueFixFallbacksAction : NSObject <SBQueueActionProtocol>
+@end
+
+/**
+ *  An actions that set unknown language tracks to preferred one.
+ */
+@interface SBQueueSetLanguageAction : NSObject <SBQueueActionProtocol>
+- (instancetype)initWithLanguage:(NSString *)language;
 @end
 
 NS_ASSUME_NONNULL_END

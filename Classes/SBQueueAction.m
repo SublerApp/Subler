@@ -82,7 +82,12 @@
 
 @end
 
-@implementation SBQueueMetadataAction
+@implementation SBQueueMetadataAction {
+    NSString *_movieLanguage;
+    NSString *_tvShowLanguage;
+    NSString *_movieProvider;
+    NSString *_tvShowProvider;
+}
 
 - (instancetype)init {
     self = [super init];
@@ -224,7 +229,9 @@
 
 @end
 
-@implementation SBQueueSetAction
+@implementation SBQueueSetAction {
+    MP42Metadata *_set;
+}
 
 - (instancetype)initWithSet:(MP42Metadata *)set {
     self = [super init];
@@ -288,7 +295,7 @@
 /**
  *  An actions that fix the item tracks' fallbacks.
  */
-@implementation SBQueueFixFallbacksAction : NSObject
+@implementation SBQueueFixFallbacksAction
 
 - (void)runAction:(SBQueueItem *)item {
     [item.mp4File setAutoFallback];
@@ -311,3 +318,49 @@
 }
 
 @end
+
+/**
+ *  An actions that set unknown language tracks to preferred one.
+ */
+@interface SBQueueSetLanguageAction ()
+@property (nonatomic, readonly) NSString *language;
+@end
+
+@implementation SBQueueSetLanguageAction
+
+- (instancetype)initWithLanguage:(NSString *)language {
+    self = [super init];
+    if (self) {
+        _language = [language copy];
+    }
+    return self;
+}
+
+- (void)runAction:(SBQueueItem *)item {
+    for (MP42Track *track in item.mp4File.tracks) {
+        if ([track.language isEqualToString:@"Unknown"]) {
+            track.language = self.language;
+        }
+    }
+}
+
+- (NSString *)description {
+    return NSLocalizedString(@"Set tracks language.", @"Set Language action description");
+}
+
+- (NSString *)localizedDescription {
+    return NSLocalizedString(@"Setting tracks language", @"Set Language action local description");
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    _language = [coder decodeObjectForKey:@"SBQueueSetLanguageAction"];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:self.language forKey:@"SBQueueSetLanguageAction"];
+}
+
+@end
+
