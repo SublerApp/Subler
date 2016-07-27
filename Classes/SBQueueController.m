@@ -212,7 +212,7 @@ static void *SBQueueContex = &SBQueueContex;
         }
 
         MP42File *mp4 = item.mp4File;
-        dispatch_sync(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             SBDocument *doc = [[SBDocument alloc] initWithMP4:mp4 error:&error];
 
             if (doc) {

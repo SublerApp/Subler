@@ -117,6 +117,7 @@
 {
     if (self = [super initWithType:@"Video-MPEG4" error:outError]) {
         self.mp4 = mp4File;
+        self.fileURL = mp4File.URL;
     }
 
     return self;
