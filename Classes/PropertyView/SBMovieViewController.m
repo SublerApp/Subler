@@ -68,7 +68,7 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
                                              selector:@selector(updateSetsMenu:)
                                                  name:@"SBPresetManagerUpdatedNotification" object:nil];
 
-    NSArray<NSString *> *tagsMenu = [self.metadata writableMetadata];
+    NSArray<NSString *> *tagsMenu = [MP42Metadata writableMetadata];
     for (NSString *tag in tagsMenu) {
         [tagList addItemWithTitle:tag];
     }
@@ -217,7 +217,7 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
 
 - (NSArray *) allSet
 {
-    return [self.metadata writableMetadata];
+    return [MP42Metadata writableMetadata];
 }
 
 - (NSArray *) tvShowSet

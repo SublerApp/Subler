@@ -74,7 +74,7 @@
 {
     MP42Metadata *metadata = [[MP42Metadata alloc] init];
 
-    for (NSString *key in [metadata writableMetadata]) {
+    for (NSString *key in [MP42Metadata writableMetadata]) {
         NSString *tagValue;
         if ((tagValue = _tagsDict[key])) {
             [metadata setTag:tagValue forKey:key];
