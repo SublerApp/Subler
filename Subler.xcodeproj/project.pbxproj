@@ -18,6 +18,8 @@
 		A917286119FD288B00348DF8 /* SBLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A917286019FD288B00348DF8 /* SBLogger.m */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A94721931D49DC0000858DD8 /* SBMetadataPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */; };
+		A94721941D49DC0000858DD8 /* SBMetadataPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A94721921D49DC0000858DD8 /* SBMetadataPrefsViewController.xib */; };
 		A95B8DA91B09F37800F2F152 /* Subler_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B8DA81B09F37800F2F152 /* Subler_Tests.m */; };
 		A95C881D0F827BFB00F51A22 /* ToolbarRemoveTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = A95C881C0F827BFB00F51A22 /* ToolbarRemoveTemplate.png */; };
 		A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */; };
@@ -181,6 +183,9 @@
 		A917286019FD288B00348DF8 /* SBLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLogger.m; path = Classes/SBLogger.m; sourceTree = "<group>"; };
 		A917286419FD289F00348DF8 /* SBLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBLogger.h; path = Classes/SBLogger.h; sourceTree = "<group>"; };
 		A925AA7B18378D7800BE84D4 /* MP42Foundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP42Foundation.xcodeproj; path = MP42Foundation/MP42Foundation.xcodeproj; sourceTree = "<group>"; };
+		A94721901D49DC0000858DD8 /* SBMetadataPrefsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataPrefsViewController.h; path = Classes/SBMetadataPrefsViewController.h; sourceTree = "<group>"; };
+		A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataPrefsViewController.m; path = Classes/SBMetadataPrefsViewController.m; sourceTree = "<group>"; };
+		A94721921D49DC0000858DD8 /* SBMetadataPrefsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SBMetadataPrefsViewController.xib; path = Classes/SBMetadataPrefsViewController.xib; sourceTree = "<group>"; };
 		A95B8DA41B09F37700F2F152 /* Subler Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subler Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95B8DA71B09F37700F2F152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A95B8DA81B09F37800F2F152 /* Subler_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subler_Tests.m; sourceTree = "<group>"; };
@@ -394,10 +399,9 @@
 				A9AF6A7818D0537F00FAAB08 /* Queue */,
 				A961476113F567E10068F161 /* SBPresetManager.h */,
 				A961476213F567E10068F161 /* SBPresetManager.m */,
-				A9B46A8212B79B240040517A /* SBPrefsController.h */,
-				A9B46A8312B79B240040517A /* SBPrefsController.m */,
 				A9AB484717F0AEA2000AA72E /* SBAppDelegate.h */,
 				A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */,
+				A947218D1D49D9F700858DD8 /* Preferences */,
 				CD71FF1A12F1C46900F0A98D /* MetadataImporters */,
 				A95688AC1B91B35A004456A6 /* Activity Log */,
 			);
@@ -468,6 +472,18 @@
 				A98C6F84183E6C39007E5AE5 /* libmp42.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A947218D1D49D9F700858DD8 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				A9B46A8212B79B240040517A /* SBPrefsController.h */,
+				A9B46A8312B79B240040517A /* SBPrefsController.m */,
+				A94721901D49DC0000858DD8 /* SBMetadataPrefsViewController.h */,
+				A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */,
+				A94721921D49DC0000858DD8 /* SBMetadataPrefsViewController.xib */,
+			);
+			name = Preferences;
 			sourceTree = "<group>";
 		};
 		A95688AC1B91B35A004456A6 /* Activity Log */ = {
@@ -814,6 +830,7 @@
 				A9C9E34413FBC1EB00CA3B4E /* EncodeWorking.png in Resources */,
 				A96371B8164695070083BB80 /* ToolbarRemoveTemplate@2x.png in Resources */,
 				CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */,
+				A94721941D49DC0000858DD8 /* SBMetadataPrefsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -852,6 +869,7 @@
 				A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */,
 				A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */,
 				A9DA3B9D1B918D5C00F1E40C /* SBExceptionAlertController.m in Sources */,
+				A94721931D49DC0000858DD8 /* SBMetadataPrefsViewController.m in Sources */,
 				A9BC410318D9AB8700F8C92C /* SBItemViewController.m in Sources */,
 				A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */,
 				A9B46A8C12B79B240040517A /* SBFileImport.m in Sources */,

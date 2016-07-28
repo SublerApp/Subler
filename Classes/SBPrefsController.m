@@ -5,36 +5,34 @@
 //  Copyright 2008 Damiano Galassi. All rights reserved.
 //
 
+#import "SBPrefsController.h"
+#import "SBMetadataPrefsViewController.h"
+#import "SBMetadataSearchController.h"
+#import "SBPresetManager.h"
+#import "SBMovieViewController.h"
+
 #import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Ratings.h>
 
-#import "SBPrefsController.h"
-#import "SBMetadataSearchController.h"
-#import "SBPresetManager.h"
-#import "SBTableView.h"
-#import "SBMovieViewController.h"
-
 #define TOOLBAR_GENERAL     @"TOOLBAR_GENERAL"
+#define TOOLBAR_METADATA    @"TOOLBAR_METADATA"
 #define TOOLBAR_ADVANCED    @"TOOLBAR_ADVANCED"
 #define TOOLBAR_SETS        @"TOOLBAR_SETS"
 
-@interface SBPrefsController () <NSToolbarDelegate, NSWindowDelegate> {
-@private
-    IBOutlet NSView *generalView, *advancedView, *setsView;
+@interface SBPrefsController () <NSWindowDelegate>
 
-    NSPopover *_popover;
-    SBMovieViewController *_controller;
-    NSInteger _currentRow;
+@property (nonatomic, strong) IBOutlet NSView *generalView;
+@property (nonatomic, strong) IBOutlet NSView *advancedView;
+@property (nonatomic, strong) IBOutlet NSView *setsView;
+@property (nonatomic, strong) SBMetadataPrefsViewController *metadataController;
 
-    IBOutlet SBTableView *tableView;
-    IBOutlet NSButton    *removeSet;
-}
-@property (nonatomic, readonly, copy) NSArray *ratingsCountries;
+@property (nonatomic, weak) IBOutlet NSTableView *tableView;
+@property (nonatomic, weak) IBOutlet NSButton *removeSetButton;
 
-- (void)setPrefView:(id)sender;
-- (NSToolbarItem *)toolbarItemWithIdentifier:(NSString *)identifier
-                                       label:(NSString *)label
-                                       image:(NSImage *)image;
+@property (nonatomic, readwrite) SBMovieViewController *controller;
+@property (nonatomic, readwrite) NSPopover *popover;
+@property (nonatomic, readwrite) NSInteger currentRow;
+
 @end
 
 @implementation SBPrefsController
@@ -71,76 +69,51 @@
                                                  selector:@selector(updateTableView:)
                                                      name:@"SBPresetManagerUpdatedNotification" object:nil];
     }
+    _metadataController = [[SBMetadataPrefsViewController alloc] init];
 
     return self;
 }
 
 - (void)awakeFromNib
 {
-    NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier: @"Preferences Toolbar"];
-    toolbar.delegate = self;
-    [toolbar setAllowsUserCustomization:NO];
-    toolbar.displayMode = NSToolbarDisplayModeIconAndLabel;
-    toolbar.sizeMode = NSToolbarSizeModeRegular;
-    self.window.toolbar = toolbar;
-
-    [toolbar setSelectedItemIdentifier:TOOLBAR_GENERAL];
+    self.window.toolbar.allowsUserCustomization = NO;
+    [self.window.toolbar setSelectedItemIdentifier:TOOLBAR_GENERAL];
     [self setPrefView:nil];
 }
 
-- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar
-     itemForItemIdentifier:(NSString *)ident
- willBeInsertedIntoToolbar:(BOOL)flag
+#pragma mark - General
+
+- (IBAction)clearRecentSearches:(id)sender
 {
-    if ([ident isEqualToString:TOOLBAR_GENERAL]) {
-        return [self toolbarItemWithIdentifier:ident
-                                         label:NSLocalizedString(@"General", @"Preferences General Toolbar Item")
-                                         image:[NSImage imageNamed:NSImageNamePreferencesGeneral]];
-    }
-    else if ([ident isEqualToString:TOOLBAR_ADVANCED]) {
-        return [self toolbarItemWithIdentifier:ident
-                                         label:NSLocalizedString(@"Advanced", @"Preferences Audio Toolbar Item")
-                                         image:[NSImage imageNamed:NSImageNameAdvanced]];
-    }
-    else if ([ident isEqualToString:TOOLBAR_SETS]) {
-        return [self toolbarItemWithIdentifier:ident
-                                         label:NSLocalizedString(@"Sets", @"Preferences Sets Toolbar Item")
-                                         image:[NSImage imageNamed:NSImageNameFolderSmart]];
-    }    
-
-    return nil;
-}
-
-- (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
-{
-    return [self toolbarDefaultItemIdentifiers:toolbar];
-}
-
-- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
-{
-    return [self toolbarAllowedItemIdentifiers:toolbar];
-}
-
-- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
-{
-    return @[TOOLBAR_GENERAL, TOOLBAR_SETS, TOOLBAR_ADVANCED];
-}
-
-- (IBAction)clearRecentSearches:(id)sender {
     [SBMetadataSearchController clearRecentSearches];
 }
 
-- (IBAction)deleteCachedMetadata:(id)sender {
+- (IBAction)deleteCachedMetadata:(id)sender
+{
     [SBMetadataSearchController deleteCachedMetadata];
 }
 
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
+- (NSArray *)ratingsCountries
+{
+    return [[MP42Ratings defaultManager] ratingsCountries];
+}
+
+- (IBAction) updateRatingsCountry:(id)sender
+{
+    [[MP42Ratings defaultManager] updateRatingsCountry];
+}
+
+#pragma mark - Sets
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
+{
     SBPresetManager *presetManager = [SBPresetManager sharedManager];
     return presetManager.presets.count;
 }
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn
-            row:(NSInteger)rowIndex {
+            row:(NSInteger)rowIndex
+{
     if ([aTableColumn.identifier isEqualToString:@"name"]) {
         SBPresetManager *presetManager = [SBPresetManager sharedManager];
         return presetManager.presets[rowIndex].presetName;
@@ -152,91 +125,93 @@
 {
     [self closePopOver:self];
 
-    NSInteger rowIndex = tableView.selectedRow;
+    NSInteger rowIndex = self.tableView.selectedRow;
     SBPresetManager *presetManager = [SBPresetManager sharedManager];
     [presetManager removePresetAtIndex:rowIndex];
-    [tableView reloadData];
+    [self.tableView reloadData];
 }
 
 - (IBAction)closePopOver:(id)sender
 {
-    if (_popover) {
-        [_popover close];
+    if (self.popover) {
+        [self.popover close];
 
-        _popover = nil;
-        _controller = nil;
+        self.popover = nil;
+        self.controller = nil;
     }
 }
 
 - (IBAction)toggleInfoWindow:(id)sender
 {
-    if (_currentRow == tableView.clickedRow && _popover) {
+    if (self.currentRow == self.tableView.clickedRow && _popover) {
         [self closePopOver:sender];
-    } else {
-        _currentRow = tableView.clickedRow;
+    }
+    else {
+        self.currentRow = self.tableView.clickedRow;
         [self closePopOver:sender];
 
         SBPresetManager *presetManager = [SBPresetManager sharedManager];
-        _controller = [[SBMovieViewController alloc] initWithNibName:@"MovieView" bundle:nil];
-        [_controller setMetadata:presetManager.presets[_currentRow]];
+        self.controller = [[SBMovieViewController alloc] initWithNibName:@"MovieView" bundle:nil];
+        [self.controller setMetadata:presetManager.presets[_currentRow]];
 
-        _popover = [[NSPopover alloc] init];
-        _popover.contentViewController = _controller;
-        _popover.contentSize = NSMakeSize(480.0f, 500.0f);
+        self.popover = [[NSPopover alloc] init];
+        self.popover.contentViewController = _controller;
+        self.popover.contentSize = NSMakeSize(480.0f, 500.0f);
 
-        [_popover showRelativeToRect:[tableView frameOfCellAtColumn:1 row:_currentRow] ofView:tableView preferredEdge:NSMaxYEdge];
+        [self.popover showRelativeToRect:[self.tableView frameOfCellAtColumn:1 row:self.currentRow] ofView:self.tableView preferredEdge:NSMaxYEdge];
     }
 }
 
 - (void)updateTableView:(id)sender
 {
-    [tableView reloadData];
+    [self.tableView reloadData];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-    if (tableView.selectedRow != -1)
-        [removeSet setEnabled:YES];
-    else
-        [removeSet setEnabled:NO];
+    if (self.tableView.selectedRow != -1) {
+        self.removeSetButton.enabled = YES;
+    }
+    else {
+        self.removeSetButton.enabled = NO;
+    }
 }
 
-- (NSArray *)ratingsCountries {
-	return [[MP42Ratings defaultManager] ratingsCountries];
-}
-
-- (IBAction) updateRatingsCountry:(id)sender {
-	[[MP42Ratings defaultManager] updateRatingsCountry];
-}
-
-- (void)setPrefView:(id)sender
+- (IBAction)setPrefView:(id)sender
 {
-    NSView *view = generalView;
+    NSView *view = self.generalView;
     if (sender) {
         NSString *identifier = [sender itemIdentifier];
-        if ([identifier isEqualToString: TOOLBAR_ADVANCED])
-            view = advancedView;
-        else if ([identifier isEqualToString: TOOLBAR_SETS])
-            view = setsView;
+        if ([identifier isEqualToString:TOOLBAR_ADVANCED]) {
+            view = self.advancedView;
+        }
+        else if ([identifier isEqualToString:TOOLBAR_SETS]) {
+            view = self.setsView;
+        }
+        else if ([identifier isEqualToString:TOOLBAR_METADATA]) {
+            view = self.metadataController.view;
+        }
     }
 
     NSWindow *window = self.window;
-    if (window.contentView == view)
+    if (window.contentView == view) {
         return;
+    }
 
     NSRect windowRect = window.frame;
     CGFloat difference = (view.frame.size.height - window.contentView.frame.size.height);
     windowRect.origin.y -= difference;
     windowRect.size.height += difference;
 
-    [view setHidden:YES];
+    view.hidden = YES;
     window.contentView = view;
     [window setFrame:windowRect display:YES animate:YES];
-    [view setHidden:NO];
+    view.hidden = NO;
 
-    //set title label
-    if (sender)
+    // Set title label
+    if (sender) {
         window.title = [sender label];
+    }
     else {
         NSToolbar *toolbar = window.toolbar;
         NSString *itemIdentifier = toolbar.selectedItemIdentifier;
@@ -246,18 +221,6 @@
                 break;
             }
     }
-}
-
-- (NSToolbarItem *)toolbarItemWithIdentifier:(NSString *)identifier
-                                       label:(NSString *)label
-                                       image:(NSImage *)image
-{
-    NSToolbarItem *item = [[NSToolbarItem alloc] initWithItemIdentifier:identifier];
-    item.label = label;
-    item.image = image;
-    item.action = @selector(setPrefView:);
-    [item setAutovalidates:NO];
-    return item;
 }
 
 @end
