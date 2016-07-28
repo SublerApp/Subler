@@ -65,11 +65,12 @@
 - (instancetype)init
 {
     if ((self = [super initWithWindowNibName:@"Prefs"])) {
+        _metadataController = [[SBMetadataPrefsViewController alloc] init];
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(updateTableView:)
                                                      name:@"SBPresetManagerUpdatedNotification" object:nil];
     }
-    _metadataController = [[SBMetadataPrefsViewController alloc] init];
 
     return self;
 }

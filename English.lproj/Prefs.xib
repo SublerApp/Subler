@@ -549,6 +549,7 @@
                 <constraint firstItem="163" firstAttribute="top" secondItem="142" secondAttribute="top" constant="20" id="WjL-2N-6ME"/>
                 <constraint firstItem="184" firstAttribute="top" secondItem="163" secondAttribute="bottom" constant="7" id="uBP-t5-nEo"/>
             </constraints>
+            <point key="canvasLocation" x="26" y="-192"/>
         </customView>
         <menu id="pzR-CP-Gdo">
             <items>
