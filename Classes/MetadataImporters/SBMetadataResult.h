@@ -13,19 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MP42Image;
 @class MP42Metadata;
 
-@interface SBMetadataResult : NSObject {
-@private
-    NSMutableDictionary<NSString *, id> *_tagsDict;
-
-    NSMutableArray<MP42Image *> *_artworks;
-
-    NSArray<NSURL *>        *_artworkThumbURLs;
-    NSArray<NSURL *>        *_artworkFullsizeURLs;
-    NSArray<NSString *>     *_artworkProviderNames;
-
-    uint8_t _mediaKind;
-    uint8_t _contentRating;
-}
+@interface SBMetadataResult : NSObject
 
 - (void)merge:(SBMetadataResult *)aObject;
 
@@ -44,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readwrite, strong, nullable) NSArray<NSURL *> *artworkThumbURLs;
 @property (nonatomic, readwrite, strong, nullable) NSArray<NSURL *> *artworkFullsizeURLs;
-@property (nonatomic ,readwrite, strong, nullable) NSArray<NSString *> *artworkProviderNames;
+@property (nonatomic, readwrite, strong, nullable) NSArray<NSString *> *artworkProviderNames;
 
 @property (weak, nonatomic, readonly) MP42Metadata *metadata;
 

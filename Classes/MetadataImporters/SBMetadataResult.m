@@ -11,22 +11,11 @@
 
 @implementation SBMetadataResult
 
-@synthesize artworks = _artworks;
-
-@synthesize tags = _tagsDict;
-
-@synthesize artworkThumbURLs = _artworkThumbURLs;
-@synthesize artworkFullsizeURLs = _artworkFullsizeURLs;
-@synthesize artworkProviderNames = _artworkProviderNames;
-
-@synthesize mediaKind = _mediaKind;
-@synthesize contentRating = _contentRating;
-
 - (instancetype)init
 {
     if ((self = [super init]))
     {
-        _tagsDict = [[NSMutableDictionary alloc] init];
+        _tags = [[NSMutableDictionary alloc] init];
         _artworks = [[NSMutableArray alloc] init];
     }
 
@@ -35,7 +24,7 @@
 
 - (void)merge:(SBMetadataResult *)metadata
 {
-    [_tagsDict addEntriesFromDictionary:metadata.tags];
+    [_tags addEntriesFromDictionary:metadata.tags];
 
     for (MP42Image *artwork in metadata.artworks) {
         [_artworks addObject:artwork];
@@ -47,17 +36,17 @@
 
 - (void)removeTagForKey:(NSString *)aKey
 {
-    [_tagsDict removeObjectForKey:aKey];
+    [_tags removeObjectForKey:aKey];
 }
 
 - (void)setTag:(id)value forKey:(NSString *)key
 {
-    _tagsDict[key] = value;
+    _tags[key] = value;
 }
 
 - (id)objectForKeyedSubscript:(NSString *)key
 {
-    return _tagsDict[key];
+    return _tags[key];
 }
 
 - (void)setObject:(id)obj forKeyedSubscript:(NSString *)key
@@ -76,7 +65,7 @@
 
     for (NSString *key in [MP42Metadata writableMetadata]) {
         NSString *tagValue;
-        if ((tagValue = _tagsDict[key])) {
+        if ((tagValue = _tags[key])) {
             [metadata setTag:tagValue forKey:key];
         }
     }
