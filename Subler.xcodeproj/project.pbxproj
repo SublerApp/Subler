@@ -34,7 +34,7 @@
 		A975644F132A325C0051ED08 /* info-pressed.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A975644C132A325C0051ED08 /* info-pressed.pdf */; };
 		A97EABF01C061B6700098D23 /* ToolbarChaptersTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = A97EABEE1C061B6700098D23 /* ToolbarChaptersTemplate.png */; };
 		A97EABF11C061B6700098D23 /* ToolbarChaptersTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A97EABEF1C061B6700098D23 /* ToolbarChaptersTemplate@2x.png */; };
-		A98175501D49F11B00750709 /* SBMetadataDefaultItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A981754F1D49F11B00750709 /* SBMetadataDefaultItem.m */; };
+		A98175501D49F11B00750709 /* SBMetadataResultMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A981754F1D49F11B00750709 /* SBMetadataResultMap.m */; };
 		A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A982D0BF140AB66400B92357 /* SBQueueItem.m */; };
 		A984DB4B0F52D644001A20B2 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A984DB4A0F52D644001A20B2 /* Sparkle.framework */; };
 		A984DB530F52D679001A20B2 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A984DB4A0F52D644001A20B2 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -207,8 +207,8 @@
 		A97BE36E0F73D72E00652CBD /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		A97EABEE1C061B6700098D23 /* ToolbarChaptersTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ToolbarChaptersTemplate.png; path = images/ToolbarChaptersTemplate.png; sourceTree = "<group>"; };
 		A97EABEF1C061B6700098D23 /* ToolbarChaptersTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ToolbarChaptersTemplate@2x.png"; path = "images/ToolbarChaptersTemplate@2x.png"; sourceTree = "<group>"; };
-		A981754E1D49F11B00750709 /* SBMetadataDefaultItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataDefaultItem.h; path = Classes/SBMetadataDefaultItem.h; sourceTree = "<group>"; };
-		A981754F1D49F11B00750709 /* SBMetadataDefaultItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataDefaultItem.m; path = Classes/SBMetadataDefaultItem.m; sourceTree = "<group>"; };
+		A981754E1D49F11B00750709 /* SBMetadataResultMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataResultMap.h; path = Classes/SBMetadataResultMap.h; sourceTree = "<group>"; };
+		A981754F1D49F11B00750709 /* SBMetadataResultMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataResultMap.m; path = Classes/SBMetadataResultMap.m; sourceTree = "<group>"; };
 		A982D0BE140AB66400B92357 /* SBQueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueItem.h; path = Classes/SBQueueItem.h; sourceTree = "<group>"; };
 		A982D0BF140AB66400B92357 /* SBQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueItem.m; path = Classes/SBQueueItem.m; sourceTree = "<group>"; };
 		A984DB4A0F52D644001A20B2 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
@@ -482,8 +482,8 @@
 			children = (
 				A9B46A8212B79B240040517A /* SBPrefsController.h */,
 				A9B46A8312B79B240040517A /* SBPrefsController.m */,
-				A981754E1D49F11B00750709 /* SBMetadataDefaultItem.h */,
-				A981754F1D49F11B00750709 /* SBMetadataDefaultItem.m */,
+				A981754E1D49F11B00750709 /* SBMetadataResultMap.h */,
+				A981754F1D49F11B00750709 /* SBMetadataResultMap.m */,
 				A94721901D49DC0000858DD8 /* SBMetadataPrefsViewController.h */,
 				A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */,
 				A94721921D49DC0000858DD8 /* SBMetadataPrefsViewController.xib */,
@@ -902,7 +902,7 @@
 				A901C51F1C04F03F00430DC3 /* SBChapterImporter.m in Sources */,
 				A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */,
 				A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */,
-				A98175501D49F11B00750709 /* SBMetadataDefaultItem.m in Sources */,
+				A98175501D49F11B00750709 /* SBMetadataResultMap.m in Sources */,
 				A9F442301C75017100AD8786 /* SBMetadataResult.m in Sources */,
 				CDC06FCE1747494D003C1D0A /* SBiTunesStore.m in Sources */,
 				A917286119FD288B00348DF8 /* SBLogger.m in Sources */,

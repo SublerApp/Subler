@@ -10,6 +10,7 @@
 #import "SBMetadataSearchController.h"
 #import "SBPresetManager.h"
 #import "SBMovieViewController.h"
+#import "SBMetadataResultMap.h"
 
 #import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Ratings.h>
@@ -38,7 +39,10 @@
 @implementation SBPrefsController
 
 + (void)registerUserDefaults
-{    
+{
+    NSData *movieDefaultMap = [NSKeyedArchiver archivedDataWithRootObject:[SBMetadataResultMap movieDefaultMap]];
+    NSData *tvShowDefaultMap = [NSKeyedArchiver archivedDataWithRootObject:[SBMetadataResultMap tvShowDefaultMap]];
+
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"SBSaveFormat":                  @"m4v",
                                                               @"defaultSaveFormat":             @"0",
                                                               @"SBOrganizeAlternateGroups":     @"YES",
@@ -59,7 +63,11 @@
                                                               @"SBMetadataPreference|Movie|TheMovieDB|Language": @"English",
                                                               @"SBMetadataPreference|TV": @"TheTVDB",
                                                               @"SBMetadataPreference|TV|iTunes Store|Language": @"USA (English)",
-                                                              @"SBMetadataPreference|TV|TheTVDB|Language": @"English"}];
+                                                              @"SBMetadataPreference|TV|TheTVDB|Language": @"English",
+
+                                                              @"SBMetadataMovieResultMap" : movieDefaultMap,
+                                                              @"SBMetadataTvShowResultMap" : tvShowDefaultMap,
+                                                              }];
 }
 
 - (instancetype)init

@@ -8,10 +8,10 @@
 
 #import "SBMetadataPrefsViewController.h"
 
-#import "SBMetadataDefaultItem.h"
+#import "SBMetadataResultMap.h"
 #import <MP42Foundation/MP42Metadata.h>
 
-@interface SBMetadataPrefsViewController () <NSTableViewDelegate>
+@interface SBMetadataPrefsViewController () <NSTableViewDelegate, NSTokenFieldDelegate, NSTextFieldDelegate>
 
 @property (nonatomic, weak) IBOutlet NSTokenField *builtInTokenField;
 @property (nonatomic, weak) IBOutlet NSPopUpButton *addMetadataPopUpButton;
@@ -19,15 +19,16 @@
 
 @property (nonatomic, weak) IBOutlet NSTableView *tableView;
 
-@property (nonatomic, readonly) NSArray<NSString *> *movieTokens;
-@property (nonatomic, readonly) NSArray<NSString *> *tvShowTokens;
+@property (nonatomic) NSArray<NSString *> *matches;
+
+@property (nonatomic) SBMetadataResultMap *movieMap;
+@property (nonatomic) SBMetadataResultMap *tvShowMap;
+
+@property (nonatomic, readwrite) SBMetadataResultMap *map;
+@property (nonatomic) IBOutlet NSArrayController *itemsController;
 
 @property (nonatomic, readwrite) NSArray<NSString *> *currentTokens;
 
-@property (nonatomic) NSArray<NSString *> *matches;
-
-@property (nonatomic, readwrite) NSMutableArray<SBMetadataDefaultItem *> *items;
-@property (nonatomic, strong) IBOutlet NSArrayController *itemsController;
 
 @end
 
@@ -41,7 +42,15 @@
         [self.addMetadataPopUpButton addItemWithTitle:tag];
     }
 
-    _items = [[NSMutableArray alloc] init];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    SBMetadataResultMap *savedMovieMap = [defaults SB_resultMapForKey:@"SBMetadataMovieResultMap"];
+    SBMetadataResultMap *savedTvShowMap = [defaults SB_resultMapForKey:@"SBMetadataTvShowResultMap"];
+
+    self.movieMap = savedMovieMap ? savedMovieMap :[SBMetadataResultMap movieDefaultMap];
+    self.tvShowMap = savedTvShowMap ? savedTvShowMap :[SBMetadataResultMap tvShowDefaultMap];
+
+    self.map = self.movieMap;
+    self.currentTokens = [SBMetadataResultMap movieKeys];
 
     NSArray<NSString *> *context = [MP42Metadata availableMetadata];
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"key"
@@ -53,141 +62,35 @@
     }];
 
     [self.itemsController setSortDescriptors:@[sortDescriptor]];
-    [self.itemsController addObjects:[self movieDefaults]];
     self.itemsController.selectionIndexes = [NSIndexSet indexSet];
 
-    self.currentTokens = self.movieTokens;
 
     [self.builtInTokenField setTokenizingCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@"%%"]];
     self.builtInTokenField.stringValue = [self.currentTokens componentsJoinedByString:@"%%"];
 }
 
-#pragma mark - Defaults
-
-- (NSArray<NSString *> *)movieTokens
+- (void)save
 {
-    return @[@"{Title}",
-             @"{Composer}",
-             @"{Genre}",
-             @"{Release Date}",
-             @"{Description}",
-             @"{Long Description}",
-             @"{Rating}",
-             @"{Studio}",
-             @"{Cast}",
-             @"{Director}",
-             @"{Producers}",
-             @"{Screenwriters}",
-             @"{Copyright}",
-             @"{contentID}",
-             @"{iTunes Country}",
-             @"{Executive Producer}"];
-}
-
-- (NSArray<NSString *> *)tvShowTokens
-{
-    return @[@"{Episode Name}",
-             @"{Series Name}",
-             @"{Composer}",
-             @"{Genre}",
-             @"{Release Date}",
-
-             @"{Track #}",
-             @"{Disk #}",
-             @"{TV Show}",
-             @"{TV Episode #}",
-             @"{TV Network}",
-             @"{TV Episode ID}",
-             @"{TV Season}",
-
-             @"{Description}",
-             @"{Long Description}",
-             @"{Series Description}",
-
-             @"{Rating}",
-             @"{Studio}",
-             @"{Cast}",
-             @"{Director}",
-             @"{Producers}",
-             @"{Screenwriters}",
-             @"{Copyright}",
-             @"{contentID}",
-             @"{artistID}",
-             @"{playlistID}",
-             @"{iTunes Country}",
-             @"{Executive Producer}"];
-}
-
-- (NSArray<SBMetadataDefaultItem *> *)movieDefaults
-{
-    return @[
-             [SBMetadataDefaultItem itemWithKey:@"Name"               value:@[@"{Title}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Artist"             value:@[@"{Director}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Composer"           value:@[@"{Composer}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Genre"              value:@[@"{Genre}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Release Date"       value:@[@"{Release Date}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Description"        value:@[@"{Description}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Long Description"   value:@[@"{Long Description}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Rating"             value:@[@"{Rating}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Studio"             value:@[@"{Studio}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Cast"               value:@[@"{Cast}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Director"           value:@[@"{Director}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Producers"          value:@[@"{Producers}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Screenwriters"      value:@[@"{Screenwriters}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Copyright"          value:@[@"{Copyright}"]],
-             [SBMetadataDefaultItem itemWithKey:@"contentID"          value:@[@"{contentID}"]],
-             [SBMetadataDefaultItem itemWithKey:@"iTunes Country"     value:@[@"{iTunes Country}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Executive Producer" value:@[@"{Executive Producer}"]],
-             ];
-}
-
-- (NSArray<SBMetadataDefaultItem *> *)tvShowDefaults
-{
-    return @[
-             [SBMetadataDefaultItem itemWithKey:@"Name"         value:@[@"{Episode Name}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Artist"       value:@[@"{Series Name}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Album Artist" value:@[@"{Series Name}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Album"        value:@[@"{Series Name}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Composer"     value:@[@"{Composer}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Genre"        value:@[@"{Genre}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Release Date" value:@[@"{Release Date}"]],
-
-             [SBMetadataDefaultItem itemWithKey:@"Track #"          value:@[@"{Track #}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Disk #"           value:@[@"{Disk #}"]],
-             [SBMetadataDefaultItem itemWithKey:@"TV Show"          value:@[@"{TV Show}"]],
-             [SBMetadataDefaultItem itemWithKey:@"TV Episode #"     value:@[@"{TV Episode #}"]],
-             [SBMetadataDefaultItem itemWithKey:@"TV Network"       value:@[@"{TV Network}"]],
-             [SBMetadataDefaultItem itemWithKey:@"TV Episode ID"    value:@[@"{TV Episode ID}"]],
-             [SBMetadataDefaultItem itemWithKey:@"TV Season"        value:@[@"{TV Season}"]],
-
-             [SBMetadataDefaultItem itemWithKey:@"Description"          value:@[@"{Description}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Long Description"     value:@[@"{Long Description}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Series Description"   value:@[@"{Series Description}"]],
-
-             [SBMetadataDefaultItem itemWithKey:@"Rating"               value:@[@"{Rating}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Studio"               value:@[@"{Studio}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Cast"                 value:@[@"{Cast}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Director"             value:@[@"{Director}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Producers"            value:@[@"{Producers}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Screenwriters"        value:@[@"{Screenwriters}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Executive Producer"   value:@[@"{Executive Producer}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Copyright"            value:@[@"{Copyright}"]],
-             [SBMetadataDefaultItem itemWithKey:@"contentID"            value:@[@"{contentID}"]],
-             [SBMetadataDefaultItem itemWithKey:@"artistID"             value:@[@"{artistID}"]],
-             [SBMetadataDefaultItem itemWithKey:@"playlistID"           value:@[@"{playlistID}"]],
-             [SBMetadataDefaultItem itemWithKey:@"iTunes Country"       value:@[@"{iTunes Country}"]],
-             [SBMetadataDefaultItem itemWithKey:@"Sort Album"           value:@[@"{Series Name}", @", Season ", @"{TV Season}"]],
-             ];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults SB_setResultMap:self.movieMap forKey:@"SBMetadataMovieResultMap"];
+    [defaults SB_setResultMap:self.tvShowMap forKey:@"SBMetadataTvShowResultMap"];
 }
 
 - (IBAction)addMetadataItem:(id)sender
 {
     NSString *key = [sender selectedItem].title;
     if (key.length) {
-        SBMetadataDefaultItem *item = [[SBMetadataDefaultItem alloc] initWithKey:key value:@[@""]];
+        SBMetadataResultMapItem *item = [[SBMetadataResultMapItem alloc] initWithKey:key value:@[@""]];
         [self.itemsController addObject:item];
         [self.itemsController rearrangeObjects];
     }
+    [self save];
+}
+
+- (IBAction)removeMetadata:(id)sender
+{
+    [self.itemsController removeObjects:self.itemsController.selectedObjects];
+    [self save];
 }
 
 #pragma mark - Type selector
@@ -195,12 +98,12 @@
 - (IBAction)setType:(NSPopUpButton *)sender
 {
     if (sender.selectedTag) {
-        self.currentTokens = self.tvShowTokens;
-        self.items = [[self tvShowDefaults] mutableCopy];
+        self.currentTokens = [SBMetadataResultMap tvShowKeys];
+        self.map = self.tvShowMap;
     }
     else {
-        self.currentTokens = self.movieTokens;
-        self.items = [[self movieDefaults] mutableCopy];
+        self.currentTokens = [SBMetadataResultMap movieKeys];
+        self.map = self.movieMap;
     }
     self.itemsController.selectionIndexes = [NSIndexSet indexSet];
     self.builtInTokenField.stringValue = [self.currentTokens componentsJoinedByString:@"%%"];

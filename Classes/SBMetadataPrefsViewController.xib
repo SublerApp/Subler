@@ -27,7 +27,7 @@
                         <rect key="frame" x="1" y="0.0" width="458" height="316"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="REl-53-Sku" viewBased="YES" id="Tid-Rc-Ljr">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="REl-53-Sku" viewBased="YES" id="Tid-Rc-Ljr">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="293"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -172,7 +172,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="remove:" target="4Wq-Wo-sl2" id="LfP-AS-NCc"/>
+                        <action selector="removeMetadata:" target="-2" id="68h-Kv-eRu"/>
                         <binding destination="4Wq-Wo-sl2" name="enabled" keyPath="selectionIndexes.count" id="K6b-sv-ld3"/>
                     </connections>
                 </button>
@@ -255,11 +255,11 @@
                 <constraint firstItem="1XK-zr-YdW" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="59" id="pmj-ye-CSF"/>
                 <constraint firstItem="s8h-Of-e4s" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="vu5-JL-s1d"/>
             </constraints>
-            <point key="canvasLocation" x="-252" y="-244"/>
+            <point key="canvasLocation" x="-489" y="-297"/>
         </customView>
         <arrayController objectClassName="SBMetadataDefaultItem" id="4Wq-Wo-sl2">
             <connections>
-                <binding destination="-2" name="contentArray" keyPath="self.items" id="4xU-KX-jfc"/>
+                <binding destination="-2" name="contentArray" keyPath="self.map.items" id="KOJ-Ao-j0F"/>
             </connections>
         </arrayController>
     </objects>

@@ -20,10 +20,10 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" showsToolbarButton="NO" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="625" y="992" width="540" height="130"/>
+            <rect key="contentRect" x="625" y="992" width="600" height="130"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="540" height="130"/>
+                <rect key="frame" x="0.0" y="0.0" width="600" height="130"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
             <toolbar key="toolbar" implicitIdentifier="0A22B294-70B1-4E35-B468-425EC64FF9C7" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="W21-Kp-oTx">
@@ -75,7 +75,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="UII-c7-6hP">
-                    <rect key="frame" x="76" y="0.0" width="348" height="242"/>
+                    <rect key="frame" x="77" y="0.0" width="346" height="242"/>
                     <subviews>
                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="77">
                             <rect key="frame" x="18" y="205" width="117" height="17"/>
@@ -97,7 +97,7 @@
                             </textFieldCell>
                         </textField>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="79">
-                            <rect key="frame" x="139" y="204" width="192" height="18"/>
+                            <rect key="frame" x="139" y="204" width="190" height="18"/>
                             <buttonCell key="cell" type="check" title="Automatically check daily" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="87">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -107,7 +107,7 @@
                             </connections>
                         </button>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="80">
-                            <rect key="frame" x="139" y="179" width="192" height="18"/>
+                            <rect key="frame" x="139" y="179" width="190" height="18"/>
                             <buttonCell key="cell" type="check" title="Remember Size" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="86">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -145,7 +145,7 @@
                             </textFieldCell>
                         </textField>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="82">
-                            <rect key="frame" x="139" y="154" width="192" height="18"/>
+                            <rect key="frame" x="139" y="154" width="190" height="18"/>
                             <buttonCell key="cell" type="check" title="Create Preview Images" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="84">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -180,6 +180,9 @@
                         </button>
                         <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="236">
                             <rect key="frame" x="139" y="109" width="185" height="26"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="180" id="Iqm-JB-rHv"/>
+                            </constraints>
                             <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="239" id="237">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
@@ -198,7 +201,7 @@
                             </connections>
                         </popUpButton>
                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="249">
-                            <rect key="frame" x="139" y="96" width="167" height="14"/>
+                            <rect key="frame" x="139" y="96" width="165" height="14"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="USA ratings are always shown." id="250">
                                 <font key="font" metaFont="smallSystem"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -235,7 +238,6 @@
                         <constraint firstItem="80" firstAttribute="trailing" secondItem="82" secondAttribute="trailing" id="ecc-4x-cYt"/>
                         <constraint firstAttribute="trailing" secondItem="249" secondAttribute="trailing" constant="44" id="hXa-En-DHg"/>
                         <constraint firstItem="79" firstAttribute="leading" secondItem="80" secondAttribute="leading" id="rjX-FO-BbK"/>
-                        <constraint firstAttribute="trailing" secondItem="236" secondAttribute="trailing" constant="27" id="s2n-eK-UDb"/>
                         <constraint firstItem="136" firstAttribute="top" secondItem="133" secondAttribute="bottom" constant="10" id="u8x-Vf-JlB"/>
                         <constraint firstItem="78" firstAttribute="width" secondItem="81" secondAttribute="width" constant="-7" id="vBe-U7-K4r"/>
                         <constraint firstItem="77" firstAttribute="leading" secondItem="UII-c7-6hP" secondAttribute="leading" constant="20" id="wR9-bT-Aha"/>
@@ -246,10 +248,10 @@
                 </customView>
             </subviews>
             <constraints>
-                <constraint firstItem="UII-c7-6hP" firstAttribute="leading" secondItem="76" secondAttribute="leading" constant="76" id="Dn3-LT-Twc"/>
                 <constraint firstItem="UII-c7-6hP" firstAttribute="centerX" secondItem="76" secondAttribute="centerX" id="ThN-0I-qy7"/>
                 <constraint firstItem="UII-c7-6hP" firstAttribute="centerY" secondItem="76" secondAttribute="centerY" id="YVW-MI-w8c"/>
                 <constraint firstItem="UII-c7-6hP" firstAttribute="top" secondItem="76" secondAttribute="top" id="oQl-sJ-Yrx"/>
+                <constraint firstItem="UII-c7-6hP" firstAttribute="top" secondItem="76" secondAttribute="top" id="tJb-RY-f3r"/>
             </constraints>
             <point key="canvasLocation" x="-79.5" y="-487"/>
         </customView>
@@ -420,6 +422,7 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="201" firstAttribute="leading" secondItem="191" secondAttribute="trailing" constant="7" id="0r0-dV-g2W"/>
+                        <constraint firstItem="hgg-QV-i0I" firstAttribute="leading" secondItem="dxP-K4-Plz" secondAttribute="leading" constant="17" id="3vR-FY-mvS"/>
                         <constraint firstItem="3fA-qQ-VvX" firstAttribute="leading" secondItem="hgg-QV-i0I" secondAttribute="trailing" constant="8" id="41f-qe-xN3"/>
                         <constraint firstItem="113" firstAttribute="leading" secondItem="101" secondAttribute="leading" id="Af9-fN-G59"/>
                         <constraint firstItem="115" firstAttribute="leading" secondItem="113" secondAttribute="trailing" constant="8" id="Afd-BA-HDD"/>
@@ -459,7 +462,6 @@
                 <constraint firstItem="dxP-K4-Plz" firstAttribute="centerX" secondItem="94" secondAttribute="centerX" id="FLe-BG-1bJ"/>
                 <constraint firstAttribute="bottom" secondItem="dxP-K4-Plz" secondAttribute="bottom" id="RgL-FE-J7N"/>
                 <constraint firstItem="dxP-K4-Plz" firstAttribute="centerY" secondItem="94" secondAttribute="centerY" id="gk7-KG-NGy"/>
-                <constraint firstItem="dxP-K4-Plz" firstAttribute="leading" secondItem="94" secondAttribute="leading" constant="66" id="svl-z1-LtS"/>
             </constraints>
             <point key="canvasLocation" x="-88" y="-776"/>
         </customView>
