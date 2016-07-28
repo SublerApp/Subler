@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class MP42Image;
 @class MP42Metadata;
+@class SBMetadataResultMap;
 
 @interface SBMetadataResult : NSObject
 
@@ -34,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readwrite, strong, nullable) NSArray<NSURL *> *artworkFullsizeURLs;
 @property (nonatomic, readwrite, strong, nullable) NSArray<NSString *> *artworkProviderNames;
 
-@property (weak, nonatomic, readonly) MP42Metadata *metadata;
+- (MP42Metadata *)metadataUsingMap:(SBMetadataResultMap *)map;
 
 @end
 

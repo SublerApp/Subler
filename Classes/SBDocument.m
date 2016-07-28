@@ -21,6 +21,7 @@
 #import "SBMetadataSearchController.h"
 #import "SBArtworkSelector.h"
 #import "SBMetadataResult.h"
+#import "SBMetadataResultMap.h"
 
 #import "SBChapterSearchController.h"
 
@@ -728,7 +729,12 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (void)metadataImportDone:(SBMetadataResult *)metadataToBeImported
 {
     if (metadataToBeImported) {
-        [self.mp4.metadata mergeMetadata:metadataToBeImported.metadata];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        SBMetadataResultMap *map = metadataToBeImported.mediaKind == 9 ?
+        [defaults SB_resultMapForKey:@"SBMetadataMovieResultMap"] : [defaults SB_resultMapForKey:@"SBMetadataTvShowResultMap"];
+        MP42Metadata *mappedMetadata = [metadataToBeImported metadataUsingMap:map];
+
+        [self.mp4.metadata mergeMetadata:mappedMetadata];
 
         for (MP42Track *track in self.mp4.tracks)
             if ([track isKindOfClass:[MP42VideoTrack class]]) {

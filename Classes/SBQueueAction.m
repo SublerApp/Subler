@@ -10,6 +10,7 @@
 
 #import "SBQueueItem.h"
 #import "SBMetadataImporter.h"
+#import "SBMetadataResultMap.h"
 
 #import <MP42Foundation/MP42File.h>
 #import <MP42Foundation/MP42FileImporter.h>
@@ -181,7 +182,12 @@
         }
     }
 
-    return metadata.metadata;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    SBMetadataResultMap *map = metadata.mediaKind == 9 ?
+    [defaults SB_resultMapForKey:@"SBMetadataMovieResultMap"] : [defaults SB_resultMapForKey:@"SBMetadataTVShowResultMap"];
+    MP42Metadata *mappedMetadata = [metadata metadataUsingMap:map];
+
+    return mappedMetadata;
 }
 
 - (void)runAction:(SBQueueItem *)item {

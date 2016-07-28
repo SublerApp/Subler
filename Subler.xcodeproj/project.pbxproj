@@ -482,8 +482,6 @@
 			children = (
 				A9B46A8212B79B240040517A /* SBPrefsController.h */,
 				A9B46A8312B79B240040517A /* SBPrefsController.m */,
-				A981754E1D49F11B00750709 /* SBMetadataResultMap.h */,
-				A981754F1D49F11B00750709 /* SBMetadataResultMap.m */,
 				A94721901D49DC0000858DD8 /* SBMetadataPrefsViewController.h */,
 				A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */,
 				A94721921D49DC0000858DD8 /* SBMetadataPrefsViewController.xib */,
@@ -665,6 +663,8 @@
 				CD03087817576AE50093A0BE /* SBMetadataImporter.m */,
 				A9F4422E1C75017100AD8786 /* SBMetadataResult.h */,
 				A9F4422F1C75017100AD8786 /* SBMetadataResult.m */,
+				A981754E1D49F11B00750709 /* SBMetadataResultMap.h */,
+				A981754F1D49F11B00750709 /* SBMetadataResultMap.m */,
 				CDC06FCC1747494D003C1D0A /* SBiTunesStore.h */,
 				CDC06FCD1747494D003C1D0A /* SBiTunesStore.m */,
 				CD03087217576A550093A0BE /* SBTheMovieDB3.h */,

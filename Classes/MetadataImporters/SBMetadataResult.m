@@ -7,6 +7,7 @@
 //
 
 #import "SBMetadataResult.h"
+#import "SBMetadataResultMap.h"
 #import <MP42Foundation/MP42Metadata.h>
 
 @implementation SBMetadataResult
@@ -59,15 +60,25 @@
     }
 }
 
-- (MP42Metadata *)metadata
+- (MP42Metadata *)metadataUsingMap:(SBMetadataResultMap *)map
 {
     MP42Metadata *metadata = [[MP42Metadata alloc] init];
 
-    for (NSString *key in [MP42Metadata writableMetadata]) {
-        NSString *tagValue;
-        if ((tagValue = _tags[key])) {
-            [metadata setTag:tagValue forKey:key];
+    for (SBMetadataResultMapItem *item in map.items) {
+        NSMutableString *result = [NSMutableString string];
+        for (NSString *component in item.value) {
+            if ([component hasPrefix:@"{"] && [component hasSuffix:@"}"] && component.length > 2) {
+                NSString *subComponent = [component substringWithRange:NSMakeRange(1, component.length - 2)];
+                NSString *value = _tags[subComponent];
+                if ([value isKindOfClass:[NSString class]]) {
+                    [result appendString:value];
+                }
+            }
+            else {
+                [result appendString:component];
+            }
         }
+        [metadata setTag:result forKey:item.key];
     }
 
     for (MP42Image *artwork in self.artworks) {
