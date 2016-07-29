@@ -11,7 +11,7 @@
 
 static void *SBItemViewContex = &SBItemViewContex;
 
-#define TABLE_ROW_HEIGHT 14
+#define TABLE_ROW_HEIGHT 16
 
 @interface SBItemViewController ()
 {
@@ -22,6 +22,8 @@ static void *SBItemViewContex = &SBItemViewContex;
 
 @property (nonatomic, weak) IBOutlet NSButton *editButton;
 @property (nonatomic, weak) IBOutlet NSProgressIndicator *spinner;
+
+@property (weak) IBOutlet NSLayoutConstraint *tableHeight;
 
 @end
 
@@ -75,11 +77,8 @@ static void *SBItemViewContex = &SBItemViewContex;
             }
         } else if ([keyPath isEqualToString:@"item.actions"]) {
             NSInteger count = [change[NSKeyValueChangeNewKey] count] - [change[NSKeyValueChangeOldKey] count];
-            NSSize frameSize = self.view.frame.size;
-            frameSize.height += TABLE_ROW_HEIGHT * (count >= 0 ? count - 1 : count);
-            if ([self.delegate respondsToSelector:@selector(setPopoverSize:)]) {
-                [self.delegate setPopoverSize:frameSize];
-            }
+            CGFloat height = TABLE_ROW_HEIGHT * (count >= 0 ? count : 1);
+            [self.tableHeight setConstant:height];
         }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
