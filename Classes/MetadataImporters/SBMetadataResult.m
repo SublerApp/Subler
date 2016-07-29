@@ -60,7 +60,7 @@
     }
 }
 
-- (MP42Metadata *)metadataUsingMap:(SBMetadataResultMap *)map
+- (MP42Metadata *)metadataUsingMap:(SBMetadataResultMap *)map keepEmptyKeys:(BOOL)keep
 {
     MP42Metadata *metadata = [[MP42Metadata alloc] init];
 
@@ -78,7 +78,13 @@
                 [result appendString:component];
             }
         }
-        [metadata setTag:result forKey:item.key];
+
+        if (result.length) {
+            [metadata setTag:result forKey:item.key];
+        }
+        else if (keep) {
+            [metadata setTag:result forKey:item.key];
+        }
     }
 
     for (MP42Image *artwork in self.artworks) {

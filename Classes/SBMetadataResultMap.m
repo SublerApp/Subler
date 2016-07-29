@@ -61,7 +61,7 @@
 
 + (NSArray<NSString *> *)movieKeys
 {
-    return @[@"{Title}",
+    return @[@"{Name}",
              @"{Composer}",
              @"{Genre}",
              @"{Release Date}",
@@ -82,7 +82,7 @@
 + (instancetype)movieDefaultMap
 {
     NSArray<SBMetadataResultMapItem *> *items = @[
-             [SBMetadataResultMapItem itemWithKey:@"Name"               value:@[@"{Title}"]],
+             [SBMetadataResultMapItem itemWithKey:@"Name"               value:@[@"{Name}"]],
              [SBMetadataResultMapItem itemWithKey:@"Artist"             value:@[@"{Director}"]],
              [SBMetadataResultMapItem itemWithKey:@"Composer"           value:@[@"{Composer}"]],
              [SBMetadataResultMapItem itemWithKey:@"Genre"              value:@[@"{Genre}"]],
@@ -106,7 +106,7 @@
 
 + (NSArray<NSString *> *)tvShowKeys
 {
-    return @[@"{Episode Name}",
+    return @[@"{Name}",
              @"{Series Name}",
              @"{Composer}",
              @"{Genre}",
@@ -114,11 +114,10 @@
 
              @"{Track #}",
              @"{Disk #}",
-             @"{TV Show}",
-             @"{TV Episode #}",
-             @"{TV Network}",
-             @"{TV Episode ID}",
-             @"{TV Season}",
+             @"{Episode #}",
+             @"{Network}",
+             @"{Episode ID}",
+             @"{Season}",
 
              @"{Description}",
              @"{Long Description}",
@@ -141,7 +140,7 @@
 + (instancetype)tvShowDefaultMap
 {
     NSArray<SBMetadataResultMapItem *> *items = @[
-             [SBMetadataResultMapItem itemWithKey:@"Name"         value:@[@"{Episode Name}"]],
+             [SBMetadataResultMapItem itemWithKey:@"Name"         value:@[@"{Name}"]],
              [SBMetadataResultMapItem itemWithKey:@"Artist"       value:@[@"{Series Name}"]],
              [SBMetadataResultMapItem itemWithKey:@"Album Artist" value:@[@"{Series Name}"]],
              [SBMetadataResultMapItem itemWithKey:@"Album"        value:@[@"{Series Name}"]],
@@ -151,11 +150,11 @@
 
              [SBMetadataResultMapItem itemWithKey:@"Track #"          value:@[@"{Track #}"]],
              [SBMetadataResultMapItem itemWithKey:@"Disk #"           value:@[@"{Disk #}"]],
-             [SBMetadataResultMapItem itemWithKey:@"TV Show"          value:@[@"{TV Show}"]],
-             [SBMetadataResultMapItem itemWithKey:@"TV Episode #"     value:@[@"{TV Episode #}"]],
-             [SBMetadataResultMapItem itemWithKey:@"TV Network"       value:@[@"{TV Network}"]],
-             [SBMetadataResultMapItem itemWithKey:@"TV Episode ID"    value:@[@"{TV Episode ID}"]],
-             [SBMetadataResultMapItem itemWithKey:@"TV Season"        value:@[@"{TV Season}"]],
+             [SBMetadataResultMapItem itemWithKey:@"TV Show"          value:@[@"{Series Name}"]],
+             [SBMetadataResultMapItem itemWithKey:@"TV Episode #"     value:@[@"{Episode #}"]],
+             [SBMetadataResultMapItem itemWithKey:@"TV Network"       value:@[@"{Network}"]],
+             [SBMetadataResultMapItem itemWithKey:@"TV Episode ID"    value:@[@"{Episode ID}"]],
+             [SBMetadataResultMapItem itemWithKey:@"TV Season"        value:@[@"{Season}"]],
 
              [SBMetadataResultMapItem itemWithKey:@"Description"          value:@[@"{Description}"]],
              [SBMetadataResultMapItem itemWithKey:@"Long Description"     value:@[@"{Long Description}"]],
@@ -173,7 +172,7 @@
              [SBMetadataResultMapItem itemWithKey:@"artistID"             value:@[@"{artistID}"]],
              [SBMetadataResultMapItem itemWithKey:@"playlistID"           value:@[@"{playlistID}"]],
              [SBMetadataResultMapItem itemWithKey:@"iTunes Country"       value:@[@"{iTunes Country}"]],
-             [SBMetadataResultMapItem itemWithKey:@"Sort Album"           value:@[@"{Series Name}", @", Season ", @"{TV Season}"]],
+             [SBMetadataResultMapItem itemWithKey:@"Sort Album"           value:@[@"{Series Name}", @", Season ", @"{Season}"]],
              ];
 
     return [[self alloc] initWithItems:items type:SBMetadataResultMapTypeTvShow];

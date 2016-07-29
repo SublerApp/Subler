@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readwrite, strong, nullable) NSArray<NSURL *> *artworkFullsizeURLs;
 @property (nonatomic, readwrite, strong, nullable) NSArray<NSString *> *artworkProviderNames;
 
-- (MP42Metadata *)metadataUsingMap:(SBMetadataResultMap *)map;
+- (MP42Metadata *)metadataUsingMap:(SBMetadataResultMap *)map keepEmptyKeys:(BOOL)keep;
 
 @end
 

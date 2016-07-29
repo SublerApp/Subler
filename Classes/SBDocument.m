@@ -732,7 +732,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         SBMetadataResultMap *map = metadataToBeImported.mediaKind == 9 ?
         [defaults SB_resultMapForKey:@"SBMetadataMovieResultMap"] : [defaults SB_resultMapForKey:@"SBMetadataTvShowResultMap"];
-        MP42Metadata *mappedMetadata = [metadataToBeImported metadataUsingMap:map];
+        BOOL keepEmptyKeys = [defaults boolForKey:@"SBMetadataKeepEmptyAnnotations"];
+        MP42Metadata *mappedMetadata = [metadataToBeImported metadataUsingMap:map keepEmptyKeys:keepEmptyKeys];
 
         [self.mp4.metadata mergeMetadata:mappedMetadata];
 

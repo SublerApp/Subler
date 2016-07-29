@@ -20,10 +20,10 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" showsToolbarButton="NO" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="625" y="992" width="600" height="130"/>
+            <rect key="contentRect" x="625" y="992" width="620" height="130"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="600" height="130"/>
+                <rect key="frame" x="0.0" y="0.0" width="620" height="130"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
             <toolbar key="toolbar" implicitIdentifier="0A22B294-70B1-4E35-B468-425EC64FF9C7" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="W21-Kp-oTx">
@@ -474,7 +474,7 @@
                     <rect key="frame" x="20" y="46" width="356" height="197"/>
                     <clipView key="contentView" id="C7d-ji-Qle">
                         <rect key="frame" x="1" y="1" width="354" height="195"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" id="166" customClass="SBTableView">
                                 <rect key="frame" x="0.0" y="0.0" width="354" height="195"/>

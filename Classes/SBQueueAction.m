@@ -185,7 +185,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     SBMetadataResultMap *map = metadata.mediaKind == 9 ?
     [defaults SB_resultMapForKey:@"SBMetadataMovieResultMap"] : [defaults SB_resultMapForKey:@"SBMetadataTVShowResultMap"];
-    MP42Metadata *mappedMetadata = [metadata metadataUsingMap:map];
+    MP42Metadata *mappedMetadata = [metadata metadataUsingMap:map keepEmptyKeys:NO];
 
     return mappedMetadata;
 }

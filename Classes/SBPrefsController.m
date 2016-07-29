@@ -67,6 +67,7 @@
 
                                                               @"SBMetadataMovieResultMap" : movieDefaultMap,
                                                               @"SBMetadataTvShowResultMap" : tvShowDefaultMap,
+                                                              @"SBMetadataKeepEmptyAnnotations" : @NO,
                                                               }];
 }
 

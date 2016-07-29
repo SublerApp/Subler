@@ -11,6 +11,8 @@
 #import "SBMetadataResultMap.h"
 #import <MP42Foundation/MP42Metadata.h>
 
+static void *SBMetadataPrefsViewControllerContex = &SBMetadataPrefsViewControllerContex;
+
 @interface SBMetadataPrefsViewController () <NSTableViewDelegate, NSTokenFieldDelegate, NSTextFieldDelegate>
 
 @property (nonatomic, weak) IBOutlet NSTokenField *builtInTokenField;
@@ -19,16 +21,18 @@
 
 @property (nonatomic, weak) IBOutlet NSTableView *tableView;
 
-@property (nonatomic) NSArray<NSString *> *matches;
+@property (nonatomic, readwrite) NSArray<NSString *> *types;
+@property (nonatomic) IBOutlet NSArrayController *typesController;
+@property (nonatomic, weak) IBOutlet NSTableView *typesTableView;
 
-@property (nonatomic) SBMetadataResultMap *movieMap;
-@property (nonatomic) SBMetadataResultMap *tvShowMap;
+@property (nonatomic, readonly) SBMetadataResultMap *movieMap;
+@property (nonatomic, readonly) SBMetadataResultMap *tvShowMap;
 
-@property (nonatomic, readwrite) SBMetadataResultMap *map;
+@property (nonatomic) SBMetadataResultMap *map;
 @property (nonatomic) IBOutlet NSArrayController *itemsController;
 
-@property (nonatomic, readwrite) NSArray<NSString *> *currentTokens;
-
+@property (nonatomic) NSArray<NSString *> *currentTokens;
+@property (nonatomic) NSArray<NSString *> *matches;
 
 @end
 
@@ -38,20 +42,21 @@
 {
     [super loadView];
 
+    [self.builtInTokenField setTokenizingCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@"%"]];
+
     for (NSString *tag in [MP42Metadata writableMetadata]) {
         [self.addMetadataPopUpButton addItemWithTitle:tag];
     }
 
+    // Load data from preferences
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     SBMetadataResultMap *savedMovieMap = [defaults SB_resultMapForKey:@"SBMetadataMovieResultMap"];
     SBMetadataResultMap *savedTvShowMap = [defaults SB_resultMapForKey:@"SBMetadataTvShowResultMap"];
 
-    self.movieMap = savedMovieMap ? savedMovieMap :[SBMetadataResultMap movieDefaultMap];
-    self.tvShowMap = savedTvShowMap ? savedTvShowMap :[SBMetadataResultMap tvShowDefaultMap];
+    _movieMap = savedMovieMap ? savedMovieMap :[SBMetadataResultMap movieDefaultMap];
+    _tvShowMap = savedTvShowMap ? savedTvShowMap :[SBMetadataResultMap tvShowDefaultMap];
 
-    self.map = self.movieMap;
-    self.currentTokens = [SBMetadataResultMap movieKeys];
-
+    // Set up the sort descriptor
     NSArray<NSString *> *context = [MP42Metadata availableMetadata];
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"key"
                                                                    ascending:YES
@@ -65,8 +70,29 @@
     self.itemsController.selectionIndexes = [NSIndexSet indexSet];
 
 
-    [self.builtInTokenField setTokenizingCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@"%%"]];
-    self.builtInTokenField.stringValue = [self.currentTokens componentsJoinedByString:@"%%"];
+    // Set types
+    self.types = @[NSLocalizedString(@"Movie", nil), NSLocalizedString(@"TV Show", nil)];
+    [self addObserver:self forKeyPath:@"self.typesController.selectionIndex"
+              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
+              context:SBMetadataPrefsViewControllerContex];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (context == SBMetadataPrefsViewControllerContex) {
+        if (self.typesController.selectionIndex) {
+            self.currentTokens = [SBMetadataResultMap tvShowKeys];
+            self.map = self.tvShowMap;
+        }
+        else {
+            self.currentTokens = [SBMetadataResultMap movieKeys];
+            self.map = self.movieMap;
+        }
+        self.itemsController.selectionIndexes = [NSIndexSet indexSet];
+        self.builtInTokenField.stringValue = [self.currentTokens componentsJoinedByString:@"%"];
+
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 - (void)save
@@ -93,30 +119,16 @@
     [self save];
 }
 
-#pragma mark - Type selector
-
-- (IBAction)setType:(NSPopUpButton *)sender
-{
-    if (sender.selectedTag) {
-        self.currentTokens = [SBMetadataResultMap tvShowKeys];
-        self.map = self.tvShowMap;
-    }
-    else {
-        self.currentTokens = [SBMetadataResultMap movieKeys];
-        self.map = self.movieMap;
-    }
-    self.itemsController.selectionIndexes = [NSIndexSet indexSet];
-    self.builtInTokenField.stringValue = [self.currentTokens componentsJoinedByString:@"%%"];
-}
-
 #pragma mark - Table View
 
 - (void)tableView:(NSTableView *)tableView didAddRowView:(NSTableRowView *)rowView forRow:(NSInteger)row
 {
-    NSTableCellView *view = [rowView viewAtColumn:1];
-    NSTokenField *tokenField = view.subviews.firstObject;
-    if ([tokenField isKindOfClass:[NSTokenField class]]) {
-        tokenField.tokenizingCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"%%"];
+    if (tableView == self.tableView) {
+        NSTableCellView *view = [rowView viewAtColumn:1];
+        NSTokenField *tokenField = view.subviews.firstObject;
+        if ([tokenField isKindOfClass:[NSTokenField class]]) {
+            tokenField.tokenizingCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"%"];
+        }
     }
 }
 
@@ -125,7 +137,7 @@
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject
 {
     if ([representedObject rangeOfString: @"{"].location == 0) {
-        return [(NSString *)representedObject substringWithRange:NSMakeRange(1, [(NSString*)representedObject length]-2)];
+        return [(NSString *)representedObject substringWithRange:NSMakeRange(1, [(NSString *)representedObject length]-2)];
     }
 
     return representedObject;
@@ -170,7 +182,7 @@
 
 - (BOOL)tokenField:(NSTokenField *)tokenField writeRepresentedObjects:(NSArray *)objects toPasteboard:(NSPasteboard *)pboard
 {
-    NSString *format = [objects componentsJoinedByString:@"%%"];
+    NSString *format = [objects componentsJoinedByString:@"%"];
     [pboard setString:format forType:NSPasteboardTypeString];
 
     return YES;

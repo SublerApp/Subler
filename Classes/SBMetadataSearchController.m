@@ -401,7 +401,7 @@
     if (self.selectedResult.mediaKind == 10) {
         NSArray *previousTVseries = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Previously used TV series"];
         NSMutableArray *newTVseries;
-        NSString *formattedTVshowName = (self.selectedResultTags)[@"TV Show"];
+        NSString *formattedTVshowName = (self.selectedResultTags)[@"Series Name"];
 
         if (previousTVseries == nil) {
             newTVseries = [NSMutableArray array];
@@ -571,7 +571,7 @@
         if (self.resultsArray != nil) {
             SBMetadataResult *result = (self.resultsArray)[rowIndex];
             if ((result.mediaKind == 10) && ((self.resultsArray).count > 1)) { // TV show
-                return [NSString stringWithFormat:@"%@x%@ - %@", result[@"TV Season"], result[@"TV Episode #"], result[@"Name"]];
+                return [NSString stringWithFormat:@"%@x%@ - %@", result[@"Season"], result[@"Episode #"], result[@"Name"]];
             } else {
                 return result[@"Name"];
             }
