@@ -134,6 +134,11 @@ static void *SBMetadataPrefsViewControllerContex = &SBMetadataPrefsViewControlle
 
 #pragma mark - Format Token Field Delegate
 
+- (void)controlTextDidEndEditing:(NSNotification *)aNotification
+{
+    [self save];
+}
+
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject
 {
     if ([representedObject rangeOfString: @"{"].location == 0) {
@@ -155,7 +160,7 @@ static void *SBMetadataPrefsViewControllerContex = &SBMetadataPrefsViewControlle
 
 - (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString
 {
-    return editingString;
+    return nil;
 }
 
 - (NSArray *)tokenField:(NSTokenField *)tokenField completionsForSubstring:(NSString *)substring indexOfToken:(NSInteger)tokenIndex

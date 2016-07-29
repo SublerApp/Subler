@@ -101,7 +101,7 @@
                                                         <tokenFieldCell key="cell" selectable="YES" editable="YES" alignment="left" allowsEditingTextAttributes="YES" id="BaM-xn-Wzr">
                                                             <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </tokenFieldCell>
                                                         <connections>
                                                             <binding destination="5Ey-Te-51o" name="value" keyPath="objectValue.value" id="abE-Cv-9mt"/>
@@ -197,7 +197,7 @@
                         <rect key="frame" x="1" y="0.0" width="136" height="345"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="Eh9-8P-dr0" viewBased="YES" id="nXW-oy-rtu">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="Eh9-8P-dr0" viewBased="YES" id="nXW-oy-rtu">
                                 <rect key="frame" x="0.0" y="0.0" width="136" height="322"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
