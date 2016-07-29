@@ -180,7 +180,7 @@
 
         for (NSDictionary *d in countries) {
             if ([d[@"iso_3166_1"] isEqualToString:@"US"]) {
-                metadata[@"Rating"] = @([[MP42Ratings defaultManager] ratingIndexForiTunesCountry:@"USA" media:@"movie" ratingString:d[@"certification"]]);
+                metadata[@"Rating"] = [[MP42Ratings defaultManager] ratingStringForiTunesCountry:@"USA" media:@"movie" ratingString:d[@"certification"]];
             }
         }
     }

@@ -70,7 +70,7 @@
             if ([component hasPrefix:@"{"] && [component hasSuffix:@"}"] && component.length > 2) {
                 NSString *subComponent = [component substringWithRange:NSMakeRange(1, component.length - 2)];
                 NSString *value = _tags[subComponent];
-                if ([value isKindOfClass:[NSString class]]) {
+                if (value.length) {
                     [result appendString:value];
                 }
             }

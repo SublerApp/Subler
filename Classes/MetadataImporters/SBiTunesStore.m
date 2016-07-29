@@ -399,9 +399,9 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 
         metadata[@"Long Description"]   = r[@"longDescription"];
         metadata[@"Genre"]              = r[@"primaryGenreName"];
-        metadata[@"Rating"]             = @([[MP42Ratings defaultManager] ratingIndexForiTunesCountry:store[@"country"]
+        metadata[@"Rating"]             = [[MP42Ratings defaultManager] ratingStringForiTunesCountry:store[@"country"]
                                                                                                 media:(metadata.mediaKind == 9 ? @"movie" : @"TV")
-                                                                                         ratingString:r[@"contentAdvisoryRating"]]);
+                                                                                         ratingString:r[@"contentAdvisoryRating"]];
 
 		if (store[@"storeCode"]) {
             metadata[@"iTunes Country"]              = [store[@"storeCode"] stringValue];

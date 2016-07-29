@@ -220,9 +220,9 @@ static NSArray<NSString *> *TVDBlanguages;
 
     NSString *ratingString = [aSeries retrieveForPath:@"ContentRating.text"];
     if (ratingString.length) {
-        metadata[@"Rating"] = @([[MP42Ratings defaultManager] ratingIndexForiTunesCountry:@"USA"
+        metadata[@"Rating"] = [[MP42Ratings defaultManager] ratingStringForiTunesCountry:@"USA"
                                                                                     media:@"TV"
-                                                                             ratingString:ratingString]);
+                                                                             ratingString:ratingString];
     }
 
     metadata[@"Network"]     = [aSeries retrieveForPath:@"Network.text"];
