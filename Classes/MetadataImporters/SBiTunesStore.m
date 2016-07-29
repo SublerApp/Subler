@@ -347,18 +347,15 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 
         SBMetadataResult *metadata = [[SBMetadataResult alloc] init];
 
+        metadata[@"Name"] = r[@"trackName"];
+
 		if ([r[@"kind"] isEqualToString:@"feature-movie"]) {
 			metadata.mediaKind = 9; // movie
-            metadata[@"Name"]     = r[@"trackName"];
             metadata[@"Director"] = r[@"artistName"];
-            metadata[@"Artist"]   = r[@"artistName"];
 		}
         else if ([r[@"kind"] isEqualToString:@"tv-episode"]) {
 			metadata.mediaKind = 10; // TV show
-            metadata[@"TV Show"]        = r[@"artistName"];
-            metadata[@"Artist"]         = r[@"artistName"];
-            metadata[@"Album Artist"]   = r[@"artistName"];
-            metadata[@"Album"]          = r[@"artistName"];
+            metadata[@"Series Name"] = r[@"artistName"];
 
 			NSString *s = r[@"collectionName"];
             NSString *season = nil;
@@ -378,16 +375,11 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 			}
 
             if (season) {
-                metadata[@"TV Season"] = season;
-
-                NSString *episodeID = [NSString stringWithFormat:@"%d%02d", season.intValue, [r[@"trackNumber"] intValue]];
-                metadata[@"TV Episode ID"] = episodeID;
-
-                metadata[@"Sort Album"] = [NSString stringWithFormat:@"%@, Season %@", r[@"artistName"], season];
+                metadata[@"Season"]     = season;
+                metadata[@"Episode ID"] = [NSString stringWithFormat:@"%d%02d", season.intValue, [r[@"trackNumber"] intValue]];
             }
 
-            metadata[@"TV Episode #"] = r[@"trackNumber"];
-            metadata[@"Name"]         = r[@"trackName"];
+            metadata[@"Episode #"]    = r[@"trackNumber"];
             metadata[@"Track #"]      = [NSString stringWithFormat:@"%@/%@", r[@"trackNumber"], r[@"trackCount"]];
             metadata[@"Disk #"]       = @"1/1";
             metadata[@"Disk #"]       = @"1/1";

@@ -208,15 +208,15 @@ static NSArray<NSString *> *TVDBlanguages;
 
     // TV Show
     metadata[@"TheTVDB Series ID"]  = [aSeries retrieveForPath:@"id.text"];
-    metadata[@"TV Show"]            = [aSeries retrieveForPath:@"SeriesName.text"];
-
-    metadata[@"Artist"]             = [aSeries retrieveForPath:@"SeriesName.text"];
-    metadata[@"Album Artist"]       = [aSeries retrieveForPath:@"SeriesName.text"];
-    metadata[@"Album"]              = [aSeries retrieveForPath:@"SeriesName.text"];
-    metadata[@"Sort Album"]         = [NSString stringWithFormat:@"%@, Season %@", [aSeries retrieveForPath:@"SeriesName.text"], [aEpisode retrieveForPath:@"SeasonNumber.text"]];
-
+    metadata[@"Series Name"]        = [aSeries retrieveForPath:@"SeriesName.text"];
     metadata[@"Series Description"] = [aSeries retrieveForPath:@"Overview.text"];
     metadata[@"Genre"]              = [SBTheTVDB cleanPeopleList:[aSeries retrieveForPath:@"Genre.text"]];
+
+    // Episode
+    metadata[@"Name"]               = [aEpisode retrieveForPath:@"EpisodeName.text"];
+    metadata[@"Release Date"]       = [aEpisode retrieveForPath:@"FirstAired.text"];
+    metadata[@"Description"]        = [aEpisode retrieveForPath:@"Overview.text"];
+    metadata[@"Long Description"]   = [aEpisode retrieveForPath:@"Overview.text"];
 
     NSString *ratingString = [aSeries retrieveForPath:@"ContentRating.text"];
     if (ratingString.length) {
@@ -225,28 +225,19 @@ static NSArray<NSString *> *TVDBlanguages;
                                                                              ratingString:ratingString]);
     }
 
-    metadata[@"TV Network"]     = [aSeries retrieveForPath:@"Network.text"];
-    metadata[@"TV Season"]      = [aEpisode retrieveForPath:@"SeasonNumber.text"];
+    metadata[@"Network"]     = [aSeries retrieveForPath:@"Network.text"];
+    metadata[@"Season"]      = [aEpisode retrieveForPath:@"SeasonNumber.text"];
 
-    // Episode
     NSString *episodeID = [NSString stringWithFormat:@"%d%02d",
                             [[aEpisode retrieveForPath:@"SeasonNumber.text"] intValue],
                             [[aEpisode retrieveForPath:@"EpisodeNumber.text"] intValue]];
 
-    metadata[@"TV Episode ID"]  = episodeID;
-    metadata[@"TV Episode #"]   = [aEpisode retrieveForPath:@"EpisodeNumber.text"];
+    metadata[@"Episode ID"]     = episodeID;
+    metadata[@"Episode #"]      = [aEpisode retrieveForPath:@"EpisodeNumber.text"];
     metadata[@"Track #"]        = [aEpisode retrieveForPath:@"EpisodeNumber.text"];
-
-    metadata[@"Name"]           = [aEpisode retrieveForPath:@"EpisodeName.text"];
-
-    metadata[@"Release Date"]   = [aEpisode retrieveForPath:@"FirstAired.text"];
-
-    metadata[@"Description"]        = [aEpisode retrieveForPath:@"Overview.text"];
-    metadata[@"Long Description"]   = [aEpisode retrieveForPath:@"Overview.text"];
 
     metadata[@"Director"]        = [SBTheTVDB cleanPeopleList:[aEpisode retrieveForPath:@"Director.text"]];
     metadata[@"Screenwriters"]   = [SBTheTVDB cleanPeopleList:[aEpisode retrieveForPath:@"Writer.text"]];
-
 
 	// Cast
 	NSString *actors = [SBTheTVDB cleanPeopleList:[aSeries retrieveForPath:@"Actors.text"]];
