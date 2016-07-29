@@ -23,7 +23,7 @@ static void *SBItemViewContex = &SBItemViewContex;
 @property (nonatomic, weak) IBOutlet NSButton *editButton;
 @property (nonatomic, weak) IBOutlet NSProgressIndicator *spinner;
 
-@property (weak) IBOutlet NSLayoutConstraint *tableHeight;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *tableHeight;
 
 @end
 
