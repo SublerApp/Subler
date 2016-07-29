@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11173.2" systemVersion="16A238m" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11173.2" systemVersion="16A238m" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11173.2"/>
@@ -23,9 +23,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="400" height="446"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="GRB-Sq-PQq">
+                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRB-Sq-PQq">
                         <rect key="frame" x="-1" y="33" width="402" height="414"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="ffN-FE-TPO">
                             <rect key="frame" x="1" y="1" width="400" height="412"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -50,9 +49,8 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <button verticalHuggingPriority="750" id="myf-Ql-qUP">
-                        <rect key="frame" x="324" y="2" width="73" height="28"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="myf-Ql-qUP">
+                        <rect key="frame" x="343" y="2" width="54" height="28"/>
                         <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="h1X-Ni-exQ">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -62,11 +60,19 @@
                         </connections>
                     </button>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="GRB-Sq-PQq" secondAttribute="trailing" constant="-1" id="1JY-8R-Fb5"/>
+                    <constraint firstAttribute="trailing" secondItem="myf-Ql-qUP" secondAttribute="trailing" constant="8" id="gh1-w9-lnf"/>
+                    <constraint firstItem="GRB-Sq-PQq" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="-1" id="ldG-Lx-N9A"/>
+                    <constraint firstAttribute="bottom" secondItem="myf-Ql-qUP" secondAttribute="bottom" constant="8" id="ovP-jQ-beQ"/>
+                    <constraint firstItem="GRB-Sq-PQq" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="-1" id="stC-1B-ZBW"/>
+                    <constraint firstItem="myf-Ql-qUP" firstAttribute="top" secondItem="GRB-Sq-PQq" secondAttribute="bottom" constant="7" id="wuj-d5-CnY"/>
+                </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="511" y="471"/>
+            <point key="canvasLocation" x="402" y="171"/>
         </window>
     </objects>
 </document>

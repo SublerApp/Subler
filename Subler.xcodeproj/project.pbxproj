@@ -16,10 +16,10 @@
 		A901C51F1C04F03F00430DC3 /* SBChapterImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */; };
 		A90B023B10F3290A000416F3 /* Prefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90B023910F3290A000416F3 /* Prefs.xib */; };
 		A917286119FD288B00348DF8 /* SBLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A917286019FD288B00348DF8 /* SBLogger.m */; };
+		A924A51E1D4B9E93008301A7 /* SBMetadataPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A924A5201D4B9E93008301A7 /* SBMetadataPrefsViewController.xib */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A94721931D49DC0000858DD8 /* SBMetadataPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */; };
-		A94721941D49DC0000858DD8 /* SBMetadataPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A94721921D49DC0000858DD8 /* SBMetadataPrefsViewController.xib */; };
 		A95B8DA91B09F37800F2F152 /* Subler_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B8DA81B09F37800F2F152 /* Subler_Tests.m */; };
 		A95C881D0F827BFB00F51A22 /* ToolbarRemoveTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = A95C881C0F827BFB00F51A22 /* ToolbarRemoveTemplate.png */; };
 		A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */; };
@@ -167,7 +167,6 @@
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FBA07B3F13500E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
-		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -180,13 +179,30 @@
 		A901C51B1C04F03F00430DC3 /* SBChapterDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterDB.m; path = Classes/MetadataImporters/SBChapterDB.m; sourceTree = "<group>"; };
 		A901C51C1C04F03F00430DC3 /* SBChapterImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterImporter.h; path = Classes/MetadataImporters/SBChapterImporter.h; sourceTree = "<group>"; };
 		A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterImporter.m; path = Classes/MetadataImporters/SBChapterImporter.m; sourceTree = "<group>"; };
-		A90B023A10F3290A000416F3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Prefs.xib; sourceTree = "<group>"; };
 		A917286019FD288B00348DF8 /* SBLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLogger.m; path = Classes/SBLogger.m; sourceTree = "<group>"; };
 		A917286419FD289F00348DF8 /* SBLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBLogger.h; path = Classes/SBLogger.h; sourceTree = "<group>"; };
+		A924A50C1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBDocument.xib; sourceTree = "<group>"; };
+		A924A50D1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/ChapterView.xib; sourceTree = "<group>"; };
+		A924A50E1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/EmptyView.xib; sourceTree = "<group>"; };
+		A924A50F1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/MovieView.xib; sourceTree = "<group>"; };
+		A924A5101D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/SoundView.xib; sourceTree = "<group>"; };
+		A924A5111D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/VideoView.xib; sourceTree = "<group>"; };
+		A924A5121D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		A924A5131D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FileImport.xib; sourceTree = "<group>"; };
+		A924A5141D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MetadataSearch.xib; sourceTree = "<group>"; };
+		A924A5151D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ArtworkSelector.xib; sourceTree = "<group>"; };
+		A924A5161D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBChapterSearch.xib; sourceTree = "<group>"; };
+		A924A5171D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Queue.xib; sourceTree = "<group>"; };
+		A924A5181D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QueueOptions.xib; sourceTree = "<group>"; };
+		A924A5191D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QueueItem.xib; sourceTree = "<group>"; };
+		A924A51A1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Prefs.xib; sourceTree = "<group>"; };
+		A924A51B1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBLogWindow.xib; sourceTree = "<group>"; };
+		A924A51C1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBMediaTagsController.xib; sourceTree = "<group>"; };
+		A924A51D1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ExceptionAlert.xib; sourceTree = "<group>"; };
+		A924A51F1D4B9E93008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBMetadataPrefsViewController.xib; sourceTree = "<group>"; };
 		A925AA7B18378D7800BE84D4 /* MP42Foundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP42Foundation.xcodeproj; path = MP42Foundation/MP42Foundation.xcodeproj; sourceTree = "<group>"; };
 		A94721901D49DC0000858DD8 /* SBMetadataPrefsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataPrefsViewController.h; path = Classes/SBMetadataPrefsViewController.h; sourceTree = "<group>"; };
 		A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataPrefsViewController.m; path = Classes/SBMetadataPrefsViewController.m; sourceTree = "<group>"; };
-		A94721921D49DC0000858DD8 /* SBMetadataPrefsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SBMetadataPrefsViewController.xib; path = Classes/SBMetadataPrefsViewController.xib; sourceTree = "<group>"; };
 		A95B8DA41B09F37700F2F152 /* Subler Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subler Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95B8DA71B09F37700F2F152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A95B8DA81B09F37800F2F152 /* Subler_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subler_Tests.m; sourceTree = "<group>"; };
@@ -197,7 +213,6 @@
 		A961476013F567E10068F161 /* SBQueueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SBQueueController.m; path = Classes/SBQueueController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A961476113F567E10068F161 /* SBPresetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBPresetManager.h; path = Classes/SBPresetManager.h; sourceTree = "<group>"; };
 		A961476213F567E10068F161 /* SBPresetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBPresetManager.m; path = Classes/SBPresetManager.m; sourceTree = "<group>"; };
-		A961476613F568210068F161 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Queue.xib; sourceTree = "<group>"; };
 		A96371B7164695070083BB80 /* ToolbarRemoveTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ToolbarRemoveTemplate@2x.png"; path = "images/ToolbarRemoveTemplate@2x.png"; sourceTree = "<group>"; };
 		A96946501BA3F83D0048C004 /* SBMediaTagsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMediaTagsController.h; path = Classes/SBMediaTagsController.h; sourceTree = "<group>"; };
 		A96946511BA3F83D0048C004 /* SBMediaTagsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMediaTagsController.m; path = Classes/SBMediaTagsController.m; sourceTree = "<group>"; };
@@ -216,7 +231,6 @@
 		A98739FD13FBB09B00B795A7 /* ToolbarActionTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ToolbarActionTemplate.png; path = images/ToolbarActionTemplate.png; sourceTree = "<group>"; };
 		A991319913F0615700DCAA12 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A991319B13F0668300DCAA12 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		A998DABE1BA54CFF004D7969 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SBMediaTagsController.xib; sourceTree = "<group>"; };
 		A99BF39519F90F6300BDBE50 /* playBackTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = playBackTemplate.pdf; path = images/playBackTemplate.pdf; sourceTree = "<group>"; };
 		A9AB484717F0AEA2000AA72E /* SBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBAppDelegate.h; path = Classes/SBAppDelegate.h; sourceTree = "<group>"; };
 		A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBAppDelegate.m; path = Classes/SBAppDelegate.m; sourceTree = "<group>"; };
@@ -230,11 +244,6 @@
 		A9AB485117F0AEAC000AA72E /* SBSoundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBSoundViewController.m; path = Classes/PropertyView/SBSoundViewController.m; sourceTree = "<group>"; };
 		A9AB485217F0AEAC000AA72E /* SBVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBVideoViewController.h; path = Classes/PropertyView/SBVideoViewController.h; sourceTree = "<group>"; };
 		A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBVideoViewController.m; path = Classes/PropertyView/SBVideoViewController.m; sourceTree = "<group>"; };
-		A9AB485B17F0AEFD000AA72E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Classes/PropertyView/English.lproj/ChapterView.xib; sourceTree = "<group>"; };
-		A9AB485D17F0AEFD000AA72E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Classes/PropertyView/English.lproj/EmptyView.xib; sourceTree = "<group>"; };
-		A9AB485F17F0AEFD000AA72E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Classes/PropertyView/English.lproj/MovieView.xib; sourceTree = "<group>"; };
-		A9AB486117F0AEFD000AA72E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Classes/PropertyView/English.lproj/SoundView.xib; sourceTree = "<group>"; };
-		A9AB486317F0AEFD000AA72E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Classes/PropertyView/English.lproj/VideoView.xib; sourceTree = "<group>"; };
 		A9AF6A7318D0496400FAAB08 /* SBQueueAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueAction.h; path = Classes/SBQueueAction.h; sourceTree = "<group>"; };
 		A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueAction.m; path = Classes/SBQueueAction.m; sourceTree = "<group>"; };
 		A9B3411B1679CA3E00E6EE0C /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
@@ -251,18 +260,14 @@
 		A9B46AA312B79BB10040517A /* Subler.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Subler.icns; path = images/Subler.icns; sourceTree = "<group>"; };
 		A9B46ABD12B79D1C0040517A /* SBDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBDocument.h; path = Classes/SBDocument.h; sourceTree = "<group>"; };
 		A9B46ABE12B79D1C0040517A /* SBDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SBDocument.m; path = Classes/SBDocument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		A9B46AC112B79E230040517A /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = English; path = English.lproj/SBDocument.xib; sourceTree = "<group>"; };
 		A9B4EE4E1643EBF3009AF6BC /* Subler.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Subler.entitlements; sourceTree = "<group>"; };
 		A9BC410118D9AB8700F8C92C /* SBItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBItemViewController.h; path = Classes/SBItemViewController.h; sourceTree = "<group>"; };
 		A9BC410218D9AB8700F8C92C /* SBItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBItemViewController.m; path = Classes/SBItemViewController.m; sourceTree = "<group>"; };
-		A9BC410718D9ABC000F8C92C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/QueueItem.xib; sourceTree = "<group>"; };
-		A9C055330F6D394F00AF15B5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FileImport.xib; sourceTree = "<group>"; };
 		A9C0603F168315C500FE3D98 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
 		A9C0957F0F7B6C8C00170CAF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		A9C4259218DB6D1F00E99DB8 /* stopTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = stopTemplate.pdf; path = images/stopTemplate.pdf; sourceTree = "<group>"; };
 		A9C5FA6B19FA22590051F3FF /* SBLogWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBLogWindowController.h; path = Classes/SBLogWindowController.h; sourceTree = "<group>"; };
 		A9C5FA6C19FA22590051F3FF /* SBLogWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLogWindowController.m; path = Classes/SBLogWindowController.m; sourceTree = "<group>"; };
-		A9C5FA7319FA2FEC0051F3FF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SBLogWindow.xib; sourceTree = "<group>"; };
 		A9C703101C05E08B00C89151 /* SBMetadataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataHelper.h; path = Classes/MetadataImporters/SBMetadataHelper.h; sourceTree = "<group>"; };
 		A9C703111C05E08B00C89151 /* SBMetadataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataHelper.m; path = Classes/MetadataImporters/SBMetadataHelper.m; sourceTree = "<group>"; };
 		A9C8182C0F74D6E300019BFF /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
@@ -275,7 +280,6 @@
 		A9D47B5717B239E200900BCA /* EncodeComplete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EncodeComplete@2x.png"; path = "images/EncodeComplete@2x.png"; sourceTree = "<group>"; };
 		A9D4B8621C05BC61007845C4 /* SBChapterSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterSearchController.h; path = Classes/SBChapterSearchController.h; sourceTree = "<group>"; };
 		A9D4B8631C05BC61007845C4 /* SBChapterSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterSearchController.m; path = Classes/SBChapterSearchController.m; sourceTree = "<group>"; };
-		A9D4B8661C05BD04007845C4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SBChapterSearch.xib; sourceTree = "<group>"; };
 		A9D4B8681C05CBEB007845C4 /* SBChapterResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterResult.h; path = Classes/MetadataImporters/SBChapterResult.h; sourceTree = "<group>"; };
 		A9D4B8691C05CBEB007845C4 /* SBChapterResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterResult.m; path = Classes/MetadataImporters/SBChapterResult.m; sourceTree = "<group>"; };
 		A9D73C5018BF3F1100C6FFA6 /* SBQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueue.h; path = Classes/SBQueue.h; sourceTree = "<group>"; };
@@ -284,12 +288,10 @@
 		A9DA3B9A1B918D5C00F1E40C /* SBExceptionAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBExceptionAlertController.h; path = Classes/SBExceptionAlertController.h; sourceTree = "<group>"; };
 		A9DA3B9B1B918D5C00F1E40C /* SBExceptionAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBExceptionAlertController.m; path = Classes/SBExceptionAlertController.m; sourceTree = "<group>"; };
 		A9DA3BA01B918D6200F1E40C /* SBApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBApplication.h; path = Classes/SBApplication.h; sourceTree = "<group>"; };
-		A9DA3BA21B918D6F00F1E40C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ExceptionAlert.xib; sourceTree = "<group>"; };
 		A9E2C9C81A1770EC00A417C9 /* EncodeWorking@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EncodeWorking@2x.png"; path = "images/EncodeWorking@2x.png"; sourceTree = "<group>"; };
 		A9ED7B21180067A2008FD3A8 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A9EEA5EF18D65490008B54B4 /* SBOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBOptionsViewController.h; path = Classes/SBOptionsViewController.h; sourceTree = "<group>"; };
 		A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBOptionsViewController.m; path = Classes/SBOptionsViewController.m; sourceTree = "<group>"; };
-		A9EEA5F718D654B9008B54B4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/QueueOptions.xib; sourceTree = "<group>"; };
 		A9F2849D133C9F6E00F10951 /* close.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = close.pdf; path = images/close.pdf; sourceTree = "<group>"; };
 		A9F2849E133C9F6E00F10951 /* close-over.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "close-over.pdf"; path = "images/close-over.pdf"; sourceTree = "<group>"; };
 		A9F2849F133C9F6E00F10951 /* close-pressed.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "close-pressed.pdf"; path = "images/close-pressed.pdf"; sourceTree = "<group>"; };
@@ -305,13 +307,11 @@
 		CD4A86AC1234AFA10054970A /* Roman.pm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = Roman.pm; sourceTree = "<group>"; };
 		CD4A86AF1234AFA10054970A /* Filename.pm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = Filename.pm; sourceTree = "<group>"; };
 		CD4A86B01234AFA10054970A /* ParseFilename.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = ParseFilename.pl; sourceTree = "<group>"; };
-		CD4E6E5C12F744210095C84F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ArtworkSelector.xib; sourceTree = "<group>"; };
 		CD56963012FAAD680029FADB /* SBArtworkSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBArtworkSelector.h; path = Classes/SBArtworkSelector.h; sourceTree = "<group>"; };
 		CD56963112FAAD680029FADB /* SBArtworkSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBArtworkSelector.m; path = Classes/SBArtworkSelector.m; sourceTree = "<group>"; };
 		CD56966E12FAAFA90029FADB /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		CD71FEA112F1B5AF00F0A98D /* SBMetadataSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataSearchController.h; path = Classes/SBMetadataSearchController.h; sourceTree = "<group>"; };
 		CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataSearchController.m; path = Classes/SBMetadataSearchController.m; sourceTree = "<group>"; };
-		CD71FEA512F1B62600F0A98D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MetadataSearch.xib; sourceTree = "<group>"; };
 		CD71FF1B12F1C4A900F0A98D /* SBTheTVDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBTheTVDB.h; path = Classes/MetadataImporters/SBTheTVDB.h; sourceTree = "<group>"; };
 		CD71FF1C12F1C4A900F0A98D /* SBTheTVDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBTheTVDB.m; path = Classes/MetadataImporters/SBTheTVDB.m; sourceTree = "<group>"; };
 		CDC06FCC1747494D003C1D0A /* SBiTunesStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBiTunesStore.h; path = Classes/MetadataImporters/SBiTunesStore.h; sourceTree = "<group>"; };
@@ -484,7 +484,7 @@
 				A9B46A8312B79B240040517A /* SBPrefsController.m */,
 				A94721901D49DC0000858DD8 /* SBMetadataPrefsViewController.h */,
 				A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */,
-				A94721921D49DC0000858DD8 /* SBMetadataPrefsViewController.xib */,
+				A924A5201D4B9E93008301A7 /* SBMetadataPrefsViewController.xib */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -747,6 +747,7 @@
 				Japanese,
 				French,
 				German,
+				Base,
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* MP4Sub */;
 			projectDirPath = "";
@@ -835,7 +836,7 @@
 				A9C9E34413FBC1EB00CA3B4E /* EncodeWorking.png in Resources */,
 				A96371B8164695070083BB80 /* ToolbarRemoveTemplate@2x.png in Resources */,
 				CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */,
-				A94721941D49DC0000858DD8 /* SBMetadataPrefsViewController.xib in Resources */,
+				A924A51E1D4B9E93008301A7 /* SBMetadataPrefsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -950,7 +951,7 @@
 		1DDD582A0DA1D0D100B32029 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1DDD582B0DA1D0D100B32029 /* English */,
+				A924A5121D4B9E66008301A7 /* Base */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -966,15 +967,24 @@
 		A90B023910F3290A000416F3 /* Prefs.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A90B023A10F3290A000416F3 /* English */,
+				A924A51A1D4B9E66008301A7 /* Base */,
 			);
 			name = Prefs.xib;
+			sourceTree = "<group>";
+		};
+		A924A5201D4B9E93008301A7 /* SBMetadataPrefsViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A924A51F1D4B9E93008301A7 /* Base */,
+			);
+			name = SBMetadataPrefsViewController.xib;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		A961476513F568210068F161 /* Queue.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A961476613F568210068F161 /* English */,
+				A924A5171D4B9E66008301A7 /* Base */,
 			);
 			name = Queue.xib;
 			sourceTree = "<group>";
@@ -982,7 +992,7 @@
 		A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A998DABE1BA54CFF004D7969 /* English */,
+				A924A51C1D4B9E67008301A7 /* Base */,
 			);
 			name = SBMediaTagsController.xib;
 			sourceTree = "<group>";
@@ -990,7 +1000,7 @@
 		A9AB485A17F0AEFD000AA72E /* ChapterView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A9AB485B17F0AEFD000AA72E /* English */,
+				A924A50D1D4B9E66008301A7 /* Base */,
 			);
 			name = ChapterView.xib;
 			sourceTree = "<group>";
@@ -998,7 +1008,7 @@
 		A9AB485C17F0AEFD000AA72E /* EmptyView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A9AB485D17F0AEFD000AA72E /* English */,
+				A924A50E1D4B9E66008301A7 /* Base */,
 			);
 			name = EmptyView.xib;
 			sourceTree = "<group>";
@@ -1006,7 +1016,7 @@
 		A9AB485E17F0AEFD000AA72E /* MovieView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A9AB485F17F0AEFD000AA72E /* English */,
+				A924A50F1D4B9E66008301A7 /* Base */,
 			);
 			name = MovieView.xib;
 			sourceTree = "<group>";
@@ -1014,7 +1024,7 @@
 		A9AB486017F0AEFD000AA72E /* SoundView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A9AB486117F0AEFD000AA72E /* English */,
+				A924A5101D4B9E66008301A7 /* Base */,
 			);
 			name = SoundView.xib;
 			sourceTree = "<group>";
@@ -1022,7 +1032,7 @@
 		A9AB486217F0AEFD000AA72E /* VideoView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A9AB486317F0AEFD000AA72E /* English */,
+				A924A5111D4B9E66008301A7 /* Base */,
 			);
 			name = VideoView.xib;
 			sourceTree = "<group>";
@@ -1030,7 +1040,7 @@
 		A9B46AC012B79E230040517A /* SBDocument.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A9B46AC112B79E230040517A /* English */,
+				A924A50C1D4B9E66008301A7 /* Base */,
 			);
 			name = SBDocument.xib;
 			sourceTree = "<group>";
@@ -1038,7 +1048,7 @@
 		A9BC410618D9ABC000F8C92C /* QueueItem.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A9BC410718D9ABC000F8C92C /* English */,
+				A924A5191D4B9E66008301A7 /* Base */,
 			);
 			name = QueueItem.xib;
 			sourceTree = "<group>";
@@ -1046,7 +1056,7 @@
 		A9C055360F6D395B00AF15B5 /* FileImport.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A9C055330F6D394F00AF15B5 /* English */,
+				A924A5131D4B9E66008301A7 /* Base */,
 			);
 			name = FileImport.xib;
 			sourceTree = "<group>";
@@ -1054,7 +1064,7 @@
 		A9C5FA7219FA2FEC0051F3FF /* SBLogWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A9C5FA7319FA2FEC0051F3FF /* English */,
+				A924A51B1D4B9E67008301A7 /* Base */,
 			);
 			name = SBLogWindow.xib;
 			sourceTree = "<group>";
@@ -1062,7 +1072,7 @@
 		A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A9D4B8661C05BD04007845C4 /* English */,
+				A924A5161D4B9E66008301A7 /* Base */,
 			);
 			name = SBChapterSearch.xib;
 			sourceTree = "<group>";
@@ -1070,7 +1080,7 @@
 		A9DA3BA11B918D6F00F1E40C /* ExceptionAlert.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A9DA3BA21B918D6F00F1E40C /* English */,
+				A924A51D1D4B9E67008301A7 /* Base */,
 			);
 			name = ExceptionAlert.xib;
 			sourceTree = "<group>";
@@ -1078,7 +1088,7 @@
 		A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A9EEA5F718D654B9008B54B4 /* English */,
+				A924A5181D4B9E66008301A7 /* Base */,
 			);
 			name = QueueOptions.xib;
 			sourceTree = "<group>";
@@ -1086,7 +1096,7 @@
 		CD4E6E5B12F744210095C84F /* ArtworkSelector.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CD4E6E5C12F744210095C84F /* English */,
+				A924A5151D4B9E66008301A7 /* Base */,
 			);
 			name = ArtworkSelector.xib;
 			sourceTree = "<group>";
@@ -1094,7 +1104,7 @@
 		CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CD71FEA512F1B62600F0A98D /* English */,
+				A924A5141D4B9E66008301A7 /* Base */,
 			);
 			name = MetadataSearch.xib;
 			sourceTree = "<group>";

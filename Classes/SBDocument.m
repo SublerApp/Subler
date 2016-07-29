@@ -582,7 +582,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     if (row == -1) {
         controller = [[SBMovieViewController alloc] initWithNibName:@"MovieView" bundle:nil];
-        [controller setMetadata:self.mp4.metadata];
+        [(SBMovieViewController *)controller setMetadata:self.mp4.metadata];
     } else if ([track isMemberOfClass:[MP42ChapterTrack class]]) {
         controller = [[SBChapterViewController alloc] initWithNibName:@"ChapterView" bundle:nil];
         [controller setTrack:track];

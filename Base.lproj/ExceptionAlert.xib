@@ -22,27 +22,25 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="3">
-                        <rect key="frame" x="20" y="302" width="70" height="61"/>
+                        <rect key="frame" x="20" y="289" width="70" height="74"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="74" id="IMj-Nm-EWs"/>
                             <constraint firstAttribute="width" constant="70" id="ZAt-Up-qvv"/>
                         </constraints>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSApplicationIcon" id="4"/>
                     </imageView>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="520" translatesAutoresizingMaskIntoConstraints="NO" id="9">
-                        <rect key="frame" x="95" y="323" width="524" height="40"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="40" id="W1j-K3-veW"/>
-                        </constraints>
+                        <rect key="frame" x="95" y="329" width="524" height="34"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="An internal error has occurred. You can choose to continue in an unstable state, or crash." id="10">
                             <font key="font" metaFont="systemBold"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="335" translatesAutoresizingMaskIntoConstraints="NO" id="11">
-                        <rect key="frame" x="95" y="282" width="523" height="41"/>
+                    <textField verticalHuggingPriority="749" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="335" translatesAutoresizingMaskIntoConstraints="NO" id="11">
+                        <rect key="frame" x="95" y="289" width="523" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="41" id="Ql9-QF-o9V"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="ClI-jq-OLh"/>
                         </constraints>
                         <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" title="Reason contents go here." id="12">
                             <font key="font" metaFont="smallSystem"/>
@@ -58,10 +56,7 @@
                         </connections>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                        <rect key="frame" x="418" y="12" width="96" height="32"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="84" id="oTd-e9-KRx"/>
-                        </constraints>
+                        <rect key="frame" x="456" y="12" width="76" height="32"/>
                         <buttonCell key="cell" type="push" title="Crash" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="14">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -74,10 +69,7 @@ Gw
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="15">
-                        <rect key="frame" x="526" y="12" width="97" height="32"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="85" id="ky7-bO-Fqq"/>
-                        </constraints>
+                        <rect key="frame" x="528" y="12" width="95" height="32"/>
                         <buttonCell key="cell" type="push" title="Continue" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="16">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -90,16 +82,16 @@ DQ
                         </connections>
                     </button>
                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19">
-                        <rect key="frame" x="20" y="60" width="596" height="206"/>
+                        <rect key="frame" x="20" y="60" width="596" height="213"/>
                         <clipView key="contentView" id="RBQ-rK-0Rs">
-                            <rect key="frame" x="1" y="1" width="594" height="204"/>
+                            <rect key="frame" x="1" y="1" width="594" height="211"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" smartInsertDelete="YES" id="22">
-                                    <rect key="frame" x="0.0" y="0.0" width="594" height="204"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="594" height="211"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="594" height="204"/>
+                                    <size key="minSize" width="594" height="211"/>
                                     <size key="maxSize" width="759" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
@@ -114,7 +106,7 @@ DQ
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="20">
-                            <rect key="frame" x="579" y="1" width="16" height="204"/>
+                            <rect key="frame" x="579" y="1" width="16" height="211"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
@@ -126,10 +118,9 @@ DQ
                     <constraint firstItem="3" firstAttribute="leading" secondItem="19" secondAttribute="leading" id="JPf-cu-UPl"/>
                     <constraint firstItem="13" firstAttribute="top" secondItem="19" secondAttribute="bottom" constant="20" symbolic="YES" id="OA0-no-6w6"/>
                     <constraint firstAttribute="bottom" secondItem="13" secondAttribute="bottom" constant="19" id="OSL-Ck-iYd"/>
-                    <constraint firstItem="19" firstAttribute="top" secondItem="3" secondAttribute="bottom" constant="36" id="VPp-Ov-J5J"/>
                     <constraint firstItem="3" firstAttribute="top" secondItem="9" secondAttribute="top" id="WcA-aJ-Wo7"/>
                     <constraint firstItem="9" firstAttribute="centerX" secondItem="11" secondAttribute="centerX" id="Yaj-FU-LT1"/>
-                    <constraint firstItem="15" firstAttribute="leading" secondItem="13" secondAttribute="trailing" constant="24" id="bcL-Zd-ssY"/>
+                    <constraint firstItem="15" firstAttribute="leading" secondItem="13" secondAttribute="trailing" constant="8" id="bcL-Zd-ssY"/>
                     <constraint firstItem="9" firstAttribute="trailing" secondItem="15" secondAttribute="trailing" id="diI-dN-cee"/>
                     <constraint firstItem="11" firstAttribute="top" secondItem="9" secondAttribute="bottom" id="jcH-Bs-23D"/>
                     <constraint firstItem="19" firstAttribute="top" secondItem="11" secondAttribute="bottom" constant="16" id="ljq-tU-pxH"/>
@@ -142,7 +133,7 @@ DQ
             <connections>
                 <outlet property="initialFirstResponder" destination="13" id="29"/>
             </connections>
-            <point key="canvasLocation" x="211" y="522.5"/>
+            <point key="canvasLocation" x="168" y="129.5"/>
         </window>
     </objects>
     <resources>
