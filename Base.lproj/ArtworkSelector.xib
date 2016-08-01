@@ -98,7 +98,7 @@ DQ
                         </connections>
                     </button>
                     <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="49">
-                        <rect key="frame" x="234" y="12" width="104" height="32"/>
+                        <rect key="frame" x="265" y="12" width="73" height="32"/>
                         <buttonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="50">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -117,7 +117,7 @@ Gw
                     <constraint firstItem="9" firstAttribute="leading" secondItem="49" secondAttribute="trailing" constant="12" symbolic="YES" id="9KU-rV-HX6"/>
                     <constraint firstAttribute="bottom" secondItem="7" secondAttribute="bottom" constant="19" id="Ef2-6N-v4D"/>
                     <constraint firstItem="8" firstAttribute="top" secondItem="10" secondAttribute="bottom" constant="17" id="KQW-kp-ljW"/>
-                    <constraint firstItem="49" firstAttribute="leading" secondItem="7" secondAttribute="trailing" constant="66" id="KZN-qg-yUG"/>
+                    <constraint firstItem="49" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7" secondAttribute="trailing" constant="66" id="KZN-qg-yUG"/>
                     <constraint firstItem="7" firstAttribute="baseline" secondItem="49" secondAttribute="baseline" id="X0P-3j-fGS"/>
                     <constraint firstItem="8" firstAttribute="trailing" secondItem="9" secondAttribute="trailing" id="fJ9-o3-pFG"/>
                     <constraint firstItem="10" firstAttribute="top" secondItem="4" secondAttribute="top" constant="20" symbolic="YES" id="kpP-bZ-e5s"/>

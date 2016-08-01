@@ -401,6 +401,11 @@
                         <menu key="menu" title="OtherViews" id="LfV-JG-4EY"/>
                     </popUpButtonCell>
                     <connections>
+                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueFixTrackLanguageValue" previousBinding="Xnw-Nt-5dZ" id="eg8-T5-jSl">
+                            <dictionary key="options">
+                                <bool key="NSValidatesImmediately" value="YES"/>
+                            </dictionary>
+                        </binding>
                         <binding destination="-2" name="content" keyPath="self.languages" id="Xnw-Nt-5dZ">
                             <dictionary key="options">
                                 <string key="NSNoSelectionPlaceholder">Unknown</string>
@@ -408,16 +413,11 @@
                                 <string key="NSNullPlaceholder">Unknown</string>
                             </dictionary>
                         </binding>
-                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueFixTrackLanguageValue" previousBinding="Xnw-Nt-5dZ" id="eg8-T5-jSl">
-                            <dictionary key="options">
-                                <bool key="NSValidatesImmediately" value="YES"/>
-                            </dictionary>
-                        </binding>
                         <binding destination="-2" name="enabled" keyPath="self.options.SBQueueFixTrackLanguage" id="KJY-da-f0t"/>
                     </connections>
                 </popUpButton>
             </subviews>
-            <point key="canvasLocation" x="21.5" y="323"/>
+            <point key="canvasLocation" x="162" y="185"/>
         </customView>
         <arrayController objectClassName="Set" automaticallyPreparesContent="YES" id="vyv-na-Xpo" userLabel="Set Controller">
             <declaredKeys>

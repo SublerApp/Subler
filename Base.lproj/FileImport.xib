@@ -156,7 +156,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="25">
-                        <rect key="frame" x="565" y="13" width="65" height="32"/>
+                        <rect key="frame" x="548" y="13" width="82" height="32"/>
                         <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="28">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -169,7 +169,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="26">
-                        <rect key="frame" x="483" y="13" width="82" height="32"/>
+                        <rect key="frame" x="466" y="13" width="82" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="27">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -197,6 +197,7 @@ Gw
                     <constraint firstItem="26" firstAttribute="baseline" secondItem="25" secondAttribute="baseline" id="AlZ-k8-usu"/>
                     <constraint firstAttribute="bottom" secondItem="26" secondAttribute="bottom" constant="20" symbolic="YES" id="KcL-sz-rgd"/>
                     <constraint firstItem="4" firstAttribute="leading" secondItem="36" secondAttribute="leading" id="P6D-hW-Duj"/>
+                    <constraint firstItem="26" firstAttribute="width" secondItem="25" secondAttribute="width" id="YQp-jV-dmE"/>
                     <constraint firstItem="26" firstAttribute="top" secondItem="4" secondAttribute="bottom" constant="8" id="ZjP-E3-av1"/>
                     <constraint firstItem="13" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="19" id="iOs-ID-2Ec"/>
                     <constraint firstAttribute="trailing" secondItem="4" secondAttribute="trailing" constant="20" symbolic="YES" id="mnc-3M-tQv"/>
@@ -204,6 +205,7 @@ Gw
                     <constraint firstItem="25" firstAttribute="leading" secondItem="26" secondAttribute="trailing" constant="12" symbolic="YES" id="rNA-mf-SdH"/>
                 </constraints>
             </view>
+            <point key="canvasLocation" x="209" y="162"/>
         </window>
         <menu id="Nqo-5L-aDh">
             <items>

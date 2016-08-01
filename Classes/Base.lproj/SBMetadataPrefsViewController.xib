@@ -183,7 +183,7 @@
                 </popUpButton>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="ZMK-Xt-bJh">
                     <rect key="frame" x="18" y="18" width="264" height="18"/>
-                    <buttonCell key="cell" type="check" title="Keep empty annotations after import" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7Ek-lI-5Lo">
+                    <buttonCell key="cell" type="check" title="Keep empty annotations" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7Ek-lI-5Lo">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
