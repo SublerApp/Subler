@@ -879,8 +879,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
                 [self updateChapters:chapters fromCSVFile:panel.URLs.firstObject];
             }
             else {
-                [self performSelectorOnMainThread:@selector(showImportSheet:)
-                                       withObject:panel.URLs waitUntilDone: NO];
+                [self showImportSheet:panel.URLs];
             }
         }
     }];
