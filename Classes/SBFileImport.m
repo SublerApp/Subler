@@ -374,7 +374,11 @@
     }
 
     [selection enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        self->_importCheckArray[idx] = @(value);
+        MP42Track *track = self->_tracks[idx];
+        if ([track isKindOfClass:[MP42Track class]] &&
+            (isTrackMuxable(track.format) || trackNeedConversion(track.format))) {
+            self->_importCheckArray[idx] = @(value);
+        }
     }];
 
     [tracksTableView reloadDataForRowIndexes:selection columnIndexes:[NSIndexSet indexSetWithIndex:0]];
