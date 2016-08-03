@@ -38,6 +38,11 @@ static void *SBMetadataPrefsViewControllerContex = &SBMetadataPrefsViewControlle
 
 @implementation SBMetadataPrefsViewController
 
+- (NSString *)nibName
+{
+    return @"SBMetadataPrefsViewController";
+}
+
 - (void)loadView
 {
     [super loadView];

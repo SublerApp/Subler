@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11173.2" systemVersion="16A238m" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="16A270f" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11173.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBMetadataPrefsViewController">
@@ -181,7 +181,7 @@
                         <action selector="addMetadataItem:" target="-2" id="wQl-dy-iQm"/>
                     </connections>
                 </popUpButton>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="ZMK-Xt-bJh">
+                <button horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="ZMK-Xt-bJh">
                     <rect key="frame" x="18" y="18" width="264" height="18"/>
                     <buttonCell key="cell" type="check" title="Keep empty annotations" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7Ek-lI-5Lo">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -281,6 +281,7 @@
             </subviews>
             <constraints>
                 <constraint firstItem="Jdh-Cj-6ef" firstAttribute="bottom" secondItem="sd5-qb-K5v" secondAttribute="bottom" id="0SP-GV-ri1"/>
+                <constraint firstItem="Jdh-Cj-6ef" firstAttribute="leading" secondItem="1XK-zr-YdW" secondAttribute="leading" id="1EI-3q-Cy7"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="2i2-lP-HkJ"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" symbolic="YES" id="7au-yR-DYD"/>
                 <constraint firstAttribute="trailing" secondItem="1XK-zr-YdW" secondAttribute="trailing" constant="20" symbolic="YES" id="9fj-nw-Dnj"/>
@@ -288,12 +289,11 @@
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="bottom" secondItem="1XK-zr-YdW" secondAttribute="bottom" id="BRg-Qn-cnk"/>
                 <constraint firstAttribute="trailing" secondItem="ZMK-Xt-bJh" secondAttribute="trailing" constant="270" id="DbB-rO-WGW"/>
                 <constraint firstItem="ZMK-Xt-bJh" firstAttribute="trailing" secondItem="Y15-gP-AOw" secondAttribute="trailing" constant="-250" id="FE7-1p-ZNW"/>
+                <constraint firstItem="8sr-aI-VZy" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="HFP-B1-ScR"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="leading" secondItem="Y15-gP-AOw" secondAttribute="leading" id="HMX-Qb-8MC"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="centerY" secondItem="1XK-zr-YdW" secondAttribute="centerY" id="JHk-tE-xQI"/>
                 <constraint firstItem="Jdh-Cj-6ef" firstAttribute="top" secondItem="h1q-Xr-y6R" secondAttribute="bottom" constant="8" symbolic="YES" id="NcZ-Os-USj"/>
-                <constraint firstItem="Jdh-Cj-6ef" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="166" id="QHK-k0-cPs"/>
                 <constraint firstItem="1XK-zr-YdW" firstAttribute="leading" secondItem="h1q-Xr-y6R" secondAttribute="trailing" constant="8" symbolic="YES" id="cCT-Qp-Bxz"/>
-                <constraint firstItem="Jdh-Cj-6ef" firstAttribute="leading" secondItem="8sr-aI-VZy" secondAttribute="leading" constant="146" id="cbe-Ro-umj"/>
                 <constraint firstItem="Jdh-Cj-6ef" firstAttribute="top" secondItem="sd5-qb-K5v" secondAttribute="top" id="ewc-at-D5g"/>
                 <constraint firstItem="8sr-aI-VZy" firstAttribute="top" secondItem="Jdh-Cj-6ef" secondAttribute="bottom" constant="8" id="gVT-X2-Zcu"/>
                 <constraint firstItem="ZMK-Xt-bJh" firstAttribute="top" secondItem="Y15-gP-AOw" secondAttribute="bottom" constant="18" id="jNv-GA-dH3"/>
@@ -301,8 +301,8 @@
                 <constraint firstItem="Y15-gP-AOw" firstAttribute="top" secondItem="8sr-aI-VZy" secondAttribute="bottom" constant="8" id="mFt-Ao-lHu"/>
                 <constraint firstItem="Y15-gP-AOw" firstAttribute="trailing" secondItem="8sr-aI-VZy" secondAttribute="trailing" id="mXF-1R-Sbp"/>
                 <constraint firstAttribute="bottom" secondItem="ZMK-Xt-bJh" secondAttribute="bottom" constant="20" symbolic="YES" id="qbM-tp-ooC"/>
+                <constraint firstItem="sd5-qb-K5v" firstAttribute="leading" secondItem="Jdh-Cj-6ef" secondAttribute="trailing" constant="-1" id="vIk-e5-WB3"/>
                 <constraint firstItem="1XK-zr-YdW" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="166" id="yZg-V9-bxH"/>
-                <constraint firstItem="sd5-qb-K5v" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="197" id="zDr-8Q-IQa"/>
             </constraints>
             <point key="canvasLocation" x="-420" y="-469.5"/>
         </customView>
