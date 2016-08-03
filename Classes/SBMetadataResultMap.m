@@ -143,7 +143,7 @@
              [SBMetadataResultMapItem itemWithKey:@"Name"         value:@[@"{Name}"]],
              [SBMetadataResultMapItem itemWithKey:@"Artist"       value:@[@"{Series Name}"]],
              [SBMetadataResultMapItem itemWithKey:@"Album Artist" value:@[@"{Series Name}"]],
-             [SBMetadataResultMapItem itemWithKey:@"Album"        value:@[@"{Series Name}"]],
+             [SBMetadataResultMapItem itemWithKey:@"Album"        value:@[@"{Series Name}", @", Season ", @"{Season}"]],
              [SBMetadataResultMapItem itemWithKey:@"Composer"     value:@[@"{Composer}"]],
              [SBMetadataResultMapItem itemWithKey:@"Genre"        value:@[@"{Genre}"]],
              [SBMetadataResultMapItem itemWithKey:@"Release Date" value:@[@"{Release Date}"]],
@@ -172,7 +172,6 @@
              [SBMetadataResultMapItem itemWithKey:@"artistID"             value:@[@"{artistID}"]],
              [SBMetadataResultMapItem itemWithKey:@"playlistID"           value:@[@"{playlistID}"]],
              [SBMetadataResultMapItem itemWithKey:@"iTunes Country"       value:@[@"{iTunes Country}"]],
-             [SBMetadataResultMapItem itemWithKey:@"Sort Album"           value:@[@"{Series Name}", @", Season ", @"{Season}"]],
              ];
 
     return [[self alloc] initWithItems:items type:SBMetadataResultMapTypeTvShow];
@@ -249,7 +248,6 @@
 {
     NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:value];
     [self setObject:encodedObject forKey:defaultName];
-
 }
 
 @end

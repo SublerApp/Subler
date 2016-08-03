@@ -158,11 +158,6 @@ static void *SBMetadataPrefsViewControllerContex = &SBMetadataPrefsViewControlle
     }
 }
 
-- (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString
-{
-    return nil;
-}
-
 - (NSArray *)tokenField:(NSTokenField *)tokenField completionsForSubstring:(NSString *)substring indexOfToken:(NSInteger)tokenIndex
     indexOfSelectedItem:(NSInteger *)selectedIndex
 {
