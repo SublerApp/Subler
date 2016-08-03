@@ -69,9 +69,12 @@
         for (NSString *component in item.value) {
             if ([component hasPrefix:@"{"] && [component hasSuffix:@"}"] && component.length > 2) {
                 NSString *subComponent = [component substringWithRange:NSMakeRange(1, component.length - 2)];
-                NSString *value = _tags[subComponent];
-                if (value.length) {
+                id value = _tags[subComponent];
+                if ([value isKindOfClass:[NSString class]] && [value length]) {
                     [result appendString:value];
+                }
+                else if ([value isKindOfClass:[NSNumber class]]) {
+                    [result appendString:[value stringValue]];
                 }
             }
             else {
