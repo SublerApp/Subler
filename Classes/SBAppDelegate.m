@@ -103,16 +103,15 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-#ifdef DONATION
     BOOL firstLaunch = YES;
 
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"FirstLaunch"]) {
         firstLaunch = NO;
     }
 
-    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"WarningDonate"]) {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"WarningDonate"]) {
         NSDate *lastDonateDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"DonateAskDate"];
-        const BOOL timePassed = !lastDonateDate || (-1 * [lastDonateDate timeIntervalSinceNow]) >= DONATE_NAG_TIME;
+        const BOOL timePassed = !lastDonateDate || (-1 * lastDonateDate.timeIntervalSinceNow) >= DONATE_NAG_TIME;
 
         if (!firstLaunch && timePassed) {
             [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"DonateAskDate"];
@@ -128,8 +127,8 @@
             [alert setAlertStyle: NSInformationalAlertStyle];
 
             [alert addButtonWithTitle: NSLocalizedString(@"Donate", "Donation -> button")];
-            NSButton * noDonateButton = [alert addButtonWithTitle: NSLocalizedString(@"Nope", "Donation -> button")];
-            [noDonateButton setKeyEquivalent:@"\e"]; //escape key
+            NSButton *noDonateButton = [alert addButtonWithTitle: NSLocalizedString(@"Nope", "Donation -> button")];
+            [noDonateButton setKeyEquivalent:[NSString stringWithFormat:@"%c", 0x1B]]; //escape key
 
             const BOOL allowNeverAgain = lastDonateDate != nil; //hide the "don't show again" check the first time - give them time to try the app
             [alert setShowsSuppressionButton:allowNeverAgain];
@@ -145,16 +144,13 @@
             if (allowNeverAgain) {
                 [[NSUserDefaults standardUserDefaults] setBool:([[alert suppressionButton] state] != NSOnState) forKey:@"WarningDonate"];
             }
-
-            [alert release];
         }
     }
 
     if (firstLaunch) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FirstLaunch"];
     }
-#endif
-    
+
     [SBQueueController sharedManager];
 }
 
@@ -200,7 +196,7 @@
 - (IBAction) linkDonate:(id)sender
 {
     [[NSWorkspace sharedWorkspace] openURL: [NSURL
-                                             URLWithString:@"https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=YKZHVC6HG6AFQ&lc=GB&item_name=Subler&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"]];
+                                             URLWithString:@"https://subler.org/donate.html"]];
 }
 
 @end
