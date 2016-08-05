@@ -22,9 +22,9 @@
 /**
  *  Loads the subtitles in the parent directory
  */
-- (NSArray<MP42SubtitleTrack *> *)loadSubtitles:(NSURL *)url {
+- (NSArray<MP42FileImporter *> *)loadSubtitles:(NSURL *)url {
     NSError *error = nil;
-    NSMutableArray<MP42SubtitleTrack *> *tracksArray = [[NSMutableArray alloc] init];
+    NSMutableArray<MP42FileImporter *> *importersArray = [[NSMutableArray alloc] init];
     NSArray<NSURL *> *directory = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:url.URLByDeletingLastPathComponent
                                                        includingPropertiesForKeys:nil
                                                                           options:NSDirectoryEnumerationSkipsSubdirectoryDescendants |
@@ -45,23 +45,24 @@
                 if (result == NSOrderedSame) {
                     MP42FileImporter *fileImporter = [[MP42FileImporter alloc] initWithURL:dirUrl
                                                                                       error:&error];
-
-                    for (MP42SubtitleTrack *track in fileImporter.tracks) {
-                        [tracksArray addObject:track];
+                    if (fileImporter) {
+                        [importersArray addObject:fileImporter];
                     }
                 }
             }
         }
     }
 
-    return tracksArray;
+    return importersArray;
 }
 
 - (void)runAction:(SBQueueItem *)item {
     // Search for external subtitles files
-    NSArray<MP42SubtitleTrack *> *subtitles = [self loadSubtitles:item.fileURL];
-    for (MP42SubtitleTrack *subTrack in subtitles) {
-        [item.mp4File addTrack:subTrack];
+    NSArray<MP42FileImporter *> *subtitles = [self loadSubtitles:item.fileURL];
+    for (MP42FileImporter *fileImporter in subtitles) {
+        for (MP42SubtitleTrack *subTrack in fileImporter.tracks) {
+            [item.mp4File addTrack:subTrack];
+        }
     }
 }
 
