@@ -208,15 +208,19 @@
         return;
     }
 
-    NSRect windowRect = window.frame;
-    CGFloat difference = (view.frame.size.height - window.contentView.frame.size.height);
-    windowRect.origin.y -= difference;
-    windowRect.size.height += difference;
-
-    view.hidden = YES;
     window.contentView = view;
-    [window setFrame:windowRect display:YES animate:YES];
-    view.hidden = NO;
+
+    if (window.isVisible) {
+        view.hidden = YES;
+
+        [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+            context.allowsImplicitAnimation = YES;
+            [window layoutIfNeeded];
+
+        } completionHandler:^{
+            view.hidden = NO;
+        }];
+    }
 
     // Set title label
     if (sender) {

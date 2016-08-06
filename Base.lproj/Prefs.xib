@@ -173,7 +173,10 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="236">
-                    <rect key="frame" x="271" y="109" width="76" height="26"/>
+                    <rect key="frame" x="271" y="109" width="85" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="aQW-UD-jgA"/>
+                    </constraints>
                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="239" id="237">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -204,6 +207,7 @@
                 <constraint firstItem="78" firstAttribute="top" secondItem="77" secondAttribute="bottom" constant="8" id="0x2-Rj-d0b"/>
                 <constraint firstItem="236" firstAttribute="baseline" secondItem="206" secondAttribute="baseline" id="1e6-Kc-Yar"/>
                 <constraint firstItem="139" firstAttribute="top" secondItem="206" secondAttribute="bottom" constant="44" id="1sr-mN-y0J"/>
+                <constraint firstAttribute="bottom" secondItem="136" secondAttribute="bottom" constant="20" id="BW8-Gf-5DX"/>
                 <constraint firstItem="206" firstAttribute="width" secondItem="81" secondAttribute="width" id="DM0-Ke-aV0"/>
                 <constraint firstItem="236" firstAttribute="leading" secondItem="206" secondAttribute="trailing" constant="10" id="GjD-9H-F8M"/>
                 <constraint firstItem="81" firstAttribute="width" secondItem="78" secondAttribute="width" id="H21-rp-ydr"/>
@@ -234,7 +238,7 @@
                 <constraint firstItem="80" firstAttribute="trailing" secondItem="79" secondAttribute="trailing" id="yDn-Wd-KXg"/>
                 <constraint firstAttribute="trailing" secondItem="79" secondAttribute="trailing" priority="750" constant="157" id="zbp-VJ-Uup"/>
             </constraints>
-            <point key="canvasLocation" x="-64" y="-641"/>
+            <point key="canvasLocation" x="-32" y="-679"/>
         </customView>
         <customView id="94" userLabel="Advanced View">
             <rect key="frame" x="0.0" y="0.0" width="600" height="242"/>
@@ -248,7 +252,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="99">
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99">
                     <rect key="frame" x="282" y="110" width="137" height="18"/>
                     <buttonCell key="cell" type="check" title="AC-3 audio to AAC" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="104">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -258,7 +262,7 @@
                         <binding destination="3" name="value" keyPath="values.SBAudioConvertAC3" id="112"/>
                     </connections>
                 </button>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="3Jb-tI-sSK">
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Jb-tI-sSK">
                     <rect key="frame" x="300" y="130" width="88" height="18"/>
                     <buttonCell key="cell" type="check" title="Keep DTS" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="LFa-OQ-j5q">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -269,7 +273,7 @@
                         <binding destination="3" name="value" keyPath="values.SBAudioKeepDts" id="M1l-zj-oV1"/>
                     </connections>
                 </button>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="olE-Dy-uJm">
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="olE-Dy-uJm">
                     <rect key="frame" x="282" y="150" width="137" height="18"/>
                     <buttonCell key="cell" type="check" title="DTS audio to AAC" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="ZcC-1D-D4s">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -338,7 +342,7 @@
                         <binding destination="123" name="selectedTag" keyPath="values.SBAudioMixdown" id="129"/>
                     </connections>
                 </popUpButton>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="edJ-A5-eyf">
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="edJ-A5-eyf">
                     <rect key="frame" x="300" y="90" width="88" height="18"/>
                     <buttonCell key="cell" type="check" title="Keep AC-3" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Zgy-z5-6UG">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -357,7 +361,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="hjZ-wQ-Sbb">
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hjZ-wQ-Sbb">
                     <rect key="frame" x="282" y="170" width="119" height="18"/>
                     <buttonCell key="cell" type="check" title="VobSub to Tx3g" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="wgy-N5-9cB">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -367,7 +371,7 @@
                         <binding destination="3" name="value" keyPath="values.SBSubtitleConvertBitmap" id="beC-0w-uVY"/>
                     </connections>
                 </button>
-                <button horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="3fA-qQ-VvX">
+                <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="3fA-qQ-VvX">
                     <rect key="frame" x="283" y="204" width="162" height="18"/>
                     <buttonCell key="cell" type="check" title="Keep groups organized" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Yld-Or-7Hu">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -430,17 +434,17 @@
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="123"/>
         <customView id="142" userLabel="Sets View">
-            <rect key="frame" x="0.0" y="0.0" width="396" height="263"/>
+            <rect key="frame" x="0.0" y="0.0" width="396" height="266"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="163">
-                    <rect key="frame" x="20" y="46" width="356" height="197"/>
+                    <rect key="frame" x="20" y="46" width="356" height="200"/>
                     <clipView key="contentView" id="C7d-ji-Qle">
-                        <rect key="frame" x="1" y="1" width="354" height="195"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="1" y="1" width="354" height="198"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" id="166" customClass="SBTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="354" height="195"/>
+                                <rect key="frame" x="0.0" y="0.0" width="354" height="198"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -483,6 +487,9 @@
                             </tableView>
                         </subviews>
                     </clipView>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="roE-QW-8QP"/>
+                    </constraints>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="165">
                         <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
