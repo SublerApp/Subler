@@ -571,15 +571,18 @@
         if (self.resultsArray != nil) {
             SBMetadataResult *result = (self.resultsArray)[rowIndex];
             if ((result.mediaKind == 10) && ((self.resultsArray).count > 1)) { // TV show
-                return [NSString stringWithFormat:@"%@x%@ - %@", result[@"Season"], result[@"Episode #"], result[@"Name"]];
+                return [NSString stringWithFormat:@"%@x%@ - %@", result[SBMetadataResultSeason], result[SBMetadataResultEpisodeNumber], result[SBMetadataResultName]];
             } else {
-                return result[@"Name"];
+                return result[SBMetadataResultName];
             }
         }
     } else if (tableView == (NSTableView *) metadataTable) {
         if (self.selectedResult != nil) {
             if ([tableColumn.identifier isEqualToString:@"name"]) {
-                return [self boldString:(self.selectedResultTagsArray)[rowIndex]];
+                NSString *key = self.selectedResultTagsArray[rowIndex];
+                key = [key stringByReplacingOccurrencesOfString:@"{" withString:@""];
+                key = [key stringByReplacingOccurrencesOfString:@"}" withString:@""];
+                return [self boldString:key];
             }
             if ([tableColumn.identifier isEqualToString:@"value"]) {
                 return (self.selectedResultTags)[(self.selectedResultTagsArray)[rowIndex]];
