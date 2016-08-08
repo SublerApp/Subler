@@ -281,6 +281,20 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BkU-sx-jUf">
+                    <rect key="frame" x="410" y="100" width="120" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="MKe-YL-gx8"/>
+                        <constraint firstAttribute="height" constant="22" id="s4J-9D-t6x"/>
+                    </constraints>
+                    <buttonCell key="cell" type="smallSquare" title="Restore Defaults" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nBh-jv-KDG">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="restoreDefaults:" target="-2" id="UWo-hr-lAe"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="Jdh-Cj-6ef" firstAttribute="bottom" secondItem="sd5-qb-K5v" secondAttribute="bottom" id="0SP-GV-ri1"/>
@@ -288,6 +302,7 @@
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="2i2-lP-HkJ"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" symbolic="YES" id="7au-yR-DYD"/>
                 <constraint firstAttribute="trailing" secondItem="1XK-zr-YdW" secondAttribute="trailing" constant="20" symbolic="YES" id="9fj-nw-Dnj"/>
+                <constraint firstItem="BkU-sx-jUf" firstAttribute="baseline" secondItem="sd5-qb-K5v" secondAttribute="baseline" id="BCC-cP-xFO"/>
                 <constraint firstItem="ZMK-Xt-bJh" firstAttribute="leading" secondItem="sd5-qb-K5v" secondAttribute="trailing" constant="-203" id="BJ5-Wy-0IT"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="bottom" secondItem="1XK-zr-YdW" secondAttribute="bottom" id="BRg-Qn-cnk"/>
                 <constraint firstAttribute="trailing" secondItem="ZMK-Xt-bJh" secondAttribute="trailing" constant="270" id="DbB-rO-WGW"/>
@@ -296,6 +311,7 @@
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="leading" secondItem="Y15-gP-AOw" secondAttribute="leading" id="HMX-Qb-8MC"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="centerY" secondItem="1XK-zr-YdW" secondAttribute="centerY" id="JHk-tE-xQI"/>
                 <constraint firstItem="Jdh-Cj-6ef" firstAttribute="top" secondItem="h1q-Xr-y6R" secondAttribute="bottom" constant="8" symbolic="YES" id="NcZ-Os-USj"/>
+                <constraint firstItem="BkU-sx-jUf" firstAttribute="trailing" secondItem="1XK-zr-YdW" secondAttribute="trailing" id="bp9-bU-BRc"/>
                 <constraint firstItem="1XK-zr-YdW" firstAttribute="leading" secondItem="h1q-Xr-y6R" secondAttribute="trailing" constant="8" symbolic="YES" id="cCT-Qp-Bxz"/>
                 <constraint firstItem="Jdh-Cj-6ef" firstAttribute="top" secondItem="sd5-qb-K5v" secondAttribute="top" id="ewc-at-D5g"/>
                 <constraint firstItem="8sr-aI-VZy" firstAttribute="top" secondItem="Jdh-Cj-6ef" secondAttribute="bottom" constant="8" id="gVT-X2-Zcu"/>

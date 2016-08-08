@@ -58,8 +58,8 @@ static void *SBMetadataPrefsViewControllerContex = &SBMetadataPrefsViewControlle
     SBMetadataResultMap *savedMovieMap = [defaults SB_resultMapForKey:@"SBMetadataMovieResultMap"];
     SBMetadataResultMap *savedTvShowMap = [defaults SB_resultMapForKey:@"SBMetadataTvShowResultMap"];
 
-    _movieMap = savedMovieMap ? savedMovieMap :[SBMetadataResultMap movieDefaultMap];
-    _tvShowMap = savedTvShowMap ? savedTvShowMap :[SBMetadataResultMap tvShowDefaultMap];
+    _movieMap = savedMovieMap ? savedMovieMap : [SBMetadataResultMap movieDefaultMap];
+    _tvShowMap = savedTvShowMap ? savedTvShowMap : [SBMetadataResultMap tvShowDefaultMap];
 
     // Set up the sort descriptor
     NSArray<NSString *> *context = [MP42Metadata availableMetadata];
@@ -121,6 +121,19 @@ static void *SBMetadataPrefsViewControllerContex = &SBMetadataPrefsViewControlle
 - (IBAction)removeMetadata:(id)sender
 {
     [self.itemsController removeObjects:self.itemsController.selectedObjects];
+    [self save];
+}
+
+- (IBAction)restoreDefaults:(id)sender
+{
+    if (self.typesController.selectionIndex) {
+        _tvShowMap = [SBMetadataResultMap tvShowDefaultMap];
+        self.map = self.tvShowMap;
+    }
+    else {
+        _movieMap = [SBMetadataResultMap movieDefaultMap];
+        self.map = self.movieMap;
+    }
     [self save];
 }
 
