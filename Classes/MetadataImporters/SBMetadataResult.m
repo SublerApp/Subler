@@ -10,6 +10,41 @@
 #import "SBMetadataResultMap.h"
 #import <MP42Foundation/MP42Metadata.h>
 
+NSString *const MP42MediaTypeVideo = @"Video Track";
+
+// Common Keys
+NSString *const SBMetadataResultName = @"{Name}";
+NSString *const SBMetadataResultComposer = @"{Composer}";
+NSString *const SBMetadataResultGenre = @"{Genre}";
+NSString *const SBMetadataResultReleaseDate = @"{Release Date}";
+NSString *const SBMetadataResultDescription = @"{Description}";
+NSString *const SBMetadataResultLongDescription = @"{Long Description}";
+NSString *const SBMetadataResultRating = @"{Rating}";
+NSString *const SBMetadataResultStudio = @"{Studio}";
+NSString *const SBMetadataResultCast = @"{Cast}";
+NSString *const SBMetadataResultDirector = @"{Director}";
+NSString *const SBMetadataResultProducers = @"{Producers}";
+NSString *const SBMetadataResultScreenwriters = @"{Screenwriters}";
+NSString *const SBMetadataResultExecutiveProducer = @"{Executive Producer}";
+NSString *const SBMetadataResultCopyright = @"{Copyright}";
+
+// iTunes Keys
+NSString *const SBMetadataResultContentID = @"{contentID}";
+NSString *const SBMetadataResultArtistID = @"{artistID}";
+NSString *const SBMetadataResultPlaylistID = @"{playlistID}";
+NSString *const SBMetadataResultITunesCountry = @"{iTunes Country}";
+NSString *const SBMetadataResultITunesURL = @"{iTunes URL}";
+
+// TV Show Keys
+NSString *const SBMetadataResultSeriesName = @"{Series Name}";
+NSString *const SBMetadataResultSeriesDescription = @"{Series Description}";
+NSString *const SBMetadataResultTrackNumber = @"{Track #}";
+NSString *const SBMetadataResultDiskNumber = @"{Disk #}";
+NSString *const SBMetadataResultEpisodeNumber = @"{Episode #}";
+NSString *const SBMetadataResultEpisodeID = @"{Episode ID}";
+NSString *const SBMetadataResultSeason = @"{Season}";
+NSString *const SBMetadataResultNetwork = @"{Network}";
+
 @implementation SBMetadataResult
 
 - (instancetype)init
@@ -68,8 +103,7 @@
         NSMutableString *result = [NSMutableString string];
         for (NSString *component in item.value) {
             if ([component hasPrefix:@"{"] && [component hasSuffix:@"}"] && component.length > 2) {
-                NSString *subComponent = [component substringWithRange:NSMakeRange(1, component.length - 2)];
-                id value = _tags[subComponent];
+                id value = _tags[component];
                 if ([value isKindOfClass:[NSString class]] && [value length]) {
                     [result appendString:value];
                 }

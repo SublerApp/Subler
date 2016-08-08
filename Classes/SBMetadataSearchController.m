@@ -401,7 +401,7 @@
     if (self.selectedResult.mediaKind == 10) {
         NSArray *previousTVseries = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Previously used TV series"];
         NSMutableArray *newTVseries;
-        NSString *formattedTVshowName = (self.selectedResultTags)[@"Series Name"];
+        NSString *formattedTVshowName = self.selectedResultTags[SBMetadataResultSeriesName];
 
         if (previousTVseries == nil) {
             newTVseries = [NSMutableArray array];
