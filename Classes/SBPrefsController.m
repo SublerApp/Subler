@@ -219,19 +219,26 @@
 
         } completionHandler:^{
             view.hidden = NO;
+            [self SB_setTitle:sender];
         }];
     }
+    else {
+        [self SB_setTitle:sender];
+    }
+}
 
+- (void)SB_setTitle:(id)sender
+{
     // Set title label
     if (sender) {
-        window.title = [sender label];
+        self.window.title = [sender label];
     }
     else {
-        NSToolbar *toolbar = window.toolbar;
+        NSToolbar *toolbar = self.window.toolbar;
         NSString *itemIdentifier = toolbar.selectedItemIdentifier;
         for (NSToolbarItem *item in toolbar.items)
             if ([item.itemIdentifier isEqualToString:itemIdentifier]) {
-                window.title = item.label;
+                self.window.title = item.label;
                 break;
             }
     }
