@@ -269,7 +269,7 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 
 - (SBMetadataResult *)loadMovieMetadata:(SBMetadataResult *)metadata language:(NSString *)language
 {
-	NSData *xmlData = [SBMetadataHelper downloadDataFromURL:[NSURL URLWithString:metadata[@"iTunes URL"]] withCachePolicy:SBDefaultPolicy];
+	NSData *xmlData = [SBMetadataHelper downloadDataFromURL:[NSURL URLWithString:metadata[SBMetadataResultITunesURL]] withCachePolicy:SBDefaultPolicy];
 	if (xmlData) {
         NSDictionary *store = [SBiTunesStore getStoreFor:language];
 		NSXMLDocument *xml = [[NSXMLDocument alloc] initWithData:xmlData options:NSXMLDocumentTidyHTML error:NULL];
