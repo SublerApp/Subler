@@ -402,7 +402,7 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
                                                                                          ratingString:r[@"contentAdvisoryRating"]];
 
 		if (store[@"storeCode"]) {
-            metadata[SBMetadataResultITunesCountry]              = [store[@"storeCode"] stringValue];
+            metadata[SBMetadataResultITunesCountry] = [store[@"storeCode"] stringValue];
 		}
 
         metadata[SBMetadataResultITunesURL] = r[@"trackViewUrl"];
