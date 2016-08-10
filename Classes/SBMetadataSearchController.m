@@ -31,20 +31,14 @@
     IBOutlet NSPopUpButton       *movieMetadataProvider;
 
     IBOutlet NSComboBox          *tvSeriesName;
-    NSMutableArray               *_tvSeriesNameSearchArray;
     IBOutlet NSTextField         *tvSeasonNum;
     IBOutlet NSTextField         *tvEpisodeNum;
     IBOutlet NSPopUpButton       *tvLanguage;
     IBOutlet NSPopUpButton       *tvMetadataProvider;
 
     IBOutlet NSButton            *searchButton;
-    SBMetadataImporter             *_currentSearcher;
 
-    NSArray                      *_resultsArray;
     IBOutlet NSTableView         *resultsTable;
-    SBMetadataResult             *_selectedResult;
-    NSDictionary                 *_selectedResultTags;
-    NSArray                      *_selectedResultTagsArray;
     IBOutlet SBTableView         *metadataTable;
 
     IBOutlet NSButton            *addButton;
@@ -55,6 +49,9 @@
     IBOutlet NSTextField         *progressText;
     
 }
+
+@property (nonatomic, weak) IBOutlet NSTabViewItem *movieTab;
+@property (nonatomic, weak) IBOutlet NSTabViewItem *tvEpisodeTab;
 
 @property (nonatomic, readwrite, strong) SBMetadataImporter *currentSearcher;
 @property (nonatomic, readwrite, strong) NSArray<SBMetadataResult *> *resultsArray;
@@ -173,12 +170,12 @@
 #pragma mark Search input fields
 
 - (void)updateSearchButtonVisibility {
-    if ([searchMode.selectedTabViewItem.label isEqualToString:@"Movie"]) {
+    if (searchMode.selectedTabViewItem == self.movieTab) {
         if (movieName.stringValue.length > 0) {
             [searchButton setEnabled:YES];
             return;
         }
-    } else if ([searchMode.selectedTabViewItem.label isEqualToString:@"TV Episode"]) {
+    } else if (searchMode.selectedTabViewItem == self.tvEpisodeTab) {
         if (tvSeriesName.stringValue.length > 0) {
             if ((tvSeasonNum.stringValue.length == 0) && (tvEpisodeNum.stringValue.length > 0)) {
                 [searchButton setEnabled:NO];
@@ -218,9 +215,9 @@
         [self.currentSearcher cancel];
     }
 
-    if ([searchMode.selectedTabViewItem.label isEqualToString:@"Movie"] && movieName.stringValue.length) {
+    if (searchMode.selectedTabViewItem == self.movieTab && movieName.stringValue.length) {
 
-        [self startProgressReportWithString:[NSString stringWithFormat:@"Searching %@ for movie information…",
+        [self startProgressReportWithString:[NSString stringWithFormat:NSLocalizedString(@"Searching %@ for movie information…", nil),
                                              movieMetadataProvider.selectedItem.title]];
 
 		self.currentSearcher = [SBMetadataImporter importerForProvider:movieMetadataProvider.selectedItem.title];
@@ -230,9 +227,10 @@
                        [self searchForResultsDone:results];
                    }];
 
-    } else if ([searchMode.selectedTabViewItem.label isEqualToString:@"TV Episode"] && tvSeriesName.stringValue.length) {
+    }
+    else if (searchMode.selectedTabViewItem == self.tvEpisodeTab && tvSeriesName.stringValue.length) {
 
-        [self startProgressReportWithString:[NSString stringWithFormat:@"Searching %@ for episode information…",
+        [self startProgressReportWithString:[NSString stringWithFormat:NSLocalizedString(@"Searching %@ for episode information…", nil),
                                              tvMetadataProvider.selectedItem.title]];
 
 		self.currentSearcher = [SBMetadataImporter importerForProvider:tvMetadataProvider.selectedItem.title];
@@ -244,7 +242,8 @@
                           [self searchForResultsDone:results];
                       }];
 
-    } else {
+    }
+    else {
 
         // Nothing to search, reset the table view
         self.resultsArray = nil;
@@ -502,7 +501,7 @@
             [tvSeriesName reloadData];
         } else if (tvSeriesName.stringValue.length > 3) {
             self.tvSeriesNameSearchArray = [NSMutableArray array];
-            [self.tvSeriesNameSearchArray addObject:@"searching…"];
+            [self.tvSeriesNameSearchArray addObject:NSLocalizedString(@"searching…", nil)];
 
             [tvSeriesName reloadData];
             [self.currentSearcher cancel];
@@ -613,7 +612,8 @@ static NSInteger sortFunction (id ldict, id rdict, void *context) {
         if (self.resultsArray && (self.resultsArray).count > 0 && resultsTable.selectedRow > -1) {
             self.selectedResult = (self.resultsArray)[resultsTable.selectedRow];
             self.selectedResultTags = self.selectedResult.tags;
-            self.selectedResultTagsArray = [(self.selectedResultTags).allKeys sortedArrayUsingFunction:sortFunction context:(__bridge void * _Nullable)([MP42Metadata availableMetadata])];
+            self.selectedResultTagsArray = [(self.selectedResultTags).allKeys sortedArrayUsingFunction:sortFunction
+                                                                                               context:(__bridge void * _Nullable)([MP42Metadata availableMetadata])];
             [metadataTable reloadData];
             [addButton setEnabled:YES];
             addButton.keyEquivalent = @"\r";

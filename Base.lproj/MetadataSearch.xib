@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11185.3" systemVersion="16A238m" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11191" systemVersion="16A286a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11185.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11191"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBMetadataSearchController">
@@ -12,12 +12,14 @@
                 <outlet property="movieLanguage" destination="199" id="205"/>
                 <outlet property="movieMetadataProvider" destination="Dqq-15-Mee" id="Bne-Rm-aiX"/>
                 <outlet property="movieName" destination="151" id="154"/>
+                <outlet property="movieTab" destination="64" id="mad-La-OdB"/>
                 <outlet property="progress" destination="6" id="118"/>
                 <outlet property="progressText" destination="176" id="178"/>
                 <outlet property="resultsTable" destination="28" id="123"/>
                 <outlet property="searchButton" destination="67" id="112"/>
                 <outlet property="searchMode" destination="62" id="120"/>
                 <outlet property="tvEpisodeNum" destination="100" id="111"/>
+                <outlet property="tvEpisodeTab" destination="63" id="90p-kF-ogu"/>
                 <outlet property="tvLanguage" destination="192" id="198"/>
                 <outlet property="tvMetadataProvider" destination="217" id="223"/>
                 <outlet property="tvSeasonNum" destination="96" id="110"/>
@@ -403,7 +405,7 @@ DQ
                     </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="422" y="285"/>
+            <point key="canvasLocation" x="98" y="163"/>
         </window>
     </objects>
 </document>
