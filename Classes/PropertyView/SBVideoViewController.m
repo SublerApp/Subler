@@ -120,7 +120,7 @@ static NSString *getLevelName(uint8_t level) {
     
     [alternateGroup selectItemAtIndex:(NSInteger)track.alternate_group];
 
-    if ([track.format isEqualToString:MP42VideoFormatH264] && track.origProfile && track.origLevel) {
+    if (track.format == kMP42VideoCodecType_H264 && track.origProfile && track.origLevel) {
         profileLevelUnchanged.title = [NSString stringWithFormat:@"Current profile: %@ @ %@", 
                                          getProfileName(track.origProfile), getLevelName(track.origLevel)];
         if ((track.origProfile == track.newProfile) && (track.origLevel == track.newLevel)) {
@@ -165,7 +165,7 @@ static NSString *getLevelName(uint8_t level) {
 
         NSInteger i = 1;
         NSInteger selectedItem = 0;
-        for (MP42SubtitleTrack *fileTrack in [mp4file tracksWithMediaType:MP42MediaTypeSubtitle]) {
+        for (MP42SubtitleTrack *fileTrack in [mp4file tracksWithMediaType:kMP42MediaType_Subtitle]) {
             NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ - %@ - %@",
                                                                       fileTrack.trackId ? [NSString stringWithFormat:@"%d", fileTrack.trackId] : @"NA",
                                                                       fileTrack.name,

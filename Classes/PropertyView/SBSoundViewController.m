@@ -42,13 +42,14 @@
 
     _fallbacks = [[NSMutableArray alloc] init];
 
-    if ([self.soundTrack.format isEqualToString:MP42AudioFormatAC3] ||
-        [self.soundTrack.format isEqualToString:MP42AudioFormatEAC3]) {
+    if (self.soundTrack.format == kMP42AudioCodecType_AC3 ||
+        self.soundTrack.format == kMP42AudioCodecType_EnhancedAC3) {
         NSInteger i = 1;
         NSInteger selectedItem = 0;
 
-        for (MP42AudioTrack *fileTrack in [self.file tracksWithMediaType:MP42MediaTypeAudio]) {
-            if ([fileTrack.format isEqualToString:MP42AudioFormatAAC]) {
+        for (MP42AudioTrack *fileTrack in [self.file tracksWithMediaType:kMP42MediaType_Audio]) {
+            if (fileTrack.format == kMP42AudioCodecType_MPEG4AAC ||
+                fileTrack.format == kMP42AudioCodecType_MPEG4AAC_HE) {
                 NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ - %@ - %@",
                                                                           fileTrack.trackId ? [NSString stringWithFormat:@"%d", fileTrack.trackId] : @"na",
                                                                           fileTrack.name,
@@ -78,7 +79,7 @@
     NSInteger i = 1;
     NSInteger selectedItem = 0;
 
-    for (MP42SubtitleTrack *fileTrack in [self.file tracksWithMediaType:MP42MediaTypeSubtitle]) {
+    for (MP42SubtitleTrack *fileTrack in [self.file tracksWithMediaType:kMP42MediaType_Subtitle]) {
         NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ - %@ - %@",
                                                                   fileTrack.trackId ? [NSString stringWithFormat:@"%d", fileTrack.trackId] : @"na",
                                                                   fileTrack.name,

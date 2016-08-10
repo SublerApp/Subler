@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return an array of NSString with the supported tags.
  */
-+ (NSArray<NSString *> *)predefinedTagsForMediaType:(NSString *)mediaType;
++ (NSArray<NSString *> *)predefinedTagsForMediaType:(MP42MediaType)mediaType;
 
 /**
  *  Returns the localized human readable title of a partical tag.
@@ -78,19 +78,19 @@ NS_ASSUME_NONNULL_END
              @"public.translation.voice-over", @"public.translation"];
 }
 
-+ (NSArray<NSString *> *)predefinedTagsForMediaType:(NSString *)mediaType {
++ (NSArray<NSString *> *)predefinedTagsForMediaType:(MP42MediaType)mediaType {
     NSMutableArray *tags = [NSMutableArray array];
     [tags addObjectsFromArray:@[@"public.main-program-content",
                                 @"public.auxiliary-content"]];
 
-    if ([mediaType isEqualToString:MP42MediaTypeAudio]) {
+    if (mediaType == kMP42MediaType_Audio) {
         [tags addObjectsFromArray:@[@"public.accessibility.describes-video",
                                     @"public.translation.dubbed",
                                     @"public.translation.voice-over"]];
     }
 
-    else if ([mediaType isEqualToString:MP42MediaTypeSubtitle] ||
-             [mediaType isEqualToString:MP42MediaTypeClosedCaption]) {
+    else if (mediaType == kMP42MediaType_Subtitle ||
+             mediaType == kMP42MediaType_ClosedCaption) {
 
         [tags addObjectsFromArray:@[@"public.subtitles.forced-only",
                                     @"public.accessibility.transcribes-spoken-dialog",
@@ -99,9 +99,9 @@ NS_ASSUME_NONNULL_END
 
     }
 
-    if ([mediaType isEqualToString:MP42MediaTypeSubtitle] ||
-        [mediaType isEqualToString:MP42MediaTypeClosedCaption] ||
-        [mediaType isEqualToString:MP42MediaTypeAudio]) {
+    if (mediaType == kMP42MediaType_Subtitle ||
+        mediaType == kMP42MediaType_ClosedCaption ||
+        mediaType == kMP42MediaType_Audio) {
 
         [tags addObjectsFromArray:@[@"public.translation"]];
     }

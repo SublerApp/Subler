@@ -194,7 +194,7 @@
     // Search for metadata
     MP42Metadata *metadata = [self searchMetadataForFile:item.fileURL];
 
-    for (MP42Track *track in [item.mp4File tracksWithMediaType:MP42MediaTypeVideo])
+    for (MP42Track *track in [item.mp4File tracksWithMediaType:kMP42MediaType_Video])
         if ([track isKindOfClass:[MP42VideoTrack class]]) {
             MP42VideoTrack *videoTrack = (MP42VideoTrack *)track;
             int hdVideo = isHdVideo((uint64_t)videoTrack.trackWidth, (uint64_t)videoTrack.trackHeight);

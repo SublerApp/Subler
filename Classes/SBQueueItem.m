@@ -173,7 +173,8 @@
 
         for (MP42Track *track in fileImporter.tracks) {
             // AC-3 track, we might need to do the aac + ac3 trick.
-            if ([track.format isEqualToString:MP42AudioFormatAC3]) {
+            if (track.format == kMP42AudioCodecType_AC3 ||
+                track.format == kMP42AudioCodecType_EnhancedAC3) {
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioConvertAC3"] boolValue]) {
                     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepAC3"] boolValue] &&
                         !((MP42AudioTrack *)track).fallbackTrack) {
@@ -192,7 +193,7 @@
             }
 
             // DTS -> convert only if specified in the prefs.
-            if ([track.format isEqualToString:MP42AudioFormatDTS]) {
+            if (track.format == kMP42AudioCodecType_DTS) {
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioConvertDts"] boolValue]) {
                     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepDts"] boolValue]) {
                         MP42AudioTrack *copy = [track copy];
@@ -209,7 +210,8 @@
             }
 
             // VobSub -> only if specified in the prefs.
-            if (([track.format isEqualToString:MP42SubtitleFormatVobSub] && [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBSubtitleConvertBitmap"] boolValue]))
+            if ((track.format == kMP42SubtitleCodecType_VobSub &&
+                 [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBSubtitleConvertBitmap"] boolValue]))
                 track.needConversion = YES;
 
             // If an audio track needs to be converted, apply the mixdown from the preferences.

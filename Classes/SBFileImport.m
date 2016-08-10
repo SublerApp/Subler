@@ -67,11 +67,11 @@
     _importCheckArray = [[NSMutableArray alloc] initWithCapacity:_tracks.count];
     _actionArray = [[NSMutableArray alloc] initWithCapacity:_tracks.count];
 
-    for (id object in _tracks) {
+    for (MP42Track *object in _tracks) {
         if ([object isKindOfClass:[MP42Track class]]) {
 
             // Set the checkbox state
-            if (isTrackMuxable([object format]) || trackNeedConversion([object format])) {
+            if (isTrackMuxable(object.format) || trackNeedConversion(object.format)) {
                 [_importCheckArray addObject:@YES];
             } else {
                 [_importCheckArray addObject:@NO];
@@ -79,12 +79,12 @@
 
             // Set the action menu selection
             // AC-3 Specific actions
-            if (([[object format] isEqualToString:MP42AudioFormatAC3] || [[object format] isEqualToString:MP42AudioFormatEAC3]) &&
+            if ((object.format == kMP42AudioCodecType_AC3 || object.format == kMP42AudioCodecType_EnhancedAC3) &&
                 [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioConvertAC3"] boolValue]) {
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepAC3"] boolValue] &&
-                    [object fallbackTrack] == nil) {
+                    [(MP42AudioTrack *)object fallbackTrack] == nil) {
                     [_actionArray addObject:@6];
-                } else if ([object fallbackTrack]) {
+                } else if ([(MP42AudioTrack *)object fallbackTrack]) {
                     [_actionArray addObject:@0];
                 } else {
                     [_actionArray addObject:@([[[NSUserDefaults standardUserDefaults]
@@ -92,12 +92,12 @@
                 }
             }
             // DTS Specific actions
-            else if ([[object format] isEqualToString:MP42AudioFormatDTS] &&
+            else if (object.format == kMP42AudioCodecType_DTS &&
                      [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioConvertDts"] boolValue]) {
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepDts"] boolValue] &&
-                    [object fallbackTrack] == nil) {
+                    [(MP42AudioTrack *)object fallbackTrack] == nil) {
                     [_actionArray addObject:@6];
-                } else if ([object fallbackTrack]) {
+                } else if ([(MP42AudioTrack *)object fallbackTrack]) {
                     [_actionArray addObject:@0];
                 } else {
                     [_actionArray addObject:@([[[NSUserDefaults standardUserDefaults]
@@ -105,12 +105,12 @@
                 }
             }
             // Vobsub
-            else if ([[object format] isEqualToString:MP42SubtitleFormatVobSub] &&
+            else if (object.format == kMP42SubtitleCodecType_VobSub &&
                        [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBSubtitleConvertBitmap"] boolValue]) {
                 [_actionArray addObject:@1];
             }
             // Generic actions
-            else if (!trackNeedConversion([object format])) {
+            else if (!trackNeedConversion(object.format)) {
                 [_actionArray addObject:@0];
             }
             else if ([object isMemberOfClass:[MP42AudioTrack class]]) {
@@ -148,9 +148,9 @@
 - (BOOL)onlyContainsSubtitleTracks
 {
 	BOOL onlySubtitle = YES;
-    for (id track in _tracks) {
+    for (MP42Track *track in _tracks) {
         if ([track isKindOfClass:[MP42Track class]]) {
-			if (![track isMemberOfClass:[MP42SubtitleTrack class]] || ![((MP42Track *)track).format isEqualToString:MP42SubtitleFormatTx3g])
+			if (![track isMemberOfClass:[MP42SubtitleTrack class]] || track.format != kMP42SubtitleCodecType_3GText)
 				onlySubtitle = NO;
 		}
     }
@@ -255,7 +255,7 @@
                 }
                 [actionCell.menu addItem:item];
                 
-                NSArray<NSString *> *formatArray = @[MP42SubtitleFormatTx3g];
+                NSArray<NSString *> *formatArray = @[@"Tx3g"];
                 for (NSString *format in formatArray) {
                     item = [[NSMenuItem alloc] initWithTitle:format action:NULL keyEquivalent:@""];
                     item.tag = tag++;
@@ -287,9 +287,9 @@
                     [actionCell.menu addItem:item];
                 }
 
-                if ([track.format isEqualTo:MP42AudioFormatAC3] ||
-                    [track.format isEqualTo:MP42AudioFormatEAC3] ||
-                    [track.format isEqualTo:MP42AudioFormatDTS])
+                if (track.format == kMP42AudioCodecType_AC3 ||
+                    track.format == kMP42AudioCodecType_EnhancedAC3 ||
+                    track.format == kMP42AudioCodecType_DTS)
                 {
                     item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"AAC + Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""];
                     item.tag = tag++;
@@ -324,26 +324,37 @@
     }
 
     if ([object isKindOfClass:[MP42Track class]]) {
-        if( [tableColumn.identifier isEqualToString: @"check"] )
+        MP42Track *track = object;
+
+        if ([tableColumn.identifier isEqualToString: @"check"] ) {
             return _importCheckArray[rowIndex];
+        }
 
-        if ([tableColumn.identifier isEqualToString:@"trackId"])
-            return [NSString stringWithFormat:@"%d", [object trackId]];
+        if ([tableColumn.identifier isEqualToString:@"trackId"]) {
+            return [NSString stringWithFormat:@"%d", track.trackId];
+        }
 
-        if ([tableColumn.identifier isEqualToString:@"trackName"])
-            return [object name];
+        if ([tableColumn.identifier isEqualToString:@"trackName"]) {
+            return track.name;
+        }
 
-        if ([tableColumn.identifier isEqualToString:@"trackInfo"])
-            return [object format];
+        // FIXME
+        if ([tableColumn.identifier isEqualToString:@"trackInfo"]) {
+            FourCharCode format = track.format;
+            return @(FourCC2Str(format));
+        }
 
-        if ([tableColumn.identifier isEqualToString:@"trackDuration"])
-            return [object timeString];
+        if ([tableColumn.identifier isEqualToString:@"trackDuration"]) {
+            return track.timeString;
+        }
 
-        if ([tableColumn.identifier isEqualToString:@"trackLanguage"])
-            return [object language];
+        if ([tableColumn.identifier isEqualToString:@"trackLanguage"]) {
+            return track.language;
+        }
 
-        if ([tableColumn.identifier isEqualToString:@"trackAction"])
+        if ([tableColumn.identifier isEqualToString:@"trackAction"]) {
             return _actionArray[rowIndex];
+        }
     } else if ([tableColumn isEqual:tableView.tableColumns[1]]) {
             return object;
     }
@@ -356,7 +367,7 @@
    forTableColumn:(NSTableColumn *)tableColumn
               row:(NSInteger)rowIndex
 {
-    if ([tableColumn.identifier isEqualToString: @"check"]) {
+    if ([tableColumn.identifier isEqualToString:@"check"]) {
         _importCheckArray[rowIndex] = anObject;
     }
     if ([tableColumn.identifier isEqualToString:@"trackAction"]) {
