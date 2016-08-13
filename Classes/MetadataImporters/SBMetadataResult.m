@@ -10,8 +10,6 @@
 #import "SBMetadataResultMap.h"
 #import <MP42Foundation/MP42Metadata.h>
 
-NSString *const MP42MediaTypeVideo = @"Video Track";
-
 // Common Keys
 NSString *const SBMetadataResultName = @"{Name}";
 NSString *const SBMetadataResultComposer = @"{Composer}";

@@ -338,10 +338,8 @@
             return track.name;
         }
 
-        // FIXME
         if ([tableColumn.identifier isEqualToString:@"trackInfo"]) {
-            FourCharCode format = track.format;
-            return @(FourCC2Str(format));
+            return localizedDisplayName(track.mediaType, track.format);
         }
 
         if ([tableColumn.identifier isEqualToString:@"trackDuration"]) {
