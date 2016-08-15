@@ -19,6 +19,7 @@ extern NSString * const SBQueueSet;
 
 extern NSString * const SBQueueAutoStart;
 extern NSString * const SBQueueOptimize;
+extern NSString * const SBQueueShowDoneNotification;
 
 extern NSString * const SBQueueFixTrackLanguage;
 extern NSString * const SBQueueFixTrackLanguageValue;

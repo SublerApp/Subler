@@ -94,7 +94,7 @@ static void *SBQueueContex = &SBQueueContex;
         [self.progressBar setIndeterminate:NO];
         self.progressBar.doubleValue = [[info valueForKey:@"Progress"] doubleValue];
 
-        if ([[info valueForKey:@"ItemIndex"] integerValue] != -1) {
+        if ([info[@"ItemIndex"] integerValue] != -1) {
             [self updateUI];
         }
     }];
@@ -108,6 +108,24 @@ static void *SBQueueContex = &SBQueueContex;
         [self.statusLabel setStringValue:NSLocalizedString(@"Done", @"Queue -> Done")];
 
         [self updateUI];
+
+        if ([self.options[SBQueueShowDoneNotification] boolValue]) {
+            NSDictionary *info = note.userInfo;
+
+            NSUserNotification *notification = [[NSUserNotification alloc] init];
+            notification.title = NSLocalizedString(@"Queue done", nil);
+            if ([info[@"FailedCount"] unsignedIntegerValue]) {
+                notification.informativeText = [NSString stringWithFormat:@"Completed: %lu; Failed: %lu",
+                                                [info[@"CompletedCount"] unsignedIntegerValue],
+                                                [info[@"FailedCount"] unsignedIntegerValue]];
+            }
+            else {
+                notification.informativeText = [NSString stringWithFormat:@"Completed: %lu",
+                                                [info[@"CompletedCount"] unsignedIntegerValue]];
+            }
+            notification.soundName = NSUserNotificationDefaultSoundName;
+            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+        }
     }];
 
     [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueFailedNotification object:self.queue queue:mainQueue usingBlock:^(NSNotification *note) {

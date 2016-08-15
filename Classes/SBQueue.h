@@ -52,9 +52,8 @@ extern NSString *SBQueueCancelledNotification;
 - (void)removeItemsAtIndexes:(NSIndexSet *)indexes;
 - (void)removeItem:(SBQueueItem *)item;
 
-@property (nonatomic, readonly, copy) NSIndexSet * _Nonnull removeCompletedItems;
-
-@property (nonatomic, readonly) BOOL saveQueueToDisk;
+- (NSIndexSet *)removeCompletedItems;
+- (BOOL)saveQueueToDisk;
 
 @end
 

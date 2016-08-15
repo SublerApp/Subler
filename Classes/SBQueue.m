@@ -173,6 +173,10 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
     [self disableSleep];
 
     dispatch_async(self.workQueue, ^{
+
+        NSUInteger completedCount = 0;
+        NSUInteger failedCount = 0;
+
         for (;;) {
             @autoreleasepool {
                 NSError *outError = nil;
@@ -207,8 +211,10 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
                 if (noErr) {
                     self.currentItem.status = SBQueueItemStatusCompleted;
+                    completedCount += 1;
                 } else {
                     self.currentItem.status = SBQueueItemStatusFailed;
+                    failedCount += 1;
                     [self handleSBStatusFailed:outError];
                 }
 
@@ -226,7 +232,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
         // Disable sleep assertion
         [self enableSleep];
-        [self handleSBStatusCompleted];
+        [self handleSBStatusCompleted:completedCount failed:failedCount];
 
         // Reset cancelled state
         self.cancelled = NO;
@@ -265,9 +271,10 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
  * Processes SBQueueStatusCompleted state information. Current implementation just
  * sends SBQueueCompletedNotification.
  */
-- (void)handleSBStatusCompleted {
+- (void)handleSBStatusCompleted:(NSUInteger)completedCount failed:(NSUInteger)failedCount {
     self.status = SBQueueStatusCompleted;
-    [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueCompletedNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueCompletedNotification object:self userInfo:@{@"CompletedCount": @(completedCount),
+                                                                                                                   @"FailedCount": @(failedCount)}];
 }
 
 /**
