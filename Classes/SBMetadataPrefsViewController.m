@@ -8,6 +8,7 @@
 
 #import "SBMetadataPrefsViewController.h"
 
+#import "SBMetadataResult.h"
 #import "SBMetadataResultMap.h"
 #import <MP42Foundation/MP42Metadata.h>
 
@@ -85,11 +86,11 @@ static void *SBMetadataPrefsViewControllerContex = &SBMetadataPrefsViewControlle
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (context == SBMetadataPrefsViewControllerContex) {
         if (self.typesController.selectionIndex) {
-            self.currentTokens = [SBMetadataResultMap tvShowKeys];
+            self.currentTokens = [SBMetadataResult tvShowKeys];
             self.map = self.tvShowMap;
         }
         else {
-            self.currentTokens = [SBMetadataResultMap movieKeys];
+            self.currentTokens = [SBMetadataResult movieKeys];
             self.map = self.movieMap;
         }
         self.itemsController.selectionIndexes = [NSIndexSet indexSet];

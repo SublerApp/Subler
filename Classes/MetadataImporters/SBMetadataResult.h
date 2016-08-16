@@ -49,6 +49,9 @@ extern NSString *const SBMetadataResultNetwork;
 
 @interface SBMetadataResult : NSObject
 
++ (NSArray<NSString *> *)movieKeys;
++ (NSArray<NSString *> *)tvShowKeys;
+
 - (void)merge:(SBMetadataResult *)aObject;
 
 - (void)removeTagForKey:(NSString *)aKey;

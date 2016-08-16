@@ -31,10 +31,7 @@ typedef NS_ENUM(NSUInteger, SBMetadataResultMapType) {
  */
 @interface SBMetadataResultMap : NSObject<NSSecureCoding>
 
-+ (NSArray<NSString *> *)movieKeys;
 + (instancetype)movieDefaultMap;
-
-+ (NSArray<NSString *> *)tvShowKeys;
 + (instancetype)tvShowDefaultMap;
 
 - (instancetype)initWithItems:(NSArray<SBMetadataResultMapItem *> *)items type:(SBMetadataResultMapType)type;

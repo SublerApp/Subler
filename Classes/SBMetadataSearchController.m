@@ -612,8 +612,10 @@ static NSInteger sortFunction (id ldict, id rdict, void *context) {
         if (self.resultsArray && (self.resultsArray).count > 0 && resultsTable.selectedRow > -1) {
             self.selectedResult = (self.resultsArray)[resultsTable.selectedRow];
             self.selectedResultTags = self.selectedResult.tags;
-            self.selectedResultTagsArray = [(self.selectedResultTags).allKeys sortedArrayUsingFunction:sortFunction
-                                                                                               context:(__bridge void * _Nullable)([MP42Metadata availableMetadata])];
+            NSArray<NSString *> *sortKeys = self.selectedResult.mediaKind == 9 ? [SBMetadataResult movieKeys] : [SBMetadataResult tvShowKeys];
+            self.selectedResultTagsArray = [self.selectedResultTags.allKeys sortedArrayUsingFunction:sortFunction
+                                                                                            context:(__bridge void * _Nullable)sortKeys];
+
             [metadataTable reloadData];
             [addButton setEnabled:YES];
             addButton.keyEquivalent = @"\r";

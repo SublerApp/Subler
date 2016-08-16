@@ -60,26 +60,6 @@
 
 @implementation SBMetadataResultMap
 
-+ (NSArray<NSString *> *)movieKeys
-{
-    return @[SBMetadataResultName,
-             SBMetadataResultComposer,
-             SBMetadataResultGenre,
-             SBMetadataResultReleaseDate,
-             SBMetadataResultDescription,
-             SBMetadataResultLongDescription,
-             SBMetadataResultRating,
-             SBMetadataResultStudio,
-             SBMetadataResultCast,
-             SBMetadataResultDirector,
-             SBMetadataResultProducers,
-             SBMetadataResultScreenwriters,
-             SBMetadataResultExecutiveProducer,
-             SBMetadataResultCopyright,
-             SBMetadataResultContentID,
-             SBMetadataResultITunesCountry];
-}
-
 + (instancetype)movieDefaultMap
 {
     NSArray<SBMetadataResultMapItem *> *items = @[
@@ -103,39 +83,6 @@
              ];
 
     return [[self alloc] initWithItems:items type:SBMetadataResultMapTypeMovie];
-}
-
-+ (NSArray<NSString *> *)tvShowKeys
-{
-    return @[SBMetadataResultName,
-             SBMetadataResultSeriesName,
-             SBMetadataResultComposer,
-             SBMetadataResultGenre,
-             SBMetadataResultReleaseDate,
-
-             SBMetadataResultTrackNumber,
-             SBMetadataResultDiskNumber,
-             SBMetadataResultEpisodeNumber,
-             SBMetadataResultNetwork,
-             SBMetadataResultEpisodeID,
-             SBMetadataResultSeason,
-
-             SBMetadataResultDescription,
-             SBMetadataResultLongDescription,
-             SBMetadataResultSeriesDescription,
-
-             SBMetadataResultRating,
-             SBMetadataResultStudio,
-             SBMetadataResultCast,
-             SBMetadataResultDirector,
-             SBMetadataResultProducers,
-             SBMetadataResultScreenwriters,
-             SBMetadataResultExecutiveProducer,
-             SBMetadataResultCopyright,
-             SBMetadataResultContentID,
-             SBMetadataResultArtistID,
-             SBMetadataResultPlaylistID,
-             SBMetadataResultITunesCountry];
 }
 
 + (instancetype)tvShowDefaultMap

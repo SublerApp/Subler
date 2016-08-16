@@ -56,6 +56,59 @@ NSString *const SBMetadataResultNetwork = @"{Network}";
     return self;
 }
 
++ (NSArray<NSString *> *)movieKeys
+{
+    return @[SBMetadataResultName,
+             SBMetadataResultComposer,
+             SBMetadataResultGenre,
+             SBMetadataResultReleaseDate,
+             SBMetadataResultDescription,
+             SBMetadataResultLongDescription,
+             SBMetadataResultRating,
+             SBMetadataResultStudio,
+             SBMetadataResultCast,
+             SBMetadataResultDirector,
+             SBMetadataResultProducers,
+             SBMetadataResultScreenwriters,
+             SBMetadataResultExecutiveProducer,
+             SBMetadataResultCopyright,
+             SBMetadataResultContentID,
+             SBMetadataResultITunesCountry];
+}
+
++ (NSArray<NSString *> *)tvShowKeys
+{
+    return @[SBMetadataResultName,
+             SBMetadataResultSeriesName,
+             SBMetadataResultComposer,
+             SBMetadataResultGenre,
+             SBMetadataResultReleaseDate,
+
+             SBMetadataResultTrackNumber,
+             SBMetadataResultDiskNumber,
+             SBMetadataResultEpisodeNumber,
+             SBMetadataResultNetwork,
+             SBMetadataResultEpisodeID,
+             SBMetadataResultSeason,
+
+             SBMetadataResultDescription,
+             SBMetadataResultLongDescription,
+             SBMetadataResultSeriesDescription,
+
+             SBMetadataResultRating,
+             SBMetadataResultStudio,
+             SBMetadataResultCast,
+             SBMetadataResultDirector,
+             SBMetadataResultProducers,
+             SBMetadataResultScreenwriters,
+             SBMetadataResultExecutiveProducer,
+             SBMetadataResultCopyright,
+             SBMetadataResultContentID,
+             SBMetadataResultArtistID,
+             SBMetadataResultPlaylistID,
+             SBMetadataResultITunesCountry];
+}
+
 - (void)merge:(SBMetadataResult *)metadata
 {
     [_tags addEntriesFromDictionary:metadata.tags];
