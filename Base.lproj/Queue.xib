@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="16A238m" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11198.2" systemVersion="16A294a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11198.2"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBQueueController">
@@ -28,15 +28,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="378" height="332"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView autohidesScrollers="YES" horizontalLineScroll="21" horizontalPageScroll="10" verticalLineScroll="21" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="3">
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="21" horizontalPageScroll="10" verticalLineScroll="21" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3">
                         <rect key="frame" x="-1" y="46" width="380" height="287"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="ix7-yM-0F6">
                             <rect key="frame" x="1" y="1" width="378" height="285"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" autosaveColumns="NO" id="7" customClass="SBTableView">
-                                    <rect key="frame" x="0.0" y="0.0" width="378" height="21"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="378" height="285"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="4"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -99,20 +98,32 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <textField verticalHuggingPriority="750" id="12">
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="12">
                         <rect key="frame" x="8" y="15" width="214" height="17"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Queue items" id="13">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <progressIndicator wantsLayer="YES" maxValue="100" indeterminate="YES" style="bar" id="91">
+                    <progressIndicator wantsLayer="YES" maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="91">
                         <rect key="frame" x="228" y="13" width="140" height="20"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="140" id="zk9-SM-dx0"/>
+                        </constraints>
                     </progressIndicator>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="12" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="10" id="4h7-0C-25F"/>
+                    <constraint firstItem="3" firstAttribute="top" secondItem="2" secondAttribute="top" constant="-1" id="6OV-wX-XVa"/>
+                    <constraint firstItem="91" firstAttribute="leading" secondItem="12" secondAttribute="trailing" constant="8" symbolic="YES" id="6hn-RY-d1y"/>
+                    <constraint firstItem="12" firstAttribute="top" secondItem="3" secondAttribute="bottom" constant="14" id="7D8-BI-v41"/>
+                    <constraint firstAttribute="bottom" secondItem="91" secondAttribute="bottom" constant="14" id="BJA-rY-xpi"/>
+                    <constraint firstAttribute="trailing" secondItem="91" secondAttribute="trailing" constant="10" id="CKB-r5-pLZ"/>
+                    <constraint firstAttribute="trailing" secondItem="3" secondAttribute="trailing" constant="-1" id="TfO-p3-Yqu"/>
+                    <constraint firstItem="3" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="-1" id="eeU-ZC-K9f"/>
+                    <constraint firstItem="12" firstAttribute="top" secondItem="91" secondAttribute="top" id="lVR-wY-vXK"/>
+                </constraints>
             </view>
             <toolbar key="toolbar" implicitIdentifier="7CCC4E53-430A-4EDF-8C9B-E7533A5972A1" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="DiU-kc-8B9">
                 <allowedToolbarItems>
@@ -171,7 +182,7 @@
                     <toolbarItem reference="xBN-FT-Sv0"/>
                 </defaultToolbarItems>
             </toolbar>
-            <point key="canvasLocation" x="169" y="177"/>
+            <point key="canvasLocation" x="-54" y="110"/>
         </window>
         <menu id="78">
             <items>
@@ -209,10 +220,10 @@
         <window title="Queue Options" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="SBQueueOptionsWindow" animationBehavior="default" id="zHc-NF-Zeh" userLabel="Window - Detached Options" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="187" y="1037" width="334" height="282"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="contentRect" x="187" y="1037" width="334" height="380"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="hhb-jZ-DWa">
-                <rect key="frame" x="0.0" y="0.0" width="334" height="282"/>
+                <rect key="frame" x="0.0" y="0.0" width="334" height="380"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
         </window>
