@@ -122,7 +122,9 @@
 
 - (NSRect)frameOfCellAtColumn:(NSInteger)column row:(NSInteger)row
 {
-    if (![self.delegate respondsToSelector:@selector(tableView:spanForTableColumn:row:)]) {
+    if (![self.delegate respondsToSelector:@selector(tableView:spanForTableColumn:row:)] ||
+        column == -1 ||
+        row == -1) {
         return [super frameOfCellAtColumn:column row:row];
     }
 
