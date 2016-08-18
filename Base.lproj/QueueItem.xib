@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11173.2" systemVersion="16A238m" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11198.2" systemVersion="16A294a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11173.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11198.2"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBItemViewController">
@@ -53,7 +53,7 @@
                         </binding>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" allowsExpansionToolTips="YES" preferredMaxLayoutWidth="600" translatesAutoresizingMaskIntoConstraints="NO" id="eTa-uz-sjk" propertyAccessControl="all">
+                <textField verticalHuggingPriority="750" allowsExpansionToolTips="YES" preferredMaxLayoutWidth="1200" translatesAutoresizingMaskIntoConstraints="NO" id="eTa-uz-sjk">
                     <rect key="frame" x="95" y="51" width="311" height="14"/>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="charWrapping" selectable="YES" sendsActionOnEndEditing="YES" title="long text long text long text long textlong text long text" id="5mD-V5-53a">
                         <font key="font" metaFont="smallSystem"/>
@@ -72,7 +72,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" allowsExpansionToolTips="YES" preferredMaxLayoutWidth="600" translatesAutoresizingMaskIntoConstraints="NO" id="aBh-Is-f6Q" propertyAccessControl="all">
+                <textField verticalHuggingPriority="750" allowsExpansionToolTips="YES" preferredMaxLayoutWidth="1200" translatesAutoresizingMaskIntoConstraints="NO" id="aBh-Is-f6Q">
                     <rect key="frame" x="95" y="69" width="311" height="14"/>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="charWrapping" selectable="YES" sendsActionOnEndEditing="YES" title="long text long text long text long textlong text long text" id="OJa-Jm-vq4">
                         <font key="font" metaFont="smallSystem"/>

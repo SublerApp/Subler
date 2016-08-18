@@ -10,6 +10,16 @@
 #import "SBMediaTagsController.h"
 #import <MP42Foundation/MP42File.h>
 
+@interface SBVideoViewController ()
+
+@property (nonatomic, strong) IBOutlet NSView *forcedView;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *forcedHeight;
+
+@property (nonatomic, strong) IBOutlet NSView *profileView;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *profileHeight;
+
+@end
+
 @implementation SBVideoViewController
 {
     MP42VideoTrack *track;
@@ -34,20 +44,15 @@
     IBOutlet NSPopUpButton *alternateGroup;
 
     IBOutlet NSPopUpButton *videoProfile;
-    IBOutlet NSTextField *videoProfileLabel;
-    IBOutlet NSTextField *videoProfileDescription;
 
     IBOutlet NSPopUpButton *forcedSubs;
-    IBOutlet NSTextField *forcedSubsLabel;
-
     IBOutlet NSPopUpButton *forced;
-    IBOutlet NSTextField *forcedLabel;
 
     IBOutlet NSButton *preserveAspectRatio;
 
     IBOutlet NSMenuItem *profileLevelUnchanged;
     
-    NSMutableArray *_forced;
+    NSMutableArray<MP42SubtitleTrack *> *_forced;
 }
 
 static NSString *getProfileName(uint8_t profile) {
@@ -137,20 +142,11 @@ static NSString *getLevelName(uint8_t level) {
             }
         }
     } else {
-        [videoProfile setEnabled:NO];
-        [videoProfile setHidden:YES];
-        [videoProfileLabel setHidden:YES];
-        [videoProfileDescription setHidden:YES];
+        self.profileView.hidden = YES;
+        self.profileHeight.constant = 0;
     }
 
     if ([track isKindOfClass:[MP42SubtitleTrack class]]) {
-        [forcedSubs setEnabled:YES];
-        [forcedSubs setHidden:NO];
-        [forcedSubsLabel setHidden:NO];
-
-        [forced setHidden:NO];
-        [forcedLabel setHidden:NO];
-
         MP42SubtitleTrack * subTrack = (MP42SubtitleTrack*)track;
 
         if (!subTrack.someSamplesAreForced && !subTrack.allSamplesAreForced) {
@@ -186,9 +182,8 @@ static NSString *getLevelName(uint8_t level) {
         [forced selectItemWithTag:selectedItem];
     }
     else {
-        [forcedSubs setEnabled:NO];
-        [forcedSubs setHidden:YES];
-        [forcedSubsLabel setHidden:YES];
+        self.forcedView.hidden = YES;
+        self.forcedHeight.constant = 0;
     }
 }
 
