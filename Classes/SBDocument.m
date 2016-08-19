@@ -231,21 +231,25 @@
 {
     void (^modifiedCompletionhandler)(NSError * _Nullable) = ^void(NSError * _Nullable error) {
         MP42File *reloadedFile = nil;
+        NSError *reloadError;
 
         if (error == nil) {
-            reloadedFile = [[MP42File alloc] initWithURL:[NSURL fileURLWithPath:url.path] error:NULL];
+            reloadedFile = [[MP42File alloc] initWithURL:[NSURL fileURLWithPath:url.path] error:&reloadError];
         }
 
+        [self endProgressSheet];
 
         if (reloadedFile) {
             self.mp4 = reloadedFile;
 
             [self.tracksTable reloadData];
             [self reloadPropertyView];
-        }
 
-        [self endProgressSheet];
-        completionHandler(error);
+            completionHandler(error);
+        }
+        else {
+            completionHandler(reloadError);
+        }
     };
 
     [self showProgressSheet];
