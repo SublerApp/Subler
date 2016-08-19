@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11173.2" systemVersion="16A238m" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11198.2" systemVersion="16A294a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11173.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11198.2"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBMediaTagsController">
             <connections>
+                <outlet property="_tableView" destination="Ybu-U8-dMa" id="hEx-h0-wcA"/>
                 <outlet property="view" destination="Guf-c1-iLM" id="1W0-HQ-Xjl"/>
             </connections>
         </customObject>
@@ -98,7 +99,7 @@
                     </subviews>
                 </view>
             </subviews>
-            <point key="canvasLocation" x="252.5" y="-338"/>
+            <point key="canvasLocation" x="402" y="-359"/>
         </view>
     </objects>
 </document>
