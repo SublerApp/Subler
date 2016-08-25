@@ -222,12 +222,12 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
 
 - (NSArray *) tvShowSet
 {
-    return @[@"Name", @"Artist", @"Album", @"Release Date", @"Track #", @"Disk #", @"TV Show", @"TV Episode #", @"TV Network", @"TV Episode ID", @"TV Season", @"Genre", @"Description", @"Long Description"];
+    return @[MP42MetadataKeyName, MP42MetadataKeyArtist, MP42MetadataKeyAlbum, MP42MetadataKeyReleaseDate, MP42MetadataKeyTrackNumber, MP42MetadataKeyDiscNumber, MP42MetadataKeyTVShow, MP42MetadataKeyTVEpisodeNumber, MP42MetadataKeyTVNetwork, MP42MetadataKeyTVEpisodeID, MP42MetadataKeyTVSeason, MP42MetadataKeyUserGenre, MP42MetadataKeyDescription, MP42MetadataKeyLongDescription];
 }
 
 - (NSArray *) movieSet
 {
-    return @[@"Name", @"Artist", @"Album", @"Genre", @"Release Date", @"Track #", @"Disk #", @"Cast", @"Director", @"Screenwriters", @"Genre", @"Description", @"Long Description", @"Rating", @"Copyright"];
+    return @[MP42MetadataKeyName, MP42MetadataKeyArtist, MP42MetadataKeyAlbum, MP42MetadataKeyUserGenre, MP42MetadataKeyReleaseDate, MP42MetadataKeyTrackNumber, MP42MetadataKeyDiscNumber, MP42MetadataKeyCast, MP42MetadataKeyDirector, MP42MetadataKeyScreenwriters, MP42MetadataKeyUserGenre, MP42MetadataKeyDescription, MP42MetadataKeyLongDescription, MP42MetadataKeyRating, MP42MetadataKeyCopyright];
 }
 
 - (IBAction) addMetadataSet: (id)sender
@@ -458,10 +458,10 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
         cell = tableColumn.dataCell;
     }
     else if ([tableColumn.identifier isEqualToString:@"value"]) {
-        if ([tagName isEqualToString:@"Rating"]) {
+        if ([tagName isEqualToString:MP42MetadataKeyRating]) {
             cell = ratingCell;
         }
-        else if ([tagName isEqualToString:@"Genre"]) {
+        else if ([tagName isEqualToString:MP42MetadataKeyUserGenre]) {
             cell = genreCell;
         }
         else {

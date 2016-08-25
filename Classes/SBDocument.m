@@ -761,7 +761,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (IBAction)searchChapters:(id)sender
 {
-    NSString *title = self.mp4.metadata[@"Name"];
+    NSString *title = self.mp4.metadata[MP42MetadataKeyName];
 
     if (title.length == 0) {
         title = [self sourceFilename];

@@ -8,6 +8,7 @@
 
 #import "SBMetadataResultMap.h"
 #import "SBMetadataResult.h"
+#import <MP42Foundation/MP42Metadata.h>
 
 @implementation SBMetadataResultMapItem
 
@@ -63,23 +64,23 @@
 + (instancetype)movieDefaultMap
 {
     NSArray<SBMetadataResultMapItem *> *items = @[
-             [SBMetadataResultMapItem itemWithKey:@"Name"               value:@[SBMetadataResultName]],
-             [SBMetadataResultMapItem itemWithKey:@"Artist"             value:@[SBMetadataResultDirector]],
-             [SBMetadataResultMapItem itemWithKey:@"Composer"           value:@[SBMetadataResultComposer]],
-             [SBMetadataResultMapItem itemWithKey:@"Genre"              value:@[SBMetadataResultGenre]],
-             [SBMetadataResultMapItem itemWithKey:@"Release Date"       value:@[SBMetadataResultReleaseDate]],
-             [SBMetadataResultMapItem itemWithKey:@"Description"        value:@[SBMetadataResultDescription]],
-             [SBMetadataResultMapItem itemWithKey:@"Long Description"   value:@[SBMetadataResultLongDescription]],
-             [SBMetadataResultMapItem itemWithKey:@"Rating"             value:@[SBMetadataResultRating]],
-             [SBMetadataResultMapItem itemWithKey:@"Studio"             value:@[SBMetadataResultStudio]],
-             [SBMetadataResultMapItem itemWithKey:@"Cast"               value:@[SBMetadataResultCast]],
-             [SBMetadataResultMapItem itemWithKey:@"Director"           value:@[SBMetadataResultDirector]],
-             [SBMetadataResultMapItem itemWithKey:@"Producers"          value:@[SBMetadataResultProducers]],
-             [SBMetadataResultMapItem itemWithKey:@"Screenwriters"      value:@[SBMetadataResultScreenwriters]],
-             [SBMetadataResultMapItem itemWithKey:@"Copyright"          value:@[SBMetadataResultCopyright]],
-             [SBMetadataResultMapItem itemWithKey:@"contentID"          value:@[SBMetadataResultContentID]],
-             [SBMetadataResultMapItem itemWithKey:@"iTunes Country"     value:@[SBMetadataResultITunesCountry]],
-             [SBMetadataResultMapItem itemWithKey:@"Executive Producer" value:@[SBMetadataResultExecutiveProducer]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyName               value:@[SBMetadataResultName]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyArtist             value:@[SBMetadataResultDirector]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyComposer           value:@[SBMetadataResultComposer]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyUserGenre          value:@[SBMetadataResultGenre]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyReleaseDate        value:@[SBMetadataResultReleaseDate]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyDescription        value:@[SBMetadataResultDescription]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyLongDescription    value:@[SBMetadataResultLongDescription]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyRating             value:@[SBMetadataResultRating]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyStudio             value:@[SBMetadataResultStudio]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyCast               value:@[SBMetadataResultCast]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyDirector           value:@[SBMetadataResultDirector]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyProducer           value:@[SBMetadataResultProducers]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyScreenwriters      value:@[SBMetadataResultScreenwriters]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyCopyright          value:@[SBMetadataResultCopyright]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyContentID          value:@[SBMetadataResultContentID]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyAccountCountry     value:@[SBMetadataResultITunesCountry]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyExecProducer       value:@[SBMetadataResultExecutiveProducer]],
              ];
 
     return [[self alloc] initWithItems:items type:SBMetadataResultMapTypeMovie];
@@ -88,38 +89,38 @@
 + (instancetype)tvShowDefaultMap
 {
     NSArray<SBMetadataResultMapItem *> *items = @[
-             [SBMetadataResultMapItem itemWithKey:@"Name"         value:@[SBMetadataResultName]],
-             [SBMetadataResultMapItem itemWithKey:@"Artist"       value:@[SBMetadataResultSeriesName]],
-             [SBMetadataResultMapItem itemWithKey:@"Album Artist" value:@[SBMetadataResultSeriesName]],
-             [SBMetadataResultMapItem itemWithKey:@"Album"        value:@[SBMetadataResultSeriesName, @", Season ", SBMetadataResultSeason]],
-             [SBMetadataResultMapItem itemWithKey:@"Composer"     value:@[SBMetadataResultComposer]],
-             [SBMetadataResultMapItem itemWithKey:@"Genre"        value:@[SBMetadataResultGenre]],
-             [SBMetadataResultMapItem itemWithKey:@"Release Date" value:@[SBMetadataResultReleaseDate]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyName           value:@[SBMetadataResultName]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyArtist         value:@[SBMetadataResultSeriesName]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyAlbumArtist    value:@[SBMetadataResultSeriesName]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyAlbum          value:@[SBMetadataResultSeriesName, @", Season ", SBMetadataResultSeason]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyComposer       value:@[SBMetadataResultComposer]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyUserGenre      value:@[SBMetadataResultGenre]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyReleaseDate    value:@[SBMetadataResultReleaseDate]],
 
-             [SBMetadataResultMapItem itemWithKey:@"Track #"          value:@[SBMetadataResultTrackNumber]],
-             [SBMetadataResultMapItem itemWithKey:@"Disk #"           value:@[SBMetadataResultDiskNumber]],
-             [SBMetadataResultMapItem itemWithKey:@"TV Show"          value:@[SBMetadataResultSeriesName]],
-             [SBMetadataResultMapItem itemWithKey:@"TV Episode #"     value:@[SBMetadataResultEpisodeNumber]],
-             [SBMetadataResultMapItem itemWithKey:@"TV Network"       value:@[SBMetadataResultNetwork]],
-             [SBMetadataResultMapItem itemWithKey:@"TV Episode ID"    value:@[SBMetadataResultEpisodeID]],
-             [SBMetadataResultMapItem itemWithKey:@"TV Season"        value:@[SBMetadataResultSeason]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyTrackNumber        value:@[SBMetadataResultTrackNumber]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyDiscNumber         value:@[SBMetadataResultDiskNumber]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyTVShow             value:@[SBMetadataResultSeriesName]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyTVEpisodeNumber    value:@[SBMetadataResultEpisodeNumber]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyTVNetwork          value:@[SBMetadataResultNetwork]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyTVEpisodeID        value:@[SBMetadataResultEpisodeID]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyTVSeason           value:@[SBMetadataResultSeason]],
 
-             [SBMetadataResultMapItem itemWithKey:@"Description"          value:@[SBMetadataResultDescription]],
-             [SBMetadataResultMapItem itemWithKey:@"Long Description"     value:@[SBMetadataResultLongDescription]],
-             [SBMetadataResultMapItem itemWithKey:@"Series Description"   value:@[SBMetadataResultSeriesDescription]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyDescription        value:@[SBMetadataResultDescription]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyLongDescription    value:@[SBMetadataResultLongDescription]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeySeriesDescription  value:@[SBMetadataResultSeriesDescription]],
 
-             [SBMetadataResultMapItem itemWithKey:@"Rating"               value:@[SBMetadataResultRating]],
-             [SBMetadataResultMapItem itemWithKey:@"Studio"               value:@[SBMetadataResultStudio]],
-             [SBMetadataResultMapItem itemWithKey:@"Cast"                 value:@[SBMetadataResultCast]],
-             [SBMetadataResultMapItem itemWithKey:@"Director"             value:@[SBMetadataResultDirector]],
-             [SBMetadataResultMapItem itemWithKey:@"Producers"            value:@[SBMetadataResultProducers]],
-             [SBMetadataResultMapItem itemWithKey:@"Screenwriters"        value:@[SBMetadataResultScreenwriters]],
-             [SBMetadataResultMapItem itemWithKey:@"Executive Producer"   value:@[SBMetadataResultExecutiveProducer]],
-             [SBMetadataResultMapItem itemWithKey:@"Copyright"            value:@[SBMetadataResultCopyright]],
-             [SBMetadataResultMapItem itemWithKey:@"contentID"            value:@[SBMetadataResultContentID]],
-             [SBMetadataResultMapItem itemWithKey:@"artistID"             value:@[SBMetadataResultArtistID]],
-             [SBMetadataResultMapItem itemWithKey:@"playlistID"           value:@[SBMetadataResultPlaylistID]],
-             [SBMetadataResultMapItem itemWithKey:@"iTunes Country"       value:@[SBMetadataResultITunesCountry]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyRating             value:@[SBMetadataResultRating]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyStudio             value:@[SBMetadataResultStudio]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyCast               value:@[SBMetadataResultCast]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyDirector           value:@[SBMetadataResultDirector]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyProducer           value:@[SBMetadataResultProducers]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyScreenwriters      value:@[SBMetadataResultScreenwriters]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyExecProducer       value:@[SBMetadataResultExecutiveProducer]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyCopyright          value:@[SBMetadataResultCopyright]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyContentID          value:@[SBMetadataResultContentID]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyArtistID           value:@[SBMetadataResultArtistID]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyPlaylistID         value:@[SBMetadataResultPlaylistID]],
+             [SBMetadataResultMapItem itemWithKey:MP42MetadataKeyAccountCountry     value:@[SBMetadataResultITunesCountry]],
              ];
 
     return [[self alloc] initWithItems:items type:SBMetadataResultMapTypeTvShow];
