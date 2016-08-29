@@ -373,7 +373,17 @@
     }
 }
 
-- (void)toggleSelectionCheck:(BOOL)value
+- (BOOL)canBeChecked:(id)rowItem
+{
+    MP42Track *track = rowItem;
+    if ([track isKindOfClass:[MP42Track class]] &&
+        (isTrackMuxable(track.format) || trackNeedConversion(track.format))) {
+        return YES;
+    }
+    return NO;
+}
+
+- (NSIndexSet *)targetRows
 {
     NSIndexSet *selection = tracksTableView.selectedRowIndexes;
     NSInteger clickedRow = tracksTableView.clickedRow;
@@ -382,10 +392,15 @@
         selection = [NSIndexSet indexSetWithIndex:clickedRow];
     }
 
+    return selection;
+}
+
+- (void)toggleSelectionCheck:(BOOL)value
+{
+    NSIndexSet *selection = [self targetRows];
+
     [selection enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        MP42Track *track = self->_tracks[idx];
-        if ([track isKindOfClass:[MP42Track class]] &&
-            (isTrackMuxable(track.format) || trackNeedConversion(track.format))) {
+        if ([self canBeChecked:self->_tracks[idx]]) {
             self->_importCheckArray[idx] = @(value);
         }
     }];
@@ -403,11 +418,39 @@
     [self toggleSelectionCheck:NO];
 }
 
+- (IBAction)checkOnlyTracksWithSameLanguage:(id)sender
+{
+    NSIndexSet *selection = [self targetRows];
+    NSMutableSet *languages = [NSMutableSet set];
+
+    [selection enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        if ([self canBeChecked:self->_tracks[idx]]) {
+            MP42Track *track = self->_tracks[idx];
+            [languages addObject:track.language];
+        }
+    }];
+
+    NSUInteger idx = 0;
+    for (MP42Track *track in _tracks) {
+        if ([self canBeChecked:track] && [languages containsObject:track.language]) {
+            self->_importCheckArray[idx] = @YES;
+        }
+        else {
+            self->_importCheckArray[idx] = @NO;
+        }
+        idx++;
+    }
+
+    [tracksTableView reloadData];
+}
+
 - (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem
 {
     SEL action = anItem.action;
 
-    if (action == @selector(uncheckSelected:) || action == @selector(checkSelected:))
+    if (action == @selector(uncheckSelected:) ||
+        action == @selector(checkSelected:) ||
+        action == @selector(checkOnlyTracksWithSameLanguage:))
         if (tracksTableView.selectedRow != -1 || tracksTableView.clickedRow != -1)
             return YES;
 
