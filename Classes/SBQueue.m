@@ -7,6 +7,7 @@
 //
 
 #import "SBQueue.h"
+#import <IOKit/pwr_mgt/IOPMLib.h>
 
 NSString *SBQueueWorkingNotification = @"SBQueueWorkingNotification";
 NSString *SBQueueCompletedNotification = @"SBQueueCompletedNotification";

@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <IOKit/pwr_mgt/IOPMLib.h>
-
 #import "SBQueueItem.h"
 
 NS_ASSUME_NONNULL_BEGIN

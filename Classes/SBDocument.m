@@ -30,6 +30,8 @@
 #import <MP42Foundation/MP42Languages.h>
 #import <MP42Foundation/MP42Utilities.h>
 
+#import <IOKit/pwr_mgt/IOPMLib.h>
+
 #define SublerTableViewDataType @"SublerTableViewDataType"
 
 @interface SBDocument () <NSTableViewDelegate, SBFileImportDelegate, SBMetadataSearchControllerDelegate, SBChapterSearchControllerDelegate>
