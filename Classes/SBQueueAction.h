@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  SBQueue actions protocol, actions can be run by
  *  the queue's items.
  */
-@protocol SBQueueActionProtocol <NSObject, NSCoding>
+@protocol SBQueueActionProtocol <NSObject, NSSecureCoding>
 - (void)runAction:(SBQueueItem *)item;
 @property (nonatomic, readonly) NSString *localizedDescription;
 @end

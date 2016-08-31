@@ -74,6 +74,10 @@
     return NSLocalizedString(@"Loading subtitles", @"Action localized description.");
 }
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
     return self;
@@ -215,13 +219,17 @@
     return NSLocalizedString(@"Searching metadata", @"Action localized description.");
 }
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
 
-    _movieLanguage = [coder decodeObjectForKey:@"_movieLanguage"];
-    _tvShowLanguage = [coder decodeObjectForKey:@"_tvShowLanguage"];
-    _movieProvider = [coder decodeObjectForKey:@"_movieProvider"];
-    _tvShowProvider = [coder decodeObjectForKey:@"_tvShowProvider"];
+    _movieLanguage = [coder decodeObjectOfClass:[NSString class] forKey:@"_movieLanguage"];
+    _tvShowLanguage = [coder decodeObjectOfClass:[NSString class] forKey:@"_tvShowLanguage"];
+    _movieProvider = [coder decodeObjectOfClass:[NSString class] forKey:@"_movieProvider"];
+    _tvShowProvider = [coder decodeObjectOfClass:[NSString class] forKey:@"_tvShowProvider"];
 
     return self;
 }
@@ -259,10 +267,14 @@
     return [NSString stringWithFormat:NSLocalizedString(@"Applying %@ set", @""), _set.presetName];
 }
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
     if (self) {
-        _set = [coder decodeObjectForKey:@"SBQueueActionSet"];
+        _set = [coder decodeObjectOfClass:[MP42Metadata class] forKey:@"SBQueueActionSet"];
     }
     return self;
 }
@@ -288,13 +300,16 @@
     return NSLocalizedString(@"Organizing groups", @"Organize Groups action local description");
 }
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder {
-}
+- (void)encodeWithCoder:(NSCoder *)coder {}
 
 @end
 
@@ -315,13 +330,16 @@
     return NSLocalizedString(@"Fixing Fallbacks", @"Action localized description.");
 }
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder {
-}
+- (void)encodeWithCoder:(NSCoder *)coder {}
 
 @end
 
@@ -358,9 +376,13 @@
     return NSLocalizedString(@"Setting tracks language", @"Set Language action local description");
 }
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
-    _language = [coder decodeObjectForKey:@"SBQueueSetLanguageAction"];
+    _language = [coder decodeObjectOfClass:[NSString class] forKey:@"SBQueueSetLanguageAction"];
     return self;
 }
 
