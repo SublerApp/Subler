@@ -357,7 +357,11 @@ bail:
     [self.delegate progressStatus:progress];
 }
 
-#pragma mark NSCoding
+#pragma mark NSSecyreCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
 
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeInt:2 forKey:@"SBQueueItemTagEncodeVersion"];
@@ -374,12 +378,12 @@ bail:
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super init];
 
-    _mp4File = [decoder decodeObjectForKey:@"SBQueueItemMp4File"];
+    _mp4File = [decoder decodeObjectOfClass:[MP42File class] forKey:@"SBQueueItemMp4File"];
 
-    _fileURL = [decoder decodeObjectForKey:@"SBQueueItemFileURL"];
-    _destURL = [decoder decodeObjectForKey:@"SBQueueItemDestURL"];
-    _attributes = [decoder decodeObjectForKey:@"SBQueueItemAttributes"];
-    _actionsInternal = [decoder decodeObjectForKey:@"SBQueueItemActions"];
+    _fileURL = [decoder decodeObjectOfClass:[NSURL class] forKey:@"SBQueueItemFileURL"];
+    _destURL = [decoder decodeObjectOfClass:[NSURL class] forKey:@"SBQueueItemDestURL"];
+    _attributes = [decoder decodeObjectOfClass:[NSDictionary class] forKey:@"SBQueueItemAttributes"];
+    _actionsInternal = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"SBQueueItemActions"];
 
     _status = [decoder decodeIntForKey:@"SBQueueItemStatus"];
 

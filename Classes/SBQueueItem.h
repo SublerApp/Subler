@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, SBQueueItemStatus) {
 
 };
 
-@interface SBQueueItem : NSObject <NSCoding>
+@interface SBQueueItem : NSObject <NSSecureCoding>
 
 @property (nonatomic, readwrite) SBQueueItemStatus status;
 @property (nonatomic, readonly, nullable) NSString *localizedWorkingDescription;

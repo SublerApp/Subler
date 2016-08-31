@@ -27,7 +27,7 @@
     return [[self alloc] initWithKey:key value:value];
 }
 
-#pragma mark - NSCoding
+#pragma mark - NSSecureCoding
 
 + (BOOL)supportsSecureCoding
 {
@@ -146,7 +146,7 @@
     return self;
 }
 
-#pragma mark - NSCoding
+#pragma mark - NSSecureCoding
 
 + (BOOL)supportsSecureCoding
 {
