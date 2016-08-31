@@ -247,8 +247,11 @@
 
             completionHandler(error);
         }
-        else {
+        else if (reloadError) {
             completionHandler(reloadError);
+        }
+        else {
+            completionHandler(error);
         }
     };
 
