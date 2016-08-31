@@ -21,7 +21,6 @@ typedef NS_ENUM(NSUInteger, SBQueueItemStatus) {
     SBQueueItemStatusCompleted,
     SBQueueItemStatusFailed,
     SBQueueItemStatusCancelled,
-
 };
 
 @interface SBQueueItem : NSObject <NSSecureCoding>
