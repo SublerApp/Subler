@@ -128,13 +128,6 @@ static void *SBQueueContex = &SBQueueContex;
         }
     }];
 
-    [[NSNotificationCenter defaultCenter] addObserverForName:SBQueueFailedNotification object:self.queue queue:mainQueue usingBlock:^(NSNotification *note) {
-        NSDictionary *info = note.userInfo;
-        if ([[info valueForKey:@"Error"] isMemberOfClass:[NSError class]]) {
-            [NSApp presentError:[info valueForKey:@"Error"]];
-        }
-    }];
-
     // Update the UI the first time
     [self updateUI];
 }
