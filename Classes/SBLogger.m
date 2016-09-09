@@ -42,7 +42,7 @@
 
 - (void)writeToLog:(NSString *)string {
     if (self.fileURL) {
-        FILE *f = fopen((self.fileURL).path.fileSystemRepresentation, "a");
+        FILE *f = fopen(self.fileURL.fileSystemRepresentation, "a");
         if (f) {
             fprintf(f, "%s %s", [self currentTime].UTF8String, string.UTF8String);
             fclose(f);
