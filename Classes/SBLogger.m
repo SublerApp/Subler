@@ -10,15 +10,16 @@
 #import "SBLogger.h"
 
 @interface SBLogger ()
+{
+    NSURL *_fileURL;
+    id <MP42Logging> __unsafe_unretained _delegate;
+}
 
 @property (nonatomic, readonly) NSURL *fileURL;
 
 @end
 
 @implementation SBLogger
-
-@synthesize fileURL = _fileURL;
-@synthesize delegate = _delegate;
 
 - (instancetype)initWithLogFile:(NSURL *)fileURL {
     self = [self init];
@@ -66,9 +67,7 @@
 }
 
 - (void)dealloc {
-
     _delegate = nil;
-
 }
 
 @end

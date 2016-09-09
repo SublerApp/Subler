@@ -10,7 +10,10 @@
 #import "SBLogger.h"
 
 @interface SBLogWindowController ()
-
+{
+    NSTextView  *__unsafe_unretained _logView;
+    SBLogger    *_logger;
+}
 @property (nonatomic, unsafe_unretained) IBOutlet NSTextView *logView;
 @property (nonatomic, readonly) SBLogger *logger;
 
