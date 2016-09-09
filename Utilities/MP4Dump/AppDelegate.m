@@ -14,9 +14,9 @@ NSString *libraryPath = nil;
 void logCallback(MP4LogLevel loglevel, const char* fmt, va_list ap)
 {
     if (!libraryPath) {
-        NSString *libraryDir = [NSSearchPathForDirectoriesInDomains( NSLibraryDirectory,
+        NSString *libraryDir = NSSearchPathForDirectoriesInDomains( NSLibraryDirectory,
                                                                      NSUserDomainMask,
-                                                                     YES ) objectAtIndex:0];
+                                                                     YES ).firstObject;
         NSString *AppSupportDirectory = [[libraryDir stringByAppendingPathComponent:@"Application Support"]
                                           stringByAppendingPathComponent:@"MP4Dump"];
 
@@ -26,11 +26,11 @@ void logCallback(MP4LogLevel loglevel, const char* fmt, va_list ap)
                                                        attributes:nil
                                                             error:NULL];
         }
-        libraryPath = [[AppSupportDirectory stringByAppendingPathComponent:@"temp.txt"] retain];
+        libraryPath = [AppSupportDirectory stringByAppendingPathComponent:@"temp.txt"];
         
     }
 
-    FILE *file = fopen([libraryPath UTF8String], "a");
+    FILE *file = fopen(libraryPath.fileSystemRepresentation, "a");
 
     vfprintf(file, fmt, ap);
     fprintf(file, "\n");
