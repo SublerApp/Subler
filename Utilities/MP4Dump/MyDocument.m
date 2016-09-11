@@ -29,9 +29,11 @@ extern NSString *libraryPath;
 
 - (void)windowControllerDidLoadNib:(NSWindowController *) aController
 {
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"LogLevel"])
-        [logLevelButton selectItemWithTag:[[NSUserDefaults standardUserDefaults] integerForKey:@"LogLevel"]];
     [super windowControllerDidLoadNib:aController];
+
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"LogLevel"]) {
+        [logLevelButton selectItemWithTag:[[NSUserDefaults standardUserDefaults] integerForKey:@"LogLevel"]];
+    }
 
     [self _resetTextView];
     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:result];
