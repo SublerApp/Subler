@@ -485,9 +485,9 @@
                     if (conversion == 6) {
                         MP42AudioTrack *audioTrack = (MP42AudioTrack *)track;
                         MP42AudioTrack *copy = [track copy];
-                        MP42ConversionSettings *settings = [MP42ConversionSettings audioConversionWithBitRate:bitRate
-                                                                                                      mixDown:SBDolbyPlIIMixdown
-                                                                                                          drc:drc];
+                        MP42ConversionSettings *settings = [MP42AudioConversionSettings audioConversionWithBitRate:bitRate
+                                                                                                           mixDown:SBDolbyPlIIMixdown
+                                                                                                               drc:drc];
                         copy.conversionSettings = settings;
 
                         audioTrack.fallbackTrack = copy;
@@ -517,9 +517,9 @@
                                 break;
                         }
 
-                        MP42ConversionSettings *settings = [MP42ConversionSettings audioConversionWithBitRate:bitRate
-                                                                                                      mixDown:mixdown
-                                                                                                          drc:drc];
+                        MP42ConversionSettings *settings = [MP42AudioConversionSettings audioConversionWithBitRate:bitRate
+                                                                                                           mixDown:mixdown
+                                                                                                               drc:drc];
                         track.conversionSettings = settings;
                     }
 
@@ -531,38 +531,40 @@
                     }
                 }
                 else if ([track isMemberOfClass:[MP42VideoTrack class]]) {
-                    if ([(track.sourceURL).pathExtension caseInsensitiveCompare:@"264"] == NSOrderedSame ||
-                        [(track.sourceURL).pathExtension caseInsensitiveCompare:@"h264"] == NSOrderedSame) {
-                        /*switch(conversion) {
+                    if ([track.sourceURL.pathExtension caseInsensitiveCompare:@"264"] == NSOrderedSame ||
+                        [track.sourceURL.pathExtension caseInsensitiveCompare:@"h264"] == NSOrderedSame) {
+                        NSUInteger frameRate = 0;
+                        switch(conversion) {
                             case 0:
-                                track.trackId = 2398;
+                                frameRate = 2398;
                                 break;
                             case 1:
-                                track.trackId = 24;
+                                frameRate = 24;
                                 break;
                             case 2:
-                                track.trackId = 25;
+                                frameRate = 25;
                                 break;
                             case 3:
-                                track.trackId = 2997;
+                                frameRate = 2997;
                                 break;
                             case 4:
-                                track.trackId = 30;
+                                frameRate = 30;
                                 break;
                             case 5:
-                                track.trackId = 50;
+                                frameRate = 50;
                                 break;
                             case 6:
-                                track.trackId = 5994;
+                                frameRate = 5994;
                                 break;
                             case 7:
-                                track.trackId = 60;
+                                frameRate = 60;
                                 break;
                             default:
-                                track.trackId = 2398;
+                                frameRate = 2398;
                                 break;
-                        }*/
-                        // FIXME
+                        }
+
+                        track.conversionSettings = [MP42RawConversionSettings rawConversionWithFrameRate:frameRate];
                     }
                 }
 

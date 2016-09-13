@@ -182,9 +182,9 @@
                     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepAC3"] boolValue] &&
                         !((MP42AudioTrack *)track).fallbackTrack) {
                         MP42AudioTrack *copy = [track copy];
-                        MP42ConversionSettings *settings = [MP42ConversionSettings audioConversionWithBitRate:bitRate
-                                                                                                      mixDown:SBDolbyPlIIMixdown
-                                                                                                          drc:drc];
+                        MP42ConversionSettings *settings = [MP42AudioConversionSettings audioConversionWithBitRate:bitRate
+                                                                                                           mixDown:SBDolbyPlIIMixdown
+                                                                                                               drc:drc];
                         copy.conversionSettings = settings;
 
                         ((MP42AudioTrack *)track).fallbackTrack = copy;
@@ -199,9 +199,9 @@
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioConvertDts"] boolValue]) {
                     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepDts"] boolValue]) {
                         MP42AudioTrack *copy = [track copy];
-                        MP42ConversionSettings *settings = [MP42ConversionSettings audioConversionWithBitRate:bitRate
-                                                                                                      mixDown:SBDolbyPlIIMixdown
-                                                                                                          drc:drc];
+                        MP42ConversionSettings *settings = [MP42AudioConversionSettings audioConversionWithBitRate:bitRate
+                                                                                                           mixDown:SBDolbyPlIIMixdown
+                                                                                                               drc:drc];
                         copy.conversionSettings = settings;
 
                         [self.mp4File addTrack:copy];
@@ -243,9 +243,9 @@
                 }
 
                 MP42AudioTrack *audioTrack = (MP42AudioTrack *)track;
-                MP42ConversionSettings *settings = [MP42ConversionSettings audioConversionWithBitRate:bitRate
-                                                                                              mixDown:mixdown
-                                                                                                  drc:drc];
+                MP42ConversionSettings *settings = [MP42AudioConversionSettings audioConversionWithBitRate:bitRate
+                                                                                                   mixDown:mixdown
+                                                                                                       drc:drc];
                 audioTrack.conversionSettings = settings;
 
             }
