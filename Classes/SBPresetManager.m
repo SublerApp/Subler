@@ -89,7 +89,7 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
                 continue;
             }
 
-            newPreset.isEdited = NO;
+            newPreset.edited = NO;
             [_presets addObject:newPreset];
         }
     }

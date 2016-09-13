@@ -433,7 +433,7 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
         }
 
         self.metadata.isArtworkEdited = YES;
-        self.metadata.isEdited = YES;
+        self.metadata.edited = YES;
         [self.view.window.windowController.document updateChangeCount:NSChangeDone];
         [imageBrowser reloadData];
     }
@@ -571,7 +571,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     if (self.metadata.mediaKind != tagName) {
         self.metadata.mediaKind = tagName;
-        self.metadata.isEdited = YES;
+        self.metadata.edited = YES;
         [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }
@@ -582,7 +582,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     if (self.metadata.contentRating != tagName) {
         self.metadata.contentRating = tagName;
-        self.metadata.isEdited = YES;
+        self.metadata.edited = YES;
         [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }
@@ -600,7 +600,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     
     if (self.metadata.gapless != newValue) {
         self.metadata.gapless = newValue;
-        self.metadata.isEdited = YES;
+        self.metadata.edited = YES;
     }
     
     NSUndoManager *undo = self.view.undoManager;
@@ -623,7 +623,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     
     if (self.metadata.podcast != newValue) {
         self.metadata.podcast = newValue;
-        self.metadata.isEdited = YES;
+        self.metadata.edited = YES;
     }
     
     NSUndoManager *undo = self.view.undoManager;
@@ -640,7 +640,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     
     if (self.metadata.hdVideo != tagName) {
         self.metadata.hdVideo = tagName;
-        self.metadata.isEdited = YES;
+        self.metadata.edited = YES;
         [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }
@@ -669,7 +669,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         [self.metadata.artworks insertObject:object atIndex:destinationIndex];
     }
 
-    self.metadata.isEdited = YES;
+    self.metadata.edited = YES;
     self.metadata.isArtworkEdited = YES;
     [self.view.window.windowController.document updateChangeCount:NSChangeDone];
 
@@ -697,7 +697,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 {
     [self.metadata.artworks removeObjectsAtIndexes:indexes];
 
-    self.metadata.isEdited = YES;
+    self.metadata.edited = YES;
     self.metadata.isArtworkEdited = YES;
 
     [self.view.window.windowController.document updateChangeCount:NSChangeDone];
@@ -774,7 +774,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
             }
 
             self.metadata.isArtworkEdited = YES;
-            self.metadata.isEdited = YES;
+            self.metadata.edited = YES;
             [self.view.window.windowController.document updateChangeCount:NSChangeDone];
             [self->imageBrowser reloadData];
         }
@@ -807,7 +807,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
         if (edited) {
             self.metadata.isArtworkEdited = YES;
-            self.metadata.isEdited = YES;
+            self.metadata.edited = YES;
             [self.view.window.windowController.document updateChangeCount:NSChangeDone];
             [imageBrowser reloadData];
 
@@ -825,7 +825,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver: self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     [imageBrowser setDelegate:nil];
     [imageBrowser setDataSource:nil];
