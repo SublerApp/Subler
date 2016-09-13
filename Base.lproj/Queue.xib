@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11198.2" systemVersion="16A294a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A319" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11198.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBQueueController">
@@ -10,7 +10,7 @@
                 <outlet property="_detachedWindow" destination="zHc-NF-Zeh" id="Cr1-ha-Wmx"/>
                 <outlet property="detachedWindow" destination="zHc-NF-Zeh" id="GMJ-fz-AdQ"/>
                 <outlet property="progressBar" destination="91" id="Pyo-9s-F6Q"/>
-                <outlet property="startItem" destination="xBN-FT-Sv0" id="HEs-6f-5RT"/>
+                <outlet property="startItem" destination="xeY-tT-tF2" id="MmM-v9-enw"/>
                 <outlet property="statusLabel" destination="12" id="VYp-DC-guz"/>
                 <outlet property="table" destination="7" id="KrN-pl-mlK"/>
                 <outlet property="window" destination="1" id="25"/>
@@ -127,59 +127,59 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="7CCC4E53-430A-4EDF-8C9B-E7533A5972A1" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="DiU-kc-8B9">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="F1DC4F94-9258-4B59-BF72-12DFD3EAD22C" label="Add Item" paletteLabel="Add Item" toolTip="Add an item to the queue" image="NSAddTemplate" id="IS0-Xx-A4a" customClass="ButtonToolbarItem">
-                        <size key="minSize" width="34" height="25"/>
-                        <size key="maxSize" width="34" height="25"/>
-                        <button key="view" verticalHuggingPriority="750" id="Ki3-3j-eme">
-                            <rect key="frame" x="10" y="14" width="34" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yNX-m3-ctU">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
-                        <connections>
-                            <action selector="open:" target="-2" id="DgV-4h-anl"/>
-                        </connections>
-                    </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="3A0E823A-894C-494B-9554-6425D7D7B736" label="Settings" paletteLabel="Settings" toolTip="Show the settings window" image="NSActionTemplate" id="5Tt-V1-Lwx" customClass="ButtonToolbarItem">
-                        <size key="minSize" width="34" height="25"/>
-                        <size key="maxSize" width="34" height="25"/>
-                        <button key="view" verticalHuggingPriority="750" id="Eam-QC-F1x">
-                            <rect key="frame" x="9" y="14" width="34" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSActionTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="evW-R0-8UU">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
-                        <connections>
-                            <action selector="toggleOptions:" target="-2" id="Rvh-ys-fiO"/>
-                        </connections>
-                    </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="261B6090-DD1C-42D3-B0D8-2308962EE7D9" label="Start" paletteLabel="Start" toolTip="Start/Stop the queue" image="playBackTemplate" id="xBN-FT-Sv0" customClass="ButtonToolbarItem">
-                        <size key="minSize" width="34" height="25"/>
-                        <size key="maxSize" width="34" height="25"/>
-                        <button key="view" verticalHuggingPriority="750" id="cSb-W5-RNU">
-                            <rect key="frame" x="0.0" y="14" width="34" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="playBackTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oYX-z0-L7h">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
-                        <connections>
-                            <action selector="toggleStartStop:" target="-2" id="ota-oz-smy"/>
-                        </connections>
-                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="4Tn-KL-e86"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Iau-lm-QMb"/>
+                    <toolbarItem implicitItemIdentifier="3A987BC3-AE8F-4D56-8562-D2F37B9DA021" label="Add Item" paletteLabel="Add Item" toolTip="Add an item to the queue" image="NSAddTemplate" id="mbj-v3-fFG" customClass="ButtonToolbarItem">
+                        <size key="minSize" width="36" height="28"/>
+                        <size key="maxSize" width="36" height="32"/>
+                        <button key="view" verticalHuggingPriority="750" id="sUh-2y-iie">
+                            <rect key="frame" x="9" y="14" width="36" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZQu-If-3ju">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="open:" target="-2" id="sdm-Bo-vsx"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="403860A1-8562-4F5B-BBEE-E8C1270A9077" label="Settings" paletteLabel="Settings" toolTip="Add an item to the queue" image="NSActionTemplate" id="Qif-lh-Rps" customClass="ButtonToolbarItem">
+                        <size key="minSize" width="36" height="28"/>
+                        <size key="maxSize" width="36" height="32"/>
+                        <button key="view" verticalHuggingPriority="750" id="tU5-DL-6vU">
+                            <rect key="frame" x="8" y="14" width="36" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSActionTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Zdg-cC-Bdm">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="toggleOptions:" target="-2" id="f6O-LF-uNy"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="90FECCE0-5997-4C12-9158-9F7391313970" label="Start" paletteLabel="Start" toolTip="Add an item to the queue" image="playBackTemplate" id="xeY-tT-tF2" customClass="ButtonToolbarItem">
+                        <size key="minSize" width="36" height="28"/>
+                        <size key="maxSize" width="36" height="32"/>
+                        <button key="view" verticalHuggingPriority="750" id="sOU-an-jdB">
+                            <rect key="frame" x="0.0" y="14" width="36" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="playBackTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NP2-Hq-1TK">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="toggleStartStop:" target="-2" id="hYg-up-ePS"/>
+                        </connections>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="IS0-Xx-A4a"/>
-                    <toolbarItem reference="5Tt-V1-Lwx"/>
+                    <toolbarItem reference="mbj-v3-fFG"/>
+                    <toolbarItem reference="Qif-lh-Rps"/>
                     <toolbarItem reference="Iau-lm-QMb"/>
-                    <toolbarItem reference="xBN-FT-Sv0"/>
+                    <toolbarItem reference="xeY-tT-tF2"/>
                 </defaultToolbarItems>
             </toolbar>
             <point key="canvasLocation" x="-54" y="110"/>
