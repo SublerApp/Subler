@@ -533,7 +533,7 @@
                 else if ([track isMemberOfClass:[MP42VideoTrack class]]) {
                     if ([(track.sourceURL).pathExtension caseInsensitiveCompare:@"264"] == NSOrderedSame ||
                         [(track.sourceURL).pathExtension caseInsensitiveCompare:@"h264"] == NSOrderedSame) {
-                        switch(conversion) {
+                        /*switch(conversion) {
                             case 0:
                                 track.trackId = 2398;
                                 break;
@@ -561,7 +561,8 @@
                             default:
                                 track.trackId = 2398;
                                 break;
-                        }
+                        }*/
+                        // FIXME
                     }
                 }
 

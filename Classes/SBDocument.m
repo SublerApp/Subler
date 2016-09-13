@@ -788,7 +788,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         for (MP42TextSample *chapter in chapterToBeImported) {
             [newChapter addChapter:chapter];
         }
-        newChapter.duration = self.mp4.duration;
         [self.mp4 addTrack:newChapter];
 
         [self updateChangeCount:NSChangeDone];
@@ -1023,7 +1022,6 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
     if (!chapterTrack) {
         chapterTrack = [[MP42ChapterTrack alloc] init];
-        chapterTrack.duration = self.mp4.duration;
         [self.mp4 addTrack:chapterTrack];
     }
 
