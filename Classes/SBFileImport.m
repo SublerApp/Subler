@@ -479,44 +479,58 @@
                 NSUInteger conversion = _actionArray[i].integerValue;
 
                 if ([track isMemberOfClass:[MP42AudioTrack class]]) {
-                    if (conversion == 6) {
-                        MP42AudioTrack *copy = [track copy];
-                        [copy setNeedConversion:YES];
-                        copy.mixdownType = SBDolbyPlIIMixdown;
+                    NSUInteger bitRate = [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioBitrate"] integerValue];
+                    float drc = [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioDRC"] floatValue];
 
-                        ((MP42AudioTrack *)track).fallbackTrack = copy;
+                    if (conversion == 6) {
+                        MP42AudioTrack *audioTrack = (MP42AudioTrack *)track;
+                        MP42AudioTrack *copy = [track copy];
+                        MP42ConversionSettings *settings = [MP42ConversionSettings audioConversionWithBitRate:bitRate
+                                                                                                      mixDown:SBDolbyPlIIMixdown
+                                                                                                          drc:drc];
+                        copy.conversionSettings = settings;
+
+                        audioTrack.fallbackTrack = copy;
+                        audioTrack.enabled = NO;
 
                         [tracks addObject:copy];
-                    } else if (conversion) {
-                        [track setNeedConversion:YES];
+                    }
+                    else if (conversion) {
+                        NSString *mixdown = SBNoneMixdown;
+
+                        switch (conversion) {
+                            case 5:
+                                mixdown = SBNoneMixdown;
+                                break;
+                            case 4:
+                                mixdown = SBMonoMixdown;
+                                break;
+                            case 3:
+                                mixdown = SBStereoMixdown;
+                                break;
+                            case 2:
+                                mixdown = SBDolbyMixdown;
+                                break;
+                            case 1:
+                            default:
+                                mixdown = SBDolbyPlIIMixdown;
+                                break;
+                        }
+
+                        MP42ConversionSettings *settings = [MP42ConversionSettings audioConversionWithBitRate:bitRate
+                                                                                                      mixDown:mixdown
+                                                                                                          drc:drc];
+                        track.conversionSettings = settings;
                     }
 
-                    switch (conversion) {
-                        case 6:
-                            [track setEnabled:NO];
-                            break;
-                        case 5:
-                            [(MP42AudioTrack *)track setMixdownType:nil];
-                            break;
-                        case 4:
-                            ((MP42AudioTrack *)track).mixdownType = SBMonoMixdown;
-                            break;
-                        case 3:
-                            ((MP42AudioTrack *)track).mixdownType = SBStereoMixdown;
-                            break;
-                        case 2:
-                            ((MP42AudioTrack *)track).mixdownType = SBDolbyMixdown;
-                            break;
-                        case 1:
-                        default:
-                            ((MP42AudioTrack *)track).mixdownType = SBDolbyPlIIMixdown;
-                            break;
-                    }
-                } else if ([track isMemberOfClass:[MP42SubtitleTrack class]]) {
+                }
+                else if ([track isMemberOfClass:[MP42SubtitleTrack class]]) {
                     if (conversion) {
-                        [track setNeedConversion:YES];
+                        MP42ConversionSettings *settings = [MP42ConversionSettings subtitlesConversion];
+                        track.conversionSettings = settings;
                     }
-                } else if ([track isMemberOfClass:[MP42VideoTrack class]]) {
+                }
+                else if ([track isMemberOfClass:[MP42VideoTrack class]]) {
                     if ([(track.sourceURL).pathExtension caseInsensitiveCompare:@"264"] == NSOrderedSame ||
                         [(track.sourceURL).pathExtension caseInsensitiveCompare:@"h264"] == NSOrderedSame) {
                         switch(conversion) {

@@ -171,6 +171,9 @@
         self.mp4File = [[MP42File alloc] init];
         MP42FileImporter *fileImporter = [[MP42FileImporter alloc] initWithURL:self.fileURL error:outError];
 
+        NSUInteger bitRate = [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioBitrate"] integerValue];
+        float drc = [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioDRC"] floatValue];
+
         for (MP42Track *track in fileImporter.tracks) {
             // AC-3 track, we might need to do the aac + ac3 trick.
             if (track.format == kMP42AudioCodecType_AC3 ||
@@ -179,15 +182,14 @@
                     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepAC3"] boolValue] &&
                         !((MP42AudioTrack *)track).fallbackTrack) {
                         MP42AudioTrack *copy = [track copy];
-                        copy.needConversion = YES;
-                        copy.mixdownType = SBDolbyPlIIMixdown;
+                        MP42ConversionSettings *settings = [MP42ConversionSettings audioConversionWithBitRate:bitRate
+                                                                                                      mixDown:SBDolbyPlIIMixdown
+                                                                                                          drc:drc];
+                        copy.conversionSettings = settings;
 
                         ((MP42AudioTrack *)track).fallbackTrack = copy;
 
                         [self.mp4File addTrack:copy];
-
-                    } else {
-                        track.needConversion = YES;
                     }
                 }
             }
@@ -197,46 +199,55 @@
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioConvertDts"] boolValue]) {
                     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepDts"] boolValue]) {
                         MP42AudioTrack *copy = [track copy];
-                        copy.needConversion = YES;
-                        copy.mixdownType = SBDolbyPlIIMixdown;
-                        
+                        MP42ConversionSettings *settings = [MP42ConversionSettings audioConversionWithBitRate:bitRate
+                                                                                                      mixDown:SBDolbyPlIIMixdown
+                                                                                                          drc:drc];
+                        copy.conversionSettings = settings;
+
                         [self.mp4File addTrack:copy];
                         
-                    }
-                    else {
-                        track.needConversion = YES;
                     }
                 }
             }
 
             // VobSub -> only if specified in the prefs.
             if ((track.format == kMP42SubtitleCodecType_VobSub &&
-                 [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBSubtitleConvertBitmap"] boolValue]))
-                track.needConversion = YES;
+                 [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBSubtitleConvertBitmap"] boolValue])) {
+                MP42ConversionSettings *settings = [MP42ConversionSettings subtitlesConversion];
+                track.conversionSettings = settings;
+            }
 
             // If an audio track needs to be converted, apply the mixdown from the preferences.
-            if ([track isMemberOfClass:[MP42AudioTrack class]] && track.needConversion) {
-                NSInteger mixdown = [[[NSUserDefaults standardUserDefaults]
+            if ([track isMemberOfClass:[MP42AudioTrack class]] && trackNeedConversion(track.format)) {
+                NSInteger mixdownType = [[[NSUserDefaults standardUserDefaults]
                   valueForKey:@"SBAudioMixdown"] integerValue];
-                MP42AudioTrack *audioTrack = (MP42AudioTrack *)track;
-                switch (mixdown) {
+                NSString *mixdown = SBNoneMixdown;
+                
+                switch (mixdownType) {
                     case 5:
-                        audioTrack.mixdownType = nil;
+                        mixdown = SBNoneMixdown;
                         break;
                     case 4:
-                        audioTrack.mixdownType = SBMonoMixdown;
+                        mixdown = SBMonoMixdown;
                         break;
                     case 3:
-                        audioTrack.mixdownType = SBStereoMixdown;
+                        mixdown = SBStereoMixdown;
                         break;
                     case 2:
-                        audioTrack.mixdownType = SBDolbyMixdown;
+                        mixdown = SBDolbyMixdown;
                         break;
                     case 1:
                     default:
-                        audioTrack.mixdownType = SBDolbyPlIIMixdown;
+                        mixdown = SBDolbyPlIIMixdown;
                         break;
                 }
+
+                MP42AudioTrack *audioTrack = (MP42AudioTrack *)track;
+                MP42ConversionSettings *settings = [MP42ConversionSettings audioConversionWithBitRate:bitRate
+                                                                                              mixDown:mixdown
+                                                                                                  drc:drc];
+                audioTrack.conversionSettings = settings;
+
             }
 
             if (isTrackMuxable(track.format) || trackNeedConversion(track.format)) {
