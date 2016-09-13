@@ -189,6 +189,7 @@
                         </menu>
                     </popUpButtonCell>
                     <connections>
+                        <accessibilityConnection property="title" destination="206" id="SzO-00-e3U"/>
                         <action selector="updateRatingsCountry:" target="-2" id="242"/>
                         <binding destination="-2" name="content" keyPath="ratingsCountries" id="245"/>
                         <binding destination="123" name="selectedValue" keyPath="values.SBRatingsCountry" previousBinding="245" id="248"/>
@@ -304,6 +305,7 @@
                         </menu>
                     </popUpButtonCell>
                     <connections>
+                        <accessibilityConnection property="title" destination="189" id="hSG-o4-8UE"/>
                         <binding destination="123" name="selectedTag" keyPath="values.SBAudioBitrate" id="205"/>
                     </connections>
                 </popUpButton>
@@ -339,6 +341,7 @@
                         </menu>
                     </popUpButtonCell>
                     <connections>
+                        <accessibilityConnection property="title" destination="113" id="K0K-jh-m2r"/>
                         <binding destination="123" name="selectedTag" keyPath="values.SBAudioMixdown" id="129"/>
                     </connections>
                 </popUpButton>
@@ -402,19 +405,20 @@
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="fZU-8d-Ua1"/>
                     </constraints>
-                    <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="aHL-pt-Ze0" id="sRN-fQ-JQy">
+                    <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="aHL-pt-Ze0" id="sRN-fQ-JQy">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="v6x-m2-JTe">
                             <items>
-                                <menuItem title="1" tag="1" id="aHL-pt-Ze0"/>
-                                <menuItem title="2" state="on" tag="2" id="nQQ-EY-I7P"/>
+                                <menuItem title="1" state="on" tag="1" id="aHL-pt-Ze0"/>
+                                <menuItem title="2" tag="2" id="nQQ-EY-I7P"/>
                                 <menuItem title="3" tag="3" id="7Wi-iB-6hX"/>
                                 <menuItem title="4" tag="4" id="wnj-LB-PfM"/>
                             </items>
                         </menu>
                     </popUpButtonCell>
                     <connections>
+                        <accessibilityConnection property="title" destination="Pud-GM-vyU" id="I13-DW-46I"/>
                         <binding destination="123" name="selectedTag" keyPath="values.SBAudioDRC" id="ozi-Zd-fSY"/>
                     </connections>
                 </popUpButton>
