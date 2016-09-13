@@ -342,8 +342,8 @@
 
     NSString *filename = nil;
     for (MP42Track *track in self.mp4.tracks) {
-        if (track.sourceURL) {
-            filename = track.sourceURL.lastPathComponent.stringByDeletingPathExtension;
+        if (track.URL) {
+            filename = track.URL.lastPathComponent.stringByDeletingPathExtension;
             break;
         }
     }
@@ -714,8 +714,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (NSString *)sourceFilename {
     for (MP42Track *track in self.mp4.tracks) {
-        if (track.sourceURL) {
-            return track.sourceURL.lastPathComponent;
+        if (track.URL) {
+            return track.URL.lastPathComponent;
         }
     }
     return nil;

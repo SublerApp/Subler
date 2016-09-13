@@ -216,8 +216,8 @@
             [actionCell setBordered:NO];
 
             if ([track isMemberOfClass:[MP42VideoTrack class]]) {
-                if ([(track.sourceURL).pathExtension caseInsensitiveCompare: @"264"] == NSOrderedSame ||
-                    [(track.sourceURL).pathExtension caseInsensitiveCompare: @"h264"] == NSOrderedSame) {
+                if ([track.URL.pathExtension caseInsensitiveCompare: @"264"] == NSOrderedSame ||
+                    [track.URL.pathExtension caseInsensitiveCompare: @"h264"] == NSOrderedSame) {
                     NSInteger i = 0;
                     NSArray<NSString *> *formatArray = @[@"23.976", @"24", @"25", @"29.97", @"30", @"50", @"59.96", @"60"];
                     NSInteger tags[8] = {2398, 24, 25, 2997, 30, 50, 5994, 60};
@@ -531,8 +531,8 @@
                     }
                 }
                 else if ([track isMemberOfClass:[MP42VideoTrack class]]) {
-                    if ([track.sourceURL.pathExtension caseInsensitiveCompare:@"264"] == NSOrderedSame ||
-                        [track.sourceURL.pathExtension caseInsensitiveCompare:@"h264"] == NSOrderedSame) {
+                    if ([track.URL.pathExtension caseInsensitiveCompare:@"264"] == NSOrderedSame ||
+                        [track.URL.pathExtension caseInsensitiveCompare:@"h264"] == NSOrderedSame) {
                         NSUInteger frameRate = 0;
                         switch(conversion) {
                             case 0:
