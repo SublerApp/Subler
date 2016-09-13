@@ -211,7 +211,8 @@ static NSString *getLevelName(uint8_t level) {
             track.trackWidth = i;
 
             [self.view.window.windowController.document updateChangeCount:NSChangeDone];
-            track.isEdited = YES;
+            // FIXME
+            //track.isEdited = YES;
         }
     }
     else if (sender == trackHeight) {
@@ -220,7 +221,7 @@ static NSString *getLevelName(uint8_t level) {
             track.trackHeight = i;
 
             [self.view.window.windowController.document updateChangeCount:NSChangeDone];
-            track.isEdited = YES;
+            //track.isEdited = YES;
         }
     }
     else if (sender == offsetX) {
@@ -229,7 +230,7 @@ static NSString *getLevelName(uint8_t level) {
             track.offsetX = (uint32_t)i;
 
             [self.view.window.windowController.document updateChangeCount:NSChangeDone];
-            track.isEdited = YES;
+            //track.isEdited = YES;
         }
     }
     else if (sender == offsetY) {
@@ -238,7 +239,7 @@ static NSString *getLevelName(uint8_t level) {
             track.offsetY = (uint32_t)i;
 
             [self.view.window.windowController.document updateChangeCount:NSChangeDone];
-            track.isEdited = YES;
+            //track.isEdited = YES;
         }
     }
 }
@@ -253,7 +254,6 @@ static NSString *getLevelName(uint8_t level) {
             track.hSpacing = i;
 
             [self.view.window.windowController.document updateChangeCount:NSChangeDone];
-            track.isEdited = YES;
         }
     }
     else if (sender == vSpacing) {
@@ -262,7 +262,6 @@ static NSString *getLevelName(uint8_t level) {
             track.vSpacing = i;
 
             [self.view.window.windowController.document updateChangeCount:NSChangeDone];
-            track.isEdited = YES;
         }
     }
 }
