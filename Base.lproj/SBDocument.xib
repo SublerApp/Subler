@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A319" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
@@ -220,7 +220,7 @@
                             </buttonCell>
                         </button>
                         <connections>
-                            <action selector="selectFile:" target="-2" id="M45-31-aFI"/>
+                            <action selector="deleteTrack:" target="-2" id="FiO-82-bMI"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="66402BE4-4A7B-4048-A584-2BC0F5E69600" label="Search Metadata" paletteLabel="Search Metadata" toolTip="Import tracks from external files" image="NSRevealFreestandingTemplate" id="Q2q-Vv-Qt7" customClass="ButtonToolbarItem">
