@@ -175,6 +175,13 @@
         float drc = [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioDRC"] floatValue];
 
         for (MP42Track *track in fileImporter.tracks) {
+
+            if (!(isTrackMuxable(track.format) || trackNeedConversion(track.format))) {
+                continue;
+            }
+
+            BOOL conversionNeeded = NO;
+
             // AC-3 track, we might need to do the aac + ac3 trick.
             if (track.format == kMP42AudioCodecType_AC3 ||
                 track.format == kMP42AudioCodecType_EnhancedAC3) {
@@ -191,11 +198,13 @@
 
                         [self.mp4File addTrack:copy];
                     }
+                    else {
+                        conversionNeeded = YES;
+                    }
                 }
             }
-
             // DTS -> convert only if specified in the prefs.
-            if (track.format == kMP42AudioCodecType_DTS) {
+            else if (track.format == kMP42AudioCodecType_DTS) {
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioConvertDts"] boolValue]) {
                     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepDts"] boolValue]) {
                         MP42AudioTrack *copy = [track copy];
@@ -205,24 +214,19 @@
                         copy.conversionSettings = settings;
 
                         [self.mp4File addTrack:copy];
-                        
+                    }
+                    else {
+                        conversionNeeded = YES;
                     }
                 }
             }
 
-            // VobSub -> only if specified in the prefs.
-            if ((track.format == kMP42SubtitleCodecType_VobSub &&
-                 [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBSubtitleConvertBitmap"] boolValue])) {
-                MP42ConversionSettings *settings = [MP42ConversionSettings subtitlesConversion];
-                track.conversionSettings = settings;
-            }
-
             // If an audio track needs to be converted, apply the mixdown from the preferences.
-            if ([track isMemberOfClass:[MP42AudioTrack class]] && trackNeedConversion(track.format)) {
+            if (([track isMemberOfClass:[MP42AudioTrack class]] && trackNeedConversion(track.format)) || conversionNeeded) {
                 NSInteger mixdownType = [[[NSUserDefaults standardUserDefaults]
-                  valueForKey:@"SBAudioMixdown"] integerValue];
+                                          valueForKey:@"SBAudioMixdown"] integerValue];
                 NSString *mixdown = SBNoneMixdown;
-                
+
                 switch (mixdownType) {
                     case 5:
                         mixdown = SBNoneMixdown;
@@ -247,12 +251,22 @@
                                                                                                    mixDown:mixdown
                                                                                                        drc:drc];
                 audioTrack.conversionSettings = settings;
-
+                
             }
 
-            if (isTrackMuxable(track.format) || trackNeedConversion(track.format)) {
-                [self.mp4File addTrack:track];
+
+            // VobSub -> only if specified in the prefs.
+            if ((track.format == kMP42SubtitleCodecType_VobSub &&
+                 [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBSubtitleConvertBitmap"] boolValue])) {
+                MP42ConversionSettings *settings = [MP42ConversionSettings subtitlesConversion];
+                track.conversionSettings = settings;
             }
+            else if ([track isMemberOfClass:[MP42SubtitleTrack class]] && trackNeedConversion(track.format)) {
+                MP42ConversionSettings *settings = [MP42ConversionSettings subtitlesConversion];
+                track.conversionSettings = settings;
+            }
+
+            [self.mp4File addTrack:track];
         }
     }
 
