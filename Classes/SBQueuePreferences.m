@@ -34,8 +34,6 @@ NSString * const SBQueueSet = @"SBQueueSet";
 
 @implementation SBQueuePreferences
 
-@synthesize options = _options;
-
 - (instancetype)init {
     self = [super init];
     if (self) {

@@ -31,13 +31,10 @@ extern NSString * const SBQueueTVShowProviderLanguage;
 
 extern NSString * const SBQueueDestination;
 
-@interface SBQueuePreferences : NSObject {
-@private
-    NSMutableDictionary *_options;
-}
+@interface SBQueuePreferences : NSObject
 
-@property (nonatomic, readonly) NSMutableDictionary *options;
-@property (weak, nonatomic, readonly, nullable) NSURL *queueURL;
+@property (nonatomic, readonly) NSMutableDictionary<NSString *, id> *options;
+@property (nonatomic, readonly, nullable) NSURL *queueURL;
 
 + (void)registerUserDefaults;
 - (void)saveUserDefaults;
