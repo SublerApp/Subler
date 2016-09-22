@@ -484,7 +484,13 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     }
 
     if ([tableColumn.identifier isEqualToString:@"value"]) {
-        return self.metadata.tagsDict[self.tagsArray[rowIndex]];
+        NSString *key = self.tagsArray[rowIndex];
+        if ([key isEqualToString:MP42MetadataKeyRating]) {
+            return @([[MP42Ratings defaultManager] ratingIndexForiTunesCode:self.metadata.tagsDict[key]]);
+        }
+        else {
+            return self.metadata.tagsDict[key];
+        }
     }
 
     return nil;
@@ -495,11 +501,18 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     forTableColumn: (NSTableColumn *) tableColumn 
                row: (NSInteger) rowIndex
 {
-    NSString *tagName = (self.tagsArray)[rowIndex];
+    NSString *key = (self.tagsArray)[rowIndex];
     [dct removeAllObjects];
 
     if ([tableColumn.identifier isEqualToString:@"value"]) {
-		[self updateMetadata:anObject forKey:tagName];
+        if ([key isEqualToString:MP42MetadataKeyRating]) {
+            NSUInteger index = [anObject unsignedIntegerValue];
+            NSArray *ratings = [[MP42Ratings defaultManager] iTunesCodes];
+            [self updateMetadata:ratings[index] forKey:key];
+        }
+        else {
+            [self updateMetadata:anObject forKey:key];
+        }
 	}
 }
 
