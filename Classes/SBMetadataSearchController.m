@@ -47,7 +47,6 @@
 
     IBOutlet NSProgressIndicator *progress;
     IBOutlet NSTextField         *progressText;
-    
 }
 
 @property (nonatomic, weak) IBOutlet NSTabViewItem *movieTab;
