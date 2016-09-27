@@ -42,14 +42,15 @@
 
     _fallbacks = [[NSMutableArray alloc] init];
 
-    if (self.soundTrack.format == kMP42AudioCodecType_AC3 ||
-        self.soundTrack.format == kMP42AudioCodecType_EnhancedAC3) {
+    if ((self.soundTrack.format == kMP42AudioCodecType_AC3 || self.soundTrack.format == kMP42AudioCodecType_EnhancedAC3) &&
+        self.soundTrack.conversionSettings.format != kMP42AudioCodecType_MPEG4AAC) {
         NSInteger i = 1;
         NSInteger selectedItem = 0;
 
         for (MP42AudioTrack *fileTrack in [self.file tracksWithMediaType:kMP42MediaType_Audio]) {
             if (fileTrack.format == kMP42AudioCodecType_MPEG4AAC ||
-                fileTrack.format == kMP42AudioCodecType_MPEG4AAC_HE) {
+                fileTrack.format == kMP42AudioCodecType_MPEG4AAC_HE ||
+                fileTrack.conversionSettings.format == kMP42AudioCodecType_MPEG4AAC) {
                 NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ - %@ - %@",
                                                                           fileTrack.trackId ? [NSString stringWithFormat:@"%d", fileTrack.trackId] : @"na",
                                                                           fileTrack.name,
