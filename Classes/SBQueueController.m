@@ -519,15 +519,16 @@ static void *SBQueueContex = &SBQueueContex;
 }
 
 - (IBAction)toggleItemsOptions:(id)sender {
-    NSInteger clickedRow = [sender clickedRow];
-    SBQueueItem *item = [self.queue itemAtIndex:clickedRow];
+    NSInteger index = [self.table rowForView:sender];
+    SBQueueItem *item = [self.queue itemAtIndex:index];
 
     if (self.itemPopover.isShown && ((SBItemViewController *)self.itemPopover.contentViewController).item == item) {
         [self.itemPopover close];
         self.itemPopover = nil;
-    } else {
-        [self createItemPopover:[self.queue itemAtIndex:clickedRow]];
-        [self.itemPopover showRelativeToRect:[sender frameOfCellAtColumn:2 row:clickedRow] ofView:sender preferredEdge:NSMaxXEdge];
+    }
+    else {
+        [self createItemPopover:item];
+        [self.itemPopover showRelativeToRect:[sender frame] ofView:sender preferredEdge:NSMaxXEdge];
     }
 }
 
@@ -559,31 +560,51 @@ static void *SBQueueContex = &SBQueueContex;
 #pragma mark TableView
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
-    return [self.queue count];
+    return self.queue.count;
 }
 
-- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
-    if ([aTableColumn.identifier isEqualToString:@"nameColumn"]) {
-        return [self.queue itemAtIndex:rowIndex].fileURL.lastPathComponent;
-    } else if ([aTableColumn.identifier isEqualToString:@"statusColumn"]) {
-        SBQueueItemStatus batchStatus = [self.queue itemAtIndex:rowIndex].status;
-        if (batchStatus == SBQueueItemStatusCompleted)
-            return [NSImage imageNamed:@"EncodeComplete"];
-        else if (batchStatus == SBQueueItemStatusWorking || batchStatus == SBQueueItemStatusEditing)
-            return [NSImage imageNamed:@"EncodeWorking"];
-        else if (batchStatus == SBQueueItemStatusFailed || batchStatus == SBQueueItemStatusCancelled)
-            return [NSImage imageNamed:@"EncodeCanceled"];
-        else
-            return _docImg;
+- (NSView *)tableView:(NSTableView *)tableView
+   viewForTableColumn:(NSTableColumn *)tableColumn
+                  row:(NSInteger)row
+{
+    NSTableCellView *cell = nil;
+    SBQueueItem *item = [self.queue itemAtIndex:row];
+
+    if ([tableColumn.identifier isEqualToString:@"nameColumn"]) {
+        cell = [tableView makeViewWithIdentifier:@"nameColumn" owner:self];
+        cell.textField.stringValue = item.fileURL.lastPathComponent;
+    }
+    else if ([tableColumn.identifier isEqualToString:@"statusColumn"]) {
+        cell = [tableView makeViewWithIdentifier:@"statusColumn" owner:self];
+        SBQueueItemStatus status = item.status;
+
+        switch (status) {
+            case SBQueueItemStatusCompleted:
+                cell.imageView.image = [NSImage imageNamed:@"EncodeComplete"];
+                break;
+            case SBQueueItemStatusWorking:
+            case SBQueueItemStatusEditing:
+                cell.imageView.image = [NSImage imageNamed:@"EncodeWorking"];
+            case SBQueueItemStatusFailed:
+            case SBQueueItemStatusCancelled:
+                cell.imageView.image = [NSImage imageNamed:@"EncodeCanceled"];
+            default:
+                cell.imageView.image = _docImg;
+                break;
+        }
+    }
+    else if ([tableColumn.identifier isEqualToString:@"actionColumn"]) {
+        cell = [tableView makeViewWithIdentifier:@"actionColumn" owner:self];
     }
 
-    return nil;
+    return cell;
 }
 
 - (void)_deleteSelectionFromTableView:(NSTableView *)aTableView {
     NSMutableIndexSet *rowIndexes = [aTableView.selectedRowIndexes mutableCopy];
     NSInteger clickedRow = aTableView.clickedRow;
     NSUInteger selectedIndex = -1;
+
     if (rowIndexes.count) {
          selectedIndex = rowIndexes.firstIndex;
     }
@@ -596,9 +617,11 @@ static void *SBQueueContex = &SBQueueContex;
     NSArray<SBQueueItem *> *array = [self.queue itemsAtIndexes:rowIndexes];
 
     // A item with a status of SBQueueItemStatusWorking can not be removed
-    for (SBQueueItem *item in array)
-        if (item.status == SBQueueItemStatusWorking)
+    for (SBQueueItem *item in array) {
+        if (item.status == SBQueueItemStatusWorking) {
             [rowIndexes removeIndex:[self.queue indexOfItem:item]];
+        }
+    }
 
     if (rowIndexes.count) {
             [aTableView beginUpdates];
