@@ -325,10 +325,11 @@
         [self didChangeValueForKey:@"fileURL"];
 
         if (!self.cancelled) {
-            if ([self.fileURL isEqualTo:self.destURL] && (self.mp4File).hasFileRepresentation) {
+            if ([self.fileURL isEqualTo:self.destURL] && self.mp4File.hasFileRepresentation) {
                 // We have an existing mp4 file, update it
                 noErr = [self.mp4File updateMP4FileWithOptions:self.attributes error:outError];
-            } else {
+            }
+            else {
                 // Write the new file to disk
                 noErr = [self.mp4File writeToUrl:self.destURL
                                          options:self.attributes

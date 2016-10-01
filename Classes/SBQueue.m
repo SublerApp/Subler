@@ -15,21 +15,21 @@ NSString *SBQueueFailedNotification = @"SBQueueFailedNotification";
 NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
 @interface SBQueue ()
-{
-    IOPMAssertionID _assertionID;
-    IOReturn        _io_success;
-}
 
 @property (atomic) SBQueueStatus status;
 
 @property (nonatomic, copy) NSURL *URL;
 @property (nonatomic) NSMutableArray *items;
 
+@property (nonatomic) NSUInteger currentIndex;
 @property (atomic) SBQueueItem *currentItem;
-@property (atomic) NSUInteger currentIndex;
 @property (atomic) BOOL cancelled;
 
+@property (nonatomic) IOPMAssertionID assertionID;
+@property (nonatomic) IOReturn        io_success;
+
 @property (nonatomic) dispatch_queue_t workQueue;
+@property (nonatomic) dispatch_queue_t saveQueue;
 
 @end
 
@@ -39,12 +39,14 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
     self = [super init];
     if (self) {
         _workQueue = dispatch_queue_create("org.subler.WorkQueue", NULL);
+        _saveQueue = dispatch_queue_create("org.subler.SaveQueue", NULL);
         _URL = [queueURL copy];
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:queueURL.path]) {
             @try {
                 _items = [NSKeyedUnarchiver unarchiveObjectWithFile:queueURL.path];
-            } @catch (NSException *exception) {
+            }
+            @catch (NSException *exception) {
                 [[NSFileManager defaultManager] removeItemAtURL:queueURL error:nil];
                 _items = nil;
             }
@@ -64,9 +66,12 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 }
 
 - (BOOL)saveQueueToDisk {
-    return [NSKeyedArchiver archiveRootObject:self.items toFile:(self.URL).path];
+    __block BOOL result;
+    dispatch_sync(self.saveQueue, ^{
+        result = [NSKeyedArchiver archiveRootObject:self.items toFile:self.URL.path];
+    });
+    return result;
 }
-
 
 - (SBQueueItem *)firstItemInQueue {
     __block SBQueueItem *firstItem = nil;
@@ -82,6 +87,14 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
     return firstItem;
 }
 
+- (NSUInteger)indexOfCurrentItem {
+    __block NSUInteger index;
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        index = [self.items indexOfObject:self.currentItem];
+    });
+    return index;
+}
+
 #pragma mark - item management
 
 - (void)addItem:(SBQueueItem *)item {
@@ -89,7 +102,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 }
 
 - (NSUInteger)count {
-    return (self.items).count;
+    return self.items.count;
 }
 
 - (NSUInteger)readyCount {
@@ -193,7 +206,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
                     break;
                 }
 
-                self.currentIndex = [self.items indexOfObject:self.currentItem];
+                self.currentIndex = [self indexOfCurrentItem];
                 self.currentItem.status = SBQueueItemStatusWorking;
                 self.currentItem.delegate = self;
 
@@ -213,7 +226,8 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
                 if (noErr) {
                     self.currentItem.status = SBQueueItemStatusCompleted;
                     completedCount += 1;
-                } else {
+                }
+                else {
                     self.currentItem.status = SBQueueItemStatusFailed;
                     failedCount += 1;
                     [self handleSBStatusFailed:outError];
