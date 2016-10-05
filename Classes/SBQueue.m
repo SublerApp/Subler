@@ -29,7 +29,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 @property (nonatomic) IOReturn        io_success;
 
 @property (nonatomic) dispatch_queue_t workQueue;
-@property (nonatomic) dispatch_queue_t saveQueue;
+@property (nonatomic) dispatch_queue_t arrayQueue;
 
 @end
 
@@ -39,7 +39,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
     self = [super init];
     if (self) {
         _workQueue = dispatch_queue_create("org.subler.WorkQueue", NULL);
-        _saveQueue = dispatch_queue_create("org.subler.SaveQueue", NULL);
+        _arrayQueue = dispatch_queue_create("org.subler.SaveQueue", NULL);
         _URL = [queueURL copy];
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:queueURL.path]) {
@@ -51,10 +51,11 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
                 _items = nil;
             }
 
-            for (SBQueueItem *item in _items)
-                if (item.status == SBQueueItemStatusWorking)
+            for (SBQueueItem *item in _items) {
+                if (item.status == SBQueueItemStatusWorking) {
                     item.status = SBQueueItemStatusFailed;
-
+                }
+            }
         }
 
         if (!_items) {
@@ -67,7 +68,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
 - (BOOL)saveQueueToDisk {
     __block BOOL result;
-    dispatch_sync(self.saveQueue, ^{
+    dispatch_sync(self.arrayQueue, ^{
         result = [NSKeyedArchiver archiveRootObject:self.items toFile:self.URL.path];
     });
     return result;
@@ -75,7 +76,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
 - (SBQueueItem *)firstItemInQueue {
     __block SBQueueItem *firstItem = nil;
-    dispatch_sync(dispatch_get_main_queue(), ^{
+    dispatch_sync(self.arrayQueue, ^{
         for (SBQueueItem *item in self.items) {
             if ((item.status != SBQueueItemStatusCompleted) && (item.status != SBQueueItemStatusFailed)) {
                 firstItem = item;
@@ -89,7 +90,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
 - (NSUInteger)indexOfCurrentItem {
     __block NSUInteger index;
-    dispatch_sync(dispatch_get_main_queue(), ^{
+    dispatch_sync(self.arrayQueue, ^{
         index = [self.items indexOfObject:self.currentItem];
     });
     return index;
@@ -98,63 +99,95 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 #pragma mark - item management
 
 - (void)addItem:(SBQueueItem *)item {
-    [self.items addObject:item];
+    dispatch_sync(self.arrayQueue, ^{
+        [self.items addObject:item];
+    });
 }
 
 - (NSUInteger)count {
-    return self.items.count;
+    __block NSUInteger count;
+    dispatch_sync(self.arrayQueue, ^{
+        count = self.items.count;
+    });
+    return count;
 }
 
 - (NSUInteger)readyCount {
-    NSUInteger count = 0;
-    for (SBQueueItem *item in self.items)
-        if (item.status == SBQueueItemStatusReady)
-            count++;
+    __block NSUInteger count = 0;
+    dispatch_sync(self.arrayQueue, ^{
+        for (SBQueueItem *item in self.items) {
+            if (item.status == SBQueueItemStatusReady) {
+                count++;
+            }
+        }
+    });
     return count;
 }
 
 - (SBQueueItem *)itemAtIndex:(NSUInteger)index {
-    return (self.items)[index];
+    __block SBQueueItem *item;
+    dispatch_sync(self.arrayQueue, ^{
+        item = self.items[index];
+    });
+    return item;
 }
 
-- (NSArray *)itemsAtIndexes:(NSIndexSet *)indexes {
-    return [self.items objectsAtIndexes:indexes];
+- (NSArray<SBQueueItem *> *)itemsAtIndexes:(NSIndexSet *)indexes {
+    __block NSArray<SBQueueItem *> * items;
+    dispatch_sync(self.arrayQueue, ^{
+        items = [self.items objectsAtIndexes:indexes];
+    });
+    return items;
 }
 
 - (NSUInteger)indexOfItem:(SBQueueItem *)item {
-    return [self.items indexOfObject:item];
+    __block NSUInteger index = 0;
+    dispatch_sync(self.arrayQueue, ^{
+        index =  [self.items indexOfObject:item];
+    });
+    return index;
 }
 
 - (NSIndexSet *)indexesOfItemsWithStatus:(SBQueueItemStatus)status {
     NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
-    [self.items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if (((SBQueueItem *)obj).status == status) {
-            [indexes addIndex:idx];
-        }
-    }];
+    dispatch_sync(self.arrayQueue, ^{
+        [self.items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if (((SBQueueItem *)obj).status == status) {
+                [indexes addIndex:idx];
+            }
+        }];
+    });
     return indexes;
 }
 
 - (void)insertItem:(SBQueueItem *)anItem atIndex:(NSUInteger)index {
-    [self.items insertObject:anItem atIndex:index];
+    dispatch_sync(self.arrayQueue, ^{
+        [self.items insertObject:anItem atIndex:index];
+    });
 }
 
 - (void)removeItemsAtIndexes:(NSIndexSet *)indexes {
-    [self.items removeObjectsAtIndexes:indexes];
+    dispatch_sync(self.arrayQueue, ^{
+        [self.items removeObjectsAtIndexes:indexes];
+    });
 }
 
 - (void)removeItem:(SBQueueItem *)item {
-    [self.items removeObject:item];
+    dispatch_sync(self.arrayQueue, ^{
+        [self.items removeObject:item];
+    });
 }
 
 - (NSIndexSet *)removeCompletedItems {
     NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
 
-    for (SBQueueItem *item in self.items)
-        if (item.status == SBQueueItemStatusCompleted)
-            [indexes addIndex:[self.items indexOfObject:item]];
+    dispatch_sync(self.arrayQueue, ^{
+        for (SBQueueItem *item in self.items)
+            if (item.status == SBQueueItemStatusCompleted)
+                [indexes addIndex:[self.items indexOfObject:item]];
 
-    [self.items removeObjectsAtIndexes:indexes];
+        [self.items removeObjectsAtIndexes:indexes];
+    });
 
     return indexes;
 }
@@ -271,11 +304,11 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
  * sends SBQueueWorkingNotification.
  */
 - (void)handleSBStatusWorking:(CGFloat)progress index:(NSInteger)index {
-    NSString *description = self.currentItem.localizedWorkingDescription;
-    if (!description) {
-        description = NSLocalizedString(@"Working", @"Queue Working.");
+    NSString *itemDescription = self.currentItem.localizedWorkingDescription;
+    if (!itemDescription) {
+        itemDescription = NSLocalizedString(@"Working", @"Queue Working.");
     }
-    NSString *info = [NSString stringWithFormat:@"%@, item %ld of %lu.", description, (long)self.currentIndex + 1, (unsigned long)self.items.count];
+    NSString *info = [NSString stringWithFormat:@"%@, item %ld.", itemDescription, (long)self.currentIndex + 1];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueWorkingNotification object:self userInfo:@{@"ProgressString": info,
                                                                                                                  @"Progress": @(progress),
