@@ -167,20 +167,40 @@ NSString *const SBMetadataResultNetwork = @"{Network}";
             }
         }
 
+        MP42MetadataItem *metadataItem = [MP42MetadataItem metadataItemWithIdentifier:item.key
+                                                                                value:result
+                                                                             dataType:MP42MetadataItemDataTypeUnspecified
+                                                                  extendedLanguageTag:nil];
+
         if (result.length) {
-            [metadata setTag:result forKey:item.key];
+            [metadata addMetadataItem:metadataItem];
         }
         else if (keep) {
-            [metadata setTag:result forKey:item.key];
+            [metadata addMetadataItem:metadataItem];
         }
     }
 
     for (MP42Image *artwork in self.artworks) {
-        [metadata.artworks addObject:artwork];
+        MP42MetadataItem *metadataItem = [MP42MetadataItem metadataItemWithIdentifier:MP42MetadataKeyCoverArt
+                                                                                value:(id)artwork
+                                                                             dataType:MP42MetadataItemDataTypeImage
+                                                                  extendedLanguageTag:nil];
+        [metadata addMetadataItem:metadataItem];
     }
 
-    metadata.mediaKind = self.mediaKind;
-    metadata.contentRating = self.contentRating;
+    MP42MetadataItem *mediaKind = [MP42MetadataItem metadataItemWithIdentifier:MP42MetadataKeyMediaKind
+                                                                            value:@(self.mediaKind)
+                                                                         dataType:MP42MetadataItemDataTypeInteger
+                                                              extendedLanguageTag:nil];
+    [metadata addMetadataItem:mediaKind];
+
+    if (self.contentRating || keep) {
+        MP42MetadataItem *contentRating = [MP42MetadataItem metadataItemWithIdentifier:MP42MetadataKeyContentRating
+                                                                                 value:@(self.contentRating)
+                                                                              dataType:MP42MetadataItemDataTypeInteger
+                                                                   extendedLanguageTag:nil];
+        [metadata addMetadataItem:contentRating];
+    }
 
     return metadata;
 }
