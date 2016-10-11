@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol SBTableViewDelegate
+@protocol SBTableViewDelegate <NSTableViewDelegate>
 @optional
 - (void)_deleteSelectionFromTableView:(NSTableView *)tableView;
 - (void)_copySelectionFromTableView:(NSTableView *)tableView;

@@ -6,53 +6,51 @@
 //  Copyright 2009 Damiano Galassi. All rights reserved.
 //
 
-NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
+NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
 
 #import "SBMovieViewController.h"
 #import "SBTableView.h"
 #import "SBPresetManager.h"
-#import "SBTableView.h"
 #import "SBImageBrowserView.h"
+#import "SBPopUpCellView.h"
+#import "SBCheckBoxCellView.h"
 
 #import <MP42Foundation/MP42Ratings.h>
 #import <MP42Foundation/MP42Image.h>
-#import <MP42Foundation/MP42File.h>
+#import <MP42Foundation/MP42Metadata.h>
+#import <MP42Foundation/NSString+MP42Additions.h>
 
-@interface SBMovieViewController () <SBTableViewDelegate, SBImageBrowserViewDelegate>
-{
-    IBOutlet NSPopUpButton  *tagList;
-    IBOutlet NSPopUpButton  *setList;
+@interface SBMovieViewController () <NSTableViewDataSource, SBTableViewDelegate, SBImageBrowserViewDelegate>
 
-    IBOutlet SBTableView    *tagsTableView;
+// Metadata tab
+@property (nonatomic) NSArray<MP42MetadataItem *> *tags;
+@property (nonatomic) NSMutableArray<MP42MetadataItem *> *artworks;
 
-    IBOutlet NSPopUpButton  *mediaKind;
-    IBOutlet NSPopUpButton  *contentRating;
-    IBOutlet NSPopUpButton  *hdVideo;
-    IBOutlet NSButton       *gapless;
-    IBOutlet NSButton       *podcast;
+@property (nonatomic) NSArray<NSString *> *ratings;
+@property (nonatomic) NSArray<NSArray *> *mediaKinds;
+@property (nonatomic) NSArray<NSArray *> *hdVideo;
+@property (nonatomic) NSArray<NSArray *> *contentRatings;
 
-    IBOutlet NSButton       *removeTag;
+@property (nonatomic) NSTableCellView *dummyCell;
+@property (nonatomic) NSLayoutConstraint *dummyCellWidth;
+@property (nonatomic) NSTableColumn *column;
+@property (nonatomic) CGFloat columnWidth;
+@property (nonatomic) CGFloat previousColumnWidth;
+@property (nonatomic) NSMutableDictionary<NSString *,NSNumber *> *rowHeights;
 
-    IBOutlet NSWindow       *saveWindow;
-    IBOutlet NSTextField    *presetName;
+@property (nonatomic, weak) IBOutlet NSPopUpButton *tagsPopUp;
+@property (nonatomic, weak) IBOutlet NSPopUpButton *setsPopUp;
 
-    NSPopUpButtonCell       *ratingCell;
-    NSComboBoxCell          *genreCell;
+@property (nonatomic, weak) IBOutlet NSButton *removeTagButton;
+@property (nonatomic, weak) IBOutlet SBTableView *metadataTableView;
 
-    NSArray<NSString *> *_tagsArray;
-    NSDictionary    *detailBoldAttr;
+// Artwork tab
+@property (nonatomic, weak) IBOutlet NSButton *removeArtworkButton;
+@property (nonatomic, weak) IBOutlet SBImageBrowserView *artworksView;
 
-    NSMutableDictionary  *dct;
-    NSTableColumn *tabCol;
-    CGFloat width;
-
-    IBOutlet SBImageBrowserView *imageBrowser;
-
-    IBOutlet NSButton       *addArtwork;
-    IBOutlet NSButton       *removeArtwork;
-}
-
-@property (nonatomic, strong) NSArray<NSString *> *tagsArray;
+// Set save window
+@property (nonatomic, strong) IBOutlet NSWindow *saveSetWindow;
+@property (nonatomic, weak) IBOutlet NSTextField *saveSetName;
 
 @end
 
@@ -62,6 +60,14 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
 {
     [super loadView];
 
+    _ratings = [MP42Ratings defaultManager].ratings;
+    _contentRatings = @[@[@"None", @0], @[@"Clean", @2], @[@"Explicit", @4]];
+    _mediaKinds = @[@[@"Home Video", @0], @[@"Music", @1], @[@"Audiobook", @2],
+                    @[@"Music Video", @6], @[@"Movie", @9], @[@"TV Show", @10],
+                    @[@"Booklet", @11], @[@"Ringtone", @14], @[@"Podcast", @21],
+                    @[@"iTunes U", @23], @[@"Alert Tone", @27]];
+    _hdVideo = @[@[@"No", @0], @[@"720p", @1], @[@"1080p", @2]];
+
     [self updateSetsMenu:self];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -70,254 +76,251 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
 
     NSArray<NSString *> *tagsMenu = [MP42Metadata writableMetadata];
     for (NSString *tag in tagsMenu) {
-        [tagList addItemWithTitle:tag];
+        [self.tagsPopUp addItemWithTitle:tag];
     }
 
-    ratingCell = [[NSPopUpButtonCell alloc] init];
-    [ratingCell setAutoenablesItems:NO];
-    ratingCell.font = [NSFont systemFontOfSize:11];
-    ratingCell.controlSize = NSSmallControlSize;
-    [ratingCell setBordered:NO];
+    self.column = self.metadataTableView.tableColumns[1];
+    self.columnWidth = self.column.width;
+    _rowHeights = [[NSMutableDictionary alloc] init];
 
-	NSArray *ratings = [MP42Ratings defaultManager].ratings;
-    for (NSString *rating in ratings) {
-		[ratingCell.menu addItem:[[NSMenuItem alloc] initWithTitle:rating action:NULL keyEquivalent:@""]];
-    }
+    [self updateMetadataArray];
 
-    genreCell = [[NSComboBoxCell alloc] init];
-    [genreCell setCompletes:YES];
-    genreCell.font = [NSFont systemFontOfSize:11];
-    [genreCell setDrawsBackground:NO];
-    [genreCell setBezeled:NO];
-    [genreCell setButtonBordered:NO];
-    genreCell.controlSize = NSSmallControlSize;
-    genreCell.intercellSpacing = NSMakeSize(1.0, 1.0);
-    [genreCell setEditable:YES];
-    [genreCell addItemsWithObjectValues:[self.metadata availableGenres]];
+    self.metadataTableView.doubleAction = @selector(doubleClickAction:);
+    self.metadataTableView.target = self;
+    self.metadataTableView.pasteboardTypes = @[SublerMetadataPBoardType];
+    [self.metadataTableView scrollRowToVisible:0];
 
-    NSMutableParagraphStyle * ps = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    ps.headIndent = -10.0;
-    ps.alignment = NSRightTextAlignment;
-
-    [mediaKind selectItemWithTag:self.metadata.mediaKind];
-    [contentRating selectItemWithTag:self.metadata.contentRating];
-    [hdVideo selectItemWithTag:self.metadata.hdVideo];
-    gapless.state = self.metadata.gapless;
-    podcast.state = self.metadata.podcast;
-
-    tabCol = tagsTableView.tableColumns[1];
-    width = tabCol.width;
-
-    [self updateTagsArray];
-
-    tagsTableView.doubleAction = @selector(doubleClickAction:);
-    tagsTableView.target = self;
-    tagsTableView.pasteboardTypes = @[MetadataPBoardType];
-    [tagsTableView scrollRowToVisible:0];
-
-    dct = [[NSMutableDictionary alloc] init];
-
-    imageBrowser.pasteboardTypes = @[NSPasteboardTypeTIFF, NSPasteboardTypePNG];
-    [imageBrowser setZoomValue:1.0];
-    [imageBrowser reloadData];
+    self.artworksView.pasteboardTypes = @[NSPasteboardTypeTIFF, NSPasteboardTypePNG];
+    [self.artworksView setZoomValue:1.0];
+    [self.artworksView reloadData];
 }
 
-- (void) updateTagsArray
+- (void)setMetadata:(MP42Metadata *)metadata
+{
+    _metadata = metadata;
+
+    [self updateMetadataArray];
+    self.artworks = [[metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt] mutableCopy];
+}
+
+#pragma mark - UI
+
+- (void)updateMetadataArray
 {
     NSArray<NSString *> *context = [MP42Metadata availableMetadata];
-    self.tagsArray = [self.metadata.tagsDict.allKeys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        NSInteger right = [context indexOfObject:obj2];
-        NSInteger left = [context indexOfObject:obj1];
-        
-        if (right < left)
-            return NSOrderedDescending;
-        else
-            return NSOrderedAscending;
+
+    MP42MetadataItemDataType dataTypes = MP42MetadataItemDataTypeString | MP42MetadataItemDataTypeStringArray |
+                                         MP42MetadataItemDataTypeBool | MP42MetadataItemDataTypeInteger |
+                                         MP42MetadataItemDataTypeIntegerArray | MP42MetadataItemDataTypeDate;
+    self.tags = [self.metadata metadataItemsFilteredByDataType:dataTypes];
+
+    self.tags = [self.tags sortedArrayUsingComparator:^NSComparisonResult(MP42MetadataItem *obj1, MP42MetadataItem *obj2) {
+        NSInteger right = [context indexOfObject:obj2.identifier];
+        NSInteger left = [context indexOfObject:obj1.identifier];
+        return (right < left) ? NSOrderedDescending : NSOrderedAscending;
     }];
 }
-
-- (void) add:(NSDictionary *) data
+- (void)addMetadataItems:(NSArray<MP42MetadataItem *> *)items
 {
-    NSArray *metadataKeys = data.allKeys;
-
-    for (NSString *key in metadataKeys) {
-        [self.metadata setTag:[data valueForKey:key] forKey:key];
+    for (MP42MetadataItem *item in items) {
+        [self.metadata addMetadataItem:item];
     }
 
     NSUndoManager *undo = self.view.undoManager;
-    [[undo prepareWithInvocationTarget:self] remove:data];
+    [[undo prepareWithInvocationTarget:self] removeMetadataItems:items];
 
     if (!undo.undoing) {
         [undo setActionName:NSLocalizedString(@"Insert", @"Undo tag insert.")];
     }
 
-    [self updateTagsArray];
-    [tagsTableView reloadData];
+    [self updateMetadataArray];
+    [self.metadataTableView reloadData];
 }
 
-- (void) remove:(NSDictionary *) data
+- (void)removeMetadataItems:(NSArray<MP42MetadataItem *> *)items
 {
-    NSArray *metadataKeys = data.allKeys;
-
-    for (NSString *key in metadataKeys) {
-        [self.metadata removeTagForKey:key];
+    for (MP42MetadataItem *item in items) {
+        [self.metadata removeMetadataItem:item];
     }
 
     NSUndoManager *undo = self.view.undoManager;
-    [[undo prepareWithInvocationTarget:self] add:data];
+    [[undo prepareWithInvocationTarget:self] addMetadataItems:items];
 
     if (!undo.undoing) {
         [undo setActionName:NSLocalizedString(@"Delete", @"Undo tag delete")];
     }
 
-    [self updateTagsArray];
-    [tagsTableView reloadData];
+    [self updateMetadataArray];
+    [self.metadataTableView reloadData];
 }
 
-- (IBAction) addTag: (id) sender
+- (void)replaceMetadataItem:(MP42MetadataItem *)item withItem:(MP42MetadataItem *)newItem
 {
-    NSString *tagName = [sender selectedItem].title;
+    [self.metadata removeMetadataItem:item];
+    [self.metadata addMetadataItem:newItem];
 
-    if (![self.metadata.tagsDict valueForKey:tagName])
-        [self add:@{tagName: @""}];
+    NSUndoManager *undo = self.view.undoManager;
+    [[undo prepareWithInvocationTarget:self] replaceMetadataItem:newItem withItem:item];
+
+    if (!undo.undoing) {
+        [undo setActionName:NSLocalizedString(@"Editing", @"Undo tag editing")];
+        [self.view.window.windowController.document updateChangeCount:NSChangeDone];
+
+    }
+    else {
+        [self.view.window.windowController.document updateChangeCount:NSChangeUndone];
+    }
+
+    [self updateMetadataArray];
+
+    [NSAnimationContext beginGrouping];
+    [[NSAnimationContext currentContext] setDuration:0];
+
+    NSUInteger index = [self.tags indexOfObject:newItem];
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:index];
+    NSIndexSet *colIndexSet = [NSIndexSet indexSetWithIndex:1];
+
+    [self.metadataTableView reloadDataForRowIndexes:indexSet columnIndexes:colIndexSet];
+    [self.metadataTableView noteHeightOfRowsWithIndexesChanged:indexSet];
+
+    [NSAnimationContext endGrouping];
 }
 
-- (IBAction) removeTag: (id) sender {
-    NSIndexSet *rowIndexes = tagsTableView.selectedRowIndexes;
+- (IBAction)addTag:(id)sender
+{
+    NSString *identifier = [sender selectedItem].title;
+
+    if (![self.metadata metadataItemsFilteredByIdentifier:identifier].count) {
+        MP42MetadataItem *item = [MP42MetadataItem metadataItemWithIdentifier:identifier
+                                                                        value:@""
+                                                                     dataType:MP42MetadataItemDataTypeUnspecified
+                                                          extendedLanguageTag:nil];
+        [self addMetadataItems:@[item]];
+    }
+}
+
+- (IBAction)removeTag:(id)sender {
+    NSIndexSet *rowIndexes = self.metadataTableView.selectedRowIndexes;
     NSUInteger current_index = rowIndexes.lastIndex;
-    NSMutableDictionary *tagDict = [[NSMutableDictionary alloc] init];
+    NSMutableArray *items = [[NSMutableArray alloc] init];
 
     while (current_index != NSNotFound) {
-        if (tagsTableView.editedRow == -1) {
-            NSString *tagName = (self.tagsArray)[current_index];
-            tagDict[tagName] = [self.metadata.tagsDict valueForKey:tagName];
+        if (self.metadataTableView.editedRow == -1) {
+            MP42MetadataItem *item = self.tags[current_index];
+            [items addObject:item];
         }
         current_index = [rowIndexes indexLessThanIndex: current_index];
     }
-    [self remove:tagDict];
+    [self removeMetadataItems:items];
 }
 
-- (void) updateMetadata:(id)value forKey:(NSString *)key
-{
-    NSString *oldValue = [self.metadata.tagsDict valueForKey:key];
+#pragma mark - Built In presets.
 
-    if ([self.metadata setTag:value forKey:key]) {
-
-        [tagsTableView noteHeightOfRowsWithIndexesChanged:
-            [NSIndexSet indexSetWithIndexesInRange: NSMakeRange(0, tagsTableView.numberOfRows)]];
-
-        NSUndoManager *undo = self.view.undoManager;
-        [[undo prepareWithInvocationTarget:self] updateMetadata:oldValue
-                                                      forKey:key];
-        if (!undo.undoing) {
-            [undo setActionName:NSLocalizedString(@"Editing", @"Undo tag editing.")];
-        }
-    }
-}
-
-- (NSArray *) allSet
+- (NSArray *)allSet
 {
     return [MP42Metadata writableMetadata];
 }
 
-- (NSArray *) tvShowSet
+- (NSArray *)tvShowSet
 {
     return @[MP42MetadataKeyName, MP42MetadataKeyArtist, MP42MetadataKeyAlbum, MP42MetadataKeyReleaseDate, MP42MetadataKeyTrackNumber, MP42MetadataKeyDiscNumber, MP42MetadataKeyTVShow, MP42MetadataKeyTVEpisodeNumber, MP42MetadataKeyTVNetwork, MP42MetadataKeyTVEpisodeID, MP42MetadataKeyTVSeason, MP42MetadataKeyUserGenre, MP42MetadataKeyDescription, MP42MetadataKeyLongDescription];
 }
 
-- (NSArray *) movieSet
+- (NSArray *)movieSet
 {
     return @[MP42MetadataKeyName, MP42MetadataKeyArtist, MP42MetadataKeyAlbum, MP42MetadataKeyUserGenre, MP42MetadataKeyReleaseDate, MP42MetadataKeyTrackNumber, MP42MetadataKeyDiscNumber, MP42MetadataKeyCast, MP42MetadataKeyDirector, MP42MetadataKeyScreenwriters, MP42MetadataKeyUserGenre, MP42MetadataKeyDescription, MP42MetadataKeyLongDescription, MP42MetadataKeyRating, MP42MetadataKeyCopyright];
 }
 
-- (IBAction) addMetadataSet: (id)sender
+#pragma mark - Presets management
+
+- (IBAction)addMetadataSet:(id)sender
 {
-    NSArray *metadataKeys = nil;
+    NSArray *identifiers = nil;
+    NSMutableArray *itemsToBeAdded = [NSMutableArray array];
+
     if ([sender tag] == 0) {
-        metadataKeys = [self allSet];
+        identifiers = [self allSet];
     }
     else if ([sender tag] == 1) {
-        metadataKeys = [self movieSet];
-        self.metadata.mediaKind = 9;
-        [mediaKind selectItemWithTag:self.metadata.mediaKind];
+        identifiers = [self movieSet];
+        MP42MetadataItem *mediaKind = [MP42MetadataItem metadataItemWithIdentifier:MP42MetadataKeyMediaKind
+                                                                             value:@9
+                                                                          dataType:MP42MetadataItemDataTypeInteger
+                                                               extendedLanguageTag:nil];
+        [itemsToBeAdded addObject:mediaKind];
     }
     else if ([sender tag] == 2) {
-        metadataKeys = [self tvShowSet];
-        self.metadata.mediaKind = 10;
-        [mediaKind selectItemWithTag:self.metadata.mediaKind];
+        identifiers = [self tvShowSet];
+        MP42MetadataItem *mediaKind = [MP42MetadataItem metadataItemWithIdentifier:MP42MetadataKeyMediaKind
+                                                                             value:@10
+                                                                          dataType:MP42MetadataItemDataTypeInteger
+                                                               extendedLanguageTag:nil];
+        [itemsToBeAdded addObject:mediaKind];
     }
 
-    NSMutableDictionary *tagDict = [[NSMutableDictionary alloc] init];
-    for (NSString *key in metadataKeys) {
-        if (![self.metadata.tagsDict valueForKey:key])
-            [tagDict setValue:@"" forKey:key];
+    NSMutableSet *existingIdentifiers = [NSMutableSet set];
+
+    for (MP42MetadataItem *item in self.tags) {
+        [existingIdentifiers addObject:item.identifier];
     }
 
-    [self add:tagDict];
+    for (NSString *identifier in identifiers) {
+        if (![existingIdentifiers containsObject:identifier]) {
+            MP42MetadataItem *item = [MP42MetadataItem metadataItemWithIdentifier:identifier
+                                                                            value:@""
+                                                                         dataType:MP42MetadataItemDataTypeUnspecified
+                                                              extendedLanguageTag:nil];
+            [itemsToBeAdded addObject:item];
+        }
+    }
+
+    [self addMetadataItems:itemsToBeAdded];
 }
 
-- (void) applySet: (id)sender
+- (void)applySet:(id)sender
 {
     NSInteger tag = [sender tag];
     SBPresetManager *presetManager = [SBPresetManager sharedManager];
+    MP42Metadata *preset = presetManager.presets[tag];
 
-    MP42Metadata *newTags = presetManager.presets[tag];
+    // FIX add back undo support.
+    [self.metadata mergeMetadata:preset];
+    [self updateMetadataArray];
 
-    NSArray *metadataKeys = newTags.tagsDict.allKeys;
-
-    NSMutableDictionary *tagDict = [[NSMutableDictionary alloc] init];
-    for (NSString *key in metadataKeys) {
-        [tagDict setValue:[newTags.tagsDict valueForKey:key] forKey:key];
-    }
-
-    [self.metadata.artworks addObjectsFromArray:newTags.artworks];
-    [self.metadata setIsArtworkEdited:YES];
-    [imageBrowser reloadData];
-
-    self.metadata.mediaKind = newTags.mediaKind;
-    [mediaKind selectItemWithTag:self.metadata.mediaKind];
-
-    self.metadata.hdVideo = newTags.hdVideo;
-    [hdVideo selectItemWithTag:self.metadata.hdVideo];
-
-    self.metadata.gapless = newTags.gapless;
-    gapless.state = self.metadata.gapless;
-
-    self.metadata.podcast = newTags.podcast;
-    podcast.state = self.metadata.podcast;
-
-    self.metadata.contentRating = newTags.contentRating;
-    [contentRating selectItemWithTag:self.metadata.contentRating];
-
-    [self add:tagDict];
+    [self.artworksView reloadData];
+    [self.metadataTableView reloadData];
 }
 
-- (void) updateSetsMenu: (id)sender
+- (void)updateSetsMenu:(id)sender
 {
     SBPresetManager *presetManager = [SBPresetManager sharedManager];
-    NSMenu * setListMenu = setList.menu;
+    NSMenu *setListMenu = self.setsPopUp.menu;
 
     while (setListMenu.numberOfItems > 1) {
         [setListMenu removeItemAtIndex: 1];
     }
     
-    NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Save Set", @"Set menu") action:@selector(showSaveSet:) keyEquivalent:@""];
+    NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Save Set", @"Set menu")
+                                                     action:@selector(showSaveSet:) keyEquivalent:@""];
     newItem.target = self;
     [setListMenu addItem:newItem];
 
     [setListMenu addItem:[NSMenuItem separatorItem]];
 
-    newItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"All", @"Set menu All set") action:@selector(addMetadataSet:) keyEquivalent:@""];
+    newItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"All", @"Set menu All set")
+                                         action:@selector(addMetadataSet:) keyEquivalent:@""];
     newItem.target = self;
     newItem.tag = 0;
     [setListMenu addItem:newItem];
 
-    newItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Movie", @"Set menu Movie set") action:@selector(addMetadataSet:) keyEquivalent:@""];
+    newItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Movie", @"Set menu Movie set")
+                                         action:@selector(addMetadataSet:) keyEquivalent:@""];
     newItem.target = self;
     newItem.tag = 1;
     [setListMenu addItem:newItem];
 
-    newItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"TV Show", @"Set menu TV Show Set") action:@selector(addMetadataSet:) keyEquivalent:@""];
+    newItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"TV Show", @"Set menu TV Show Set")
+                                         action:@selector(addMetadataSet:) keyEquivalent:@""];
     newItem.target = self;
     newItem.tag = 2;
     [setListMenu addItem:newItem];
@@ -340,27 +343,242 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
     }
 }
 
-- (IBAction) showSaveSet: (id)sender
+- (IBAction)showSaveSet:(id)sender
 {
-    [self.view.window beginCriticalSheet:saveWindow completionHandler:NULL];
+    [self.view.window beginCriticalSheet:self.saveSetWindow completionHandler:NULL];
 }
 
-- (IBAction) saveSet: (id) sender
+- (IBAction)saveSet:(id)sender
 {
     SBPresetManager *presetManager = [SBPresetManager sharedManager];
 
-    self.metadata.presetName = presetName.stringValue;
+    self.metadata.presetName = self.saveSetName.stringValue;
     [presetManager newSetFromExistingMetadata: self.metadata];
 
-    [self.view.window endSheet:saveWindow];
+    [self.view.window endSheet:self.saveSetWindow];
 }
 
-- (IBAction) closeSaveSheet: (id) sender
+- (IBAction)closeSaveSheet:(id)sender
 {
-    [self.view.window endSheet:saveWindow];
+    [self.view.window endSheet:self.saveSetWindow];
 }
 
-/* NSTableView additions for copy & paste and more */
+#pragma mark - TableView data source
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
+{
+    return self.tags.count;
+}
+
+- (NSTableCellView *)boolCellWithState:(BOOL)state tableView:(NSTableView *)tableView
+{
+    SBCheckBoxCellView *cell = [tableView makeViewWithIdentifier:@"BoolCell" owner:self];
+    cell.checkboxButton.state = state;
+    return cell;
+}
+
+- (NSTableCellView *)textCellWithString:(NSString *)text tableView:(NSTableView *)tableView
+{
+    NSTableCellView *cell = [tableView makeViewWithIdentifier:@"TextCell" owner:self];
+    cell.textField.stringValue = text;
+    return cell;
+}
+
+- (NSTableCellView *)popUpCellWithContents:(NSArray<NSString *> *)contents index:(NSInteger)index tableView:(NSTableView *)tableView
+{
+    SBPopUpCellView *popUpCell =  [tableView makeViewWithIdentifier:@"PopUpCell" owner:self];
+    [popUpCell.popUpButton removeAllItems];
+    for (NSString *title in contents) {
+        [popUpCell.popUpButton.menu addItem:[[NSMenuItem alloc] initWithTitle:title action:NULL keyEquivalent:@""]];
+    }
+    [popUpCell.popUpButton selectItemAtIndex:index];
+    return popUpCell;
+}
+
+- (NSTableCellView *)popUpCellWithArrayContents:(NSArray<NSArray *> *)contents value:(NSNumber *)value tableView:(NSTableView *)tableView
+{
+    NSInteger index = 0;
+    SBPopUpCellView *popUpCell =  [tableView makeViewWithIdentifier:@"PopUpCell" owner:self];
+    [popUpCell.popUpButton removeAllItems];
+    for (NSArray *array in contents) {
+        [popUpCell.popUpButton.menu addItem:[[NSMenuItem alloc] initWithTitle:array.firstObject action:NULL keyEquivalent:@""]];
+        if ([array[1] isEqualToNumber:value]) {
+            [popUpCell.popUpButton selectItemAtIndex:index];
+        }
+        index++;
+    }
+    return popUpCell;
+}
+
+- (nullable NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(nullable NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    NSTableCellView *cell = nil;
+    MP42MetadataItem *item = [self.tags objectAtIndex:row];
+
+    if ([tableColumn.identifier isEqualToString:@"key"]) {
+        cell = [tableView makeViewWithIdentifier:@"NameTextCell" owner:self];
+        cell.textField.stringValue = item.identifier;
+    }
+    else if ([tableColumn.identifier isEqualToString:@"value"]) {
+        switch (item.dataType) {
+            case MP42MetadataItemDataTypeString:
+            {
+                if ([item.identifier isEqualToString:MP42MetadataKeyUserGenre]) {
+                    cell = [self textCellWithString:item.stringValue tableView:tableView];
+                    //cell = [tableView makeViewWithIdentifier:@"ComboCell" owner:self];
+                    break;
+                 }
+                 else if ([item.identifier isEqualToString:MP42MetadataKeyRating]) {
+                     NSInteger index = [[MP42Ratings defaultManager] ratingIndexForiTunesCode:item.stringValue];
+                     cell = [self popUpCellWithContents:self.ratings index:index tableView:tableView];
+                     break;
+                 }
+            }
+            case MP42MetadataItemDataTypeStringArray:
+            case MP42MetadataItemDataTypeInteger:
+            {
+                if ([item.identifier isEqualToString:MP42MetadataKeyContentRating]) {
+                    cell = [self popUpCellWithArrayContents:self.contentRatings value:item.numberValue tableView:tableView];
+                    break;
+                }
+                else if ([item.identifier isEqualToString:MP42MetadataKeyMediaKind]) {
+                    cell = [self popUpCellWithArrayContents:self.mediaKinds value:item.numberValue tableView:tableView];
+                    break;
+                }
+                else if ([item.identifier isEqualToString:MP42MetadataKeyHDVideo]) {
+                    cell = [self popUpCellWithArrayContents:self.hdVideo value:item.numberValue tableView:tableView];
+                    break;
+                }
+            }
+            case MP42MetadataItemDataTypeIntegerArray:
+            case MP42MetadataItemDataTypeDate:
+                cell = [self textCellWithString:item.stringValue tableView:tableView];
+                break;
+            case MP42MetadataItemDataTypeBool:
+                cell = [self boolCellWithState:item.numberValue.boolValue tableView:tableView];
+                break;
+            default:
+                break;
+        }
+    }
+
+    return cell;
+}
+
+#pragma mark - TableView editing
+
+- (NSArray<NSString *> *)stringsArrayFromString:(NSString *)string
+{
+    NSString *splitElements  = @",\\s*+";
+    NSArray *stringArray = [string MP42_componentsSeparatedByRegex:splitElements];
+
+    NSMutableArray<NSString *> *arrayElements = [NSMutableArray array];
+
+    for (NSString *element in stringArray) {
+        [arrayElements addObject:element];
+    }
+
+    return arrayElements;
+}
+
+- (NSArray<NSNumber *> *)numbersArrayFromString:(NSString *)string
+{
+    int index = 0, count = 0;
+    char separator[3];
+
+    sscanf(string.UTF8String,"%u%[/- ]%u", &index, separator, &count);
+
+    return @[@(index), @(count)];
+}
+
+- (IBAction)setMetadataStringValue:(NSTextField *)sender
+{
+    NSInteger row = [self.metadataTableView rowForView:sender];
+    MP42MetadataItem *item = self.tags[row];
+
+    if ([sender.stringValue isEqualToString:item.stringValue]) {
+        return;
+    }
+
+    id value;
+    switch (item.dataType) {
+        case MP42MetadataItemDataTypeString:
+            value = sender.stringValue;
+            break;
+        case MP42MetadataItemDataTypeStringArray:
+            value = [self stringsArrayFromString:sender.stringValue];
+            break;
+        case MP42MetadataItemDataTypeInteger:
+            value = @(sender.integerValue);
+            break;
+        case MP42MetadataItemDataTypeIntegerArray:
+            value = [self numbersArrayFromString:sender.stringValue];
+            break;
+        case MP42MetadataItemDataTypeDate:
+            value = [NSDate dateWithString:sender.stringValue];
+            break;
+        case MP42MetadataItemDataTypeBool:
+            value = @((BOOL)sender.integerValue);
+            break;
+
+        default:
+            break;
+    }
+
+    MP42MetadataItem *editedItem = [MP42MetadataItem metadataItemWithIdentifier:item.identifier
+                                                                          value:value
+                                                                       dataType:item.dataType
+                                                            extendedLanguageTag:item.extendedLanguageTag];
+    [self replaceMetadataItem:item withItem:editedItem];
+}
+
+- (IBAction)setMetadataBoolValue:(NSButton *)sender {
+    NSInteger row = [self.metadataTableView rowForView:sender];
+    MP42MetadataItem *item = self.tags[row];
+
+    MP42MetadataItem *editedItem = [MP42MetadataItem metadataItemWithIdentifier:item.identifier
+                                                                          value:@(sender.state)
+                                                                       dataType:item.dataType
+                                                            extendedLanguageTag:item.extendedLanguageTag];
+    [self replaceMetadataItem:item withItem:editedItem];
+}
+
+- (IBAction)setMetadataIntValue:(NSPopUpButton *)sender
+{
+    NSInteger row = [self.metadataTableView rowForView:sender];
+    MP42MetadataItem *item = self.tags[row];
+
+    NSInteger index = sender.indexOfSelectedItem;
+
+    id value;
+    switch (item.dataType) {
+        case MP42MetadataItemDataTypeString:
+            if ([item.identifier isEqualToString:MP42MetadataKeyRating]) {
+                NSArray<NSString *> *ratings = [[MP42Ratings defaultManager] iTunesCodes];
+                value = ratings[index];
+            }
+            break;
+        case MP42MetadataItemDataTypeInteger:
+            if ([item.identifier isEqualToString:MP42MetadataKeyContentRating]) {
+                value = self.contentRatings[index][1];
+            }
+            else if ([item.identifier isEqualToString:MP42MetadataKeyMediaKind]) {
+                value = self.mediaKinds[index][1];
+            }
+            else if ([item.identifier isEqualToString:MP42MetadataKeyHDVideo]) {
+                value = self.hdVideo[index][1];
+            }
+            break;
+        default:
+            break;
+    }
+
+    MP42MetadataItem *editedItem = [MP42MetadataItem metadataItemWithIdentifier:item.identifier
+                                                                          value:value
+                                                                       dataType:item.dataType
+                                                            extendedLanguageTag:item.extendedLanguageTag];
+    [self replaceMetadataItem:item withItem:editedItem];
+}
 
 #pragma mark - Table View delegate
 
@@ -383,25 +601,24 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
 
 - (void)_copySelectionFromTableView:(NSTableView *)tableView;
 {
-    NSPasteboard *pb = [NSPasteboard generalPasteboard];
     NSIndexSet *rowIndexes = tableView.selectedRowIndexes;
     NSUInteger current_index = rowIndexes.lastIndex;
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
-    NSString *string = @"";
+    NSMutableArray *data = [NSMutableArray array];
+    NSMutableString *string = [NSMutableString string];
 
     while (current_index != NSNotFound) {
-        NSString *tagName = (self.tagsArray)[current_index];
-        NSString *tagValue = self.metadata.tagsDict[tagName];
-        string = [string stringByAppendingFormat:@"%@: %@\n",tagName, tagValue];
-        [data setValue:tagValue forKey:tagName];
+        MP42MetadataItem *item = self.tags[current_index];
+        [string appendFormat:@"%@: %@\n", item.identifier, item.stringValue];
+        [data addObject:item];
 
         current_index = [rowIndexes indexLessThanIndex: current_index];
     }
 
-    NSArray *types = @[MetadataPBoardType, NSStringPboardType];
+    NSArray<NSString *> *types = @[SublerMetadataPBoardType, NSStringPboardType];
+    NSPasteboard *pb = [NSPasteboard generalPasteboard];
     [pb declareTypes:types owner:nil];
     [pb setString:string forType: NSStringPboardType];
-    [pb setData:[NSArchiver archivedDataWithRootObject:data] forType:MetadataPBoardType];
+    [pb setData:[NSKeyedArchiver archivedDataWithRootObject:data] forType:SublerMetadataPBoardType];
 }
 
 - (void)_cutSelectionFromTableView:(NSTableView *)tableView;
@@ -413,10 +630,10 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
 - (void)_pasteToTableView:(NSTableView *)tableView
 {
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
-    NSData *archivedData = [pb dataForType:MetadataPBoardType];
-    NSMutableDictionary *data = [NSUnarchiver unarchiveObjectWithData:archivedData];
+    NSData *archivedData = [pb dataForType:SublerMetadataPBoardType];
+    NSArray<MP42MetadataItem *> *data = [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
 
-    [self add:data];
+    [self addMetadataItems:data];
 }
 
 - (void)_pasteToImageBrowserView:(IKImageBrowserView *)ImageBrowserView
@@ -432,270 +649,130 @@ NSString *MetadataPBoardType = @"SublerMetadataPBoardType";
             [self addArtwork:item];
         }
 
-        self.metadata.isArtworkEdited = YES;
-        self.metadata.edited = YES;
         [self.view.window.windowController.document updateChangeCount:NSChangeDone];
-        [imageBrowser reloadData];
+        [self.artworksView reloadData];
     }
 }
 
-/* TableView delegate methods */
-
-- (NSInteger) numberOfRowsInTableView: (NSTableView *) t
+- (NSString *)tableView:(NSTableView *)tableView toolTipForCell:(NSCell *)cell rect:(NSRectPointer)rect tableColumn:(nullable NSTableColumn *)tableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation
 {
-    return self.metadata.tagsDict.count;
+    return @"";
 }
 
-- (NSCell *)tableView:(NSTableView *)tableView dataCellForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+- (NSTableCellView *)dummyCell
 {
-    NSCell *cell = nil;
-    NSString *tagName = nil;
-
-    if (tableColumn != nil)
-        tagName = (self.tagsArray)[row];
-
-    if ([tableColumn.identifier isEqualToString:@"name"]) {
-        cell = tableColumn.dataCell;
+    if (!_dummyCell) {
+        _dummyCell = [self.metadataTableView makeViewWithIdentifier:@"TextCellForSizing" owner: self];
+        _dummyCellWidth = [NSLayoutConstraint constraintWithItem:_dummyCell
+                                                                  attribute:NSLayoutAttributeWidth
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:nil
+                                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                                 multiplier:1.0f
+                                                                   constant:500];
+        [_dummyCell addConstraint:_dummyCellWidth];
     }
-    else if ([tableColumn.identifier isEqualToString:@"value"]) {
-        if ([tagName isEqualToString:MP42MetadataKeyRating]) {
-            cell = ratingCell;
-        }
-        else if ([tagName isEqualToString:MP42MetadataKeyUserGenre]) {
-            cell = genreCell;
-        }
-        else {
-            cell = tableColumn.dataCell;
-        }
+    return _dummyCell;
+}
+
+#define MIN_HEIGHT 14.0f
+
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row;
+{
+    MP42MetadataItem *item = self.tags[row];
+    CGFloat height = 0;
+    BOOL calculateHeight = NO;
+
+    // Height calculation is slow, so calculate only if stricly necessary.
+    switch (item.dataType) {
+        case MP42MetadataItemDataTypeString:
+        case MP42MetadataItemDataTypeStringArray:
+        case MP42MetadataItemDataTypeDate:
+            calculateHeight = YES;
+            break;
+        default:
+            calculateHeight = NO;
+            break;
+    }
+
+    if (calculateHeight && !(height = self.rowHeights[item.identifier].floatValue)) {
+        // Set the width in the dummy cell, and let autolayout calculate the height.
+        self.dummyCellWidth.constant = self.columnWidth;
+        self.dummyCell.textField.preferredMaxLayoutWidth = self.columnWidth;
+        self.dummyCell.textField.stringValue = item.stringValue;
+
+        height = self.dummyCell.fittingSize.height;
+        self.rowHeights[item.identifier] = @(height);
+    }
+
+    return (height < MIN_HEIGHT) ? MIN_HEIGHT : height;
+}
+
+- (void)tableViewColumnDidResize:(NSNotification *)notification
+{
+    self.previousColumnWidth = self.columnWidth;
+    self.columnWidth = self.column.width;
+
+    if (self.columnWidth > self.previousColumnWidth) {
+        NSMutableArray<NSString *> *keysToRemove = [NSMutableArray array];
+        [self.rowHeights enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
+            if (obj.floatValue > MIN_HEIGHT) {
+                [keysToRemove addObject:key];
+            }
+        }];
+        [self.rowHeights removeObjectsForKeys:keysToRemove];
     }
     else {
-        cell = nil;
+        [self.rowHeights removeAllObjects];
     }
 
-    return cell;
-}
-
-- (id) tableView:(NSTableView *)tableView 
-objectValueForTableColumn:(NSTableColumn *)tableColumn 
-             row:(NSInteger)rowIndex
-{
-    if ([tableColumn.identifier isEqualToString:@"name"]) {
-        return self.tagsArray[rowIndex];
-    }
-
-    if ([tableColumn.identifier isEqualToString:@"value"]) {
-        NSString *key = self.tagsArray[rowIndex];
-        if ([key isEqualToString:MP42MetadataKeyRating]) {
-            return @([[MP42Ratings defaultManager] ratingIndexForiTunesCode:self.metadata.tagsDict[key]]);
-        }
-        else {
-            return self.metadata.tagsDict[key];
-        }
-    }
-
-    return nil;
-}
-
-- (void) tableView: (NSTableView *) tableView 
-    setObjectValue: (id) anObject 
-    forTableColumn: (NSTableColumn *) tableColumn 
-               row: (NSInteger) rowIndex
-{
-    NSString *key = (self.tagsArray)[rowIndex];
-    [dct removeAllObjects];
-
-    if ([tableColumn.identifier isEqualToString:@"value"]) {
-        if ([key isEqualToString:MP42MetadataKeyRating]) {
-            NSUInteger index = [anObject unsignedIntegerValue];
-            NSArray *ratings = [[MP42Ratings defaultManager] iTunesCodes];
-            [self updateMetadata:ratings[index] forKey:key];
-        }
-        else {
-            [self updateMetadata:anObject forKey:key];
-        }
-	}
-}
-
-- (CGFloat) tableView: (NSTableView *) tableView
-          heightOfRow: (NSInteger) rowIndex
-{
-    NSString *key = (self.tagsArray)[rowIndex];
-    CGFloat height;
-
-    if (!(height = [dct[key] floatValue])) {
-        //calculate new row height
-        NSRect r = NSMakeRect(0,0,width,1000.0);
-        NSTextFieldCell *cell = [tabCol dataCellForRow:rowIndex];
-        cell.objectValue = self.metadata.tagsDict[(self.tagsArray)[rowIndex]];
-        height = [cell cellSizeForBounds:r].height; // Slow, but we cache it.
-        dct[key] = @(height);
-    }
-
-    if (height < 14.0) {
-        return 14.0;
-    }
-    else {
-        return height;
-    }
-}
-
-- (NSString *) tableView: (NSTableView *) aTableView
-          toolTipForCell: (NSCell *) aCell 
-                    rect: (NSRectPointer) rect 
-             tableColumn: (NSTableColumn *) aTableColumn
-                     row: (NSInteger) row
-           mouseLocation: (NSPoint) mouseLocation
-{
-    return nil;
-}
-
-- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex
-{
-    if ([tableColumn.identifier isEqualToString:@"name"]) {
-        if ([tableView.selectedRowIndexes containsIndex:rowIndex]) {
-            [cell setTextColor:[NSColor blackColor]];
-        } else {
-            [cell setTextColor:[NSColor grayColor]];
-        }
-    }
-}
-
-- (void)tableViewColumnDidResize: (NSNotification* )notification
-{
-    [dct removeAllObjects];
-    width = tabCol.width;
-    [tagsTableView noteHeightOfRowsWithIndexesChanged:
-     [NSIndexSet indexSetWithIndexesInRange: NSMakeRange(0, tagsTableView.numberOfRows)]];
+    [NSAnimationContext beginGrouping];
+    [[NSAnimationContext currentContext] setDuration:0];
+    [self.metadataTableView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndexesInRange: NSMakeRange(0, self.metadataTableView.numberOfRows)]];
+    [NSAnimationContext endGrouping];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-    if (tagsTableView.selectedRow != -1)
-        [removeTag setEnabled:YES];
-    else
-        [removeTag setEnabled:NO];
+    BOOL enabled = self.metadataTableView.selectedRow != -1 ? YES : NO;
+    self.removeTagButton.enabled = enabled;
 }
 
-#pragma mark - Other options
-
-- (IBAction) changeMediaKind: (id) sender
-{
-    uint8_t tagName = (uint8_t)[sender selectedItem].tag;
-
-    if (self.metadata.mediaKind != tagName) {
-        self.metadata.mediaKind = tagName;
-        self.metadata.edited = YES;
-        [self.view.window.windowController.document updateChangeCount:NSChangeDone];
-    }
-}
-
-- (IBAction) changecContentRating: (id) sender
-{
-    uint8_t tagName = (uint8_t)[sender selectedItem].tag;
-
-    if (self.metadata.contentRating != tagName) {
-        self.metadata.contentRating = tagName;
-        self.metadata.edited = YES;
-        [self.view.window.windowController.document updateChangeCount:NSChangeDone];
-    }
-}
-
-- (IBAction) changeGapless: (id) sender
-{
-    uint8_t newValue;
-    if (sender == gapless) {
-        newValue = (uint8_t)gapless.state;
-    }
-    else {
-        newValue = !gapless.state;
-        gapless.state = newValue;
-    }
-    
-    if (self.metadata.gapless != newValue) {
-        self.metadata.gapless = newValue;
-        self.metadata.edited = YES;
-    }
-    
-    NSUndoManager *undo = self.view.undoManager;
-    [[undo prepareWithInvocationTarget:self] changeGapless: self];
-    
-    if (!undo.undoing) {
-        [undo setActionName:NSLocalizedString(@"Check Gapless", @"Undo check gapless")];
-    }
-}
-
-- (IBAction) changePodcast: (id) sender
-{
-    uint8_t newValue;
-    if (sender == podcast) {
-        newValue = (uint8_t)podcast.state;
-    } else {
-        newValue = !podcast.state;
-        podcast.state = newValue;
-    }
-    
-    if (self.metadata.podcast != newValue) {
-        self.metadata.podcast = newValue;
-        self.metadata.edited = YES;
-    }
-    
-    NSUndoManager *undo = self.view.undoManager;
-    [[undo prepareWithInvocationTarget:self] changePodcast: self];
-    
-    if (!undo.undoing) {
-        [undo setActionName:NSLocalizedString(@"Check Podast", @"Undo check podcast")];
-    }
-}
-
-- (IBAction) changehdVideo: (id) sender
-{
-    uint8_t tagName = (uint8_t)[sender selectedItem].tag;
-    
-    if (self.metadata.hdVideo != tagName) {
-        self.metadata.hdVideo = tagName;
-        self.metadata.edited = YES;
-        [self.view.window.windowController.document updateChangeCount:NSChangeDone];
-    }
-}
-
-#pragma mark -
-#pragma mark IKImageBrowserDataSource
+#pragma mark - IKImageBrowserDataSource
 
 - (NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView *) aBrowser
 {
-    return (self.metadata.artworks).count;
+    return self.artworks.count;
 }
 
-- (id)imageBrowser:(IKImageBrowserView *) aBrowser itemAtIndex:(NSUInteger)index
+- (id)imageBrowser:(IKImageBrowserView *)aBrowser itemAtIndex:(NSUInteger)index
 {
-    return (self.metadata.artworks)[index];
+    return self.artworks[index].imageValue;
 }
 
-- (BOOL)imageBrowser:(IKImageBrowserView *) aBrowser moveItemsAtIndexes: (NSIndexSet *)indexes toIndex:(NSUInteger)destinationIndex
+- (BOOL)imageBrowser:(IKImageBrowserView *)aBrowser moveItemsAtIndexes:(NSIndexSet *)indexes toIndex:(NSUInteger)destinationIndex
 {
     destinationIndex -= [indexes countOfIndexesInRange:NSMakeRange(0, destinationIndex)];;
 
-    NSArray *objects = [self.metadata.artworks objectsAtIndexes:indexes];
-    [self.metadata.artworks removeObjectsAtIndexes:indexes];
+    NSArray *objects = [self.artworks objectsAtIndexes:indexes];
+    [self.artworks removeObjectsAtIndexes:indexes];
 
     for (id object in objects.reverseObjectEnumerator) {
-        [self.metadata.artworks insertObject:object atIndex:destinationIndex];
+        [self.artworks insertObject:object atIndex:destinationIndex];
     }
 
-    self.metadata.edited = YES;
-    self.metadata.isArtworkEdited = YES;
     [self.view.window.windowController.document updateChangeCount:NSChangeDone];
 
     return YES;
 }
 
-- (NSUInteger)imageBrowser:(IKImageBrowserView *) aBrowser writeItemsAtIndexes:(NSIndexSet *) itemIndexes toPasteboard:(NSPasteboard *)pasteboard
+- (NSUInteger)imageBrowser:(IKImageBrowserView *)aBrowser writeItemsAtIndexes:(NSIndexSet *)itemIndexes toPasteboard:(NSPasteboard *)pasteboard
 {
     NSInteger index;
     [pasteboard declareTypes:@[NSTIFFPboardType] owner:nil];
 
     for (index = itemIndexes.lastIndex; index != NSNotFound; index = [itemIndexes indexLessThanIndex:index]) {
-        NSArray *representations = (self.metadata.artworks)[index].image.representations;
+        NSArray *representations = self.artworks[index].imageValue.image.representations;
         if (representations) {
             NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations
                                                                           usingType:NSTIFFFileType properties:@{}];
@@ -706,65 +783,63 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     return itemIndexes.count;
 }
 
-- (void)imageBrowser:(IKImageBrowserView *) aBrowser removeItemsAtIndexes:(NSIndexSet *) indexes
+- (void)imageBrowser:(IKImageBrowserView *)aBrowser removeItemsAtIndexes:(NSIndexSet *)indexes
 {
-    [self.metadata.artworks removeObjectsAtIndexes:indexes];
-
-    self.metadata.edited = YES;
-    self.metadata.isArtworkEdited = YES;
-
+    [self.artworks removeObjectsAtIndexes:indexes];
     [self.view.window.windowController.document updateChangeCount:NSChangeDone];
 }
 
-#pragma mark -
-#pragma mark IKImageBrowserDelegate
+#pragma mark - IKImageBrowserDelegate
 
 - (void)imageBrowserSelectionDidChange:(IKImageBrowserView *)aBrowser
 {
     NSIndexSet *rowIndexes = [aBrowser selectionIndexes];
 
     if (rowIndexes.count) {
-        [removeArtwork setEnabled:YES];
+        [self.removeArtworkButton setEnabled:YES];
     }
     else {
-        [removeArtwork setEnabled:NO];
+        [self.removeArtworkButton setEnabled:NO];
     }
 }
 
 - (IBAction)zoomSliderDidChange:(id)sender
 {
-    [imageBrowser setZoomValue:[sender floatValue]];
+    [self.artworksView setZoomValue:[sender floatValue]];
 }
 
 - (IBAction)removeArtwork:(id)sender
 {
-    [self imageBrowser:imageBrowser removeItemsAtIndexes:[imageBrowser selectionIndexes]];
-    [imageBrowser reloadData];
+    [self imageBrowser:self.artworksView removeItemsAtIndexes:[self.artworksView selectionIndexes]];
+    [self.artworksView reloadData];
 }
 
 - (BOOL)addArtwork:(id)item
 {
-    NSString *type;
-    NSError *error;
+    MP42Image *artwork = nil;
 
     if ([item isKindOfClass:[NSURL class]]) {
-        if ([item getResourceValue:&type forKey:NSURLTypeIdentifierKey error:&error]) {
+        NSString *type;
+        if ([item getResourceValue:&type forKey:NSURLTypeIdentifierKey error:NULL]) {
             if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)@"public.jpeg")) {
-                MP42Image *artwork = [[MP42Image alloc] initWithData:[NSData dataWithContentsOfURL:item] type:MP42_ART_JPEG];
-                [self.metadata.artworks addObject:artwork];
+                artwork = [[MP42Image alloc] initWithData:[NSData dataWithContentsOfURL:item] type:MP42_ART_JPEG];
             } else {
                 NSImage *artworkImage = [[NSImage alloc] initWithContentsOfURL:item];
-                MP42Image *artwork = [[MP42Image alloc] initWithImage:artworkImage];
-                [self.metadata.artworks addObject:artwork];
+                artwork = [[MP42Image alloc] initWithImage:artworkImage];
             }
-            return YES;
         }
     } else if ([item isKindOfClass:[NSImage class]]) {
-        MP42Image *artwork = [[MP42Image alloc] initWithImage:item];
-        [self.metadata.artworks addObject:artwork];
-        return YES;
+        artwork = [[MP42Image alloc] initWithImage:item];
     } else if ([item isKindOfClass:[MP42Image class]]) {
-        [self.metadata.artworks addObject:item];
+        artwork = item;
+    }
+
+    if (artwork) {
+        MP42MetadataItem *metadataItem = [MP42MetadataItem metadataItemWithIdentifier:MP42MetadataKeyCoverArt
+                                                                        value:artwork
+                                                                     dataType:MP42MetadataItemDataTypeImage
+                                                          extendedLanguageTag:nil];
+        [self.metadata addMetadataItem:metadataItem];
         return YES;
     }
 
@@ -786,20 +861,18 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
                 [self addArtwork:url];
             }
 
-            self.metadata.isArtworkEdited = YES;
-            self.metadata.edited = YES;
             [self.view.window.windowController.document updateChangeCount:NSChangeDone];
-            [self->imageBrowser reloadData];
+            [self.artworksView reloadData];
         }
     }];
 }
 
-- (NSDragOperation)draggingEntered:(id < NSDraggingInfo >)sender
+- (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender
 {
     return NSDragOperationGeneric;
 }
 
-- (NSDragOperation)draggingUpdated:(id < NSDraggingInfo >)sender
+- (NSDragOperation)draggingUpdated:(id<NSDraggingInfo>)sender
 {
     return NSDragOperationGeneric;
 }
@@ -819,10 +892,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         }
 
         if (edited) {
-            self.metadata.isArtworkEdited = YES;
-            self.metadata.edited = YES;
             [self.view.window.windowController.document updateChangeCount:NSChangeDone];
-            [imageBrowser reloadData];
+            [self.artworksView reloadData];
 
             return YES;
         }
@@ -833,17 +904,17 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (void)concludeDragOperation:(id < NSDraggingInfo >)sender
 {
-	[imageBrowser reloadData];
+	[self.artworksView reloadData];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    [imageBrowser setDelegate:nil];
-    [imageBrowser setDataSource:nil];
-    [tagsTableView setDelegate:nil];
-    [tagsTableView setDataSource:nil];
+    [_artworksView setDelegate:nil];
+    [_artworksView setDataSource:nil];
+    [_metadataTableView setDelegate:nil];
+    [_metadataTableView setDataSource:nil];
 }
 
 @end

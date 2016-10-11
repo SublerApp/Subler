@@ -15,10 +15,12 @@
 		A901C51E1C04F03F00430DC3 /* SBChapterDB.m in Sources */ = {isa = PBXBuildFile; fileRef = A901C51B1C04F03F00430DC3 /* SBChapterDB.m */; };
 		A901C51F1C04F03F00430DC3 /* SBChapterImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */; };
 		A90B023B10F3290A000416F3 /* Prefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90B023910F3290A000416F3 /* Prefs.xib */; };
+		A91690041DABFDAA004B9AB0 /* SBCheckBoxCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A91690031DABFDAA004B9AB0 /* SBCheckBoxCellView.m */; };
 		A917286119FD288B00348DF8 /* SBLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A917286019FD288B00348DF8 /* SBLogger.m */; };
 		A924A51E1D4B9E93008301A7 /* SBMetadataPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A924A5201D4B9E93008301A7 /* SBMetadataPrefsViewController.xib */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A93DD7681DACCE930052749A /* SBComboBoxCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93DD7671DACCE930052749A /* SBComboBoxCellView.m */; };
 		A94721931D49DC0000858DD8 /* SBMetadataPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */; };
 		A95B8DA91B09F37800F2F152 /* Subler_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B8DA81B09F37800F2F152 /* Subler_Tests.m */; };
 		A95C881D0F827BFB00F51A22 /* ToolbarRemoveTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = A95C881C0F827BFB00F51A22 /* ToolbarRemoveTemplate.png */; };
@@ -62,6 +64,7 @@
 		A9B46A9E12B79B990040517A /* ButtonToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A9412B79B990040517A /* ButtonToolbarItem.m */; };
 		A9B46AA412B79BB10040517A /* Subler.icns in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AA312B79BB10040517A /* Subler.icns */; };
 		A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46ABE12B79D1C0040517A /* SBDocument.m */; };
+		A9B75B8E1DAD1B140031798B /* SBPopUpCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B75B8D1DAD1B140031798B /* SBPopUpCellView.m */; };
 		A9BC410318D9AB8700F8C92C /* SBItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BC410218D9AB8700F8C92C /* SBItemViewController.m */; };
 		A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BC410618D9ABC000F8C92C /* QueueItem.xib */; };
 		A9C055370F6D395B00AF15B5 /* FileImport.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C055360F6D395B00AF15B5 /* FileImport.xib */; };
@@ -179,6 +182,8 @@
 		A901C51B1C04F03F00430DC3 /* SBChapterDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterDB.m; path = Classes/MetadataImporters/SBChapterDB.m; sourceTree = "<group>"; };
 		A901C51C1C04F03F00430DC3 /* SBChapterImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterImporter.h; path = Classes/MetadataImporters/SBChapterImporter.h; sourceTree = "<group>"; };
 		A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterImporter.m; path = Classes/MetadataImporters/SBChapterImporter.m; sourceTree = "<group>"; };
+		A91690021DABFDAA004B9AB0 /* SBCheckBoxCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBCheckBoxCellView.h; path = Classes/SBCheckBoxCellView.h; sourceTree = "<group>"; };
+		A91690031DABFDAA004B9AB0 /* SBCheckBoxCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBCheckBoxCellView.m; path = Classes/SBCheckBoxCellView.m; sourceTree = "<group>"; };
 		A917286019FD288B00348DF8 /* SBLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLogger.m; path = Classes/SBLogger.m; sourceTree = "<group>"; };
 		A917286419FD289F00348DF8 /* SBLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBLogger.h; path = Classes/SBLogger.h; sourceTree = "<group>"; };
 		A924A50C1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBDocument.xib; sourceTree = "<group>"; };
@@ -201,6 +206,8 @@
 		A924A51D1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ExceptionAlert.xib; sourceTree = "<group>"; };
 		A924A51F1D4B9E93008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBMetadataPrefsViewController.xib; sourceTree = "<group>"; };
 		A925AA7B18378D7800BE84D4 /* MP42Foundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP42Foundation.xcodeproj; path = MP42Foundation/MP42Foundation.xcodeproj; sourceTree = "<group>"; };
+		A93DD7661DACCE930052749A /* SBComboBoxCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBComboBoxCellView.h; path = Classes/SBComboBoxCellView.h; sourceTree = "<group>"; };
+		A93DD7671DACCE930052749A /* SBComboBoxCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBComboBoxCellView.m; path = Classes/SBComboBoxCellView.m; sourceTree = "<group>"; };
 		A94721901D49DC0000858DD8 /* SBMetadataPrefsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataPrefsViewController.h; path = Classes/SBMetadataPrefsViewController.h; sourceTree = "<group>"; };
 		A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataPrefsViewController.m; path = Classes/SBMetadataPrefsViewController.m; sourceTree = "<group>"; };
 		A95B8DA41B09F37700F2F152 /* Subler Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subler Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -261,6 +268,8 @@
 		A9B46ABD12B79D1C0040517A /* SBDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBDocument.h; path = Classes/SBDocument.h; sourceTree = "<group>"; };
 		A9B46ABE12B79D1C0040517A /* SBDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SBDocument.m; path = Classes/SBDocument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A9B4EE4E1643EBF3009AF6BC /* Subler.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Subler.entitlements; sourceTree = "<group>"; };
+		A9B75B8C1DAD1B140031798B /* SBPopUpCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBPopUpCellView.h; path = Classes/SBPopUpCellView.h; sourceTree = "<group>"; };
+		A9B75B8D1DAD1B140031798B /* SBPopUpCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBPopUpCellView.m; path = Classes/SBPopUpCellView.m; sourceTree = "<group>"; };
 		A9BC410118D9AB8700F8C92C /* SBItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBItemViewController.h; path = Classes/SBItemViewController.h; sourceTree = "<group>"; };
 		A9BC410218D9AB8700F8C92C /* SBItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBItemViewController.m; path = Classes/SBItemViewController.m; sourceTree = "<group>"; };
 		A9C0603F168315C500FE3D98 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
@@ -602,6 +611,12 @@
 				A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */,
 				A960E96117D4B00900FC6ED9 /* SBImageBrowserView.h */,
 				A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */,
+				A93DD7661DACCE930052749A /* SBComboBoxCellView.h */,
+				A93DD7671DACCE930052749A /* SBComboBoxCellView.m */,
+				A91690021DABFDAA004B9AB0 /* SBCheckBoxCellView.h */,
+				A91690031DABFDAA004B9AB0 /* SBCheckBoxCellView.m */,
+				A9B75B8C1DAD1B140031798B /* SBPopUpCellView.h */,
+				A9B75B8D1DAD1B140031798B /* SBPopUpCellView.m */,
 				A9B46A8412B79B240040517A /* SBTableView.h */,
 				A9B46A8512B79B240040517A /* SBTableView.m */,
 				A9B46A8612B79B240040517A /* SBView.h */,
@@ -873,11 +888,14 @@
 			files = (
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */,
+				A9B75B8E1DAD1B140031798B /* SBPopUpCellView.m in Sources */,
+				A91690041DABFDAA004B9AB0 /* SBCheckBoxCellView.m in Sources */,
 				A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */,
 				A9DA3B9D1B918D5C00F1E40C /* SBExceptionAlertController.m in Sources */,
 				A94721931D49DC0000858DD8 /* SBMetadataPrefsViewController.m in Sources */,
 				A9BC410318D9AB8700F8C92C /* SBItemViewController.m in Sources */,
 				A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */,
+				A93DD7681DACCE930052749A /* SBComboBoxCellView.m in Sources */,
 				A9B46A8C12B79B240040517A /* SBFileImport.m in Sources */,
 				A9B46A8E12B79B240040517A /* SBPrefsController.m in Sources */,
 				A9D4B86A1C05CBEB007845C4 /* SBChapterResult.m in Sources */,

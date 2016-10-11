@@ -89,7 +89,6 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
                 continue;
             }
 
-            newPreset.edited = NO;
             [_presets addObject:newPreset];
         }
     }
@@ -117,11 +116,8 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
     }
 
     for (MP42Metadata  *object in _presets) {
-        if (object.isEdited) {
-            NSString *saveLocation = [NSString stringWithFormat:@"%@/%@.sbpreset", appSupportPath, object.presetName];
-                noErr = [NSKeyedArchiver archiveRootObject:object
-                                                toFile:saveLocation];
-        }
+        NSString *saveLocation = [NSString stringWithFormat:@"%@/%@.sbpreset", appSupportPath, object.presetName];
+        noErr = [NSKeyedArchiver archiveRootObject:object toFile:saveLocation];
     }
     return noErr;
 }

@@ -11,6 +11,8 @@
 #import "SBQueueItem.h"
 #import "SBFileImport.h"
 #import "SBTableView.h"
+#import "SBCheckBoxCellView.h"
+#import "SBComboBoxCellView.h"
 
 #import "SBEmptyViewController.h"
 #import "SBMovieViewController.h"
@@ -48,7 +50,6 @@
     IBOutlet NSToolbarItem  *searchChapters;
     IBOutlet NSToolbarItem  *sendToQueue;
 
-    NSArray<NSString *> *languages;
 
     NSViewController        *propertyView;
     IBOutlet NSView         *targetView;
@@ -60,8 +61,6 @@
     IBOutlet NSButton *_64bit_data;
     IBOutlet NSButton *_64bit_time;
     BOOL _optimize;
-
-    NSDictionary                 *_detailMonospacedAttr;
 }
 
 @property (nonatomic, weak) IBOutlet NSWindow *documentWindow;
@@ -84,11 +83,30 @@
     return @"SBDocument";
 }
 
+static NSArray<NSString *> *_languages;
+static NSDictionary *_detailMonospacedAttr;
+
++ (void)initialize
+{
+    if (self == [SBDocument class]) {
+        _languages = [[MP42Languages defaultManager] languages];
+
+        if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
+            NSFont *font = [NSFont monospacedDigitSystemFontOfSize:[NSFont systemFontSize] weight:NSFontWeightRegular];
+            NSMutableParagraphStyle *ps = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+            ps.alignment = NSTextAlignmentRight;
+
+            _detailMonospacedAttr = @{NSFontAttributeName: font,
+                                      NSParagraphStyleAttributeName: ps};
+            
+        }
+    }
+}
+
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
 
-    languages = [[MP42Languages defaultManager] languages];
     _optimize = NO;
 
     [self reloadPropertyView];
@@ -103,16 +121,6 @@
         [self.documentWindow setFrameAutosaveName:@"documentSave"];
         [self.documentWindow setFrameUsingName:@"documentSave"];
         splitView.autosaveName = @"splitViewSave";
-    }
-
-    if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
-        NSFont *font = [NSFont monospacedDigitSystemFontOfSize:[NSFont systemFontSize] weight:NSFontWeightRegular];
-        NSMutableParagraphStyle *ps = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-        ps.alignment = NSTextAlignmentRight;
-
-        _detailMonospacedAttr = @{NSFontAttributeName: font,
-                         NSParagraphStyleAttributeName: ps};
-
     }
 }
 
@@ -497,74 +505,82 @@
     return self.mp4.tracks.count;
 }
 
-- (id)tableView:(NSTableView *)tableView
-objectValueForTableColumn:(NSTableColumn *)tableColumn 
-             row:(NSInteger)rowIndex
+- (nullable NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(nullable NSTableColumn *)tableColumn row:(NSInteger)row
 {
-    MP42Track *track = [self.mp4 trackAtIndex:rowIndex];
+    NSTableCellView *cell = nil;
+    MP42Track *track = [self.mp4 trackAtIndex:row];
 
     if (!track) {
         return nil;
     }
 
     if ([tableColumn.identifier isEqualToString:@"trackId"]) {
-        return (track.trackId == 0) ? @"na" : [NSString stringWithFormat:@"%d", track.trackId];
+        cell = [tableView makeViewWithIdentifier:@"IdCell" owner:self];
+        cell.textField.stringValue = (track.trackId == 0) ? NSLocalizedString(@"na", nil) : [NSString stringWithFormat:@"%d", track.trackId];
     }
 
     if ([tableColumn.identifier isEqualToString:@"trackName"]) {
-        return track.name;
+        cell = [tableView makeViewWithIdentifier:@"NameCell" owner:self];
+        cell.textField.stringValue = track.name;
     }
 
     if ([tableColumn.identifier isEqualToString:@"trackInfo"]) {
-        return track.formatSummary;
+        cell = [tableView makeViewWithIdentifier:@"FormatCell" owner:self];
+        cell.textField.stringValue = track.formatSummary;
     }
 
     if ([tableColumn.identifier isEqualToString:@"trackEnabled"]) {
-        return @(track.isEnabled);
+        SBCheckBoxCellView *checkCell = [tableView makeViewWithIdentifier:@"CheckCell" owner:self];
+        checkCell.checkboxButton.state = track.isEnabled;
+        cell = checkCell;
     }
 
     if ([tableColumn.identifier isEqualToString:@"trackDuration"]) {
+        cell = [tableView makeViewWithIdentifier:@"DurationCell" owner:self];
 
         if (_detailMonospacedAttr) {
-            return [[NSAttributedString alloc] initWithString:track.timeString attributes:_detailMonospacedAttr];
+            cell.textField.attributedStringValue = [[NSAttributedString alloc] initWithString:track.timeString attributes:_detailMonospacedAttr];
         }
         else {
-            return track.timeString;
+            cell.textField.stringValue = track.timeString;
         }
     }
 
     if ([tableColumn.identifier isEqualToString:@"trackLanguage"]) {
-        return track.language;
+        SBComboBoxCellView *comboCell = [tableView makeViewWithIdentifier:@"ComboCell" owner:self];
+        comboCell.comboBox.stringValue = track.language;
+        cell = comboCell;
     }
-
-    return nil;
+    
+    return cell;
 }
 
-- (void)tableView:(NSTableView *)tableView
-   setObjectValue:(id)anObject
-   forTableColumn:(NSTableColumn *)tableColumn
-              row:(NSInteger)rowIndex
-{
-    MP42Track *track = [self.mp4 trackAtIndex:rowIndex];
+- (IBAction)setTrackName:(NSTextField *)sender {
+    NSInteger row = [self.tracksTable rowForView:sender];
+    MP42Track *track = [self.mp4 trackAtIndex:row];
 
-    if ([tableColumn.identifier isEqualToString:@"trackLanguage"]) {
-        if (![track.language isEqualToString:anObject]) {
-            track.language = anObject;
-            [self updateChangeCount:NSChangeDone];
-        }
+    if ([sender.stringValue isEqualToString:track.name]) {
+        return;
     }
-    else if ([tableColumn.identifier isEqualToString:@"trackName"]) {
-        if (![track.name isEqualToString:anObject]) {
-            track.name = anObject;
-            [self updateChangeCount:NSChangeDone];
-        }
-    }
-    else if ([tableColumn.identifier isEqualToString:@"trackEnabled"]) {
-        if (!(track.enabled  == [anObject integerValue])) {
-            track.enabled = [anObject boolValue];
-            [self updateChangeCount:NSChangeDone];
-        }
-    }
+
+    track.name = sender.stringValue;
+    [self updateChangeCount:NSChangeDone];
+}
+
+- (IBAction)setTrackEnabled:(NSButton *)sender {
+    NSInteger row = [self.tracksTable rowForView:sender];
+    MP42Track *track = [self.mp4 trackAtIndex:row];
+
+    track.enabled = sender.state;
+    [self updateChangeCount:NSChangeDone];
+}
+
+- (IBAction)setTrackLanguage:(NSComboBox *)sender {
+    NSInteger row = [self.tracksTable rowForView:sender];
+    MP42Track *track = [self.mp4 trackAtIndex:row];
+
+    track.language = sender.stringValue;
+    [self updateChangeCount:NSChangeDone];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
@@ -667,19 +683,21 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     return YES;
 }
 
-#pragma mark - NSComboBoxCell dataSource
+#pragma mark - NSComboBox dataSource
 
-- (NSInteger)numberOfItemsInComboBoxCell:(NSComboBoxCell *)comboBoxCell
+- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)comboBox
 {
-    return languages.count;
+    return _languages.count;
 }
 
-- (id)comboBoxCell:(NSComboBoxCell *)comboBoxCell objectValueForItemAtIndex:(NSInteger)index {
-    return languages[index];
+- (nullable id)comboBox:(NSComboBox *)comboBox objectValueForItemAtIndex:(NSInteger)index
+{
+    return _languages[index];
 }
 
-- (NSUInteger)comboBoxCell:(NSComboBoxCell *)comboBoxCell indexOfItemWithStringValue:(NSString *)string {
-    return [languages indexOfObject: string];
+- (NSUInteger)comboBox:(NSComboBox *)comboBox indexOfItemWithStringValue:(NSString *)string
+{
+    return [_languages indexOfObject:string];
 }
 
 #pragma mark - Various things
@@ -752,7 +770,14 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
                 int hdVideo = isHdVideo((uint64_t)videoTrack.trackWidth, (uint64_t)videoTrack.trackHeight);
 
                 if (hdVideo) {
-                    self.mp4.metadata[@"HD Video"] = @(hdVideo);
+                    NSArray <MP42MetadataItem *> *hdVideos = [self.mp4.metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyHDVideo];
+                    for (MP42MetadataItem *item in hdVideos) {
+                        [self.mp4.metadata removeMetadataItem:item];
+                    }
+                    [self.mp4.metadata addMetadataItem:[MP42MetadataItem metadataItemWithIdentifier:MP42MetadataKeyHDVideo
+                                                                                             value:@(hdVideo)
+                                                                                          dataType:MP42MetadataItemDataTypeInteger
+                                                                               extendedLanguageTag:nil]];
                 }
             }
         [self updateChangeCount:NSChangeDone];
@@ -766,7 +791,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 - (IBAction)searchChapters:(id)sender
 {
-    NSString *title = self.mp4.metadata[MP42MetadataKeyName];
+    NSString *title = [self.mp4.metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyName].firstObject.stringValue;
 
     if (title.length == 0) {
         title = [self sourceFilename];
@@ -944,7 +969,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 - (void)addMetadata:(NSURL *)URL
 {
     if ([URL.pathExtension isEqualToString:@"xml"] || [URL.pathExtension isEqualToString:@"nfo"]) {
-        MP42Metadata *xmlMetadata = [[MP42Metadata alloc] initWithFileURL:URL];
+        MP42Metadata *xmlMetadata = [[MP42Metadata alloc] initWithURL:URL];
         [self.mp4.metadata mergeMetadata:xmlMetadata];
     }
     else {

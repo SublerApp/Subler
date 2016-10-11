@@ -204,7 +204,14 @@
             int hdVideo = isHdVideo((uint64_t)videoTrack.trackWidth, (uint64_t)videoTrack.trackHeight);
 
             if (hdVideo) {
-                metadata[@"HD Video"] = @(hdVideo);
+                NSArray <MP42MetadataItem *> *hdVideos = [metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyHDVideo];
+                for (MP42MetadataItem *metadataItem in hdVideos) {
+                    [metadata removeMetadataItem:metadataItem];
+                }
+                [metadata addMetadataItem:[MP42MetadataItem metadataItemWithIdentifier:MP42MetadataKeyHDVideo
+                                                                                          value:@(hdVideo)
+                                                                                       dataType:MP42MetadataItemDataTypeInteger
+                                                                            extendedLanguageTag:nil]];
             }
         }
 
