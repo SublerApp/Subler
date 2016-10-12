@@ -881,15 +881,15 @@ static NSArray<NSArray *> *_mediaKinds;
 
 - (NSUInteger)imageBrowser:(IKImageBrowserView *)aBrowser writeItemsAtIndexes:(NSIndexSet *)itemIndexes toPasteboard:(NSPasteboard *)pasteboard
 {
-    [pasteboard declareTypes:@[SublerCoverArtPBoardType, NSPasteboardTypePNG] owner:nil];
+    [pasteboard declareTypes:@[SublerCoverArtPBoardType, NSPasteboardTypeTIFF] owner:nil];
 
     for (MP42MetadataItem *item in [self.artworks objectsAtIndexes:itemIndexes]) {
         MP42Image *image = item.imageValue;
         if (image) {
             NSArray *representations = image.image.representations;
             if (representations) {
-                NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSBitmapImageFileTypePNG properties:@{}];
-                [pasteboard setData:bitmapData forType:NSPasteboardTypePNG];
+                NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSBitmapImageFileTypeTIFF properties:@{}];
+                [pasteboard setData:bitmapData forType:NSPasteboardTypeTIFF];
             }
             [pasteboard setData:[NSKeyedArchiver archivedDataWithRootObject:image] forType:SublerCoverArtPBoardType];
         }
