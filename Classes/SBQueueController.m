@@ -33,7 +33,7 @@ static void *SBQueueContex = &SBQueueContex;
 @property (nonatomic, readonly) NSImage *docImg;
 
 @property (nonatomic, strong) NSPopover *popover;
-@property (nonatomic,weak) IBOutlet NSPanel *detachedWindow;
+@property (nonatomic, weak) IBOutlet NSPanel *detachedWindow;
 
 @property (nonatomic, strong) NSPopover *itemPopover;
 @property (nonatomic, strong) SBOptionsViewController *windowController;
@@ -72,6 +72,10 @@ static void *SBQueueContex = &SBQueueContex;
 
 - (void)windowDidLoad {
     [super windowDidLoad];
+
+    if ([NSWindow respondsToSelector:@selector(setAllowsAutomaticWindowTabbing:)]) {
+        self.window.tabbingMode = NSWindowTabbingModeDisallowed;
+    }
 
     [self.progressBar setHidden:YES];
 
@@ -585,9 +589,11 @@ static void *SBQueueContex = &SBQueueContex;
             case SBQueueItemStatusWorking:
             case SBQueueItemStatusEditing:
                 cell.imageView.image = [NSImage imageNamed:@"EncodeWorking"];
+                break;
             case SBQueueItemStatusFailed:
             case SBQueueItemStatusCancelled:
                 cell.imageView.image = [NSImage imageNamed:@"EncodeCanceled"];
+                break;
             default:
                 cell.imageView.image = _docImg;
                 break;
