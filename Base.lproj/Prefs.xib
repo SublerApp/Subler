@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2548a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBPrefsController">
             <connections>
                 <outlet property="advancedView" destination="94" id="8hG-Wq-rYD"/>
                 <outlet property="generalView" destination="76" id="0Fo-d5-cUM"/>
-                <outlet property="removeSetButton" destination="184" id="pk7-tV-clo"/>
-                <outlet property="setsView" destination="142" id="RLl-ms-Dp2"/>
-                <outlet property="tableView" destination="166" id="Yp7-nd-TmH"/>
                 <outlet property="window" destination="1" id="6"/>
             </connections>
         </customObject>
@@ -405,13 +403,13 @@
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="fZU-8d-Ua1"/>
                     </constraints>
-                    <popUpButtonCell key="cell" type="push" title="0" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="aHL-pt-Ze0" id="sRN-fQ-JQy">
+                    <popUpButtonCell key="cell" type="push" title="0" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="aHL-pt-Ze0" id="sRN-fQ-JQy">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="v6x-m2-JTe">
                             <items>
-                                <menuItem title="0" id="aHL-pt-Ze0"/>
-                                <menuItem title="1" state="on" tag="1" id="6bP-oF-42N"/>
+                                <menuItem title="0" state="on" id="aHL-pt-Ze0"/>
+                                <menuItem title="1" tag="1" id="6bP-oF-42N"/>
                                 <menuItem title="2" tag="2" id="nQQ-EY-I7P"/>
                                 <menuItem title="3" tag="3" id="7Wi-iB-6hX"/>
                                 <menuItem title="4" tag="4" id="wnj-LB-PfM"/>
@@ -472,117 +470,11 @@
             <point key="canvasLocation" x="-75" y="-976.5"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="123"/>
-        <customView id="142" userLabel="Sets View">
-            <rect key="frame" x="0.0" y="0.0" width="396" height="266"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="163">
-                    <rect key="frame" x="20" y="46" width="356" height="200"/>
-                    <clipView key="contentView" id="C7d-ji-Qle">
-                        <rect key="frame" x="1" y="1" width="354" height="198"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" id="166" customClass="SBTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="354" height="198"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <size key="intercellSpacing" width="3" height="2"/>
-                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                <tableColumns>
-                                    <tableColumn identifier="name" editable="NO" width="328" minWidth="40" maxWidth="1000" id="168">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
-                                        </tableHeaderCell>
-                                        <textFieldCell key="dataCell" lineBreakMode="truncatingMiddle" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="171">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                    </tableColumn>
-                                    <tableColumn identifier="info" width="20" minWidth="20" maxWidth="20" id="169">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
-                                        </tableHeaderCell>
-                                        <buttonCell key="dataCell" type="recessed" bezelStyle="recessed" image="info" imagePosition="only" alignment="center" alternateImage="info-pressed" lineBreakMode="truncatingMiddle" inset="2" id="176">
-                                            <behavior key="behavior" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                            <connections>
-                                                <action selector="toggleInfoWindow:" target="-2" id="187"/>
-                                            </connections>
-                                        </buttonCell>
-                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                    </tableColumn>
-                                </tableColumns>
-                                <connections>
-                                    <outlet property="dataSource" destination="-2" id="173"/>
-                                    <outlet property="delegate" destination="-2" id="183"/>
-                                    <outlet property="menu" destination="pzR-CP-Gdo" id="mip-SD-ob5"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                    </clipView>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="200" id="roE-QW-8QP"/>
-                    </constraints>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="165">
-                        <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </scroller>
-                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="164">
-                        <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </scroller>
-                </scrollView>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="184">
-                    <rect key="frame" x="20" y="19" width="25" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="25" id="3mc-XF-vcw"/>
-                    </constraints>
-                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="185">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="deletePreset:" target="-1" id="186"/>
-                    </connections>
-                </button>
-            </subviews>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="163" secondAttribute="trailing" constant="20" id="1qQ-7c-vF7"/>
-                <constraint firstAttribute="bottom" secondItem="184" secondAttribute="bottom" constant="20" id="MTS-Qd-RAG"/>
-                <constraint firstItem="184" firstAttribute="leading" secondItem="142" secondAttribute="leading" constant="20" id="NbG-bO-Bjd"/>
-                <constraint firstItem="163" firstAttribute="leading" secondItem="142" secondAttribute="leading" constant="20" id="Tx8-F1-Ctz"/>
-                <constraint firstItem="163" firstAttribute="top" secondItem="142" secondAttribute="top" constant="20" id="WjL-2N-6ME"/>
-                <constraint firstItem="184" firstAttribute="top" secondItem="163" secondAttribute="bottom" constant="7" id="uBP-t5-nEo"/>
-            </constraints>
-            <point key="canvasLocation" x="26" y="-192"/>
-        </customView>
-        <menu id="pzR-CP-Gdo">
-            <items>
-                <menuItem title="Show in Finder" id="Vwo-bW-szV">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="Delete" id="VmF-vH-DSp">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="deletePreset:" target="-2" id="28m-Sn-BGs"/>
-                    </connections>
-                </menuItem>
-            </items>
-        </menu>
     </objects>
     <resources>
         <image name="NSAdvanced" width="32" height="32"/>
         <image name="NSFolderSmart" width="32" height="32"/>
         <image name="NSPreferencesGeneral" width="32" height="32"/>
-        <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSUserAccounts" width="32" height="32"/>
-        <image name="info" width="16" height="16"/>
-        <image name="info-pressed" width="16" height="16"/>
     </resources>
 </document>

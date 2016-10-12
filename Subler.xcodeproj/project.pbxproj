@@ -14,6 +14,8 @@
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		A901C51E1C04F03F00430DC3 /* SBChapterDB.m in Sources */ = {isa = PBXBuildFile; fileRef = A901C51B1C04F03F00430DC3 /* SBChapterDB.m */; };
 		A901C51F1C04F03F00430DC3 /* SBChapterImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */; };
+		A90300C41DAE6E27008237D8 /* SBSetPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A90300C21DAE6E27008237D8 /* SBSetPrefsViewController.m */; };
+		A90300C81DAE72C4008237D8 /* SBSetPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90300CA1DAE72C4008237D8 /* SBSetPrefsViewController.xib */; };
 		A90B023B10F3290A000416F3 /* Prefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90B023910F3290A000416F3 /* Prefs.xib */; };
 		A91690041DABFDAA004B9AB0 /* SBCheckBoxCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A91690031DABFDAA004B9AB0 /* SBCheckBoxCellView.m */; };
 		A917286119FD288B00348DF8 /* SBLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A917286019FD288B00348DF8 /* SBLogger.m */; };
@@ -182,6 +184,9 @@
 		A901C51B1C04F03F00430DC3 /* SBChapterDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterDB.m; path = Classes/MetadataImporters/SBChapterDB.m; sourceTree = "<group>"; };
 		A901C51C1C04F03F00430DC3 /* SBChapterImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterImporter.h; path = Classes/MetadataImporters/SBChapterImporter.h; sourceTree = "<group>"; };
 		A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterImporter.m; path = Classes/MetadataImporters/SBChapterImporter.m; sourceTree = "<group>"; };
+		A90300C11DAE6E27008237D8 /* SBSetPrefsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBSetPrefsViewController.h; path = Classes/SBSetPrefsViewController.h; sourceTree = "<group>"; };
+		A90300C21DAE6E27008237D8 /* SBSetPrefsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBSetPrefsViewController.m; path = Classes/SBSetPrefsViewController.m; sourceTree = "<group>"; };
+		A90300C91DAE72C4008237D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBSetPrefsViewController.xib; sourceTree = "<group>"; };
 		A91690021DABFDAA004B9AB0 /* SBCheckBoxCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBCheckBoxCellView.h; path = Classes/SBCheckBoxCellView.h; sourceTree = "<group>"; };
 		A91690031DABFDAA004B9AB0 /* SBCheckBoxCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBCheckBoxCellView.m; path = Classes/SBCheckBoxCellView.m; sourceTree = "<group>"; };
 		A917286019FD288B00348DF8 /* SBLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLogger.m; path = Classes/SBLogger.m; sourceTree = "<group>"; };
@@ -491,6 +496,9 @@
 			children = (
 				A9B46A8212B79B240040517A /* SBPrefsController.h */,
 				A9B46A8312B79B240040517A /* SBPrefsController.m */,
+				A90300C11DAE6E27008237D8 /* SBSetPrefsViewController.h */,
+				A90300C21DAE6E27008237D8 /* SBSetPrefsViewController.m */,
+				A90300CA1DAE72C4008237D8 /* SBSetPrefsViewController.xib */,
 				A94721901D49DC0000858DD8 /* SBMetadataPrefsViewController.h */,
 				A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */,
 				A924A5201D4B9E93008301A7 /* SBMetadataPrefsViewController.xib */,
@@ -818,6 +826,7 @@
 				A99EEA3F12B801AE002367D3 /* SBDocument.xib in Resources */,
 				A9AB486517F0AEFD000AA72E /* EmptyView.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
+				A90300C81DAE72C4008237D8 /* SBSetPrefsViewController.xib in Resources */,
 				A9D47B5917B239E200900BCA /* EncodeCanceled@2x.png in Resources */,
 				A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */,
 				A9C5FA7419FA2FEC0051F3FF /* SBLogWindow.xib in Resources */,
@@ -923,6 +932,7 @@
 				A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */,
 				A98175501D49F11B00750709 /* SBMetadataResultMap.m in Sources */,
 				A9F442301C75017100AD8786 /* SBMetadataResult.m in Sources */,
+				A90300C41DAE6E27008237D8 /* SBSetPrefsViewController.m in Sources */,
 				CDC06FCE1747494D003C1D0A /* SBiTunesStore.m in Sources */,
 				A917286119FD288B00348DF8 /* SBLogger.m in Sources */,
 				A9D4B8641C05BC61007845C4 /* SBChapterSearchController.m in Sources */,
@@ -980,6 +990,15 @@
 				2A37F4BAFDCFA73011CA2CEA /* English */,
 			);
 			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		A90300CA1DAE72C4008237D8 /* SBSetPrefsViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A90300C91DAE72C4008237D8 /* Base */,
+			);
+			name = SBSetPrefsViewController.xib;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		A90B023910F3290A000416F3 /* Prefs.xib */ = {

@@ -7,18 +7,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class SBMovieViewController;
-@class SBTableView;
-
 @interface SBPrefsController : NSWindowController
 
 + (void)registerUserDefaults;
 
 - (IBAction)clearRecentSearches:(id) sender;
 - (IBAction)deleteCachedMetadata:(id) sender;
-- (IBAction)toggleInfoWindow:(id) sender;
-
-- (IBAction)deletePreset:(id) sender;
 
 - (IBAction)updateRatingsCountry:(id)sender;
 
