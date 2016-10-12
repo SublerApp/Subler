@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2338c" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2548a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
@@ -31,7 +31,7 @@
                     <tabViewItems>
                         <tabViewItem label="Metadata" identifier="1" id="11">
                             <view key="view" id="12">
-                                <rect key="frame" x="10" y="25" width="482" height="241"/>
+                                <rect key="frame" x="10" y="29" width="482" height="237"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="30">
@@ -85,13 +85,13 @@
                                         </popUpButtonCell>
                                     </popUpButton>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4i-wT-qDC">
-                                        <rect key="frame" x="17" y="36" width="448" height="199"/>
+                                        <rect key="frame" x="17" y="36" width="448" height="195"/>
                                         <clipView key="contentView" id="cQT-bX-0YB">
-                                            <rect key="frame" x="1" y="0.0" width="446" height="198"/>
+                                            <rect key="frame" x="1" y="0.0" width="446" height="194"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveColumns="NO" rowHeight="14" rowSizeStyle="automatic" headerView="qXU-xB-xRF" viewBased="YES" floatsGroupRows="NO" id="qg5-r0-E4V" customClass="SBTableView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="446" height="175"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="446" height="171"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>

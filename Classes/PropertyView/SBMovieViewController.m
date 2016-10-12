@@ -7,6 +7,7 @@
 //
 
 NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
+NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
 
 #import "SBMovieViewController.h"
 #import "SBTableView.h"
@@ -27,9 +28,6 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
 @property (nonatomic) NSMutableArray<MP42MetadataItem *> *artworks;
 
 @property (nonatomic) NSArray<NSString *> *ratings;
-@property (nonatomic) NSArray<NSArray *> *mediaKinds;
-@property (nonatomic) NSArray<NSArray *> *hdVideo;
-@property (nonatomic) NSArray<NSArray *> *contentRatings;
 
 @property (nonatomic) NSTableCellView *dummyCell;
 @property (nonatomic) NSLayoutConstraint *dummyCellWidth;
@@ -56,17 +54,27 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
 
 @implementation SBMovieViewController
 
+static NSArray<NSArray *> *_contentRatings;
+static NSArray<NSArray *> *_hdVideo;
+static NSArray<NSArray *> *_mediaKinds;
+
++ (void)initialize
+{
+    if (self == [SBMovieViewController class]) {
+        _contentRatings = @[@[NSLocalizedString(@"None", nil), @0], @[NSLocalizedString(@"Clean", nil), @2], @[NSLocalizedString(@"Explicit", nil), @4]];
+        _mediaKinds = @[@[NSLocalizedString(@"Home Video", nil), @0], @[NSLocalizedString(@"Music", nil), @1], @[NSLocalizedString(@"Audiobook", nil), @2],
+                        @[NSLocalizedString(@"Music Video", nil), @6], @[NSLocalizedString(@"Movie", nil), @9], @[NSLocalizedString(@"TV Show", nil), @10],
+                        @[NSLocalizedString(@"Booklet", nil), @11], @[NSLocalizedString(@"Ringtone", nil), @14], @[NSLocalizedString(@"Podcast", nil), @21],
+                        @[NSLocalizedString(@"iTunes U", nil), @23], @[NSLocalizedString(@"Alert Tone", nil), @27]];
+        _hdVideo = @[@[NSLocalizedString(@"No", nil), @0], @[NSLocalizedString(@"720p", nil), @1], @[NSLocalizedString(@"1080p", nil), @2]];
+    }
+}
+
 - (void)loadView
 {
     [super loadView];
 
     _ratings = [MP42Ratings defaultManager].ratings;
-    _contentRatings = @[@[@"None", @0], @[@"Clean", @2], @[@"Explicit", @4]];
-    _mediaKinds = @[@[@"Home Video", @0], @[@"Music", @1], @[@"Audiobook", @2],
-                    @[@"Music Video", @6], @[@"Movie", @9], @[@"TV Show", @10],
-                    @[@"Booklet", @11], @[@"Ringtone", @14], @[@"Podcast", @21],
-                    @[@"iTunes U", @23], @[@"Alert Tone", @27]];
-    _hdVideo = @[@[@"No", @0], @[@"720p", @1], @[@"1080p", @2]];
 
     [self updateSetsMenu:self];
 
@@ -90,9 +98,19 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
     self.metadataTableView.pasteboardTypes = @[SublerMetadataPBoardType];
     [self.metadataTableView scrollRowToVisible:0];
 
-    self.artworksView.pasteboardTypes = @[NSPasteboardTypeTIFF, NSPasteboardTypePNG];
+    self.artworksView.pasteboardTypes = @[SublerCoverArtPBoardType, NSPasteboardTypeTIFF, NSPasteboardTypePNG];
     [self.artworksView setZoomValue:1.0];
     [self.artworksView reloadData];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    [_artworksView setDelegate:nil];
+    [_artworksView setDataSource:nil];
+    [_metadataTableView setDelegate:nil];
+    [_metadataTableView setDataSource:nil];
 }
 
 - (void)setMetadata:(MP42Metadata *)metadata
@@ -100,10 +118,10 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
     _metadata = metadata;
 
     [self updateMetadataArray];
-    self.artworks = [[metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt] mutableCopy];
+    [self updateCoverArtArray];
 }
 
-#pragma mark - UI
+#pragma mark - Metadata
 
 - (void)updateMetadataArray
 {
@@ -120,6 +138,7 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
         return (right < left) ? NSOrderedDescending : NSOrderedAscending;
     }];
 }
+
 - (void)addMetadataItems:(NSArray<MP42MetadataItem *> *)items
 {
     for (MP42MetadataItem *item in items) {
@@ -199,18 +218,9 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
     }
 }
 
-- (IBAction)removeTag:(id)sender {
-    NSIndexSet *rowIndexes = self.metadataTableView.selectedRowIndexes;
-    NSUInteger current_index = rowIndexes.lastIndex;
-    NSMutableArray *items = [[NSMutableArray alloc] init];
-
-    while (current_index != NSNotFound) {
-        if (self.metadataTableView.editedRow == -1) {
-            MP42MetadataItem *item = self.tags[current_index];
-            [items addObject:item];
-        }
-        current_index = [rowIndexes indexLessThanIndex: current_index];
-    }
+- (IBAction)removeTag:(id)sender
+{
+    NSArray<MP42MetadataItem *> *items = [self.tags objectsAtIndexes:self.metadataTableView.selectedRowIndexes];
     [self removeMetadataItems:items];
 }
 
@@ -280,15 +290,28 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
 - (void)applySet:(id)sender
 {
     NSInteger tag = [sender tag];
-    SBPresetManager *presetManager = [SBPresetManager sharedManager];
-    MP42Metadata *preset = presetManager.presets[tag];
+    MP42Metadata *preset = [SBPresetManager sharedManager].presets[tag];
 
-    // FIX add back undo support.
-    [self.metadata mergeMetadata:preset];
-    [self updateMetadataArray];
+    MP42MetadataItemDataType dataTypes = MP42MetadataItemDataTypeString | MP42MetadataItemDataTypeStringArray |
+                                         MP42MetadataItemDataTypeBool | MP42MetadataItemDataTypeInteger |
+                                         MP42MetadataItemDataTypeIntegerArray | MP42MetadataItemDataTypeDate;
+    NSArray<MP42MetadataItem *> *items = [preset metadataItemsFilteredByDataType:dataTypes];
 
-    [self.artworksView reloadData];
-    [self.metadataTableView reloadData];
+    if (items) {
+        NSMutableArray<NSString *> *identifiers = [NSMutableArray array];
+        for (MP42MetadataItem *item in items) {
+            [identifiers addObject:item.identifier];
+        }
+        [self removeMetadataItems:[self.metadata metadataItemsFilteredByIdentifiers:identifiers]];
+        [self addMetadataItems:items];
+    }
+
+    items = [preset metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt];
+
+    if (items) {
+        [self removeMetadataCoverArtItems:[self.metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt]];
+        [self addMetadataCoverArtItems:items];
+    }
 }
 
 - (void)updateSetsMenu:(id)sender
@@ -380,7 +403,7 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
 - (NSTableCellView *)textCellWithString:(NSString *)text tableView:(NSTableView *)tableView
 {
     NSTableCellView *cell = [tableView makeViewWithIdentifier:@"TextCell" owner:self];
-    cell.textField.stringValue = text;
+    cell.textField.stringValue = text ? text : @"";
     return cell;
 }
 
@@ -438,15 +461,15 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
             case MP42MetadataItemDataTypeInteger:
             {
                 if ([item.identifier isEqualToString:MP42MetadataKeyContentRating]) {
-                    cell = [self popUpCellWithArrayContents:self.contentRatings value:item.numberValue tableView:tableView];
+                    cell = [self popUpCellWithArrayContents:_contentRatings value:item.numberValue tableView:tableView];
                     break;
                 }
                 else if ([item.identifier isEqualToString:MP42MetadataKeyMediaKind]) {
-                    cell = [self popUpCellWithArrayContents:self.mediaKinds value:item.numberValue tableView:tableView];
+                    cell = [self popUpCellWithArrayContents:_mediaKinds value:item.numberValue tableView:tableView];
                     break;
                 }
                 else if ([item.identifier isEqualToString:MP42MetadataKeyHDVideo]) {
-                    cell = [self popUpCellWithArrayContents:self.hdVideo value:item.numberValue tableView:tableView];
+                    cell = [self popUpCellWithArrayContents:_hdVideo value:item.numberValue tableView:tableView];
                     break;
                 }
             }
@@ -560,13 +583,13 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
             break;
         case MP42MetadataItemDataTypeInteger:
             if ([item.identifier isEqualToString:MP42MetadataKeyContentRating]) {
-                value = self.contentRatings[index][1];
+                value = _contentRatings[index][1];
             }
             else if ([item.identifier isEqualToString:MP42MetadataKeyMediaKind]) {
-                value = self.mediaKinds[index][1];
+                value = _mediaKinds[index][1];
             }
             else if ([item.identifier isEqualToString:MP42MetadataKeyHDVideo]) {
-                value = self.hdVideo[index][1];
+                value = _hdVideo[index][1];
             }
             break;
         default:
@@ -602,23 +625,18 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
 - (void)_copySelectionFromTableView:(NSTableView *)tableView;
 {
     NSIndexSet *rowIndexes = tableView.selectedRowIndexes;
-    NSUInteger current_index = rowIndexes.lastIndex;
-    NSMutableArray *data = [NSMutableArray array];
+    NSArray<MP42MetadataItem *> *items = [self.tags objectsAtIndexes:rowIndexes];
+
     NSMutableString *string = [NSMutableString string];
 
-    while (current_index != NSNotFound) {
-        MP42MetadataItem *item = self.tags[current_index];
+    for (MP42MetadataItem *item in items) {
         [string appendFormat:@"%@: %@\n", item.identifier, item.stringValue];
-        [data addObject:item];
-
-        current_index = [rowIndexes indexLessThanIndex: current_index];
     }
 
-    NSArray<NSString *> *types = @[SublerMetadataPBoardType, NSStringPboardType];
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
-    [pb declareTypes:types owner:nil];
+    [pb declareTypes:@[SublerMetadataPBoardType, NSStringPboardType] owner:nil];
     [pb setString:string forType: NSStringPboardType];
-    [pb setData:[NSKeyedArchiver archivedDataWithRootObject:data] forType:SublerMetadataPBoardType];
+    [pb setData:[NSKeyedArchiver archivedDataWithRootObject:items] forType:SublerMetadataPBoardType];
 }
 
 - (void)_cutSelectionFromTableView:(NSTableView *)tableView;
@@ -634,24 +652,6 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
     NSArray<MP42MetadataItem *> *data = [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
 
     [self addMetadataItems:data];
-}
-
-- (void)_pasteToImageBrowserView:(IKImageBrowserView *)ImageBrowserView
-{
-    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
-
-    NSArray *classes = @[[NSURL class], [NSImage class]];
-    NSDictionary *options = @{NSPasteboardURLReadingContentsConformToTypesKey: [NSImage imageTypes]};
-    NSArray *copiedItems = [pasteboard readObjectsForClasses:classes options:options];
-
-    if (copiedItems != nil) {
-        for (id item in copiedItems) {
-            [self addArtwork:item];
-        }
-
-        [self.view.window.windowController.document updateChangeCount:NSChangeDone];
-        [self.artworksView reloadData];
-    }
 }
 
 - (NSString *)tableView:(NSTableView *)tableView toolTipForCell:(NSCell *)cell rect:(NSRectPointer)rect tableColumn:(nullable NSTableColumn *)tableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation
@@ -680,8 +680,8 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row;
 {
     MP42MetadataItem *item = self.tags[row];
-    CGFloat height = 0;
     BOOL calculateHeight = NO;
+    CGFloat height = 0;
 
     // Height calculation is slow, so calculate only if stricly necessary.
     switch (item.dataType) {
@@ -699,7 +699,10 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
         // Set the width in the dummy cell, and let autolayout calculate the height.
         self.dummyCellWidth.constant = self.columnWidth;
         self.dummyCell.textField.preferredMaxLayoutWidth = self.columnWidth;
-        self.dummyCell.textField.stringValue = item.stringValue;
+        NSString *stringValue = item.stringValue;
+        if (stringValue) {
+            self.dummyCell.textField.stringValue = item.stringValue;
+        }
 
         height = self.dummyCell.fittingSize.height;
         self.rowHeights[item.identifier] = @(height);
@@ -738,6 +741,109 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
     self.removeTagButton.enabled = enabled;
 }
 
+#pragma mark - Cover Art
+
+- (void)updateCoverArtArray
+{
+    self.artworks = [[self.metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt] mutableCopy];
+}
+
+- (void)addMetadataCoverArtItems:(NSArray<MP42MetadataItem *> *)items
+{
+    for (MP42MetadataItem *item in items) {
+        [self.metadata addMetadataItem:item];
+    }
+
+    NSUndoManager *undo = self.view.undoManager;
+    [[undo prepareWithInvocationTarget:self] removeMetadataCoverArtItems:items];
+
+    if (!undo.undoing) {
+        [undo setActionName:NSLocalizedString(@"Insert", @"Undo cover art insert.")];
+    }
+
+    [self updateCoverArtArray];
+    [self.artworksView reloadData];
+}
+
+- (void)removeMetadataCoverArtItems:(NSArray<MP42MetadataItem *> *)items
+{
+    for (MP42MetadataItem *item in items) {
+        [self.metadata removeMetadataItem:item];
+    }
+
+    NSUndoManager *undo = self.view.undoManager;
+    [[undo prepareWithInvocationTarget:self] addMetadataCoverArtItems:items];
+
+    if (!undo.undoing) {
+        [undo setActionName:NSLocalizedString(@"Delete", @"Undo cover art delete")];
+    }
+
+    [self updateCoverArtArray];
+    [self.artworksView reloadData];
+}
+
+- (IBAction)removeArtwork:(id)sender
+{
+    [self imageBrowser:self.artworksView removeItemsAtIndexes:[self.artworksView selectionIndexes]];
+    [self.artworksView reloadData];
+}
+
+- (BOOL)addArtworks:(NSArray *)items
+{
+    NSMutableArray<MP42MetadataItem *> *itemsToAdd = [NSMutableArray array];
+
+    for (id item in items) {
+        MP42Image *artwork = nil;
+
+        if ([item isKindOfClass:[NSURL class]]) {
+            NSString *type;
+            if ([item getResourceValue:&type forKey:NSURLTypeIdentifierKey error:NULL]) {
+                if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)@"public.jpeg")) {
+                    artwork = [[MP42Image alloc] initWithData:[NSData dataWithContentsOfURL:item] type:MP42_ART_JPEG];
+                } else {
+                    NSImage *artworkImage = [[NSImage alloc] initWithContentsOfURL:item];
+                    artwork = [[MP42Image alloc] initWithImage:artworkImage];
+                }
+            }
+        }
+        else if ([item isKindOfClass:[NSImage class]]) {
+            artwork = [[MP42Image alloc] initWithImage:item];
+        }
+        else if ([item isKindOfClass:[MP42Image class]]) {
+            artwork = item;
+        }
+
+        if (artwork) {
+            MP42MetadataItem *metadataItem = [MP42MetadataItem metadataItemWithIdentifier:MP42MetadataKeyCoverArt
+                                                                                    value:artwork
+                                                                                 dataType:MP42MetadataItemDataTypeImage
+                                                                      extendedLanguageTag:nil];
+            [itemsToAdd addObject:metadataItem];
+        }
+    }
+
+    if (itemsToAdd.count) {
+        [self addMetadataCoverArtItems:itemsToAdd];
+    }
+
+    return itemsToAdd.count;
+}
+
+- (IBAction)selectArtwork:(id)sender
+{
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    panel.allowsMultipleSelection = YES;
+    panel.canChooseFiles = YES;
+    panel.canChooseDirectories = NO;
+    panel.allowedFileTypes = @[@"public.image"];
+
+    [panel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            [self addArtworks:panel.URLs];
+        }
+    }];
+}
+
 #pragma mark - IKImageBrowserDataSource
 
 - (NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView *) aBrowser
@@ -761,6 +867,13 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
         [self.artworks insertObject:object atIndex:destinationIndex];
     }
 
+    for (MP42MetadataItem *item in self.artworks) {
+        [self.metadata removeMetadataItem:item];
+    }
+    for (MP42MetadataItem *item in self.artworks) {
+        [self.metadata addMetadataItem:item];
+    }
+
     [self.view.window.windowController.document updateChangeCount:NSChangeDone];
 
     return YES;
@@ -768,25 +881,48 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
 
 - (NSUInteger)imageBrowser:(IKImageBrowserView *)aBrowser writeItemsAtIndexes:(NSIndexSet *)itemIndexes toPasteboard:(NSPasteboard *)pasteboard
 {
-    NSInteger index;
-    [pasteboard declareTypes:@[NSTIFFPboardType] owner:nil];
+    [pasteboard declareTypes:@[SublerCoverArtPBoardType, NSPasteboardTypePNG] owner:nil];
 
-    for (index = itemIndexes.lastIndex; index != NSNotFound; index = [itemIndexes indexLessThanIndex:index]) {
-        NSArray *representations = self.artworks[index].imageValue.image.representations;
-        if (representations) {
-            NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations
-                                                                          usingType:NSTIFFFileType properties:@{}];
-            [pasteboard setData:bitmapData forType:NSTIFFPboardType];
+    for (MP42MetadataItem *item in [self.artworks objectsAtIndexes:itemIndexes]) {
+        MP42Image *image = item.imageValue;
+        if (image) {
+            NSArray *representations = image.image.representations;
+            if (representations) {
+                NSData *bitmapData = [NSBitmapImageRep representationOfImageRepsInArray:representations usingType:NSBitmapImageFileTypePNG properties:@{}];
+                [pasteboard setData:bitmapData forType:NSPasteboardTypePNG];
+            }
+            [pasteboard setData:[NSKeyedArchiver archivedDataWithRootObject:image] forType:SublerCoverArtPBoardType];
         }
     }
 
     return itemIndexes.count;
 }
 
+- (void)_pasteToImageBrowserView:(IKImageBrowserView *)ImageBrowserView
+{
+    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    NSArray *items = nil;
+
+    NSData *archivedImageData = [pasteboard dataForType:SublerCoverArtPBoardType];
+    if (archivedImageData) {
+        MP42Image *image = [NSKeyedUnarchiver unarchiveObjectWithData:archivedImageData];
+        if (image) {
+            items = @[image];
+        }
+    }
+    else {
+        NSArray *classes = @[[NSURL class], [NSImage class]];
+        NSDictionary *options = @{NSPasteboardURLReadingContentsConformToTypesKey: [NSImage imageTypes]};
+        items = [pasteboard readObjectsForClasses:classes options:options];
+    }
+
+    [self addArtworks:items];
+}
+
 - (void)imageBrowser:(IKImageBrowserView *)aBrowser removeItemsAtIndexes:(NSIndexSet *)indexes
 {
-    [self.artworks removeObjectsAtIndexes:indexes];
-    [self.view.window.windowController.document updateChangeCount:NSChangeDone];
+    NSArray<MP42MetadataItem *> *items = [self.artworks objectsAtIndexes:indexes];
+    [self removeMetadataCoverArtItems:items];
 }
 
 #pragma mark - IKImageBrowserDelegate
@@ -808,64 +944,7 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
     [self.artworksView setZoomValue:[sender floatValue]];
 }
 
-- (IBAction)removeArtwork:(id)sender
-{
-    [self imageBrowser:self.artworksView removeItemsAtIndexes:[self.artworksView selectionIndexes]];
-    [self.artworksView reloadData];
-}
-
-- (BOOL)addArtwork:(id)item
-{
-    MP42Image *artwork = nil;
-
-    if ([item isKindOfClass:[NSURL class]]) {
-        NSString *type;
-        if ([item getResourceValue:&type forKey:NSURLTypeIdentifierKey error:NULL]) {
-            if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)@"public.jpeg")) {
-                artwork = [[MP42Image alloc] initWithData:[NSData dataWithContentsOfURL:item] type:MP42_ART_JPEG];
-            } else {
-                NSImage *artworkImage = [[NSImage alloc] initWithContentsOfURL:item];
-                artwork = [[MP42Image alloc] initWithImage:artworkImage];
-            }
-        }
-    } else if ([item isKindOfClass:[NSImage class]]) {
-        artwork = [[MP42Image alloc] initWithImage:item];
-    } else if ([item isKindOfClass:[MP42Image class]]) {
-        artwork = item;
-    }
-
-    if (artwork) {
-        MP42MetadataItem *metadataItem = [MP42MetadataItem metadataItemWithIdentifier:MP42MetadataKeyCoverArt
-                                                                        value:artwork
-                                                                     dataType:MP42MetadataItemDataTypeImage
-                                                          extendedLanguageTag:nil];
-        [self.metadata addMetadataItem:metadataItem];
-        return YES;
-    }
-
-    return NO;
-}
-
-- (IBAction)selectArtwork:(id)sender
-{
-    NSOpenPanel *panel = [NSOpenPanel openPanel];
-    panel.allowsMultipleSelection = YES;
-    panel.canChooseFiles = YES;
-    panel.canChooseDirectories = NO;
-    panel.allowedFileTypes = @[@"public.image"];
-
-    [panel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result) {
-        if (result == NSFileHandlingPanelOKButton) {
-
-            for (NSURL *url in panel.URLs) {
-                [self addArtwork:url];
-            }
-
-            [self.view.window.windowController.document updateChangeCount:NSChangeDone];
-            [self.artworksView reloadData];
-        }
-    }];
-}
+#pragma mark - Cover Art drag & drop
 
 - (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender
 {
@@ -879,42 +958,15 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
 
 - (BOOL)performDragOperation:(id)sender
 {
-    BOOL edited = NO;
     NSPasteboard *pasteboard = [sender draggingPasteboard];
 
     NSArray *classes = @[[NSURL class], [NSImage class]];
     NSDictionary *options = @{NSPasteboardURLReadingContentsConformToTypesKey: [NSImage imageTypes]};
     NSArray *draggedItems = [pasteboard readObjectsForClasses:classes options:options];
 
-    if (draggedItems) {
-        for (id dragItem in draggedItems) {
-            edited = [self addArtwork:dragItem];
-        }
-
-        if (edited) {
-            [self.view.window.windowController.document updateChangeCount:NSChangeDone];
-            [self.artworksView reloadData];
-
-            return YES;
-        }
-    }
-
-	return NO;
+    return [self addArtworks:draggedItems];
 }
 
-- (void)concludeDragOperation:(id < NSDraggingInfo >)sender
-{
-	[self.artworksView reloadData];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-    [_artworksView setDelegate:nil];
-    [_artworksView setDataSource:nil];
-    [_metadataTableView setDelegate:nil];
-    [_metadataTableView setDataSource:nil];
-}
+- (void)concludeDragOperation:(id <NSDraggingInfo>)sender {}
 
 @end
