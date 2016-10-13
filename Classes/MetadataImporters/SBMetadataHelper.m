@@ -121,14 +121,7 @@
 }
 
 + (NSString *)urlEncoded:(NSString *)string {
-    string = string.precomposedStringWithCompatibilityMapping;
-    CFStringRef urlString = CFURLCreateStringByAddingPercentEscapes(
-                                                                    NULL,
-                                                                    (CFStringRef) string,
-                                                                    NULL,
-                                                                    (CFStringRef) @"!*'\"();:@&=+$,/?%#[]% ",
-                                                                    kCFStringEncodingUTF8);
-    return CFAutorelease(urlString);
+    return [string.precomposedStringWithCompatibilityMapping stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 }
 
 + (NSString *)md5String:(NSString *)s {
@@ -189,7 +182,7 @@
 }
 
 #pragma mark NSURLRequest
-+ (nullable NSData *)dataFromUrl:(NSURL *)url withHTTPMethod:(NSString *)method headerOptions:(nullable NSDictionary *)header error:(NSError * __autoreleasing *)outError
++ (NSURLSessionTask *)sessionTaskFromUrl:(NSURL *)url withHTTPMethod:(NSString *)method headerOptions:(nullable NSDictionary *)header completionHandler:(void(^)(NSData * _Nullable data))completionHandler
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -202,24 +195,24 @@
         }
     }
 
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                         returningResponse:&response
-                                                     error:&error];
+    NSURLSession *defaultSession = [NSURLSession sharedSession];
+    NSURLSessionTask *task = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (data) {
+            NSUInteger statusCode = 0;
+            if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                statusCode = (long)((NSHTTPURLResponse *)response).statusCode;
+            }
 
-    if (data) {
-        NSUInteger statusCode = 0;
-        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-            statusCode = (long)((NSHTTPURLResponse *)response).statusCode;
+            if (statusCode == 200) {
+                completionHandler(data);
+            }
+            else {
+                completionHandler(nil);
+            }
         }
 
-        if (statusCode == 200) {
-            return data;
-        }
-    }
-    
-    return nil;
+    }];
+    return task;
 }
 
 @end

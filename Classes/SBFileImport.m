@@ -200,7 +200,7 @@
         if ([tableColumn.identifier isEqualToString:@"check"]) {
             NSButtonCell *buttonCell = [[NSButtonCell alloc] init];
             [buttonCell setButtonType:NSSwitchButton];
-            buttonCell.controlSize = NSSmallControlSize;
+            buttonCell.controlSize = NSControlSizeSmall;
             buttonCell.title = @"";
 
             buttonCell.enabled = (isTrackMuxable(track.format) || trackNeedConversion(track.format)) ? YES : NO;
@@ -212,7 +212,7 @@
             NSPopUpButtonCell *actionCell = [[NSPopUpButtonCell alloc] init];
             [actionCell setAutoenablesItems:NO];
             actionCell.font = [NSFont systemFontOfSize:11];
-            actionCell.controlSize = NSSmallControlSize;
+            actionCell.controlSize = NSControlSizeSmall;
             [actionCell setBordered:NO];
 
             if ([track isMemberOfClass:[MP42VideoTrack class]]) {

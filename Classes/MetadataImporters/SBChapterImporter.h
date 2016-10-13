@@ -13,20 +13,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SBChapterImporter : NSObject {
-@private
-    BOOL _isCancelled;
-}
+@interface SBChapterImporter : NSObject
 
 + (NSString *)defaultProvider;
 
 + (nullable instancetype)importerForProvider:(NSString *)providerName;
-- (void) searchTitle:(NSString *)title language:(nullable NSString *)language duration:(NSUInteger)duration completionHandler:(void(^)(NSArray<SBChapterResult *> *results))handler;
-- (void) cancel;
 
 #pragma mark Methods to be overridden
 
-- (NSArray<SBChapterResult *> *)searchTitle:(NSString *)title language:(nullable NSString *)language duration:(NSUInteger)duration;
+- (void)searchTitle:(NSString *)title language:(nullable NSString *)language duration:(NSUInteger)duration completionHandler:(void(^)(NSArray<SBChapterResult *> *results))handler;
+- (void)cancel;
 
 @end
 

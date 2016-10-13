@@ -348,9 +348,9 @@
                                         </scroller>
                                     </scrollView>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="223">
-                                        <rect key="frame" x="17" y="7" width="24" height="22"/>
+                                        <rect key="frame" x="17" y="7" width="25" height="22"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="24" id="PQ5-Tu-VFK"/>
+                                            <constraint firstAttribute="width" constant="25" id="PQ5-Tu-VFK"/>
                                             <constraint firstAttribute="height" constant="20" id="nbn-sF-RRs"/>
                                         </constraints>
                                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="224">
@@ -362,9 +362,9 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="226">
-                                        <rect key="frame" x="40" y="7" width="24" height="22"/>
+                                        <rect key="frame" x="41" y="7" width="25" height="22"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="24" id="FBv-tK-Tdv"/>
+                                            <constraint firstAttribute="width" constant="25" id="FBv-tK-Tdv"/>
                                         </constraints>
                                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="227">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -390,12 +390,12 @@
                                     <constraint firstAttribute="bottom" secondItem="223" secondAttribute="bottom" constant="8" id="2rH-o3-DfM"/>
                                     <constraint firstItem="235" firstAttribute="top" secondItem="214" secondAttribute="bottom" constant="11" id="3GL-7W-Gde"/>
                                     <constraint firstItem="214" firstAttribute="leading" secondItem="16" secondAttribute="leading" constant="17" id="4FA-0p-Olg"/>
-                                    <constraint firstItem="226" firstAttribute="leading" secondItem="16" secondAttribute="leading" constant="40" id="H85-kJ-Lp3"/>
                                     <constraint firstItem="226" firstAttribute="centerY" secondItem="235" secondAttribute="centerY" constant="0.5" id="IHP-mq-pja"/>
                                     <constraint firstItem="223" firstAttribute="top" secondItem="214" secondAttribute="bottom" constant="8" symbolic="YES" id="Omx-Vr-JKg"/>
                                     <constraint firstItem="214" firstAttribute="top" secondItem="16" secondAttribute="top" constant="6" id="Pfx-al-MJd"/>
                                     <constraint firstItem="214" firstAttribute="leading" secondItem="223" secondAttribute="leading" id="Xbu-J3-MGE"/>
                                     <constraint firstItem="226" firstAttribute="height" secondItem="223" secondAttribute="height" id="bRk-bc-DiM"/>
+                                    <constraint firstItem="226" firstAttribute="leading" secondItem="223" secondAttribute="trailing" constant="-1" id="mSU-ml-jzw"/>
                                     <constraint firstItem="214" firstAttribute="trailing" secondItem="235" secondAttribute="trailing" id="uWI-rx-Mmh"/>
                                     <constraint firstAttribute="trailing" secondItem="214" secondAttribute="trailing" constant="17" id="zZm-R8-SeH"/>
                                 </constraints>

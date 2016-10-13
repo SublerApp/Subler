@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, SBCachePolicy) {
 + (NSString *)urlEncoded:(NSString *)string;
 
 + (nullable NSData *)downloadDataFromURL:(NSURL *)url withCachePolicy:(SBCachePolicy)policy;
-+ (nullable NSData *)dataFromUrl:(NSURL *)url withHTTPMethod:(NSString *)method headerOptions:(nullable NSDictionary *)header error:(NSError **)outError;
++ (NSURLSessionTask *)sessionTaskFromUrl:(NSURL *)url withHTTPMethod:(NSString *)method headerOptions:(nullable NSDictionary *)header completionHandler:(void(^)(NSData * _Nullable data))completionHandler;
 
 @end
 

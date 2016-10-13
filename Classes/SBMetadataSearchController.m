@@ -76,7 +76,7 @@
 
         NSMutableParagraphStyle * ps = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
         ps.headIndent = -10.0;
-        ps.alignment = NSRightTextAlignment;
+        ps.alignment = NSTextAlignmentRight;
         detailBoldAttr = @{NSFontAttributeName: [NSFont boldSystemFontOfSize:[NSFont smallSystemFontSize]],
                            NSParagraphStyleAttributeName: ps,
                            NSForegroundColorAttributeName: [NSColor grayColor]};

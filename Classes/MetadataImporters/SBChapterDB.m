@@ -14,41 +14,55 @@
 
 #define API_KEY @"ETET7TXFJH45YNYW0I4A"
 
+@interface SBChapterDB ()
+
+@property (nonatomic, readwrite) NSURLSessionTask *task;
+
+@end
+
 @implementation SBChapterDB
 
-- (NSArray<SBChapterResult *> *)searchTitle:(NSString *)title language:(nullable NSString *)language duration:(NSUInteger)duration
+- (void)searchTitle:(NSString *)title language:(nullable NSString *)language duration:(NSUInteger)duration completionHandler:(void(^)(NSArray<SBChapterResult *> *results))handler
 {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.chapterdb.org/chapters/search?title=%@", [SBMetadataHelper urlEncoded:title]]];
 
     NSDictionary *headerOptions = @{@"ApiKey" : API_KEY};
-    NSData *xmlData = xmlData = [SBMetadataHelper dataFromUrl:url withHTTPMethod:@"GET" headerOptions:headerOptions error:nil];
+    self.task = [SBMetadataHelper sessionTaskFromUrl:url withHTTPMethod:@"GET" headerOptions:headerOptions completionHandler:^(NSData * _Nullable data) {
+        NSXMLDocument *xml = [[NSXMLDocument alloc] initWithData:data
+                                                         options:0
+                                                           error:NULL];
 
-    NSXMLDocument *xml = [[NSXMLDocument alloc] initWithData:xmlData
-                                                     options:0
-                                                       error:NULL];
+        NSMutableArray<SBChapterResult *> *resultsArray = [[NSMutableArray alloc] init];
 
-    NSMutableArray<SBChapterResult *> *resultsArray = [[NSMutableArray alloc] init];
+        if (xml) {
+            NSArray<NSXMLNode *> *children = [xml nodesForXPath:@"//*:chapterInfo" error:nil];
 
-    if (xml) {
-        NSArray<NSXMLNode *> *children = [xml nodesForXPath:@"//*:chapterInfo" error:nil];
-
-        for (NSXMLNode *child in children) {
-            SBChapterResult *result = [self parseResult:child];
-            if (result) {
-                [resultsArray addObject:result];
+            for (NSXMLNode *child in children) {
+                SBChapterResult *result = [self parseResult:child];
+                if (result) {
+                    [resultsArray addObject:result];
+                }
             }
         }
-    }
 
-
-    if (duration > 0) {
-        NSArray<SBChapterResult *> *filteredArray = [self filterArray:resultsArray byDuration:duration delta:10000];
-        if (filteredArray.count) {
-            return filteredArray;
+        if (duration > 0) {
+            NSArray<SBChapterResult *> *filteredArray = [self filterArray:resultsArray byDuration:duration delta:10000];
+            if (filteredArray.count) {
+                handler(filteredArray);
+                return;
+            }
         }
-    }
+        
+        handler(resultsArray);
 
-    return resultsArray;
+    }];
+
+    [self.task resume];
+}
+
+- (void)cancel;
+{
+    [self.task cancel];
 }
 
 /**

@@ -86,7 +86,7 @@
         alert.informativeText = NSLocalizedString(@"Your current queue will be lost. Do you want to quit anyway?", @"Quit alert description.");
         [alert addButtonWithTitle:NSLocalizedString(@"Quit", @"Quit alert default action.")];
         [alert addButtonWithTitle:NSLocalizedString(@"Don't Quit", @"Quit alert cancel action.")];
-        alert.alertStyle = NSCriticalAlertStyle;
+        alert.alertStyle = NSAlertStyleCritical;
 
         NSInteger result = [alert runModal];
 
@@ -124,7 +124,7 @@
                                                           " If you enjoy using it, please consider showing your appreciation with a donation.", "Donation -> message")];
 
             [alert setInformativeText:donateMessage];
-            [alert setAlertStyle: NSInformationalAlertStyle];
+            [alert setAlertStyle: NSAlertStyleInformational];
 
             [alert addButtonWithTitle: NSLocalizedString(@"Donate", "Donation -> button")];
             NSButton *noDonateButton = [alert addButtonWithTitle: NSLocalizedString(@"Nope", "Donation -> button")];

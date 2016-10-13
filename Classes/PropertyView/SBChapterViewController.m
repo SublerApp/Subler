@@ -25,7 +25,7 @@
 
     NSMutableParagraphStyle *ps = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     ps.headIndent = -10.0;
-    ps.alignment = NSRightTextAlignment;
+    ps.alignment = NSTextAlignmentRight;
 
     if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
         detailBoldAttr = @{ NSFontAttributeName: [NSFont monospacedDigitSystemFontOfSize:[NSFont smallSystemFontSize] weight:NSFontWeightBold],

@@ -156,9 +156,10 @@
                                  language:nil
                                  duration:_searchDuration
                         completionHandler:^(NSArray<SBChapterResult *> *results) {
-                            [self searchForResultsDone:results];
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self searchForResultsDone:results];
+                            });
                         }];
-
     }
     else {
         // Nothing to search, reset the table view

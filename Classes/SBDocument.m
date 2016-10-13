@@ -1031,7 +1031,7 @@ static NSDictionary *_detailMonospacedAttr;
                 alert.informativeText = [NSString stringWithFormat:
                                             NSLocalizedString(@"There was a problem creating the file \"%@\".",
                                                               "Export alert panel -> message"), panel.URL.lastPathComponent];
-                alert.alertStyle = NSWarningAlertStyle;
+                alert.alertStyle = NSAlertStyleWarning;
                 
                 [alert runModal];
             }
