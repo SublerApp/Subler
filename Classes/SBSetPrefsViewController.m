@@ -26,9 +26,14 @@
 
 @implementation SBSetPrefsViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (NSString *)nibName
+{
+    return @"SBSetPrefsViewController";
+}
 
+- (void)loadView
+{
+    [super loadView];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateTableView:)
                                                  name:@"SBPresetManagerUpdatedNotification" object:nil];
