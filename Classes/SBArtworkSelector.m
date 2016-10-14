@@ -15,8 +15,6 @@
 @interface SBArtworkImageObject : NSObject {
     NSString *_urlString;
 	NSString *_artworkProviderName;
-
-    id __unsafe_unretained _delegate;
 }
 
 @property (atomic, unsafe_unretained) id delegate;
@@ -190,7 +188,6 @@
     [imageBrowser setDataSource:nil];
 
     [images makeObjectsPerformSelector:@selector(cancel)];
-
 }
 
 #pragma mark -
