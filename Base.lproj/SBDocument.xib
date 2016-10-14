@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2338c" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2548a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
@@ -335,7 +335,7 @@
                             <action selector="selectFile:" target="-2" id="mw9-1U-2Pb"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="5B6FDF6D-9486-49B2-8EA4-184D76D0864C" label="Delete Track" paletteLabel="Delete Track" toolTip="Import tracks from external files" image="ToolbarRemoveTemplate" id="S3Y-pp-4q3" customClass="ButtonToolbarItem">
+                    <toolbarItem implicitItemIdentifier="5B6FDF6D-9486-49B2-8EA4-184D76D0864C" label="Delete Track" paletteLabel="Delete Track" toolTip="Delete the selected track" image="ToolbarRemoveTemplate" id="S3Y-pp-4q3" customClass="ButtonToolbarItem">
                         <size key="minSize" width="36" height="28"/>
                         <size key="maxSize" width="36" height="32"/>
                         <button key="view" verticalHuggingPriority="750" id="v1q-Kq-a3i">
@@ -350,7 +350,7 @@
                             <action selector="deleteTrack:" target="-2" id="FiO-82-bMI"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="66402BE4-4A7B-4048-A584-2BC0F5E69600" label="Search Metadata" paletteLabel="Search Metadata" toolTip="Import tracks from external files" image="NSRevealFreestandingTemplate" id="Q2q-Vv-Qt7" customClass="ButtonToolbarItem">
+                    <toolbarItem implicitItemIdentifier="66402BE4-4A7B-4048-A584-2BC0F5E69600" label="Search Metadata" paletteLabel="Search Metadata" toolTip="Search metadata on the web" image="NSRevealFreestandingTemplate" id="Q2q-Vv-Qt7" customClass="ButtonToolbarItem">
                         <size key="minSize" width="36" height="28"/>
                         <size key="maxSize" width="36" height="32"/>
                         <button key="view" verticalHuggingPriority="750" id="J1D-OD-RyX">
@@ -365,7 +365,7 @@
                             <action selector="searchMetadata:" target="-2" id="aEl-9y-ofV"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="C90398D0-2F66-43E9-8B04-6CCD8DDA90D2" label="Search Chapters" paletteLabel="Search Chapters" toolTip="Import tracks from external files" image="ToolbarChaptersTemplate" id="Srh-TP-1hf" customClass="ButtonToolbarItem">
+                    <toolbarItem implicitItemIdentifier="C90398D0-2F66-43E9-8B04-6CCD8DDA90D2" label="Search Chapters" paletteLabel="Search Chapters" toolTip="Search chapters on the web" image="ToolbarChaptersTemplate" id="Srh-TP-1hf" customClass="ButtonToolbarItem">
                         <size key="minSize" width="36" height="28"/>
                         <size key="maxSize" width="36" height="32"/>
                         <button key="view" verticalHuggingPriority="750" id="iya-i9-RSa">
@@ -380,7 +380,7 @@
                             <action selector="searchChapters:" target="-2" id="CoQ-HW-2Jh"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="9F789D5F-C25E-449F-ABCE-DDF99B4FF988" label="Send to Queue" paletteLabel="Send to Queue" toolTip="Import tracks from external files" image="ToolbarActionTemplate" id="APi-CJ-dh2" customClass="ButtonToolbarItem">
+                    <toolbarItem implicitItemIdentifier="9F789D5F-C25E-449F-ABCE-DDF99B4FF988" label="Send to Queue" paletteLabel="Send to Queue" toolTip="Send the current document to the queue" image="ToolbarActionTemplate" id="APi-CJ-dh2" customClass="ButtonToolbarItem">
                         <size key="minSize" width="36" height="28"/>
                         <size key="maxSize" width="36" height="32"/>
                         <button key="view" verticalHuggingPriority="750" id="lvx-ga-BAF">
