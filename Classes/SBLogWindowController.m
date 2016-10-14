@@ -10,19 +10,13 @@
 #import "SBLogger.h"
 
 @interface SBLogWindowController ()
-{
-    NSTextView  *__unsafe_unretained _logView;
-    SBLogger    *_logger;
-}
+
 @property (nonatomic, unsafe_unretained) IBOutlet NSTextView *logView;
 @property (nonatomic, readonly) SBLogger *logger;
 
 @end
 
 @implementation SBLogWindowController
-
-@synthesize logView = _logView;
-@synthesize logger = _logger;
 
 - (instancetype)init {
     if ((self = [super initWithWindowNibName:@"SBLogWindow"])) {
@@ -52,7 +46,7 @@
 }
 
 - (IBAction)clearLog:(id)sender {
-    [(self.logView).textStorage deleteCharactersInRange:NSMakeRange(0, (self.logView).textStorage.length)];
+    [self.logView.textStorage deleteCharactersInRange:NSMakeRange(0, (self.logView).textStorage.length)];
     [self.logger clearLog];
 }
 
