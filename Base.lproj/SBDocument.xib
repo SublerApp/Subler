@@ -402,7 +402,7 @@
                         <popUpButton key="view" verticalHuggingPriority="750" id="JYe-b9-2AX">
                             <rect key="frame" x="2" y="14" width="38" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="Xoe-1j-Ves" id="1Gc-Er-ewA">
+                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="1Gc-Er-ewA">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
                                 <menu key="menu" id="qXi-k1-Z5m">
@@ -457,10 +457,16 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Organize groups" id="BDw-rr-q41">
+                                        <menuItem title="Organize alternate groups" id="BDw-rr-q41">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="iTunesFriendlyTrackGroups:" target="-2" id="udM-fi-yMw"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Clear tracks names" id="fRN-MT-g2r">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="clearTracksNames:" target="-2" id="RUq-PT-rgU"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Fix audio fallbacks" id="ErE-rx-lEt">
@@ -548,36 +554,24 @@ Gw
                 <rect key="frame" x="0.0" y="0.0" width="346" height="102"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="100273">
-                        <rect key="frame" x="17" y="62" width="47" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Offset:" id="100274">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="100277">
-                        <rect key="frame" x="306" y="62" width="23" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="100277">
+                        <rect key="frame" x="307" y="62" width="22" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="ms" id="100278">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="100275">
-                        <rect key="frame" x="69" y="60" width="232" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="100275">
+                        <rect key="frame" x="69" y="59" width="233" height="22"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="100276">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="100279">
-                        <rect key="frame" x="236" y="12" width="96" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="100279">
+                        <rect key="frame" x="237" y="12" width="95" height="32"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="100282">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -589,9 +583,8 @@ DQ
                             <action selector="setTrackOffset:" target="-2" id="100289"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="100280">
-                        <rect key="frame" x="140" y="12" width="96" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="100280">
+                        <rect key="frame" x="142" y="12" width="95" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="100281">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -603,7 +596,30 @@ Gw
                             <action selector="closeOffsetSheet:" target="-2" id="100287"/>
                         </connections>
                     </button>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="100273">
+                        <rect key="frame" x="18" y="62" width="46" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Offset:" id="100274">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="100279" firstAttribute="baseline" secondItem="100280" secondAttribute="baseline" id="8H4-aH-eai"/>
+                    <constraint firstItem="100279" firstAttribute="leading" secondItem="100280" secondAttribute="trailing" constant="12" id="Ac6-q0-vlt"/>
+                    <constraint firstAttribute="bottom" secondItem="100279" secondAttribute="bottom" constant="19" id="Qia-HL-V2T"/>
+                    <constraint firstItem="100277" firstAttribute="baseline" secondItem="100275" secondAttribute="baseline" id="SIm-1P-duc"/>
+                    <constraint firstAttribute="trailing" secondItem="100277" secondAttribute="trailing" constant="19" id="TVe-SF-DLZ"/>
+                    <constraint firstItem="100277" firstAttribute="leading" secondItem="100275" secondAttribute="trailing" constant="7" id="b8c-Eq-ZRq"/>
+                    <constraint firstItem="100273" firstAttribute="baseline" secondItem="100275" secondAttribute="baseline" id="dTZ-zK-kpv"/>
+                    <constraint firstItem="100273" firstAttribute="top" secondItem="100272" secondAttribute="top" constant="23" id="eY1-J6-Whh"/>
+                    <constraint firstItem="100280" firstAttribute="width" secondItem="100279" secondAttribute="width" id="faA-4K-0CP"/>
+                    <constraint firstAttribute="trailing" secondItem="100279" secondAttribute="trailing" constant="20" id="iFU-1E-ffZ"/>
+                    <constraint firstItem="100273" firstAttribute="leading" secondItem="100272" secondAttribute="leading" constant="20" id="kOp-EH-fes"/>
+                    <constraint firstItem="100279" firstAttribute="leading" secondItem="100275" secondAttribute="trailing" constant="-59" id="mve-kU-loz"/>
+                    <constraint firstItem="100275" firstAttribute="leading" secondItem="100273" secondAttribute="trailing" constant="7" id="sAp-D8-dgq"/>
+                </constraints>
             </view>
         </window>
         <customView id="100187">

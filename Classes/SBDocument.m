@@ -461,6 +461,9 @@ static NSDictionary *_detailMonospacedAttr;
     if (action == @selector(iTunesFriendlyTrackGroups:))
         return YES;
 
+    if (action == @selector(clearTracksNames:))
+        return YES;
+
     if (action == @selector(fixAudioFallbacks:))
         return YES;
 
@@ -1071,6 +1074,15 @@ static NSDictionary *_detailMonospacedAttr;
     [self.mp4 organizeAlternateGroups];
     [self.tracksTable reloadData];
     [self reloadPropertyView];
+    [self updateChangeCount:NSChangeDone];
+}
+
+- (IBAction)clearTracksNames:(id)sender
+{
+    for (MP42Track *track in self.mp4.tracks) {
+        track.name = @"";
+    }
+    [self.tracksTable reloadData];
     [self updateChangeCount:NSChangeDone];
 }
 

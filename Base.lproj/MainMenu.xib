@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11185.3" systemVersion="16A270f" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2548a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11185.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -316,10 +316,16 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Organize groups" id="652">
+                            <menuItem title="Organize alternate groups" id="652">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="iTunesFriendlyTrackGroups:" target="-1" id="654"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Clear tracks names" id="hKY-N2-NzK">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="clearTracksNames:" target="-1" id="sbh-Ax-C4Y"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Fix audio fallbacks" id="FXb-bX-0Wb">
