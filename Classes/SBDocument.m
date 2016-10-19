@@ -40,9 +40,9 @@
 {
     IBOutlet NSSplitView    *splitView;
 
-    NSSavePanel                     *_currentSavePanel;
-    IBOutlet NSView                 *saveView;
-    IBOutlet NSPopUpButton          *fileFormat;
+    NSSavePanel             *_currentSavePanel;
+    IBOutlet NSView         *saveView;
+    IBOutlet NSPopUpButton  *fileFormat;
 
     IBOutlet NSToolbarItem  *addTracks;
     IBOutlet NSToolbarItem  *deleteTrack;
