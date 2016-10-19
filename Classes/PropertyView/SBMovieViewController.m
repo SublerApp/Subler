@@ -74,7 +74,7 @@ static NSArray<NSArray *> *_mediaKinds;
 {
     [super loadView];
 
-    _ratings = [MP42Ratings defaultManager].ratings;
+    _ratings = MP42Ratings.defaultManager.ratings;
 
     [self updateSetsMenu:self];
 
@@ -407,14 +407,25 @@ static NSArray<NSArray *> *_mediaKinds;
     return cell;
 }
 
-- (NSTableCellView *)popUpCellWithContents:(NSArray<NSString *> *)contents index:(NSInteger)index tableView:(NSTableView *)tableView
+- (NSTableCellView *)popUpRatingCellWithContents:(NSArray<NSString *> *)contents value:(NSString *)value tableView:(NSTableView *)tableView
 {
     SBPopUpCellView *popUpCell =  [tableView makeViewWithIdentifier:@"PopUpCell" owner:self];
     [popUpCell.popUpButton removeAllItems];
     for (NSString *title in contents) {
         [popUpCell.popUpButton.menu addItem:[[NSMenuItem alloc] initWithTitle:title action:NULL keyEquivalent:@""]];
     }
-    [popUpCell.popUpButton selectItemAtIndex:index];
+
+    NSInteger index = [MP42Ratings.defaultManager ratingIndexForiTunesCode:value];
+    if (index != -1) {
+        [popUpCell.popUpButton selectItemAtIndex:index];
+    }
+    else {
+        NSString *title = value.length ? value : NSLocalizedString(@"Unknown", nil);
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:title action:NULL keyEquivalent:@""];
+        item.tag = -1;
+        [popUpCell.popUpButton.menu addItem:item];
+        [popUpCell.popUpButton selectItem:item];
+    }
     return popUpCell;
 }
 
@@ -429,6 +440,13 @@ static NSArray<NSArray *> *_mediaKinds;
             [popUpCell.popUpButton selectItemAtIndex:index];
         }
         index++;
+    }
+    if (popUpCell.popUpButton.indexOfSelectedItem == -1) {
+        NSString *title = value.stringValue ? value.stringValue : NSLocalizedString(@"Unknown", nil);
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:title action:NULL keyEquivalent:@""];
+        item.tag = -1;
+        [popUpCell.popUpButton.menu addItem:item];
+        [popUpCell.popUpButton selectItem:item];
     }
     return popUpCell;
 }
@@ -452,8 +470,7 @@ static NSArray<NSArray *> *_mediaKinds;
                     break;
                  }
                  else if ([item.identifier isEqualToString:MP42MetadataKeyRating]) {
-                     NSInteger index = [[MP42Ratings defaultManager] ratingIndexForiTunesCode:item.stringValue];
-                     cell = [self popUpCellWithContents:self.ratings index:index tableView:tableView];
+                     cell = [self popUpRatingCellWithContents:self.ratings value:item.stringValue tableView:tableView];
                      break;
                  }
             }
@@ -568,6 +585,10 @@ static NSArray<NSArray *> *_mediaKinds;
 
 - (IBAction)setMetadataIntValue:(NSPopUpButton *)sender
 {
+    if (sender.selectedTag == -1) {
+        return;
+    }
+
     NSInteger row = [self.metadataTableView rowForView:sender];
     MP42MetadataItem *item = self.tags[row];
 
@@ -577,8 +598,12 @@ static NSArray<NSArray *> *_mediaKinds;
     switch (item.dataType) {
         case MP42MetadataItemDataTypeString:
             if ([item.identifier isEqualToString:MP42MetadataKeyRating]) {
-                NSArray<NSString *> *ratings = [[MP42Ratings defaultManager] iTunesCodes];
-                value = ratings[index];
+                NSArray<NSString *> *ratings = MP42Ratings.defaultManager.iTunesCodes;
+                if (index < ratings.count) {
+                    value = ratings[index];
+                } else {
+                    value = item.value;
+                }
             }
             break;
         case MP42MetadataItemDataTypeInteger:
