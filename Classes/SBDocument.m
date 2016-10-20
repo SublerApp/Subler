@@ -468,8 +468,8 @@ static NSDictionary *_detailMonospacedAttr;
         return YES;
 
 	if (action == @selector(export:) && self.tracksTable.selectedRow != -1)
-		if ([[self.mp4 trackAtIndex:self.tracksTable.selectedRow] respondsToSelector:@selector(exportToURL:error:)] &&
-            [self.mp4 trackAtIndex:self.tracksTable.selectedRow].muxed)
+		if ([[self trackAtAtTableRow:self.tracksTable.selectedRow] respondsToSelector:@selector(exportToURL:error:)] &&
+            [self trackAtAtTableRow:self.tracksTable.selectedRow].muxed)
 			return YES;
 
     return NO;
@@ -482,8 +482,7 @@ static NSDictionary *_detailMonospacedAttr;
     }
 
     if (toolbarItem == deleteTrack) {
-        if (self.tracksTable.selectedRow != -1 && NSApp.active)
-                return YES;
+        return self.tracksTable.selectedRow > 0 && NSApp.active;
     }
 
     if (toolbarItem == searchMetadata) {
@@ -505,90 +504,130 @@ static NSDictionary *_detailMonospacedAttr;
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
-    return self.mp4.tracks.count;
+    return self.mp4.tracks.count + 1;
 }
 
 - (nullable NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(nullable NSTableColumn *)tableColumn row:(NSInteger)row
 {
     NSTableCellView *cell = nil;
-    MP42Track *track = [self.mp4 trackAtIndex:row];
+    if (row) {
+        MP42Track *track = [self trackAtAtTableRow:row];
 
-    if (!track) {
-        return nil;
-    }
+        if (track) {
+            if ([tableColumn.identifier isEqualToString:@"trackId"]) {
+                cell = [tableView makeViewWithIdentifier:@"IdCell" owner:self];
+                cell.textField.stringValue = (track.trackId == 0) ? NSLocalizedString(@"na", nil) : [NSString stringWithFormat:@"%d", track.trackId];
+            }
+            else if ([tableColumn.identifier isEqualToString:@"trackName"]) {
+                cell = [tableView makeViewWithIdentifier:@"NameCell" owner:self];
+                cell.textField.stringValue = track.name;
+            }
+            else if ([tableColumn.identifier isEqualToString:@"trackInfo"]) {
+                cell = [tableView makeViewWithIdentifier:@"FormatCell" owner:self];
+                cell.textField.stringValue = track.formatSummary;
+            }
+            else if ([tableColumn.identifier isEqualToString:@"trackEnabled"]) {
+                SBCheckBoxCellView *checkCell = [tableView makeViewWithIdentifier:@"CheckCell" owner:self];
+                checkCell.checkboxButton.state = track.isEnabled;
+                cell = checkCell;
+            }
+            else if ([tableColumn.identifier isEqualToString:@"trackDuration"]) {
+                cell = [tableView makeViewWithIdentifier:@"DurationCell" owner:self];
 
-    if ([tableColumn.identifier isEqualToString:@"trackId"]) {
-        cell = [tableView makeViewWithIdentifier:@"IdCell" owner:self];
-        cell.textField.stringValue = (track.trackId == 0) ? NSLocalizedString(@"na", nil) : [NSString stringWithFormat:@"%d", track.trackId];
-    }
-
-    if ([tableColumn.identifier isEqualToString:@"trackName"]) {
-        cell = [tableView makeViewWithIdentifier:@"NameCell" owner:self];
-        cell.textField.stringValue = track.name;
-    }
-
-    if ([tableColumn.identifier isEqualToString:@"trackInfo"]) {
-        cell = [tableView makeViewWithIdentifier:@"FormatCell" owner:self];
-        cell.textField.stringValue = track.formatSummary;
-    }
-
-    if ([tableColumn.identifier isEqualToString:@"trackEnabled"]) {
-        SBCheckBoxCellView *checkCell = [tableView makeViewWithIdentifier:@"CheckCell" owner:self];
-        checkCell.checkboxButton.state = track.isEnabled;
-        cell = checkCell;
-    }
-
-    if ([tableColumn.identifier isEqualToString:@"trackDuration"]) {
-        cell = [tableView makeViewWithIdentifier:@"DurationCell" owner:self];
-
-        if (_detailMonospacedAttr) {
-            cell.textField.attributedStringValue = [[NSAttributedString alloc] initWithString:track.timeString attributes:_detailMonospacedAttr];
+                if (_detailMonospacedAttr) {
+                    cell.textField.attributedStringValue = [[NSAttributedString alloc] initWithString:track.timeString attributes:_detailMonospacedAttr];
+                }
+                else {
+                    cell.textField.stringValue = track.timeString;
+                }
+            }
+            else if ([tableColumn.identifier isEqualToString:@"trackLanguage"]) {
+                SBComboBoxCellView *comboCell = [tableView makeViewWithIdentifier:@"ComboCell" owner:self];
+                comboCell.comboBox.stringValue = track.language;
+                cell = comboCell;
+            }
         }
-        else {
-            cell.textField.stringValue = track.timeString;
+    }
+    else {
+        if ([tableColumn.identifier isEqualToString:@"trackId"]) {
+            cell = [tableView makeViewWithIdentifier:@"disabledIdCell" owner:self];
+            cell.textField.stringValue = @"-";
+        }
+        else if ([tableColumn.identifier isEqualToString:@"trackName"]) {
+            cell = [tableView makeViewWithIdentifier:@"NameCell" owner:self];
+            cell.textField.stringValue = NSLocalizedString(@"Metadata", nil);
+        }
+        else if ([tableColumn.identifier isEqualToString:@"trackDuration"]) {
+            cell = [tableView makeViewWithIdentifier:@"DurationCell" owner:self];
+
+            NSString *timeString = StringFromTime(self.mp4.duration, 1000);
+
+            if (_detailMonospacedAttr) {
+                cell.textField.attributedStringValue = [[NSAttributedString alloc] initWithString:timeString attributes:_detailMonospacedAttr];
+            }
+            else {
+                cell.textField.stringValue = timeString;
+            }
+        }
+        else if ([tableColumn.identifier isEqualToString:@"trackLanguage"]) {
+            cell = [tableView makeViewWithIdentifier:@"DisabledFormatCell" owner:self];
+            cell.textField.stringValue = NSLocalizedString(@"-NA-", nil);
+        }
+        else if ([tableColumn.identifier isEqualToString:@"trackInfo"]) {
+            cell = [tableView makeViewWithIdentifier:@"DisabledFormatCell" owner:self];
+            cell.textField.stringValue = NSLocalizedString(@"-NA-", nil);
         }
     }
-
-    if ([tableColumn.identifier isEqualToString:@"trackLanguage"]) {
-        SBComboBoxCellView *comboCell = [tableView makeViewWithIdentifier:@"ComboCell" owner:self];
-        comboCell.comboBox.stringValue = track.language;
-        cell = comboCell;
-    }
-    
     return cell;
 }
 
 - (IBAction)setTrackName:(NSTextField *)sender {
     NSInteger row = [self.tracksTable rowForView:sender];
-    MP42Track *track = [self.mp4 trackAtIndex:row];
+    MP42Track *track = [self trackAtAtTableRow:row];
 
-    if ([sender.stringValue isEqualToString:track.name]) {
-        return;
+    if (track && [sender.stringValue isEqualToString:track.name]) {
+        track.name = sender.stringValue;
+        [self updateChangeCount:NSChangeDone];
     }
-
-    track.name = sender.stringValue;
-    [self updateChangeCount:NSChangeDone];
 }
 
 - (IBAction)setTrackEnabled:(NSButton *)sender {
     NSInteger row = [self.tracksTable rowForView:sender];
-    MP42Track *track = [self.mp4 trackAtIndex:row];
-
-    track.enabled = sender.state;
-    [self updateChangeCount:NSChangeDone];
+    MP42Track *track = [self trackAtAtTableRow:row];
+    if (track) {
+        track.enabled = sender.state;
+        [self updateChangeCount:NSChangeDone];
+    }
 }
 
 - (IBAction)setTrackLanguage:(NSComboBox *)sender {
     NSInteger row = [self.tracksTable rowForView:sender];
-    MP42Track *track = [self.mp4 trackAtIndex:row];
+    MP42Track *track = [self trackAtAtTableRow:row];
 
-    track.language = sender.stringValue;
-    [self updateChangeCount:NSChangeDone];
+    if (track && [sender.stringValue isEqualToString:track.name]) {
+        track.language = sender.stringValue;
+        [self updateChangeCount:NSChangeDone];
+    }
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
     [self reloadPropertyView];
+}
+
+- (NSInteger)trackIndexAtAtTableRow:(NSUInteger)row
+{
+    return row - 1;
+}
+
+- (MP42Track *)trackAtAtTableRow:(NSUInteger)row
+{
+    if (row == 0) {
+        return nil;
+    }
+    else {
+        return [self.mp4 trackAtIndex:row - 1];
+    }
 }
 
 - (void)reloadPropertyView
@@ -599,16 +638,15 @@ static NSDictionary *_detailMonospacedAttr;
 
         // remove the current view
 		[propertyView.view removeFromSuperview];
-
-        // remove the current view controller
     }
 
     NSInteger row = self.tracksTable.selectedRow;
 
     id controller = nil;
-    id track = (row != -1) ? [self.mp4 trackAtIndex:row] : nil;
+    BOOL metadataRow = (row == -1 || row == 0);
+    id track = !metadataRow ? [self trackAtAtTableRow:row] : nil;
 
-    if (row == -1) {
+    if (metadataRow) {
         controller = [[SBMovieViewController alloc] initWithNibName:@"MovieView" bundle:nil];
         [(SBMovieViewController *)controller setMetadata:self.mp4.metadata];
     } else if ([track isMemberOfClass:[MP42ChapterTrack class]]) {
@@ -634,13 +672,14 @@ static NSDictionary *_detailMonospacedAttr;
 
 	// make sure we automatically resize the controller's view to the current window size
 	propertyView.view.frame = targetView.bounds;
-    propertyView.view.autoresizingMask = ( NSViewWidthSizable | NSViewHeightSizable );
+    propertyView.view.autoresizingMask = (NSViewWidthSizable | NSViewHeightSizable);
 }
 
 - (BOOL)tableView:(NSTableView *)tv writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard
 {
     // Copy the row numbers to the pasteboard.
-    if ([self.mp4 trackAtIndex:rowIndexes.firstIndex].muxed) {
+    MP42Track *track = [self trackAtAtTableRow:rowIndexes.firstIndex];
+    if (!track || track.muxed) {
         return NO;
     }
 
@@ -655,16 +694,19 @@ static NSDictionary *_detailMonospacedAttr;
                  proposedRow:(NSInteger)row
        proposedDropOperation:(NSTableViewDropOperation)op
 {
-    NSUInteger count = self.mp4.tracks.count;
-    if (op == NSTableViewDropAbove && row < count) {
-        if (![self.mp4 trackAtIndex:row].muxed) {
-            return NSDragOperationEvery;
+    NSDragOperation result = NSDragOperationNone;
+    NSUInteger count = self.mp4.tracks.count + 1;
+
+    if (op == NSTableViewDropAbove && row < count && row != 0) {
+        if (![self trackAtAtTableRow:row].muxed) {
+            result =  NSDragOperationEvery;
         }
-    } else if (op == NSTableViewDropAbove && row == count) {
-        return NSDragOperationEvery;
+    }
+    else if (op == NSTableViewDropAbove && row == count) {
+        result = NSDragOperationEvery;
     }
 
-    return NSDragOperationNone;
+    return result;
 }
 
 - (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id <NSDraggingInfo>)info
@@ -674,8 +716,9 @@ static NSDictionary *_detailMonospacedAttr;
     NSData *rowData = [pboard dataForType:SublerTableViewDataType];
     NSIndexSet *rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
     NSInteger dragRow = rowIndexes.firstIndex;
-    
-    [self.mp4 moveTrackAtIndex:dragRow toIndex:row];
+
+    [self.mp4 moveTrackAtIndex:[self trackIndexAtAtTableRow:dragRow]
+                       toIndex:[self trackIndexAtAtTableRow:row]];
 
     [self.tracksTable reloadData];
     return YES;
@@ -829,14 +872,14 @@ static NSDictionary *_detailMonospacedAttr;
 - (IBAction)showTrackOffsetSheet:(id)sender
 {
     offset.stringValue = [NSString stringWithFormat:@"%lld",
-                            (self.mp4).tracks[self.tracksTable.selectedRow].startOffset];
+                          [self trackAtAtTableRow:self.tracksTable.selectedRow].startOffset];
 
     [self.documentWindow beginSheet:offsetWindow completionHandler:NULL];
 }
 
 - (IBAction)setTrackOffset:(id)sender
 {
-    MP42Track *selectedTrack = (self.mp4).tracks[self.tracksTable.selectedRow];
+    MP42Track *selectedTrack = [self trackAtAtTableRow:self.tracksTable.selectedRow];
     selectedTrack.startOffset = offset.integerValue;
     [self updateChangeCount:NSChangeDone];
 
@@ -854,7 +897,7 @@ static NSDictionary *_detailMonospacedAttr;
         return;
     }
 
-    [self.mp4 removeTrackAtIndex:self.tracksTable.selectedRow];
+    [self.mp4 removeTrackAtIndex:[self trackIndexAtAtTableRow:self.tracksTable.selectedRow]];
 
     [self.mp4 organizeAlternateGroups];
 
@@ -1008,9 +1051,9 @@ static NSDictionary *_detailMonospacedAttr;
     NSString *filename = self.fileURL.URLByDeletingPathExtension.lastPathComponent;
     NSInteger row = self.tracksTable.selectedRow;
 
-    if (row != -1 && [[self.mp4 trackAtIndex:row] isKindOfClass:[MP42SubtitleTrack class]]) {
+    if (row != -1 && [[self trackAtAtTableRow:row] isKindOfClass:[MP42SubtitleTrack class]]) {
         panel.allowedFileTypes = @[@"srt"];
-        filename = [filename stringByAppendingFormat:@".%@", [self.mp4 trackAtIndex:row].language];
+        filename = [filename stringByAppendingFormat:@".%@", [self trackAtAtTableRow:row].language];
     }
 	else if (row != -1 ) {
         filename = [filename stringByAppendingString:@" - Chapters"];
@@ -1024,7 +1067,7 @@ static NSDictionary *_detailMonospacedAttr;
         if (result == NSFileHandlingPanelOKButton) {
 
             NSError *error;
-            id track = [self.mp4 trackAtIndex:row];
+            id track = [self trackAtAtTableRow:row];
 
             if (![track exportToURL:panel.URL error:&error]) {
 
