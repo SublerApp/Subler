@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11198.2" systemVersion="16A294a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2553a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11198.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBVideoViewController">
@@ -60,6 +61,7 @@
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <accessibility description="Aspect Ratio Denominator"/>
                                                 <connections>
                                                     <action selector="setPixelAspect:" target="-2" id="zHv-hb-Eln"/>
                                                 </connections>
@@ -94,6 +96,7 @@
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <accessibility description="Offset Y"/>
                                                 <connections>
                                                     <action selector="setSize:" target="-2" id="iAh-zt-i9D"/>
                                                 </connections>
@@ -127,6 +130,7 @@
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <accessibility description="Scaled Size Height"/>
                                                 <connections>
                                                     <action selector="setSize:" target="-2" id="7p2-ss-WWu"/>
                                                 </connections>
@@ -191,6 +195,7 @@
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <accessibility description="Offset X"/>
                                                 <connections>
                                                     <action selector="setSize:" target="-2" id="wz0-CC-lEV"/>
                                                 </connections>
@@ -225,6 +230,7 @@
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <accessibility description="Aspect Ratio Numerator"/>
                                                 <connections>
                                                     <action selector="setPixelAspect:" target="-2" id="aTM-Xt-B1U"/>
                                                 </connections>
@@ -243,6 +249,7 @@
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <accessibility description="Scaled Size Width"/>
                                                 <connections>
                                                     <action selector="setSize:" target="-2" id="O4u-E2-FlA"/>
                                                 </connections>
@@ -265,6 +272,7 @@
                                                     </menu>
                                                 </popUpButtonCell>
                                                 <connections>
+                                                    <accessibilityConnection property="title" destination="HtH-F7-8Bv" id="0DU-hM-PDS"/>
                                                     <action selector="setAltenateGroup:" target="-2" id="ig3-Ec-Cz0"/>
                                                 </connections>
                                             </popUpButton>
@@ -328,6 +336,7 @@
                                                             </menu>
                                                         </popUpButtonCell>
                                                         <connections>
+                                                            <accessibilityConnection property="title" destination="cbR-yR-H9l" id="GZC-Cu-awU"/>
                                                             <action selector="setForcedSubtitles:" target="-2" id="n1Z-pH-esH"/>
                                                         </connections>
                                                     </popUpButton>
@@ -343,6 +352,7 @@
                                                             </menu>
                                                         </popUpButtonCell>
                                                         <connections>
+                                                            <accessibilityConnection property="title" destination="fwe-5g-QAo" id="iiM-Xt-mRA"/>
                                                             <action selector="setForcedTrack:" target="-2" id="kGE-XO-FuP"/>
                                                         </connections>
                                                     </popUpButton>
@@ -408,6 +418,7 @@
                                                             </menu>
                                                         </popUpButtonCell>
                                                         <connections>
+                                                            <accessibilityConnection property="title" destination="jin-Xn-WJl" id="xvo-aC-czO"/>
                                                             <action selector="setProfileLevel:" target="-2" id="fhj-D3-61K"/>
                                                         </connections>
                                                     </popUpButton>

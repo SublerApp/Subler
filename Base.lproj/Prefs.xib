@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2548a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2553a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
@@ -237,7 +237,7 @@
                 <constraint firstItem="80" firstAttribute="trailing" secondItem="79" secondAttribute="trailing" id="yDn-Wd-KXg"/>
                 <constraint firstAttribute="trailing" secondItem="79" secondAttribute="trailing" priority="750" constant="157" id="zbp-VJ-Uup"/>
             </constraints>
-            <point key="canvasLocation" x="-32" y="-679"/>
+            <point key="canvasLocation" x="-40" y="-921"/>
         </customView>
         <customView id="94" userLabel="Advanced View">
             <rect key="frame" x="0.0" y="0.0" width="600" height="271"/>

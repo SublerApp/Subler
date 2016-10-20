@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11191" systemVersion="16A286a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2553a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBMetadataPrefsViewController">
@@ -28,7 +29,7 @@
                         <rect key="frame" x="1" y="0.0" width="362" height="348"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="REl-53-Sku" viewBased="YES" id="Tid-Rc-Ljr">
+                            <tableView toolTip="Metadata map" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="REl-53-Sku" viewBased="YES" id="Tid-Rc-Ljr">
                                 <rect key="frame" x="0.0" y="0.0" width="362" height="325"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -150,10 +151,11 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </tokenFieldCell>
                     <connections>
+                        <accessibilityConnection property="title" destination="8sr-aI-VZy" id="UTJ-oj-Jbd"/>
                         <outlet property="delegate" destination="-2" id="vWU-Nj-Joo"/>
                     </connections>
                 </tokenField>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sd5-qb-K5v">
+                <button toolTip="Remove selected item" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sd5-qb-K5v">
                     <rect key="frame" x="197" y="100" width="26" height="22"/>
                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9UV-xM-L5F">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -164,7 +166,7 @@
                         <binding destination="4Wq-Wo-sl2" name="enabled" keyPath="selectionIndexes.count" id="K6b-sv-ld3"/>
                     </connections>
                 </button>
-                <popUpButton verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Jdh-Cj-6ef">
+                <popUpButton toolTip="Add annotation" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Jdh-Cj-6ef">
                     <rect key="frame" x="166" y="100" width="32" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="zjQ-DY-ahs"/>
@@ -252,6 +254,7 @@
                                         </prototypeCellViews>
                                     </tableColumn>
                                 </tableColumns>
+                                <accessibility description="Metadata type"/>
                                 <connections>
                                     <binding destination="RId-BH-Y2G" name="content" keyPath="arrangedObjects" id="jcZ-Ta-ZjW"/>
                                     <binding destination="RId-BH-Y2G" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="jcZ-Ta-ZjW" id="xnp-ML-pVC"/>
@@ -286,7 +289,7 @@
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="MKe-YL-gx8"/>
                     </constraints>
-                    <buttonCell key="cell" type="smallSquare" title="Restore Defaults" bezelStyle="smallSquare" image="3BF8FDC0-60AB-4B31-A1CF-34ABBADD52C4" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nBh-jv-KDG">
+                    <buttonCell key="cell" type="smallSquare" title="Restore Defaults" bezelStyle="smallSquare" image="E7047C23-81DB-4FA1-9E9E-25A6A3E79242" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nBh-jv-KDG">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -338,7 +341,7 @@
         <userDefaultsController representsSharedInstance="YES" id="LQR-UU-5Gl"/>
     </objects>
     <resources>
-        <image name="3BF8FDC0-60AB-4B31-A1CF-34ABBADD52C4" width="1" height="1">
+        <image name="E7047C23-81DB-4FA1-9E9E-25A6A3E79242" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

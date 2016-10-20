@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11191" systemVersion="16A286a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2553a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBOptionsViewController">
@@ -108,6 +109,9 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <connections>
+                        <accessibilityConnection property="title" destination="vJ5-JB-k1m" id="D3Y-SD-Lcc"/>
+                    </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="vJ5-JB-k1m">
                     <rect key="frame" x="111" y="112" width="62" height="14"/>
@@ -133,6 +137,7 @@
                         </menu>
                     </popUpButtonCell>
                     <connections>
+                        <accessibilityConnection property="title" destination="muY-E0-hVI" id="iFi-gQ-ERy"/>
                         <binding destination="-2" name="selectedValue" keyPath="self.options.SBQueueFileType" id="abl-Kk-Yhw"/>
                     </connections>
                 </popUpButton>
@@ -198,6 +203,7 @@
                         <menu key="menu" title="OtherViews" id="4en-ZA-qlS"/>
                     </popUpButtonCell>
                     <connections>
+                        <accessibilityConnection property="title" destination="NhN-Lg-awX" id="WXO-Bo-qRO"/>
                         <binding destination="vyv-na-Xpo" name="content" keyPath="arrangedObjects" id="4rl-TJ-0yZ">
                             <dictionary key="options">
                                 <bool key="NSInsertsNullPlaceholder" value="YES"/>
@@ -229,6 +235,7 @@
                         <menu key="menu" title="OtherViews" id="ptP-wd-Rxc"/>
                     </popUpButtonCell>
                     <connections>
+                        <accessibilityConnection property="title" destination="eTL-yP-QQ5" id="yqm-mb-EEC"/>
                         <binding destination="-2" name="selectedObject" keyPath="options.SBQueueMovieProvider" previousBinding="crR-iB-g3d" id="zMN-ZS-xkn">
                             <dictionary key="options">
                                 <bool key="NSValidatesImmediately" value="YES"/>
@@ -252,6 +259,7 @@
                         <menu key="menu" title="OtherViews" id="ytE-Us-3gv"/>
                     </popUpButtonCell>
                     <connections>
+                        <accessibilityConnection property="title" destination="bDo-OD-bck" id="QLi-eD-c80"/>
                         <binding destination="-2" name="selectedObject" keyPath="options.SBQueueTVShowProvider" previousBinding="Rh9-LC-qBz" id="29h-lK-saO">
                             <dictionary key="options">
                                 <bool key="NSValidatesImmediately" value="YES"/>
@@ -286,6 +294,7 @@
                         <menu key="menu" title="OtherViews" id="U0q-ED-kQf"/>
                     </popUpButtonCell>
                     <connections>
+                        <accessibilityConnection property="title" destination="BWL-Nn-iGH" id="JXO-cc-nzq"/>
                         <binding destination="-2" name="selectedObject" keyPath="options.SBQueueTVShowProviderLanguage" previousBinding="aF7-XO-EMK" id="8zl-Qa-wBq">
                             <dictionary key="options">
                                 <bool key="NSValidatesImmediately" value="YES"/>
@@ -320,6 +329,7 @@
                         <menu key="menu" title="OtherViews" id="0QM-sv-vRX"/>
                     </popUpButtonCell>
                     <connections>
+                        <accessibilityConnection property="title" destination="73q-gi-fe2" id="ip8-cv-5qY"/>
                         <binding destination="-2" name="selectedObject" keyPath="options.SBQueueMovieProviderLanguage" previousBinding="3w0-jj-Nkk" id="I8g-ge-lPH">
                             <dictionary key="options">
                                 <bool key="NSValidatesImmediately" value="YES"/>
@@ -385,6 +395,7 @@
                         <menu key="menu" title="OtherViews" id="LfV-JG-4EY"/>
                     </popUpButtonCell>
                     <connections>
+                        <accessibilityConnection property="title" destination="swT-iM-shZ" id="WOm-Jt-xnu"/>
                         <binding destination="-2" name="selectedObject" keyPath="options.SBQueueFixTrackLanguageValue" previousBinding="Xnw-Nt-5dZ" id="eg8-T5-jSl">
                             <dictionary key="options">
                                 <bool key="NSValidatesImmediately" value="YES"/>

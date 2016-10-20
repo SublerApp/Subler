@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11198.2" systemVersion="16A294a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2553a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11198.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBMediaTagsController">
@@ -72,6 +73,7 @@
                                             </tableColumn>
                                         </tableColumns>
                                         <connections>
+                                            <accessibilityConnection property="title" destination="uAC-d6-cWk" id="tbQ-1e-Yzy"/>
                                             <outlet property="dataSource" destination="-2" id="YMa-8T-BN0"/>
                                             <outlet property="delegate" destination="-2" id="6Ix-6e-cE5"/>
                                         </connections>

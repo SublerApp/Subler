@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="16A238m" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2553a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBChapterSearchController">
@@ -118,13 +119,13 @@ Gw
                                                     <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                 </tableColumn>
                                             </tableColumns>
+                                            <accessibility description="Seach results"/>
                                             <connections>
                                                 <outlet property="dataSource" destination="-2" id="FVb-9R-yZP"/>
                                                 <outlet property="delegate" destination="-2" id="7AM-1R-7L1"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
-                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="BFm-CX-YOM">
                                     <rect key="frame" x="1" y="122" width="495" height="16"/>
@@ -180,13 +181,13 @@ Gw
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
                                             </tableColumns>
+                                            <accessibility description="Result details"/>
                                             <connections>
                                                 <outlet property="dataSource" destination="-2" id="LEV-qs-Y3y"/>
                                                 <outlet property="delegate" destination="-2" id="bGD-ld-paL"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
-                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="veD-gi-zkS">
                                     <rect key="frame" x="1" y="181" width="495" height="16"/>

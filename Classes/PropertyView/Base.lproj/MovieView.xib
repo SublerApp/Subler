@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2548a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2553a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
@@ -268,6 +268,7 @@
                                                             </prototypeCellViews>
                                                         </tableColumn>
                                                     </tableColumns>
+                                                    <accessibility description="Metadata"/>
                                                     <connections>
                                                         <outlet property="dataSource" destination="-2" id="bX0-dK-1vT"/>
                                                         <outlet property="delegate" destination="-2" id="haa-fZ-mJc"/>
@@ -315,7 +316,7 @@
                                         <rect key="frame" x="17" y="36" width="448" height="199"/>
                                         <clipView key="contentView" copiesOnScroll="NO" id="7IP-Gn-Bxd">
                                             <rect key="frame" x="1" y="1" width="446" height="197"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <ikImageBrowserView autoresizesSubviews="NO" zoomValue="1" allowsReordering="YES" animates="YES" translatesAutoresizingMaskIntoConstraints="NO" id="217" customClass="SBImageBrowserView">
                                                     <rect key="frame" x="0.0" y="0.0" width="446" height="197"/>

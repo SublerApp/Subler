@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11521.1" systemVersion="16B2333a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2553a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11521.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBQueueController">
@@ -136,6 +137,7 @@
                                             </prototypeCellViews>
                                         </tableColumn>
                                     </tableColumns>
+                                    <accessibility description="Queue"/>
                                     <connections>
                                         <outlet property="dataSource" destination="-2" id="26"/>
                                         <outlet property="delegate" destination="-2" id="27"/>
@@ -199,7 +201,7 @@
                             <action selector="open:" target="-2" id="sdm-Bo-vsx"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="403860A1-8562-4F5B-BBEE-E8C1270A9077" label="Settings" paletteLabel="Settings" toolTip="Add an item to the queue" image="NSActionTemplate" id="Qif-lh-Rps" customClass="ButtonToolbarItem">
+                    <toolbarItem implicitItemIdentifier="403860A1-8562-4F5B-BBEE-E8C1270A9077" label="Settings" paletteLabel="Settings" toolTip="Show/hide settings" image="NSActionTemplate" id="Qif-lh-Rps" customClass="ButtonToolbarItem">
                         <size key="minSize" width="36" height="28"/>
                         <size key="maxSize" width="36" height="32"/>
                         <button key="view" verticalHuggingPriority="750" id="tU5-DL-6vU">
@@ -214,7 +216,7 @@
                             <action selector="toggleOptions:" target="-2" id="f6O-LF-uNy"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="90FECCE0-5997-4C12-9158-9F7391313970" label="Start" paletteLabel="Start" toolTip="Add an item to the queue" image="playBackTemplate" id="xeY-tT-tF2" customClass="ButtonToolbarItem">
+                    <toolbarItem implicitItemIdentifier="90FECCE0-5997-4C12-9158-9F7391313970" label="Start" paletteLabel="Start" toolTip="Start/stop queue" image="playBackTemplate" id="xeY-tT-tF2" customClass="ButtonToolbarItem">
                         <size key="minSize" width="36" height="28"/>
                         <size key="maxSize" width="36" height="32"/>
                         <button key="view" verticalHuggingPriority="750" id="sOU-an-jdB">
