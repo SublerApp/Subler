@@ -59,9 +59,6 @@
         cell = [tableView makeViewWithIdentifier:@"nameCell" owner:self];
         cell.textField.stringValue = [SBPresetManager sharedManager].presets[row].presetName;
     }
-    else {
-        cell = [tableView makeViewWithIdentifier:@"infoCell" owner:self];
-    }
 
     return cell;
 }
@@ -102,7 +99,7 @@
         self.popover.contentViewController = _controller;
         self.popover.contentSize = NSMakeSize(480.0f, 500.0f);
 
-        [self.popover showRelativeToRect:[sender frame] ofView:sender preferredEdge:NSMaxYEdge];
+        [self.popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
     }
 }
 
