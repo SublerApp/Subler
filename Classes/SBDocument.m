@@ -554,7 +554,7 @@ static NSDictionary *_detailMonospacedAttr;
             cell.textField.stringValue = @"-";
         }
         else if ([tableColumn.identifier isEqualToString:@"trackName"]) {
-            cell = [tableView makeViewWithIdentifier:@"NameCell" owner:self];
+            cell = [tableView makeViewWithIdentifier:@"IdCell" owner:self];
             cell.textField.stringValue = NSLocalizedString(@"Metadata", nil);
         }
         else if ([tableColumn.identifier isEqualToString:@"trackDuration"]) {
