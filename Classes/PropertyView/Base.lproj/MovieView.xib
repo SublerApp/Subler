@@ -34,7 +34,7 @@
                                 <rect key="frame" x="10" y="29" width="482" height="237"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="30">
+                                    <popUpButton toolTip="Add a new metadata item" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="30">
                                         <rect key="frame" x="17" y="7" width="32" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="oAx-ac-cJp"/>
@@ -50,11 +50,12 @@
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
+                                        <accessibility description="Add metadata item"/>
                                         <connections>
                                             <action selector="addTag:" target="-2" id="37"/>
                                         </connections>
                                     </popUpButton>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="53">
+                                    <button toolTip="Remove selected item" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="53">
                                         <rect key="frame" x="48" y="7" width="24" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="0TW-Pw-B6h"/>
@@ -63,6 +64,7 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <accessibility description="Remove selected item"/>
                                         <connections>
                                             <action selector="removeTag:" target="-2" id="55"/>
                                         </connections>
@@ -83,6 +85,7 @@
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
+                                        <accessibility description="Sets"/>
                                     </popUpButton>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4i-wT-qDC">
                                         <rect key="frame" x="17" y="36" width="448" height="195"/>

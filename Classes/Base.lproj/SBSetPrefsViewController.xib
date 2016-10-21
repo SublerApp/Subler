@@ -88,6 +88,7 @@
                                                             <behavior key="behavior" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <accessibility description="Set details"/>
                                                         <connections>
                                                             <action selector="toggleInfoWindow:" target="-2" id="k0G-nt-Bqd"/>
                                                         </connections>

@@ -128,13 +128,14 @@
                                                                     <rect key="frame" x="41" y="1" width="18" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mPW-kC-RQT">
+                                                                        <button toolTip="Enable or disable the track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mPW-kC-RQT">
                                                                             <rect key="frame" x="0.0" y="-2" width="23" height="20"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="2z0-pR-IWm">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                             </buttonCell>
+                                                                            <accessibility description="Enabled"/>
                                                                             <connections>
                                                                                 <action selector="setTrackEnabled:" target="-2" id="hye-KQ-7cT"/>
                                                                             </connections>

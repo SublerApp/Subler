@@ -73,13 +73,14 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="EncodeComplete" id="uXb-c3-MQO"/>
                                                         </imageView>
-                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o98-wM-YAQ">
+                                                        <button toolTip="Show item info" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o98-wM-YAQ">
                                                             <rect key="frame" x="357" y="0.0" width="16" height="16"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                             <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="info" imagePosition="overlaps" alignment="center" alternateImage="info-pressed" imageScaling="proportionallyDown" inset="2" id="AFW-1U-iaL">
                                                                 <behavior key="behavior" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
+                                                            <accessibility description="Info"/>
                                                             <connections>
                                                                 <action selector="toggleItemsOptions:" target="-2" id="xQw-j9-OF1"/>
                                                             </connections>

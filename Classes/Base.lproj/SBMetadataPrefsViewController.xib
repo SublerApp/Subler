@@ -29,7 +29,7 @@
                         <rect key="frame" x="1" y="0.0" width="362" height="348"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView toolTip="Metadata map" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="REl-53-Sku" viewBased="YES" id="Tid-Rc-Ljr">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="REl-53-Sku" viewBased="YES" id="Tid-Rc-Ljr">
                                 <rect key="frame" x="0.0" y="0.0" width="362" height="325"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -119,6 +119,7 @@
                                         </prototypeCellViews>
                                     </tableColumn>
                                 </tableColumns>
+                                <accessibility description="Metadata map"/>
                                 <connections>
                                     <binding destination="4Wq-Wo-sl2" name="content" keyPath="arrangedObjects" id="RaQ-JH-c1I"/>
                                     <binding destination="4Wq-Wo-sl2" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="RaQ-JH-c1I" id="VZH-su-D0I"/>
@@ -289,7 +290,7 @@
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="MKe-YL-gx8"/>
                     </constraints>
-                    <buttonCell key="cell" type="smallSquare" title="Restore Defaults" bezelStyle="smallSquare" image="E7047C23-81DB-4FA1-9E9E-25A6A3E79242" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nBh-jv-KDG">
+                    <buttonCell key="cell" type="smallSquare" title="Restore Defaults" bezelStyle="smallSquare" image="98F34B08-C401-4D88-9834-997E20828E3D" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nBh-jv-KDG">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -341,7 +342,7 @@
         <userDefaultsController representsSharedInstance="YES" id="LQR-UU-5Gl"/>
     </objects>
     <resources>
-        <image name="E7047C23-81DB-4FA1-9E9E-25A6A3E79242" width="1" height="1">
+        <image name="98F34B08-C401-4D88-9834-997E20828E3D" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
