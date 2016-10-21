@@ -466,13 +466,13 @@ static void *SBQueueContex = &SBQueueContex;
  *  Updates the count on the app dock icon.
  */
 - (void)updateDockTile {
-    NSUInteger count = [self.queue readyCount] + ((self.queue.status == SBQueueStatusWorking) ? 1 : 0);
+    NSUInteger count = self.queue.readyCount + ((self.queue.status == SBQueueStatusWorking) ? 1 : 0);
 
     if (count) {
         NSApp.dockTile.badgeLabel = [NSString stringWithFormat:@"%lu", (unsigned long)count];
     }
     else {
-        [NSApp.dockTile setBadgeLabel:nil];
+        NSApp.dockTile.badgeLabel = nil;
     }
 }
 
@@ -532,7 +532,7 @@ static void *SBQueueContex = &SBQueueContex;
     }
     else {
         [self createItemPopover:item];
-        [self.itemPopover showRelativeToRect:[sender frame] ofView:sender preferredEdge:NSMaxXEdge];
+        [self.itemPopover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxXEdge];
     }
 }
 
@@ -577,12 +577,8 @@ static void *SBQueueContex = &SBQueueContex;
     if ([tableColumn.identifier isEqualToString:@"nameColumn"]) {
         cell = [tableView makeViewWithIdentifier:@"nameColumn" owner:self];
         cell.textField.stringValue = item.fileURL.lastPathComponent;
-    }
-    else if ([tableColumn.identifier isEqualToString:@"statusColumn"]) {
-        cell = [tableView makeViewWithIdentifier:@"statusColumn" owner:self];
-        SBQueueItemStatus status = item.status;
 
-        switch (status) {
+        switch (item.status) {
             case SBQueueItemStatusCompleted:
                 cell.imageView.image = [NSImage imageNamed:@"EncodeComplete"];
                 break;
@@ -598,9 +594,6 @@ static void *SBQueueContex = &SBQueueContex;
                 cell.imageView.image = _docImg;
                 break;
         }
-    }
-    else if ([tableColumn.identifier isEqualToString:@"actionColumn"]) {
-        cell = [tableView makeViewWithIdentifier:@"actionColumn" owner:self];
     }
 
     return cell;
