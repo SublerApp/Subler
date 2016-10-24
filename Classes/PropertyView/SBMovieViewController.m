@@ -807,6 +807,27 @@ static NSArray<NSArray *> *_mediaKinds;
     [self.artworksView reloadData];
 }
 
+- (void)replaceMetadataCoverArtItems:(NSArray<MP42MetadataItem *> *)items withItems:(NSArray<MP42MetadataItem *> *)replacementItems
+{
+    for (MP42MetadataItem *item in items) {
+        [self.metadata removeMetadataItem:item];
+    }
+
+    for (MP42MetadataItem *item in replacementItems) {
+        [self.metadata addMetadataItem:item];
+    }
+
+    NSUndoManager *undo = self.view.undoManager;
+    [[undo prepareWithInvocationTarget:self] replaceMetadataCoverArtItems:replacementItems withItems:items];
+
+    if (!undo.undoing) {
+        [undo setActionName:NSLocalizedString(@"Move", @"Undo cover art delete")];
+    }
+
+    [self updateCoverArtArray];
+    [self.artworksView reloadData];
+}
+
 - (IBAction)removeArtwork:(id)sender
 {
     [self imageBrowser:self.artworksView removeItemsAtIndexes:[self.artworksView selectionIndexes]];
@@ -885,21 +906,15 @@ static NSArray<NSArray *> *_mediaKinds;
 {
     destinationIndex -= [indexes countOfIndexesInRange:NSMakeRange(0, destinationIndex)];;
 
-    NSArray *objects = [self.artworks objectsAtIndexes:indexes];
-    [self.artworks removeObjectsAtIndexes:indexes];
+    NSMutableArray<MP42MetadataItem *> *artworks = [self.artworks mutableCopy];
+    NSArray *objects = [artworks objectsAtIndexes:indexes];
+    [artworks removeObjectsAtIndexes:indexes];
 
     for (id object in objects.reverseObjectEnumerator) {
-        [self.artworks insertObject:object atIndex:destinationIndex];
+        [artworks insertObject:object atIndex:destinationIndex];
     }
 
-    for (MP42MetadataItem *item in self.artworks) {
-        [self.metadata removeMetadataItem:item];
-    }
-    for (MP42MetadataItem *item in self.artworks) {
-        [self.metadata addMetadataItem:item];
-    }
-
-    [self.view.window.windowController.document updateChangeCount:NSChangeDone];
+    [self replaceMetadataCoverArtItems:self.artworks withItems:artworks];
 
     return YES;
 }
