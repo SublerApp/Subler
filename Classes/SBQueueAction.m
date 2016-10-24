@@ -330,7 +330,7 @@
 }
 
 - (NSString *)description {
-    return NSLocalizedString(@"Fixing Fallbacks", @"Action description.");
+    return NSLocalizedString(@"Fixi Fallbacks", @"Action description.");
 }
 
 - (NSString *)localizedDescription {
@@ -349,6 +349,39 @@
 - (void)encodeWithCoder:(NSCoder *)coder {}
 
 @end
+
+/**
+ *  An actions that remove the tracks names.
+ */
+@implementation SBQueueClearTrackNameAction
+
+- (void)runAction:(SBQueueItem *)item {
+    for (MP42Track *track in item.mp4File.tracks) {
+        track.name = @"";
+    }
+}
+
+- (NSString *)description {
+    return NSLocalizedString(@"Clear tracks names", @"Action description.");
+}
+
+- (NSString *)localizedDescription {
+    return NSLocalizedString(@"Clearing tracks names", @"Action localized description.");
+}
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {}
+
+@end
+
 
 /**
  *  An actions that set unknown language tracks to preferred one.

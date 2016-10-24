@@ -58,6 +58,12 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
+ *  An actions that remove the tracks names.
+ */
+@interface SBQueueClearTrackNameAction : NSObject <SBQueueActionProtocol>
+@end
+
+/**
  *  An actions that set unknown language tracks to preferred one.
  */
 @interface SBQueueSetLanguageAction : NSObject <SBQueueActionProtocol>

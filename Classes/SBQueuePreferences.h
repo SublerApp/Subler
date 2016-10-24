@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString * const SBQueueFileType;
 extern NSString * const SBQueueOrganize;
 extern NSString * const SBQueueFixFallbacks;
+extern NSString * const SBQueueClearTrackName;
 extern NSString * const SBQueueMetadata;
 extern NSString * const SBQueueSubtitles;
 extern NSString * const SBQueueSet;
