@@ -330,7 +330,7 @@
 }
 
 - (NSString *)description {
-    return NSLocalizedString(@"Fixi Fallbacks", @"Action description.");
+    return NSLocalizedString(@"Fix Fallbacks", @"Action description.");
 }
 
 - (NSString *)localizedDescription {

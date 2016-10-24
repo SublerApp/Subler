@@ -206,7 +206,7 @@
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qw4-1W-PfZ">
-                                                                            <rect key="frame" x="2" y="-4" width="317" height="22"/>
+                                                                            <rect key="frame" x="2" y="-2" width="317" height="18"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <popUpButtonCell key="cell" type="bevel" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="kck-SY-U5v" id="2kU-ds-PXt">
                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -252,7 +252,7 @@
                                                                     <rect key="frame" x="122" y="68" width="322" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <comboBox verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LbC-r6-Pau">
+                                                                        <comboBox verticalHuggingPriority="750" fixedFrame="YES" preferredMaxLayoutWidth="1000" translatesAutoresizingMaskIntoConstraints="NO" id="LbC-r6-Pau">
                                                                             <rect key="frame" x="3" y="1" width="319" height="19"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <comboBoxCell key="cell" controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="left" title="Combo Text" usesSingleLineMode="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="jkg-xz-Hbn">

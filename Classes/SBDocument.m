@@ -585,7 +585,7 @@ static NSDictionary *_detailMonospacedAttr;
     NSInteger row = [self.tracksTable rowForView:sender];
     MP42Track *track = [self trackAtAtTableRow:row];
 
-    if (track && [sender.stringValue isEqualToString:track.name]) {
+    if (track && ![sender.stringValue isEqualToString:track.name]) {
         track.name = sender.stringValue;
         [self updateChangeCount:NSChangeDone];
     }
@@ -604,7 +604,7 @@ static NSDictionary *_detailMonospacedAttr;
     NSInteger row = [self.tracksTable rowForView:sender];
     MP42Track *track = [self trackAtAtTableRow:row];
 
-    if (track && [sender.stringValue isEqualToString:track.name]) {
+    if (track && ![sender.stringValue isEqualToString:track.name]) {
         track.language = sender.stringValue;
         [self updateChangeCount:NSChangeDone];
     }
