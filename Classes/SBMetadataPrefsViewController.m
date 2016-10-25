@@ -50,8 +50,14 @@ static void *SBMetadataPrefsViewControllerContex = &SBMetadataPrefsViewControlle
 
     [self.builtInTokenField setTokenizingCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@"%"]];
 
-    for (NSString *tag in [MP42Metadata writableMetadata]) {
-        [self.addMetadataPopUpButton addItemWithTitle:tag];
+    NSArray<NSString *> *identifiersMenu = MP42Metadata.writableMetadata;
+    NSMenu *menu = self.addMetadataPopUpButton.menu;
+    NSUInteger tag = 0;
+    for (NSString *identifier in identifiersMenu) {
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:localizedMetadataKeyName(identifier) action:nil keyEquivalent:@""];
+        item.tag = tag;
+        tag += 1;
+        [menu addItem:item];
     }
 
     // Load data from preferences
@@ -63,7 +69,7 @@ static void *SBMetadataPrefsViewControllerContex = &SBMetadataPrefsViewControlle
     _tvShowMap = savedTvShowMap ? savedTvShowMap : [SBMetadataResultMap tvShowDefaultMap];
 
     // Set up the sort descriptor
-    NSArray<NSString *> *context = [MP42Metadata availableMetadata];
+    NSArray<NSString *> *context = MP42Metadata.availableMetadata;
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"key"
                                                                    ascending:YES
                                                                   comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {

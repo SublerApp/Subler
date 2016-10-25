@@ -82,9 +82,14 @@ static NSArray<NSArray *> *_mediaKinds;
                                              selector:@selector(updateSetsMenu:)
                                                  name:@"SBPresetManagerUpdatedNotification" object:nil];
 
-    NSArray<NSString *> *tagsMenu = [MP42Metadata writableMetadata];
-    for (NSString *tag in tagsMenu) {
-        [self.tagsPopUp addItemWithTitle:tag];
+    NSArray<NSString *> *identifiersMenu = MP42Metadata.writableMetadata;
+    NSMenu *menu = self.tagsPopUp.menu;
+    NSUInteger tag = 0;
+    for (NSString *identifier in identifiersMenu) {
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:localizedMetadataKeyName(identifier) action:nil keyEquivalent:@""];
+        item.tag = tag;
+        tag += 1;
+        [menu addItem:item];
     }
 
     self.column = self.metadataTableView.tableColumns[1];
@@ -207,7 +212,7 @@ static NSArray<NSArray *> *_mediaKinds;
 
 - (IBAction)addTag:(id)sender
 {
-    NSString *identifier = [sender selectedItem].title;
+    NSString *identifier = MP42Metadata.writableMetadata[[sender selectedItem].tag];
 
     if (![self.metadata metadataItemsFilteredByIdentifier:identifier].count) {
         MP42MetadataItem *item = [MP42MetadataItem metadataItemWithIdentifier:identifier
@@ -458,7 +463,7 @@ static NSArray<NSArray *> *_mediaKinds;
 
     if ([tableColumn.identifier isEqualToString:@"key"]) {
         cell = [tableView makeViewWithIdentifier:@"NameTextCell" owner:self];
-        cell.textField.stringValue = item.identifier;
+        cell.textField.stringValue = localizedMetadataKeyName(item.identifier);
     }
     else if ([tableColumn.identifier isEqualToString:@"value"]) {
         switch (item.dataType) {
