@@ -148,6 +148,34 @@ static NSDictionary *_detailMonospacedAttr;
     return self;
 }
 
+#pragma mark - Restorable state
+
+- (void)restoreDocumentWindowWithIdentifier:(NSString *)identifier
+                                      state:(NSCoder *)state
+                          completionHandler:(void (^)(NSWindow *, NSError *))completionHandler
+{
+    if (!self.windowControllers.count) {
+        [self makeWindowControllers];
+    }
+
+    completionHandler(self.windowControllers.firstObject.window, nil);
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+    [coder encodeInteger:self.tracksTable.selectedRow forKey:@"selectedRow"];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder
+{
+    [super restoreStateWithCoder:coder];
+
+    NSInteger selectedRow = [coder decodeIntegerForKey:@"selectedRow"];
+    if (selectedRow <= self.mp4.tracks.count) {
+        [self.tracksTable selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedRow] byExtendingSelection:NO];
+    }
+}
 
 #pragma mark - Read methods
 
