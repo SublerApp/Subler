@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSString *key;
 @property (nonatomic, readwrite, copy) NSArray<NSString *> *value;
 
+@property (nonatomic, readonly) NSString *localizedKeyDisplayName;
+
 @end
 
 typedef NS_ENUM(NSUInteger, SBMetadataResultMapType) {

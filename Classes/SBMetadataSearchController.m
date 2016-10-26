@@ -577,10 +577,7 @@
     } else if (tableView == (NSTableView *) metadataTable) {
         if (self.selectedResult != nil) {
             if ([tableColumn.identifier isEqualToString:@"name"]) {
-                NSString *key = self.selectedResultTagsArray[rowIndex];
-                key = [key stringByReplacingOccurrencesOfString:@"{" withString:@""];
-                key = [key stringByReplacingOccurrencesOfString:@"}" withString:@""];
-                return [self boldString:key];
+                return [self boldString:[SBMetadataResult localizedDisplayNameForKey:self.selectedResultTagsArray[rowIndex]]];
             }
             if ([tableColumn.identifier isEqualToString:@"value"]) {
                 return (self.selectedResultTags)[(self.selectedResultTagsArray)[rowIndex]];

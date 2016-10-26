@@ -27,6 +27,11 @@
     return [[self alloc] initWithKey:key value:value];
 }
 
+- (NSString *)localizedKeyDisplayName
+{
+    return localizedMetadataKeyName(self.key);
+}
+
 #pragma mark - NSSecureCoding
 
 + (BOOL)supportsSecureCoding

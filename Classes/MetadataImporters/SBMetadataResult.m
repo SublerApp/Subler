@@ -109,6 +109,50 @@ NSString *const SBMetadataResultNetwork = @"{Network}";
              SBMetadataResultITunesCountry];
 }
 
+static NSDictionary<NSString *, NSString *> *localizedKeys;
+
++ (NSString *)localizedDisplayNameForKey:(NSString *)key
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        localizedKeys = @{
+                          SBMetadataResultName: NSLocalizedString(@"Name", nil),
+                          SBMetadataResultComposer: NSLocalizedString(@"Composer", nil),
+                          SBMetadataResultGenre: NSLocalizedString(@"Genre", nil),
+                          SBMetadataResultReleaseDate: NSLocalizedString(@"Release Date", nil),
+                          SBMetadataResultDescription: NSLocalizedString(@"Description", nil),
+                          SBMetadataResultLongDescription: NSLocalizedString(@"Long Description", nil),
+                          SBMetadataResultRating: NSLocalizedString(@"Rating", nil),
+                          SBMetadataResultStudio: NSLocalizedString(@"Studio", nil),
+                          SBMetadataResultCast: NSLocalizedString(@"Cast", nil),
+                          SBMetadataResultDirector: NSLocalizedString(@"Director", nil),
+                          SBMetadataResultProducers: NSLocalizedString(@"Producers", nil),
+                          SBMetadataResultScreenwriters: NSLocalizedString(@"Screenwriters", nil),
+                          SBMetadataResultExecutiveProducer: NSLocalizedString(@"Executive Producer", nil),
+                          SBMetadataResultCopyright: NSLocalizedString(@"Copyright", nil),
+
+                          SBMetadataResultContentID: NSLocalizedString(@"contentID", nil),
+                          SBMetadataResultArtistID: NSLocalizedString(@"artistID", nil),
+                          SBMetadataResultPlaylistID: NSLocalizedString(@"playlistID", nil),
+                          SBMetadataResultITunesCountry: NSLocalizedString(@"iTunes Country", nil),
+                          SBMetadataResultITunesURL: NSLocalizedString(@"iTunes URL", nil),
+
+                          SBMetadataResultSeriesName: NSLocalizedString(@"Series Name", nil),
+                          SBMetadataResultSeriesDescription: NSLocalizedString(@"Series Description", nil),
+                          SBMetadataResultTrackNumber: NSLocalizedString(@"Track #", nil),
+                          SBMetadataResultDiskNumber: NSLocalizedString(@"Disk #", nil),
+                          SBMetadataResultEpisodeNumber: NSLocalizedString(@"Episode #", nil),
+                          SBMetadataResultEpisodeID: NSLocalizedString(@"Episode ID", nil),
+                          SBMetadataResultSeason: NSLocalizedString(@"Season", nil),
+                          SBMetadataResultNetwork: NSLocalizedString(@"Network", nil),
+                          };
+    });
+
+    NSString *localizedString = localizedKeys[key];
+    return localizedString ? localizedString : key;
+    
+}
+
 - (void)merge:(SBMetadataResult *)metadata
 {
     [_tags addEntriesFromDictionary:metadata.tags];

@@ -167,7 +167,7 @@ static void *SBMetadataPrefsViewControllerContex = &SBMetadataPrefsViewControlle
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject
 {
     if ([representedObject rangeOfString: @"{"].location == 0) {
-        return [(NSString *)representedObject substringWithRange:NSMakeRange(1, [(NSString *)representedObject length]-2)];
+        return [SBMetadataResult localizedDisplayNameForKey:representedObject];
     }
 
     return representedObject;
