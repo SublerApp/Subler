@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2553a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -80,7 +80,7 @@
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <menu key="menu" title="OtherViews" id="uZy-Zq-VUz">
                                                         <items>
-                                                            <menuItem title="None" state="on" id="QBa-Jt-TO2"/>
+                                                            <menuItem title="None" state="on" id="QBa-Jt-TO2" userLabel="Alternate group"/>
                                                             <menuItem title="1" tag="1" id="mXc-eW-usD"/>
                                                             <menuItem title="2" tag="2" id="xjR-b6-VG2"/>
                                                             <menuItem title="3" tag="3" id="1xu-y0-sPc"/>
@@ -105,7 +105,7 @@
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <menu key="menu" title="OtherViews" id="QUX-Wz-JDa">
                                                         <items>
-                                                            <menuItem title="None" state="on" id="Qdb-gu-B3h"/>
+                                                            <menuItem title="None" state="on" id="Qdb-gu-B3h" userLabel="Fallback"/>
                                                         </items>
                                                     </menu>
                                                 </popUpButtonCell>

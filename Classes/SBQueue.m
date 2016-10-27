@@ -133,7 +133,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 }
 
 - (NSArray<SBQueueItem *> *)itemsAtIndexes:(NSIndexSet *)indexes {
-    __block NSArray<SBQueueItem *> * items;
+    __block NSArray<SBQueueItem *> *items;
     dispatch_sync(self.arrayQueue, ^{
         items = [self.items objectsAtIndexes:indexes];
     });
@@ -308,7 +308,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
     if (!itemDescription) {
         itemDescription = NSLocalizedString(@"Working", @"Queue Working.");
     }
-    NSString *info = [NSString stringWithFormat:@"%@, item %ld.", itemDescription, (long)self.currentIndex + 1];
+    NSString *info = [NSString stringWithFormat:NSLocalizedString(@"%@, item %ld.", nil), itemDescription, (long)self.currentIndex + 1];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueWorkingNotification object:self userInfo:@{@"ProgressString": info,
                                                                                                                  @"Progress": @(progress),

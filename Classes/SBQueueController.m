@@ -482,11 +482,20 @@ static void *SBQueueContex = &SBQueueContex;
 
 - (void)updateUI {
     [self.table reloadData];
-    [self updateDockTile];
+    [self updateState];
+}
 
+- (void)updateState
+{
     if (self.queue.status != SBQueueStatusWorking) {
-        self.statusLabel.stringValue = [NSString stringWithFormat:@"%lu files in queue.", (unsigned long)[self.queue count]];
+        if (self.queue.count == 1) {
+            self.statusLabel.stringValue = NSLocalizedString(@"1 item in queue", nil);
+        }
+        else {
+            self.statusLabel.stringValue = [NSString stringWithFormat:NSLocalizedString(@"%lu items in queue.", nil), (unsigned long)self.queue.count];
+        }
     }
+    [self updateDockTile];
 }
 
 - (void)start:(id)sender {
@@ -585,17 +594,25 @@ static void *SBQueueContex = &SBQueueContex;
         switch (item.status) {
             case SBQueueItemStatusCompleted:
                 cell.imageView.image = [NSImage imageNamed:@"EncodeComplete"];
+                cell.imageView.accessibilityLabel = NSLocalizedString(@"Completed", nil);
                 break;
             case SBQueueItemStatusWorking:
+                cell.imageView.image = [NSImage imageNamed:@"EncodeWorking"];
+                cell.imageView.accessibilityLabel = NSLocalizedString(@"Working", nil);
             case SBQueueItemStatusEditing:
                 cell.imageView.image = [NSImage imageNamed:@"EncodeWorking"];
+                cell.imageView.accessibilityLabel = NSLocalizedString(@"Editing", nil);
                 break;
             case SBQueueItemStatusFailed:
+                cell.imageView.image = [NSImage imageNamed:@"EncodeCanceled"];
+                cell.imageView.accessibilityLabel = NSLocalizedString(@"Failed", nil);
             case SBQueueItemStatusCancelled:
                 cell.imageView.image = [NSImage imageNamed:@"EncodeCanceled"];
+                cell.imageView.accessibilityLabel = NSLocalizedString(@"Canceled", nil);
                 break;
             default:
                 cell.imageView.image = _docImg;
+                cell.imageView.accessibilityLabel = @"";
                 break;
         }
     }
@@ -627,16 +644,13 @@ static void *SBQueueContex = &SBQueueContex;
     }
 
     if (rowIndexes.count) {
-            [aTableView beginUpdates];
-            [aTableView removeRowsAtIndexes:rowIndexes withAnimation:NSTableViewAnimationEffectFade];
-            [aTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedIndex] byExtendingSelection:NO];
-            [self removeItems:array];
-            [aTableView endUpdates];
+        [aTableView beginUpdates];
+        [aTableView removeRowsAtIndexes:rowIndexes withAnimation:NSTableViewAnimationEffectFade];
+        [aTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedIndex] byExtendingSelection:NO];
+        [self removeItems:array];
+        [aTableView endUpdates];
 
-        if (self.queue.status != SBQueueStatusWorking) {
-            self.statusLabel.stringValue = [NSString stringWithFormat:@"%lu files in queue.", (unsigned long)[self.queue count]];
-            [self updateDockTile];
-        }
+        [self updateState];
     }
 }
 
@@ -658,15 +672,12 @@ static void *SBQueueContex = &SBQueueContex;
     NSIndexSet *indexes = [self.queue indexesOfItemsWithStatus:SBQueueItemStatusCompleted];
 
     if (indexes.count) {
-            [self.table beginUpdates];
-            [self.table removeRowsAtIndexes:indexes withAnimation:NSTableViewAnimationEffectFade];
-            [self.table endUpdates];
-            [self.queue removeItemsAtIndexes:indexes];
+        [self.table beginUpdates];
+        [self.table removeRowsAtIndexes:indexes withAnimation:NSTableViewAnimationEffectFade];
+        [self.table endUpdates];
+        [self.queue removeItemsAtIndexes:indexes];
 
-        if (self.queue.status != SBQueueStatusWorking) {
-            self.statusLabel.stringValue = [NSString stringWithFormat:@"%lu files in queue.", (unsigned long)[self.queue count]];
-            [self updateDockTile];
-        }
+        [self updateState];
     }
 }
 

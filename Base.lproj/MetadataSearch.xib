@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2553a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -237,16 +237,10 @@ Gw
                                         <popUpButton verticalHuggingPriority="750" id="199">
                                             <rect key="frame" x="80" y="6" width="185" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="204" id="200">
+                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="200">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="menu"/>
-                                                <menu key="menu" title="OtherViews" id="201">
-                                                    <items>
-                                                        <menuItem title="Item 1" state="on" id="204"/>
-                                                        <menuItem title="Item 2" id="203"/>
-                                                        <menuItem title="Item 3" id="202"/>
-                                                    </items>
-                                                </menu>
+                                                <menu key="menu" title="OtherViews" id="201"/>
                                             </popUpButtonCell>
                                             <accessibility description="Language"/>
                                             <connections>
@@ -349,16 +343,10 @@ Gw
                                         <popUpButton verticalHuggingPriority="750" id="192">
                                             <rect key="frame" x="224" y="6" width="157" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="195" id="193">
+                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="193">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="menu"/>
-                                                <menu key="menu" title="OtherViews" id="194">
-                                                    <items>
-                                                        <menuItem title="Item 1" state="on" id="195"/>
-                                                        <menuItem title="Item 2" id="196"/>
-                                                        <menuItem title="Item 3" id="197"/>
-                                                    </items>
-                                                </menu>
+                                                <menu key="menu" title="OtherViews" id="194"/>
                                             </popUpButtonCell>
                                             <accessibility description="Language"/>
                                             <connections>

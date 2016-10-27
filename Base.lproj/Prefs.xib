@@ -171,20 +171,14 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="236">
-                    <rect key="frame" x="271" y="109" width="85" height="26"/>
+                    <rect key="frame" x="271" y="108" width="85" height="26"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="aQW-UD-jgA"/>
                     </constraints>
-                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="239" id="237">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="237">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
-                        <menu key="menu" title="OtherViews" id="238">
-                            <items>
-                                <menuItem title="Item 1" state="on" id="239"/>
-                                <menuItem title="Item 2" id="240"/>
-                                <menuItem title="Item 3" id="241"/>
-                            </items>
-                        </menu>
+                        <menu key="menu" title="OtherViews" id="238"/>
                     </popUpButtonCell>
                     <connections>
                         <accessibilityConnection property="title" destination="206" id="SzO-00-e3U"/>
@@ -194,7 +188,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="249">
-                    <rect key="frame" x="271" y="96" width="165" height="14"/>
+                    <rect key="frame" x="271" y="95" width="165" height="14"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="USA ratings are always shown." id="250">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
