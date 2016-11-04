@@ -1,0 +1,69 @@
+/* Class = "NSTextFieldCell"; title = "Scaled Size:"; ObjectID = "1O9-J3-Plk"; */
+"1O9-J3-Plk.title" = "Dimensioni in scala:";
+
+/* Class = "NSTabViewItem"; label = "Visual Settings"; ObjectID = "6"; */
+"6.label" = "Impostazioni visive";
+
+/* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "6I1-7O-uon"; */
+"6I1-7O-uon.title" = "pixel";
+
+/* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "7as-HC-onR"; */
+"7as-HC-onR.title" = "pixel";
+
+/* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "EQ0-oQ-E9J"; */
+"EQ0-oQ-E9J.title" = "pixel";
+
+/* Class = "NSTextFieldCell"; title = "Alternate Group:"; ObjectID = "Fye-Hi-zqu"; */
+"Fye-Hi-zqu.title" = "Gruppo di alternative:";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "H3I-ix-0Ay"; */
+"H3I-ix-0Ay.title" = "Nessuno";
+
+/* Class = "NSMenuItem"; title = "All Samples Are Forced"; ObjectID = "MLa-b8-424"; */
+"MLa-b8-424.title" = "Tutti i campioni sono forzati";
+
+/* Class = "NSMenuItem"; title = "Current profile: unknown"; ObjectID = "NIA-f8-VWx"; */
+"NIA-f8-VWx.title" = "Profilo attuale: sconosciuto";
+
+/* Class = "NSTextFieldCell"; title = "Forced track:"; ObjectID = "NPR-jz-Ile"; */
+"NPR-jz-Ile.title" = "Traccia forzata:";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Aspect Ratio Numerator"; ObjectID = "Q0D-6k-Hgx"; */
+"Q0D-6k-Hgx.ibExternalAccessibilityDescription" = "Numeratore proporzioni";
+
+/* Class = "NSTextFieldCell"; title = "Aspect Ratio:"; ObjectID = "Q8w-0e-NRr"; */
+"Q8w-0e-NRr.title" = "Proporzioni:";
+
+/* Class = "NSTabViewItem"; label = "Media Characteristics"; ObjectID = "ZZa-lk-8Uv"; */
+"ZZa-lk-8Uv.label" = "Caratteristiche media";
+
+/* Class = "NSTextFieldCell"; title = "Forced:"; ObjectID = "gMo-yz-dz5"; */
+"gMo-yz-dz5.title" = "Forzato:";
+
+/* Class = "NSTextFieldCell"; title = "You should only change the video profile if you want to load the file onto one of the devices listed and have been unable to do so.  However, if the video file uses advanced features of the codec, then the file may still be unplayable on the device."; ObjectID = "gcL-yf-yxF"; */
+"gcL-yf-yxF.title" = "Dovresti cambiare il profilo video solo se vuoi caricare il file su uno dei dispositivi nella lista e non sei riuscito a farlo. Tuttavia, se il file video usa funzioni avanzate del codec, il file potrebbe essere non riproducibile lo stesso.";
+
+/* Class = "NSMenuItem"; title = "Some Samples Are Forced"; ObjectID = "i0h-ag-Pc5"; */
+"i0h-ag-Pc5.title" = "Alcuni campioni sono forzati";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Aspect Ratio Denominator"; ObjectID = "ifV-jn-Kjv"; */
+"ifV-jn-Kjv.ibExternalAccessibilityDescription" = "Denominatore proporzioni";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Scaled Size Height"; ObjectID = "n9M-HO-S4Z"; */
+"n9M-HO-S4Z.ibExternalAccessibilityDescription" = "Altezza dimensione in scala";
+
+/* Class = "NSButtonCell"; title = "Preserve Aspect Ratio"; ObjectID = "nr0-Jc-cUj"; */
+"nr0-Jc-cUj.title" = "Mantieni proporzioni";
+
+/* Class = "NSTextFieldCell"; title = "H.264 Video Profile/Level:"; ObjectID = "nrd-22-FZl"; */
+"nrd-22-FZl.title" = "Profilo/Livello video H.264:";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Scaled Size Width"; ObjectID = "r90-c5-7PH"; */
+"r90-c5-7PH.ibExternalAccessibilityDescription" = "Larghezza dimensione in scala";
+
+/* Class = "NSTextFieldCell"; title = "Normal Size:"; ObjectID = "soD-gL-b4G"; */
+"soD-gL-b4G.title" = "Dimensioni normali:";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "vVg-S9-JUk"; */
+"vVg-S9-JUk.title" = "Nessuno";
+

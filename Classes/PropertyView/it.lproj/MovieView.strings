@@ -1,0 +1,36 @@
+/* Class = "NSTabViewItem"; label = "Artwork"; ObjectID = "15"; */
+"15.label" = "Illustrazione";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Add metadata item"; ObjectID = "30"; */
+"30.ibExternalAccessibilityDescription" = "Aggiungi elemento metadata";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Add a new metadata item"; ObjectID = "30"; */
+"30.ibShadowedToolTip" = "Aggiungi un nuovo elemento metadata";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove selected item"; ObjectID = "53"; */
+"53.ibExternalAccessibilityDescription" = "Rimuovi l'elemento selezionato";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove selected item"; ObjectID = "53"; */
+"53.ibShadowedToolTip" = "Rimuovi l'elemento selezionato";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "167"; */
+"167.title" = "Finestra";
+
+/* Class = "NSTextFieldCell"; title = "Set Name:"; ObjectID = "174"; */
+"174.title" = "Nome preset:";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "177"; */
+"177.title" = "Salva";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "178"; */
+"178.title" = "Annulla";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "179"; */
+"179.ibExternalAccessibilityDescription" = "Preset";
+
+/* Class = "NSTableColumn"; headerCell.title = "Annotation"; ObjectID = "j7q-XE-YXB"; */
+"j7q-XE-YXB.headerCell.title" = "Annotazione";
+
+/* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "os0-Yb-exW"; */
+"os0-Yb-exW.headerCell.title" = "Valore";
+

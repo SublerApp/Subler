@@ -1,0 +1,42 @@
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "2Ki-5k-XEP"; */
+"2Ki-5k-XEP.title" = "Annulla";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Search results"; ObjectID = "4Q0-U2-W6V"; */
+"4Q0-U2-W6V.ibExternalAccessibilityDescription" = "Risultati ricerca";
+
+/* Class = "NSButtonCell"; title = "Add"; ObjectID = "6W1-pC-dAo"; */
+"6W1-pC-dAo.title" = "Aggiungi";
+
+/* Class = "NSTableColumn"; headerCell.title = "Time"; ObjectID = "63j-1W-8G5"; */
+"63j-1W-8G5.headerCell.title" = "Tempo";
+
+/* Class = "NSWindow"; title = "Chapter Search"; ObjectID = "QvC-M9-y7g"; */
+"QvC-M9-y7g.title" = "Ricerca Capitoli";
+
+/* Class = "NSTextFieldCell"; title = "Progress status"; ObjectID = "VxI-Tj-e1F"; */
+"VxI-Tj-e1F.title" = "Stato progresso";
+
+/* Class = "NSTextFieldCell"; title = "Title:"; ObjectID = "W86-Ok-9nr"; */
+"W86-Ok-9nr.title" = "Titolo:";
+
+/* Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "htV-Xa-Z7y"; */
+"htV-Xa-Z7y.headerCell.title" = "Titolo";
+
+/* Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "leg-gf-Wgj"; */
+"leg-gf-Wgj.headerCell.title" = "Titolo";
+
+/* Class = "NSTableColumn"; headerCell.title = "Chapters"; ObjectID = "lfp-EW-qOv"; */
+"lfp-EW-qOv.headerCell.title" = "Capitoli";
+
+/* Class = "NSTableColumn"; headerCell.title = "Confirmations"; ObjectID = "rAU-DM-LSF"; */
+"rAU-DM-LSF.headerCell.title" = "Conferme";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Result details"; ObjectID = "rAm-CY-3va"; */
+"rAm-CY-3va.ibExternalAccessibilityDescription" = "Dettagli risultato";
+
+/* Class = "NSTableColumn"; headerCell.title = "Duration"; ObjectID = "wqo-sz-7xt"; */
+"wqo-sz-7xt.headerCell.title" = "Durata";
+
+/* Class = "NSButtonCell"; title = "Search"; ObjectID = "yAN-Rr-Kwt"; */
+"yAN-Rr-Kwt.title" = "Cerca";
+

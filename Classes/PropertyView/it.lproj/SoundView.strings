@@ -1,0 +1,27 @@
+/* Class = "NSTabViewItem"; label = "Sound Settings"; ObjectID = "6"; */
+"6.label" = "Impostazioni audio";
+
+/* Class = "NSTextFieldCell"; title = "Fallback:"; ObjectID = "8KY-0L-cm1"; */
+"8KY-0L-cm1.title" = "Ricaduta:";
+
+/* Class = "NSTabViewItem"; label = "Media Characteristics"; ObjectID = "22R-da-Q3B"; */
+"22R-da-Q3B.label" = "Caratteristiche media";
+
+/* Class = "NSTextFieldCell"; title = "Alternate Group:"; ObjectID = "CTV-P7-IaD"; */
+"CTV-P7-IaD.title" = "Gruppo di alternative:";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "QBa-Jt-TO2"; */
+"QBa-Jt-TO2.title" = "Nessuno";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "Qdb-gu-B3h"; */
+"Qdb-gu-B3h.title" = "Nessuno";
+
+/* Class = "NSTextFieldCell"; title = "Volume:"; ObjectID = "Z5x-Oq-P8Z"; */
+"Z5x-Oq-P8Z.title" = "Volume:";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "Zgh-b7-8aY"; */
+"Zgh-b7-8aY.title" = "Nessuno";
+
+/* Class = "NSTextFieldCell"; title = "Subtitles:"; ObjectID = "dbp-55-tUy"; */
+"dbp-55-tUy.title" = "Sottotitoli:";
+

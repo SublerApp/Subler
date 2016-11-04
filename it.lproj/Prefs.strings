@@ -1,0 +1,84 @@
+/* Class = "NSWindow"; title = "Preferences"; ObjectID = "1"; */
+"1.title" = "Preferenze";
+
+/* Class = "NSButtonCell"; title = "Create Preview Images"; ObjectID = "84"; */
+"84.title" = "Crea le immagini di anteprima";
+
+/* Class = "NSTextFieldCell"; title = "Chapters:"; ObjectID = "85"; */
+"85.title" = "Capitoli:";
+
+/* Class = "NSButtonCell"; title = "Remember Size"; ObjectID = "86"; */
+"86.title" = "Ricorda dimensione";
+
+/* Class = "NSButtonCell"; title = "Automatically check daily"; ObjectID = "87"; */
+"87.title" = "Controlla automaticamente ogni giorno";
+
+/* Class = "NSTextFieldCell"; title = "Window:"; ObjectID = "88"; */
+"88.title" = "Finestra:";
+
+/* Class = "NSTextFieldCell"; title = "Check for update:"; ObjectID = "89"; */
+"89.title" = "Ricerca aggiornamenti:";
+
+/* Class = "NSTextFieldCell"; title = "Convert:"; ObjectID = "102"; */
+"102.title" = "Converti:";
+
+/* Class = "NSButtonCell"; title = "AC-3 audio to AAC"; ObjectID = "104"; */
+"104.title" = "audio AC-3 a AAC";
+
+/* Class = "NSTextFieldCell"; title = "Downmix audio to:"; ObjectID = "114"; */
+"114.title" = "Downmix audio a:";
+
+/* Class = "NSMenuItem"; title = "Multi-Channel"; ObjectID = "118"; */
+"118.title" = "Multi-Canale";
+
+/* Class = "NSButtonCell"; title = "Clear recent searches"; ObjectID = "134"; */
+"134.title" = "Cancella ricerche recenti";
+
+/* Class = "NSButtonCell"; title = "Delete cached metadata"; ObjectID = "137"; */
+"137.title" = "Cancella cache metadata";
+
+/* Class = "NSTextFieldCell"; title = "Bitrate (per channel):"; ObjectID = "190"; */
+"190.title" = "Bitrate (per canale):";
+
+/* Class = "NSTextFieldCell"; title = "Show ratings for:"; ObjectID = "207"; */
+"207.title" = "Mostra classifiche per:";
+
+/* Class = "NSTextFieldCell"; title = "USA ratings are always shown."; ObjectID = "250"; */
+"250.title" = "Le classifiche USA sono sempre visibili.";
+
+/* Class = "NSButtonCell"; title = "Keep DTS"; ObjectID = "LFa-OQ-j5q"; */
+"LFa-OQ-j5q.title" = "Mantieni DTS";
+
+/* Class = "NSButtonCell"; title = "Keep groups organized"; ObjectID = "Yld-Or-7Hu"; */
+"Yld-Or-7Hu.title" = "Mantieni i gruppi organizzati";
+
+/* Class = "NSButtonCell"; title = "DTS audio to AAC"; ObjectID = "ZcC-1D-D4s"; */
+"ZcC-1D-D4s.title" = "audio DTS a AAC";
+
+/* Class = "NSButtonCell"; title = "Keep AC-3"; ObjectID = "Zgy-z5-6UG"; */
+"Zgy-z5-6UG.title" = "Mantieni AC-3";
+
+/* Class = "NSTextFieldCell"; title = "Alternate Groups:"; ObjectID = "agM-jg-8mH"; */
+"agM-jg-8mH.title" = "Gruppi di alternative:";
+
+/* Class = "NSToolbarItem"; label = "General"; ObjectID = "h9J-Wg-NA5"; */
+"h9J-Wg-NA5.label" = "Generali";
+
+/* Class = "NSToolbarItem"; paletteLabel = "General"; ObjectID = "h9J-Wg-NA5"; */
+"h9J-Wg-NA5.paletteLabel" = "Generali";
+
+/* Class = "NSButtonCell"; title = "VobSub to Tx3g"; ObjectID = "wgy-N5-9cB"; */
+"wgy-N5-9cB.title" = "VobSub a Tx3g";
+
+/* Class = "NSToolbarItem"; label = "Sets"; ObjectID = "x8c-1o-aZk"; */
+"x8c-1o-aZk.label" = "Preset";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Sets"; ObjectID = "x8c-1o-aZk"; */
+"x8c-1o-aZk.paletteLabel" = "Preset";
+
+/* Class = "NSToolbarItem"; label = "Advanced"; ObjectID = "yrt-qD-Ctd"; */
+"yrt-qD-Ctd.label" = "Avanzate";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Advanced"; ObjectID = "yrt-qD-Ctd"; */
+"yrt-qD-Ctd.paletteLabel" = "Avanzate";
+

@@ -67,6 +67,8 @@
 		A9B46AA412B79BB10040517A /* Subler.icns in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AA312B79BB10040517A /* Subler.icns */; };
 		A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46ABE12B79D1C0040517A /* SBDocument.m */; };
 		A9B75B8E1DAD1B140031798B /* SBPopUpCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B75B8D1DAD1B140031798B /* SBPopUpCellView.m */; };
+		A9BA1AEE1DBF7DD700FD0B38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A9BA1AF01DBF7DD700FD0B38 /* InfoPlist.strings */; };
+		A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A9BA1AF51DBF7DD800FD0B38 /* Localizable.strings */; };
 		A9BC410318D9AB8700F8C92C /* SBItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BC410218D9AB8700F8C92C /* SBItemViewController.m */; };
 		A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BC410618D9ABC000F8C92C /* QueueItem.xib */; };
 		A9C055370F6D395B00AF15B5 /* FileImport.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C055360F6D395B00AF15B5 /* FileImport.xib */; };
@@ -275,6 +277,30 @@
 		A9B4EE4E1643EBF3009AF6BC /* Subler.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Subler.entitlements; sourceTree = "<group>"; };
 		A9B75B8C1DAD1B140031798B /* SBPopUpCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBPopUpCellView.h; path = Classes/SBPopUpCellView.h; sourceTree = "<group>"; };
 		A9B75B8D1DAD1B140031798B /* SBPopUpCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBPopUpCellView.m; path = Classes/SBPopUpCellView.m; sourceTree = "<group>"; };
+		A9BA1ACF1DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBSetPrefsViewController.strings; sourceTree = "<group>"; };
+		A9BA1AD01DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBMetadataPrefsViewController.strings; sourceTree = "<group>"; };
+		A9BA1AD11DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBDocument.strings; sourceTree = "<group>"; };
+		A9BA1AD21DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/ChapterView.strings; sourceTree = "<group>"; };
+		A9BA1AD31DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/EmptyView.strings; sourceTree = "<group>"; };
+		A9BA1AD41DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/MovieView.strings; sourceTree = "<group>"; };
+		A9BA1AD51DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/SoundView.strings; sourceTree = "<group>"; };
+		A9BA1AD61DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/VideoView.strings; sourceTree = "<group>"; };
+		A9BA1AD71DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		A9BA1AD81DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/FileImport.strings; sourceTree = "<group>"; };
+		A9BA1AD91DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MetadataSearch.strings; sourceTree = "<group>"; };
+		A9BA1ADA1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/ArtworkSelector.strings; sourceTree = "<group>"; };
+		A9BA1ADD1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBChapterSearch.strings; sourceTree = "<group>"; };
+		A9BA1ADE1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Queue.strings; sourceTree = "<group>"; };
+		A9BA1ADF1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QueueOptions.strings; sourceTree = "<group>"; };
+		A9BA1AE01DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QueueItem.strings; sourceTree = "<group>"; };
+		A9BA1AE11DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Prefs.strings; sourceTree = "<group>"; };
+		A9BA1AE21DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBLogWindow.strings; sourceTree = "<group>"; };
+		A9BA1AE31DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBMediaTagsController.strings; sourceTree = "<group>"; };
+		A9BA1AE41DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/ExceptionAlert.strings; sourceTree = "<group>"; };
+		A9BA1AE51DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = it; path = it.lproj/Credits.rtf; sourceTree = "<group>"; };
+		A9BA1AE61DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A9BA1AEF1DBF7DD700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A9BA1AF41DBF7DD800FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A9BC410118D9AB8700F8C92C /* SBItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBItemViewController.h; path = Classes/SBItemViewController.h; sourceTree = "<group>"; };
 		A9BC410218D9AB8700F8C92C /* SBItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBItemViewController.m; path = Classes/SBItemViewController.m; sourceTree = "<group>"; };
 		A9C0603F168315C500FE3D98 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
@@ -441,6 +467,7 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A9BA1AF51DBF7DD800FD0B38 /* Localizable.strings */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				A984DB730F52DD4B001A20B2 /* dsa_pub.pem */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
@@ -533,6 +560,7 @@
 		A95B8DA61B09F37700F2F152 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A9BA1AF01DBF7DD700FD0B38 /* InfoPlist.strings */,
 				A95B8DA71B09F37700F2F152 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -771,6 +799,7 @@
 				French,
 				German,
 				Base,
+				it,
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* MP4Sub */;
 			projectDirPath = "";
@@ -857,6 +886,7 @@
 				A961476713F568210068F161 /* Queue.xib in Resources */,
 				A98739FE13FBB09B00B795A7 /* ToolbarActionTemplate.png in Resources */,
 				A9D47B5B17B239E200900BCA /* EncodeComplete@2x.png in Resources */,
+				A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */,
 				A9C9E34413FBC1EB00CA3B4E /* EncodeWorking.png in Resources */,
 				A96371B8164695070083BB80 /* ToolbarRemoveTemplate@2x.png in Resources */,
 				CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */,
@@ -868,6 +898,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9BA1AEE1DBF7DD700FD0B38 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -972,6 +1003,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				089C1660FE840EACC02AAC07 /* English */,
+				A9BA1AE61DBF773700FD0B38 /* it */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -980,6 +1012,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A5121D4B9E66008301A7 /* Base */,
+				A9BA1AD71DBF773600FD0B38 /* it */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -988,6 +1021,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2A37F4BAFDCFA73011CA2CEA /* English */,
+				A9BA1AE51DBF773700FD0B38 /* it */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -996,6 +1030,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A90300C91DAE72C4008237D8 /* Base */,
+				A9BA1ACF1DBF773600FD0B38 /* it */,
 			);
 			name = SBSetPrefsViewController.xib;
 			path = Classes;
@@ -1005,6 +1040,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A51A1D4B9E66008301A7 /* Base */,
+				A9BA1AE11DBF773700FD0B38 /* it */,
 			);
 			name = Prefs.xib;
 			sourceTree = "<group>";
@@ -1013,6 +1049,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A51F1D4B9E93008301A7 /* Base */,
+				A9BA1AD01DBF773600FD0B38 /* it */,
 			);
 			name = SBMetadataPrefsViewController.xib;
 			path = Classes;
@@ -1022,6 +1059,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A5171D4B9E66008301A7 /* Base */,
+				A9BA1ADE1DBF773700FD0B38 /* it */,
 			);
 			name = Queue.xib;
 			sourceTree = "<group>";
@@ -1030,6 +1068,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A51C1D4B9E67008301A7 /* Base */,
+				A9BA1AE31DBF773700FD0B38 /* it */,
 			);
 			name = SBMediaTagsController.xib;
 			sourceTree = "<group>";
@@ -1038,6 +1077,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A50D1D4B9E66008301A7 /* Base */,
+				A9BA1AD21DBF773600FD0B38 /* it */,
 			);
 			name = ChapterView.xib;
 			sourceTree = "<group>";
@@ -1046,6 +1086,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A50E1D4B9E66008301A7 /* Base */,
+				A9BA1AD31DBF773600FD0B38 /* it */,
 			);
 			name = EmptyView.xib;
 			sourceTree = "<group>";
@@ -1054,6 +1095,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A50F1D4B9E66008301A7 /* Base */,
+				A9BA1AD41DBF773600FD0B38 /* it */,
 			);
 			name = MovieView.xib;
 			sourceTree = "<group>";
@@ -1062,6 +1104,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A5101D4B9E66008301A7 /* Base */,
+				A9BA1AD51DBF773600FD0B38 /* it */,
 			);
 			name = SoundView.xib;
 			sourceTree = "<group>";
@@ -1070,6 +1113,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A5111D4B9E66008301A7 /* Base */,
+				A9BA1AD61DBF773600FD0B38 /* it */,
 			);
 			name = VideoView.xib;
 			sourceTree = "<group>";
@@ -1078,14 +1122,32 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A50C1D4B9E66008301A7 /* Base */,
+				A9BA1AD11DBF773600FD0B38 /* it */,
 			);
 			name = SBDocument.xib;
+			sourceTree = "<group>";
+		};
+		A9BA1AF01DBF7DD700FD0B38 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9BA1AEF1DBF7DD700FD0B38 /* it */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		A9BA1AF51DBF7DD800FD0B38 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9BA1AF41DBF7DD800FD0B38 /* it */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		A9BC410618D9ABC000F8C92C /* QueueItem.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A924A5191D4B9E66008301A7 /* Base */,
+				A9BA1AE01DBF773700FD0B38 /* it */,
 			);
 			name = QueueItem.xib;
 			sourceTree = "<group>";
@@ -1094,6 +1156,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A5131D4B9E66008301A7 /* Base */,
+				A9BA1AD81DBF773600FD0B38 /* it */,
 			);
 			name = FileImport.xib;
 			sourceTree = "<group>";
@@ -1102,6 +1165,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A51B1D4B9E67008301A7 /* Base */,
+				A9BA1AE21DBF773700FD0B38 /* it */,
 			);
 			name = SBLogWindow.xib;
 			sourceTree = "<group>";
@@ -1110,6 +1174,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A5161D4B9E66008301A7 /* Base */,
+				A9BA1ADD1DBF773700FD0B38 /* it */,
 			);
 			name = SBChapterSearch.xib;
 			sourceTree = "<group>";
@@ -1118,6 +1183,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A51D1D4B9E67008301A7 /* Base */,
+				A9BA1AE41DBF773700FD0B38 /* it */,
 			);
 			name = ExceptionAlert.xib;
 			sourceTree = "<group>";
@@ -1126,6 +1192,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A5181D4B9E66008301A7 /* Base */,
+				A9BA1ADF1DBF773700FD0B38 /* it */,
 			);
 			name = QueueOptions.xib;
 			sourceTree = "<group>";
@@ -1134,6 +1201,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A5151D4B9E66008301A7 /* Base */,
+				A9BA1ADA1DBF773700FD0B38 /* it */,
 			);
 			name = ArtworkSelector.xib;
 			sourceTree = "<group>";
@@ -1142,6 +1210,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A5141D4B9E66008301A7 /* Base */,
+				A9BA1AD91DBF773700FD0B38 /* it */,
 			);
 			name = MetadataSearch.xib;
 			sourceTree = "<group>";

@@ -1,0 +1,30 @@
+/* Class = "NSTableColumn"; headerCell.title = "Annotations"; ObjectID = "6um-Rw-luk"; */
+"6um-Rw-luk.headerCell.title" = "Annotazioni";
+
+/* Class = "NSButtonCell"; title = "Keep empty annotations"; ObjectID = "7Ek-lI-5Lo"; */
+"7Ek-lI-5Lo.title" = "Mantieni le annotazioni vuote";
+
+/* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "Aj4-bk-6RK"; */
+"Aj4-bk-6RK.headerCell.title" = "Valore";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Add annotation"; ObjectID = "Jdh-Cj-6ef"; */
+"Jdh-Cj-6ef.ibShadowedToolTip" = "Aggiungi annotazione";
+
+/* Class = "NSTextFieldCell"; title = "Available values:"; ObjectID = "OYx-Dd-YIf"; */
+"OYx-Dd-YIf.title" = "Valori disponibili:";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Metadata map"; ObjectID = "Tid-Rc-Ljr"; */
+"Tid-Rc-Ljr.ibExternalAccessibilityDescription" = "Mappa metadata";
+
+/* Class = "NSTableColumn"; headerCell.title = "Type"; ObjectID = "gwa-XG-q0L"; */
+"gwa-XG-q0L.headerCell.title" = "Tipologia";
+
+/* Class = "NSButtonCell"; title = "Restore Defaults"; ObjectID = "nBh-jv-KDG"; */
+"nBh-jv-KDG.title" = "Ripristina default";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Metadata type"; ObjectID = "nXW-oy-rtu"; */
+"nXW-oy-rtu.ibExternalAccessibilityDescription" = "Tipo metadata";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove selected item"; ObjectID = "sd5-qb-K5v"; */
+"sd5-qb-K5v.ibShadowedToolTip" = "Rimuovi l'elemento selezionato";
+

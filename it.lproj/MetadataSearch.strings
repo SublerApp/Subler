@@ -1,0 +1,57 @@
+/* Class = "NSButtonCell"; title = "Add"; ObjectID = "12"; */
+"12.title" = "Aggiungi";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13"; */
+"13.title" = "Annulla";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Result details"; ObjectID = "19"; */
+"19.ibExternalAccessibilityDescription" = "Dettagli risultato";
+
+/* Class = "NSTableColumn"; headerCell.title = "Annotation"; ObjectID = "21"; */
+"21.headerCell.title" = "Annotazione";
+
+/* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "22"; */
+"22.headerCell.title" = "Valore";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Search results"; ObjectID = "28"; */
+"28.ibExternalAccessibilityDescription" = "Risultati ricerca";
+
+/* Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "30"; */
+"30.headerCell.title" = "Titolo";
+
+/* Class = "NSTabViewItem"; label = "TV Episode"; ObjectID = "63"; */
+"63.label" = "Episodio TV";
+
+/* Class = "NSTabViewItem"; label = "Movie"; ObjectID = "64"; */
+"64.label" = "Film";
+
+/* Class = "NSButtonCell"; title = "Search"; ObjectID = "68"; */
+"68.title" = "Cerca";
+
+/* Class = "NSTextFieldCell"; title = "TV Show:"; ObjectID = "90"; */
+"90.title" = "Serie TV:";
+
+/* Class = "NSTextFieldCell"; title = "Season #"; ObjectID = "99"; */
+"99.title" = "# Stagione";
+
+/* Class = "NSTextFieldCell"; title = "Episode #"; ObjectID = "103"; */
+"103.title" = "# Episodio";
+
+/* Class = "NSTextFieldCell"; title = "Movie:"; ObjectID = "148"; */
+"148.title" = "Film:";
+
+/* Class = "NSTextFieldCell"; title = "Progress status"; ObjectID = "177"; */
+"177.title" = "Stato progresso";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Language"; ObjectID = "192"; */
+"192.ibExternalAccessibilityDescription" = "Lingua";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Language"; ObjectID = "199"; */
+"199.ibExternalAccessibilityDescription" = "Lingua";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Metadata provider"; ObjectID = "217"; */
+"217.ibExternalAccessibilityDescription" = "Provider metadata";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Metadata Provider"; ObjectID = "Dqq-15-Mee"; */
+"Dqq-15-Mee.ibExternalAccessibilityDescription" = "Provider metadata";
+

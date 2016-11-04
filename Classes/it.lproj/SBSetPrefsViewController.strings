@@ -1,0 +1,12 @@
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Set details"; ObjectID = "IXy-8d-VMc"; */
+"IXy-8d-VMc.ibExternalAccessibilityDescription" = "Dettagli preset";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Show set details"; ObjectID = "IXy-8d-VMc"; */
+"IXy-8d-VMc.ibShadowedToolTip" = "Mostra i dettagli del preset";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove selected set"; ObjectID = "SIg-lA-6FA"; */
+"SIg-lA-6FA.ibShadowedToolTip" = "Rimuovi il preset selezionato";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "iRF-P7-a3Q"; */
+"iRF-P7-a3Q.ibExternalAccessibilityDescription" = "Preset";
+
