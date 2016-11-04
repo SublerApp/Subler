@@ -10,6 +10,7 @@
 #import <MP42Foundation/MP42File.h>
 #import <MP42Foundation/MP42FileImporter.h>
 #import <MP42Foundation/MP42Utilities.h>
+#import <MP42Foundation/MP42Languages.h>
 
 @interface SBFileImport () <NSTableViewDelegate>
 {
@@ -347,7 +348,7 @@
         }
 
         if ([tableColumn.identifier isEqualToString:@"trackLanguage"]) {
-            return track.language;
+            return [MP42Languages langForISO_639_2Code:track.language];
         }
 
         if ([tableColumn.identifier isEqualToString:@"trackAction"]) {

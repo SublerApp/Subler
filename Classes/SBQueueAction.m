@@ -402,7 +402,7 @@
 
 - (void)runAction:(SBQueueItem *)item {
     for (MP42Track *track in item.mp4File.tracks) {
-        if ([track.language isEqualToString:@"Unknown"]) {
+        if ([track.language isEqualToString:@"und"]) {
             track.language = self.language;
         }
     }

@@ -571,7 +571,7 @@ static NSDictionary *_detailMonospacedAttr;
             }
             else if ([tableColumn.identifier isEqualToString:@"trackLanguage"]) {
                 SBComboBoxCellView *comboCell = [tableView makeViewWithIdentifier:@"ComboCell" owner:self];
-                comboCell.comboBox.stringValue = track.language;
+                comboCell.comboBox.stringValue = [MP42Languages langForISO_639_2Code:track.language];
                 cell = comboCell;
             }
         }
@@ -633,7 +633,7 @@ static NSDictionary *_detailMonospacedAttr;
     MP42Track *track = [self trackAtAtTableRow:row];
 
     if (track && ![sender.stringValue isEqualToString:track.name]) {
-        track.language = sender.stringValue;
+        track.language = [MP42Languages ISO_639_2CodeForLang:sender.stringValue];
         [self updateChangeCount:NSChangeDone];
     }
 }
@@ -648,9 +648,9 @@ static NSDictionary *_detailMonospacedAttr;
     return row - 1;
 }
 
-- (MP42Track *)trackAtAtTableRow:(NSUInteger)row
+- (MP42Track *)trackAtAtTableRow:(NSInteger)row
 {
-    if (row == 0) {
+    if (row <= 0) {
         return nil;
     }
     else {

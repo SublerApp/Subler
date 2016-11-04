@@ -8,7 +8,9 @@
 
 #import "SBVideoViewController.h"
 #import "SBMediaTagsController.h"
+
 #import <MP42Foundation/MP42File.h>
+#import <MP42Foundation/MP42Languages.h>
 
 @interface SBVideoViewController ()
 
@@ -126,7 +128,7 @@ static NSString *getLevelName(uint8_t level) {
     [alternateGroup selectItemAtIndex:(NSInteger)track.alternate_group];
 
     if (track.format == kMP42VideoCodecType_H264 && track.origProfile && track.origLevel) {
-        profileLevelUnchanged.title = [NSString stringWithFormat:@"Current profile: %@ @ %@", 
+        profileLevelUnchanged.title = [NSString stringWithFormat:@"%@ %@ @ %@", NSLocalizedString(@"Current profile:", nil),
                                          getProfileName(track.origProfile), getLevelName(track.origLevel)];
         if ((track.origProfile == track.newProfile) && (track.origLevel == track.newLevel)) {
             [videoProfile selectItemWithTag:1];
@@ -165,7 +167,7 @@ static NSString *getLevelName(uint8_t level) {
             NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ - %@ - %@",
                                                                       fileTrack.trackId ? [NSString stringWithFormat:@"%d", fileTrack.trackId] : @"NA",
                                                                       fileTrack.name,
-                                                                      fileTrack.language]
+                                                                      [MP42Languages langForISO_639_2Code:fileTrack.language]]
                                                               action:@selector(setForcedTrack:)
                                                        keyEquivalent:@""];
             newItem.target = self;
