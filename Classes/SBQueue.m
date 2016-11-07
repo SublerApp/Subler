@@ -19,7 +19,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 @property (atomic) SBQueueStatus status;
 
 @property (nonatomic, copy) NSURL *URL;
-@property (nonatomic) NSMutableArray *items;
+@property (nonatomic) NSMutableArray<SBQueueItem *> *items;
 
 @property (nonatomic) NSUInteger currentIndex;
 @property (atomic) SBQueueItem *currentItem;
