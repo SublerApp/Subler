@@ -44,7 +44,12 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:queueURL.path]) {
             @try {
-                _items = [NSKeyedUnarchiver unarchiveObjectWithFile:queueURL.path];
+                NSData *queue = [NSData dataWithContentsOfURL:queueURL];
+                NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:queue];
+                unarchiver.requiresSecureCoding = YES;
+                _items = [unarchiver decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableArray class], [SBQueueItem class], nil]
+                                                    forKey:NSKeyedArchiveRootObjectKey];
+                [unarchiver finishDecoding];
             }
             @catch (NSException *exception) {
                 [[NSFileManager defaultManager] removeItemAtURL:queueURL error:nil];
@@ -69,7 +74,14 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 - (BOOL)saveQueueToDisk {
     __block BOOL result;
     dispatch_sync(self.arrayQueue, ^{
-        result = [NSKeyedArchiver archiveRootObject:self.items toFile:self.URL.path];
+        NSMutableData *data = [[NSMutableData alloc] init];
+
+        NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+        archiver.requiresSecureCoding = YES;
+        [archiver encodeObject:self.items forKey:NSKeyedArchiveRootObjectKey];
+        [archiver finishEncoding];
+
+        result = [data writeToURL:self.URL atomically:YES];
     });
     return result;
 }

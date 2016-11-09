@@ -409,7 +409,11 @@ bail:
     _fileURL = [decoder decodeObjectOfClass:[NSURL class] forKey:@"SBQueueItemFileURL"];
     _destURL = [decoder decodeObjectOfClass:[NSURL class] forKey:@"SBQueueItemDestURL"];
     _attributes = [decoder decodeObjectOfClass:[NSDictionary class] forKey:@"SBQueueItemAttributes"];
-    _actionsInternal = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"SBQueueItemActions"];
+    _actionsInternal = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableArray class], [SBQueueSetAction class],
+                                                       [SBQueueMetadataAction class], [SBQueueSubtitlesAction class],
+                                                       [SBQueueSetLanguageAction class], [SBQueueFixFallbacksAction class],
+                                                       [SBQueueClearTrackNameAction class], [SBQueueOrganizeGroupsAction class], nil]
+                                               forKey:@"SBQueueItemActions"];
 
     _status = [decoder decodeIntForKey:@"SBQueueItemStatus"];
 
