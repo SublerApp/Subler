@@ -60,36 +60,45 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
     [self updateNotification];
 }
 
-- (NSString *)appSupportPath
+- (NSURL *)appSupportURL
 {
-    NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
-                                                            NSUserDomainMask,
-                                                            YES);
-    return [allPaths.firstObject stringByAppendingPathComponent:@"Subler"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    return [[fileManager URLsForDirectory:NSApplicationSupportDirectory
+                                inDomains:NSUserDomainMask].firstObject URLByAppendingPathComponent:@"Subler"];
 }
 
 - (BOOL)loadPresets
 {
-    NSString *file;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *appSupportPath = [self appSupportPath];
-    MP42Metadata *newPreset;
+    NSURL *appSupportURL = [self appSupportURL];
 
-    if (!appSupportPath) {
+    if (!appSupportURL) {
         return NO;
     }
 
-    NSDirectoryEnumerator *dirEnum = [fileManager enumeratorAtPath:appSupportPath];
-    while ((file = [dirEnum nextObject])) {
-        if ([file.pathExtension isEqualToString:@"sbpreset"]) {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSDirectoryEnumerator *directoryEnumerator =
+    [fileManager enumeratorAtURL:appSupportURL
+           includingPropertiesForKeys:@[NSURLNameKey, NSURLIsDirectoryKey]
+                              options:NSDirectoryEnumerationSkipsHiddenFiles
+                         errorHandler:nil];
+
+    for (NSURL *fileURL in directoryEnumerator) {
+        NSNumber *isDirectory = nil;
+        [fileURL getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
+
+        if ([isDirectory boolValue] == NO && [fileURL.pathExtension isEqualToString:@"sbpreset"]) {
             @try {
-                newPreset = [NSKeyedUnarchiver unarchiveObjectWithFile:[appSupportPath stringByAppendingPathComponent:file]];
+                NSData *queue = [NSData dataWithContentsOfURL:fileURL];
+                NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:queue];
+                unarchiver.requiresSecureCoding = YES;
+                MP42Metadata *newPreset = [unarchiver decodeObjectOfClass:[MP42Metadata class] forKey:NSKeyedArchiveRootObjectKey];
+                [unarchiver finishDecoding];
+
+                [_presets addObject:newPreset];
             }
             @catch (NSException *exception) {
                 continue;
             }
-
-            [_presets addObject:newPreset];
         }
     }
 
