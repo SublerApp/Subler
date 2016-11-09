@@ -17,7 +17,6 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
     NSMutableArray<MP42Metadata *> *_presets;
 }
 
-@property (nonatomic, readonly) NSString *appSupportPath;
 - (BOOL)removePresetWithName:(NSString*)name;
 
 @end
@@ -102,31 +101,35 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
         }
     }
 
-    if (!_presets.count) {
-        return NO;
-    }
-    else {
-        return YES;
-    }
+    return _presets.count > 0;
 }
 
 - (BOOL)savePresets
 {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *appSupportPath = [self appSupportPath];
-    BOOL noErr = YES;
+    NSURL *appSupportURL = [self appSupportURL];
 
-    if (!appSupportPath) {
+    if (!appSupportURL) {
         return NO;
     }
 
-    if (![fileManager fileExistsAtPath:appSupportPath]) {
-        [fileManager createDirectoryAtPath:appSupportPath withIntermediateDirectories:noErr attributes:nil error:NULL];
+    BOOL noErr = YES;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    if (![fileManager fileExistsAtPath:appSupportURL.path]) {
+        [fileManager createDirectoryAtURL:appSupportURL withIntermediateDirectories:noErr attributes:nil error:NULL];
     }
 
-    for (MP42Metadata  *object in _presets) {
-        NSString *saveLocation = [NSString stringWithFormat:@"%@/%@.sbpreset", appSupportPath, object.presetName];
-        noErr = [NSKeyedArchiver archiveRootObject:object toFile:saveLocation];
+    for (MP42Metadata *preset in _presets) {
+        NSURL *presetURL = [appSupportURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.sbpreset", preset.presetName]];
+
+        NSMutableData *data = [[NSMutableData alloc] init];
+
+        NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+        archiver.requiresSecureCoding = YES;
+        [archiver encodeObject:preset forKey:NSKeyedArchiveRootObjectKey];
+        [archiver finishEncoding];
+
+        noErr = [data writeToURL:presetURL atomically:YES];
     }
     return noErr;
 }
@@ -153,14 +156,14 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
 - (BOOL)removePresetWithName:(NSString *)name
 {
     BOOL err = NO;
-    NSString *appSupportPath = [self appSupportPath];
+    NSURL *appSupportURL = [self appSupportURL];
 
-    if (!appSupportPath) {
+    if (!appSupportURL) {
         return NO;
     }
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    err = [fileManager removeItemAtPath:[NSString stringWithFormat:@"%@/%@.sbpreset", appSupportPath, name]
+    err = [fileManager removeItemAtPath:[NSString stringWithFormat:@"%@/%@.sbpreset", appSupportURL.path, name]
                                   error:NULL];
 
     return err;
