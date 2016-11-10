@@ -10,15 +10,4 @@
 
 @implementation SBComboBoxCellView
 
-- (void)setBackgroundStyle:(NSBackgroundStyle)backgroundStyle
-{
-    [super setBackgroundStyle:backgroundStyle];
-    if (backgroundStyle == NSBackgroundStyleDark) {
-        self.comboBox.textColor = [NSColor controlHighlightColor];
-    }
-    else {
-        self.comboBox.textColor = [NSColor controlTextColor];
-    }
-}
-
 @end

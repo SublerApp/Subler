@@ -16,6 +16,8 @@
 		A901C51F1C04F03F00430DC3 /* SBChapterImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */; };
 		A90300C41DAE6E27008237D8 /* SBSetPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A90300C21DAE6E27008237D8 /* SBSetPrefsViewController.m */; };
 		A90300C81DAE72C4008237D8 /* SBSetPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90300CA1DAE72C4008237D8 /* SBSetPrefsViewController.xib */; };
+		A909440A1DD4B80000E9F89C /* SBComboBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A90944091DD4B80000E9F89C /* SBComboBoxCell.m */; };
+		A909440D1DD4C70900E9F89C /* SBTokenFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A909440C1DD4C70900E9F89C /* SBTokenFieldCell.m */; };
 		A90B023B10F3290A000416F3 /* Prefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90B023910F3290A000416F3 /* Prefs.xib */; };
 		A91690041DABFDAA004B9AB0 /* SBCheckBoxCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A91690031DABFDAA004B9AB0 /* SBCheckBoxCellView.m */; };
 		A917286119FD288B00348DF8 /* SBLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A917286019FD288B00348DF8 /* SBLogger.m */; };
@@ -171,6 +173,10 @@
 		A90300C11DAE6E27008237D8 /* SBSetPrefsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBSetPrefsViewController.h; path = Classes/SBSetPrefsViewController.h; sourceTree = "<group>"; };
 		A90300C21DAE6E27008237D8 /* SBSetPrefsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBSetPrefsViewController.m; path = Classes/SBSetPrefsViewController.m; sourceTree = "<group>"; };
 		A90300C91DAE72C4008237D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBSetPrefsViewController.xib; sourceTree = "<group>"; };
+		A90944081DD4B80000E9F89C /* SBComboBoxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBComboBoxCell.h; path = Classes/SBComboBoxCell.h; sourceTree = "<group>"; };
+		A90944091DD4B80000E9F89C /* SBComboBoxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBComboBoxCell.m; path = Classes/SBComboBoxCell.m; sourceTree = "<group>"; };
+		A909440B1DD4C70900E9F89C /* SBTokenFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBTokenFieldCell.h; path = Classes/SBTokenFieldCell.h; sourceTree = "<group>"; };
+		A909440C1DD4C70900E9F89C /* SBTokenFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBTokenFieldCell.m; path = Classes/SBTokenFieldCell.m; sourceTree = "<group>"; };
 		A91690021DABFDAA004B9AB0 /* SBCheckBoxCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBCheckBoxCellView.h; path = Classes/SBCheckBoxCellView.h; sourceTree = "<group>"; };
 		A91690031DABFDAA004B9AB0 /* SBCheckBoxCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBCheckBoxCellView.m; path = Classes/SBCheckBoxCellView.m; sourceTree = "<group>"; };
 		A917286019FD288B00348DF8 /* SBLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLogger.m; path = Classes/SBLogger.m; sourceTree = "<group>"; };
@@ -454,6 +460,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A909440E1DD4C85B00E9F89C /* Table View */ = {
+			isa = PBXGroup;
+			children = (
+				A93DD7661DACCE930052749A /* SBComboBoxCellView.h */,
+				A93DD7671DACCE930052749A /* SBComboBoxCellView.m */,
+				A90944081DD4B80000E9F89C /* SBComboBoxCell.h */,
+				A90944091DD4B80000E9F89C /* SBComboBoxCell.m */,
+				A91690021DABFDAA004B9AB0 /* SBCheckBoxCellView.h */,
+				A91690031DABFDAA004B9AB0 /* SBCheckBoxCellView.m */,
+				A909440B1DD4C70900E9F89C /* SBTokenFieldCell.h */,
+				A909440C1DD4C70900E9F89C /* SBTokenFieldCell.m */,
+				A9B75B8C1DAD1B140031798B /* SBPopUpCellView.h */,
+				A9B75B8D1DAD1B140031798B /* SBPopUpCellView.m */,
+				A9B46A8412B79B240040517A /* SBTableView.h */,
+				A9B46A8512B79B240040517A /* SBTableView.m */,
+			);
+			name = "Table View";
+			sourceTree = "<group>";
+		};
 		A925AA7C18378D7800BE84D4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -571,6 +596,7 @@
 				CD56963112FAAD680029FADB /* SBArtworkSelector.m */,
 				A9D4B8621C05BC61007845C4 /* SBChapterSearchController.h */,
 				A9D4B8631C05BC61007845C4 /* SBChapterSearchController.m */,
+				A909440E1DD4C85B00E9F89C /* Table View */,
 				A9FD5D150F3C692400817716 /* PropertyView */,
 			);
 			name = Document;
@@ -593,14 +619,6 @@
 				A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */,
 				A960E96117D4B00900FC6ED9 /* SBImageBrowserView.h */,
 				A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */,
-				A93DD7661DACCE930052749A /* SBComboBoxCellView.h */,
-				A93DD7671DACCE930052749A /* SBComboBoxCellView.m */,
-				A91690021DABFDAA004B9AB0 /* SBCheckBoxCellView.h */,
-				A91690031DABFDAA004B9AB0 /* SBCheckBoxCellView.m */,
-				A9B75B8C1DAD1B140031798B /* SBPopUpCellView.h */,
-				A9B75B8D1DAD1B140031798B /* SBPopUpCellView.m */,
-				A9B46A8412B79B240040517A /* SBTableView.h */,
-				A9B46A8512B79B240040517A /* SBTableView.m */,
 				A9B46A8612B79B240040517A /* SBView.h */,
 				A9B46A8712B79B240040517A /* SBView.m */,
 			);
@@ -877,6 +895,7 @@
 				A9C703121C05E08B00C89151 /* SBMetadataHelper.m in Sources */,
 				CD71FEA312F1B5AF00F0A98D /* SBMetadataSearchController.m in Sources */,
 				CD71FF1D12F1C4A900F0A98D /* SBTheTVDB.m in Sources */,
+				A909440D1DD4C70900E9F89C /* SBTokenFieldCell.m in Sources */,
 				A9C5FA6E19FA22590051F3FF /* SBLogWindowController.m in Sources */,
 				A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */,
 				A9AB485717F0AEAC000AA72E /* SBSoundViewController.m in Sources */,
@@ -894,6 +913,7 @@
 				A90300C41DAE6E27008237D8 /* SBSetPrefsViewController.m in Sources */,
 				CDC06FCE1747494D003C1D0A /* SBiTunesStore.m in Sources */,
 				A917286119FD288B00348DF8 /* SBLogger.m in Sources */,
+				A909440A1DD4B80000E9F89C /* SBComboBoxCell.m in Sources */,
 				A9D4B8641C05BC61007845C4 /* SBChapterSearchController.m in Sources */,
 				CD03087417576A550093A0BE /* SBTheMovieDB3.m in Sources */,
 				A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */,
