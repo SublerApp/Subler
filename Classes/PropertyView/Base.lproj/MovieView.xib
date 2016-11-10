@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16C41b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
@@ -205,21 +205,25 @@
                                                                     <rect key="frame" x="122" y="33" width="322" height="14"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qw4-1W-PfZ">
-                                                                            <rect key="frame" x="2" y="-2" width="317" height="18"/>
-                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                            <popUpButtonCell key="cell" type="bevel" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="2kU-ds-PXt">
-                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cFv-4U-VzM">
+                                                                            <rect key="frame" x="0.0" y="-4" width="316" height="22"/>
+                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                            <popUpButtonCell key="cell" type="bevel" title="Do not localize" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" selectedItem="6Zb-NM-Mmo" id="Myn-C3-tc4">
+                                                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="smallSystem"/>
-                                                                                <menu key="menu" id="5Fm-BS-duv"/>
+                                                                                <menu key="menu" id="qwD-bC-Vmw">
+                                                                                    <items>
+                                                                                        <menuItem title="Do not localize" id="6Zb-NM-Mmo"/>
+                                                                                    </items>
+                                                                                </menu>
                                                                             </popUpButtonCell>
                                                                             <connections>
-                                                                                <action selector="setMetadataIntValue:" target="-2" id="Tbo-QJ-MQ9"/>
+                                                                                <action selector="setMetadataIntValue:" target="-2" id="vg2-w8-FYI"/>
                                                                             </connections>
                                                                         </popUpButton>
                                                                     </subviews>
                                                                     <connections>
-                                                                        <outlet property="popUpButton" destination="qw4-1W-PfZ" id="Z12-Nj-baB"/>
+                                                                        <outlet property="popUpButton" destination="cFv-4U-VzM" id="ELP-zT-lga"/>
                                                                     </connections>
                                                                 </tableCellView>
                                                                 <tableCellView identifier="BoolCell" id="DGy-Nb-PAN" customClass="SBCheckBoxCellView">
@@ -242,25 +246,26 @@
                                                                         <outlet property="checkboxButton" destination="oyk-jS-zmh" id="8Ei-w1-gg3"/>
                                                                     </connections>
                                                                 </tableCellView>
-                                                                <tableCellView identifier="ComboCell" id="vy5-48-Vip">
+                                                                <tableCellView identifier="ComboCell" id="vy5-48-Vip" customClass="SBComboBoxCellView">
                                                                     <rect key="frame" x="122" y="68" width="322" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <comboBox verticalHuggingPriority="750" fixedFrame="YES" preferredMaxLayoutWidth="1000" translatesAutoresizingMaskIntoConstraints="NO" id="LbC-r6-Pau">
-                                                                            <rect key="frame" x="3" y="1" width="319" height="19"/>
+                                                                            <rect key="frame" x="3" y="-1" width="319" height="19"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                            <comboBoxCell key="cell" controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="left" title="Do not localize" usesSingleLineMode="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="jkg-xz-Hbn">
+                                                                            <comboBoxCell key="cell" controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="border" alignment="left" title="Do not localize" usesSingleLineMode="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="jkg-xz-Hbn">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                                <objectValues>
-                                                                                    <string>Item 1</string>
-                                                                                    <string>Item 2</string>
-                                                                                    <string>Item 3</string>
-                                                                                </objectValues>
                                                                             </comboBoxCell>
+                                                                            <connections>
+                                                                                <action selector="setMetadataStringValue:" target="-2" id="KFp-i9-Og2"/>
+                                                                            </connections>
                                                                         </comboBox>
                                                                     </subviews>
+                                                                    <connections>
+                                                                        <outlet property="comboBox" destination="LbC-r6-Pau" id="COL-w1-MbN"/>
+                                                                    </connections>
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>

@@ -15,6 +15,7 @@ NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
 #import "SBImageBrowserView.h"
 #import "SBPopUpCellView.h"
 #import "SBCheckBoxCellView.h"
+#import "SBComboBoxCellView.h"
 
 #import <MP42Foundation/MP42Ratings.h>
 #import <MP42Foundation/MP42Image.h>
@@ -456,6 +457,20 @@ static NSArray<NSArray *> *_mediaKinds;
     return popUpCell;
 }
 
+- (NSTableCellView *)comboBoxCellWithArrayContents:(NSArray<NSString *> *)contents value:(NSString *)value tableView:(NSTableView *)tableView
+{
+    SBComboBoxCellView *comboBoxCell =  [tableView makeViewWithIdentifier:@"ComboCell" owner:self];
+    comboBoxCell.comboBox.stringValue = value;
+    [comboBoxCell.comboBox addItemsWithObjectValues:contents];
+    return comboBoxCell;
+}
+
+- (NSArray<NSString *> *)availableGenres {
+    return @[@"Animation", @"Classic TV", @"Comedy", @"Drama",
+             @"Fitness & Workout", @"Kids", @"Non-Fiction", @"Reality TV", @"Sci-Fi & Fantasy",
+             @"Sports"];
+}
+
 - (nullable NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(nullable NSTableColumn *)tableColumn row:(NSInteger)row
 {
     NSTableCellView *cell = nil;
@@ -470,8 +485,7 @@ static NSArray<NSArray *> *_mediaKinds;
             case MP42MetadataItemDataTypeString:
             {
                 if ([item.identifier isEqualToString:MP42MetadataKeyUserGenre]) {
-                    cell = [self textCellWithString:item.stringValue tableView:tableView];
-                    //cell = [tableView makeViewWithIdentifier:@"ComboCell" owner:self];
+                    cell = [self comboBoxCellWithArrayContents:[self availableGenres] value:item.stringValue tableView:tableView];
                     break;
                  }
                  else if ([item.identifier isEqualToString:MP42MetadataKeyRating]) {
