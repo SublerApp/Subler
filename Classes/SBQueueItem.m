@@ -294,6 +294,8 @@
         noErr = [self prepare:outError];
     }
 
+    NSURL *filePathURL = self.fileURL.filePathURL;
+
     if (!noErr) { goto bail; }
 
     {
@@ -303,10 +305,10 @@
         };
 
         // Check if there is enough space on the destination disk
-        if (![self.fileURL isEqualTo:self.destURL]) {
-            NSDictionary *dict = [[NSFileManager defaultManager] attributesOfFileSystemForPath:(self.destURL).URLByDeletingLastPathComponent.path error:NULL];
+        if (![filePathURL isEqualTo:self.destURL]) {
+            NSDictionary *dict = [[NSFileManager defaultManager] attributesOfFileSystemForPath:self.destURL.URLByDeletingLastPathComponent.path error:NULL];
             NSNumber *freeSpace = dict[NSFileSystemFreeSize];
-            if (freeSpace && (self.mp4File).dataSize > freeSpace.longLongValue) {
+            if (freeSpace && self.mp4File.dataSize > freeSpace.longLongValue) {
                 noErr = NO;
                 if (outError) {
                     NSDictionary *errorDetail = @{ NSLocalizedDescriptionKey : @"Not enough disk space",
@@ -317,15 +319,8 @@
             }
         }
 
-        // Convert from a file reference url to a normal url
-        // the file will be replaced if optimized, and the reference url
-        // may point to nil
-        [self willChangeValueForKey:@"fileURL"];
-        _fileURL = self.fileURL.filePathURL;
-        [self didChangeValueForKey:@"fileURL"];
-
         if (!self.cancelled) {
-            if ([self.fileURL isEqualTo:self.destURL] && self.mp4File.hasFileRepresentation) {
+            if ([filePathURL isEqualTo:self.destURL] && self.mp4File.hasFileRepresentation) {
                 // We have an existing mp4 file, update it
                 noErr = [self.mp4File updateMP4FileWithOptions:self.attributes error:outError];
             }
@@ -361,6 +356,13 @@
 bail:
     self.mp4File.progressHandler = nil;
     self.mp4File = nil;
+
+    // Convert from a file reference url to a normal url
+    // the file will be replaced if optimized, and the reference url
+    // may point to nil
+    [self willChangeValueForKey:@"fileURL"];
+    _fileURL = filePathURL;
+    [self didChangeValueForKey:@"fileURL"];
 
 #ifdef SB_SANDBOX
     if ([destination respondsToSelector:@selector(stopAccessingSecurityScopedResource)])
