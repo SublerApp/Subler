@@ -25,6 +25,8 @@
  {"storeCode": 143447, "country3": "FIN", "country2": "FI", "language2": "FI", "language": "Suomi", "season": "", "country": "Suomi", "actor": "Actor", "director": "Director", "producer": "Producer", "screenwriter": "Screenwriter"},
  {"storeCode": 143456, "country3": "SWE", "country2": "SE", "language2": "SV", "language": "Svenska", "season": "", "country": "Sverige", "actor": "Actor", "director": "Director", "producer": "Producer", "screenwriter": "Screenwriter"},
  {"storeCode": 143444, "country3": "GBR", "country2": "GB", "language2": "EN", "language": "English", "season": "season", "country": "UK", "actor": "Actor", "director": "Director", "producer": "Producer", "screenwriter": "Screenwriter"},
- {"storeCode": 143469, "country3": "RUS", "country2": "RU", "language2": "RU", "language": "Pусский", "season": "сезон", "country": "Россия", "actor": "Актеры", "director": "Режиссер", "producer": "Продюсеры", "screenwriter": "Cценарист"}
+ {"storeCode": 143469, "country3": "RUS", "country2": "RU", "language2": "RU", "language": "Pусский", "season": "сезон", "country": "Россия", "actor": "Актеры", "director": "Режиссер", "producer": "Продюсеры", "screenwriter": "Cценарист"},
+ {"storeCode": 143474, "country3": "PHL", "country2": "PH", "language2": "EN", "language": "Pilipino", "season": "", "country": "Pilipinas", "actor": "Actor", "director": "Director", "producer": "Producer", "screenwriter": "Screenwriter"},
+ {"storeCode": 143463, "country3": "HKG", "country2": "HK", "language2": "EN", "language": "English", "season": "", "country": "Hong Kong", "actor": "Actor", "director": "Director", "producer": "Producer", "screenwriter": "Screenwriter"},
 
 ]
