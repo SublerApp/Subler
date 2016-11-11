@@ -362,10 +362,6 @@ bail:
     self.mp4File.progressHandler = nil;
     self.mp4File = nil;
 
-    [self willChangeValueForKey:@"actions"];
-    [self.actionsInternal removeAllObjects];
-    [self didChangeValueForKey:@"actions"];
-
 #ifdef SB_SANDBOX
     if ([destination respondsToSelector:@selector(stopAccessingSecurityScopedResource)])
         [destination stopAccessingSecurityScopedResource];

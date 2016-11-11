@@ -38,8 +38,8 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 - (instancetype)initWithURL:(NSURL *)queueURL {
     self = [super init];
     if (self) {
-        _workQueue = dispatch_queue_create("org.subler.WorkQueue", NULL);
-        _arrayQueue = dispatch_queue_create("org.subler.SaveQueue", NULL);
+        _workQueue = dispatch_queue_create("org.subler.WorkQueue", DISPATCH_QUEUE_SERIAL);
+        _arrayQueue = dispatch_queue_create("org.subler.SaveQueue", DISPATCH_QUEUE_SERIAL);
         _URL = [queueURL copy];
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:queueURL.path]) {
