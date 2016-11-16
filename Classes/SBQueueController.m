@@ -594,30 +594,53 @@ static void *SBQueueContex = &SBQueueContex;
         switch (item.status) {
             case SBQueueItemStatusCompleted:
                 cell.imageView.image = [NSImage imageNamed:@"EncodeComplete"];
-                cell.imageView.accessibilityLabel = NSLocalizedString(@"Completed", nil);
+                [self setAccessiblityLabel:NSLocalizedString(@"Completed", nil)
+                                      view:cell.imageView];
                 break;
             case SBQueueItemStatusWorking:
                 cell.imageView.image = [NSImage imageNamed:@"EncodeWorking"];
-                cell.imageView.accessibilityLabel = NSLocalizedString(@"Working", nil);
+                [self setAccessiblityLabel:NSLocalizedString(@"Working", nil)
+                                      view:cell.imageView];
+                break;
             case SBQueueItemStatusEditing:
                 cell.imageView.image = [NSImage imageNamed:@"EncodeWorking"];
-                cell.imageView.accessibilityLabel = NSLocalizedString(@"Editing", nil);
+                [self setAccessiblityLabel:NSLocalizedString(@"Editing", nil)
+                                      view:cell.imageView];
                 break;
             case SBQueueItemStatusFailed:
                 cell.imageView.image = [NSImage imageNamed:@"EncodeCanceled"];
-                cell.imageView.accessibilityLabel = NSLocalizedString(@"Failed", nil);
+                [self setAccessiblityLabel:NSLocalizedString(@"Failed", nil)
+                                      view:cell.imageView];
+                break;
             case SBQueueItemStatusCancelled:
                 cell.imageView.image = [NSImage imageNamed:@"EncodeCanceled"];
-                cell.imageView.accessibilityLabel = NSLocalizedString(@"Canceled", nil);
+                [self setAccessiblityLabel:NSLocalizedString(@"Canceled", nil)
+                                      view:cell.imageView];
                 break;
             default:
                 cell.imageView.image = _docImg;
-                cell.imageView.accessibilityLabel = @"";
+                [self setAccessiblityLabel:@"" view:cell.imageView];
                 break;
         }
     }
 
     return cell;
+}
+
+- (void)setAccessiblityLabel:(NSString *)label view:(NSView *)view
+{
+    static BOOL checked;
+    static int available;
+    if (!checked) {
+        if ([[NSView class] respondsToSelector:@selector(setAccessibilityLabel:)]) {
+            available = YES;
+        }
+        checked = YES;
+    }
+
+    if (available) {
+        view.accessibilityLabel = label;
+    }
 }
 
 - (void)_deleteSelectionFromTableView:(NSTableView *)aTableView {
