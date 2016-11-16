@@ -130,7 +130,9 @@
         view.hidden = YES;
 
         [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-            context.allowsImplicitAnimation = YES;
+            if (NSClassFromString(@"NSVisualEffectView")) {
+                context.allowsImplicitAnimation = YES;
+            }
             [window layoutIfNeeded];
 
         } completionHandler:^{
