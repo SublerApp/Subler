@@ -553,11 +553,10 @@ static NSArray<NSArray *> *_mediaKinds;
 - (IBAction)setMetadataStringValue:(NSTextField *)sender
 {
     NSInteger row = [self.metadataTableView rowForView:sender];
-    MP42MetadataItem *item = self.tags[row];
+    if (row == -1) { return; };
 
-    if ([sender.stringValue isEqualToString:item.stringValue]) {
-        return;
-    }
+    MP42MetadataItem *item = self.tags[row];
+    if ([sender.stringValue isEqualToString:item.stringValue]) { return; }
 
     id value;
     switch (item.dataType) {
@@ -593,6 +592,8 @@ static NSArray<NSArray *> *_mediaKinds;
 
 - (IBAction)setMetadataBoolValue:(NSButton *)sender {
     NSInteger row = [self.metadataTableView rowForView:sender];
+    if (row == -1) { return; };
+
     MP42MetadataItem *item = self.tags[row];
 
     MP42MetadataItem *editedItem = [MP42MetadataItem metadataItemWithIdentifier:item.identifier
@@ -609,6 +610,8 @@ static NSArray<NSArray *> *_mediaKinds;
     }
 
     NSInteger row = [self.metadataTableView rowForView:sender];
+    if (row == -1) { return; };
+
     MP42MetadataItem *item = self.tags[row];
 
     NSInteger index = sender.indexOfSelectedItem;
