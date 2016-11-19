@@ -122,6 +122,8 @@ static NSDictionary *_detailMonospacedAttr;
         [self.documentWindow setFrameUsingName:@"documentSave"];
         splitView.autosaveName = @"splitViewSave";
     }
+
+    self.tracksTable.doubleAction = @selector(doubleClickAction:);
 }
 
 - (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError * __autoreleasing *)outError
@@ -607,6 +609,21 @@ static NSDictionary *_detailMonospacedAttr;
         }
     }
     return cell;
+}
+
+- (IBAction)doubleClickAction:(id)sender
+{
+    // make sure they clicked a real cell and not a header or empty row
+    if ([sender clickedRow] >= 1) {
+        NSTableColumn *column = self.tracksTable.tableColumns[[sender clickedColumn]];
+        if ([column.identifier isEqualToString:@"trackName"]) {
+            // edit the cell
+            [sender editColumn:[sender clickedColumn]
+                        row:[sender clickedRow]
+                    withEvent:nil
+                        select:YES];
+        }
+    }
 }
 
 - (IBAction)setTrackName:(NSTextField *)sender {
