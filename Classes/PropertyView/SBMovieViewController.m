@@ -213,6 +213,9 @@ static NSArray<NSArray *> *_mediaKinds;
 
 - (IBAction)addTag:(id)sender
 {
+    // End editing
+    [self.view.window makeFirstResponder:self.metadataTableView];
+
     NSString *identifier = MP42Metadata.writableMetadata[[sender selectedItem].tag];
 
     if (![self.metadata metadataItemsFilteredByIdentifier:identifier].count) {
@@ -226,6 +229,9 @@ static NSArray<NSArray *> *_mediaKinds;
 
 - (IBAction)removeTag:(id)sender
 {
+    // End editing
+    [self.view.window makeFirstResponder:self.metadataTableView];
+
     NSArray<MP42MetadataItem *> *items = [self.tags objectsAtIndexes:self.metadataTableView.selectedRowIndexes];
     [self removeMetadataItems:items];
 }
