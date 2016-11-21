@@ -289,7 +289,7 @@ static void *SBQueueContex = &SBQueueContex;
     id type;
     [url getResourceValue:&type forKey:NSURLTypeIdentifierKey error:NULL];
 
-    NSURL *destination = (self.options)[SBQueueDestination];
+    NSURL *destination = self.options[SBQueueDestination];
     if (destination) {
         destination = [[destination URLByAppendingPathComponent:url.lastPathComponent].URLByDeletingPathExtension
                        URLByAppendingPathExtension:(self.options)[SBQueueFileType]];
@@ -551,6 +551,53 @@ static void *SBQueueContex = &SBQueueContex;
 
 #pragma mark Open methods
 
+- (NSArray<SBQueueItem *> *)itemsFromURL:(NSURL *)URL
+{
+    NSMutableArray<SBQueueItem *> *items = [[NSMutableArray alloc] init];
+    NSArray<NSString *> *supportedFileFormats = [MP42FileImporter supportedFileFormats];
+
+    NSNumber *outValue = nil;
+    [URL getResourceValue:&outValue forKey:NSURLIsDirectoryKey error:NULL];
+
+    if (outValue.boolValue) {
+        NSDirectoryEnumerator *directoryEnumerator =
+        [NSFileManager.defaultManager enumeratorAtURL:URL
+                           includingPropertiesForKeys:@[NSURLNameKey, NSURLIsDirectoryKey]
+                                              options:NSDirectoryEnumerationSkipsHiddenFiles | NSDirectoryEnumerationSkipsSubdirectoryDescendants
+                                         errorHandler:nil];
+        for (NSURL *URLinDirectory in directoryEnumerator) {
+            NSNumber *isDirectory = nil;
+            [URLinDirectory getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
+
+            if (isDirectory.boolValue == NO && [supportedFileFormats containsObject:URLinDirectory.pathExtension.lowercaseString]) {
+                [items addObject:[self createItemWithURL:URLinDirectory]];
+            }
+        }
+    }
+    else if ([supportedFileFormats containsObject:URL.pathExtension.lowercaseString]) {
+        [items addObject:[self createItemWithURL:URL]];
+    }
+    return items;
+}
+
+- (void)addItemsFromURLs:(NSArray<NSURL *> *)URLs atIndex:(NSInteger)index
+{
+    NSMutableArray<SBQueueItem *> *items = [[NSMutableArray alloc] init];
+    NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
+
+    for (NSURL *URL in URLs) {
+        NSArray<SBQueueItem *> *itemsFromURL = [self itemsFromURL:URL];
+
+        for (SBQueueItem *item in itemsFromURL) {
+            [items addObject:item];
+            [indexes addIndex:index];
+        }
+    }
+
+    [self addItems:items atIndexes:indexes];
+    [self updateUI];
+}
+
 - (IBAction)open:(id)sender {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     panel.allowsMultipleSelection = YES;
@@ -560,16 +607,7 @@ static void *SBQueueContex = &SBQueueContex;
 
     [panel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
-            NSMutableArray<SBQueueItem *> *items = [[NSMutableArray alloc] init];
-
-            for (NSURL *url in panel.URLs) {
-                SBQueueItem *item = [self createItemWithURL:url];
-                [items addObject:item];
-            }
-
-            [self addItems:items atIndexes:nil];
-
-            [self updateUI];
+            [self addItemsFromURLs:panel.URLs atIndex:self.queue.count];
         }
     }];
 }
@@ -756,21 +794,9 @@ static void *SBQueueContex = &SBQueueContex;
         return YES;
     } else { // From other documents
         if ([pboard.types containsObject:NSURLPboardType] ) {
+
             NSArray *items = [pboard readObjectsForClasses:@[[NSURL class]] options: nil];
-            NSMutableArray *queueItems = [[NSMutableArray alloc] init];
-            NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
-            NSArray<NSString *> *supportedFileFormats = [MP42FileImporter supportedFileFormats];
-
-            for (NSURL *url in items) {
-                if ([supportedFileFormats containsObject:url.pathExtension.lowercaseString]) {
-                    [queueItems addObject:[self createItemWithURL:url]];
-                    [indexes addIndex:row];
-                }
-            }
-
-            [self addItems:queueItems atIndexes:indexes];
-
-            [self updateUI];
+            [self addItemsFromURLs:items atIndex:row];
 
             return YES;
         }
