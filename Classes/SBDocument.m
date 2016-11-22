@@ -648,9 +648,10 @@ static NSDictionary *_detailMonospacedAttr;
 - (IBAction)setTrackLanguage:(NSComboBox *)sender {
     NSInteger row = [self.tracksTable rowForView:sender];
     MP42Track *track = [self trackAtAtTableRow:row];
+    NSString *language = [MP42Languages ISO_639_2CodeForLang:sender.stringValue];
 
-    if (track && ![sender.stringValue isEqualToString:track.name]) {
-        track.language = [MP42Languages ISO_639_2CodeForLang:sender.stringValue];
+    if (track && ![language isEqualToString:track.language]) {
+        track.language = language;
         [self updateChangeCount:NSChangeDone];
     }
 }
