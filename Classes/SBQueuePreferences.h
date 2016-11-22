@@ -29,6 +29,7 @@ extern NSString * const SBQueueMovieProvider;
 extern NSString * const SBQueueTVShowProvider;
 extern NSString * const SBQueueMovieProviderLanguage;
 extern NSString * const SBQueueTVShowProviderLanguage;
+extern NSString * const SBQueueProviderArtwork;
 
 extern NSString * const SBQueueDestination;
 

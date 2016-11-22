@@ -24,12 +24,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  An actions that fetches metadata online.
+
  */
+typedef NS_ENUM(NSUInteger, SBQueueMetadataActionPreferredArtwork) {
+     SBQueueMetadataActionPreferredArtworkDefault,
+     SBQueueMetadataActionPreferredArtworkiTunes,
+     SBQueueMetadataActionPreferredArtworkEpisode,
+     SBQueueMetadataActionPreferredArtworkSeason,
+ };
+
 @interface SBQueueMetadataAction : NSObject <SBQueueActionProtocol>
 - (instancetype)initWithMovieLanguage:(NSString *)movieLang
                        tvShowLanguage:(NSString *)tvLang
                    movieProvider:(NSString *)movieProvider
-                  tvShowProvider:(NSString *)tvShowProvider;
+                  tvShowProvider:(NSString *)tvShowProvider
+                preferredArtwork:(SBQueueMetadataActionPreferredArtwork)preferredArtwork;
 @end
 
 /**

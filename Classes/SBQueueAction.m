@@ -93,6 +93,7 @@
     NSString *_tvShowLanguage;
     NSString *_movieProvider;
     NSString *_tvShowProvider;
+    SBQueueMetadataActionPreferredArtwork _preferredArtwork;
 }
 
 - (instancetype)init {
@@ -109,7 +110,8 @@
 - (instancetype)initWithMovieLanguage:(NSString *)movieLang
                        tvShowLanguage:(NSString *)tvLang
                         movieProvider:(NSString *)movieProvider
-                       tvShowProvider:(NSString *)tvShowProvider {
+                       tvShowProvider:(NSString *)tvShowProvider
+                     preferredArtwork:(SBQueueMetadataActionPreferredArtwork)preferredArtwork {
     if (!movieLang || !tvLang || !movieProvider || !tvShowProvider) {
         return nil;
     }
@@ -120,6 +122,7 @@
         _tvShowLanguage = [tvLang copy];
         _movieProvider = [movieProvider copy];
         _tvShowProvider = [tvShowProvider copy];
+        _preferredArtwork = preferredArtwork;
     }
     return self;
 }
@@ -144,15 +147,18 @@
     // Parse FileName and search for metadata
     NSDictionary<NSString *, NSString *> *parsed = [SBMetadataHelper parseFilename:url.lastPathComponent];
     NSString *type = parsed[@"type"];
+    NSString *provider = nil;
 
     if ([@"movie" isEqualToString:type]) {
+        provider = _movieProvider;
 		currentSearcher = [SBMetadataImporter importerForProvider:_movieProvider];
 		NSArray<SBMetadataResult *> *results = [currentSearcher searchMovie:parsed[@"title"] language:_movieLanguage];
         if (results.count) {
             metadata = [currentSearcher loadMovieMetadata:results.firstObject language:_movieLanguage];
         }
     }
-    else if ([@"tv" isEqualToString:type]) {
+    else /*if ([@"tv" isEqualToString:type]) */ {
+        provider = _tvShowProvider;
 		currentSearcher = [SBMetadataImporter importerForProvider:_tvShowProvider];
 		NSArray *results = [currentSearcher searchTVSeries:parsed[@"seriesName"]
                                                   language:_tvShowLanguage
@@ -165,19 +171,30 @@
 
     if (metadata.artworkFullsizeURLs.count) {
         NSURL *artworkURL = metadata.artworkFullsizeURLs.firstObject;
+        NSString *preferredArtworkType = nil;
 
-        if ([type isEqualToString:@"tv"]) {
-            if (metadata.artworkFullsizeURLs.count > 1) {
-                int i = 0;
-                for (NSString *artworkProviderName in metadata.artworkProviderNames) {
-                    NSArray<NSString *> *a = [artworkProviderName componentsSeparatedByString:@"|"];
-                    if (a.count > 1 && ![a[1] isEqualToString:@"episode"]) {
-                        artworkURL = metadata.artworkFullsizeURLs[i];
-                        break;
-                    }
-                    i++;
-                }
+        switch (_preferredArtwork) {
+            case SBQueueMetadataActionPreferredArtworkiTunes:
+                preferredArtworkType = @"iTunes";
+                break;
+            case SBQueueMetadataActionPreferredArtworkEpisode:
+                preferredArtworkType = [NSString stringWithFormat:@"%@|%@", provider, @"episode"];
+                break;
+            case SBQueueMetadataActionPreferredArtworkSeason:
+                preferredArtworkType = [NSString stringWithFormat:@"%@|%@", provider, @"season"];
+                break;
+            default:
+                preferredArtworkType = [NSString stringWithFormat:@"%@|%@", provider, @"poster"];
+                break;
+        }
+
+        NSUInteger index = 0;
+        for (NSString *name in metadata.artworkProviderNames) {
+            if ([name hasPrefix:preferredArtworkType]) {
+                artworkURL = metadata.artworkFullsizeURLs[index];
+                break;
             }
+            index += 1;
         }
 
         MP42Image *artwork = [self loadArtwork:artworkURL];
@@ -237,6 +254,7 @@
     _tvShowLanguage = [coder decodeObjectOfClass:[NSString class] forKey:@"_tvShowLanguage"];
     _movieProvider = [coder decodeObjectOfClass:[NSString class] forKey:@"_movieProvider"];
     _tvShowProvider = [coder decodeObjectOfClass:[NSString class] forKey:@"_tvShowProvider"];
+    _preferredArtwork = [coder decodeIntForKey:@"_preferredArtwork"];
 
     return self;
 }
@@ -246,6 +264,7 @@
     [coder encodeObject:_tvShowLanguage forKey:@"_tvShowLanguage"];
     [coder encodeObject:_movieProvider forKey:@"_movieProvider"];
     [coder encodeObject:_tvShowProvider forKey:@"_tvShowProvider"];
+    [coder encodeInt:_preferredArtwork forKey:@"_preferredArtwork"];
 }
 
 @end

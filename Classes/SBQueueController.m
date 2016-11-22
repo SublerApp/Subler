@@ -256,10 +256,11 @@ static void *SBQueueContex = &SBQueueContex;
     SBQueueItem *item = [SBQueueItem itemWithURL:url];
 
     if ([(self.options)[SBQueueMetadata] boolValue]) {
-        [item addAction:[[SBQueueMetadataAction alloc] initWithMovieLanguage:(self.options)[SBQueueMovieProviderLanguage]
-                                                               tvShowLanguage:(self.options)[SBQueueTVShowProviderLanguage]
-                                                           movieProvider:(self.options)[SBQueueMovieProvider]
-                                                          tvShowProvider:(self.options)[SBQueueTVShowProvider]]];
+        [item addAction:[[SBQueueMetadataAction alloc] initWithMovieLanguage:self.options[SBQueueMovieProviderLanguage]
+                                                              tvShowLanguage:self.options[SBQueueTVShowProviderLanguage]
+                                                           movieProvider:self.options[SBQueueMovieProvider]
+                                                          tvShowProvider:self.options[SBQueueTVShowProvider]
+                                                            preferredArtwork:[self.options[SBQueueProviderArtwork] unsignedIntegerValue]]];
     }
 
     if ([(self.options)[SBQueueSubtitles] boolValue]) {
