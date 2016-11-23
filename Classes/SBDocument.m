@@ -89,7 +89,7 @@ static NSDictionary *_detailMonospacedAttr;
 + (void)initialize
 {
     if (self == [SBDocument class]) {
-        _languages = [[MP42Languages defaultManager] languages];
+        _languages = [[MP42Languages defaultManager] localizedLanguages];
 
         if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
             NSFont *font = [NSFont monospacedDigitSystemFontOfSize:[NSFont systemFontSize] weight:NSFontWeightRegular];
@@ -573,7 +573,7 @@ static NSDictionary *_detailMonospacedAttr;
             }
             else if ([tableColumn.identifier isEqualToString:@"trackLanguage"]) {
                 SBComboBoxCellView *comboCell = [tableView makeViewWithIdentifier:@"ComboCell" owner:self];
-                comboCell.comboBox.stringValue = [MP42Languages langForISO_639_2Code:track.language];
+                comboCell.comboBox.stringValue = [MP42Languages.defaultManager localizedLangForISO_639_2Code:track.language];
                 cell = comboCell;
             }
         }
@@ -648,7 +648,7 @@ static NSDictionary *_detailMonospacedAttr;
 - (IBAction)setTrackLanguage:(NSComboBox *)sender {
     NSInteger row = [self.tracksTable rowForView:sender];
     MP42Track *track = [self trackAtAtTableRow:row];
-    NSString *language = [MP42Languages ISO_639_2CodeForLang:sender.stringValue];
+    NSString *language = [MP42Languages.defaultManager ISO_639_2CodeForLocalizedLang:sender.stringValue];
 
     if (track && ![language isEqualToString:track.language]) {
         track.language = language;

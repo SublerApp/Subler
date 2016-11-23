@@ -348,7 +348,7 @@
         }
 
         if ([tableColumn.identifier isEqualToString:@"trackLanguage"]) {
-            return [MP42Languages langForISO_639_2Code:track.language];
+            return [MP42Languages.defaultManager localizedLangForISO_639_2Code:track.language];
         }
 
         if ([tableColumn.identifier isEqualToString:@"trackAction"]) {

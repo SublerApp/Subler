@@ -167,7 +167,7 @@ static NSString *getLevelName(uint8_t level) {
             NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ - %@ - %@",
                                                                       fileTrack.trackId ? [NSString stringWithFormat:@"%d", fileTrack.trackId] : @"NA",
                                                                       fileTrack.name,
-                                                                      [MP42Languages langForISO_639_2Code:fileTrack.language]]
+                                                                      [MP42Languages.defaultManager localizedLangForISO_639_2Code:fileTrack.language]]
                                                               action:@selector(setForcedTrack:)
                                                        keyEquivalent:@""];
             newItem.target = self;
