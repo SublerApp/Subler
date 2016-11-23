@@ -227,6 +227,14 @@ static NSArray<NSArray *> *_mediaKinds;
                                                           extendedLanguageTag:nil];
         [self addMetadataItems:@[item]];
     }
+
+    MP42MetadataItem *item = [self.metadata metadataItemsFilteredByIdentifier:identifier].firstObject;
+    NSUInteger index = [self.tags indexOfObject:item];
+
+    if (index != NSNotFound) {
+        [self.metadataTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:index] byExtendingSelection:NO];
+        [self.metadataTableView scrollRowToVisible:index];
+    }
 }
 
 - (IBAction)removeTag:(id)sender
