@@ -149,6 +149,7 @@ static NSArray<NSArray *> *_mediaKinds;
 {
     for (MP42MetadataItem *item in items) {
         [self.metadata addMetadataItem:item];
+        self.rowHeights[item.identifier] = nil;
     }
 
     NSUndoManager *undo = self.view.undoManager;
@@ -205,6 +206,7 @@ static NSArray<NSArray *> *_mediaKinds;
     NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:index];
     NSIndexSet *colIndexSet = [NSIndexSet indexSetWithIndex:1];
 
+    self.rowHeights[newItem.identifier] = nil;
     [self.metadataTableView reloadDataForRowIndexes:indexSet columnIndexes:colIndexSet];
     [self.metadataTableView noteHeightOfRowsWithIndexesChanged:indexSet];
 
