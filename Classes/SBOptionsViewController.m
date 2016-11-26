@@ -57,7 +57,7 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
         _sets = [[NSMutableArray alloc] init];
         _moviesProviders = [SBMetadataImporter movieProviders];
         _tvShowsProviders = [SBMetadataImporter tvProviders];
-        _languages = [[MP42Languages defaultManager] languages];
+        _languages = [[MP42Languages defaultManager] ISO_639_1Languages];
 
     }
     return self;

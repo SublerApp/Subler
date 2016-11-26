@@ -53,10 +53,10 @@
 
                                                               @"SBMetadataPreference|Movie": @"TheMovieDB",
                                                               @"SBMetadataPreference|Movie|iTunes Store|Language": @"USA (English)",
-                                                              @"SBMetadataPreference|Movie|TheMovieDB|Language": @"English",
+                                                              @"SBMetadataPreference|Movie|TheMovieDB|Language": @"en",
                                                               @"SBMetadataPreference|TV": @"TheTVDB",
                                                               @"SBMetadataPreference|TV|iTunes Store|Language": @"USA (English)",
-                                                              @"SBMetadataPreference|TV|TheTVDB|Language": @"English",
+                                                              @"SBMetadataPreference|TV|TheTVDB|Language": @"en",
 
                                                               @"SBMetadataMovieResultMap" : movieDefaultMap,
                                                               @"SBMetadataTvShowResultMap" : tvShowDefaultMap,

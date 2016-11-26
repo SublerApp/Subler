@@ -21,9 +21,14 @@
 	return [[MP42Languages defaultManager] ISO_639_1Languages];
 }
 
+- (SBMetadataImporterLanguageType)languageType
+{
+    return SBMetadataImporterLanguageTypeISO;
+}
+
 - (NSArray<SBMetadataResult *> *)searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage
 {
-	NSString *lang = [MP42Languages ISO_639_1CodeForLang:aLanguage];
+	NSString *lang = aLanguage;
 
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/search/movie?api_key=%@&query=%@&language=%@",
                                        API_KEY, [SBMetadataHelper urlEncoded:aMovieTitle], lang]];
@@ -101,7 +106,7 @@
 
 - (SBMetadataResult *)loadMovieMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage
 {
-	NSString *lang = [MP42Languages ISO_639_1CodeForLang:aLanguage];
+	NSString *lang = aLanguage;
 	NSNumber *theMovieDBID = aMetadata[@"TheMovieDB ID"];
 
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/movie/%@?api_key=%@&language=%@&append_to_response=casts,releases,images",

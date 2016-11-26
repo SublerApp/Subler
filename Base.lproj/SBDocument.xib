@@ -216,7 +216,7 @@
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn identifier="trackLanguage" width="148" minWidth="130" maxWidth="150" id="100044">
+                                                        <tableColumn identifier="trackLanguage" width="158" minWidth="130" maxWidth="200" id="100044">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Language">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -229,31 +229,30 @@
                                                             </comboBoxCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
-                                                                <tableCellView identifier="ComboCell" id="Yb8-DO-WWM" customClass="SBComboBoxCellView">
-                                                                    <rect key="frame" x="382" y="1" width="148" height="17"/>
+                                                                <tableCellView identifier="PopUpCell" id="Yb8-DO-WWM" customClass="SBPopUpCellView">
+                                                                    <rect key="frame" x="382" y="1" width="158" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xf4-ll-Tkp">
-                                                                            <rect key="frame" x="3" y="-5" width="145" height="26"/>
+                                                                        <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yEl-bV-CL5">
+                                                                            <rect key="frame" x="3" y="0.0" width="152" height="18"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                                                            <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" buttonBordered="NO" completes="NO" usesDataSource="YES" numberOfVisibleItems="8" id="FqY-5W-MnQ" customClass="SBComboBoxCell">
-                                                                                <font key="font" metaFont="system"/>
-                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                            </comboBoxCell>
+                                                                            <popUpButtonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="right" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" id="MqR-oU-iTJ">
+                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                <font key="font" metaFont="menu"/>
+                                                                                <menu key="menu" autoenablesItems="NO" id="r4d-Rq-cBb"/>
+                                                                            </popUpButtonCell>
                                                                             <connections>
-                                                                                <action selector="setTrackLanguage:" target="-2" id="fbm-Hd-zg3"/>
-                                                                                <outlet property="dataSource" destination="-2" id="y6y-yH-VsB"/>
+                                                                                <action selector="setTrackLanguage:" target="-2" id="mGG-Kx-6X1"/>
                                                                             </connections>
-                                                                        </comboBox>
+                                                                        </popUpButton>
                                                                     </subviews>
                                                                     <connections>
-                                                                        <outlet property="comboBox" destination="Xf4-ll-Tkp" id="Iah-5G-58x"/>
+                                                                        <outlet property="popUpButton" destination="yEl-bV-CL5" id="eea-8I-cVk"/>
                                                                     </connections>
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn identifier="trackInfo" editable="NO" width="155" minWidth="80" maxWidth="440" id="100040">
+                                                        <tableColumn identifier="trackInfo" editable="NO" width="145" minWidth="80" maxWidth="440" id="100040">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Format">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -267,11 +266,11 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="FormatCell" id="lpt-ck-ie2">
-                                                                    <rect key="frame" x="533" y="1" width="155" height="17"/>
+                                                                    <rect key="frame" x="543" y="1" width="145" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vEq-Qw-35S">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="155" height="17"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="145" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Do not localize" id="4fX-fC-9jF">
                                                                                 <font key="font" metaFont="system"/>
@@ -285,11 +284,11 @@
                                                                     </connections>
                                                                 </tableCellView>
                                                                 <tableCellView identifier="DisabledFormatCell" id="cWa-bG-vg7">
-                                                                    <rect key="frame" x="533" y="20" width="155" height="17"/>
+                                                                    <rect key="frame" x="543" y="20" width="145" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zF5-nA-gdc">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="155" height="17"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="145" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Do not localize" id="B0B-3e-m7b">
                                                                                 <font key="font" metaFont="system"/>
@@ -539,7 +538,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="17"/>
             </connections>
-            <point key="canvasLocation" x="327" y="-419"/>
+            <point key="canvasLocation" x="180" y="-438"/>
         </window>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="100175" userLabel="Saving">

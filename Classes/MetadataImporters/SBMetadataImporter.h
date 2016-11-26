@@ -10,47 +10,55 @@
 #import "SBMetadataHelper.h"
 #import "SBMetadataResult.h"
 
-@class MP42Metadata;
-
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SBMetadataImporter : NSObject {
-@private
-    BOOL _isCancelled;
-}
+typedef NS_ENUM(NSUInteger, SBMetadataImporterLanguageType) {
+    SBMetadataImporterLanguageTypeISO,
+    SBMetadataImporterLanguageTypeCustom,
+};
+
+@interface SBMetadataImporter : NSObject
 
 #pragma mark Class methods
-+ (NSArray<NSString *> *) movieProviders;
-+ (NSArray<NSString *> *) tvProviders;
-+ (NSArray<NSString *> *) languagesForProvider:(NSString *)aProvider;
-+ (nullable instancetype) importerForProvider:(NSString *)aProviderName;
-+ (instancetype) defaultMovieProvider;
-+ (instancetype) defaultTVProvider;
-+ (NSString *) defaultMovieLanguage;
-+ (NSString *) defaultTVLanguage;
+@property (nonatomic, class, readonly) NSArray<NSString *> *movieProviders;
+@property (nonatomic, class, readonly) NSArray<NSString *> *tvProviders;
 
-+ (NSString *) defaultLanguageForProvider:(NSString *)provider;
++ (NSArray<NSString *> *)languagesForProvider:(NSString *)providerName;
++ (SBMetadataImporterLanguageType)languageTypeForProvider:(NSString *)providerName;
++ (nullable instancetype)importerForProvider:(NSString *)providerName;
 
-#pragma mark Asynchronous searching
-- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage completionHandler:(void(^)(NSArray<SBMetadataResult *> * _Nullable results))handler;
-- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum completionHandler:(void(^)(NSArray<SBMetadataResult *> * _Nullable results))handler;
+@property (nonatomic, class, readonly) SBMetadataImporter *defaultMovieProvider;
+@property (nonatomic, class, readonly) SBMetadataImporter *defaultTVProvider;
 
-- (void) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage completionHandler:(void(^)(NSArray<SBMetadataResult *> * _Nullable results))handler;
+@property (nonatomic, class, readonly) NSString *defaultMovieLanguage;
+@property (nonatomic, class, readonly) NSString *defaultTVLanguage;
 
-- (void) loadFullMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage completionHandler:(void(^)(SBMetadataResult * _Nullable metadata))handler;
++ (NSString *)defaultLanguageForProvider:(NSString *)providerName;
 
-- (void) cancel;
+#pragma mark - Asynchronous searching
 
-#pragma mark Methods to be overridden
-@property (nonatomic, readonly, copy) NSArray<NSString *> * _Nonnull languages;
+- (void)searchTVSeries:(NSString *)series language:(NSString *)language completionHandler:(void(^)(NSArray<SBMetadataResult *> * _Nullable results))handler;
+- (void)searchTVSeries:(NSString *)series language:(NSString *)language seasonNum:(NSString *)seasonNum episodeNum:(NSString *)episodeNum completionHandler:(void(^)(NSArray<SBMetadataResult *> * _Nullable results))handler;
 
-- (NSArray<SBMetadataResult *> *) searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage;
-- (NSArray<SBMetadataResult *> *) searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(nullable NSString *)aSeasonNum episodeNum:(nullable NSString *)aEpisodeNum;
+- (void)searchMovie:(NSString *)title language:(NSString *)language completionHandler:(void(^)(NSArray<SBMetadataResult *> * _Nullable results))handler;
 
-- (NSArray<SBMetadataResult *> *) searchMovie:(NSString *)aMovieTitle language:(NSString *)aLanguage;
+- (void)loadFullMetadata:(SBMetadataResult *)metadata language:(NSString *)language completionHandler:(void(^)(SBMetadataResult * _Nullable metadata))handler;
 
-- (nullable SBMetadataResult *) loadTVMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage;
-- (nullable SBMetadataResult *) loadMovieMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage;
+- (void)cancel;
+
+#pragma mark - Methods to be overridden
+
+@property (nonatomic, readonly) SBMetadataImporterLanguageType languageType;
+
+@property (nonatomic, readonly, copy) NSArray<NSString *> *languages;
+
+- (NSArray<SBMetadataResult *> *)searchTVSeries:(NSString *)seriesName language:(NSString *)language;
+- (NSArray<SBMetadataResult *> *)searchTVSeries:(NSString *)seriesName language:(NSString *)language seasonNum:(nullable NSString *)seasonNum episodeNum:(nullable NSString *)episodeNum;
+
+- (NSArray<SBMetadataResult *> *)searchMovie:(NSString *)title language:(NSString *)language;
+
+- (nullable SBMetadataResult *)loadTVMetadata:(SBMetadataResult *)metadata language:(NSString *)language;
+- (nullable SBMetadataResult *)loadMovieMetadata:(SBMetadataResult *)metadata language:(NSString *)language;
 
 @end
 

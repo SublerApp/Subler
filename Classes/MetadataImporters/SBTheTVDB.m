@@ -32,10 +32,11 @@ static NSArray<NSString *> *TVDBlanguages;
             NSMutableArray<NSString *> *languagesResult = [NSMutableArray array];
 
             if ([languagesArray isKindOfClass:[NSArray class]] && languagesArray.count) {
+                MP42Languages *langManager = MP42Languages.defaultManager;
                 for (NSDictionary *language in languagesArray) {
                     NSString *lang = [language valueForKeyPath:@"abbreviation.text"];
                     if (lang && [lang isKindOfClass:[NSString class]]) {
-                        [languagesResult addObject:[MP42Languages langForISO_639_1Code:lang]];
+                        [languagesResult addObject:[langManager extendedTagForISO_639_1:lang]];
                     }
                 }
             }
@@ -48,6 +49,11 @@ static NSArray<NSString *> *TVDBlanguages;
 - (NSArray<NSString *> *)languages
 {
     return TVDBlanguages;
+}
+
+- (SBMetadataImporterLanguageType)languageType
+{
+    return SBMetadataImporterLanguageTypeISO;
 }
 
 - (NSArray<SBMetadataResult *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage
@@ -70,7 +76,7 @@ static NSArray<NSString *> *TVDBlanguages;
 
 - (NSArray<SBMetadataResult *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum
 {
-	NSString *lang = [MP42Languages ISO_639_1CodeForLang:aLanguage];
+	NSString *lang = aLanguage;
     if (!lang) { lang = @"en"; }
 
 	// search for series

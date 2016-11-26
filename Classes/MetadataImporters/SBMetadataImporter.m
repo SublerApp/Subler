@@ -22,8 +22,6 @@
 
 @implementation SBMetadataImporter
 
-@synthesize isCancelled = _isCancelled;
-
 #pragma mark Class methods
 
 + (NSArray<NSString *> *)movieProviders {
@@ -33,10 +31,12 @@
     return @[@"TheTVDB", @"iTunes Store"];
 }
 
-+ (NSArray<NSString *> *)languagesForProvider:(NSString *)aProvider {
-	SBMetadataImporter *m = [SBMetadataImporter importerForProvider:aProvider];
-	NSArray *a = [m languages];
-	return a;
++ (NSArray<NSString *> *)languagesForProvider:(NSString *)providerName {
+	return [SBMetadataImporter importerForProvider:providerName].languages;
+}
+
++ (SBMetadataImporterLanguageType)languageTypeForProvider:(NSString *)providerName {
+    return [SBMetadataImporter importerForProvider:providerName].languageType;
 }
 
 + (nullable instancetype)importerForProvider:(NSString *)aProvider {
@@ -132,6 +132,12 @@
 }
 
 #pragma mark Methods to be overridden
+
+- (SBMetadataImporterLanguageType)languageType {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
+                                 userInfo:nil];
+}
 
 - (NSArray<NSString *> *) languages {
 	@throw [NSException exceptionWithName:NSInternalInconsistencyException

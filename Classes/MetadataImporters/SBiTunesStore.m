@@ -34,6 +34,11 @@
 	return results;
 }
 
+- (SBMetadataImporterLanguageType)languageType
+{
+    return SBMetadataImporterLanguageTypeCustom;
+}
+
 + (NSDictionary *)getStoreFor:(NSString *)aLanguageString
 {
 	NSString *iTunesStoresJSON = [[NSBundle mainBundle] pathForResource:@"iTunesStores" ofType:@"json"];

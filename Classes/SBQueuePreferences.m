@@ -67,7 +67,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{ SBQueueFileType : @"mp4",
                                                                SBQueueOrganize : @YES,
                                                                SBQueueFixTrackLanguage: @NO,
-                                                               SBQueueFixTrackLanguageValue: @"English",
+                                                               SBQueueFixTrackLanguageValue: @"en",
                                                                SBQueueFixFallbacks: @NO,
                                                                SBQueueClearTrackName: @NO,
                                                                SBQueueMetadata : @NO,
@@ -79,8 +79,8 @@ NSString * const SBQueueSet = @"SBQueueSet";
 
                                                                SBQueueMovieProvider : @"TheMovieDB",
                                                                SBQueueTVShowProvider : @"TheTVDB",
-                                                               SBQueueMovieProviderLanguage : @"English",
-                                                               SBQueueTVShowProviderLanguage : @"English",
+                                                               SBQueueMovieProviderLanguage : @"en",
+                                                               SBQueueTVShowProviderLanguage : @"en",
                                                                SBQueueProviderArtwork : @0}];
 }
 

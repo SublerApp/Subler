@@ -12,7 +12,7 @@
 #import "SBFileImport.h"
 #import "SBTableView.h"
 #import "SBCheckBoxCellView.h"
-#import "SBComboBoxCellView.h"
+#import "SBPopUpCellView.h"
 
 #import "SBEmptyViewController.h"
 #import "SBMovieViewController.h"
@@ -83,13 +83,18 @@
     return @"SBDocument";
 }
 
-static NSArray<NSString *> *_languages;
+static NSMenu *_languagesMenu;
 static NSDictionary *_detailMonospacedAttr;
 
 + (void)initialize
 {
     if (self == [SBDocument class]) {
-        _languages = [[MP42Languages defaultManager] localizedLanguages];
+        _languagesMenu = [[NSMenu alloc] init];
+        _languagesMenu.autoenablesItems = NO;
+
+        for (NSString *title in MP42Languages.defaultManager.localizedExtendedLanguages) {
+            [_languagesMenu addItemWithTitle:title action:NULL keyEquivalent:@""];
+        }
 
         if ([[NSFont class] respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)]) {
             NSFont *font = [NSFont monospacedDigitSystemFontOfSize:[NSFont systemFontSize] weight:NSFontWeightRegular];
@@ -572,9 +577,13 @@ static NSDictionary *_detailMonospacedAttr;
                 }
             }
             else if ([tableColumn.identifier isEqualToString:@"trackLanguage"]) {
-                SBComboBoxCellView *comboCell = [tableView makeViewWithIdentifier:@"ComboCell" owner:self];
-                comboCell.comboBox.stringValue = [MP42Languages.defaultManager localizedLangForISO_639_2Code:track.language];
-                cell = comboCell;
+                SBPopUpCellView *popUpCell = [tableView makeViewWithIdentifier:@"PopUpCell" owner:self];
+
+                if (popUpCell.popUpButton.numberOfItems == 0) {
+                    popUpCell.popUpButton.menu = [_languagesMenu copy];
+                }
+                [popUpCell.popUpButton selectItemWithTitle:[MP42Languages.defaultManager localizedLangForExtendedTag:track.language]];
+                cell = popUpCell;
             }
         }
     }
@@ -645,10 +654,12 @@ static NSDictionary *_detailMonospacedAttr;
     }
 }
 
-- (IBAction)setTrackLanguage:(NSComboBox *)sender {
+- (IBAction)setTrackLanguage:(NSPopUpButton *)sender {
     NSInteger row = [self.tracksTable rowForView:sender];
     MP42Track *track = [self trackAtAtTableRow:row];
-    NSString *language = [MP42Languages.defaultManager ISO_639_2CodeForLocalizedLang:sender.stringValue];
+
+    NSString *localizedLanguage = [MP42Languages.defaultManager.localizedExtendedLanguages objectAtIndex:sender.indexOfSelectedItem];
+    NSString *language = [MP42Languages.defaultManager extendedTagForLocalizedLang:localizedLanguage];
 
     if (track && ![language isEqualToString:track.language]) {
         track.language = language;
@@ -773,23 +784,6 @@ static NSDictionary *_detailMonospacedAttr;
 - (BOOL)canDragRowsWithIndexes:(NSIndexSet *)rowIndexes atPoint:(NSPoint)mouseDownPoint
 {
     return YES;
-}
-
-#pragma mark - NSComboBox dataSource
-
-- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)comboBox
-{
-    return _languages.count;
-}
-
-- (nullable id)comboBox:(NSComboBox *)comboBox objectValueForItemAtIndex:(NSInteger)index
-{
-    return _languages[index];
-}
-
-- (NSUInteger)comboBox:(NSComboBox *)comboBox indexOfItemWithStringValue:(NSString *)string
-{
-    return [_languages indexOfObject:string];
 }
 
 #pragma mark - Various things

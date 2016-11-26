@@ -55,7 +55,7 @@
                 NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ - %@ - %@",
                                                                           fileTrack.trackId ? [NSString stringWithFormat:@"%d", fileTrack.trackId] : @"na",
                                                                           fileTrack.name,
-                                                                          [MP42Languages.defaultManager localizedLangForISO_639_2Code:fileTrack.language]]
+                                                                          [MP42Languages.defaultManager localizedLangForExtendedTag:fileTrack.language]]
                                                                   action:@selector(setFallbackTrack:)
                                                            keyEquivalent:@""];
                 newItem.target = self;
@@ -85,7 +85,7 @@
         NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ - %@ - %@",
                                                                   fileTrack.trackId ? [NSString stringWithFormat:@"%d", fileTrack.trackId] : @"na",
                                                                   fileTrack.name,
-                                                                  [MP42Languages.defaultManager localizedLangForISO_639_2Code:fileTrack.language]]
+                                                                  [MP42Languages.defaultManager localizedLangForExtendedTag:fileTrack.language]]
                                                           action:@selector(setFollowsTrack:)
                                                    keyEquivalent:@""];
         newItem.target = self;
