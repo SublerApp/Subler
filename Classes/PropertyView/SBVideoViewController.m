@@ -20,6 +20,11 @@
 @property (nonatomic, strong) IBOutlet NSView *profileView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *profileHeight;
 
+@property (nonatomic, strong) IBOutlet NSView *colorView;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *colorHeight;
+
+@property (nonatomic, weak) IBOutlet NSPopUpButton *colorProfilePopUp;
+
 @end
 
 @implementation SBVideoViewController
@@ -102,6 +107,27 @@ static NSString *getLevelName(uint8_t level) {
     }
 }
 
+static NSString *getColorProfileName(uint16_t colorPrimaries,
+                                     uint16_t transferCharacteristics,
+                                     uint16_t matrixCoefficients) {
+    if (colorPrimaries == 0 && transferCharacteristics == 0 && matrixCoefficients == 0) {
+        return NSLocalizedString(@"Implicit", @"Implicit color profile");
+    }
+    else if (colorPrimaries == 1 && transferCharacteristics == 1 && matrixCoefficients == 1) {
+        return NSLocalizedString(@"Rec. 709 (1-1-1)", @"Implicit color profile");
+    }
+    else if (colorPrimaries == 9 && transferCharacteristics == 1 && matrixCoefficients == 9) {
+        return NSLocalizedString(@"Rec. 2020 (9-1-9)", @"color profile");
+    }
+    if (colorPrimaries == 5 && transferCharacteristics == 1 && matrixCoefficients == 6) {
+        return NSLocalizedString(@"Rec. 601 (5-1-6)", @"color profile");
+    }
+    if (colorPrimaries == 6 && transferCharacteristics == 1 && matrixCoefficients == 6) {
+        return NSLocalizedString(@"Rec. 601 (6-1-6)", @"color profile");
+    }
+    return [NSString stringWithFormat:@"%d-%d-%d", colorPrimaries, transferCharacteristics, matrixCoefficients];
+}
+
 - (void)loadView
 {
     [super loadView];
@@ -146,6 +172,21 @@ static NSString *getLevelName(uint8_t level) {
     } else {
         self.profileView.hidden = YES;
         self.profileHeight.constant = 0;
+    }
+
+    if (track.format == kMP42VideoCodecType_H264 || track.format == kMP42VideoCodecType_MPEG4Video ||
+        track.format == kMP42VideoCodecType_HEVC || track.format == kMP42VideoCodecType_HEVC_2) {
+        NSString *colorProfile = getColorProfileName(track.colorPrimaries, track.transferCharacteristics, track.matrixCoefficients);
+        [self.colorProfilePopUp selectItemWithTitle:colorProfile];
+
+        if (self.colorProfilePopUp.indexOfSelectedItem == -1) {
+            [self.colorProfilePopUp addItemWithTitle:colorProfile];
+            [self.colorProfilePopUp selectItemWithTitle:colorProfile];
+        }
+    }
+    else {
+        self.colorView.hidden = YES;
+        self.colorHeight.constant = 0;
     }
 
     if ([track isKindOfClass:[MP42SubtitleTrack class]]) {
@@ -263,7 +304,6 @@ static NSString *getLevelName(uint8_t level) {
     }
 }
 
-
 - (IBAction)setAltenateGroup:(id)sender
 {
     NSInteger tagName = [sender selectedItem].tag;
@@ -272,6 +312,42 @@ static NSString *getLevelName(uint8_t level) {
         track.alternate_group = tagName;
         [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
+}
+
+- (IBAction)setColorProfile:(id)sender
+{
+    NSInteger tagName = [sender selectedItem].tag;
+    switch (tagName) {
+        case 1:
+            track.colorPrimaries = 0;
+            track.transferCharacteristics = 0;
+            track.matrixCoefficients = 0;
+            break;
+        case 2:
+            track.colorPrimaries = 5;
+            track.transferCharacteristics = 1;
+            track.matrixCoefficients = 6;
+            break;
+        case 3:
+            track.colorPrimaries = 6;
+            track.transferCharacteristics = 1;
+            track.matrixCoefficients = 6;
+            break;
+        case 4:
+            track.colorPrimaries = 1;
+            track.transferCharacteristics = 1;
+            track.matrixCoefficients = 1;
+            break;
+        case 5:
+            track.colorPrimaries = 9;
+            track.transferCharacteristics = 1;
+            track.matrixCoefficients = 9;
+            break;
+        default:
+            return;
+    }
+
+    [self.view.window.windowController.document updateChangeCount:NSChangeDone];
 }
 
 - (IBAction)setProfileLevel:(id)sender
