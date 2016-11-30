@@ -112,11 +112,6 @@ static NSArray<NSArray *> *_mediaKinds;
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-    [_artworksView setDelegate:nil];
-    [_artworksView setDataSource:nil];
-    [_metadataTableView setDelegate:nil];
-    [_metadataTableView setDataSource:nil];
 }
 
 - (void)setMetadata:(MP42Metadata *)metadata
