@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11761" systemVersion="16C48b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11761" systemVersion="16C53a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11761"/>
@@ -44,11 +44,11 @@
                     <tabViewItems>
                         <tabViewItem label="Visual Settings" identifier="1" id="6">
                             <view key="view" id="9">
-                                <rect key="frame" x="10" y="29" width="609" height="441"/>
+                                <rect key="frame" x="10" y="25" width="609" height="445"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Drh-uk-1vk">
-                                        <rect key="frame" x="87" y="62" width="436" height="329"/>
+                                        <rect key="frame" x="87" y="64" width="436" height="329"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ifV-jn-Kjv">
                                                 <rect key="frame" x="234" y="231" width="50" height="19"/>
@@ -382,6 +382,50 @@
                                                     <constraint firstAttribute="bottom" secondItem="UUe-4D-UhO" secondAttribute="bottom" priority="750" constant="2" id="lvC-Nh-Tvx"/>
                                                 </constraints>
                                             </customView>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="fPE-Ll-kGD" userLabel="Color">
+                                                <rect key="frame" x="0.0" y="92" width="436" height="24"/>
+                                                <subviews>
+                                                    <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="xfb-DL-1Pr">
+                                                        <rect key="frame" x="18" y="6" width="141" height="14"/>
+                                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Color Profile:" id="BZv-h3-OMk">
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RpH-28-y5s">
+                                                        <rect key="frame" x="161" y="1" width="196" height="22"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="190" id="8ks-py-KoB"/>
+                                                        </constraints>
+                                                        <popUpButtonCell key="cell" type="push" title="Implicit" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="6PY-Np-Y3s" id="G6U-LQ-v4b">
+                                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <menu key="menu" title="OtherViews" id="7qj-VS-hv7">
+                                                                <items>
+                                                                    <menuItem title="Implicit" state="on" tag="1" id="6PY-Np-Y3s"/>
+                                                                    <menuItem title="Rec. 601 (5-1-6)" tag="2" id="X7B-de-Yur"/>
+                                                                    <menuItem title="Rec. 601 (6-1-6)" tag="3" id="XQd-tC-sVM"/>
+                                                                    <menuItem title="Rec. 709 (1-1-1)" tag="4" id="bc1-gr-6m9"/>
+                                                                    <menuItem title="Rec. 2020 (9-1-9)" tag="5" id="8V9-Sh-Mnu"/>
+                                                                </items>
+                                                            </menu>
+                                                        </popUpButtonCell>
+                                                        <connections>
+                                                            <accessibilityConnection property="title" destination="xfb-DL-1Pr" id="OIM-4J-sWM"/>
+                                                            <action selector="setColorProfile:" target="-2" id="xtd-k4-x1K"/>
+                                                        </connections>
+                                                    </popUpButton>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="xfb-DL-1Pr" firstAttribute="baseline" secondItem="RpH-28-y5s" secondAttribute="baseline" id="Iju-gY-9gk"/>
+                                                    <constraint firstItem="xfb-DL-1Pr" firstAttribute="leading" secondItem="fPE-Ll-kGD" secondAttribute="leading" constant="20" id="VxC-5Y-lig"/>
+                                                    <constraint firstItem="RpH-28-y5s" firstAttribute="leading" secondItem="xfb-DL-1Pr" secondAttribute="trailing" constant="7" id="X4k-a1-rWN"/>
+                                                    <constraint firstAttribute="height" constant="24" id="bGo-Zw-z0j"/>
+                                                    <constraint firstItem="RpH-28-y5s" firstAttribute="top" secondItem="fPE-Ll-kGD" secondAttribute="top" constant="2" id="e4p-EI-tyE"/>
+                                                    <constraint firstItem="xfb-DL-1Pr" firstAttribute="top" secondItem="fPE-Ll-kGD" secondAttribute="top" constant="4" id="tP0-Rz-Zo6"/>
+                                                </constraints>
+                                            </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="7i2-3m-yRg" userLabel="H.264 Profile">
                                                 <rect key="frame" x="0.0" y="0.0" width="436" height="91"/>
                                                 <subviews>
@@ -447,49 +491,6 @@
                                                     <constraint firstItem="oWm-9L-JdB" firstAttribute="top" secondItem="b24-td-FnZ" secondAttribute="bottom" constant="7" id="x2E-Ba-97B"/>
                                                 </constraints>
                                             </customView>
-                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="fPE-Ll-kGD" userLabel="Color">
-                                                <rect key="frame" x="0.0" y="92" width="436" height="24"/>
-                                                <subviews>
-                                                    <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="xfb-DL-1Pr">
-                                                        <rect key="frame" x="18" y="6" width="141" height="14"/>
-                                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Color Profile:" id="BZv-h3-OMk">
-                                                            <font key="font" metaFont="smallSystem"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RpH-28-y5s">
-                                                        <rect key="frame" x="161" y="1" width="196" height="22"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="190" id="8ks-py-KoB"/>
-                                                        </constraints>
-                                                        <popUpButtonCell key="cell" type="push" title="Implicit" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="6PY-Np-Y3s" id="G6U-LQ-v4b">
-                                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="smallSystem"/>
-                                                            <menu key="menu" title="OtherViews" id="7qj-VS-hv7">
-                                                                <items>
-                                                                    <menuItem title="Implicit" state="on" tag="1" id="6PY-Np-Y3s"/>
-                                                                    <menuItem title="Rec. 601 (5-1-6)" tag="2" id="X7B-de-Yur"/>
-                                                                    <menuItem title="Rec. 601 (6-1-6)" tag="3" id="XQd-tC-sVM"/>
-                                                                    <menuItem title="Rec. 709 (1-1-1)" tag="4" id="bc1-gr-6m9"/>
-                                                                    <menuItem title="Rec. 2020 (9-1-9)" tag="5" id="8V9-Sh-Mnu"/>
-                                                                </items>
-                                                            </menu>
-                                                        </popUpButtonCell>
-                                                        <connections>
-                                                            <accessibilityConnection property="title" destination="xfb-DL-1Pr" id="OIM-4J-sWM"/>
-                                                            <action selector="setColorProfile:" target="-2" id="xtd-k4-x1K"/>
-                                                        </connections>
-                                                    </popUpButton>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="xfb-DL-1Pr" firstAttribute="baseline" secondItem="RpH-28-y5s" secondAttribute="baseline" id="Iju-gY-9gk"/>
-                                                    <constraint firstItem="xfb-DL-1Pr" firstAttribute="leading" secondItem="fPE-Ll-kGD" secondAttribute="leading" constant="20" id="VxC-5Y-lig"/>
-                                                    <constraint firstItem="RpH-28-y5s" firstAttribute="leading" secondItem="xfb-DL-1Pr" secondAttribute="trailing" constant="7" id="X4k-a1-rWN"/>
-                                                    <constraint firstAttribute="height" constant="24" id="bGo-Zw-z0j"/>
-                                                    <constraint firstItem="RpH-28-y5s" firstAttribute="top" secondItem="fPE-Ll-kGD" secondAttribute="top" constant="2" id="e4p-EI-tyE"/>
-                                                </constraints>
-                                            </customView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="aqN-Ac-8cl" firstAttribute="leading" secondItem="YOz-mZ-420" secondAttribute="trailing" constant="9" id="11h-n5-htr"/>
@@ -509,6 +510,7 @@
                                             <constraint firstItem="xfb-DL-1Pr" firstAttribute="width" secondItem="hz3-IH-Nfw" secondAttribute="width" id="Eef-qR-Apl"/>
                                             <constraint firstItem="z7f-vJ-7sb" firstAttribute="leading" secondItem="Drh-uk-1vk" secondAttribute="leading" id="Ekx-Yn-I8N"/>
                                             <constraint firstItem="r90-c5-7PH" firstAttribute="baseline" secondItem="jJB-Ty-mki" secondAttribute="baseline" id="FKg-hq-zjy"/>
+                                            <constraint firstItem="z7f-vJ-7sb" firstAttribute="top" secondItem="8uz-fA-OM4" secondAttribute="bottom" constant="7" id="Isy-Vg-xTK"/>
                                             <constraint firstItem="YOz-mZ-420" firstAttribute="leading" secondItem="QID-3k-PHK" secondAttribute="trailing" constant="9" id="JWh-AO-xMm"/>
                                             <constraint firstItem="HtH-F7-8Bv" firstAttribute="leading" secondItem="Drh-uk-1vk" secondAttribute="leading" constant="20" symbolic="YES" id="K7w-50-w46"/>
                                             <constraint firstItem="QID-3k-PHK" firstAttribute="leading" secondItem="Hh2-MV-toy" secondAttribute="trailing" constant="9" id="K8X-pW-UOT"/>
@@ -518,6 +520,7 @@
                                             <constraint firstItem="TpJ-5s-UzF" firstAttribute="top" secondItem="r90-c5-7PH" secondAttribute="bottom" constant="7" id="Nbx-r8-ijq"/>
                                             <constraint firstItem="lQe-jX-iRS" firstAttribute="baseline" secondItem="qFL-0W-Ye6" secondAttribute="baseline" id="O6Y-n2-oLt"/>
                                             <constraint firstItem="drr-hJ-0St" firstAttribute="leading" secondItem="qFL-0W-Ye6" secondAttribute="trailing" constant="7" id="Oaz-Ti-KQT"/>
+                                            <constraint firstItem="xfb-DL-1Pr" firstAttribute="trailing" secondItem="hz3-IH-Nfw" secondAttribute="trailing" id="Pjd-aM-465"/>
                                             <constraint firstItem="ifV-jn-Kjv" firstAttribute="leading" secondItem="j7N-eK-BGR" secondAttribute="trailing" constant="7" id="QG7-WT-cAH"/>
                                             <constraint firstAttribute="trailing" secondItem="z7f-vJ-7sb" secondAttribute="trailing" id="QId-nr-qRM"/>
                                             <constraint firstItem="n9M-HO-S4Z" firstAttribute="leading" secondItem="jJB-Ty-mki" secondAttribute="trailing" constant="7" id="RB1-J6-YDb"/>
@@ -532,12 +535,10 @@
                                             <constraint firstItem="8uz-fA-OM4" firstAttribute="baseline" secondItem="HtH-F7-8Bv" secondAttribute="baseline" id="eHj-Dk-6A4"/>
                                             <constraint firstItem="fPE-Ll-kGD" firstAttribute="leading" secondItem="Drh-uk-1vk" secondAttribute="leading" id="fCn-M4-mt8"/>
                                             <constraint firstItem="Hh2-MV-toy" firstAttribute="leading" secondItem="hz3-IH-Nfw" secondAttribute="trailing" constant="9" id="fRq-pV-4k0"/>
-                                            <constraint firstItem="xfb-DL-1Pr" firstAttribute="trailing" secondItem="hz3-IH-Nfw" secondAttribute="trailing" id="fbX-g7-hjE"/>
                                             <constraint firstItem="hz3-IH-Nfw" firstAttribute="top" secondItem="Drh-uk-1vk" secondAttribute="top" constant="10" id="fiz-oE-I7x"/>
-                                            <constraint firstItem="z7f-vJ-7sb" firstAttribute="top" secondItem="8uz-fA-OM4" secondAttribute="bottom" constant="7" id="gqd-cE-CIb"/>
                                             <constraint firstItem="lQe-jX-iRS" firstAttribute="trailing" secondItem="HtH-F7-8Bv" secondAttribute="trailing" id="hFu-gA-2ND"/>
                                             <constraint firstItem="r90-c5-7PH" firstAttribute="leading" secondItem="AEE-SG-UWs" secondAttribute="trailing" constant="7" id="heD-Oy-4wk"/>
-                                            <constraint firstItem="7i2-3m-yRg" firstAttribute="top" secondItem="xfb-DL-1Pr" secondAttribute="bottom" constant="7" id="lMQ-xI-YMJ"/>
+                                            <constraint firstItem="7i2-3m-yRg" firstAttribute="top" secondItem="fPE-Ll-kGD" secondAttribute="bottom" constant="1" id="iM3-rk-vbC"/>
                                             <constraint firstItem="TpJ-5s-UzF" firstAttribute="leading" secondItem="r90-c5-7PH" secondAttribute="leading" id="lXn-63-WEe"/>
                                             <constraint firstAttribute="trailing" secondItem="7i2-3m-yRg" secondAttribute="trailing" id="lZk-Vr-4f6"/>
                                             <constraint firstItem="cbR-yR-H9l" firstAttribute="width" secondItem="hz3-IH-Nfw" secondAttribute="width" id="lsF-Sp-XDj"/>
@@ -565,7 +566,7 @@
                         </tabViewItem>
                         <tabViewItem label="Media Characteristics" identifier="" id="ZZa-lk-8Uv">
                             <view key="view" id="tAe-Bg-WmX">
-                                <rect key="frame" x="10" y="25" width="609" height="448"/>
+                                <rect key="frame" x="10" y="25" width="609" height="445"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </tabViewItem>
