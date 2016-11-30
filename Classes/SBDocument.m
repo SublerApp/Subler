@@ -583,6 +583,10 @@ static NSDictionary *_detailMonospacedAttr;
                     popUpCell.popUpButton.menu = [_languagesMenu copy];
                 }
                 [popUpCell.popUpButton selectItemWithTitle:[MP42Languages.defaultManager localizedLangForExtendedTag:track.language]];
+                if (popUpCell.popUpButton.indexOfSelectedItem == -1) {
+                    [popUpCell.popUpButton addItemWithTitle:track.language];
+                    [popUpCell.popUpButton selectItemWithTitle:track.language];
+                }
                 cell = popUpCell;
             }
         }
