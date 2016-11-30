@@ -140,6 +140,36 @@
     return nil;
 }
 
+- (NSInteger)indexOfPreferredArtworkForType:(SBQueueMetadataActionPreferredArtwork)preferredType provider:(NSString *)provider artworks:(NSArray<NSString *> *)artworkProviderNames
+{
+    NSString *preferredTypeName = nil;
+
+    switch (preferredType) {
+        case SBQueueMetadataActionPreferredArtworkiTunes:
+            preferredTypeName = @"iTunes";
+            break;
+        case SBQueueMetadataActionPreferredArtworkEpisode:
+            preferredTypeName = [NSString stringWithFormat:@"%@|%@", provider, @"episode"];
+            break;
+        case SBQueueMetadataActionPreferredArtworkSeason:
+            preferredTypeName = [NSString stringWithFormat:@"%@|%@", provider, @"season"];
+            break;
+        default:
+            preferredTypeName = [NSString stringWithFormat:@"%@|%@", provider, @"poster"];
+            break;
+    }
+
+    NSUInteger index = 0;
+    for (NSString *name in artworkProviderNames) {
+        if ([name hasPrefix:preferredTypeName]) {
+            break;
+        }
+        index += 1;
+    }
+
+    return index == artworkProviderNames.count ? -1 : index;
+}
+
 - (MP42Metadata *)searchMetadataForFile:(NSURL *)url {
     id currentSearcher = nil;
     SBMetadataResult *metadata = nil;
@@ -170,31 +200,23 @@
     }
 
     if (metadata.artworkFullsizeURLs.count) {
-        NSURL *artworkURL = metadata.artworkFullsizeURLs.firstObject;
-        NSString *preferredArtworkType = nil;
+        NSURL *artworkURL = nil;
+        NSInteger index = [self indexOfPreferredArtworkForType:_preferredArtwork
+                                                       provider:provider
+                                                       artworks:metadata.artworkProviderNames];
 
-        switch (_preferredArtwork) {
-            case SBQueueMetadataActionPreferredArtworkiTunes:
-                preferredArtworkType = @"iTunes";
-                break;
-            case SBQueueMetadataActionPreferredArtworkEpisode:
-                preferredArtworkType = [NSString stringWithFormat:@"%@|%@", provider, @"episode"];
-                break;
-            case SBQueueMetadataActionPreferredArtworkSeason:
-                preferredArtworkType = [NSString stringWithFormat:@"%@|%@", provider, @"season"];
-                break;
-            default:
-                preferredArtworkType = [NSString stringWithFormat:@"%@|%@", provider, @"poster"];
-                break;
+        // Fallback to the poster if type is tv
+        if (index == -1 && [@"tv" isEqualToString:type]) {
+            index = [self indexOfPreferredArtworkForType:SBQueueMetadataActionPreferredArtworkDefault
+                                                provider:provider
+                                                artworks:metadata.artworkProviderNames];
         }
 
-        NSUInteger index = 0;
-        for (NSString *name in metadata.artworkProviderNames) {
-            if ([name hasPrefix:preferredArtworkType]) {
-                artworkURL = metadata.artworkFullsizeURLs[index];
-                break;
-            }
-            index += 1;
+        if (index > -1) {
+            artworkURL = metadata.artworkFullsizeURLs[index];
+        }
+        else {
+            artworkURL = metadata.artworkFullsizeURLs.firstObject;
         }
 
         MP42Image *artwork = [self loadArtwork:artworkURL];
