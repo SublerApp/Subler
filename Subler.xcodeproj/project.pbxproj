@@ -40,6 +40,7 @@
 		A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A984DB730F52DD4B001A20B2 /* dsa_pub.pem */; };
 		A998DABF1BA54CFF004D7969 /* SBMediaTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */; };
 		A99EEA3F12B801AE002367D3 /* SBDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AC012B79E230040517A /* SBDocument.xib */; };
+		A9A0542E1DEEC3E000D1AFA4 /* SBLanguageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A0542D1DEEC3E000D1AFA4 /* SBLanguageTransformer.m */; };
 		A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */; };
 		A9AB485417F0AEAC000AA72E /* SBChapterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484B17F0AEAC000AA72E /* SBChapterViewController.m */; };
 		A9AB485517F0AEAC000AA72E /* SBEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484D17F0AEAC000AA72E /* SBEmptyViewController.m */; };
@@ -225,6 +226,8 @@
 		A984DB730F52DD4B001A20B2 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		A991319913F0615700DCAA12 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A991319B13F0668300DCAA12 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		A9A0542C1DEEC3E000D1AFA4 /* SBLanguageTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBLanguageTransformer.h; path = Classes/SBLanguageTransformer.h; sourceTree = "<group>"; };
+		A9A0542D1DEEC3E000D1AFA4 /* SBLanguageTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLanguageTransformer.m; path = Classes/SBLanguageTransformer.m; sourceTree = "<group>"; };
 		A9AB484717F0AEA2000AA72E /* SBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBAppDelegate.h; path = Classes/SBAppDelegate.h; sourceTree = "<group>"; };
 		A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBAppDelegate.m; path = Classes/SBAppDelegate.m; sourceTree = "<group>"; };
 		A9AB484A17F0AEAC000AA72E /* SBChapterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterViewController.h; path = Classes/PropertyView/SBChapterViewController.h; sourceTree = "<group>"; };
@@ -571,6 +574,8 @@
 				A9C828F4195950C3004C4718 /* SBQueuePreferences.m */,
 				A9EEA5EF18D65490008B54B4 /* SBOptionsViewController.h */,
 				A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */,
+				A9A0542C1DEEC3E000D1AFA4 /* SBLanguageTransformer.h */,
+				A9A0542D1DEEC3E000D1AFA4 /* SBLanguageTransformer.m */,
 				A9BC410118D9AB8700F8C92C /* SBItemViewController.h */,
 				A9BC410218D9AB8700F8C92C /* SBItemViewController.m */,
 				A9D73C5018BF3F1100C6FFA6 /* SBQueue.h */,
@@ -920,6 +925,7 @@
 				CD03087917576AE50093A0BE /* SBMetadataImporter.m in Sources */,
 				CD3F2A881761A143000D4C73 /* XMLReader.m in Sources */,
 				A9AB485517F0AEAC000AA72E /* SBEmptyViewController.m in Sources */,
+				A9A0542E1DEEC3E000D1AFA4 /* SBLanguageTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

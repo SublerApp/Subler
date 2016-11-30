@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11761" systemVersion="16C48b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11761" systemVersion="16C53a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11761"/>
@@ -306,9 +306,10 @@
                     </popUpButtonCell>
                     <connections>
                         <accessibilityConnection property="title" destination="BWL-Nn-iGH" id="JXO-cc-nzq"/>
-                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueTVShowProviderLanguage" previousBinding="aF7-XO-EMK" id="8zl-Qa-wBq">
+                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueTVShowProviderLanguage" previousBinding="aF7-XO-EMK" id="8X6-cZ-U2V">
                             <dictionary key="options">
                                 <bool key="NSValidatesImmediately" value="YES"/>
+                                <string key="NSValueTransformerName">SBLanguageTransformer</string>
                             </dictionary>
                         </binding>
                         <binding destination="-2" name="enabled" keyPath="self.options.SBQueueMetadata" id="P1S-72-eFU"/>
@@ -341,9 +342,10 @@
                     </popUpButtonCell>
                     <connections>
                         <accessibilityConnection property="title" destination="73q-gi-fe2" id="ip8-cv-5qY"/>
-                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueMovieProviderLanguage" previousBinding="3w0-jj-Nkk" id="I8g-ge-lPH">
+                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueMovieProviderLanguage" previousBinding="3w0-jj-Nkk" id="Zri-JY-c6Z">
                             <dictionary key="options">
                                 <bool key="NSValidatesImmediately" value="YES"/>
+                                <string key="NSValueTransformerName">SBLanguageTransformer</string>
                             </dictionary>
                         </binding>
                         <binding destination="-2" name="content" keyPath="self.movieLanguages" id="3w0-jj-Nkk">
@@ -407,9 +409,10 @@
                     </popUpButtonCell>
                     <connections>
                         <accessibilityConnection property="title" destination="swT-iM-shZ" id="WOm-Jt-xnu"/>
-                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueFixTrackLanguageValue" previousBinding="Xnw-Nt-5dZ" id="eg8-T5-jSl">
+                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueFixTrackLanguageValue" previousBinding="Xnw-Nt-5dZ" id="f5f-5X-yeg">
                             <dictionary key="options">
                                 <bool key="NSValidatesImmediately" value="YES"/>
+                                <string key="NSValueTransformerName">SBLanguageTransformer</string>
                             </dictionary>
                         </binding>
                         <binding destination="-2" name="content" keyPath="self.languages" id="Xnw-Nt-5dZ">
@@ -452,12 +455,12 @@
                 </button>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="08Q-2k-0Gb">
                     <rect key="frame" x="183" y="271" width="109" height="17"/>
-                    <popUpButtonCell key="cell" type="roundRect" title="Provider Default" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="YjX-6f-SPu" id="1t8-o9-ckI">
+                    <popUpButtonCell key="cell" type="roundRect" title="Provider Default" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="YjX-6f-SPu" id="1t8-o9-ckI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                         <menu key="menu" title="OtherViews" id="0zS-9Z-m6I">
                             <items>
-                                <menuItem title="Provider Default" id="YjX-6f-SPu">
+                                <menuItem title="Provider Default" state="on" id="YjX-6f-SPu">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                                 <menuItem title="iTunes" tag="1" id="QR6-hq-GZL">
@@ -474,8 +477,8 @@
                     </popUpButtonCell>
                     <connections>
                         <accessibilityConnection property="title" destination="Ns9-7q-hsh" id="Ket-SC-hm0"/>
-                        <binding destination="-2" name="enabled" keyPath="self.options.SBQueueMetadata" id="Iqc-R5-L9d"/>
                         <binding destination="-2" name="selectedTag" keyPath="options.SBQueueProviderArtwork" id="P2I-s3-oH6"/>
+                        <binding destination="-2" name="enabled" keyPath="self.options.SBQueueMetadata" id="Iqc-R5-L9d"/>
                     </connections>
                 </popUpButton>
             </subviews>
@@ -566,7 +569,7 @@
                 <constraint firstItem="zEH-aV-Tl7" firstAttribute="top" secondItem="yI9-2a-q2a" secondAttribute="bottom" constant="6" id="yi7-mU-teZ"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ccd-Xn-Dj3" secondAttribute="trailing" constant="20" id="zrg-ax-2rw"/>
             </constraints>
-            <point key="canvasLocation" x="-328" y="-5"/>
+            <point key="canvasLocation" x="91" y="-1"/>
         </customView>
         <arrayController objectClassName="Set" automaticallyPreparesContent="YES" id="vyv-na-Xpo" userLabel="Set Controller">
             <declaredKeys>

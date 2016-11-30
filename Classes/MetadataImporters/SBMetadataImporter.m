@@ -74,7 +74,7 @@
     if ([provider isEqualToString:@"iTunes Store"]) {
         return @"USA (English)";
     } else {
-        return @"English";
+        return @"en";
     }
 }
 

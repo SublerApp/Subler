@@ -352,7 +352,13 @@
 		self.currentSearcher = [SBMetadataImporter importerForProvider:tvMetadataProvider.selectedItem.title];
     }
 
-    [self.currentSearcher loadFullMetadata:self.selectedResult language:movieLanguage.selectedItem.title completionHandler:^(SBMetadataResult *metadata) {
+    NSString *language = movieLanguage.selectedItem.title;
+
+    if (self.currentSearcher.languageType== SBMetadataImporterLanguageTypeISO) {
+        language = [MP42Languages.defaultManager extendedTagForLocalizedLang:language];
+    }
+
+    [self.currentSearcher loadFullMetadata:self.selectedResult language:language completionHandler:^(SBMetadataResult *metadata) {
         [self stopProgressReport];
 
         self.selectedResult = metadata;

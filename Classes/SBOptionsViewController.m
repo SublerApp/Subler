@@ -40,6 +40,7 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
 @property (nonatomic, strong) NSArray *tvShowLanguages;
 
 @property (nonatomic, strong) NSArray *languages;
+@property (nonatomic, strong) MP42Languages *langManager;
 
 - (IBAction)chooseDestination:(id)sender;
 - (IBAction)destination:(id)sender;
@@ -57,8 +58,8 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
         _sets = [[NSMutableArray alloc] init];
         _moviesProviders = [SBMetadataImporter movieProviders];
         _tvShowsProviders = [SBMetadataImporter tvProviders];
-        _languages = [[MP42Languages defaultManager] ISO_639_1Languages];
-
+        _languages = [[MP42Languages defaultManager] localizedExtendedLanguages];
+        _langManager = MP42Languages.defaultManager;
     }
     return self;
 }
@@ -122,26 +123,45 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
         // Update the languages popup
         if ([keyPath isEqualToString:@"options.SBQueueMovieProvider"]){
             NSString *newProvider = [change valueForKey:NSKeyValueChangeNewKey];
+            SBMetadataImporter *importer = [SBMetadataImporter importerForProvider:newProvider];
+
+            self.movieLanguages = [self localizedLanguagesForImporter:importer];
 
             NSString *oldLanguage = [self.options valueForKey:@"SBQueueMovieProviderLanguage"];
-            self.movieLanguages = [SBMetadataImporter languagesForProvider:newProvider];
 
-            if (![self.movieLanguages containsObject:oldLanguage]) {
+            if (![importer.languages containsObject:oldLanguage]) {
                 [self.options setValue:[SBMetadataImporter defaultLanguageForProvider:newProvider] forKeyPath:@"SBQueueMovieProviderLanguage"];
             }
         } else if ([keyPath isEqualToString:@"options.SBQueueTVShowProvider"]) {
             NSString *newProvider = [change valueForKey:NSKeyValueChangeNewKey];
+            SBMetadataImporter *importer = [SBMetadataImporter importerForProvider:newProvider];
+            self.tvShowLanguages = [self localizedLanguagesForImporter:importer];
 
             NSString *oldLanguage = [self.options valueForKey:@"SBQueueTVShowProviderLanguage"];
 
-            self.tvShowLanguages = [SBMetadataImporter languagesForProvider:newProvider];
-            if (![self.tvShowLanguages containsObject:oldLanguage]) {
+            if (![importer.languages containsObject:oldLanguage]) {
                 [self.options setValue:[SBMetadataImporter defaultLanguageForProvider:newProvider] forKeyPath:@"SBQueueTVShowProviderLanguage"];
             }
         } else {
             [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
         }
     }
+}
+
+- (NSArray<NSString *> *)localizedLanguagesForImporter:(SBMetadataImporter *)importer
+{
+    NSMutableArray *languages = [NSMutableArray array];
+    SBMetadataImporterLanguageType type = importer.languageType;
+
+    for (NSString *lang in importer.languages) {
+        if (type == SBMetadataImporterLanguageTypeISO) {
+            [languages addObject:[_langManager localizedLangForExtendedTag:lang]];
+        }
+        else {
+            [languages addObject:lang];
+        }
+    }
+    return languages;
 }
 
 #pragma mark Destination PopUp
