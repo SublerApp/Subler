@@ -149,12 +149,22 @@
 
 - (void)metadataProvidersSelectDefaultLanguage {
     SBMetadataImporterLanguageType type = [SBMetadataImporter languageTypeForProvider:movieMetadataProvider.selectedItem.title];
-    NSString *defaultLanguage = [[NSUserDefaults standardUserDefaults] valueForKey:[NSString stringWithFormat:@"SBMetadataPreference|Movie|%@|Language", movieMetadataProvider.selectedItem.title]];
+    NSString *defaultLanguage = [[NSUserDefaults standardUserDefaults]
+                                 valueForKey:[NSString stringWithFormat:@"SBMetadataPreference|Movie|%@|Language", movieMetadataProvider.selectedItem.title]];
     [movieLanguage selectItemWithTitle:[self displayLanguageForLang:defaultLanguage type:type]];
+    if (movieLanguage.indexOfSelectedItem == -1) {
+        [movieLanguage selectItemWithTitle:[self displayLanguageForLang:[SBMetadataImporter defaultLanguageForProvider:movieMetadataProvider.selectedItem.title]
+                                                                   type:type]];
+    }
 
     type = [SBMetadataImporter languageTypeForProvider:tvMetadataProvider.selectedItem.title];
-    defaultLanguage = [[NSUserDefaults standardUserDefaults] valueForKey:[NSString stringWithFormat:@"SBMetadataPreference|TV|%@|Language", tvMetadataProvider.selectedItem.title]];
+    defaultLanguage = [[NSUserDefaults standardUserDefaults]
+                       valueForKey:[NSString stringWithFormat:@"SBMetadataPreference|TV|%@|Language", tvMetadataProvider.selectedItem.title]];
 	[tvLanguage selectItemWithTitle:[self displayLanguageForLang:defaultLanguage type:type]];
+    if (tvLanguage.indexOfSelectedItem == -1) {
+        [tvLanguage selectItemWithTitle:[self displayLanguageForLang:[SBMetadataImporter defaultLanguageForProvider:tvMetadataProvider.selectedItem.title]
+                                                                type:type]];
+    }
 }
 
 - (IBAction)metadataProviderLanguageSelected:(id)sender {
