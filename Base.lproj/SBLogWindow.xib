@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11761" systemVersion="16C53a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11761"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBLogWindowController">
             <connections>
-                <outlet property="logView" destination="Ztd-g7-f0E" id="QzQ-qg-BHq"/>
+                <outlet property="logView" destination="FnY-V1-Sgg" id="z15-mv-gl7"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -23,32 +24,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="400" height="446"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRB-Sq-PQq">
-                        <rect key="frame" x="-1" y="33" width="402" height="414"/>
-                        <clipView key="contentView" id="ffN-FE-TPO">
-                            <rect key="frame" x="1" y="1" width="400" height="412"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <textView editable="NO" importsGraphics="NO" verticallyResizable="NO" findStyle="bar" allowsUndo="YES" allowsNonContiguousLayout="YES" id="Ztd-g7-f0E">
-                                    <rect key="frame" x="0.0" y="0.0" width="400" height="412"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="400" height="412"/>
-                                    <size key="maxSize" width="482" height="10000000"/>
-                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                </textView>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Vnb-hn-cmp">
-                            <rect key="frame" x="-100" y="-100" width="87" height="18"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="UlH-Il-Vxj">
-                            <rect key="frame" x="385" y="1" width="16" height="412"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                    </scrollView>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="myf-Ql-qUP">
                         <rect key="frame" x="343" y="2" width="54" height="28"/>
                         <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="h1X-Ni-exQ">
@@ -59,20 +34,43 @@
                             <action selector="clearLog:" target="-2" id="m5c-Yn-MPI"/>
                         </connections>
                     </button>
+                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mFa-uI-VNZ">
+                        <rect key="frame" x="-1" y="34" width="402" height="413"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <clipView key="contentView" ambiguous="YES" id="WBV-OE-s6D">
+                            <rect key="frame" x="1" y="1" width="400" height="411"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" findStyle="bar" incrementalSearchingEnabled="YES" allowsCharacterPickerTouchBarItem="NO" allowsNonContiguousLayout="YES" textCompletion="NO" id="FnY-V1-Sgg">
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="411"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <size key="minSize" width="400" height="411"/>
+                                    <size key="maxSize" width="463" height="10000000"/>
+                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                </textView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="gZf-CG-DXW">
+                            <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="6fb-fV-fLp">
+                            <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="GRB-Sq-PQq" secondAttribute="trailing" constant="-1" id="1JY-8R-Fb5"/>
                     <constraint firstAttribute="trailing" secondItem="myf-Ql-qUP" secondAttribute="trailing" constant="8" id="gh1-w9-lnf"/>
-                    <constraint firstItem="GRB-Sq-PQq" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="-1" id="ldG-Lx-N9A"/>
                     <constraint firstAttribute="bottom" secondItem="myf-Ql-qUP" secondAttribute="bottom" constant="8" id="ovP-jQ-beQ"/>
-                    <constraint firstItem="GRB-Sq-PQq" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="-1" id="stC-1B-ZBW"/>
-                    <constraint firstItem="myf-Ql-qUP" firstAttribute="top" secondItem="GRB-Sq-PQq" secondAttribute="bottom" constant="7" id="wuj-d5-CnY"/>
                 </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="402" y="171"/>
+            <point key="canvasLocation" x="150" y="153"/>
         </window>
     </objects>
 </document>
