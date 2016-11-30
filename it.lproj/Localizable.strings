@@ -146,6 +146,9 @@
 /* No comment provided by engineer. */
 "Genre" = "Genere";
 
+/* Implicit color profile */
+"Implicit" = "Implicito";
+
 /* Undo cover art insert.
    Undo tag insert. */
 "Insert" = "Inserisci";

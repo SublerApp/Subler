@@ -7,8 +7,14 @@
 /* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "6I1-7O-uon"; */
 "6I1-7O-uon.title" = "pixel";
 
+/* Class = "NSMenuItem"; title = "Implicit"; ObjectID = "6PY-Np-Y3s"; */
+"6PY-Np-Y3s.title" = "Implicito";
+
 /* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "7as-HC-onR"; */
 "7as-HC-onR.title" = "pixel";
+
+/* Class = "NSTextFieldCell"; title = "Color Profile:"; ObjectID = "BZv-h3-OMk"; */
+"BZv-h3-OMk.title" = "Profilo colore:";
 
 /* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "EQ0-oQ-E9J"; */
 "EQ0-oQ-E9J.title" = "pixel";
@@ -29,10 +35,10 @@
 "NPR-jz-Ile.title" = "Traccia forzata:";
 
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Aspect Ratio Numerator"; ObjectID = "Q0D-6k-Hgx"; */
-"Q0D-6k-Hgx.ibExternalAccessibilityDescription" = "Numeratore proporzioni";
+"Q0D-6k-Hgx.ibExternalAccessibilityDescription" = "Numeratore rapporto proporzioni";
 
 /* Class = "NSTextFieldCell"; title = "Aspect Ratio:"; ObjectID = "Q8w-0e-NRr"; */
-"Q8w-0e-NRr.title" = "Proporzioni:";
+"Q8w-0e-NRr.title" = "Rapporto proporzioni:";
 
 /* Class = "NSTabViewItem"; label = "Media Characteristics"; ObjectID = "ZZa-lk-8Uv"; */
 "ZZa-lk-8Uv.label" = "Caratteristiche media";
@@ -47,7 +53,7 @@
 "i0h-ag-Pc5.title" = "Alcuni campioni sono forzati";
 
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Aspect Ratio Denominator"; ObjectID = "ifV-jn-Kjv"; */
-"ifV-jn-Kjv.ibExternalAccessibilityDescription" = "Denominatore proporzioni";
+"ifV-jn-Kjv.ibExternalAccessibilityDescription" = "Denominatore rapporto proporzioni";
 
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Scaled Size Height"; ObjectID = "n9M-HO-S4Z"; */
 "n9M-HO-S4Z.ibExternalAccessibilityDescription" = "Altezza dimensione in scala";

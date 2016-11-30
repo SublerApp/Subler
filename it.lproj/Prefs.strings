@@ -1,6 +1,12 @@
 /* Class = "NSWindow"; title = "Preferences"; ObjectID = "1"; */
 "1.title" = "Preferenze";
 
+/* Class = "NSToolbarItem"; label = "Metadata"; ObjectID = "1NM-zc-8xJ"; */
+"1NM-zc-8xJ.label" = "Metadata";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Metadata"; ObjectID = "1NM-zc-8xJ"; */
+"1NM-zc-8xJ.paletteLabel" = "Metadata";
+
 /* Class = "NSButtonCell"; title = "Create Preview Images"; ObjectID = "84"; */
 "84.title" = "Crea le immagini di anteprima";
 
@@ -31,14 +37,32 @@
 /* Class = "NSMenuItem"; title = "Multi-Channel"; ObjectID = "118"; */
 "118.title" = "Multi-Canale";
 
+/* Class = "NSMenuItem"; title = "Stereo"; ObjectID = "119"; */
+"119.title" = "Stereo";
+
+/* Class = "NSMenuItem"; title = "Dolby Pro Logic"; ObjectID = "120"; */
+"120.title" = "Dolby Pro Logic";
+
+/* Class = "NSMenuItem"; title = "Dolby Pro Logic II"; ObjectID = "121"; */
+"121.title" = "Dolby Pro Logic II";
+
+/* Class = "NSMenuItem"; title = "Mono"; ObjectID = "122"; */
+"122.title" = "Mono";
+
 /* Class = "NSButtonCell"; title = "Clear recent searches"; ObjectID = "134"; */
 "134.title" = "Cancella ricerche recenti";
 
 /* Class = "NSButtonCell"; title = "Delete cached metadata"; ObjectID = "137"; */
 "137.title" = "Cancella cache metadata";
 
+/* Class = "NSTextFieldCell"; title = "Privacy:"; ObjectID = "140"; */
+"140.title" = "Privacy:";
+
 /* Class = "NSTextFieldCell"; title = "Bitrate (per channel):"; ObjectID = "190"; */
 "190.title" = "Bitrate (per canale):";
+
+/* Class = "NSTextFieldCell"; title = "kbps"; ObjectID = "202"; */
+"202.title" = "kbps";
 
 /* Class = "NSTextFieldCell"; title = "Show ratings for:"; ObjectID = "207"; */
 "207.title" = "Mostra classifiche per:";
@@ -66,6 +90,9 @@
 
 /* Class = "NSToolbarItem"; paletteLabel = "General"; ObjectID = "h9J-Wg-NA5"; */
 "h9J-Wg-NA5.paletteLabel" = "Generali";
+
+/* Class = "NSTextFieldCell"; title = "DRC:"; ObjectID = "kde-QJ-Sl9"; */
+"kde-QJ-Sl9.title" = "DRC:";
 
 /* Class = "NSButtonCell"; title = "VobSub to Tx3g"; ObjectID = "wgy-N5-9cB"; */
 "wgy-N5-9cB.title" = "VobSub a Tx3g";
