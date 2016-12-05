@@ -325,7 +325,7 @@ static NSArray<NSArray *> *_mediaKinds;
 
     items = [preset metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt];
 
-    if (items) {
+    if (items.count) {
         [self removeMetadataCoverArtItems:[self.metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt]];
         [self addMetadataCoverArtItems:items];
     }
