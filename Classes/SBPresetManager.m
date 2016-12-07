@@ -93,7 +93,9 @@ NSString *SBPresetManagerUpdatedNotification = @"SBPresetManagerUpdatedNotificat
                 MP42Metadata *newPreset = [unarchiver decodeObjectOfClass:[MP42Metadata class] forKey:NSKeyedArchiveRootObjectKey];
                 [unarchiver finishDecoding];
 
-                [_presets addObject:newPreset];
+                if (newPreset) {
+                    [_presets addObject:newPreset];
+                }
             }
             @catch (NSException *exception) {
                 continue;
