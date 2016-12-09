@@ -88,6 +88,9 @@
 /* Class = "NSButtonCell"; title = "Fix audio fallbacks"; ObjectID = "W6u-1c-BsI"; */
 "W6u-1c-BsI.title" = "Correggi gli audio di ricaduta";
 
+/* Class = "NSMenuItem"; title = "Same as file"; ObjectID = "WKY-e5-5Mn"; */
+"WKY-e5-5Mn.title" = "Stessa del file";
+
 /* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Unknown"; ObjectID = "Xnw-Nt-5dZ"; */
 "Xnw-Nt-5dZ.ibShadowedIsNilPlaceholder" = "Sconosciuta";
 
