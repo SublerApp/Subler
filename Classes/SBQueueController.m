@@ -706,11 +706,9 @@ static void *SBQueueContex = &SBQueueContex;
     }
 
     if (rowIndexes.count) {
-        [aTableView beginUpdates];
-        [aTableView removeRowsAtIndexes:rowIndexes withAnimation:NSTableViewAnimationEffectFade];
-        [aTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedIndex] byExtendingSelection:NO];
+        [aTableView removeRowsAtIndexes:rowIndexes withAnimation:NSTableViewAnimationSlideUp];
         [self removeItems:array];
-        [aTableView endUpdates];
+        [aTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedIndex] byExtendingSelection:NO];
 
         [self updateState];
     }
@@ -734,9 +732,7 @@ static void *SBQueueContex = &SBQueueContex;
     NSIndexSet *indexes = [self.queue indexesOfItemsWithStatus:SBQueueItemStatusCompleted];
 
     if (indexes.count) {
-        [self.table beginUpdates];
-        [self.table removeRowsAtIndexes:indexes withAnimation:NSTableViewAnimationEffectFade];
-        [self.table endUpdates];
+        [self.table removeRowsAtIndexes:indexes withAnimation:NSTableViewAnimationSlideUp];
         [self.queue removeItemsAtIndexes:indexes];
 
         [self updateState];
