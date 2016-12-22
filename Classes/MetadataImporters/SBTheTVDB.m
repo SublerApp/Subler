@@ -23,7 +23,7 @@ static NSArray<NSString *> *TVDBlanguages;
 + (void)initialize
 {
     if (self == [SBTheTVDB class]) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/api/%@/languages.xml", API_KEY]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://thetvdb.com/api/%@/languages.xml", API_KEY]];
         NSData *languagesXML = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBReturnCacheElseLoad];
         NSDictionary *languages = [XMLReader dictionaryForXMLData:languagesXML error:NULL];
 
@@ -59,7 +59,7 @@ static NSArray<NSString *> *TVDBlanguages;
 - (NSArray<SBMetadataResult *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage
 {
 	// search for series
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/api/GetSeries.php?seriesname=%@&language=all", [SBMetadataHelper urlEncoded:aSeriesName]]];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://thetvdb.com/api/GetSeries.php?seriesname=%@&language=all", [SBMetadataHelper urlEncoded:aSeriesName]]];
 
 	NSData *seriesXML = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	NSDictionary *series = [XMLReader dictionaryForXMLData:seriesXML error:NULL];
@@ -80,7 +80,7 @@ static NSArray<NSString *> *TVDBlanguages;
     if (!lang) { lang = @"en"; }
 
 	// search for series
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/api/GetSeries.php?seriesname=%@&language=all", [SBMetadataHelper urlEncoded:aSeriesName]]];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://thetvdb.com/api/GetSeries.php?seriesname=%@&language=all", [SBMetadataHelper urlEncoded:aSeriesName]]];
 	NSData *seriesXML = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	NSDictionary *series = [XMLReader dictionaryForXMLData:seriesXML error:NULL];
 
@@ -113,7 +113,7 @@ static NSArray<NSString *> *TVDBlanguages;
                 continue;
             }
 
-            url = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/api/%@/series/%@/all/%@.xml", API_KEY, seriesID, lang]];
+            url = [NSURL URLWithString:[NSString stringWithFormat:@"https://thetvdb.com/api/%@/series/%@/all/%@.xml", API_KEY, seriesID, lang]];
             NSData *episodesXML = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
             NSDictionary *episodes = [XMLReader dictionaryForXMLData:episodesXML error:NULL];
 
@@ -166,7 +166,7 @@ static NSArray<NSString *> *TVDBlanguages;
 	[newArtworkFullsizeURLs addObjectsFromArray:aMetadata.artworkFullsizeURLs];
 	[newArtworkProviderNames addObjectsFromArray:aMetadata.artworkProviderNames];
 
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/api/%@/series/%@/banners.xml", API_KEY, aMetadata[@"TheTVDB Series ID"]]];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://thetvdb.com/api/%@/series/%@/banners.xml", API_KEY, aMetadata[@"TheTVDB Series ID"]]];
 	NSData *bannersXML = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
 	NSDictionary *banners = [XMLReader dictionaryForXMLData:bannersXML error:NULL];
     if (!banners) { return nil; }
@@ -176,7 +176,7 @@ static NSArray<NSString *> *TVDBlanguages;
 		if ([[banner retrieveForPath:@"BannerType.text"] isEqualToString:@"season"] &&
             [[banner retrieveForPath:@"BannerType2.text"] isEqualToString:@"season"] &&
             [[banner retrieveForPath:@"Season.text"] isEqualToString:aMetadata[SBMetadataResultSeason]]) {
-			NSURL *u = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/banners/%@", [banner retrieveForPath:@"BannerPath.text"]]];
+			NSURL *u = [NSURL URLWithString:[NSString stringWithFormat:@"https://thetvdb.com/banners/%@", [banner retrieveForPath:@"BannerPath.text"]]];
 			[newArtworkThumbURLs addObject:u];
 			[newArtworkFullsizeURLs addObject:u];
 			[newArtworkProviderNames addObject:[NSString stringWithFormat:@"TheTVDB|season %@", aMetadata[SBMetadataResultSeason]]];
@@ -184,7 +184,7 @@ static NSArray<NSString *> *TVDBlanguages;
 	}
 	for (NSDictionary *banner in bannersArray) {
 		if ([[banner retrieveForPath:@"BannerType.text"] isEqualToString:@"poster"]) {
-			NSURL *u = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/banners/%@", [banner retrieveForPath:@"BannerPath.text"]]];
+			NSURL *u = [NSURL URLWithString:[NSString stringWithFormat:@"https://thetvdb.com/banners/%@", [banner retrieveForPath:@"BannerPath.text"]]];
 			[newArtworkThumbURLs addObject:u];
 			[newArtworkFullsizeURLs addObject:u];
 			[newArtworkProviderNames addObject:@"TheTVDB|poster"];
@@ -266,7 +266,7 @@ static NSArray<NSString *> *TVDBlanguages;
 	NSMutableArray *artworkProviderNames = [NSMutableArray array];
 
 	if ([aEpisode retrieveForPath:@"filename.text"]) {
-		NSURL *u = [NSURL URLWithString:[NSString stringWithFormat:@"http://thetvdb.com/banners/%@", [aEpisode retrieveForPath:@"filename.text"]]];
+		NSURL *u = [NSURL URLWithString:[NSString stringWithFormat:@"https://thetvdb.com/banners/%@", [aEpisode retrieveForPath:@"filename.text"]]];
 		[artworkThumbURLs addObject:u];
 		[artworkFullsizeURLs addObject:u];
 		[artworkProviderNames addObject:@"TheTVDB|episode"];
