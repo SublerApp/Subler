@@ -473,3 +473,101 @@
 
 @end
 
+@interface SBQueueColorSpaceAction ()
+@property(nonatomic, readonly) uint16_t colorPrimaries;
+@property(nonatomic, readonly) uint16_t transferCharacteristics;
+@property(nonatomic, readonly) uint16_t matrixCoefficients;
+@end
+
+@implementation SBQueueColorSpaceAction
+
+- (instancetype)initWithTag:(uint16_t)tag {
+    self = [super init];
+    if (self) {
+        switch (tag) {
+            case SBQueueColorSpaceActionTagRec601PAL:
+                _colorPrimaries = 5;
+                _transferCharacteristics = 1;
+                _matrixCoefficients = 6;
+                break;
+
+            case SBQueueColorSpaceActionTagRec601SMPTEC:
+                _colorPrimaries = 6;
+                _transferCharacteristics = 1;
+                _matrixCoefficients = 6;
+                break;
+
+            case SBQueueColorSpaceActionTagRec709:
+                _colorPrimaries = 1;
+                _transferCharacteristics = 1;
+                _matrixCoefficients = 1;
+                break;
+
+            case SBQueueColorSpaceActionTagRec2020:
+                _colorPrimaries = 9;
+                _transferCharacteristics = 1;
+                _matrixCoefficients = 9;
+                break;
+
+            case SBQueueColorSpaceActionTagNone:
+            default:
+                _colorPrimaries = 0;
+                _transferCharacteristics = 0;
+                _matrixCoefficients = 0;
+                break;
+        }
+    }
+    return self;
+}
+
+- (instancetype)initWithColorPrimaries:(uint16_t)colorPrimaries transferCharacteristics:(uint16_t)transferCharacteristics matrixCoefficients:(uint16_t)matrixCoefficients {
+    self = [super init];
+    if (self) {
+        _colorPrimaries = colorPrimaries;
+        _transferCharacteristics = transferCharacteristics;
+        _matrixCoefficients = matrixCoefficients;
+    }
+    return self;
+}
+
+- (void)runAction:(SBQueueItem *)item {
+    for (MP42VideoTrack *track in [item.mp4File tracksWithMediaType:kMP42MediaType_Video]) {
+        if (track.format == kMP42VideoCodecType_H264 ||
+            track.format == kMP42VideoCodecType_HEVC ||
+            track.format == kMP42VideoCodecType_HEVC_2 ||
+            track.format == kMP42VideoCodecType_MPEG4Video) {
+            track.colorPrimaries = self.colorPrimaries;
+            track.transferCharacteristics = self.transferCharacteristics;
+            track.matrixCoefficients = self.matrixCoefficients;
+        }
+    }
+}
+
+- (NSString *)description {
+    return NSLocalizedString(@"Set color space.", @"Set track color space action description");
+}
+
+- (NSString *)localizedDescription {
+    return NSLocalizedString(@"Setting color space", @"Set track color space action local description");
+}
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    _colorPrimaries = [coder decodeInt32ForKey:@"SBQueueColorSpaceActionColorPrimaries"];
+    _transferCharacteristics = [coder decodeInt32ForKey:@"SBQueueColorSpaceActionTransferCharacteristics"];
+    _matrixCoefficients = [coder decodeInt32ForKey:@"SBQueueColorSpaceActionMatrixCoefficients"];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeInt32:self.colorPrimaries forKey:@"SBQueueColorSpaceActionColorPrimaries"];
+    [coder encodeInt32:self.transferCharacteristics forKey:@"SBQueueColorSpaceActionTransferCharacteristics"];
+    [coder encodeInt32:self.matrixCoefficients forKey:@"SBQueueColorSpaceActionMatrixCoefficients"];
+}
+
+@end
+

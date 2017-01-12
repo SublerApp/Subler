@@ -283,6 +283,10 @@ static void *SBQueueContex = &SBQueueContex;
         [item addAction:[[SBQueueSetLanguageAction alloc] initWithLanguage:self.options[SBQueueFixTrackLanguageValue]]];
     }
 
+    if ([(self.options)[SBQueueApplyColorSpace] boolValue]) {
+        [item addAction:[[SBQueueColorSpaceAction alloc] initWithTag:[self.options[SBQueueApplyColorSpaceValue] unsignedIntegerValue]]];
+    }
+
     if ((self.options)[SBQueueSet]) {
         [item addAction:[[SBQueueSetAction alloc] initWithSet:(self.options)[SBQueueSet]]];
     }

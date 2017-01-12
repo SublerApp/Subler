@@ -79,4 +79,20 @@ typedef NS_ENUM(NSUInteger, SBQueueMetadataActionPreferredArtwork) {
 - (instancetype)initWithLanguage:(NSString *)language;
 @end
 
+/**
+ *  An actions that set the video track color space.
+ */
+
+typedef NS_ENUM(NSUInteger, SBQueueColorSpaceActionTag) {
+     SBQueueColorSpaceActionTagNone = 1,
+     SBQueueColorSpaceActionTagRec601PAL,
+     SBQueueColorSpaceActionTagRec601SMPTEC,
+     SBQueueColorSpaceActionTagRec709,
+     SBQueueColorSpaceActionTagRec2020
+ };
+@interface SBQueueColorSpaceAction : NSObject <SBQueueActionProtocol>
+- (instancetype)initWithTag:(uint16_t)tag;
+- (instancetype)initWithColorPrimaries:(uint16_t)colorPrimaries transferCharacteristics:(uint16_t)transferCharacteristics matrixCoefficients:(uint16_t)matrixCoefficients;
+@end
+
 NS_ASSUME_NONNULL_END

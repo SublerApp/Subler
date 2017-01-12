@@ -360,9 +360,11 @@ bail:
     // Convert from a file reference url to a normal url
     // the file will be replaced if optimized, and the reference url
     // may point to nil
-    [self willChangeValueForKey:@"fileURL"];
-    _fileURL = filePathURL;
-    [self didChangeValueForKey:@"fileURL"];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self willChangeValueForKey:@"fileURL"];
+        self->_fileURL = filePathURL;
+        [self didChangeValueForKey:@"fileURL"];
+    });
 
 #ifdef SB_SANDBOX
     if ([destination respondsToSelector:@selector(stopAccessingSecurityScopedResource)])
@@ -410,7 +412,8 @@ bail:
     _actionsInternal = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableArray class], [SBQueueSetAction class],
                                                        [SBQueueMetadataAction class], [SBQueueSubtitlesAction class],
                                                        [SBQueueSetLanguageAction class], [SBQueueFixFallbacksAction class],
-                                                       [SBQueueClearTrackNameAction class], [SBQueueOrganizeGroupsAction class], nil]
+                                                       [SBQueueClearTrackNameAction class], [SBQueueOrganizeGroupsAction class],
+                                                       [SBQueueColorSpaceAction class], nil]
                                                forKey:@"SBQueueItemActions"];
 
     _status = [decoder decodeIntForKey:@"SBQueueItemStatus"];
