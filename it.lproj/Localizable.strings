@@ -258,8 +258,14 @@
 /* No comment provided by engineer. */
 "Series Name" = "Nome serie";
 
+/* Set track color space action description */
+"Set color space." = "Imposta spazio di colore";
+
 /* Set Language action description */
 "Set tracks language." = "Imposto lingua della traccia.";
+
+/* Set track color space action local description */
+"Setting color space" = "Imposto spazio di colore";
 
 /* Set Language action local description */
 "Setting tracks language" = "Imposto la lingua delle tracce";

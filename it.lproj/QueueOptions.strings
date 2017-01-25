@@ -1,3 +1,6 @@
+/* Class = "NSButtonCell"; title = "Apply color space"; ObjectID = "0By-RQ-4mS"; */
+"0By-RQ-4mS.title" = "Applica spazio di colore";
+
 /* Class = "NSTextFieldCell"; title = "Artwork:"; ObjectID = "1HP-Np-D97"; */
 "1HP-Np-D97.title" = "Illustrazione:";
 
@@ -57,6 +60,9 @@
 
 /* Class = "NSTextFieldCell"; title = "TV Shows:"; ObjectID = "PCe-Pw-D2s"; */
 "PCe-Pw-D2s.title" = "Serie TV:";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Set the track without a language to the selected one"; ObjectID = "Pdq-s0-erT"; */
+"Pdq-s0-erT.ibShadowedToolTip" = "Imposta il linguaggio selezionato alle tracce senza un linguaggio ";
 
 /* Class = "NSButtonCell"; title = "Fetch Metadata"; ObjectID = "QNO-e1-WUJ"; */
 "QNO-e1-WUJ.title" = "Trova metadata";
@@ -142,8 +148,14 @@
 /* Class = "NSButtonCell"; title = "Optimize"; ObjectID = "nig-pN-efw"; */
 "nig-pN-efw.title" = "Ottimizza";
 
+/* Class = "NSMenuItem"; title = "Implicit"; ObjectID = "psY-0V-t0k"; */
+"psY-0V-t0k.title" = "Implicito";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Set the track without a language to the selected one"; ObjectID = "slL-2h-MPl"; */
 "slL-2h-MPl.ibShadowedToolTip" = "Imposta la lingua delle tracce sprovviste alla selezionata";
+
+/* Class = "NSTextFieldCell"; title = "Color Space:"; ObjectID = "tMS-Tg-pPf"; */
+"tMS-Tg-pPf.title" = "Spazio di colore:";
 
 /* Class = "NSMenuItem"; title = "Other…"; ObjectID = "veS-S3-uYt"; */
 "veS-S3-uYt.title" = "Altro…";

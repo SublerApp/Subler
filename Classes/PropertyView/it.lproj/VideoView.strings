@@ -13,8 +13,8 @@
 /* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "7as-HC-onR"; */
 "7as-HC-onR.title" = "pixel";
 
-/* Class = "NSTextFieldCell"; title = "Color Profile:"; ObjectID = "BZv-h3-OMk"; */
-"BZv-h3-OMk.title" = "Profilo colore:";
+/* Class = "NSTextFieldCell"; title = "Color Space:"; ObjectID = "BZv-h3-OMk"; */
+"BZv-h3-OMk.title" = "Spazio di colore:";
 
 /* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "EQ0-oQ-E9J"; */
 "EQ0-oQ-E9J.title" = "pixel";
