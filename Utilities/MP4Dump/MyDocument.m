@@ -11,13 +11,22 @@
 
 extern NSString *libraryPath;
 
+@interface MyDocument ()
+
+@property (nonatomic, readonly) NSDictionary *attributes;
+
+@end
+
 @implementation MyDocument
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-
+        NSMutableParagraphStyle *ps = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+        _attributes = @{ NSFontAttributeName: [NSFont fontWithName:@"Monaco" size:11],
+                         NSParagraphStyleAttributeName: ps,
+                         NSForegroundColorAttributeName: NSColor.textColor };
     }
     return self;
 }
@@ -36,13 +45,13 @@ extern NSString *libraryPath;
     }
 
     [self _resetTextView];
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:result];
+
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:result attributes:self.attributes];
     [textView.textStorage appendAttributedString:attributedString];
 }
 
 - (void)_resetTextView
 {
-    textView.font = [NSFont fontWithName:@"Monaco" size:10];
     textView.string = @"";
     [textView setContinuousSpellCheckingEnabled:NO];
 }

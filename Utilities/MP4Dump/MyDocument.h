@@ -13,9 +13,9 @@
 {
     IBOutlet NSTextView * textView;
     IBOutlet NSPopUpButton *logLevelButton;
-    NSString * result;
+    NSString *result;
 }
 
-- (IBAction) setLogLevel: (id) sender;
+- (IBAction)setLogLevel:(id)sender;
 
 @end
