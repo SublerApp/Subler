@@ -196,6 +196,10 @@
 	<string>https://subler.org/appcast/appcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
+	<key>NSAppleScriptEnabled</key>
+	<true/>
+	<key>OSAScriptingDefinition</key>
+	<string>Queue.sdef</string>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>

@@ -24,7 +24,6 @@ static void *SBQueueContex = &SBQueueContex;
 
 @interface SBQueueController () <NSPopoverDelegate, NSWindowDelegate, NSTableViewDelegate, NSTableViewDataSource, SBTableViewDelegate, SBItemViewDelegate>
 
-@property (nonatomic, readonly) SBQueue *queue;
 @property (nonatomic, readonly) SBQueuePreferences *prefs;
 @property (nonatomic, readonly) NSMutableDictionary<NSString *, id> *options;
 
@@ -503,7 +502,7 @@ static void *SBQueueContex = &SBQueueContex;
     [self updateDockTile];
 }
 
-- (void)start:(id)sender {
+- (IBAction)start:(id)sender {
     if (self.queue.status == SBQueueStatusWorking) {
         return;
     }
@@ -516,7 +515,7 @@ static void *SBQueueContex = &SBQueueContex;
     [self.queue start];
 }
 
-- (void)stop:(id)sender {
+- (IBAction)stop:(id)sender {
     [self.queue stop];
 }
 

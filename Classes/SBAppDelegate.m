@@ -53,7 +53,7 @@
     [MP42File setGlobalLogger:logger];
 
 
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"SBShowQueueWindow"]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SBShowQueueWindow"]) {
         [[SBQueueController sharedManager] showWindow:self];
     }
 }
@@ -63,10 +63,10 @@
     [presetManager savePresets];
     
     if ([SBQueueController sharedManager].window.visible) {
-        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBShowQueueWindow"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"SBShowQueueWindow"];
     }
     else {
-        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"SBShowQueueWindow"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"SBShowQueueWindow"];
     }
 
     if (![[SBQueueController sharedManager] saveQueueToDisk]) {
@@ -78,7 +78,7 @@
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)app
 {
-    SBQueueStatus status= [SBQueueController sharedManager].status;
+    SBQueueStatus status= SBQueueController.sharedManager.queue.status;
 
     if (status == SBQueueStatusWorking) {
         NSAlert *alert = [[NSAlert alloc] init];
@@ -197,6 +197,38 @@
 {
     [[NSWorkspace sharedWorkspace] openURL: [NSURL
                                              URLWithString:@"https://subler.org/donate.html"]];
+}
+
+@end
+
+@implementation SBAppDelegate (QueueScripting)
+
+- (BOOL)application:(NSApplication *)sender delegateHandlesKey:(NSString *)key
+{
+    return [key isEqualToString:@"items"];
+}
+
+- (NSArray<SBQueueItem *> *)items
+{
+    SBQueue *queue = SBQueueController.sharedManager.queue;
+
+    NSMutableArray<SBQueueItem *> *items = [NSMutableArray array];
+    for (NSUInteger i = 0; i < queue.count; i++) {
+        [items addObject:[queue itemAtIndex:i]];
+    }
+    return items;
+}
+
+- (void)insertObject:(SBQueueItem *)object inItemsAtIndex:(NSUInteger)index
+{
+
+    [SBQueueController.sharedManager.queue insertItem:object atIndex:index];
+}
+
+- (void)removeObjectFromItemsAtIndex:(NSUInteger)index
+{
+
+    [SBQueueController.sharedManager.queue removeItemsAtIndexes:[NSIndexSet indexSetWithIndex:index]];
 }
 
 @end

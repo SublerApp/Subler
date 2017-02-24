@@ -15,14 +15,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SBQueueController : NSWindowController
 
-@property(readonly) SBQueueStatus status;
+@property (class, readonly) SBQueueController *sharedManager;
 
-+ (SBQueueController *)sharedManager;
+@property (nonatomic, readonly) SBQueue *queue;
 
 - (IBAction)open:(id)sender;
 
+- (void)addItemsFromURLs:(NSArray<NSURL *> *)URLs atIndex:(NSInteger)index;
 - (void)addItem:(SBQueueItem *)item;
 - (void)editItem:(SBQueueItem *)item;
+
+- (IBAction)start:(id)sender;
+- (IBAction)stop:(id)sender;
 
 @property (nonatomic, readonly) BOOL saveQueueToDisk;
 

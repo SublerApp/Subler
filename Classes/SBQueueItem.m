@@ -17,6 +17,8 @@
 
 @interface SBQueueItem ()
 
+@property (nonatomic, readonly) NSString *uniqueID;
+
 @property (nonatomic, readonly) NSMutableArray<id<SBQueueActionProtocol>> *actionsInternal;
 @property (nonatomic, readwrite) NSString *localizedWorkingDescription;
 
@@ -32,6 +34,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        _uniqueID = [[NSUUID UUID] UUIDString];
         _actionsInternal = [[NSMutableArray alloc] init];
         _status = SBQueueItemStatusReady;
     }
@@ -383,15 +386,16 @@ bail:
     [self.delegate progressStatus:progress];
 }
 
-#pragma mark NSSecyreCoding
+#pragma mark NSSecureCoding
 
 + (BOOL)supportsSecureCoding {
     return YES;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-    [coder encodeInt:2 forKey:@"SBQueueItemTagEncodeVersion"];
+    [coder encodeInt:3 forKey:@"SBQueueItemTagEncodeVersion"];
 
+    [coder encodeObject:_uniqueID forKey:@"SBQueueItemID"];
     [coder encodeObject:_mp4File forKey:@"SBQueueItemMp4File"];
     [coder encodeObject:_fileURL forKey:@"SBQueueItemFileURL"];
     [coder encodeObject:_destURL forKey:@"SBQueueItemDestURL"];
@@ -404,6 +408,7 @@ bail:
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super init];
 
+    _uniqueID = [decoder decodeObjectOfClass:[NSString class] forKey:@"SBQueueItemID"];
     _mp4File = [decoder decodeObjectOfClass:[MP42File class] forKey:@"SBQueueItemMp4File"];
 
     _fileURL = [decoder decodeObjectOfClass:[NSURL class] forKey:@"SBQueueItemFileURL"];
@@ -417,9 +422,33 @@ bail:
                                                forKey:@"SBQueueItemActions"];
 
     _status = [decoder decodeIntForKey:@"SBQueueItemStatus"];
-
     return self;
 }
 
+#pragma mark AppleScript
+
+- (NSString *)name
+{
+    return self.destURL.lastPathComponent;
+}
+
+- (NSString *)sourcePath
+{
+    return self.fileURL.path;
+}
+
+- (NSString *)destinationPath
+{
+    return self.destURL.path;
+}
+
+- (NSUniqueIDSpecifier *)objectSpecifier {
+
+    NSScriptClassDescription *appDescription = (NSScriptClassDescription *)[NSApp classDescription];
+    return [[NSUniqueIDSpecifier alloc] initWithContainerClassDescription:appDescription
+                                                       containerSpecifier:nil
+                                                                      key:@"items"
+                                                                 uniqueID:self.uniqueID];
+}
 
 @end
