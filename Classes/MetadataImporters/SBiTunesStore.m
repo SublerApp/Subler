@@ -146,20 +146,20 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
     }
     
     NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
-    NSInteger id;
+    NSInteger iTunesID = 0;
     
     if (jsonData) {
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
         
         if ([d isKindOfClass:[NSDictionary class]]) {
-            id = [SBiTunesStore showOrSeasonIdFromResults:d forShow:aSeriesName andSeason:aSeasonNum andSeasonString:season];
+            iTunesID = [SBiTunesStore showOrSeasonIdFromResults:d forShow:aSeriesName andSeason:aSeasonNum andSeasonString:season];
         }
     }
     
     // If we have an ID, use the lookup API to get episodes for that show/season
-    if (id != 0) {
+    if (iTunesID != 0) {
         NSURL *lookupUrl;
-        lookupUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%ld&entity=tvEpisode&limit=200", (long)id]];
+        lookupUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%ld&entity=tvEpisode&limit=200", (long)iTunesID]];
         
         jsonData = [SBMetadataHelper downloadDataFromURL:lookupUrl withCachePolicy:SBDefaultPolicy];
         
