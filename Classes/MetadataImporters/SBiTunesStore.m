@@ -362,11 +362,16 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
     NSInteger showOrSeasonId = 0;
     NSArray *resultsArray = dict[@"results"];
     
-    NSString *showPattern = [[show stringByReplacingOccurrencesOfString:@" " withString:@"\\s?" options:0 range:NSMakeRange(0, [show length])] lowercaseString];
+    NSString *showPattern = [[show stringByReplacingOccurrencesOfString:@" " withString:@".*?" options:0 range:NSMakeRange(0, [show length])] lowercaseString];
     NSRegularExpression *showRegex = [NSRegularExpression regularExpressionWithPattern:showPattern options:NSRegularExpressionCaseInsensitive error:nil];
     
     NSString *seasonPattern = [NSString stringWithFormat:@"%@\\s%@", seasonString, season];
     NSRegularExpression *seasonRegex = [NSRegularExpression regularExpressionWithPattern:seasonPattern options:NSRegularExpressionCaseInsensitive error:nil];
+    
+    if ([resultsArray isEqual:nil]) {
+        return showOrSeasonId;
+    }
+
     
     for (NSDictionary<NSString *, id> *r in resultsArray) {
         
