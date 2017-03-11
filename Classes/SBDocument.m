@@ -705,8 +705,8 @@ static NSDictionary *_detailMonospacedAttr;
 
     id controller = nil;
     BOOL metadataRow = (row == -1 || row == 0);
-    id track = !metadataRow ? [self trackAtAtTableRow:row] : nil;
-
+    id track = !metadataRow && [self.tracksTable numberOfSelectedRows] == 1 ? [self trackAtAtTableRow:row] : nil;
+    
     if (metadataRow) {
         controller = [[SBMovieViewController alloc] initWithNibName:@"MovieView" bundle:nil];
         [(SBMovieViewController *)controller setMetadata:self.mp4.metadata];
@@ -937,12 +937,17 @@ static NSDictionary *_detailMonospacedAttr;
 
 - (IBAction)deleteTrack:(id)sender
 {
+    NSMutableIndexSet *trackIndexes = [NSMutableIndexSet indexSet];
+    
     if (self.tracksTable.selectedRow == -1  || self.tracksTable.editedRow != -1) {
         return;
     }
 
-    [self.mp4 removeTrackAtIndex:[self trackIndexAtAtTableRow:self.tracksTable.selectedRow]];
-
+    [self.tracksTable.selectedRowIndexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
+        [trackIndexes addIndex:[self trackIndexAtAtTableRow:index]];
+    }];
+    
+    [self.mp4 removeTracksAtIndexes:trackIndexes];
     [self.mp4 organizeAlternateGroups];
 
     [self.tracksTable reloadData];
