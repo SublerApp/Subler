@@ -19,6 +19,7 @@
 #import "SBVideoViewController.h"
 #import "SBSoundViewController.h"
 #import "SBChapterViewController.h"
+#import "SBMultiSelectViewController.h"
 
 #import "SBMetadataSearchController.h"
 #import "SBArtworkSelector.h"
@@ -702,12 +703,16 @@ static NSDictionary *_detailMonospacedAttr;
     }
 
     NSInteger row = self.tracksTable.selectedRow;
+    NSUInteger numberOfSelectedRows = [self.tracksTable numberOfSelectedRows];
 
     id controller = nil;
     BOOL metadataRow = (row == -1 || row == 0);
-    id track = !metadataRow ? [self trackAtAtTableRow:row] : nil;
-
-    if (metadataRow) {
+    id track = !metadataRow && numberOfSelectedRows == 1 ? [self trackAtAtTableRow:row] : nil;
+    
+    if (numberOfSelectedRows > 1) {
+        controller = [[SBMultiSelectViewController alloc] initWithNibName:@"MultiSelectView" bundle:nil];
+        [(SBMultiSelectViewController *)controller setNumberOfTracks:numberOfSelectedRows];
+    } else if (metadataRow) {
         controller = [[SBMovieViewController alloc] initWithNibName:@"MovieView" bundle:nil];
         [(SBMovieViewController *)controller setMetadata:self.mp4.metadata];
     } else if ([track isMemberOfClass:[MP42ChapterTrack class]]) {
@@ -937,12 +942,17 @@ static NSDictionary *_detailMonospacedAttr;
 
 - (IBAction)deleteTrack:(id)sender
 {
+    NSMutableIndexSet *trackIndexes = [NSMutableIndexSet indexSet];
+    
     if (self.tracksTable.selectedRow == -1  || self.tracksTable.editedRow != -1) {
         return;
     }
 
-    [self.mp4 removeTrackAtIndex:[self trackIndexAtAtTableRow:self.tracksTable.selectedRow]];
-
+    [self.tracksTable.selectedRowIndexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
+        [trackIndexes addIndex:[self trackIndexAtAtTableRow:index]];
+    }];
+    
+    [self.mp4 removeTracksAtIndexes:trackIndexes];
     [self.mp4 organizeAlternateGroups];
 
     [self.tracksTable reloadData];
