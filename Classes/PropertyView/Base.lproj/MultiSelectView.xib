@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="SBMultiSelectViewController">
+            <connections>
+                <outlet property="label" destination="hdQ-nD-A4N" id="ph4-rw-r2e"/>
+                <outlet property="view" destination="1" id="4"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="1">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <tabView controlSize="small" translatesAutoresizingMaskIntoConstraints="NO" id="5">
+                    <rect key="frame" x="-11" y="-12" width="502" height="279"/>
+                    <tabViewItems/>
+                </tabView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdQ-nD-A4N">
+                    <rect key="frame" x="179" y="128" width="122" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="%lu tracks selected" id="Mo5-ii-LsO">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="5" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="-4" id="1mT-58-cT9"/>
+                <constraint firstItem="hdQ-nD-A4N" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="KmB-j4-qkX"/>
+                <constraint firstItem="5" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="NQk-qJ-eag"/>
+                <constraint firstItem="hdQ-nD-A4N" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="T6R-mk-4yo"/>
+                <constraint firstAttribute="bottom" secondItem="5" secondAttribute="bottom" constant="-2" id="mBt-hk-Csd"/>
+                <constraint firstItem="5" firstAttribute="top" secondItem="1" secondAttribute="top" constant="8" id="x6g-Yu-20J"/>
+            </constraints>
+        </customView>
+    </objects>
+</document>

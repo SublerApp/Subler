@@ -19,6 +19,7 @@
 #import "SBVideoViewController.h"
 #import "SBSoundViewController.h"
 #import "SBChapterViewController.h"
+#import "SBMultiSelectViewController.h"
 
 #import "SBMetadataSearchController.h"
 #import "SBArtworkSelector.h"
@@ -702,12 +703,16 @@ static NSDictionary *_detailMonospacedAttr;
     }
 
     NSInteger row = self.tracksTable.selectedRow;
+    NSUInteger numberOfSelectedRows = [self.tracksTable numberOfSelectedRows];
 
     id controller = nil;
     BOOL metadataRow = (row == -1 || row == 0);
-    id track = !metadataRow && [self.tracksTable numberOfSelectedRows] == 1 ? [self trackAtAtTableRow:row] : nil;
+    id track = !metadataRow && numberOfSelectedRows == 1 ? [self trackAtAtTableRow:row] : nil;
     
-    if (metadataRow) {
+    if (numberOfSelectedRows > 1) {
+        controller = [[SBMultiSelectViewController alloc] initWithNibName:@"MultiSelectView" bundle:nil];
+        [(SBMultiSelectViewController *)controller setNumberOfTracks:numberOfSelectedRows];
+    } else if (metadataRow) {
         controller = [[SBMovieViewController alloc] initWithNibName:@"MovieView" bundle:nil];
         [(SBMovieViewController *)controller setMetadata:self.mp4.metadata];
     } else if ([track isMemberOfClass:[MP42ChapterTrack class]]) {
