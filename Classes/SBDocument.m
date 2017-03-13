@@ -488,7 +488,7 @@ static NSDictionary *_detailMonospacedAttr;
     if (action == @selector(sendToExternalApp:))
         return YES;
 
-    if (action == @selector(showTrackOffsetSheet:) && self.tracksTable.selectedRow != -1)
+    if (action == @selector(showTrackOffsetSheet:) && self.tracksTable.selectedRowIndexes.count == 1 && self.tracksTable.selectedRow != -1)
         return YES;
 
     if (action == @selector(addChaptersEvery:))
@@ -503,7 +503,7 @@ static NSDictionary *_detailMonospacedAttr;
     if (action == @selector(fixAudioFallbacks:))
         return YES;
 
-	if (action == @selector(export:) && self.tracksTable.selectedRow != -1)
+	if (action == @selector(export:) && self.tracksTable.selectedRowIndexes.count == 1 && self.tracksTable.selectedRow != -1)
 		if ([[self trackAtAtTableRow:self.tracksTable.selectedRow] respondsToSelector:@selector(exportToURL:error:)] &&
             [self trackAtAtTableRow:self.tracksTable.selectedRow].muxed)
 			return YES;
