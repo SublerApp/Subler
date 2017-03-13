@@ -518,7 +518,8 @@ static NSDictionary *_detailMonospacedAttr;
     }
 
     if (toolbarItem == deleteTrack) {
-        return self.tracksTable.selectedRow > 0 && NSApp.active;
+        NSIndexSet *indexes = self.tracksTable.selectedRowIndexes;
+        return (indexes.count && ![self.tracksTable.selectedRowIndexes containsIndex:0] && NSApp.isActive);
     }
 
     if (toolbarItem == searchMetadata) {
@@ -949,7 +950,9 @@ static NSDictionary *_detailMonospacedAttr;
     }
 
     [self.tracksTable.selectedRowIndexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
-        [trackIndexes addIndex:[self trackIndexAtAtTableRow:index]];
+        if (index > 0) {
+            [trackIndexes addIndex:[self trackIndexAtAtTableRow:index]];
+        }
     }];
     
     [self.mp4 removeTracksAtIndexes:trackIndexes];
