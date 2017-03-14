@@ -488,7 +488,7 @@ static NSDictionary *_detailMonospacedAttr;
     if (action == @selector(sendToExternalApp:))
         return YES;
 
-    if (action == @selector(showTrackOffsetSheet:) && self.tracksTable.selectedRow != -1)
+    if (action == @selector(showTrackOffsetSheet:) && self.tracksTable.selectedRowIndexes.count == 1 && self.tracksTable.selectedRow != -1)
         return YES;
 
     if (action == @selector(addChaptersEvery:))
@@ -503,7 +503,7 @@ static NSDictionary *_detailMonospacedAttr;
     if (action == @selector(fixAudioFallbacks:))
         return YES;
 
-	if (action == @selector(export:) && self.tracksTable.selectedRow != -1)
+	if (action == @selector(export:) && self.tracksTable.selectedRowIndexes.count == 1 && self.tracksTable.selectedRow != -1)
 		if ([[self trackAtAtTableRow:self.tracksTable.selectedRow] respondsToSelector:@selector(exportToURL:error:)] &&
             [self trackAtAtTableRow:self.tracksTable.selectedRow].muxed)
 			return YES;
@@ -518,7 +518,8 @@ static NSDictionary *_detailMonospacedAttr;
     }
 
     if (toolbarItem == deleteTrack) {
-        return self.tracksTable.selectedRow > 0 && NSApp.active;
+        NSIndexSet *indexes = self.tracksTable.selectedRowIndexes;
+        return (indexes.count && ![self.tracksTable.selectedRowIndexes containsIndex:0] && NSApp.isActive);
     }
 
     if (toolbarItem == searchMetadata) {
@@ -949,7 +950,9 @@ static NSDictionary *_detailMonospacedAttr;
     }
 
     [self.tracksTable.selectedRowIndexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
-        [trackIndexes addIndex:[self trackIndexAtAtTableRow:index]];
+        if (index > 0) {
+            [trackIndexes addIndex:[self trackIndexAtAtTableRow:index]];
+        }
     }];
     
     [self.mp4 removeTracksAtIndexes:trackIndexes];
