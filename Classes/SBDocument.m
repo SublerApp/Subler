@@ -464,7 +464,7 @@ static NSDictionary *_detailMonospacedAttr;
             return YES;
 
     if (action == @selector(saveAndOptimize:))
-        if (!self.documentEdited && (self.mp4).hasFileRepresentation)
+        if (!self.documentEdited && self.mp4.hasFileRepresentation)
             return YES;
 
     if (action == @selector(selectMetadataFile:))
@@ -488,7 +488,8 @@ static NSDictionary *_detailMonospacedAttr;
     if (action == @selector(sendToExternalApp:))
         return YES;
 
-    if (action == @selector(showTrackOffsetSheet:) && self.tracksTable.selectedRowIndexes.count == 1 && self.tracksTable.selectedRow != -1)
+    if (action == @selector(showTrackOffsetSheet:) && self.tracksTable.selectedRowIndexes.count == 1
+        && self.tracksTable.selectedRow != -1 && self.tracksTable.selectedRow != 0)
         return YES;
 
     if (action == @selector(addChaptersEvery:))
