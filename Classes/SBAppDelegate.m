@@ -195,8 +195,7 @@
 
 - (IBAction) linkDonate:(id)sender
 {
-    [[NSWorkspace sharedWorkspace] openURL: [NSURL
-                                             URLWithString:@"https://subler.org/donate.html"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://subler.org/donate.html"]];
 }
 
 @end
@@ -205,7 +204,12 @@
 
 - (BOOL)application:(NSApplication *)sender delegateHandlesKey:(NSString *)key
 {
-    return [key isEqualToString:@"items"];
+    if ([key isEqualToString:@"items"]) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
 }
 
 - (NSArray<SBQueueItem *> *)items

@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
 <dictionary title="Subler Terminology" xmlns:xi="http://www.w3.org/2003/XInclude">
-    <xi:include href="file:///System/Library/ScriptingDefinitions/CocoaStandard.sdef" xpointer="xpointer(/dictionary/suite)"/>
+
+    <suite name="Subler Suite" code="sktc" description="Classes just for the Subler application.">
+
+        <enumeration name="saveable file format" code="savf">
+            <enumerator name="Movie-MPEG4" code="MP4 " description="MPEG-4">
+                <cocoa string-value="public.mpeg-4"/>
+            </enumerator>
+            <enumerator name="Video-MPEG4" code="M4V " description="Video-MPEG4">
+                <cocoa string-value="com.apple.protected-mpeg-4-video"/>
+            </enumerator>
+            <enumerator name="Audio-MPEG4" code="M4A " description="Audio-MPEG4">
+                <cocoa string-value="public.mpeg-4-audio"/>
+            </enumerator>
+        </enumeration>
+
+        <class name="document" code="docu" description="A Subler document.">
+            <cocoa class="SBDocument"/>
+            <property name="name" code="pnam" type="text" access="r" description="Its name.">
+                <cocoa key="displayName"/>
+            </property>
+            <property name="modified" code="imod" type="boolean" access="r" description="Has it been modified since the last save?">
+                <cocoa key="isDocumentEdited"/>
+            </property>
+            <property name="file" code="file" type="file" access="r" description="Its location on disk, if it has one.">
+                <cocoa key="fileURL"/>
+            </property>
+        </class>
+
+        <!-- This is just here for compatibility with old scripts. New scripts should use the more user-friendly file property. -->
+        <property name="path" code="ppth" type="text" access="r" description="Its location on disk, if it has one, as a POSIX path string." hidden="yes">
+            <cocoa key="fileName"/>
+        </property>
+
+    </suite>
 
     <suite name="Queue Suite" code="ScTa" description="Queue suite.">
         <class name="application" code="capp" description="Queue's top level scripting object.">
