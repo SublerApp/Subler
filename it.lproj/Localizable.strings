@@ -5,10 +5,16 @@
 "%lu items in queue." = "%lu elementi in coda.";
 
 /* No comment provided by engineer. */
+"%lu tracks selected" = "%lu tracce selezionate";
+
+/* No comment provided by engineer. */
 "-NA-" = "-ND-";
 
 /* No comment provided by engineer. */
 "1 item in queue" = "1 elemento in coda";
+
+/* No comment provided by engineer. */
+"1 track selected" = "1 traccia selezionata";
 
 /* Queue -> redo add item. */
 "Add Queue Item" = "Aggiungi elemento alla coda";
