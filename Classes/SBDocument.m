@@ -375,7 +375,12 @@ static NSDictionary *_detailMonospacedAttr;
 
     [fileFormat removeAllItems];
     for (NSString *format in formats) {
-        [fileFormat addItemWithTitle:format];
+        NSString *formatName = (__bridge NSString *)UTTypeCopyDescription((__bridge CFStringRef _Nonnull)(format));
+
+        if (formatName == nil) {
+            formatName = format;
+        }
+        [fileFormat addItemWithTitle:formatName];
     }
 
     [fileFormat selectItemAtIndex:[[[NSUserDefaults standardUserDefaults] valueForKey:@"defaultSaveFormat"] integerValue]];
@@ -419,7 +424,7 @@ static NSDictionary *_detailMonospacedAttr;
             requiredFileType = MP42FileTypeM4A;
             break;
         case 3:
-            requiredFileType = MP42FileTypeM4A;
+            requiredFileType = MP42FileTypeM4B;
             break;
         case 4:
             requiredFileType = MP42FileTypeM4R;

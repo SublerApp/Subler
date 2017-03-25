@@ -7,107 +7,74 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>m4v</string>
-			</array>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>video/x-m4v</string>
-			</array>
 			<key>CFBundleTypeName</key>
 			<string>Video-MPEG4</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>M4V</string>
-			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.apple.protected-mpeg-4-video</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>NSDocumentClass</key>
 			<string>SBDocument</string>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
 		</dict>
 		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>mp4</string>
-				<string>mpg4</string>
-				<string>mqv</string>
-			</array>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>audio/mp4</string>
-				<string>video/mp4</string>
-			</array>
 			<key>CFBundleTypeName</key>
 			<string>Movie-MPEG4</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>mpg4</string>
-			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.mpeg-4</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>NSDocumentClass</key>
 			<string>SBDocument</string>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
 		</dict>
 		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>m4a</string>
-			</array>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>audio/x-m4a</string>
-				<string>audio/x-m4v</string>
-			</array>
 			<key>CFBundleTypeName</key>
 			<string>Audio-MPEG4</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>M4A</string>
-			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.mpeg-4-audio</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>NSDocumentClass</key>
 			<string>SBDocument</string>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Audiobook</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.apple.protected-mpeg-4-audio</string>
+			</array>
+			<key>NSDocumentClass</key>
+			<string>SBDocument</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>m4b</string>
-			</array>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>audio/x-m4b</string>
-				<string>audio/x-m4v</string>
-			</array>
+			<array/>
 			<key>CFBundleTypeName</key>
-			<string>Audiobook-MPEG4</string>
+			<string>Ringtone</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.apple.mpeg-4-ringtone</string>
+			</array>
 			<key>NSDocumentClass</key>
 			<string>SBDocument</string>
 		</dict>
@@ -122,6 +89,8 @@
 			<string>Matroska video</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
 			<key>NSDocumentClass</key>
 			<string>SBDocument</string>
 		</dict>
@@ -134,18 +103,8 @@
 			<string>QuickTime Movie</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>NSDocumentClass</key>
-			<string>SBDocument</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>m4r</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>Ringtone</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
 			<key>NSDocumentClass</key>
 			<string>SBDocument</string>
 		</dict>
@@ -153,7 +112,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleGetInfoString</key>
-	<string>1.2.7, Copyright 2017 Damiano Galassi</string>
+	<string>1.2.8, Copyright 2017 Damiano Galassi</string>
 	<key>CFBundleIconFile</key>
 	<string>Subler.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -165,11 +124,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2.7</string>
+	<string>1.2.8</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.2.7</string>
+	<string>1.2.8</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.video</string>
 	<key>NSAppTransportSecurity</key>

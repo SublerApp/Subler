@@ -5,11 +5,11 @@
     <suite name="Subler Suite" code="sktc" description="Classes just for the Subler application.">
 
         <enumeration name="saveable file format" code="savf">
-            <enumerator name="Movie-MPEG4" code="MP4 " description="MPEG-4">
-                <cocoa string-value="public.mpeg-4"/>
-            </enumerator>
             <enumerator name="Video-MPEG4" code="M4V " description="Video-MPEG4">
                 <cocoa string-value="com.apple.protected-mpeg-4-video"/>
+            </enumerator>
+            <enumerator name="Movie-MPEG4" code="MP4 " description="MPEG-4">
+                <cocoa string-value="public.mpeg-4"/>
             </enumerator>
             <enumerator name="Audio-MPEG4" code="M4A " description="Audio-MPEG4">
                 <cocoa string-value="public.mpeg-4-audio"/>
