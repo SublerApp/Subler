@@ -116,7 +116,6 @@
         }
     }
 
-
     return results;
 }
 
@@ -146,46 +145,41 @@
     return [NSString stringWithString:r];
 }
 
-+ (nullable NSData *)downloadDataFromURL:(NSURL *)url withCachePolicy:(SBCachePolicy)policy error:(NSError * __autoreleasing *)error  {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *bundleName = [NSBundle mainBundle].infoDictionary[@"CFBundleIdentifier"];
-    NSURL *cacheURL = [[fileManager URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask].firstObject URLByAppendingPathComponent:bundleName];
++ (nullable NSData *)downloadDataFromURL:(NSURL *)url withCachePolicy:(SBCachePolicy)policy {
+    dispatch_semaphore_t sem =  dispatch_semaphore_create(0);
+    __block NSData *downloadedData;
 
-
-    NSURL *fileURL = [cacheURL URLByAppendingPathComponent:[SBMetadataHelper sha256String:url.absoluteString]];
-    fileURL = [fileURL URLByAppendingPathExtension:url.pathExtension];
-
-    if (policy != SBReloadIgnoringLocalCacheData) {
-        NSDictionary<NSString *, id> *attrs = [fileURL resourceValuesForKeys:@[NSURLCreationDateKey] error:NULL];
-        NSDate *creationDate = attrs[NSURLCreationDateKey];
-
-        if (creationDate) {
-            NSTimeInterval oldness = creationDate.timeIntervalSinceNow;
-
-            // if less than 2 hours old or jpg
-            if ([url.pathExtension caseInsensitiveCompare:@"jpg"] == NSOrderedSame ||
-                (oldness > -60 * 60 * 2) ||
-                policy == SBReturnCacheElseLoad) {
-                return [NSData dataWithContentsOfURL:fileURL options:0 error:error];
-            }
-        }
+    NSURLRequestCachePolicy cachePolicy;
+    switch (policy) {
+        case SBReturnCacheElseLoad:
+            cachePolicy = NSURLRequestReturnCacheDataElseLoad;
+            break;
+        case SBReloadIgnoringLocalCacheData:
+            cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+            break;
+        case SBDefaultPolicy:
+        default:
+            cachePolicy = NSURLRequestUseProtocolCachePolicy;
+            break;
     }
-    
-    NSData *downloadedData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:error];
-    [downloadedData writeToURL:fileURL atomically:YES];
-    
+
+    NSURLSessionTask *task = [self sessionTaskFromUrl:url HTTPMethod:@"GET" headerOptions:nil cachePolicy:cachePolicy completionHandler:^(NSData * _Nullable data) {
+        downloadedData = data;
+        dispatch_semaphore_signal(sem);
+    }];
+
+    [task resume];
+
+    dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+
     return downloadedData;
 }
 
-+ (nullable NSData *)downloadDataFromURL:(NSURL *)url withCachePolicy:(SBCachePolicy)policy {
-    return [SBMetadataHelper downloadDataFromURL:url withCachePolicy:policy error:NULL];
-}
-
 #pragma mark NSURLRequest
-+ (NSURLSessionTask *)sessionTaskFromUrl:(NSURL *)url withHTTPMethod:(NSString *)method headerOptions:(nullable NSDictionary *)header completionHandler:(void(^)(NSData * _Nullable data))completionHandler
++ (NSURLSessionTask *)sessionTaskFromUrl:(NSURL *)url HTTPMethod:(NSString *)method headerOptions:(nullable NSDictionary *)header cachePolicy:(NSURLRequestCachePolicy)cachePolicy completionHandler:(void(^)(NSData * _Nullable data))completionHandler
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
-                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                           cachePolicy:cachePolicy
                                                        timeoutInterval:30.0];
     request.HTTPMethod = method;
 
@@ -210,8 +204,8 @@
                 completionHandler(nil);
             }
         }
-
     }];
+
     return task;
 }
 
