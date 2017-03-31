@@ -375,7 +375,7 @@ static NSDictionary *_detailMonospacedAttr;
 
     [fileFormat removeAllItems];
     for (NSString *format in formats) {
-        NSString *formatName = (__bridge NSString *)UTTypeCopyDescription((__bridge CFStringRef _Nonnull)(format));
+        NSString *formatName = CFBridgingRelease(UTTypeCopyDescription((__bridge CFStringRef _Nonnull)(format)));
 
         if (formatName == nil) {
             formatName = format;
