@@ -59,6 +59,48 @@
 	return nil;
 }
 
+#pragma mark Quick iTunes search for metadata
+
++ (nullable SBMetadataResult *)quickiTunesSearchTV:(NSString *)aSeriesName episodeTitle:(NSString *)aEpisodeTitle
+{
+    NSDictionary *store = [SBiTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV|iTunes Store|Language"]];
+    if (!store) {
+        return nil;
+    }
+    NSString *country = store[@"country2"];
+    NSString *language = store[@"language2"];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&entity=tvEpisode", country, language.lowercaseString, [SBMetadataHelper urlEncoded:[NSString stringWithFormat:@"%@ %@", aSeriesName, aEpisodeTitle]]]];
+    NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
+    if (jsonData) {
+        NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+        if ([d isKindOfClass:[NSDictionary class]]) {
+            NSArray *results = [SBiTunesStore metadataForResults:d store:store];
+            return results.firstObject;
+        }
+    }
+    return nil;
+}
+
++ (nullable SBMetadataResult *)quickiTunesSearchMovie:(NSString *)aMovieName
+{
+    NSDictionary *store = [SBiTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|Movie|iTunes Store|Language"]];
+    if (!store) {
+        return nil;
+    }
+    NSString *country = store[@"country2"];
+    NSString *language = store[@"language2"];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&entity=movie", country, language, [SBMetadataHelper urlEncoded:aMovieName]]];
+    NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
+    if (jsonData) {
+        NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+        if ([d isKindOfClass:[NSDictionary class]]) {
+            NSArray *results = [SBiTunesStore metadataForResults:d store:store];
+            return results.firstObject;
+        }
+    }
+    return nil;
+}
+
 #pragma mark Search for TV episode metadata
 
 NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
@@ -118,123 +160,108 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
     return r;
 }
 
+- (NSInteger)searchiTunesIDForSeriesName:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum
+{
+    NSInteger iTunesID = 0;
+
+    NSString *country = @"US";
+    NSString *language = @"EN";
+    NSString *season = @"season";
+
+    NSDictionary *store = [SBiTunesStore getStoreFor:aLanguage];
+    if (store) {
+        country = store[@"country2"];
+        language = store[@"language2"];
+        if (store[@"season"] && ![store[@"season"] isEqualToString:@""]) {
+            season = [store[@"season"] lowercaseString];
+        }
+    }
+    else {
+        return iTunesID;
+    }
+
+    // Determine artistId/collectionId
+    NSURL *url;
+    if (aSeasonNum.length) {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&attribute=tvSeasonTerm&entity=tvSeason&limit=200",
+                                    country, language.lowercaseString, [SBMetadataHelper urlEncoded:[NSString stringWithFormat:@"%@ %@ %@", aSeriesName, season, aSeasonNum]]]];
+    }
+    else {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&attribute=showTerm&entity=tvShow&limit=200",
+                                    country, language.lowercaseString, [SBMetadataHelper urlEncoded:aSeriesName]]];
+    }
+
+    NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
+
+    if (jsonData) {
+        NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+
+        if ([d isKindOfClass:[NSDictionary class]]) {
+            iTunesID = [SBiTunesStore showOrSeasonIdFromResults:d forShow:aSeriesName andSeason:aSeasonNum andSeasonString:season];
+        }
+    }
+
+    return iTunesID;
+}
+
 - (NSArray<SBMetadataResult *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage seasonNum:(NSString *)aSeasonNum episodeNum:(NSString *)aEpisodeNum
 {
 	NSString *country = @"US";
-	NSString *language = @"EN";
-	NSString *season = @"season";
 
 	NSDictionary *store = [SBiTunesStore getStoreFor:aLanguage];
 	if (store) {
 		country = store[@"country2"];
-		language = store[@"language2"];
-		if (store[@"season"] && ![store[@"season"] isEqualToString:@""]) {
-			season = [store[@"season"] lowercaseString];
-		}
 	}
     else {
         return @[];
     }
 
     // Determine artistId/collectionId
-    NSURL *url;
-    if (aSeasonNum.length) {
-        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&attribute=tvSeasonTerm&entity=tvSeason&limit=200", country, language.lowercaseString, [SBMetadataHelper urlEncoded:[NSString stringWithFormat:@"%@ %@ %@", aSeriesName, season, aSeasonNum]]]];
-    }
-    else {
-        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&attribute=showTerm&entity=tvShow&limit=200", country, language.lowercaseString, [SBMetadataHelper urlEncoded:aSeriesName]]];
-    }
-    
-    NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
     NSInteger iTunesID = 0;
-    
-    if (jsonData) {
-        NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
-        
-        if ([d isKindOfClass:[NSDictionary class]]) {
-            iTunesID = [SBiTunesStore showOrSeasonIdFromResults:d forShow:aSeriesName andSeason:aSeasonNum andSeasonString:season];
-        }
+
+    iTunesID = [self searchiTunesIDForSeriesName:aSeriesName language:aLanguage seasonNum:aSeasonNum];
+
+    if (iTunesID == 0) {
+        // Try again without the season number
+        iTunesID = [self searchiTunesIDForSeriesName:aSeriesName language:aLanguage seasonNum:nil];
     }
-    
+
     // If we have an ID, use the lookup API to get episodes for that show/season
     if (iTunesID != 0) {
         NSURL *lookupUrl;
         lookupUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/lookup?country=%@&id=%ld&entity=tvEpisode&limit=200", country, (long)iTunesID]];
-        
-        jsonData = [SBMetadataHelper downloadDataFromURL:lookupUrl withCachePolicy:SBDefaultPolicy];
-        
+
+        NSData *jsonData = [SBMetadataHelper downloadDataFromURL:lookupUrl withCachePolicy:SBDefaultPolicy];
+
         if (jsonData) {
             NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
-            
+
             if ([d isKindOfClass:[NSDictionary class]]) {
-                
                 NSArray<SBMetadataResult *> *results = [SBiTunesStore metadataForResults:d store:store];
-                
+
                 if ((results.count == 0) && ![aLanguage isEqualToString:@"USA (English)"]) {
                     return [self searchTVSeries:aSeriesName language:@"USA (English)" seasonNum:aSeasonNum episodeNum:aEpisodeNum];
                 }
-                
+
                 if ((results.count == 0) && aSeasonNum) {
                     return [self searchTVSeries:aSeriesName language:@"USA (English)" seasonNum:nil episodeNum:aEpisodeNum];
                 }
-                
+
                 // Filter results
                 NSArray<SBMetadataResult *> *r = [self filterResult:results tvSeries:aSeriesName seasonNum:aSeasonNum episodeNum:aEpisodeNum];
-                
+
                 // If we don't have any result for the exact series name, relax the filter
                 if (r.count == 0) {
                     r = [self filterResult:results tvSeries:nil seasonNum:aSeasonNum episodeNum:aEpisodeNum];
                 }
-                
+
                 NSArray<SBMetadataResult *> *resultsSorted = [r sortedArrayUsingFunction:sortSBMetadataResult context:NULL];
                 return resultsSorted;
             }
         }
     }
-    
+
 	return @[];
-}
-
-#pragma mark Quick iTunes search for metadata
-
-+ (nullable SBMetadataResult *)quickiTunesSearchTV:(NSString *)aSeriesName episodeTitle:(NSString *)aEpisodeTitle
-{
-	NSDictionary *store = [SBiTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV|iTunes Store|Language"]];
-	if (!store) {
-		return nil;
-	}
-	NSString *country = store[@"country2"];
-	NSString *language = store[@"language2"];
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&entity=tvEpisode", country, language.lowercaseString, [SBMetadataHelper urlEncoded:[NSString stringWithFormat:@"%@ %@", aSeriesName, aEpisodeTitle]]]];
-	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
-	if (jsonData) {
-        NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
-        if ([d isKindOfClass:[NSDictionary class]]) {
-            NSArray *results = [SBiTunesStore metadataForResults:d store:store];
-                return results.firstObject;
-        }
-	}
-	return nil;
-}
-
-+ (nullable SBMetadataResult *)quickiTunesSearchMovie:(NSString *)aMovieName
-{
-	NSDictionary *store = [SBiTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|Movie|iTunes Store|Language"]];
-	if (!store) {
-		return nil;
-	}
-	NSString *country = store[@"country2"];
-	NSString *language = store[@"language2"];
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&entity=movie", country, language, [SBMetadataHelper urlEncoded:aMovieName]]];
-	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
-	if (jsonData) {
-        NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
-        if ([d isKindOfClass:[NSDictionary class]]) {
-            NSArray *results = [SBiTunesStore metadataForResults:d store:store];
-            return results.firstObject;
-        }
-	}
-	return nil;
 }
 
 #pragma mark Search for movie metadata
@@ -330,7 +357,6 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 			copyright = [copyright stringByReplacingOccurrencesOfString:@" by " withString:@" "];
             metadata[SBMetadataResultCopyright] = copyright;
 		}
-
     }
 	
     return metadata;
@@ -338,7 +364,9 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 
 #pragma mark Parse results
 
-/* Scrape people from iTunes Store website HTML */
+/**
+ Scrape people from iTunes Store website HTML
+ */
 + (NSArray *)readPeople:(NSString *)aPeople fromXML:(NSXMLDocument *)aXml {
 	if (aXml) {
 		NSArray *nodes = [aXml nodesForXPath:[NSString stringWithFormat:@"//div[starts-with(@metrics-loc,'Titledbox_%@')]", aPeople] error:NULL];
@@ -360,53 +388,66 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 + (NSInteger)showOrSeasonIdFromResults:(NSDictionary *)dict forShow:(NSString *)show andSeason:(NSString *)season andSeasonString:(NSString *)seasonString
 {
     NSInteger showOrSeasonId = 0;
-    NSArray *resultsArray = dict[@"results"];
-    
+    NSArray<NSDictionary<NSString *, id> *>*resultsArray = dict[@"results"];
+
     NSString *showPattern = [[show stringByReplacingOccurrencesOfString:@" " withString:@".*?" options:0 range:NSMakeRange(0, [show length])] lowercaseString];
     NSRegularExpression *showRegex = [NSRegularExpression regularExpressionWithPattern:showPattern options:NSRegularExpressionCaseInsensitive error:nil];
-    
+
     NSString *seasonPattern = [NSString stringWithFormat:@"%@\\s%@", seasonString, season];
     NSRegularExpression *seasonRegex = [NSRegularExpression regularExpressionWithPattern:seasonPattern options:NSRegularExpressionCaseInsensitive error:nil];
-    
-    if ([resultsArray isEqual:nil]) {
+
+    if (resultsArray == nil || ![resultsArray isKindOfClass:[NSArray class]]) {
         return showOrSeasonId;
     }
 
-    
     for (NSDictionary<NSString *, id> *r in resultsArray) {
-        
+
         // Skip if the result is not a collection or artist
         if (!([r[@"wrapperType"] isEqualToString:@"collection"] || [r[@"wrapperType"] isEqualToString:@"artist"])) {
             continue;
         }
-        
+
         // Skip if the artistName doesn't match the show
         if ([[showRegex matchesInString:r[@"artistName"] options:0 range:NSMakeRange(0, [r[@"artistName"] length])] count] == 0) {
             continue;
         }
-        
-        if ([season length]) {
+
+        NSString *collectionType = r[@"collectionType"];
+        NSString *artistType = r[@"artistType"];
+
+        if ([collectionType isKindOfClass:[NSString class]]) {
             // Skip if collectionType is not 'TV Season'
-            if (![r[@"collectionType"] isEqualToString:@"TV Season"]) {
+
+            if (![collectionType isEqualToString:@"TV Season"]) {
                 continue;
             }
-            
+
             if ([[seasonRegex matchesInString:r[@"collectionName"] options:0 range:NSMakeRange(0, [r[@"collectionName"] length])] count] == 0) {
                 continue;
             }
-        } else {
-            // Use artist if season is not specified
-            showOrSeasonId = [r[@"artistId"] integerValue];
-            break;
         }
-        
-        showOrSeasonId = [r[@"collectionId"] integerValue];
-        
+        else if ([artistType isKindOfClass:[NSString class]]) {
+            // Skip if artistType is not 'TV Show'
+            if (![artistType isEqualToString:@"TV Show"]) {
+                continue;
+            }
+
+            NSNumber *artistId = r[@"artistId"];
+            if ([artistId isKindOfClass:[NSNumber class]] || [artistId isKindOfClass:[NSString class]]) {
+                showOrSeasonId = [artistId integerValue];
+                break;
+            }
+        }
+
+        NSNumber *collectionId = r[@"collectionId"];
+        if ([collectionId isKindOfClass:[NSNumber class]] || [collectionId isKindOfClass:[NSString class]]) {
+            showOrSeasonId = [collectionId integerValue];
+        }
+
         break;
     }
     return showOrSeasonId;
 }
-
 
 + (NSArray<SBMetadataResult *> *)metadataForResults:(NSDictionary *)dict store:(NSDictionary *)store
 {
