@@ -183,11 +183,11 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
     // Determine artistId/collectionId
     NSURL *url;
     if (aSeasonNum.length) {
-        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&attribute=tvSeasonTerm&entity=tvSeason&limit=200",
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&attribute=tvSeasonTerm&entity=tvSeason&limit=250",
                                     country, language.lowercaseString, [SBMetadataHelper urlEncoded:[NSString stringWithFormat:@"%@ %@ %@", aSeriesName, season, aSeasonNum]]]];
     }
     else {
-        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&attribute=showTerm&entity=tvShow&limit=200",
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&attribute=showTerm&entity=tvShow&limit=250",
                                     country, language.lowercaseString, [SBMetadataHelper urlEncoded:aSeriesName]]];
     }
 
@@ -393,7 +393,7 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
     NSString *showPattern = [[show stringByReplacingOccurrencesOfString:@" " withString:@".*?" options:0 range:NSMakeRange(0, [show length])] lowercaseString];
     NSRegularExpression *showRegex = [NSRegularExpression regularExpressionWithPattern:showPattern options:NSRegularExpressionCaseInsensitive error:nil];
 
-    NSString *seasonPattern = [NSString stringWithFormat:@"%@\\s%@", seasonString, season];
+    NSString *seasonPattern = [NSString stringWithFormat:@"%@\\s%@$", seasonString, season];
     NSRegularExpression *seasonRegex = [NSRegularExpression regularExpressionWithPattern:seasonPattern options:NSRegularExpressionCaseInsensitive error:nil];
 
     if (resultsArray == nil || ![resultsArray isKindOfClass:[NSArray class]]) {
