@@ -105,33 +105,33 @@
 {
     BOOL firstLaunch = YES;
 
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"FirstLaunch"]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SBFirstLaunch"]) {
         firstLaunch = NO;
     }
 
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"WarningDonate"]) {
-        NSDate *lastDonateDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"DonateAskDate"];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"SBWarningDonate"]) {
+        NSDate *lastDonateDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"SBDonateAskDate"];
         const BOOL timePassed = !lastDonateDate || (-1 * lastDonateDate.timeIntervalSinceNow) >= DONATE_NAG_TIME;
 
         if (!firstLaunch && timePassed) {
-            [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"DonateAskDate"];
+            [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"SBDonateAskDate"];
 
             NSAlert *alert = [[NSAlert alloc] init];
-            [alert setMessageText: NSLocalizedString(@"Support Subler", "Donation -> title")];
+            alert.messageText = NSLocalizedString(@"Support Subler", "Donation -> title");
 
             NSString *donateMessage = [NSString stringWithFormat: @"%@",
                                         NSLocalizedString(@" A lot of time and effort have gone into development, coding, and refinement."
                                                           " If you enjoy using it, please consider showing your appreciation with a donation.", "Donation -> message")];
 
-            [alert setInformativeText:donateMessage];
-            [alert setAlertStyle: NSAlertStyleInformational];
+            alert.informativeText = donateMessage;
+            alert.alertStyle = NSAlertStyleInformational;
 
             [alert addButtonWithTitle: NSLocalizedString(@"Donate", "Donation -> button")];
             NSButton *noDonateButton = [alert addButtonWithTitle: NSLocalizedString(@"Nope", "Donation -> button")];
-            [noDonateButton setKeyEquivalent:[NSString stringWithFormat:@"%c", 0x1B]]; //escape key
+            noDonateButton.keyEquivalent = [NSString stringWithFormat:@"%c", 0x1B]; //escape key
 
             const BOOL allowNeverAgain = lastDonateDate != nil; //hide the "don't show again" check the first time - give them time to try the app
-            [alert setShowsSuppressionButton:allowNeverAgain];
+            alert.showsSuppressionButton = allowNeverAgain;
             if (allowNeverAgain) {
                 [[alert suppressionButton] setTitle:NSLocalizedString(@"Don't ask me about this ever again.", "Donation -> button")];
             }
@@ -142,13 +142,13 @@
             }
 
             if (allowNeverAgain) {
-                [[NSUserDefaults standardUserDefaults] setBool:([[alert suppressionButton] state] != NSOnState) forKey:@"WarningDonate"];
+                [[NSUserDefaults standardUserDefaults] setBool:(alert.suppressionButton.state != NSOnState) forKey:@"SBWarningDonate"];
             }
         }
     }
 
     if (firstLaunch) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FirstLaunch"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"SBFirstLaunch"];
     }
 
     [SBQueueController sharedManager];
@@ -195,7 +195,7 @@
 
 - (IBAction) linkDonate:(id)sender
 {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://subler.org/donate.html"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://subler.org/donate.php"]];
 }
 
 @end
