@@ -163,12 +163,10 @@
             break;
     }
 
-    NSURLSessionTask *task = [self sessionTaskFromUrl:url HTTPMethod:@"GET" headerOptions:nil cachePolicy:cachePolicy completionHandler:^(NSData * _Nullable data) {
+    [[self sessionTaskFromUrl:url HTTPMethod:@"GET" headerOptions:nil cachePolicy:cachePolicy completionHandler:^(NSData * _Nullable data) {
         downloadedData = data;
         dispatch_semaphore_signal(sem);
-    }];
-
-    [task resume];
+    }] resume];
 
     dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
 
