@@ -17,6 +17,7 @@
 #import <MP42Foundation/MP42File.h>
 
 #define DONATE_NAG_TIME (60 * 60 * 24 * 7)
+#define DONATE_NAG_TIME_LONG (60 * 60 * 24 * 120)
 
 @interface SBAppDelegate ()
 {
@@ -44,8 +45,6 @@
 
     NSString *path = [appSupportPath stringByAppendingPathComponent:@"debugLog.txt"];
 
-
-
     SBLogger *logger = [[SBLogger alloc] initWithLogFile:[NSURL fileURLWithPath:path]];
     [logger clearLog];
 
@@ -70,7 +69,7 @@
     }
 
     if (![[SBQueueController sharedManager] saveQueueToDisk]) {
-        if ([[NSUserDefaults standardUserDefaults] valueForKey:@"Debug"]) {
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"Debug"]) {
             NSLog(@"Failed to save queue to disk!");
         }
     }
@@ -105,16 +104,33 @@
 {
     BOOL firstLaunch = YES;
 
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SBFirstLaunch"]) {
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"SBFirstLaunch"]) {
         firstLaunch = NO;
     }
 
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"SBWarningDonate"]) {
-        NSDate *lastDonateDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"SBDonateAskDate"];
+    NSString *currentVersion = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
+    NSString *lastVersion = [NSUserDefaults.standardUserDefaults objectForKey:@"SBDonateAskVersion"];
+    const BOOL versionChanged = currentVersion != nil && ![currentVersion isEqualTo:lastVersion];
+
+    if (versionChanged) {
+        [NSUserDefaults.standardUserDefaults setObject:currentVersion forKey:@"SBDonateAskVersion"];
+
+        NSDate *lastDonateDate = [NSUserDefaults.standardUserDefaults objectForKey:@"SBDonateAskDate"];
+        const BOOL timePassed = !lastDonateDate || (-1 * lastDonateDate.timeIntervalSinceNow) >= DONATE_NAG_TIME_LONG;
+
+        if (timePassed) {
+            [NSUserDefaults.standardUserDefaults removeObjectForKey:@"SBWarningDonate"];
+            [NSUserDefaults.standardUserDefaults removeObjectForKey:@"SBFirstLaunch"];
+            [NSUserDefaults.standardUserDefaults removeObjectForKey:@"SBDonateAskDate"];
+        }
+    }
+
+    if (![NSUserDefaults.standardUserDefaults boolForKey:@"SBWarningDonate"]) {
+        NSDate *lastDonateDate = [NSUserDefaults.standardUserDefaults objectForKey:@"SBDonateAskDate"];
         const BOOL timePassed = !lastDonateDate || (-1 * lastDonateDate.timeIntervalSinceNow) >= DONATE_NAG_TIME;
 
         if (!firstLaunch && timePassed) {
-            [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"SBDonateAskDate"];
+            [NSUserDefaults.standardUserDefaults setObject:[NSDate date] forKey:@"SBDonateAskDate"];
 
             NSAlert *alert = [[NSAlert alloc] init];
             alert.messageText = NSLocalizedString(@"Support Subler", "Donation -> title");
@@ -130,10 +146,10 @@
             NSButton *noDonateButton = [alert addButtonWithTitle: NSLocalizedString(@"Nope", "Donation -> button")];
             noDonateButton.keyEquivalent = [NSString stringWithFormat:@"%c", 0x1B]; //escape key
 
-            const BOOL allowNeverAgain = lastDonateDate != nil; //hide the "don't show again" check the first time - give them time to try the app
-            alert.showsSuppressionButton = allowNeverAgain;
-            if (allowNeverAgain) {
-                [[alert suppressionButton] setTitle:NSLocalizedString(@"Don't ask me about this ever again.", "Donation -> button")];
+            const BOOL allowAgain = lastDonateDate != nil; //hide the "don't show again" check the first time - give them time to try the app
+            alert.showsSuppressionButton = allowAgain;
+            if (allowAgain) {
+                alert.suppressionButton.title = NSLocalizedString(@"Don't ask me about this again for this version.", "Donation -> button");
             }
 
             const NSInteger donateResult = [alert runModal];
@@ -141,8 +157,8 @@
                 [self linkDonate:self];
             }
 
-            if (allowNeverAgain) {
-                [[NSUserDefaults standardUserDefaults] setBool:(alert.suppressionButton.state != NSOnState) forKey:@"SBWarningDonate"];
+            if (allowAgain) {
+                [NSUserDefaults.standardUserDefaults setBool:(alert.suppressionButton.state != NSOnState) forKey:@"SBWarningDonate"];
             }
         }
     }
