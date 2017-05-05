@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -72,7 +72,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="242"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="77">
+                <textField horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" allowsCharacterPickerTouchBarItem="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="77">
                     <rect key="frame" x="152" y="205" width="113" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Check for update:" id="89">
                         <font key="font" metaFont="system"/>
@@ -80,7 +80,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="78">
+                <textField horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78">
                     <rect key="frame" x="152" y="180" width="113" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Window:" id="88">
                         <font key="font" metaFont="system"/>
@@ -112,7 +112,7 @@
                         </binding>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="81">
+                <textField horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81">
                     <rect key="frame" x="152" y="155" width="113" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Chapters:" id="85">
                         <font key="font" metaFont="system"/>
@@ -120,7 +120,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="206">
+                <textField horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="206">
                     <rect key="frame" x="152" y="115" width="113" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Show ratings for:" id="207">
                         <font key="font" metaFont="system"/>
@@ -128,7 +128,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="139">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="139">
                     <rect key="frame" x="152" y="54" width="113" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Privacy:" id="140">
                         <font key="font" metaFont="system"/>
@@ -187,7 +187,7 @@
                         <binding destination="123" name="selectedValue" keyPath="values.SBRatingsCountry" previousBinding="245" id="248"/>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="249">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="249">
                     <rect key="frame" x="271" y="95" width="165" height="14"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="USA ratings are always shown." id="250">
                         <font key="font" metaFont="smallSystem"/>
@@ -234,11 +234,11 @@
             <point key="canvasLocation" x="-40" y="-921"/>
         </customView>
         <customView id="94" userLabel="Advanced View">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="271"/>
+            <rect key="frame" x="0.0" y="0.0" width="610" height="279"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="189">
-                    <rect key="frame" x="147" y="52" width="132" height="17"/>
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="189">
+                    <rect key="frame" x="147" y="52" width="142" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Bitrate (per channel):" id="190">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -246,7 +246,7 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99">
-                    <rect key="frame" x="282" y="139" width="137" height="18"/>
+                    <rect key="frame" x="292" y="140" width="137" height="18"/>
                     <buttonCell key="cell" type="check" title="AC-3 audio to AAC" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="104">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -255,19 +255,8 @@
                         <binding destination="3" name="value" keyPath="values.SBAudioConvertAC3" id="112"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Jb-tI-sSK">
-                    <rect key="frame" x="300" y="159" width="88" height="18"/>
-                    <buttonCell key="cell" type="check" title="Keep DTS" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="LFa-OQ-j5q">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="3" name="enabled" keyPath="values.SBAudioConvertDts" id="SkM-S0-Vns"/>
-                        <binding destination="3" name="value" keyPath="values.SBAudioKeepDts" id="M1l-zj-oV1"/>
-                    </connections>
-                </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="olE-Dy-uJm">
-                    <rect key="frame" x="282" y="179" width="137" height="18"/>
+                    <rect key="frame" x="292" y="186" width="137" height="18"/>
                     <buttonCell key="cell" type="check" title="DTS audio to AAC" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="ZcC-1D-D4s">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -277,7 +266,7 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="191">
-                    <rect key="frame" x="282" y="46" width="65" height="26"/>
+                    <rect key="frame" x="292" y="46" width="65" height="26"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="gDw-hn-dbd"/>
                     </constraints>
@@ -301,16 +290,16 @@
                         <binding destination="123" name="selectedTag" keyPath="values.SBAudioBitrate" id="205"/>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="201">
-                    <rect key="frame" x="349" y="52" width="34" height="17"/>
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="201">
+                    <rect key="frame" x="359" y="52" width="34" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="kbps" id="202">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="hgg-QV-i0I">
-                    <rect key="frame" x="147" y="234" width="132" height="17"/>
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="hgg-QV-i0I">
+                    <rect key="frame" x="147" y="242" width="142" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Alternate Groups:" id="agM-jg-8mH">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -318,7 +307,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="115">
-                    <rect key="frame" x="283" y="77" width="172" height="26"/>
+                    <rect key="frame" x="293" y="77" width="172" height="26"/>
                     <popUpButtonCell key="cell" type="push" title="Dolby Pro Logic II" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="121" id="116">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -338,7 +327,7 @@
                     </connections>
                 </popUpButton>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="edJ-A5-eyf">
-                    <rect key="frame" x="300" y="119" width="88" height="18"/>
+                    <rect key="frame" x="310" y="119" width="88" height="18"/>
                     <buttonCell key="cell" type="check" title="Keep AC-3" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Zgy-z5-6UG">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -348,8 +337,8 @@
                         <binding destination="3" name="value" keyPath="values.SBAudioKeepAC3" id="W2T-se-Fud"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="101">
-                    <rect key="frame" x="147" y="200" width="132" height="17"/>
+                <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="101">
+                    <rect key="frame" x="147" y="208" width="142" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Convert:" id="102">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -357,7 +346,7 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hjZ-wQ-Sbb">
-                    <rect key="frame" x="282" y="199" width="119" height="18"/>
+                    <rect key="frame" x="292" y="207" width="119" height="18"/>
                     <buttonCell key="cell" type="check" title="VobSub to Tx3g" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="wgy-N5-9cB">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -367,7 +356,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="3fA-qQ-VvX">
-                    <rect key="frame" x="283" y="233" width="162" height="18"/>
+                    <rect key="frame" x="293" y="241" width="162" height="18"/>
                     <buttonCell key="cell" type="check" title="Keep groups organized" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Yld-Or-7Hu">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -376,16 +365,16 @@
                         <binding destination="3" name="value" keyPath="values.SBOrganizeAlternateGroups" id="dwA-nR-J68"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="113">
-                    <rect key="frame" x="147" y="82" width="132" height="17"/>
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="113">
+                    <rect key="frame" x="147" y="82" width="142" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Downmix audio to:" id="114">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="Pud-GM-vyU">
-                    <rect key="frame" x="147" y="23" width="132" height="17"/>
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="Pud-GM-vyU">
+                    <rect key="frame" x="147" y="23" width="142" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="DRC:" id="kde-QJ-Sl9">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -393,7 +382,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ETf-LE-57P">
-                    <rect key="frame" x="282" y="17" width="65" height="26"/>
+                    <rect key="frame" x="292" y="17" width="65" height="26"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="fZU-8d-Ua1"/>
                     </constraints>
@@ -415,10 +404,32 @@
                         <binding destination="123" name="selectedTag" keyPath="values.SBAudioDRC" id="ozi-Zd-fSY"/>
                     </connections>
                 </popUpButton>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rmU-Gb-jzF">
+                    <rect key="frame" x="310" y="159" width="155" height="26"/>
+                    <popUpButtonCell key="cell" type="push" title="Discard DTS" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="2Ad-Fs-Zpj" id="bVg-GU-Gs9">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="rX2-PN-Ebm">
+                            <items>
+                                <menuItem title="Discard DTS" state="on" id="2Ad-Fs-Zpj">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Convert to AC-3" tag="1" id="pD5-2K-ahJ"/>
+                                <menuItem title="Keep DTS" tag="2" id="SCt-75-DDV"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <accessibilityConnection property="title" destination="113" id="BgR-Ge-lPW"/>
+                        <binding destination="3" name="enabled" keyPath="values.SBAudioConvertDts" id="Vb0-Kv-EK1"/>
+                        <binding destination="123" name="selectedTag" keyPath="values.SBAudioDtsOptions" id="QpV-8Q-2cz"/>
+                    </connections>
+                </popUpButton>
             </subviews>
             <constraints>
                 <constraint firstItem="olE-Dy-uJm" firstAttribute="leading" secondItem="101" secondAttribute="trailing" constant="7" id="1dk-oy-Mwn"/>
                 <constraint firstItem="hgg-QV-i0I" firstAttribute="baseline" secondItem="3fA-qQ-VvX" secondAttribute="baseline" id="2Yz-qd-Qoa"/>
+                <constraint firstItem="rmU-Gb-jzF" firstAttribute="leading" secondItem="edJ-A5-eyf" secondAttribute="leading" id="3jG-c5-lXr"/>
                 <constraint firstItem="115" firstAttribute="leading" secondItem="113" secondAttribute="trailing" constant="8" id="4MW-Hy-WWz"/>
                 <constraint firstItem="hgg-QV-i0I" firstAttribute="width" secondItem="101" secondAttribute="width" id="5az-NZ-CQx"/>
                 <constraint firstAttribute="trailing" secondItem="3fA-qQ-VvX" secondAttribute="trailing" priority="750" constant="157" id="6DT-z2-rnO"/>
@@ -427,7 +438,7 @@
                 <constraint firstItem="191" firstAttribute="top" secondItem="115" secondAttribute="bottom" constant="10" symbolic="YES" id="9iB-21-mPQ"/>
                 <constraint firstItem="hjZ-wQ-Sbb" firstAttribute="leading" secondItem="101" secondAttribute="trailing" constant="7" id="9nt-S4-nVt"/>
                 <constraint firstAttribute="trailing" secondItem="115" secondAttribute="trailing" constant="148" id="A4M-Fd-zoZ"/>
-                <constraint firstItem="edJ-A5-eyf" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="6" id="B0c-SN-kve"/>
+                <constraint firstItem="edJ-A5-eyf" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="7" id="B0c-SN-kve"/>
                 <constraint firstItem="3fA-qQ-VvX" firstAttribute="leading" secondItem="hgg-QV-i0I" secondAttribute="trailing" constant="8" id="BQO-p4-1Yv"/>
                 <constraint firstItem="ETf-LE-57P" firstAttribute="baseline" secondItem="Pud-GM-vyU" secondAttribute="baseline" id="BUH-i4-Kx2"/>
                 <constraint firstItem="101" firstAttribute="top" secondItem="hgg-QV-i0I" secondAttribute="bottom" constant="17" id="CSW-42-DwQ"/>
@@ -435,19 +446,19 @@
                 <constraint firstItem="edJ-A5-eyf" firstAttribute="leading" secondItem="101" secondAttribute="trailing" constant="25" id="DZc-94-qf8"/>
                 <constraint firstItem="ETf-LE-57P" firstAttribute="leading" secondItem="Pud-GM-vyU" secondAttribute="trailing" constant="7" id="H0z-Jb-pVI"/>
                 <constraint firstItem="3fA-qQ-VvX" firstAttribute="top" secondItem="94" secondAttribute="top" constant="22" id="KBf-Cn-XkI"/>
-                <constraint firstItem="99" firstAttribute="top" secondItem="3Jb-tI-sSK" secondAttribute="bottom" constant="6" id="MCU-dU-3vl"/>
                 <constraint firstAttribute="bottom" secondItem="ETf-LE-57P" secondAttribute="bottom" constant="20" id="N4i-fk-H2s"/>
                 <constraint firstItem="3fA-qQ-VvX" firstAttribute="baseline" secondItem="hgg-QV-i0I" secondAttribute="baseline" id="Naa-uJ-Mn4"/>
                 <constraint firstItem="113" firstAttribute="centerY" secondItem="115" secondAttribute="centerY" id="Nhe-HY-1IF"/>
-                <constraint firstItem="3Jb-tI-sSK" firstAttribute="top" secondItem="olE-Dy-uJm" secondAttribute="bottom" constant="6" id="Oc2-Im-suR"/>
                 <constraint firstAttribute="trailing" secondItem="olE-Dy-uJm" secondAttribute="trailing" constant="183" id="PbR-Oo-tMd"/>
                 <constraint firstItem="hjZ-wQ-Sbb" firstAttribute="top" secondItem="3fA-qQ-VvX" secondAttribute="bottom" constant="20" id="PiN-6P-ePl"/>
+                <constraint firstItem="rmU-Gb-jzF" firstAttribute="trailing" secondItem="115" secondAttribute="trailing" id="QCq-qG-FAB"/>
                 <constraint firstItem="101" firstAttribute="width" secondItem="113" secondAttribute="width" id="Qbd-YY-Hbm"/>
                 <constraint firstItem="101" firstAttribute="leading" secondItem="hgg-QV-i0I" secondAttribute="leading" id="Qf1-pi-DeU"/>
                 <constraint firstItem="189" firstAttribute="leading" secondItem="113" secondAttribute="leading" id="RTR-du-dHN"/>
                 <constraint firstItem="hgg-QV-i0I" firstAttribute="top" secondItem="94" secondAttribute="top" constant="20" id="Stz-c8-P0z"/>
+                <constraint firstItem="99" firstAttribute="top" secondItem="rmU-Gb-jzF" secondAttribute="bottom" constant="6" id="Tfc-02-agn"/>
                 <constraint firstItem="99" firstAttribute="leading" secondItem="101" secondAttribute="trailing" constant="7" id="VHH-IP-ami"/>
-                <constraint firstItem="olE-Dy-uJm" firstAttribute="top" secondItem="hjZ-wQ-Sbb" secondAttribute="bottom" constant="6" id="XR7-fl-gW9"/>
+                <constraint firstItem="olE-Dy-uJm" firstAttribute="top" secondItem="hjZ-wQ-Sbb" secondAttribute="bottom" constant="7" id="XR7-fl-gW9"/>
                 <constraint firstItem="Pud-GM-vyU" firstAttribute="leading" secondItem="189" secondAttribute="leading" id="Zvh-8h-BGJ"/>
                 <constraint firstItem="113" firstAttribute="leading" secondItem="101" secondAttribute="leading" id="g2e-8x-xp9"/>
                 <constraint firstItem="191" firstAttribute="baseline" secondItem="201" secondAttribute="baseline" id="hho-dq-dbt"/>
@@ -455,10 +466,9 @@
                 <constraint firstItem="101" firstAttribute="baseline" secondItem="hjZ-wQ-Sbb" secondAttribute="baseline" id="iqy-ko-qoq"/>
                 <constraint firstItem="olE-Dy-uJm" firstAttribute="trailing" secondItem="99" secondAttribute="trailing" id="lhk-eh-osp"/>
                 <constraint firstItem="hgg-QV-i0I" firstAttribute="leading" secondItem="94" secondAttribute="leading" priority="750" constant="149" id="n98-fS-nS8"/>
-                <constraint firstItem="3Jb-tI-sSK" firstAttribute="leading" secondItem="101" secondAttribute="trailing" constant="25" id="nBR-I8-bRE"/>
                 <constraint firstItem="191" firstAttribute="leading" secondItem="189" secondAttribute="trailing" constant="7" id="nV7-2m-US7"/>
+                <constraint firstItem="rmU-Gb-jzF" firstAttribute="top" secondItem="olE-Dy-uJm" secondAttribute="bottom" constant="5" id="nfT-uM-iaO"/>
                 <constraint firstItem="201" firstAttribute="leading" secondItem="191" secondAttribute="trailing" constant="7" id="pg3-Gp-fTv"/>
-                <constraint firstItem="3Jb-tI-sSK" firstAttribute="trailing" secondItem="edJ-A5-eyf" secondAttribute="trailing" id="ppw-oH-duW"/>
                 <constraint firstItem="ETf-LE-57P" firstAttribute="top" secondItem="191" secondAttribute="bottom" constant="8" id="zb0-mn-8Pg"/>
             </constraints>
             <point key="canvasLocation" x="-75" y="-976.5"/>

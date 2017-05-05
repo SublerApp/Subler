@@ -210,17 +210,39 @@
             // DTS -> convert only if specified in the prefs.
             else if (track.format == kMP42AudioCodecType_DTS) {
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioConvertDts"] boolValue]) {
-                    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepDts"] boolValue]) {
-                        MP42AudioTrack *copy = [track copy];
-                        MP42ConversionSettings *settings = [MP42AudioConversionSettings audioConversionWithBitRate:bitRate
-                                                                                                           mixDown:SBDolbyPlIIMixdown
-                                                                                                               drc:drc];
-                        copy.conversionSettings = settings;
-
-                        [self.mp4File addTrack:copy];
-                    }
-                    else {
-                        conversionNeeded = YES;
+                    switch ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioDtsOptions"] integerValue]) {
+                        case 1: { // Convert to AC-3
+                            MP42AudioTrack *copy = [track copy];
+                            MP42ConversionSettings *settings = [MP42AudioConversionSettings audioConversionWithBitRate:bitRate
+                                                                                                               mixDown:SBDolbyPlIIMixdown
+                                                                                                                   drc:drc];
+                            copy.conversionSettings = settings;
+                            
+                            ((MP42AudioTrack *)track).fallbackTrack = copy;
+                            track.enabled = NO;
+                            track.conversionSettings = [[MP42AudioConversionSettings alloc] initWitFormat:kMP42AudioCodecType_AC3
+                                                                                                  bitRate:640
+                                                                                                  mixDown:SBNoneMixdown
+                                                                                                      drc:drc];
+                            [self.mp4File addTrack:copy];
+                            break;
+                        }
+                        case 2: { // Keep DTS
+                            MP42AudioTrack *copy = [track copy];
+                            MP42ConversionSettings *settings = [MP42AudioConversionSettings audioConversionWithBitRate:bitRate
+                                                                                                               mixDown:SBDolbyPlIIMixdown
+                                                                                                                   drc:drc];
+                            copy.conversionSettings = settings;
+                            
+                            ((MP42AudioTrack *)track).fallbackTrack = copy;
+                            track.enabled = NO;
+                            
+                            [self.mp4File addTrack:copy];
+                            break;
+                        }
+                        default:
+                            conversionNeeded = YES;
+                            break;
                     }
                 }
             }
