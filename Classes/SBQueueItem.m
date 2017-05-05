@@ -198,6 +198,7 @@
                         copy.conversionSettings = settings;
 
                         ((MP42AudioTrack *)track).fallbackTrack = copy;
+                        track.enabled = NO;
 
                         [self.mp4File addTrack:copy];
                     }
