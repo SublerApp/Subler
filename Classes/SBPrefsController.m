@@ -60,6 +60,7 @@
                                                               @"SBSaveFormat":                  @"m4v",
                                                               @"mp464bitOffset":                @"NO",
                                                               @"chaptersPreviewTrack":          @"YES",
+                                                              @"SBChaptersPreviewPosition":     @0.5f,
 
                                                               @"SBMetadataPreference|Movie": @"TheMovieDB",
                                                               @"SBMetadataPreference|Movie|iTunes Store|Language": @"USA (English)",

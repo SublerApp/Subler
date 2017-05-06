@@ -57,6 +57,7 @@
 
         if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue]) {
             attributes[MP42GenerateChaptersPreviewTrack] = @YES;
+            attributes[MP42ChaptersPreviewPosition] = [NSNumber numberWithFloat:[[NSUserDefaults standardUserDefaults] floatForKey:@"SBChaptersPreviewPosition"]];
         }
 
         _attributes = [attributes copy];
@@ -81,6 +82,7 @@
 
         if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue]) {
             attributes[MP42GenerateChaptersPreviewTrack] = @YES;
+            attributes[MP42ChaptersPreviewPosition] = [NSNumber numberWithFloat:[[NSUserDefaults standardUserDefaults] floatForKey:@"SBChaptersPreviewPosition"]];
         }
 
         _attributes = [attributes copy];
