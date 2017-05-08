@@ -443,6 +443,7 @@ static NSDictionary *_detailMonospacedAttr;
 
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue]) {
         attributes[MP42GenerateChaptersPreviewTrack] = @YES;
+        attributes[MP42ChaptersPreviewPosition] = [NSNumber numberWithFloat:[[NSUserDefaults standardUserDefaults] floatForKey:@"SBChaptersPreviewPosition"]];
     }
 
     if (_64bit_data.state) { attributes[MP4264BitData] = @YES; }

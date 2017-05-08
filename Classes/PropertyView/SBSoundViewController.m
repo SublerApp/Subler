@@ -43,7 +43,7 @@
 
     _fallbacks = [[NSMutableArray alloc] init];
 
-    if ((self.soundTrack.format == kMP42AudioCodecType_AC3 || self.soundTrack.format == kMP42AudioCodecType_EnhancedAC3) &&
+    if ((self.soundTrack.format == kMP42AudioCodecType_AC3 || self.soundTrack.format == kMP42AudioCodecType_EnhancedAC3 || self.soundTrack.format == kMP42AudioCodecType_DTS) &&
         self.soundTrack.conversionSettings.format != kMP42AudioCodecType_MPEG4AAC) {
         NSInteger i = 1;
         NSInteger selectedItem = 0;

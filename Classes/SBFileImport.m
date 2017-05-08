@@ -95,14 +95,20 @@
             // DTS Specific actions
             else if (object.format == kMP42AudioCodecType_DTS &&
                      [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioConvertDts"] boolValue]) {
-                if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepDts"] boolValue] &&
-                    [(MP42AudioTrack *)object fallbackTrack] == nil) {
-                    [_actionArray addObject:@6];
-                } else if ([(MP42AudioTrack *)object fallbackTrack]) {
+                if ([(MP42AudioTrack *)object fallbackTrack] != nil) {
                     [_actionArray addObject:@0];
-                } else {
-                    [_actionArray addObject:@([[[NSUserDefaults standardUserDefaults]
-                                                valueForKey:@"SBAudioMixdown"] integerValue])];
+                }
+                else {
+                    switch ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioDtsOptions"] integerValue]) {
+                        case 1: [_actionArray addObject:@7]; // Convert to AC-3
+                            break;
+                        case 2: [_actionArray addObject:@6]; // Keep DTS
+                            break;
+                        default:
+                            [_actionArray addObject:@([[[NSUserDefaults standardUserDefaults]
+                                                        valueForKey:@"SBAudioMixdown"] integerValue])];
+                            break;
+                    }
                 }
             }
             // Vobsub
@@ -297,7 +303,14 @@
                     [item setEnabled:YES];
                     [actionCell.menu addItem:item];
                 }
-
+                
+                if (track.format == kMP42AudioCodecType_DTS)
+                {
+                    item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"AAC + AC3", @"File Import action menu item.") action:NULL keyEquivalent:@""];
+                    item.tag = tag++;
+                    [item setEnabled:YES];
+                    [actionCell.menu addItem:item];
+                }
             }
             else if ([track isMemberOfClass:[MP42ChapterTrack class]]) {
                 NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Passthru", @"File Import action menu item.") action:NULL keyEquivalent:@""];
@@ -483,17 +496,33 @@
                     NSUInteger bitRate = [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioBitrate"] integerValue];
                     float drc = [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioDRC"] floatValue];
 
-                    if (conversion == 6) {
+                    if (conversion == 7) {
                         MP42AudioTrack *audioTrack = (MP42AudioTrack *)track;
                         MP42AudioTrack *copy = [track copy];
                         MP42ConversionSettings *settings = [MP42AudioConversionSettings audioConversionWithBitRate:bitRate
                                                                                                            mixDown:SBDolbyPlIIMixdown
                                                                                                                drc:drc];
                         copy.conversionSettings = settings;
-
+                        
                         audioTrack.fallbackTrack = copy;
                         audioTrack.enabled = NO;
-
+                        audioTrack.conversionSettings = [[MP42AudioConversionSettings alloc] initWitFormat:kMP42AudioCodecType_AC3
+                                                                                                   bitRate:640
+                                                                                                   mixDown:SBNoneMixdown
+                                                                                                       drc:drc];
+                        [tracks addObject:copy];
+                    }
+                    else if (conversion == 6) {
+                        MP42AudioTrack *audioTrack = (MP42AudioTrack *)track;
+                        MP42AudioTrack *copy = [track copy];
+                        MP42ConversionSettings *settings = [MP42AudioConversionSettings audioConversionWithBitRate:bitRate
+                                                                                                           mixDown:SBDolbyPlIIMixdown
+                                                                                                               drc:drc];
+                        copy.conversionSettings = settings;
+                        
+                        audioTrack.fallbackTrack = copy;
+                        audioTrack.enabled = NO;
+                        
                         [tracks addObject:copy];
                     }
                     else if (conversion) {

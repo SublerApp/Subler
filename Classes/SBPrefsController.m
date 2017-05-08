@@ -36,6 +36,16 @@
     NSData *movieDefaultMap = [NSKeyedArchiver archivedDataWithRootObject:[SBMetadataResultMap movieDefaultMap]];
     NSData *tvShowDefaultMap = [NSKeyedArchiver archivedDataWithRootObject:[SBMetadataResultMap tvShowDefaultMap]];
 
+    // Migrate 1.2.9 DTS setting
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"SBAudioKeepDts"] != nil)
+    {
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioKeepDts"] boolValue])
+        {
+            [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"SBAudioDtsOptions"];
+        }
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"SBAudioKeepDts"];
+    }
+    
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"SBSaveFormat":                  @"m4v",
                                                               @"defaultSaveFormat":             @"0",
                                                               @"SBOrganizeAlternateGroups":     @"YES",
@@ -44,12 +54,13 @@
                                                               @"SBAudioConvertAC3":             @"YES",
                                                               @"SBAudioKeepAC3":                @"YES",
                                                               @"SBAudioConvertDts":             @"YES",
-                                                              @"SBAudioKeepDts":                @"NO",
+                                                              @"SBAudioDtsOptions":             @"0",
                                                               @"SBSubtitleConvertBitmap":       @"YES",
                                                               @"SBRatingsCountry":              @"All countries",
                                                               @"SBSaveFormat":                  @"m4v",
                                                               @"mp464bitOffset":                @"NO",
                                                               @"chaptersPreviewTrack":          @"YES",
+                                                              @"SBChaptersPreviewPosition":     @0.5f,
 
                                                               @"SBMetadataPreference|Movie": @"TheMovieDB",
                                                               @"SBMetadataPreference|Movie|iTunes Store|Language": @"USA (English)",
