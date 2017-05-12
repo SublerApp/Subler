@@ -7,8 +7,17 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Metadata"; ObjectID = "1NM-zc-8xJ"; */
 "1NM-zc-8xJ.paletteLabel" = "Metadata";
 
-/* Class = "NSButtonCell"; title = "Create Preview Images"; ObjectID = "84"; */
-"84.title" = "Crea le immagini di anteprima";
+/* Class = "NSMenuItem"; title = "Discard DTS"; ObjectID = "2Ad-Fs-Zpj"; */
+"2Ad-Fs-Zpj.title" = "Scarta DTS";
+
+/* Class = "NSTextFieldCell"; title = "Middle"; ObjectID = "2o1-dB-mt1"; */
+"2o1-dB-mt1.title" = "Metà";
+
+/* Class = "NSTextFieldCell"; title = "Beginning"; ObjectID = "3Vs-qA-7Z6"; */
+"3Vs-qA-7Z6.title" = "Inizio";
+
+/* Class = "NSButtonCell"; title = "Create Preview Images at position:"; ObjectID = "84"; */
+"84.title" = "Crea immagini di anteprima alla posizione:";
 
 /* Class = "NSTextFieldCell"; title = "Chapters:"; ObjectID = "85"; */
 "85.title" = "Capitoli:";
@@ -70,8 +79,11 @@
 /* Class = "NSTextFieldCell"; title = "USA ratings are always shown."; ObjectID = "250"; */
 "250.title" = "Le classifiche USA sono sempre visibili.";
 
-/* Class = "NSButtonCell"; title = "Keep DTS"; ObjectID = "LFa-OQ-j5q"; */
-"LFa-OQ-j5q.title" = "Mantieni DTS";
+/* Class = "NSTextFieldCell"; title = "End"; ObjectID = "He0-rl-DBi"; */
+"He0-rl-DBi.title" = "Fine";
+
+/* Class = "NSMenuItem"; title = "Keep DTS"; ObjectID = "SCt-75-DDV"; */
+"SCt-75-DDV.title" = "Mantieni DTS";
 
 /* Class = "NSButtonCell"; title = "Keep groups organized"; ObjectID = "Yld-Or-7Hu"; */
 "Yld-Or-7Hu.title" = "Mantieni i gruppi organizzati";
@@ -93,6 +105,9 @@
 
 /* Class = "NSTextFieldCell"; title = "DRC:"; ObjectID = "kde-QJ-Sl9"; */
 "kde-QJ-Sl9.title" = "DRC:";
+
+/* Class = "NSMenuItem"; title = "Convert to AC-3"; ObjectID = "pD5-2K-ahJ"; */
+"pD5-2K-ahJ.title" = "Converti in AC-3";
 
 /* Class = "NSButtonCell"; title = "VobSub to Tx3g"; ObjectID = "wgy-N5-9cB"; */
 "wgy-N5-9cB.title" = "VobSub a Tx3g";
