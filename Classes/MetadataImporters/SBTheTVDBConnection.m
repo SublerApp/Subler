@@ -18,7 +18,10 @@
 @interface SBTheTVDBConnection ()
 
 @property (nonatomic, readwrite, nullable) NSString *token;
+@property (nonatomic, readwrite) NSTimeInterval tokenTimestamp;
+
 @property (nonatomic, readwrite) NSArray<NSString *> *languagues;
+@property (nonatomic, readwrite) NSTimeInterval languagesTimestamp;
 
 @property (nonatomic, readonly) dispatch_queue_t queue;
 @property (nonatomic, readonly) dispatch_queue_t tokenQueue;
@@ -44,6 +47,18 @@
     if (self) {
         _queue = dispatch_queue_create("org.subler.TheTVDBQueue", DISPATCH_QUEUE_SERIAL);
         _tokenQueue = dispatch_queue_create("org.subler.TheTVDBTokenQueue", DISPATCH_QUEUE_SERIAL);
+
+        _languagesTimestamp = [[NSUserDefaults.standardUserDefaults objectForKey:@"SBTheTVBDLanguagesArrayTimestamp"] doubleValue];
+
+        if (_languagesTimestamp + 60 * 60 * 60 > [NSDate timeIntervalSinceReferenceDate]) {
+            _languagues = [NSUserDefaults.standardUserDefaults objectForKey:@"SBTheTVBDLanguagesArray"];
+        }
+
+        _tokenTimestamp = [[NSUserDefaults.standardUserDefaults objectForKey:@"SBTheTVBDTokenTimestamp"] doubleValue];
+
+        if (_tokenTimestamp + 60 * 60 * 4 > [NSDate timeIntervalSinceReferenceDate]) {
+            _token = [NSUserDefaults.standardUserDefaults objectForKey:@"SBTheTVBDToken"];
+        }
     }
 
     return self;
@@ -66,6 +81,10 @@
             NSString *token = response[@"token"];
             if ([token isKindOfClass:[NSString class]]) {
                 _token = token;
+                _tokenTimestamp = [NSDate timeIntervalSinceReferenceDate];
+                [NSUserDefaults.standardUserDefaults setObject:token forKey:@"SBTheTVBDToken"];
+                [NSUserDefaults.standardUserDefaults setObject:@(_tokenTimestamp)
+                                                        forKey:@"SBTheTVBDTokenTimestamp"];
             }
         }
     }
@@ -96,7 +115,11 @@
                 }
             }
 
-            self->_languagues = result;
+            _languagues = result;
+            _languagesTimestamp = [NSDate timeIntervalSinceReferenceDate];
+            [NSUserDefaults.standardUserDefaults setObject:result forKey:@"SBTheTVBDLanguagesArray"];
+            [NSUserDefaults.standardUserDefaults setObject:@(_languagesTimestamp)
+                                                    forKey:@"SBTheTVBDLanguagesArrayTimestamp"];
         }
     }
 }
@@ -107,7 +130,8 @@
 
     dispatch_sync(_tokenQueue, ^{
 
-        if (self->_token == nil) {
+        if (self->_tokenTimestamp + 60 * 60 * 4 < [NSDate timeIntervalSinceReferenceDate]
+            || self->_token == nil) {
             [self updateToken];
         }
 
@@ -119,7 +143,7 @@
 
 - (NSArray<NSString *> *)languagues
 {
-    __block NSArray<NSString *> *languages = @[];
+    __block NSArray<NSString *> *languages = @[@"en"];
 
     dispatch_sync(_queue, ^{
 

@@ -52,6 +52,7 @@
         }
     }
 
+    // Fall back to english
     if (![language isEqualToString:@"en"]) {
         [results addObjectsFromArray:[self searchTVSeries:seriesName language:@"en"]];
     }
