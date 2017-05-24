@@ -176,4 +176,134 @@
     return data;
 }
 
+#pragma mark - wrapper
+
+- (NSArray<NSDictionary *> *)fetchSeries:(NSString *)seriesName language:(NSString *)language
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/search/series?name=%@", seriesName]];
+    NSData *seriesJSON = [self requestData:url language:language];
+
+    if (seriesJSON) {
+
+        NSDictionary *series = [NSJSONSerialization JSONObjectWithData:seriesJSON options:0 error:NULL];
+
+        if (series || [series isKindOfClass:[NSDictionary class]]) {
+
+            NSArray<NSDictionary *> *seriesArray = series[@"data"];
+
+            if ([seriesArray isKindOfClass:[NSArray class]] && seriesArray.count) {
+                return seriesArray;
+            }
+        }
+    }
+
+    return @[];
+}
+
+- (nullable NSDictionary *)fetchSeriesInfo:(NSNumber *)seriesID language:(NSString *)language
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/series/%@", seriesID]];
+    NSData *seriesInfoJSON = [SBTheTVDBConnection.defaultManager requestData:url language:language];
+
+    if (!seriesInfoJSON) { return nil; }
+
+    NSDictionary *seriesInfo = [NSJSONSerialization JSONObjectWithData:seriesInfoJSON options:0 error:NULL];
+
+    if (!seriesInfo || ![seriesInfo isKindOfClass:[NSDictionary class]]) { return nil; }
+
+    seriesInfo = seriesInfo[@"data"];
+
+    if (!seriesInfo || ![seriesInfo isKindOfClass:[NSDictionary class]]) { return nil; }
+
+    return seriesInfo;
+
+}
+
+- (NSArray<NSDictionary *> *)fetchSeriesActors:(NSNumber *)seriesID language:(NSString *)language
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/series/%@/actors", seriesID]];
+    NSData *seriesActorsJSON = [SBTheTVDBConnection.defaultManager requestData:url language:language];
+
+    if (!seriesActorsJSON) { return @[]; }
+
+    NSDictionary *seriesActorsDictionary = [NSJSONSerialization JSONObjectWithData:seriesActorsJSON options:0 error:NULL];
+
+    if (!seriesActorsDictionary || ![seriesActorsDictionary isKindOfClass:[NSDictionary class]]) { return @[]; }
+
+    NSArray<NSDictionary *> *seriesActors = seriesActorsDictionary[@"data"];
+
+    if (!seriesActors || ![seriesActors isKindOfClass:[NSArray class]]) { return @[]; }
+
+    return seriesActors;
+}
+
+- (NSArray<NSDictionary *> *)fetchSeriesImages:(NSNumber *)seriesID type:(NSString *)type language:(NSString *)language;
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/series/%@/images/query?keyType=%@", seriesID, type]];
+    NSData *imagesJSON = [SBTheTVDBConnection.defaultManager requestData:url language:language];
+
+    if (!imagesJSON) { return @[]; }
+
+    NSDictionary *imagesDictionary = [NSJSONSerialization JSONObjectWithData:imagesJSON options:0 error:NULL];
+
+    if (!imagesDictionary || ![imagesDictionary isKindOfClass:[NSDictionary class]]) { return @[]; }
+
+    NSArray<NSDictionary *> *imagesArray = imagesDictionary[@"data"];
+
+    if (!imagesArray || ![imagesArray isKindOfClass:[NSArray class]]) { return @[]; }
+
+    return imagesArray;
+}
+
+- (NSArray<NSDictionary *> *)fetchEpisodes:(NSNumber *)seriesID season:(NSString *)season number:(NSString *)number language:(NSString *)language;
+{
+    NSURL *url;
+    if (season.length && number.length) {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/series/%@/episodes/query?airedSeason=%@&airedEpisode=%@",
+                                    seriesID, season, number]];
+    } else if (season.length) {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/series/%@/episodes/query?airedSeason=%@",
+                                    seriesID, season]];
+    }
+    else {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/series/%@/episodes", seriesID]];
+    }
+
+    NSData *episodesJSON = [SBTheTVDBConnection.defaultManager requestData:url language:language];
+
+    if (!episodesJSON) { return @[]; }
+
+    NSDictionary *episodes = [NSJSONSerialization JSONObjectWithData:episodesJSON options:0 error:NULL];
+
+    if (!episodes || ![episodes isKindOfClass:[NSDictionary class]]) { return @[]; }
+
+    // Decode the individual episodes
+
+    NSArray<NSDictionary *> *episodesArray = episodes[@"data"];
+
+    if ([episodesArray isKindOfClass:[NSArray class]]) {
+        return episodesArray;
+    }
+
+    return @[];
+}
+
+- (NSDictionary *)fetchEpisodesInfo:(NSNumber *)episodeID language:(NSString *)language;
+{
+    NSURL *episodesUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/episodes/%@", episodeID]];
+    NSData *episodesJSON = [SBTheTVDBConnection.defaultManager requestData:episodesUrl language:language];
+
+    if (!episodesJSON) { return nil; }
+
+    NSDictionary *episodesInfo = [NSJSONSerialization JSONObjectWithData:episodesJSON options:0 error:NULL];
+
+    if (!episodesInfo || ![episodesInfo isKindOfClass:[NSDictionary class]]) { return nil; }
+
+    episodesInfo = episodesInfo[@"data"];
+
+    if (!episodesInfo || ![episodesInfo isKindOfClass:[NSDictionary class]]) { return nil; }
+
+    return episodesInfo;
+}
+
 @end

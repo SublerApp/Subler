@@ -14,6 +14,13 @@
 
 @property (nonatomic, readonly) NSArray<NSString *> *languagues;
 
-- (NSData *)requestData:(NSURL *)url language:(NSString *)language;
+- (NSArray<NSDictionary *> *)fetchSeries:(NSString *)seriesName language:(NSString *)language;
+- (NSDictionary *)fetchSeriesInfo:(NSNumber *)seriesID language:(NSString *)language;
+- (NSArray<NSDictionary *> *)fetchSeriesActors:(NSNumber *)seriesID language:(NSString *)language;
+- (NSArray<NSDictionary *> *)fetchSeriesImages:(NSNumber *)seriesID type:(NSString *)type language:(NSString *)language;
+
+- (NSArray<NSDictionary *> *)fetchEpisodes:(NSNumber *)seriesID season:(NSString *)season number:(NSString *)number language:(NSString *)language;
+- (NSDictionary *)fetchEpisodesInfo:(NSNumber *)episodeID language:(NSString *)language;
+
 
 @end

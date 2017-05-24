@@ -35,23 +35,10 @@
     language = [MP42Languages.defaultManager extendedTagForLocalizedLang:language];
 
     // search for series
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/search/series?name=%@", [SBMetadataHelper urlEncoded:seriesName]]];
-    NSData *seriesJSON = [SBTheTVDBConnection.defaultManager requestData:url language:language];
+    NSArray<NSDictionary *> *series = [SBTheTVDBConnection.defaultManager fetchSeries:[SBMetadataHelper urlEncoded:seriesName] language:language];
 
-    if (seriesJSON) {
-
-        NSDictionary *series = [NSJSONSerialization JSONObjectWithData:seriesJSON options:0 error:NULL];
-
-        if (series || [series isKindOfClass:[NSDictionary class]]) {
-
-            NSArray<NSDictionary *> *seriesArray = series[@"data"];
-
-            if ([seriesArray isKindOfClass:[NSArray class]] && seriesArray.count) {
-                for (NSDictionary *s in seriesArray) {
-                    [results addObject:s[@"seriesName"]];
-                }
-            }
-        }
+    for (NSDictionary *s in series) {
+        [results addObject:s[@"seriesName"]];
     }
 
     // Fall back to english
@@ -85,34 +72,11 @@
         }
 
         // Series info
-
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/series/%@", seriesID]];
-        NSData *seriesInfoJSON = [SBTheTVDBConnection.defaultManager requestData:url language:language];
-
-        if (!seriesInfoJSON) { continue; }
-
-        NSDictionary *seriesInfo = [NSJSONSerialization JSONObjectWithData:seriesInfoJSON options:0 error:NULL];
-
-        if (!seriesInfo || ![seriesInfo isKindOfClass:[NSDictionary class]]) { continue; }
-
-        seriesInfo = seriesInfo[@"data"];
-
-        if (!seriesInfo || ![seriesInfo isKindOfClass:[NSDictionary class]]) { continue; }
+        NSDictionary *seriesInfo = [SBTheTVDBConnection.defaultManager fetchSeriesInfo:seriesID language:language];
+        if (seriesInfo == nil) { continue; }
 
         // Series actors
-
-        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/series/%@/actors", seriesID]];
-        NSData *seriesActorsJSON = [SBTheTVDBConnection.defaultManager requestData:url language:language];
-
-        if (!seriesActorsJSON) { continue; }
-
-        NSDictionary *seriesActorsDictionary = [NSJSONSerialization JSONObjectWithData:seriesActorsJSON options:0 error:NULL];
-
-        if (!seriesActorsDictionary || ![seriesActorsDictionary isKindOfClass:[NSDictionary class]]) { continue; }
-
-        NSArray<NSDictionary *> *seriesActors = seriesActorsDictionary[@"data"];
-
-        if (!seriesActors || ![seriesActors isKindOfClass:[NSArray class]]) { continue; }
+        NSArray<NSDictionary *> *seriesActors = [SBTheTVDBConnection.defaultManager fetchSeriesActors:seriesID language:language];
 
         // Series episodes info
         NSArray<SBMetadataResult *> *localizedResults = [self loadTVEpisodes:seriesInfo actors:seriesActors
@@ -132,17 +96,10 @@
             }
 
             if (nullValues & SBTheTVDBNullValuesSeries) {
-                NSURL *englishUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/series/%@", seriesID]];
-                NSData *englishSeriesInfoJSON = [SBTheTVDBConnection.defaultManager requestData:englishUrl language:@"en"];
+                NSDictionary *englishSeriesInfo = [SBTheTVDBConnection.defaultManager fetchSeriesInfo:seriesID language:@"en"];
 
-                if (englishSeriesInfoJSON) {
-
-                    NSDictionary *englishSeriesInfo = [NSJSONSerialization JSONObjectWithData:englishSeriesInfoJSON options:0 error:NULL];
-
-                    if (englishSeriesInfo || [englishSeriesInfo isKindOfClass:[NSDictionary class]]) {
-                        englishSeriesInfo = englishSeriesInfo[@"data"];
-                        [self merge:localizedResults withSeries:englishSeriesInfo];
-                    }
+                if (englishSeriesInfo) {
+                    [self merge:localizedResults withSeries:englishSeriesInfo];
                 }
             }
         }
@@ -199,32 +156,21 @@
 
 - (NSSet<NSNumber *> *)searchSeriesID:(NSString *)seriesName language:(NSString *)language
 {
-    // search for series id
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/search/series?name=%@", [SBMetadataHelper urlEncoded:seriesName]]];
-    NSData *seriesJSON = [SBTheTVDBConnection.defaultManager requestData:url language:language];
-
-    if (!seriesJSON) { return [NSSet set]; }
-
-    NSDictionary *series = [NSJSONSerialization JSONObjectWithData:seriesJSON options:0 error:NULL];
-
-    if (!series || ![series isKindOfClass:[NSDictionary class]]) { return [NSSet set]; }
-
-    NSArray<NSDictionary *> *seriesObject = series[@"data"];
     NSMutableSet<NSDictionary *> *selectedSeries = [[NSMutableSet alloc] init];
 
-    if ([seriesObject isKindOfClass:[NSArray class]] && seriesObject.count) {
+    // search for series id
+    NSArray<NSDictionary *> *series = [SBTheTVDBConnection.defaultManager fetchSeries:[SBMetadataHelper urlEncoded:seriesName] language:language];
 
-        for (NSDictionary *s in seriesObject) {
-            if ([self seriesResult:s matchName:seriesName]) {
-                [selectedSeries addObject:s];
-            }
-        }
-
-        if (!selectedSeries.count) {
-            [selectedSeries addObject:seriesObject.firstObject];
+    for (NSDictionary *s in series) {
+        if ([self seriesResult:s matchName:seriesName]) {
+            [selectedSeries addObject:s];
         }
     }
-    
+
+    if (!selectedSeries.count && series.count) {
+        [selectedSeries addObject:series.firstObject];
+    }
+
     return [selectedSeries copy];
 }
 
@@ -388,37 +334,27 @@ typedef NS_OPTIONS(NSUInteger, SBTheTVDBNullValues) {
     [newArtworkProviderNames addObjectsFromArray:metadata.artworkProviderNames];
 
     // get additionals images
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/series/%@/images/query?keyType=%@", metadata[@"TheTVDB Series ID"], type]];
-    NSData *imagesJSON = [SBTheTVDBConnection.defaultManager requestData:url language:language];
+    NSArray *images = [SBTheTVDBConnection.defaultManager fetchSeriesImages:metadata[@"TheTVDB Series ID"] type:type language:language];
 
-    if (imagesJSON) {
-        NSDictionary *imagesData = [NSJSONSerialization JSONObjectWithData:imagesJSON options:0 error:NULL];
+    if (images && [images isKindOfClass:[NSArray class]]) {
 
-        if (imagesData || [imagesData isKindOfClass:[NSDictionary class]]) {
+        for (NSDictionary *image in images) {
+            NSURL *fileURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://thetvdb.com/banners/%@", image[@"fileName"]]];
+            NSURL *thumbURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://thetvdb.com/banners/%@", image[@"thumbnail"]]];
 
-            NSArray *images = imagesData[@"data"];
+            BOOL toBeAdded = YES;
 
-            if (images && [images isKindOfClass:[NSArray class]]) {
-
-                for (NSDictionary *image in images) {
-                    NSURL *fileURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://thetvdb.com/banners/%@", image[@"fileName"]]];
-                    NSURL *thumbURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://thetvdb.com/banners/%@", image[@"thumbnail"]]];
-
-                    BOOL toBeAdded = YES;
-
-                    if ([type isEqualToString:@"season"]) {
-                        NSString *subKey = image[@"subKey"];
-                        NSString *season = [metadata[SBMetadataResultSeason] stringValue];
-                        if (subKey && [subKey isKindOfClass:[NSString class]] && ![subKey isEqualToString:season]) {
-                            toBeAdded = NO;
-                        }
-                    }
-                    if (toBeAdded) {
-                        [newArtworkThumbURLs addObject:thumbURL];
-                        [newArtworkFullsizeURLs addObject:fileURL];
-                        [newArtworkProviderNames addObject:[NSString stringWithFormat:@"TheTVDB|%@", type]];
-                    }
+            if ([type isEqualToString:@"season"]) {
+                NSString *subKey = image[@"subKey"];
+                NSString *season = [metadata[SBMetadataResultSeason] stringValue];
+                if (subKey && [subKey isKindOfClass:[NSString class]] && ![subKey isEqualToString:season]) {
+                    toBeAdded = NO;
                 }
+            }
+            if (toBeAdded) {
+                [newArtworkThumbURLs addObject:thumbURL];
+                [newArtworkFullsizeURLs addObject:fileURL];
+                [newArtworkProviderNames addObject:[NSString stringWithFormat:@"TheTVDB|%@", type]];
             }
         }
     }
@@ -428,53 +364,43 @@ typedef NS_OPTIONS(NSUInteger, SBTheTVDBNullValues) {
     metadata.artworkProviderNames = newArtworkProviderNames;
 }
 
-- (SBMetadataResult *)loadTVMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage
+- (SBMetadataResult *)loadTVMetadata:(SBMetadataResult *)metadata language:(NSString *)language
 {
     // Get additional episodes info
-    NSNumber *episodesID = aMetadata[@"TheTVDB Episodes ID"];
-    NSURL *episodesUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/episodes/%@", episodesID]];
-    NSData *episodesJSON = [SBTheTVDBConnection.defaultManager requestData:episodesUrl language:aLanguage];
+    NSNumber *episodesID = metadata[@"TheTVDB Episodes ID"];
+    NSDictionary *episodesInfo = [SBTheTVDBConnection.defaultManager fetchEpisodesInfo:episodesID language:language];
 
-    if (episodesJSON) {
-        NSDictionary *episodesInfo = [NSJSONSerialization JSONObjectWithData:episodesJSON options:0 error:NULL];
+    if (episodesInfo) {
+        metadata[SBMetadataResultDirector]      = [SBTheTVDB cleanList:episodesInfo[@"directors"]];
+        metadata[SBMetadataResultScreenwriters] = [SBTheTVDB cleanList:episodesInfo[@"writers"]];
 
-        if (episodesInfo || [episodesInfo isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *episodesData = episodesInfo[@"data"];
+        NSString *actors = metadata[SBMetadataResultCast];
+        NSString *gueststars = [SBTheTVDB cleanList:episodesInfo[@"guestStars"]];
 
-            if (episodesData || [episodesData isKindOfClass:[NSDictionary class]]) {
+        if (actors.length && gueststars.length) {
+            metadata[SBMetadataResultCast] = [NSString stringWithFormat:@"%@, %@", actors, gueststars];
+        }
+        else if (gueststars.length) {
+            metadata[SBMetadataResultCast] = gueststars;
+        }
 
-                aMetadata[SBMetadataResultDirector]      = [SBTheTVDB cleanList:episodesData[@"directors"]];
-                aMetadata[SBMetadataResultScreenwriters] = [SBTheTVDB cleanList:episodesData[@"writers"]];
+        // Episodes artwork
+        NSString *artworkFilename = episodesInfo[@"filename"];
+        if (artworkFilename && [artworkFilename isKindOfClass:[NSString class]] && artworkFilename.length) {
+            NSURL *artworkURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://thetvdb.com/banners/%@", artworkFilename]];
 
-                NSString *actors = aMetadata[SBMetadataResultCast];
-                NSString *gueststars = [SBTheTVDB cleanList:episodesData[@"guestStars"]];
-
-                if (actors.length && gueststars.length) {
-                    aMetadata[SBMetadataResultCast] = [NSString stringWithFormat:@"%@, %@", actors, gueststars];
-                }
-                else if (gueststars.length) {
-                    aMetadata[SBMetadataResultCast] = gueststars;
-                }
-
-                // Episodes artwork
-                NSString *artworkFilename = episodesData[@"filename"];
-                if (artworkFilename && [artworkFilename isKindOfClass:[NSString class]] && artworkFilename.length) {
-                    NSURL *artworkURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://thetvdb.com/banners/%@", artworkFilename]];
-
-                    aMetadata.artworkThumbURLs = @[artworkURL];
-                    aMetadata.artworkFullsizeURLs = @[artworkURL];
-                    aMetadata.artworkProviderNames = @[@"TheTVDB|episode"];
-                }
-            }
+            metadata.artworkThumbURLs = @[artworkURL];
+            metadata.artworkFullsizeURLs = @[artworkURL];
+            metadata.artworkProviderNames = @[@"TheTVDB|episode"];
         }
     }
 
     // get additionals images
-    [self loadITunesArtwork:aMetadata];
-    [self loadTVImages:aMetadata type:@"season" language:aLanguage];
-    [self loadTVImages:aMetadata type:@"poster" language:aLanguage];
+    [self loadITunesArtwork:metadata];
+    [self loadTVImages:metadata type:@"season" language:language];
+    [self loadTVImages:metadata type:@"poster" language:language];
 
-	return aMetadata;
+	return metadata;
 }
 
 + (SBMetadataResult *)metadataForEpisode:(NSDictionary *)episode series:(NSDictionary *)series actors:(NSArray *)actors
@@ -525,49 +451,26 @@ typedef NS_OPTIONS(NSUInteger, SBTheTVDBNullValues) {
 
 - (NSArray<SBMetadataResult *> *)loadTVEpisodes:(NSDictionary *)seriesInfo actors:(NSArray *)actors seasonNum:(NSString *)seasonNum episodeNum:(NSString *)episodeNum language:(NSString *)language
 {
-    NSURL *url;
     NSMutableArray *results = [[NSMutableArray alloc] init];
     NSNumber *seriesID = seriesInfo[@"id"];
 
-    if (seasonNum.length && episodeNum.length) {
-        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/series/%@/episodes/query?airedSeason=%@&airedEpisode=%@", seriesID, seasonNum, episodeNum]];
-    } else if (seasonNum.length) {
-        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/series/%@/episodes/query?airedSeason=%@", seriesID, seasonNum]];
-    }
-    else {
-        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.thetvdb.com/series/%@/episodes", seriesID]];
-    }
+    NSArray<NSDictionary *> *episodes = [SBTheTVDBConnection.defaultManager fetchEpisodes:seriesID season:seasonNum number:episodeNum language:language];
 
-    NSData *episodesJSON = [SBTheTVDBConnection.defaultManager requestData:url language:language];
-
-    if (!episodesJSON) { return @[]; }
-
-    NSDictionary *episodes = [NSJSONSerialization JSONObjectWithData:episodesJSON options:0 error:NULL];
-
-    if (!episodes || ![episodes isKindOfClass:[NSDictionary class]]) { return @[]; }
-
-    // Decode the individual episodes
-
-    NSArray<NSDictionary *> *episodesArray = episodes[@"data"];
-
-    if ([episodesArray isKindOfClass:[NSArray class]]) {
-
-        for (NSDictionary *episode in episodesArray) {
-            if (seasonNum && seasonNum.length) {
-                NSString *episodeSeason = [episode[@"airedSeason"] stringValue];
-                if ([episodeSeason isEqualToString:seasonNum]) {
-                    if (episodeNum && episodeNum.length) {
-                        NSString *episodeNumber = [episode[@"airedEpisodeNumber"] stringValue];
-                        if ([episodeNumber isEqualToString:episodeNum]) {
-                            [results addObject:[SBTheTVDB metadataForEpisode:episode series:seriesInfo actors:actors]];
-                        }
-                    } else {
+    for (NSDictionary *episode in episodes) {
+        if (seasonNum && seasonNum.length) {
+            NSString *episodeSeason = [episode[@"airedSeason"] stringValue];
+            if ([episodeSeason isEqualToString:seasonNum]) {
+                if (episodeNum && episodeNum.length) {
+                    NSString *episodeNumber = [episode[@"airedEpisodeNumber"] stringValue];
+                    if ([episodeNumber isEqualToString:episodeNum]) {
                         [results addObject:[SBTheTVDB metadataForEpisode:episode series:seriesInfo actors:actors]];
                     }
+                } else {
+                    [results addObject:[SBTheTVDB metadataForEpisode:episode series:seriesInfo actors:actors]];
                 }
-            } else {
-                [results addObject:[SBTheTVDB metadataForEpisode:episode series:seriesInfo actors:actors]];
             }
+        } else {
+            [results addObject:[SBTheTVDB metadataForEpisode:episode series:seriesInfo actors:actors]];
         }
     }
 
