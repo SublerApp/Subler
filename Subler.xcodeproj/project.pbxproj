@@ -29,6 +29,7 @@
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A93DD7681DACCE930052749A /* SBComboBoxCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93DD7671DACCE930052749A /* SBComboBoxCellView.m */; };
 		A94721931D49DC0000858DD8 /* SBMetadataPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */; };
+		A94A6A591ED1C5CC00049F7D /* ParseFilename in Resources */ = {isa = PBXBuildFile; fileRef = A94A6A581ED1C5CA00049F7D /* ParseFilename */; };
 		A95B8DA91B09F37800F2F152 /* Subler_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B8DA81B09F37800F2F152 /* Subler_Tests.m */; };
 		A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */; };
 		A961476313F567E10068F161 /* SBQueueController.m in Sources */ = {isa = PBXBuildFile; fileRef = A961476013F567E10068F161 /* SBQueueController.m */; };
@@ -207,6 +208,7 @@
 		A93DD7671DACCE930052749A /* SBComboBoxCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBComboBoxCellView.m; path = Classes/SBComboBoxCellView.m; sourceTree = "<group>"; };
 		A94721901D49DC0000858DD8 /* SBMetadataPrefsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataPrefsViewController.h; path = Classes/SBMetadataPrefsViewController.h; sourceTree = "<group>"; };
 		A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataPrefsViewController.m; path = Classes/SBMetadataPrefsViewController.m; sourceTree = "<group>"; };
+		A94A6A581ED1C5CA00049F7D /* ParseFilename */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ParseFilename; path = Utilities/ParseFilename; sourceTree = "<group>"; };
 		A95B8DA41B09F37700F2F152 /* Subler Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subler Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95B8DA71B09F37700F2F152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A95B8DA81B09F37800F2F152 /* Subler_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subler_Tests.m; sourceTree = "<group>"; };
@@ -319,10 +321,6 @@
 		CD03087817576AE50093A0BE /* SBMetadataImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataImporter.m; path = Classes/MetadataImporters/SBMetadataImporter.m; sourceTree = "<group>"; };
 		CD3F2A861761A143000D4C73 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLReader.h; path = Others/XMLReader.h; sourceTree = "<group>"; };
 		CD3F2A871761A143000D4C73 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XMLReader.m; path = Others/XMLReader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		CD4A86AA1234AFA10054970A /* Simple.pm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = Simple.pm; sourceTree = "<group>"; };
-		CD4A86AC1234AFA10054970A /* Roman.pm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = Roman.pm; sourceTree = "<group>"; };
-		CD4A86AF1234AFA10054970A /* Filename.pm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = Filename.pm; sourceTree = "<group>"; };
-		CD4A86B01234AFA10054970A /* ParseFilename.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = ParseFilename.pl; sourceTree = "<group>"; };
 		CD56963012FAAD680029FADB /* SBArtworkSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBArtworkSelector.h; path = Classes/SBArtworkSelector.h; sourceTree = "<group>"; };
 		CD56963112FAAD680029FADB /* SBArtworkSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBArtworkSelector.m; path = Classes/SBArtworkSelector.m; sourceTree = "<group>"; };
 		CD56966E12FAAFA90029FADB /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
@@ -450,8 +448,8 @@
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				8D15AC360486D014006FF6A4 /* Info.plist */,
 				A9B46AA312B79BB10040517A /* Subler.icns */,
-				CD4A86A71234AFA10054970A /* ParseFilename */,
 				CDE8E451174CBBD4009410B5 /* iTunesStores.json */,
+				A94A6A581ED1C5CA00049F7D /* ParseFilename */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -639,50 +637,6 @@
 			name = PropertyView;
 			sourceTree = "<group>";
 		};
-		CD4A86A71234AFA10054970A /* ParseFilename */ = {
-			isa = PBXGroup;
-			children = (
-				CD4A86A81234AFA10054970A /* lib */,
-				CD4A86B01234AFA10054970A /* ParseFilename.pl */,
-			);
-			name = ParseFilename;
-			path = Utilities/ParseFilename;
-			sourceTree = "<group>";
-		};
-		CD4A86A81234AFA10054970A /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				CD4A86A91234AFA10054970A /* Debug */,
-				CD4A86AB1234AFA10054970A /* Text */,
-				CD4A86AD1234AFA10054970A /* Video */,
-			);
-			path = lib;
-			sourceTree = "<group>";
-		};
-		CD4A86A91234AFA10054970A /* Debug */ = {
-			isa = PBXGroup;
-			children = (
-				CD4A86AA1234AFA10054970A /* Simple.pm */,
-			);
-			path = Debug;
-			sourceTree = "<group>";
-		};
-		CD4A86AB1234AFA10054970A /* Text */ = {
-			isa = PBXGroup;
-			children = (
-				CD4A86AC1234AFA10054970A /* Roman.pm */,
-			);
-			path = Text;
-			sourceTree = "<group>";
-		};
-		CD4A86AD1234AFA10054970A /* Video */ = {
-			isa = PBXGroup;
-			children = (
-				CD4A86AF1234AFA10054970A /* Filename.pm */,
-			);
-			path = Video;
-			sourceTree = "<group>";
-		};
 		CD71FF1A12F1C46900F0A98D /* MetadataImporters */ = {
 			isa = PBXGroup;
 			children = (
@@ -718,7 +672,6 @@
 			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Subler" */;
 			buildPhases = (
 				8D15AC2B0486D014006FF6A4 /* Resources */,
-				CD71C7691234BE7D004A5383 /* Copy ParseFilename */,
 				8D15AC300486D014006FF6A4 /* Sources */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
 				A984DB5E0F52D68E001A20B2 /* Copy Files */,
@@ -852,6 +805,7 @@
 				A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */,
 				CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */,
 				A924A51E1D4B9E93008301A7 /* SBMetadataPrefsViewController.xib in Resources */,
+				A94A6A591ED1C5CC00049F7D /* ParseFilename in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -864,23 +818,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		CD71C7691234BE7D004A5383 /* Copy ParseFilename */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy ParseFilename";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "SRC=\"${SRCROOT}/Utilities/ParseFilename\"\nDEST=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ParseFilename\"\n\nmkdir -p \"${DEST}/lib\"\nmkdir -p \"${DEST}/lib/Debug\"\nmkdir -p \"${DEST}/lib/Text\"\nmkdir -p \"${DEST}/lib/Video\"\ncp -p \"${SRC}/ParseFilename.pl\" \"${DEST}\"\ncp -p \"${SRC}/lib/Debug/Simple.pm\" \"${DEST}/lib/Debug/\"\ncp -p \"${SRC}/lib/Text/Roman.pm\" \"${DEST}/lib/Text/\"\ncp -p \"${SRC}/lib/Video/Filename.pm\" \"${DEST}/lib/Video/\"";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D15AC300486D014006FF6A4 /* Sources */ = {
@@ -1282,7 +1219,6 @@
 				GCC_PREFIX_HEADER = Subler_Prefix.pch;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
@@ -1310,7 +1246,6 @@
 				GCC_PREFIX_HEADER = Subler_Prefix.pch;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
