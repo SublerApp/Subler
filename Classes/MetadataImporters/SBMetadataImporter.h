@@ -37,7 +37,7 @@ typedef NS_ENUM(NSUInteger, SBMetadataImporterLanguageType) {
 
 #pragma mark - Asynchronous searching
 
-- (void)searchTVSeries:(NSString *)series language:(NSString *)language completionHandler:(void(^)(NSArray<SBMetadataResult *> * _Nullable results))handler;
+- (void)searchTVSeries:(NSString *)series language:(NSString *)language completionHandler:(void(^)(NSArray<NSString *> * _Nullable results))handler;
 - (void)searchTVSeries:(NSString *)series language:(NSString *)language seasonNum:(NSString *)seasonNum episodeNum:(NSString *)episodeNum completionHandler:(void(^)(NSArray<SBMetadataResult *> * _Nullable results))handler;
 
 - (void)searchMovie:(NSString *)title language:(NSString *)language completionHandler:(void(^)(NSArray<SBMetadataResult *> * _Nullable results))handler;

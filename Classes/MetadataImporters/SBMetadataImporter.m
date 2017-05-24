@@ -79,7 +79,7 @@
 }
 
 #pragma mark Asynchronous searching
-- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage completionHandler:(void(^)(NSArray<SBMetadataResult *> *results))handler {
+- (void) searchTVSeries:(NSString *)aSeries language:(NSString *)aLanguage completionHandler:(void(^)(NSArray<NSString *> *results))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
             NSArray *results = [self searchTVSeries:aSeries language:aLanguage];
             dispatch_async(dispatch_get_main_queue(), ^{

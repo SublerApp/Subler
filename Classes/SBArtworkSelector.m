@@ -64,7 +64,7 @@
             // Get the data outside the main thread
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 if (!self.isCancelled) {
-                    self.data = [SBMetadataHelper downloadDataFromURL:self.url withCachePolicy:SBDefaultPolicy];
+                    self.data = [SBMetadataHelper downloadDataFromURL:self.url cachePolicy:SBDefaultPolicy];
                     self.version = 2;
                     // We got the data, tell the controller to update the view
                     dispatch_async(dispatch_get_main_queue(), ^{

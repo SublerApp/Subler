@@ -70,7 +70,7 @@
     NSString *country = store[@"country2"];
     NSString *language = store[@"language2"];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&entity=tvEpisode", country, language.lowercaseString, [SBMetadataHelper urlEncoded:[NSString stringWithFormat:@"%@ %@", aSeriesName, aEpisodeTitle]]]];
-    NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
+    NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url cachePolicy:SBDefaultPolicy];
     if (jsonData) {
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
         if ([d isKindOfClass:[NSDictionary class]]) {
@@ -90,7 +90,7 @@
     NSString *country = store[@"country2"];
     NSString *language = store[@"language2"];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&entity=movie", country, language, [SBMetadataHelper urlEncoded:aMovieName]]];
-    NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
+    NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url cachePolicy:SBDefaultPolicy];
     if (jsonData) {
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
         if ([d isKindOfClass:[NSDictionary class]]) {
@@ -103,7 +103,7 @@
 
 #pragma mark Search for TV episode metadata
 
-NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
+static NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 {
     int v1 = [((SBMetadataResult *) ep1)[SBMetadataResultEpisodeNumber] intValue];
     int v2 = [((SBMetadataResult *) ep2)[SBMetadataResultEpisodeNumber] intValue];
@@ -191,7 +191,7 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
                                     country, language.lowercaseString, [SBMetadataHelper urlEncoded:aSeriesName]]];
     }
 
-    NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
+    NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url cachePolicy:SBDefaultPolicy];
 
     if (jsonData) {
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
@@ -232,7 +232,7 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
         lookupUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/lookup?country=%@&id=%ld&entity=tvEpisode&limit=200",
                                           country, (long)iTunesID]];
 
-        NSData *jsonData = [SBMetadataHelper downloadDataFromURL:lookupUrl withCachePolicy:SBDefaultPolicy];
+        NSData *jsonData = [SBMetadataHelper downloadDataFromURL:lookupUrl cachePolicy:SBDefaultPolicy];
 
         if (jsonData) {
             NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
@@ -282,7 +282,7 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
     }
 
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/search?country=%@&lang=%@&term=%@&entity=movie&limit=150", country, language, [SBMetadataHelper urlEncoded:aMovieTitle]]];
-	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
+	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url cachePolicy:SBDefaultPolicy];
 
 	if (jsonData) {
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
@@ -305,7 +305,7 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 	NSString *language2 = store[@"language2"];
 
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/lookup?country=%@&lang=%@&id=%@", country, language2.lowercaseString, metadata[SBMetadataResultPlaylistID]]];
-	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
+	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url cachePolicy:SBDefaultPolicy];
 
 	if (jsonData) {
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
@@ -322,7 +322,7 @@ NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 
 - (SBMetadataResult *)loadMovieMetadata:(SBMetadataResult *)metadata language:(NSString *)language
 {
-	NSData *xmlData = [SBMetadataHelper downloadDataFromURL:[NSURL URLWithString:metadata[SBMetadataResultITunesURL]] withCachePolicy:SBDefaultPolicy];
+	NSData *xmlData = [SBMetadataHelper downloadDataFromURL:[NSURL URLWithString:metadata[SBMetadataResultITunesURL]] cachePolicy:SBDefaultPolicy];
 	if (xmlData) {
         NSDictionary *store = [SBiTunesStore getStoreFor:language];
 		NSXMLDocument *xml = [[NSXMLDocument alloc] initWithData:xmlData options:NSXMLDocumentTidyHTML error:NULL];

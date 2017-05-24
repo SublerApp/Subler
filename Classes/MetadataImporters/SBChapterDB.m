@@ -27,7 +27,7 @@
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.chapterdb.org/chapters/search?title=%@", [SBMetadataHelper urlEncoded:title]]];
 
     NSDictionary *headerOptions = @{@"ApiKey" : API_KEY};
-    self.task = [SBMetadataHelper sessionTaskFromUrl:url HTTPMethod:@"GET" headerOptions:headerOptions cachePolicy:NSURLRequestUseProtocolCachePolicy completionHandler:^(NSData * _Nullable data) {
+    self.task = [SBMetadataHelper sessionTaskFromUrl:url HTTPMethod:@"GET" HTTPBody:nil headerOptions:headerOptions cachePolicy:NSURLRequestUseProtocolCachePolicy completionHandler:^(NSData * _Nullable data) {
         NSXMLDocument *xml = [[NSXMLDocument alloc] initWithData:data
                                                          options:0
                                                            error:NULL];

@@ -129,7 +129,7 @@
 
 
 - (MP42Image *)loadArtwork:(nonnull NSURL *)url {
-    NSData *artworkData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
+    NSData *artworkData = [SBMetadataHelper downloadDataFromURL:url cachePolicy:SBDefaultPolicy];
     if (artworkData && artworkData.length) {
         MP42Image *artwork = [[MP42Image alloc] initWithData:artworkData type:MP42_ART_JPEG];
         if (artwork != nil) {

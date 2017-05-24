@@ -145,7 +145,7 @@
     return [NSString stringWithString:r];
 }
 
-+ (nullable NSData *)downloadDataFromURL:(NSURL *)url withCachePolicy:(SBCachePolicy)policy {
++ (nullable NSData *)downloadDataFromURL:(NSURL *)url HTTPMethod:(NSString *)method HTTPBody:(nullable NSData *)body headerOptions:(nullable NSDictionary *)header cachePolicy:(SBCachePolicy)policy {
     dispatch_semaphore_t sem =  dispatch_semaphore_create(0);
     __block NSData *downloadedData;
 
@@ -163,7 +163,7 @@
             break;
     }
 
-    [[self sessionTaskFromUrl:url HTTPMethod:@"GET" headerOptions:nil cachePolicy:cachePolicy completionHandler:^(NSData * _Nullable data) {
+    [[self sessionTaskFromUrl:url HTTPMethod:method HTTPBody:body headerOptions:header cachePolicy:cachePolicy completionHandler:^(NSData * _Nullable data) {
         downloadedData = data;
         dispatch_semaphore_signal(sem);
     }] resume];
@@ -173,8 +173,12 @@
     return downloadedData;
 }
 
++ (nullable NSData *)downloadDataFromURL:(NSURL *)url cachePolicy:(SBCachePolicy)policy {
+    return [self downloadDataFromURL:url HTTPMethod:@"GET" HTTPBody:nil headerOptions:nil cachePolicy:policy];
+}
+
 #pragma mark NSURLRequest
-+ (NSURLSessionTask *)sessionTaskFromUrl:(NSURL *)url HTTPMethod:(NSString *)method headerOptions:(nullable NSDictionary *)header cachePolicy:(NSURLRequestCachePolicy)cachePolicy completionHandler:(void(^)(NSData * _Nullable data))completionHandler
++ (NSURLSessionTask *)sessionTaskFromUrl:(NSURL *)url HTTPMethod:(NSString *)method HTTPBody:(nullable NSData *)body headerOptions:(nullable NSDictionary *)header cachePolicy:(NSURLRequestCachePolicy)cachePolicy completionHandler:(void(^)(NSData * _Nullable data))completionHandler
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                            cachePolicy:cachePolicy
@@ -185,6 +189,10 @@
         for (NSString *key in header.allKeys) {
             [request addValue:header[key] forHTTPHeaderField:key];
         }
+    }
+
+    if (body) {
+        request.HTTPBody = body;
     }
 
     NSURLSession *defaultSession = [NSURLSession sharedSession];

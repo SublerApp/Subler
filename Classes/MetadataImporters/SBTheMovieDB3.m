@@ -32,7 +32,7 @@
 
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/search/movie?api_key=%@&query=%@&language=%@",
                                        API_KEY, [SBMetadataHelper urlEncoded:aMovieTitle], lang]];
-	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
+	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url cachePolicy:SBDefaultPolicy];
 
 	if (jsonData) {
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
@@ -64,7 +64,7 @@
 
     // load image variables from configuration
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/configuration?api_key=%@", API_KEY]];
-	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
+	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url cachePolicy:SBDefaultPolicy];
     NSArray *posters = r[@"images"][@"posters"];
 
     if (jsonData && posters && [posters isKindOfClass:[NSArray class]]) {
@@ -111,7 +111,7 @@
 
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/movie/%@?api_key=%@&language=%@&append_to_response=casts,releases,images",
                                        theMovieDBID, API_KEY, lang]];
-	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url withCachePolicy:SBDefaultPolicy];
+	NSData *jsonData = [SBMetadataHelper downloadDataFromURL:url cachePolicy:SBDefaultPolicy];
 
 	if (jsonData) {
         NSDictionary *d = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
