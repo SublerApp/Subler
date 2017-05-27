@@ -50,7 +50,7 @@
 
         _languagesTimestamp = [[NSUserDefaults.standardUserDefaults objectForKey:@"SBTheTVBDLanguagesArrayTimestamp"] doubleValue];
 
-        if (_languagesTimestamp + 60 * 60 * 60 > [NSDate timeIntervalSinceReferenceDate]) {
+        if (_languagesTimestamp + 60 * 60 * 24 * 30 > [NSDate timeIntervalSinceReferenceDate]) {
             _languagues = [NSUserDefaults.standardUserDefaults objectForKey:@"SBTheTVBDLanguagesArray"];
         }
 
