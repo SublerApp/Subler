@@ -560,9 +560,7 @@ static NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
             }
 
             if (artworkURL && artworkFullSizeURL) {
-                metadata.artworkThumbURLs = @[artworkURL];
-                metadata.artworkFullsizeURLs = @[artworkFullSizeURL];
-                metadata.artworkProviderNames = @[@"iTunes"];
+                metadata.remoteArtworks = @[[SBRemoteImage remoteImageWithURL:artworkFullSizeURL thumbURL:artworkURL providerName:@"iTunes"]];
             }
         }
 

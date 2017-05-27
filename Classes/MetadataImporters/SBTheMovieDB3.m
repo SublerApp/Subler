@@ -47,19 +47,13 @@
 - (SBMetadataResult *)artworksForResult:(NSDictionary *)r metadata:(SBMetadataResult *)aMetadata
 {
     // artwork
-	NSMutableArray *artworkThumbURLs = [NSMutableArray array];
-	NSMutableArray *artworkFullsizeURLs = [NSMutableArray array];
-	NSMutableArray *artworkProviderNames = [NSMutableArray array];
+	NSMutableArray *remoteArtworks = [NSMutableArray array];
 
     // add iTunes artwork
     SBMetadataResult *iTunesMetadata = [SBiTunesStore quickiTunesSearchMovie:aMetadata[SBMetadataResultName]];
 
-	if (iTunesMetadata && iTunesMetadata.artworkThumbURLs && iTunesMetadata.artworkFullsizeURLs &&
-        (iTunesMetadata.artworkThumbURLs.count == iTunesMetadata.artworkFullsizeURLs.count)) {
-
-		[artworkThumbURLs addObjectsFromArray:iTunesMetadata.artworkThumbURLs];
-		[artworkFullsizeURLs addObjectsFromArray:iTunesMetadata.artworkFullsizeURLs];
-		[artworkProviderNames addObjectsFromArray:iTunesMetadata.artworkProviderNames];
+	if (iTunesMetadata && iTunesMetadata.remoteArtworks.count) {
+		[remoteArtworks addObjectsFromArray:iTunesMetadata.remoteArtworks];
 	}
 
     // load image variables from configuration
@@ -77,29 +71,27 @@
 
             for (NSDictionary *poster in posters) {
                 if (poster[@"file_path"] && (poster[@"file_path"] != [NSNull null])) {
-                    [artworkThumbURLs addObject:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", imageBaseUrl, posterThumbnailSize, poster[@"file_path"]]]];
-                    [artworkFullsizeURLs addObject:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", imageBaseUrl, @"original", poster[@"file_path"]]]];
-                    [artworkProviderNames addObject:@"TheMovieDB|poster"];
+                    [remoteArtworks addObject:[SBRemoteImage remoteImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", imageBaseUrl, @"original", poster[@"file_path"]]]
+                                                                       thumbURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", imageBaseUrl, posterThumbnailSize, poster[@"file_path"]]]
+                                                                   providerName:@"TheMovieDB|poster"]];
                 }
             }
             if (!posters.count && r[@"poster_path"] && (r[@"poster_path"] != [NSNull null])) {
-				[artworkThumbURLs addObject:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", imageBaseUrl, posterThumbnailSize, r[@"poster_path"]]]];
-				[artworkFullsizeURLs addObject:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", imageBaseUrl, @"original", r[@"poster_path"]]]];
-				[artworkProviderNames addObject:@"TheMovieDB|poster"];
+                [remoteArtworks addObject:[SBRemoteImage remoteImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", imageBaseUrl, @"original", r[@"poster_path"]]]
+                                                                   thumbURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", imageBaseUrl, posterThumbnailSize, r[@"poster_path"]]]
+                                                               providerName:@"TheMovieDB|poster"]];
 			}
 
 			if (r[@"backdrop_path"] && (r[@"backdrop_path"] != [NSNull null])) {
-				[artworkThumbURLs addObject:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", imageBaseUrl, backdropThumbnailSize, r[@"backdrop_path"]]]];
-				[artworkFullsizeURLs addObject:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", imageBaseUrl, @"original", r[@"backdrop_path"]]]];
-				[artworkProviderNames addObject:@"TheMovieDB|backdrop"];
+                [remoteArtworks addObject:[SBRemoteImage remoteImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", imageBaseUrl, @"original", r[@"backdrop_path"]]]
+                                                                   thumbURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", imageBaseUrl, backdropThumbnailSize, r[@"backdrop_path"]]]
+                                                               providerName:@"TheMovieDB|poster"]];
 			}
 		}
 
     }
 
-    aMetadata.artworkThumbURLs = artworkThumbURLs;
-    aMetadata.artworkFullsizeURLs = artworkFullsizeURLs;
-    aMetadata.artworkProviderNames = artworkProviderNames;
+    aMetadata.remoteArtworks = remoteArtworks;
 
     return aMetadata;
 }

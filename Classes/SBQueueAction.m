@@ -140,7 +140,7 @@
     return nil;
 }
 
-- (NSInteger)indexOfPreferredArtworkForType:(SBQueueMetadataActionPreferredArtwork)preferredType provider:(NSString *)provider artworks:(NSArray<NSString *> *)artworkProviderNames
+- (NSInteger)indexOfPreferredArtworkForType:(SBQueueMetadataActionPreferredArtwork)preferredType provider:(NSString *)provider artworks:(NSArray<SBRemoteImage *> *)artworks
 {
     NSString *preferredTypeName = nil;
 
@@ -160,14 +160,14 @@
     }
 
     NSUInteger index = 0;
-    for (NSString *name in artworkProviderNames) {
-        if ([name hasPrefix:preferredTypeName]) {
+    for (SBRemoteImage *image in artworks) {
+        if ([image.providerName hasPrefix:preferredTypeName]) {
             break;
         }
         index += 1;
     }
 
-    return index == artworkProviderNames.count ? -1 : index;
+    return index == artworks.count ? -1 : index;
 }
 
 - (MP42Metadata *)searchMetadataForFile:(NSURL *)url {
@@ -199,24 +199,24 @@
         }
     }
 
-    if (metadata.artworkFullsizeURLs.count) {
+    if (metadata.remoteArtworks.count) {
         NSURL *artworkURL = nil;
         NSInteger index = [self indexOfPreferredArtworkForType:_preferredArtwork
                                                        provider:provider
-                                                       artworks:metadata.artworkProviderNames];
+                                                       artworks:metadata.remoteArtworks];
 
         // Fallback to the poster if type is tv
         if (index == -1 && [@"tv" isEqualToString:type]) {
             index = [self indexOfPreferredArtworkForType:SBQueueMetadataActionPreferredArtworkDefault
                                                 provider:provider
-                                                artworks:metadata.artworkProviderNames];
+                                                artworks:metadata.remoteArtworks];
         }
 
         if (index > -1) {
-            artworkURL = metadata.artworkFullsizeURLs[index];
+            artworkURL = metadata.remoteArtworks[index].URL;
         }
         else {
-            artworkURL = metadata.artworkFullsizeURLs.firstObject;
+            artworkURL = metadata.remoteArtworks.firstObject.URL;
         }
 
         MP42Image *artwork = [self loadArtwork:artworkURL];

@@ -9,6 +9,7 @@
 #import "SBArtworkSelector.h"
 #import "SBMetadataHelper.h"
 #import <Quartz/Quartz.h>
+#import "SBRemoteImage.h"
 
 #pragma mark IKImageBrowserItem data source objects
 
@@ -32,13 +33,13 @@
 
 @implementation SBArtworkImageObject
 
-- (instancetype)initWithURL:(NSURL *)url artworkProviderName:(NSString *)artworkProvider delegate:(id)delegate
+- (instancetype)initWithRemoteImage:(SBRemoteImage *)image delegate:(id)delegate
 {
     self = [super init];
     if (self) {
-        _url = [url copy];
-        _urlString = url.absoluteString;
-        _artworkProviderName = [artworkProvider copy];
+        _url = image.thumbURL;
+        _urlString = image.thumbURL.absoluteString;
+        _artworkProviderName = image.providerName;
         _delegate = delegate;
     }
     return self;
@@ -113,9 +114,8 @@
     IBOutlet NSButton               *addArtworkButton;
     IBOutlet NSButton               *loadMoreArtworkButton;
 
-    NSMutableArray<NSURL *>         *imageURLsUnloaded;
-    NSMutableArray                  *images;
-    NSArray<NSString *>             *artworkProviderNames;
+    NSMutableArray<SBRemoteImage *>        *imageURLsUnloaded;
+    NSMutableArray<SBArtworkImageObject *> *images;
 }
 @end
 
@@ -123,11 +123,10 @@
 
 #pragma mark Initialization
 
-- (instancetype)initWithDelegate:(id <SBArtworkSelectorDelegate>)del imageURLs:(NSArray *)imageURLs artworkProviderNames:(NSArray *)aArtworkProviderNames {
+- (instancetype)initWithDelegate:(id <SBArtworkSelectorDelegate>)del imageURLs:(NSArray *)imageURLs {
 	if ((self = [super initWithWindowNibName:@"ArtworkSelector"])) {
 		delegate = del;
         imageURLsUnloaded = [[NSMutableArray alloc] initWithArray:imageURLs];
-		artworkProviderNames = aArtworkProviderNames;
     }
     return self;
 }
@@ -138,9 +137,7 @@
     images = [[NSMutableArray alloc] initWithCapacity:imageURLsUnloaded.count];
 
     for (NSUInteger i = 0; (i < 10) && (imageURLsUnloaded.count > 0); i++) {
-        SBArtworkImageObject *m = [[SBArtworkImageObject alloc] initWithURL:imageURLsUnloaded[0]
-                                  artworkProviderName:artworkProviderNames[images.count]
-                                             delegate:self];
+        SBArtworkImageObject *m = [[SBArtworkImageObject alloc] initWithRemoteImage:imageURLsUnloaded.firstObject delegate:self];
         [imageURLsUnloaded removeObjectAtIndex:0];
         [images addObject:m];
     }
@@ -150,11 +147,9 @@
     [imageBrowser setSelectionIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
 }
 
-- (IBAction) loadMoreArtwork:(id)sender {
+- (IBAction)loadMoreArtwork:(id)sender {
     for (NSUInteger i = 0; (i < 10) && (imageURLsUnloaded.count > 0); i++) {
-        SBArtworkImageObject *m = [[SBArtworkImageObject alloc] initWithURL:imageURLsUnloaded[0]
-                                  artworkProviderName:artworkProviderNames[images.count]
-                                             delegate:self];
+        SBArtworkImageObject *m = [[SBArtworkImageObject alloc] initWithRemoteImage:imageURLsUnloaded.firstObject delegate:self];
         [imageURLsUnloaded removeObjectAtIndex:0];
         [images addObject:m];
     }
@@ -197,18 +192,18 @@
     return images.count;
 }
 
-- (id) imageBrowser:(IKImageBrowserView *) aBrowser itemAtIndex:(NSUInteger)index {
+- (id)imageBrowser:(IKImageBrowserView *) aBrowser itemAtIndex:(NSUInteger)index {
     return images[index];
 }
 
 #pragma mark -
 #pragma mark IKImageBrowserDelegate
 
-- (void) imageBrowser:(IKImageBrowserView *) aBrowser cellWasDoubleClickedAtIndex:(NSUInteger) index {
+- (void)imageBrowser:(IKImageBrowserView *) aBrowser cellWasDoubleClickedAtIndex:(NSUInteger) index {
     [self addArtwork:self];
 }
 
-- (void) imageBrowserSelectionDidChange:(IKImageBrowserView *) aBrowser {
+- (void)imageBrowserSelectionDidChange:(IKImageBrowserView *) aBrowser {
     if ([aBrowser selectionIndexes].count) {
         [addArtworkButton setEnabled:YES];
     } else {

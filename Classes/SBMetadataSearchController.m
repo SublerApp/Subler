@@ -380,13 +380,12 @@
 #pragma mark Select artwork
 
 - (void) selectArtwork {
-    if (self.selectedResult.artworkThumbURLs && (self.selectedResult.artworkThumbURLs).count) {
-        if ((self.selectedResult.artworkThumbURLs).count == 1) {
+    if (self.selectedResult.remoteArtworks.count) {
+        if (self.selectedResult.remoteArtworks.count == 1) {
             [self loadArtworks:[NSIndexSet indexSetWithIndex:0]];
         } else {
             artworkSelectorWindow = [[SBArtworkSelector alloc] initWithDelegate:self
-                                                                      imageURLs:self.selectedResult.artworkThumbURLs
-                                                           artworkProviderNames:self.selectedResult.artworkProviderNames];
+                                                                      imageURLs:self.selectedResult.remoteArtworks];
             [self.window beginSheet:artworkSelectorWindow.window completionHandler:NULL];
         }
     } else {
@@ -403,7 +402,7 @@
 
 #pragma mark Load artwork
 
-- (void) loadArtworks:(NSIndexSet *)indexes {
+- (void)loadArtworks:(NSIndexSet *)indexes {
     if (indexes.count) {
         [progress startAnimation:self];
         [progress setHidden:NO];
@@ -417,19 +416,18 @@
         [resultsTable setEnabled:NO];
         [metadataTable setEnabled:NO];
 
-        NSArray<NSURL *> *URLs = [self.selectedResult.artworkFullsizeURLs copy];
-        NSArray<NSString *> *providerNames = [self.selectedResult.artworkProviderNames copy];
+        NSArray<SBRemoteImage *> *remoteImages = [self.selectedResult.remoteArtworks copy];
 
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
 
             [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-                NSData *artworkData = [SBMetadataHelper downloadDataFromURL:URLs[idx] cachePolicy:SBDefaultPolicy];
+                NSData *artworkData = [SBMetadataHelper downloadDataFromURL:remoteImages[idx].URL cachePolicy:SBDefaultPolicy];
 
                 // Hack, download smaller iTunes version if big iTunes version is not available
                 if (!artworkData) {
-                    NSString *provider = providerNames[idx];
+                    NSString *provider = remoteImages[idx].providerName;
                     if ([provider isEqualToString:@"iTunes"]) {
-                        NSURL *url = URLs[idx];
+                        NSURL *url = remoteImages[idx].URL;
                         url = [url.URLByDeletingPathExtension URLByAppendingPathExtension:@"600x600bb.jpg"];
                         artworkData = [SBMetadataHelper downloadDataFromURL:url cachePolicy:SBDefaultPolicy];
                     }

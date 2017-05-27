@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SBRemoteImage.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -68,9 +69,7 @@ extern NSString *const SBMetadataResultNetwork;
 
 @property (nonatomic, readonly) NSMutableArray<MP42Image *> *artworks;
 
-@property (nonatomic, readwrite, strong, nullable) NSArray<NSURL *> *artworkThumbURLs;
-@property (nonatomic, readwrite, strong, nullable) NSArray<NSURL *> *artworkFullsizeURLs;
-@property (nonatomic, readwrite, strong, nullable) NSArray<NSString *> *artworkProviderNames;
+@property (nonatomic, readwrite, nullable) NSArray<SBRemoteImage *> *remoteArtworks;
 
 - (MP42Metadata *)metadataUsingMap:(SBMetadataResultMap *)map keepEmptyKeys:(BOOL)keep;
 

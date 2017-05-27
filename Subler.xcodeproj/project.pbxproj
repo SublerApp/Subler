@@ -86,6 +86,7 @@
 		A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */; };
 		A9EEA5F818D654B9008B54B4 /* QueueOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */; };
 		A9F442301C75017100AD8786 /* SBMetadataResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F4422F1C75017100AD8786 /* SBMetadataResult.m */; };
+		A9F476231ED9DC2E00748CC0 /* SBRemoteImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F476221ED9DC2E00748CC0 /* SBRemoteImage.m */; };
 		A9F5820C1DCC861F005F3E92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9F5820B1DCC861F005F3E92 /* Assets.xcassets */; };
 		A9F7F8E01837C44B0036AE7E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9ED7B21180067A2008FD3A8 /* IOKit.framework */; };
 		CD03087417576A550093A0BE /* SBTheMovieDB3.m in Sources */ = {isa = PBXBuildFile; fileRef = CD03087317576A550093A0BE /* SBTheMovieDB3.m */; };
@@ -317,6 +318,8 @@
 		A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBOptionsViewController.m; path = Classes/SBOptionsViewController.m; sourceTree = "<group>"; };
 		A9F4422E1C75017100AD8786 /* SBMetadataResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataResult.h; path = Classes/MetadataImporters/SBMetadataResult.h; sourceTree = "<group>"; };
 		A9F4422F1C75017100AD8786 /* SBMetadataResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataResult.m; path = Classes/MetadataImporters/SBMetadataResult.m; sourceTree = "<group>"; };
+		A9F476211ED9DC2E00748CC0 /* SBRemoteImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBRemoteImage.h; path = Classes/MetadataImporters/SBRemoteImage.h; sourceTree = "<group>"; };
+		A9F476221ED9DC2E00748CC0 /* SBRemoteImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBRemoteImage.m; path = Classes/MetadataImporters/SBRemoteImage.m; sourceTree = "<group>"; };
 		A9F5820B1DCC861F005F3E92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD03087217576A550093A0BE /* SBTheMovieDB3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBTheMovieDB3.h; path = Classes/MetadataImporters/SBTheMovieDB3.h; sourceTree = "<group>"; };
 		CD03087317576A550093A0BE /* SBTheMovieDB3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBTheMovieDB3.m; path = Classes/MetadataImporters/SBTheMovieDB3.m; sourceTree = "<group>"; };
@@ -647,6 +650,8 @@
 				A9C703111C05E08B00C89151 /* SBMetadataHelper.m */,
 				A9F4422E1C75017100AD8786 /* SBMetadataResult.h */,
 				A9F4422F1C75017100AD8786 /* SBMetadataResult.m */,
+				A9F476211ED9DC2E00748CC0 /* SBRemoteImage.h */,
+				A9F476221ED9DC2E00748CC0 /* SBRemoteImage.m */,
 				A981754E1D49F11B00750709 /* SBMetadataResultMap.h */,
 				A981754F1D49F11B00750709 /* SBMetadataResultMap.m */,
 				CD03087717576AE50093A0BE /* SBMetadataImporter.h */,
@@ -718,6 +723,9 @@
 			attributes = {
 				LastUpgradeCheck = 0810;
 				TargetAttributes = {
+					8D15AC270486D014006FF6A4 = {
+						ProvisioningStyle = Automatic;
+					};
 					A95B8DA31B09F37700F2F152 = {
 						CreatedOnToolsVersion = 6.3.1;
 						TestTargetID = 8D15AC270486D014006FF6A4;
@@ -855,6 +863,7 @@
 				CD71FEA312F1B5AF00F0A98D /* SBMetadataSearchController.m in Sources */,
 				CD71FF1D12F1C4A900F0A98D /* SBTheTVDB.m in Sources */,
 				A909440D1DD4C70900E9F89C /* SBTokenFieldCell.m in Sources */,
+				A9F476231ED9DC2E00748CC0 /* SBRemoteImage.m in Sources */,
 				A9C5FA6E19FA22590051F3FF /* SBLogWindowController.m in Sources */,
 				A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */,
 				A9AB485717F0AEAC000AA72E /* SBSoundViewController.m in Sources */,

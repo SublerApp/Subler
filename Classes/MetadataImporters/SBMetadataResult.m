@@ -51,6 +51,7 @@ NSString *const SBMetadataResultNetwork = @"{Network}";
     {
         _tags = [[NSMutableDictionary alloc] init];
         _artworks = [[NSMutableArray alloc] init];
+        _remoteArtworks = [[NSArray alloc] init];
     }
 
     return self;

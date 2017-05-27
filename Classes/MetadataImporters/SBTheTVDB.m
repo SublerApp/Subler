@@ -85,7 +85,7 @@
         // Check for null values, it might happens if there isn't a localized version
         SBTheTVDBNullValues nullValues = [self checkForNull:localizedResults];
 
-        if (nullValues) {
+        if (nullValues && ![language isEqualToString:@"en"]) {
             if (nullValues & SBTheTVDBNullValuesEpisodes) {
                 NSArray<SBMetadataResult *> *englishResults = [self loadTVEpisodes:seriesInfo actors:seriesActors
                                                                      seasonNum:seasonNum episodeNum:episodeNum language:@"en"];
@@ -107,29 +107,33 @@
         [results addObjectsFromArray:localizedResults];
     }
 
-    NSArray<SBMetadataResult *> *resultsSorted = [results sortedArrayUsingComparator:^NSComparisonResult(SBMetadataResult *ep1, SBMetadataResult *ep2) {
-        int v1 = [ep1[SBMetadataResultEpisodeNumber] intValue];
-        int v2 = [ep2[SBMetadataResultEpisodeNumber] intValue];
-
-        int s1 = [ep1[SBMetadataResultSeason] intValue];
-        int s2 = [ep2[SBMetadataResultSeason] intValue];
-
-        if (s1 == s2) {
-            if (v1 < v2)
-                return NSOrderedAscending;
-            else if (v1 > v2)
-                return NSOrderedDescending;
-        }
-
-        if (s1 < s2)
-            return NSOrderedAscending;
-        else if (s1 > s2)
-            return NSOrderedDescending;
-        else
-            return NSOrderedSame;
-    }];
-
+    NSArray<SBMetadataResult *> *resultsSorted = [results sortedArrayUsingFunction:sortSBMetadataResult context:NULL];
     return resultsSorted;
+}
+
+#pragma mark - Sort
+
+static NSInteger sortSBMetadataResult(SBMetadataResult *ep1, SBMetadataResult *ep2, void *context)
+{
+    int v1 = [ep1[SBMetadataResultEpisodeNumber] intValue];
+    int v2 = [ep2[SBMetadataResultEpisodeNumber] intValue];
+
+    int s1 = [ep1[SBMetadataResultSeason] intValue];
+    int s2 = [ep2[SBMetadataResultSeason] intValue];
+
+    if (s1 == s2) {
+        if (v1 < v2)
+            return NSOrderedAscending;
+        else if (v1 > v2)
+            return NSOrderedDescending;
+    }
+
+    if (s1 < s2)
+        return NSOrderedAscending;
+    else if (s1 > s2)
+        return NSOrderedDescending;
+    else
+        return NSOrderedSame;
 }
 
 #pragma mark - Series ID
@@ -301,37 +305,20 @@ typedef NS_OPTIONS(NSUInteger, SBTheTVDBNullValues) {
 
 - (void)loadITunesArtwork:(SBMetadataResult *)metadata
 {
-    NSMutableArray *newArtworkThumbURLs = [NSMutableArray array];
-    NSMutableArray *newArtworkFullsizeURLs = [NSMutableArray array];
-    NSMutableArray *newArtworkProviderNames = [NSMutableArray array];
-
-    [newArtworkThumbURLs addObjectsFromArray:metadata.artworkThumbURLs];
-    [newArtworkFullsizeURLs addObjectsFromArray:metadata.artworkFullsizeURLs];
-    [newArtworkProviderNames addObjectsFromArray:metadata.artworkProviderNames];
+    NSMutableArray<SBRemoteImage *> *remoteArtworks = metadata.remoteArtworks.mutableCopy;
 
     SBMetadataResult *iTunesMetadata = [SBiTunesStore quickiTunesSearchTV:metadata[SBMetadataResultSeriesName] episodeTitle:metadata[SBMetadataResultName]];
 
-    if (iTunesMetadata && iTunesMetadata.artworkThumbURLs && iTunesMetadata.artworkFullsizeURLs &&
-        (iTunesMetadata.artworkThumbURLs.count == iTunesMetadata.artworkFullsizeURLs.count)) {
-        [newArtworkThumbURLs addObjectsFromArray:iTunesMetadata.artworkThumbURLs];
-        [newArtworkFullsizeURLs addObjectsFromArray:iTunesMetadata.artworkFullsizeURLs];
-        [newArtworkProviderNames addObjectsFromArray:iTunesMetadata.artworkProviderNames];
+    if (iTunesMetadata && iTunesMetadata.remoteArtworks.count) {
+        [remoteArtworks addObjectsFromArray:iTunesMetadata.remoteArtworks];
     }
 
-    metadata.artworkThumbURLs = newArtworkThumbURLs;
-    metadata.artworkFullsizeURLs = newArtworkFullsizeURLs;
-    metadata.artworkProviderNames = newArtworkProviderNames;
+    metadata.remoteArtworks = remoteArtworks;
 }
 
 - (void)loadTVImages:(SBMetadataResult *)metadata type:(NSString *)type language:(NSString *)language
 {
-    NSMutableArray *newArtworkThumbURLs = [NSMutableArray array];
-    NSMutableArray *newArtworkFullsizeURLs = [NSMutableArray array];
-    NSMutableArray *newArtworkProviderNames = [NSMutableArray array];
-
-    [newArtworkThumbURLs addObjectsFromArray:metadata.artworkThumbURLs];
-    [newArtworkFullsizeURLs addObjectsFromArray:metadata.artworkFullsizeURLs];
-    [newArtworkProviderNames addObjectsFromArray:metadata.artworkProviderNames];
+    NSMutableArray<SBRemoteImage *> *remoteArtworks = metadata.remoteArtworks.mutableCopy;
 
     // get additionals images
     NSArray *images = [SBTheTVDBConnection.defaultManager fetchSeriesImages:metadata[@"TheTVDB Series ID"] type:type language:language];
@@ -352,16 +339,15 @@ typedef NS_OPTIONS(NSUInteger, SBTheTVDBNullValues) {
                 }
             }
             if (toBeAdded) {
-                [newArtworkThumbURLs addObject:thumbURL];
-                [newArtworkFullsizeURLs addObject:fileURL];
-                [newArtworkProviderNames addObject:[NSString stringWithFormat:@"TheTVDB|%@", type]];
+                SBRemoteImage *artwork = [SBRemoteImage remoteImageWithURL:fileURL
+                                                                  thumbURL:thumbURL
+                                                              providerName:[NSString stringWithFormat:@"TheTVDB|%@", type]];
+                [remoteArtworks addObject:artwork];
             }
         }
     }
 
-    metadata.artworkThumbURLs = newArtworkThumbURLs;
-    metadata.artworkFullsizeURLs = newArtworkFullsizeURLs;
-    metadata.artworkProviderNames = newArtworkProviderNames;
+    metadata.remoteArtworks = remoteArtworks;
 }
 
 - (SBMetadataResult *)loadTVMetadata:(SBMetadataResult *)metadata language:(NSString *)language
@@ -369,6 +355,7 @@ typedef NS_OPTIONS(NSUInteger, SBTheTVDBNullValues) {
     // Get additional episodes info
     NSNumber *episodesID = metadata[@"TheTVDB Episodes ID"];
     NSDictionary *episodesInfo = [SBTheTVDBConnection.defaultManager fetchEpisodesInfo:episodesID language:language];
+    SBRemoteImage *artwork = nil;
 
     if (episodesInfo) {
         metadata[SBMetadataResultDirector]      = [SBTheTVDB cleanList:episodesInfo[@"directors"]];
@@ -389,14 +376,19 @@ typedef NS_OPTIONS(NSUInteger, SBTheTVDBNullValues) {
         if (artworkFilename && [artworkFilename isKindOfClass:[NSString class]] && artworkFilename.length) {
             NSURL *artworkURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://thetvdb.com/banners/%@", artworkFilename]];
 
-            metadata.artworkThumbURLs = @[artworkURL];
-            metadata.artworkFullsizeURLs = @[artworkURL];
-            metadata.artworkProviderNames = @[@"TheTVDB|episode"];
+            artwork = [SBRemoteImage remoteImageWithURL:artworkURL
+                                               thumbURL:artworkURL
+                                           providerName:@"TheTVDB|episode"];
         }
     }
 
     // get additionals images
     [self loadITunesArtwork:metadata];
+    if (artwork) {
+        NSMutableArray<SBRemoteImage *> *remoteArtworks = metadata.remoteArtworks.mutableCopy;
+        [remoteArtworks addObject:artwork];
+        metadata.remoteArtworks = remoteArtworks;
+    }
     [self loadTVImages:metadata type:@"season" language:language];
     [self loadTVImages:metadata type:@"poster" language:language];
 

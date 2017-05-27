@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class SBRemoteImage;
+
 @protocol SBArtworkSelectorDelegate <NSObject>
 - (void)selectArtworkDone:(NSIndexSet *)indexes;
 @end
@@ -17,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SBArtworkSelector : NSWindowController
 
 #pragma mark Initialization
-- (instancetype)initWithDelegate:(id <SBArtworkSelectorDelegate>)del imageURLs:(NSArray<NSURL *> *)imageURLs artworkProviderNames:(NSArray<NSString *> *)artworkProviderNames;
+- (instancetype)initWithDelegate:(id <SBArtworkSelectorDelegate>)del imageURLs:(NSArray<SBRemoteImage *> *)imageURLs;
 
 #pragma mark Load images
 - (IBAction) loadMoreArtwork:(id)sender;
