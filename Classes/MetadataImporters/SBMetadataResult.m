@@ -181,7 +181,7 @@ static NSDictionary<NSString *, NSString *> *localizedKeys;
     return _tags[key];
 }
 
-- (void)setObject:(id)obj forKeyedSubscript:(NSString *)key
+- (void)setObject:(nullable id)obj forKeyedSubscript:(NSString *)key
 {
     if (obj == nil) {
         [self removeTagForKey:key];

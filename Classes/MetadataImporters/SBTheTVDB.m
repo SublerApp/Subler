@@ -56,12 +56,12 @@
 	// search for series id
     NSSet<NSNumber *> *seriesIDs = [self searchSeriesID:seriesName language:language];
 
-    // fallback to english if the no results are found
+    // fallback to English if no results are found
     if (!seriesIDs.count) {
         seriesIDs = [self searchSeriesID:seriesName language:@"en"];
     }
 
-    NSMutableArray *results = [[NSMutableArray alloc] init];
+    NSMutableArray<SBMetadataResult *> *results = [[NSMutableArray alloc] init];
 
     for (NSDictionary *s in seriesIDs) {
 
@@ -85,12 +85,15 @@
         // Check for null values, it might happens if there isn't a localized version
         SBTheTVDBNullValues nullValues = [self checkForNull:localizedResults];
 
+        localizedResults = [localizedResults sortedArrayUsingFunction:sortSBMetadataResult context:NULL];
+
         if (nullValues && ![language isEqualToString:@"en"]) {
             if (nullValues & SBTheTVDBNullValuesEpisodes) {
                 NSArray<SBMetadataResult *> *englishResults = [self loadTVEpisodes:seriesInfo actors:seriesActors
                                                                      seasonNum:seasonNum episodeNum:episodeNum language:@"en"];
 
-                if (englishResults) {
+                if (englishResults.count) {
+                    englishResults = [englishResults sortedArrayUsingFunction:sortSBMetadataResult context:NULL];
                     [self merge:localizedResults with:englishResults];
                 }
             }
@@ -104,11 +107,12 @@
             }
         }
 
+        [self removeNullValues:localizedResults];
+
         [results addObjectsFromArray:localizedResults];
     }
 
-    NSArray<SBMetadataResult *> *resultsSorted = [results sortedArrayUsingFunction:sortSBMetadataResult context:NULL];
-    return resultsSorted;
+    return [results sortedArrayUsingFunction:sortSBMetadataResult context:NULL];
 }
 
 #pragma mark - Sort
@@ -140,6 +144,10 @@ static NSInteger sortSBMetadataResult(SBMetadataResult *ep1, SBMetadataResult *e
 
 - (BOOL)seriesResult:(NSDictionary *)s matchName:(NSString *)seriesName
 {
+    NSString *resultName = s[@"seriesName"];
+
+    if (![resultName isKindOfClass:[NSString class]]) { return NO; }
+
     if ([seriesName isEqualTo:s[@"seriesName"]]) {
         return YES;
     }
@@ -148,7 +156,7 @@ static NSInteger sortSBMetadataResult(SBMetadataResult *ep1, SBMetadataResult *e
 
         if ([aliases isKindOfClass:[NSArray class]]) {
             for (NSString *alias in aliases) {
-                if ([seriesName isEqualTo:alias]) {
+                if ([alias isKindOfClass:[NSString class]] && [seriesName isEqualTo:alias]) {
                     return YES;
                 }
             }
@@ -211,6 +219,29 @@ typedef NS_OPTIONS(NSUInteger, SBTheTVDBNullValues) {
     }
 
     return nullValues;
+}
+
+- (void)removeNullValues:(NSArray<SBMetadataResult *> *)results
+{
+    NSNull *null = [NSNull null];
+
+    for (SBMetadataResult *result in results) {
+        if ([result[SBMetadataResultSeriesName] isEqualTo:null]) {
+            result[SBMetadataResultSeriesName] = nil;
+        }
+        if ([result[SBMetadataResultName] isEqualTo:null]) {
+            result[SBMetadataResultName] = nil;
+        }
+        if ([result[SBMetadataResultLongDescription] isEqualTo:null]) {
+            result[SBMetadataResultLongDescription] = nil;
+        }
+        if ([result[SBMetadataResultDescription] isEqualTo:null]) {
+            result[SBMetadataResultDescription] = nil;
+        }
+        if ([result[SBMetadataResultSeriesDescription] isEqualTo:null]) {
+            result[SBMetadataResultSeriesDescription] = nil;
+        }
+    }
 }
 
 - (void)merge:(NSArray<SBMetadataResult *> *)array with:(NSArray<SBMetadataResult *> *)array2

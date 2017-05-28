@@ -60,7 +60,7 @@ extern NSString *const SBMetadataResultNetwork;
 - (void)setTag:(id)value forKey:(NSString *)key;
 
 - (nullable id)objectForKeyedSubscript:(NSString *)key;
-- (void)setObject:(id)obj forKeyedSubscript:(NSString *)key;
+- (void)setObject:(nullable id)obj forKeyedSubscript:(NSString *)key;
 
 @property (nonatomic, readonly) NSMutableDictionary<NSString *, id> *tags;
 
