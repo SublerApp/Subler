@@ -499,7 +499,7 @@
                     
                     BOOL copyTrack = (conversion == 6 || conversion == 7) ? YES : NO;
                     BOOL convertDTSToAC3 = (conversion == 7) ? YES : NO;
-                    if (conversion == 6 || conversion == 7) {
+                    if (copyTrack) {
                         conversion = [[[NSUserDefaults standardUserDefaults]
                                        valueForKey:@"SBAudioMixdown"] integerValue];
                     }
