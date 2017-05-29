@@ -421,15 +421,19 @@
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
 
             [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-                NSData *artworkData = [SBMetadataHelper downloadDataFromURL:remoteImages[idx].URL cachePolicy:SBDefaultPolicy];
+                SBRemoteImage *remoteImage = remoteImages[idx];
+                NSData *artworkData = [SBMetadataHelper downloadDataFromURL:remoteImage.URL cachePolicy:SBDefaultPolicy];
 
                 // Hack, download smaller iTunes version if big iTunes version is not available
                 if (!artworkData) {
-                    NSString *provider = remoteImages[idx].providerName;
-                    if ([provider isEqualToString:@"iTunes"]) {
+                    if ([remoteImage.providerName isEqualToString:@"iTunes"]) {
                         NSURL *url = remoteImages[idx].URL;
                         url = [url.URLByDeletingPathExtension URLByAppendingPathExtension:@"600x600bb.jpg"];
                         artworkData = [SBMetadataHelper downloadDataFromURL:url cachePolicy:SBDefaultPolicy];
+                    }
+                    else {
+                        // Try again
+                        artworkData = [SBMetadataHelper downloadDataFromURL:remoteImage.URL cachePolicy:SBDefaultPolicy];
                     }
                 }
 
