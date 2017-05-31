@@ -9,7 +9,19 @@
 #import "SBMetadataHelper.h"
 #import <CommonCrypto/CommonDigest.h>
 
+static id<MP42Logging> _logger;
+
 @implementation SBMetadataHelper
+
++ (void)setLogger:(id<MP42Logging>)logger
+{
+    _logger = logger;
+}
+
++ (id<MP42Logging>)logger
+{
+    return _logger;
+}
 
 + (nullable NSDictionary<NSString *, NSString *> *)parseFilename:(NSString *)filename
 {
@@ -195,8 +207,11 @@
         request.HTTPBody = body;
     }
 
+    [_logger writeToLog:[NSString stringWithFormat:@"Requesting URL %@", url.absoluteString]];
+
     NSURLSession *defaultSession = [NSURLSession sharedSession];
     NSURLSessionTask *task = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
         if (data) {
             NSUInteger statusCode = 0;
             if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
@@ -207,8 +222,16 @@
                 completionHandler(data);
             }
             else {
+                NSString *errorData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                if (errorData) {
+                    [_logger writeToLog:errorData];
+                }
                 completionHandler(nil);
             }
+        }
+
+        if (error) {
+            [_logger writeErrorToLog:error];
         }
     }];
 

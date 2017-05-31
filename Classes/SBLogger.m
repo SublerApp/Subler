@@ -12,6 +12,7 @@
 @interface SBLogger ()
 
 @property (nonatomic, readonly) NSURL *fileURL;
+@property (nonatomic, readonly) dispatch_queue_t queue;
 
 @end
 
@@ -22,6 +23,7 @@
 
     if (self) {
         _fileURL = [fileURL copy];
+        _queue = dispatch_queue_create("org.subler.LogQueue", DISPATCH_QUEUE_SERIAL);
     }
 
     return self;
@@ -38,22 +40,30 @@
 }
 
 - (void)writeToLog:(NSString *)string {
-    if (self.fileURL) {
-        FILE *f = fopen(self.fileURL.fileSystemRepresentation, "a");
-        if (f) {
-            fprintf(f, "%s %s", [self currentTime].UTF8String, string.UTF8String);
-            fclose(f);
+    dispatch_sync(self.queue, ^{
+        if (self.fileURL) {
+            FILE *f = fopen(self.fileURL.fileSystemRepresentation, "a");
+            if (f) {
+                fprintf(f, "%s %s", [self currentTime].UTF8String, string.UTF8String);
+                fprintf(f, "\n");
+                fclose(f);
+            }
         }
-    }
 
-    if (self.delegate) {
-        [self.delegate writeToLog:[NSString stringWithFormat:@"%@ %@", [self currentTime], string]];
-    }
+        if (self.delegate) {
+            [self.delegate writeToLog:[NSString stringWithFormat:@"%@ %@", [self currentTime], string]];
+            [self.delegate writeToLog:@"\n"];
+        }
+    });
 }
 
 - (void)writeErrorToLog:(NSError *)error {
-    [self writeToLog:[NSString stringWithFormat:@"%@\n", error.localizedDescription]];
-    [self writeToLog:[NSString stringWithFormat:@"%@\n", error.localizedRecoverySuggestion]];
+    if (error.localizedDescription) {
+        [self writeToLog:error.localizedDescription];
+    }
+    if (error.localizedRecoverySuggestion) {
+        [self writeToLog:error.localizedRecoverySuggestion];
+    }
 }
 
 - (void)clearLog {

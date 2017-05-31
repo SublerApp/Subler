@@ -12,6 +12,7 @@
 #import "SBQueueController.h"
 #import "SBPrefsController.h"
 #import "SBLogWindowController.h"
+#import "SBMetadataHelper.h"
 #import "SBLogger.h"
 
 #import <MP42Foundation/MP42File.h>
@@ -49,8 +50,8 @@
     [logger clearLog];
 
     debugLogController = [[SBLogWindowController alloc] initWithLogger:logger];
-    [MP42File setGlobalLogger:logger];
-
+    MP42File.globalLogger = logger;
+    SBMetadataHelper.logger = logger;
 
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SBShowQueueWindow"]) {
         [[SBQueueController sharedManager] showWindow:self];

@@ -41,7 +41,7 @@
 - (void)writeToLog:(NSString *)string {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:string];
-        [(self.logView).textStorage appendAttributedString:attributedString];
+        [self.logView.textStorage appendAttributedString:attributedString];
     });
 }
 
