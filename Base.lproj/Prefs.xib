@@ -332,6 +332,13 @@
                                 <menuItem title="128" tag="128" id="198"/>
                                 <menuItem title="144" tag="144" id="199"/>
                                 <menuItem title="160" tag="160" id="200"/>
+                                <menuItem title="192" tag="192" id="IRB-z8-OsU"/>
+                                <menuItem title="224" tag="224" id="Pr6-u5-Rp7"/>
+                                <menuItem title="256" tag="256" id="tFR-ss-ze1"/>
+                                <menuItem title="288" tag="288" id="0mc-zi-Qmj"/>
+                                <menuItem title="320" tag="320" id="1fI-Gp-Bh0"/>
+                                <menuItem title="480" tag="480" id="kV2-as-WIK"/>
+                                <menuItem title="640" tag="640" id="kEP-hH-U4c"/>
                             </items>
                         </menu>
                     </popUpButtonCell>

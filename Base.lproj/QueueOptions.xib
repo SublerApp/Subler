@@ -358,7 +358,7 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.SBQueueMetadata" id="ABT-BG-W0N"/>
                     </connections>
                 </popUpButton>
-                <button toolTip="Organize the mp4 alternate groups" translatesAutoresizingMaskIntoConstraints="NO" id="TV6-Sk-Bqr">
+                <button toolTip="Organize the audio fallbacks" translatesAutoresizingMaskIntoConstraints="NO" id="TV6-Sk-Bqr">
                     <rect key="frame" x="110" y="260" width="119" height="18"/>
                     <buttonCell key="cell" type="check" title="Fix audio fallbacks" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="W6u-1c-BsI">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -372,7 +372,7 @@
                         </binding>
                     </connections>
                 </button>
-                <button toolTip="Set the track without a language to the selected one" translatesAutoresizingMaskIntoConstraints="NO" id="slL-2h-MPl">
+                <button toolTip="Set tracks without a language to the selected one" translatesAutoresizingMaskIntoConstraints="NO" id="slL-2h-MPl">
                     <rect key="frame" x="110" y="206" width="160" height="18"/>
                     <buttonCell key="cell" type="check" title="Complete tracks language" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="cxz-2q-RIP">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -439,7 +439,7 @@
                         </binding>
                     </connections>
                 </button>
-                <button toolTip="Load the external srt subtitles file" translatesAutoresizingMaskIntoConstraints="NO" id="22k-mA-HyA">
+                <button toolTip="Delete all custom track names" translatesAutoresizingMaskIntoConstraints="NO" id="22k-mA-HyA">
                     <rect key="frame" x="110" y="224" width="123" height="18"/>
                     <buttonCell key="cell" type="check" title="Clear tracks names" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="mtK-5C-Pzh">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -481,7 +481,7 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.SBQueueMetadata" id="Iqc-R5-L9d"/>
                     </connections>
                 </popUpButton>
-                <button toolTip="Set the track without a language to the selected one" translatesAutoresizingMaskIntoConstraints="NO" id="Pdq-s0-erT">
+                <button toolTip="Set the color space of video tracks to the selected one" translatesAutoresizingMaskIntoConstraints="NO" id="Pdq-s0-erT">
                     <rect key="frame" x="110" y="170" width="116" height="18"/>
                     <buttonCell key="cell" type="check" title="Apply color space" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="0By-RQ-4mS">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
