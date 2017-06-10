@@ -353,16 +353,21 @@
         [self.currentSearcher cancel];
     }
 
+    NSString *language = nil;
+
     [addButton setEnabled:NO];
     if (self.selectedResult.mediaKind == 9) {
         [self startProgressReportWithString:NSLocalizedString(@"Downloading additional movie metadata…", nil)];
 		self.currentSearcher = [SBMetadataImporter importerForProvider:movieMetadataProvider.selectedItem.title];
+
+        language = movieLanguage.selectedItem.title;
+
     } else if (self.selectedResult.mediaKind == 10) {
         [self startProgressReportWithString:NSLocalizedString(@"Downloading additional TV metadata…", nil)];
 		self.currentSearcher = [SBMetadataImporter importerForProvider:tvMetadataProvider.selectedItem.title];
-    }
 
-    NSString *language = movieLanguage.selectedItem.title;
+        language = tvLanguage.selectedItem.title;
+    }
 
     if (self.currentSearcher.languageType== SBMetadataImporterLanguageTypeISO) {
         language = [MP42Languages.defaultManager extendedTagForLocalizedLang:language];
