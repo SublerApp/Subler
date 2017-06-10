@@ -354,6 +354,10 @@ typedef NS_OPTIONS(NSUInteger, SBTheTVDBNullValues) {
     // get additionals images
     NSArray *images = [SBTheTVDBConnection.defaultManager fetchSeriesImages:metadata[@"TheTVDB Series ID"] type:type language:language];
 
+    if (images.count == 0) {
+        images = [SBTheTVDBConnection.defaultManager fetchSeriesImages:metadata[@"TheTVDB Series ID"] type:type language:@"en"];
+    }
+
     if (images && [images isKindOfClass:[NSArray class]]) {
 
         for (NSDictionary *image in images) {
