@@ -51,7 +51,10 @@
 
     debugLogController = [[SBLogWindowController alloc] initWithLogger:logger];
     MP42File.globalLogger = logger;
-    SBMetadataHelper.logger = logger;
+    
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"SBAdditionalDebugInfo"]) {
+        SBMetadataHelper.logger = logger;
+    }
 
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SBShowQueueWindow"]) {
         [[SBQueueController sharedManager] showWindow:self];
