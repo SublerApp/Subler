@@ -75,6 +75,8 @@
 
 @property (nonatomic, strong) NSWindowController *sheetController;
 
+@property (nonatomic, strong, nullable) NSDictionary<NSString *, NSNumber *> *currentSaveAttributes;
+
 @end
 
 @implementation SBDocument
@@ -301,6 +303,7 @@ static NSDictionary *_detailMonospacedAttr;
         }
     };
 
+    self.currentSaveAttributes = [self saveAttributes];
     [self showProgressSheet];
     [super saveToURL:url ofType:typeName forSaveOperation:saveOperation completionHandler:modifiedCompletionhandler];
 }
@@ -315,7 +318,6 @@ static NSDictionary *_detailMonospacedAttr;
     IOReturn io_success = IOPMAssertionCreateWithName(kIOPMAssertionTypeNoIdleSleep,
                                                       kIOPMAssertionLevelOn, reasonForActivity, &assertionID);
     BOOL result = NO;
-    NSDictionary<NSString *, NSNumber *> *options = [self saveAttributes];
 
     __weak SBDocument *weakSelf = self;
     self.mp4.progressHandler = ^(double progress){
@@ -333,12 +335,12 @@ static NSDictionary *_detailMonospacedAttr;
         case NSSaveOperation:
             // movie file already exists, so we'll just update
             // the movie resource.
-            result = [self.mp4 updateMP4FileWithOptions:options error:outError];
+            result = [self.mp4 updateMP4FileWithOptions:self.currentSaveAttributes error:outError];
             break;
 
         case NSSaveAsOperation:
             // movie does not exist, create a new one from scratch.
-            result = [self.mp4 writeToUrl:url options:options error:outError];
+            result = [self.mp4 writeToUrl:url options:self.currentSaveAttributes error:outError];
             break;
 
         default:
