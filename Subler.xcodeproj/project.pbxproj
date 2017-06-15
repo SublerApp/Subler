@@ -723,6 +723,9 @@
 			attributes = {
 				LastUpgradeCheck = 0900;
 				TargetAttributes = {
+					8D15AC270486D014006FF6A4 = {
+						ProvisioningStyle = Automatic;
+					};
 					A95B8DA31B09F37700F2F152 = {
 						CreatedOnToolsVersion = 6.3.1;
 						TestTargetID = 8D15AC270486D014006FF6A4;

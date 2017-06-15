@@ -79,7 +79,7 @@ static void *SBQueueContex = &SBQueueContex;
     [self.progressBar setHidden:YES];
 
     // Load a generic movie icon to display in the table view
-    _docImg = [[NSWorkspace sharedWorkspace] iconForFileType:@"public.movie"];
+    _docImg = [[NSWorkspace sharedWorkspace] iconForFileType:@"mov"];
     _docImg.size = NSMakeSize(16, 16);
 
     // Drag & Drop

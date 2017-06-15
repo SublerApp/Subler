@@ -315,7 +315,7 @@ static NSDictionary *_detailMonospacedAttr;
     IOPMAssertionID assertionID;
     // Enable sleep assertion
     CFStringRef reasonForActivity= CFSTR("Subler Save Operation");
-    IOReturn io_success = IOPMAssertionCreateWithName(kIOPMAssertionTypeNoIdleSleep,
+    IOReturn io_success = IOPMAssertionCreateWithName(kIOPMAssertPreventUserIdleSystemSleep,
                                                       kIOPMAssertionLevelOn, reasonForActivity, &assertionID);
     BOOL result = NO;
 

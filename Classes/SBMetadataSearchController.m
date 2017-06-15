@@ -362,7 +362,7 @@
 
         language = movieLanguage.selectedItem.title;
 
-    } else if (self.selectedResult.mediaKind == 10) {
+    } else /*if (self.selectedResult.mediaKind == 10)*/ {
         [self startProgressReportWithString:NSLocalizedString(@"Downloading additional TV metadata…", nil)];
 		self.currentSearcher = [SBMetadataImporter importerForProvider:tvMetadataProvider.selectedItem.title];
 
