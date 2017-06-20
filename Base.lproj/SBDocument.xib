@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16E192b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13122.17" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
+        <development version="8000" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.17"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -39,7 +40,7 @@
             <value key="minSize" type="size" width="350" height="200"/>
             <view key="contentView" id="6">
                 <rect key="frame" x="0.0" y="0.0" width="690" height="510"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <splitView translatesAutoresizingMaskIntoConstraints="NO" id="100127">
                         <rect key="frame" x="-1" y="0.0" width="692" height="511"/>
@@ -548,7 +549,7 @@
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="100176">
                 <rect key="frame" x="0.0" y="0.0" width="297" height="121"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="100177">
                         <rect key="frame" x="17" y="84" width="88" height="17"/>
@@ -579,7 +580,7 @@ Gw
                     </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="437" y="408"/>
+            <point key="canvasLocation" x="321" y="278"/>
         </window>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="100271" userLabel="Offset">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
@@ -588,7 +589,7 @@ Gw
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="100272">
                 <rect key="frame" x="0.0" y="0.0" width="346" height="102"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="100277">
                         <rect key="frame" x="307" y="62" width="22" height="17"/>
@@ -659,95 +660,109 @@ Gw
             </view>
         </window>
         <customView id="100187">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
+            <rect key="frame" x="0.0" y="0.0" width="388" height="82"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="100223">
-                    <rect key="frame" x="8" y="29" width="76" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Options:" id="100224">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="100221">
-                    <rect key="frame" x="8" y="54" width="76" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="File Format:" id="100222">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="100215">
-                    <rect key="frame" x="88" y="48" width="225" height="26"/>
-                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="100218" id="100216">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
-                        <menu key="menu" title="OtherViews" autoenablesItems="NO" id="100217">
-                            <items>
-                                <menuItem title="Item 1" state="on" id="100218">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                    <connections>
-                                        <action selector="setSaveFormat:" target="-2" id="100242"/>
-                                    </connections>
-                                </menuItem>
-                                <menuItem title="Item 2" tag="1" id="100219">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Item 3" tag="2" id="100220">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                    <connections>
-                        <action selector="setSaveFormat:" target="-2" id="100243"/>
-                        <binding destination="100263" name="selectedIndex" keyPath="values.defaultSaveFormat" id="100294">
-                            <dictionary key="options">
-                                <bool key="NSValidatesImmediately" value="YES"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </popUpButton>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="100190">
-                    <rect key="frame" x="88" y="8" width="102" height="18"/>
-                    <string key="toolTip">Note: don't use this option if you are not sure of what it is doing, it's not needed in almost every case.
+                <customView verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="mnz-j4-2OQ">
+                    <rect key="frame" x="24" y="0.0" width="340" height="82"/>
+                    <subviews>
+                        <button toolTip="Needed for mp4 larger than 4GB." translatesAutoresizingMaskIntoConstraints="NO" id="100188">
+                            <rect key="frame" x="98" y="28" width="144" height="18"/>
+                            <buttonCell key="cell" type="check" title="64 bits chunk offset" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="100189">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <binding destination="100263" name="value" keyPath="values.mp464bitOffset" id="100265"/>
+                            </connections>
+                        </button>
+                        <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="100223">
+                            <rect key="frame" x="18" y="29" width="76" height="17"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Options:" id="100224">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="100215">
+                            <rect key="frame" x="98" y="48" width="225" height="26"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="CWX-o0-H8Z"/>
+                            </constraints>
+                            <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="100218" id="100216">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="menu"/>
+                                <menu key="menu" title="OtherViews" autoenablesItems="NO" id="100217">
+                                    <items>
+                                        <menuItem title="Item 1" state="on" id="100218">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setSaveFormat:" target="-2" id="100242"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Item 2" tag="1" id="100219">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Item 3" tag="2" id="100220">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                            <connections>
+                                <action selector="setSaveFormat:" target="-2" id="100243"/>
+                                <binding destination="100263" name="selectedIndex" keyPath="values.defaultSaveFormat" id="100294">
+                                    <dictionary key="options">
+                                        <bool key="NSValidatesImmediately" value="YES"/>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </popUpButton>
+                        <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="100221">
+                            <rect key="frame" x="18" y="54" width="76" height="17"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="File Format:" id="100222">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="100190">
+                            <rect key="frame" x="98" y="8" width="102" height="18"/>
+                            <string key="toolTip">Note: don't use this option if you are not sure of what it is doing, it's not needed in almost every case.
 Enable 64bit timescale and duration support. Normally, it's only needed if a track will be longer than 10 hours.</string>
-                    <buttonCell key="cell" type="check" title="64 bits times" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="100191">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="100263" name="value" keyPath="values.mp464bitTimes" id="100266"/>
-                    </connections>
-                </button>
-                <button toolTip="Needed for mp4 larger than 4GB." translatesAutoresizingMaskIntoConstraints="NO" id="100188">
-                    <rect key="frame" x="88" y="28" width="144" height="18"/>
-                    <buttonCell key="cell" type="check" title="64 bits chunk offset" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="100189">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="100263" name="value" keyPath="values.mp464bitOffset" id="100265"/>
-                    </connections>
-                </button>
+                            <buttonCell key="cell" type="check" title="64 bits times" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="100191">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <binding destination="100263" name="value" keyPath="values.mp464bitTimes" id="100266"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="100190" firstAttribute="top" secondItem="100188" secondAttribute="bottom" constant="6" id="46F-aM-wkb"/>
+                        <constraint firstItem="100190" firstAttribute="leading" secondItem="100188" secondAttribute="leading" id="GqE-pf-8l4"/>
+                        <constraint firstItem="100223" firstAttribute="trailing" secondItem="100221" secondAttribute="trailing" id="M7Q-Pf-AoO"/>
+                        <constraint firstItem="100223" firstAttribute="top" secondItem="100221" secondAttribute="bottom" constant="8" id="NIO-40-Ff9"/>
+                        <constraint firstAttribute="height" constant="82" id="QgN-pP-fGp"/>
+                        <constraint firstAttribute="bottom" secondItem="100190" secondAttribute="bottom" constant="10" id="QnU-Cc-d7I"/>
+                        <constraint firstItem="100215" firstAttribute="leading" secondItem="100221" secondAttribute="trailing" constant="8" symbolic="YES" id="TfO-H6-1Fr"/>
+                        <constraint firstItem="100221" firstAttribute="top" secondItem="mnz-j4-2OQ" secondAttribute="top" constant="11" id="W1f-ha-gXm"/>
+                        <constraint firstItem="100223" firstAttribute="width" secondItem="100221" secondAttribute="width" id="Ykt-xh-F12"/>
+                        <constraint firstItem="100188" firstAttribute="baseline" secondItem="100223" secondAttribute="baseline" id="ZDc-Ug-oGw"/>
+                        <constraint firstItem="100215" firstAttribute="baseline" secondItem="100221" secondAttribute="baseline" id="kJ4-iW-o2W"/>
+                        <constraint firstItem="100221" firstAttribute="leading" secondItem="mnz-j4-2OQ" secondAttribute="leading" constant="20" id="rRR-Vf-emg"/>
+                        <constraint firstItem="100188" firstAttribute="leading" secondItem="100223" secondAttribute="trailing" constant="8" symbolic="YES" id="rsC-rt-qfA"/>
+                        <constraint firstAttribute="trailing" secondItem="100215" secondAttribute="trailing" constant="20" id="v0b-Gj-Oxi"/>
+                    </constraints>
+                </customView>
             </subviews>
             <constraints>
-                <constraint firstItem="100223" firstAttribute="top" secondItem="100221" secondAttribute="bottom" constant="8" id="1z2-hb-G9o"/>
-                <constraint firstAttribute="bottom" secondItem="100190" secondAttribute="bottom" constant="10" id="C2J-In-ZOs"/>
-                <constraint firstItem="100215" firstAttribute="leading" secondItem="100221" secondAttribute="trailing" constant="8" symbolic="YES" id="EY7-ee-NKd"/>
-                <constraint firstItem="100221" firstAttribute="leading" secondItem="100187" secondAttribute="leading" constant="10" id="Gcm-uM-dEu"/>
-                <constraint firstItem="100188" firstAttribute="baseline" secondItem="100223" secondAttribute="baseline" id="W3i-6N-fzc"/>
-                <constraint firstItem="100221" firstAttribute="top" secondItem="100187" secondAttribute="top" constant="11" id="W8Z-D3-oZH"/>
-                <constraint firstItem="100190" firstAttribute="top" secondItem="100188" secondAttribute="bottom" constant="6" id="XM7-Xc-98Y"/>
-                <constraint firstItem="100215" firstAttribute="baseline" secondItem="100221" secondAttribute="baseline" id="YtU-ce-ots"/>
-                <constraint firstItem="100223" firstAttribute="trailing" secondItem="100221" secondAttribute="trailing" id="ble-rf-5sO"/>
-                <constraint firstItem="100188" firstAttribute="leading" secondItem="100223" secondAttribute="trailing" constant="8" symbolic="YES" id="eW1-2L-pww"/>
-                <constraint firstItem="100190" firstAttribute="leading" secondItem="100188" secondAttribute="leading" id="hSd-gT-lZY"/>
-                <constraint firstItem="100223" firstAttribute="width" secondItem="100221" secondAttribute="width" id="i3a-54-8hq"/>
-                <constraint firstAttribute="trailing" secondItem="100215" secondAttribute="trailing" constant="10" id="lgy-LM-55n"/>
+                <constraint firstItem="mnz-j4-2OQ" firstAttribute="centerX" secondItem="100187" secondAttribute="centerX" id="Iri-xR-u1f"/>
+                <constraint firstAttribute="bottom" secondItem="mnz-j4-2OQ" secondAttribute="bottom" id="cst-WF-TrG"/>
+                <constraint firstItem="mnz-j4-2OQ" firstAttribute="top" secondItem="100187" secondAttribute="top" id="hgc-7Q-CTY"/>
             </constraints>
-            <point key="canvasLocation" x="-195" y="189"/>
+            <point key="canvasLocation" x="-338" y="186"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="100263"/>
     </objects>

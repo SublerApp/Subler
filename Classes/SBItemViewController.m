@@ -70,11 +70,13 @@ static void *SBItemViewContex = &SBItemViewContex;
         // is different from ready
         if ([keyPath isEqualToString:@"item.status"]) {
             SBQueueItemStatus newStatus = [[change valueForKey:NSKeyValueChangeNewKey] integerValue];
-            if (newStatus != SBQueueItemStatusReady && newStatus != SBQueueItemStatusEditing) {
-                [self.editButton setEnabled:NO];
-            } else {
-                [self.editButton setEnabled:YES];
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (newStatus != SBQueueItemStatusReady && newStatus != SBQueueItemStatusEditing) {
+                    [self.editButton setEnabled:NO];
+                } else {
+                    [self.editButton setEnabled:YES];
+                }
+            });
         } else if ([keyPath isEqualToString:@"item.actions"]) {
             NSInteger count = [change[NSKeyValueChangeNewKey] count] - [change[NSKeyValueChangeOldKey] count];
             CGFloat height = TABLE_ROW_HEIGHT * (count >= 0 ? count : 1);

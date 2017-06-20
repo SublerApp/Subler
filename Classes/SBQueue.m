@@ -222,22 +222,25 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
  * Starts the queue.
  */
 - (void)start {
-    if (self.status == SBQueueStatusWorking) {
+    if (self.status == SBQueueStatusWorking || self.cancelled) {
         return;
     } else {
         self.status = SBQueueStatusWorking;
     }
 
-    // Enable sleep assertion
-    [self disableSleep];
-
     dispatch_async(self.workQueue, ^{
+
+        // Enable sleep assertion
+        [self disableSleep];
 
         NSUInteger completedCount = 0;
         NSUInteger failedCount = 0;
 
         for (;;) {
             @autoreleasepool {
+                // Save to disk
+                [self saveQueueToDisk];
+
                 NSError *outError = nil;
                 BOOL noErr = NO;
 
@@ -280,15 +283,14 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
 
                 self.currentItem.delegate = nil;
                 self.currentItem = nil;
+
+                [self handleSBStatusWorking:100 index:self.currentIndex];
             }
 
             if (self.status == SBQueueStatusCancelled) {
                 break;
             }
         }
-
-        // Save to disk
-        [self saveQueueToDisk];
 
         // Disable sleep assertion
         [self enableSleep];

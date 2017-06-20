@@ -97,8 +97,9 @@ static void *SBQueueContex = &SBQueueContex;
         [self.progressBar setIndeterminate:NO];
         self.progressBar.doubleValue = [[info valueForKey:@"Progress"] doubleValue];
 
-        if ([info[@"ItemIndex"] integerValue] != -1) {
-            [self updateUI];
+        NSInteger index = [info[@"ItemIndex"] integerValue];
+        if (index != -1) {
+            [self updateUIIndexes:[NSIndexSet indexSetWithIndex:index]];
         }
     }];
 
@@ -482,6 +483,11 @@ static void *SBQueueContex = &SBQueueContex;
     else {
         NSApp.dockTile.badgeLabel = nil;
     }
+}
+
+- (void)updateUIIndexes:(NSIndexSet *)indexes {
+    [self.table reloadDataForRowIndexes:indexes columnIndexes:[NSIndexSet indexSetWithIndex:0]];
+    [self updateState];
 }
 
 - (void)updateUI {
