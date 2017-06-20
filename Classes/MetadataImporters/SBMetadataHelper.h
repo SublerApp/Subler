@@ -14,9 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SBMetadataHelper : NSObject
 
 typedef NS_ENUM(NSUInteger, SBCachePolicy) {
-    SBDefaultPolicy,
-    SBReturnCacheElseLoad,
-    SBReloadIgnoringLocalCacheData,
+    SBCachePolicyDefault,
+    SBCachePolicyReturnCacheElseLoad,
+    SBCachePolicyReloadIgnoringLocalCacheData,
 };
 
 #pragma mark Helper routines

@@ -427,18 +427,18 @@
 
             [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
                 SBRemoteImage *remoteImage = remoteImages[idx];
-                NSData *artworkData = [SBMetadataHelper downloadDataFromURL:remoteImage.URL cachePolicy:SBDefaultPolicy];
+                NSData *artworkData = [SBMetadataHelper downloadDataFromURL:remoteImage.URL cachePolicy:SBCachePolicyDefault];
 
                 // Hack, download smaller iTunes version if big iTunes version is not available
                 if (!artworkData) {
                     if ([remoteImage.providerName isEqualToString:@"iTunes"]) {
                         NSURL *url = remoteImages[idx].URL;
                         url = [url.URLByDeletingPathExtension URLByAppendingPathExtension:@"600x600bb.jpg"];
-                        artworkData = [SBMetadataHelper downloadDataFromURL:url cachePolicy:SBDefaultPolicy];
+                        artworkData = [SBMetadataHelper downloadDataFromURL:url cachePolicy:SBCachePolicyDefault];
                     }
                     else {
                         // Try again
-                        artworkData = [SBMetadataHelper downloadDataFromURL:remoteImage.URL cachePolicy:SBDefaultPolicy];
+                        artworkData = [SBMetadataHelper downloadDataFromURL:remoteImage.URL cachePolicy:SBCachePolicyDefault];
                     }
                 }
 

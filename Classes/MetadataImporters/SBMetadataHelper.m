@@ -163,13 +163,13 @@ static id<MP42Logging> _logger;
 
     NSURLRequestCachePolicy cachePolicy;
     switch (policy) {
-        case SBReturnCacheElseLoad:
+        case SBCachePolicyReturnCacheElseLoad:
             cachePolicy = NSURLRequestReturnCacheDataElseLoad;
             break;
-        case SBReloadIgnoringLocalCacheData:
+        case SBCachePolicyReloadIgnoringLocalCacheData:
             cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
             break;
-        case SBDefaultPolicy:
+        case SBCachePolicyDefault:
         default:
             cachePolicy = NSURLRequestUseProtocolCachePolicy;
             break;

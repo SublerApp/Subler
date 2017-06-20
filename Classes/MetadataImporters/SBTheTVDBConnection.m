@@ -73,7 +73,7 @@
                                     @"Accept" : @"application/json"};
 
     NSURL *url = [NSURL URLWithString:@"https://api.thetvdb.com/login"];
-    NSData *data = [SBMetadataHelper downloadDataFromURL:url HTTPMethod:@"POST" HTTPBody:jsonApiKey headerOptions:headerOptions cachePolicy:SBDefaultPolicy];
+    NSData *data = [SBMetadataHelper downloadDataFromURL:url HTTPMethod:@"POST" HTTPBody:jsonApiKey headerOptions:headerOptions cachePolicy:SBCachePolicyDefault];
 
     if (data) {
         id response = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
@@ -171,7 +171,7 @@
                                     @"Content-Type" : @"application/json",
                                     @"Accept" : @"application/json",
                                     @"Accept-Language" : language};
-    NSData *data = [SBMetadataHelper downloadDataFromURL:url HTTPMethod:@"GET" HTTPBody:nil headerOptions:headerOptions cachePolicy:SBDefaultPolicy];
+    NSData *data = [SBMetadataHelper downloadDataFromURL:url HTTPMethod:@"GET" HTTPBody:nil headerOptions:headerOptions cachePolicy:SBCachePolicyDefault];
     
     return data;
 }
