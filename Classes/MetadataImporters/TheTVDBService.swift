@@ -56,16 +56,16 @@ public struct Actor : Codable {
 }
 
 public struct RatingInfo : Codable {
-    public let average: Int
-    public let count: Int
+    public let average: Double?
+    public let count: Int?
 }
 
 public struct Image : Codable {
     public let fileName: String
     public let keyType: String
-    public let ratingsInfo: RatingInfo
-    public let resolution: String
-    public let subKey: String
+    public let ratingsInfo: RatingInfo?
+    public let resolution: String?
+    public let subKey: String?
     public let thumbnail: String
 }
 
@@ -137,7 +137,10 @@ public struct EpisodeInfo : Codable {
     public let dvdSeason: Int?
 
     public let episodeName: String?
+    public let filename: String?
     public let firstAired: String?
+
+    public let guestStars: [String]
 
     public let id: Int
     public let overview: String?
@@ -169,8 +172,9 @@ public class TheTVDBSession {
                 if let token = savedToken {
                     result = token
                 }
-                else {
-                    result = login()
+                else if let token = login() {
+                    result = token
+                    savedToken = token
                 }
             }
             return result

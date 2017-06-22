@@ -4,3 +4,5 @@
 
 #import "SBMetadataHelper.h"
 #import "SBMetadataImporter.h"
+#import <MP42Foundation/MP42Ratings.h>
+

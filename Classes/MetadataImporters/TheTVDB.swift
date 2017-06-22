@@ -27,7 +27,6 @@ final public class TheTVDBSwift : SBMetadataImporter {
     override public func searchTVSeries(_ seriesName: String, language: String) -> [String] {
         var results: Set<String> = Set()
 
-        // search for series
         let series = session.fetch(series: seriesName, language: language)
         results.formUnion(series.map { $0.seriesName } )
 
@@ -38,7 +37,6 @@ final public class TheTVDBSwift : SBMetadataImporter {
 
         return Array(results)
     }
-
 
     private func match(series: SeriesSearchResult, name: String) -> Bool {
         if series.seriesName == name {
@@ -60,13 +58,21 @@ final public class TheTVDBSwift : SBMetadataImporter {
         return series.filter { match(series: $0, name: seriesName) }.map { $0.id }
     }
 
+    private func cleanList(actors: [Actor]) -> String {
+        return actors.map { $0.name } .reduce("", { $0 + ", " + $1 })
+    }
+
+    private func cleanList(names: [String]) -> String {
+        return names.reduce("", { $0 + ", " + $1 })
+    }
+
     private func merge(episode: Episode, info: SeriesInfo, actors: [Actor]) -> SBMetadataResult {
         let result = SBMetadataResult()
 
         result.mediaKind = 10
 
         // TV Show Info
-        result["TheTVDB Series ID"]                  = info.seriesId
+        result["TheTVDB Series ID"]                  = info.id
         result[SBMetadataResultSeriesName]           = info.seriesName
         result[SBMetadataResultSeriesDescription]    = info.overview
         //result[SBMetadataResultGenre]                = info.genre       // TODO
@@ -86,10 +92,15 @@ final public class TheTVDBSwift : SBMetadataImporter {
         result[SBMetadataResultEpisodeNumber]   = episode.airedEpisodeNumber
         result[SBMetadataResultTrackNumber]     = episode.airedEpisodeNumber
 
-        // Rating TODO
+        // Rating
+        if let rating = info.rating {
+            result[SBMetadataResultRating] = MP42Ratings.defaultManager.ratingStringForiTunesCountry("USA",
+                                                                                                     media: "TV",
+                                                                                                     ratingString: rating)
+        }
 
-        // Actors TODO
-        //result[SBMetadataResultCast] = [SBTheTVDB cleanActorsList:actors]
+        // Actors
+        result[SBMetadataResultCast] = cleanList(actors: actors)
 
         return result
     }
@@ -124,13 +135,67 @@ final public class TheTVDBSwift : SBMetadataImporter {
         return results
     }
 
-    override public func loadTVMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult? {
-        guard let id = metadata["TheTVDB Episodes ID"] else { return metadata }
+    private func loadTVImage(seriesID: Int, type: String, season: String, language: String) -> [SBRemoteImage] {
+        var artworks: [SBRemoteImage] = Array()
+        let images: [Image] = {
+            let result = session.fetch(images: seriesID, type: type, language: language)
+            return result.count > 0 ? result : session.fetch(images: seriesID, type: type, language: en)
+        }()
 
-        if let info = session.fetch(episodeInfo: id as! Int, language: language) {
-            metadata[SBMetadataResultDirector] = info.director;
-            metadata[SBMetadataResultScreenwriters] = info.writers.first;
+        for image in images {
+            guard let fileURL = URL(string: "https://thetvdb.com/banners/" + image.fileName),
+                 let thumbURL = URL(string: "https://thetvdb.com/banners/" + image.thumbnail)
+                else { continue }
+
+            var selected = true
+
+            if type == season, let subKey = image.subKey, subKey != season {
+                    selected = false
+            }
+
+            if selected {
+                artworks.append(SBRemoteImage(url: fileURL, thumbURL: thumbURL, providerName: "TheTVDB|" + type))
+            }
         }
+        return artworks
+    }
+
+    override public func loadTVMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult? {
+        guard let id = metadata["TheTVDB Episodes ID"] as? Int else { return metadata }
+        guard let seriesId = metadata["TheTVDB Series ID"] as? Int else { return metadata }
+
+        var artworks: [SBRemoteImage] = Array()
+
+        if let info = session.fetch(episodeInfo: id, language: language) {
+            metadata[SBMetadataResultDirector]       = cleanList(names: info.directors);
+            metadata[SBMetadataResultScreenwriters]  = cleanList(names: info.writers);
+
+            let guests = cleanList(names: info.guestStars)
+            if let actors = metadata[SBMetadataResultCast] as? String {
+                if actors.count > 0 && guests.count > 0 {
+                    metadata[SBMetadataResultCast] = actors + ", " + guests;
+                }
+            } else if guests.count > 0 {
+                metadata[SBMetadataResultCast] = guests
+            }
+
+            if let filename = info.filename, let url = URL(string: "https://thetvdb.com/banners/" + filename) {
+                artworks.append(SBRemoteImage(url: url, thumbURL: url, providerName: "TheTVDB|episode"))
+            }
+        }
+
+        // Get additionals images
+        if let season = metadata[SBMetadataResultSeason] as? Int {
+            //let iTunesImage = nil
+            let seasonImages = loadTVImage(seriesID: seriesId, type: "season", season: String(season), language: language)
+            let posterImages = loadTVImage(seriesID: seriesId, type: "poster", season: String(season), language: language)
+
+            artworks.append(contentsOf: seasonImages)
+            artworks.append(contentsOf: posterImages)
+
+        }
+
+        metadata.remoteArtworks = artworks;
 
         return metadata
     }
