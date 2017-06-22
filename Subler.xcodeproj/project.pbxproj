@@ -66,6 +66,7 @@
 		A9B46A9E12B79B990040517A /* ButtonToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A9412B79B990040517A /* ButtonToolbarItem.m */; };
 		A9B46AA412B79BB10040517A /* Subler.icns in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AA312B79BB10040517A /* Subler.icns */; };
 		A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46ABE12B79D1C0040517A /* SBDocument.m */; };
+		A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B514181EFC12310055A035 /* TheTVDB.swift */; };
 		A9B75B8E1DAD1B140031798B /* SBPopUpCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B75B8D1DAD1B140031798B /* SBPopUpCellView.m */; };
 		A9BA1AEE1DBF7DD700FD0B38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A9BA1AF01DBF7DD700FD0B38 /* InfoPlist.strings */; };
 		A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A9BA1AF51DBF7DD800FD0B38 /* Localizable.strings */; };
@@ -89,6 +90,7 @@
 		A9F476231ED9DC2E00748CC0 /* SBRemoteImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F476221ED9DC2E00748CC0 /* SBRemoteImage.m */; };
 		A9F5820C1DCC861F005F3E92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9F5820B1DCC861F005F3E92 /* Assets.xcassets */; };
 		A9F7F8E01837C44B0036AE7E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9ED7B21180067A2008FD3A8 /* IOKit.framework */; };
+		A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */; };
 		CD03087417576A550093A0BE /* SBTheMovieDB3.m in Sources */ = {isa = PBXBuildFile; fileRef = CD03087317576A550093A0BE /* SBTheMovieDB3.m */; };
 		CD03087917576AE50093A0BE /* SBMetadataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = CD03087817576AE50093A0BE /* SBMetadataImporter.m */; };
 		CD3F2A881761A143000D4C73 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3F2A871761A143000D4C73 /* XMLReader.m */; };
@@ -266,6 +268,7 @@
 		A9B46ABD12B79D1C0040517A /* SBDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBDocument.h; path = Classes/SBDocument.h; sourceTree = "<group>"; };
 		A9B46ABE12B79D1C0040517A /* SBDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SBDocument.m; path = Classes/SBDocument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A9B4EE4E1643EBF3009AF6BC /* Subler.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Subler.entitlements; sourceTree = "<group>"; };
+		A9B514181EFC12310055A035 /* TheTVDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheTVDB.swift; path = Classes/MetadataImporters/TheTVDB.swift; sourceTree = "<group>"; };
 		A9B75B8C1DAD1B140031798B /* SBPopUpCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBPopUpCellView.h; path = Classes/SBPopUpCellView.h; sourceTree = "<group>"; };
 		A9B75B8D1DAD1B140031798B /* SBPopUpCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBPopUpCellView.m; path = Classes/SBPopUpCellView.m; sourceTree = "<group>"; };
 		A9BA1ACF1DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBSetPrefsViewController.strings; sourceTree = "<group>"; };
@@ -321,6 +324,8 @@
 		A9F476211ED9DC2E00748CC0 /* SBRemoteImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBRemoteImage.h; path = Classes/MetadataImporters/SBRemoteImage.h; sourceTree = "<group>"; };
 		A9F476221ED9DC2E00748CC0 /* SBRemoteImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBRemoteImage.m; path = Classes/MetadataImporters/SBRemoteImage.m; sourceTree = "<group>"; };
 		A9F5820B1DCC861F005F3E92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A9FC6FF41EF2E3280034CCED /* Subler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Subler-Bridging-Header.h"; sourceTree = "<group>"; };
+		A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheTVDBService.swift; path = Classes/MetadataImporters/TheTVDBService.swift; sourceTree = "<group>"; };
 		CD03087217576A550093A0BE /* SBTheMovieDB3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBTheMovieDB3.h; path = Classes/MetadataImporters/SBTheMovieDB3.h; sourceTree = "<group>"; };
 		CD03087317576A550093A0BE /* SBTheMovieDB3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBTheMovieDB3.m; path = Classes/MetadataImporters/SBTheMovieDB3.m; sourceTree = "<group>"; };
 		CD03087717576AE50093A0BE /* SBMetadataImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataImporter.h; path = Classes/MetadataImporters/SBMetadataImporter.h; sourceTree = "<group>"; };
@@ -434,6 +439,7 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				A9FC6FF41EF2E3280034CCED /* Subler-Bridging-Header.h */,
 				CD3F2A861761A143000D4C73 /* XMLReader.h */,
 				CD3F2A871761A143000D4C73 /* XMLReader.m */,
 				32DBCF750370BD2300C91783 /* Subler_Prefix.pch */,
@@ -662,6 +668,8 @@
 				CD03087317576A550093A0BE /* SBTheMovieDB3.m */,
 				CD71FF1B12F1C4A900F0A98D /* SBTheTVDB.h */,
 				CD71FF1C12F1C4A900F0A98D /* SBTheTVDB.m */,
+				A9B514181EFC12310055A035 /* TheTVDB.swift */,
+				A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */,
 				A95395D21ED5839300E578D8 /* SBTheTVDBConnection.h */,
 				A95395D31ED5839300E578D8 /* SBTheTVDBConnection.m */,
 				A901C51C1C04F03F00430DC3 /* SBChapterImporter.h */,
@@ -724,6 +732,7 @@
 				LastUpgradeCheck = 0900;
 				TargetAttributes = {
 					8D15AC270486D014006FF6A4 = {
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					A95B8DA31B09F37700F2F152 = {
@@ -868,8 +877,10 @@
 				A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */,
 				A9AB485717F0AEAC000AA72E /* SBSoundViewController.m in Sources */,
 				A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */,
+				A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */,
 				A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */,
 				CD56963212FAAD680029FADB /* SBArtworkSelector.m in Sources */,
+				A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */,
 				A901C51E1C04F03F00430DC3 /* SBChapterDB.m in Sources */,
 				61CEC0D31E756ADA000FECC1 /* SBMultiSelectViewController.m in Sources */,
 				A961476313F567E10068F161 /* SBQueueController.m in Sources */,
@@ -1148,6 +1159,7 @@
 		A95B8DAC1B09F37800F2F152 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1185,6 +1197,7 @@
 		A95B8DAD1B09F37800F2F152 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1220,6 +1233,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				COPY_PHASE_STRIP = NO;
@@ -1233,13 +1247,15 @@
 				GCC_PREFIX_HEADER = Subler_Prefix.pch;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.galad.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Subler;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "Subler-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1247,6 +1263,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1259,13 +1276,14 @@
 				GCC_PREFIX_HEADER = Subler_Prefix.pch;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.galad.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Subler;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "Subler-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1303,6 +1321,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
@@ -1331,6 +1350,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_VERSION = 4.0;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -1367,6 +1387,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1392,6 +1413,7 @@
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				RUN_CLANG_STATIC_ANALYZER = NO;
+				SWIFT_VERSION = 4.0;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;

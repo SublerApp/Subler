@@ -245,7 +245,7 @@ static NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
                 }
 
                 if ((results.count == 0) && aSeasonNum) {
-                    return [self searchTVSeries:aSeriesName language:@"USA (English)" seasonNum:nil episodeNum:aEpisodeNum];
+                    return [self searchTVSeries:aSeriesName language:@"USA (English)" seasonNum:@"" episodeNum:aEpisodeNum];
                 }
 
                 // Filter results

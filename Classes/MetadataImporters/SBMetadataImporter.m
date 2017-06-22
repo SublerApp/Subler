@@ -13,6 +13,7 @@
 #import "SBiTunesStore.h"
 #import "SBTheMovieDB3.h"
 #import "SBTheTVDB.h"
+#import "Subler-Swift.h"
 
 @interface SBMetadataImporter ()
 
@@ -47,7 +48,7 @@
 		return [[SBTheMovieDB3 alloc] init];
 	}
     else if ([aProvider isEqualToString:@"TheTVDB"]) {
-		return [[SBTheTVDB alloc] init];
+		return [[TheTVDBSwift alloc] init];
 	}
 	return nil;
 }
