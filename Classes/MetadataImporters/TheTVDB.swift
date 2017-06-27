@@ -39,12 +39,12 @@ final public class TheTVDBSwift : SBMetadataImporter {
     }
 
     private func match(series: SeriesSearchResult, name: String) -> Bool {
-        if series.seriesName == name {
+        if series.seriesName.caseInsensitiveCompare(name) == .orderedSame  {
             return true
         }
 
         for alias in series.aliases {
-            if alias == name {
+            if alias.caseInsensitiveCompare(name) == .orderedSame {
                 return true
             }
         }
@@ -59,11 +59,26 @@ final public class TheTVDBSwift : SBMetadataImporter {
     }
 
     private func cleanList(actors: [Actor]) -> String {
-        return actors.map { $0.name } .reduce("", { $0 + ", " + $1 })
+        return actors.map { $0.name } .reduce("", { $0 + ($0.count > 0 ? ", " : "") + $1 })
     }
 
     private func cleanList(names: [String]) -> String {
-        return names.reduce("", { $0 + ", " + $1 })
+        return names.reduce("", { $0 + ($0.count > 0 ? ", " : "") + $1 })
+    }
+
+    private func areInIncreasingOrder(ep1: SBMetadataResult, ep2: SBMetadataResult) -> Bool {
+        guard let v1 = ep1[SBMetadataResultEpisodeNumber] as? Int,
+            let v2 = ep2[SBMetadataResultEpisodeNumber] as? Int,
+            let s1 = ep1[SBMetadataResultSeason] as? Int,
+            let s2 = ep2[SBMetadataResultSeason] as? Int
+            else { return false }
+
+        if s1 == s2 {
+            return v1 > v2 ? false : true
+        }
+        else {
+            return s1 > s2 ? false : true
+        }
     }
 
     private func merge(episode: Episode, info: SeriesInfo, actors: [Actor]) -> SBMetadataResult {
@@ -72,11 +87,11 @@ final public class TheTVDBSwift : SBMetadataImporter {
         result.mediaKind = 10
 
         // TV Show Info
-        result["TheTVDB Series ID"]                  = info.id
-        result[SBMetadataResultSeriesName]           = info.seriesName
-        result[SBMetadataResultSeriesDescription]    = info.overview
-        //result[SBMetadataResultGenre]                = info.genre       // TODO
-        result[SBMetadataResultNetwork]              = info.network
+        result["TheTVDB Series ID"]                = info.id
+        result[SBMetadataResultSeriesName]         = info.seriesName
+        result[SBMetadataResultSeriesDescription]  = info.overview
+        result[SBMetadataResultGenre]              = cleanList(names: info.genre)
+        result[SBMetadataResultNetwork]            = info.network
 
         // Episode Info
         result["TheTVDB Episodes ID"]           = episode.id
@@ -101,6 +116,9 @@ final public class TheTVDBSwift : SBMetadataImporter {
 
         // Actors
         result[SBMetadataResultCast] = cleanList(actors: actors)
+
+        // TheTVDB does not provide the following fields normally associated with TV shows in SBMetadataResult:
+        // "Copyright", "Comments", "Producers", "Artist"
 
         return result
     }
@@ -132,10 +150,19 @@ final public class TheTVDBSwift : SBMetadataImporter {
             results.append(contentsOf: episodes)
         }
 
-        return results
+        return results.sorted(by: areInIncreasingOrder)
     }
 
-    private func loadTVImage(seriesID: Int, type: String, season: String, language: String) -> [SBRemoteImage] {
+    private func loadiTunesArtwork(_ metadata: SBMetadataResult) -> [SBRemoteImage] {
+        guard let name = metadata[SBMetadataResultSeriesName] as? String,
+            let episode = metadata[SBMetadataResultName] as? String,
+            let result =  SBiTunesStore.quickiTunesSearchTV(name, episodeTitle: episode)
+            else { return [] }
+
+        return result.remoteArtworks ?? []
+    }
+
+    private func loadTVArtwork(seriesID: Int, type: String, season: String, language: String) -> [SBRemoteImage] {
         var artworks: [SBRemoteImage] = Array()
         let images: [Image] = {
             let result = session.fetch(images: seriesID, type: type, language: language)
@@ -186,13 +213,13 @@ final public class TheTVDBSwift : SBMetadataImporter {
 
         // Get additionals images
         if let season = metadata[SBMetadataResultSeason] as? Int {
-            //let iTunesImage = nil
-            let seasonImages = loadTVImage(seriesID: seriesId, type: "season", season: String(season), language: language)
-            let posterImages = loadTVImage(seriesID: seriesId, type: "poster", season: String(season), language: language)
+            let iTunesImage = loadiTunesArtwork(metadata)
+            let seasonImages = loadTVArtwork(seriesID: seriesId, type: "season", season: String(season), language: language)
+            let posterImages = loadTVArtwork(seriesID: seriesId, type: "poster", season: String(season), language: language)
 
+            artworks.insert(contentsOf: iTunesImage, at: 0)
             artworks.append(contentsOf: seasonImages)
             artworks.append(contentsOf: posterImages)
-
         }
 
         metadata.remoteArtworks = artworks;

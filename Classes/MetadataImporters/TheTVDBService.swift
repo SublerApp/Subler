@@ -43,21 +43,21 @@ public struct SeriesInfo : Codable {
     public let seriesName: String
     public let overview: String?
 
-    public let siteRating: Double?
-    public let siteRatingCount: Double?
+    //public let siteRating: Double?
+    //public let siteRatingCount: Double?
 
-    public let status: String?
+    //public let status: String?
 }
 
 public struct Actor : Codable {
     public let id: Int
     public let name: String
-    public let role: String?
+    //public let role: String?
 }
 
 public struct RatingInfo : Codable {
-    public let average: Double?
-    public let count: Int?
+    public let average: Double
+    public let count: Int
 }
 
 public struct Image : Codable {
@@ -74,8 +74,8 @@ public struct Episode : Codable {
     public let airedEpisodeNumber: Int
     public let airedSeason: Int
 
-    public let dvdEpisodeNumber: Int?
-    public let dvdSeason: Int?
+    //public let dvdEpisodeNumber: Double?
+    //public let dvdSeason: Double?
 
     public let episodeName: String?
     public let firstAired: String?
@@ -84,57 +84,15 @@ public struct Episode : Codable {
     public let overview: String?
 }
 
-/*
-
- "absoluteNumber": 0,
- "airedEpisodeNumber": 0,
- "airedSeason": 0,
- "airsAfterSeason": 0,
- "airsBeforeEpisode": 0,
- "airsBeforeSeason": 0,
- "director": "string",
- "directors": [
- "string"
- ],
- "dvdChapter": 0,
- "dvdDiscid": "string",
- "dvdEpisodeNumber": 0,
- "dvdSeason": 0,
- "episodeName": "string",
- "filename": "string",
- "firstAired": "string",
- "guestStars": [
- "string"
- ],
- "id": 0,
- "imdbId": "string",
- "lastUpdated": 0,
- "lastUpdatedBy": "string",
- "overview": "string",
- "productionCode": "string",
- "seriesId": "string",
- "showUrl": "string",
- "siteRating": 0,
- "siteRatingCount": 0,
- "thumbAdded": "string",
- "thumbAuthor": 0,
- "thumbHeight": "string",
- "thumbWidth": "string",
- "writers": [
- "string"
- ]
- */
-
 public struct EpisodeInfo : Codable {
     public let absoluteNumber: Int
     public let airedEpisodeNumber: Int?
     public let airedSeason: Int?
 
-    public let director: String?
     public let directors: [String]
 
-    public let dvdEpisodeNumber: Int?
-    public let dvdSeason: Int?
+    //public let dvdEpisodeNumber: Double?
+    //public let dvdSeason: Double?
 
     public let episodeName: String?
     public let filename: String?
