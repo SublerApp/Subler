@@ -15,7 +15,7 @@ final public class TheTVDB : SBMetadataImporter {
 
     override public var languageType: SBMetadataImporterLanguageType {
         get {
-            return .ISO;
+            return .ISO
         }
     }
 
@@ -24,6 +24,8 @@ final public class TheTVDB : SBMetadataImporter {
             return session.languages
         }
     }
+
+    // MARK: - TV Series name search
 
     override public func searchTVSeries(_ seriesName: String, language: String) -> [String] {
         var results: Set<String> = Set()
@@ -38,6 +40,8 @@ final public class TheTVDB : SBMetadataImporter {
 
         return Array(results)
     }
+
+    // MARK: - TV Series ID search
 
     private func match(series: SeriesSearchResult, name: String) -> Bool {
         if series.seriesName.caseInsensitiveCompare(name) == .orderedSame  {
@@ -58,6 +62,8 @@ final public class TheTVDB : SBMetadataImporter {
 
         return series.filter { match(series: $0, name: seriesName) }.map { $0.id }
     }
+
+    // MARK: - Helpers
 
     private func cleanList(actors: [Actor]) -> String {
         return actors.map { $0.name } .reduce("", { $0 + ($0.count > 0 ? ", " : "") + $1 })
@@ -133,6 +139,74 @@ final public class TheTVDB : SBMetadataImporter {
         return filteredEpisodes.map { merge(episode: $0, info: info, actors: actors) }
     }
 
+    // MARK: - Nil values check
+
+    private struct NilValues : OptionSet {
+        let rawValue: Int
+
+        static let episodesInfo = NilValues(rawValue: 1)
+        static let seriesInfo = NilValues(rawValue: 2)
+    }
+
+    private func checkMissingValues(results: [SBMetadataResult]) -> NilValues {
+
+        var options: NilValues = []
+
+        for result in results {
+            if result[SBMetadataResultSeriesName] == nil {
+                options.insert(.seriesInfo)
+            }
+            if result[SBMetadataResultName] == nil {
+                options.insert(.episodesInfo)
+            }
+            if result[SBMetadataResultLongDescription] == nil {
+                options.insert(.episodesInfo)
+            }
+            if result[SBMetadataResultSeriesDescription] == nil {
+                options.insert(.seriesInfo)
+            }
+        }
+
+        return options
+    }
+
+    private func merge(enResults: [SBMetadataResult], results: [SBMetadataResult]) {
+        if enResults.count != results.count { return }
+
+        for (index, result) in results.enumerated() {
+            let enResult = enResults[index]
+
+            if result[SBMetadataResultSeriesName] == nil {
+                result[SBMetadataResultSeriesName] = enResult[SBMetadataResultSeriesName]
+            }
+            if result[SBMetadataResultName] == nil {
+                result[SBMetadataResultName] = enResult[SBMetadataResultName]
+            }
+            if result[SBMetadataResultLongDescription] == nil {
+                result[SBMetadataResultLongDescription] = enResult[SBMetadataResultLongDescription]
+                result[SBMetadataResultDescription] = enResult[SBMetadataResultDescription]
+            }
+            if result[SBMetadataResultSeriesDescription] == nil {
+                result[SBMetadataResultSeriesDescription] = enResult[SBMetadataResultSeriesDescription]
+            }
+        }
+    }
+
+    private func merge(info: SeriesInfo, results: [SBMetadataResult]) {
+        let name = info.seriesName
+        for result in results {
+            result[SBMetadataResultSeriesName] = name
+        }
+
+        if let overview = info.overview {
+            for result in results {
+                result[SBMetadataResultSeriesDescription] = overview
+            }
+        }
+    }
+
+    // MARK: - TV Search
+
     override public func searchTVSeries(_ seriesName: String, language: String, seasonNum: String, episodeNum: String) -> [SBMetadataResult] {
 
         let seriesIDs: [Int] =  {
@@ -147,11 +221,27 @@ final public class TheTVDB : SBMetadataImporter {
             let actors = session.fetch(actors: id, language: language)
             let episodes = loadEpisodes(info: info, actors: actors, season: seasonNum, episode: episodeNum, language: language)
 
+            let nilValues = checkMissingValues(results: episodes)
+
+            if language != TheTVDB.en {
+                if nilValues.contains(.seriesInfo),
+                    let enInfo = session.fetch(seriesInfo: id, language: TheTVDB.en) {
+                    merge(info: enInfo, results: episodes)
+                }
+
+                if nilValues.contains(.episodesInfo) {
+                    let enResults = loadEpisodes(info: info, actors: actors, season: seasonNum, episode: episodeNum, language: TheTVDB.en)
+                    merge(enResults: enResults, results: episodes)
+                }
+            }
+
             results.append(contentsOf: episodes)
         }
 
         return results.sorted(by: areInIncreasingOrder)
     }
+
+    // MARK: - Additional metadata
 
     private func loadiTunesArtwork(_ metadata: SBMetadataResult) -> [SBRemoteImage] {
         guard let name = metadata[SBMetadataResultSeriesName] as? String,
@@ -194,13 +284,13 @@ final public class TheTVDB : SBMetadataImporter {
         var artworks: [SBRemoteImage] = Array()
 
         if let info = session.fetch(episodeInfo: id, language: language) {
-            metadata[SBMetadataResultDirector]       = cleanList(names: info.directors);
-            metadata[SBMetadataResultScreenwriters]  = cleanList(names: info.writers);
+            metadata[SBMetadataResultDirector]       = cleanList(names: info.directors)
+            metadata[SBMetadataResultScreenwriters]  = cleanList(names: info.writers)
 
             let guests = cleanList(names: info.guestStars)
             if let actors = metadata[SBMetadataResultCast] as? String {
                 if actors.count > 0 && guests.count > 0 {
-                    metadata[SBMetadataResultCast] = actors + ", " + guests;
+                    metadata[SBMetadataResultCast] = actors + ", " + guests
                 }
             } else if guests.count > 0 {
                 metadata[SBMetadataResultCast] = guests
@@ -222,7 +312,7 @@ final public class TheTVDB : SBMetadataImporter {
             artworks.append(contentsOf: posterImages)
         }
 
-        metadata.remoteArtworks = artworks;
+        metadata.remoteArtworks = artworks
 
         return metadata
     }

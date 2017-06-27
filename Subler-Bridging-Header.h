@@ -6,4 +6,5 @@
 #import "SBMetadataImporter.h"
 #import "SBiTunesStore.h"
 #import <MP42Foundation/MP42Ratings.h>
+#import <MP42Foundation/MP42Languages.h>
 

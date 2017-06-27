@@ -12,7 +12,6 @@
 
 #import "SBiTunesStore.h"
 #import "SBTheMovieDB3.h"
-#import "SBTheTVDB.h"
 #import "Subler-Swift.h"
 
 @interface SBMetadataImporter ()
@@ -146,8 +145,8 @@
 								 userInfo:nil];
 }
 
-- (NSArray<SBMetadataResult *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage  {
-	SBTheTVDB *searcher = [[SBTheTVDB alloc] init];
+- (NSArray<NSString *> *)searchTVSeries:(NSString *)aSeriesName language:(NSString *)aLanguage  {
+	TheTVDB *searcher = [[TheTVDB alloc] init];
 	NSArray *a = [searcher searchTVSeries:aSeriesName language:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV|TheTVDB|Language"]];
 	return a;
 }

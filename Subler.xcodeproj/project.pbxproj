@@ -30,7 +30,6 @@
 		A93DD7681DACCE930052749A /* SBComboBoxCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93DD7671DACCE930052749A /* SBComboBoxCellView.m */; };
 		A94721931D49DC0000858DD8 /* SBMetadataPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */; };
 		A94A6A591ED1C5CC00049F7D /* ParseFilename in Resources */ = {isa = PBXBuildFile; fileRef = A94A6A581ED1C5CA00049F7D /* ParseFilename */; };
-		A95395D41ED5839300E578D8 /* SBTheTVDBConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = A95395D31ED5839300E578D8 /* SBTheTVDBConnection.m */; };
 		A95B8DA91B09F37800F2F152 /* Subler_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B8DA81B09F37800F2F152 /* Subler_Tests.m */; };
 		A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */; };
 		A961476313F567E10068F161 /* SBQueueController.m in Sources */ = {isa = PBXBuildFile; fileRef = A961476013F567E10068F161 /* SBQueueController.m */; };
@@ -98,7 +97,6 @@
 		CD56963212FAAD680029FADB /* SBArtworkSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = CD56963112FAAD680029FADB /* SBArtworkSelector.m */; };
 		CD71FEA312F1B5AF00F0A98D /* SBMetadataSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */; };
 		CD71FEA612F1B62600F0A98D /* MetadataSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */; };
-		CD71FF1D12F1C4A900F0A98D /* SBTheTVDB.m in Sources */ = {isa = PBXBuildFile; fileRef = CD71FF1C12F1C4A900F0A98D /* SBTheTVDB.m */; };
 		CDC06FCE1747494D003C1D0A /* SBiTunesStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC06FCD1747494D003C1D0A /* SBiTunesStore.m */; };
 		CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */ = {isa = PBXBuildFile; fileRef = CDE8E451174CBBD4009410B5 /* iTunesStores.json */; };
 /* End PBXBuildFile section */
@@ -213,8 +211,6 @@
 		A94721901D49DC0000858DD8 /* SBMetadataPrefsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataPrefsViewController.h; path = Classes/SBMetadataPrefsViewController.h; sourceTree = "<group>"; };
 		A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataPrefsViewController.m; path = Classes/SBMetadataPrefsViewController.m; sourceTree = "<group>"; };
 		A94A6A581ED1C5CA00049F7D /* ParseFilename */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ParseFilename; path = Utilities/ParseFilename; sourceTree = "<group>"; };
-		A95395D21ED5839300E578D8 /* SBTheTVDBConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBTheTVDBConnection.h; path = Classes/MetadataImporters/SBTheTVDBConnection.h; sourceTree = "<group>"; };
-		A95395D31ED5839300E578D8 /* SBTheTVDBConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBTheTVDBConnection.m; path = Classes/MetadataImporters/SBTheTVDBConnection.m; sourceTree = "<group>"; };
 		A95B8DA41B09F37700F2F152 /* Subler Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subler Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95B8DA71B09F37700F2F152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A95B8DA81B09F37800F2F152 /* Subler_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subler_Tests.m; sourceTree = "<group>"; };
@@ -337,8 +333,6 @@
 		CD56966E12FAAFA90029FADB /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		CD71FEA112F1B5AF00F0A98D /* SBMetadataSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataSearchController.h; path = Classes/SBMetadataSearchController.h; sourceTree = "<group>"; };
 		CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataSearchController.m; path = Classes/SBMetadataSearchController.m; sourceTree = "<group>"; };
-		CD71FF1B12F1C4A900F0A98D /* SBTheTVDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBTheTVDB.h; path = Classes/MetadataImporters/SBTheTVDB.h; sourceTree = "<group>"; };
-		CD71FF1C12F1C4A900F0A98D /* SBTheTVDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBTheTVDB.m; path = Classes/MetadataImporters/SBTheTVDB.m; sourceTree = "<group>"; };
 		CDC06FCC1747494D003C1D0A /* SBiTunesStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBiTunesStore.h; path = Classes/MetadataImporters/SBiTunesStore.h; sourceTree = "<group>"; };
 		CDC06FCD1747494D003C1D0A /* SBiTunesStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBiTunesStore.m; path = Classes/MetadataImporters/SBiTunesStore.m; sourceTree = "<group>"; };
 		CDE8E451174CBBD4009410B5 /* iTunesStores.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iTunesStores.json; sourceTree = "<group>"; };
@@ -666,12 +660,8 @@
 				CDC06FCD1747494D003C1D0A /* SBiTunesStore.m */,
 				CD03087217576A550093A0BE /* SBTheMovieDB3.h */,
 				CD03087317576A550093A0BE /* SBTheMovieDB3.m */,
-				CD71FF1B12F1C4A900F0A98D /* SBTheTVDB.h */,
-				CD71FF1C12F1C4A900F0A98D /* SBTheTVDB.m */,
 				A9B514181EFC12310055A035 /* TheTVDB.swift */,
 				A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */,
-				A95395D21ED5839300E578D8 /* SBTheTVDBConnection.h */,
-				A95395D31ED5839300E578D8 /* SBTheTVDBConnection.m */,
 				A901C51C1C04F03F00430DC3 /* SBChapterImporter.h */,
 				A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */,
 				A9D4B8681C05CBEB007845C4 /* SBChapterResult.h */,
@@ -852,7 +842,6 @@
 				A91690041DABFDAA004B9AB0 /* SBCheckBoxCellView.m in Sources */,
 				A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */,
 				A9DA3B9D1B918D5C00F1E40C /* SBExceptionAlertController.m in Sources */,
-				A95395D41ED5839300E578D8 /* SBTheTVDBConnection.m in Sources */,
 				A94721931D49DC0000858DD8 /* SBMetadataPrefsViewController.m in Sources */,
 				A9BC410318D9AB8700F8C92C /* SBItemViewController.m in Sources */,
 				A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */,
@@ -870,7 +859,6 @@
 				A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */,
 				A9C703121C05E08B00C89151 /* SBMetadataHelper.m in Sources */,
 				CD71FEA312F1B5AF00F0A98D /* SBMetadataSearchController.m in Sources */,
-				CD71FF1D12F1C4A900F0A98D /* SBTheTVDB.m in Sources */,
 				A909440D1DD4C70900E9F89C /* SBTokenFieldCell.m in Sources */,
 				A9F476231ED9DC2E00748CC0 /* SBRemoteImage.m in Sources */,
 				A9C5FA6E19FA22590051F3FF /* SBLogWindowController.m in Sources */,
