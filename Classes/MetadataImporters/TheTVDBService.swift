@@ -181,6 +181,10 @@ public class TheTVDBService {
         }
     }
 
+    private struct Wrapper<T> : Codable where T : Codable {
+        let data: T
+    }
+    
     // MARK: - Login
 
     private func login() -> Token? {
@@ -217,13 +221,9 @@ public class TheTVDBService {
             let id: Int
             let name: String
         }
-
-        struct LanguageWrapper : Codable {
-            let data: [Language]
-        }
-
+        
         guard let url = URL(string: basePath + "languages"),
-            let result = sendJSONRequest(url: url, language: "en", type: LanguageWrapper.self)
+            let result = sendJSONRequest(url: url, language: "en", type: Wrapper<[Language]>.self)
             else { return nil }
 
         let langManager = MP42Languages.defaultManager
@@ -251,52 +251,37 @@ public class TheTVDBService {
         return result
     }
 
-    // MARK: - Service call
-
+    // MARK: - Service calls
+    
     public func fetch(series: String, language: String) -> [SeriesSearchResult] {
-        struct SeriesSearchResultWrapper : Codable {
-            let data: [SeriesSearchResult]
-        }
         let encodedName = SBMetadataHelper.urlEncoded(series)
 
         guard let url = URL(string: basePath + "search/series?name=" + encodedName),
-            let result = sendJSONRequest(url: url, language: language, type: SeriesSearchResultWrapper.self)
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[SeriesSearchResult]>.self)
             else { return [SeriesSearchResult]() }
 
         return result.data
     }
 
     public func fetch(seriesInfo seriesID: Int, language: String) -> SeriesInfo? {
-        struct SeriesInfoWrapper : Codable {
-            let data: SeriesInfo
-        }
-
         guard let url = URL(string: basePath + "series/" + String(seriesID)),
-            let result = sendJSONRequest(url: url, language: language, type: SeriesInfoWrapper.self)
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<SeriesInfo>.self)
             else { return nil }
 
         return result.data
     }
 
     public func fetch(actors seriesID: Int, language: String) -> [Actor] {
-        struct ActorsWrapper : Codable {
-            let data: [Actor]
-        }
-
         guard let url = URL(string: basePath + "series/" + String(seriesID) + "/actors"),
-            let result = sendJSONRequest(url: url, language: language, type: ActorsWrapper.self)
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[Actor]>.self)
             else { return [] }
 
         return result.data
     }
 
     public func fetch(images seriesID: Int, type: String, language: String) -> [Image] {
-        struct ImagesWrapper : Codable {
-            let data: [Image]
-        }
-
         guard let url = URL(string: basePath + "series/" + String(seriesID) + "/images/query?keyType=" + type),
-            let result = sendJSONRequest(url: url, language: language, type: ImagesWrapper.self)
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[Image]>.self)
             else { return [] }
 
         return result.data
@@ -312,26 +297,18 @@ public class TheTVDBService {
             return URL(string: basePath + "series/" + String(seriesID) +  "/episodes")
         }
     }
-
+    
     public func fetch(episodeForSeriesID seriesID: Int, season: String, episode: String, language: String) -> [Episode] {
-        struct EpisodesWrapper : Codable {
-            let data: [Episode]
-        }
-
         guard let url = episodesURL(seriesID: seriesID, season: season, episode: episode),
-            let result = sendJSONRequest(url: url, language: language, type: EpisodesWrapper.self)
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[Episode]>.self)
             else { return [] }
 
         return result.data
     }
 
     public func fetch(episodeInfo episodeID: Int, language: String) -> EpisodeInfo? {
-        struct EpisodesInfoWrapper : Codable {
-            let data: EpisodeInfo
-        }
-
         guard let url = URL(string: basePath + "episodes/" + String(episodeID)),
-            let result = sendJSONRequest(url: url, language: language, type: EpisodesInfoWrapper.self)
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<EpisodeInfo>.self)
             else { return nil }
 
         return result.data
