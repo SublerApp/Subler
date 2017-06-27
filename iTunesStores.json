@@ -29,5 +29,6 @@
  {"storeCode": 143474, "country3": "PHL", "country2": "PH", "language2": "EN", "language": "Pilipino", "season": "", "country": "Pilipinas", "actor": "Actor", "director": "Director", "producer": "Producer", "screenwriter": "Screenwriter"},
  {"storeCode": 143463, "country3": "HKG", "country2": "HK", "language2": "EN", "language": "English", "season": "", "country": "Hong Kong", "actor": "Actor", "director": "Director", "producer": "Producer", "screenwriter": "Screenwriter"},
  {"storeCode": 143489, "country3": "CZE", "country2": "CZ", "language2": "EN", "language": "Čeština", "season": "", "country": "Česká republika", "actor": "Actor", "director": "Director", "producer": "Producer", "screenwriter": "Screenwriter"},
+ {"storeCode": 143467, "country3": "IND", "country2": "IN", "language2": "EN", "language": "English", "season": "", "country": "India", "actor": "Actor", "director": "Director", "producer": "Producer", "screenwriter": "Screenwriter"},
 
 ]
