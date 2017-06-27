@@ -41,6 +41,11 @@ public struct TMDBImage : Codable {
     let width: Int?
 }
 
+public struct TMDBImages : Codable {
+    let backdrops: [TMDBImage]
+    let posters: [TMDBImage]
+}
+
 public struct TMDBCast : Codable {
     let cast_id: Int?
     let character: String?
@@ -64,11 +69,6 @@ public struct TMDBCrew : Codable {
 public struct TMDBCasts : Codable {
     let cast: [TMDBCast]
     let crew: [TMDBCrew]
-}
-
-public struct TMDBImages : Codable {
-    let backdrops: [TMDBImage]
-    let posters: [TMDBImage]
 }
 
 public struct TMDBRelease : Codable {
@@ -118,16 +118,11 @@ public struct TMDBConfiguration : Codable {
 final public class TheMovieDBService {
 
     public static let sharedInstance = TheMovieDBService()
-
-    private let queue: DispatchQueue
-
+    
     private let basePath = "https://api.themoviedb.org/3/"
     private let key = "b0073bafb08b4f68df101eb2325f27dc"
 
-    private init() {
-        queue = DispatchQueue(label: "org.subler.TheMovieDBQueue")
-
-    }
+    private init() {}
 
     private struct Wrapper<T> : Codable where T : Codable {
         let results: T
