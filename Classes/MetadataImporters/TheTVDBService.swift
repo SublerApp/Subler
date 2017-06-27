@@ -106,7 +106,7 @@ public struct EpisodeInfo : Codable {
     public let writers: [String]
 }
 
-public class TheTVDBService {
+final public class TheTVDBService {
 
     public static let sharedInstance = TheTVDBService()
 
@@ -258,7 +258,7 @@ public class TheTVDBService {
 
         guard let url = URL(string: basePath + "search/series?name=" + encodedName),
             let result = sendJSONRequest(url: url, language: language, type: Wrapper<[SeriesSearchResult]>.self)
-            else { return [SeriesSearchResult]() }
+            else { return [] }
 
         return result.data
     }

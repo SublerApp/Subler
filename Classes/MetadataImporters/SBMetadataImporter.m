@@ -11,7 +11,6 @@
 #import "SBMetadataImporter.h"
 
 #import "SBiTunesStore.h"
-#import "SBTheMovieDB3.h"
 #import "Subler-Swift.h"
 
 @interface SBMetadataImporter ()
@@ -44,7 +43,7 @@
 		return [[SBiTunesStore alloc] init];
 	}
     else if ([aProvider isEqualToString:@"TheMovieDB"]) {
-		return [[SBTheMovieDB3 alloc] init];
+		return [[TheMovieDB alloc] init];
 	}
     else if ([aProvider isEqualToString:@"TheTVDB"]) {
 		return [[TheTVDB alloc] init];
@@ -114,16 +113,17 @@
 
 - (void)loadFullMetadata:(SBMetadataResult *)aMetadata language:(NSString *)aLanguage completionHandler:(void(^)(SBMetadataResult * _Nullable metadata))handler {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            if (aMetadata.mediaKind == 9) {
-                [self loadMovieMetadata:aMetadata language:aLanguage];
-            } else if (aMetadata.mediaKind == 10) {
-                [self loadTVMetadata:aMetadata language:aLanguage];
+        SBMetadataResult *result = aMetadata;
+        if (aMetadata.mediaKind == 9) {
+            result = [self loadMovieMetadata:aMetadata language:aLanguage];
+        } else if (aMetadata.mediaKind == 10) {
+            result = [self loadTVMetadata:aMetadata language:aLanguage];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!self.isCancelled) {
+                handler(result);
             }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (!self.isCancelled) {
-                    handler(aMetadata);
-                }
-            });
+        });
     });
 }
 
