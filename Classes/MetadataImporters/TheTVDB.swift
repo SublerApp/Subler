@@ -7,10 +7,11 @@
 
 import Foundation
 
-final public class TheTVDBSwift : SBMetadataImporter {
+final public class TheTVDB : SBMetadataImporter {
 
-    private let session = TheTVDBSession.sharedInstance
-    private let en = "en"
+    private let session = TheTVDBService.sharedInstance
+    private static let en = "en"
+    private static let bannerPath = "https://thetvdb.com/banners/"
 
     override public var languageType: SBMetadataImporterLanguageType {
         get {
@@ -30,8 +31,8 @@ final public class TheTVDBSwift : SBMetadataImporter {
         let series = session.fetch(series: seriesName, language: language)
         results.formUnion(series.map { $0.seriesName } )
 
-        if language != en {
-            let englishResults = searchTVSeries(seriesName, language: en)
+        if language != TheTVDB.en {
+            let englishResults = searchTVSeries(seriesName, language: TheTVDB.en)
             results.formUnion(englishResults)
         }
 
@@ -101,7 +102,6 @@ final public class TheTVDBSwift : SBMetadataImporter {
         result[SBMetadataResultLongDescription] = episode.overview
 
         result[SBMetadataResultSeason]          = episode.airedSeason
-        result[SBMetadataResultEpisodeID]       = episode.airedSeason
 
         result[SBMetadataResultEpisodeID]       = String(format: "%d%02d", episode.airedSeason, episode.airedEpisodeNumber)
         result[SBMetadataResultEpisodeNumber]   = episode.airedEpisodeNumber
@@ -137,7 +137,7 @@ final public class TheTVDBSwift : SBMetadataImporter {
 
         let seriesIDs: [Int] =  {
             let result = self.searchIDs(seriesName: seriesName, language: language)
-            return result.count > 0 ? result : self.searchIDs(seriesName: seriesName, language: en)
+            return result.count > 0 ? result : self.searchIDs(seriesName: seriesName, language: TheTVDB.en)
         }()
 
         var results: [SBMetadataResult] = Array()
@@ -166,18 +166,18 @@ final public class TheTVDBSwift : SBMetadataImporter {
         var artworks: [SBRemoteImage] = Array()
         let images: [Image] = {
             let result = session.fetch(images: seriesID, type: type, language: language)
-            return result.count > 0 ? result : session.fetch(images: seriesID, type: type, language: en)
+            return result.count > 0 ? result : session.fetch(images: seriesID, type: type, language: TheTVDB.en)
         }()
 
         for image in images {
-            guard let fileURL = URL(string: "https://thetvdb.com/banners/" + image.fileName),
-                 let thumbURL = URL(string: "https://thetvdb.com/banners/" + image.thumbnail)
+            guard let fileURL = URL(string: TheTVDB.bannerPath + image.fileName),
+                 let thumbURL = URL(string: TheTVDB.bannerPath + image.thumbnail)
                 else { continue }
 
             var selected = true
 
             if type == season, let subKey = image.subKey, subKey != season {
-                    selected = false
+                selected = false
             }
 
             if selected {
@@ -206,7 +206,7 @@ final public class TheTVDBSwift : SBMetadataImporter {
                 metadata[SBMetadataResultCast] = guests
             }
 
-            if let filename = info.filename, let url = URL(string: "https://thetvdb.com/banners/" + filename) {
+            if let filename = info.filename, let url = URL(string: TheTVDB.bannerPath + filename) {
                 artworks.append(SBRemoteImage(url: url, thumbURL: url, providerName: "TheTVDB|episode"))
             }
         }

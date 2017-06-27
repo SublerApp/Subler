@@ -70,7 +70,7 @@ public struct Image : Codable {
 }
 
 public struct Episode : Codable {
-    public let absoluteNumber: Int?
+    public let absoluteNumber: Double?
     public let airedEpisodeNumber: Int
     public let airedSeason: Int
 
@@ -106,9 +106,9 @@ public struct EpisodeInfo : Codable {
     public let writers: [String]
 }
 
-public class TheTVDBSession {
+public class TheTVDBService {
 
-    public static let sharedInstance = TheTVDBSession()
+    public static let sharedInstance = TheTVDBService()
 
     private let queue: DispatchQueue
     private let tokenQueue: DispatchQueue
@@ -189,7 +189,7 @@ public class TheTVDBSession {
         let data: [Language]
     }
 
-    func fetchLanguages() {
+    private func fetchLanguages() {
 
     }
 
@@ -204,62 +204,61 @@ public class TheTVDBSession {
         return SBMetadataHelper.downloadData(from: url, httpMethod: "GET", httpBody: nil, headerOptions: header, cachePolicy: .default)
     }
 
-    private struct SeriesSearchResultWrapper : Codable {
-        let data: [SeriesSearchResult]
+    private func sendJSONRequest<T>(url: URL, language: String, type: T.Type) -> T? where T : Decodable {
+        guard let data = sendRequest(url: url, language: language),
+            let result = try? JSONDecoder().decode(type, from: data)
+            else { return nil }
+
+        return result
     }
 
     public func fetch(series: String, language: String) -> [SeriesSearchResult] {
+        struct SeriesSearchResultWrapper : Codable {
+            let data: [SeriesSearchResult]
+        }
         let encodedName = SBMetadataHelper.urlEncoded(series)
 
         guard let url = URL(string: "https://api.thetvdb.com/search/series?name=" + encodedName),
-            let data = sendRequest(url: url, language: language),
-            let result = try? JSONDecoder().decode(SeriesSearchResultWrapper.self, from: data)
+            let result = sendJSONRequest(url: url, language: language, type: SeriesSearchResultWrapper.self)
             else { return [SeriesSearchResult]() }
 
         return result.data
     }
 
-    private struct SeriesInfoWrapper : Codable {
-        let data: SeriesInfo
-    }
-
     public func fetch(seriesInfo seriesID: Int, language: String) -> SeriesInfo? {
+        struct SeriesInfoWrapper : Codable {
+            let data: SeriesInfo
+        }
+
         guard let url = URL(string: "https://api.thetvdb.com/series/" + String(seriesID)),
-            let data = sendRequest(url: url, language: language),
-            let result = try? JSONDecoder().decode(SeriesInfoWrapper.self, from: data)
+            let result = sendJSONRequest(url: url, language: language, type: SeriesInfoWrapper.self)
             else { return nil }
 
         return result.data
     }
 
-    private struct ActorsWrapper : Codable {
-        let data: [Actor]
-    }
-
     public func fetch(actors seriesID: Int, language: String) -> [Actor] {
+        struct ActorsWrapper : Codable {
+            let data: [Actor]
+        }
+
         guard let url = URL(string: "https://api.thetvdb.com/series/" + String(seriesID) + "/actors"),
-            let data = sendRequest(url: url, language: language),
-            let result = try? JSONDecoder().decode(ActorsWrapper.self, from: data)
-            else { return [Actor]() }
+            let result = sendJSONRequest(url: url, language: language, type: ActorsWrapper.self)
+            else { return [] }
 
         return result.data
-    }
-
-    private struct ImagesWrapper : Codable {
-        let data: [Image]
     }
 
     public func fetch(images seriesID: Int, type: String, language: String) -> [Image] {
+        struct ImagesWrapper : Codable {
+            let data: [Image]
+        }
+
         guard let url = URL(string: "https://api.thetvdb.com/series/" + String(seriesID) + "/images/query?keyType=" + type),
-            let data = sendRequest(url: url, language: language),
-            let result = try? JSONDecoder().decode(ImagesWrapper.self, from: data)
-            else { return [Image]() }
+            let result = sendJSONRequest(url: url, language: language, type: ImagesWrapper.self)
+            else { return [] }
 
         return result.data
-    }
-    
-    private struct EpisodesWrapper : Codable {
-        let data: [Episode]
     }
 
     private func episodesURL(seriesID: Int, season: String, episode: String) -> URL? {
@@ -274,22 +273,24 @@ public class TheTVDBSession {
     }
 
     public func fetch(episodeForSeriesID seriesID: Int, season: String, episode: String, language: String) -> [Episode] {
+        struct EpisodesWrapper : Codable {
+            let data: [Episode]
+        }
+
         guard let url = episodesURL(seriesID: seriesID, season: season, episode: episode),
-            let data = sendRequest(url: url, language: language),
-            let result = try? JSONDecoder().decode(EpisodesWrapper.self, from: data)
-            else { return [Episode]() }
+            let result = sendJSONRequest(url: url, language: language, type: EpisodesWrapper.self)
+            else { return [] }
 
         return result.data
     }
 
-    private struct EpisodesInfoWrapper : Codable {
-        let data: EpisodeInfo
-    }
-
     public func fetch(episodeInfo episodeID: Int, language: String) -> EpisodeInfo? {
+        struct EpisodesInfoWrapper : Codable {
+            let data: EpisodeInfo
+        }
+
         guard let url = URL(string: "https://api.thetvdb.com/episodes/" + String(episodeID)),
-            let data = sendRequest(url: url, language: language),
-            let result = try? JSONDecoder().decode(EpisodesInfoWrapper.self, from: data)
+            let result = sendJSONRequest(url: url, language: language, type: EpisodesInfoWrapper.self)
             else { return nil }
 
         return result.data

@@ -48,7 +48,7 @@
 		return [[SBTheMovieDB3 alloc] init];
 	}
     else if ([aProvider isEqualToString:@"TheTVDB"]) {
-		return [[TheTVDBSwift alloc] init];
+		return [[TheTVDB alloc] init];
 	}
 	return nil;
 }
