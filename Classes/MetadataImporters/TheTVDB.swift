@@ -228,7 +228,11 @@ final public class TheTVDB : SBMetadataImporter {
         var results: [SBMetadataResult] = Array()
 
         for id in seriesIDs {
-            guard let info = session.fetch(seriesInfo: id, language: language) else { continue }
+            guard let info: SeriesInfo = {
+                let result = session.fetch(seriesInfo: id, language: language)
+                return result != nil ? result : session.fetch(seriesInfo: id, language: defaultLanguage)
+                }()
+                else { continue }
             let actors = session.fetch(actors: id, language: language)
             let episodes = loadEpisodes(info: info, actors: actors, season: seasonNum, episode: episodeNum, language: language)
 
