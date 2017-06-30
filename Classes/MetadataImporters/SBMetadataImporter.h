@@ -51,14 +51,15 @@ typedef NS_ENUM(NSUInteger, SBMetadataImporterLanguageType) {
 @property (nonatomic, readonly) SBMetadataImporterLanguageType languageType;
 
 @property (nonatomic, readonly, copy) NSArray<NSString *> *languages;
+@property (nonatomic, readonly, copy) NSString *defaultLanguage;
 
 - (NSArray<NSString *> *)searchTVSeries:(NSString *)seriesName language:(NSString *)language;
 - (NSArray<SBMetadataResult *> *)searchTVSeries:(NSString *)seriesName language:(NSString *)language seasonNum:(NSString *)seasonNum episodeNum:(NSString *)episodeNum;
 
 - (NSArray<SBMetadataResult *> *)searchMovie:(NSString *)title language:(NSString *)language;
 
-- (nullable SBMetadataResult *)loadTVMetadata:(SBMetadataResult *)metadata language:(NSString *)language;
-- (nullable SBMetadataResult *)loadMovieMetadata:(SBMetadataResult *)metadata language:(NSString *)language;
+- (SBMetadataResult *)loadTVMetadata:(SBMetadataResult *)metadata language:(NSString *)language;
+- (SBMetadataResult *)loadMovieMetadata:(SBMetadataResult *)metadata language:(NSString *)language;
 
 @end
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct TMDBSearchResult : Codable {
+public struct TMDBMovieSearchResult : Codable {
     let poster_path: String?
     let adult: Bool?
     let overview: String?
@@ -26,6 +26,22 @@ public struct TMDBSearchResult : Codable {
     let vote_average: Double?
 }
 
+public struct TMDBTVSearchResult : Codable {
+    let poster_path: String?
+    let popularity: Double?
+    let id: Int
+    let backdrop_path: String?
+    let vote_average: Double?
+    let overview: String?
+    let first_air_date: String?
+    let origin_country: [String]?
+    let genre_ids: [Int]?
+    let original_language: String?
+    let vote_count: Int?
+    let name: String?
+    let original_name: String?
+}
+
 public struct TMDBTuple : Codable {
     let id: Int?
     let name: String?
@@ -42,8 +58,8 @@ public struct TMDBImage : Codable {
 }
 
 public struct TMDBImages : Codable {
-    let backdrops: [TMDBImage]
-    let posters: [TMDBImage]
+    let backdrops: [TMDBImage]?
+    let posters: [TMDBImage]?
 }
 
 public struct TMDBCast : Codable {
@@ -100,6 +116,74 @@ public struct TMDBMovie : Codable {
     let releases: TMDBReleases?
 }
 
+public struct TMDBEpisode : Codable {
+    let air_date: String?
+    let crew: [TMDBCrew]?
+    let episode_number: Int?
+    let guest_stars: [TMDBCast]?
+    let name: String?
+    let overview: String?
+    let id: Int?
+    let production_code: String?
+    let season_number: Int?
+    let still_path: String?
+    let vote_average: Double?
+    let vote_count: Int?
+}
+
+public struct TMDBSeason : Codable {
+    let air_date: String?
+    let episode_count: Int?
+    let id: Int?
+    let poster_path: String?
+    let season_number: Int?
+    let overview: String?
+    let name: String?
+    let episodes: [TMDBEpisode]?
+}
+
+public struct TMDBContentRating : Codable {
+    let iso_3166_1: String?
+    let rating: String?
+}
+
+public struct TMDBContentRatingWrapper : Codable {
+    let results: [TMDBContentRating]?
+}
+
+public struct TMDBSeries : Codable {
+    let backdrop_path: String?
+    let created_by: [TMDBTuple]?
+    let episode_run_time: [Int]?
+    let first_air_date: String?
+    let genres: [TMDBTuple]?
+    let homepage: String?
+    let id: Int?
+    let in_production: Bool?
+    let languages: [String]?
+    let last_air_date: String?
+    let name: String?
+    let networks: [TMDBTuple]?
+    let number_of_episodes: Int?
+    let number_of_seasons: Int?
+    let origin_country: [String]?
+    let original_language: String?
+    let original_name: String?
+    let overview: String?
+    let popularity: Double?
+    let poster_path: String?
+    let production_companies: [TMDBTuple]?
+    let seasons: [TMDBSeason]?
+    let status: String?
+    let type: String?
+    let vote_average: Double?
+    let vote_count: Int?
+
+    let content_ratings: TMDBContentRatingWrapper?
+    let credits: TMDBCasts?
+    let images: TMDBImages?
+}
+
 public struct TMDBImageConfiguration : Codable {
     let base_url: String?
     let secure_base_url: String?
@@ -148,11 +232,11 @@ final public class TheMovieDBService {
 
     // MARK: - Service calls
 
-    public func search(movie: String, language: String) -> [TMDBSearchResult]  {
+    public func search(movie: String, language: String) -> [TMDBMovieSearchResult]  {
         let encodedName = SBMetadataHelper.urlEncoded(movie)
 
         guard let url = URL(string: basePath + "search/movie?api_key=" + key + "&query=" + encodedName + "&language=" + language),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TMDBSearchResult]>.self)
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TMDBMovieSearchResult]>.self)
             else { return [] }
 
         return result.results
@@ -166,6 +250,60 @@ final public class TheMovieDBService {
         return result
     }
 
+    public func search(series: String, language: String) -> [TMDBTVSearchResult] {
+        let encodedName = SBMetadataHelper.urlEncoded(series)
+
+        guard let url = URL(string: basePath + "search/tv?api_key=" + key + "&query=" + encodedName + "&language=" + language),
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TMDBTVSearchResult]>.self)
+            else { return [] }
+
+        return result.results
+    }
+
+    public func fetch(seriesID: Int, language: String) -> TMDBSeries?  {
+        guard let url = URL(string: basePath + "tv/" + String(seriesID) + "?api_key=" + key + "&language=" + language + "&append_to_response=content_ratings,credits,images"),
+            let result = sendJSONRequest(url: url, language: language, type: TMDBSeries.self)
+            else { return nil }
+
+        return result
+    }
+
+    private func episodesURL(seriesID: Int, season: String, episode: String, language: String) -> URL? {
+        let basePostfix = "?api_key=" + key + "&language=" + language
+        switch (season, episode) {
+        case _ where season.count > 0 && episode.count > 0:
+            return URL(string: basePath + "tv/" + String(seriesID) +  "/season/" + season +  "/episode/" + episode + basePostfix)
+        case _ where season.count > 0:
+            return URL(string: basePath + "tv/" + String(seriesID) +  "/season/" + season + basePostfix)
+        default:
+            return URL(string: basePath + "tv/" + String(seriesID) +  "/season" + basePostfix)
+        }
+    }
+
+    public func fetch(episodeForSeriesID seriesID: Int, season: String, episode: String, language: String) -> [TMDBEpisode] {
+        guard let url = episodesURL(seriesID: seriesID, season: season, episode: episode, language: language),
+            let result = sendJSONRequest(url: url, language: language, type: TMDBSeason.self)
+            else { return [] }
+
+        return result.episodes ?? []
+    }
+
+    public func fetch(imagesForSeriesID seriesID: Int, season: String, language: String) -> [TMDBImage] {
+        guard let url = URL(string: basePath + "tv/" + String(seriesID) +  "/season/" + season + "/images?api_key=" + key + "&language=" + language),
+            let result = sendJSONRequest(url: url, language: language, type: TMDBImages.self)
+            else { return [] }
+
+        return result.posters ?? []
+    }
+
+    public func fetch(imagesForSeriesID seriesID: Int, episodeID: Int, season: String, language: String) -> [TMDBImage] {
+        guard let url = URL(string: basePath + "tv/" + String(seriesID) +  "/season/" + season + "/episode/" + String(episodeID) + "/images?api_key=" + key + "&language=" + language),
+            let result = sendJSONRequest(url: url, language: language, type: TMDBImages.self)
+            else { return [] }
+
+        return result.posters ?? []
+    }
+    
     public func fetchConfiguration() -> TMDBConfiguration?  {
         guard let url = URL(string: basePath + "configuration?api_key=" + key),
             let result = sendJSONRequest(url: url, language: "en", type: TMDBConfiguration.self)

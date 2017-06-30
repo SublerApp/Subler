@@ -39,6 +39,11 @@
     return SBMetadataImporterLanguageTypeCustom;
 }
 
+- (NSString *)defaultLanguage
+{
+    return @"USA (English)";
+}
+
 + (NSDictionary *)getStoreFor:(NSString *)aLanguageString
 {
 	NSString *iTunesStoresJSON = [[NSBundle mainBundle] pathForResource:@"iTunesStores" ofType:@"json"];

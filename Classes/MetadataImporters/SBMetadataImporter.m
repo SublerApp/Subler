@@ -27,7 +27,7 @@
     return @[@"TheMovieDB", @"iTunes Store"];
 }
 + (NSArray<NSString *> *)tvProviders {
-    return @[@"TheTVDB", @"iTunes Store"];
+    return @[@"TheMovieDB", @"TheTVDB", @"iTunes Store"];
 }
 
 + (NSArray<NSString *> *)languagesForProvider:(NSString *)providerName {
