@@ -62,8 +62,17 @@ final public class TheTVDB : SBMetadataImporter {
 
     private func searchIDs(seriesName: String, language: String) -> [Int] {
         let series = session.fetch(series: seriesName, language: language)
+        let filteredSeries = series.filter { match(series: $0, name: seriesName) }.map { $0.id }
 
-        return series.filter { match(series: $0, name: seriesName) }.map { $0.id }
+        if filteredSeries.count > 0 {
+            return filteredSeries
+        }
+        else if let firstItemsID = series.first?.id {
+            return [firstItemsID]
+        }
+        else {
+            return []
+        }
     }
 
     // MARK: - Helpers
