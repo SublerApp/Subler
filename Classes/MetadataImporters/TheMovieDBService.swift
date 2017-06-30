@@ -62,6 +62,10 @@ public struct TMDBImages : Codable {
     let posters: [TMDBImage]?
 }
 
+public struct TMDBEpisodeImages : Codable {
+    let stills: [TMDBImage]?
+}
+
 public struct TMDBCast : Codable {
     let cast_id: Int?
     let character: String?
@@ -281,11 +285,16 @@ final public class TheMovieDBService {
     }
 
     public func fetch(episodeForSeriesID seriesID: Int, season: String, episode: String, language: String) -> [TMDBEpisode] {
-        guard let url = episodesURL(seriesID: seriesID, season: season, episode: episode, language: language),
-            let result = sendJSONRequest(url: url, language: language, type: TMDBSeason.self)
-            else { return [] }
+        guard let url = episodesURL(seriesID: seriesID, season: season, episode: episode, language: language) else { return [] }
 
-        return result.episodes ?? []
+        if episode.count > 0 {
+            guard let result = sendJSONRequest(url: url, language: language, type: TMDBEpisode.self) else { return [] }
+            return [result]
+        }
+        else {
+            guard let result = sendJSONRequest(url: url, language: language, type: TMDBSeason.self) else { return [] }
+            return result.episodes ?? []
+        }
     }
 
     public func fetch(imagesForSeriesID seriesID: Int, season: String, language: String) -> [TMDBImage] {
@@ -298,10 +307,10 @@ final public class TheMovieDBService {
 
     public func fetch(imagesForSeriesID seriesID: Int, episodeID: Int, season: String, language: String) -> [TMDBImage] {
         guard let url = URL(string: basePath + "tv/" + String(seriesID) +  "/season/" + season + "/episode/" + String(episodeID) + "/images?api_key=" + key + "&language=" + language),
-            let result = sendJSONRequest(url: url, language: language, type: TMDBImages.self)
+            let result = sendJSONRequest(url: url, language: language, type: TMDBEpisodeImages.self)
             else { return [] }
 
-        return result.posters ?? []
+        return result.stills ?? []
     }
     
     public func fetchConfiguration() -> TMDBConfiguration?  {
