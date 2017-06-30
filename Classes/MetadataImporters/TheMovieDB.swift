@@ -82,6 +82,12 @@ final public class TheMovieDB: SBMetadataImporter {
 
     // MARK: - Movie metadata loading
 
+    private func loadArtwork(filePath: String, baseURL: String, thumbSize: String, providerName: String) -> SBRemoteImage? {
+        guard let url = URL(string: baseURL + "original" + filePath),
+            let thumbURL = URL(string: baseURL + thumbSize + filePath) else { return nil }
+        return SBRemoteImage(url: url, thumbURL: thumbURL, providerName: providerName)
+    }
+
     private func loadMovieArtworks(result: TMDBMovie) -> [SBRemoteImage] {
         var artworks: [SBRemoteImage] = Array()
 
@@ -98,28 +104,17 @@ final public class TheMovieDB: SBMetadataImporter {
             let backdropThumbnailSize = config.backdrop_sizes.first {
 
             if let images = result.images?.posters {
-                for image in images {
-                    if let url = URL(string: imageBaseURL + "original" + image.file_path),
-                        let thumbURL = URL(string: imageBaseURL + posterThumbnailSize + image.file_path) {
-                        let remoteImage = SBRemoteImage(url: url, thumbURL: thumbURL, providerName: "TheMovieDB|poster")
-                        artworks.append(remoteImage)
-                    }
-                }
+                artworks.append(contentsOf: images.flatMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, providerName: "TheMovieDB|poster") } )
             }
 
-            if result.images?.posters?.count == 0,
-                let posterPath = result.poster_path,
-                let url = URL(string: imageBaseURL + "original" + posterPath),
-                let thumbURL = URL(string: imageBaseURL + posterThumbnailSize + posterPath) {
-                let remoteImage = SBRemoteImage(url: url, thumbURL: thumbURL, providerName: "TheMovieDB|poster")
-                artworks.append(remoteImage)
+            if result.images?.posters?.count == 0, let posterPath = result.poster_path,
+                let artwork = loadArtwork(filePath: posterPath, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, providerName: "TheMovieDB|poster") {
+                artworks.append(artwork)
             }
 
             if let backdropPath = result.backdrop_path,
-                let url = URL(string: imageBaseURL + "original" + backdropPath),
-                let thumbURL = URL(string: imageBaseURL + backdropThumbnailSize + backdropPath) {
-                let remoteImage = SBRemoteImage(url: url, thumbURL: thumbURL, providerName: "TheMovieDB|poster")
-                artworks.append(remoteImage)
+                let artwork = loadArtwork(filePath: backdropPath, baseURL: imageBaseURL, thumbSize: backdropThumbnailSize, providerName: "TheMovieDB|poster") {
+                artworks.append(artwork)
             }
         }
 
@@ -333,22 +328,8 @@ final public class TheMovieDB: SBMetadataImporter {
                 let imageBaseURL = config.secure_base_url,
                 let posterThumbnailSize = config.poster_sizes.first {
 
-                for image in seasonImages {
-                    if let url = URL(string: imageBaseURL + "original" + image.file_path),
-                        let thumbURL = URL(string: imageBaseURL + posterThumbnailSize + image.file_path) {
-                        let remoteImage = SBRemoteImage(url: url, thumbURL: thumbURL, providerName: "TheMovieDB|season")
-                        artworks.append(remoteImage)
-                    }
-                }
-
-                for image in episodeImages {
-                    if let url = URL(string: imageBaseURL + "original" + image.file_path),
-                        let thumbURL = URL(string: imageBaseURL + posterThumbnailSize + image.file_path) {
-                        let remoteImage = SBRemoteImage(url: url, thumbURL: thumbURL, providerName: "TheMovieDB|episode")
-                        artworks.append(remoteImage)
-                    }
-                }
-
+                artworks.append(contentsOf: seasonImages.flatMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, providerName: "TheMovieDB|season") } )
+                artworks.append(contentsOf: episodeImages.flatMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, providerName: "TheMovieDB|episode") } )
             }
         }
 

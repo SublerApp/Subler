@@ -70,11 +70,7 @@
 }
 
 + (NSString *)defaultLanguageForProvider:(NSString *)provider {
-    if ([provider isEqualToString:@"iTunes Store"]) {
-        return @"USA (English)";
-    } else {
-        return @"en";
-    }
+    return [SBMetadataImporter importerForProvider:provider].defaultLanguage;
 }
 
 #pragma mark Asynchronous searching
