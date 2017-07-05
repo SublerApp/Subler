@@ -112,7 +112,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleGetInfoString</key>
-	<string>1.3.2, Copyright 2017 Damiano Galassi</string>
+	<string>1.3.3, Copyright 2017 Damiano Galassi</string>
 	<key>CFBundleIconFile</key>
 	<string>Subler.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -124,11 +124,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.3.2</string>
+	<string>1.3.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.3.2</string>
+	<string>1.3.3</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.video</string>
 	<key>NSAppTransportSecurity</key>
