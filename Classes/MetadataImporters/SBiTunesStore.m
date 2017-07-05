@@ -304,7 +304,7 @@ static NSInteger sortSBMetadataResult(id ep1, id ep2, void *context)
 {
 	NSDictionary *store = [SBiTunesStore getStoreFor:[[NSUserDefaults standardUserDefaults] valueForKey:@"SBMetadataPreference|TV|iTunes Store|Language"]];
 	if (!store) {
-		return nil;
+		return metadata;
 	}
 	NSString *country = store[@"country2"];
 	NSString *language2 = store[@"language2"];
