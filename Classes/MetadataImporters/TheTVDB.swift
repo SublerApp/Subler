@@ -270,8 +270,11 @@ final public class TheTVDB : SBMetadataImporter {
     private func loadTVArtwork(seriesID: Int, type: String, season: String, language: String) -> [SBRemoteImage] {
         var artworks: [SBRemoteImage] = Array()
         let images: [Image] = {
-            let result = session.fetch(images: seriesID, type: type, language: language)
-            return result.count > 0 ? result : session.fetch(images: seriesID, type: type, language: defaultLanguage)
+            var result = session.fetch(images: seriesID, type: type, language: language)
+            if result.count == 0 || language != defaultLanguage {
+                result.append(contentsOf: session.fetch(images: seriesID, type: type, language: defaultLanguage))
+            }
+            return result
         }()
 
         for image in images {
