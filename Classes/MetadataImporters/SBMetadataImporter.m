@@ -9,8 +9,6 @@
 #import <MP42Foundation/MP42Languages.h>
 
 #import "SBMetadataImporter.h"
-
-#import "SBiTunesStore.h"
 #import "Subler-Swift.h"
 
 @interface SBMetadataImporter ()
@@ -40,7 +38,7 @@
 
 + (nullable instancetype)importerForProvider:(NSString *)aProvider {
 	if ([aProvider isEqualToString:@"iTunes Store"]) {
-		return [[SBiTunesStore alloc] init];
+		return [[iTunesStore alloc] init];
 	}
     else if ([aProvider isEqualToString:@"TheMovieDB"]) {
 		return [[TheMovieDB alloc] init];

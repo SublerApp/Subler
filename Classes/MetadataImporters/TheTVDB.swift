@@ -260,8 +260,9 @@ final public class TheTVDB : SBMetadataImporter {
 
     private func loadiTunesArtwork(_ metadata: SBMetadataResult) -> [SBRemoteImage] {
         guard let name = metadata[SBMetadataResultSeriesName] as? String,
-            let episode = metadata[SBMetadataResultName] as? String,
-            let result =  SBiTunesStore.quickiTunesSearchTV(name, episodeTitle: episode)
+            let seasonNum = metadata[SBMetadataResultSeason] as? Int,
+            let episodeNum = metadata[SBMetadataResultEpisodeNumber] as? Int,
+            let result =  iTunesStore.quickiTunesSearch(tvSeriesName: name, seasonNum: seasonNum, episodeNum: episodeNum)
             else { return [] }
 
         return result.remoteArtworks ?? []

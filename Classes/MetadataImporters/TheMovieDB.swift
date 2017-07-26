@@ -92,7 +92,7 @@ final public class TheMovieDB: SBMetadataImporter {
         var artworks: [SBRemoteImage] = Array()
 
         // add iTunes artwork
-        if let title = result.title, let iTunesMetadata = SBiTunesStore.quickiTunesSearchMovie(title),
+        if let title = result.title, let iTunesMetadata = iTunesStore.quickiTunesSearch(movieName: title),
             let iTunesArtwork = iTunesMetadata.remoteArtworks {
             artworks.append(contentsOf: iTunesArtwork)
         }

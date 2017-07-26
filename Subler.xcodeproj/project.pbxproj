@@ -85,6 +85,7 @@
 		A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B991B918D5C00F1E40C /* SBApplication.m */; };
 		A9DA3B9D1B918D5C00F1E40C /* SBExceptionAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B9B1B918D5C00F1E40C /* SBExceptionAlertController.m */; };
 		A9DA3BA31B918D6F00F1E40C /* ExceptionAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9DA3BA11B918D6F00F1E40C /* ExceptionAlert.xib */; };
+		A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E97F131F274F1100DBA586 /* iTunesStore.swift */; };
 		A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */; };
 		A9EEA5F818D654B9008B54B4 /* QueueOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */; };
 		A9F442301C75017100AD8786 /* SBMetadataResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F4422F1C75017100AD8786 /* SBMetadataResult.m */; };
@@ -98,7 +99,6 @@
 		CD56963212FAAD680029FADB /* SBArtworkSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = CD56963112FAAD680029FADB /* SBArtworkSelector.m */; };
 		CD71FEA312F1B5AF00F0A98D /* SBMetadataSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */; };
 		CD71FEA612F1B62600F0A98D /* MetadataSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */; };
-		CDC06FCE1747494D003C1D0A /* SBiTunesStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC06FCD1747494D003C1D0A /* SBiTunesStore.m */; };
 		CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */ = {isa = PBXBuildFile; fileRef = CDE8E451174CBBD4009410B5 /* iTunesStores.json */; };
 /* End PBXBuildFile section */
 
@@ -315,6 +315,7 @@
 		A9DA3B9A1B918D5C00F1E40C /* SBExceptionAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBExceptionAlertController.h; path = Classes/SBExceptionAlertController.h; sourceTree = "<group>"; };
 		A9DA3B9B1B918D5C00F1E40C /* SBExceptionAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBExceptionAlertController.m; path = Classes/SBExceptionAlertController.m; sourceTree = "<group>"; };
 		A9DA3BA01B918D6200F1E40C /* SBApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBApplication.h; path = Classes/SBApplication.h; sourceTree = "<group>"; };
+		A9E97F131F274F1100DBA586 /* iTunesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = iTunesStore.swift; path = Classes/MetadataImporters/iTunesStore.swift; sourceTree = "<group>"; };
 		A9ED7B21180067A2008FD3A8 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A9EEA5EF18D65490008B54B4 /* SBOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBOptionsViewController.h; path = Classes/SBOptionsViewController.h; sourceTree = "<group>"; };
 		A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBOptionsViewController.m; path = Classes/SBOptionsViewController.m; sourceTree = "<group>"; };
@@ -334,8 +335,6 @@
 		CD56966E12FAAFA90029FADB /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		CD71FEA112F1B5AF00F0A98D /* SBMetadataSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataSearchController.h; path = Classes/SBMetadataSearchController.h; sourceTree = "<group>"; };
 		CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataSearchController.m; path = Classes/SBMetadataSearchController.m; sourceTree = "<group>"; };
-		CDC06FCC1747494D003C1D0A /* SBiTunesStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBiTunesStore.h; path = Classes/MetadataImporters/SBiTunesStore.h; sourceTree = "<group>"; };
-		CDC06FCD1747494D003C1D0A /* SBiTunesStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBiTunesStore.m; path = Classes/MetadataImporters/SBiTunesStore.m; sourceTree = "<group>"; };
 		CDE8E451174CBBD4009410B5 /* iTunesStores.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iTunesStores.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -657,8 +656,7 @@
 				A981754F1D49F11B00750709 /* SBMetadataResultMap.m */,
 				CD03087717576AE50093A0BE /* SBMetadataImporter.h */,
 				CD03087817576AE50093A0BE /* SBMetadataImporter.m */,
-				CDC06FCC1747494D003C1D0A /* SBiTunesStore.h */,
-				CDC06FCD1747494D003C1D0A /* SBiTunesStore.m */,
+				A9E97F131F274F1100DBA586 /* iTunesStore.swift */,
 				A98D98451F0280CB00A77ABC /* TheMovieDB.swift */,
 				A98D98471F02820F00A77ABC /* TheMovieDBService.swift */,
 				A9B514181EFC12310055A035 /* TheTVDB.swift */,
@@ -882,10 +880,10 @@
 				A98175501D49F11B00750709 /* SBMetadataResultMap.m in Sources */,
 				A9F442301C75017100AD8786 /* SBMetadataResult.m in Sources */,
 				A90300C41DAE6E27008237D8 /* SBSetPrefsViewController.m in Sources */,
-				CDC06FCE1747494D003C1D0A /* SBiTunesStore.m in Sources */,
 				A917286119FD288B00348DF8 /* SBLogger.m in Sources */,
 				A909440A1DD4B80000E9F89C /* SBComboBoxCell.m in Sources */,
 				A9D4B8641C05BC61007845C4 /* SBChapterSearchController.m in Sources */,
+				A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */,
 				A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */,
 				CD03087917576AE50093A0BE /* SBMetadataImporter.m in Sources */,
 				CD3F2A881761A143000D4C73 /* XMLReader.m in Sources */,
