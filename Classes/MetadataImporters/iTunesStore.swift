@@ -43,11 +43,11 @@ final public class iTunesStore: SBMetadataImporter {
     }
 
     private static let stores: [Store] = {
-            guard let url = Bundle.main.url(forResource: "iTunesStores", withExtension: "json"),
-                let data = try? Data(contentsOf: url),
-                let result = try? JSONDecoder().decode([Store].self, from: data)
-                else { return [] }
-            return result
+        guard let url = Bundle.main.url(forResource: "iTunesStores", withExtension: "json"),
+            let data = try? Data(contentsOf: url),
+            let result = try? JSONDecoder().decode([Store].self, from: data)
+            else { return [] }
+        return result
     }()
 
     private static func store(language: String) -> Store? {
@@ -115,7 +115,7 @@ final public class iTunesStore: SBMetadataImporter {
         let trackCount: Int?
     }
     
-    struct Track : Codable {
+    private struct Track : Codable {
         let artistName: String
         let artworkUrl100: URL?
         let artworkUrl30: URL?
