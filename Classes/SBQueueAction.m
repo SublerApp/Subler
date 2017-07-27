@@ -9,13 +9,14 @@
 #import "SBQueueAction.h"
 
 #import "SBQueueItem.h"
-#import "SBMetadataImporter.h"
 #import "SBMetadataResultMap.h"
 
 #import <MP42Foundation/MP42File.h>
 #import <MP42Foundation/MP42FileImporter.h>
 #import <MP42Foundation/MP42Image.h>
 #import <MP42Foundation/MP42Utilities.h>
+
+#import "Subler-Swift.h"
 
 @implementation SBQueueSubtitlesAction
 
@@ -181,22 +182,22 @@
 
     if ([@"movie" isEqualToString:type]) {
         provider = _movieProvider;
-		currentSearcher = [SBMetadataImporter importerForProvider:_movieProvider];
-		NSArray<SBMetadataResult *> *results = [currentSearcher searchMovie:parsed[@"title"] language:_movieLanguage];
+		currentSearcher = [SBMetadataImporter importerWithProvider:_movieProvider];
+		/*NSArray<SBMetadataResult *> *results = [currentSearcher searchWithMovie:parsed[@"title"] language:_movieLanguage];
         if (results.count) {
             metadata = [currentSearcher loadMovieMetadata:results.firstObject language:_movieLanguage];
-        }
+        }*/
     }
     else /*if ([@"tv" isEqualToString:type]) */ {
         provider = _tvShowProvider;
-		currentSearcher = [SBMetadataImporter importerForProvider:_tvShowProvider];
-		NSArray *results = [currentSearcher searchTVSeries:parsed[@"seriesName"]
+		currentSearcher = [SBMetadataImporter importerWithProvider:_tvShowProvider];
+		/*NSArray *results = [currentSearcher searchWithTvSeries:parsed[@"seriesName"]
                                                   language:_tvShowLanguage
                                                  seasonNum:parsed[@"seasonNum"]
                                                 episodeNum:parsed[@"episodeNum"]];
         if (results.count) {
             metadata = [currentSearcher loadTVMetadata:results.firstObject language:_tvShowLanguage];
-        }
+        }*/
     }
 
     if (metadata.remoteArtworks.count) {

@@ -7,23 +7,23 @@
 
 import Foundation
 
-final public class TheMovieDB: SBMetadataImporter {
+public struct TheMovieDB: MetadataService {
 
     private let session = TheMovieDBService.sharedInstance
 
-    override public var languages: [String] {
+    public var languages: [String] {
         get {
             return MP42Languages.defaultManager.iso_639_1Languages
         }
     }
 
-    override public var languageType: SBMetadataImporterLanguageType {
+    public var languageType: SBMetadataImporterLanguageType {
         get {
             return .ISO
         }
     }
 
-    override public var defaultLanguage: String {
+    public var defaultLanguage: String {
         return "en"
     }
 
@@ -43,8 +43,8 @@ final public class TheMovieDB: SBMetadataImporter {
         return metadata
     }
 
-    override public func searchMovie(_ title: String, language: String) -> [SBMetadataResult] {
-        let results = session.search(movie: title, language: language)
+    public func search(movie: String, language: String) -> [SBMetadataResult] {
+        let results = session.search(movie: movie, language: language)
         return results.map { metadata(forMoviePartialResult: $0, language: nil) }
     }
 
@@ -155,7 +155,7 @@ final public class TheMovieDB: SBMetadataImporter {
         return metadata
     }
 
-    override public func loadMovieMetadata(_ partialMetadata: SBMetadataResult, language: String) -> SBMetadataResult {
+    public func loadMovieMetadata(_ partialMetadata: SBMetadataResult, language: String) -> SBMetadataResult {
         guard let movieID = partialMetadata["TheMovieDB ID"] as? Int,
               let result = session.fetch(movieID: movieID, language: language)
             else { return partialMetadata }
@@ -287,35 +287,35 @@ final public class TheMovieDB: SBMetadataImporter {
         return metadata
     }
 
-    private func loadEpisodes(seriesID: Int, info: TMDBSeries, season: String, episode: String, language: String) -> [SBMetadataResult] {
+    private func loadEpisodes(seriesID: Int, info: TMDBSeries, season: Int?, episode: Int?, language: String) -> [SBMetadataResult] {
         let episodes = session.fetch(episodeForSeriesID: seriesID, season: season, episode: episode, language: language)
 
         let filteredEpisodes = episodes.filter {
-            (season.count > 0 ? String($0.season_number ?? 0) == season : true) &&
-                (episode.count > 0 ? String($0.episode_number ?? 0) == episode : true)
+            (season != nil ? ($0.season_number ?? 0) == season : true) &&
+            (episode != nil ? ($0.episode_number ?? 0) == episode : true)
         }
 
         return filteredEpisodes.map { metadata(forTVResult: $0, info: info) }
     }
 
-    override public func searchTVSeries(_ seriesName: String, language: String, seasonNum: String, episodeNum: String) -> [SBMetadataResult] {
+    public func search(TVSeries: String, language: String, season: Int?, episode: Int?) -> [SBMetadataResult] {
         let seriesIDs: [Int] =  {
-            let result = self.searchIDs(seriesName: seriesName, language: language)
-            return result.count > 0 ? result : self.searchIDs(seriesName: seriesName, language: defaultLanguage)
+            let result = self.searchIDs(seriesName: TVSeries, language: language)
+            return result.count > 0 ? result : self.searchIDs(seriesName: TVSeries, language: defaultLanguage)
         }()
 
         var results: [SBMetadataResult] = Array()
 
         for id in seriesIDs {
             guard let info = session.fetch(seriesID: id, language: language) else { continue }
-            let episodes = loadEpisodes(seriesID: id, info: info, season: seasonNum, episode: episodeNum, language: language)
+            let episodes = loadEpisodes(seriesID: id, info: info, season: season, episode: episode, language: language)
             results.append(contentsOf: episodes)
         }
 
         return results
     }
 
-    override public func loadTVMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
+    public func loadTVMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
         var artworks: [SBRemoteImage] = Array()
 
         if let seriesID = metadata["TheMovieDB Series ID"] as? Int, let episodeID = metadata["TheMovieDB Episodes ID"] as? Int,

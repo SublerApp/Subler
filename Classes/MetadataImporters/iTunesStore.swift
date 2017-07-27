@@ -7,7 +7,7 @@
 
 import Foundation
 
-final public class iTunesStore: SBMetadataImporter {
+public struct iTunesStore: MetadataService {
     
     private func sendJSONRequest<T>(url: URL, type: T.Type) -> T? where T : Decodable {
         guard let data = SBMetadataHelper.downloadData(from: url, cachePolicy: .default)
@@ -54,19 +54,19 @@ final public class iTunesStore: SBMetadataImporter {
         return iTunesStore.stores.filter { "\($0.country) (\($0.language))" == language }.first
     }
 
-    override public var languages: [String] {
+    public var languages: [String] {
         get {
             return iTunesStore.stores.map { "\($0.country) (\($0.language))" }
         }
     }
 
-    override public var languageType: SBMetadataImporterLanguageType {
+    public var languageType: SBMetadataImporterLanguageType {
         get {
             return .custom
         }
     }
 
-    override public var defaultLanguage: String {
+    public var defaultLanguage: String {
         return "USA (English)"
     }
 
@@ -74,12 +74,12 @@ final public class iTunesStore: SBMetadataImporter {
 
     public static func quickiTunesSearch(tvSeriesName: String, seasonNum: Int, episodeNum: Int) -> SBMetadataResult? {
         guard let language = UserDefaults.standard.string(forKey: "SBMetadataPreference|TV|iTunes Store|Language") else { return nil }
-        return iTunesStore().searchTVSeries(tvSeriesName, language: language, seasonNum: String(seasonNum), episodeNum: String(episodeNum)).first
+        return iTunesStore().search(TVSeries: tvSeriesName, language: language, season: seasonNum, episode: episodeNum).first
     }
 
     public static func quickiTunesSearch(movieName: String) -> SBMetadataResult? {
         guard let language = UserDefaults.standard.string(forKey: "SBMetadataPreference|Movie|iTunes Store|Language") else { return nil }
-        return iTunesStore().searchMovie(movieName, language: language).first
+        return iTunesStore().search(movie: movieName, language: language).first
     }
 
     // MARK: - Data Types
@@ -189,7 +189,7 @@ final public class iTunesStore: SBMetadataImporter {
 
     // MARK: - Search for TV episode metadata
 
-    private func extractID(results: [Collection], show: String, season: String, store: Store) -> Int? {
+    private func extractID(results: [Collection], show: String, season: Int, store: Store) -> Int? {
         let showPattern = show.replacingOccurrences(of: " ", with: ".*?")
         let seasonPattern = "\(store.season)\\s\(season)$"
 
@@ -217,7 +217,7 @@ final public class iTunesStore: SBMetadataImporter {
         return nil
     }
 
-    private func extractID(results: [Artist], show: String, season: String, store: Store) -> Int? {
+    private func extractID(results: [Artist], show: String, store: Store) -> Int? {
         let showPattern = show.replacingOccurrences(of: " ", with: ".*?")
         guard let showRegex = try? NSRegularExpression(pattern: showPattern, options: [.caseInsensitive]) else { return nil }
 
@@ -237,10 +237,10 @@ final public class iTunesStore: SBMetadataImporter {
         return nil
     }
 
-    private func findiTunesID(seriesName: String, seasonNum: String, store: Store) -> Int? {
+    private func findiTunesID(seriesName: String, seasonNum: Int?, store: Store) -> Int? {
         // Determine artistId/collectionId
         guard let url = { () -> URL? in
-            if seasonNum.count > 0 {
+            if let seasonNum = seasonNum {
                 let searchTerm = SBMetadataHelper.urlEncoded("\(seriesName) \(store.season) \(seasonNum)")
                 return URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=tvSeasonTerm&entity=tvSeason&limit=250")
             }
@@ -251,27 +251,27 @@ final public class iTunesStore: SBMetadataImporter {
         }()
         else { return nil }
 
-        if seasonNum.count > 0 {
+        if let seasonNum = seasonNum {
             if let results = sendJSONRequest(url: url, type: Wrapper<Collection>.self) {
                 return extractID(results: results.results, show: seriesName, season: seasonNum, store: store)
             }
         }
         else {
             if let results = sendJSONRequest(url: url, type: Wrapper<Artist>.self) {
-                return extractID(results: results.results, show: seriesName, season: seasonNum, store: store)
+                return extractID(results: results.results, show: seriesName, store: store)
             }
         }
 
         return nil
     }
 
-    override public func searchTVSeries(_ seriesName: String, language: String, seasonNum: String, episodeNum: String) -> [SBMetadataResult] {
+    public func search(TVSeries: String, language: String, season: Int?, episode: Int?) -> [SBMetadataResult] {
         guard let store = iTunesStore.store(language: language) else { return [] }
 
         // Determine artistId/collectionId
         guard let id = { () -> Int? in
-            if let id = findiTunesID(seriesName: seriesName, seasonNum: seasonNum, store: store) { return id }
-            else if let id = findiTunesID(seriesName: seriesName, seasonNum: "", store: store) { return id }
+            if let id = findiTunesID(seriesName: TVSeries, seasonNum: season, store: store) { return id }
+            else if let id = findiTunesID(seriesName: TVSeries, seasonNum: season, store: store) { return id }
             else { return nil }
             }()
         else { return [] }
@@ -282,11 +282,11 @@ final public class iTunesStore: SBMetadataImporter {
 
             var filteredResults = results.results.filter { $0.wrapperType == "track" } .map { metadata(forTVResult: $0, store: store) }
 
-            if let season = Int(seasonNum) {
+            if let season = season {
                 filteredResults = filteredResults.filter { $0[SBMetadataResultSeason] as! Int == season }
             }
 
-            if let episode = Int(episodeNum) {
+            if let episode = episode {
                 filteredResults = filteredResults.filter { $0[SBMetadataResultEpisodeNumber] as! Int == episode }
             }
 
@@ -361,9 +361,9 @@ final public class iTunesStore: SBMetadataImporter {
 
     // MARK: - Search for movie metadata
     
-    override public func searchMovie(_ title: String, language: String) -> [SBMetadataResult] {
+    public func search(movie: String, language: String) -> [SBMetadataResult] {
         guard let store = iTunesStore.store(language: language),
-            let url = URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2)&term=\(SBMetadataHelper.urlEncoded(title))&entity=movie&limit=150"),
+            let url = URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2)&term=\(SBMetadataHelper.urlEncoded(movie))&entity=movie&limit=150"),
             let results = sendJSONRequest(url: url, type: Wrapper<Track>.self)
         else { return [] }
         
@@ -408,7 +408,7 @@ final public class iTunesStore: SBMetadataImporter {
 
     // MARK: - Load additional metadata
 
-    override public func loadTVMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
+    public func loadTVMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
         guard let language = UserDefaults.standard.string(forKey: "SBMetadataPreference|TV|iTunes Store|Language"),
               let store = iTunesStore.store(language: language),
               let playlistID = metadata[SBMetadataResultPlaylistID] as? Int,
@@ -436,7 +436,7 @@ final public class iTunesStore: SBMetadataImporter {
         return []
     }
 
-    override public func loadMovieMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
+    public func loadMovieMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
         guard let store = iTunesStore.store(language: language),
               let url = metadata[SBMetadataResultITunesURL] as? URL,
               let data = SBMetadataHelper.downloadData(from: url, cachePolicy: .default),

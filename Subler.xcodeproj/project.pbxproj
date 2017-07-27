@@ -16,6 +16,7 @@
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		A901C51E1C04F03F00430DC3 /* SBChapterDB.m in Sources */ = {isa = PBXBuildFile; fileRef = A901C51B1C04F03F00430DC3 /* SBChapterDB.m */; };
 		A901C51F1C04F03F00430DC3 /* SBChapterImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */; };
+		A902E1D51F29DD8900D73C17 /* SBMetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A902E1D41F29DD8900D73C17 /* SBMetadataImporter.swift */; };
 		A90300C41DAE6E27008237D8 /* SBSetPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A90300C21DAE6E27008237D8 /* SBSetPrefsViewController.m */; };
 		A90300C81DAE72C4008237D8 /* SBSetPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90300CA1DAE72C4008237D8 /* SBSetPrefsViewController.xib */; };
 		A906B5B11E434872007D12B1 /* Queue.sdef in Resources */ = {isa = PBXBuildFile; fileRef = A906B5B01E434872007D12B1 /* Queue.sdef */; };
@@ -78,6 +79,7 @@
 		A9C5FA7419FA2FEC0051F3FF /* SBLogWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C5FA7219FA2FEC0051F3FF /* SBLogWindow.xib */; };
 		A9C703121C05E08B00C89151 /* SBMetadataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C703111C05E08B00C89151 /* SBMetadataHelper.m */; };
 		A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C828F4195950C3004C4718 /* SBQueuePreferences.m */; };
+		A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */; };
 		A9D4B8641C05BC61007845C4 /* SBChapterSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8631C05BC61007845C4 /* SBChapterSearchController.m */; };
 		A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */; };
 		A9D4B86A1C05CBEB007845C4 /* SBChapterResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8691C05CBEB007845C4 /* SBChapterResult.m */; };
@@ -93,7 +95,6 @@
 		A9F5820C1DCC861F005F3E92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9F5820B1DCC861F005F3E92 /* Assets.xcassets */; };
 		A9F7F8E01837C44B0036AE7E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9ED7B21180067A2008FD3A8 /* IOKit.framework */; };
 		A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */; };
-		CD03087917576AE50093A0BE /* SBMetadataImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = CD03087817576AE50093A0BE /* SBMetadataImporter.m */; };
 		CD3F2A881761A143000D4C73 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3F2A871761A143000D4C73 /* XMLReader.m */; };
 		CD4E6E5D12F744210095C84F /* ArtworkSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD4E6E5B12F744210095C84F /* ArtworkSelector.xib */; };
 		CD56963212FAAD680029FADB /* SBArtworkSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = CD56963112FAAD680029FADB /* SBArtworkSelector.m */; };
@@ -175,6 +176,7 @@
 		A901C51B1C04F03F00430DC3 /* SBChapterDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterDB.m; path = Classes/MetadataImporters/SBChapterDB.m; sourceTree = "<group>"; };
 		A901C51C1C04F03F00430DC3 /* SBChapterImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterImporter.h; path = Classes/MetadataImporters/SBChapterImporter.h; sourceTree = "<group>"; };
 		A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterImporter.m; path = Classes/MetadataImporters/SBChapterImporter.m; sourceTree = "<group>"; };
+		A902E1D41F29DD8900D73C17 /* SBMetadataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SBMetadataImporter.swift; path = Classes/MetadataImporters/SBMetadataImporter.swift; sourceTree = "<group>"; };
 		A90300C11DAE6E27008237D8 /* SBSetPrefsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBSetPrefsViewController.h; path = Classes/SBSetPrefsViewController.h; sourceTree = "<group>"; };
 		A90300C21DAE6E27008237D8 /* SBSetPrefsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBSetPrefsViewController.m; path = Classes/SBSetPrefsViewController.m; sourceTree = "<group>"; };
 		A90300C91DAE72C4008237D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBSetPrefsViewController.xib; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 		A9C8182C0F74D6E300019BFF /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
 		A9C828F3195950C3004C4718 /* SBQueuePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueuePreferences.h; path = Classes/SBQueuePreferences.h; sourceTree = "<group>"; };
 		A9C828F4195950C3004C4718 /* SBQueuePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueuePreferences.m; path = Classes/SBQueuePreferences.m; sourceTree = "<group>"; };
+		A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataImporter.swift; path = Classes/MetadataImporters/MetadataImporter.swift; sourceTree = "<group>"; };
 		A9D4B8621C05BC61007845C4 /* SBChapterSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterSearchController.h; path = Classes/SBChapterSearchController.h; sourceTree = "<group>"; };
 		A9D4B8631C05BC61007845C4 /* SBChapterSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterSearchController.m; path = Classes/SBChapterSearchController.m; sourceTree = "<group>"; };
 		A9D4B8681C05CBEB007845C4 /* SBChapterResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterResult.h; path = Classes/MetadataImporters/SBChapterResult.h; sourceTree = "<group>"; };
@@ -326,8 +329,6 @@
 		A9F5820B1DCC861F005F3E92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9FC6FF41EF2E3280034CCED /* Subler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Subler-Bridging-Header.h"; sourceTree = "<group>"; };
 		A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheTVDBService.swift; path = Classes/MetadataImporters/TheTVDBService.swift; sourceTree = "<group>"; };
-		CD03087717576AE50093A0BE /* SBMetadataImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataImporter.h; path = Classes/MetadataImporters/SBMetadataImporter.h; sourceTree = "<group>"; };
-		CD03087817576AE50093A0BE /* SBMetadataImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataImporter.m; path = Classes/MetadataImporters/SBMetadataImporter.m; sourceTree = "<group>"; };
 		CD3F2A861761A143000D4C73 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLReader.h; path = Others/XMLReader.h; sourceTree = "<group>"; };
 		CD3F2A871761A143000D4C73 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XMLReader.m; path = Others/XMLReader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CD56963012FAAD680029FADB /* SBArtworkSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBArtworkSelector.h; path = Classes/SBArtworkSelector.h; sourceTree = "<group>"; };
@@ -654,8 +655,8 @@
 				A9F476221ED9DC2E00748CC0 /* SBRemoteImage.m */,
 				A981754E1D49F11B00750709 /* SBMetadataResultMap.h */,
 				A981754F1D49F11B00750709 /* SBMetadataResultMap.m */,
-				CD03087717576AE50093A0BE /* SBMetadataImporter.h */,
-				CD03087817576AE50093A0BE /* SBMetadataImporter.m */,
+				A902E1D41F29DD8900D73C17 /* SBMetadataImporter.swift */,
+				A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */,
 				A9E97F131F274F1100DBA586 /* iTunesStore.swift */,
 				A98D98451F0280CB00A77ABC /* TheMovieDB.swift */,
 				A98D98471F02820F00A77ABC /* TheMovieDBService.swift */,
@@ -869,6 +870,7 @@
 				A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */,
 				A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */,
 				CD56963212FAAD680029FADB /* SBArtworkSelector.m in Sources */,
+				A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */,
 				A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */,
 				A901C51E1C04F03F00430DC3 /* SBChapterDB.m in Sources */,
 				61CEC0D31E756ADA000FECC1 /* SBMultiSelectViewController.m in Sources */,
@@ -885,7 +887,7 @@
 				A9D4B8641C05BC61007845C4 /* SBChapterSearchController.m in Sources */,
 				A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */,
 				A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */,
-				CD03087917576AE50093A0BE /* SBMetadataImporter.m in Sources */,
+				A902E1D51F29DD8900D73C17 /* SBMetadataImporter.swift in Sources */,
 				CD3F2A881761A143000D4C73 /* XMLReader.m in Sources */,
 				A9AB485517F0AEAC000AA72E /* SBEmptyViewController.m in Sources */,
 				A9A0542E1DEEC3E000D1AFA4 /* SBLanguageTransformer.m in Sources */,

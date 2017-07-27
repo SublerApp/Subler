@@ -12,7 +12,7 @@
 #import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Languages.h>
 
-#import "SBMetadataImporter.h"
+#import "Subler-Swift.h"
 
 static void *SBOptionsViewContex = &SBOptionsViewContex;
 
@@ -123,24 +123,24 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
         // Update the languages popup
         if ([keyPath isEqualToString:@"options.SBQueueMovieProvider"]){
             NSString *newProvider = [change valueForKey:NSKeyValueChangeNewKey];
-            SBMetadataImporter *importer = [SBMetadataImporter importerForProvider:newProvider];
+            SBMetadataImporter *importer = [SBMetadataImporter importerWithProvider:newProvider];
 
             self.movieLanguages = [self localizedLanguagesForImporter:importer];
 
             NSString *oldLanguage = [self.options valueForKey:@"SBQueueMovieProviderLanguage"];
 
             if (![importer.languages containsObject:oldLanguage]) {
-                [self.options setValue:[SBMetadataImporter defaultLanguageForProvider:newProvider] forKeyPath:@"SBQueueMovieProviderLanguage"];
+                [self.options setValue:[SBMetadataImporter defaultLanguageWithProvider:newProvider] forKeyPath:@"SBQueueMovieProviderLanguage"];
             }
         } else if ([keyPath isEqualToString:@"options.SBQueueTVShowProvider"]) {
             NSString *newProvider = [change valueForKey:NSKeyValueChangeNewKey];
-            SBMetadataImporter *importer = [SBMetadataImporter importerForProvider:newProvider];
+            SBMetadataImporter *importer = [SBMetadataImporter importerWithProvider:newProvider];
             self.tvShowLanguages = [self localizedLanguagesForImporter:importer];
 
             NSString *oldLanguage = [self.options valueForKey:@"SBQueueTVShowProviderLanguage"];
 
             if (![importer.languages containsObject:oldLanguage]) {
-                [self.options setValue:[SBMetadataImporter defaultLanguageForProvider:newProvider] forKeyPath:@"SBQueueTVShowProviderLanguage"];
+                [self.options setValue:[SBMetadataImporter defaultLanguageWithProvider:newProvider] forKeyPath:@"SBQueueTVShowProviderLanguage"];
             }
         } else {
             [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];

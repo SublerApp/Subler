@@ -272,22 +272,22 @@ final public class TheMovieDBService {
         return result
     }
 
-    private func episodesURL(seriesID: Int, season: String, episode: String, language: String) -> URL? {
+    private func episodesURL(seriesID: Int, season: Int?, episode: Int?, language: String) -> URL? {
         let basePostfix = "?api_key=" + key + "&language=" + language
         switch (season, episode) {
-        case _ where season.count > 0 && episode.count > 0:
-            return URL(string: basePath + "tv/" + String(seriesID) +  "/season/" + season +  "/episode/" + episode + basePostfix)
-        case _ where season.count > 0:
-            return URL(string: basePath + "tv/" + String(seriesID) +  "/season/" + season + basePostfix)
+        case let (season?, episode?):
+            return URL(string: "\(basePath)tv/\(seriesID)/season/\(season)/episode/\(episode)\(basePostfix)")
+        case let (season?, _):
+            return URL(string: "\(basePath)tv/\(seriesID)/season/\(season)\(basePostfix)")
         default:
             return URL(string: basePath + "tv/" + String(seriesID) +  "/season" + basePostfix)
         }
     }
 
-    public func fetch(episodeForSeriesID seriesID: Int, season: String, episode: String, language: String) -> [TMDBEpisode] {
+    public func fetch(episodeForSeriesID seriesID: Int, season: Int?, episode: Int?, language: String) -> [TMDBEpisode] {
         guard let url = episodesURL(seriesID: seriesID, season: season, episode: episode, language: language) else { return [] }
 
-        if episode.count > 0 {
+        if episode != nil {
             guard let result = sendJSONRequest(url: url, language: language, type: TMDBEpisode.self) else { return [] }
             return [result]
         }
@@ -306,7 +306,7 @@ final public class TheMovieDBService {
     }
 
     public func fetch(imagesForSeriesID seriesID: Int, episodeID: Int, season: String, language: String) -> [TMDBImage] {
-        guard let url = URL(string: basePath + "tv/" + String(seriesID) +  "/season/" + season + "/episode/" + String(episodeID) + "/images?api_key=" + key + "&language=" + language),
+        guard let url = URL(string: basePath + "tv/" + String(seriesID) +  "/season/" + season + "/episode/" + String(episodeID) + "/images?api_key=" + key + "&language=" + language + "&include_image_language=en,null"),
             let result = sendJSONRequest(url: url, language: language, type: TMDBEpisodeImages.self)
             else { return [] }
 

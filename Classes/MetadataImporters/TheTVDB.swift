@@ -7,37 +7,37 @@
 
 import Foundation
 
-final public class TheTVDB : SBMetadataImporter {
+public struct TheTVDB : MetadataService {
 
     private let session = TheTVDBService.sharedInstance
     private static let bannerPath = "https://thetvdb.com/banners/"
 
-    override public var languageType: SBMetadataImporterLanguageType {
+    public var languageType: SBMetadataImporterLanguageType {
         get {
             return .ISO
         }
     }
 
-    override public var languages: [String] {
+    public var languages: [String] {
         get {
             return session.languages
         }
     }
 
-    override public var defaultLanguage: String {
+    public var defaultLanguage: String {
         return "en"
     }
 
     // MARK: - TV Series name search
 
-    override public func searchTVSeries(_ seriesName: String, language: String) -> [String] {
+    public func search(TVSeries: String, language: String) -> [String] {
         var results: Set<String> = Set()
 
-        let series = session.fetch(series: seriesName, language: language)
+        let series = session.fetch(series: TVSeries, language: language)
         results.formUnion(series.map { $0.seriesName } )
 
         if language != defaultLanguage {
-            let englishResults = searchTVSeries(seriesName, language: defaultLanguage)
+            let englishResults = search(TVSeries: TVSeries, language: defaultLanguage)
             results.formUnion(englishResults)
         }
 
@@ -141,11 +141,11 @@ final public class TheTVDB : SBMetadataImporter {
         return result
     }
 
-    private func loadEpisodes(info: SeriesInfo, actors: [Actor], season: String, episode: String, language: String) -> [SBMetadataResult] {
+    private func loadEpisodes(info: SeriesInfo, actors: [Actor], season: Int?, episode: Int?, language: String) -> [SBMetadataResult] {
         let episodes = session.fetch(episodeForSeriesID: info.id, season: season, episode: episode, language: language)
         let filteredEpisodes = episodes.filter {
-            (season.count > 0 ? String($0.airedSeason) == season : true) &&
-            (episode.count > 0 ? String($0.airedEpisodeNumber) == episode : true)
+            (season != nil ? $0.airedSeason == season : true) &&
+            (episode != nil ? $0.airedEpisodeNumber == episode : true)
         }
 
         return filteredEpisodes.map { merge(episode: $0, info: info, actors: actors) }
@@ -219,10 +219,10 @@ final public class TheTVDB : SBMetadataImporter {
 
     // MARK: - TV Search
 
-    override public func searchTVSeries(_ seriesName: String, language: String, seasonNum: String, episodeNum: String) -> [SBMetadataResult] {
+    public func search(TVSeries: String, language: String, season: Int?, episode: Int?) -> [SBMetadataResult] {
         let seriesIDs: [Int] =  {
-            let result = self.searchIDs(seriesName: seriesName, language: language)
-            return result.count > 0 ? result : self.searchIDs(seriesName: seriesName, language: defaultLanguage)
+            let result = self.searchIDs(seriesName: TVSeries, language: language)
+            return result.count > 0 ? result : self.searchIDs(seriesName: TVSeries, language: defaultLanguage)
         }()
 
         var results: [SBMetadataResult] = Array()
@@ -234,7 +234,7 @@ final public class TheTVDB : SBMetadataImporter {
                 }()
                 else { continue }
             let actors = session.fetch(actors: id, language: language)
-            let episodes = loadEpisodes(info: info, actors: actors, season: seasonNum, episode: episodeNum, language: language)
+            let episodes = loadEpisodes(info: info, actors: actors, season: season, episode: episode, language: language)
 
             let nilValues = checkMissingValues(results: episodes)
 
@@ -245,7 +245,7 @@ final public class TheTVDB : SBMetadataImporter {
                 }
 
                 if nilValues.contains(.episodesInfo) {
-                    let enResults = loadEpisodes(info: info, actors: actors, season: seasonNum, episode: episodeNum, language: defaultLanguage)
+                    let enResults = loadEpisodes(info: info, actors: actors, season: season, episode: episode, language: defaultLanguage)
                     merge(enResults: enResults, results: episodes)
                 }
             }
@@ -296,7 +296,7 @@ final public class TheTVDB : SBMetadataImporter {
         return artworks
     }
 
-    override public func loadTVMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
+    public func loadTVMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
         guard let id = metadata["TheTVDB Episodes ID"] as? Int else { return metadata }
         guard let seriesId = metadata["TheTVDB Series ID"] as? Int else { return metadata }
 
@@ -333,6 +333,16 @@ final public class TheTVDB : SBMetadataImporter {
 
         metadata.remoteArtworks = artworks
 
+        return metadata
+    }
+
+    // MARK: - Unimplemented movie search
+
+    public func search(movie: String, language: String) -> [SBMetadataResult] {
+        return []
+    }
+
+    public func loadMovieMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
         return metadata
     }
 }

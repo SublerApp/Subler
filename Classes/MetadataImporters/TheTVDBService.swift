@@ -287,18 +287,18 @@ final public class TheTVDBService {
         return result.data
     }
 
-    private func episodesURL(seriesID: Int, season: String, episode: String) -> URL? {
+    private func episodesURL(seriesID: Int, season: Int?, episode: Int?) -> URL? {
         switch (season, episode) {
-        case _ where season.count > 0 && episode.count > 0:
-            return URL(string: basePath + "series/" + String(seriesID) +  "/episodes/query?airedSeason=" + season +  "&airedEpisode=" + episode)
-        case _ where season.count > 0:
-            return URL(string: basePath + "series/" + String(seriesID) +  "/episodes/query?airedSeason=" + season)
+        case let (season?, episode?):
+            return URL(string: "\(basePath)series/\(seriesID)/episodes/query?airedSeason=\(season)&airedEpisode=\(episode)")
+        case let (season?, _):
+            return URL(string: "\(basePath)series/\(seriesID)/episodes/query?airedSeason=\(season)")
         default:
-            return URL(string: basePath + "series/" + String(seriesID) +  "/episodes")
+            return URL(string: "\(basePath)series/\(seriesID)/episodes")
         }
     }
     
-    public func fetch(episodeForSeriesID seriesID: Int, season: String, episode: String, language: String) -> [Episode] {
+    public func fetch(episodeForSeriesID seriesID: Int, season: Int?, episode: Int?, language: String) -> [Episode] {
         guard let url = episodesURL(seriesID: seriesID, season: season, episode: episode),
             let result = sendJSONRequest(url: url, language: language, type: Wrapper<[Episode]>.self)
             else { return [] }

@@ -13,7 +13,8 @@
 #import "SBTableView.h"
 #import "SBArtworkSelector.h"
 #import "SBDocument.h"
-#import "SBMetadataImporter.h"
+
+#import "Subler-Swift.h"
 
 @interface SBMetadataSearchController () <NSTableViewDelegate, NSComboBoxDelegate, SBArtworkSelectorDelegate>
 {
@@ -138,8 +139,8 @@
 }
 
 - (void)createLanguageMenusForProvider:(NSString *)providerName popUp:(NSPopUpButton *)popUp {
-	NSArray *langs = [SBMetadataImporter languagesForProvider:providerName];
-    SBMetadataImporterLanguageType type = [SBMetadataImporter languageTypeForProvider:providerName];
+	NSArray *langs = [SBMetadataImporter languagesWithProvider:providerName];
+    SBMetadataImporterLanguageType type = [SBMetadataImporter languageTypeWithProvider:providerName];
 
     [popUp removeAllItems];
 	for (NSString *lang in langs) {
@@ -148,28 +149,28 @@
 }
 
 - (void)metadataProvidersSelectDefaultLanguage {
-    SBMetadataImporterLanguageType type = [SBMetadataImporter languageTypeForProvider:movieMetadataProvider.selectedItem.title];
+    SBMetadataImporterLanguageType type = [SBMetadataImporter languageTypeWithProvider:movieMetadataProvider.selectedItem.title];
     NSString *defaultLanguage = [[NSUserDefaults standardUserDefaults]
                                  valueForKey:[NSString stringWithFormat:@"SBMetadataPreference|Movie|%@|Language", movieMetadataProvider.selectedItem.title]];
     [movieLanguage selectItemWithTitle:[self displayLanguageForLang:defaultLanguage type:type]];
     if (movieLanguage.indexOfSelectedItem == -1) {
-        [movieLanguage selectItemWithTitle:[self displayLanguageForLang:[SBMetadataImporter defaultLanguageForProvider:movieMetadataProvider.selectedItem.title]
+        [movieLanguage selectItemWithTitle:[self displayLanguageForLang:[SBMetadataImporter defaultLanguageWithProvider:movieMetadataProvider.selectedItem.title]
                                                                    type:type]];
     }
 
-    type = [SBMetadataImporter languageTypeForProvider:tvMetadataProvider.selectedItem.title];
+    type = [SBMetadataImporter languageTypeWithProvider:tvMetadataProvider.selectedItem.title];
     defaultLanguage = [[NSUserDefaults standardUserDefaults]
                        valueForKey:[NSString stringWithFormat:@"SBMetadataPreference|TV|%@|Language", tvMetadataProvider.selectedItem.title]];
 	[tvLanguage selectItemWithTitle:[self displayLanguageForLang:defaultLanguage type:type]];
     if (tvLanguage.indexOfSelectedItem == -1) {
-        [tvLanguage selectItemWithTitle:[self displayLanguageForLang:[SBMetadataImporter defaultLanguageForProvider:tvMetadataProvider.selectedItem.title]
+        [tvLanguage selectItemWithTitle:[self displayLanguageForLang:[SBMetadataImporter defaultLanguageWithProvider:tvMetadataProvider.selectedItem.title]
                                                                 type:type]];
     }
 }
 
 - (IBAction)metadataProviderLanguageSelected:(id)sender {
 	if (sender == movieLanguage) {
-        SBMetadataImporterLanguageType type = [SBMetadataImporter languageTypeForProvider:movieMetadataProvider.selectedItem.title];
+        SBMetadataImporterLanguageType type = [SBMetadataImporter languageTypeWithProvider:movieMetadataProvider.selectedItem.title];
         NSString *defaultLanguage = movieLanguage.selectedItem.title;
 
         if (type == SBMetadataImporterLanguageTypeISO) {
@@ -179,7 +180,7 @@
 		[[NSUserDefaults standardUserDefaults] setValue:defaultLanguage forKey:[NSString stringWithFormat:@"SBMetadataPreference|Movie|%@|Language", movieMetadataProvider.selectedItem.title]];
 	}
     else if (sender == tvLanguage) {
-        SBMetadataImporterLanguageType type = [SBMetadataImporter languageTypeForProvider:tvMetadataProvider.selectedItem.title];
+        SBMetadataImporterLanguageType type = [SBMetadataImporter languageTypeWithProvider:tvMetadataProvider.selectedItem.title];
         NSString *defaultLanguage = tvLanguage.selectedItem.title;
 
         if (type == SBMetadataImporterLanguageTypeISO) {
@@ -259,7 +260,7 @@
         [self startProgressReportWithString:[NSString stringWithFormat:NSLocalizedString(@"Searching %@ for movie information…", nil),
                                              movieMetadataProvider.selectedItem.title]];
 
-		self.currentSearcher = [SBMetadataImporter importerForProvider:movieMetadataProvider.selectedItem.title];
+		self.currentSearcher = [SBMetadataImporter importerWithProvider:movieMetadataProvider.selectedItem.title];
 
 
         NSString *language = movieLanguage.titleOfSelectedItem;
@@ -268,10 +269,12 @@
 
         }
 
-		[self.currentSearcher searchMovie:movieName.stringValue
+		[self.currentSearcher searchWithMovie:movieName.stringValue
                             language:language
                    completionHandler:^(NSArray *results) {
-                       [self searchForResultsDone:results];
+                       dispatch_async(dispatch_get_main_queue(), ^{
+                           [self searchForResultsDone:results];
+                       });
                    }];
 
     }
@@ -280,7 +283,7 @@
         [self startProgressReportWithString:[NSString stringWithFormat:NSLocalizedString(@"Searching %@ for episode information…", nil),
                                              tvMetadataProvider.selectedItem.title]];
 
-		self.currentSearcher = [SBMetadataImporter importerForProvider:tvMetadataProvider.selectedItem.title];
+		self.currentSearcher = [SBMetadataImporter importerWithProvider:tvMetadataProvider.selectedItem.title];
 
         NSString *language = tvLanguage.titleOfSelectedItem;
         if (self.currentSearcher.languageType == SBMetadataImporterLanguageTypeISO) {
@@ -288,12 +291,14 @@
 
         }
 
-		[self.currentSearcher searchTVSeries:tvSeriesName.stringValue
+		[self.currentSearcher searchWithTvSeries:tvSeriesName.stringValue
                                language:language
                               seasonNum:tvSeasonNum.stringValue
                              episodeNum:tvEpisodeNum.stringValue
                       completionHandler:^(NSArray *results) {
-                          [self searchForResultsDone:results];
+                          dispatch_async(dispatch_get_main_queue(), ^{
+                              [self searchForResultsDone:results];
+                          });
                       }];
 
     }
@@ -358,13 +363,13 @@
     [addButton setEnabled:NO];
     if (self.selectedResult.mediaKind == 9) {
         [self startProgressReportWithString:NSLocalizedString(@"Downloading additional movie metadata…", nil)];
-		self.currentSearcher = [SBMetadataImporter importerForProvider:movieMetadataProvider.selectedItem.title];
+		self.currentSearcher = [SBMetadataImporter importerWithProvider:movieMetadataProvider.selectedItem.title];
 
         language = movieLanguage.selectedItem.title;
 
     } else /*if (self.selectedResult.mediaKind == 10)*/ {
         [self startProgressReportWithString:NSLocalizedString(@"Downloading additional TV metadata…", nil)];
-		self.currentSearcher = [SBMetadataImporter importerForProvider:tvMetadataProvider.selectedItem.title];
+		self.currentSearcher = [SBMetadataImporter importerWithProvider:tvMetadataProvider.selectedItem.title];
 
         language = tvLanguage.selectedItem.title;
     }
@@ -374,10 +379,12 @@
     }
 
     [self.currentSearcher loadFullMetadata:self.selectedResult language:language completionHandler:^(SBMetadataResult *metadata) {
-        [self stopProgressReport];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self stopProgressReport];
 
-        self.selectedResult = metadata;
-        [self selectArtwork];
+            self.selectedResult = metadata;
+            [self selectArtwork];
+        });
     }];
 
 }
@@ -574,11 +581,13 @@
             [self.currentSearcher cancel];
 
             self.currentSearcher = [SBMetadataImporter defaultTVProvider];
-			[self.currentSearcher searchTVSeries:tvSeriesName.stringValue language:tvLanguage.selectedItem.title completionHandler:^(NSArray *results) {
-                self.tvSeriesNameSearchArray = [results mutableCopy];
-                [self.tvSeriesNameSearchArray sortUsingSelector:@selector(compare:)];
-                [self->tvSeriesName noteNumberOfItemsChanged];
-                [self->tvSeriesName reloadData];
+			[self.currentSearcher searchWithTvSeries:tvSeriesName.stringValue language:tvLanguage.selectedItem.title completionHandler:^(NSArray *results) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.tvSeriesNameSearchArray = [results mutableCopy];
+                    [self.tvSeriesNameSearchArray sortUsingSelector:@selector(compare:)];
+                    [self->tvSeriesName noteNumberOfItemsChanged];
+                    [self->tvSeriesName reloadData];
+                });
             }];
         } else {
             self.tvSeriesNameSearchArray = nil;

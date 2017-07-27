@@ -13,6 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SBMetadataHelper : NSObject
 
+typedef NS_ENUM(NSUInteger, SBMetadataImporterLanguageType) {
+    SBMetadataImporterLanguageTypeISO,
+    SBMetadataImporterLanguageTypeCustom,
+};
+
 typedef NS_ENUM(NSUInteger, SBCachePolicy) {
     SBCachePolicyDefault,
     SBCachePolicyReturnCacheElseLoad,
