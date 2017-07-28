@@ -18,6 +18,8 @@
 
 #import <MP42Foundation/MP42FileImporter.h>
 
+#import "Subler-Swift.h"
+
 static void *SBQueueContex = &SBQueueContex;
 
 #define SublerBatchTableViewDataType @"SublerBatchTableViewDataType"

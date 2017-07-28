@@ -865,7 +865,7 @@ static NSDictionary *_detailMonospacedAttr;
         SBMetadataResultMap *map = metadataToBeImported.mediaKind == 9 ?
         [defaults SB_resultMapForKey:@"SBMetadataMovieResultMap"] : [defaults SB_resultMapForKey:@"SBMetadataTvShowResultMap"];
         BOOL keepEmptyKeys = [defaults boolForKey:@"SBMetadataKeepEmptyAnnotations"];
-        MP42Metadata *mappedMetadata = [metadataToBeImported metadataUsingMap:map keepEmptyKeys:keepEmptyKeys];
+        MP42Metadata *mappedMetadata = [metadataToBeImported mappedTo:map keepEmptyKeys:keepEmptyKeys];
 
         [self.mp4.metadata mergeMetadata:mappedMetadata];
 

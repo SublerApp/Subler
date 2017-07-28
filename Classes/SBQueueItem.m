@@ -13,6 +13,8 @@
 #import <MP42Foundation/MP42FileImporter.h>
 #import <MP42Foundation/MP42Utilities.h>
 
+#import "Subler-Swift.h"
+
 #define ALMOST_4GiB 4000000000
 
 @interface SBQueueItem ()

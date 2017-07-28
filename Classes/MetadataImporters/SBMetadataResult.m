@@ -191,7 +191,7 @@ static NSDictionary<NSString *, NSString *> *localizedKeys;
     }
 }
 
-- (MP42Metadata *)metadataUsingMap:(SBMetadataResultMap *)map keepEmptyKeys:(BOOL)keep
+- (MP42Metadata *)mappedTo:(SBMetadataResultMap *)map keepEmptyKeys:(BOOL)keep
 {
     MP42Metadata *metadata = [[MP42Metadata alloc] init];
 

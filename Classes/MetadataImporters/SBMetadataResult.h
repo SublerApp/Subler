@@ -71,7 +71,7 @@ extern NSString *const SBMetadataResultNetwork;
 
 @property (nonatomic, readwrite, nullable) NSArray<SBRemoteImage *> *remoteArtworks;
 
-- (MP42Metadata *)metadataUsingMap:(SBMetadataResultMap *)map keepEmptyKeys:(BOOL)keep;
+- (MP42Metadata *)mappedTo:(SBMetadataResultMap *)map keepEmptyKeys:(BOOL)keep;
 
 @end
 

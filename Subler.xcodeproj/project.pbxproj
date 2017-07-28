@@ -25,6 +25,7 @@
 		A90B023B10F3290A000416F3 /* Prefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90B023910F3290A000416F3 /* Prefs.xib */; };
 		A91690041DABFDAA004B9AB0 /* SBCheckBoxCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A91690031DABFDAA004B9AB0 /* SBCheckBoxCellView.m */; };
 		A917286119FD288B00348DF8 /* SBLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A917286019FD288B00348DF8 /* SBLogger.m */; };
+		A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91B196B1F2B0DCB0008675F /* QueueAction.swift */; };
 		A924A51E1D4B9E93008301A7 /* SBMetadataPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A924A5201D4B9E93008301A7 /* SBMetadataPrefsViewController.xib */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -189,6 +190,7 @@
 		A91690031DABFDAA004B9AB0 /* SBCheckBoxCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBCheckBoxCellView.m; path = Classes/SBCheckBoxCellView.m; sourceTree = "<group>"; };
 		A917286019FD288B00348DF8 /* SBLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLogger.m; path = Classes/SBLogger.m; sourceTree = "<group>"; };
 		A917286419FD289F00348DF8 /* SBLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBLogger.h; path = Classes/SBLogger.h; sourceTree = "<group>"; };
+		A91B196B1F2B0DCB0008675F /* QueueAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueAction.swift; path = Classes/QueueAction.swift; sourceTree = "<group>"; };
 		A924A50C1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBDocument.xib; sourceTree = "<group>"; };
 		A924A50D1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/ChapterView.xib; sourceTree = "<group>"; };
 		A924A50E1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/EmptyView.xib; sourceTree = "<group>"; };
@@ -593,6 +595,7 @@
 				A982D0BF140AB66400B92357 /* SBQueueItem.m */,
 				A9AF6A7318D0496400FAAB08 /* SBQueueAction.h */,
 				A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */,
+				A91B196B1F2B0DCB0008675F /* QueueAction.swift */,
 				A9A8CEF71E43754400BC2AE1 /* SBQueueScriptCommand.h */,
 				A9A8CEF81E43754400BC2AE1 /* SBQueueScriptCommand.m */,
 			);
@@ -883,6 +886,7 @@
 				A9F442301C75017100AD8786 /* SBMetadataResult.m in Sources */,
 				A90300C41DAE6E27008237D8 /* SBSetPrefsViewController.m in Sources */,
 				A917286119FD288B00348DF8 /* SBLogger.m in Sources */,
+				A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */,
 				A909440A1DD4B80000E9F89C /* SBComboBoxCell.m in Sources */,
 				A9D4B8641C05BC61007845C4 /* SBChapterSearchController.m in Sources */,
 				A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */,
