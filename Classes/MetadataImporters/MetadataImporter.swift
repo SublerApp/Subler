@@ -21,6 +21,12 @@ public protocol MetadataService {
 
 }
 
+public protocol MetadataNameService {
+
+    func search(TVSeries: String, language: String) -> [String]
+
+}
+
 public enum MetadataServiceType : String {
     case iTunesStoreService = "iTunes Store"
     case TheMovieDBService = "TheMovieDB"
@@ -59,6 +65,20 @@ public enum MetadataServiceType : String {
         get {
             return  MetadataServiceType.service(name: UserDefaults.standard.string(forKey: "SBMetadataPreference|TV"))
         }
+    }
+
+}
+
+public enum MetadataNameSearch {
+    case tvNameSearch(service: MetadataNameService, tvSeries: String, language: String)
+
+    public func search(completionHandler: @escaping ([String]) -> Void) -> MetadataSearchTask {
+        switch self {
+        case let .tvNameSearch(service, tvSeries, language):
+            return MetadataSearchInternalTask(search: service.search(TVSeries: tvSeries, language: language),
+                                              completionHandler: completionHandler)
+        }
+
     }
 
 }

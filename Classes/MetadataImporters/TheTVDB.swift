@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct TheTVDB : MetadataService {
+public struct TheTVDB : MetadataService, MetadataNameService {
 
     private let session = TheTVDBService.sharedInstance
     private static let bannerPath = "https://thetvdb.com/banners/"
