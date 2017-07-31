@@ -78,7 +78,6 @@ public enum MetadataNameSearch {
             return MetadataSearchInternalTask(search: service.search(TVSeries: tvSeries, language: language),
                                               completionHandler: completionHandler)
         }
-
     }
 
 }
@@ -107,42 +106,5 @@ public enum MetadataSearch {
             return MetadataSearchInternalTask(search: service.loadTVMetadata(metadata, language: language),
                                               completionHandler: completionHandler)
         }
-    }
-}
-
-public protocol MetadataSearchTask {
-    func runAsync() -> MetadataSearchTask
-    func run() -> MetadataSearchTask
-    func cancel()
-}
-
-private class MetadataSearchInternalTask<T> : MetadataSearchTask {
-
-    private var cancelled: Bool = false
-    private let search: () -> T
-    private let completionHandler: (T) -> Void
-
-    fileprivate init(search: @escaping @autoclosure () -> T, completionHandler: @escaping (T) -> Void) {
-        self.search = search
-        self.completionHandler = completionHandler
-    }
-
-    public func runAsync() -> MetadataSearchTask {
-        DispatchQueue.global(priority: .background).async {
-            _ = self.run()
-        }
-        return self
-    }
-
-    public func run() -> MetadataSearchTask {
-        let results = self.search()
-        if self.cancelled == false {
-            self.completionHandler(results)
-        }
-        return self
-    }
-
-    public func cancel() {
-        self.cancelled = true
     }
 }

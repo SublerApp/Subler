@@ -30,6 +30,8 @@
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A93DD7681DACCE930052749A /* SBComboBoxCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93DD7671DACCE930052749A /* SBComboBoxCellView.m */; };
+		A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */; };
+		A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */; };
 		A94721931D49DC0000858DD8 /* SBMetadataPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */; };
 		A94A6A591ED1C5CC00049F7D /* ParseFilename in Resources */ = {isa = PBXBuildFile; fileRef = A94A6A581ED1C5CA00049F7D /* ParseFilename */; };
 		A95B8DA91B09F37800F2F152 /* Subler_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B8DA81B09F37800F2F152 /* Subler_Tests.m */; };
@@ -46,6 +48,8 @@
 		A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A984DB730F52DD4B001A20B2 /* dsa_pub.pem */; };
 		A98D98461F0280CB00A77ABC /* TheMovieDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98D98451F0280CB00A77ABC /* TheMovieDB.swift */; };
 		A98D98481F02820F00A77ABC /* TheMovieDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98D98471F02820F00A77ABC /* TheMovieDBService.swift */; };
+		A99189CD1F2F87EC00623ED7 /* ChapterImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */; };
+		A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */; };
 		A998DABF1BA54CFF004D7969 /* SBMediaTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */; };
 		A99EEA3F12B801AE002367D3 /* SBDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AC012B79E230040517A /* SBDocument.xib */; };
 		A9A0542E1DEEC3E000D1AFA4 /* SBLanguageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A0542D1DEEC3E000D1AFA4 /* SBLanguageTransformer.m */; };
@@ -61,6 +65,7 @@
 		A9AB486617F0AEFD000AA72E /* MovieView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB485E17F0AEFD000AA72E /* MovieView.xib */; };
 		A9AB486717F0AEFD000AA72E /* SoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB486017F0AEFD000AA72E /* SoundView.xib */; };
 		A9AB486817F0AEFD000AA72E /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB486217F0AEFD000AA72E /* VideoView.xib */; };
+		A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */; };
 		A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */; };
 		A9B46A8C12B79B240040517A /* SBFileImport.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A7F12B79B240040517A /* SBFileImport.m */; };
 		A9B46A8E12B79B240040517A /* SBPrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A8312B79B240040517A /* SBPrefsController.m */; };
@@ -213,6 +218,8 @@
 		A925AA7B18378D7800BE84D4 /* MP42Foundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP42Foundation.xcodeproj; path = MP42Foundation/MP42Foundation.xcodeproj; sourceTree = "<group>"; };
 		A93DD7661DACCE930052749A /* SBComboBoxCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBComboBoxCellView.h; path = Classes/SBComboBoxCellView.h; sourceTree = "<group>"; };
 		A93DD7671DACCE930052749A /* SBComboBoxCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBComboBoxCellView.m; path = Classes/SBComboBoxCellView.m; sourceTree = "<group>"; };
+		A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterResult.swift; path = Classes/MetadataImporters/ChapterResult.swift; sourceTree = "<group>"; };
+		A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterDB.swift; path = Classes/MetadataImporters/ChapterDB.swift; sourceTree = "<group>"; };
 		A94721901D49DC0000858DD8 /* SBMetadataPrefsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataPrefsViewController.h; path = Classes/SBMetadataPrefsViewController.h; sourceTree = "<group>"; };
 		A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataPrefsViewController.m; path = Classes/SBMetadataPrefsViewController.m; sourceTree = "<group>"; };
 		A94A6A581ED1C5CA00049F7D /* ParseFilename */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ParseFilename; path = Utilities/ParseFilename; sourceTree = "<group>"; };
@@ -238,6 +245,8 @@
 		A98D98471F02820F00A77ABC /* TheMovieDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheMovieDBService.swift; path = Classes/MetadataImporters/TheMovieDBService.swift; sourceTree = "<group>"; };
 		A991319913F0615700DCAA12 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A991319B13F0668300DCAA12 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterImporter.swift; path = Classes/MetadataImporters/ChapterImporter.swift; sourceTree = "<group>"; };
+		A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterSearchController.swift; path = Classes/ChapterSearchController.swift; sourceTree = "<group>"; };
 		A9A0542C1DEEC3E000D1AFA4 /* SBLanguageTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBLanguageTransformer.h; path = Classes/SBLanguageTransformer.h; sourceTree = "<group>"; };
 		A9A0542D1DEEC3E000D1AFA4 /* SBLanguageTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLanguageTransformer.m; path = Classes/SBLanguageTransformer.m; sourceTree = "<group>"; };
 		A9A8CEF71E43754400BC2AE1 /* SBQueueScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueScriptCommand.h; path = Classes/SBQueueScriptCommand.h; sourceTree = "<group>"; };
@@ -254,6 +263,7 @@
 		A9AB485117F0AEAC000AA72E /* SBSoundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBSoundViewController.m; path = Classes/PropertyView/SBSoundViewController.m; sourceTree = "<group>"; };
 		A9AB485217F0AEAC000AA72E /* SBVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBVideoViewController.h; path = Classes/PropertyView/SBVideoViewController.h; sourceTree = "<group>"; };
 		A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBVideoViewController.m; path = Classes/PropertyView/SBVideoViewController.m; sourceTree = "<group>"; };
+		A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataHelper.swift; path = Classes/MetadataImporters/MetadataHelper.swift; sourceTree = "<group>"; };
 		A9AF6A7318D0496400FAAB08 /* SBQueueAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueAction.h; path = Classes/SBQueueAction.h; sourceTree = "<group>"; };
 		A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueAction.m; path = Classes/SBQueueAction.m; sourceTree = "<group>"; };
 		A9B3411B1679CA3E00E6EE0C /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
@@ -613,6 +623,7 @@
 				CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */,
 				CD56963012FAAD680029FADB /* SBArtworkSelector.h */,
 				CD56963112FAAD680029FADB /* SBArtworkSelector.m */,
+				A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */,
 				A9D4B8621C05BC61007845C4 /* SBChapterSearchController.h */,
 				A9D4B8631C05BC61007845C4 /* SBChapterSearchController.m */,
 				A909440E1DD4C85B00E9F89C /* Table View */,
@@ -659,6 +670,7 @@
 				A981754E1D49F11B00750709 /* SBMetadataResultMap.h */,
 				A981754F1D49F11B00750709 /* SBMetadataResultMap.m */,
 				A902E1D41F29DD8900D73C17 /* SBMetadataImporter.swift */,
+				A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */,
 				A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */,
 				A9E97F131F274F1100DBA586 /* iTunesStore.swift */,
 				A98D98451F0280CB00A77ABC /* TheMovieDB.swift */,
@@ -668,6 +680,9 @@
 				A901C51C1C04F03F00430DC3 /* SBChapterImporter.h */,
 				A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */,
 				A9D4B8681C05CBEB007845C4 /* SBChapterResult.h */,
+				A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */,
+				A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */,
+				A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */,
 				A9D4B8691C05CBEB007845C4 /* SBChapterResult.m */,
 				A901C51A1C04F03F00430DC3 /* SBChapterDB.h */,
 				A901C51B1C04F03F00430DC3 /* SBChapterDB.m */,
@@ -848,6 +863,7 @@
 				A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */,
 				A9DA3B9D1B918D5C00F1E40C /* SBExceptionAlertController.m in Sources */,
 				A94721931D49DC0000858DD8 /* SBMetadataPrefsViewController.m in Sources */,
+				A99189CD1F2F87EC00623ED7 /* ChapterImporter.swift in Sources */,
 				A9BC410318D9AB8700F8C92C /* SBItemViewController.m in Sources */,
 				A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */,
 				A93DD7681DACCE930052749A /* SBComboBoxCellView.m in Sources */,
@@ -860,6 +876,7 @@
 				A96946531BA3F83D0048C004 /* SBMediaTagsController.m in Sources */,
 				A9AB485417F0AEAC000AA72E /* SBChapterViewController.m in Sources */,
 				A9AB485817F0AEAC000AA72E /* SBVideoViewController.m in Sources */,
+				A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */,
 				A9A8CEF91E43754400BC2AE1 /* SBQueueScriptCommand.m in Sources */,
 				A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */,
 				A9C703121C05E08B00C89151 /* SBMetadataHelper.m in Sources */,
@@ -887,13 +904,16 @@
 				A90300C41DAE6E27008237D8 /* SBSetPrefsViewController.m in Sources */,
 				A917286119FD288B00348DF8 /* SBLogger.m in Sources */,
 				A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */,
+				A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */,
 				A909440A1DD4B80000E9F89C /* SBComboBoxCell.m in Sources */,
 				A9D4B8641C05BC61007845C4 /* SBChapterSearchController.m in Sources */,
 				A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */,
+				A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */,
 				A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */,
 				A902E1D51F29DD8900D73C17 /* SBMetadataImporter.swift in Sources */,
 				CD3F2A881761A143000D4C73 /* XMLReader.m in Sources */,
 				A9AB485517F0AEAC000AA72E /* SBEmptyViewController.m in Sources */,
+				A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */,
 				A9A0542E1DEEC3E000D1AFA4 /* SBLanguageTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

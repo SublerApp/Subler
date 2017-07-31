@@ -254,7 +254,7 @@ final public class TheTVDBService {
     // MARK: - Service calls
     
     public func fetch(series: String, language: String) -> [SeriesSearchResult] {
-        let encodedName = SBMetadataHelper.urlEncoded(series)
+        let encodedName = series.urlEncoded()
 
         guard let url = URL(string: basePath + "search/series?name=" + encodedName),
             let result = sendJSONRequest(url: url, language: language, type: Wrapper<[SeriesSearchResult]>.self)

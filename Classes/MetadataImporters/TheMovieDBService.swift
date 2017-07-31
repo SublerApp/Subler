@@ -237,7 +237,7 @@ final public class TheMovieDBService {
     // MARK: - Service calls
 
     public func search(movie: String, language: String) -> [TMDBMovieSearchResult]  {
-        let encodedName = SBMetadataHelper.urlEncoded(movie)
+        let encodedName = movie.urlEncoded()
 
         guard let url = URL(string: basePath + "search/movie?api_key=" + key + "&query=" + encodedName + "&language=" + language),
             let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TMDBMovieSearchResult]>.self)
@@ -255,7 +255,7 @@ final public class TheMovieDBService {
     }
 
     public func search(series: String, language: String) -> [TMDBTVSearchResult] {
-        let encodedName = SBMetadataHelper.urlEncoded(series)
+        let encodedName = series.urlEncoded()
 
         guard let url = URL(string: basePath + "search/tv?api_key=" + key + "&query=" + encodedName + "&language=" + language),
             let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TMDBTVSearchResult]>.self)

@@ -241,11 +241,11 @@ public struct iTunesStore: MetadataService {
         // Determine artistId/collectionId
         guard let url = { () -> URL? in
             if let seasonNum = seasonNum {
-                let searchTerm = SBMetadataHelper.urlEncoded("\(seriesName) \(store.season) \(seasonNum)")
+                let searchTerm = "\(seriesName) \(store.season) \(seasonNum)".urlEncoded()
                 return URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=tvSeasonTerm&entity=tvSeason&limit=250")
             }
             else {
-                let searchTerm = SBMetadataHelper.urlEncoded(seriesName)
+                let searchTerm = seriesName.urlEncoded()
                 return URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=showTerm&entity=tvShow&limit=250")
             }
         }()
@@ -363,7 +363,7 @@ public struct iTunesStore: MetadataService {
     
     public func search(movie: String, language: String) -> [SBMetadataResult] {
         guard let store = iTunesStore.store(language: language),
-            let url = URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2)&term=\(SBMetadataHelper.urlEncoded(movie))&entity=movie&limit=150"),
+            let url = URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2)&term=\(movie.urlEncoded())&entity=movie&limit=150"),
             let results = sendJSONRequest(url: url, type: Wrapper<Track>.self)
         else { return [] }
         
