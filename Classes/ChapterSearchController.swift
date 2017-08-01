@@ -7,7 +7,6 @@
 
 import Cocoa
 
-
 @objc protocol ChapterSearchControllerDelegate {
     func chapterImportDone(chaptersToBeImported: [MP42TextSample])
 }
@@ -113,6 +112,12 @@ import Cocoa
     }
 
     @IBAction func closeWindow(_ sender: Any) {
+        switch state {
+        case .searching(let task):
+            task.cancel()
+        default:
+            break
+        }
         self.window?.sheetParent?.endSheet(self.window!, returnCode: NSApplication.ModalResponse.cancel)
     }
 
@@ -121,8 +126,8 @@ import Cocoa
     private func updateUI() {
         switch state {
         case .none:
-            searchButton.isEnabled = true;
-            searchButton.keyEquivalent = "\r";
+            searchButton.isEnabled = true
+            searchButton.keyEquivalent = "\r"
         case .searching(_):
             progress.startAnimation(self)
             progress.isHidden = false
@@ -138,7 +143,7 @@ import Cocoa
                 searchButton.keyEquivalent = ""
             }
             else {
-                searchButton.keyEquivalent = "\r";
+                searchButton.keyEquivalent = "\r"
                 addButton.isEnabled = false
                 addButton.keyEquivalent = ""
             }
@@ -213,7 +218,6 @@ import Cocoa
             else if tableColumn?.identifier.rawValue == "name" {
                 return chapter.name
             }
-
         }
         return nil
     }
