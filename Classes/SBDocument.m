@@ -26,8 +26,6 @@
 #import "SBMetadataResult.h"
 #import "SBMetadataResultMap.h"
 
-#import "SBChapterSearchController.h"
-
 #import <MP42Foundation/MP42File.h>
 #import <MP42Foundation/MP42FileImporter.h>
 #import <MP42Foundation/MP42Languages.h>
@@ -35,9 +33,11 @@
 
 #import <IOKit/pwr_mgt/IOPMLib.h>
 
+#import "Subler-Swift.h"
+
 #define SublerTableViewDataType @"SublerTableViewDataType"
 
-@interface SBDocument () <NSTableViewDelegate, SBFileImportDelegate, SBMetadataSearchControllerDelegate, SBChapterSearchControllerDelegate>
+@interface SBDocument () <NSTableViewDelegate, SBFileImportDelegate, SBMetadataSearchControllerDelegate, ChapterSearchControllerDelegate>
 {
     IBOutlet NSSplitView    *splitView;
 
@@ -904,13 +904,13 @@ static NSDictionary *_detailMonospacedAttr;
 
     NSUInteger duration = self.mp4.duration;
 
-    self.sheetController = [[SBChapterSearchController alloc] initWithDelegate:self searchTitle:title andDuration:duration];
+    self.sheetController = [[ChapterSearchController alloc] initWithDelegate:self filename:title duration:duration];
     [self.documentWindow beginSheet:self.sheetController.window completionHandler:^(NSModalResponse returnCode) {
         self.sheetController = nil;
     }];
 }
 
-- (void)chapterImportDone:(NSArray<MP42TextSample *> *)chapterToBeImported
+- (void)chapterImportDoneWithChaptersToBeImported:(NSArray<MP42TextSample *> *)chapterToBeImported
 {
     if (chapterToBeImported) {
 

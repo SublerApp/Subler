@@ -14,8 +14,6 @@
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
-		A901C51E1C04F03F00430DC3 /* SBChapterDB.m in Sources */ = {isa = PBXBuildFile; fileRef = A901C51B1C04F03F00430DC3 /* SBChapterDB.m */; };
-		A901C51F1C04F03F00430DC3 /* SBChapterImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */; };
 		A902E1D51F29DD8900D73C17 /* SBMetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A902E1D41F29DD8900D73C17 /* SBMetadataImporter.swift */; };
 		A90300C41DAE6E27008237D8 /* SBSetPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A90300C21DAE6E27008237D8 /* SBSetPrefsViewController.m */; };
 		A90300C81DAE72C4008237D8 /* SBSetPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90300CA1DAE72C4008237D8 /* SBSetPrefsViewController.xib */; };
@@ -53,6 +51,7 @@
 		A998DABF1BA54CFF004D7969 /* SBMediaTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */; };
 		A99EEA3F12B801AE002367D3 /* SBDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AC012B79E230040517A /* SBDocument.xib */; };
 		A9A0542E1DEEC3E000D1AFA4 /* SBLanguageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A0542D1DEEC3E000D1AFA4 /* SBLanguageTransformer.m */; };
+		A9A77C4E1F306FA70018023B /* AttributedStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A77C4D1F306FA70018023B /* AttributedStyles.swift */; };
 		A9A8CEF91E43754400BC2AE1 /* SBQueueScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CEF81E43754400BC2AE1 /* SBQueueScriptCommand.m */; };
 		A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */; };
 		A9AB485417F0AEAC000AA72E /* SBChapterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484B17F0AEAC000AA72E /* SBChapterViewController.m */; };
@@ -86,9 +85,7 @@
 		A9C703121C05E08B00C89151 /* SBMetadataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C703111C05E08B00C89151 /* SBMetadataHelper.m */; };
 		A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C828F4195950C3004C4718 /* SBQueuePreferences.m */; };
 		A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */; };
-		A9D4B8641C05BC61007845C4 /* SBChapterSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8631C05BC61007845C4 /* SBChapterSearchController.m */; };
 		A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */; };
-		A9D4B86A1C05CBEB007845C4 /* SBChapterResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8691C05CBEB007845C4 /* SBChapterResult.m */; };
 		A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */; };
 		A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B991B918D5C00F1E40C /* SBApplication.m */; };
 		A9DA3B9D1B918D5C00F1E40C /* SBExceptionAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B9B1B918D5C00F1E40C /* SBExceptionAlertController.m */; };
@@ -178,10 +175,6 @@
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Subler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Subler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		948058B5106E07990037A911 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /usr/lib/libz.dylib; sourceTree = "<absolute>"; };
-		A901C51A1C04F03F00430DC3 /* SBChapterDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterDB.h; path = Classes/MetadataImporters/SBChapterDB.h; sourceTree = "<group>"; };
-		A901C51B1C04F03F00430DC3 /* SBChapterDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterDB.m; path = Classes/MetadataImporters/SBChapterDB.m; sourceTree = "<group>"; };
-		A901C51C1C04F03F00430DC3 /* SBChapterImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterImporter.h; path = Classes/MetadataImporters/SBChapterImporter.h; sourceTree = "<group>"; };
-		A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterImporter.m; path = Classes/MetadataImporters/SBChapterImporter.m; sourceTree = "<group>"; };
 		A902E1D41F29DD8900D73C17 /* SBMetadataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SBMetadataImporter.swift; path = Classes/MetadataImporters/SBMetadataImporter.swift; sourceTree = "<group>"; };
 		A90300C11DAE6E27008237D8 /* SBSetPrefsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBSetPrefsViewController.h; path = Classes/SBSetPrefsViewController.h; sourceTree = "<group>"; };
 		A90300C21DAE6E27008237D8 /* SBSetPrefsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBSetPrefsViewController.m; path = Classes/SBSetPrefsViewController.m; sourceTree = "<group>"; };
@@ -249,6 +242,7 @@
 		A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterSearchController.swift; path = Classes/ChapterSearchController.swift; sourceTree = "<group>"; };
 		A9A0542C1DEEC3E000D1AFA4 /* SBLanguageTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBLanguageTransformer.h; path = Classes/SBLanguageTransformer.h; sourceTree = "<group>"; };
 		A9A0542D1DEEC3E000D1AFA4 /* SBLanguageTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLanguageTransformer.m; path = Classes/SBLanguageTransformer.m; sourceTree = "<group>"; };
+		A9A77C4D1F306FA70018023B /* AttributedStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AttributedStyles.swift; path = Classes/AttributedStyles.swift; sourceTree = "<group>"; };
 		A9A8CEF71E43754400BC2AE1 /* SBQueueScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueScriptCommand.h; path = Classes/SBQueueScriptCommand.h; sourceTree = "<group>"; };
 		A9A8CEF81E43754400BC2AE1 /* SBQueueScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueScriptCommand.m; path = Classes/SBQueueScriptCommand.m; sourceTree = "<group>"; };
 		A9AB484717F0AEA2000AA72E /* SBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBAppDelegate.h; path = Classes/SBAppDelegate.h; sourceTree = "<group>"; };
@@ -320,10 +314,6 @@
 		A9C828F3195950C3004C4718 /* SBQueuePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueuePreferences.h; path = Classes/SBQueuePreferences.h; sourceTree = "<group>"; };
 		A9C828F4195950C3004C4718 /* SBQueuePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueuePreferences.m; path = Classes/SBQueuePreferences.m; sourceTree = "<group>"; };
 		A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataImporter.swift; path = Classes/MetadataImporters/MetadataImporter.swift; sourceTree = "<group>"; };
-		A9D4B8621C05BC61007845C4 /* SBChapterSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterSearchController.h; path = Classes/SBChapterSearchController.h; sourceTree = "<group>"; };
-		A9D4B8631C05BC61007845C4 /* SBChapterSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterSearchController.m; path = Classes/SBChapterSearchController.m; sourceTree = "<group>"; };
-		A9D4B8681C05CBEB007845C4 /* SBChapterResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterResult.h; path = Classes/MetadataImporters/SBChapterResult.h; sourceTree = "<group>"; };
-		A9D4B8691C05CBEB007845C4 /* SBChapterResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterResult.m; path = Classes/MetadataImporters/SBChapterResult.m; sourceTree = "<group>"; };
 		A9D73C5018BF3F1100C6FFA6 /* SBQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueue.h; path = Classes/SBQueue.h; sourceTree = "<group>"; };
 		A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueue.m; path = Classes/SBQueue.m; sourceTree = "<group>"; };
 		A9DA3B991B918D5C00F1E40C /* SBApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBApplication.m; path = Classes/SBApplication.m; sourceTree = "<group>"; };
@@ -624,8 +614,7 @@
 				CD56963012FAAD680029FADB /* SBArtworkSelector.h */,
 				CD56963112FAAD680029FADB /* SBArtworkSelector.m */,
 				A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */,
-				A9D4B8621C05BC61007845C4 /* SBChapterSearchController.h */,
-				A9D4B8631C05BC61007845C4 /* SBChapterSearchController.m */,
+				A9A77C4D1F306FA70018023B /* AttributedStyles.swift */,
 				A909440E1DD4C85B00E9F89C /* Table View */,
 				A9FD5D150F3C692400817716 /* PropertyView */,
 			);
@@ -677,15 +666,9 @@
 				A98D98471F02820F00A77ABC /* TheMovieDBService.swift */,
 				A9B514181EFC12310055A035 /* TheTVDB.swift */,
 				A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */,
-				A901C51C1C04F03F00430DC3 /* SBChapterImporter.h */,
-				A901C51D1C04F03F00430DC3 /* SBChapterImporter.m */,
-				A9D4B8681C05CBEB007845C4 /* SBChapterResult.h */,
 				A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */,
 				A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */,
 				A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */,
-				A9D4B8691C05CBEB007845C4 /* SBChapterResult.m */,
-				A901C51A1C04F03F00430DC3 /* SBChapterDB.h */,
-				A901C51B1C04F03F00430DC3 /* SBChapterDB.m */,
 			);
 			name = MetadataImporters;
 			sourceTree = "<group>";
@@ -869,7 +852,6 @@
 				A93DD7681DACCE930052749A /* SBComboBoxCellView.m in Sources */,
 				A9B46A8C12B79B240040517A /* SBFileImport.m in Sources */,
 				A9B46A8E12B79B240040517A /* SBPrefsController.m in Sources */,
-				A9D4B86A1C05CBEB007845C4 /* SBChapterResult.m in Sources */,
 				A9B46A8F12B79B240040517A /* SBTableView.m in Sources */,
 				A9B46A9012B79B240040517A /* SBView.m in Sources */,
 				A9B46A9E12B79B990040517A /* ButtonToolbarItem.m in Sources */,
@@ -892,11 +874,9 @@
 				CD56963212FAAD680029FADB /* SBArtworkSelector.m in Sources */,
 				A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */,
 				A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */,
-				A901C51E1C04F03F00430DC3 /* SBChapterDB.m in Sources */,
 				61CEC0D31E756ADA000FECC1 /* SBMultiSelectViewController.m in Sources */,
 				A961476313F567E10068F161 /* SBQueueController.m in Sources */,
 				A961476413F567E10068F161 /* SBPresetManager.m in Sources */,
-				A901C51F1C04F03F00430DC3 /* SBChapterImporter.m in Sources */,
 				A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */,
 				A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */,
 				A98175501D49F11B00750709 /* SBMetadataResultMap.m in Sources */,
@@ -905,8 +885,8 @@
 				A917286119FD288B00348DF8 /* SBLogger.m in Sources */,
 				A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */,
 				A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */,
+				A9A77C4E1F306FA70018023B /* AttributedStyles.swift in Sources */,
 				A909440A1DD4B80000E9F89C /* SBComboBoxCell.m in Sources */,
-				A9D4B8641C05BC61007845C4 /* SBChapterSearchController.m in Sources */,
 				A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */,
 				A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */,
 				A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */,

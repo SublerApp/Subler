@@ -7,16 +7,16 @@
 
 import Foundation
 
-class ChapterDB : ChapterService {
+public struct ChapterDB : ChapterService {
 
-    func search(title: String, duration: UInt64) -> [ChapterResult] {
+    public func search(title: String, duration: UInt64) -> [ChapterResult] {
 
         guard let url = URL(string: "http://www.chapterdb.org/chapters/search?title=\(title.urlEncoded())"),
             let data = fetch(url: url)
             else { return [] }
 
-        let delta: UInt64 = 10000
-        return parse(data: data).filter { $0.duration < (duration + delta) && $0.duration > (duration - delta) }
+        let delta: Int64 = 10000
+        return parse(data: data).filter { $0.duration < (Int64(duration) + delta) && $0.duration > (Int64(duration) - delta) }
     }
 
     private func fetch(url: URL) -> Data? {
