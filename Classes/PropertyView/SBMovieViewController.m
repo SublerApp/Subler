@@ -735,7 +735,7 @@ static NSArray<NSArray *> *_mediaKinds;
 
 #define MIN_HEIGHT 14.0f
 
-- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row;
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
 {
     MP42MetadataItem *item = self.tags[row];
     BOOL calculateHeight = NO;

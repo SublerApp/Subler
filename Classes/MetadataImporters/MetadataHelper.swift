@@ -8,8 +8,8 @@
 import Foundation
 
 public protocol MetadataSearchTask {
-    func runAsync() -> MetadataSearchTask
-    func run() -> MetadataSearchTask
+    @discardableResult func runAsync() -> MetadataSearchTask
+    @discardableResult func run() -> MetadataSearchTask
     func cancel()
 }
 
@@ -26,14 +26,14 @@ class MetadataSearchInternalTask<T> : MetadataSearchTask {
         self.queue = DispatchQueue(label: "SearchTaskQueue")
     }
 
-    public func runAsync() -> MetadataSearchTask {
+    @discardableResult public func runAsync() -> MetadataSearchTask {
         DispatchQueue.global(priority: .background).async {
             _ = self.run()
         }
         return self
     }
 
-    public func run() -> MetadataSearchTask {
+    @discardableResult public func run() -> MetadataSearchTask {
         let results = self.search()
         queue.sync {
             if self.cancelled == false {

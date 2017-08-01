@@ -104,7 +104,7 @@ import Foundation
     }
 
     @objc public func search(tvSeries: String, language: String, completionHandler: @escaping ([String]) -> Void) {
-        _ = MetadataNameSearch.tvNameSearch(service: TheTVDB(), tvSeries: tvSeries, language: language)
+        MetadataNameSearch.tvNameSearch(service: TheTVDB(), tvSeries: tvSeries, language: language)
                 .search(completionHandler: completionHandler)
                 .runAsync()
     }
