@@ -11,7 +11,7 @@ import Cocoa
     func chapterImportDone(chaptersToBeImported: [MP42TextSample])
 }
 
-@objc class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate {
+@objc class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
 
     @IBOutlet var searchTitle: NSTextField!
 
@@ -126,8 +126,8 @@ import Cocoa
     private func updateUI() {
         switch state {
         case .none:
-            searchButton.isEnabled = true
             searchButton.keyEquivalent = "\r"
+            updateSearchButtonVisibility()
         case .searching(_):
             progress.startAnimation(self)
             progress.isHidden = false
@@ -156,6 +156,16 @@ import Cocoa
         case .closing:
             return
         }
+    }
+
+    private func updateSearchButtonVisibility() {
+        searchButton.isEnabled = searchTitle.stringValue.count > 0 ? true : false
+    }
+
+    override func controlTextDidChange(_ obj: Notification) {
+        updateSearchButtonVisibility()
+        searchButton.keyEquivalent = "\r"
+        addButton.keyEquivalent = ""
     }
 
     // MARK: - Table View
@@ -213,13 +223,26 @@ import Cocoa
             let chapter = result.chapters[row]
 
             if tableColumn?.identifier.rawValue == "time" {
-                return StringFromTime(Int64(chapter.timestamp), 1000).monospacedAttributedString()
+                return StringFromTime(Int64(chapter.timestamp), 1000).boldMonospacedAttributedString()
             }
             else if tableColumn?.identifier.rawValue == "name" {
                 return chapter.name
             }
         }
         return nil
+    }
+
+    func tableView(_ tableView: NSTableView, willDisplayCell cell: Any, for tableColumn: NSTableColumn?, row: Int) {
+        if tableView == chapterTable && tableColumn?.identifier.rawValue == "time", let cell = cell as? NSTextFieldCell {
+            if tableView.selectedRowIndexes.contains(row) {
+                let highlightedString = NSMutableAttributedString(attributedString: cell.attributedStringValue)
+                highlightedString.addAttribute(NSAttributedStringKey.foregroundColor, value: NSColor.black, range: NSMakeRange(0, highlightedString.length))
+                cell.attributedStringValue = highlightedString
+            }
+            else {
+                cell.textColor = NSColor.gray
+            }
+        }
     }
 
 }

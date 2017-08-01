@@ -15,8 +15,14 @@ public struct ChapterDB : ChapterService {
             let data = fetch(url: url)
             else { return [] }
 
-        let delta: Int64 = 10000
-        return parse(data: data).filter { $0.duration < (Int64(duration) + delta) && $0.duration > (Int64(duration) - delta) }
+        let parsed = parse(data: data)
+        if (duration > 0) {
+            let delta: Int64 = 10000
+            return parsed.filter { $0.duration < (Int64(duration) + delta) && $0.duration > (Int64(duration) - delta) }
+        }
+        else {
+            return parsed
+        }
     }
 
     private func fetch(url: URL) -> Data? {
