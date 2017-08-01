@@ -16,10 +16,14 @@ public struct ChapterDB : ChapterService {
             else { return [] }
 
         let delta: Int64 = 20000
-        let parsed = parse(data: data).filter { if let timestamp = $0.chapters.last?.timestamp, timestamp < duration { return true} else { return false} }
-        let filtered = parsed.filter { $0.duration < (Int64(duration) + delta) && $0.duration > (Int64(duration) - delta) }
 
-        return duration > 0 && filtered.count > 0 ? filtered : parsed
+        let parsed = parse(data: data)
+        let almostMovieDuration = parsed.filter { $0.duration < (Int64(duration) + delta) && $0.duration > (Int64(duration) - delta) }
+        let lessThanMovieDuration = parsed.filter { if let timestamp = $0.chapters.last?.timestamp, timestamp < duration { return true} else { return false} }
+
+        if duration > 0 && almostMovieDuration.count > 0 { return almostMovieDuration }
+        else if lessThanMovieDuration.count > 0 { return lessThanMovieDuration }
+        else { return parsed }
     }
 
     private func fetch(url: URL) -> Data? {

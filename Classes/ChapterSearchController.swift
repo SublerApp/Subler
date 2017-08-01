@@ -73,7 +73,9 @@ import Cocoa
 
         updateUI()
 
-        searchForResults(self)
+        if searchTerm.count > 0 {
+            searchForResults(self)
+        }
     }
 
     private func searchDone(results: [ChapterResult]) {
@@ -95,7 +97,7 @@ import Cocoa
 
         let task = ChapterSearch.movieSeach(service: ChapterDB(), title: searchTitle.stringValue, duration: duration).search(completionHandler: searchDone)
         state = .searching(task: task)
-        _ = task.runAsync()
+        task.runAsync()
         updateUI()
     }
 
@@ -139,22 +141,23 @@ import Cocoa
             chapterTable.isEnabled = false
             resultsTable.reloadData()
         case .completed(let results):
-            if results.count > 0 {
-                addButton.isEnabled = true
-                addButton.keyEquivalent = "\r"
-                searchButton.keyEquivalent = ""
-            }
-            else {
-                searchButton.keyEquivalent = "\r"
-                addButton.isEnabled = false
-                addButton.keyEquivalent = ""
-            }
             progress.stopAnimation(self)
             progress.isHidden = true
             progressText.isHidden = true
             resultsTable.isEnabled = true
             chapterTable.isEnabled = true
             resultsTable.reloadData()
+            if results.count > 0 {
+                addButton.isEnabled = true
+                addButton.keyEquivalent = "\r"
+                searchButton.keyEquivalent = ""
+                window?.makeFirstResponder(resultsTable)
+            }
+            else {
+                searchButton.keyEquivalent = "\r"
+                addButton.isEnabled = false
+                addButton.keyEquivalent = ""
+            }
         }
     }
 
