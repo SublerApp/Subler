@@ -15,6 +15,7 @@ public protocol MetadataSearchTask {
 
 class MetadataSearchInternalTask<T> : MetadataSearchTask {
 
+    private var queue: DispatchQueue
     private var cancelled: Bool = false
     private let search: () -> T
     private let completionHandler: (T) -> Void
@@ -22,6 +23,7 @@ class MetadataSearchInternalTask<T> : MetadataSearchTask {
     init(search: @escaping @autoclosure () -> T, completionHandler: @escaping (T) -> Void) {
         self.search = search
         self.completionHandler = completionHandler
+        self.queue = DispatchQueue(label: "SearchTaskQueue")
     }
 
     public func runAsync() -> MetadataSearchTask {
@@ -33,14 +35,18 @@ class MetadataSearchInternalTask<T> : MetadataSearchTask {
 
     public func run() -> MetadataSearchTask {
         let results = self.search()
-        if self.cancelled == false {
-            self.completionHandler(results)
+        queue.sync {
+            if self.cancelled == false {
+                self.completionHandler(results)
+            }
         }
         return self
     }
 
     public func cancel() {
-        self.cancelled = true
+        queue.sync {
+            self.cancelled = true
+        }
     }
 }
 
