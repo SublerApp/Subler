@@ -7,11 +7,11 @@
 
 import Cocoa
 
-@objc protocol ChapterSearchControllerDelegate {
+@objc(SBChapterSearchControllerDelegate) protocol ChapterSearchControllerDelegate {
     func chapterImportDone(chaptersToBeImported: [MP42TextSample])
 }
 
-@objc class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+@objc(SBChapterSearchController) class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
 
     @IBOutlet var searchTitle: NSTextField!
 
@@ -28,7 +28,6 @@ import Cocoa
         case none
         case searching(task: MetadataSearchTask)
         case completed(results: [ChapterResult])
-        case closing
     }
 
     private let delegate: ChapterSearchControllerDelegate
@@ -37,18 +36,18 @@ import Cocoa
     private var state: ChapterSearchState
     private var selectedResult: ChapterResult?
 
-    @objc init(delegate: ChapterSearchControllerDelegate, filename: String, duration: UInt64) {
-        if let info = filename.parsedAsFilename() {
+    @objc init(delegate: ChapterSearchControllerDelegate, title: String, duration: UInt64) {
+        if let info = title.parsedAsFilename() {
             switch info {
 
             case .movie(let title):
                 searchTerm = title
             case .tvShow(_,  _,  _):
-                searchTerm = filename
+                searchTerm = title
             }
         }
         else {
-            searchTerm = ""
+            searchTerm = title
         }
 
         self.delegate = delegate
@@ -68,8 +67,13 @@ import Cocoa
 
     override func windowDidLoad() {
         super.windowDidLoad()
+
+        self.searchTitle.stringValue = searchTerm
         self.window?.makeFirstResponder(self.searchTitle)
+
         updateUI()
+
+        searchForResults(self)
     }
 
     private func searchDone(results: [ChapterResult]) {
@@ -87,8 +91,6 @@ import Cocoa
             task.cancel()
         case .completed(_):
             break
-        case .closing:
-            return
         }
 
         let task = ChapterSearch.movieSeach(service: ChapterDB(), title: searchTitle.stringValue, duration: duration).search(completionHandler: searchDone)
@@ -153,8 +155,6 @@ import Cocoa
             resultsTable.isEnabled = true
             chapterTable.isEnabled = true
             resultsTable.reloadData()
-        case .closing:
-            return
         }
     }
 
@@ -173,7 +173,7 @@ import Cocoa
     func tableViewSelectionDidChange(_ notification: Notification) {
         if notification.object as? NSTableView == resultsTable {
             switch state {
-            case .none, .searching, .closing:
+            case .none, .searching:
                 selectedResult = nil
             case .completed(let results):
                 selectedResult = results[resultsTable.selectedRow]

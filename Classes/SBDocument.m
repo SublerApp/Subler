@@ -37,7 +37,7 @@
 
 #define SublerTableViewDataType @"SublerTableViewDataType"
 
-@interface SBDocument () <NSTableViewDelegate, SBFileImportDelegate, SBMetadataSearchControllerDelegate, ChapterSearchControllerDelegate>
+@interface SBDocument () <NSTableViewDelegate, SBFileImportDelegate, SBMetadataSearchControllerDelegate, SBChapterSearchControllerDelegate>
 {
     IBOutlet NSSplitView    *splitView;
 
@@ -904,7 +904,7 @@ static NSDictionary *_detailMonospacedAttr;
 
     NSUInteger duration = self.mp4.duration;
 
-    self.sheetController = [[ChapterSearchController alloc] initWithDelegate:self filename:title duration:duration];
+    self.sheetController = [[SBChapterSearchController alloc] initWithDelegate:self title:title duration:duration];
     [self.documentWindow beginSheet:self.sheetController.window completionHandler:^(NSModalResponse returnCode) {
         self.sheetController = nil;
     }];

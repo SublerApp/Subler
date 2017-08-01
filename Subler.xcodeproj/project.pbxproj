@@ -435,6 +435,7 @@
 			children = (
 				A9FC6FF41EF2E3280034CCED /* Subler-Bridging-Header.h */,
 				32DBCF750370BD2300C91783 /* Subler_Prefix.pch */,
+				A9A77C4D1F306FA70018023B /* AttributedStyles.swift */,
 				A9B46A9312B79B990040517A /* ButtonToolbarItem.h */,
 				A9B46A9412B79B990040517A /* ButtonToolbarItem.m */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
@@ -609,7 +610,6 @@
 				CD56963012FAAD680029FADB /* SBArtworkSelector.h */,
 				CD56963112FAAD680029FADB /* SBArtworkSelector.m */,
 				A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */,
-				A9A77C4D1F306FA70018023B /* AttributedStyles.swift */,
 				A909440E1DD4C85B00E9F89C /* Table View */,
 				A9FD5D150F3C692400817716 /* PropertyView */,
 			);
@@ -1271,6 +1271,7 @@
 				PRODUCT_NAME = Subler;
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "Subler-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;

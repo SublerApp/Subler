@@ -227,7 +227,7 @@ final public class TheTVDBService {
             let name: String
         }
         
-        guard let url = URL(string: basePath + "languages"),
+        guard let url = URL(string: "\(basePath)languages"),
             let result = sendJSONRequest(url: url, language: "en", type: Wrapper<[Language]>.self)
             else { return nil }
 
@@ -240,7 +240,7 @@ final public class TheTVDBService {
     private func sendRequest(url: URL, language: String) -> Data? {
         guard let token = self.token else { return nil }
 
-        let header = ["Authorization": "Bearer " + token.key,
+        let header = ["Authorization": "Bearer \(token.key)",
                       "Content-Type" : "application/json",
                       "Accept" : "application/json",
                       "Accept-Language" : language]
