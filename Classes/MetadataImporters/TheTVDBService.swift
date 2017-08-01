@@ -261,7 +261,7 @@ final public class TheTVDBService {
     public func fetch(series: String, language: String) -> [SeriesSearchResult] {
         let encodedName = series.urlEncoded()
 
-        guard let url = URL(string: basePath + "search/series?name=" + encodedName),
+        guard let url = URL(string: "\(basePath)search/series?name=\(encodedName)"),
             let result = sendJSONRequest(url: url, language: language, type: Wrapper<[SeriesSearchResult]>.self)
             else { return [] }
 
@@ -269,7 +269,7 @@ final public class TheTVDBService {
     }
 
     public func fetch(seriesInfo seriesID: Int, language: String) -> SeriesInfo? {
-        guard let url = URL(string: basePath + "series/" + String(seriesID)),
+        guard let url = URL(string: "\(basePath)series/\(seriesID)"),
             let result = sendJSONRequest(url: url, language: language, type: Wrapper<SeriesInfo>.self)
             else { return nil }
 
@@ -277,7 +277,7 @@ final public class TheTVDBService {
     }
 
     public func fetch(actors seriesID: Int, language: String) -> [Actor] {
-        guard let url = URL(string: basePath + "series/" + String(seriesID) + "/actors"),
+        guard let url = URL(string: "\(basePath)series/\(seriesID)/actors"),
             let result = sendJSONRequest(url: url, language: language, type: Wrapper<[Actor]>.self)
             else { return [] }
 
@@ -285,7 +285,7 @@ final public class TheTVDBService {
     }
 
     public func fetch(images seriesID: Int, type: TVDBArtworkType, language: String) -> [Image] {
-        guard let url = URL(string: basePath + "series/" + String(seriesID) + "/images/query?keyType=" + type.rawValue),
+        guard let url = URL(string: "\(basePath)series/\(seriesID)/images/query?keyType=\(type.rawValue)"),
             let result = sendJSONRequest(url: url, language: language, type: Wrapper<[Image]>.self)
             else { return [] }
 
@@ -312,7 +312,7 @@ final public class TheTVDBService {
     }
 
     public func fetch(episodeInfo episodeID: Int, language: String) -> EpisodeInfo? {
-        guard let url = URL(string: basePath + "episodes/" + String(episodeID)),
+        guard let url = URL(string: "\(basePath)episodes/\(episodeID)"),
             let result = sendJSONRequest(url: url, language: language, type: Wrapper<EpisodeInfo>.self)
             else { return nil }
 
