@@ -106,6 +106,11 @@ public struct EpisodeInfo : Codable {
     public let writers: [String]
 }
 
+public enum TVDBArtworkType : String {
+    case poster = "poster"
+    case season = "season"
+}
+
 final public class TheTVDBService {
 
     public static let sharedInstance = TheTVDBService()
@@ -279,8 +284,8 @@ final public class TheTVDBService {
         return result.data
     }
 
-    public func fetch(images seriesID: Int, type: String, language: String) -> [Image] {
-        guard let url = URL(string: basePath + "series/" + String(seriesID) + "/images/query?keyType=" + type),
+    public func fetch(images seriesID: Int, type: TVDBArtworkType, language: String) -> [Image] {
+        guard let url = URL(string: basePath + "series/" + String(seriesID) + "/images/query?keyType=" + type.rawValue),
             let result = sendJSONRequest(url: url, language: language, type: Wrapper<[Image]>.self)
             else { return [] }
 

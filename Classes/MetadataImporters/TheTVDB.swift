@@ -268,7 +268,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         return result.remoteArtworks ?? []
     }
 
-    private func loadTVArtwork(seriesID: Int, type: String, season: String, language: String) -> [SBRemoteImage] {
+    private func loadTVArtwork(seriesID: Int, type: TVDBArtworkType, season: String, language: String) -> [SBRemoteImage] {
         var artworks: [SBRemoteImage] = Array()
         let images: [Image] = {
             var result = session.fetch(images: seriesID, type: type, language: language)
@@ -285,12 +285,12 @@ public struct TheTVDB : MetadataService, MetadataNameService {
 
             var selected = true
 
-            if type == season, let subKey = image.subKey, subKey != season {
+            if type == .season, let subKey = image.subKey, subKey != season {
                 selected = false
             }
 
             if selected {
-                artworks.append(SBRemoteImage(url: fileURL, thumbURL: thumbURL, providerName: "TheTVDB|" + type))
+                artworks.append(SBRemoteImage(url: fileURL, thumbURL: thumbURL, providerName: "TheTVDB|" + type.rawValue))
             }
         }
         return artworks
@@ -323,8 +323,8 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         // Get additionals images
         if let season = metadata[SBMetadataResultSeason] as? Int {
             let iTunesImage = loadiTunesArtwork(metadata)
-            let seasonImages = loadTVArtwork(seriesID: seriesId, type: "season", season: String(season), language: language)
-            let posterImages = loadTVArtwork(seriesID: seriesId, type: "poster", season: String(season), language: language)
+            let seasonImages = loadTVArtwork(seriesID: seriesId, type: .season, season: String(season), language: language)
+            let posterImages = loadTVArtwork(seriesID: seriesId, type: .poster, season: String(season), language: language)
 
             artworks.insert(contentsOf: iTunesImage, at: 0)
             artworks.append(contentsOf: seasonImages)
