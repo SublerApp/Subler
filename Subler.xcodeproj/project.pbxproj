@@ -98,7 +98,6 @@
 		A9F5820C1DCC861F005F3E92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9F5820B1DCC861F005F3E92 /* Assets.xcassets */; };
 		A9F7F8E01837C44B0036AE7E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9ED7B21180067A2008FD3A8 /* IOKit.framework */; };
 		A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */; };
-		CD3F2A881761A143000D4C73 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3F2A871761A143000D4C73 /* XMLReader.m */; };
 		CD4E6E5D12F744210095C84F /* ArtworkSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD4E6E5B12F744210095C84F /* ArtworkSelector.xib */; };
 		CD56963212FAAD680029FADB /* SBArtworkSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = CD56963112FAAD680029FADB /* SBArtworkSelector.m */; };
 		CD71FEA312F1B5AF00F0A98D /* SBMetadataSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */; };
@@ -331,8 +330,6 @@
 		A9F5820B1DCC861F005F3E92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9FC6FF41EF2E3280034CCED /* Subler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Subler-Bridging-Header.h"; sourceTree = "<group>"; };
 		A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheTVDBService.swift; path = Classes/MetadataImporters/TheTVDBService.swift; sourceTree = "<group>"; };
-		CD3F2A861761A143000D4C73 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLReader.h; path = Others/XMLReader.h; sourceTree = "<group>"; };
-		CD3F2A871761A143000D4C73 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XMLReader.m; path = Others/XMLReader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CD56963012FAAD680029FADB /* SBArtworkSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBArtworkSelector.h; path = Classes/SBArtworkSelector.h; sourceTree = "<group>"; };
 		CD56963112FAAD680029FADB /* SBArtworkSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBArtworkSelector.m; path = Classes/SBArtworkSelector.m; sourceTree = "<group>"; };
 		CD56966E12FAAFA90029FADB /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
@@ -437,8 +434,6 @@
 			isa = PBXGroup;
 			children = (
 				A9FC6FF41EF2E3280034CCED /* Subler-Bridging-Header.h */,
-				CD3F2A861761A143000D4C73 /* XMLReader.h */,
-				CD3F2A871761A143000D4C73 /* XMLReader.m */,
 				32DBCF750370BD2300C91783 /* Subler_Prefix.pch */,
 				A9B46A9312B79B990040517A /* ButtonToolbarItem.h */,
 				A9B46A9412B79B990040517A /* ButtonToolbarItem.m */,
@@ -891,7 +886,6 @@
 				A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */,
 				A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */,
 				A902E1D51F29DD8900D73C17 /* SBMetadataImporter.swift in Sources */,
-				CD3F2A881761A143000D4C73 /* XMLReader.m in Sources */,
 				A9AB485517F0AEAC000AA72E /* SBEmptyViewController.m in Sources */,
 				A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */,
 				A9A0542E1DEEC3E000D1AFA4 /* SBLanguageTransformer.m in Sources */,
