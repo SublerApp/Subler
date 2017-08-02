@@ -32,7 +32,7 @@ import Cocoa
 
     private let delegate: ChapterSearchControllerDelegate
     private let duration: UInt64
-    private var searchTerm: String
+    private let searchTerm: String
     private var state: ChapterSearchState
 
     @objc init(delegate: ChapterSearchControllerDelegate, title: String, duration: UInt64) {
@@ -72,9 +72,7 @@ import Cocoa
 
         updateUI()
 
-        if searchTerm.count > 0 {
-            searchForResults(self)
-        }
+        if searchTerm.count > 0 { searchForResults(self) }
     }
 
     private func searchDone(results: [ChapterResult]) {
@@ -91,17 +89,15 @@ import Cocoa
 
     @IBAction func searchForResults(_ sender: Any) {
         switch state {
-        case .none:
+        case .none, .completed:
             break
         case .searching(let task):
             task.cancel()
-        case .completed(_):
-            break
         }
 
-        let task = ChapterSearch.movieSeach(service: ChapterDB(), title: searchTitle.stringValue, duration: duration).search(completionHandler: searchDone)
+        let task = ChapterSearch.movieSeach(service: ChapterDB(), title: searchTitle.stringValue, duration: duration)
+                                .search(completionHandler: searchDone).runAsync()
         state = .searching(task: task)
-        task.runAsync()
         updateUI()
     }
 
@@ -119,7 +115,6 @@ import Cocoa
         default:
             break
         }
-
         self.window?.sheetParent?.endSheet(self.window!, returnCode: NSApplication.ModalResponse.OK)
     }
 
@@ -148,15 +143,12 @@ import Cocoa
         progressText.isHidden = true
     }
 
-    private func reloadTableData(enabled: Bool) {
+    private func reloadTableData() {
         resultsTable.reloadData()
         chapterTable.reloadData()
-        resultsTable.isEnabled = enabled
-        chapterTable.isEnabled = enabled
     }
 
-    private func swithDefaultButton(from oldDefault: NSButton, to newDefault: NSButton, disableOldButton: Bool)
-    {
+    private func swithDefaultButton(from oldDefault: NSButton, to newDefault: NSButton, disableOldButton: Bool) {
         oldDefault.keyEquivalent = ""
         oldDefault.isEnabled = !disableOldButton
         newDefault.keyEquivalent = "\r"
@@ -167,16 +159,16 @@ import Cocoa
         switch state {
         case .none:
             stopProgressReport()
-            reloadTableData(enabled: false)
+            reloadTableData()
             swithDefaultButton(from: addButton, to: searchButton, disableOldButton: true)
-                updateSearchButtonVisibility()
-        case .searching(_):
+            updateSearchButtonVisibility()
+        case .searching:
             startProgressReport()
-            reloadTableData(enabled: false)
+            reloadTableData()
             swithDefaultButton(from: addButton, to: searchButton, disableOldButton: true)
-        case .completed(_, _):
+        case .completed:
             stopProgressReport()
-            reloadTableData(enabled: true)
+            reloadTableData()
             swithDefaultButton(from: searchButton, to: addButton, disableOldButton: false)
             window?.makeFirstResponder(resultsTable)
         }
@@ -212,7 +204,7 @@ import Cocoa
             case .completed(let results, _):
                 return results.count
             default:
-                return 0
+                break
             }
         }
         else if tableView == chapterTable {
@@ -220,7 +212,7 @@ import Cocoa
             case .completed(_, let result):
                 return result.chapters.count
             default:
-                return 0
+                break
             }
         }
         return 0
@@ -249,7 +241,6 @@ import Cocoa
             }
         }
         else if tableView == chapterTable {
-
             switch state {
             case .completed(_, let result):
                 let chapter = result.chapters[row]
