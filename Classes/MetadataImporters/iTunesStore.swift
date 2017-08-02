@@ -120,6 +120,7 @@ public struct iTunesStore: MetadataService {
         let artworkUrl100: URL?
         let artworkUrl30: URL?
         let artworkUrl60: URL?
+        let artistId: Int?
         let collectionArtistId: Int?
         let collectionArtistViewUrl: URL?
         let collectionCensoredName: String?
@@ -313,7 +314,7 @@ public struct iTunesStore: MetadataService {
             metadata[SBMetadataResultTrackNumber]   = "\(trackNumber)/\(trackCount)"
         }
         metadata[SBMetadataResultDiskNumber]    = "1/1"
-        metadata[SBMetadataResultArtistID]      = result.collectionArtistId
+        metadata[SBMetadataResultArtistID]      = result.artistId
         metadata[SBMetadataResultPlaylistID]    = result.collectionId
 
         if let s = result.collectionName?.lowercased() {
