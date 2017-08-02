@@ -27,14 +27,13 @@ import Cocoa
     private enum ChapterSearchState {
         case none
         case searching(task: MetadataSearchTask)
-        case completed(results: [ChapterResult])
+        case completed(results: [ChapterResult], selectedResult: ChapterResult)
     }
 
     private let delegate: ChapterSearchControllerDelegate
     private let duration: UInt64
     private var searchTerm: String
     private var state: ChapterSearchState
-    private var selectedResult: ChapterResult?
 
     @objc init(delegate: ChapterSearchControllerDelegate, title: String, duration: UInt64) {
         if let info = title.parsedAsFilename() {
@@ -80,7 +79,12 @@ import Cocoa
 
     private func searchDone(results: [ChapterResult]) {
         DispatchQueue.main.async {
-            self.state = .completed(results: results)
+            if let first = results.first {
+                self.state = .completed(results: results, selectedResult: first)
+            }
+            else {
+                self.state = .none
+            }
             self.updateUI()
         }
     }
@@ -102,16 +106,20 @@ import Cocoa
     }
 
     @IBAction func addChapter(_ sender: Any) {
-        if let chapters = selectedResult?.chapters {
+        switch state {
+        case .completed(_, let result):
             var textChapters: [MP42TextSample] = Array()
-            for chapter in chapters {
+            for chapter in result.chapters {
                 let sample = MP42TextSample()
                 sample.timestamp = chapter.timestamp
                 sample.title = chapter.name
                 textChapters.append(sample)
             }
             delegate.chapterImportDone(chaptersToBeImported: textChapters)
+        default:
+            break
         }
+
         self.window?.sheetParent?.endSheet(self.window!, returnCode: NSApplication.ModalResponse.OK)
     }
 
@@ -127,37 +135,50 @@ import Cocoa
 
     // MARK - UI state
 
+    private func startProgressReport() {
+        progress.startAnimation(self)
+        progress.isHidden = false
+        progressText.stringValue = NSLocalizedString("Searching for chapter information…", comment: "ChapterDB")
+        progressText.isHidden = false
+    }
+
+    private func stopProgressReport() {
+        progress.stopAnimation(self)
+        progress.isHidden = true
+        progressText.isHidden = true
+    }
+
+    private func reloadTableData(enabled: Bool) {
+        resultsTable.reloadData()
+        chapterTable.reloadData()
+        resultsTable.isEnabled = enabled
+        chapterTable.isEnabled = enabled
+    }
+
+    private func swithDefaultButton(from oldDefault: NSButton, to newDefault: NSButton, disableOldButton: Bool)
+    {
+        oldDefault.keyEquivalent = ""
+        oldDefault.isEnabled = !disableOldButton
+        newDefault.keyEquivalent = "\r"
+        newDefault.isEnabled = true
+    }
+
     private func updateUI() {
         switch state {
         case .none:
-            searchButton.keyEquivalent = "\r"
-            updateSearchButtonVisibility()
+            stopProgressReport()
+            reloadTableData(enabled: false)
+            swithDefaultButton(from: addButton, to: searchButton, disableOldButton: true)
+                updateSearchButtonVisibility()
         case .searching(_):
-            progress.startAnimation(self)
-            progress.isHidden = false
-            progressText.stringValue = NSLocalizedString("Searching for chapter information…", comment: "ChapterDB")
-            progressText.isHidden = false
-            resultsTable.isEnabled = false
-            chapterTable.isEnabled = false
-            resultsTable.reloadData()
-        case .completed(let results):
-            progress.stopAnimation(self)
-            progress.isHidden = true
-            progressText.isHidden = true
-            resultsTable.isEnabled = true
-            chapterTable.isEnabled = true
-            resultsTable.reloadData()
-            if results.count > 0 {
-                addButton.isEnabled = true
-                addButton.keyEquivalent = "\r"
-                searchButton.keyEquivalent = ""
-                window?.makeFirstResponder(resultsTable)
-            }
-            else {
-                searchButton.keyEquivalent = "\r"
-                addButton.isEnabled = false
-                addButton.keyEquivalent = ""
-            }
+            startProgressReport()
+            reloadTableData(enabled: false)
+            swithDefaultButton(from: addButton, to: searchButton, disableOldButton: true)
+        case .completed(_, _):
+            stopProgressReport()
+            reloadTableData(enabled: true)
+            swithDefaultButton(from: searchButton, to: addButton, disableOldButton: false)
+            window?.makeFirstResponder(resultsTable)
         }
     }
 
@@ -177,9 +198,9 @@ import Cocoa
         if notification.object as? NSTableView == resultsTable {
             switch state {
             case .none, .searching:
-                selectedResult = nil
-            case .completed(let results):
-                selectedResult = results[resultsTable.selectedRow]
+                break
+            case .completed(let results, _):
+                state = .completed(results: results, selectedResult: results[resultsTable.selectedRow])
                 chapterTable.reloadData()
             }
         }
@@ -188,14 +209,19 @@ import Cocoa
     func numberOfRows(in tableView: NSTableView) -> Int {
         if tableView == resultsTable {
             switch state {
-            case .completed(let results):
+            case .completed(let results, _):
                 return results.count
             default:
                 return 0
             }
         }
-        else if tableView == chapterTable, let result = selectedResult {
-            return result.chapters.count
+        else if tableView == chapterTable {
+            switch state {
+            case .completed(_, let result):
+                return result.chapters.count
+            default:
+                return 0
+            }
         }
         return 0
     }
@@ -203,7 +229,7 @@ import Cocoa
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         if tableView == resultsTable {
             switch state {
-            case .completed(let results):
+            case .completed(let results, _):
                 let result = results[row]
 
                 if tableColumn?.identifier.rawValue == "title" {
@@ -219,17 +245,22 @@ import Cocoa
                     return NSNumber(value: result.confimations)
                 }
             default:
-                return 0
+                break
             }
         }
-        else if tableView == chapterTable, let result = selectedResult {
-            let chapter = result.chapters[row]
+        else if tableView == chapterTable {
 
-            if tableColumn?.identifier.rawValue == "time" {
-                return StringFromTime(Int64(chapter.timestamp), 1000).boldMonospacedAttributedString()
-            }
-            else if tableColumn?.identifier.rawValue == "name" {
-                return chapter.name
+            switch state {
+            case .completed(_, let result):
+                let chapter = result.chapters[row]
+                if tableColumn?.identifier.rawValue == "time" {
+                    return StringFromTime(Int64(chapter.timestamp), 1000).boldMonospacedAttributedString()
+                }
+                else if tableColumn?.identifier.rawValue == "name" {
+                    return chapter.name
+                }
+            default:
+                break
             }
         }
         return nil
