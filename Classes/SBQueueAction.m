@@ -332,7 +332,7 @@
     for (MP42VideoTrack *track in [item.mp4File tracksWithMediaType:kMP42MediaType_Video]) {
         if (track.format == kMP42VideoCodecType_H264 ||
             track.format == kMP42VideoCodecType_HEVC ||
-            track.format == kMP42VideoCodecType_HEVC_2 ||
+            track.format == kMP42VideoCodecType_HEVC_PSinBitstream ||
             track.format == kMP42VideoCodecType_MPEG4Video) {
             track.colorPrimaries = self.colorPrimaries;
             track.transferCharacteristics = self.transferCharacteristics;

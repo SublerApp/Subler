@@ -175,7 +175,7 @@ static NSString *getColorProfileName(uint16_t colorPrimaries,
     }
 
     if (track.format == kMP42VideoCodecType_H264 || track.format == kMP42VideoCodecType_MPEG4Video ||
-        track.format == kMP42VideoCodecType_HEVC || track.format == kMP42VideoCodecType_HEVC_2) {
+        track.format == kMP42VideoCodecType_HEVC || track.format == kMP42VideoCodecType_HEVC_PSinBitstream) {
         NSString *colorProfile = getColorProfileName(track.colorPrimaries, track.transferCharacteristics, track.matrixCoefficients);
         [self.colorProfilePopUp selectItemWithTitle:colorProfile];
 
