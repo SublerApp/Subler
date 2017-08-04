@@ -257,17 +257,4 @@ import Cocoa
         return nil
     }
 
-    func tableView(_ tableView: NSTableView, willDisplayCell cell: Any, for tableColumn: NSTableColumn?, row: Int) {
-        if tableView == chapterTable && tableColumn?.identifier.rawValue == "time", let cell = cell as? NSTextFieldCell {
-            if tableView.selectedRowIndexes.contains(row) {
-                let highlightedString = NSMutableAttributedString(attributedString: cell.attributedStringValue)
-                highlightedString.addAttribute(NSAttributedStringKey.foregroundColor, value: NSColor.black, range: NSMakeRange(0, highlightedString.length))
-                cell.attributedStringValue = highlightedString
-            }
-            else {
-                cell.textColor = NSColor.gray
-            }
-        }
-    }
-
 }
