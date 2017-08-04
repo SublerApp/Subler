@@ -55,18 +55,64 @@ public protocol MetadataSearchCancelToken {
     var sessionTask: URLSessionTask? { get set }
 }
 
-// MARK: - Filename
+// MARK: - Image
 
-enum FilenameType {
-    case movie(title: String)
-    case tvShow(seriesName: String, season: Int?, episode: Int?)
+extension Array where Element == RemoteImage {
+    func toClass() -> [SBRemoteImage] {
+        return self.map { $0.toClass() }
+    }
 }
 
-private func parseAnimeFilename(_ filename: String) -> FilenameType? {
+extension SBRemoteImage {
+    func toStruct() -> RemoteImage {
+        return RemoteImage(url: self.url, thumbURL: self.thumbURL, providerName: self.providerName)
+    }
+}
+
+extension Array where Element == SBRemoteImage {
+    func toStruct() -> [RemoteImage] {
+        return self.map { $0.toStruct() }
+    }
+}
+
+public struct RemoteImage {
+    let url: URL
+    let thumbURL: URL
+    let providerName: String
+
+    public func toClass() -> SBRemoteImage {
+        return SBRemoteImage(url: url, thumbURL: thumbURL, providerName: providerName)
+    }
+}
+
+// MARK: - Filename
+
+public enum FilenameInfo {
+    case movie(title: String)
+    case tvShow(seriesName: String, season: Int?, episode: Int?)
+
+    public var isMovie: Bool { get {
+            switch self {
+            case .movie:
+                return true
+            case .tvShow:
+                return false
+            }
+        }
+    }
+
+    public var isTVShow: Bool {
+        get {
+            return !self.isMovie
+        }
+    }
+}
+
+private func parseAnimeFilename(_ filename: String) -> FilenameInfo? {
 
     guard let regex = try? NSRegularExpression(pattern: "^\\[(.+)\\](?:(?:\\s|_)+)?([^()]+)(?:(?:\\s|_)+)(?:(?:-\\s|-_|Ep)+)([0-9]+)", options: [.caseInsensitive]) else { return nil }
 
-    var result: FilenameType?
+    var result: FilenameInfo?
 
     regex.enumerateMatches(in: filename, options: [],
                            range: NSRange(filename.startIndex..., in: filename)) {
@@ -77,7 +123,7 @@ private func parseAnimeFilename(_ filename: String) -> FilenameType? {
                                 let episode = Int((filename as NSString).substring(with: episodeRange))
 
                                 if seriesName.count > 0 {
-                                    result = FilenameType.tvShow(seriesName: seriesName, season: 1, episode: episode)
+                                    result = FilenameInfo.tvShow(seriesName: seriesName, season: 1, episode: episode)
                                 }
                             }
     }
@@ -85,7 +131,7 @@ private func parseAnimeFilename(_ filename: String) -> FilenameType? {
     return result
 }
 
-private func parseFilename(_ filename: String) -> FilenameType? {
+private func parseFilename(_ filename: String) -> FilenameInfo? {
     guard let path = Bundle(for: MP42File.self).path(forResource: "ParseFilename", ofType: "") else { return nil }
 
     let stdOut = Pipe()
@@ -108,7 +154,7 @@ private func parseFilename(_ filename: String) -> FilenameType? {
     if lines.count > 0 {
         if lines.first == "tv" && lines.count >= 4 {
             let newSeriesName = lines[1].replacingOccurrences(of: ".", with: " ")
-            return FilenameType.tvShow(seriesName: newSeriesName, season: Int(lines[2]), episode: Int(lines[3]))
+            return FilenameInfo.tvShow(seriesName: newSeriesName, season: Int(lines[2]), episode: Int(lines[3]))
         }
         else if lines.first == "movie" && lines.count >= 2 {
             let newTitle = lines[1].replacingOccurrences(of: ".", with: " ")
@@ -117,7 +163,7 @@ private func parseFilename(_ filename: String) -> FilenameType? {
             .replacingOccurrences(of: "[", with: " ")
             .replacingOccurrences(of: "]", with: " ")
             .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            return FilenameType.movie(title: newTitle)
+            return FilenameInfo.movie(title: newTitle)
         }
     }
 
@@ -126,7 +172,7 @@ private func parseFilename(_ filename: String) -> FilenameType? {
 
 extension String {
 
-    func parsedAsFilename() -> FilenameType? {
+    func parsedAsFilename() -> FilenameInfo? {
         if let parsed = parseAnimeFilename(self) {
             return parsed
         }
@@ -135,14 +181,4 @@ extension String {
         }
         return nil
     }
-}
-
-// MARK: - URL Utilities
-
-extension String {
-
-    func urlEncoded() -> String {
-        return self.precomposedStringWithCompatibilityMapping.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? ""
-    }
-
 }

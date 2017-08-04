@@ -10,7 +10,7 @@ import Foundation
 public struct iTunesStore: MetadataService {
     
     private func sendJSONRequest<T>(url: URL, type: T.Type) -> T? where T : Decodable {
-        guard let data = SBMetadataHelper.downloadData(from: url, cachePolicy: .default)
+        guard let data = URLSession.data(from: url)
             else { return nil }
         
         do {
@@ -60,7 +60,7 @@ public struct iTunesStore: MetadataService {
         }
     }
 
-    public var languageType: SBMetadataImporterLanguageType {
+    public var languageType: LanguageType {
         get {
             return .custom
         }
@@ -68,6 +68,10 @@ public struct iTunesStore: MetadataService {
 
     public var defaultLanguage: String {
         return "USA (English)"
+    }
+
+    public var name: String {
+        return "iTunes Store"
     }
 
     // MARK: - Quick iTunes search for metadata
@@ -168,7 +172,7 @@ public struct iTunesStore: MetadataService {
         }
     }
 
-    private func artwork(url: URL?, isTVShow: Bool) -> SBRemoteImage? {
+    private func artwork(url: URL?, isTVShow: Bool) -> RemoteImage? {
         guard let regex = try? NSRegularExpression(pattern: "(\\{.*?\\})", options: [.caseInsensitive]),
             let url = url else { return nil }
 
@@ -182,7 +186,7 @@ public struct iTunesStore: MetadataService {
 
         if let artworkURL = URL(string: text),
             let artworkFullSizeURL = URL(string: text.replacingOccurrences(of: "100x100bb", with: replacement)) {
-            return SBRemoteImage(url:artworkFullSizeURL, thumbURL:artworkURL, providerName:"iTunes")
+            return RemoteImage(url:artworkFullSizeURL, thumbURL:artworkURL, providerName:"iTunes")
         }
 
         return nil
@@ -354,7 +358,7 @@ public struct iTunesStore: MetadataService {
         }
 
         if let artwork = artwork(url: result.artworkUrl100, isTVShow: true) {
-            metadata.remoteArtworks = [artwork]
+            metadata.remoteArtworks = [artwork].toClass()
         }
 
         return metadata
@@ -401,7 +405,7 @@ public struct iTunesStore: MetadataService {
         }
 
         if let artwork = artwork(url: result.artworkUrl100, isTVShow: false) {
-            metadata.remoteArtworks = [artwork]
+            metadata.remoteArtworks = [artwork].toClass()
         }
 
         return metadata
@@ -440,7 +444,7 @@ public struct iTunesStore: MetadataService {
     public func loadMovieMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
         guard let store = iTunesStore.store(language: language),
               let url = metadata[SBMetadataResultITunesURL] as? URL,
-              let data = SBMetadataHelper.downloadData(from: url, cachePolicy: .default),
+              let data = URLSession.data(from: url),
               let xml = try? XMLDocument(data: data, options: .documentTidyHTML)
         else { return metadata }
 

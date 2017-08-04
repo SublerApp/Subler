@@ -5,9 +5,10 @@
 #import "SBQueueItem.h"
 #import "SBQueueAction.h"
 
-#import "SBMetadataHelper.h"
 #import "SBMetadataResult.h"
 #import "SBMetadataResultMap.h"
+#import "SBRemoteImage.h"
+#import "SBArtworkSelector.h"
 
 #import <MP42Foundation/MP42Ratings.h>
 #import <MP42Foundation/MP42Languages.h>

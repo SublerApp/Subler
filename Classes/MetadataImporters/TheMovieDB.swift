@@ -17,7 +17,7 @@ public struct TheMovieDB: MetadataService {
         }
     }
 
-    public var languageType: SBMetadataImporterLanguageType {
+    public var languageType: LanguageType {
         get {
             return .ISO
         }
@@ -25,6 +25,10 @@ public struct TheMovieDB: MetadataService {
 
     public var defaultLanguage: String {
         return "en"
+    }
+
+    public var name: String {
+        return "TheMovieDB"
     }
 
     // MARK: - Movie Search
@@ -82,19 +86,19 @@ public struct TheMovieDB: MetadataService {
 
     // MARK: - Movie metadata loading
 
-    private func loadArtwork(filePath: String, baseURL: String, thumbSize: String, providerName: String) -> SBRemoteImage? {
+    private func loadArtwork(filePath: String, baseURL: String, thumbSize: String, providerName: String) -> RemoteImage? {
         guard let url = URL(string: baseURL + "original" + filePath),
             let thumbURL = URL(string: baseURL + thumbSize + filePath) else { return nil }
-        return SBRemoteImage(url: url, thumbURL: thumbURL, providerName: providerName)
+        return RemoteImage(url: url, thumbURL: thumbURL, providerName: providerName)
     }
 
-    private func loadMovieArtworks(result: TMDBMovie) -> [SBRemoteImage] {
-        var artworks: [SBRemoteImage] = Array()
+    private func loadMovieArtworks(result: TMDBMovie) -> [RemoteImage] {
+        var artworks: [RemoteImage] = Array()
 
         // add iTunes artwork
         if let title = result.title, let iTunesMetadata = iTunesStore.quickiTunesSearch(movieName: title),
             let iTunesArtwork = iTunesMetadata.remoteArtworks {
-            artworks.append(contentsOf: iTunesArtwork)
+            artworks.append(contentsOf: iTunesArtwork.toStruct())
         }
 
         // Add TheMovieDB artworks
@@ -150,7 +154,7 @@ public struct TheMovieDB: MetadataService {
             }
         }
 
-        metadata.remoteArtworks = loadMovieArtworks(result: result)
+        metadata.remoteArtworks = loadMovieArtworks(result: result).toClass()
 
         return metadata
     }
@@ -192,8 +196,8 @@ public struct TheMovieDB: MetadataService {
         }
     }
 
-    private func loadTVShowArtworks(result: TMDBSeries) -> [SBRemoteImage] {
-        var artworks: [SBRemoteImage] = Array()
+    private func loadTVShowArtworks(result: TMDBSeries) -> [RemoteImage] {
+        var artworks: [RemoteImage] = Array()
 
         // Add TheMovieDB artworks
         if let config = session.fetchConfiguration()?.images,
@@ -205,7 +209,7 @@ public struct TheMovieDB: MetadataService {
                 for image in images {
                     if let url = URL(string: imageBaseURL + "original" + image.file_path),
                         let thumbURL = URL(string: imageBaseURL + posterThumbnailSize + image.file_path) {
-                        let remoteImage = SBRemoteImage(url: url, thumbURL: thumbURL, providerName: "TheMovieDB|poster")
+                        let remoteImage = RemoteImage(url: url, thumbURL: thumbURL, providerName: "TheMovieDB|poster")
                         artworks.append(remoteImage)
                     }
                 }
@@ -215,14 +219,14 @@ public struct TheMovieDB: MetadataService {
                 let posterPath = result.poster_path,
                 let url = URL(string: imageBaseURL + "original" + posterPath),
                 let thumbURL = URL(string: imageBaseURL + posterThumbnailSize + posterPath) {
-                let remoteImage = SBRemoteImage(url: url, thumbURL: thumbURL, providerName: "TheMovieDB|poster")
+                let remoteImage = RemoteImage(url: url, thumbURL: thumbURL, providerName: "TheMovieDB|poster")
                 artworks.append(remoteImage)
             }
 
             if let backdropPath = result.backdrop_path,
                 let url = URL(string: imageBaseURL + "original" + backdropPath),
                 let thumbURL = URL(string: imageBaseURL + backdropThumbnailSize + backdropPath) {
-                let remoteImage = SBRemoteImage(url: url, thumbURL: thumbURL, providerName: "TheMovieDB|poster")
+                let remoteImage = RemoteImage(url: url, thumbURL: thumbURL, providerName: "TheMovieDB|poster")
                 artworks.append(remoteImage)
             }
         }
@@ -282,7 +286,7 @@ public struct TheMovieDB: MetadataService {
             }
         }
 
-        metadata.remoteArtworks = loadTVShowArtworks(result: info)
+        metadata.remoteArtworks = loadTVShowArtworks(result: info).toClass()
 
         return metadata
     }
@@ -316,7 +320,7 @@ public struct TheMovieDB: MetadataService {
     }
 
     public func loadTVMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
-        var artworks: [SBRemoteImage] = Array()
+        var artworks: [RemoteImage] = Array()
 
         if let seriesID = metadata["TheMovieDB Series ID"] as? Int, let episodeID = metadata["TheMovieDB Episodes ID"] as? Int,
             let season = metadata[SBMetadataResultSeason] as? Int {
@@ -334,10 +338,10 @@ public struct TheMovieDB: MetadataService {
         }
 
         if let existingArtworks = metadata.remoteArtworks {
-            artworks.append(contentsOf: existingArtworks)
+            artworks.append(contentsOf: existingArtworks.toStruct())
         }
 
-        metadata.remoteArtworks = artworks
+        metadata.remoteArtworks = artworks.toClass()
 
         return metadata
     }

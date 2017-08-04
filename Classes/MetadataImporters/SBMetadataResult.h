@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SBRemoteImage.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class MP42Image;
 @class MP42Metadata;
 @class SBMetadataResultMap;
+@class SBRemoteImage;
 
 // Common Keys
 extern NSString *const SBMetadataResultName;
@@ -61,6 +61,8 @@ extern NSString *const SBMetadataResultNetwork;
 
 - (nullable id)objectForKeyedSubscript:(NSString *)key;
 - (void)setObject:(nullable id)obj forKeyedSubscript:(NSString *)key;
+
+- (NSArray<NSString *> *)orderedKeys;
 
 @property (nonatomic, readonly) NSMutableDictionary<NSString *, id> *tags;
 

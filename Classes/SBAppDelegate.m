@@ -53,7 +53,8 @@
     MP42File.globalLogger = logger;
     
     if ([NSUserDefaults.standardUserDefaults boolForKey:@"SBAdditionalDebugInfo"]) {
-        SBMetadataHelper.logger = logger;
+        // TODO
+        //SBMetadataHelper.logger = logger;
     }
 
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SBShowQueueWindow"]) {

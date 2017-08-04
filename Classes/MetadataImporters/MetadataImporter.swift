@@ -7,11 +7,36 @@
 
 import Foundation
 
+@objc(SBMetadataImporterLanguageType) public enum LanguageType: Int {
+    case ISO
+    case custom
+
+    public func displayName(language: String) -> String {
+        switch self {
+        case .ISO:
+            return MP42Languages.defaultManager .localizedLang(forExtendedTag: language)
+        case .custom:
+            return language
+        }
+    }
+
+    public func extendedTag(displayName: String) -> String {
+        switch self {
+        case .ISO:
+            return MP42Languages.defaultManager.extendedTag(forLocalizedLang: displayName)
+        case .custom:
+            return displayName
+        }
+    }
+}
+
 public protocol MetadataService {
 
-    var languageType: SBMetadataImporterLanguageType { get }
+    var languageType: LanguageType { get }
     var languages: [String] { get }
     var defaultLanguage: String { get }
+
+    var name: String { get }
 
     func search(TVSeries: String, language: String, season: Int?, episode: Int?) -> [SBMetadataResult]
     func loadTVMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult
@@ -32,8 +57,8 @@ public enum MetadataServiceType : String {
     case TheMovieDBService = "TheMovieDB"
     case TheTVDBService = "TheTVDB"
 
-    public static var movieProviders: [String] { get { return ["TheMovieDB", "iTunes Store"] } }
-    public static var tvProviders: [String] { get { return ["TheMovieDB", "TheTVDB", "iTunes Store"] } }
+    public static var movieProviders: [String] { get { return [TheMovieDB().name, iTunesStore().name] } }
+    public static var tvProviders: [String] { get { return [TheMovieDB().name, TheTVDB().name,  iTunesStore().name] } }
 
     public static func service(type: MetadataServiceType) -> MetadataService {
         switch type {
@@ -82,6 +107,11 @@ public enum MetadataNameSearch {
 
 }
 
+public enum MetadataSearchType {
+    case movie
+    case tvShow
+}
+
 public enum MetadataSearch {
     case movieSeach(service: MetadataService, movie: String, language: String)
     case tvSearch(service: MetadataService, tvSeries: String, season: Int?, episode: Int?, language: String)
@@ -105,6 +135,17 @@ public enum MetadataSearch {
         case let .tvSearch(service, _, _, _, language):
             return MetadataSearchInternalTask(search: service.loadTVMetadata(metadata, language: language),
                                               completionHandler: completionHandler)
+        }
+    }
+
+    public var type: MetadataSearchType {
+        get {
+            switch self {
+            case .movieSeach:
+                return .movie
+            case .tvSearch:
+                return .tvShow
+            }
         }
     }
 }

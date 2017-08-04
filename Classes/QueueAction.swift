@@ -38,7 +38,7 @@ import Foundation
         self.preferredArtwork = preferredArtwork
     }
 
-    private func indexOfArtwork(type: QueueMetadataActionPreferredArtwork, provider: String, artworks: [SBRemoteImage]) -> Int? {
+    private func indexOfArtwork(type: QueueMetadataActionPreferredArtwork, provider: String, artworks: [RemoteImage]) -> Int? {
 
         var preferredTypeName: String = ""
 
@@ -63,14 +63,15 @@ import Foundation
     }
 
     private func load(artworkURL: URL) -> MP42Image? {
-        guard let data = SBMetadataHelper.downloadData(from: artworkURL, cachePolicy: .default) else { return nil }
+        guard let data = URLSession.data(from: artworkURL) else { return nil }
         return MP42Image(data: data, type: MP42_ART_JPEG)
     }
 
-    private func searchMetadata(type: String, parsedInfo: [String:String]) -> SBMetadataResult? {
+    private func searchMetadata(info: FilenameInfo) -> SBMetadataResult? {
         var metadata: SBMetadataResult? = nil
 
-        if type == "movie", let title =  parsedInfo["title"] {
+        switch info {
+        case let .movie(title):
             let service = MetadataServiceType.service(name: self.movieProvider)
             let movieSearch = MetadataSearch.movieSeach(service: service, movie: title, language: self.movieLanguage)
             _ = movieSearch.search(completionHandler: {
@@ -78,33 +79,32 @@ import Foundation
                     _ = movieSearch.loadAdditionalMetadata(result, completionHandler: { metadata = $0 }).run()
                 }
             }).run()
-        }
-        else if let tvShow = parsedInfo["seriesName"], let season = Int(parsedInfo["seasonNum"] ?? ""), let episode = Int(parsedInfo["episodeNum"] ?? "") {
+        case let .tvShow(seriesName, season, episode):
             let service = MetadataServiceType.service(name: self.tvShowProvider)
-            let tvSearch = MetadataSearch.tvSearch(service: service, tvSeries: tvShow, season: season, episode: episode, language: tvShowLanguage)
+            let tvSearch = MetadataSearch.tvSearch(service: service, tvSeries: seriesName, season: season, episode: episode, language: tvShowLanguage)
             _ = tvSearch.search(completionHandler: {
                 if let result = $0.first {
                     _ = tvSearch.loadAdditionalMetadata(result, completionHandler: { metadata = $0 }).run()
                 }
             }).run()
         }
+
         return metadata
     }
 
     private func searchMetadata(url: URL) -> MP42Metadata? {
 
-        guard let parsedInfo = SBMetadataHelper.parseFilename(url.lastPathComponent),
-            let type = parsedInfo["type"],
-            let metadata = searchMetadata(type: type, parsedInfo: parsedInfo) else { return nil }
+        guard let info = url.lastPathComponent.parsedAsFilename(),
+              let metadata = searchMetadata(info: info) else { return nil }
 
-        if let artworks = metadata.remoteArtworks, artworks.count > 0 {
+        if let artworks = metadata.remoteArtworks?.toStruct(), artworks.count > 0 {
             let index: Int = {
                 if let index = self.indexOfArtwork(type: self.preferredArtwork,
-                                                   provider: type == "movie" ? self.movieProvider : self.tvShowProvider,
+                                                   provider: info.isMovie ? self.movieProvider : self.tvShowProvider,
                                                    artworks: artworks) {
                     return index
                 }
-                else if type == "tv", let index = self.indexOfArtwork(type: .Default,
+                else if info.isTVShow, let index = self.indexOfArtwork(type: .Default,
                                                                       provider: self.tvShowProvider,
                                                                       artworks: artworks) {
                     return index

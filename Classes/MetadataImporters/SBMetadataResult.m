@@ -43,6 +43,12 @@ NSString *const SBMetadataResultEpisodeID = @"{Episode ID}";
 NSString *const SBMetadataResultSeason = @"{Season}";
 NSString *const SBMetadataResultNetwork = @"{Network}";
 
+@interface SBMetadataResult ()
+{
+    NSArray<NSString *> *_orderedKeys;
+}
+@end
+
 @implementation SBMetadataResult
 
 - (instancetype)init
@@ -189,6 +195,31 @@ static NSDictionary<NSString *, NSString *> *localizedKeys;
     else {
         [self setTag:obj forKey:key];
     }
+}
+
+static NSInteger sortFunction (id ldict, id rdict, void *context) {
+    NSComparisonResult rc;
+
+    NSInteger right = [(__bridge NSArray*) context indexOfObject:rdict];
+    NSInteger left = [(__bridge NSArray*) context indexOfObject:ldict];
+
+    if (right < left) {
+        rc = NSOrderedDescending;
+    }
+    else {
+        rc = NSOrderedAscending;
+    }
+
+    return rc;
+}
+
+- (NSArray<NSString *> *)orderedKeys
+{
+    if (_orderedKeys == nil) {
+        NSArray<NSString *> *sortKeys = self.mediaKind == 9 ? [SBMetadataResult movieKeys] : [SBMetadataResult tvShowKeys];
+        _orderedKeys = [self.tags.allKeys sortedArrayUsingFunction:sortFunction  context:(__bridge void * _Nullable)sortKeys];
+    }
+    return _orderedKeys;
 }
 
 - (MP42Metadata *)mappedTo:(SBMetadataResultMap *)map keepEmptyKeys:(BOOL)keep

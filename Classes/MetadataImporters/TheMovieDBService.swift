@@ -223,7 +223,7 @@ final public class TheMovieDBService {
                       "Accept" : "application/json;charset=utf-8",
                       "Accept-Language" : language]
 
-        return SBMetadataHelper.downloadData(from: url, httpMethod: "GET", httpBody: nil, headerOptions: header, cachePolicy: .default)
+        return URLSession.data(from: url, header: header)
     }
 
     private func sendJSONRequest<T>(url: URL, language: String, type: T.Type) -> T? where T : Decodable {

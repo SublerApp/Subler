@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13122.19" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <development version="8000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.19"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13168.3"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="SBMetadataSearchController">
+        <customObject id="-2" userLabel="File's Owner" customClass="SBMetadataSearchController2">
             <connections>
                 <outlet property="addButton" destination="9" id="130"/>
                 <outlet property="metadataTable" destination="19" id="127"/>
@@ -18,8 +17,9 @@
                 <outlet property="progress" destination="6" id="118"/>
                 <outlet property="progressText" destination="176" id="178"/>
                 <outlet property="resultsTable" destination="28" id="123"/>
-                <outlet property="searchButton" destination="67" id="112"/>
                 <outlet property="searchMode" destination="62" id="120"/>
+                <outlet property="searchMovieButton" destination="67" id="8Zt-E6-pqo"/>
+                <outlet property="searchTvButton" destination="S7c-Ws-WWl" id="AAg-LO-PbH"/>
                 <outlet property="tvEpisodeNum" destination="100" id="111"/>
                 <outlet property="tvEpisodeTab" destination="63" id="90p-kF-ogu"/>
                 <outlet property="tvLanguage" destination="192" id="198"/>
@@ -266,6 +266,20 @@ Gw
                                                 <action selector="metadataProviderSelected:" target="-2" id="Iyv-27-FbT"/>
                                             </connections>
                                         </popUpButton>
+                                        <button verticalHuggingPriority="750" misplaced="YES" id="67">
+                                            <rect key="frame" x="411" y="31" width="82" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="68">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="searchForResults:" target="-2" id="179"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -373,6 +387,20 @@ Gw
                                                 <action selector="metadataProviderSelected:" target="-2" id="224"/>
                                             </connections>
                                         </popUpButton>
+                                        <button verticalHuggingPriority="750" misplaced="YES" id="S7c-Ws-WWl">
+                                            <rect key="frame" x="411" y="31" width="82" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="X7l-No-znX">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="searchForResults:" target="-2" id="bxF-Qe-9ES"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -390,20 +418,6 @@ Gw
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" id="67">
-                        <rect key="frame" x="434" y="389" width="82" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="68">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="searchForResults:" target="-2" id="179"/>
-                        </connections>
-                    </button>
                 </subviews>
             </view>
             <point key="canvasLocation" x="98" y="163"/>

@@ -27,6 +27,7 @@
 		A924A51E1D4B9E93008301A7 /* SBMetadataPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A924A5201D4B9E93008301A7 /* SBMetadataPrefsViewController.xib */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A92AD0161F3482350082892E /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92AD0151F3482350082892E /* NetworkUtilities.swift */; };
 		A93DD7681DACCE930052749A /* SBComboBoxCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93DD7671DACCE930052749A /* SBComboBoxCellView.m */; };
 		A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */; };
 		A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */; };
@@ -48,6 +49,8 @@
 		A98D98481F02820F00A77ABC /* TheMovieDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98D98471F02820F00A77ABC /* TheMovieDBService.swift */; };
 		A99189CD1F2F87EC00623ED7 /* ChapterImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */; };
 		A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */; };
+		A997B0A81F34876500974C9C /* SBRemoteImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A997B0A71F34876500974C9C /* SBRemoteImage.m */; };
+		A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A997B0A91F348AB000974C9C /* MetadataSearchController.swift */; };
 		A998DABF1BA54CFF004D7969 /* SBMediaTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */; };
 		A99EEA3F12B801AE002367D3 /* SBDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AC012B79E230040517A /* SBDocument.xib */; };
 		A9A0542E1DEEC3E000D1AFA4 /* SBLanguageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A0542D1DEEC3E000D1AFA4 /* SBLanguageTransformer.m */; };
@@ -94,13 +97,11 @@
 		A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */; };
 		A9EEA5F818D654B9008B54B4 /* QueueOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */; };
 		A9F442301C75017100AD8786 /* SBMetadataResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F4422F1C75017100AD8786 /* SBMetadataResult.m */; };
-		A9F476231ED9DC2E00748CC0 /* SBRemoteImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F476221ED9DC2E00748CC0 /* SBRemoteImage.m */; };
 		A9F5820C1DCC861F005F3E92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9F5820B1DCC861F005F3E92 /* Assets.xcassets */; };
 		A9F7F8E01837C44B0036AE7E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9ED7B21180067A2008FD3A8 /* IOKit.framework */; };
 		A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */; };
 		CD4E6E5D12F744210095C84F /* ArtworkSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD4E6E5B12F744210095C84F /* ArtworkSelector.xib */; };
 		CD56963212FAAD680029FADB /* SBArtworkSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = CD56963112FAAD680029FADB /* SBArtworkSelector.m */; };
-		CD71FEA312F1B5AF00F0A98D /* SBMetadataSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */; };
 		CD71FEA612F1B62600F0A98D /* MetadataSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */; };
 		CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */ = {isa = PBXBuildFile; fileRef = CDE8E451174CBBD4009410B5 /* iTunesStores.json */; };
 /* End PBXBuildFile section */
@@ -208,6 +209,7 @@
 		A924A51D1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ExceptionAlert.xib; sourceTree = "<group>"; };
 		A924A51F1D4B9E93008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBMetadataPrefsViewController.xib; sourceTree = "<group>"; };
 		A925AA7B18378D7800BE84D4 /* MP42Foundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP42Foundation.xcodeproj; path = MP42Foundation/MP42Foundation.xcodeproj; sourceTree = "<group>"; };
+		A92AD0151F3482350082892E /* NetworkUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkUtilities.swift; path = Classes/NetworkUtilities.swift; sourceTree = "<group>"; };
 		A93DD7661DACCE930052749A /* SBComboBoxCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBComboBoxCellView.h; path = Classes/SBComboBoxCellView.h; sourceTree = "<group>"; };
 		A93DD7671DACCE930052749A /* SBComboBoxCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBComboBoxCellView.m; path = Classes/SBComboBoxCellView.m; sourceTree = "<group>"; };
 		A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterResult.swift; path = Classes/MetadataImporters/ChapterResult.swift; sourceTree = "<group>"; };
@@ -239,6 +241,9 @@
 		A991319B13F0668300DCAA12 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterImporter.swift; path = Classes/MetadataImporters/ChapterImporter.swift; sourceTree = "<group>"; };
 		A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterSearchController.swift; path = Classes/ChapterSearchController.swift; sourceTree = "<group>"; };
+		A997B0A61F34876500974C9C /* SBRemoteImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBRemoteImage.h; path = Classes/MetadataImporters/SBRemoteImage.h; sourceTree = "<group>"; };
+		A997B0A71F34876500974C9C /* SBRemoteImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SBRemoteImage.m; path = Classes/MetadataImporters/SBRemoteImage.m; sourceTree = "<group>"; };
+		A997B0A91F348AB000974C9C /* MetadataSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataSearchController.swift; path = Classes/MetadataSearchController.swift; sourceTree = "<group>"; };
 		A9A0542C1DEEC3E000D1AFA4 /* SBLanguageTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBLanguageTransformer.h; path = Classes/SBLanguageTransformer.h; sourceTree = "<group>"; };
 		A9A0542D1DEEC3E000D1AFA4 /* SBLanguageTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLanguageTransformer.m; path = Classes/SBLanguageTransformer.m; sourceTree = "<group>"; };
 		A9A77C4D1F306FA70018023B /* AttributedStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AttributedStyles.swift; path = Classes/AttributedStyles.swift; sourceTree = "<group>"; };
@@ -325,16 +330,12 @@
 		A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBOptionsViewController.m; path = Classes/SBOptionsViewController.m; sourceTree = "<group>"; };
 		A9F4422E1C75017100AD8786 /* SBMetadataResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataResult.h; path = Classes/MetadataImporters/SBMetadataResult.h; sourceTree = "<group>"; };
 		A9F4422F1C75017100AD8786 /* SBMetadataResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataResult.m; path = Classes/MetadataImporters/SBMetadataResult.m; sourceTree = "<group>"; };
-		A9F476211ED9DC2E00748CC0 /* SBRemoteImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBRemoteImage.h; path = Classes/MetadataImporters/SBRemoteImage.h; sourceTree = "<group>"; };
-		A9F476221ED9DC2E00748CC0 /* SBRemoteImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBRemoteImage.m; path = Classes/MetadataImporters/SBRemoteImage.m; sourceTree = "<group>"; };
 		A9F5820B1DCC861F005F3E92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9FC6FF41EF2E3280034CCED /* Subler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Subler-Bridging-Header.h"; sourceTree = "<group>"; };
 		A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheTVDBService.swift; path = Classes/MetadataImporters/TheTVDBService.swift; sourceTree = "<group>"; };
 		CD56963012FAAD680029FADB /* SBArtworkSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBArtworkSelector.h; path = Classes/SBArtworkSelector.h; sourceTree = "<group>"; };
 		CD56963112FAAD680029FADB /* SBArtworkSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBArtworkSelector.m; path = Classes/SBArtworkSelector.m; sourceTree = "<group>"; };
 		CD56966E12FAAFA90029FADB /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
-		CD71FEA112F1B5AF00F0A98D /* SBMetadataSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataSearchController.h; path = Classes/SBMetadataSearchController.h; sourceTree = "<group>"; };
-		CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataSearchController.m; path = Classes/SBMetadataSearchController.m; sourceTree = "<group>"; };
 		CDE8E451174CBBD4009410B5 /* iTunesStores.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iTunesStores.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -605,10 +606,9 @@
 				A9B46ABE12B79D1C0040517A /* SBDocument.m */,
 				A9B46A7E12B79B240040517A /* SBFileImport.h */,
 				A9B46A7F12B79B240040517A /* SBFileImport.m */,
-				CD71FEA112F1B5AF00F0A98D /* SBMetadataSearchController.h */,
-				CD71FEA212F1B5AF00F0A98D /* SBMetadataSearchController.m */,
 				CD56963012FAAD680029FADB /* SBArtworkSelector.h */,
 				CD56963112FAAD680029FADB /* SBArtworkSelector.m */,
+				A997B0A91F348AB000974C9C /* MetadataSearchController.swift */,
 				A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */,
 				A909440E1DD4C85B00E9F89C /* Table View */,
 				A9FD5D150F3C692400817716 /* PropertyView */,
@@ -647,10 +647,10 @@
 			children = (
 				A9C703101C05E08B00C89151 /* SBMetadataHelper.h */,
 				A9C703111C05E08B00C89151 /* SBMetadataHelper.m */,
+				A997B0A61F34876500974C9C /* SBRemoteImage.h */,
+				A997B0A71F34876500974C9C /* SBRemoteImage.m */,
 				A9F4422E1C75017100AD8786 /* SBMetadataResult.h */,
 				A9F4422F1C75017100AD8786 /* SBMetadataResult.m */,
-				A9F476211ED9DC2E00748CC0 /* SBRemoteImage.h */,
-				A9F476221ED9DC2E00748CC0 /* SBRemoteImage.m */,
 				A981754E1D49F11B00750709 /* SBMetadataResultMap.h */,
 				A981754F1D49F11B00750709 /* SBMetadataResultMap.m */,
 				A902E1D41F29DD8900D73C17 /* SBMetadataImporter.swift */,
@@ -664,6 +664,7 @@
 				A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */,
 				A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */,
 				A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */,
+				A92AD0151F3482350082892E /* NetworkUtilities.swift */,
 			);
 			name = MetadataImporters;
 			sourceTree = "<group>";
@@ -850,6 +851,7 @@
 				A9B46A8F12B79B240040517A /* SBTableView.m in Sources */,
 				A9B46A9012B79B240040517A /* SBView.m in Sources */,
 				A9B46A9E12B79B990040517A /* ButtonToolbarItem.m in Sources */,
+				A997B0A81F34876500974C9C /* SBRemoteImage.m in Sources */,
 				A96946531BA3F83D0048C004 /* SBMediaTagsController.m in Sources */,
 				A9AB485417F0AEAC000AA72E /* SBChapterViewController.m in Sources */,
 				A9AB485817F0AEAC000AA72E /* SBVideoViewController.m in Sources */,
@@ -857,9 +859,8 @@
 				A9A8CEF91E43754400BC2AE1 /* SBQueueScriptCommand.m in Sources */,
 				A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */,
 				A9C703121C05E08B00C89151 /* SBMetadataHelper.m in Sources */,
-				CD71FEA312F1B5AF00F0A98D /* SBMetadataSearchController.m in Sources */,
+				A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */,
 				A909440D1DD4C70900E9F89C /* SBTokenFieldCell.m in Sources */,
-				A9F476231ED9DC2E00748CC0 /* SBRemoteImage.m in Sources */,
 				A9C5FA6E19FA22590051F3FF /* SBLogWindowController.m in Sources */,
 				A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */,
 				A9AB485717F0AEAC000AA72E /* SBSoundViewController.m in Sources */,
@@ -881,6 +882,7 @@
 				A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */,
 				A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */,
 				A9A77C4E1F306FA70018023B /* AttributedStyles.swift in Sources */,
+				A92AD0161F3482350082892E /* NetworkUtilities.swift in Sources */,
 				A909440A1DD4B80000E9F89C /* SBComboBoxCell.m in Sources */,
 				A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */,
 				A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */,

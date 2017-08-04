@@ -12,7 +12,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
     private let session = TheTVDBService.sharedInstance
     private static let bannerPath = "https://thetvdb.com/banners/"
 
-    public var languageType: SBMetadataImporterLanguageType {
+    public var languageType: LanguageType {
         get {
             return .ISO
         }
@@ -26,6 +26,10 @@ public struct TheTVDB : MetadataService, MetadataNameService {
 
     public var defaultLanguage: String {
         return "en"
+    }
+
+    public var name: String {
+        return "TheTVDB"
     }
 
     // MARK: - TV Series name search
@@ -258,18 +262,18 @@ public struct TheTVDB : MetadataService, MetadataNameService {
 
     // MARK: - Additional metadata
 
-    private func loadiTunesArtwork(_ metadata: SBMetadataResult) -> [SBRemoteImage] {
+    private func loadiTunesArtwork(_ metadata: SBMetadataResult) -> [RemoteImage] {
         guard let name = metadata[SBMetadataResultSeriesName] as? String,
             let seasonNum = metadata[SBMetadataResultSeason] as? Int,
             let episodeNum = metadata[SBMetadataResultEpisodeNumber] as? Int,
             let result =  iTunesStore.quickiTunesSearch(tvSeriesName: name, seasonNum: seasonNum, episodeNum: episodeNum)
             else { return [] }
 
-        return result.remoteArtworks ?? []
+        return result.remoteArtworks?.toStruct() ?? []
     }
 
-    private func loadTVArtwork(seriesID: Int, type: TVDBArtworkType, season: String, language: String) -> [SBRemoteImage] {
-        var artworks: [SBRemoteImage] = Array()
+    private func loadTVArtwork(seriesID: Int, type: TVDBArtworkType, season: String, language: String) -> [RemoteImage] {
+        var artworks: [RemoteImage] = Array()
         let images: [Image] = {
             var result = session.fetch(images: seriesID, type: type, language: language)
             if result.count == 0 || language != defaultLanguage {
@@ -290,7 +294,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
             }
 
             if selected {
-                artworks.append(SBRemoteImage(url: fileURL, thumbURL: thumbURL, providerName: "TheTVDB|" + type.rawValue))
+                artworks.append(RemoteImage(url: fileURL, thumbURL: thumbURL, providerName: "TheTVDB|" + type.rawValue))
             }
         }
         return artworks
@@ -300,7 +304,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         guard let id = metadata["TheTVDB Episodes ID"] as? Int else { return metadata }
         guard let seriesId = metadata["TheTVDB Series ID"] as? Int else { return metadata }
 
-        var artworks: [SBRemoteImage] = Array()
+        var artworks: [RemoteImage] = Array()
 
         if let info = session.fetch(episodeInfo: id, language: language) {
             metadata[SBMetadataResultDirector]       = cleanList(names: info.directors)
@@ -316,7 +320,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
             }
 
             if let filename = info.filename, let url = URL(string: TheTVDB.bannerPath + filename) {
-                artworks.append(SBRemoteImage(url: url, thumbURL: url, providerName: "TheTVDB|episode"))
+                artworks.append(RemoteImage(url: url, thumbURL: url, providerName: "TheTVDB|episode"))
             }
         }
 
@@ -331,7 +335,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
             artworks.append(contentsOf: posterImages)
         }
 
-        metadata.remoteArtworks = artworks
+        metadata.remoteArtworks = artworks.toClass()
 
         return metadata
     }

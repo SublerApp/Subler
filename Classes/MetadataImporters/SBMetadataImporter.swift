@@ -25,7 +25,7 @@ import Foundation
         return MetadataServiceType.service(name: provider).languages
     }
 
-    @objc public static func languageType(provider: String) -> SBMetadataImporterLanguageType {
+    @objc public static func languageType(provider: String) -> LanguageType {
         return MetadataServiceType.service(name: provider).languageType
     }
 
@@ -64,8 +64,6 @@ import Foundation
     }
 
     private let service: MetadataService
-    private var currentSearch: MetadataSearch?
-    private var currentSearchTask: MetadataSearchTask?
 
     @objc init(provider: String) {
         service = MetadataServiceType.service(name: provider)
@@ -75,7 +73,7 @@ import Foundation
         self.service = service
     }
 
-    @objc public var languageType: SBMetadataImporterLanguageType {
+    @objc public var languageType: LanguageType {
         get {
             return service.languageType
         }
@@ -85,36 +83,5 @@ import Foundation
         get {
             return service.languages
         }
-    }
-
-    @objc public func search(movie: String, language: String, completionHandler: @escaping ([SBMetadataResult]) -> Void) {
-        currentSearch = MetadataSearch.movieSeach(service: service, movie: movie, language: language)
-        currentSearchTask = currentSearch?.search(completionHandler: completionHandler).runAsync()
-    }
-
-    @objc public func loadFullMetadata(_ metadata: SBMetadataResult, language: String, completionHandler: @escaping (SBMetadataResult) -> Void) {
-        if metadata.mediaKind == 9 {
-            currentSearch = MetadataSearch.movieSeach(service: service, movie: "", language: language)
-            currentSearchTask = currentSearch?.loadAdditionalMetadata(metadata, completionHandler: completionHandler).runAsync()
-        }
-        else if metadata.mediaKind == 10 {
-            currentSearch = MetadataSearch.tvSearch(service: service, tvSeries: "", season: nil, episode: nil, language: language)
-            currentSearchTask = currentSearch?.loadAdditionalMetadata(metadata, completionHandler: completionHandler).runAsync()
-        }
-    }
-
-    @objc public func search(tvSeries: String, language: String, completionHandler: @escaping ([String]) -> Void) {
-        MetadataNameSearch.tvNameSearch(service: TheTVDB(), tvSeries: tvSeries, language: language)
-                .search(completionHandler: completionHandler)
-                .runAsync()
-    }
-
-    @objc public func search(tvSeries: String, language: String, seasonNum: String, episodeNum: String, completionHandler: @escaping ([SBMetadataResult]) -> Void) {
-        currentSearch = MetadataSearch.tvSearch(service: service, tvSeries: tvSeries, season: Int(seasonNum), episode: Int(episodeNum), language: language)
-        currentSearchTask = currentSearch?.search(completionHandler: completionHandler).runAsync()
-    }
-
-    @objc public func cancel() {
-        currentSearchTask?.cancel()
     }
 }

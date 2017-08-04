@@ -207,11 +207,10 @@ final public class TheTVDBService {
         let header = ["Content-Type" : "application/json",
                       "Accept" : "application/json"]
 
-        guard let response = SBMetadataHelper.downloadData(from: url,
-                                                           httpMethod: "POST",
-                                                           httpBody:apikey,
-                                                           headerOptions: header,
-                                                           cachePolicy: .default) else { return nil }
+        guard let response = URLSession.data(from: url,
+                                             httpMethod: "POST",
+                                             httpBody:apikey,
+                                             header: header) else { return nil }
 
         guard let responseToken = try? JSONDecoder().decode(TokenWrapper.self, from: response) else { return nil }
         return Token(key: responseToken.token, timestamp: Date.timeIntervalSinceReferenceDate)
@@ -226,7 +225,7 @@ final public class TheTVDBService {
             let id: Int
             let name: String
         }
-        
+
         guard let url = URL(string: "\(basePath)languages"),
             let result = sendJSONRequest(url: url, language: "en", type: Wrapper<[Language]>.self)
             else { return nil }
@@ -245,7 +244,7 @@ final public class TheTVDBService {
                       "Accept" : "application/json",
                       "Accept-Language" : language]
 
-        return SBMetadataHelper.downloadData(from: url, httpMethod: "GET", httpBody: nil, headerOptions: header, cachePolicy: .default)
+        return URLSession.data(from: url, header: header)
     }
 
     private func sendJSONRequest<T>(url: URL, language: String, type: T.Type) -> T? where T : Decodable {

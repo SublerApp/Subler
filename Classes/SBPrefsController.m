@@ -9,8 +9,9 @@
 
 #import "SBMetadataPrefsViewController.h"
 #import "SBSetPrefsViewController.h"
-#import "SBMetadataSearchController.h"
 #import "SBMetadataResultMap.h"
+
+#import "Subler-Swift.h"
 
 #import <MP42Foundation/MP42Ratings.h>
 

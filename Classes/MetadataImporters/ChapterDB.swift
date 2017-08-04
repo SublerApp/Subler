@@ -28,7 +28,7 @@ public struct ChapterDB : ChapterService {
 
     private func fetch(url: URL) -> Data? {
         let header = ["ApiKey": "ETET7TXFJH45YNYW0I4A"]
-        return SBMetadataHelper.downloadData(from: url, httpMethod: "GET", httpBody: nil, headerOptions: header, cachePolicy: .default)
+        return URLSession.data(from: url, header: header)
     }
 
     private func title(node: XMLNode) -> String? {
