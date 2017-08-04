@@ -28,7 +28,7 @@ class MetadataSearchInternalTask<T> : MetadataSearchTask {
 
     @discardableResult public func runAsync() -> MetadataSearchTask {
         DispatchQueue.global(priority: .background).async {
-            _ = self.run()
+            self.run()
         }
         return self
     }
@@ -106,22 +106,18 @@ private func parseFilename(_ filename: String) -> FilenameType? {
     let lines = outputString.components(separatedBy: "\n")
 
     if lines.count > 0 {
-        if lines.first == "tv" {
-            if lines.count >= 4 {
-                let newSeriesName = lines[1].replacingOccurrences(of: ".", with: " ")
-                return FilenameType.tvShow(seriesName: newSeriesName, season: Int(lines[2]), episode: Int(lines[3]))
-            }
+        if lines.first == "tv" && lines.count >= 4 {
+            let newSeriesName = lines[1].replacingOccurrences(of: ".", with: " ")
+            return FilenameType.tvShow(seriesName: newSeriesName, season: Int(lines[2]), episode: Int(lines[3]))
         }
-        else if lines.first == "movie" {
-            if lines.count >= 2 {
-                let newTitle = lines[1].replacingOccurrences(of: ".", with: " ")
-                .replacingOccurrences(of: "(", with: " ")
-                .replacingOccurrences(of: ")", with: " ")
-                .replacingOccurrences(of: "[", with: " ")
-                .replacingOccurrences(of: "]", with: " ")
-                .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                return FilenameType.movie(title: newTitle)
-            }
+        else if lines.first == "movie" && lines.count >= 2 {
+            let newTitle = lines[1].replacingOccurrences(of: ".", with: " ")
+            .replacingOccurrences(of: "(", with: " ")
+            .replacingOccurrences(of: ")", with: " ")
+            .replacingOccurrences(of: "[", with: " ")
+            .replacingOccurrences(of: "]", with: " ")
+            .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            return FilenameType.movie(title: newTitle)
         }
     }
 
