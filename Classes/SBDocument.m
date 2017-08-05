@@ -833,10 +833,10 @@ static NSDictionary *_detailMonospacedAttr;
 
 #pragma mark - Metadata search
 
-- (NSString *)sourceFilename {
+- (NSURL *)sourceFilename {
     for (MP42Track *track in self.mp4.tracks) {
         if (track.URL) {
-            return track.URL.lastPathComponent;
+            return track.URL;
         }
     }
     return nil;
@@ -844,13 +844,13 @@ static NSDictionary *_detailMonospacedAttr;
 
 - (IBAction)searchMetadata:(id)sender
 {
-    NSString *filename = [self sourceFilename];
+    NSURL *url = [self sourceFilename];
 
-    if (!filename) {
-        filename = self.fileURL.lastPathComponent;
+    if (!url) {
+        url = self.fileURL;
     }
 
-    self.sheetController = [[SBMetadataSearchController alloc] initWithDelegate:self searchString:filename];
+    self.sheetController = [[SBMetadataSearchController alloc] initWithDelegate:self url:url];
     [self.documentWindow beginSheet:self.sheetController.window completionHandler:^(NSModalResponse returnCode) {
         self.sheetController = nil;
     }];
@@ -897,7 +897,7 @@ static NSDictionary *_detailMonospacedAttr;
     NSString *title = [self.mp4.metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyName].firstObject.stringValue;
 
     if (title.length == 0) {
-        title = [self sourceFilename];
+        title = [self sourceFilename].lastPathComponent;
     }
 
     NSUInteger duration = self.mp4.duration;

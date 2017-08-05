@@ -62,7 +62,7 @@ import Cocoa
     // MARK: Other
     private var artworkSelector: ArtworkSelectorController?
     private weak var delegate: MetadataSearchControllerDelegate?
-    private let searchTerm: String
+    private let url: URL?
 
     // MARK: - Static methods
     @objc public static func clearRecentSearches() {
@@ -82,8 +82,8 @@ import Cocoa
     }
 
     // MARK: - Init
-    @objc init(delegate: MetadataSearchControllerDelegate, searchString: String) {
-        self.searchTerm = searchString
+    @objc init(delegate: MetadataSearchControllerDelegate, url: URL?) {
+        self.url = url
         self.delegate = delegate
         self.state = .none
         self.movieService = MetadataSearch.defaultMovieService
@@ -113,7 +113,7 @@ import Cocoa
         movieMetadataProvider.selectItem(withTitle: movieService.name)
         tvMetadataProvider.selectItem(withTitle: tvShowService.name)
 
-        if let info = searchTerm.parsedAsFilename() {
+        if let info = url?.lastPathComponent.parsedAsFilename() {
             switch info {
             case let .movie(title):
                 searchMode.selectTabViewItem(at: 0)
@@ -126,6 +126,11 @@ import Cocoa
                 if let episode = episode { tvEpisodeNum.stringValue = "\(episode)" }
                 searchForResults(searchTvButton)
             }
+        }
+        else if let title = url?.deletingPathExtension().lastPathComponent {
+            movieName.stringValue = title
+            tvSeriesName.stringValue = title
+            searchForResults(searchMovieButton)
         }
         else {
             updateUI()
