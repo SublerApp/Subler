@@ -37,32 +37,6 @@ import Foundation
         return SBMetadataImporter(provider: provider)
     }
 
-    @objc public static var defaultMovieProvider: SBMetadataImporter {
-        get {
-            return SBMetadataImporter(service: MetadataSearch.defaultMovieService)
-        }
-    }
-
-    @objc public static var defaultTVProvider: SBMetadataImporter {
-        get {
-            return SBMetadataImporter(service: MetadataSearch.defaultTVService)
-        }
-    }
-
-    @objc public static var defaultMovieLanguage: String {
-        get {
-            let defaults = UserDefaults.standard
-            return defaults.string(forKey: "SBMetadataPreference|Movie|\(defaults.value(forKey: "SBMetadataPreference|Movie")!)|Language")!
-        }
-    }
-
-    @objc public static var defaultTVLanguage: String {
-        get {
-            let defaults = UserDefaults.standard
-            return defaults.string(forKey: "SBMetadataPreference|TV|\(defaults.value(forKey: "SBMetadataPreference|TV")!)|Language")!
-        }
-    }
-
     private let service: MetadataService
 
     @objc init(provider: String) {
