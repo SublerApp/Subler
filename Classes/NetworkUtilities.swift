@@ -9,10 +9,16 @@ import Foundation
 
 // MARK: - URL Utilities
 
+private let allowedChars: CharacterSet = {
+    var chars = CharacterSet.urlQueryAllowed
+    chars.remove(charactersIn: "&+=?")
+    return chars
+}()
+
 extension String {
 
     func urlEncoded() -> String {
-        return self.precomposedStringWithCompatibilityMapping.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? ""
+        return self.precomposedStringWithCompatibilityMapping.addingPercentEncoding(withAllowedCharacters: allowedChars) ?? ""
     }
 
 }
