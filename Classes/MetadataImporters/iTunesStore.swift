@@ -371,8 +371,9 @@ public struct iTunesStore: MetadataService {
             let url = URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2)&term=\(movie.urlEncoded())&entity=movie&limit=150"),
             let results = sendJSONRequest(url: url, type: Wrapper<Track>.self)
         else { return [] }
-        
-        return results.results.map { metadata(forMoviePartialResult: $0, store: store) }
+
+        let filteredResults = results.results.filter { $0.wrapperType == "track" }
+        return filteredResults.map { metadata(forMoviePartialResult: $0, store: store) }
     }
     
     private func metadata(forMoviePartialResult result: Track, store: Store) -> SBMetadataResult {
