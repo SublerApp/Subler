@@ -459,7 +459,7 @@ public struct iTunesStore: MetadataService {
                     copyright = copyright.replacingOccurrences(of: ". All rights reserved.", with: "")
                     copyright = copyright.replacingOccurrences(of: ". All Rights Reserved", with: "")
                     copyright = copyright.replacingOccurrences(of: ". All rights reserved", with: "")
-                    copyright = copyright.replacingOccurrences(of: " by ", with: "")
+                    copyright = copyright.replacingOccurrences(of: " by", with: "")
                     metadata[SBMetadataResultCopyright] = copyright
                 }
             }
