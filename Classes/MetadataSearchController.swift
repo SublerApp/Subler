@@ -70,12 +70,7 @@ import Cocoa
     }
 
     private static func recentSearches() -> [String] {
-        if let previousTVSeries = UserDefaults.standard.array(forKey: "Previously used TV series") as? [String] {
-            return previousTVSeries
-        }
-        else {
-            return []
-        }
+        return UserDefaults.standard.array(forKey: "Previously used TV series") as? [String] ?? []
     }
 
     private static func saveRecentSearches(_ searches: [String]) {
@@ -83,6 +78,7 @@ import Cocoa
     }
 
     @objc public static func deleteCachedMetadata() {
+        URLCache.shared.removeAllCachedResponses()
     }
 
     // MARK: - Init
@@ -90,8 +86,8 @@ import Cocoa
         self.searchTerm = searchString
         self.delegate = delegate
         self.state = .none
-        self.movieService = MetadataServiceType.defaultMovieProvider
-        self.tvShowService = MetadataServiceType.defaultTVProvider
+        self.movieService = MetadataSearch.defaultMovieService
+        self.tvShowService = MetadataSearch.defaultTVService
         self.tvSeriesNameSearchArray = Array()
 
         super.init(window: nil)
@@ -108,18 +104,14 @@ import Cocoa
     override func windowDidLoad() {
         super.windowDidLoad()
 
-        movieMetadataProvider.addItems(withTitles: MetadataServiceType.movieProviders)
-        tvMetadataProvider.addItems(withTitles: MetadataServiceType.tvProviders)
+        movieMetadataProvider.addItems(withTitles: MetadataSearch.movieProviders)
+        tvMetadataProvider.addItems(withTitles: MetadataSearch.tvProviders)
 
         updateLanguagesMenu(service: movieService, popUpButton: movieLanguage)
         updateLanguagesMenu(service: tvShowService, popUpButton: tvLanguage)
 
-        if let title = UserDefaults.standard.string(forKey: "SBMetadataPreference|Movie") {
-            movieMetadataProvider.selectItem(withTitle: title)
-        }
-        if let title = UserDefaults.standard.string(forKey: "SBMetadataPreference|TV") {
-            tvMetadataProvider.selectItem(withTitle: title)
-        }
+        movieMetadataProvider.selectItem(withTitle: movieService.name)
+        tvMetadataProvider.selectItem(withTitle: tvShowService.name)
 
         if let info = searchTerm.parsedAsFilename() {
             switch info {
@@ -146,11 +138,9 @@ import Cocoa
         popUpButton.removeAllItems()
         popUpButton.addItems(withTitles: service.languages.map { service.languageType.displayName(language: $0) })
 
-        let type = popUpButton == movieLanguage ? "Movie" : "TV"
+        let type: MetadataSearch.MetadataSearchType = popUpButton == movieLanguage ? .movie : .tvShow
 
-        if let defaultLanguage = UserDefaults.standard.string(forKey: "SBMetadataPreference|\(type)|\(service.name)|Language") {
-            popUpButton.selectItem(withTitle: service.languageType.displayName(language: defaultLanguage))
-        }
+        popUpButton.selectItem(withTitle: MetadataSearch.defaultLanguage(service: service, type: type))
 
         if popUpButton.indexOfSelectedItem == -1 {
             popUpButton.selectItem(withTitle: service.languageType.displayName(language: service.defaultLanguage))
@@ -159,24 +149,22 @@ import Cocoa
 
     @IBAction func metadataProviderLanguageSelected(_ sender: NSPopUpButton) {
         if sender == movieLanguage, let title = sender.titleOfSelectedItem {
-            let language = movieService.languageType.extendedTag(displayName: title)
-            UserDefaults.standard.set(language, forKey: "SBMetadataPreference|Movie|\(movieService.name)|Language")
+            MetadataSearch.setDefaultLanguage(title, service: movieService, type: .movie)
         }
         else if sender == tvLanguage, let title = sender.titleOfSelectedItem {
-            let language = tvShowService.languageType.extendedTag(displayName: title)
-            UserDefaults.standard.set(language, forKey: "SBMetadataPreference|TV|\(tvShowService.name)|Language")
+            MetadataSearch.setDefaultLanguage(title, service: tvShowService, type: .tvShow)
         }
     }
 
     @IBAction func metadataProviderSelected(_ sender: NSPopUpButton) {
         if sender == movieMetadataProvider, let title = movieMetadataProvider.selectedItem?.title {
-            UserDefaults.standard.set(title, forKey: "SBMetadataPreference|Movie")
-            movieService = MetadataServiceType.service(name: title)
+            movieService = MetadataSearch.service(name: title)
+            MetadataSearch.defaultMovieService = movieService
             updateLanguagesMenu(service: movieService, popUpButton: movieLanguage)
         }
         else if sender == tvMetadataProvider, let title = tvMetadataProvider.selectedItem?.title {
-            UserDefaults.standard.set(title, forKey: "SBMetadataPreference|TV")
-            tvShowService = MetadataServiceType.service(name: title)
+            tvShowService = MetadataSearch.service(name: title)
+            MetadataSearch.defaultTVService = tvShowService
             updateLanguagesMenu(service: tvShowService, popUpButton: tvLanguage)
         }
     }
@@ -296,8 +284,8 @@ import Cocoa
     private func loadDone(search: MetadataSearch, result: SBMetadataResult) {
         DispatchQueue.main.async {
             self.state = .closing(search: search, result: result)
-            if let artworks = result.remoteArtworks, artworks.count > 1 {
-                self.selectArtwork(artworks: artworks)
+            if let artworks = result.remoteArtworks, artworks.count > 0 {
+                self.selectArtwork(artworks: artworks.toStruct())
             }
             else {
                 self.addMetadata()
@@ -305,8 +293,8 @@ import Cocoa
         }
     }
 
-    private func selectArtwork(artworks: [SBRemoteImage]) {
-        let artworkSelectorController = ArtworkSelectorController(artworks: artworks.toStruct(), delegate: self)
+    private func selectArtwork(artworks: [RemoteImage]) {
+        let artworkSelectorController = ArtworkSelectorController(artworks: artworks, delegate: self)
         window?.beginSheet(artworkSelectorController.window!, completionHandler: nil)
         artworkSelector = artworkSelectorController
     }
@@ -325,8 +313,12 @@ import Cocoa
                     if let data = URLSession.data(from: artwork.url) {
                         result.artworks.add(MP42Image(data: data, type: MP42_ART_JPEG))
                     }
+                    // Hack, download smaller iTunes version if big iTunes version is not available
+                    else if artwork.providerName == iTunesStore().name,
+                        let data = URLSession.data(from: artwork.url.deletingPathExtension().appendingPathExtension("600x600bb.jpg")) {
+                        result.artworks.add(MP42Image(data: data, type: MP42_ART_JPEG))
+                    }
                 }
-
                 DispatchQueue.main.async {
                     self.addMetadata()
                 }
@@ -352,12 +344,12 @@ import Cocoa
         default:
             break
         }
-        window?.sheetParent?.endSheet(self.window!, returnCode: NSApplication.ModalResponse.OK)
+        window?.sheetParent?.endSheet(window!, returnCode: NSApplication.ModalResponse.OK)
     }
 
     @IBAction func closeWindow(_ sender: Any) {
         cancelSearch()
-        window?.sheetParent?.endSheet(self.window!, returnCode: NSApplication.ModalResponse.cancel)
+        window?.sheetParent?.endSheet(window!, returnCode: NSApplication.ModalResponse.cancel)
     }
 
     // MARK - UI state

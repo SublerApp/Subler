@@ -72,7 +72,7 @@ import Foundation
 
         switch info {
         case let .movie(title):
-            let service = MetadataServiceType.service(name: self.movieProvider)
+            let service = MetadataSearch.service(name: self.movieProvider)
             let movieSearch = MetadataSearch.movieSeach(service: service, movie: title, language: self.movieLanguage)
             _ = movieSearch.search(completionHandler: {
                 if let result = $0.first {
@@ -80,7 +80,7 @@ import Foundation
                 }
             }).run()
         case let .tvShow(seriesName, season, episode):
-            let service = MetadataServiceType.service(name: self.tvShowProvider)
+            let service = MetadataSearch.service(name: self.tvShowProvider)
             let tvSearch = MetadataSearch.tvSearch(service: service, tvSeries: seriesName, season: season, episode: episode, language: tvShowLanguage)
             _ = tvSearch.search(completionHandler: {
                 if let result = $0.first {

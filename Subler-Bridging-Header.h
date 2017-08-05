@@ -7,7 +7,6 @@
 
 #import "SBMetadataResult.h"
 #import "SBMetadataResultMap.h"
-#import "SBRemoteImage.h"
 
 #import <MP42Foundation/MP42Ratings.h>
 #import <MP42Foundation/MP42Languages.h>

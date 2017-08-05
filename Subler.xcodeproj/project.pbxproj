@@ -49,7 +49,6 @@
 		A98D98481F02820F00A77ABC /* TheMovieDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98D98471F02820F00A77ABC /* TheMovieDBService.swift */; };
 		A99189CD1F2F87EC00623ED7 /* ChapterImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */; };
 		A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */; };
-		A997B0A81F34876500974C9C /* SBRemoteImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A997B0A71F34876500974C9C /* SBRemoteImage.m */; };
 		A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A997B0A91F348AB000974C9C /* MetadataSearchController.swift */; };
 		A998DABF1BA54CFF004D7969 /* SBMediaTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */; };
 		A99EEA3F12B801AE002367D3 /* SBDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AC012B79E230040517A /* SBDocument.xib */; };
@@ -240,8 +239,6 @@
 		A991319B13F0668300DCAA12 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterImporter.swift; path = Classes/MetadataImporters/ChapterImporter.swift; sourceTree = "<group>"; };
 		A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterSearchController.swift; path = Classes/ChapterSearchController.swift; sourceTree = "<group>"; };
-		A997B0A61F34876500974C9C /* SBRemoteImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBRemoteImage.h; path = Classes/MetadataImporters/SBRemoteImage.h; sourceTree = "<group>"; };
-		A997B0A71F34876500974C9C /* SBRemoteImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SBRemoteImage.m; path = Classes/MetadataImporters/SBRemoteImage.m; sourceTree = "<group>"; };
 		A997B0A91F348AB000974C9C /* MetadataSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataSearchController.swift; path = Classes/MetadataSearchController.swift; sourceTree = "<group>"; };
 		A9A0542C1DEEC3E000D1AFA4 /* SBLanguageTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBLanguageTransformer.h; path = Classes/SBLanguageTransformer.h; sourceTree = "<group>"; };
 		A9A0542D1DEEC3E000D1AFA4 /* SBLanguageTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLanguageTransformer.m; path = Classes/SBLanguageTransformer.m; sourceTree = "<group>"; };
@@ -640,8 +637,6 @@
 		CD71FF1A12F1C46900F0A98D /* MetadataImporters */ = {
 			isa = PBXGroup;
 			children = (
-				A997B0A61F34876500974C9C /* SBRemoteImage.h */,
-				A997B0A71F34876500974C9C /* SBRemoteImage.m */,
 				A9F4422E1C75017100AD8786 /* SBMetadataResult.h */,
 				A9F4422F1C75017100AD8786 /* SBMetadataResult.m */,
 				A981754E1D49F11B00750709 /* SBMetadataResultMap.h */,
@@ -844,7 +839,6 @@
 				A9B46A8F12B79B240040517A /* SBTableView.m in Sources */,
 				A9B46A9012B79B240040517A /* SBView.m in Sources */,
 				A9B46A9E12B79B990040517A /* ButtonToolbarItem.m in Sources */,
-				A997B0A81F34876500974C9C /* SBRemoteImage.m in Sources */,
 				A96946531BA3F83D0048C004 /* SBMediaTagsController.m in Sources */,
 				A9AB485417F0AEAC000AA72E /* SBChapterViewController.m in Sources */,
 				A9AB485817F0AEAC000AA72E /* SBVideoViewController.m in Sources */,

@@ -8,7 +8,7 @@
 import Cocoa
 
 @objc(SBChapterSearchControllerDelegate) protocol ChapterSearchControllerDelegate {
-    func chapterImportDone(chaptersToBeImported: [MP42TextSample])
+    func didSelect(chapters: [MP42TextSample])
 }
 
 @objc(SBChapterSearchController) class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
@@ -111,7 +111,7 @@ import Cocoa
                 sample.title = chapter.name
                 textChapters.append(sample)
             }
-            delegate.chapterImportDone(chaptersToBeImported: textChapters)
+            delegate.didSelect(chapters: textChapters)
         default:
             break
         }

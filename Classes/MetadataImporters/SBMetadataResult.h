@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class MP42Image;
 @class MP42Metadata;
 @class SBMetadataResultMap;
-@class SBRemoteImage;
 
 // Common Keys
 extern NSString *const SBMetadataResultName;
@@ -47,6 +46,16 @@ extern NSString *const SBMetadataResultEpisodeNumber;
 extern NSString *const SBMetadataResultEpisodeID;
 extern NSString *const SBMetadataResultSeason;
 extern NSString *const SBMetadataResultNetwork;
+
+@interface SBRemoteImage : NSObject
+
++ (instancetype)remoteImageWithURL:(NSURL *)fullSizeURL thumbURL:(NSURL *)thumbURL providerName:(NSString *)providerName;
+
+@property (nonatomic, readonly) NSURL *URL;
+@property (nonatomic, readonly) NSURL *thumbURL;
+@property (nonatomic, readonly) NSString *providerName;
+
+@end
 
 @interface SBMetadataResult : NSObject
 

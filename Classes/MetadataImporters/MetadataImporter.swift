@@ -52,48 +52,6 @@ public protocol MetadataNameService {
 
 }
 
-public enum MetadataServiceType : String {
-    case iTunesStoreService = "iTunes Store"
-    case TheMovieDBService = "TheMovieDB"
-    case TheTVDBService = "TheTVDB"
-
-    public static var movieProviders: [String] { get { return [TheMovieDB().name, iTunesStore().name] } }
-    public static var tvProviders: [String] { get { return [TheMovieDB().name, TheTVDB().name,  iTunesStore().name] } }
-
-    public static func service(type: MetadataServiceType) -> MetadataService {
-        switch type {
-        case .iTunesStoreService:
-            return iTunesStore()
-        case .TheMovieDBService:
-            return TheMovieDB()
-        case .TheTVDBService:
-            return TheTVDB()
-        }
-    }
-
-    public static func service(name: String?) -> MetadataService {
-        if let name = name, let type = MetadataServiceType(rawValue: name) {
-            return MetadataServiceType.service(type: type)
-        }
-        else {
-            return MetadataServiceType.service(type: .TheMovieDBService)
-        }
-    }
-
-    public static var defaultMovieProvider: MetadataService {
-        get {
-            return  MetadataServiceType.service(name: UserDefaults.standard.string(forKey: "SBMetadataPreference|Movie"))
-        }
-    }
-
-    public static var defaultTVProvider: MetadataService {
-        get {
-            return  MetadataServiceType.service(name: UserDefaults.standard.string(forKey: "SBMetadataPreference|TV"))
-        }
-    }
-
-}
-
 public enum MetadataNameSearch {
     case tvNameSearch(service: MetadataNameService, tvSeries: String, language: String)
 
@@ -105,11 +63,6 @@ public enum MetadataNameSearch {
         }
     }
 
-}
-
-public enum MetadataSearchType {
-    case movie
-    case tvShow
 }
 
 public enum MetadataSearch {
@@ -138,6 +91,11 @@ public enum MetadataSearch {
         }
     }
 
+    public enum MetadataSearchType: String {
+        case movie = "Movie"
+        case tvShow = "TV"
+    }
+
     public var type: MetadataSearchType {
         get {
             switch self {
@@ -148,4 +106,52 @@ public enum MetadataSearch {
             }
         }
     }
+}
+
+extension MetadataSearch {
+
+    public static var movieProviders: [String] { get { return [TheMovieDB().name, iTunesStore().name] } }
+    public static var tvProviders: [String] { get { return [TheMovieDB().name, TheTVDB().name,  iTunesStore().name] } }
+
+    public static func service(name: String?) -> MetadataService {
+        switch name {
+        case iTunesStore().name?:
+            return iTunesStore()
+        case TheMovieDB().name?:
+            return TheMovieDB()
+        case TheTVDB().name?:
+            return TheTVDB()
+        default:
+            return TheMovieDB()
+        }
+    }
+
+    public static var defaultMovieService: MetadataService {
+        get {
+            return  MetadataSearch.service(name: UserDefaults.standard.string(forKey: "SBMetadataPreference|Movie"))
+        }
+        set {
+            UserDefaults.standard.set(defaultMovieService.name, forKey: "SBMetadataPreference|Movie")
+        }
+    }
+
+    public static var defaultTVService: MetadataService {
+        get {
+            return  MetadataSearch.service(name: UserDefaults.standard.string(forKey: "SBMetadataPreference|TV"))
+        }
+        set {
+            UserDefaults.standard.set(defaultMovieService.name, forKey: "SBMetadataPreference|TV")
+        }
+    }
+
+    public static func defaultLanguage(service: MetadataService, type: MetadataSearchType) -> String {
+        let language = UserDefaults.standard.string(forKey: "SBMetadataPreference|\(type.rawValue)|\(service.name)|Language") ?? service.defaultLanguage
+        return service.languageType.displayName(language: language)
+    }
+
+    public static func setDefaultLanguage(_ language: String, service: MetadataService, type: MetadataSearchType) {
+        let extendedLanguage = service.languageType.extendedTag(displayName: language)
+        UserDefaults.standard.set(extendedLanguage, forKey: "SBMetadataPreference|\(type.rawValue)|\(service.name)|Language")
+    }
+
 }

@@ -908,7 +908,7 @@ static NSDictionary *_detailMonospacedAttr;
     }];
 }
 
-- (void)chapterImportDoneWithChaptersToBeImported:(NSArray<MP42TextSample *> *)chapterToBeImported
+- (void)didSelectWithChapters:(NSArray<MP42TextSample *> *)chapterToBeImported
 {
     if (chapterToBeImported) {
 

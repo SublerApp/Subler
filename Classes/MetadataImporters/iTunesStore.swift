@@ -414,8 +414,7 @@ public struct iTunesStore: MetadataService {
     // MARK: - Load additional metadata
 
     public func loadTVMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
-        guard let language = UserDefaults.standard.string(forKey: "SBMetadataPreference|TV|iTunes Store|Language"),
-              let store = iTunesStore.store(language: language),
+        guard let store = iTunesStore.store(language: language),
               let playlistID = metadata[SBMetadataResultPlaylistID] as? Int,
               let url = URL(string: "https://itunes.apple.com/lookup?country=\(store.country2)&lang=\(store.language2.lowercased())&id=\(playlistID)")
             else { return metadata }

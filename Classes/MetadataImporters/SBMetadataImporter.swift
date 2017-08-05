@@ -11,26 +11,26 @@ import Foundation
 
     @objc public static var movieProviders: [String] {
         get {
-            return MetadataServiceType.movieProviders
+            return MetadataSearch.movieProviders
         }
     }
 
     @objc public static var tvProviders: [String] {
         get {
-            return MetadataServiceType.tvProviders
+            return MetadataSearch.tvProviders
         }
     }
 
     @objc public static func languages(provider: String) -> [String] {
-        return MetadataServiceType.service(name: provider).languages
+        return MetadataSearch.service(name: provider).languages
     }
 
     @objc public static func languageType(provider: String) -> LanguageType {
-        return MetadataServiceType.service(name: provider).languageType
+        return MetadataSearch.service(name: provider).languageType
     }
 
     @objc public static func defaultLanguage(provider: String) -> String {
-        return MetadataServiceType.service(name: provider).defaultLanguage
+        return MetadataSearch.service(name: provider).defaultLanguage
     }
 
     @objc public static func importer(provider: String) -> SBMetadataImporter {
@@ -39,13 +39,13 @@ import Foundation
 
     @objc public static var defaultMovieProvider: SBMetadataImporter {
         get {
-            return SBMetadataImporter(service: MetadataServiceType.defaultMovieProvider)
+            return SBMetadataImporter(service: MetadataSearch.defaultMovieService)
         }
     }
 
     @objc public static var defaultTVProvider: SBMetadataImporter {
         get {
-            return SBMetadataImporter(service: MetadataServiceType.defaultTVProvider)
+            return SBMetadataImporter(service: MetadataSearch.defaultTVService)
         }
     }
 
@@ -66,7 +66,7 @@ import Foundation
     private let service: MetadataService
 
     @objc init(provider: String) {
-        service = MetadataServiceType.service(name: provider)
+        service = MetadataSearch.service(name: provider)
     }
 
     init(service: MetadataService) {

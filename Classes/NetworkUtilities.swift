@@ -33,7 +33,7 @@ extension URLSession {
             sem.signal()
             }.resume()
 
-        _ = sem.wait(timeout: DispatchTime.distantFuture)
+        _ = sem.wait()
 
         return downloadData
     }
