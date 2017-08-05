@@ -130,7 +130,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         result[SBMetadataResultTrackNumber]     = episode.airedEpisodeNumber
 
         // Rating
-        if let rating = info.rating {
+        if let rating = info.rating, rating.count > 0 {
             result[SBMetadataResultRating] = MP42Ratings.defaultManager.ratingStringForiTunesCountry("USA",
                                                                                                      media: "TV",
                                                                                                      ratingString: rating)
