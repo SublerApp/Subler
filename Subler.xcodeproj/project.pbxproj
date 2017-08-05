@@ -85,7 +85,6 @@
 		A9C055370F6D395B00AF15B5 /* FileImport.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C055360F6D395B00AF15B5 /* FileImport.xib */; };
 		A9C5FA6E19FA22590051F3FF /* SBLogWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C5FA6C19FA22590051F3FF /* SBLogWindowController.m */; };
 		A9C5FA7419FA2FEC0051F3FF /* SBLogWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C5FA7219FA2FEC0051F3FF /* SBLogWindow.xib */; };
-		A9C703121C05E08B00C89151 /* SBMetadataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C703111C05E08B00C89151 /* SBMetadataHelper.m */; };
 		A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C828F4195950C3004C4718 /* SBQueuePreferences.m */; };
 		A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */; };
 		A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */; };
@@ -312,8 +311,6 @@
 		A9C0957F0F7B6C8C00170CAF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		A9C5FA6B19FA22590051F3FF /* SBLogWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBLogWindowController.h; path = Classes/SBLogWindowController.h; sourceTree = "<group>"; };
 		A9C5FA6C19FA22590051F3FF /* SBLogWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLogWindowController.m; path = Classes/SBLogWindowController.m; sourceTree = "<group>"; };
-		A9C703101C05E08B00C89151 /* SBMetadataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataHelper.h; path = Classes/MetadataImporters/SBMetadataHelper.h; sourceTree = "<group>"; };
-		A9C703111C05E08B00C89151 /* SBMetadataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataHelper.m; path = Classes/MetadataImporters/SBMetadataHelper.m; sourceTree = "<group>"; };
 		A9C8182C0F74D6E300019BFF /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
 		A9C828F3195950C3004C4718 /* SBQueuePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueuePreferences.h; path = Classes/SBQueuePreferences.h; sourceTree = "<group>"; };
 		A9C828F4195950C3004C4718 /* SBQueuePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueuePreferences.m; path = Classes/SBQueuePreferences.m; sourceTree = "<group>"; };
@@ -643,8 +640,6 @@
 		CD71FF1A12F1C46900F0A98D /* MetadataImporters */ = {
 			isa = PBXGroup;
 			children = (
-				A9C703101C05E08B00C89151 /* SBMetadataHelper.h */,
-				A9C703111C05E08B00C89151 /* SBMetadataHelper.m */,
 				A997B0A61F34876500974C9C /* SBRemoteImage.h */,
 				A997B0A71F34876500974C9C /* SBRemoteImage.m */,
 				A9F4422E1C75017100AD8786 /* SBMetadataResult.h */,
@@ -856,7 +851,6 @@
 				A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */,
 				A9A8CEF91E43754400BC2AE1 /* SBQueueScriptCommand.m in Sources */,
 				A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */,
-				A9C703121C05E08B00C89151 /* SBMetadataHelper.m in Sources */,
 				A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */,
 				A909440D1DD4C70900E9F89C /* SBTokenFieldCell.m in Sources */,
 				A9E932A71F34D31D00B1790B /* ArtworkSelector.swift in Sources */,

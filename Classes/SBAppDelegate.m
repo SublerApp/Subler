@@ -12,7 +12,6 @@
 #import "SBQueueController.h"
 #import "SBPrefsController.h"
 #import "SBLogWindowController.h"
-#import "SBMetadataHelper.h"
 #import "SBLogger.h"
 
 #import <MP42Foundation/MP42File.h>
