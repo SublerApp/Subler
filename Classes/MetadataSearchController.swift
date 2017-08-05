@@ -211,7 +211,12 @@ import Cocoa
     }
 
     func comboBoxSelectionDidChange(_ notification: Notification) {
-        //TODO
+        let index = tvSeriesName.indexOfSelectedItem
+        if index > -1, let dataSource = tvSeriesName.dataSource,
+            let name = dataSource.comboBox?(tvSeriesName, objectValueForItemAt: index) as? String, name.count > 0 {
+            tvSeriesName.stringValue = name
+            updateSearchButtonVisibility()
+        }
     }
 
     func numberOfItems(in comboBox: NSComboBox) -> Int {
@@ -299,7 +304,7 @@ import Cocoa
     }
 
     private func selectArtwork(artworks: [RemoteImage]) {
-        let artworkSelectorController = ArtworkSelectorController(artworks: artworks, delegate: self)
+        let artworkSelectorController = ArtworkSelectorController(artworks: artworks, size: window?.frame.size, delegate: self)
         window?.beginSheet(artworkSelectorController.window!, completionHandler: nil)
         artworkSelector = artworkSelectorController
     }

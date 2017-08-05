@@ -48,7 +48,7 @@ private class ArtworkImageObject : NSObject {
 
         if startDownload {
             DispatchQueue.global(priority: .default).async {
-                let localData = URLSession.data(from: self.artwork.url)
+                let localData = URLSession.data(from: self.artwork.thumbURL)
                 var localCancelled = false
 
                 self.queue.sync {
@@ -116,12 +116,14 @@ public class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDe
 
     private var artworksUnloaded: [RemoteImage]
     private var artworks: [ArtworkImageObject]
+    private let initialSize: CGSize?
 
     private weak var delegate: ArtworkSelectorControllerDelegate?
 
     // MARK: - Init
-    init(artworks: [RemoteImage], delegate: ArtworkSelectorControllerDelegate) {
+    init(artworks: [RemoteImage], size: CGSize? = nil,  delegate: ArtworkSelectorControllerDelegate) {
         self.delegate = delegate
+        self.initialSize = size
         self.artworksUnloaded = artworks
         self.artworks = Array()
         super.init(window: nil)
@@ -147,12 +149,14 @@ public class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDe
     // MARK: - Load images
     override public func windowDidLoad() {
         super.windowDidLoad()
+        if let size = initialSize { window?.setContentSize(size) }
         loadMoreArtwork(self)
         imageBrowser.setSelectionIndexes(IndexSet(integer: 0), byExtendingSelection: false)
     }
 
     @IBAction func loadMoreArtwork(_ sender: Any) {
-        let endIndex = artworksUnloaded.count < 10 ? artworksUnloaded.count : 10
+        let batchCount = 8
+        let endIndex = artworksUnloaded.count < batchCount ? artworksUnloaded.count : batchCount
         artworks.append(contentsOf: artworksUnloaded[0 ..< endIndex].map {  ArtworkImageObject(artwork: $0, delegate: self) })
         artworksUnloaded.removeFirst(endIndex)
         loadMoreArtworkButton.isEnabled = artworksUnloaded.count > 0

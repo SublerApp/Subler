@@ -456,7 +456,7 @@ public struct iTunesStore: MetadataService {
         if let nodes = try? xml.nodes(forXPath: "//li[@class='copyright']") {
             for node in nodes {
                 if var copyright = node.stringValue {
-                    if let range = copyright.range(of: ". All Rights Reserved.", options: .caseInsensitive,
+                    if let range = copyright.range(of: ". All Rights Reserved", options: .caseInsensitive,
                                                    range: copyright.startIndex ..< copyright.endIndex, locale: nil) {
                         copyright.removeSubrange(range)
                     }
