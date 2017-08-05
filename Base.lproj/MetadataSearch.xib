@@ -329,21 +329,21 @@ DQ
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <splitView translatesAutoresizingMaskIntoConstraints="NO" id="7">
+                    <splitView autosaveName="SBMetadataSearchSplitView" translatesAutoresizingMaskIntoConstraints="NO" id="7">
                         <rect key="frame" x="20" y="60" width="510" height="295"/>
                         <subviews>
                             <customView id="14">
-                                <rect key="frame" x="0.0" y="0.0" width="510" height="132"/>
+                                <rect key="frame" x="0.0" y="0.0" width="510" height="104"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25">
-                                        <rect key="frame" x="0.0" y="0.0" width="510" height="132"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="510" height="104"/>
                                         <clipView key="contentView" id="B4s-TK-Lf9">
-                                            <rect key="frame" x="1" y="0.0" width="508" height="131"/>
+                                            <rect key="frame" x="1" y="0.0" width="508" height="103"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" headerView="29" id="28">
-                                                    <rect key="frame" x="0.0" y="0.0" width="508" height="108"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="508" height="80"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -393,17 +393,17 @@ DQ
                                 </constraints>
                             </customView>
                             <customView id="15">
-                                <rect key="frame" x="0.0" y="141" width="510" height="154"/>
+                                <rect key="frame" x="0.0" y="113" width="510" height="182"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="16">
-                                        <rect key="frame" x="0.0" y="0.0" width="510" height="154"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="510" height="182"/>
                                         <clipView key="contentView" id="BjK-es-FMi">
-                                            <rect key="frame" x="1" y="0.0" width="508" height="153"/>
+                                            <rect key="frame" x="1" y="0.0" width="508" height="181"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="14" headerView="20" id="19" customClass="SBTableView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="508" height="130"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="508" height="158"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
