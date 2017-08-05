@@ -455,11 +455,14 @@ public struct iTunesStore: MetadataService {
         if let nodes = try? xml.nodes(forXPath: "//li[@class='copyright']") {
             for node in nodes {
                 if var copyright = node.stringValue {
-                    copyright = copyright.replacingOccurrences(of: ". All Rights Reserved.", with: "")
-                    copyright = copyright.replacingOccurrences(of: ". All rights reserved.", with: "")
-                    copyright = copyright.replacingOccurrences(of: ". All Rights Reserved", with: "")
-                    copyright = copyright.replacingOccurrences(of: ". All rights reserved", with: "")
-                    copyright = copyright.replacingOccurrences(of: " by", with: "")
+                    if let range = copyright.range(of: ". All Rights Reserved.", options: .caseInsensitive,
+                                                   range: copyright.startIndex ..< copyright.endIndex, locale: nil) {
+                        copyright.removeSubrange(range)
+                    }
+                    if let range = copyright.range(of: " by", options: .caseInsensitive,
+                                                   range: copyright.startIndex ..< copyright.endIndex, locale: nil) {
+                        copyright.removeSubrange(range)
+                    }
                     metadata[SBMetadataResultCopyright] = copyright
                 }
             }
