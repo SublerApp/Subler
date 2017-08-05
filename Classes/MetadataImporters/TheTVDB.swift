@@ -50,7 +50,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
 
     // MARK: - TV Series ID search
 
-    private func match(series: SeriesSearchResult, name: String) -> Bool {
+    private func match(series: TVDBSeriesSearchResult, name: String) -> Bool {
         if series.seriesName.caseInsensitiveCompare(name) == .orderedSame  {
             return true
         }
@@ -81,7 +81,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
 
     // MARK: - Helpers
 
-    private func cleanList(actors: [Actor]) -> String {
+    private func cleanList(actors: [TVDBActor]) -> String {
         return actors.map { $0.name } .reduce("", { $0 + ($0.count > 0 ? ", " : "") + $1 })
     }
 
@@ -104,7 +104,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         }
     }
 
-    private func merge(episode: Episode, info: SeriesInfo, actors: [Actor]) -> SBMetadataResult {
+    private func merge(episode: TVDBEpisode, info: TVDBSeriesInfo, actors: [TVDBActor]) -> SBMetadataResult {
         let result = SBMetadataResult()
 
         result.mediaKind = 10
@@ -145,7 +145,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         return result
     }
 
-    private func loadEpisodes(info: SeriesInfo, actors: [Actor], season: Int?, episode: Int?, language: String) -> [SBMetadataResult] {
+    private func loadEpisodes(info: TVDBSeriesInfo, actors: [TVDBActor], season: Int?, episode: Int?, language: String) -> [SBMetadataResult] {
         let episodes = session.fetch(episodeForSeriesID: info.id, season: season, episode: episode, language: language)
         let filteredEpisodes = episodes.filter {
             (season != nil ? $0.airedSeason == season : true) &&
@@ -208,7 +208,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         }
     }
 
-    private func merge(info: SeriesInfo, results: [SBMetadataResult]) {
+    private func merge(info: TVDBSeriesInfo, results: [SBMetadataResult]) {
         let name = info.seriesName
         for result in results {
             result[SBMetadataResultSeriesName] = name
@@ -232,7 +232,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         var results: [SBMetadataResult] = Array()
 
         for id in seriesIDs {
-            guard let info: SeriesInfo = {
+            guard let info: TVDBSeriesInfo = {
                 let result = session.fetch(seriesInfo: id, language: language)
                 return result != nil ? result : session.fetch(seriesInfo: id, language: defaultLanguage)
                 }()
@@ -274,7 +274,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
 
     private func loadTVArtwork(seriesID: Int, type: TVDBArtworkType, season: String, language: String) -> [RemoteImage] {
         var artworks: [RemoteImage] = Array()
-        let images: [Image] = {
+        let images: [TVDBImage] = {
             var result = session.fetch(images: seriesID, type: type, language: language)
             if result.count == 0 || language != defaultLanguage {
                 result.append(contentsOf: session.fetch(images: seriesID, type: type, language: defaultLanguage))

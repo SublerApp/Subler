@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct SeriesSearchResult : Codable {
+public struct TVDBSeriesSearchResult : Codable {
     public let aliases: [String]
     public let banner: String?
     public let firstAired: String?
@@ -18,7 +18,7 @@ public struct SeriesSearchResult : Codable {
     public let status: String?
 }
 
-public struct SeriesInfo : Codable {
+public struct TVDBSeriesInfo : Codable {
     public let added: String?
     public let airsDayOfWeek: String?
     public let airsTime: String?
@@ -49,27 +49,27 @@ public struct SeriesInfo : Codable {
     //public let status: String?
 }
 
-public struct Actor : Codable {
+public struct TVDBActor : Codable {
     public let id: Int
     public let name: String
     //public let role: String?
 }
 
-public struct RatingInfo : Codable {
+public struct TVDBRatingInfo : Codable {
     public let average: Double
     public let count: Int
 }
 
-public struct Image : Codable {
+public struct TVDBImage : Codable {
     public let fileName: String
     public let keyType: String
-    public let ratingsInfo: RatingInfo?
+    public let ratingsInfo: TVDBRatingInfo?
     public let resolution: String?
     public let subKey: String?
     public let thumbnail: String
 }
 
-public struct Episode : Codable {
+public struct TVDBEpisode : Codable {
     public let absoluteNumber: Double?
     public let airedEpisodeNumber: Int
     public let airedSeason: Int
@@ -84,7 +84,7 @@ public struct Episode : Codable {
     public let overview: String?
 }
 
-public struct EpisodeInfo : Codable {
+public struct TVDBEpisodeInfo : Codable {
     public let absoluteNumber: Int
     public let airedEpisodeNumber: Int?
     public let airedSeason: Int?
@@ -257,35 +257,35 @@ final public class TheTVDBService {
 
     // MARK: - Service calls
     
-    public func fetch(series: String, language: String) -> [SeriesSearchResult] {
+    public func fetch(series: String, language: String) -> [TVDBSeriesSearchResult] {
         let encodedName = series.urlEncoded()
 
         guard let url = URL(string: "\(basePath)search/series?name=\(encodedName)"),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[SeriesSearchResult]>.self)
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TVDBSeriesSearchResult]>.self)
             else { return [] }
 
         return result.data
     }
 
-    public func fetch(seriesInfo seriesID: Int, language: String) -> SeriesInfo? {
+    public func fetch(seriesInfo seriesID: Int, language: String) -> TVDBSeriesInfo? {
         guard let url = URL(string: "\(basePath)series/\(seriesID)"),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<SeriesInfo>.self)
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<TVDBSeriesInfo>.self)
             else { return nil }
 
         return result.data
     }
 
-    public func fetch(actors seriesID: Int, language: String) -> [Actor] {
+    public func fetch(actors seriesID: Int, language: String) -> [TVDBActor] {
         guard let url = URL(string: "\(basePath)series/\(seriesID)/actors"),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[Actor]>.self)
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TVDBActor]>.self)
             else { return [] }
 
         return result.data
     }
 
-    public func fetch(images seriesID: Int, type: TVDBArtworkType, language: String) -> [Image] {
+    public func fetch(images seriesID: Int, type: TVDBArtworkType, language: String) -> [TVDBImage] {
         guard let url = URL(string: "\(basePath)series/\(seriesID)/images/query?keyType=\(type.rawValue)"),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[Image]>.self)
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TVDBImage]>.self)
             else { return [] }
 
         return result.data
@@ -302,17 +302,17 @@ final public class TheTVDBService {
         }
     }
     
-    public func fetch(episodeForSeriesID seriesID: Int, season: Int?, episode: Int?, language: String) -> [Episode] {
+    public func fetch(episodeForSeriesID seriesID: Int, season: Int?, episode: Int?, language: String) -> [TVDBEpisode] {
         guard let url = episodesURL(seriesID: seriesID, season: season, episode: episode),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[Episode]>.self)
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TVDBEpisode]>.self)
             else { return [] }
 
         return result.data
     }
 
-    public func fetch(episodeInfo episodeID: Int, language: String) -> EpisodeInfo? {
+    public func fetch(episodeInfo episodeID: Int, language: String) -> TVDBEpisodeInfo? {
         guard let url = URL(string: "\(basePath)episodes/\(episodeID)"),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<EpisodeInfo>.self)
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<TVDBEpisodeInfo>.self)
             else { return nil }
 
         return result.data
