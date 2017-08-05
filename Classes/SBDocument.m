@@ -21,7 +21,6 @@
 #import "SBChapterViewController.h"
 #import "SBMultiSelectViewController.h"
 
-#import "SBArtworkSelector.h"
 #import "SBMetadataResult.h"
 #import "SBMetadataResultMap.h"
 
@@ -857,7 +856,7 @@ static NSDictionary *_detailMonospacedAttr;
     }];
 }
 
-- (void)metadataImportDoneWithMetadataToBeImported:(SBMetadataResult *)metadataToBeImported
+- (void)didSelectWithMetadata:(SBMetadataResult *)metadataToBeImported
 {
     if (metadataToBeImported) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

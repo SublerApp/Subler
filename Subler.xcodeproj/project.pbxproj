@@ -93,6 +93,7 @@
 		A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B991B918D5C00F1E40C /* SBApplication.m */; };
 		A9DA3B9D1B918D5C00F1E40C /* SBExceptionAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B9B1B918D5C00F1E40C /* SBExceptionAlertController.m */; };
 		A9DA3BA31B918D6F00F1E40C /* ExceptionAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9DA3BA11B918D6F00F1E40C /* ExceptionAlert.xib */; };
+		A9E932A71F34D31D00B1790B /* ArtworkSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E932A61F34D31D00B1790B /* ArtworkSelector.swift */; };
 		A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E97F131F274F1100DBA586 /* iTunesStore.swift */; };
 		A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */; };
 		A9EEA5F818D654B9008B54B4 /* QueueOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */; };
@@ -101,7 +102,6 @@
 		A9F7F8E01837C44B0036AE7E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9ED7B21180067A2008FD3A8 /* IOKit.framework */; };
 		A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */; };
 		CD4E6E5D12F744210095C84F /* ArtworkSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD4E6E5B12F744210095C84F /* ArtworkSelector.xib */; };
-		CD56963212FAAD680029FADB /* SBArtworkSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = CD56963112FAAD680029FADB /* SBArtworkSelector.m */; };
 		CD71FEA612F1B62600F0A98D /* MetadataSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */; };
 		CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */ = {isa = PBXBuildFile; fileRef = CDE8E451174CBBD4009410B5 /* iTunesStores.json */; };
 /* End PBXBuildFile section */
@@ -324,6 +324,7 @@
 		A9DA3B9A1B918D5C00F1E40C /* SBExceptionAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBExceptionAlertController.h; path = Classes/SBExceptionAlertController.h; sourceTree = "<group>"; };
 		A9DA3B9B1B918D5C00F1E40C /* SBExceptionAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBExceptionAlertController.m; path = Classes/SBExceptionAlertController.m; sourceTree = "<group>"; };
 		A9DA3BA01B918D6200F1E40C /* SBApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBApplication.h; path = Classes/SBApplication.h; sourceTree = "<group>"; };
+		A9E932A61F34D31D00B1790B /* ArtworkSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArtworkSelector.swift; path = Classes/ArtworkSelector.swift; sourceTree = "<group>"; };
 		A9E97F131F274F1100DBA586 /* iTunesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = iTunesStore.swift; path = Classes/MetadataImporters/iTunesStore.swift; sourceTree = "<group>"; };
 		A9ED7B21180067A2008FD3A8 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A9EEA5EF18D65490008B54B4 /* SBOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBOptionsViewController.h; path = Classes/SBOptionsViewController.h; sourceTree = "<group>"; };
@@ -333,8 +334,6 @@
 		A9F5820B1DCC861F005F3E92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9FC6FF41EF2E3280034CCED /* Subler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Subler-Bridging-Header.h"; sourceTree = "<group>"; };
 		A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheTVDBService.swift; path = Classes/MetadataImporters/TheTVDBService.swift; sourceTree = "<group>"; };
-		CD56963012FAAD680029FADB /* SBArtworkSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBArtworkSelector.h; path = Classes/SBArtworkSelector.h; sourceTree = "<group>"; };
-		CD56963112FAAD680029FADB /* SBArtworkSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBArtworkSelector.m; path = Classes/SBArtworkSelector.m; sourceTree = "<group>"; };
 		CD56966E12FAAFA90029FADB /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		CDE8E451174CBBD4009410B5 /* iTunesStores.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iTunesStores.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -606,8 +605,7 @@
 				A9B46ABE12B79D1C0040517A /* SBDocument.m */,
 				A9B46A7E12B79B240040517A /* SBFileImport.h */,
 				A9B46A7F12B79B240040517A /* SBFileImport.m */,
-				CD56963012FAAD680029FADB /* SBArtworkSelector.h */,
-				CD56963112FAAD680029FADB /* SBArtworkSelector.m */,
+				A9E932A61F34D31D00B1790B /* ArtworkSelector.swift */,
 				A997B0A91F348AB000974C9C /* MetadataSearchController.swift */,
 				A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */,
 				A909440E1DD4C85B00E9F89C /* Table View */,
@@ -861,13 +859,13 @@
 				A9C703121C05E08B00C89151 /* SBMetadataHelper.m in Sources */,
 				A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */,
 				A909440D1DD4C70900E9F89C /* SBTokenFieldCell.m in Sources */,
+				A9E932A71F34D31D00B1790B /* ArtworkSelector.swift in Sources */,
 				A9C5FA6E19FA22590051F3FF /* SBLogWindowController.m in Sources */,
 				A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */,
 				A9AB485717F0AEAC000AA72E /* SBSoundViewController.m in Sources */,
 				A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */,
 				A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */,
 				A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */,
-				CD56963212FAAD680029FADB /* SBArtworkSelector.m in Sources */,
 				A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */,
 				A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */,
 				61CEC0D31E756ADA000FECC1 /* SBMultiSelectViewController.m in Sources */,

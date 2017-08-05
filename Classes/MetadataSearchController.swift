@@ -8,12 +8,14 @@
 import Cocoa
 
 @objc(SBMetadataSearchControllerDelegate) protocol MetadataSearchControllerDelegate {
-    func metadataImportDone(metadataToBeImported: SBMetadataResult)
+    func didSelect(metadata: SBMetadataResult)
 }
 
-@objc(SBMetadataSearchController) class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSComboBoxDelegate, NSComboBoxDataSource, NSTextFieldDelegate, SBArtworkSelectorDelegate {
+@objc(SBMetadataSearchController) class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSComboBoxDelegate, NSComboBoxDataSource, NSTextFieldDelegate, ArtworkSelectorControllerDelegate {
 
     @IBOutlet var searchMode: NSTabView!
+    @IBOutlet var movieTab: NSTabViewItem!
+    @IBOutlet var tvEpisodeTab: NSTabViewItem!
 
     // MARK: - Movie
     @IBOutlet var movieName: NSTextField!
@@ -38,6 +40,11 @@ import Cocoa
     @IBOutlet var progress: NSProgressIndicator!
     @IBOutlet var progressText: NSTextField!
 
+    // MARK: - ComboBox
+
+    private var tvSeriesNameSearchArray: [String]
+    private var nameSearchTask: MetadataSearchTask?
+
     // MARK: UI State
     private enum MetadataSearchState {
         case none
@@ -53,8 +60,8 @@ import Cocoa
     private var tvShowService: MetadataService
 
     // MARK: Other
-    private var artworkSelector: SBArtworkSelector?
-    private let delegate: MetadataSearchControllerDelegate
+    private var artworkSelector: ArtworkSelectorController?
+    private weak var delegate: MetadataSearchControllerDelegate?
     private let searchTerm: String
 
     // MARK: - Static methods
@@ -62,17 +69,30 @@ import Cocoa
         UserDefaults.standard.removeObject(forKey: "Previously used TV series")
     }
 
+    private static func recentSearches() -> [String] {
+        if let previousTVSeries = UserDefaults.standard.array(forKey: "Previously used TV series") as? [String] {
+            return previousTVSeries
+        }
+        else {
+            return []
+        }
+    }
+
+    private static func saveRecentSearches(_ searches: [String]) {
+        UserDefaults.standard.set(searches, forKey: "Previously used TV series")
+    }
+
     @objc public static func deleteCachedMetadata() {
     }
 
     // MARK: - Init
     @objc init(delegate: MetadataSearchControllerDelegate, searchString: String) {
-
         self.searchTerm = searchString
         self.delegate = delegate
         self.state = .none
         self.movieService = MetadataServiceType.defaultMovieProvider
         self.tvShowService = MetadataServiceType.defaultTVProvider
+        self.tvSeriesNameSearchArray = Array()
 
         super.init(window: nil)
     }
@@ -103,7 +123,6 @@ import Cocoa
 
         if let info = searchTerm.parsedAsFilename() {
             switch info {
-
             case let .movie(title):
                 searchMode.selectTabViewItem(at: 0)
                 movieName.stringValue = title
@@ -111,8 +130,8 @@ import Cocoa
             case let .tvShow(seriesName, season, episode):
                 searchMode.selectTabViewItem(at: 1)
                 tvSeriesName.stringValue = seriesName
-                tvSeasonNum.stringValue = season != nil ? String(describing: season) : ""
-                tvEpisodeNum.stringValue = episode != nil ? String(describing: episode) : ""
+                if let season = season { tvSeasonNum.stringValue = "\(season)" }
+                if let episode = episode { tvEpisodeNum.stringValue = "\(episode)" }
                 searchForResults(searchTvButton)
             }
         }
@@ -123,7 +142,7 @@ import Cocoa
 
     // MARK: - Search UI
 
-    func updateLanguagesMenu(service: MetadataService, popUpButton: NSPopUpButton) {
+    private func updateLanguagesMenu(service: MetadataService, popUpButton: NSPopUpButton) {
         popUpButton.removeAllItems()
         popUpButton.addItems(withTitles: service.languages.map { service.languageType.displayName(language: $0) })
 
@@ -166,30 +185,48 @@ import Cocoa
     func comboBox(_ comboBox: NSComboBox, completedString string: String) -> String? {
         if string.count < 1 { return nil }
 
-        if comboBox == tvSeriesName, let previousTVSeries = UserDefaults.standard.array(forKey: "Previously used TV series") as? [String] {
-            for previousString in previousTVSeries {
-                if previousString.localizedCaseInsensitiveCompare(string) == ComparisonResult.orderedSame {
-                    return previousString
-                }
+        for previousString in MetadataSearchController.recentSearches() {
+            if previousString.lowercased().hasPrefix(string.lowercased()) {
+                return previousString
             }
         }
         return nil
     }
 
     func comboBoxWillPopUp(_ notification: Notification) {
+        if tvSeriesName.stringValue.count == 0 {
+            tvSeriesNameSearchArray = MetadataSearchController.recentSearches().sorted()
+        }
+        else if tvSeriesName.stringValue.count > 3 {
+            if let task = nameSearchTask { task.cancel() }
 
+            tvSeriesNameSearchArray = [NSLocalizedString("Searching…", comment: "")]
+
+            nameSearchTask = MetadataNameSearch.tvNameSearch(service: TheTVDB(), tvSeries: tvSeriesName.stringValue, language: "en")
+                .search(completionHandler: { (results) in
+                DispatchQueue.main.async {
+                    self.tvSeriesNameSearchArray = results.sorted()
+                    self.tvSeriesName.reloadData()
+                    self.nameSearchTask = nil
+                }
+            }).runAsync()
+        }
+        else {
+            tvSeriesNameSearchArray.removeAll()
+        }
+        tvSeriesName.reloadData()
     }
 
     func comboBoxSelectionDidChange(_ notification: Notification) {
-
+        //TODO
     }
 
     func numberOfItems(in comboBox: NSComboBox) -> Int {
-        return 0
+        return tvSeriesNameSearchArray.count
     }
 
     func comboBox(_ comboBox: NSComboBox, objectValueForItemAt index: Int) -> Any? {
-        return nil
+        return tvSeriesNameSearchArray[index]
     }
 
     // MARK: - Search
@@ -269,31 +306,49 @@ import Cocoa
     }
 
     private func selectArtwork(artworks: [SBRemoteImage]) {
-        let artworkSelectorController = SBArtworkSelector(delegate: self, imageURLs: artworks)
+        let artworkSelectorController = ArtworkSelectorController(artworks: artworks.toStruct(), delegate: self)
         window?.beginSheet(artworkSelectorController.window!, completionHandler: nil)
         artworkSelector = artworkSelectorController
     }
 
-    func selectArtworkDone(_ indexes: IndexSet) {
+    func didSelect(artworks: [RemoteImage]) {
         window?.endSheet((artworkSelector?.window)!)
-        addMetadata()
+        load(artworks: artworks)
+    }
+
+    private func load(artworks: [RemoteImage]) {
+        switch state {
+        case .closing(_, let result):
+
+            DispatchQueue.global(priority: .background).async {
+                for artwork in artworks {
+                    if let data = URLSession.data(from: artwork.url) {
+                        result.artworks.add(MP42Image(data: data, type: MP42_ART_JPEG))
+                    }
+                }
+
+                DispatchQueue.main.async {
+                    self.addMetadata()
+                }
+            }
+        default:
+            addMetadata()
+        }
     }
 
     private func addMetadata() {
         switch state {
         case .closing(let search, let result):
             if search.type == .tvShow {
-                if let title = result[SBMetadataResultSeriesName] as? String,
-                var previousTVSeries = UserDefaults.standard.array(forKey: "Previously used TV series") as? [String], previousTVSeries.contains(title) == false
-                {
-                    previousTVSeries.append(title)
-                    UserDefaults.standard.set(previousTVSeries, forKey: "Previously used TV series")
-                }
-                else if let title = result[SBMetadataResultSeriesName] as? String{
-                    UserDefaults.standard.set([title], forKey: "Previously used TV series")
+                if let title = result[SBMetadataResultSeriesName] as? String {
+                    var previousTVSeries = MetadataSearchController.recentSearches()
+                    if previousTVSeries.contains(title) == false {
+                        previousTVSeries.append(title)
+                    }
+                    MetadataSearchController.saveRecentSearches(previousTVSeries)
                 }
             }
-            delegate.metadataImportDone(metadataToBeImported: result)
+            delegate?.didSelect(metadata: result)
         default:
             break
         }
@@ -344,9 +399,11 @@ import Cocoa
         metadataTable.reloadData()
     }
 
-    private func swithDefaultButton(from oldDefault: NSButton, to newDefault: NSButton, disableOldButton: Bool) {
+    private func swithDefaultButton(from oldDefault: NSButton, to newDefault: NSButton, disableOldButton: Bool?) {
         oldDefault.keyEquivalent = ""
-        oldDefault.isEnabled = !disableOldButton
+        if let disableOldButton = disableOldButton {
+            oldDefault.isEnabled = !disableOldButton
+        }
         newDefault.keyEquivalent = "\r"
         newDefault.isEnabled = true
     }
@@ -364,21 +421,27 @@ import Cocoa
                  state: false)
     }
 
+    private func visibleSearchButton() -> NSButton {
+        return searchMode.selectedTabViewItem == movieTab ? searchMovieButton : searchTvButton
+    }
+
     private func updateUI() {
         switch state {
         case .none:
             stopProgressReport()
             reloadTableData()
-            swithDefaultButton(from: addButton, to: searchMovieButton, disableOldButton: true)
+            swithDefaultButton(from: addButton, to: visibleSearchButton(), disableOldButton: true)
             updateSearchButtonVisibility()
         case .searching:
             startProgressReport()
             reloadTableData()
-            swithDefaultButton(from: addButton, to: searchMovieButton, disableOldButton: true)
+            swithDefaultButton(from: addButton, to: visibleSearchButton(), disableOldButton: true)
         case .completed:
             stopProgressReport()
             reloadTableData()
-            swithDefaultButton(from: searchMovieButton, to: addButton, disableOldButton: false)
+            swithDefaultButton(from: searchMovieButton, to: addButton, disableOldButton: nil)
+            swithDefaultButton(from: searchTvButton, to: addButton, disableOldButton: nil)
+            updateSearchButtonVisibility()
             window?.makeFirstResponder(resultsTable)
         case .additionalSearch:
             startProgressReport()
@@ -390,12 +453,28 @@ import Cocoa
     }
 
     private func updateSearchButtonVisibility() {
-        //searchButton.isEnabled = searchTitle.stringValue.count > 0 ? true : false
+        if movieName.stringValue.count > 0 {
+            searchMovieButton.isEnabled = true
+        }
+        else {
+            searchMovieButton.isEnabled = false
+        }
+        if tvSeriesName.stringValue.count > 0 {
+            if tvSeasonNum.stringValue.count == 0 && tvEpisodeNum.stringValue.count > 0 {
+                searchTvButton.isEnabled = false
+            } else {
+                searchTvButton.isEnabled = true
+            }
+        }
+        else {
+            searchTvButton.isEnabled = false
+        }
     }
 
     override func controlTextDidChange(_ obj: Notification) {
         updateSearchButtonVisibility()
         searchMovieButton.keyEquivalent = "\r"
+        searchTvButton.keyEquivalent = "\r"
         addButton.keyEquivalent = ""
     }
 
