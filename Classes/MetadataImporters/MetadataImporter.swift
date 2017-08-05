@@ -130,8 +130,8 @@ extension MetadataSearch {
         get {
             return  MetadataSearch.service(name: UserDefaults.standard.string(forKey: "SBMetadataPreference|Movie"))
         }
-        set {
-            UserDefaults.standard.set(defaultMovieService.name, forKey: "SBMetadataPreference|Movie")
+        set (newDefault) {
+            UserDefaults.standard.set(newDefault.name, forKey: "SBMetadataPreference|Movie")
         }
     }
 
@@ -139,8 +139,8 @@ extension MetadataSearch {
         get {
             return  MetadataSearch.service(name: UserDefaults.standard.string(forKey: "SBMetadataPreference|TV"))
         }
-        set {
-            UserDefaults.standard.set(defaultMovieService.name, forKey: "SBMetadataPreference|TV")
+        set (newDefault) {
+            UserDefaults.standard.set(newDefault.name, forKey: "SBMetadataPreference|TV")
         }
     }
 
