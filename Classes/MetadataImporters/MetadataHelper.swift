@@ -65,7 +65,7 @@ extension Array where Element == RemoteImage {
 
 extension SBRemoteImage {
     func toStruct() -> RemoteImage {
-        return RemoteImage(url: self.url, thumbURL: self.thumbURL, providerName: self.providerName)
+        return RemoteImage(url: self.url, thumbURL: self.thumbURL, service: self.service, type: self.type)
     }
 }
 
@@ -78,10 +78,11 @@ extension Array where Element == SBRemoteImage {
 public struct RemoteImage {
     let url: URL
     let thumbURL: URL
-    let providerName: String
+    let service: String
+    let type: String
 
     public func toClass() -> SBRemoteImage {
-        return SBRemoteImage(url: url, thumbURL: thumbURL, providerName: providerName)
+        return SBRemoteImage(url: url, thumbURL: thumbURL, service: service, type: type)
     }
 }
 

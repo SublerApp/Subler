@@ -49,11 +49,12 @@ extern NSString *const SBMetadataResultNetwork;
 
 @interface SBRemoteImage : NSObject
 
-+ (instancetype)remoteImageWithURL:(NSURL *)fullSizeURL thumbURL:(NSURL *)thumbURL providerName:(NSString *)providerName;
++ (instancetype)remoteImageWithURL:(NSURL *)fullSizeURL thumbURL:(NSURL *)thumbURL service:(NSString *)service type:(NSString *)kind;
 
 @property (nonatomic, readonly) NSURL *URL;
 @property (nonatomic, readonly) NSURL *thumbURL;
-@property (nonatomic, readonly) NSString *providerName;
+@property (nonatomic, readonly) NSString *service;
+@property (nonatomic, readonly) NSString *type;
 
 @end
 

@@ -45,21 +45,22 @@ NSString *const SBMetadataResultNetwork = @"{Network}";
 
 @implementation SBRemoteImage
 
-- (instancetype)initWithURL:(NSURL *)fullSizeURL thumbURL:(NSURL *)thumbURL providerName:(NSString *)providerName
+- (instancetype)initWithURL:(NSURL *)fullSizeURL thumbURL:(NSURL *)thumbURL service:(NSString *)service type:(NSString *)type
 {
     self = [super init];
     if (self)
     {
         _URL = fullSizeURL;
         _thumbURL = thumbURL;
-        _providerName = providerName;
+        _service = service;
+        _type = type;
     }
     return self;
 }
 
-+ (instancetype)remoteImageWithURL:(NSURL *)fullSizeURL thumbURL:(NSURL *)thumbURL providerName:(NSString *)providerName
++ (instancetype)remoteImageWithURL:(NSURL *)fullSizeURL thumbURL:(NSURL *)thumbURL service:(NSString *)service type:(NSString *)type
 {
-    return [[self alloc] initWithURL:fullSizeURL thumbURL:thumbURL providerName:providerName];
+    return [[self alloc] initWithURL:fullSizeURL thumbURL:thumbURL service:service type:type];
 }
 
 @end

@@ -294,7 +294,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
             }
 
             if selected {
-                artworks.append(RemoteImage(url: fileURL, thumbURL: thumbURL, providerName: "TheTVDB|" + type.rawValue))
+                artworks.append(RemoteImage(url: fileURL, thumbURL: thumbURL, service: self.name, type: type.rawValue))
             }
         }
         return artworks
@@ -320,7 +320,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
             }
 
             if let filename = info.filename, let url = URL(string: TheTVDB.bannerPath + filename) {
-                artworks.append(RemoteImage(url: url, thumbURL: url, providerName: "TheTVDB|episode"))
+                artworks.append(RemoteImage(url: url, thumbURL: url, service: self.name, type: "episode"))
             }
         }
 

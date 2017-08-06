@@ -143,7 +143,7 @@ import Cocoa
         popUpButton.removeAllItems()
         popUpButton.addItems(withTitles: service.languages.map { service.languageType.displayName(language: $0) })
 
-        let type: MetadataSearch.MetadataSearchType = popUpButton == movieLanguage ? .movie : .tvShow
+        let type: MetadataSearch.Kind = popUpButton == movieLanguage ? .movie : .tvShow
 
         popUpButton.selectItem(withTitle: MetadataSearch.defaultLanguage(service: service, type: type))
 
@@ -295,7 +295,7 @@ import Cocoa
         DispatchQueue.main.async {
             self.state = .closing(search: search, result: result)
             if let artworks = result.remoteArtworks, artworks.count > 0 {
-                self.selectArtwork(artworks: artworks.toStruct())
+                self.selectArtwork(artworks: artworks.toStruct(), type: search.type)
             }
             else {
                 self.addMetadata()
@@ -303,8 +303,9 @@ import Cocoa
         }
     }
 
-    private func selectArtwork(artworks: [RemoteImage]) {
-        let artworkSelectorController = ArtworkSelectorController(artworks: artworks, size: window?.frame.size, delegate: self)
+    private func selectArtwork(artworks: [RemoteImage], type: MetadataSearch.Kind) {
+        let artworkSelectorController = ArtworkSelectorController(artworks: artworks, size: window?.frame.size,
+                                                                  type: type, delegate: self)
         window?.beginSheet(artworkSelectorController.window!, completionHandler: nil)
         artworkSelector = artworkSelectorController
     }
@@ -324,7 +325,7 @@ import Cocoa
                         result.artworks.add(MP42Image(data: data, type: MP42_ART_JPEG))
                     }
                     // Hack, download smaller iTunes version if big iTunes version is not available
-                    else if artwork.providerName == iTunesStore().name,
+                    else if artwork.service == iTunesStore().name,
                         let data = URLSession.data(from: artwork.url.deletingPathExtension().appendingPathExtension("600x600bb.jpg")) {
                         result.artworks.add(MP42Image(data: data, type: MP42_ART_JPEG))
                     }

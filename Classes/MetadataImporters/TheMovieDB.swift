@@ -86,10 +86,10 @@ public struct TheMovieDB: MetadataService {
 
     // MARK: - Movie metadata loading
 
-    private func loadArtwork(filePath: String, baseURL: String, thumbSize: String, providerName: String) -> RemoteImage? {
+    private func loadArtwork(filePath: String, baseURL: String, thumbSize: String, kind: String) -> RemoteImage? {
         guard let url = URL(string: baseURL + "original" + filePath),
             let thumbURL = URL(string: baseURL + thumbSize + filePath) else { return nil }
-        return RemoteImage(url: url, thumbURL: thumbURL, providerName: providerName)
+        return RemoteImage(url: url, thumbURL: thumbURL, service: self.name, type: kind)
     }
 
     private func loadMovieArtworks(result: TMDBMovie) -> [RemoteImage] {
@@ -108,16 +108,16 @@ public struct TheMovieDB: MetadataService {
             let backdropThumbnailSize = config.backdrop_sizes.first {
 
             if let images = result.images?.posters {
-                artworks.append(contentsOf: images.flatMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, providerName: "TheMovieDB|poster") } )
+                artworks.append(contentsOf: images.flatMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, kind: "poster") } )
             }
 
             if result.images?.posters?.count == 0, let posterPath = result.poster_path,
-                let artwork = loadArtwork(filePath: posterPath, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, providerName: "TheMovieDB|poster") {
+                let artwork = loadArtwork(filePath: posterPath, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, kind: "poster") {
                 artworks.append(artwork)
             }
 
             if let backdropPath = result.backdrop_path,
-                let artwork = loadArtwork(filePath: backdropPath, baseURL: imageBaseURL, thumbSize: backdropThumbnailSize, providerName: "TheMovieDB|poster") {
+                let artwork = loadArtwork(filePath: backdropPath, baseURL: imageBaseURL, thumbSize: backdropThumbnailSize, kind: "poster") {
                 artworks.append(artwork)
             }
         }
@@ -209,7 +209,7 @@ public struct TheMovieDB: MetadataService {
                 for image in images {
                     if let url = URL(string: imageBaseURL + "original" + image.file_path),
                         let thumbURL = URL(string: imageBaseURL + posterThumbnailSize + image.file_path) {
-                        let remoteImage = RemoteImage(url: url, thumbURL: thumbURL, providerName: "TheMovieDB|poster")
+                        let remoteImage = RemoteImage(url: url, thumbURL: thumbURL, service: self.name, type: "poster")
                         artworks.append(remoteImage)
                     }
                 }
@@ -219,14 +219,14 @@ public struct TheMovieDB: MetadataService {
                 let posterPath = result.poster_path,
                 let url = URL(string: imageBaseURL + "original" + posterPath),
                 let thumbURL = URL(string: imageBaseURL + posterThumbnailSize + posterPath) {
-                let remoteImage = RemoteImage(url: url, thumbURL: thumbURL, providerName: "TheMovieDB|poster")
+                let remoteImage = RemoteImage(url: url, thumbURL: thumbURL, service: self.name, type: "poster")
                 artworks.append(remoteImage)
             }
 
             if let backdropPath = result.backdrop_path,
                 let url = URL(string: imageBaseURL + "original" + backdropPath),
                 let thumbURL = URL(string: imageBaseURL + backdropThumbnailSize + backdropPath) {
-                let remoteImage = RemoteImage(url: url, thumbURL: thumbURL, providerName: "TheMovieDB|poster")
+                let remoteImage = RemoteImage(url: url, thumbURL: thumbURL, service: self.name, type: "poster")
                 artworks.append(remoteImage)
             }
         }
@@ -332,8 +332,8 @@ public struct TheMovieDB: MetadataService {
                 let imageBaseURL = config.secure_base_url,
                 let posterThumbnailSize = config.poster_sizes.first {
 
-                artworks.append(contentsOf: seasonImages.flatMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, providerName: "TheMovieDB|season") } )
-                artworks.append(contentsOf: episodeImages.flatMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, providerName: "TheMovieDB|episode") } )
+                artworks.append(contentsOf: seasonImages.flatMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, kind: "season") } )
+                artworks.append(contentsOf: episodeImages.flatMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, kind: "episode") } )
             }
         }
 

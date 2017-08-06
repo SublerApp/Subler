@@ -91,12 +91,12 @@ public enum MetadataSearch {
         }
     }
 
-    public enum MetadataSearchType: String {
+    public enum Kind: String {
         case movie = "Movie"
         case tvShow = "TV"
     }
 
-    public var type: MetadataSearchType {
+    public var type: Kind {
         get {
             switch self {
             case .movieSeach:
@@ -144,12 +144,12 @@ extension MetadataSearch {
         }
     }
 
-    public static func defaultLanguage(service: MetadataService, type: MetadataSearchType) -> String {
+    public static func defaultLanguage(service: MetadataService, type: Kind) -> String {
         let language = UserDefaults.standard.string(forKey: "SBMetadataPreference|\(type.rawValue)|\(service.name)|Language") ?? service.defaultLanguage
         return service.languageType.displayName(language: language)
     }
 
-    public static func setDefaultLanguage(_ language: String, service: MetadataService, type: MetadataSearchType) {
+    public static func setDefaultLanguage(_ language: String, service: MetadataService, type: Kind) {
         let extendedLanguage = service.languageType.extendedTag(displayName: language)
         UserDefaults.standard.set(extendedLanguage, forKey: "SBMetadataPreference|\(type.rawValue)|\(service.name)|Language")
     }

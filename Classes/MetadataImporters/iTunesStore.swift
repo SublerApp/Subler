@@ -186,7 +186,7 @@ public struct iTunesStore: MetadataService {
 
         if let artworkURL = URL(string: text),
             let artworkFullSizeURL = URL(string: text.replacingOccurrences(of: "100x100bb", with: replacement)) {
-            return RemoteImage(url:artworkFullSizeURL, thumbURL:artworkURL, providerName:"iTunes")
+            return RemoteImage(url:artworkFullSizeURL, thumbURL: artworkURL, service: self.name, type: "")
         }
 
         return nil

@@ -40,21 +40,26 @@ import Foundation
 
     private func indexOfArtwork(type: QueueMetadataActionPreferredArtwork, provider: String, artworks: [RemoteImage]) -> Int? {
 
-        var preferredTypeName: String = ""
+        var artworkService: String = ""
+        var artworkType: String = ""
 
         switch type {
         case .iTunes:
-            preferredTypeName = "iTunes"
+            artworkService = "iTunes"
         case .Episode:
-            preferredTypeName = "\(provider)|episode"
+            artworkService = provider
+            artworkType = "episode"
         case .Season:
-            preferredTypeName = "\(provider)|season"
+            artworkService = provider
+            artworkType = "season"
         default:
-            preferredTypeName = "\(provider)|poster"
+            artworkService = provider
+            artworkType = "poster"
         }
 
-        for (index, image) in artworks.enumerated() {
-            if image.providerName.hasPrefix(preferredTypeName) {
+        let filteredByService = artworks.filter { $0.service == artworkService }
+        for (index, image) in filteredByService.enumerated() {
+            if image.type.hasPrefix(artworkType) {
                 return index
             }
         }
