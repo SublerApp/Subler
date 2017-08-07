@@ -276,7 +276,7 @@ public struct iTunesStore: MetadataService {
         // Determine artistId/collectionId
         guard let id = { () -> Int? in
             if let id = findiTunesID(seriesName: TVSeries, seasonNum: season, store: store) { return id }
-            else if let id = findiTunesID(seriesName: TVSeries, seasonNum: season, store: store) { return id }
+            else if let id = findiTunesID(seriesName: TVSeries, seasonNum: nil, store: store) { return id }
             else { return nil }
             }()
         else { return [] }
