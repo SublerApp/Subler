@@ -45,7 +45,7 @@ import Foundation
 
         switch type {
         case .iTunes:
-            artworkService = "iTunes"
+            artworkService = "iTunes Store"
         case .Episode:
             artworkService = provider
             artworkType = "episode"
@@ -57,9 +57,8 @@ import Foundation
             artworkType = "poster"
         }
 
-        let filteredByService = artworks.filter { $0.service == artworkService }
-        for (index, image) in filteredByService.enumerated() {
-            if image.type.hasPrefix(artworkType) {
+        for (index, image) in artworks.enumerated() {
+            if image.service == artworkService && image.type.hasPrefix(artworkType) {
                 return index
             }
         }
