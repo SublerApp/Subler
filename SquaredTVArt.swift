@@ -12,22 +12,21 @@ struct SquaredTVArt {
     private let basePath = "https://squaredtvart.tumblr.com/"
 
     public var name: String {
-        return "SquareTVArt"
+        return "Squared TV Art"
     }
-    private struct SquareTVArtwork {
+    private struct SquaredTVArtwork {
         let thumbURL: URL
         let tvShow: String
         let thetvdbSeriesID: Int
         let season: Int
         let thetvdbSeasonID: Int
 
+        var url: URL {
+            return URL(string: thumbURL.absoluteString.replacingOccurrences(of: "_250.jpg", with: "_1280.jpg")) ?? thumbURL
+        }
+
         func toRemoteImage() -> RemoteImage {
-            if let url = URL(string: thumbURL.absoluteString.replacingOccurrences(of: "_250.jpg", with: "_1280.jpg")) {
-                return RemoteImage(url: url, thumbURL: thumbURL, service: "SquareTVArt", type: "season square")
-            }
-            else {
-                return RemoteImage(url: thumbURL, thumbURL: thumbURL, service: "SquareTVArt", type: "season square")
-            }
+            return RemoteImage(url: thumbURL, thumbURL: url, service: "Squared TV Art", type: "season square")
         }
     }
 
@@ -55,7 +54,7 @@ struct SquaredTVArt {
         return mapped
     }
 
-    private func search(url: URL) -> [SquareTVArtwork] {
+    private func search(url: URL) -> [SquaredTVArtwork] {
         guard let data = URLSession.data(from: url),
             let xml = try? XMLDocument(data: data, options: .documentTidyHTML)
             else { return [] }
@@ -89,10 +88,10 @@ struct SquaredTVArt {
         return nil
     }
 
-    private func parse(xml: XMLDocument) -> [SquareTVArtwork] {
+    private func parse(xml: XMLDocument) -> [SquaredTVArtwork] {
         guard let nodes = try? xml.nodes(forXPath: "//div[starts-with(@class,'Post ')]") else { return [] }
 
-        return nodes.flatMap { (node) -> SquareTVArtwork? in
+        return nodes.flatMap { (node) -> SquaredTVArtwork? in
             if let subXml = try? XMLDocument(xmlString: node.xmlString, options: []),
                 let name = completeName(xml: subXml),
                 let url = thumbURL(xml: subXml),
@@ -101,7 +100,7 @@ struct SquaredTVArt {
                 let seriesID = parse(info: info, type: "thetvdb_series_"),
                 let seasonID = parse(info: info, type: "thetvdb_season_"),
                 let season = parse(info: info, type: "season_") {
-                return SquareTVArtwork(thumbURL: url, tvShow: name, thetvdbSeriesID: seriesID, season: season, thetvdbSeasonID: seasonID)
+                return SquaredTVArtwork(thumbURL: url, tvShow: name, thetvdbSeriesID: seriesID, season: season, thetvdbSeasonID: seasonID)
             }
             return nil
         }
