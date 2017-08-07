@@ -33,6 +33,7 @@
 		A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */; };
 		A94721931D49DC0000858DD8 /* SBMetadataPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */; };
 		A94A6A591ED1C5CC00049F7D /* ParseFilename in Resources */ = {isa = PBXBuildFile; fileRef = A94A6A581ED1C5CA00049F7D /* ParseFilename */; };
+		A954370D1F38641900BBC4C3 /* SquaredTVArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A954370C1F38641900BBC4C3 /* SquaredTVArt.swift */; };
 		A95B8DA91B09F37800F2F152 /* Subler_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B8DA81B09F37800F2F152 /* Subler_Tests.m */; };
 		A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */; };
 		A961476313F567E10068F161 /* SBQueueController.m in Sources */ = {isa = PBXBuildFile; fileRef = A961476013F567E10068F161 /* SBQueueController.m */; };
@@ -215,6 +216,7 @@
 		A94721901D49DC0000858DD8 /* SBMetadataPrefsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataPrefsViewController.h; path = Classes/SBMetadataPrefsViewController.h; sourceTree = "<group>"; };
 		A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataPrefsViewController.m; path = Classes/SBMetadataPrefsViewController.m; sourceTree = "<group>"; };
 		A94A6A581ED1C5CA00049F7D /* ParseFilename */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ParseFilename; path = Utilities/ParseFilename; sourceTree = "<group>"; };
+		A954370C1F38641900BBC4C3 /* SquaredTVArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquaredTVArt.swift; sourceTree = "<group>"; };
 		A95B8DA41B09F37700F2F152 /* Subler Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subler Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95B8DA71B09F37700F2F152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A95B8DA81B09F37800F2F152 /* Subler_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subler_Tests.m; sourceTree = "<group>"; };
@@ -649,6 +651,7 @@
 				A98D98471F02820F00A77ABC /* TheMovieDBService.swift */,
 				A9B514181EFC12310055A035 /* TheTVDB.swift */,
 				A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */,
+				A954370C1F38641900BBC4C3 /* SquaredTVArt.swift */,
 				A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */,
 				A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */,
 				A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */,
@@ -854,6 +857,7 @@
 				A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */,
 				A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */,
 				A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */,
+				A954370D1F38641900BBC4C3 /* SquaredTVArt.swift in Sources */,
 				A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */,
 				A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */,
 				61CEC0D31E756ADA000FECC1 /* SBMultiSelectViewController.m in Sources */,

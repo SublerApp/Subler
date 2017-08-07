@@ -38,7 +38,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         var results: Set<String> = Set()
 
         let series = session.fetch(series: TVSeries, language: language)
-        results.formUnion(series.map { $0.seriesName } )
+        results.formUnion(series.flatMap { $0.seriesName } )
 
         if language != defaultLanguage {
             let englishResults = search(TVSeries: TVSeries, language: defaultLanguage)
@@ -51,7 +51,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
     // MARK: - TV Series ID search
 
     private func match(series: TVDBSeriesSearchResult, name: String) -> Bool {
-        if series.seriesName.caseInsensitiveCompare(name) == .orderedSame  {
+        if let name = series.seriesName, name.caseInsensitiveCompare(name) == .orderedSame  {
             return true
         }
 
@@ -254,10 +254,11 @@ public struct TheTVDB : MetadataService, MetadataNameService {
                 }
             }
 
-            results.append(contentsOf: episodes)
+            results.append(contentsOf: episodes.sorted(by: areInIncreasingOrder))
+            break
         }
 
-        return results.sorted(by: areInIncreasingOrder)
+        return results
     }
 
     // MARK: - Additional metadata
@@ -270,6 +271,14 @@ public struct TheTVDB : MetadataService, MetadataNameService {
             else { return [] }
 
         return result.remoteArtworks?.toStruct() ?? []
+    }
+
+    private func loadSquareTVArtwork(_ metadata: SBMetadataResult) -> [RemoteImage] {
+        guard let seasonNum = metadata[SBMetadataResultSeason] as? Int,
+            let seriesId = metadata["TheTVDB Series ID"] as? Int
+            else { return [] }
+
+        return SquaredTVArt().search(theTVDBSeriesId: seriesId, season: seasonNum)
     }
 
     private func loadTVArtwork(seriesID: Int, type: TVDBArtworkType, season: String, language: String) -> [RemoteImage] {
@@ -326,10 +335,23 @@ public struct TheTVDB : MetadataService, MetadataNameService {
 
         // Get additionals images
         if let season = metadata[SBMetadataResultSeason] as? Int {
-            let iTunesImage = loadiTunesArtwork(metadata)
-            let seasonImages = loadTVArtwork(seriesID: seriesId, type: .season, season: String(season), language: language)
-            let posterImages = loadTVArtwork(seriesID: seriesId, type: .poster, season: String(season), language: language)
+            var iTunesImage = [RemoteImage](), squareTVArt = [RemoteImage](), seasonImages = [RemoteImage](), posterImages = [RemoteImage]()
+            let group = DispatchGroup()
+            DispatchQueue.global(priority: .default).async(group: group) {
+                iTunesImage = self.loadiTunesArtwork(metadata)
+            }
+            DispatchQueue.global(priority: .default).async(group: group) {
+                squareTVArt = self.loadSquareTVArtwork(metadata)
+            }
+            DispatchQueue.global(priority: .default).async(group: group) {
+                seasonImages = self.loadTVArtwork(seriesID: seriesId, type: .season, season: String(season), language: language)
+            }
+            DispatchQueue.global(priority: .default).async(group: group) {
+                posterImages = self.loadTVArtwork(seriesID: seriesId, type: .poster, season: String(season), language: language)
+            }
+            group.wait()
 
+            artworks.insert(contentsOf: squareTVArt, at: 0)
             artworks.insert(contentsOf: iTunesImage, at: 0)
             artworks.append(contentsOf: seasonImages)
             artworks.append(contentsOf: posterImages)

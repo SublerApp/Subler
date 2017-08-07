@@ -14,7 +14,7 @@ public struct TVDBSeriesSearchResult : Codable {
     public let id: Int
     public let network: String?
     public let overview: String?
-    public let seriesName: String
+    public let seriesName: String?
     public let status: String?
 }
 
@@ -85,7 +85,7 @@ public struct TVDBEpisode : Codable {
 }
 
 public struct TVDBEpisodeInfo : Codable {
-    public let absoluteNumber: Int
+    public let absoluteNumber: Int?
     public let airedEpisodeNumber: Int?
     public let airedSeason: Int?
 
