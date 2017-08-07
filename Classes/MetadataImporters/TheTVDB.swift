@@ -66,7 +66,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
 
     private func searchIDs(seriesName: String, language: String) -> [Int] {
         let series = session.fetch(series: seriesName, language: language)
-        let filteredSeries = series.filter { match(series: $0, name: seriesName) }.map { $0.id }
+        let filteredSeries = series.filter { $0.status.count > 0 && match(series: $0, name: seriesName) }.map { $0.id }
 
         if filteredSeries.count > 0 {
             return filteredSeries
