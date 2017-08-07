@@ -150,8 +150,10 @@ public class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDe
     // MARK: - Load images
     override public func windowDidLoad() {
         super.windowDidLoad()
+
         if let size = initialSize { window?.setContentSize(size) }
-        loadMoreArtwork(self)
+
+        loadMoreArtworks(count: 8)
 
         if let defaultType = UserDefaults.standard.string(forKey: "SBArtworkSelectorDefault|\(type.rawValue)") {
             selectArtwork(type: defaultType)
@@ -200,7 +202,7 @@ public class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDe
                     let offset = artworks.count
                     loadMoreArtworks(count: index + 1)
                     selectArtwork(at: index + offset)
-                    break;
+                    break
                 }
             }
         }

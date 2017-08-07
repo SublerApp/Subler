@@ -117,7 +117,7 @@ public struct TheMovieDB: MetadataService {
             }
 
             if let backdropPath = result.backdrop_path,
-                let artwork = loadArtwork(filePath: backdropPath, baseURL: imageBaseURL, thumbSize: backdropThumbnailSize, kind: "poster") {
+                let artwork = loadArtwork(filePath: backdropPath, baseURL: imageBaseURL, thumbSize: backdropThumbnailSize, kind: "backdrop") {
                 artworks.append(artwork)
             }
         }
@@ -226,7 +226,7 @@ public struct TheMovieDB: MetadataService {
             if let backdropPath = result.backdrop_path,
                 let url = URL(string: imageBaseURL + "original" + backdropPath),
                 let thumbURL = URL(string: imageBaseURL + backdropThumbnailSize + backdropPath) {
-                let remoteImage = RemoteImage(url: url, thumbURL: thumbURL, service: self.name, type: "poster")
+                let remoteImage = RemoteImage(url: url, thumbURL: thumbURL, service: self.name, type: "backdrop")
                 artworks.append(remoteImage)
             }
         }
@@ -335,10 +335,20 @@ public struct TheMovieDB: MetadataService {
                 artworks.append(contentsOf: seasonImages.flatMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, kind: "season") } )
                 artworks.append(contentsOf: episodeImages.flatMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, kind: "episode") } )
             }
+
         }
 
         if let existingArtworks = metadata.remoteArtworks {
             artworks.append(contentsOf: existingArtworks.toStruct())
+        }
+
+        // add iTunes artwork
+        if let name = metadata[SBMetadataResultSeriesName] as? String,
+            let iTunesMetadata = iTunesStore.quickiTunesSearch(tvSeriesName: name,
+                                                               seasonNum: metadata[SBMetadataResultSeason] as? Int,
+                                                               episodeNum: metadata[SBMetadataResultEpisodeNumber] as? Int),
+            let iTunesArtwork = iTunesMetadata.remoteArtworks {
+            artworks.insert(contentsOf: iTunesArtwork.toStruct(), at: 0)
         }
 
         metadata.remoteArtworks = artworks.toClass()

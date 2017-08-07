@@ -76,7 +76,7 @@ public struct iTunesStore: MetadataService {
 
     // MARK: - Quick iTunes search for metadata
 
-    public static func quickiTunesSearch(tvSeriesName: String, seasonNum: Int, episodeNum: Int) -> SBMetadataResult? {
+    public static func quickiTunesSearch(tvSeriesName: String, seasonNum: Int?, episodeNum: Int?) -> SBMetadataResult? {
         guard let language = UserDefaults.standard.string(forKey: "SBMetadataPreference|TV|iTunes Store|Language") else { return nil }
         return iTunesStore().search(TVSeries: tvSeriesName, language: language, season: seasonNum, episode: episodeNum).first
     }
