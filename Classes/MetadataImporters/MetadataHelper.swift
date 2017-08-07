@@ -133,7 +133,7 @@ private func parseAnimeFilename(_ filename: String) -> FilenameInfo? {
 }
 
 private func parseFilename(_ filename: String) -> FilenameInfo? {
-    guard let path = Bundle(for: MP42File.self).path(forResource: "ParseFilename", ofType: "") else { return nil }
+    guard let path = Bundle.main.path(forResource: "ParseFilename", ofType: "") else { return nil }
 
     let stdOut = Pipe()
     let stdOutWrite = stdOut.fileHandleForWriting
@@ -149,7 +149,7 @@ private func parseFilename(_ filename: String) -> FilenameInfo? {
     stdOutWrite.closeFile()
 
     let outputData = stdOut.fileHandleForReading.readDataToEndOfFile()
-    let outputString = String(describing: outputData)
+    guard let outputString = String(data: outputData, encoding: .utf8) else { return nil }
     let lines = outputString.components(separatedBy: "\n")
 
     if lines.count > 0 {
