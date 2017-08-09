@@ -8,13 +8,13 @@
 import Foundation
 
 public struct Chapter {
-    let name: String
-    let timestamp: UInt64
+    public let name: String
+    public let timestamp: UInt64
 }
 
 public struct ChapterResult {
-    let title: String
-    let duration: UInt64
-    let confimations: UInt
-    let chapters: [Chapter]
+    public let title: String
+    public let duration: UInt64
+    public let confimations: UInt
+    public let chapters: [Chapter]
 }

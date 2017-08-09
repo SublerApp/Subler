@@ -14,6 +14,7 @@ struct SquaredTVArt {
     public var name: String {
         return "Squared TV Art"
     }
+
     private struct SquaredTVArtwork {
         let thumbURL: URL
         let tvShow: String
@@ -26,11 +27,11 @@ struct SquaredTVArt {
         }
 
         func toRemoteImage() -> Artwork {
-            return Artwork(url: thumbURL, thumbURL: url, service: "Squared TV Art", type: "season square")
+            return Artwork(url: thumbURL, thumbURL: url, service: "Squared TV Art", type: .square)
         }
     }
 
-    func search(tvShow: String) -> [Artwork] {
+    public func search(tvShow: String) -> [Artwork] {
         let searchTerm = tvShow.urlEncoded()
         guard let url = URL(string: "\(basePath)search/\(searchTerm)") else { return [] }
 
@@ -38,7 +39,7 @@ struct SquaredTVArt {
         return mapped
     }
 
-    func search(tvShow: String, season: Int) -> [Artwork] {
+    public func search(tvShow: String, season: Int) -> [Artwork] {
         let searchTerm = "\(tvShow) Season \(season)".urlEncoded()
         guard let url = URL(string: "\(basePath)search/\(searchTerm)") else { return [] }
 
@@ -46,7 +47,7 @@ struct SquaredTVArt {
         return mapped
     }
 
-    func search(theTVDBSeriesId: Int, season: Int) -> [Artwork] {
+    public func search(theTVDBSeriesId: Int, season: Int) -> [Artwork] {
         let searchTerm = "\(theTVDBSeriesId) Season \(season)".urlEncoded()
         guard let url = URL(string: "\(basePath)search/\(searchTerm)") else { return [] }
 

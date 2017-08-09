@@ -281,7 +281,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         return SquaredTVArt().search(theTVDBSeriesId: seriesId, season: seasonNum)
     }
 
-    private func loadTVArtwork(seriesID: Int, type: TVDBArtworkType, season: String, language: String) -> [Artwork] {
+    private func loadTVArtwork(seriesID: Int, type: ArtworkType, season: String, language: String) -> [Artwork] {
         var artworks: [Artwork] = Array()
         let images: [TVDBImage] = {
             var result = session.fetch(images: seriesID, type: type, language: language)
@@ -303,7 +303,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
             }
 
             if selected {
-                artworks.append(Artwork(url: fileURL, thumbURL: thumbURL, service: self.name, type: type.rawValue))
+                artworks.append(Artwork(url: fileURL, thumbURL: thumbURL, service: self.name, type: type))
             }
         }
         return artworks
@@ -329,7 +329,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
             }
 
             if let filename = info.filename, let url = URL(string: TheTVDB.bannerPath + filename) {
-                artworks.append(Artwork(url: url, thumbURL: url, service: self.name, type: "episode"))
+                artworks.append(Artwork(url: url, thumbURL: url, service: self.name, type: .episode))
             }
         }
 

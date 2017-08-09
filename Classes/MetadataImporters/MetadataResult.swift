@@ -9,11 +9,37 @@ import Foundation
 
 // MARK: - Image
 
+@objc(SBArtworkType) public enum ArtworkType : Int, CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .poster:
+            return "poster"
+        case .season:
+            return "season"
+        case .square:
+            return "square"
+        case .episode:
+            return "episode"
+        case .backdrop:
+            return "backdrop"
+        case .iTunes:
+            return "iTunes"
+        }
+    }
+
+    case poster
+    case season
+    case square
+    case episode
+    case backdrop
+    case iTunes
+}
+
 public struct Artwork {
-    let url: URL
-    let thumbURL: URL
-    let service: String
-    let type: String
+    public let url: URL
+    public let thumbURL: URL
+    public let service: String
+    public let type: ArtworkType
 }
 
 private let localizedKeys: [MetadataResult.Key: String] = [
@@ -212,32 +238,27 @@ private let localizedKeys: [MetadataResult.Key: String] = [
     @objc public func mappedMetadata(to map: MetadataResultMap, keepEmptyKeys: Bool) -> MP42Metadata {
         let metadata = MP42Metadata()
 
-        for item in map.items {
-            var result = ""
-            for component in item.value {
-                if let key = Key(rawValue: component) {
+        metadata.addItems(map.items.flatMap {
+            let value = $0.value.reduce("", {
+                if let key = Key(rawValue: $1) {
                     if let value = dictionary[key] {
-                        result.append("\(value)")
+                        return $0 + "\(value)"
                     }
+                    return $0
                 }
                 else {
-                    result.append(component)
+                    return $0 + $1
                 }
-            }
+            })
+            return value.isEmpty == false || keepEmptyKeys ? MP42MetadataItem(identifier: $0.key,
+                                                                              value: value as NSCopying & NSObjectProtocol,
+                                                                              dataType: .unspecified, extendedLanguageTag: nil): nil
+        })
 
-            let metadataItem = MP42MetadataItem(identifier: item.key,
-                                                value: result as NSCopying & NSObjectProtocol,
-                                                dataType: .unspecified, extendedLanguageTag: nil)
-            if result.isEmpty == false || keepEmptyKeys {
-                metadata.addItem(metadataItem)
-            }
-        }
-
-        for artwork in artworks {
-            let metadataItem = MP42MetadataItem(identifier: MP42MetadataKeyCoverArt,value: artwork,
-                                                dataType: .image, extendedLanguageTag: nil)
-            metadata.addItem(metadataItem)
-        }
+        metadata.addItems(artworks.map {
+            MP42MetadataItem(identifier: MP42MetadataKeyCoverArt,value: $0,
+                             dataType: .image, extendedLanguageTag: nil)
+        })
 
         let mediaKind = MP42MetadataItem(identifier: MP42MetadataKeyMediaKind,
                                          value: NSNumber(value: self.mediaKind),

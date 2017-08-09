@@ -7,12 +7,26 @@
 
 import Foundation
 
-@objc(SBQueueMetadataActionPreferredArtwork) enum QueueMetadataActionPreferredArtwork : Int {
-    case Default
-    case iTunes
-    case Episode
-    case Season
-    case SeasonSquare
+extension Array where Element == Artwork {
+
+    func artwork(by type: ArtworkType, service: String) -> Artwork? {
+        let iTunesServiceName = iTunesStore().name
+
+        // Special case for iTunes
+        if service == iTunesServiceName {
+            return self.first
+        }
+        else if type == ArtworkType.iTunes {
+            return self.filter { $0.service == iTunesServiceName }.first
+        }
+        else {
+            let serviceArtwork = self.filter { $0.type == type && $0.service == service }.first
+            let artwork = self.filter { $0.type == type && $0.service == service }.first
+
+            return serviceArtwork != nil ? serviceArtwork : artwork
+        }
+    }
+
 }
 
 /// An actions that fetches metadata online.
@@ -24,12 +38,12 @@ import Foundation
     private let tvShowLanguage: String
     private let tvShowProvider: String
 
-    private let preferredArtwork: QueueMetadataActionPreferredArtwork
+    private let preferredArtwork: ArtworkType
 
     let localizedDescription: String = NSLocalizedString("Searching metadata", comment: "Action localized description.")
     override var description: String { get { return NSLocalizedString("Search Metadata", comment: "Action description.") } }
 
-    @objc init(movieLanguage: String, tvShowLanguage: String, movieProvider: String, tvShowProvider: String, preferredArtwork: QueueMetadataActionPreferredArtwork) {
+    @objc init(movieLanguage: String, tvShowLanguage: String, movieProvider: String, tvShowProvider: String, preferredArtwork: ArtworkType) {
         self.movieLanguage = movieLanguage;
         self.movieProvider = movieProvider;
 
@@ -37,34 +51,6 @@ import Foundation
         self.tvShowProvider = tvShowProvider
 
         self.preferredArtwork = preferredArtwork
-    }
-
-    private func indexOfArtwork(type: QueueMetadataActionPreferredArtwork, provider: String, artworks: [Artwork]) -> Int? {
-
-        var artworkService: String = ""
-        var artworkType: String = ""
-
-        switch type {
-        case .iTunes:
-            artworkService = "iTunes Store"
-        case .Episode:
-            artworkService = provider
-            artworkType = "episode"
-        case .Season:
-            artworkService = provider
-            artworkType = "season"
-        default:
-            artworkService = provider
-            artworkType = "poster"
-        }
-
-        for (index, image) in artworks.enumerated() {
-            if image.service == artworkService && image.type.hasPrefix(artworkType) {
-                return index
-            }
-        }
-
-        return nil
     }
 
     private func load(artworkURL: URL) -> MP42Image? {
@@ -104,25 +90,20 @@ import Foundation
 
         let artworks = metadata.remoteArtworks
         if artworks.isEmpty == false {
-            let index: Int = {
-                if let index = self.indexOfArtwork(type: self.preferredArtwork,
-                                                   provider: info.isMovie ? self.movieProvider : self.tvShowProvider,
-                                                   artworks: artworks) {
-                    return index
+            let artwork: Artwork? = {
+                let provider = info.isMovie ? self.movieProvider : self.tvShowProvider
+                if let artwork = artworks.artwork(by: preferredArtwork, service: provider) {
+                    return artwork
                 }
-                else if info.isTVShow, let index = self.indexOfArtwork(type: .Default,
-                                                                      provider: self.tvShowProvider,
-                                                                      artworks: artworks) {
-                    return index
+                else if let artwork = artworks.artwork(by: .poster, service: provider) {
+                    return artwork
                 }
                 else {
-                    return 0
+                    return artworks.first
                 }
             }()
 
-            let artworkURL = artworks[index].url
-
-            if let artwork = load(artworkURL: artworkURL) {
+            if let url = artwork?.url, let artwork = load(artworkURL: url) {
                 metadata.artworks.append(artwork)
             }
         }
@@ -172,7 +153,7 @@ import Foundation
             let tvShowLanguage = aDecoder.decodeObject(of: NSString.self, forKey: "_tvShowLanguage") as String?,
             let movieProvider = aDecoder.decodeObject(of: NSString.self, forKey: "_movieProvider") as String?,
             let tvShowProvider = aDecoder.decodeObject(of: NSString.self, forKey: "_tvShowProvider") as String?,
-            let preferredArtwork = QueueMetadataActionPreferredArtwork(rawValue: Int(aDecoder.decodeInt32(forKey: "_preferredArtwork")))
+            let preferredArtwork = ArtworkType(rawValue: Int(aDecoder.decodeInt32(forKey: "_preferredArtwork")))
         else { return nil }
 
         self.movieLanguage = movieLanguage

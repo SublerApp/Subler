@@ -97,16 +97,16 @@ private class ArtworkImageObject : NSObject {
     }
 
     @objc override func imageSubtitle() -> String {
-        return source.type
+        return source.type.description
     }
 
 }
 
-public protocol ArtworkSelectorControllerDelegate: AnyObject {
+protocol ArtworkSelectorControllerDelegate: AnyObject {
     func didSelect(artworks: [Artwork])
 }
 
-public class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDelegate {
+class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDelegate {
 
     @IBOutlet var imageBrowser: IKImageBrowserView!
     @IBOutlet var slider: NSSlider!
@@ -155,8 +155,9 @@ public class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDe
 
         loadMoreArtworks(count: 8)
 
-        if let defaultType = UserDefaults.standard.string(forKey: "SBArtworkSelectorDefault|\(type.description)") {
-            selectArtwork(type: defaultType)
+        if let defaultService = UserDefaults.standard.string(forKey: "SBArtworkSelectorDefaultService|\(type.description)"),
+            let defaultType = ArtworkType(rawValue: UserDefaults.standard.integer(forKey: "SBArtworkSelectorDefaultType|\(type.description)")) {
+            selectArtwork(type: defaultType, service: defaultService)
         }
 
         if imageBrowser.selectionIndexes().count == 0 {
@@ -191,8 +192,12 @@ public class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDe
         imageBrowser.reloadData()
     }
 
-    private func selectArtwork(type: String) {
-        if let artwork = (artworks.filter { $0.imageSubtitle() == type } as [ArtworkImageObject]).first,
+    private func selectArtwork(type: ArtworkType, service: String) {
+        if let artwork = (artworks.filter { $0.source.type == type && $0.source.service == service } as [ArtworkImageObject]).first,
+            let index = artworks.index(of: artwork) {
+            selectArtwork(at: index)
+        }
+        else if let artwork = (artworks.filter { $0.source.type == type } as [ArtworkImageObject]).first,
             let index = artworks.index(of: artwork) {
             selectArtwork(at: index)
         }
@@ -238,7 +243,8 @@ public class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDe
     override public func imageBrowserSelectionDidChange(_ aBrowser: IKImageBrowserView!) {
         addArtworkButton.isEnabled = aBrowser.selectionIndexes().isEmpty == false
         if let artwork = selectedArtworks().first {
-            UserDefaults.standard.set(artwork.source.type, forKey: "SBArtworkSelectorDefault|\(type.description)")
+            UserDefaults.standard.set(artwork.source.type.rawValue, forKey: "SBArtworkSelectorDefaultType|\(type.description)")
+            UserDefaults.standard.set(artwork.source.service, forKey: "SBArtworkSelectorDefaultService|\(type.description)")
         }
     }
 

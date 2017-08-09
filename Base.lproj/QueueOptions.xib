@@ -454,25 +454,28 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="08Q-2k-0Gb">
-                    <rect key="frame" x="183" y="307" width="109" height="17"/>
-                    <popUpButtonCell key="cell" type="roundRect" title="Provider Default" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="YjX-6f-SPu" id="1t8-o9-ckI">
+                    <rect key="frame" x="183" y="307" width="74" height="17"/>
+                    <popUpButtonCell key="cell" type="roundRect" title="Poster" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="YjX-6f-SPu" id="1t8-o9-ckI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                         <menu key="menu" title="OtherViews" id="0zS-9Z-m6I">
                             <items>
-                                <menuItem title="Provider Default" state="on" id="YjX-6f-SPu">
+                                <menuItem title="Poster" state="on" id="YjX-6f-SPu">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="iTunes" tag="1" id="QR6-hq-GZL">
+                                <menuItem title="Season" tag="1" id="QR6-hq-GZL">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Episode" tag="2" id="7zv-RG-1w4">
+                                <menuItem title="Square" tag="2" id="7zv-RG-1w4">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Season" tag="3" id="mps-yj-l7z">
+                                <menuItem title="Episode" tag="3" id="mps-yj-l7z">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Season Square" tag="4" id="Aaf-km-GUP">
+                                <menuItem title="Backdrop" tag="4" id="Aaf-km-GUP">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="iTunes" tag="5" id="GXR-5u-c8a">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
