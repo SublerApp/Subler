@@ -11,15 +11,11 @@ import Foundation
 @objc public class SBMetadataImporter : NSObject {
 
     @objc public static var movieProviders: [String] {
-        get {
-            return MetadataSearch.movieProviders
-        }
+        return MetadataSearch.movieProviders
     }
 
     @objc public static var tvProviders: [String] {
-        get {
-            return MetadataSearch.tvProviders
-        }
+        return MetadataSearch.tvProviders
     }
 
     @objc public static func languages(provider: String) -> [String] {
@@ -49,15 +45,11 @@ import Foundation
     }
 
     @objc public var languageType: LanguageType {
-        get {
-            return service.languageType
-        }
+        return service.languageType
     }
 
     @objc public var languages: [String] {
-        get {
-            return service.languages
-        }
+        return service.languages
     }
 }
 
