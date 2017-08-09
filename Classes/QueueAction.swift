@@ -12,6 +12,7 @@ import Foundation
     case iTunes
     case Episode
     case Season
+    case SeasonSquare
 }
 
 /// An actions that fetches metadata online.
@@ -38,7 +39,7 @@ import Foundation
         self.preferredArtwork = preferredArtwork
     }
 
-    private func indexOfArtwork(type: QueueMetadataActionPreferredArtwork, provider: String, artworks: [RemoteImage]) -> Int? {
+    private func indexOfArtwork(type: QueueMetadataActionPreferredArtwork, provider: String, artworks: [Artwork]) -> Int? {
 
         var artworkService: String = ""
         var artworkType: String = ""
@@ -71,8 +72,8 @@ import Foundation
         return MP42Image(data: data, type: MP42_ART_JPEG)
     }
 
-    private func searchMetadata(info: FilenameInfo) -> SBMetadataResult? {
-        var metadata: SBMetadataResult? = nil
+    private func searchMetadata(info: FilenameInfo) -> MetadataResult? {
+        var metadata: MetadataResult? = nil
 
         switch info {
         case let .movie(title):
@@ -101,7 +102,8 @@ import Foundation
         guard let info = url.lastPathComponent.parsedAsFilename(),
               let metadata = searchMetadata(info: info) else { return nil }
 
-        if let artworks = metadata.remoteArtworks?.toStruct(), artworks.count > 0 {
+        let artworks = metadata.remoteArtworks
+        if artworks.isEmpty == false {
             let index: Int = {
                 if let index = self.indexOfArtwork(type: self.preferredArtwork,
                                                    provider: info.isMovie ? self.movieProvider : self.tvShowProvider,
@@ -121,14 +123,14 @@ import Foundation
             let artworkURL = artworks[index].url
 
             if let artwork = load(artworkURL: artworkURL) {
-                metadata.artworks.add(artwork)
+                metadata.artworks.append(artwork)
             }
         }
 
         let defaults = UserDefaults.standard
-        if let map = metadata.mediaKind == 9 ? defaults.sb_resultMap(forKey: "SBMetadataMovieResultMap")
-            : defaults.sb_resultMap(forKey: "SBMetadataTvShowResultMap") {
-            return metadata.mapped(to: map, keepEmptyKeys: false)
+        if let map = metadata.mediaKind == 9 ? defaults.map(forKey: "SBMetadataMovieResultMap")
+            : defaults.map(forKey: "SBMetadataTvShowResultMap") {
+            return metadata.mappedMetadata(to: map, keepEmptyKeys: false)
         }
         return nil
     }

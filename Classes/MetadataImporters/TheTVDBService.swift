@@ -129,7 +129,7 @@ final public class TheTVDBService {
 
     public var languages: [String] {
         get {
-            if let result = savedLanguages, result.data.count > 0 {
+            if let result = savedLanguages, result.data.isEmpty == false {
                 return result.data
             }
             else if let result = fetchLanguages() {

@@ -21,9 +21,6 @@
 #import "SBChapterViewController.h"
 #import "SBMultiSelectViewController.h"
 
-#import "SBMetadataResult.h"
-#import "SBMetadataResultMap.h"
-
 #import <MP42Foundation/MP42File.h>
 #import <MP42Foundation/MP42FileImporter.h>
 #import <MP42Foundation/MP42Languages.h>
@@ -861,9 +858,9 @@ static NSDictionary *_detailMonospacedAttr;
     if (metadataToBeImported) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         SBMetadataResultMap *map = metadataToBeImported.mediaKind == 9 ?
-        [defaults SB_resultMapForKey:@"SBMetadataMovieResultMap"] : [defaults SB_resultMapForKey:@"SBMetadataTvShowResultMap"];
+        [defaults mapForKey:@"SBMetadataMovieResultMap"] : [defaults mapForKey:@"SBMetadataTvShowResultMap"];
         BOOL keepEmptyKeys = [defaults boolForKey:@"SBMetadataKeepEmptyAnnotations"];
-        MP42Metadata *mappedMetadata = [metadataToBeImported mappedTo:map keepEmptyKeys:keepEmptyKeys];
+        MP42Metadata *mappedMetadata = [metadataToBeImported mappedMetadataTo:map keepEmptyKeys:keepEmptyKeys];
 
         [self.mp4.metadata mergeMetadata:mappedMetadata];
 

@@ -14,10 +14,10 @@ public protocol ChapterService {
 public enum ChapterSearch {
     case movieSeach(service: ChapterService, title: String, duration: UInt64)
 
-    public func search(completionHandler: @escaping ([ChapterResult]) -> Void) -> MetadataSearchTask {
+    public func search(completionHandler: @escaping ([ChapterResult]) -> Void) -> Runnable {
         switch self {
         case let .movieSeach(service, title, duration):
-            return MetadataSearchInternalTask(search: service.search(title: title, duration: duration),
+            return RunnableTask(search: service.search(title: title, duration: duration),
                                               completionHandler: completionHandler)
         }
     }

@@ -26,7 +26,7 @@ import Cocoa
 
     private enum ChapterSearchState {
         case none
-        case searching(task: MetadataSearchTask)
+        case searching(task: Runnable)
         case completed(results: [ChapterResult], selectedResult: ChapterResult)
     }
 
@@ -72,7 +72,7 @@ import Cocoa
 
         updateUI()
 
-        if searchTerm.count > 0 { searchForResults(self) }
+        if searchTerm.isEmpty == false { searchForResults(self) }
     }
 
     private func searchDone(results: [ChapterResult]) {
@@ -175,7 +175,7 @@ import Cocoa
     }
 
     private func updateSearchButtonVisibility() {
-        searchButton.isEnabled = searchTitle.stringValue.count > 0 ? true : false
+        searchButton.isEnabled = searchTitle.stringValue.isEmpty ? false : true
     }
 
     override func controlTextDidChange(_ obj: Notification) {

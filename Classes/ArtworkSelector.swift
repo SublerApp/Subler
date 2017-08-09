@@ -17,11 +17,11 @@ private class ArtworkImageObject : NSObject {
     private var data: Data?
     private var version: Int
     private var cancelled: Bool
-    fileprivate let source: RemoteImage
+    fileprivate let source: Artwork
     private let queue: DispatchQueue
     private weak var delegate: ArtworkImageObjectDelegate?
 
-    init(artwork: RemoteImage, delegate: ArtworkImageObjectDelegate) {
+    init(artwork: Artwork, delegate: ArtworkImageObjectDelegate) {
         self.source = artwork
         self.delegate = delegate
         self.version = 0
@@ -103,7 +103,7 @@ private class ArtworkImageObject : NSObject {
 }
 
 public protocol ArtworkSelectorControllerDelegate: AnyObject {
-    func didSelect(artworks: [RemoteImage])
+    func didSelect(artworks: [Artwork])
 }
 
 public class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDelegate {
@@ -113,15 +113,15 @@ public class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDe
     @IBOutlet var addArtworkButton: NSButton!
     @IBOutlet var loadMoreArtworkButton: NSButton!
 
-    private var artworksUnloaded: [RemoteImage]
+    private var artworksUnloaded: [Artwork]
     private var artworks: [ArtworkImageObject]
     private let initialSize: CGSize?
-    private let type: MetadataSearch.Kind
+    private let type: MetadataType
 
     private weak var delegate: ArtworkSelectorControllerDelegate?
 
     // MARK: - Init
-    init(artworks: [RemoteImage], size: CGSize? = nil, type: MetadataSearch.Kind, delegate: ArtworkSelectorControllerDelegate) {
+    init(artworks: [Artwork], size: CGSize? = nil, type: MetadataType, delegate: ArtworkSelectorControllerDelegate) {
         self.delegate = delegate
         self.initialSize = size
         self.artworksUnloaded = artworks
@@ -155,7 +155,7 @@ public class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDe
 
         loadMoreArtworks(count: 8)
 
-        if let defaultType = UserDefaults.standard.string(forKey: "SBArtworkSelectorDefault|\(type.rawValue)") {
+        if let defaultType = UserDefaults.standard.string(forKey: "SBArtworkSelectorDefault|\(type.description)") {
             selectArtwork(type: defaultType)
         }
 
@@ -187,7 +187,7 @@ public class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDe
         let endIndex = artworksUnloaded.count < count ? artworksUnloaded.count : count
         artworks.append(contentsOf: artworksUnloaded[0 ..< endIndex].map {  ArtworkImageObject(artwork: $0, delegate: self) })
         artworksUnloaded.removeFirst(endIndex)
-        loadMoreArtworkButton.isEnabled = artworksUnloaded.count > 0
+        loadMoreArtworkButton.isEnabled = artworksUnloaded.isEmpty == false
         imageBrowser.reloadData()
     }
 
@@ -196,7 +196,7 @@ public class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDe
             let index = artworks.index(of: artwork) {
             selectArtwork(at: index)
         }
-        else if artworksUnloaded.count > 0 {
+        else if artworksUnloaded.isEmpty == false {
             for (index, artwork) in artworksUnloaded.enumerated() {
                 if artwork.type == type {
                     let offset = artworks.count
@@ -236,9 +236,9 @@ public class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDe
     }
 
     override public func imageBrowserSelectionDidChange(_ aBrowser: IKImageBrowserView!) {
-        addArtworkButton.isEnabled = aBrowser.selectionIndexes().count > 0
+        addArtworkButton.isEnabled = aBrowser.selectionIndexes().isEmpty == false
         if let artwork = selectedArtworks().first {
-            UserDefaults.standard.set(artwork.source.type, forKey: "SBArtworkSelectorDefault|\(type.rawValue)")
+            UserDefaults.standard.set(artwork.source.type, forKey: "SBArtworkSelectorDefault|\(type.description)")
         }
     }
 

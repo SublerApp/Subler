@@ -38,11 +38,11 @@ public protocol MetadataService {
 
     var name: String { get }
 
-    func search(TVSeries: String, language: String, season: Int?, episode: Int?) -> [SBMetadataResult]
-    func loadTVMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult
+    func search(TVSeries: String, language: String, season: Int?, episode: Int?) -> [MetadataResult]
+    func loadTVMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult
 
-    func search(movie: String, language: String) -> [SBMetadataResult]
-    func loadMovieMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult
+    func search(movie: String, language: String) -> [MetadataResult]
+    func loadMovieMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult
 
 }
 
@@ -55,48 +55,57 @@ public protocol MetadataNameService {
 public enum MetadataNameSearch {
     case tvNameSearch(service: MetadataNameService, tvSeries: String, language: String)
 
-    public func search(completionHandler: @escaping ([String]) -> Void) -> MetadataSearchTask {
+    public func search(completionHandler: @escaping ([String]) -> Void) -> Runnable {
         switch self {
         case let .tvNameSearch(service, tvSeries, language):
-            return MetadataSearchInternalTask(search: service.search(TVSeries: tvSeries, language: language),
+            return RunnableTask(search: service.search(TVSeries: tvSeries, language: language),
                                               completionHandler: completionHandler)
         }
     }
 
 }
 
+public enum MetadataType : Int, CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .movie:
+            return "Movie"
+        case .tvShow:
+            return "TV"
+        }
+    }
+
+    case movie
+    case tvShow
+}
+
 public enum MetadataSearch {
     case movieSeach(service: MetadataService, movie: String, language: String)
     case tvSearch(service: MetadataService, tvSeries: String, season: Int?, episode: Int?, language: String)
 
-    public func search(completionHandler: @escaping ([SBMetadataResult]) -> Void) -> MetadataSearchTask {
+    public func search(completionHandler: @escaping ([MetadataResult]) -> Void) -> Runnable {
         switch self {
         case let .movieSeach(service, movie, language):
-            return MetadataSearchInternalTask(search: service.search(movie: movie, language: language),
+            return RunnableTask(search: service.search(movie: movie, language: language),
                                               completionHandler: completionHandler)
         case let .tvSearch(service, tvSeries, season, episode, language):
-            return MetadataSearchInternalTask(search: service.search(TVSeries: tvSeries, language: language, season: season, episode: episode),
+            return RunnableTask(search: service.search(TVSeries: tvSeries, language: language, season: season, episode: episode),
                                               completionHandler: completionHandler)
         }
     }
 
-    public func loadAdditionalMetadata(_ metadata: SBMetadataResult, completionHandler: @escaping (SBMetadataResult) -> Void) -> MetadataSearchTask {
+    public func loadAdditionalMetadata(_ metadata: MetadataResult, completionHandler: @escaping (MetadataResult) -> Void) -> Runnable {
         switch self {
         case let .movieSeach(service, _, language):
-            return MetadataSearchInternalTask(search: service.loadMovieMetadata(metadata, language: language),
+            return RunnableTask(search: service.loadMovieMetadata(metadata, language: language),
                                               completionHandler: completionHandler)
         case let .tvSearch(service, _, _, _, language):
-            return MetadataSearchInternalTask(search: service.loadTVMetadata(metadata, language: language),
+            return RunnableTask(search: service.loadTVMetadata(metadata, language: language),
                                               completionHandler: completionHandler)
         }
     }
 
-    public enum Kind: String {
-        case movie = "Movie"
-        case tvShow = "TV"
-    }
-
-    public var type: Kind {
+    public var type: MetadataType {
         get {
             switch self {
             case .movieSeach:
@@ -144,14 +153,14 @@ extension MetadataSearch {
         }
     }
 
-    public static func defaultLanguage(service: MetadataService, type: Kind) -> String {
-        let language = UserDefaults.standard.string(forKey: "SBMetadataPreference|\(type.rawValue)|\(service.name)|Language") ?? service.defaultLanguage
+    public static func defaultLanguage(service: MetadataService, type: MetadataType) -> String {
+        let language = UserDefaults.standard.string(forKey: "SBMetadataPreference|\(type.description)|\(service.name)|Language") ?? service.defaultLanguage
         return service.languageType.displayName(language: language)
     }
 
-    public static func setDefaultLanguage(_ language: String, service: MetadataService, type: Kind) {
+    public static func setDefaultLanguage(_ language: String, service: MetadataService, type: MetadataType) {
         let extendedLanguage = service.languageType.extendedTag(displayName: language)
-        UserDefaults.standard.set(extendedLanguage, forKey: "SBMetadataPreference|\(type.rawValue)|\(service.name)|Language")
+        UserDefaults.standard.set(extendedLanguage, forKey: "SBMetadataPreference|\(type.description)|\(service.name)|Language")
     }
 
 }

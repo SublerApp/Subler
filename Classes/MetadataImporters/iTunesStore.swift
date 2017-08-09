@@ -76,12 +76,12 @@ public struct iTunesStore: MetadataService {
 
     // MARK: - Quick iTunes search for metadata
 
-    public static func quickiTunesSearch(tvSeriesName: String, seasonNum: Int?, episodeNum: Int?) -> SBMetadataResult? {
+    public static func quickiTunesSearch(tvSeriesName: String, seasonNum: Int?, episodeNum: Int?) -> MetadataResult? {
         guard let language = UserDefaults.standard.string(forKey: "SBMetadataPreference|TV|iTunes Store|Language") else { return nil }
         return iTunesStore().search(TVSeries: tvSeriesName, language: language, season: seasonNum, episode: episodeNum).first
     }
 
-    public static func quickiTunesSearch(movieName: String) -> SBMetadataResult? {
+    public static func quickiTunesSearch(movieName: String) -> MetadataResult? {
         guard let language = UserDefaults.standard.string(forKey: "SBMetadataPreference|Movie|iTunes Store|Language") else { return nil }
         return iTunesStore().search(movie: movieName, language: language).first
     }
@@ -157,11 +157,11 @@ public struct iTunesStore: MetadataService {
 
     // MARK: - Helpers
 
-    private func areInIncreasingOrder(ep1: SBMetadataResult, ep2: SBMetadataResult) -> Bool {
-        guard let v1 = ep1[SBMetadataResultEpisodeNumber] as? Int,
-            let v2 = ep2[SBMetadataResultEpisodeNumber] as? Int,
-            let s1 = ep1[SBMetadataResultSeason] as? Int,
-            let s2 = ep2[SBMetadataResultSeason] as? Int
+    private func areInIncreasingOrder(ep1: MetadataResult, ep2: MetadataResult) -> Bool {
+        guard let v1 = ep1[.episodeNumber] as? Int,
+            let v2 = ep2[.episodeNumber] as? Int,
+            let s1 = ep1[.season] as? Int,
+            let s2 = ep2[.season] as? Int
             else { return false }
 
         if s1 == s2 {
@@ -172,7 +172,7 @@ public struct iTunesStore: MetadataService {
         }
     }
 
-    private func artwork(url: URL?, isTVShow: Bool) -> RemoteImage? {
+    private func artwork(url: URL?, isTVShow: Bool) -> Artwork? {
         guard let regex = try? NSRegularExpression(pattern: "(\\{.*?\\})", options: [.caseInsensitive]),
             let url = url else { return nil }
 
@@ -186,7 +186,7 @@ public struct iTunesStore: MetadataService {
 
         if let artworkURL = URL(string: text),
             let artworkFullSizeURL = URL(string: text.replacingOccurrences(of: "100x100bb", with: replacement)) {
-            return RemoteImage(url:artworkFullSizeURL, thumbURL: artworkURL, service: self.name, type: "")
+            return Artwork(url:artworkFullSizeURL, thumbURL: artworkURL, service: self.name, type: "")
         }
 
         return nil
@@ -270,7 +270,7 @@ public struct iTunesStore: MetadataService {
         return nil
     }
 
-    public func search(TVSeries: String, language: String, season: Int?, episode: Int?) -> [SBMetadataResult] {
+    public func search(TVSeries: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
         guard let store = iTunesStore.store(language: language) else { return [] }
 
         // Determine artistId/collectionId
@@ -288,11 +288,11 @@ public struct iTunesStore: MetadataService {
             var filteredResults = results.results.filter { $0.wrapperType == "track" } .map { metadata(forTVResult: $0, store: store) }
 
             if let season = season {
-                filteredResults = filteredResults.filter { $0[SBMetadataResultSeason] as! Int == season }
+                filteredResults = filteredResults.filter { $0[.season] as! Int == season }
             }
 
             if let episode = episode {
-                filteredResults = filteredResults.filter { $0[SBMetadataResultEpisodeNumber] as! Int == episode }
+                filteredResults = filteredResults.filter { $0[.episodeNumber] as! Int == episode }
             }
 
             return filteredResults.sorted(by: areInIncreasingOrder)
@@ -301,25 +301,25 @@ public struct iTunesStore: MetadataService {
         return []
     }
 
-    private func metadata(forTVResult result: Track, store: Store) -> SBMetadataResult {
-        let metadata = SBMetadataResult()
+    private func metadata(forTVResult result: Track, store: Store) -> MetadataResult {
+        let metadata = MetadataResult()
 
         metadata.mediaKind = 10 // TV show
 
-        metadata[SBMetadataResultName]            = result.trackName
-        metadata[SBMetadataResultReleaseDate]     = result.releaseDate
-        metadata[SBMetadataResultDescription]     = result.shortDescription
-        metadata[SBMetadataResultLongDescription] = result.longDescription
-        metadata[SBMetadataResultSeriesName]      = result.artistName
-        metadata[SBMetadataResultGenre]           = result.primaryGenreName
+        metadata[.name]            = result.trackName
+        metadata[.releaseDate]     = result.releaseDate
+        metadata[.description]     = result.shortDescription
+        metadata[.longDescription] = result.longDescription
+        metadata[.seriesName]      = result.artistName
+        metadata[.genre]           = result.primaryGenreName
         
-        metadata[SBMetadataResultEpisodeNumber] = result.trackNumber
+        metadata[.episodeNumber] = result.trackNumber
         if let trackNumber = result.trackNumber, let trackCount = result.trackCount {
-            metadata[SBMetadataResultTrackNumber]   = "\(trackNumber)/\(trackCount)"
+            metadata[.trackNumber]   = "\(trackNumber)/\(trackCount)"
         }
-        metadata[SBMetadataResultDiskNumber]    = "1/1"
-        metadata[SBMetadataResultArtistID]      = result.artistId
-        metadata[SBMetadataResultPlaylistID]    = result.collectionId
+        metadata[.diskNumber]    = "1/1"
+        metadata[.artistID]      = result.artistId
+        metadata[.playlistID]    = result.collectionId
 
         if let s = result.collectionName?.lowercased() {
             var separated = s.components(separatedBy: ", \(store.season)")
@@ -334,21 +334,21 @@ public struct iTunesStore: MetadataService {
             let trackCount = result.trackCount ?? 1
             let season = separated.count > 1 ? Int(separated[1].trimmingCharacters(in: CharacterSet.whitespaces)) ?? 1 : trackCount > 1 ? 1 : 0
 
-            metadata[SBMetadataResultSeason]    = season
+            metadata[.season]    = season
             if let trackNumber = result.trackNumber {
-                metadata[SBMetadataResultEpisodeID] = String(format:"%d%02d", season, trackNumber)
+                metadata[.episodeID] = String(format:"%d%02d", season, trackNumber)
             }
         }
 
         if let contentAdvisoryRating = result.contentAdvisoryRating {
-            metadata[SBMetadataResultRating] = MP42Ratings.defaultManager.ratingStringForiTunesCountry(store.country,
+            metadata[.rating] = MP42Ratings.defaultManager.ratingStringForiTunesCountry(store.country,
                                                                                                        media: metadata.mediaKind == 9 ? "movie" : "TV",
                                                                                                        ratingString: contentAdvisoryRating)
         }
 
-        metadata[SBMetadataResultITunesCountry] = store.storeCode
-        metadata[SBMetadataResultITunesURL] = result.trackViewUrl
-        metadata[SBMetadataResultContentID] = result.trackId
+        metadata[.iTunesCountry] = store.storeCode
+        metadata[.iTunesURL] = result.trackViewUrl
+        metadata[.contentID] = result.trackId
         
         if result.trackExplicitness == "explicit" {
             metadata.contentRating = 4
@@ -358,7 +358,7 @@ public struct iTunesStore: MetadataService {
         }
 
         if let artwork = artwork(url: result.artworkUrl100, isTVShow: true) {
-            metadata.remoteArtworks = [artwork].toClass()
+            metadata.remoteArtworks = [artwork]
         }
 
         return metadata
@@ -366,7 +366,7 @@ public struct iTunesStore: MetadataService {
 
     // MARK: - Search for movie metadata
     
-    public func search(movie: String, language: String) -> [SBMetadataResult] {
+    public func search(movie: String, language: String) -> [MetadataResult] {
         guard let store = iTunesStore.store(language: language),
             let url = URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2)&term=\(movie.urlEncoded())&entity=movie&limit=150"),
             let results = sendJSONRequest(url: url, type: Wrapper<Track>.self)
@@ -376,27 +376,27 @@ public struct iTunesStore: MetadataService {
         return filteredResults.map { metadata(forMoviePartialResult: $0, store: store) }
     }
     
-    private func metadata(forMoviePartialResult result: Track, store: Store) -> SBMetadataResult {
-        let metadata = SBMetadataResult()
+    private func metadata(forMoviePartialResult result: Track, store: Store) -> MetadataResult {
+        let metadata = MetadataResult()
 
         metadata.mediaKind = 9 // movie
 
-        metadata[SBMetadataResultName]            = result.trackName
-        metadata[SBMetadataResultReleaseDate]     = result.releaseDate
-        metadata[SBMetadataResultDescription]     = result.longDescription
-        metadata[SBMetadataResultLongDescription] = result.longDescription
-        metadata[SBMetadataResultDirector]        = result.artistName
-        metadata[SBMetadataResultGenre]           = result.primaryGenreName
+        metadata[.name]            = result.trackName
+        metadata[.releaseDate]     = result.releaseDate
+        metadata[.description]     = result.longDescription
+        metadata[.longDescription] = result.longDescription
+        metadata[.director]        = result.artistName
+        metadata[.genre]           = result.primaryGenreName
 
         if let contentAdvisoryRating = result.contentAdvisoryRating {
-            metadata[SBMetadataResultRating] = MP42Ratings.defaultManager.ratingStringForiTunesCountry(store.country,
+            metadata[.rating] = MP42Ratings.defaultManager.ratingStringForiTunesCountry(store.country,
                                                                                                        media: metadata.mediaKind == 9 ? "movie" : "TV",
                                                                                                        ratingString: contentAdvisoryRating)
         }
 
-        metadata[SBMetadataResultITunesCountry] = store.storeCode
-        metadata[SBMetadataResultITunesURL] = result.trackViewUrl
-        metadata[SBMetadataResultContentID] = result.trackId
+        metadata[.iTunesCountry] = store.storeCode
+        metadata[.iTunesURL] = result.trackViewUrl
+        metadata[.contentID] = result.trackId
         
         if result.trackExplicitness == "explicit" {
             metadata.contentRating = 4
@@ -406,7 +406,7 @@ public struct iTunesStore: MetadataService {
         }
 
         if let artwork = artwork(url: result.artworkUrl100, isTVShow: false) {
-            metadata.remoteArtworks = [artwork].toClass()
+            metadata.remoteArtworks = [artwork]
         }
 
         return metadata
@@ -414,14 +414,14 @@ public struct iTunesStore: MetadataService {
 
     // MARK: - Load additional metadata
 
-    public func loadTVMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
+    public func loadTVMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
         guard let store = iTunesStore.store(language: language),
-              let playlistID = metadata[SBMetadataResultPlaylistID] as? Int,
+              let playlistID = metadata[.playlistID] as? Int,
               let url = URL(string: "https://itunes.apple.com/lookup?country=\(store.country2)&lang=\(store.language2.lowercased())&id=\(playlistID)")
             else { return metadata }
         
         if let results = sendJSONRequest(url: url, type: Wrapper<Collection>.self) {
-            metadata[SBMetadataResultSeriesDescription] = results.results.first?.longDescription
+            metadata[.seriesDescription] = results.results.first?.longDescription
         }
 
         return metadata
@@ -441,17 +441,17 @@ public struct iTunesStore: MetadataService {
         return []
     }
 
-    public func loadMovieMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
+    public func loadMovieMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
         guard let store = iTunesStore.store(language: language),
-              let url = metadata[SBMetadataResultITunesURL] as? URL,
+              let url = metadata[.iTunesURL] as? URL,
               let data = URLSession.data(from: url),
               let xml = try? XMLDocument(data: data, options: .documentTidyHTML)
         else { return metadata }
 
-        metadata[SBMetadataResultCast]          = read(type: store.actor, in: xml).joined(separator: ", ")
-        metadata[SBMetadataResultDirector]      = read(type: store.director, in: xml).joined(separator: ", ")
-        metadata[SBMetadataResultProducers]     = read(type: store.producer, in: xml).joined(separator: ", ")
-        metadata[SBMetadataResultScreenwriters] = read(type: store.screenwriter, in: xml).joined(separator: ", ")
+        metadata[.cast]          = read(type: store.actor, in: xml).joined(separator: ", ")
+        metadata[.director]      = read(type: store.director, in: xml).joined(separator: ", ")
+        metadata[.producers]     = read(type: store.producer, in: xml).joined(separator: ", ")
+        metadata[.screenwriters] = read(type: store.screenwriter, in: xml).joined(separator: ", ")
 
         if let nodes = try? xml.nodes(forXPath: "//li[@class='copyright']") {
             for node in nodes {
@@ -464,7 +464,7 @@ public struct iTunesStore: MetadataService {
                                                    range: copyright.startIndex ..< copyright.endIndex, locale: nil) {
                         copyright.removeSubrange(range)
                     }
-                    metadata[SBMetadataResultCopyright] = copyright
+                    metadata[.copyright] = copyright
                 }
             }
         }

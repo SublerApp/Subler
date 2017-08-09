@@ -7,6 +7,54 @@
 
 import Foundation
 
+public protocol Runnable {
+    @discardableResult func runAsync() -> Runnable
+    @discardableResult func run() -> Runnable
+    func cancel()
+}
+
+public protocol CancellableToken {
+    func cancel()
+    var sessionTask: URLSessionTask? { get set }
+}
+
+class RunnableTask<T> : Runnable {
+
+    private var queue: DispatchQueue
+    private var cancelled: Bool = false
+    private let search: () -> T
+    private let completionHandler: (T) -> Void
+
+    init(search: @escaping @autoclosure () -> T, completionHandler: @escaping (T) -> Void) {
+        self.search = search
+        self.completionHandler = completionHandler
+        self.queue = DispatchQueue(label: "SearchTaskQueue")
+    }
+
+    @discardableResult public func runAsync() -> Runnable {
+        DispatchQueue.global(priority: .background).async {
+            self.run()
+        }
+        return self
+    }
+
+    @discardableResult public func run() -> Runnable {
+        let results = self.search()
+        queue.sync {
+            if self.cancelled == false {
+                self.completionHandler(results)
+            }
+        }
+        return self
+    }
+
+    public func cancel() {
+        queue.sync {
+            self.cancelled = true
+        }
+    }
+}
+
 // MARK: - URL Utilities
 
 private let allowedChars: CharacterSet = {

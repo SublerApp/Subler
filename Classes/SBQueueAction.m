@@ -9,7 +9,6 @@
 #import "SBQueueAction.h"
 
 #import "SBQueueItem.h"
-#import "SBMetadataResultMap.h"
 
 #import <MP42Foundation/MP42File.h>
 #import <MP42Foundation/MP42FileImporter.h>

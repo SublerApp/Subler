@@ -8,8 +8,8 @@
 
 #import "SBMetadataPrefsViewController.h"
 
-#import "SBMetadataResult.h"
-#import "SBMetadataResultMap.h"
+#import "Subler-Swift.h"
+
 #import <MP42Foundation/MP42Metadata.h>
 
 static void *SBMetadataPrefsViewControllerContex = &SBMetadataPrefsViewControllerContex;
@@ -62,8 +62,8 @@ static void *SBMetadataPrefsViewControllerContex = &SBMetadataPrefsViewControlle
 
     // Load data from preferences
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    SBMetadataResultMap *savedMovieMap = [defaults SB_resultMapForKey:@"SBMetadataMovieResultMap"];
-    SBMetadataResultMap *savedTvShowMap = [defaults SB_resultMapForKey:@"SBMetadataTvShowResultMap"];
+    SBMetadataResultMap *savedMovieMap = [defaults mapForKey:@"SBMetadataMovieResultMap"];
+    SBMetadataResultMap *savedTvShowMap = [defaults mapForKey:@"SBMetadataTvShowResultMap"];
 
     _movieMap = savedMovieMap ? savedMovieMap : [SBMetadataResultMap movieDefaultMap];
     _tvShowMap = savedTvShowMap ? savedTvShowMap : [SBMetadataResultMap tvShowDefaultMap];
@@ -110,8 +110,8 @@ static void *SBMetadataPrefsViewControllerContex = &SBMetadataPrefsViewControlle
 - (void)save
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults SB_setResultMap:self.movieMap forKey:@"SBMetadataMovieResultMap"];
-    [defaults SB_setResultMap:self.tvShowMap forKey:@"SBMetadataTvShowResultMap"];
+    [defaults setMap:self.movieMap forKey:@"SBMetadataMovieResultMap"];
+    [defaults setMap:self.tvShowMap forKey:@"SBMetadataTvShowResultMap"];
 }
 
 - (IBAction)addMetadataItem:(id)sender
@@ -167,7 +167,7 @@ static void *SBMetadataPrefsViewControllerContex = &SBMetadataPrefsViewControlle
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject
 {
     if ([representedObject rangeOfString: @"{"].location == 0) {
-        return [SBMetadataResult localizedDisplayNameForKey:representedObject];
+        return [SBMetadataResult localizedDisplayNameWithKey:representedObject];
     }
 
     return representedObject;

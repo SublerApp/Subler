@@ -7,82 +7,57 @@
 
 import Foundation
 
-public protocol MetadataSearchTask {
-    @discardableResult func runAsync() -> MetadataSearchTask
-    @discardableResult func run() -> MetadataSearchTask
-    func cancel()
-}
+/// Wrapper for Objc compatibility
+@objc public class SBMetadataImporter : NSObject {
 
-class MetadataSearchInternalTask<T> : MetadataSearchTask {
-
-    private var queue: DispatchQueue
-    private var cancelled: Bool = false
-    private let search: () -> T
-    private let completionHandler: (T) -> Void
-
-    init(search: @escaping @autoclosure () -> T, completionHandler: @escaping (T) -> Void) {
-        self.search = search
-        self.completionHandler = completionHandler
-        self.queue = DispatchQueue(label: "SearchTaskQueue")
-    }
-
-    @discardableResult public func runAsync() -> MetadataSearchTask {
-        DispatchQueue.global(priority: .background).async {
-            self.run()
-        }
-        return self
-    }
-
-    @discardableResult public func run() -> MetadataSearchTask {
-        let results = self.search()
-        queue.sync {
-            if self.cancelled == false {
-                self.completionHandler(results)
-            }
-        }
-        return self
-    }
-
-    public func cancel() {
-        queue.sync {
-            self.cancelled = true
+    @objc public static var movieProviders: [String] {
+        get {
+            return MetadataSearch.movieProviders
         }
     }
-}
 
-public protocol MetadataSearchCancelToken {
-    func cancel()
-    var sessionTask: URLSessionTask? { get set }
-}
-
-// MARK: - Image
-
-extension Array where Element == RemoteImage {
-    func toClass() -> [SBRemoteImage] {
-        return self.map { $0.toClass() }
+    @objc public static var tvProviders: [String] {
+        get {
+            return MetadataSearch.tvProviders
+        }
     }
-}
 
-extension SBRemoteImage {
-    func toStruct() -> RemoteImage {
-        return RemoteImage(url: self.url, thumbURL: self.thumbURL, service: self.service, type: self.type)
+    @objc public static func languages(provider: String) -> [String] {
+        return MetadataSearch.service(name: provider).languages
     }
-}
 
-extension Array where Element == SBRemoteImage {
-    func toStruct() -> [RemoteImage] {
-        return self.map { $0.toStruct() }
+    @objc public static func languageType(provider: String) -> LanguageType {
+        return MetadataSearch.service(name: provider).languageType
     }
-}
 
-public struct RemoteImage {
-    let url: URL
-    let thumbURL: URL
-    let service: String
-    let type: String
+    @objc public static func defaultLanguage(provider: String) -> String {
+        return MetadataSearch.service(name: provider).defaultLanguage
+    }
 
-    public func toClass() -> SBRemoteImage {
-        return SBRemoteImage(url: url, thumbURL: thumbURL, service: service, type: type)
+    @objc public static func importer(provider: String) -> SBMetadataImporter {
+        return SBMetadataImporter(provider: provider)
+    }
+
+    private let service: MetadataService
+
+    @objc init(provider: String) {
+        service = MetadataSearch.service(name: provider)
+    }
+
+    init(service: MetadataService) {
+        self.service = service
+    }
+
+    @objc public var languageType: LanguageType {
+        get {
+            return service.languageType
+        }
+    }
+
+    @objc public var languages: [String] {
+        get {
+            return service.languages
+        }
     }
 }
 
@@ -123,7 +98,7 @@ private func parseAnimeFilename(_ filename: String) -> FilenameInfo? {
                                 let seriesName = (filename as NSString).substring(with: seriesNameRange)
                                 let episode = Int((filename as NSString).substring(with: episodeRange))
 
-                                if seriesName.count > 0 {
+                                if seriesName.isEmpty == false {
                                     result = FilenameInfo.tvShow(seriesName: seriesName, season: 1, episode: episode)
                                 }
                             }
@@ -152,7 +127,7 @@ private func parseFilename(_ filename: String) -> FilenameInfo? {
     guard let outputString = String(data: outputData, encoding: .utf8) else { return nil }
     let lines = outputString.components(separatedBy: "\n")
 
-    if lines.count > 0 {
+    if lines.isEmpty == false {
         if lines.first == "tv" && lines.count >= 4 {
             let newSeriesName = lines[1].replacingOccurrences(of: ".", with: " ")
             return FilenameInfo.tvShow(seriesName: newSeriesName, season: Int(lines[2]), episode: Int(lines[3]))

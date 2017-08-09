@@ -72,7 +72,7 @@ public struct ChapterDB : ChapterService {
             chapters.append(chapter)
         }
 
-        if chapters.count > 0 {
+        if chapters.isEmpty == false {
             let result = ChapterResult(title: title, duration: duration, confimations: confirmations, chapters: chapters)
             return result
         }

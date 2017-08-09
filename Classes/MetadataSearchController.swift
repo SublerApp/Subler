@@ -8,7 +8,7 @@
 import Cocoa
 
 @objc(SBMetadataSearchControllerDelegate) protocol MetadataSearchControllerDelegate {
-    func didSelect(metadata: SBMetadataResult)
+    func didSelect(metadata: MetadataResult)
 }
 
 @objc(SBMetadataSearchController) class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSComboBoxDelegate, NSComboBoxDataSource, NSTextFieldDelegate, ArtworkSelectorControllerDelegate {
@@ -43,15 +43,15 @@ import Cocoa
     // MARK: - ComboBox
 
     private var tvSeriesNameSearchArray: [String]
-    private var nameSearchTask: MetadataSearchTask?
+    private var nameSearchTask: Runnable?
 
     // MARK: UI State
     private enum MetadataSearchState {
         case none
-        case searching(search: MetadataSearch, task: MetadataSearchTask)
-        case completed(search: MetadataSearch, results: [SBMetadataResult], selectedResult: SBMetadataResult)
-        case additionalSearch(search: MetadataSearch, result: SBMetadataResult, task: MetadataSearchTask)
-        case closing(search: MetadataSearch, result: SBMetadataResult)
+        case searching(search: MetadataSearch, task: Runnable)
+        case completed(search: MetadataSearch, results: [MetadataResult], selectedResult: MetadataResult)
+        case additionalSearch(search: MetadataSearch, result: MetadataResult, task: Runnable)
+        case closing(search: MetadataSearch, result: MetadataResult)
     }
 
     private var state: MetadataSearchState
@@ -143,7 +143,7 @@ import Cocoa
         popUpButton.removeAllItems()
         popUpButton.addItems(withTitles: service.languages.map { service.languageType.displayName(language: $0) })
 
-        let type: MetadataSearch.Kind = popUpButton == movieLanguage ? .movie : .tvShow
+        let type: MetadataType = popUpButton == movieLanguage ? .movie : .tvShow
 
         popUpButton.selectItem(withTitle: MetadataSearch.defaultLanguage(service: service, type: type))
 
@@ -213,7 +213,7 @@ import Cocoa
     func comboBoxSelectionDidChange(_ notification: Notification) {
         let index = tvSeriesName.indexOfSelectedItem
         if index > -1, let dataSource = tvSeriesName.dataSource,
-            let name = dataSource.comboBox?(tvSeriesName, objectValueForItemAt: index) as? String, name.count > 0 {
+            let name = dataSource.comboBox?(tvSeriesName, objectValueForItemAt: index) as? String, name.isEmpty == false {
             tvSeriesName.stringValue = name
             updateSearchButtonVisibility()
         }
@@ -268,7 +268,7 @@ import Cocoa
         }
     }
 
-    private func searchDone(search: MetadataSearch, results: [SBMetadataResult]) {
+    private func searchDone(search: MetadataSearch, results: [MetadataResult]) {
         DispatchQueue.main.async {
             if let first = results.first {
                 self.state = .completed(search: search, results: results, selectedResult: first)
@@ -291,43 +291,43 @@ import Cocoa
         updateUI()
     }
 
-    private func loadDone(search: MetadataSearch, result: SBMetadataResult) {
+    private func loadDone(search: MetadataSearch, result: MetadataResult) {
         DispatchQueue.main.async {
             self.state = .closing(search: search, result: result)
-            if let artworks = result.remoteArtworks, artworks.count > 0 {
-                self.selectArtwork(artworks: artworks.toStruct(), type: search.type)
+            if result.remoteArtworks.isEmpty {
+                self.addMetadata()
             }
             else {
-                self.addMetadata()
+                self.selectArtwork(artworks: result.remoteArtworks, type: search.type)
             }
         }
     }
 
-    private func selectArtwork(artworks: [RemoteImage], type: MetadataSearch.Kind) {
+    private func selectArtwork(artworks: [Artwork], type: MetadataType) {
         let artworkSelectorController = ArtworkSelectorController(artworks: artworks, size: window?.frame.size,
                                                                   type: type, delegate: self)
         window?.beginSheet(artworkSelectorController.window!, completionHandler: nil)
         artworkSelector = artworkSelectorController
     }
 
-    func didSelect(artworks: [RemoteImage]) {
+    func didSelect(artworks: [Artwork]) {
         window?.endSheet((artworkSelector?.window)!)
         load(artworks: artworks)
     }
 
-    private func load(artworks: [RemoteImage]) {
+    private func load(artworks: [Artwork]) {
         switch state {
         case .closing(_, let result):
 
             DispatchQueue.global(priority: .background).async {
                 for artwork in artworks {
                     if let data = URLSession.data(from: artwork.url) {
-                        result.artworks.add(MP42Image(data: data, type: MP42_ART_JPEG))
+                        result.artworks.append(MP42Image(data: data, type: MP42_ART_JPEG))
                     }
                     // Hack, download smaller iTunes version if big iTunes version is not available
                     else if artwork.service == iTunesStore().name,
                         let data = URLSession.data(from: artwork.url.deletingPathExtension().appendingPathExtension("600x600bb.jpg")) {
-                        result.artworks.add(MP42Image(data: data, type: MP42_ART_JPEG))
+                        result.artworks.append(MP42Image(data: data, type: MP42_ART_JPEG))
                     }
                 }
                 DispatchQueue.main.async {
@@ -343,7 +343,7 @@ import Cocoa
         switch state {
         case .closing(let search, let result):
             if search.type == .tvShow {
-                if let title = result[SBMetadataResultSeriesName] as? String {
+                if let title = result[.seriesName] as? String {
                     var previousTVSeries = MetadataSearchController.recentSearches()
                     if previousTVSeries.contains(title) == false {
                         previousTVSeries.append(title)
@@ -456,21 +456,21 @@ import Cocoa
     }
 
     private func updateSearchButtonVisibility() {
-        if movieName.stringValue.count > 0 {
-            searchMovieButton.isEnabled = true
-        }
-        else {
+        if movieName.stringValue.isEmpty {
             searchMovieButton.isEnabled = false
         }
-        if tvSeriesName.stringValue.count > 0 {
-            if tvSeasonNum.stringValue.count == 0 && tvEpisodeNum.stringValue.count > 0 {
+        else {
+            searchMovieButton.isEnabled = true
+        }
+        if tvSeriesName.stringValue.isEmpty {
+            searchTvButton.isEnabled = false
+        }
+        else {
+            if tvSeasonNum.stringValue.isEmpty && tvEpisodeNum.stringValue.isEmpty == false {
                 searchTvButton.isEnabled = false
             } else {
                 searchTvButton.isEnabled = true
             }
-        }
-        else {
-            searchTvButton.isEnabled = false
         }
     }
 
@@ -507,7 +507,7 @@ import Cocoa
         else if tableView == metadataTable {
             switch state {
             case .completed(_, _, let result):
-                return result.tags.count
+                return result.count
             default:
                 break
             }
@@ -522,13 +522,13 @@ import Cocoa
                 let result = results[row]
                 switch search.type {
                 case .tvShow:
-                    if let season = result[SBMetadataResultSeason] as? Int,
-                        let episode = result[SBMetadataResultEpisodeNumber] as? Int,
-                        let title = result[SBMetadataResultName] as? String {
+                    if let season = result[.season] as? Int,
+                        let episode = result[.episodeNumber] as? Int,
+                        let title = result[.name] as? String {
                             return "\(season)x\(episode) - \(title)"
                     }
                 case .movie:
-                    if let title = result[SBMetadataResultName] as? String {
+                    if let title = result[.name] as? String {
                         return title
                     }
                 }
@@ -539,9 +539,9 @@ import Cocoa
         else if tableView == metadataTable {
             switch state {
             case .completed(_, _, let result):
-                let key = result.orderedKeys()[row]
+                let key = result.orderedKeys[row]
                 if tableColumn?.identifier.rawValue == "name" {
-                    return SBMetadataResult.localizedDisplayName(forKey: key).boldMonospacedAttributedString()
+                    return key.localizedDisplayName.boldMonospacedAttributedString()
                 }
                 else if tableColumn?.identifier.rawValue == "value" {
                     return result[key]

@@ -9,7 +9,6 @@
 
 #import "SBMetadataPrefsViewController.h"
 #import "SBSetPrefsViewController.h"
-#import "SBMetadataResultMap.h"
 
 #import "Subler-Swift.h"
 

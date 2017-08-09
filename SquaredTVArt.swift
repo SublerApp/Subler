@@ -25,12 +25,12 @@ struct SquaredTVArt {
             return URL(string: thumbURL.absoluteString.replacingOccurrences(of: "_250.jpg", with: "_1280.jpg")) ?? thumbURL
         }
 
-        func toRemoteImage() -> RemoteImage {
-            return RemoteImage(url: thumbURL, thumbURL: url, service: "Squared TV Art", type: "season square")
+        func toRemoteImage() -> Artwork {
+            return Artwork(url: thumbURL, thumbURL: url, service: "Squared TV Art", type: "season square")
         }
     }
 
-    func search(tvShow: String) -> [RemoteImage] {
+    func search(tvShow: String) -> [Artwork] {
         let searchTerm = tvShow.urlEncoded()
         guard let url = URL(string: "\(basePath)search/\(searchTerm)") else { return [] }
 
@@ -38,7 +38,7 @@ struct SquaredTVArt {
         return mapped
     }
 
-    func search(tvShow: String, season: Int) -> [RemoteImage] {
+    func search(tvShow: String, season: Int) -> [Artwork] {
         let searchTerm = "\(tvShow) Season \(season)".urlEncoded()
         guard let url = URL(string: "\(basePath)search/\(searchTerm)") else { return [] }
 
@@ -46,7 +46,7 @@ struct SquaredTVArt {
         return mapped
     }
 
-    func search(theTVDBSeriesId: Int, season: Int) -> [RemoteImage] {
+    func search(theTVDBSeriesId: Int, season: Int) -> [Artwork] {
         let searchTerm = "\(theTVDBSeriesId) Season \(season)".urlEncoded()
         guard let url = URL(string: "\(basePath)search/\(searchTerm)") else { return [] }
 
@@ -88,6 +88,14 @@ struct SquaredTVArt {
         return nil
     }
 
+    private func parseString(info: [Substring], type: String) -> String? {
+        let filtered = info.filter { $0.hasPrefix(type) }
+        if let seriesID = filtered.first {
+            return String(seriesID).replacingOccurrences(of: type, with: "")
+        }
+        return nil
+    }
+
     private func parse(xml: XMLDocument) -> [SquaredTVArtwork] {
         guard let nodes = try? xml.nodes(forXPath: "//div[starts-with(@class,'Post ')]") else { return [] }
 
@@ -99,6 +107,7 @@ struct SquaredTVArt {
                 let info = element.attribute(forName: "class")?.stringValue?.split(separator: " "),
                 let seriesID = parse(info: info, type: "thetvdb_series_"),
                 let seasonID = parse(info: info, type: "thetvdb_season_"),
+                //let imdbID = parseString(info: info, type: "imdb_series"),
                 let season = parse(info: info, type: "season_") {
                 return SquaredTVArtwork(thumbURL: url, tvShow: name, thetvdbSeriesID: seriesID, season: season, thetvdbSeasonID: seasonID)
             }

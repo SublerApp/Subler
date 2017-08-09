@@ -66,9 +66,9 @@ public struct TheTVDB : MetadataService, MetadataNameService {
 
     private func searchIDs(seriesName: String, language: String) -> [Int] {
         let series = session.fetch(series: seriesName, language: language)
-        let filteredSeries = series.filter { $0.status.count > 0 && match(series: $0, name: seriesName) }.map { $0.id }
+        let filteredSeries = series.filter { $0.status.isEmpty == false && match(series: $0, name: seriesName) }.map { $0.id }
 
-        if filteredSeries.count > 0 {
+        if filteredSeries.isEmpty == false {
             return filteredSeries
         }
         else if let firstItemsID = series.first?.id {
@@ -82,18 +82,18 @@ public struct TheTVDB : MetadataService, MetadataNameService {
     // MARK: - Helpers
 
     private func cleanList(actors: [TVDBActor]) -> String {
-        return actors.map { $0.name } .reduce("", { $0 + ($0.count > 0 ? ", " : "") + $1 })
+        return actors.map { $0.name } .reduce("", { $0 + ($0.isEmpty ? "" : ", ") + $1 })
     }
 
     private func cleanList(names: [String]) -> String {
-        return names.reduce("", { $0 + ($0.count > 0 ? ", " : "") + $1 })
+        return names.reduce("", { $0 + ($0.isEmpty ? "" : ", ") + $1 })
     }
 
-    private func areInIncreasingOrder(ep1: SBMetadataResult, ep2: SBMetadataResult) -> Bool {
-        guard let v1 = ep1[SBMetadataResultEpisodeNumber] as? Int,
-            let v2 = ep2[SBMetadataResultEpisodeNumber] as? Int,
-            let s1 = ep1[SBMetadataResultSeason] as? Int,
-            let s2 = ep2[SBMetadataResultSeason] as? Int
+    private func areInIncreasingOrder(ep1: MetadataResult, ep2: MetadataResult) -> Bool {
+        guard let v1 = ep1[.episodeNumber] as? Int,
+            let v2 = ep2[.episodeNumber] as? Int,
+            let s1 = ep1[.season] as? Int,
+            let s2 = ep2[.season] as? Int
             else { return false }
 
         if s1 == s2 {
@@ -104,40 +104,40 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         }
     }
 
-    private func merge(episode: TVDBEpisode, info: TVDBSeriesInfo, actors: [TVDBActor]) -> SBMetadataResult {
-        let result = SBMetadataResult()
+    private func merge(episode: TVDBEpisode, info: TVDBSeriesInfo, actors: [TVDBActor]) -> MetadataResult {
+        let result = MetadataResult()
 
         result.mediaKind = 10
 
         // TV Show Info
-        result["TheTVDB Series ID"]                = info.id
-        result[SBMetadataResultSeriesName]         = info.seriesName
-        result[SBMetadataResultSeriesDescription]  = info.overview
-        result[SBMetadataResultGenre]              = cleanList(names: info.genre)
-        result[SBMetadataResultNetwork]            = info.network
+        result[.serviceSeriesID]    = info.id
+        result[.seriesName]         = info.seriesName
+        result[.seriesDescription]  = info.overview
+        result[.genre]              = cleanList(names: info.genre)
+        result[.network]            = info.network
 
         // Episode Info
-        result["TheTVDB Episodes ID"]           = episode.id
-        result[SBMetadataResultName]            = episode.episodeName
-        result[SBMetadataResultReleaseDate]     = episode.firstAired
-        result[SBMetadataResultDescription]     = episode.overview
-        result[SBMetadataResultLongDescription] = episode.overview
+        result[.serviceEpisodeID] = episode.id
+        result[.name]             = episode.episodeName
+        result[.releaseDate]      = episode.firstAired
+        result[.description]      = episode.overview
+        result[.longDescription]  = episode.overview
 
-        result[SBMetadataResultSeason]          = episode.airedSeason
+        result[.season]           = episode.airedSeason
 
-        result[SBMetadataResultEpisodeID]       = String(format: "%d%02d", episode.airedSeason, episode.airedEpisodeNumber)
-        result[SBMetadataResultEpisodeNumber]   = episode.airedEpisodeNumber
-        result[SBMetadataResultTrackNumber]     = episode.airedEpisodeNumber
+        result[.episodeID]        = String(format: "%d%02d", episode.airedSeason, episode.airedEpisodeNumber)
+        result[.episodeNumber]    = episode.airedEpisodeNumber
+        result[.trackNumber]      = episode.airedEpisodeNumber
 
         // Rating
         if let rating = info.rating, rating.count > 0 {
-            result[SBMetadataResultRating] = MP42Ratings.defaultManager.ratingStringForiTunesCountry("USA",
-                                                                                                     media: "TV",
-                                                                                                     ratingString: rating)
+            result[.rating] = MP42Ratings.defaultManager.ratingStringForiTunesCountry("USA",
+                                                                                      media: "TV",
+                                                                                      ratingString: rating)
         }
 
         // Actors
-        result[SBMetadataResultCast] = cleanList(actors: actors)
+        result[.cast] = cleanList(actors: actors)
 
         // TheTVDB does not provide the following fields normally associated with TV shows in SBMetadataResult:
         // "Copyright", "Comments", "Producers", "Artist"
@@ -145,7 +145,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         return result
     }
 
-    private func loadEpisodes(info: TVDBSeriesInfo, actors: [TVDBActor], season: Int?, episode: Int?, language: String) -> [SBMetadataResult] {
+    private func loadEpisodes(info: TVDBSeriesInfo, actors: [TVDBActor], season: Int?, episode: Int?, language: String) -> [MetadataResult] {
         let episodes = session.fetch(episodeForSeriesID: info.id, season: season, episode: episode, language: language)
         let filteredEpisodes = episodes.filter {
             (season != nil ? $0.airedSeason == season : true) &&
@@ -164,21 +164,21 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         static let seriesInfo = NilValues(rawValue: 2)
     }
 
-    private func checkMissingValues(results: [SBMetadataResult]) -> NilValues {
+    private func checkMissingValues(results: [MetadataResult]) -> NilValues {
 
         var options: NilValues = []
 
         for result in results {
-            if result[SBMetadataResultSeriesName] == nil {
+            if result[.seriesName] == nil {
                 options.insert(.seriesInfo)
             }
-            if result[SBMetadataResultName] == nil {
+            if result[.name] == nil {
                 options.insert(.episodesInfo)
             }
-            if result[SBMetadataResultLongDescription] == nil {
+            if result[.longDescription] == nil {
                 options.insert(.episodesInfo)
             }
-            if result[SBMetadataResultSeriesDescription] == nil {
+            if result[.seriesDescription] == nil {
                 options.insert(.seriesInfo)
             }
         }
@@ -186,50 +186,50 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         return options
     }
 
-    private func merge(enResults: [SBMetadataResult], results: [SBMetadataResult]) {
+    private func merge(enResults: [MetadataResult], results: [MetadataResult]) {
         if enResults.count != results.count { return }
 
         for (index, result) in results.enumerated() {
             let enResult = enResults[index]
 
-            if result[SBMetadataResultSeriesName] == nil {
-                result[SBMetadataResultSeriesName] = enResult[SBMetadataResultSeriesName]
+            if result[.seriesName] == nil {
+                result[.seriesName] = enResult[.seriesName]
             }
-            if result[SBMetadataResultName] == nil {
-                result[SBMetadataResultName] = enResult[SBMetadataResultName]
+            if result[.name] == nil {
+                result[.name] = enResult[.name]
             }
-            if result[SBMetadataResultLongDescription] == nil {
-                result[SBMetadataResultLongDescription] = enResult[SBMetadataResultLongDescription]
-                result[SBMetadataResultDescription] = enResult[SBMetadataResultDescription]
+            if result[.longDescription] == nil {
+                result[.longDescription] = enResult[.longDescription]
+                result[.description] = enResult[.description]
             }
-            if result[SBMetadataResultSeriesDescription] == nil {
-                result[SBMetadataResultSeriesDescription] = enResult[SBMetadataResultSeriesDescription]
+            if result[.seriesDescription] == nil {
+                result[.seriesDescription] = enResult[.seriesDescription]
             }
         }
     }
 
-    private func merge(info: TVDBSeriesInfo, results: [SBMetadataResult]) {
+    private func merge(info: TVDBSeriesInfo, results: [MetadataResult]) {
         let name = info.seriesName
         for result in results {
-            result[SBMetadataResultSeriesName] = name
+            result[.seriesName] = name
         }
 
         if let overview = info.overview {
             for result in results {
-                result[SBMetadataResultSeriesDescription] = overview
+                result[.seriesDescription] = overview
             }
         }
     }
 
     // MARK: - TV Search
 
-    public func search(TVSeries: String, language: String, season: Int?, episode: Int?) -> [SBMetadataResult] {
+    public func search(TVSeries: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
         let seriesIDs: [Int] =  {
             let result = self.searchIDs(seriesName: TVSeries, language: language)
-            return result.count > 0 ? result : self.searchIDs(seriesName: TVSeries, language: defaultLanguage)
+            return result.isEmpty ? self.searchIDs(seriesName: TVSeries, language: defaultLanguage) : result
         }()
 
-        var results: [SBMetadataResult] = Array()
+        var results: [MetadataResult] = Array()
 
         for id in seriesIDs {
             guard let info: TVDBSeriesInfo = {
@@ -263,26 +263,26 @@ public struct TheTVDB : MetadataService, MetadataNameService {
 
     // MARK: - Additional metadata
 
-    private func loadiTunesArtwork(_ metadata: SBMetadataResult) -> [RemoteImage] {
-        guard let name = metadata[SBMetadataResultSeriesName] as? String,
-            let seasonNum = metadata[SBMetadataResultSeason] as? Int,
-            let episodeNum = metadata[SBMetadataResultEpisodeNumber] as? Int,
+    private func loadiTunesArtwork(_ metadata: MetadataResult) -> [Artwork] {
+        guard let name = metadata[.seriesName] as? String,
+            let seasonNum = metadata[.season] as? Int,
+            let episodeNum = metadata[.episodeNumber] as? Int,
             let result =  iTunesStore.quickiTunesSearch(tvSeriesName: name, seasonNum: seasonNum, episodeNum: episodeNum)
             else { return [] }
 
-        return result.remoteArtworks?.toStruct() ?? []
+        return result.remoteArtworks
     }
 
-    private func loadSquareTVArtwork(_ metadata: SBMetadataResult) -> [RemoteImage] {
-        guard let seasonNum = metadata[SBMetadataResultSeason] as? Int,
-            let seriesId = metadata["TheTVDB Series ID"] as? Int
+    private func loadSquareTVArtwork(_ metadata: MetadataResult) -> [Artwork] {
+        guard let seasonNum = metadata[.season] as? Int,
+            let seriesId = metadata[.serviceSeriesID] as? Int
             else { return [] }
 
         return SquaredTVArt().search(theTVDBSeriesId: seriesId, season: seasonNum)
     }
 
-    private func loadTVArtwork(seriesID: Int, type: TVDBArtworkType, season: String, language: String) -> [RemoteImage] {
-        var artworks: [RemoteImage] = Array()
+    private func loadTVArtwork(seriesID: Int, type: TVDBArtworkType, season: String, language: String) -> [Artwork] {
+        var artworks: [Artwork] = Array()
         let images: [TVDBImage] = {
             var result = session.fetch(images: seriesID, type: type, language: language)
             if result.count == 0 || language != defaultLanguage {
@@ -303,39 +303,39 @@ public struct TheTVDB : MetadataService, MetadataNameService {
             }
 
             if selected {
-                artworks.append(RemoteImage(url: fileURL, thumbURL: thumbURL, service: self.name, type: type.rawValue))
+                artworks.append(Artwork(url: fileURL, thumbURL: thumbURL, service: self.name, type: type.rawValue))
             }
         }
         return artworks
     }
 
-    public func loadTVMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
-        guard let id = metadata["TheTVDB Episodes ID"] as? Int else { return metadata }
-        guard let seriesId = metadata["TheTVDB Series ID"] as? Int else { return metadata }
+    public func loadTVMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
+        guard let id = metadata[.serviceEpisodeID] as? Int else { return metadata }
+        guard let seriesId = metadata[.serviceSeriesID] as? Int else { return metadata }
 
-        var artworks: [RemoteImage] = Array()
+        var artworks: [Artwork] = Array()
 
         if let info = session.fetch(episodeInfo: id, language: language) {
-            metadata[SBMetadataResultDirector]       = cleanList(names: info.directors)
-            metadata[SBMetadataResultScreenwriters]  = cleanList(names: info.writers)
+            metadata[.director]       = cleanList(names: info.directors)
+            metadata[.screenwriters]  = cleanList(names: info.writers)
 
             let guests = cleanList(names: info.guestStars)
-            if let actors = metadata[SBMetadataResultCast] as? String {
+            if let actors = metadata[.cast] as? String {
                 if actors.count > 0 && guests.count > 0 {
-                    metadata[SBMetadataResultCast] = actors + ", " + guests
+                    metadata[.cast] = actors + ", " + guests
                 }
             } else if guests.count > 0 {
-                metadata[SBMetadataResultCast] = guests
+                metadata[.cast] = guests
             }
 
             if let filename = info.filename, let url = URL(string: TheTVDB.bannerPath + filename) {
-                artworks.append(RemoteImage(url: url, thumbURL: url, service: self.name, type: "episode"))
+                artworks.append(Artwork(url: url, thumbURL: url, service: self.name, type: "episode"))
             }
         }
 
         // Get additionals images
-        if let season = metadata[SBMetadataResultSeason] as? Int {
-            var iTunesImage = [RemoteImage](), squareTVArt = [RemoteImage](), seasonImages = [RemoteImage](), posterImages = [RemoteImage]()
+        if let season = metadata[.season] as? Int {
+            var iTunesImage = [Artwork](), squareTVArt = [Artwork](), seasonImages = [Artwork](), posterImages = [Artwork]()
             let group = DispatchGroup()
             DispatchQueue.global(priority: .default).async(group: group) {
                 iTunesImage = self.loadiTunesArtwork(metadata)
@@ -357,18 +357,18 @@ public struct TheTVDB : MetadataService, MetadataNameService {
             artworks.append(contentsOf: posterImages)
         }
 
-        metadata.remoteArtworks = artworks.toClass()
+        metadata.remoteArtworks = artworks
 
         return metadata
     }
 
     // MARK: - Unimplemented movie search
 
-    public func search(movie: String, language: String) -> [SBMetadataResult] {
+    public func search(movie: String, language: String) -> [MetadataResult] {
         return []
     }
 
-    public func loadMovieMetadata(_ metadata: SBMetadataResult, language: String) -> SBMetadataResult {
+    public func loadMovieMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
         return metadata
     }
 }
