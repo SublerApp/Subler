@@ -808,9 +808,7 @@ static NSArray<NSArray *> *_mediaKinds;
 
 - (void)addMetadataCoverArtItems:(NSArray<MP42MetadataItem *> *)items
 {
-    for (MP42MetadataItem *item in items) {
-        [self.metadata addMetadataItem:item];
-    }
+    [self.metadata addMetadataItems:items];
 
     NSUndoManager *undo = self.view.undoManager;
     [[undo prepareWithInvocationTarget:self] removeMetadataCoverArtItems:items];
@@ -846,9 +844,7 @@ static NSArray<NSArray *> *_mediaKinds;
         [self.metadata removeMetadataItem:item];
     }
 
-    for (MP42MetadataItem *item in replacementItems) {
-        [self.metadata addMetadataItem:item];
-    }
+    [self.metadata addMetadataItems:replacementItems];
 
     NSUndoManager *undo = self.view.undoManager;
     [[undo prepareWithInvocationTarget:self] replaceMetadataCoverArtItems:replacementItems withItems:items];

@@ -247,7 +247,7 @@
 }
 
 - (NSString *)description {
-    return NSLocalizedString(@"Set tracks language.", @"Set Language action description");
+    return NSLocalizedString(@"Set tracks language", @"Set Language action description");
 }
 
 - (NSString *)localizedDescription {
@@ -341,7 +341,7 @@
 }
 
 - (NSString *)description {
-    return NSLocalizedString(@"Set color space.", @"Set track color space action description");
+    return NSLocalizedString(@"Set color space", @"Set track color space action description");
 }
 
 - (NSString *)localizedDescription {
