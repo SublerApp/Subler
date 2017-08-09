@@ -9,7 +9,7 @@ import Foundation
 
 extension Array where Element == Artwork {
 
-    func artwork(by type: ArtworkType, service: String) -> Artwork? {
+    func filter(by type: ArtworkType, service: String) -> Artwork? {
         let iTunesServiceName = iTunesStore().name
 
         // Special case for iTunes
@@ -21,7 +21,7 @@ extension Array where Element == Artwork {
         }
         else {
             let serviceArtwork = self.filter { $0.type == type && $0.service == service }.first
-            let artwork = self.filter { $0.type == type && $0.service == service }.first
+            let artwork = self.filter { $0.type == type }.first
 
             return serviceArtwork != nil ? serviceArtwork : artwork
         }
@@ -92,10 +92,13 @@ extension Array where Element == Artwork {
         if artworks.isEmpty == false {
             let artwork: Artwork? = {
                 let provider = info.isMovie ? self.movieProvider : self.tvShowProvider
-                if let artwork = artworks.artwork(by: preferredArtwork, service: provider) {
+                if let artwork = artworks.filter(by: preferredArtwork, service: provider) {
                     return artwork
                 }
-                else if let artwork = artworks.artwork(by: .poster, service: provider) {
+                else if let artwork = artworks.filter(by: .season, service: provider) {
+                    return artwork
+                }
+                else if let artwork = artworks.filter(by: .poster, service: provider) {
                     return artwork
                 }
                 else {
@@ -163,6 +166,6 @@ extension Array where Element == Artwork {
         self.preferredArtwork = preferredArtwork
     }
 
-    static var supportsSecureCoding: Bool { get { return true } }
+    static var supportsSecureCoding: Bool { return true }
 
 }

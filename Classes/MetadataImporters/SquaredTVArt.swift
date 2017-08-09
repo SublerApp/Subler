@@ -27,7 +27,7 @@ struct SquaredTVArt {
         }
 
         func toRemoteImage() -> Artwork {
-            return Artwork(url: thumbURL, thumbURL: url, service: "Squared TV Art", type: .square)
+            return Artwork(url: url, thumbURL: thumbURL, service: "Squared TV Art", type: .square)
         }
     }
 
