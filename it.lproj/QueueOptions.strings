@@ -25,9 +25,6 @@
 /* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "4rl-TJ-0yZ"; */
 "4rl-TJ-0yZ.ibShadowedNotApplicablePlaceholder" = "Nessuno";
 
-/* Class = "NSMenuItem"; title = "Episode"; ObjectID = "7zv-RG-1w4"; */
-"7zv-RG-1w4.title" = "Episodio";
-
 /* Class = "NSButton"; ibShadowedToolTip = "Search metadata online"; ObjectID = "9GN-f6-r2j"; */
 "9GN-f6-r2j.ibShadowedToolTip" = "Cerca metadata online";
 
@@ -40,8 +37,8 @@
 /* Class = "NSTextFieldCell"; title = "Location:"; ObjectID = "17e-9u-rVn"; */
 "17e-9u-rVn.title" = "Destinazione:";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Load the external srt subtitles file"; ObjectID = "22k-mA-HyA"; */
-"22k-mA-HyA.ibShadowedToolTip" = "Carica i file di sottotitoli srt esterni";
+/* Class = "NSButton"; ibShadowedToolTip = "Delete all custom track names"; ObjectID = "22k-mA-HyA"; */
+"22k-mA-HyA.ibShadowedToolTip" = "Cancella tutti i nomi delle tracce";
 
 /* Class = "NSButtonCell"; title = "Load external subtitles"; ObjectID = "59T-kp-mV1"; */
 "59T-kp-mV1.title" = "Carica sottotitoli esterni";
@@ -61,14 +58,14 @@
 /* Class = "NSTextFieldCell"; title = "TV Shows:"; ObjectID = "PCe-Pw-D2s"; */
 "PCe-Pw-D2s.title" = "Serie TV:";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Set the track without a language to the selected one"; ObjectID = "Pdq-s0-erT"; */
-"Pdq-s0-erT.ibShadowedToolTip" = "Imposta il linguaggio selezionato alle tracce senza un linguaggio ";
+/* Class = "NSButton"; ibShadowedToolTip = "Set the color space of video tracks to the selected one"; ObjectID = "Pdq-s0-erT"; */
+"Pdq-s0-erT.ibShadowedToolTip" = "Importa lo spazio di colore della traccia video a quello selezionato";
 
 /* Class = "NSButtonCell"; title = "Fetch Metadata"; ObjectID = "QNO-e1-WUJ"; */
 "QNO-e1-WUJ.title" = "Trova metadata";
 
-/* Class = "NSMenuItem"; title = "iTunes"; ObjectID = "QR6-hq-GZL"; */
-"QR6-hq-GZL.title" = "iTunes";
+/* Class = "NSMenuItem"; title = "Season"; ObjectID = "QR6-hq-GZL"; */
+"QR6-hq-GZL.title" = "Stagione";
 
 /* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "Rh9-LC-qBz"; */
 "Rh9-LC-qBz.ibShadowedIsNilPlaceholder" = "Nessuno";
@@ -79,8 +76,8 @@
 /* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "Rh9-LC-qBz"; */
 "Rh9-LC-qBz.ibShadowedNotApplicablePlaceholder" = "Nessuno";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Organize the mp4 alternate groups"; ObjectID = "TV6-Sk-Bqr"; */
-"TV6-Sk-Bqr.ibShadowedToolTip" = "Organizza i gruppi di alternative mp4.";
+/* Class = "NSButton"; ibShadowedToolTip = "Organize the audio fallbacks"; ObjectID = "TV6-Sk-Bqr"; */
+"TV6-Sk-Bqr.ibShadowedToolTip" = "Organizza gli audio di ricaduta";
 
 /* Class = "NSTextFieldCell"; title = "File Type:"; ObjectID = "UbR-KJ-8iR"; */
 "UbR-KJ-8iR.title" = "Tipo File:";
@@ -106,8 +103,8 @@
 /* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "Unknown"; ObjectID = "Xnw-Nt-5dZ"; */
 "Xnw-Nt-5dZ.ibShadowedNotApplicablePlaceholder" = "Sconosciuta";
 
-/* Class = "NSMenuItem"; title = "Provider Default"; ObjectID = "YjX-6f-SPu"; */
-"YjX-6f-SPu.title" = "Default";
+/* Class = "NSMenuItem"; title = "Poster"; ObjectID = "YjX-6f-SPu"; */
+"YjX-6f-SPu.title" = "Poster";
 
 /* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "aF7-XO-EMK"; */
 "aF7-XO-EMK.ibShadowedIsNilPlaceholder" = "Nessuno";
@@ -136,8 +133,8 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Load the external srt subtitles file"; ObjectID = "etc-K7-Atw"; */
 "etc-K7-Atw.ibShadowedToolTip" = "Carica i file di sottotitoli srt esterni";
 
-/* Class = "NSMenuItem"; title = "Season"; ObjectID = "mps-yj-l7z"; */
-"mps-yj-l7z.title" = "Stagione";
+/* Class = "NSMenuItem"; title = "Episode"; ObjectID = "mps-yj-l7z"; */
+"mps-yj-l7z.title" = "Episodio";
 
 /* Class = "NSButtonCell"; title = "Clear tracks names"; ObjectID = "mtK-5C-Pzh"; */
 "mtK-5C-Pzh.title" = "Cancella i nomi delle tracce";
@@ -150,9 +147,6 @@
 
 /* Class = "NSMenuItem"; title = "Implicit"; ObjectID = "psY-0V-t0k"; */
 "psY-0V-t0k.title" = "Implicito";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Set the track without a language to the selected one"; ObjectID = "slL-2h-MPl"; */
-"slL-2h-MPl.ibShadowedToolTip" = "Imposta la lingua delle tracce sprovviste alla selezionata";
 
 /* Class = "NSTextFieldCell"; title = "Color Space:"; ObjectID = "tMS-Tg-pPf"; */
 "tMS-Tg-pPf.title" = "Spazio di colore:";

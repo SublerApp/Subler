@@ -32,8 +32,7 @@
 "100188.ibShadowedToolTip" = "Necessario per mp4 più grandi di 4GB.";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Note: don't use this option if you are not sure of what it is doing, it's not needed in almost every case.\nEnable 64bit timescale and duration support. Normally, it's only needed if a track will be longer than 10 hours."; ObjectID = "100190"; */
-"100190.ibShadowedToolTip" = "Nota: non usare questa opzione se non sei sicuro della sua funzione, non è quasi mai necessaria.
-Attiva la scala del tempo a 64bit. Normalmente è necessaria solo se una traccia ha una durata maggiore di 10 ore.";
+"100190.ibShadowedToolTip" = "Nota: non usare questa opzione se non sei sicuro della sua funzione, non è quasi mai necessaria.\nAttiva la scala del tempo a 64bit. Normalmente è necessaria solo se una traccia ha una durata maggiore di 10 ore.";
 
 /* Class = "NSTextFieldCell"; title = "File Format:"; ObjectID = "100222"; */
 "100222.title" = "Formato File:";

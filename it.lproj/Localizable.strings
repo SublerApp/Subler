@@ -111,7 +111,7 @@
 "Downloading additional TV metadata…" = "Scarico ulteriori metadata per la serie TV…";
 
 /* No comment provided by engineer. */
-"Downloading additional movie metadata…" = "Scarico ulteriori metadata per il film…";
+"Downloading additional movie metadata" = "Scarico ulteriori metadata per il film…";
 
 /* No comment provided by engineer. */
 "Downloading artwork…" = "Scarico illustrazione…";
@@ -241,13 +241,19 @@
 "Search Metadata" = "Cerca Metadata";
 
 /* No comment provided by engineer. */
-"Searching %@ for episode information…" = "Cerco informazioni per l'episodio su %@…";
+"Searching (service.name) for episode information…" = "Cerco le informazioni dell'episodio su (service.name)";
 
 /* No comment provided by engineer. */
-"Searching %@ for movie information…" = "Cerco informazioni per il film su %@…";
+"Searching (service.name) for movie information…" = "Cerco le informazioni del film su (service.name)";
+
+/* ChapterDB */
+"Searching for chapter information…" = "Cerco le informazioni sui capitoli…";
 
 /* Action localized description. */
 "Searching metadata" = "Cerco metadata";
+
+/* No comment provided by engineer. */
+"Searching…" = "Cerco…";
 
 /* No comment provided by engineer. */
 "Season" = "Stagione";
@@ -265,10 +271,10 @@
 "Series Name" = "Nome serie";
 
 /* Set track color space action description */
-"Set color space." = "Imposta spazio di colore";
+"Set color space" = "Imposta spazio di colore";
 
 /* Set Language action description */
-"Set tracks language." = "Imposto lingua della traccia.";
+"Set tracks language" = "Imposta la lingua delle tracce";
 
 /* Set track color space action local description */
 "Setting color space" = "Imposto spazio di colore";
@@ -317,7 +323,4 @@
 
 /* No comment provided by engineer. */
 "na" = "nd";
-
-/* No comment provided by engineer. */
-"searching…" = "cerco…";
 

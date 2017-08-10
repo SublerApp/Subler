@@ -55,6 +55,9 @@
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Metadata Provider"; ObjectID = "Dqq-15-Mee"; */
 "Dqq-15-Mee.ibExternalAccessibilityDescription" = "Provider metadata";
 
+/* Class = "NSButtonCell"; title = "Search"; ObjectID = "X7l-No-znX"; */
+"X7l-No-znX.title" = "Cerca";
+
 /* Class = "NSMenuItem"; title = "iTunes Store"; ObjectID = "giP-a2-HBU"; */
 "giP-a2-HBU.title" = "iTunes Store";
 
