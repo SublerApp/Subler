@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SBDocument : NSDocument
 
+@property (nonatomic, strong) MP42File *mp4;
+
 - (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError **)outError;
 
 - (IBAction)selectFile:(id)sender;
@@ -38,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)export:(id)sender;
 
 - (void)showImportSheet:(NSArray *)fileURLs;
+
+- (void)reload;
 
 @end
 

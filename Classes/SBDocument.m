@@ -32,7 +32,7 @@
 
 #define SublerTableViewDataType @"SublerTableViewDataType"
 
-@interface SBDocument () <NSTableViewDelegate, SBFileImportDelegate, SBMetadataSearchControllerDelegate, SBChapterSearchControllerDelegate>
+@interface SBDocument () <NSTableViewDelegate, SBFileImportDelegate>
 {
     IBOutlet NSSplitView    *splitView;
 
@@ -45,7 +45,6 @@
     IBOutlet NSToolbarItem  *searchMetadata;
     IBOutlet NSToolbarItem  *searchChapters;
     IBOutlet NSToolbarItem  *sendToQueue;
-
 
     NSViewController        *propertyView;
     IBOutlet NSView         *targetView;
@@ -65,8 +64,6 @@
 @property (nonatomic, weak) IBOutlet NSWindow *saveWindow;
 @property (nonatomic, weak) IBOutlet NSTextField *saveOperationName;
 @property (nonatomic, weak) IBOutlet NSProgressIndicator *progressBar;
-
-@property (nonatomic, strong) MP42File *mp4;
 
 @property (nonatomic, strong) NSWindowController *sheetController;
 
@@ -645,6 +642,11 @@ static NSDictionary *_detailMonospacedAttr;
     }
 }
 
+- (void)reload {
+    [self.tracksTable reloadData];
+    [self reloadPropertyView];
+}
+
 - (IBAction)setTrackName:(NSTextField *)sender {
     NSInteger row = [self.tracksTable rowForView:sender];
     MP42Track *track = [self trackAtAtTableRow:row];
@@ -853,40 +855,6 @@ static NSDictionary *_detailMonospacedAttr;
     }];
 }
 
-- (void)didSelectWithMetadata:(SBMetadataResult *)metadataToBeImported
-{
-    if (metadataToBeImported) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        SBMetadataResultMap *map = metadataToBeImported.mediaKind == 9 ?
-        [defaults mapForKey:@"SBMetadataMovieResultMap"] : [defaults mapForKey:@"SBMetadataTvShowResultMap"];
-        BOOL keepEmptyKeys = [defaults boolForKey:@"SBMetadataKeepEmptyAnnotations"];
-        MP42Metadata *mappedMetadata = [metadataToBeImported mappedMetadataTo:map keepEmptyKeys:keepEmptyKeys];
-
-        [self.mp4.metadata mergeMetadata:mappedMetadata];
-
-        for (MP42Track *track in self.mp4.tracks)
-            if ([track isKindOfClass:[MP42VideoTrack class]]) {
-                MP42VideoTrack *videoTrack = (MP42VideoTrack *)track;
-                int hdVideo = isHdVideo((uint64_t)videoTrack.trackWidth, (uint64_t)videoTrack.trackHeight);
-
-                if (hdVideo) {
-                    NSArray <MP42MetadataItem *> *hdVideos = [self.mp4.metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyHDVideo];
-                    for (MP42MetadataItem *item in hdVideos) {
-                        [self.mp4.metadata removeMetadataItem:item];
-                    }
-                    [self.mp4.metadata addMetadataItem:[MP42MetadataItem metadataItemWithIdentifier:MP42MetadataKeyHDVideo
-                                                                                             value:@(hdVideo)
-                                                                                          dataType:MP42MetadataItemDataTypeInteger
-                                                                               extendedLanguageTag:nil]];
-                }
-            }
-        [self updateChangeCount:NSChangeDone];
-        [self.tracksTable reloadData];
-        [self reloadPropertyView];
-    }
-
-}
-
 #pragma mark - Chapters search
 
 - (IBAction)searchChapters:(id)sender
@@ -903,24 +871,6 @@ static NSDictionary *_detailMonospacedAttr;
     [self.documentWindow beginSheet:self.sheetController.window completionHandler:^(NSModalResponse returnCode) {
         self.sheetController = nil;
     }];
-}
-
-- (void)didSelectWithChapters:(NSArray<MP42TextSample *> *)chapterToBeImported
-{
-    if (chapterToBeImported) {
-
-        MP42ChapterTrack *newChapter = [[MP42ChapterTrack alloc] init];
-        for (MP42TextSample *chapter in chapterToBeImported) {
-            [newChapter addChapter:chapter];
-        }
-        [self.mp4 addTrack:newChapter];
-
-        [self updateChangeCount:NSChangeDone];
-
-        [self.tracksTable reloadData];
-        [self reloadPropertyView];
-        [self updateChangeCount:NSChangeDone];
-    }
 }
 
 - (IBAction)showTrackOffsetSheet:(id)sender

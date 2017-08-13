@@ -7,7 +7,6 @@
 
 #import "SBPrefsController.h"
 
-#import "SBMetadataPrefsViewController.h"
 #import "SBSetPrefsViewController.h"
 
 #import "Subler-Swift.h"

@@ -13,7 +13,7 @@ public protocol Runnable {
     func cancel()
 }
 
-public protocol CancellableToken {
+public protocol Cancellable {
     func cancel()
     var sessionTask: URLSessionTask? { get set }
 }
@@ -68,10 +68,6 @@ extension String {
     func urlEncoded() -> String {
         return self.precomposedStringWithCompatibilityMapping.addingPercentEncoding(withAllowedCharacters: allowedChars) ?? ""
     }
-
-}
-
-protocol URLSessionTaskDelegate {
 
 }
 

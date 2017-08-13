@@ -106,13 +106,11 @@ public enum MetadataSearch {
     }
 
     public var type: MetadataType {
-        get {
-            switch self {
-            case .movieSeach:
-                return .movie
-            case .tvSearch:
-                return .tvShow
-            }
+        switch self {
+        case .movieSeach:
+            return .movie
+        case .tvSearch:
+            return .tvShow
         }
     }
 }

@@ -118,10 +118,12 @@ import Cocoa
             case let .movie(title):
                 searchMode.selectTabViewItem(at: 0)
                 movieName.stringValue = title
+                tvSeriesName.stringValue = title
                 searchForResults(searchMovieButton)
             case let .tvShow(seriesName, season, episode):
                 searchMode.selectTabViewItem(at: 1)
                 tvSeriesName.stringValue = seriesName
+                movieName.stringValue = seriesName
                 if let season = season { tvSeasonNum.stringValue = "\(season)" }
                 if let episode = episode { tvEpisodeNum.stringValue = "\(episode)" }
                 searchForResults(searchTvButton)

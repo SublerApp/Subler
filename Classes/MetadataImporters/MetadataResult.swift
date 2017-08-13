@@ -77,7 +77,7 @@ private let localizedKeys: [MetadataResult.Key: String] = [
     .serviceEpisodeID : NSLocalizedString("Service ID", comment: "nil")
 ]
 
-@objc(SBMetadataResult) public class MetadataResult : NSObject {
+public class MetadataResult : NSObject {
 
     public enum Key: String {
         // Common Keys
@@ -175,23 +175,23 @@ private let localizedKeys: [MetadataResult.Key: String] = [
             return localizedKeys[self] ?? "Null"
         }
 
-    }
+        public static var movieKeysStrings: [String] {
+            return Key.movieKeys.map { $0.rawValue }
+        }
 
-    @objc public static var movieKeys: [String] {
-        return Key.movieKeys.map { $0.rawValue }
-    }
+        public static var tvShowKeysStrings: [String] {
+            return Key.tvShowKeys.map { $0.rawValue }
+        }
 
-    @objc public static var tvShowKeys: [String] {
-        return Key.tvShowKeys.map { $0.rawValue }
-    }
+        public static func localizedDisplayName(key: String) -> String {
+            return Key(rawValue: key)?.localizedDisplayName ?? key
+        }
 
-    @objc static func localizedDisplayName(key: String) -> String {
-        return Key(rawValue: key)?.localizedDisplayName ?? key
     }
 
     private var dictionary: [Key:Any]
 
-    @objc public var mediaKind: Int
+    public var mediaKind: Int
     public var contentRating: Int
     public var remoteArtworks: [Artwork]
     public var artworks: [MP42Image]
@@ -235,7 +235,7 @@ private let localizedKeys: [MetadataResult.Key: String] = [
         return string.hasPrefix("{}") && string.hasSuffix("}") && string.count > 2
     }
 
-    @objc public func mappedMetadata(to map: MetadataResultMap, keepEmptyKeys: Bool) -> MP42Metadata {
+    public func mappedMetadata(to map: MetadataResultMap, keepEmptyKeys: Bool) -> MP42Metadata {
         let metadata = MP42Metadata()
 
         metadata.addItems(map.items.flatMap {

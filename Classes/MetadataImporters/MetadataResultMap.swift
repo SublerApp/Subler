@@ -13,7 +13,7 @@ import Foundation
     @objc public var value: [String]
     @objc public var localizedKeyDisplayName: String { return localizedMetadataKeyName(key) }
 
-    @objc public init(key: String, value: [String]) {
+    public init(key: String, value: [String]) {
         self.key = key
         self.value = value
     }
@@ -125,7 +125,7 @@ import Foundation
 
 }
 
-@objc extension UserDefaults {
+extension UserDefaults {
 
     @objc func map(forKey defaultName: String) -> MetadataResultMap? {
         guard let data = self.data(forKey: defaultName) else { return nil }
@@ -136,7 +136,7 @@ import Foundation
         return unarchiver.decodeObject(of: MetadataResultMap.self, forKey: NSKeyedArchiveRootObjectKey)
     }
 
-    @objc(setMap:forKey:) func set(_ map: MetadataResultMap, forKey defaultName: String) {
+    func set(_ map: MetadataResultMap, forKey defaultName: String) {
         let data = NSKeyedArchiver.archivedData(withRootObject: map)
         self.set(data, forKey: defaultName)
     }

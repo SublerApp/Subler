@@ -609,7 +609,6 @@
 
     [_delegate importDoneWithTracks:tracks andMetadata:metadata];
 
-
     [tracksTableView setDelegate:nil];
     [tracksTableView setDataSource:nil];
 

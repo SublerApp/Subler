@@ -16,6 +16,7 @@
 		A900CE3E1F3ACF9700CCA08E /* MetadataResultMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A900CE3D1F3ACF9700CCA08E /* MetadataResultMap.swift */; };
 		A90300C41DAE6E27008237D8 /* SBSetPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A90300C21DAE6E27008237D8 /* SBSetPrefsViewController.m */; };
 		A90300C81DAE72C4008237D8 /* SBSetPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90300CA1DAE72C4008237D8 /* SBSetPrefsViewController.xib */; };
+		A9067A0C1F3CA4E6008011DC /* MetadataPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */; };
 		A906B5B11E434872007D12B1 /* Queue.sdef in Resources */ = {isa = PBXBuildFile; fileRef = A906B5B01E434872007D12B1 /* Queue.sdef */; };
 		A909440A1DD4B80000E9F89C /* SBComboBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A90944091DD4B80000E9F89C /* SBComboBoxCell.m */; };
 		A909440D1DD4C70900E9F89C /* SBTokenFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A909440C1DD4C70900E9F89C /* SBTokenFieldCell.m */; };
@@ -31,8 +32,8 @@
 		A93DD7681DACCE930052749A /* SBComboBoxCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93DD7671DACCE930052749A /* SBComboBoxCellView.m */; };
 		A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */; };
 		A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */; };
-		A94721931D49DC0000858DD8 /* SBMetadataPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */; };
 		A94A6A591ED1C5CC00049F7D /* ParseFilename in Resources */ = {isa = PBXBuildFile; fileRef = A94A6A581ED1C5CA00049F7D /* ParseFilename */; };
+		A9577CF61F3DC667009181F4 /* Document+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9577CF51F3DC667009181F4 /* Document+Swift.swift */; };
 		A95B8DA91B09F37800F2F152 /* Subler_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B8DA81B09F37800F2F152 /* Subler_Tests.m */; };
 		A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */; };
 		A961476313F567E10068F161 /* SBQueueController.m in Sources */ = {isa = PBXBuildFile; fileRef = A961476013F567E10068F161 /* SBQueueController.m */; };
@@ -176,6 +177,7 @@
 		A90300C11DAE6E27008237D8 /* SBSetPrefsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBSetPrefsViewController.h; path = Classes/SBSetPrefsViewController.h; sourceTree = "<group>"; };
 		A90300C21DAE6E27008237D8 /* SBSetPrefsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBSetPrefsViewController.m; path = Classes/SBSetPrefsViewController.m; sourceTree = "<group>"; };
 		A90300C91DAE72C4008237D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBSetPrefsViewController.xib; sourceTree = "<group>"; };
+		A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataPrefsViewController.swift; path = Classes/MetadataPrefsViewController.swift; sourceTree = "<group>"; };
 		A906B5B01E434872007D12B1 /* Queue.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Queue.sdef; sourceTree = "<group>"; };
 		A90944081DD4B80000E9F89C /* SBComboBoxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBComboBoxCell.h; path = Classes/SBComboBoxCell.h; sourceTree = "<group>"; };
 		A90944091DD4B80000E9F89C /* SBComboBoxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBComboBoxCell.m; path = Classes/SBComboBoxCell.m; sourceTree = "<group>"; };
@@ -212,9 +214,8 @@
 		A93DD7671DACCE930052749A /* SBComboBoxCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBComboBoxCellView.m; path = Classes/SBComboBoxCellView.m; sourceTree = "<group>"; };
 		A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterResult.swift; path = Classes/MetadataImporters/ChapterResult.swift; sourceTree = "<group>"; };
 		A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterDB.swift; path = Classes/MetadataImporters/ChapterDB.swift; sourceTree = "<group>"; };
-		A94721901D49DC0000858DD8 /* SBMetadataPrefsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMetadataPrefsViewController.h; path = Classes/SBMetadataPrefsViewController.h; sourceTree = "<group>"; };
-		A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMetadataPrefsViewController.m; path = Classes/SBMetadataPrefsViewController.m; sourceTree = "<group>"; };
 		A94A6A581ED1C5CA00049F7D /* ParseFilename */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ParseFilename; path = Utilities/ParseFilename; sourceTree = "<group>"; };
+		A9577CF51F3DC667009181F4 /* Document+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Document+Swift.swift"; path = "Classes/Document+Swift.swift"; sourceTree = "<group>"; };
 		A95B8DA41B09F37700F2F152 /* Subler Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subler Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95B8DA71B09F37700F2F152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A95B8DA81B09F37800F2F152 /* Subler_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subler_Tests.m; sourceTree = "<group>"; };
@@ -498,8 +499,7 @@
 				A90300C11DAE6E27008237D8 /* SBSetPrefsViewController.h */,
 				A90300C21DAE6E27008237D8 /* SBSetPrefsViewController.m */,
 				A90300CA1DAE72C4008237D8 /* SBSetPrefsViewController.xib */,
-				A94721901D49DC0000858DD8 /* SBMetadataPrefsViewController.h */,
-				A94721911D49DC0000858DD8 /* SBMetadataPrefsViewController.m */,
+				A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */,
 				A924A5201D4B9E93008301A7 /* SBMetadataPrefsViewController.xib */,
 			);
 			name = Preferences;
@@ -595,6 +595,7 @@
 			children = (
 				A9B46ABD12B79D1C0040517A /* SBDocument.h */,
 				A9B46ABE12B79D1C0040517A /* SBDocument.m */,
+				A9577CF51F3DC667009181F4 /* Document+Swift.swift */,
 				A9B46A7E12B79B240040517A /* SBFileImport.h */,
 				A9B46A7F12B79B240040517A /* SBFileImport.m */,
 				A9E932A61F34D31D00B1790B /* ArtworkSelector.swift */,
@@ -824,8 +825,8 @@
 				A9B75B8E1DAD1B140031798B /* SBPopUpCellView.m in Sources */,
 				A91690041DABFDAA004B9AB0 /* SBCheckBoxCellView.m in Sources */,
 				A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */,
+				A9577CF61F3DC667009181F4 /* Document+Swift.swift in Sources */,
 				A9DA3B9D1B918D5C00F1E40C /* SBExceptionAlertController.m in Sources */,
-				A94721931D49DC0000858DD8 /* SBMetadataPrefsViewController.m in Sources */,
 				A90BC5E31F3A139700F9F3F3 /* MetadataResult.swift in Sources */,
 				A99189CD1F2F87EC00623ED7 /* ChapterImporter.swift in Sources */,
 				A9BC410318D9AB8700F8C92C /* SBItemViewController.m in Sources */,
@@ -852,6 +853,7 @@
 				A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */,
 				A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */,
 				A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */,
+				A9067A0C1F3CA4E6008011DC /* MetadataPrefsViewController.swift in Sources */,
 				A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */,
 				A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */,
 				A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */,
