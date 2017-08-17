@@ -73,7 +73,7 @@ import Cocoa
         let sortDescriptor = NSSortDescriptor(keyPath: \MetadataResultMapItem.key, ascending: true) { obj1, obj2 -> ComparisonResult in
             if let right = context.index(of: obj1 as! String),
                 let left = context.index(of: obj2 as! String) {
-                return right < left ? .orderedDescending : .orderedAscending
+                return right > left ? .orderedDescending : .orderedAscending
             }
             return .orderedSame
         }
