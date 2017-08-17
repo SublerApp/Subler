@@ -127,7 +127,7 @@ import Foundation
 
 extension UserDefaults {
 
-    @objc func map(forKey defaultName: String) -> MetadataResultMap? {
+    func map(forKey defaultName: String) -> MetadataResultMap? {
         guard let data = self.data(forKey: defaultName) else { return nil }
 
         let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
