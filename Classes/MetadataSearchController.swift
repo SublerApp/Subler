@@ -65,7 +65,7 @@ import Cocoa
     private let url: URL?
 
     // MARK: - Static methods
-    @objc public static func clearRecentSearches() {
+    public static func clearRecentSearches() {
         UserDefaults.standard.removeObject(forKey: "Previously used TV series")
     }
 
@@ -77,7 +77,7 @@ import Cocoa
         UserDefaults.standard.set(searches, forKey: "Previously used TV series")
     }
 
-    @objc public static func deleteCachedMetadata() {
+    public static func deleteCachedMetadata() {
         URLCache.shared.removeAllCachedResponses()
     }
 

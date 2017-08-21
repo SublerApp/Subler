@@ -39,7 +39,7 @@ import Foundation
 
 @objc(SBMetadataResultMap) public class MetadataResultMap : NSObject, NSSecureCoding {
 
-    @objc public static var movieDefaultMap: MetadataResultMap {
+    public static var movieDefaultMap: MetadataResultMap {
         let items = [ MetadataResultMapItem(key: MP42MetadataKeyName,               value:[MetadataResult.Key.name.rawValue]),
                       MetadataResultMapItem(key: MP42MetadataKeyArtist,             value:[MetadataResult.Key.director.rawValue]),
                       MetadataResultMapItem(key: MP42MetadataKeyComposer,           value:[MetadataResult.Key.composer.rawValue]),
@@ -61,7 +61,7 @@ import Foundation
         return MetadataResultMap(items: items, type: .movie)
     }
 
-    @objc public static var tvShowDefaultMap: MetadataResultMap {
+    public static var tvShowDefaultMap: MetadataResultMap {
         let items = [MetadataResultMapItem(key: MP42MetadataKeyName,           value:[MetadataResult.Key.name.rawValue]),
                      MetadataResultMapItem(key: MP42MetadataKeyArtist,         value:[MetadataResult.Key.seriesName.rawValue]),
                      MetadataResultMapItem(key: MP42MetadataKeyAlbumArtist,    value:[MetadataResult.Key.seriesName.rawValue]),

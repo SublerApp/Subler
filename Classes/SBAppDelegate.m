@@ -10,9 +10,10 @@
 #import "SBDocument.h"
 #import "SBPresetManager.h"
 #import "SBQueueController.h"
-#import "SBPrefsController.h"
 #import "SBLogWindowController.h"
 #import "SBLogger.h"
+
+#import "Subler-Swift.h"
 
 #import <MP42Foundation/MP42File.h>
 
@@ -21,7 +22,7 @@
 
 @interface SBAppDelegate ()
 {
-    SBPrefsController *prefController;
+    SBPrefsWindowController *prefController;
     SBLogWindowController *debugLogController;
     SBDocumentController *documentController;
 }
@@ -33,7 +34,7 @@
 {
     documentController = [[SBDocumentController alloc] init];
 
-    [SBPrefsController registerUserDefaults];
+    [SBPrefsWindowController registerUserDefaults];
 
     NSString *appSupportPath = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
                                                                      NSUserDomainMask,
@@ -193,7 +194,7 @@
 - (IBAction) showPrefsWindow: (id) sender
 {
     if (!prefController) {
-        prefController = [[SBPrefsController alloc] init];
+        prefController = [[SBPrefsWindowController alloc] init];
     }
     [prefController showWindow:self];
 }

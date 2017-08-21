@@ -7,7 +7,7 @@
 
 import Cocoa
 
-@objc(SBMetadataPrefsViewController) class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTokenFieldDelegate, NSTextFieldDelegate {
+class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTokenFieldDelegate, NSTextFieldDelegate {
 
     @IBOutlet var builtInTokenField: NSTokenField!
     @IBOutlet var addMetadataPopUpButton: NSPopUpButton!
