@@ -8,7 +8,6 @@
 
 #import "SBAppDelegate.h"
 #import "SBDocument.h"
-#import "SBPresetManager.h"
 #import "SBQueueController.h"
 #import "SBLogWindowController.h"
 #import "SBLogger.h"
@@ -63,8 +62,7 @@
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
-    SBPresetManager *presetManager = [SBPresetManager sharedManager];
-    [presetManager savePresets];
+    [SBPresetManager.shared saveAndReturnError:nil];
     
     if ([SBQueueController sharedManager].window.visible) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"SBShowQueueWindow"];

@@ -7,7 +7,6 @@
 //
 
 #import "SBOptionsViewController.h"
-#import "SBPresetManager.h"
 
 #import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Languages.h>
@@ -242,7 +241,7 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
     if ([sender tag] == 10) {
         [self.options removeObjectForKey:@"SBQueueDestination"];
     } else {
-        (self.options)[@"SBQueueDestination"] = self.destination;
+        self.options[@"SBQueueDestination"] = self.destination;
     }
 }
 
@@ -256,7 +255,7 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
 }
 
 - (void)updateSetsMenu:(id)sender {
-    self.sets = [[SBPresetManager sharedManager].presets mutableCopy];
+    self.sets = [SBPresetManager.shared.metadataPresets mutableCopy];
     if (![self.sets containsObject:(self.options)[@"SBQueueSet"]]) {
         [self.options removeObjectForKey:@"SBQueueSet"];
     }

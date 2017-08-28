@@ -1,0 +1,151 @@
+//
+//  PresetManager.swift
+//  Subler
+//
+//  Created by Damiano Galassi on 21/08/2017.
+//
+
+import Foundation
+
+@objc(SBPresetManager) final class PresetManager: NSObject {
+    @objc static let shared = PresetManager()
+
+    let updateNotificationName = Notification.Name(rawValue: "SBPresetManagerUpdatedNotification")
+    var presets: [Preset]
+
+    @objc var metadataPresets: [MetadataPreset] {
+        return presets.flatMap { $0 as? MetadataPreset }
+    }
+
+    private override init() {
+        self.presets = Array()
+        super.init()
+        try? load()
+    }
+
+    // MARK: management
+
+    enum Error : Swift.Error {
+        case presetAlreadyExists
+        case presetNotFound
+    }
+
+    @objc func append(newElement: Preset) throws {
+        if item(name: newElement.title) != nil {
+            throw Error.presetAlreadyExists
+        }
+        presets.append(newElement)
+        postNotification()
+    }
+
+    func remove(at index: Int) {
+        let preset = presets[index]
+        try? FileManager.default.removeItem(at: preset.fileURL)
+        presets.remove(at: index)
+        postNotification()
+    }
+
+    @objc func item(name: String) -> Preset? {
+        return presets.filter { $0.title == name }.first
+    }
+
+    private func postNotification() {
+        NotificationCenter.default.post(name: updateNotificationName, object: self)
+    }
+
+    // MARK: read/write
+
+    private enum LoadError: Swift.Error {
+        case unsupportedFile
+    }
+
+    private func appSupportURL() -> URL? {
+        return FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.appendingPathComponent("Subler")
+    }
+
+    private func version(of fileURL: URL) -> Int? {
+        switch fileURL.pathExtension {
+        case "sbpreset":
+            return 1
+        case "sbpreset2":
+            return 2
+        default:
+            return nil
+        }
+    }
+
+    private func migrateOldPreset(at fileURL: URL) throws {
+        let manager = FileManager.default
+        guard let url = appSupportURL() else { return }
+
+        let migrated = url.appendingPathComponent("migrated", isDirectory: true)
+        try manager.createDirectory(at: migrated, withIntermediateDirectories: true, attributes: [:])
+
+        let migratedFileURL = migrated.appendingPathComponent(fileURL.lastPathComponent, isDirectory: false)
+        try manager.moveItem(at: fileURL, to: migratedFileURL)
+    }
+
+    private func load(fileURL: URL) throws -> Preset {
+        let resourceValues = try fileURL.resourceValues(forKeys: [.isDirectoryKey])
+        if resourceValues.isDirectory == false, let version = version(of: fileURL) {
+            let data = try Data(contentsOf: fileURL)
+            let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+            unarchiver.requiresSecureCoding = true
+            defer { unarchiver.finishDecoding() }
+
+            if version == 1, let preset = unarchiver.decodeObject(of: [MP42Metadata.self], forKey: NSKeyedArchiveRootObjectKey) as? MP42Metadata {
+                try migrateOldPreset(at: fileURL)
+                return MetadataPreset(title: preset.presetName, metadata: preset)
+            }
+            else if  let preset = unarchiver.decodeObject(of: [MetadataPreset.self], forKey: NSKeyedArchiveRootObjectKey) as? MetadataPreset {
+                return preset
+            }
+        }
+        throw LoadError.unsupportedFile
+    }
+
+    private func load() throws {
+        let manager = FileManager.default
+        guard let url = appSupportURL(),
+              let directoryEnumerator = manager.enumerator(at: url,
+                                                           includingPropertiesForKeys: [.nameKey, .isDirectoryKey],
+                                                           options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants, .skipsPackageDescendants],
+                                                           errorHandler: nil)
+        else { return }
+
+        for case let fileURL as URL in directoryEnumerator {
+            do {
+                let preset = try load(fileURL: fileURL)
+                presets.append(preset)
+            }
+            catch {
+                print(error)
+            }
+        }
+    }
+
+    private func save(preset: Preset, to url: URL) throws {
+        let data = NSMutableData()
+        let archiver = NSKeyedArchiver(forWritingWith: data)
+        archiver.requiresSecureCoding = true
+        archiver.encode(preset, forKey: NSKeyedArchiveRootObjectKey)
+        archiver.finishEncoding()
+
+        try data.write(to: url, options: [.atomic])
+    }
+
+    @objc func save() throws {
+        let manager = FileManager.default
+        guard let url = appSupportURL() else { return }
+
+        try manager.createDirectory(at: url, withIntermediateDirectories: true, attributes: [:])
+
+        for preset in presets {
+            if preset.changed {
+                try save(preset: preset, to: preset.fileURL)
+            }
+        }
+
+    }
+
+}

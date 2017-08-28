@@ -9,7 +9,7 @@ import Cocoa
 
 class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
 
-    let presetManager: SBPresetManager
+    let presetManager: PresetManager
     var popover: NSPopover?
     var currentRow: Int
 
@@ -25,7 +25,7 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
 
     init() {
         self.currentRow = 0
-        self.presetManager = SBPresetManager.shared()
+        self.presetManager = PresetManager.shared
         super.init(nibName: self.nibName, bundle: nil)
     }
 
@@ -54,7 +54,7 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
 
         if tableColumn?.identifier == NSUserInterfaceItemIdentifier("name"),
             let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("nameCell"), owner: self) as? NSTableCellView {
-            cell.textField?.stringValue = presetManager.presets[row].presetName
+            cell.textField?.stringValue = presetManager.presets[row].title
             return cell
         }
 
@@ -72,7 +72,7 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
 
         let rowIndex = tableView.selectedRow
         if rowIndex > -1 {
-            presetManager.removePreset(at: UInt(rowIndex))
+            presetManager.remove(at: rowIndex)
         }
     }
 
@@ -92,16 +92,19 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
         }
         else {
             closePopOver(self)
-            currentRow = rowIndex
 
-            controller = SBMovieViewController.init(nibName: NSNib.Name(rawValue: "MovieView"), bundle: nil)
-            controller?.metadata = presetManager.presets[rowIndex]
+            if let preset = presetManager.presets[rowIndex] as? MetadataPreset {
+                currentRow = rowIndex
 
-            popover = NSPopover()
-            popover?.contentViewController = controller
-            popover?.contentSize = NSMakeSize(480, 500)
+                controller = SBMovieViewController.init(nibName: NSNib.Name(rawValue: "MovieView"), bundle: nil)
+                controller?.metadata = preset.metadata
 
-            popover?.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
+                popover = NSPopover()
+                popover?.contentViewController = controller
+                popover?.contentSize = NSMakeSize(480, 500)
+
+                popover?.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
+            }
         }
 
     }

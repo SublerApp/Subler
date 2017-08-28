@@ -11,7 +11,6 @@ NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
 
 #import "SBMovieViewController.h"
 #import "SBTableView.h"
-#import "SBPresetManager.h"
 #import "SBImageBrowserView.h"
 #import "SBPopUpCellView.h"
 #import "SBCheckBoxCellView.h"
@@ -21,6 +20,8 @@ NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
 #import <MP42Foundation/MP42Image.h>
 #import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/NSString+MP42Additions.h>
+
+#import "Subler-Swift.h"
 
 @interface SBMovieViewController () <NSTableViewDataSource, SBTableViewDelegate, SBImageBrowserViewDelegate>
 
@@ -307,7 +308,7 @@ static NSArray<NSArray *> *_mediaKinds;
 - (void)applySet:(id)sender
 {
     NSInteger tag = [sender tag];
-    MP42Metadata *preset = [SBPresetManager sharedManager].presets[tag];
+    MP42Metadata *preset = SBPresetManager.shared.metadataPresets[tag].metadata;
 
     MP42MetadataItemDataType dataTypes = MP42MetadataItemDataTypeString | MP42MetadataItemDataTypeStringArray |
                                          MP42MetadataItemDataTypeBool | MP42MetadataItemDataTypeInteger |
@@ -333,7 +334,7 @@ static NSArray<NSArray *> *_mediaKinds;
 
 - (void)updateSetsMenu:(id)sender
 {
-    SBPresetManager *presetManager = [SBPresetManager sharedManager];
+    NSArray<SBMetadataPreset *> *presets = SBPresetManager.shared.metadataPresets;
     NSMenu *setListMenu = self.setsPopUp.menu;
 
     while (setListMenu.numberOfItems > 1) {
@@ -365,13 +366,13 @@ static NSArray<NSArray *> *_mediaKinds;
     newItem.tag = 2;
     [setListMenu addItem:newItem];
 
-    if (presetManager.presets.count) {
+    if (presets.count) {
         [setListMenu addItem:[NSMenuItem separatorItem]];
     }
 
     NSUInteger i = 0;
-    for (MP42Metadata *set in presetManager.presets) {
-        newItem = [[NSMenuItem alloc] initWithTitle:set.presetName action:@selector(applySet:) keyEquivalent:@""];
+    for (SBMetadataPreset *set in presets) {
+        newItem = [[NSMenuItem alloc] initWithTitle:set.title action:@selector(applySet:) keyEquivalent:@""];
         if (i < 9) {
             newItem.keyEquivalent = [NSString stringWithFormat:@"%lu", (unsigned long)i+1];
         }
@@ -390,12 +391,16 @@ static NSArray<NSArray *> *_mediaKinds;
 
 - (IBAction)saveSet:(id)sender
 {
-    SBPresetManager *presetManager = [SBPresetManager sharedManager];
+    SBPresetManager *manager = SBPresetManager.shared;
+    SBMetadataPreset *preset = [[SBMetadataPreset alloc] initWithTitle:self.saveSetName.stringValue metadata:self.metadata];
 
-    self.metadata.presetName = self.saveSetName.stringValue;
-    [presetManager newSetFromExistingMetadata: self.metadata];
-
-    [self.view.window endSheet:self.saveSetWindow];
+    NSError *error = nil;
+    if ([manager appendWithNewElement:preset error:&error]) {
+        [self.view.window endSheet:self.saveSetWindow];
+    }
+    else {
+        [[NSAlert alertWithError:error] runModal];
+    }
 }
 
 - (IBAction)closeSaveSheet:(id)sender

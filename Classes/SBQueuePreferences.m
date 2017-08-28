@@ -7,7 +7,7 @@
 //
 
 #import "SBQueuePreferences.h"
-#import "SBPresetManager.h"
+#import "Subler-Swift.h"
 
 #import <MP42Foundation/MP42Metadata.h>
 
@@ -56,7 +56,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
         }
 
         if ([[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]) {
-            MP42Metadata *set = [[SBPresetManager sharedManager] setWithName:[[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]];
+            MP42Metadata *set = [(SBMetadataPreset *)[SBPresetManager.shared itemWithName:[[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]] metadata];
             if (set) {
                 self.options[SBQueueSet] = set;
             }
@@ -97,7 +97,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
     NSArray<NSString *> *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueFixTrackLanguage, SBQueueFixTrackLanguageValue, SBQueueApplyColorSpace, SBQueueApplyColorSpaceValue, SBQueueFixFallbacks, SBQueueClearTrackName, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueShowDoneNotification, SBQueueOptimize, SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage, SBQueueProviderArtwork];
 
     [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [[NSUserDefaults standardUserDefaults] setValue:(self.options)[obj] forKey:obj];
+        [[NSUserDefaults standardUserDefaults] setValue:self.options[obj] forKey:obj];
     }];
 
     [[NSUserDefaults standardUserDefaults] setValue:[self.options[SBQueueDestination] path] forKey:SBQueueDestination];

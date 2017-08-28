@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13168.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13189.4"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -212,12 +212,12 @@
                                 <string key="NSNullPlaceholder">None</string>
                             </dictionary>
                         </binding>
-                        <binding destination="vyv-na-Xpo" name="contentValues" keyPath="arrangedObjects.presetName" previousBinding="4rl-TJ-0yZ" id="QqS-yf-Kdq">
+                        <binding destination="vyv-na-Xpo" name="contentValues" keyPath="arrangedObjects.title" previousBinding="4rl-TJ-0yZ" id="5QH-Z2-W7X">
                             <dictionary key="options">
                                 <bool key="NSInsertsNullPlaceholder" value="YES"/>
                             </dictionary>
                         </binding>
-                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueSet" previousBinding="QqS-yf-Kdq" id="YcS-AE-oRP">
+                        <binding destination="-2" name="selectedObject" keyPath="options.SBQueueSet" previousBinding="5QH-Z2-W7X" id="ELF-zz-jwr">
                             <dictionary key="options">
                                 <bool key="NSValidatesImmediately" value="YES"/>
                             </dictionary>
@@ -632,11 +632,11 @@
                 <constraint firstItem="zEH-aV-Tl7" firstAttribute="top" secondItem="yI9-2a-q2a" secondAttribute="bottom" constant="6" id="yi7-mU-teZ"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ccd-Xn-Dj3" secondAttribute="trailing" constant="20" id="zrg-ax-2rw"/>
             </constraints>
-            <point key="canvasLocation" x="-161.5" y="-101.5"/>
+            <point key="canvasLocation" x="149" y="21"/>
         </customView>
-        <arrayController objectClassName="Set" automaticallyPreparesContent="YES" id="vyv-na-Xpo" userLabel="Set Controller">
+        <arrayController objectClassName="Preset" automaticallyPreparesContent="YES" id="vyv-na-Xpo" userLabel="Set Controller">
             <declaredKeys>
-                <string>presetName</string>
+                <string>title</string>
             </declaredKeys>
             <connections>
                 <binding destination="-2" name="contentArray" keyPath="sets" id="zFp-g2-I2n">
