@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  An actions that applies a set to the item.
  */
 @interface SBQueueSetAction : NSObject <SBQueueActionProtocol>
-- (instancetype)initWithSet:(MP42Metadata *)set;
+- (instancetype)initWithPreset:(MP42Metadata *)set;
 @end
 
 /**

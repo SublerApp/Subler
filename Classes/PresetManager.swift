@@ -7,14 +7,33 @@
 
 import Foundation
 
+extension PresetManager.Error: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .alreadyExists:
+            return NSLocalizedString("A preset already exists with the same name.", comment: "")
+        }
+    }
+    public var recoverySuggestion: String? {
+        switch self {
+        case .alreadyExists:
+            return NSLocalizedString("Please enter a different name for the preset.", comment: "")
+        }
+    }
+}
+
 @objc(SBPresetManager) final class PresetManager: NSObject {
     @objc static let shared = PresetManager()
 
-    let updateNotificationName = Notification.Name(rawValue: "SBPresetManagerUpdatedNotification")
+    let updateNotification = Notification.Name(rawValue: "SBPresetManagerUpdatedNotification")
     var presets: [Preset]
 
     @objc var metadataPresets: [MetadataPreset] {
         return presets.flatMap { $0 as? MetadataPreset }
+    }
+
+    var queuePresets: [QueuePreset] {
+        return presets.flatMap { $0 as? QueuePreset }
     }
 
     private override init() {
@@ -26,13 +45,12 @@ import Foundation
     // MARK: management
 
     enum Error : Swift.Error {
-        case presetAlreadyExists
-        case presetNotFound
+        case alreadyExists
     }
 
     @objc func append(newElement: Preset) throws {
         if item(name: newElement.title) != nil {
-            throw Error.presetAlreadyExists
+            throw Error.alreadyExists
         }
         presets.append(newElement)
         postNotification()
@@ -50,7 +68,7 @@ import Foundation
     }
 
     private func postNotification() {
-        NotificationCenter.default.post(name: updateNotificationName, object: self)
+        NotificationCenter.default.post(name: updateNotification, object: self)
     }
 
     // MARK: read/write
@@ -74,7 +92,7 @@ import Foundation
         }
     }
 
-    private func migrateOldPreset(at fileURL: URL) throws {
+    private func migratePreset(at fileURL: URL) throws {
         let manager = FileManager.default
         guard let url = appSupportURL() else { return }
 
@@ -94,7 +112,7 @@ import Foundation
             defer { unarchiver.finishDecoding() }
 
             if version == 1, let preset = unarchiver.decodeObject(of: [MP42Metadata.self], forKey: NSKeyedArchiveRootObjectKey) as? MP42Metadata {
-                try migrateOldPreset(at: fileURL)
+                try migratePreset(at: fileURL)
                 return MetadataPreset(title: preset.presetName, metadata: preset)
             }
             else if  let preset = unarchiver.decodeObject(of: [MetadataPreset.self], forKey: NSKeyedArchiveRootObjectKey) as? MetadataPreset {
@@ -118,9 +136,7 @@ import Foundation
                 let preset = try load(fileURL: fileURL)
                 presets.append(preset)
             }
-            catch {
-                print(error)
-            }
+            catch {}
         }
     }
 

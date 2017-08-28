@@ -289,8 +289,8 @@ static void *SBQueueContex = &SBQueueContex;
         [item addAction:[[SBQueueColorSpaceAction alloc] initWithTag:[self.options[SBQueueApplyColorSpaceValue] unsignedIntegerValue]]];
     }
 
-    if ((self.options)[SBQueueSet]) {
-        [item addAction:[[SBQueueSetAction alloc] initWithSet:(self.options)[SBQueueSet]]];
+    if (self.options[SBQueueSet]) {
+        [item addAction:[[SBQueueSetAction alloc] initWithPreset:self.options[SBQueueSet]]];
     }
 
     id type;

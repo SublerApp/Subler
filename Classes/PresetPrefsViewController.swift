@@ -32,7 +32,7 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
     override func loadView() {
         super.loadView()
 
-        observer = NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "SBPresetManagerUpdatedNotification"),
+        observer = NotificationCenter.default.addObserver(forName: presetManager.updateNotification,
                                                object: nil,
                                                queue: OperationQueue.main) { [weak self] notification in
                                                 guard let s = self else { return }

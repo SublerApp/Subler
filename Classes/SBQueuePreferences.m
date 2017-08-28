@@ -56,9 +56,9 @@ NSString * const SBQueueSet = @"SBQueueSet";
         }
 
         if ([[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]) {
-            MP42Metadata *set = [(SBMetadataPreset *)[SBPresetManager.shared itemWithName:[[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]] metadata];
-            if (set) {
-                self.options[SBQueueSet] = set;
+            SBMetadataPreset *preset = (SBMetadataPreset *)[SBPresetManager.shared itemWithName:[[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]];
+            if (preset) {
+                self.options[SBQueueSet] = preset;
             }
         }
 
@@ -101,7 +101,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
     }];
 
     [[NSUserDefaults standardUserDefaults] setValue:[self.options[SBQueueDestination] path] forKey:SBQueueDestination];
-    [[NSUserDefaults standardUserDefaults] setValue:[self.options[SBQueueSet] presetName] forKey:SBQueueSet];
+    [[NSUserDefaults standardUserDefaults] setValue:[self.options[SBQueueSet] title] forKey:SBQueueSet];
 }
 
 - (nullable NSURL *)queueURL {

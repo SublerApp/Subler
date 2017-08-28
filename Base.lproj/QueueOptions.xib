@@ -124,7 +124,7 @@
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KWg-Ak-bB6">
                     <rect key="frame" x="176" y="80" width="128" height="17"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="128" id="FJx-GH-nWg"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="128" id="FJx-GH-nWg"/>
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="mp4" bezelStyle="roundedRect" imagePosition="left" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="10" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="iXb-rA-1f3" id="Tgc-fW-mN5">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -227,7 +227,7 @@
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZVm-yi-3cE">
                     <rect key="frame" x="177" y="401" width="111" height="17"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="111" id="GuB-yU-C8O"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="111" id="GuB-yU-C8O"/>
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CbR-eu-sGI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -513,9 +513,9 @@
                     </connections>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s2g-Iz-52P">
-                    <rect key="frame" x="216" y="152" width="111" height="17"/>
+                    <rect key="frame" x="216" y="152" width="120" height="17"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="111" id="57c-cZ-60x"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="111" id="57c-cZ-60x"/>
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="Implicit" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="psY-0V-t0k" id="QT5-Bh-4Hc">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

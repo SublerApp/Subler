@@ -89,27 +89,27 @@
 @end
 
 @implementation SBQueueSetAction {
-    MP42Metadata *_set;
+    SBMetadataPreset *_set;
 }
 
-- (instancetype)initWithSet:(MP42Metadata *)set {
+- (instancetype)initWithPreset:(SBMetadataPreset *)preset {
     self = [super init];
     if (self) {
-        _set = [set copy];
+        _set = [preset copy];
     }
     return self;
 }
 
 - (void)runAction:(SBQueueItem *)item {
-    [item.mp4File.metadata mergeMetadata:_set];
+    [item.mp4File.metadata mergeMetadata:_set.metadata];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:NSLocalizedString(@"Apply %@ Set", @""), _set.presetName];
+    return [NSString stringWithFormat:NSLocalizedString(@"Apply %@ Set", @""), _set.title];
 }
 
 - (NSString *)localizedDescription {
-    return [NSString stringWithFormat:NSLocalizedString(@"Applying %@ set", @""), _set.presetName];
+    return [NSString stringWithFormat:NSLocalizedString(@"Applying %@ set", @""), _set.title];
 }
 
 + (BOOL)supportsSecureCoding {
@@ -119,7 +119,7 @@
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
     if (self) {
-        _set = [coder decodeObjectOfClass:[MP42Metadata class] forKey:@"SBQueueActionSet"];
+        _set = [coder decodeObjectOfClass:[SBMetadataPreset class] forKey:@"SBQueueActionSet"];
     }
     return self;
 }
