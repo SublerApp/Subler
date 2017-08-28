@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
 
     let presetManager: PresetManager
     var popover: NSPopover?
@@ -20,7 +20,7 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
     var observer: Any?
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "SBSetPrefsViewController")
+        return NSNib.Name(rawValue: "SBPresetPrefsViewController")
     }
 
     init() {
@@ -66,6 +66,25 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
     }
 
     // MARK: UI Actions
+
+    override func controlTextDidEndEditing(_ obj: Notification) {
+        if let view = obj.object as? NSTextField {
+            let row = tableView.row(for: view)
+            let preset = presetManager.presets[row]
+            let copy = preset.copy() as! MetadataPreset
+            copy.title = view.stringValue
+
+            do {
+                try presetManager.append(newElement: copy)
+                presetManager.remove(item: preset)
+            }
+            catch {
+                view.window?.presentError(error)
+            }
+
+            tableView.reloadData()
+        }
+    }
 
     @IBAction func deletePreset(_ sender: Any) {
         closePopOver(self)

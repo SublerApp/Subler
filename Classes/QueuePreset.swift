@@ -9,7 +9,7 @@ import Foundation
 
 class QueuePreset: NSObject, Preset {
 
-    let title: String
+    var title: String
     let options: [String:Any]
 
     let version: Int
@@ -38,6 +38,12 @@ class QueuePreset: NSObject, Preset {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError()
+    }
+
+    // MARK: NSCopying
+
+    func copy(with zone: NSZone? = nil) -> Any {
+        return QueuePreset(title: title, options: options)
     }
 
 }

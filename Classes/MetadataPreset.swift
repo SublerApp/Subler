@@ -18,7 +18,7 @@ import Foundation
         case replace
     }
 
-    let title: String
+    var title: String
     @objc let metadata: MP42Metadata
     let replacementStragety: ReplacementStrategy
 
@@ -58,4 +58,10 @@ import Foundation
     }
 
     static var supportsSecureCoding: Bool { return true }
+
+    // MARK: NSCopying
+
+    func copy(with zone: NSZone? = nil) -> Any {
+        return MetadataPreset(title: title, metadata: metadata)
+    }
 }

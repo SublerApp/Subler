@@ -53,6 +53,7 @@ extension PresetManager.Error: LocalizedError {
             throw Error.alreadyExists
         }
         presets.append(newElement)
+        try save(preset: newElement)
         sort()
         postNotification()
     }
@@ -62,6 +63,12 @@ extension PresetManager.Error: LocalizedError {
         try? FileManager.default.removeItem(at: preset.fileURL)
         presets.remove(at: index)
         postNotification()
+    }
+
+    func remove(item: Preset) {
+        if let index = presets.index(where: { $0 === item }) {
+            remove(at: index)
+        }
     }
 
     @objc func item(name: String) -> Preset? {
@@ -146,14 +153,15 @@ extension PresetManager.Error: LocalizedError {
         sort()
     }
 
-    private func save(preset: Preset, to url: URL) throws {
+    private func save(preset: Preset) throws {
         let data = NSMutableData()
         let archiver = NSKeyedArchiver(forWritingWith: data)
         archiver.requiresSecureCoding = true
         archiver.encode(preset, forKey: NSKeyedArchiveRootObjectKey)
         archiver.finishEncoding()
 
-        try data.write(to: url, options: [.atomic])
+        try data.write(to: preset.fileURL, options: [.atomic])
+        preset.changed = false
     }
 
     @objc func save() throws {
@@ -164,7 +172,7 @@ extension PresetManager.Error: LocalizedError {
 
         for preset in presets {
             if preset.changed {
-                try save(preset: preset, to: preset.fileURL)
+                try save(preset: preset)
             }
         }
 

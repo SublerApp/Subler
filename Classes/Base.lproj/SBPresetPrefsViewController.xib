@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2553a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13189.4"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -26,13 +26,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowSizeStyle="automatic" viewBased="YES" id="iRF-P7-a3Q" customClass="SBTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="355" height="198"/>
+                                <rect key="frame" x="0.0" y="0.0" width="354" height="198"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="name" editable="NO" width="352" minWidth="40" maxWidth="1000" id="eNe-ax-OFR">
+                                    <tableColumn identifier="name" editable="NO" width="351" minWidth="40" maxWidth="1000" id="eNe-ax-OFR">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -46,20 +46,23 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="nameCell" id="6bC-Va-s9o">
-                                                <rect key="frame" x="1" y="1" width="352" height="17"/>
+                                                <rect key="frame" x="1" y="1" width="351" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G0s-9P-sPN">
-                                                        <rect key="frame" x="0.0" y="0.0" width="327" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="326" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="6CG-pa-ocP">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="6CG-pa-ocP">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="-2" id="2Uf-Z0-tF7"/>
+                                                        </connections>
                                                     </textField>
                                                     <button toolTip="Show set details" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IXy-8d-VMc">
-                                                        <rect key="frame" x="333" y="0.0" width="16" height="16"/>
+                                                        <rect key="frame" x="332" y="0.0" width="16" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="info" imagePosition="overlaps" alignment="center" alternateImage="info-pressed" imageScaling="proportionallyDown" inset="2" id="BeK-4k-Hpl">
                                                             <behavior key="behavior" lightByContents="YES"/>
@@ -89,7 +92,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="200" id="JWr-Hr-fVF"/>
                     </constraints>
-                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="D9w-7o-pBY">
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="D9w-7o-pBY">
                         <rect key="frame" x="1" y="183" width="354" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -101,7 +104,7 @@
                 <button toolTip="Remove selected set" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SIg-lA-6FA">
                     <rect key="frame" x="20" y="19" width="25" height="21"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="25" id="KCi-qM-zwt"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="25" id="KCi-qM-zwt"/>
                     </constraints>
                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Y2I-ux-1v2">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -119,6 +122,7 @@
                 <constraint firstItem="Bgi-pA-eAO" firstAttribute="top" secondItem="Sl5-b6-dQC" secondAttribute="top" constant="20" id="CfB-Vj-Oio"/>
                 <constraint firstItem="Bgi-pA-eAO" firstAttribute="leading" secondItem="Sl5-b6-dQC" secondAttribute="leading" constant="20" id="SNz-hG-5Nz"/>
                 <constraint firstAttribute="trailing" secondItem="Bgi-pA-eAO" secondAttribute="trailing" constant="20" id="cgL-bl-uVt"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SIg-lA-6FA" secondAttribute="trailing" constant="20" symbolic="YES" id="ssz-R1-wNZ"/>
             </constraints>
             <point key="canvasLocation" x="-344" y="-648"/>
         </customView>
