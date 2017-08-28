@@ -53,6 +53,7 @@ extension PresetManager.Error: LocalizedError {
             throw Error.alreadyExists
         }
         presets.append(newElement)
+        sort()
         postNotification()
     }
 
@@ -65,6 +66,10 @@ extension PresetManager.Error: LocalizedError {
 
     @objc func item(name: String) -> Preset? {
         return presets.filter { $0.title == name }.first
+    }
+
+    private func sort() {
+        presets.sort { return $0.title.localizedCompare($1.title) == ComparisonResult.orderedAscending }
     }
 
     private func postNotification() {
@@ -138,6 +143,7 @@ extension PresetManager.Error: LocalizedError {
             }
             catch {}
         }
+        sort()
     }
 
     private func save(preset: Preset, to url: URL) throws {
