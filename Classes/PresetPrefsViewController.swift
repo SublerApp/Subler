@@ -67,12 +67,11 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
 
     // MARK: UI Actions
 
-    override func controlTextDidEndEditing(_ obj: Notification) {
-        if let view = obj.object as? NSTextField {
-            let row = tableView.row(for: view)
-            let preset = presetManager.presets[row]
+    private func rename(preset: Preset, to title: String) {
+        if title.isEmpty == false && preset.title != title {
+
             let copy = preset.copy() as! MetadataPreset
-            copy.title = view.stringValue
+            copy.title = title
 
             do {
                 try presetManager.append(newElement: copy)
@@ -81,8 +80,16 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
             catch {
                 view.window?.presentError(error)
             }
+        }
 
-            tableView.reloadData()
+        tableView.reloadData()
+    }
+
+    override func controlTextDidEndEditing(_ obj: Notification) {
+        if let view = obj.object as? NSTextField {
+            let row = tableView.row(for: view)
+            let preset = presetManager.presets[row]
+            rename(preset: preset, to: view.stringValue)
         }
     }
 

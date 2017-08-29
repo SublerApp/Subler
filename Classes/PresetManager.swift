@@ -53,9 +53,9 @@ extension PresetManager.Error: LocalizedError {
             throw Error.alreadyExists
         }
         presets.append(newElement)
-        try save(preset: newElement)
         sort()
         postNotification()
+        try save(preset: newElement)
     }
 
     func remove(at index: Int) {
