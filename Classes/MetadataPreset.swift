@@ -14,8 +14,8 @@ import Foundation
     }
     var title: String
     @objc let metadata: MP42Metadata
-    var replaceArtworks: Bool
-    var replaceAnnotations: Bool
+    @objc var replaceArtworks: Bool
+    @objc var replaceAnnotations: Bool
 
     let version: Int
     var changed: Bool

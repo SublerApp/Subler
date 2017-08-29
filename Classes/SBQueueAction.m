@@ -89,27 +89,54 @@
 @end
 
 @implementation SBQueueSetAction {
-    SBMetadataPreset *_set;
+    SBMetadataPreset *_preset;
 }
 
 - (instancetype)initWithPreset:(SBMetadataPreset *)preset {
     self = [super init];
     if (self) {
-        _set = [preset copy];
+        _preset = [preset copy];
     }
     return self;
 }
 
 - (void)runAction:(SBQueueItem *)item {
-    [item.mp4File.metadata mergeMetadata:_set.metadata];
+    MP42Metadata *metadata = item.mp4File.metadata;
+    MP42MetadataItemDataType dataTypes = MP42MetadataItemDataTypeString | MP42MetadataItemDataTypeStringArray |
+    MP42MetadataItemDataTypeBool | MP42MetadataItemDataTypeInteger |
+    MP42MetadataItemDataTypeIntegerArray | MP42MetadataItemDataTypeDate;
+    NSArray<MP42MetadataItem *> *items = [_preset.metadata metadataItemsFilteredByDataType:dataTypes];
+
+    if (_preset.replaceAnnotations) {
+        [metadata removeMetadataItems:[metadata metadataItemsFilteredByDataType:dataTypes]];
+    }
+
+    if (items) {
+        NSMutableArray<NSString *> *identifiers = [NSMutableArray array];
+        for (MP42MetadataItem *metadataItem in items) {
+            [identifiers addObject:metadataItem.identifier];
+        }
+        [metadata removeMetadataItems:[metadata metadataItemsFilteredByIdentifiers:identifiers]];
+        [metadata addMetadataItems:items];
+    }
+
+    items = [_preset.metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt];
+
+    if (_preset.replaceArtworks) {
+        [metadata removeMetadataItems:[metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt]];
+    }
+
+    if (items.count) {
+        [metadata addMetadataItems:items];
+    }
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:NSLocalizedString(@"Apply %@ Set", @""), _set.title];
+    return [NSString stringWithFormat:NSLocalizedString(@"Apply %@ Set", @""), _preset.title];
 }
 
 - (NSString *)localizedDescription {
-    return [NSString stringWithFormat:NSLocalizedString(@"Applying %@ set", @""), _set.title];
+    return [NSString stringWithFormat:NSLocalizedString(@"Applying %@ set", @""), _preset.title];
 }
 
 + (BOOL)supportsSecureCoding {
@@ -119,13 +146,13 @@
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super init];
     if (self) {
-        _set = [coder decodeObjectOfClass:[SBMetadataPreset class] forKey:@"SBQueueActionSet"];
+        _preset = [coder decodeObjectOfClass:[SBMetadataPreset class] forKey:@"SBQueueActionSet"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-    [coder encodeObject:_set forKey:@"SBQueueActionSet"];
+    [coder encodeObject:_preset forKey:@"SBQueueActionSet"];
 }
 
 

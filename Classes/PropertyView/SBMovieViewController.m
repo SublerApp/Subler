@@ -308,12 +308,16 @@ static NSArray<NSArray *> *_mediaKinds;
 - (void)applySet:(id)sender
 {
     NSInteger tag = [sender tag];
-    MP42Metadata *preset = SBPresetManager.shared.metadataPresets[tag].metadata;
+    SBMetadataPreset *preset = SBPresetManager.shared.metadataPresets[tag];
 
     MP42MetadataItemDataType dataTypes = MP42MetadataItemDataTypeString | MP42MetadataItemDataTypeStringArray |
                                          MP42MetadataItemDataTypeBool | MP42MetadataItemDataTypeInteger |
                                          MP42MetadataItemDataTypeIntegerArray | MP42MetadataItemDataTypeDate;
-    NSArray<MP42MetadataItem *> *items = [preset metadataItemsFilteredByDataType:dataTypes];
+    NSArray<MP42MetadataItem *> *items = [preset.metadata metadataItemsFilteredByDataType:dataTypes];
+
+    if (preset.replaceAnnotations) {
+        [self removeMetadataItems:[self.metadata metadataItemsFilteredByDataType:dataTypes]];
+    }
 
     if (items) {
         NSMutableArray<NSString *> *identifiers = [NSMutableArray array];
@@ -324,10 +328,13 @@ static NSArray<NSArray *> *_mediaKinds;
         [self addMetadataItems:items];
     }
 
-    items = [preset metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt];
+    items = [preset.metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt];
+
+    if (preset.replaceArtworks) {
+        [self removeMetadataCoverArtItems:[self.metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt]];
+    }
 
     if (items.count) {
-        [self removeMetadataCoverArtItems:[self.metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt]];
         [self addMetadataCoverArtItems:items];
     }
 }
