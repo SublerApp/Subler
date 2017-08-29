@@ -392,7 +392,7 @@ static NSArray<NSArray *> *_mediaKinds;
 - (IBAction)saveSet:(id)sender
 {
     SBPresetManager *manager = SBPresetManager.shared;
-    SBMetadataPreset *preset = [[SBMetadataPreset alloc] initWithTitle:self.saveSetName.stringValue metadata:self.metadata];
+    SBMetadataPreset *preset = [[SBMetadataPreset alloc] initWithTitle:self.saveSetName.stringValue metadata:self.metadata replaceArtworks:YES replaceAnnotations:NO];
 
     NSError *error = nil;
     if ([manager appendWithNewElement:preset error:&error]) {
