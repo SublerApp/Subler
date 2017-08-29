@@ -52,7 +52,11 @@ NSString * const SBQueueSet = @"SBQueueSet";
         }];
 
         if ([[NSUserDefaults standardUserDefaults] valueForKey:SBQueueDestination]) {
-            self.options[SBQueueDestination] = [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] valueForKey:SBQueueDestination]];
+            NSURL *url = [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] valueForKey:SBQueueDestination]];
+
+            if (![[NSFileManager defaultManager] fileExistsAtPath:url.path isDirectory:nil]) {
+                url = nil;
+            }
         }
 
         if ([[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]) {

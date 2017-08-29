@@ -299,7 +299,7 @@ static void *SBQueueContex = &SBQueueContex;
     NSURL *destination = self.options[SBQueueDestination];
     if (destination) {
         destination = [[destination URLByAppendingPathComponent:url.lastPathComponent].URLByDeletingPathExtension
-                       URLByAppendingPathExtension:(self.options)[SBQueueFileType]];
+                       URLByAppendingPathExtension:self.options[SBQueueFileType]];
     } else  if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)@"public.mpeg-4")) {
         destination = [url copy];
     } else {

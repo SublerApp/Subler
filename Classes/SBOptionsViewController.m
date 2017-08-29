@@ -7,6 +7,7 @@
 //
 
 #import "SBOptionsViewController.h"
+#import "SBQueuePreferences.h"
 
 #import <MP42Foundation/MP42Metadata.h>
 #import <MP42Foundation/MP42Languages.h>
@@ -15,20 +16,9 @@
 
 static void *SBOptionsViewContex = &SBOptionsViewContex;
 
-@interface SBOptionsViewController () {
-@private
-    IBOutlet NSPopUpButton *_destButton;
+@interface SBOptionsViewController ()
 
-    NSMutableDictionary *_options;
-    NSMutableArray *_sets;
-
-    NSArray *_moviesProviders;
-    NSArray *_tvShowsProviders;
-    NSArray *_movieLanguages;
-    NSArray *_tvShowLanguages;
-
-    NSURL *_destination;
-}
+@property (nonatomic, weak) IBOutlet NSPopUpButton *destButton;
 
 @property (nonatomic) NSMutableDictionary *options;
 @property (nonatomic, strong) NSMutableArray *sets;
@@ -122,24 +112,23 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
         // Update the languages popup
         if ([keyPath isEqualToString:@"options.SBQueueMovieProvider"]){
             NSString *newProvider = [change valueForKey:NSKeyValueChangeNewKey];
-            SBMetadataImporter *importer = [SBMetadataImporter importerWithProvider:newProvider];
+            NSString *oldLanguage = self.options[SBQueueMovieProviderLanguage];
 
+            SBMetadataImporter *importer = [SBMetadataImporter importerWithProvider:newProvider];
             self.movieLanguages = [self localizedLanguagesForImporter:importer];
 
-            NSString *oldLanguage = [self.options valueForKey:@"SBQueueMovieProviderLanguage"];
-
             if (![importer.languages containsObject:oldLanguage]) {
-                [self.options setValue:[SBMetadataImporter defaultLanguageWithProvider:newProvider] forKeyPath:@"SBQueueMovieProviderLanguage"];
+                self.options[SBQueueMovieProviderLanguage] = [SBMetadataImporter defaultLanguageWithProvider:newProvider];
             }
         } else if ([keyPath isEqualToString:@"options.SBQueueTVShowProvider"]) {
             NSString *newProvider = [change valueForKey:NSKeyValueChangeNewKey];
+            NSString *oldLanguage = self.options[SBQueueTVShowProviderLanguage];
+
             SBMetadataImporter *importer = [SBMetadataImporter importerWithProvider:newProvider];
             self.tvShowLanguages = [self localizedLanguagesForImporter:importer];
 
-            NSString *oldLanguage = [self.options valueForKey:@"SBQueueTVShowProviderLanguage"];
-
             if (![importer.languages containsObject:oldLanguage]) {
-                [self.options setValue:[SBMetadataImporter defaultLanguageWithProvider:newProvider] forKeyPath:@"SBQueueTVShowProviderLanguage"];
+                self.options[SBQueueTVShowProviderLanguage] = [SBMetadataImporter defaultLanguageWithProvider:newProvider];
             }
         } else {
             [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -168,8 +157,8 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
 - (void)prepareDestPopup {
     NSMenuItem *folderItem = nil;
 
-    if ([self.options valueForKey:@"SBQueueDestination"]) {
-        self.destination = [self.options valueForKey:@"SBQueueDestination"];
+    if (self.options[SBQueueDestination]) {
+        self.destination = self.options[SBQueueDestination];
 
         if (![[NSFileManager defaultManager] fileExistsAtPath:self.destination.path isDirectory:nil]) {
             self.destination = nil;
@@ -191,7 +180,7 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
         [_destButton.menu insertItem:[NSMenuItem separatorItem] atIndex:0];
         [_destButton.menu insertItem:folderItem atIndex:0];
 
-        if ([self.options valueForKey:@"SBQueueDestination"]) {
+        if (self.options[SBQueueDestination]) {
             [_destButton selectItem:folderItem];
         }
         else {
@@ -217,9 +206,9 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
 
             [self->_destButton selectItem:folderItem];
 
-            [self.options setValue:panel.URL forKey:@"SBQueueDestination"];
+            self.options[SBQueueDestination] = panel.URL;
             self.destination = panel.URL;
-            [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"SBQueueDestinationSelected"];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"SBQueueDestinationSelected"];
         } else {
             [self->_destButton selectItemAtIndex:2];
         }
@@ -233,15 +222,17 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
     menuItemIcon.size = NSMakeSize(16, 16);
 
     folderItem.image = menuItemIcon;
+    folderItem.action = @selector(destination:);
+    folderItem.target = self;
 
     return folderItem;
 }
 
 - (IBAction)destination:(id)sender {
     if ([sender tag] == 10) {
-        [self.options removeObjectForKey:@"SBQueueDestination"];
+        [self.options removeObjectForKey:SBQueueDestination];
     } else {
-        self.options[@"SBQueueDestination"] = self.destination;
+        self.options[SBQueueDestination] = self.destination;
     }
 }
 
@@ -256,21 +247,18 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
 
 - (void)updateSetsMenu:(id)sender {
     self.sets = [SBPresetManager.shared.metadataPresets mutableCopy];
-    if (![self.sets containsObject:(self.options)[@"SBQueueSet"]]) {
-        [self.options removeObjectForKey:@"SBQueueSet"];
+    if (![self.sets containsObject:self.options[SBQueueSet]]) {
+        [self.options removeObjectForKey:SBQueueSet];
     }
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-
-
     @try {
         [self removeObserver:self forKeyPath:@"options.SBQueueMovieProvider"];
         [self removeObserver:self forKeyPath:@"options.SBQueueTVShowProvider"];
     } @catch (NSException * __unused exception) {}
-
 }
 
 @end
