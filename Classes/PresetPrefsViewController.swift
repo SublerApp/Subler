@@ -16,7 +16,7 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
     @IBOutlet var tableView: NSTableView!
     @IBOutlet var removeSetButton: NSButton!
 
-    var controller: SBMovieViewController?
+    var controller: PresetEditorViewController?
     var observer: Any?
 
     override var nibName: NSNib.Name? {
@@ -122,13 +122,10 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
             if let preset = presetManager.presets[rowIndex] as? MetadataPreset {
                 currentRow = rowIndex
 
-                controller = SBMovieViewController.init(nibName: NSNib.Name(rawValue: "MovieView"), bundle: nil)
-                controller?.metadata = preset.metadata
+                controller = PresetEditorViewController.init(preset: preset)
 
                 popover = NSPopover()
                 popover?.contentViewController = controller
-                popover?.contentSize = NSMakeSize(480, 500)
-
                 popover?.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
             }
         }

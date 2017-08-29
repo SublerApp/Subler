@@ -20,7 +20,7 @@ import Foundation
 
     var title: String
     @objc let metadata: MP42Metadata
-    let replacementStragety: ReplacementStrategy
+    var replacementStragety: ReplacementStrategy
 
     let version: Int
     var changed: Bool
