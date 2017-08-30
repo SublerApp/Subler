@@ -148,6 +148,9 @@
 /* Class = "NSMenuItem"; title = "Implicit"; ObjectID = "psY-0V-t0k"; */
 "psY-0V-t0k.title" = "Implicito";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Set tracks without a language to the selected one"; ObjectID = "slL-2h-MPl"; */
+"slL-2h-MPl.ibShadowedToolTip" = "Imposta il linguaggio selezionato alle tracce senza un linguaggio ";
+
 /* Class = "NSTextFieldCell"; title = "Color Space:"; ObjectID = "tMS-Tg-pPf"; */
 "tMS-Tg-pPf.title" = "Spazio di colore:";
 

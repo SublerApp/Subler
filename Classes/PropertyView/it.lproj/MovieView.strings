@@ -37,3 +37,6 @@
 /* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "os0-Yb-exW"; */
 "os0-Yb-exW.headerCell.title" = "Valore";
 
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Metadata"; ObjectID = "qg5-r0-E4V"; */
+"qg5-r0-E4V.ibExternalAccessibilityDescription" = "Metadata";
+

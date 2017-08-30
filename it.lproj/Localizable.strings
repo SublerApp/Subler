@@ -16,6 +16,9 @@
 /* No comment provided by engineer. */
 "1 track selected" = "1 traccia selezionata";
 
+/* No comment provided by engineer. */
+"A preset already exists with the same name." = "Esiste già un preset con lo stesso nome.";
+
 /* Queue -> redo add item. */
 "Add Queue Item" = "Aggiungi elemento alla coda";
 
@@ -209,6 +212,9 @@
 
 /* Organize Groups action local description */
 "Organizing groups" = "Organizzo gruppi";
+
+/* No comment provided by engineer. */
+"Please enter a different name for the preset." = "Per favore inserisci un nome diverso per il preset.";
 
 /* No comment provided by engineer. */
 "Producers" = "Produttori";

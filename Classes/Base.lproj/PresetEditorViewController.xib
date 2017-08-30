@@ -384,8 +384,8 @@
                     <accessibility description="Preset Title"/>
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="Bmy-64-g1U">
-                    <rect key="frame" x="18" y="22" width="127" height="18"/>
-                    <buttonCell key="cell" type="check" title="Replace artworks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2ur-nu-rZh">
+                    <rect key="frame" x="18" y="22" width="160" height="18"/>
+                    <buttonCell key="cell" type="check" title="Keep existing artworks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2ur-nu-rZh">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -394,8 +394,8 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="aKt-Ed-1jG">
-                    <rect key="frame" x="153" y="22" width="145" height="18"/>
-                    <buttonCell key="cell" type="check" title="Replace annotations" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="KxJ-Zr-uiZ">
+                    <rect key="frame" x="186" y="22" width="178" height="18"/>
+                    <buttonCell key="cell" type="check" title="Keep existing annotations" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="KxJ-Zr-uiZ">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -454,7 +454,7 @@
                 <constraint firstItem="179" firstAttribute="height" secondItem="53" secondAttribute="height" id="y03-bD-271"/>
                 <constraint firstItem="226" firstAttribute="height" secondItem="223" secondAttribute="height" id="zYN-5B-279"/>
             </constraints>
-            <point key="canvasLocation" x="507" y="280.5"/>
+            <point key="canvasLocation" x="517" y="117"/>
         </customView>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="167" userLabel="Preset Save">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>

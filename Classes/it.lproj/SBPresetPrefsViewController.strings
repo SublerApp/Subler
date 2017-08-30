@@ -7,6 +7,3 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Remove selected set"; ObjectID = "SIg-lA-6FA"; */
 "SIg-lA-6FA.ibShadowedToolTip" = "Rimuovi il preset selezionato";
 
-/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "iRF-P7-a3Q"; */
-"iRF-P7-a3Q.ibExternalAccessibilityDescription" = "Preset";
-

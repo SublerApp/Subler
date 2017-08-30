@@ -221,6 +221,7 @@
 		A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterResult.swift; path = Classes/MetadataImporters/ChapterResult.swift; sourceTree = "<group>"; };
 		A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterDB.swift; path = Classes/MetadataImporters/ChapterDB.swift; sourceTree = "<group>"; };
 		A944E5911F498FC4002E43F6 /* PresetPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PresetPrefsViewController.swift; path = Classes/PresetPrefsViewController.swift; sourceTree = "<group>"; };
+		A94868D31F56BA0F00C47B75 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/it.lproj/PresetEditorViewController.strings; sourceTree = "<group>"; };
 		A94A6A581ED1C5CA00049F7D /* ParseFilename */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ParseFilename; path = Utilities/ParseFilename; sourceTree = "<group>"; };
 		A9577CF51F3DC667009181F4 /* Document+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Document+Swift.swift"; path = "Classes/Document+Swift.swift"; sourceTree = "<group>"; };
 		A95B8DA41B09F37700F2F152 /* Subler Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subler Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -993,6 +994,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A92BBABD1F558388007EA182 /* Base */,
+				A94868D31F56BA0F00C47B75 /* it */,
 			);
 			name = PresetEditorViewController.xib;
 			sourceTree = "<group>";
@@ -1351,7 +1353,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -1416,7 +1418,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_VERSION = 4.0;
 				USER_HEADER_SEARCH_PATHS = "";
