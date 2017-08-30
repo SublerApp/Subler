@@ -57,6 +57,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
             if (![[NSFileManager defaultManager] fileExistsAtPath:url.path isDirectory:nil]) {
                 url = nil;
             }
+            self.options[SBQueueDestination] = url;
         }
 
         if ([[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]) {
