@@ -121,15 +121,17 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
 
             if let preset = presetManager.presets[rowIndex] as? MetadataPreset {
                 currentRow = rowIndex
-
                 controller = PresetEditorViewController.init(preset: preset)
 
-                popover = NSPopover()
-                popover?.contentViewController = controller
-                popover?.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
+                if #available(OSX 10.10, *) {
+                    presentViewControllerAsSheet(controller!)
+                } else {
+                    popover = NSPopover()
+                    popover?.contentViewController = controller
+                    popover?.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
+                }
             }
         }
-
     }
 
 }

@@ -40,6 +40,13 @@ class PresetEditorViewController: SBMovieViewController {
         replaceAnnotations.state = preset.replaceAnnotations == true ? .on : .off
     }
 
+    @IBAction func done(_ sender: Any) {
+        if #available(OSX 10.10, *) {
+            dismissViewController(self)
+        } else {
+            // Fallback on earlier versions
+        }
+    }
     @IBAction func setReplaceArtworksState(_ sender: NSButton) {
         preset.replaceArtworks = sender.state == .on ? true : false
     }
