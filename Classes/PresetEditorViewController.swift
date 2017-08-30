@@ -36,8 +36,8 @@ class PresetEditorViewController: SBMovieViewController {
         presetTitle.stringValue = preset.title
 
         preset.changed = true
-        replaceArtworks.state = preset.replaceArtworks == true ? .on : .off
-        replaceAnnotations.state = preset.replaceAnnotations == true ? .on : .off
+        replaceArtworks.state = preset.replaceArtworks == false ? .on : .off
+        replaceAnnotations.state = preset.replaceAnnotations == false ? .on : .off
     }
 
     @IBAction func done(_ sender: Any) {
@@ -48,10 +48,10 @@ class PresetEditorViewController: SBMovieViewController {
         }
     }
     @IBAction func setReplaceArtworksState(_ sender: NSButton) {
-        preset.replaceArtworks = sender.state == .on ? true : false
+        preset.replaceArtworks = sender.state == .off ? true : false
     }
 
     @IBAction func setReplaceAnnotationsState(_ sender: NSButton) {
-        preset.replaceAnnotations = sender.state == .on ? true : false
+        preset.replaceAnnotations = sender.state == .off ? true : false
     }
 }

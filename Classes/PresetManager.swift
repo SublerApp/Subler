@@ -124,8 +124,10 @@ extension PresetManager.Error: LocalizedError {
             defer { unarchiver.finishDecoding() }
 
             if version == 1, let preset = unarchiver.decodeObject(of: [MP42Metadata.self], forKey: NSKeyedArchiveRootObjectKey) as? MP42Metadata {
+                let newPreset = MetadataPreset(title: preset.presetName, metadata: preset, replaceArtworks: true, replaceAnnotations: false)
                 try migratePreset(at: fileURL)
-                return MetadataPreset(title: preset.presetName, metadata: preset, replaceArtworks: true, replaceAnnotations: false)
+                try save(preset: newPreset)
+                return newPreset
             }
             else if  let preset = unarchiver.decodeObject(of: [MetadataPreset.self], forKey: NSKeyedArchiveRootObjectKey) as? MetadataPreset {
                 return preset
