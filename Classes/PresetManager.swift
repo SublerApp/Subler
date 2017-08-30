@@ -175,7 +175,6 @@ extension PresetManager.Error: LocalizedError {
                 try save(preset: preset)
             }
         }
-
     }
 
 }

@@ -121,8 +121,13 @@ import Cocoa
 
         if window.isVisible && animate {
             NSAnimationContext.runAnimationGroup({ context in
-                context.allowsImplicitAnimation = true
-                context.duration = duration
+                if #available(OSX 10.11, *) {
+                    context.allowsImplicitAnimation = true
+                    context.duration = duration
+                }
+                else {
+                    context.duration = 0
+                }
                 window.layoutIfNeeded()
                 view.isHidden = true
             }, completionHandler: {
