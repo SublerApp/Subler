@@ -15,8 +15,6 @@
 #import <MP42Foundation/MP42Image.h>
 #import <MP42Foundation/MP42Utilities.h>
 
-#import "Subler-Swift.h"
-
 @implementation SBQueueSubtitlesAction
 
 /**
@@ -85,76 +83,6 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 }
-
-@end
-
-@implementation SBQueueSetAction {
-    SBMetadataPreset *_preset;
-}
-
-- (instancetype)initWithPreset:(SBMetadataPreset *)preset {
-    self = [super init];
-    if (self) {
-        _preset = [preset copy];
-    }
-    return self;
-}
-
-- (void)runAction:(SBQueueItem *)item {
-    MP42Metadata *metadata = item.mp4File.metadata;
-    MP42MetadataItemDataType dataTypes = MP42MetadataItemDataTypeString | MP42MetadataItemDataTypeStringArray |
-    MP42MetadataItemDataTypeBool | MP42MetadataItemDataTypeInteger |
-    MP42MetadataItemDataTypeIntegerArray | MP42MetadataItemDataTypeDate;
-    NSArray<MP42MetadataItem *> *items = [_preset.metadata metadataItemsFilteredByDataType:dataTypes];
-
-    if (_preset.replaceAnnotations) {
-        [metadata removeMetadataItems:[metadata metadataItemsFilteredByDataType:dataTypes]];
-    }
-
-    if (items) {
-        NSMutableArray<NSString *> *identifiers = [NSMutableArray array];
-        for (MP42MetadataItem *metadataItem in items) {
-            [identifiers addObject:metadataItem.identifier];
-        }
-        [metadata removeMetadataItems:[metadata metadataItemsFilteredByIdentifiers:identifiers]];
-        [metadata addMetadataItems:items];
-    }
-
-    items = [_preset.metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt];
-
-    if (_preset.replaceArtworks) {
-        [metadata removeMetadataItems:[metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt]];
-    }
-
-    if (items.count) {
-        [metadata addMetadataItems:items];
-    }
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:NSLocalizedString(@"Apply %@ Set", @""), _preset.title];
-}
-
-- (NSString *)localizedDescription {
-    return [NSString stringWithFormat:NSLocalizedString(@"Applying %@ set", @""), _preset.title];
-}
-
-+ (BOOL)supportsSecureCoding {
-    return YES;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)coder {
-    self = [super init];
-    if (self) {
-        _preset = [coder decodeObjectOfClass:[SBMetadataPreset class] forKey:@"SBQueueActionSet"];
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder {
-    [coder encodeObject:_preset forKey:@"SBQueueActionSet"];
-}
-
 
 @end
 
@@ -394,4 +322,3 @@
 }
 
 @end
-

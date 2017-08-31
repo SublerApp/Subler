@@ -7,6 +7,62 @@
 
 import Foundation
 
+/// An actions that applies a preset to the item.
+@objc(SBQueueSetAction) class QueueSetAction : NSObject, SBQueueActionProtocol {
+
+    private let preset: MetadataPreset
+
+    @objc init(preset: MetadataPreset) {
+        self.preset = preset.copy() as! MetadataPreset
+    }
+
+    let localizedDescription: String = NSLocalizedString("Apply %@ preset", comment: "Action localized description.")
+    override var description: String { get { return NSLocalizedString("Applying %@ preset", comment: "Action description.") } }
+
+    func runAction(_ item: SBQueueItem) {
+        guard let metadata = item.mp4File?.metadata else { return }
+
+        let dataTypes: UInt = MP42MetadataItemDataType.string.rawValue | MP42MetadataItemDataType.stringArray.rawValue | MP42MetadataItemDataType.bool.rawValue | MP42MetadataItemDataType.integer.rawValue |
+            MP42MetadataItemDataType.integerArray.rawValue | MP42MetadataItemDataType.date.rawValue
+        
+        let items = preset.metadata.metadataItemsFiltered(by: MP42MetadataItemDataType(rawValue: dataTypes))
+        
+        if preset.replaceAnnotations {
+            metadata.removeItems(metadata.metadataItemsFiltered(by: MP42MetadataItemDataType(rawValue: dataTypes)))
+        }
+        
+        if items.isEmpty == false {
+            let identifiers = items.map { $0.identifier }
+            metadata.removeItems(metadata.metadataItemsFiltered(byIdentifiers: identifiers))
+            metadata.addItems(items)
+        }
+        
+        let artworks = preset.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyCoverArt)
+        
+        if preset.replaceArtworks {
+            metadata.removeItems(metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyCoverArt))
+        }
+        
+        if artworks.isEmpty == false {
+            metadata.addItems(artworks)
+        }
+        
+    }
+
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(preset, forKey: "SBQueueActionSet")
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        guard let preset = aDecoder.decodeObject(of: MetadataPreset.self, forKey: "SBQueueActionSet") else { return nil }
+
+        self.preset = preset
+    }
+
+    static var supportsSecureCoding: Bool { return true }
+
+}
+
 extension Array where Element == Artwork {
 
     func filter(by type: ArtworkType, service: String) -> Artwork? {

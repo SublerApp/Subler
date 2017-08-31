@@ -29,13 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  An actions that applies a set to the item.
- */
-@interface SBQueueSetAction : NSObject <SBQueueActionProtocol>
-- (instancetype)initWithPreset:(MP42Metadata *)set;
-@end
-
-/**
  *  An actions that organize the item tracks' groups.
  */
 @interface SBQueueOrganizeGroupsAction : NSObject <SBQueueActionProtocol>
