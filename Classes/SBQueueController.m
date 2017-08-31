@@ -539,8 +539,8 @@ static void *SBQueueContex = &SBQueueContex;
     [self createOptionsPopover];
 
     if (!self.popover.isShown) {
-        NSButton *targetButton = (NSButton *)sender;
-        [self.popover showRelativeToRect:targetButton.bounds ofView:sender preferredEdge:NSMaxYEdge];
+        NSView *target = [sender isKindOfClass:[NSView class]] ? (NSView *)sender : self.window.contentView;
+        [self.popover showRelativeToRect:target.bounds ofView:target preferredEdge:NSMaxYEdge];
     } else {
         [self.popover close];
         self.popover = nil;
