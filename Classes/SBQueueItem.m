@@ -177,6 +177,7 @@
     } else {
         self.mp4File = [[MP42File alloc] init];
         MP42FileImporter *fileImporter = [[MP42FileImporter alloc] initWithURL:self.fileURL error:outError];
+        [self.mp4File.metadata mergeMetadata:fileImporter.metadata];
 
         NSUInteger bitRate = [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioBitrate"] integerValue];
         float drc = [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioDRC"] floatValue];
