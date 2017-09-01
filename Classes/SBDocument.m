@@ -875,7 +875,7 @@ static NSDictionary *_detailMonospacedAttr;
 
 - (IBAction)showTrackOffsetSheet:(id)sender
 {
-    offset.stringValue = [NSString stringWithFormat:@"%lld",
+    offset.stringValue = [NSString stringWithFormat:@"%f",
                           [self trackAtAtTableRow:self.tracksTable.selectedRow].startOffset];
 
     [self.documentWindow beginSheet:offsetWindow completionHandler:NULL];

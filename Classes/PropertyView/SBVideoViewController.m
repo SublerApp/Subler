@@ -151,7 +151,7 @@ static NSString *getColorProfileName(uint16_t colorPrimaries,
     offsetX.stringValue = [NSString stringWithFormat:@"%d", track.offsetX];
     offsetY.stringValue = [NSString stringWithFormat:@"%d", track.offsetY];
     
-    [alternateGroup selectItemAtIndex:(NSInteger)track.alternate_group];
+    [alternateGroup selectItemAtIndex:(NSInteger)track.alternateGroup];
 
     if (track.format == kMP42VideoCodecType_H264 && track.origProfile && track.origLevel) {
         profileLevelUnchanged.title = [NSString stringWithFormat:@"%@ %@ @ %@", NSLocalizedString(@"Current profile:", nil),
@@ -308,8 +308,8 @@ static NSString *getColorProfileName(uint16_t colorPrimaries,
 {
     NSInteger tagName = [sender selectedItem].tag;
     
-    if (track.alternate_group != tagName) {
-        track.alternate_group = tagName;
+    if (track.alternateGroup != tagName) {
+        track.alternateGroup = tagName;
         [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }

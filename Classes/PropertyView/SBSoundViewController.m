@@ -39,7 +39,7 @@
     [mediaTagsView addSubview:_mediaTagsController.view];
 
     // Standard audio controls
-    [alternateGroup selectItemAtIndex:(NSInteger)self.soundTrack.alternate_group];
+    [alternateGroup selectItemAtIndex:(NSInteger)self.soundTrack.alternateGroup];
 
     _fallbacks = [[NSMutableArray alloc] init];
 
@@ -154,8 +154,8 @@
 {
     NSInteger tagName = [sender selectedItem].tag;
     
-    if (self.soundTrack.alternate_group != tagName) {
-        self.soundTrack.alternate_group = tagName;
+    if (self.soundTrack.alternateGroup != tagName) {
+        self.soundTrack.alternateGroup = tagName;
         [self.view.window.windowController.document updateChangeCount:NSChangeDone];
     }
 }
