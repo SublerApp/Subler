@@ -148,9 +148,9 @@ static NSString *getColorProfileName(uint16_t colorPrimaries,
     hSpacing.stringValue = [NSString stringWithFormat:@"%lld", track.hSpacing];
     vSpacing.stringValue = [NSString stringWithFormat:@"%lld", track.vSpacing];
 
-    offsetX.stringValue = [NSString stringWithFormat:@"%d", track.offsetX];
-    offsetY.stringValue = [NSString stringWithFormat:@"%d", track.offsetY];
-    
+    offsetX.stringValue = [NSString stringWithFormat:@"%lld", (long long)track.transform.tx];
+    offsetY.stringValue = [NSString stringWithFormat:@"%lld", (long long)track.transform.ty];
+
     [alternateGroup selectItemAtIndex:(NSInteger)track.alternateGroup];
 
     if (track.format == kMP42VideoCodecType_H264 && track.origProfile && track.origLevel) {
@@ -266,16 +266,20 @@ static NSString *getColorProfileName(uint16_t colorPrimaries,
     }
     else if (sender == offsetX) {
         i = offsetX.integerValue;
-        if (track.offsetX != i) {
-            track.offsetX = (uint32_t)i;
+        if (track.transform.tx != i) {
+            CGAffineTransform transform = track.transform;
+            transform.tx = i;
+            track.transform = transform;
 
             [self.view.window.windowController.document updateChangeCount:NSChangeDone];
         }
     }
     else if (sender == offsetY) {
         i = offsetY.integerValue;
-        if (track.offsetY != i) {
-            track.offsetY = (uint32_t)i;
+        if (track.transform.ty != i) {
+            CGAffineTransform transform = track.transform;
+            transform.ty = i;
+            track.transform = transform;
 
             [self.view.window.windowController.document updateChangeCount:NSChangeDone];
         }
