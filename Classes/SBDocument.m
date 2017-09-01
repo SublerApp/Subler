@@ -875,16 +875,14 @@ static NSDictionary *_detailMonospacedAttr;
 
 - (IBAction)showTrackOffsetSheet:(id)sender
 {
-    offset.stringValue = [NSString stringWithFormat:@"%f",
-                          [self trackAtAtTableRow:self.tracksTable.selectedRow].startOffset];
-
+    offset.doubleValue = [self trackAtAtTableRow:self.tracksTable.selectedRow].startOffset;
     [self.documentWindow beginSheet:offsetWindow completionHandler:NULL];
 }
 
 - (IBAction)setTrackOffset:(id)sender
 {
     MP42Track *selectedTrack = [self trackAtAtTableRow:self.tracksTable.selectedRow];
-    selectedTrack.startOffset = offset.integerValue;
+    selectedTrack.startOffset = offset.doubleValue;
     [self updateChangeCount:NSChangeDone];
 
     [self.documentWindow endSheet:offsetWindow];

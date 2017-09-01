@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13122.17" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <development version="8000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.17"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13189.4"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -539,7 +538,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="17"/>
             </connections>
-            <point key="canvasLocation" x="180" y="-438"/>
+            <point key="canvasLocation" x="367" y="-569"/>
         </window>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="100175" userLabel="Saving">
@@ -602,6 +601,7 @@ Gw
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="100275">
                         <rect key="frame" x="69" y="59" width="233" height="22"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="100276">
+                            <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="10" id="EtR-hW-zoZ"/>
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -655,9 +655,11 @@ Gw
                     <constraint firstAttribute="trailing" secondItem="100279" secondAttribute="trailing" constant="20" id="iFU-1E-ffZ"/>
                     <constraint firstItem="100273" firstAttribute="leading" secondItem="100272" secondAttribute="leading" constant="20" id="kOp-EH-fes"/>
                     <constraint firstItem="100279" firstAttribute="leading" secondItem="100275" secondAttribute="trailing" constant="-59" id="mve-kU-loz"/>
+                    <constraint firstItem="100280" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="100272" secondAttribute="leading" constant="20" symbolic="YES" id="qaP-M9-RGY"/>
                     <constraint firstItem="100275" firstAttribute="leading" secondItem="100273" secondAttribute="trailing" constant="7" id="sAp-D8-dgq"/>
                 </constraints>
             </view>
+            <point key="canvasLocation" x="123" y="4"/>
         </window>
         <customView id="100187">
             <rect key="frame" x="0.0" y="0.0" width="388" height="82"/>
@@ -740,8 +742,10 @@ Enable 64bit timescale and duration support. Normally, it's only needed if a tra
                         </button>
                     </subviews>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="100190" secondAttribute="trailing" constant="142" id="3oO-7Z-5SP"/>
                         <constraint firstItem="100190" firstAttribute="top" secondItem="100188" secondAttribute="bottom" constant="6" id="46F-aM-wkb"/>
-                        <constraint firstItem="100190" firstAttribute="leading" secondItem="100188" secondAttribute="leading" id="GqE-pf-8l4"/>
+                        <constraint firstItem="100223" firstAttribute="leading" secondItem="mnz-j4-2OQ" secondAttribute="leading" constant="20" id="DUS-JY-Ob8"/>
+                        <constraint firstItem="100190" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="100188" secondAttribute="leading" id="GqE-pf-8l4"/>
                         <constraint firstItem="100223" firstAttribute="trailing" secondItem="100221" secondAttribute="trailing" id="M7Q-Pf-AoO"/>
                         <constraint firstItem="100223" firstAttribute="top" secondItem="100221" secondAttribute="bottom" constant="8" id="NIO-40-Ff9"/>
                         <constraint firstAttribute="height" constant="82" id="QgN-pP-fGp"/>
@@ -750,9 +754,10 @@ Enable 64bit timescale and duration support. Normally, it's only needed if a tra
                         <constraint firstItem="100221" firstAttribute="top" secondItem="mnz-j4-2OQ" secondAttribute="top" constant="11" id="W1f-ha-gXm"/>
                         <constraint firstItem="100223" firstAttribute="width" secondItem="100221" secondAttribute="width" id="Ykt-xh-F12"/>
                         <constraint firstItem="100188" firstAttribute="baseline" secondItem="100223" secondAttribute="baseline" id="ZDc-Ug-oGw"/>
+                        <constraint firstAttribute="trailing" secondItem="100188" secondAttribute="trailing" constant="100" id="cKd-bV-qHd"/>
                         <constraint firstItem="100215" firstAttribute="baseline" secondItem="100221" secondAttribute="baseline" id="kJ4-iW-o2W"/>
                         <constraint firstItem="100221" firstAttribute="leading" secondItem="mnz-j4-2OQ" secondAttribute="leading" constant="20" id="rRR-Vf-emg"/>
-                        <constraint firstItem="100188" firstAttribute="leading" secondItem="100223" secondAttribute="trailing" constant="8" symbolic="YES" id="rsC-rt-qfA"/>
+                        <constraint firstItem="100188" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="100223" secondAttribute="trailing" constant="8" symbolic="YES" id="rsC-rt-qfA"/>
                         <constraint firstAttribute="trailing" secondItem="100215" secondAttribute="trailing" constant="20" id="v0b-Gj-Oxi"/>
                     </constraints>
                 </customView>
