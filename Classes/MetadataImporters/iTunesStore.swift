@@ -346,8 +346,8 @@ public struct iTunesStore: MetadataService {
 
         if let contentAdvisoryRating = result.contentAdvisoryRating {
             metadata[.rating] = MP42Ratings.defaultManager.ratingStringForiTunesCountry(store.country,
-                                                                                                       media: metadata.mediaKind == 9 ? "movie" : "TV",
-                                                                                                       ratingString: contentAdvisoryRating)
+                                                                                        media: metadata.mediaKind == 9 ? "movie" : "TV",
+                                                                                        ratingString: contentAdvisoryRating)
         }
 
         metadata[.iTunesCountry] = store.storeCode
