@@ -331,9 +331,12 @@ public struct iTunesStore: MetadataService {
             if separated.count <= 1 {
                 separated = s.components(separatedBy: ", book ")
             }
+            if separated.count <= 1 {
+                separated = s.components(separatedBy: ", vol. ")
+            }
 
             let trackCount = result.trackCount ?? 1
-            let season = separated.count > 1 ? Int(separated[1].trimmingCharacters(in: CharacterSet.whitespaces)) ?? 1 : trackCount > 1 ? 1 : 0
+            let season = separated.count > 1 ? Int(separated[1].trimmingCharacters(in: CharacterSet.decimalDigits.inverted)) ?? 1 : trackCount > 1 ? 1 : 0
 
             metadata[.season]    = season
             if let trackNumber = result.trackNumber {
