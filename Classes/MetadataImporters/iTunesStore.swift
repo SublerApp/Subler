@@ -195,55 +195,46 @@ public struct iTunesStore: MetadataService {
 
     // MARK: - Search for TV episode metadata
 
-    private func extractID(results: [Collection], show: String, season: Int, store: Store) -> Int? {
+    private func extractID(result: Collection, show: String, season: Int, store: Store) -> Int? {
         let showPattern = show.replacingOccurrences(of: " ", with: ".*?")
         let seasonPattern = "\(store.season)\\s\(season)$"
 
         guard let showRegex = try? NSRegularExpression(pattern: showPattern, options: [.caseInsensitive]) else { return nil }
         guard let seasonRegex = try? NSRegularExpression(pattern: seasonPattern, options: [.caseInsensitive]) else { return nil }
 
-        for result in results {
-
-            // Skip if the artistName doesn't match the show
-            if showRegex.matches(in: result.artistName, options: [], range: NSRange(result.artistName.startIndex..., in: result.artistName)).isEmpty {
-                continue
-            }
-
-            if result.collectionType != "TV Season" {
-                continue
-            }
-
-            if seasonRegex.matches(in: result.collectionName, options: [], range: NSRange(result.collectionName.startIndex..., in: result.collectionName)).isEmpty {
-                continue
-            }
-
-            return result.collectionId
+        // Skip if the artistName doesn't match the show
+        if showRegex.matches(in: result.artistName, options: [], range: NSRange(result.artistName.startIndex..., in: result.artistName)).isEmpty {
+            return nil
         }
 
-        return nil
+        if result.collectionType != "TV Season" {
+            return nil
+        }
+
+        if seasonRegex.matches(in: result.collectionName, options: [], range: NSRange(result.collectionName.startIndex..., in: result.collectionName)).isEmpty {
+            return nil
+        }
+
+        return result.collectionId
     }
 
-    private func extractID(results: [Artist], show: String, store: Store) -> Int? {
+    private func extractID(result: Artist, show: String, store: Store) -> Int? {
         let showPattern = show.replacingOccurrences(of: " ", with: ".*?")
         guard let showRegex = try? NSRegularExpression(pattern: showPattern, options: [.caseInsensitive]) else { return nil }
 
-        for result in results {
-            // Skip if the artistName doesn't match the show
-            if showRegex.matches(in: result.artistName, options: [], range: NSRange(result.artistName.startIndex..., in: result.artistName)).isEmpty {
-                continue
-            }
-
-            if result.artistType != "TV Show" {
-                continue
-            }
-
-            return result.artistId
+        // Skip if the artistName doesn't match the show
+        if showRegex.matches(in: result.artistName, options: [], range: NSRange(result.artistName.startIndex..., in: result.artistName)).isEmpty {
+            return nil
         }
 
-        return nil
+        if result.artistType != "TV Show" {
+            return nil
+        }
+
+        return result.artistId
     }
 
-    private func findiTunesID(seriesName: String, seasonNum: Int?, store: Store) -> Int? {
+    private func findiTunesIDs(seriesName: String, seasonNum: Int?, store: Store) -> [Int] {
         // Determine artistId/collectionId
         guard let url = { () -> URL? in
             if let seasonNum = seasonNum {
@@ -255,48 +246,51 @@ public struct iTunesStore: MetadataService {
                 return URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=showTerm&entity=tvShow&limit=250")
             }
         }()
-        else { return nil }
+        else { return [] }
 
         if let seasonNum = seasonNum {
-            if let results = sendJSONRequest(url: url, type: Wrapper<Collection>.self) {
-                return extractID(results: results.results, show: seriesName, season: seasonNum, store: store)
+            if let results = sendJSONRequest(url: url, type: Wrapper<Collection>.self)?.results {
+                return results.flatMap { extractID(result: $0, show: seriesName, season: seasonNum, store: store) }
             }
         }
         else {
-            if let results = sendJSONRequest(url: url, type: Wrapper<Artist>.self) {
-                return extractID(results: results.results, show: seriesName, store: store)
+            if let results = sendJSONRequest(url: url, type: Wrapper<Artist>.self)?.results {
+                return results.flatMap { extractID(result: $0, show: seriesName, store: store) }
             }
         }
 
-        return nil
+        return []
     }
 
     public func search(TVSeries: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
         guard let store = iTunesStore.store(language: language) else { return [] }
 
         // Determine artistId/collectionId
-        guard let id = { () -> Int? in
-            if let id = findiTunesID(seriesName: TVSeries, seasonNum: season, store: store) { return id }
-            else if let id = findiTunesID(seriesName: TVSeries, seasonNum: nil, store: store) { return id }
-            else { return nil }
-            }()
-        else { return [] }
+        let ids = { () -> [Int] in
+            let idsWithSeason = self.findiTunesIDs(seriesName: TVSeries, seasonNum: season, store: store)
+            if idsWithSeason.isEmpty == false { return idsWithSeason }
+            return self.findiTunesIDs(seriesName: TVSeries, seasonNum: nil, store: store)
+        }()
 
         // If we have an ID, use the lookup API to get episodes for that show/season
-        if let lookupUrl = URL(string: "https://itunes.apple.com/lookup?country=\(store.country2)&id=\(id)&entity=tvEpisode&limit=200"),
-            let results = sendJSONRequest(url: lookupUrl, type: Wrapper<Track>.self) {
+        for id in ids {
+            if let lookupUrl = URL(string: "https://itunes.apple.com/lookup?country=\(store.country2)&id=\(id)&entity=tvEpisode&limit=200"),
+                let results = sendJSONRequest(url: lookupUrl, type: Wrapper<Track>.self) {
 
-            var filteredResults = results.results.filter { $0.wrapperType == "track" } .map { metadata(forTVResult: $0, store: store) }
+                var filteredResults = results.results.filter { $0.wrapperType == "track" } .map { metadata(forTVResult: $0, store: store) }
 
-            if let season = season {
-                filteredResults = filteredResults.filter { $0[.season] as! Int == season }
+                if let season = season {
+                    filteredResults = filteredResults.filter { $0[.season] as! Int == season }
+                }
+
+                if let episode = episode {
+                    filteredResults = filteredResults.filter { $0[.episodeNumber] as! Int == episode }
+                }
+
+                if filteredResults.isEmpty == false {
+                    return filteredResults.sorted(by: areInIncreasingOrder)
+                }
             }
-
-            if let episode = episode {
-                filteredResults = filteredResults.filter { $0[.episodeNumber] as! Int == episode }
-            }
-
-            return filteredResults.sorted(by: areInIncreasingOrder)
         }
 
         return []
