@@ -52,6 +52,9 @@ NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
 @property (nonatomic, strong) IBOutlet NSWindow *saveSetWindow;
 @property (nonatomic, weak) IBOutlet NSTextField *saveSetName;
 
+@property (nonatomic, weak) IBOutlet NSButton *keepArtworks;
+@property (nonatomic, weak) IBOutlet NSButton *keepAnnotations;
+
 @end
 
 @implementation SBMovieViewController
@@ -399,7 +402,10 @@ static NSArray<NSArray *> *_mediaKinds;
 - (IBAction)saveSet:(id)sender
 {
     SBPresetManager *manager = SBPresetManager.shared;
-    SBMetadataPreset *preset = [[SBMetadataPreset alloc] initWithTitle:self.saveSetName.stringValue metadata:self.metadata replaceArtworks:YES replaceAnnotations:NO];
+    SBMetadataPreset *preset = [[SBMetadataPreset alloc] initWithTitle:self.saveSetName.stringValue
+                                                              metadata:self.metadata
+                                                       replaceArtworks:self.keepArtworks.state == NSControlStateValueOff
+                                                    replaceAnnotations:self.keepAnnotations.state == NSControlStateValueOff];
 
     NSError *error = nil;
     if ([manager appendWithNewElement:preset error:&error]) {

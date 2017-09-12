@@ -10,6 +10,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PresetEditorViewController" customModule="Subler" customModuleProvider="target">
             <connections>
                 <outlet property="artworksView" destination="217" id="yBS-St-WKT"/>
+                <outlet property="keepAnnotations" destination="7Bp-pc-g7o" id="cvi-hs-cuy"/>
+                <outlet property="keepArtworks" destination="dAO-nk-B30" id="PAC-kM-wUR"/>
                 <outlet property="metadataTableView" destination="qg5-r0-E4V" id="MI2-BK-D1m"/>
                 <outlet property="presetTitle" destination="RvM-No-Mwg" id="49x-Pe-5El"/>
                 <outlet property="removeArtworkButton" destination="226" id="lol-au-qXS"/>
@@ -33,7 +35,7 @@
                     <rect key="frame" x="20" y="86" width="179" height="296"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="7IP-Gn-Bxd">
                         <rect key="frame" x="1" y="1" width="177" height="294"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <ikImageBrowserView autoresizesSubviews="NO" zoomValue="1" allowsReordering="YES" animates="YES" translatesAutoresizingMaskIntoConstraints="NO" id="217" customClass="SBImageBrowserView">
                                 <rect key="frame" x="0.0" y="0.0" width="177" height="294"/>
@@ -161,7 +163,7 @@
                     <rect key="frame" x="207" y="86" width="473" height="296"/>
                     <clipView key="contentView" id="cQT-bX-0YB">
                         <rect key="frame" x="1" y="0.0" width="471" height="295"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="14" rowSizeStyle="automatic" headerView="qXU-xB-xRF" viewBased="YES" floatsGroupRows="NO" id="qg5-r0-E4V" customClass="SBTableView">
                                 <rect key="frame" x="0.0" y="0.0" width="471" height="272"/>
@@ -459,22 +461,22 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="167" userLabel="Preset Save">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="400" width="436" height="99"/>
+            <rect key="contentRect" x="196" y="400" width="436" height="139"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="168">
-                <rect key="frame" x="0.0" y="0.0" width="436" height="99"/>
+                <rect key="frame" x="0.0" y="0.0" width="436" height="139"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="173">
-                        <rect key="frame" x="17" y="60" width="67" height="17"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Set Name:" id="174">
+                        <rect key="frame" x="17" y="100" width="44" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Name:" id="174">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="171">
-                        <rect key="frame" x="90" y="57" width="326" height="22"/>
+                        <rect key="frame" x="67" y="97" width="349" height="22"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="176">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -507,23 +509,41 @@ Gw
                             <action selector="closeSaveSheet:" target="-2" id="190"/>
                         </connections>
                     </button>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="dAO-nk-B30">
+                        <rect key="frame" x="65" y="73" width="160" height="18"/>
+                        <buttonCell key="cell" type="check" title="Keep existing artworks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="CHk-xu-U9f">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="7Bp-pc-g7o">
+                        <rect key="frame" x="65" y="53" width="178" height="18"/>
+                        <buttonCell key="cell" type="check" title="Keep existing annotations" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0nh-AI-EEk">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="7Bp-pc-g7o" firstAttribute="leading" secondItem="171" secondAttribute="leading" id="4Bs-yW-kZP"/>
+                    <constraint firstItem="dAO-nk-B30" firstAttribute="top" secondItem="171" secondAttribute="bottom" constant="8" id="Bi7-8D-ptH"/>
                     <constraint firstAttribute="trailing" secondItem="171" secondAttribute="trailing" constant="20" id="Bkq-gS-YMZ"/>
+                    <constraint firstItem="169" firstAttribute="top" secondItem="7Bp-pc-g7o" secondAttribute="bottom" constant="14" id="CO8-9t-Xnn"/>
                     <constraint firstItem="171" firstAttribute="leading" secondItem="173" secondAttribute="trailing" constant="8" id="I3Q-54-00c"/>
                     <constraint firstItem="170" firstAttribute="leading" secondItem="169" secondAttribute="trailing" constant="12" id="KXE-87-048"/>
                     <constraint firstItem="169" firstAttribute="width" secondItem="170" secondAttribute="width" id="Nzs-pA-qOx"/>
+                    <constraint firstItem="7Bp-pc-g7o" firstAttribute="top" secondItem="dAO-nk-B30" secondAttribute="bottom" constant="6" symbolic="YES" id="Rn4-Qj-WTz"/>
                     <constraint firstItem="170" firstAttribute="baseline" secondItem="169" secondAttribute="baseline" id="SJn-Ag-5ND"/>
                     <constraint firstAttribute="bottom" secondItem="170" secondAttribute="bottom" constant="20" id="Vqz-mT-yfi"/>
                     <constraint firstItem="173" firstAttribute="baseline" secondItem="171" secondAttribute="baseline" id="XsN-jd-dVp"/>
-                    <constraint firstItem="170" firstAttribute="top" secondItem="171" secondAttribute="bottom" constant="16" id="Y2F-xQ-iM7"/>
                     <constraint firstItem="173" firstAttribute="top" secondItem="168" secondAttribute="top" constant="22" id="cnF-qG-frb"/>
                     <constraint firstItem="173" firstAttribute="leading" secondItem="168" secondAttribute="leading" constant="19" id="dT8-jl-s1d"/>
                     <constraint firstItem="169" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="168" secondAttribute="leading" constant="20" symbolic="YES" id="gA7-h5-jpu"/>
+                    <constraint firstItem="7Bp-pc-g7o" firstAttribute="leading" secondItem="dAO-nk-B30" secondAttribute="leading" id="oFk-n0-rzO"/>
                     <constraint firstAttribute="trailing" secondItem="170" secondAttribute="trailing" constant="20" id="xh2-2u-G14"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="-333" y="196.5"/>
+            <point key="canvasLocation" x="331" y="51"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="z7a-RX-pNz"/>
     </objects>
