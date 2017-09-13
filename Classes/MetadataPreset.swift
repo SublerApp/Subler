@@ -22,7 +22,7 @@ import Foundation
 
     @objc init(title: String, metadata: MP42Metadata, replaceArtworks: Bool, replaceAnnotations: Bool) {
         self.title = title
-        self.metadata = metadata
+        self.metadata = metadata.copy() as! MP42Metadata
         self.replaceArtworks = replaceArtworks
         self.replaceAnnotations = replaceAnnotations
         self.changed = true
