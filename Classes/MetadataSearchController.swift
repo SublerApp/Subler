@@ -374,9 +374,9 @@ import Cocoa
         case .searching(let search, _):
             switch search {
             case .movieSeach(let service, _, _):
-                progressText.stringValue = NSLocalizedString("Searching \(service.name) for movie information…", comment: "")
+                progressText.stringValue = String.localizedStringWithFormat(NSLocalizedString("Searching %@ for movie information…", comment: ""), service.name)
             case .tvSearch(let service, _, _ , _, _):
-                progressText.stringValue = NSLocalizedString("Searching \(service.name) for episode information…", comment: "")
+                progressText.stringValue = String.localizedStringWithFormat(NSLocalizedString("Searching %@ for episode information…", comment: ""), service.name)
             }
         case .additionalSearch(let search, _, _):
             switch search {

@@ -16,8 +16,8 @@ import Foundation
         self.preset = preset.copy() as! MetadataPreset
     }
 
-    let localizedDescription: String = NSLocalizedString("Apply %@ preset", comment: "Action localized description.")
-    override var description: String { get { return NSLocalizedString("Applying %@ preset", comment: "Action description.") } }
+    var localizedDescription: String { return String.localizedStringWithFormat(NSLocalizedString("Applying %@ preset", comment: "Action localized description."), preset.title) }
+    override var description: String { return String.localizedStringWithFormat(NSLocalizedString("Apply %@ preset", comment: "Action description"), preset.title) }
 
     func runAction(_ item: SBQueueItem) {
         guard let metadata = item.mp4File?.metadata else { return }
