@@ -503,6 +503,7 @@
 			isa = PBXGroup;
 			children = (
 				A92ECCE21F49984C0063BFBD /* PrefsWindowController.swift */,
+				A90B023910F3290A000416F3 /* Prefs.xib */,
 				A944E5911F498FC4002E43F6 /* PresetPrefsViewController.swift */,
 				A90300CA1DAE72C4008237D8 /* SBPresetPrefsViewController.xib */,
 				A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */,
@@ -562,7 +563,6 @@
 				A961476513F568210068F161 /* Queue.xib */,
 				A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */,
 				A9BC410618D9ABC000F8C92C /* QueueItem.xib */,
-				A90B023910F3290A000416F3 /* Prefs.xib */,
 				A9C5FA7219FA2FEC0051F3FF /* SBLogWindow.xib */,
 				A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */,
 				A9DA3BA11B918D6F00F1E40C /* ExceptionAlert.xib */,

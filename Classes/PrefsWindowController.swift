@@ -48,7 +48,9 @@ import Cocoa
 
                                        "SBMetadataMovieResultMap":       movieDefaultMap,
                                        "SBMetadataTvShowResultMap":      tvShowDefaultMap,
-                                       "SBMetadataKeepEmptyAnnotations": false]
+                                       "SBMetadataKeepEmptyAnnotations": false,
+                                       
+                                       "SBForceHvc1": true]
 
         defaults.register(defaults: settings)
     }
