@@ -96,8 +96,8 @@ extension Array where Element == Artwork {
 
     private let preferredArtwork: ArtworkType
 
-    let localizedDescription: String = NSLocalizedString("Searching metadata", comment: "Action localized description.")
-    override var description: String { get { return NSLocalizedString("Search Metadata", comment: "Action description.") } }
+    var localizedDescription: String { return NSLocalizedString("Searching metadata", comment: "Action localized description.") }
+    override var description: String { return NSLocalizedString("Search Metadata", comment: "Action description.") }
 
     @objc init(movieLanguage: String, tvShowLanguage: String, movieProvider: String, tvShowProvider: String, preferredArtwork: ArtworkType) {
         self.movieLanguage = movieLanguage;
