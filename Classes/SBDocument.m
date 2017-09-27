@@ -321,6 +321,9 @@ static NSDictionary *_detailMonospacedAttr;
 
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBOrganizeAlternateGroups"] boolValue]) {
         [self.mp4 organizeAlternateGroups];
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBInferMediaCharacteristics"] boolValue]) {
+            [self.mp4 inferMediaCharacteristics];
+        }
     }
 
     switch (saveOperation) {
@@ -1009,6 +1012,9 @@ static NSDictionary *_detailMonospacedAttr;
 
         if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBOrganizeAlternateGroups"] boolValue]) {
             [self.mp4 organizeAlternateGroups];
+            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBInferMediaCharacteristics"] boolValue]) {
+                [self.mp4 inferMediaCharacteristics];
+            }
         }
     }
 
@@ -1124,6 +1130,8 @@ static NSDictionary *_detailMonospacedAttr;
 - (IBAction)iTunesFriendlyTrackGroups:(id)sender
 {
     [self.mp4 organizeAlternateGroups];
+    [self.mp4 inferMediaCharacteristics];
+
     [self.tracksTable reloadData];
     [self reloadPropertyView];
     [self updateChangeCount:NSChangeDone];

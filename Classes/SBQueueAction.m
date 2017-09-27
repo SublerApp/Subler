@@ -90,6 +90,7 @@
 
 - (void)runAction:(SBQueueItem *)item {
     [item.mp4File organizeAlternateGroups];
+    [item.mp4File inferMediaCharacteristics];
 }
 
 - (NSString *)description {
