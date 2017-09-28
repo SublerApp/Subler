@@ -25,7 +25,7 @@ import Cocoa
         let settings: [String: Any] = ["SBSaveFormat":                  "m4v",
                                        "defaultSaveFormat":             "0",
                                        "SBOrganizeAlternateGroups":     true,
-                                       "SBInferMediaCharacteristics":   true,
+                                       "SBInferMediaCharacteristics":   false,
                                        "SBAudioMixdown":                "1",
                                        "SBAudioBitrate":                "96",
                                        "SBAudioConvertAC3":             true,
