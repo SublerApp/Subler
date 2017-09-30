@@ -59,7 +59,7 @@ class RunnableTask<T> : Runnable {
 
 private let allowedChars: CharacterSet = {
     var chars = CharacterSet.urlQueryAllowed
-    chars.remove(charactersIn: "&+=?")
+    chars.remove(charactersIn: "&+=?;")
     return chars
 }()
 
