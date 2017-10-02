@@ -42,24 +42,24 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
         _arrayQueue = dispatch_queue_create("org.subler.SaveQueue", DISPATCH_QUEUE_SERIAL);
         _URL = [queueURL copy];
 
-        if ([[NSFileManager defaultManager] fileExistsAtPath:queueURL.path]) {
-            @try {
-                NSData *queue = [NSData dataWithContentsOfURL:queueURL];
+        @try {
+            NSData *queue = [NSData dataWithContentsOfURL:queueURL];
+            if (queue) {
                 NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:queue];
                 unarchiver.requiresSecureCoding = YES;
                 _items = [unarchiver decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableArray class], [SBQueueItem class], nil]
                                                     forKey:NSKeyedArchiveRootObjectKey];
                 [unarchiver finishDecoding];
             }
-            @catch (NSException *exception) {
-                [[NSFileManager defaultManager] removeItemAtURL:queueURL error:nil];
-                _items = nil;
-            }
+        }
+        @catch (NSException *exception) {
+            [[NSFileManager defaultManager] removeItemAtURL:queueURL error:nil];
+            _items = nil;
+        }
 
-            for (SBQueueItem *item in _items) {
-                if (item.status == SBQueueItemStatusWorking) {
-                    item.status = SBQueueItemStatusFailed;
-                }
+        for (SBQueueItem *item in _items) {
+            if (item.status == SBQueueItemStatusWorking) {
+                item.status = SBQueueItemStatusFailed;
             }
         }
 

@@ -77,8 +77,8 @@
     if (self) {
         _mp4File = MP4;
 
-        _fileURL = [NSURL fileURLWithPath:(MP4.URL).path];
-        _destURL = [NSURL fileURLWithPath:(MP4.URL).path];
+        _fileURL = [NSURL fileURLWithPath:MP4.URL.path];
+        _destURL = [NSURL fileURLWithPath:MP4.URL.path];
 
         NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 

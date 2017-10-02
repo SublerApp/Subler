@@ -264,22 +264,22 @@
                                                          BOOL documentWasAlreadyOpen,
                                                          NSError * _Nullable error))completionHandler
 {
-    NSString *extension = url.pathExtension;
+    NSString *extension = url.pathExtension.lowercaseString;
     MP42File *mp4 = nil;
 
-    if ([extension caseInsensitiveCompare: @"mp4"] == NSOrderedSame ||
-        [extension caseInsensitiveCompare: @"m4v"] == NSOrderedSame ||
-        [extension caseInsensitiveCompare: @"m4a"] == NSOrderedSame ||
-        [extension caseInsensitiveCompare: @"m4r"] == NSOrderedSame ||
-        [extension caseInsensitiveCompare: @"m4b"] == NSOrderedSame) {
+    if ([extension isEqualToString: @"mp4"] ||
+        [extension isEqualToString: @"m4v"] ||
+        [extension isEqualToString: @"m4a"] ||
+        [extension isEqualToString: @"m4r"] ||
+        [extension isEqualToString: @"m4b"]) {
 
         mp4 = [[MP42File alloc] initWithURL:url error:NULL];
     }
 
-    if ([extension caseInsensitiveCompare: @"mkv"] == NSOrderedSame ||
-        [extension caseInsensitiveCompare: @"mka"] == NSOrderedSame ||
-        [extension caseInsensitiveCompare: @"mks"] == NSOrderedSame ||
-        [extension caseInsensitiveCompare: @"mov"] == NSOrderedSame ||
+    if ([extension isEqualToString: @"mkv"] ||
+        [extension isEqualToString: @"mka"] ||
+        [extension isEqualToString: @"mks"] ||
+        [extension isEqualToString: @"mov"] ||
         mp4 == nil) {
 
         NSError *outError = nil;
