@@ -414,12 +414,14 @@ bail:
 
 #pragma mark NSSecureCoding
 
+#define SBQUEUEITEM_VERSION 4
+
 + (BOOL)supportsSecureCoding {
     return YES;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-    [coder encodeInt:3 forKey:@"SBQueueItemTagEncodeVersion"];
+    [coder encodeInt:SBQUEUEITEM_VERSION forKey:@"SBQueueItemTagEncodeVersion"];
 
     [coder encodeObject:_uniqueID forKey:@"SBQueueItemID"];
     [coder encodeObject:_mp4File forKey:@"SBQueueItemMp4File"];
@@ -434,20 +436,28 @@ bail:
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super init];
 
-    _uniqueID = [decoder decodeObjectOfClass:[NSString class] forKey:@"SBQueueItemID"];
-    _mp4File = [decoder decodeObjectOfClass:[MP42File class] forKey:@"SBQueueItemMp4File"];
+    if (self) {
 
-    _fileURL = [decoder decodeObjectOfClass:[NSURL class] forKey:@"SBQueueItemFileURL"];
-    _destURL = [decoder decodeObjectOfClass:[NSURL class] forKey:@"SBQueueItemDestURL"];
-    _attributes = [decoder decodeObjectOfClass:[NSDictionary class] forKey:@"SBQueueItemAttributes"];
-    _actionsInternal = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableArray class], [SBQueueSetAction class],
-                                                       [SBQueueMetadataAction class], [SBQueueSubtitlesAction class],
-                                                       [SBQueueSetLanguageAction class], [SBQueueFixFallbacksAction class],
-                                                       [SBQueueClearTrackNameAction class], [SBQueueOrganizeGroupsAction class],
-                                                       [SBQueueColorSpaceAction class], nil]
-                                               forKey:@"SBQueueItemActions"];
+        NSInteger version = [decoder decodeIntForKey:@"SBQueueItemTagEncodeVersion"];
+        if (version < SBQUEUEITEM_VERSION) {
+            return nil;
+        }
 
-    _status = [decoder decodeIntForKey:@"SBQueueItemStatus"];
+        _uniqueID = [decoder decodeObjectOfClass:[NSString class] forKey:@"SBQueueItemID"];
+        _mp4File = [decoder decodeObjectOfClass:[MP42File class] forKey:@"SBQueueItemMp4File"];
+
+        _fileURL = [decoder decodeObjectOfClass:[NSURL class] forKey:@"SBQueueItemFileURL"];
+        _destURL = [decoder decodeObjectOfClass:[NSURL class] forKey:@"SBQueueItemDestURL"];
+        _attributes = [decoder decodeObjectOfClass:[NSDictionary class] forKey:@"SBQueueItemAttributes"];
+        _actionsInternal = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableArray class], [SBQueueSetAction class],
+                                                           [SBQueueMetadataAction class], [SBQueueSubtitlesAction class],
+                                                           [SBQueueSetLanguageAction class], [SBQueueFixFallbacksAction class],
+                                                           [SBQueueClearTrackNameAction class], [SBQueueOrganizeGroupsAction class],
+                                                           [SBQueueColorSpaceAction class], nil]
+                                                   forKey:@"SBQueueItemActions"];
+
+        _status = [decoder decodeIntForKey:@"SBQueueItemStatus"];
+    }
     return self;
 }
 
