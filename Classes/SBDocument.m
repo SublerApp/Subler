@@ -68,6 +68,7 @@
 @property (nonatomic, strong) NSWindowController *sheetController;
 
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, NSNumber *> *currentSaveAttributes;
+@property (nonatomic) NSInteger currentTrackIndex;
 
 @end
 
@@ -283,6 +284,8 @@ static NSDictionary *_detailMonospacedAttr;
             self.mp4 = reloadedFile;
 
             [self.tracksTable reloadData];
+            NSIndexSet *index = [NSIndexSet indexSetWithIndex:self.currentTrackIndex];
+            [self.tracksTable selectRowIndexes:index byExtendingSelection:NO];
             [self reloadPropertyView];
 
             completionHandler(error);
@@ -749,6 +752,9 @@ static NSDictionary *_detailMonospacedAttr;
 	// make sure we automatically resize the controller's view to the current window size
 	propertyView.view.frame = targetView.bounds;
     propertyView.view.autoresizingMask = (NSViewWidthSizable | NSViewHeightSizable);
+
+    // save the index
+    self.currentTrackIndex = row;
 }
 
 - (BOOL)tableView:(NSTableView *)tv writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard
