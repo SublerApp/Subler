@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MP42File *mp4;
 
-- (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError **)outError;
+- (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError * __autoreleasing *)outError;
 
 @property (nonatomic, strong, nullable) NSWindowController *sheetController;
 

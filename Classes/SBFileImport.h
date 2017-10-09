@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SBFileImport : NSWindowController
 
 - (instancetype)init NS_UNAVAILABLE;
-- (nullable instancetype)initWithURLs:(NSArray<NSURL *> *)fileURLs delegate:(id <SBFileImportDelegate>)delegate error:(NSError **)error;
+- (nullable instancetype)initWithURLs:(NSArray<NSURL *> *)fileURLs delegate:(id <SBFileImportDelegate>)delegate error:(NSError * __autoreleasing *)error;
 
 - (IBAction)closeWindow:(id)sender;
 - (IBAction)addTracks:(id)sender;

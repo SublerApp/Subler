@@ -46,8 +46,8 @@ typedef NS_ENUM(NSUInteger, SBQueueItemStatus) {
 - (void)addAction:(id<SBQueueActionProtocol>)action;
 - (void)removeAction:(id<SBQueueActionProtocol>)action;
 
-- (BOOL)prepare:(NSError **)outError;
-- (BOOL)processWithOptions:(BOOL)optimize error:(NSError **)outError;
+- (BOOL)prepare:(NSError * __autoreleasing *)outError;
+- (BOOL)processWithOptions:(BOOL)optimize error:(NSError * __autoreleasing *)outError;
 - (void)cancel;
 
 @end
