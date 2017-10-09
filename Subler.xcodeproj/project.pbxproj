@@ -41,6 +41,7 @@
 		A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */; };
 		A961476313F567E10068F161 /* SBQueueController.m in Sources */ = {isa = PBXBuildFile; fileRef = A961476013F567E10068F161 /* SBQueueController.m */; };
 		A961476713F568210068F161 /* Queue.xib in Resources */ = {isa = PBXBuildFile; fileRef = A961476513F568210068F161 /* Queue.xib */; };
+		A962D9EE1F8B7F9F00802EEF /* FileImportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A962D9ED1F8B7F9F00802EEF /* FileImportController.swift */; };
 		A96946531BA3F83D0048C004 /* SBMediaTagsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A96946511BA3F83D0048C004 /* SBMediaTagsController.m */; };
 		A9707B9317B139780010F3DB /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD56966E12FAAFA90029FADB /* Quartz.framework */; };
 		A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A982D0BF140AB66400B92357 /* SBQueueItem.m */; };
@@ -231,6 +232,7 @@
 		A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBImageBrowserView.m; path = Classes/SBImageBrowserView.m; sourceTree = "<group>"; };
 		A961475F13F567E10068F161 /* SBQueueController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueController.h; path = Classes/SBQueueController.h; sourceTree = "<group>"; };
 		A961476013F567E10068F161 /* SBQueueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SBQueueController.m; path = Classes/SBQueueController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		A962D9ED1F8B7F9F00802EEF /* FileImportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileImportController.swift; path = Classes/FileImportController.swift; sourceTree = "<group>"; };
 		A96946501BA3F83D0048C004 /* SBMediaTagsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMediaTagsController.h; path = Classes/SBMediaTagsController.h; sourceTree = "<group>"; };
 		A96946511BA3F83D0048C004 /* SBMediaTagsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMediaTagsController.m; path = Classes/SBMediaTagsController.m; sourceTree = "<group>"; };
 		A97BE36E0F73D72E00652CBD /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
@@ -556,10 +558,6 @@
 				A9AB486017F0AEFD000AA72E /* SoundView.xib */,
 				A9AB486217F0AEFD000AA72E /* VideoView.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
-				A9C055360F6D395B00AF15B5 /* FileImport.xib */,
-				CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */,
-				CD4E6E5B12F744210095C84F /* ArtworkSelector.xib */,
-				A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */,
 				A961476513F568210068F161 /* Queue.xib */,
 				A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */,
 				A9BC410618D9ABC000F8C92C /* QueueItem.xib */,
@@ -615,11 +613,16 @@
 				A9B46ABD12B79D1C0040517A /* SBDocument.h */,
 				A9B46ABE12B79D1C0040517A /* SBDocument.m */,
 				A9577CF51F3DC667009181F4 /* Document+Swift.swift */,
+				A962D9ED1F8B7F9F00802EEF /* FileImportController.swift */,
 				A9B46A7E12B79B240040517A /* SBFileImport.h */,
 				A9B46A7F12B79B240040517A /* SBFileImport.m */,
+				A9C055360F6D395B00AF15B5 /* FileImport.xib */,
 				A9E932A61F34D31D00B1790B /* ArtworkSelector.swift */,
+				CD4E6E5B12F744210095C84F /* ArtworkSelector.xib */,
 				A997B0A91F348AB000974C9C /* MetadataSearchController.swift */,
+				CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */,
 				A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */,
+				A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */,
 				A909440E1DD4C85B00E9F89C /* Table View */,
 				A9FD5D150F3C692400817716 /* PropertyView */,
 			);
@@ -843,6 +846,7 @@
 				A98D98481F02820F00A77ABC /* TheMovieDBService.swift in Sources */,
 				A9B75B8E1DAD1B140031798B /* SBPopUpCellView.m in Sources */,
 				A91690041DABFDAA004B9AB0 /* SBCheckBoxCellView.m in Sources */,
+				A962D9EE1F8B7F9F00802EEF /* FileImportController.swift in Sources */,
 				A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */,
 				A9577CF61F3DC667009181F4 /* Document+Swift.swift in Sources */,
 				A9859ACE1F4B43CC00022828 /* QueuePreset.swift in Sources */,
