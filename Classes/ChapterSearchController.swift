@@ -41,7 +41,7 @@ class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTabl
 
             case .movie(let title):
                 searchTerm = title
-            case .tvShow(_,  _,  _):
+            case .tvShow, .none:
                 searchTerm = title
             }
         }

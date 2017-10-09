@@ -34,14 +34,14 @@ public struct TheTVDB : MetadataService, MetadataNameService {
 
     // MARK: - TV Series name search
 
-    public func search(TVSeries: String, language: String) -> [String] {
+    public func search(tvShow: String, language: String) -> [String] {
         var results: Set<String> = Set()
 
-        let series = session.fetch(series: TVSeries, language: language)
+        let series = session.fetch(series: tvShow, language: language)
         results.formUnion(series.flatMap { $0.seriesName } )
 
         if language != defaultLanguage {
-            let englishResults = search(TVSeries: TVSeries, language: defaultLanguage)
+            let englishResults = search(tvShow: tvShow, language: defaultLanguage)
             results.formUnion(englishResults)
         }
 
@@ -226,10 +226,10 @@ public struct TheTVDB : MetadataService, MetadataNameService {
 
     // MARK: - TV Search
 
-    public func search(TVSeries: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
+    public func search(tvShow: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
         let seriesIDs: [Int] =  {
-            let result = self.searchIDs(seriesName: TVSeries, language: language)
-            return result.isEmpty ? self.searchIDs(seriesName: TVSeries, language: defaultLanguage) : result
+            let result = self.searchIDs(seriesName: tvShow, language: language)
+            return result.isEmpty ? self.searchIDs(seriesName: tvShow, language: defaultLanguage) : result
         }()
 
         var results: [MetadataResult] = Array()

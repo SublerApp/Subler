@@ -78,7 +78,7 @@ public struct iTunesStore: MetadataService {
 
     public static func quickiTunesSearch(tvSeriesName: String, seasonNum: Int?, episodeNum: Int?) -> MetadataResult? {
         guard let language = UserDefaults.standard.string(forKey: "SBMetadataPreference|TV|iTunes Store|Language") else { return nil }
-        return iTunesStore().search(TVSeries: tvSeriesName, language: language, season: seasonNum, episode: episodeNum).first
+        return iTunesStore().search(tvShow: tvSeriesName, language: language, season: seasonNum, episode: episodeNum).first
     }
 
     public static func quickiTunesSearch(movieName: String) -> MetadataResult? {
@@ -262,14 +262,14 @@ public struct iTunesStore: MetadataService {
         return []
     }
 
-    public func search(TVSeries: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
+    public func search(tvShow: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
         guard let store = iTunesStore.store(language: language) else { return [] }
 
         // Determine artistId/collectionId
         let ids = { () -> [Int] in
-            let idsWithSeason = self.findiTunesIDs(seriesName: TVSeries, seasonNum: season, store: store)
+            let idsWithSeason = self.findiTunesIDs(seriesName: tvShow, seasonNum: season, store: store)
             if idsWithSeason.isEmpty == false { return idsWithSeason }
-            return self.findiTunesIDs(seriesName: TVSeries, seasonNum: nil, store: store)
+            return self.findiTunesIDs(seriesName: tvShow, seasonNum: nil, store: store)
         }()
 
         // If we have an ID, use the lookup API to get episodes for that show/season

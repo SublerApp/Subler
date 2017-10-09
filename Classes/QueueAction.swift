@@ -114,7 +114,7 @@ extension Array where Element == Artwork {
         return MP42Image(data: data, type: MP42_ART_JPEG)
     }
 
-    private func searchMetadata(info: FilenameInfo) -> MetadataResult? {
+    private func searchMetadata(info: MetadataSearchTerms) -> MetadataResult? {
         var metadata: MetadataResult? = nil
 
         switch info {
@@ -128,26 +128,27 @@ extension Array where Element == Artwork {
             }).run()
         case let .tvShow(seriesName, season, episode):
             let service = MetadataSearch.service(name: self.tvShowProvider)
-            let tvSearch = MetadataSearch.tvSearch(service: service, tvSeries: seriesName, season: season, episode: episode, language: tvShowLanguage)
+            let tvSearch = MetadataSearch.tvSearch(service: service, tvShow: seriesName, season: season, episode: episode, language: tvShowLanguage)
             _ = tvSearch.search(completionHandler: {
                 if let result = $0.first {
                     _ = tvSearch.loadAdditionalMetadata(result, completionHandler: { metadata = $0 }).run()
                 }
             }).run()
+        case .none:
+            break
         }
 
         return metadata
     }
 
-    private func searchMetadata(url: URL) -> MP42Metadata? {
+    private func searchMetadata(terms: MetadataSearchTerms) -> MP42Metadata? {
 
-        guard let info = url.lastPathComponent.parsedAsFilename(),
-              let metadata = searchMetadata(info: info) else { return nil }
+        guard let metadata = searchMetadata(info: terms) else { return nil }
 
         let artworks = metadata.remoteArtworks
         if artworks.isEmpty == false {
             let artwork: Artwork? = {
-                let provider = info.isMovie ? self.movieProvider : self.tvShowProvider
+                let provider = terms.isMovie ? self.movieProvider : self.tvShowProvider
                 if let artwork = artworks.filter(by: preferredArtwork, service: provider) {
                     return artwork
                 }
@@ -176,26 +177,24 @@ extension Array where Element == Artwork {
     }
 
     func runAction(_ item: SBQueueItem) {
-        if let file = item.mp4File, let metadata = searchMetadata(url: item.fileURL) {
+        if let file = item.mp4File {
+            let searchTerms = file.extractSearchTerms(fallbackURL: item.fileURL)
+            if let metadata = searchMetadata(terms: searchTerms) {
 
-            for track in file.tracks(withMediaType: kMP42MediaType_Video) {
-                if let track = track as? MP42VideoTrack {
-                    let hdVideo = isHdVideo(UInt64(track.trackWidth), UInt64(track.trackHeight))
-                    if hdVideo > 0 {
-                        
-                        for item in metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyHDVideo) {
-                            metadata.removeItem(item)
-                        }
-                        
+                for item in metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyHDVideo) {
+                    metadata.removeItem(item)
+                }
+                if let type = file.hdType() {
+                    if type > 0 {
                         metadata.addItem(MP42MetadataItem(identifier: MP42MetadataKeyHDVideo,
-                                                          value: NSNumber(value: hdVideo),
+                                                          value: NSNumber(value: type),
                                                           dataType: MP42MetadataItemDataType.integer,
                                                           extendedLanguageTag: nil))
                     }
                 }
+
+                file.metadata.merge(metadata)
             }
-            
-            file.metadata.merge(metadata)
         }
     }
 

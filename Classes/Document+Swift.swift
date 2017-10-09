@@ -7,41 +7,11 @@
 
 import Foundation
 
-extension MP42File {
-    fileprivate func hdType() -> Int32? {
-        for track in self.tracks(withMediaType: kMP42MediaType_Video) as! [MP42VideoTrack] {
-            return isHdVideo(UInt64(track.trackWidth), UInt64(track.trackHeight))
-        }
-        return nil
-    }
-
-    fileprivate func firstSourceURL() -> URL? {
-        return self.tracks.flatMap { $0.url } .first
-    }
-}
-
 extension SBDocument: ChapterSearchControllerDelegate, MetadataSearchControllerDelegate {
 
-    private func parseExistingInfo() -> MetadataSearchController.Info {
-        if let tvShow = mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyTVShow).first?.stringValue,
-            let season = mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyTVSeason).first?.numberValue?.intValue,
-            let number = mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyTVEpisodeNumber).first?.numberValue?.intValue {
-            return MetadataSearchController.Info.tvShow(tvShow: tvShow, season: season, episode: number)
-        }
-        else if let title = mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyName).first?.stringValue,
-            let _ = mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyReleaseDate).first?.stringValue {
-            return MetadataSearchController.Info.movie(title: title)
-        }
-        else if let url = mp4.firstSourceURL() ?? self.fileURL {
-            return MetadataSearchController.Info.url(url: url)
-
-        }
-        return MetadataSearchController.Info.none
-    }
-
     @IBAction func searchMetadata(_ sender: Any?) {
-        let info = parseExistingInfo()
-        let controller = MetadataSearchController(delegate: self, info: info)
+        let terms = mp4.extractSearchTerms(fallbackURL : fileURL)
+        let controller = MetadataSearchController(delegate: self, searchTerms: terms)
 
         guard let windowForSheet = windowForSheet, let window = controller.window
             else { return }

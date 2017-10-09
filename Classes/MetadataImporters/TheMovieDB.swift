@@ -301,10 +301,10 @@ public struct TheMovieDB: MetadataService {
         return filteredEpisodes.map { metadata(forTVResult: $0, info: info) }
     }
 
-    public func search(TVSeries: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
+    public func search(tvShow: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
         let seriesIDs: [Int] =  {
-            let result = self.searchIDs(seriesName: TVSeries, language: language)
-            return result.isEmpty ? self.searchIDs(seriesName: TVSeries, language: defaultLanguage) : result
+            let result = self.searchIDs(seriesName: tvShow, language: language)
+            return result.isEmpty ? self.searchIDs(seriesName: tvShow, language: defaultLanguage) : result
         }()
 
         var results: [MetadataResult] = Array()

@@ -63,14 +63,7 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
     private var artworkSelector: ArtworkSelectorController?
     private weak var delegate: MetadataSearchControllerDelegate?
 
-    public enum Info {
-        case none
-        case url(url: URL)
-        case movie(title: String)
-        case tvShow(tvShow: String, season: Int, episode: Int)
-    }
-
-    private let info: Info
+    private let terms: MetadataSearchTerms
 
     // MARK: - Static methods
     public static func clearRecentSearches() {
@@ -90,9 +83,9 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
     }
 
     // MARK: - Init
-    init(delegate: MetadataSearchControllerDelegate, info: Info = .none) {
+    init(delegate: MetadataSearchControllerDelegate, searchTerms: MetadataSearchTerms = .none) {
         self.delegate = delegate
-        self.info = info
+        self.terms = searchTerms
 
         super.init(window: nil)
     }
@@ -117,49 +110,22 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
         movieMetadataProvider.selectItem(withTitle: movieService.name)
         tvMetadataProvider.selectItem(withTitle: tvShowService.name)
 
-        switch info {
+        switch terms {
         case .none:
             updateUI()
-
-        case .url(let url):
-            if let parsed = url.lastPathComponent.parsedAsFilename() {
-                switch parsed {
-                case let .movie(title):
-                    searchMode.selectTabViewItem(at: 0)
-                    movieName.stringValue = title
-                    tvSeriesName.stringValue = title
-                    searchForResults(searchMovieButton)
-                case let .tvShow(seriesName, season, episode):
-                    searchMode.selectTabViewItem(at: 1)
-                    tvSeriesName.stringValue = seriesName
-                    movieName.stringValue = seriesName
-                    if let season = season { tvSeasonNum.stringValue = "\(season)" }
-                    if let episode = episode { tvEpisodeNum.stringValue = "\(episode)" }
-                    searchForResults(searchTvButton)
-                }
-            }
-            else {
-                let title = url.deletingPathExtension().lastPathComponent
-                if title.isEmpty == false {
-                    movieName.stringValue = title
-                    tvSeriesName.stringValue = title
-                    searchForResults(searchMovieButton)
-                }
-                else {
-                    updateUI()
-                }
-            }
 
         case .movie(let title):
             searchMode.selectTabViewItem(at: 0)
             movieName.stringValue = title
+            tvSeriesName.stringValue = title
             searchForResults(searchMovieButton)
 
         case .tvShow(let tvShow, let season, let episode):
             searchMode.selectTabViewItem(at: 1)
+            movieName.stringValue = tvShow
             tvSeriesName.stringValue = tvShow
-            tvSeasonNum.stringValue = "\(season)"
-            tvEpisodeNum.stringValue = "\(episode)"
+            if let season = season { tvSeasonNum.stringValue = "\(season)" }
+            if let episode = episode { tvEpisodeNum.stringValue = "\(episode)" }
             searchForResults(searchTvButton)
         }
     }
@@ -222,7 +188,7 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
 
             tvSeriesNameSearchArray = [NSLocalizedString("Searching…", comment: "")]
 
-            nameSearchTask = MetadataNameSearch.tvNameSearch(service: TheTVDB(), tvSeries: tvSeriesName.stringValue, language: "en")
+            nameSearchTask = MetadataNameSearch.tvNameSearch(service: TheTVDB(), tvShow: tvSeriesName.stringValue, language: "en")
                 .search(completionHandler: { (results) in
                 DispatchQueue.main.async {
                     self.tvSeriesNameSearchArray = results.sorted()
@@ -279,7 +245,7 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
         let language = tvShowService.languageType.extendedTag(displayName: tvLanguage.titleOfSelectedItem ?? "en")
         let season = Int(tvSeasonNum.stringValue)
         let episode = Int(tvEpisodeNum.stringValue)
-        let searcher = MetadataSearch.tvSearch(service: tvShowService, tvSeries: title, season: season, episode: episode, language: language)
+        let searcher = MetadataSearch.tvSearch(service: tvShowService, tvShow: title, season: season, episode: episode, language: language)
         let task = searcher.search(completionHandler: { self.searchDone(search: searcher, results: $0) }).runAsync()
         state = .searching(search: searcher, task: task)
     }

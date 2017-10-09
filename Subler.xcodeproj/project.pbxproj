@@ -31,6 +31,7 @@
 		A92BBAB41F557CC0007EA182 /* PresetEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92BBAB21F557CC0007EA182 /* PresetEditorViewController.swift */; };
 		A92BBABE1F5584EA007EA182 /* PresetEditorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A92BBABC1F558388007EA182 /* PresetEditorViewController.xib */; };
 		A92ECCE31F49984C0063BFBD /* PrefsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92ECCE21F49984C0063BFBD /* PrefsWindowController.swift */; };
+		A9395E351F8B9ACA004C402B /* MP42FileAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9395E341F8B9ACA004C402B /* MP42FileAdditions.swift */; };
 		A93DD7681DACCE930052749A /* SBComboBoxCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93DD7671DACCE930052749A /* SBComboBoxCellView.m */; };
 		A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */; };
 		A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */; };
@@ -216,6 +217,7 @@
 		A92BBAB21F557CC0007EA182 /* PresetEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PresetEditorViewController.swift; path = Classes/PresetEditorViewController.swift; sourceTree = "<group>"; };
 		A92BBABD1F558388007EA182 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/Base.lproj/PresetEditorViewController.xib; sourceTree = "<group>"; };
 		A92ECCE21F49984C0063BFBD /* PrefsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrefsWindowController.swift; path = Classes/PrefsWindowController.swift; sourceTree = "<group>"; };
+		A9395E341F8B9ACA004C402B /* MP42FileAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MP42FileAdditions.swift; path = Classes/MP42FileAdditions.swift; sourceTree = "<group>"; };
 		A93DD7661DACCE930052749A /* SBComboBoxCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBComboBoxCellView.h; path = Classes/SBComboBoxCellView.h; sourceTree = "<group>"; };
 		A93DD7671DACCE930052749A /* SBComboBoxCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBComboBoxCellView.m; path = Classes/SBComboBoxCellView.m; sourceTree = "<group>"; };
 		A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterResult.swift; path = Classes/MetadataImporters/ChapterResult.swift; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 				A9FAC5FE1BAC3BAC00525E42 /* Document */,
 				A9AF6A7818D0537F00FAAB08 /* Queue */,
 				A9915ABB1F4B26A5003C57D1 /* Presets */,
+				A9395E341F8B9ACA004C402B /* MP42FileAdditions.swift */,
 				A9AB484717F0AEA2000AA72E /* SBAppDelegate.h */,
 				A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */,
 				A947218D1D49D9F700858DD8 /* Preferences */,
@@ -863,6 +866,7 @@
 				A9AB485417F0AEAC000AA72E /* SBChapterViewController.m in Sources */,
 				A9AB485817F0AEAC000AA72E /* SBVideoViewController.m in Sources */,
 				A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */,
+				A9395E351F8B9ACA004C402B /* MP42FileAdditions.swift in Sources */,
 				A9A8CEF91E43754400BC2AE1 /* SBQueueScriptCommand.m in Sources */,
 				A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */,
 				A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */,

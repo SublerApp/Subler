@@ -55,7 +55,8 @@ import Foundation
 
 // MARK: - Filename
 
-public enum FilenameInfo {
+public enum MetadataSearchTerms {
+    case none
     case movie(title: String)
     case tvShow(seriesName: String, season: Int?, episode: Int?)
 
@@ -63,7 +64,7 @@ public enum FilenameInfo {
             switch self {
             case .movie:
                 return true
-            case .tvShow:
+            case .tvShow, .none:
                 return false
             }
         }
@@ -76,11 +77,11 @@ public enum FilenameInfo {
     }
 }
 
-private func parseAnimeFilename(_ filename: String) -> FilenameInfo? {
+private func parseAnimeFilename(_ filename: String) -> MetadataSearchTerms? {
 
     guard let regex = try? NSRegularExpression(pattern: "^\\[(.+)\\](?:(?:\\s|_)+)?([^()]+)(?:(?:\\s|_)+)(?:(?:-\\s|-_|Ep)+)([0-9]+)", options: [.caseInsensitive]) else { return nil }
 
-    var result: FilenameInfo?
+    var result: MetadataSearchTerms?
 
     regex.enumerateMatches(in: filename, options: [],
                            range: NSRange(filename.startIndex..., in: filename)) {
@@ -91,7 +92,7 @@ private func parseAnimeFilename(_ filename: String) -> FilenameInfo? {
                                 let episode = Int((filename as NSString).substring(with: episodeRange))
 
                                 if seriesName.isEmpty == false {
-                                    result = FilenameInfo.tvShow(seriesName: seriesName, season: 1, episode: episode)
+                                    result = MetadataSearchTerms.tvShow(seriesName: seriesName, season: 1, episode: episode)
                                 }
                             }
     }
@@ -99,7 +100,7 @@ private func parseAnimeFilename(_ filename: String) -> FilenameInfo? {
     return result
 }
 
-private func parseFilename(_ filename: String) -> FilenameInfo? {
+private func parseFilename(_ filename: String) -> MetadataSearchTerms? {
     guard let path = Bundle.main.path(forResource: "ParseFilename", ofType: "") else { return nil }
 
     let stdOut = Pipe()
@@ -122,7 +123,7 @@ private func parseFilename(_ filename: String) -> FilenameInfo? {
     if lines.isEmpty == false {
         if lines.first == "tv" && lines.count >= 4 {
             let newSeriesName = lines[1].replacingOccurrences(of: ".", with: " ")
-            return FilenameInfo.tvShow(seriesName: newSeriesName, season: Int(lines[2]), episode: Int(lines[3]))
+            return MetadataSearchTerms.tvShow(seriesName: newSeriesName, season: Int(lines[2]), episode: Int(lines[3]))
         }
         else if lines.first == "movie" && lines.count >= 2 {
             let newTitle = lines[1].replacingOccurrences(of: ".", with: " ")
@@ -131,7 +132,7 @@ private func parseFilename(_ filename: String) -> FilenameInfo? {
             .replacingOccurrences(of: "[", with: " ")
             .replacingOccurrences(of: "]", with: " ")
             .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            return FilenameInfo.movie(title: newTitle)
+            return MetadataSearchTerms.movie(title: newTitle)
         }
     }
 
@@ -140,7 +141,7 @@ private func parseFilename(_ filename: String) -> FilenameInfo? {
 
 extension String {
 
-    func parsedAsFilename() -> FilenameInfo? {
+    func parsedAsFilename() -> MetadataSearchTerms? {
         if let parsed = parseAnimeFilename(self) {
             return parsed
         }

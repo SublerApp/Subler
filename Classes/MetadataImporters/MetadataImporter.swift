@@ -38,7 +38,7 @@ public protocol MetadataService {
 
     var name: String { get }
 
-    func search(TVSeries: String, language: String, season: Int?, episode: Int?) -> [MetadataResult]
+    func search(tvShow: String, language: String, season: Int?, episode: Int?) -> [MetadataResult]
     func loadTVMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult
 
     func search(movie: String, language: String) -> [MetadataResult]
@@ -48,17 +48,17 @@ public protocol MetadataService {
 
 public protocol MetadataNameService {
 
-    func search(TVSeries: String, language: String) -> [String]
+    func search(tvShow: String, language: String) -> [String]
 
 }
 
 public enum MetadataNameSearch {
-    case tvNameSearch(service: MetadataNameService, tvSeries: String, language: String)
+    case tvNameSearch(service: MetadataNameService, tvShow: String, language: String)
 
     public func search(completionHandler: @escaping ([String]) -> Void) -> Runnable {
         switch self {
-        case let .tvNameSearch(service, tvSeries, language):
-            return RunnableTask(search: service.search(TVSeries: tvSeries, language: language),
+        case let .tvNameSearch(service, tvShow, language):
+            return RunnableTask(search: service.search(tvShow: tvShow, language: language),
                                               completionHandler: completionHandler)
         }
     }
@@ -81,15 +81,15 @@ public enum MetadataType : Int, CustomStringConvertible {
 
 public enum MetadataSearch {
     case movieSeach(service: MetadataService, movie: String, language: String)
-    case tvSearch(service: MetadataService, tvSeries: String, season: Int?, episode: Int?, language: String)
+    case tvSearch(service: MetadataService, tvShow: String, season: Int?, episode: Int?, language: String)
 
     public func search(completionHandler: @escaping ([MetadataResult]) -> Void) -> Runnable {
         switch self {
         case let .movieSeach(service, movie, language):
             return RunnableTask(search: service.search(movie: movie, language: language),
                                               completionHandler: completionHandler)
-        case let .tvSearch(service, tvSeries, season, episode, language):
-            return RunnableTask(search: service.search(TVSeries: tvSeries, language: language, season: season, episode: episode),
+        case let .tvSearch(service, tvShow, season, episode, language):
+            return RunnableTask(search: service.search(tvShow: tvShow, language: language, season: season, episode: episode),
                                               completionHandler: completionHandler)
         }
     }
