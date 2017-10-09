@@ -115,6 +115,7 @@ static NSArray<NSArray *> *_mediaKinds;
 
 - (void)dealloc
 {
+    _artworksView.draggingDestinationDelegate = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
