@@ -15,7 +15,7 @@ extension MP42File {
     }
 
     var hdType: TrackHDType? {
-        for track in self.tracks(withMediaType: kMP42MediaType_Video) as! [MP42VideoTrack] {
+        for track in tracks(withMediaType: kMP42MediaType_Video) as! [MP42VideoTrack] {
             if track.width > 1280 || track.height > 720 {
                 return .hd1080p
             } else if track.width >= 960 && track.height >= 720 || track.width >= 1280 {
@@ -26,7 +26,12 @@ extension MP42File {
     }
 
     func firstSourceURL() -> URL? {
-        return self.tracks.flatMap { $0.url } .first
+        for track in tracks {
+            if track.url != nil {
+                return track.url
+            }
+        }
+        return nil
     }
 
     func extractSearchTerms(fallbackURL: URL?) -> MetadataSearchTerms {
