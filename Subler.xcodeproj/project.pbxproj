@@ -79,7 +79,6 @@
 		A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */; };
 		A9B46A8C12B79B240040517A /* SBFileImport.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A7F12B79B240040517A /* SBFileImport.m */; };
 		A9B46A8F12B79B240040517A /* SBTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A8512B79B240040517A /* SBTableView.m */; };
-		A9B46A9012B79B240040517A /* SBView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A8712B79B240040517A /* SBView.m */; };
 		A9B46A9E12B79B990040517A /* ButtonToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A9412B79B990040517A /* ButtonToolbarItem.m */; };
 		A9B46AA412B79BB10040517A /* Subler.icns in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AA312B79BB10040517A /* Subler.icns */; };
 		A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46ABE12B79D1C0040517A /* SBDocument.m */; };
@@ -278,8 +277,6 @@
 		A9B46A7F12B79B240040517A /* SBFileImport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBFileImport.m; path = Classes/SBFileImport.m; sourceTree = "<group>"; };
 		A9B46A8412B79B240040517A /* SBTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBTableView.h; path = Classes/SBTableView.h; sourceTree = "<group>"; };
 		A9B46A8512B79B240040517A /* SBTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBTableView.m; path = Classes/SBTableView.m; sourceTree = "<group>"; };
-		A9B46A8612B79B240040517A /* SBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBView.h; path = Classes/SBView.h; sourceTree = "<group>"; };
-		A9B46A8712B79B240040517A /* SBView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBView.m; path = Classes/SBView.m; sourceTree = "<group>"; };
 		A9B46A9312B79B990040517A /* ButtonToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ButtonToolbarItem.h; path = Others/ButtonToolbarItem.h; sourceTree = "<group>"; };
 		A9B46A9412B79B990040517A /* ButtonToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ButtonToolbarItem.m; path = Others/ButtonToolbarItem.m; sourceTree = "<group>"; };
 		A9B46AA312B79BB10040517A /* Subler.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Subler.icns; path = images/Subler.icns; sourceTree = "<group>"; };
@@ -648,8 +645,6 @@
 				A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */,
 				A960E96117D4B00900FC6ED9 /* SBImageBrowserView.h */,
 				A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */,
-				A9B46A8612B79B240040517A /* SBView.h */,
-				A9B46A8712B79B240040517A /* SBView.m */,
 			);
 			name = PropertyView;
 			sourceTree = "<group>";
@@ -861,7 +856,6 @@
 				A9B46A8C12B79B240040517A /* SBFileImport.m in Sources */,
 				A900CE3E1F3ACF9700CCA08E /* MetadataResultMap.swift in Sources */,
 				A9B46A8F12B79B240040517A /* SBTableView.m in Sources */,
-				A9B46A9012B79B240040517A /* SBView.m in Sources */,
 				A9B46A9E12B79B990040517A /* ButtonToolbarItem.m in Sources */,
 				A9915AC11F4B28ED003C57D1 /* Preset.swift in Sources */,
 				A92ECCE31F49984C0063BFBD /* PrefsWindowController.swift in Sources */,
