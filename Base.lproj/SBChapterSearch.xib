@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13526" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13526"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="SBChapterSearchController">
+        <customObject id="-2" userLabel="File's Owner" customClass="ChapterSearchController" customModule="Subler" customModuleProvider="target">
             <connections>
                 <outlet property="addButton" destination="TwZ-hH-t4o" id="x1U-bO-DxZ"/>
                 <outlet property="chapterTable" destination="rAm-CY-3va" id="08S-Hh-2nQ"/>
@@ -61,7 +61,7 @@ Gw
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" id="KWU-UC-z0x">
                                     <rect key="frame" x="1" y="0.0" width="495" height="138"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" headerView="8oc-IY-tJx" id="4Q0-U2-W6V">
                                             <rect key="frame" x="0.0" y="0.0" width="495" height="115"/>
@@ -113,7 +113,7 @@ Gw
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </tableHeaderCell>
-                                                    <levelIndicatorCell key="dataCell" controlSize="small" state="on" alignment="left" doubleValue="3" maxValue="100" warningValue="3" criticalValue="3" levelIndicatorStyle="relevancy" id="b5O-HU-XVA">
+                                                    <levelIndicatorCell key="dataCell" controlSize="small" state="on" alignment="left" doubleValue="3" maxValue="100" levelIndicatorStyle="relevancy" id="b5O-HU-XVA">
                                                         <font key="font" metaFont="smallSystem"/>
                                                     </levelIndicatorCell>
                                                     <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
@@ -145,7 +145,7 @@ Gw
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" id="Lsd-dB-ca0">
                                     <rect key="frame" x="1" y="0.0" width="495" height="197"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="14" headerView="Cch-hl-a6n" id="rAm-CY-3va">
                                             <rect key="frame" x="0.0" y="0.0" width="495" height="174"/>

@@ -7,11 +7,11 @@
 
 import Cocoa
 
-@objc(SBMetadataSearchControllerDelegate) protocol MetadataSearchControllerDelegate {
+protocol MetadataSearchControllerDelegate : AnyObject {
     func didSelect(metadata: MetadataResult)
 }
 
-@objc(SBMetadataSearchController) class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSComboBoxDelegate, NSComboBoxDataSource, NSTextFieldDelegate, ArtworkSelectorControllerDelegate {
+class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSComboBoxDelegate, NSComboBoxDataSource, NSTextFieldDelegate, ArtworkSelectorControllerDelegate {
 
     @IBOutlet var searchMode: NSTabView!
     @IBOutlet var movieTab: NSTabViewItem!
@@ -82,7 +82,7 @@ import Cocoa
     }
 
     // MARK: - Init
-    @objc init(delegate: MetadataSearchControllerDelegate, url: URL?) {
+    init(delegate: MetadataSearchControllerDelegate, url: URL?) {
         self.url = url
         self.delegate = delegate
         self.state = .none

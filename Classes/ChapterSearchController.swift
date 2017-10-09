@@ -7,11 +7,11 @@
 
 import Cocoa
 
-@objc(SBChapterSearchControllerDelegate) protocol ChapterSearchControllerDelegate {
+protocol ChapterSearchControllerDelegate : AnyObject {
     func didSelect(chapters: [MP42TextSample])
 }
 
-@objc(SBChapterSearchController) class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
 
     @IBOutlet var searchTitle: NSTextField!
 
@@ -30,12 +30,12 @@ import Cocoa
         case completed(results: [ChapterResult], selectedResult: ChapterResult)
     }
 
-    private let delegate: ChapterSearchControllerDelegate
+    private weak var delegate: ChapterSearchControllerDelegate?
     private let duration: UInt64
     private let searchTerm: String
     private var state: ChapterSearchState
 
-    @objc init(delegate: ChapterSearchControllerDelegate, title: String, duration: UInt64) {
+    init(delegate: ChapterSearchControllerDelegate, title: String, duration: UInt64) {
         if let info = title.parsedAsFilename() {
             switch info {
 
@@ -111,7 +111,7 @@ import Cocoa
                 sample.title = chapter.name
                 textChapters.append(sample)
             }
-            delegate.didSelect(chapters: textChapters)
+            delegate?.didSelect(chapters: textChapters)
         default:
             break
         }

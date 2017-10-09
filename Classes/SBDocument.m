@@ -65,8 +65,6 @@
 @property (nonatomic, weak) IBOutlet NSTextField *saveOperationName;
 @property (nonatomic, weak) IBOutlet NSProgressIndicator *progressBar;
 
-@property (nonatomic, strong) NSWindowController *sheetController;
-
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, NSNumber *> *currentSaveAttributes;
 @property (nonatomic) NSInteger currentTrackIndex;
 
@@ -837,49 +835,6 @@ static NSDictionary *_detailMonospacedAttr;
             }
         }];
     }
-}
-
-#pragma mark - Metadata search
-
-- (NSURL *)sourceFilename {
-    for (MP42Track *track in self.mp4.tracks) {
-        if (track.URL) {
-            return track.URL;
-        }
-    }
-    return nil;
-}
-
-- (IBAction)searchMetadata:(id)sender
-{
-    NSURL *url = [self sourceFilename];
-
-    if (!url) {
-        url = self.fileURL;
-    }
-
-    self.sheetController = [[SBMetadataSearchController alloc] initWithDelegate:self url:url];
-    [self.documentWindow beginSheet:self.sheetController.window completionHandler:^(NSModalResponse returnCode) {
-        self.sheetController = nil;
-    }];
-}
-
-#pragma mark - Chapters search
-
-- (IBAction)searchChapters:(id)sender
-{
-    NSString *title = [self.mp4.metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyName].firstObject.stringValue;
-
-    if (title.length == 0) {
-        title = [self sourceFilename].lastPathComponent;
-    }
-
-    NSUInteger duration = self.mp4.duration;
-
-    self.sheetController = [[SBChapterSearchController alloc] initWithDelegate:self title:title duration:duration];
-    [self.documentWindow beginSheet:self.sheetController.window completionHandler:^(NSModalResponse returnCode) {
-        self.sheetController = nil;
-    }];
 }
 
 - (IBAction)showTrackOffsetSheet:(id)sender

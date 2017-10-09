@@ -18,10 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError **)outError;
 
+@property (nonatomic, strong, nullable) NSWindowController *sheetController;
+
 - (IBAction)selectFile:(id)sender;
 - (IBAction)deleteTrack:(id)sender;
 - (IBAction)sendToQueue:(id)sender;
-- (IBAction)searchMetadata:(id)sender;
 
 - (IBAction)showTrackOffsetSheet:(id)sender;
 - (IBAction)setTrackOffset:(id)sender;
