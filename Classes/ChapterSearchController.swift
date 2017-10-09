@@ -36,16 +36,13 @@ class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTabl
     private var state: ChapterSearchState
 
     init(delegate: ChapterSearchControllerDelegate, title: String, duration: UInt64) {
-        if let info = title.parsedAsFilename() {
-            switch info {
+        let info = title.parsedAsFilename()
 
-            case .movie(let title):
-                searchTerm = title
-            case .tvShow, .none:
-                searchTerm = title
-            }
-        }
-        else {
+        switch info {
+
+        case .movie(let title):
+            searchTerm = title
+        case .tvShow, .none:
             searchTerm = title
         }
 

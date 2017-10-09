@@ -47,11 +47,11 @@ extension SBDocument: ChapterSearchControllerDelegate, MetadataSearchControllerD
         let result = metadata.mappedMetadata(to: map!, keepEmptyKeys: keepEmptyKeys)
         mp4.metadata.merge(result)
 
-        if let hdType = mp4.hdType() {
+        if let hdType = mp4.hdType {
             for item in mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyHDVideo) {
                 mp4.metadata.removeItem(item)
             }
-            mp4.metadata.addItem(MP42MetadataItem(identifier: MP42MetadataKeyHDVideo, value: NSNumber(value: hdType),
+            mp4.metadata.addItem(MP42MetadataItem(identifier: MP42MetadataKeyHDVideo, value: NSNumber(value: hdType.rawValue),
                                                   dataType: .integer, extendedLanguageTag: nil))
         }
         updateChangeCount(.changeDone)

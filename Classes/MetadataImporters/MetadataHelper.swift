@@ -141,13 +141,13 @@ private func parseFilename(_ filename: String) -> MetadataSearchTerms? {
 
 extension String {
 
-    func parsedAsFilename() -> MetadataSearchTerms? {
+    func parsedAsFilename() -> MetadataSearchTerms {
         if let parsed = parseAnimeFilename(self) {
             return parsed
         }
         else if let parsed = parseFilename(self) {
             return parsed
         }
-        return nil
+        return .none
     }
 }

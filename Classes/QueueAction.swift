@@ -184,13 +184,11 @@ extension Array where Element == Artwork {
                 for item in metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyHDVideo) {
                     metadata.removeItem(item)
                 }
-                if let type = file.hdType() {
-                    if type > 0 {
-                        metadata.addItem(MP42MetadataItem(identifier: MP42MetadataKeyHDVideo,
-                                                          value: NSNumber(value: type),
-                                                          dataType: MP42MetadataItemDataType.integer,
-                                                          extendedLanguageTag: nil))
-                    }
+                if let type = file.hdType {
+                    metadata.addItem(MP42MetadataItem(identifier: MP42MetadataKeyHDVideo,
+                                                      value: NSNumber(value: type.rawValue),
+                                                      dataType: MP42MetadataItemDataType.integer,
+                                                      extendedLanguageTag: nil))
                 }
 
                 file.metadata.merge(metadata)
