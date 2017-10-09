@@ -42,7 +42,7 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
 
     // MARK: - ComboBox
 
-    private var tvSeriesNameSearchArray: [String]
+    private var tvSeriesNameSearchArray: [String] = Array()
     private var nameSearchTask: Runnable?
 
     // MARK: UI State
@@ -54,15 +54,23 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
         case closing(search: MetadataSearch, result: MetadataResult)
     }
 
-    private var state: MetadataSearchState
+    private var state: MetadataSearchState = .none
 
-    private var movieService: MetadataService
-    private var tvShowService: MetadataService
+    private var movieService: MetadataService = MetadataSearch.defaultMovieService
+    private var tvShowService: MetadataService = MetadataSearch.defaultTVService
 
     // MARK: Other
     private var artworkSelector: ArtworkSelectorController?
     private weak var delegate: MetadataSearchControllerDelegate?
-    private let url: URL?
+
+    public enum Info {
+        case none
+        case url(url: URL)
+        case movie(title: String)
+        case tvShow(tvShow: String, season: Int, episode: Int)
+    }
+
+    private let info: Info
 
     // MARK: - Static methods
     public static func clearRecentSearches() {
@@ -82,13 +90,9 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
     }
 
     // MARK: - Init
-    init(delegate: MetadataSearchControllerDelegate, url: URL?) {
-        self.url = url
+    init(delegate: MetadataSearchControllerDelegate, info: Info = .none) {
         self.delegate = delegate
-        self.state = .none
-        self.movieService = MetadataSearch.defaultMovieService
-        self.tvShowService = MetadataSearch.defaultTVService
-        self.tvSeriesNameSearchArray = Array()
+        self.info = info
 
         super.init(window: nil)
     }
@@ -113,29 +117,50 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
         movieMetadataProvider.selectItem(withTitle: movieService.name)
         tvMetadataProvider.selectItem(withTitle: tvShowService.name)
 
-        if let info = url?.lastPathComponent.parsedAsFilename() {
-            switch info {
-            case let .movie(title):
-                searchMode.selectTabViewItem(at: 0)
-                movieName.stringValue = title
-                tvSeriesName.stringValue = title
-                searchForResults(searchMovieButton)
-            case let .tvShow(seriesName, season, episode):
-                searchMode.selectTabViewItem(at: 1)
-                tvSeriesName.stringValue = seriesName
-                movieName.stringValue = seriesName
-                if let season = season { tvSeasonNum.stringValue = "\(season)" }
-                if let episode = episode { tvEpisodeNum.stringValue = "\(episode)" }
-                searchForResults(searchTvButton)
-            }
-        }
-        else if let title = url?.deletingPathExtension().lastPathComponent {
-            movieName.stringValue = title
-            tvSeriesName.stringValue = title
-            searchForResults(searchMovieButton)
-        }
-        else {
+        switch info {
+        case .none:
             updateUI()
+
+        case .url(let url):
+            if let parsed = url.lastPathComponent.parsedAsFilename() {
+                switch parsed {
+                case let .movie(title):
+                    searchMode.selectTabViewItem(at: 0)
+                    movieName.stringValue = title
+                    tvSeriesName.stringValue = title
+                    searchForResults(searchMovieButton)
+                case let .tvShow(seriesName, season, episode):
+                    searchMode.selectTabViewItem(at: 1)
+                    tvSeriesName.stringValue = seriesName
+                    movieName.stringValue = seriesName
+                    if let season = season { tvSeasonNum.stringValue = "\(season)" }
+                    if let episode = episode { tvEpisodeNum.stringValue = "\(episode)" }
+                    searchForResults(searchTvButton)
+                }
+            }
+            else {
+                let title = url.deletingPathExtension().lastPathComponent
+                if title.isEmpty == false {
+                    movieName.stringValue = title
+                    tvSeriesName.stringValue = title
+                    searchForResults(searchMovieButton)
+                }
+                else {
+                    updateUI()
+                }
+            }
+
+        case .movie(let title):
+            searchMode.selectTabViewItem(at: 0)
+            movieName.stringValue = title
+            searchForResults(searchMovieButton)
+
+        case .tvShow(let tvShow, let season, let episode):
+            searchMode.selectTabViewItem(at: 1)
+            tvSeriesName.stringValue = tvShow
+            tvSeasonNum.stringValue = "\(season)"
+            tvEpisodeNum.stringValue = "\(episode)"
+            searchForResults(searchTvButton)
         }
     }
 

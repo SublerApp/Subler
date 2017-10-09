@@ -22,9 +22,26 @@ extension MP42File {
 
 extension SBDocument: ChapterSearchControllerDelegate, MetadataSearchControllerDelegate {
 
+    private func parseExistingInfo() -> MetadataSearchController.Info {
+        if let tvShow = mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyTVShow).first?.stringValue,
+            let season = mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyTVSeason).first?.numberValue?.intValue,
+            let number = mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyTVEpisodeNumber).first?.numberValue?.intValue {
+            return MetadataSearchController.Info.tvShow(tvShow: tvShow, season: season, episode: number)
+        }
+        else if let title = mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyName).first?.stringValue,
+            let _ = mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyReleaseDate).first?.stringValue {
+            return MetadataSearchController.Info.movie(title: title)
+        }
+        else if let url = mp4.firstSourceURL() ?? self.fileURL {
+            return MetadataSearchController.Info.url(url: url)
+
+        }
+        return MetadataSearchController.Info.none
+    }
+
     @IBAction func searchMetadata(_ sender: Any?) {
-        let url = mp4.firstSourceURL() ?? self.fileURL
-        let controller = MetadataSearchController(delegate: self, url: url)
+        let info = parseExistingInfo()
+        let controller = MetadataSearchController(delegate: self, info: info)
 
         guard let windowForSheet = windowForSheet, let window = controller.window
             else { return }
