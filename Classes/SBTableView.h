@@ -17,15 +17,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)_cutSelectionFromTableView:(NSTableView *)tableView;
 - (void)_pasteToTableView:(NSTableView *)tableView;
 
-- (NSInteger)tableView:(NSTableView *)tableView
-    spanForTableColumn:(NSTableColumn *)tableColumn
-                   row:(NSInteger)row;
 @end
 
 @interface SBTableView : NSTableView
 
 @property (nonatomic, readwrite, copy) NSArray<NSString *> *pasteboardTypes;
 @property (nonatomic, readwrite) NSInteger defaultEditingColumn;
+
+@property (nonatomic, readonly, copy) NSIndexSet *targetedRowIndexes;
+
 
 @end
 

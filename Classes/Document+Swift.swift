@@ -7,7 +7,9 @@
 
 import Foundation
 
-extension SBDocument: ChapterSearchControllerDelegate, MetadataSearchControllerDelegate {
+extension SBDocument: ChapterSearchControllerDelegate, MetadataSearchControllerDelegate, FileImportControllerDelegate {
+
+    // MARK: Metadata
 
     @IBAction func searchMetadata(_ sender: Any?) {
         let terms = mp4.extractSearchTerms(fallbackURL : fileURL)
@@ -67,6 +69,56 @@ extension SBDocument: ChapterSearchControllerDelegate, MetadataSearchControllerD
         mp4.addTrack(chapterTrack)
         updateChangeCount(.changeDone)
         reload()
+    }
+
+    // MARK: File import
+
+    @objc func showImportSheet(fileURLs: [URL]) {
+        do {
+            let controller = try FileImportController(fileURLs: fileURLs, delegate: self)
+
+            if controller.onlyContainsSubtitles {
+                controller.addTracks(self)
+                tracksTable?.reloadData()
+                reloadPropertyView()
+                self.sheetController = nil;
+            }
+            else {
+                guard let windowForSheet = windowForSheet, let window = controller.window
+                    else { return }
+
+                sheetController = controller;
+                windowForSheet.beginSheet(window, completionHandler: { response in
+                    self.sheetController = nil
+                })
+            }
+        }
+        catch {
+            presentError(error)
+        }
+    }
+
+    func didSelect(tracks: [MP42Track], metadata: MP42Metadata?) {
+        for track in tracks {
+            mp4.addTrack(track)
+
+            updateChangeCount(.changeDone)
+
+            if UserDefaults.standard.bool(forKey: "SBOrganizeAlternateGroups") {
+                mp4.organizeAlternateGroups()
+                if UserDefaults.standard.bool(forKey: "SBInferMediaCharacteristics") {
+                    mp4.inferMediaCharacteristics()
+                }
+            }
+        }
+
+        if let metadata = metadata {
+            mp4.metadata.merge(metadata)
+            updateChangeCount(.changeDone)
+        }
+
+        tracksTable?.reloadData()
+        reloadPropertyView()
     }
 
 }

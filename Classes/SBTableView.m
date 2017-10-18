@@ -120,58 +120,16 @@
     return YES;
 }
 
-- (NSRect)frameOfCellAtColumn:(NSInteger)column row:(NSInteger)row
+- (NSIndexSet *)targetedRowIndexes
 {
-    if (![self.delegate respondsToSelector:@selector(tableView:spanForTableColumn:row:)] ||
-        column == -1 ||
-        row == -1) {
-        return [super frameOfCellAtColumn:column row:row];
+    NSIndexSet *selection = self.selectedRowIndexes;
+    NSInteger clickedRow = self.clickedRow;
+
+    if (clickedRow != -1 && ![selection containsIndex:clickedRow]) {
+        selection = [NSIndexSet indexSetWithIndex:clickedRow];
     }
 
-    NSInteger colspan = [(id <SBTableViewDelegate>)self.delegate
-               tableView:self
-               spanForTableColumn:
-               self.tableColumns[column]
-               row:row];
-    if (colspan == 0) {
-        return NSZeroRect;
-    }
-    if (colspan == 1) {
-        return [super frameOfCellAtColumn:column row:row];
-    } else {
-        // 2 or more, it's responsibility of delegate to provide reasonable number
-        NSRect merged = [super frameOfCellAtColumn:column row:row];
-        // start out with this one
-        for (NSInteger i = 1; i < colspan; i++ ) {
-            // start from next one
-            NSRect next = [super frameOfCellAtColumn:column+i row:row];
-            merged = NSUnionRect(merged,next);
-        }
-        return merged;
-    }
-}
-
-- (void)drawRow:(NSInteger)inRow clipRect:(NSRect)inClipRect
-{
-    NSRect newClipRect = inClipRect;
-
-    if ([self.delegate respondsToSelector:@selector(tableView:spanForTableColumn:row:)]) {
-        NSInteger colspan = 0;
-        NSInteger firstCol = [self columnIndexesInRect:inClipRect].firstIndex;
-        // Does the FIRST one of these have a zero-colspan? If so, extend range.
-        while (colspan == 0) {
-            colspan = [(id <SBTableViewDelegate>)self.delegate
-                       tableView:self
-                       spanForTableColumn:self.tableColumns[firstCol]
-                       row:inRow];
-            if (colspan == 0) {
-                firstCol--;
-                newClipRect = NSUnionRect(newClipRect, [self frameOfCellAtColumn:firstCol row:inRow]);
-            }
-        }
-    }
-
-    [super drawRow:inRow clipRect:newClipRect];
+    return selection;
 }
 
 @end
