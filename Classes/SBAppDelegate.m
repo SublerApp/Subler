@@ -287,7 +287,7 @@
         SBDocument *doc = [self openUntitledDocumentAndDisplay:displayDocument error:&outError];
         completionHandler(doc, NO, outError);
         if (doc) {
-            [doc showImportSheet:@[url]];
+            [doc showImportSheetWithFileURLs:@[url]];
         }
     }
     else {

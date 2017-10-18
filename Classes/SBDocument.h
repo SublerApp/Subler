@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class MP42File;
+@class SBTableView;
 
 @interface SBDocument : NSDocument
 
@@ -18,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError * __autoreleasing *)outError;
 
+@property (nonatomic, weak) IBOutlet SBTableView *tracksTable;
 @property (nonatomic, strong, nullable) NSWindowController *sheetController;
 
 - (IBAction)selectFile:(id)sender;
@@ -40,9 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)export:(id)sender;
 
-- (void)showImportSheet:(NSArray *)fileURLs;
-
 - (void)reload;
+- (void)reloadPropertyView;
 
 @end
 

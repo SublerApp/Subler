@@ -31,6 +31,7 @@
 		A92BBAB41F557CC0007EA182 /* PresetEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92BBAB21F557CC0007EA182 /* PresetEditorViewController.swift */; };
 		A92BBABE1F5584EA007EA182 /* PresetEditorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A92BBABC1F558388007EA182 /* PresetEditorViewController.xib */; };
 		A92ECCE31F49984C0063BFBD /* PrefsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92ECCE21F49984C0063BFBD /* PrefsWindowController.swift */; };
+		A93105391F9758EC00605146 /* FileImportController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A93105351F9758EC00605146 /* FileImportController.xib */; };
 		A9395E351F8B9ACA004C402B /* MP42FileAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9395E341F8B9ACA004C402B /* MP42FileAdditions.swift */; };
 		A93DD7681DACCE930052749A /* SBComboBoxCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A93DD7671DACCE930052749A /* SBComboBoxCellView.m */; };
 		A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */; };
@@ -78,7 +79,6 @@
 		A9AE26C21F3B665D0041A57D /* SBMultiSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AE26C11F3B665C0041A57D /* SBMultiSelectViewController.m */; };
 		A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */; };
 		A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */; };
-		A9B46A8C12B79B240040517A /* SBFileImport.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A7F12B79B240040517A /* SBFileImport.m */; };
 		A9B46A8F12B79B240040517A /* SBTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A8512B79B240040517A /* SBTableView.m */; };
 		A9B46A9E12B79B990040517A /* ButtonToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A9412B79B990040517A /* ButtonToolbarItem.m */; };
 		A9B46AA412B79BB10040517A /* Subler.icns in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AA312B79BB10040517A /* Subler.icns */; };
@@ -89,7 +89,6 @@
 		A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A9BA1AF51DBF7DD800FD0B38 /* Localizable.strings */; };
 		A9BC410318D9AB8700F8C92C /* SBItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BC410218D9AB8700F8C92C /* SBItemViewController.m */; };
 		A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BC410618D9ABC000F8C92C /* QueueItem.xib */; };
-		A9C055370F6D395B00AF15B5 /* FileImport.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C055360F6D395B00AF15B5 /* FileImport.xib */; };
 		A9C5FA6E19FA22590051F3FF /* SBLogWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C5FA6C19FA22590051F3FF /* SBLogWindowController.m */; };
 		A9C5FA7419FA2FEC0051F3FF /* SBLogWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C5FA7219FA2FEC0051F3FF /* SBLogWindow.xib */; };
 		A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C828F4195950C3004C4718 /* SBQueuePreferences.m */; };
@@ -200,7 +199,6 @@
 		A924A5101D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/SoundView.xib; sourceTree = "<group>"; };
 		A924A5111D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/VideoView.xib; sourceTree = "<group>"; };
 		A924A5121D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		A924A5131D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FileImport.xib; sourceTree = "<group>"; };
 		A924A5141D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MetadataSearch.xib; sourceTree = "<group>"; };
 		A924A5151D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ArtworkSelector.xib; sourceTree = "<group>"; };
 		A924A5161D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBChapterSearch.xib; sourceTree = "<group>"; };
@@ -217,6 +215,7 @@
 		A92BBAB21F557CC0007EA182 /* PresetEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PresetEditorViewController.swift; path = Classes/PresetEditorViewController.swift; sourceTree = "<group>"; };
 		A92BBABD1F558388007EA182 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/Base.lproj/PresetEditorViewController.xib; sourceTree = "<group>"; };
 		A92ECCE21F49984C0063BFBD /* PrefsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrefsWindowController.swift; path = Classes/PrefsWindowController.swift; sourceTree = "<group>"; };
+		A93105361F9758EC00605146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FileImportController.xib; sourceTree = "<group>"; };
 		A9395E341F8B9ACA004C402B /* MP42FileAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MP42FileAdditions.swift; path = Classes/MP42FileAdditions.swift; sourceTree = "<group>"; };
 		A93DD7661DACCE930052749A /* SBComboBoxCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBComboBoxCellView.h; path = Classes/SBComboBoxCellView.h; sourceTree = "<group>"; };
 		A93DD7671DACCE930052749A /* SBComboBoxCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBComboBoxCellView.m; path = Classes/SBComboBoxCellView.m; sourceTree = "<group>"; };
@@ -275,8 +274,6 @@
 		A9AF6A7318D0496400FAAB08 /* SBQueueAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueAction.h; path = Classes/SBQueueAction.h; sourceTree = "<group>"; };
 		A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueAction.m; path = Classes/SBQueueAction.m; sourceTree = "<group>"; };
 		A9B3411B1679CA3E00E6EE0C /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
-		A9B46A7E12B79B240040517A /* SBFileImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBFileImport.h; path = Classes/SBFileImport.h; sourceTree = "<group>"; };
-		A9B46A7F12B79B240040517A /* SBFileImport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBFileImport.m; path = Classes/SBFileImport.m; sourceTree = "<group>"; };
 		A9B46A8412B79B240040517A /* SBTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBTableView.h; path = Classes/SBTableView.h; sourceTree = "<group>"; };
 		A9B46A8512B79B240040517A /* SBTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBTableView.m; path = Classes/SBTableView.m; sourceTree = "<group>"; };
 		A9B46A9312B79B990040517A /* ButtonToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ButtonToolbarItem.h; path = Others/ButtonToolbarItem.h; sourceTree = "<group>"; };
@@ -297,7 +294,6 @@
 		A9BA1AD51DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/SoundView.strings; sourceTree = "<group>"; };
 		A9BA1AD61DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/VideoView.strings; sourceTree = "<group>"; };
 		A9BA1AD71DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MainMenu.strings; sourceTree = "<group>"; };
-		A9BA1AD81DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/FileImport.strings; sourceTree = "<group>"; };
 		A9BA1AD91DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MetadataSearch.strings; sourceTree = "<group>"; };
 		A9BA1ADA1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/ArtworkSelector.strings; sourceTree = "<group>"; };
 		A9BA1ADD1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBChapterSearch.strings; sourceTree = "<group>"; };
@@ -614,9 +610,7 @@
 				A9B46ABE12B79D1C0040517A /* SBDocument.m */,
 				A9577CF51F3DC667009181F4 /* Document+Swift.swift */,
 				A962D9ED1F8B7F9F00802EEF /* FileImportController.swift */,
-				A9B46A7E12B79B240040517A /* SBFileImport.h */,
-				A9B46A7F12B79B240040517A /* SBFileImport.m */,
-				A9C055360F6D395B00AF15B5 /* FileImport.xib */,
+				A93105351F9758EC00605146 /* FileImportController.xib */,
 				A9E932A61F34D31D00B1790B /* ArtworkSelector.swift */,
 				CD4E6E5B12F744210095C84F /* ArtworkSelector.xib */,
 				A997B0A91F348AB000974C9C /* MetadataSearchController.swift */,
@@ -797,13 +791,13 @@
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				A99EEA3F12B801AE002367D3 /* SBDocument.xib in Resources */,
 				A906B5B11E434872007D12B1 /* Queue.sdef in Resources */,
+				A93105391F9758EC00605146 /* FileImportController.xib in Resources */,
 				A9AB486517F0AEFD000AA72E /* EmptyView.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
 				A90300C81DAE72C4008237D8 /* SBPresetPrefsViewController.xib in Resources */,
 				A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */,
 				A9C5FA7419FA2FEC0051F3FF /* SBLogWindow.xib in Resources */,
 				A9DA3BA31B918D6F00F1E40C /* ExceptionAlert.xib in Resources */,
-				A9C055370F6D395B00AF15B5 /* FileImport.xib in Resources */,
 				A90B023B10F3290A000416F3 /* Prefs.xib in Resources */,
 				A9AB486417F0AEFD000AA72E /* ChapterView.xib in Resources */,
 				A9AB486817F0AEFD000AA72E /* VideoView.xib in Resources */,
@@ -856,7 +850,6 @@
 				A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */,
 				A9915ABF1F4B26CF003C57D1 /* MetadataPreset.swift in Sources */,
 				A93DD7681DACCE930052749A /* SBComboBoxCellView.m in Sources */,
-				A9B46A8C12B79B240040517A /* SBFileImport.m in Sources */,
 				A900CE3E1F3ACF9700CCA08E /* MetadataResultMap.swift in Sources */,
 				A9B46A8F12B79B240040517A /* SBTableView.m in Sources */,
 				A9B46A9E12B79B990040517A /* ButtonToolbarItem.m in Sources */,
@@ -1001,6 +994,14 @@
 			name = PresetEditorViewController.xib;
 			sourceTree = "<group>";
 		};
+		A93105351F9758EC00605146 /* FileImportController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A93105361F9758EC00605146 /* Base */,
+			);
+			name = FileImportController.xib;
+			sourceTree = "<group>";
+		};
 		A961476513F568210068F161 /* Queue.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1096,15 +1097,6 @@
 				A9BA1AE01DBF773700FD0B38 /* it */,
 			);
 			name = QueueItem.xib;
-			sourceTree = "<group>";
-		};
-		A9C055360F6D395B00AF15B5 /* FileImport.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A924A5131D4B9E66008301A7 /* Base */,
-				A9BA1AD81DBF773600FD0B38 /* it */,
-			);
-			name = FileImport.xib;
 			sourceTree = "<group>";
 		};
 		A9C5FA7219FA2FEC0051F3FF /* SBLogWindow.xib */ = {

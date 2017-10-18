@@ -9,7 +9,6 @@
 #import "SBDocument.h"
 #import "SBQueueController.h"
 #import "SBQueueItem.h"
-#import "SBFileImport.h"
 #import "SBTableView.h"
 #import "SBCheckBoxCellView.h"
 #import "SBPopUpCellView.h"
@@ -32,7 +31,7 @@
 
 #define SublerTableViewDataType @"SublerTableViewDataType"
 
-@interface SBDocument () <NSTableViewDelegate, SBFileImportDelegate>
+@interface SBDocument () <NSTableViewDelegate>
 {
     IBOutlet NSSplitView    *splitView;
 
@@ -59,7 +58,6 @@
 }
 
 @property (nonatomic, weak) IBOutlet NSWindow *documentWindow;
-@property (nonatomic, weak) IBOutlet SBTableView *tracksTable;
 
 @property (nonatomic, weak) IBOutlet NSWindow *saveWindow;
 @property (nonatomic, weak) IBOutlet NSTextField *saveOperationName;
@@ -931,61 +929,10 @@ static NSDictionary *_detailMonospacedAttr;
                 [self updateChapters:chapters fromCSVFile:panel.URLs.firstObject];
             }
             else {
-                [self showImportSheet:panel.URLs];
+                [self showImportSheetWithFileURLs:panel.URLs];
             }
         }
     }];
-}
-
-- (void)showImportSheet:(NSArray<NSURL *> *)fileURLs
-{
-    NSError *error = nil;
-
-    self.sheetController = [[SBFileImport alloc] initWithURLs:fileURLs delegate:self error:&error];
-
-    if (self.sheetController) {
-		if (((SBFileImport *)self.sheetController).onlyContainsSubtitleTracks) {
-			[(SBFileImport *)self.sheetController addTracks:self];
-            [self.tracksTable reloadData];
-            [self reloadPropertyView];
-            self.sheetController = nil;
-		}
-        else {
-            // show the dialog
-            [self.documentWindow beginSheet:self.sheetController.window completionHandler:^(NSModalResponse returnCode) {
-                self.sheetController = nil;
-            }];
-		}
-    }
-    else if (error) {
-            [self presentError:error modalForWindow:self.documentWindow delegate:nil didPresentSelector:NULL contextInfo:nil];
-    }
-}
-
-- (void)importDoneWithTracks:(NSArray<MP42Track *> *)tracksToBeImported andMetadata:(MP42Metadata *)metadata
-{
-    if (tracksToBeImported) {
-        for (MP42Track *track in tracksToBeImported) {
-            [self.mp4 addTrack:track];
-        }
-
-        [self updateChangeCount:NSChangeDone];
-
-        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBOrganizeAlternateGroups"] boolValue]) {
-            [self.mp4 organizeAlternateGroups];
-            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"SBInferMediaCharacteristics"] boolValue]) {
-                [self.mp4 inferMediaCharacteristics];
-            }
-        }
-    }
-
-    if (metadata) {
-        [self.mp4.metadata mergeMetadata:metadata];
-        [self updateChangeCount:NSChangeDone];
-    }
-
-    [self.tracksTable reloadData];
-    [self reloadPropertyView];
 }
 
 - (void)addMetadata:(NSURL *)URL
@@ -1150,7 +1097,7 @@ static NSDictionary *_detailMonospacedAttr;
         }
         
         if (supportedItems.count) {
-            [self showImportSheet:supportedItems];
+            [self showImportSheetWithFileURLs:supportedItems];
         }
 
         return YES;
