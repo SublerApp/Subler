@@ -247,7 +247,7 @@
                             ((MP42AudioTrack *)track).fallbackTrack = copy;
                             track.enabled = NO;
                             // Wouldn't it be better to use pref settings too instead of 640/Multichannel and the drc from the prefs?
-                            track.conversionSettings = [[MP42AudioConversionSettings alloc] initWitFormat:kMP42AudioCodecType_AC3
+                            track.conversionSettings = [[MP42AudioConversionSettings alloc] initWithFormat:kMP42AudioCodecType_AC3
                                                                                                   bitRate:640
                                                                                                   mixDown:SBNoneMixdown
                                                                                                       drc:drc];
