@@ -57,6 +57,13 @@ class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTabl
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        resultsTable.delegate = nil
+        resultsTable.dataSource = nil
+        chapterTable.delegate = nil
+        chapterTable.dataSource = nil
+    }
+
     override var windowNibName: NSNib.Name? {
         return NSNib.Name(rawValue: "SBChapterSearch")
     }
