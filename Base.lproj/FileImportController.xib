@@ -8,8 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FileImportController" customModule="Subler" customModuleProvider="target">
             <connections>
-                <outlet property="addButton" destination="25" id="Nec-Ur-WuH"/>
-                <outlet property="importMetadata" destination="36" id="ctf-Cj-LBY"/>
+                <outlet property="importMetadataCheckbox" destination="36" id="ctf-Cj-LBY"/>
                 <outlet property="tableView" destination="7" id="fqn-pa-2UI"/>
                 <outlet property="window" destination="1" id="3"/>
             </connections>
@@ -307,7 +306,7 @@
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="25">
                         <rect key="frame" x="548" y="13" width="82" height="32"/>
-                        <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="28">
+                        <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="28">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <string key="keyEquivalent" base64-UTF8="YES">
@@ -337,6 +336,9 @@ Gw
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="setImportMetadata:" target="-2" id="Dsh-Uq-duE"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -358,7 +360,7 @@ Gw
                     <constraint firstItem="26" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="xcH-VR-g52"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="137" y="103"/>
+            <point key="canvasLocation" x="-115" y="98"/>
         </window>
         <menu id="Nqo-5L-aDh">
             <items>

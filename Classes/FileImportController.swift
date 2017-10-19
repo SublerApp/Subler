@@ -13,9 +13,6 @@ protocol FileImportControllerDelegate : AnyObject {
 
 class FileImportController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate {
 
-    private let metadata: MP42Metadata?
-    private let items: [ItemType]
-
     private enum ItemType {
         case file(MP42FileImporter)
         case track(Settings)
@@ -163,13 +160,16 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
             }
         }
     }
-    
-    @IBOutlet weak var tableView: SBTableView!
-    @IBOutlet weak var importMetadata: NSButton!
-    @IBOutlet weak var addButton: NSButton!
-    
+
+    private let metadata: MP42Metadata?
+    private let items: [ItemType]
+
+    private var importMetadata: Bool
     private weak var delegate: FileImportControllerDelegate?
-    
+
+    @IBOutlet weak var tableView: SBTableView!
+    @IBOutlet weak var importMetadataCheckbox: NSButton!
+
     override public var windowNibName: NSNib.Name? {
         return NSNib.Name(rawValue: "FileImportController")
     }
@@ -190,6 +190,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
 
         self.metadata = fileImporters.first?.metadata
         self.items = rows
+        self.importMetadata = metadata != nil
         
         super.init(window: nil)
     }
@@ -201,8 +202,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     override func windowDidLoad() {
         super.windowDidLoad()
         
-        self.importMetadata.isEnabled = metadata != nil
-        self.addButton.isEnabled = true
+        self.importMetadataCheckbox.isEnabled = importMetadata
     }
 
     // MARK: Public properties
@@ -361,12 +361,16 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
         }
 
         delegate?.didSelect(tracks: selectedTracks,
-                            metadata: importMetadata.state == NSControl.StateValue.on ? metadata : nil)
+                            metadata: importMetadata ? metadata : nil)
 
         window?.sheetParent?.endSheet(window!, returnCode: NSApplication.ModalResponse.OK)
     }
     
     // MARK: Actions
+
+    @IBAction func setImportMetadata(_ sender: NSButton) {
+        importMetadata = sender.state == NSControl.StateValue.on
+    }
 
     @IBAction func setCheck(_ sender: NSButton) {
         let row = tableView.row(for: sender)
