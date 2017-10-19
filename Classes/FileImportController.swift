@@ -45,23 +45,23 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
             switch track {
             case is MP42ClosedCaptionTrack, is MP42ChapterTrack:
                 let action = Action(title: NSLocalizedString("Passthru", comment: "File Import action menu item."),
-                                         tag: 0,
-                                         enabled: true)
+                                    tag: 0,
+                                    enabled: true)
                 actions.append(action)
-                
+
             case is MP42SubtitleTrack:
                 let action = Action(title: NSLocalizedString("Passthru", comment: "File Import action menu item."),
-                                         tag: 0,
-                                         enabled: needsConversion == false)
+                                    tag: 0,
+                                    enabled: needsConversion == false)
                 actions.append(action)
                 
                 if (needsConversion) {
                     let conversionAction = Action(title: NSLocalizedString("Tx3g", comment: "File Import action menu item."),
-                                                       tag: 1,
-                                                       enabled: true)
+                                                  tag: 1,
+                                                  enabled: true)
                     actions.append(conversionAction)
                 }
-                
+
             case is MP42VideoTrack:
                 if track.url?.pathExtension.caseInsensitiveCompare("264") == ComparisonResult.orderedSame ||
                     track.url?.pathExtension.caseInsensitiveCompare("h264") == ComparisonResult.orderedSame  {
@@ -70,15 +70,15 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
                     
                     for frameRate in zip(formats, tags) {
                         let action = Action(title: frameRate.0,
-                                                 tag: frameRate.1,
-                                                 enabled: true)
+                                            tag: frameRate.1,
+                                            enabled: true)
                         actions.append(action)
                     }
                 }
                 else {
                     let action = Action(title: NSLocalizedString("Passthru", comment: "File Import action menu item."),
-                                             tag: 0,
-                                             enabled: muxable == true)
+                                        tag: 0,
+                                        enabled: muxable == true)
                     actions.append(action)
                 }
 
@@ -88,12 +88,14 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
                                          tag: 0,
                                          enabled: needsConversion == false)
                 actions.append(action)
-                
+
                 let formats = ["AAC - Dolby Pro Logic II", "AAC - Dolby Pro Logic", "AAC - Stereo", "AAC - Mono", "AAC - Multi-channel"]
-                for (index, format) in formats.enumerated() {
-                    let conversionAction = Action(title: format,
-                                                       tag: index + 1,
-                                                       enabled: true)
+                let tags = [kMP42AudioMixdown_DolbyPlII, kMP42AudioMixdown_Dolby, kMP42AudioMixdown_Stereo, kMP42AudioMixdown_Mono, kMP42AudioMixdown_None]
+
+                for mixdown in zip(formats, tags) {
+                    let conversionAction = Action(title: mixdown.0,
+                                                  tag: Int(mixdown.1),
+                                                  enabled: true)
                     actions.append(conversionAction)
                 }
                 
@@ -101,15 +103,15 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
                     track.format == kMP42AudioCodecType_EnhancedAC3 ||
                     track.format == kMP42AudioCodecType_DTS {
                     let conversionAction = Action(title: NSLocalizedString("AAC + Passthru", comment: "File Import action menu item."),
-                                                       tag: 6,
-                                                       enabled: true)
+                                                  tag: 6,
+                                                  enabled: true)
                     actions.append(conversionAction)
                 }
                 
                 if track.format == kMP42AudioCodecType_DTS {
                     let conversionAction = Action(title: NSLocalizedString("AAC + AC3", comment: "File Import action menu item."),
-                                                       tag: 7,
-                                                       enabled: true)
+                                                  tag: 7,
+                                                  enabled: true)
                     actions.append(conversionAction)
                 }
             default:
@@ -298,27 +300,14 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
                 if trackSettings.selectedActionTag > 0 {
                     let bitRate = UInt(UserDefaults.standard.integer(forKey: "SBAudioBitrate"))
                     let drc = UserDefaults.standard.float(forKey: "SBAudioDRC")
-                    var mixdown = SBNoneMixdown
+                    let mixdown = Int64(trackSettings.selectedActionTag)
 
                     let copyTrack = trackSettings.selectedActionTag == 6 || trackSettings.selectedActionTag == 7 ? true : false
                     let convertDTSToAC3 = trackSettings.selectedActionTag == 7 ? true : false
 
-                    switch trackSettings.selectedActionTag {
-                    case 5:
-                        mixdown = SBNoneMixdown;
-                    case 4:
-                        mixdown = SBMonoMixdown;
-                    case 3:
-                        mixdown = SBStereoMixdown;
-                    case 2:
-                        mixdown = SBDolbyMixdown;
-                    default:
-                        mixdown = SBDolbyPlIIMixdown;
-                    }
-
                     if copyTrack {
                         let copy = track.copy() as! MP42AudioTrack
-                        let settings = MP42AudioConversionSettings.audioConversion(withBitRate: bitRate, mixDown: mixdown, drc: drc)
+                        let settings = MP42AudioConversionSettings.audioConversion(withBitRate: bitRate, mixDown: kMP42AudioMixdown_DolbyPlII, drc: drc)
 
                         copy.conversionSettings = settings
 
@@ -327,7 +316,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
 
                         if convertDTSToAC3 {
                             // Wouldn't it be better to use pref settings too instead of 640/Multichannel and the drc from the prefs?
-                            track.conversionSettings = MP42AudioConversionSettings(format: kMP42AudioCodecType_AC3, bitRate: 640, mixDown: SBNoneMixdown, drc: drc)
+                            track.conversionSettings = MP42AudioConversionSettings(format: kMP42AudioCodecType_AC3, bitRate: 640, mixDown: kMP42AudioMixdown_None, drc: drc)
                         }
 
                         selectedTracks.append(copy)

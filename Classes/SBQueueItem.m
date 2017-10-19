@@ -183,26 +183,7 @@
         float drc = [[[NSUserDefaults standardUserDefaults] valueForKey:@"SBAudioDRC"] floatValue];
         NSInteger mixdownType = [[[NSUserDefaults standardUserDefaults]
                                   valueForKey:@"SBAudioMixdown"] integerValue];
-        NSString *mixdown = SBNoneMixdown;
-        
-        switch (mixdownType) {
-            case 5:
-                mixdown = SBNoneMixdown;
-                break;
-            case 4:
-                mixdown = SBMonoMixdown;
-                break;
-            case 3:
-                mixdown = SBStereoMixdown;
-                break;
-            case 2:
-                mixdown = SBDolbyMixdown;
-                break;
-            case 1:
-            default:
-                mixdown = SBDolbyPlIIMixdown;
-                break;
-        }
+        MP42AudioMixdown mixdown = mixdownType;
 
         for (MP42Track *track in fileImporter.tracks) {
 
@@ -249,7 +230,7 @@
                             // Wouldn't it be better to use pref settings too instead of 640/Multichannel and the drc from the prefs?
                             track.conversionSettings = [[MP42AudioConversionSettings alloc] initWithFormat:kMP42AudioCodecType_AC3
                                                                                                   bitRate:640
-                                                                                                  mixDown:SBNoneMixdown
+                                                                                                  mixDown:kMP42AudioMixdown_None
                                                                                                       drc:drc];
                             [self.mp4File addTrack:copy];
                             break;
