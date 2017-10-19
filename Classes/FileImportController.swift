@@ -13,13 +13,11 @@ protocol FileImportControllerDelegate : AnyObject {
 
 class FileImportController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate {
 
-    private let fileURLs: [URL]
-    private let fileImporters: [MP42FileImporter]
-
+    private let metadata: MP42Metadata?
     private let items: [ItemType]
 
     private enum ItemType {
-        case header(String)
+        case file(MP42FileImporter)
         case track(TrackSettings)
     }
 
@@ -177,20 +175,20 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     }
     
     init(fileURLs: [URL], delegate: FileImportControllerDelegate) throws {
-        self.fileURLs = fileURLs
         self.delegate = delegate
         
         var rows: [ItemType] = Array()
         
-        self.fileImporters = fileURLs.flatMap {
+        let fileImporters: [MP42FileImporter] = fileURLs.flatMap {
             let importer = MP42FileImporter(url: $0, error: nil)
-            rows.append(ItemType.header($0.lastPathComponent))
+            rows.append(ItemType.file(importer))
             
             let tracks = importer.tracks.map { ItemType.track(TrackSettings(track: $0)) }
             rows.append(contentsOf: tracks)
             return importer
         }
-        
+
+        self.metadata = fileImporters.first?.metadata
         self.items = rows
         
         super.init(window: nil)
@@ -203,7 +201,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     override func windowDidLoad() {
         super.windowDidLoad()
         
-        self.importMetadata.isEnabled = fileImporters.first?.metadata != nil
+        self.importMetadata.isEnabled = metadata != nil
         self.addButton.isEnabled = true
     }
 
@@ -212,7 +210,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     private var tracks: [TrackSettings] {
         return items.flatMap {
             switch $0 {
-            case .header(_):
+            case .file(_):
                 return nil
             case .track(let settings):
                 return settings
@@ -235,7 +233,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
         for index in indexes {
             let item = items[index]
             switch item {
-            case .header(_):
+            case .file(_):
                 break
             case .track(let settings):
                 settings.checked = value && settings.importable
@@ -268,7 +266,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
         let languages = tableView.targetedRowIndexes.flatMap {
             let item = items[$0]
             switch item {
-            case .header(_):
+            case .file(_):
                 return nil
             case .track(let settings):
                 return settings.track.language
@@ -356,16 +354,25 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
             }
         }
 
-        let metadata = importMetadata.state == NSControl.StateValue.on ? fileImporters.first?.metadata : nil
-
         delegate?.didSelect(tracks: selectedTracks,
-                            metadata: metadata)
+                            metadata: importMetadata.state == NSControl.StateValue.on ? metadata : nil)
 
         window?.sheetParent?.endSheet(window!, returnCode: NSApplication.ModalResponse.OK)
     }
     
     // MARK: Action menu
-    
+
+    @IBAction func setActionValue(_ sender: NSPopUpButton) {
+        let row = tableView.row(for: sender)
+        if row == -1 { return }
+
+        switch items[row] {
+        case .file(_):
+            break
+        case .track(let settings):
+            settings.selectedActionTag = UInt(sender.indexOfSelectedItem)
+        }
+    }
     
     // MARK: Table View
     
@@ -383,9 +390,9 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         switch items[row] {
-        case .header(let title):
+        case .file(let importer):
             let groupCell = tableView.makeView(withIdentifier: trackNameColumn, owner:self) as? NSTableCellView
-            groupCell?.textField?.stringValue = title
+            groupCell?.textField?.stringValue = importer.fileURL.lastPathComponent
             return groupCell
             
         case .track(let settings):
@@ -446,7 +453,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     
     func tableView(_ tableView: NSTableView, isGroupRow row: Int) -> Bool {
         switch items[row] {
-        case .header:
+        case .file:
             return true
         default:
             return false
