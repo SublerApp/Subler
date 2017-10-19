@@ -18,19 +18,19 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
 
     private enum ItemType {
         case file(MP42FileImporter)
-        case track(TrackSettings)
+        case track(Settings)
     }
 
-    private struct TrackAction {
+    private struct Action {
         let title: String
         let tag: Int
         let enabled: Bool
     }
     
-    private class TrackSettings {
+    private class Settings {
         let track: MP42Track
         let importable: Bool
-        let actions: [TrackAction]
+        let actions: [Action]
         var selectedActionTag: UInt
         var checked: Bool
 
@@ -43,23 +43,23 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
             self.importable = needsConversion || muxable ? true : false
 
             // Set up the actions
-            var actions: [TrackAction] = Array()
+            var actions: [Action] = Array()
 
             switch track {
             case is MP42ClosedCaptionTrack, is MP42ChapterTrack:
-                let action = TrackAction(title: NSLocalizedString("Passthru", comment: "File Import action menu item."),
+                let action = Action(title: NSLocalizedString("Passthru", comment: "File Import action menu item."),
                                          tag: 0,
                                          enabled: true)
                 actions.append(action)
                 
             case is MP42SubtitleTrack:
-                let action = TrackAction(title: NSLocalizedString("Passthru", comment: "File Import action menu item."),
+                let action = Action(title: NSLocalizedString("Passthru", comment: "File Import action menu item."),
                                          tag: 0,
                                          enabled: needsConversion == false)
                 actions.append(action)
                 
                 if (needsConversion) {
-                    let conversionAction = TrackAction(title: NSLocalizedString("Tx3g", comment: "File Import action menu item."),
+                    let conversionAction = Action(title: NSLocalizedString("Tx3g", comment: "File Import action menu item."),
                                                        tag: 1,
                                                        enabled: true)
                     actions.append(conversionAction)
@@ -72,14 +72,14 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
                     let tags = [2398, 24, 25, 2997, 30, 50, 5994, 60]
                     
                     for frameRate in zip(formats, tags) {
-                        let action = TrackAction(title: frameRate.0,
+                        let action = Action(title: frameRate.0,
                                                  tag: frameRate.1,
                                                  enabled: true)
                         actions.append(action)
                     }
                 }
                 else {
-                    let action = TrackAction(title: NSLocalizedString("Passthru", comment: "File Import action menu item."),
+                    let action = Action(title: NSLocalizedString("Passthru", comment: "File Import action menu item."),
                                              tag: 0,
                                              enabled: muxable == true)
                     actions.append(action)
@@ -87,14 +87,14 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
 
             case is MP42AudioTrack:
                 
-                let action = TrackAction(title: NSLocalizedString("Passthru", comment: "File Import action menu item."),
+                let action = Action(title: NSLocalizedString("Passthru", comment: "File Import action menu item."),
                                          tag: 0,
                                          enabled: needsConversion == false)
                 actions.append(action)
                 
                 let formats = ["AAC - Dolby Pro Logic II", "AAC - Dolby Pro Logic", "AAC - Stereo", "AAC - Mono", "AAC - Multi-channel"]
                 for (index, format) in formats.enumerated() {
-                    let conversionAction = TrackAction(title: format,
+                    let conversionAction = Action(title: format,
                                                        tag: index + 1,
                                                        enabled: true)
                     actions.append(conversionAction)
@@ -103,14 +103,14 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
                 if track.format == kMP42AudioCodecType_AC3 ||
                     track.format == kMP42AudioCodecType_EnhancedAC3 ||
                     track.format == kMP42AudioCodecType_DTS {
-                    let conversionAction = TrackAction(title: NSLocalizedString("AAC + Passthru", comment: "File Import action menu item."),
+                    let conversionAction = Action(title: NSLocalizedString("AAC + Passthru", comment: "File Import action menu item."),
                                                        tag: 6,
                                                        enabled: true)
                     actions.append(conversionAction)
                 }
                 
                 if track.format == kMP42AudioCodecType_DTS {
-                    let conversionAction = TrackAction(title: NSLocalizedString("AAC + AC3", comment: "File Import action menu item."),
+                    let conversionAction = Action(title: NSLocalizedString("AAC + AC3", comment: "File Import action menu item."),
                                                        tag: 7,
                                                        enabled: true)
                     actions.append(conversionAction)
@@ -183,7 +183,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
             let importer = MP42FileImporter(url: $0, error: nil)
             rows.append(ItemType.file(importer))
             
-            let tracks = importer.tracks.map { ItemType.track(TrackSettings(track: $0)) }
+            let tracks = importer.tracks.map { ItemType.track(Settings(track: $0)) }
             rows.append(contentsOf: tracks)
             return importer
         }
@@ -207,7 +207,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
 
     // MARK: Public properties
 
-    private var tracks: [TrackSettings] {
+    private var settings: [Settings] {
         return items.flatMap {
             switch $0 {
             case .file(_):
@@ -219,7 +219,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     }
 
     var onlyContainsSubtitles: Bool {
-        return tracks.filter { $0.track.format != kMP42SubtitleCodecType_3GText && $0.track as? MP42SubtitleTrack == nil } .isEmpty
+        return settings.filter { $0.track.format != kMP42SubtitleCodecType_3GText && $0.track as? MP42SubtitleTrack == nil } .isEmpty
     }
 
     // MARK: Selection
@@ -273,7 +273,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
             }
         }
 
-        for settings in tracks {
+        for settings in settings {
             settings.checked = settings.importable && languages.contains(settings.track.language)
         }
 
@@ -289,48 +289,54 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     @IBAction func addTracks(_ sender: Any) {
 
         var selectedTracks: [MP42Track] = Array()
-        let checkedTracks = tracks.filter { $0.checked }
+        let checkedTracks = settings.filter { $0.checked }
 
         for trackSettings in checkedTracks {
             switch trackSettings.track {
             case let track as MP42AudioTrack:
-                let bitRate = UInt(UserDefaults.standard.integer(forKey: "SBAudioBitrate"))
-                let drc = UserDefaults.standard.float(forKey: "SBAudioDRC")
-                var mixdown = SBNoneMixdown
+                
+                if trackSettings.selectedActionTag > 0 {
+                    let bitRate = UInt(UserDefaults.standard.integer(forKey: "SBAudioBitrate"))
+                    let drc = UserDefaults.standard.float(forKey: "SBAudioDRC")
+                    var mixdown = SBNoneMixdown
 
-                let copyTrack = trackSettings.selectedActionTag == 6 || trackSettings.selectedActionTag == 7 ? true : false
-                let convertDTSToAC3 = trackSettings.selectedActionTag == 7 ? true : false
+                    let copyTrack = trackSettings.selectedActionTag == 6 || trackSettings.selectedActionTag == 7 ? true : false
+                    let convertDTSToAC3 = trackSettings.selectedActionTag == 7 ? true : false
 
-                switch trackSettings.selectedActionTag {
-                case 5:
-                    mixdown = SBNoneMixdown;
-                case 4:
-                    mixdown = SBMonoMixdown;
-                case 3:
-                    mixdown = SBStereoMixdown;
-                case 2:
-                    mixdown = SBDolbyMixdown;
-                default:
-                    mixdown = SBDolbyPlIIMixdown;
-                }
-
-                if copyTrack {
-                    let copy = track.copy() as! MP42AudioTrack
-                    let settings = MP42AudioConversionSettings.audioConversion(withBitRate: bitRate, mixDown: mixdown, drc: drc)
-
-                    copy.conversionSettings = settings
-
-                    track.fallbackTrack = copy
-                    track.isEnabled = false
-
-                    if convertDTSToAC3 {
-                        // Wouldn't it be better to use pref settings too instead of 640/Multichannel and the drc from the prefs?
-                        track.conversionSettings = MP42AudioConversionSettings(format: kMP42AudioCodecType_AC3, bitRate: 640, mixDown: SBNoneMixdown, drc: drc)
+                    switch trackSettings.selectedActionTag {
+                    case 5:
+                        mixdown = SBNoneMixdown;
+                    case 4:
+                        mixdown = SBMonoMixdown;
+                    case 3:
+                        mixdown = SBStereoMixdown;
+                    case 2:
+                        mixdown = SBDolbyMixdown;
+                    default:
+                        mixdown = SBDolbyPlIIMixdown;
                     }
 
-                    selectedTracks.append(copy)
-                }
+                    if copyTrack {
+                        let copy = track.copy() as! MP42AudioTrack
+                        let settings = MP42AudioConversionSettings.audioConversion(withBitRate: bitRate, mixDown: mixdown, drc: drc)
 
+                        copy.conversionSettings = settings
+
+                        track.fallbackTrack = copy
+                        track.isEnabled = false
+
+                        if convertDTSToAC3 {
+                            // Wouldn't it be better to use pref settings too instead of 640/Multichannel and the drc from the prefs?
+                            track.conversionSettings = MP42AudioConversionSettings(format: kMP42AudioCodecType_AC3, bitRate: 640, mixDown: SBNoneMixdown, drc: drc)
+                        }
+
+                        selectedTracks.append(copy)
+                    }
+                    else {
+                        let settings = MP42AudioConversionSettings.audioConversion(withBitRate: bitRate, mixDown: mixdown, drc: drc)
+                        track.conversionSettings = settings;
+                    }
+                }
                 selectedTracks.append(trackSettings.track)
 
             case let track as MP42SubtitleTrack:
@@ -360,7 +366,19 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
         window?.sheetParent?.endSheet(window!, returnCode: NSApplication.ModalResponse.OK)
     }
     
-    // MARK: Action menu
+    // MARK: Actions
+
+    @IBAction func setCheck(_ sender: NSButton) {
+        let row = tableView.row(for: sender)
+        if row == -1 { return }
+
+        switch items[row] {
+        case .file(_):
+            break
+        case .track(let settings):
+            settings.checked = sender.state.rawValue > 0
+        }
+    }
 
     @IBAction func setActionValue(_ sender: NSPopUpButton) {
         let row = tableView.row(for: sender)

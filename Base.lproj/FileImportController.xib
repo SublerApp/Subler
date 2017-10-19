@@ -61,6 +61,9 @@
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="smallSystem"/>
                                                             </buttonCell>
+                                                            <connections>
+                                                                <action selector="setCheck:" target="-2" id="9bY-sh-yDO"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <connections>
@@ -252,12 +255,12 @@
                                                         <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pAl-i2-yhV">
                                                             <rect key="frame" x="0.0" y="-2" width="120" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                            <popUpButtonCell key="cell" type="bevel" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" selectedItem="Iwa-6U-c3K" id="VtC-oc-VAC">
+                                                            <popUpButtonCell key="cell" type="bevel" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="Iwa-6U-c3K" id="VtC-oc-VAC">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="menu"/>
                                                                 <menu key="menu" id="6Oy-4J-Chg">
                                                                     <items>
-                                                                        <menuItem title="Item 1" id="Iwa-6U-c3K"/>
+                                                                        <menuItem title="Item 1" state="on" id="Iwa-6U-c3K"/>
                                                                     </items>
                                                                 </menu>
                                                             </popUpButtonCell>
@@ -355,7 +358,7 @@ Gw
                     <constraint firstItem="26" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="xcH-VR-g52"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="-107" y="105.5"/>
+            <point key="canvasLocation" x="137" y="103"/>
         </window>
         <menu id="Nqo-5L-aDh">
             <items>
