@@ -160,6 +160,11 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTok
         }
     }
 
+    func tokenField(_ tokenField: NSTokenField, representedObjectForEditing editingString: String) -> Any? {
+        // Disable whitespace-trimming
+        return editingString
+    }
+
     func tokenField(_ tokenField: NSTokenField, completionsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [Any]? {
         matches = currentTokens.filter { $0.hasPrefix(substring) }
         return matches
