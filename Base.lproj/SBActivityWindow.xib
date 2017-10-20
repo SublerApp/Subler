@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11761" systemVersion="16C53a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13528" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11761"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13528"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="SBLogWindowController">
+        <customObject id="-2" userLabel="File's Owner" customClass="ActivityWindowController" customModule="Subler" customModuleProvider="target">
             <connections>
                 <outlet property="logView" destination="FnY-V1-Sgg" id="z15-mv-gl7"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
@@ -41,7 +41,7 @@
                             <rect key="frame" x="1" y="1" width="400" height="411"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" findStyle="bar" incrementalSearchingEnabled="YES" allowsCharacterPickerTouchBarItem="NO" allowsNonContiguousLayout="YES" textCompletion="NO" id="FnY-V1-Sgg">
+                                <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" incrementalSearchingEnabled="YES" allowsCharacterPickerTouchBarItem="NO" allowsNonContiguousLayout="YES" textCompletion="NO" id="FnY-V1-Sgg">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="411"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -64,6 +64,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="myf-Ql-qUP" secondAttribute="trailing" constant="8" id="gh1-w9-lnf"/>
+                    <constraint firstItem="myf-Ql-qUP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" symbolic="YES" id="keQ-Uw-5xb"/>
                     <constraint firstAttribute="bottom" secondItem="myf-Ql-qUP" secondAttribute="bottom" constant="8" id="ovP-jQ-beQ"/>
                 </constraints>
             </view>

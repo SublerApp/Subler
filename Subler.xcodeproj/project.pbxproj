@@ -24,7 +24,6 @@
 		A906B5B11E434872007D12B1 /* Queue.sdef in Resources */ = {isa = PBXBuildFile; fileRef = A906B5B01E434872007D12B1 /* Queue.sdef */; };
 		A90B023B10F3290A000416F3 /* Prefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90B023910F3290A000416F3 /* Prefs.xib */; };
 		A90BC5E31F3A139700F9F3F3 /* MetadataResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */; };
-		A917286119FD288B00348DF8 /* SBLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A917286019FD288B00348DF8 /* SBLogger.m */; };
 		A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91B196B1F2B0DCB0008675F /* QueueAction.swift */; };
 		A924A51E1D4B9E93008301A7 /* SBMetadataPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A924A5201D4B9E93008301A7 /* SBMetadataPrefsViewController.xib */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
@@ -39,6 +38,9 @@
 		A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */; };
 		A944E5921F498FC4002E43F6 /* PresetPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A944E5911F498FC4002E43F6 /* PresetPrefsViewController.swift */; };
 		A94A6A591ED1C5CC00049F7D /* ParseFilename in Resources */ = {isa = PBXBuildFile; fileRef = A94A6A581ED1C5CA00049F7D /* ParseFilename */; };
+		A956CE651F99E5BB00093992 /* ActivityWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956CE641F99E5BB00093992 /* ActivityWindowController.swift */; };
+		A956CE691F99E93D00093992 /* ButtonToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956CE681F99E93D00093992 /* ButtonToolbarItem.swift */; };
+		A956CE6B1F99EAAD00093992 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956CE6A1F99EAAD00093992 /* Logger.swift */; };
 		A9577CF61F3DC667009181F4 /* Document+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9577CF51F3DC667009181F4 /* Document+Swift.swift */; };
 		A95B8DA91B09F37800F2F152 /* Subler_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B8DA81B09F37800F2F152 /* Subler_Tests.m */; };
 		A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */; };
@@ -81,7 +83,6 @@
 		A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */; };
 		A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */; };
 		A9B46A8F12B79B240040517A /* SBTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A8512B79B240040517A /* SBTableView.m */; };
-		A9B46A9E12B79B990040517A /* ButtonToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46A9412B79B990040517A /* ButtonToolbarItem.m */; };
 		A9B46AA412B79BB10040517A /* Subler.icns in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AA312B79BB10040517A /* Subler.icns */; };
 		A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46ABE12B79D1C0040517A /* SBDocument.m */; };
 		A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B514181EFC12310055A035 /* TheTVDB.swift */; };
@@ -89,8 +90,7 @@
 		A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A9BA1AF51DBF7DD800FD0B38 /* Localizable.strings */; };
 		A9BC410318D9AB8700F8C92C /* SBItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BC410218D9AB8700F8C92C /* SBItemViewController.m */; };
 		A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BC410618D9ABC000F8C92C /* QueueItem.xib */; };
-		A9C5FA6E19FA22590051F3FF /* SBLogWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C5FA6C19FA22590051F3FF /* SBLogWindowController.m */; };
-		A9C5FA7419FA2FEC0051F3FF /* SBLogWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C5FA7219FA2FEC0051F3FF /* SBLogWindow.xib */; };
+		A9C5FA7419FA2FEC0051F3FF /* SBActivityWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C5FA7219FA2FEC0051F3FF /* SBActivityWindow.xib */; };
 		A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C828F4195950C3004C4718 /* SBQueuePreferences.m */; };
 		A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */; };
 		A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */; };
@@ -188,8 +188,6 @@
 		A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataPrefsViewController.swift; path = Classes/MetadataPrefsViewController.swift; sourceTree = "<group>"; };
 		A906B5B01E434872007D12B1 /* Queue.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Queue.sdef; sourceTree = "<group>"; };
 		A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataResult.swift; path = Classes/MetadataImporters/MetadataResult.swift; sourceTree = "<group>"; };
-		A917286019FD288B00348DF8 /* SBLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLogger.m; path = Classes/SBLogger.m; sourceTree = "<group>"; };
-		A917286419FD289F00348DF8 /* SBLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBLogger.h; path = Classes/SBLogger.h; sourceTree = "<group>"; };
 		A91B196B1F2B0DCB0008675F /* QueueAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueAction.swift; path = Classes/QueueAction.swift; sourceTree = "<group>"; };
 		A924A50C1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBDocument.xib; sourceTree = "<group>"; };
 		A924A50D1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/ChapterView.xib; sourceTree = "<group>"; };
@@ -205,7 +203,7 @@
 		A924A5181D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QueueOptions.xib; sourceTree = "<group>"; };
 		A924A5191D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QueueItem.xib; sourceTree = "<group>"; };
 		A924A51A1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Prefs.xib; sourceTree = "<group>"; };
-		A924A51B1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBLogWindow.xib; sourceTree = "<group>"; };
+		A924A51B1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBActivityWindow.xib; sourceTree = "<group>"; };
 		A924A51C1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBMediaTagsController.xib; sourceTree = "<group>"; };
 		A924A51D1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ExceptionAlert.xib; sourceTree = "<group>"; };
 		A924A51F1D4B9E93008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBMetadataPrefsViewController.xib; sourceTree = "<group>"; };
@@ -221,6 +219,9 @@
 		A944E5911F498FC4002E43F6 /* PresetPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PresetPrefsViewController.swift; path = Classes/PresetPrefsViewController.swift; sourceTree = "<group>"; };
 		A94868D31F56BA0F00C47B75 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/it.lproj/PresetEditorViewController.strings; sourceTree = "<group>"; };
 		A94A6A581ED1C5CA00049F7D /* ParseFilename */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ParseFilename; path = Utilities/ParseFilename; sourceTree = "<group>"; };
+		A956CE641F99E5BB00093992 /* ActivityWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityWindowController.swift; path = Classes/ActivityWindowController.swift; sourceTree = "<group>"; };
+		A956CE681F99E93D00093992 /* ButtonToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonToolbarItem.swift; path = Classes/ButtonToolbarItem.swift; sourceTree = "<group>"; };
+		A956CE6A1F99EAAD00093992 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Logger.swift; path = Classes/Logger.swift; sourceTree = "<group>"; };
 		A9577CF51F3DC667009181F4 /* Document+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Document+Swift.swift"; path = "Classes/Document+Swift.swift"; sourceTree = "<group>"; };
 		A95B8DA41B09F37700F2F152 /* Subler Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subler Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95B8DA71B09F37700F2F152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -273,8 +274,6 @@
 		A9B3411B1679CA3E00E6EE0C /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		A9B46A8412B79B240040517A /* SBTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBTableView.h; path = Classes/SBTableView.h; sourceTree = "<group>"; };
 		A9B46A8512B79B240040517A /* SBTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBTableView.m; path = Classes/SBTableView.m; sourceTree = "<group>"; };
-		A9B46A9312B79B990040517A /* ButtonToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ButtonToolbarItem.h; path = Others/ButtonToolbarItem.h; sourceTree = "<group>"; };
-		A9B46A9412B79B990040517A /* ButtonToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ButtonToolbarItem.m; path = Others/ButtonToolbarItem.m; sourceTree = "<group>"; };
 		A9B46AA312B79BB10040517A /* Subler.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Subler.icns; path = images/Subler.icns; sourceTree = "<group>"; };
 		A9B46ABD12B79D1C0040517A /* SBDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBDocument.h; path = Classes/SBDocument.h; sourceTree = "<group>"; };
 		A9B46ABE12B79D1C0040517A /* SBDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SBDocument.m; path = Classes/SBDocument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -296,7 +295,7 @@
 		A9BA1ADF1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QueueOptions.strings; sourceTree = "<group>"; };
 		A9BA1AE01DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QueueItem.strings; sourceTree = "<group>"; };
 		A9BA1AE11DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Prefs.strings; sourceTree = "<group>"; };
-		A9BA1AE21DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBLogWindow.strings; sourceTree = "<group>"; };
+		A9BA1AE21DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBActivityWindow.strings; sourceTree = "<group>"; };
 		A9BA1AE31DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBMediaTagsController.strings; sourceTree = "<group>"; };
 		A9BA1AE41DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/ExceptionAlert.strings; sourceTree = "<group>"; };
 		A9BA1AE51DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = it; path = it.lproj/Credits.rtf; sourceTree = "<group>"; };
@@ -307,8 +306,6 @@
 		A9BC410218D9AB8700F8C92C /* SBItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBItemViewController.m; path = Classes/SBItemViewController.m; sourceTree = "<group>"; };
 		A9C0603F168315C500FE3D98 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
 		A9C0957F0F7B6C8C00170CAF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
-		A9C5FA6B19FA22590051F3FF /* SBLogWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBLogWindowController.h; path = Classes/SBLogWindowController.h; sourceTree = "<group>"; };
-		A9C5FA6C19FA22590051F3FF /* SBLogWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLogWindowController.m; path = Classes/SBLogWindowController.m; sourceTree = "<group>"; };
 		A9C8182C0F74D6E300019BFF /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
 		A9C828F3195950C3004C4718 /* SBQueuePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueuePreferences.h; path = Classes/SBQueuePreferences.h; sourceTree = "<group>"; };
 		A9C828F4195950C3004C4718 /* SBQueuePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueuePreferences.m; path = Classes/SBQueuePreferences.m; sourceTree = "<group>"; };
@@ -430,8 +427,7 @@
 				A9FC6FF41EF2E3280034CCED /* Subler-Bridging-Header.h */,
 				32DBCF750370BD2300C91783 /* Subler_Prefix.pch */,
 				A9A77C4D1F306FA70018023B /* AttributedStyles.swift */,
-				A9B46A9312B79B990040517A /* ButtonToolbarItem.h */,
-				A9B46A9412B79B990040517A /* ButtonToolbarItem.m */,
+				A956CE681F99E93D00093992 /* ButtonToolbarItem.swift */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -503,10 +499,9 @@
 		A95688AC1B91B35A004456A6 /* Activity Log */ = {
 			isa = PBXGroup;
 			children = (
-				A9C5FA6B19FA22590051F3FF /* SBLogWindowController.h */,
-				A9C5FA6C19FA22590051F3FF /* SBLogWindowController.m */,
-				A917286419FD289F00348DF8 /* SBLogger.h */,
-				A917286019FD288B00348DF8 /* SBLogger.m */,
+				A956CE641F99E5BB00093992 /* ActivityWindowController.swift */,
+				A9C5FA7219FA2FEC0051F3FF /* SBActivityWindow.xib */,
+				A956CE6A1F99EAAD00093992 /* Logger.swift */,
 				A9DA3BA01B918D6200F1E40C /* SBApplication.h */,
 				A9DA3B991B918D5C00F1E40C /* SBApplication.m */,
 				A9DA3B9A1B918D5C00F1E40C /* SBExceptionAlertController.h */,
@@ -547,7 +542,6 @@
 				A961476513F568210068F161 /* Queue.xib */,
 				A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */,
 				A9BC410618D9ABC000F8C92C /* QueueItem.xib */,
-				A9C5FA7219FA2FEC0051F3FF /* SBLogWindow.xib */,
 				A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */,
 				A9DA3BA11B918D6F00F1E40C /* ExceptionAlert.xib */,
 			);
@@ -786,7 +780,7 @@
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
 				A90300C81DAE72C4008237D8 /* SBPresetPrefsViewController.xib in Resources */,
 				A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */,
-				A9C5FA7419FA2FEC0051F3FF /* SBLogWindow.xib in Resources */,
+				A9C5FA7419FA2FEC0051F3FF /* SBActivityWindow.xib in Resources */,
 				A9DA3BA31B918D6F00F1E40C /* ExceptionAlert.xib in Resources */,
 				A90B023B10F3290A000416F3 /* Prefs.xib in Resources */,
 				A9AB486417F0AEFD000AA72E /* ChapterView.xib in Resources */,
@@ -839,7 +833,6 @@
 				A9915ABF1F4B26CF003C57D1 /* MetadataPreset.swift in Sources */,
 				A900CE3E1F3ACF9700CCA08E /* MetadataResultMap.swift in Sources */,
 				A9B46A8F12B79B240040517A /* SBTableView.m in Sources */,
-				A9B46A9E12B79B990040517A /* ButtonToolbarItem.m in Sources */,
 				A9915AC11F4B28ED003C57D1 /* Preset.swift in Sources */,
 				A92ECCE31F49984C0063BFBD /* PrefsWindowController.swift in Sources */,
 				A96946531BA3F83D0048C004 /* SBMediaTagsController.m in Sources */,
@@ -853,10 +846,11 @@
 				A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */,
 				A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */,
 				A9E932A71F34D31D00B1790B /* ArtworkSelector.swift in Sources */,
-				A9C5FA6E19FA22590051F3FF /* SBLogWindowController.m in Sources */,
 				A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */,
+				A956CE6B1F99EAAD00093992 /* Logger.swift in Sources */,
 				A9AB485717F0AEAC000AA72E /* SBSoundViewController.m in Sources */,
 				A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */,
+				A956CE691F99E93D00093992 /* ButtonToolbarItem.swift in Sources */,
 				A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */,
 				A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */,
 				A9067A0C1F3CA4E6008011DC /* MetadataPrefsViewController.swift in Sources */,
@@ -868,8 +862,8 @@
 				A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */,
 				A90057C01F99E35300FA4ED1 /* PopUpCellView.swift in Sources */,
 				A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */,
-				A917286119FD288B00348DF8 /* SBLogger.m in Sources */,
 				A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */,
+				A956CE651F99E5BB00093992 /* ActivityWindowController.swift in Sources */,
 				A90057BA1F99E02400FA4ED1 /* ComboBoxCell.swift in Sources */,
 				A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */,
 				A9A77C4E1F306FA70018023B /* AttributedStyles.swift in Sources */,
@@ -1089,13 +1083,13 @@
 			name = QueueItem.xib;
 			sourceTree = "<group>";
 		};
-		A9C5FA7219FA2FEC0051F3FF /* SBLogWindow.xib */ = {
+		A9C5FA7219FA2FEC0051F3FF /* SBActivityWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A924A51B1D4B9E67008301A7 /* Base */,
 				A9BA1AE21DBF773700FD0B38 /* it */,
 			);
-			name = SBLogWindow.xib;
+			name = SBActivityWindow.xib;
 			sourceTree = "<group>";
 		};
 		A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */ = {

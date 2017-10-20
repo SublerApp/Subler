@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13528" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13168.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13528"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -143,9 +143,9 @@
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="4Tn-KL-e86"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Iau-lm-QMb"/>
-                    <toolbarItem implicitItemIdentifier="3A987BC3-AE8F-4D56-8562-D2F37B9DA021" label="Add Item" paletteLabel="Add Item" toolTip="Add an item to the queue" image="NSAddTemplate" id="mbj-v3-fFG" customClass="ButtonToolbarItem">
+                    <toolbarItem implicitItemIdentifier="3A987BC3-AE8F-4D56-8562-D2F37B9DA021" label="Add Item" paletteLabel="Add Item" toolTip="Add an item to the queue" image="NSAddTemplate" id="mbj-v3-fFG" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <size key="minSize" width="36" height="24"/>
-                        <size key="maxSize" width="36" height="24"/>
+                        <size key="maxSize" width="36" height="28"/>
                         <button key="view" verticalHuggingPriority="750" id="sUh-2y-iie">
                             <rect key="frame" x="9" y="14" width="36" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -158,9 +158,9 @@
                             <action selector="open:" target="-2" id="sdm-Bo-vsx"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="403860A1-8562-4F5B-BBEE-E8C1270A9077" label="Settings" paletteLabel="Settings" toolTip="Show/hide settings" image="NSActionTemplate" id="Qif-lh-Rps" customClass="ButtonToolbarItem">
+                    <toolbarItem implicitItemIdentifier="403860A1-8562-4F5B-BBEE-E8C1270A9077" label="Settings" paletteLabel="Settings" toolTip="Show/hide settings" image="NSActionTemplate" id="Qif-lh-Rps" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <size key="minSize" width="36" height="24"/>
-                        <size key="maxSize" width="36" height="24"/>
+                        <size key="maxSize" width="36" height="28"/>
                         <button key="view" verticalHuggingPriority="750" id="tU5-DL-6vU">
                             <rect key="frame" x="8" y="14" width="36" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -173,9 +173,9 @@
                             <action selector="toggleOptions:" target="-2" id="f6O-LF-uNy"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="90FECCE0-5997-4C12-9158-9F7391313970" label="Start" paletteLabel="Start" toolTip="Start/stop queue" image="playBackTemplate" id="xeY-tT-tF2" customClass="ButtonToolbarItem">
+                    <toolbarItem implicitItemIdentifier="90FECCE0-5997-4C12-9158-9F7391313970" label="Start" paletteLabel="Start" toolTip="Start/stop queue" image="playBackTemplate" id="xeY-tT-tF2" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <size key="minSize" width="36" height="24"/>
-                        <size key="maxSize" width="36" height="24"/>
+                        <size key="maxSize" width="36" height="28"/>
                         <button key="view" verticalHuggingPriority="750" id="sOU-an-jdB">
                             <rect key="frame" x="0.0" y="14" width="36" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>

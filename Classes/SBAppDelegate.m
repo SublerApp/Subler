@@ -9,8 +9,6 @@
 #import "SBAppDelegate.h"
 #import "SBDocument.h"
 #import "SBQueueController.h"
-#import "SBLogWindowController.h"
-#import "SBLogger.h"
 
 #import "Subler-Swift.h"
 
@@ -22,7 +20,7 @@
 @interface SBAppDelegate ()
 {
     SBPrefsWindowController *prefController;
-    SBLogWindowController *debugLogController;
+    ActivityWindowController *debugLogController;
     SBDocumentController *documentController;
 }
 @end
@@ -45,10 +43,10 @@
 
     NSString *path = [appSupportPath stringByAppendingPathComponent:@"debugLog.txt"];
 
-    SBLogger *logger = [[SBLogger alloc] initWithLogFile:[NSURL fileURLWithPath:path]];
-    [logger clearLog];
+    Logger *logger = [[Logger alloc] initWithFileURL:[NSURL fileURLWithPath:path]];
+    [logger clear];
 
-    debugLogController = [[SBLogWindowController alloc] initWithLogger:logger];
+    debugLogController = [[ActivityWindowController alloc] initWithLogger:logger];
     MP42File.globalLogger = logger;
     
     if ([NSUserDefaults.standardUserDefaults boolForKey:@"SBAdditionalDebugInfo"]) {
