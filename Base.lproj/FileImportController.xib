@@ -49,7 +49,7 @@
                                             </customCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
-                                                <tableCellView identifier="check" id="MEZ-zI-j7A" customClass="SBCheckBoxCellView">
+                                                <tableCellView identifier="check" id="MEZ-zI-j7A" customClass="CheckBoxCellView" customModule="Subler" customModuleProvider="target">
                                                     <rect key="frame" x="1" y="1" width="20" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
@@ -247,7 +247,7 @@
                                             </customCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
-                                                <tableCellView id="K4f-NU-em4" customClass="SBPopUpCellView">
+                                                <tableCellView id="K4f-NU-em4" customClass="PopUpCellView" customModule="Subler" customModuleProvider="target">
                                                     <rect key="frame" x="476" y="1" width="124" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>

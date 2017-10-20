@@ -10,8 +10,6 @@
 #import "SBQueueController.h"
 #import "SBQueueItem.h"
 #import "SBTableView.h"
-#import "SBCheckBoxCellView.h"
-#import "SBPopUpCellView.h"
 
 #import "SBEmptyViewController.h"
 #import "SBMovieViewController.h"
@@ -567,7 +565,7 @@ static NSDictionary *_detailMonospacedAttr;
                 cell.textField.stringValue = track.formatSummary;
             }
             else if ([tableColumn.identifier isEqualToString:@"trackEnabled"]) {
-                SBCheckBoxCellView *checkCell = [tableView makeViewWithIdentifier:@"CheckCell" owner:self];
+                CheckBoxCellView *checkCell = [tableView makeViewWithIdentifier:@"CheckCell" owner:self];
                 checkCell.checkboxButton.state = track.isEnabled;
                 cell = checkCell;
             }
@@ -582,7 +580,7 @@ static NSDictionary *_detailMonospacedAttr;
                 }
             }
             else if ([tableColumn.identifier isEqualToString:@"trackLanguage"]) {
-                SBPopUpCellView *popUpCell = [tableView makeViewWithIdentifier:@"PopUpCell" owner:self];
+                PopUpCellView *popUpCell = [tableView makeViewWithIdentifier:@"PopUpCell" owner:self];
 
                 if (popUpCell.popUpButton.numberOfItems == 0) {
                     popUpCell.popUpButton.menu = [_languagesMenu copy];

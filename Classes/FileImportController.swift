@@ -169,8 +169,8 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     private var importMetadata: Bool
     private weak var delegate: FileImportControllerDelegate?
 
-    @IBOutlet weak var tableView: SBTableView!
-    @IBOutlet weak var importMetadataCheckbox: NSButton!
+    @IBOutlet var tableView: SBTableView!
+    @IBOutlet var importMetadataCheckbox: NSButton!
 
     override public var windowNibName: NSNib.Name? {
         return NSNib.Name(rawValue: "FileImportController")
@@ -410,7 +410,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
             switch tableColumn?.identifier {
 
             case checkColumn?:
-                let cell = tableView.makeView(withIdentifier: checkColumn, owner:self) as? SBCheckBoxCellView
+                let cell = tableView.makeView(withIdentifier: checkColumn, owner:self) as? CheckBoxCellView
                 cell?.checkboxButton?.state = settings.checked ? NSControl.StateValue.on : NSControl.StateValue.off
                 return cell
 
@@ -440,7 +440,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
                 return cell
 
             case trackActionColumn?:
-                let cell = tableView.makeView(withIdentifier: trackActionColumn, owner:self) as? SBPopUpCellView
+                let cell = tableView.makeView(withIdentifier: trackActionColumn, owner:self) as? PopUpCellView
                 if let menu = cell?.popUpButton?.menu {
                     menu.removeAllItems()
                     _ = settings.actions.map {

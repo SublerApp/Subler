@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13528" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13189.4"/>
-        <plugIn identifier="com.apple.imagekit.ibplugin" version="13189.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13528"/>
+        <plugIn identifier="com.apple.imagekit.ibplugin" version="13528"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -35,7 +35,7 @@
                     <rect key="frame" x="20" y="86" width="179" height="296"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="7IP-Gn-Bxd">
                         <rect key="frame" x="1" y="1" width="177" height="294"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <ikImageBrowserView autoresizesSubviews="NO" zoomValue="1" allowsReordering="YES" animates="YES" translatesAutoresizingMaskIntoConstraints="NO" id="217" customClass="SBImageBrowserView">
                                 <rect key="frame" x="0.0" y="0.0" width="177" height="294"/>
@@ -163,7 +163,7 @@
                     <rect key="frame" x="207" y="86" width="473" height="296"/>
                     <clipView key="contentView" id="cQT-bX-0YB">
                         <rect key="frame" x="1" y="0.0" width="471" height="295"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="14" rowSizeStyle="automatic" headerView="qXU-xB-xRF" viewBased="YES" floatsGroupRows="NO" id="qg5-r0-E4V" customClass="SBTableView">
                                 <rect key="frame" x="0.0" y="0.0" width="471" height="272"/>
@@ -273,7 +273,7 @@
                                                     <outlet property="textField" destination="AmC-rT-7Rf" id="L5l-ht-Zv3"/>
                                                 </connections>
                                             </tableCellView>
-                                            <tableCellView identifier="PopUpCell" id="JEU-aR-J9v" customClass="SBPopUpCellView">
+                                            <tableCellView identifier="PopUpCell" id="JEU-aR-J9v" customClass="PopUpCellView" customModule="Subler" customModuleProvider="target">
                                                 <rect key="frame" x="122" y="33" width="347" height="14"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -302,7 +302,7 @@
                                                     <outlet property="popUpButton" destination="cFv-4U-VzM" id="ELP-zT-lga"/>
                                                 </connections>
                                             </tableCellView>
-                                            <tableCellView identifier="BoolCell" id="DGy-Nb-PAN" customClass="SBCheckBoxCellView">
+                                            <tableCellView identifier="BoolCell" id="DGy-Nb-PAN" customClass="CheckBoxCellView" customModule="Subler" customModuleProvider="target">
                                                 <rect key="frame" x="122" y="49" width="347" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -327,13 +327,13 @@
                                                     <outlet property="checkboxButton" destination="oyk-jS-zmh" id="8Ei-w1-gg3"/>
                                                 </connections>
                                             </tableCellView>
-                                            <tableCellView identifier="ComboCell" id="vy5-48-Vip" customClass="SBComboBoxCellView">
+                                            <tableCellView identifier="ComboCell" id="vy5-48-Vip" customClass="ComboBoxCellView" customModule="Subler" customModuleProvider="target">
                                                 <rect key="frame" x="122" y="68" width="347" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <comboBox verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="1000" translatesAutoresizingMaskIntoConstraints="NO" id="LbC-r6-Pau">
                                                         <rect key="frame" x="3" y="0.0" width="344" height="19"/>
-                                                        <comboBoxCell key="cell" controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="left" title="Do not localize" usesSingleLineMode="YES" buttonBordered="NO" numberOfVisibleItems="5" id="jkg-xz-Hbn" customClass="SBComboBoxCell">
+                                                        <comboBoxCell key="cell" controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="left" title="Do not localize" usesSingleLineMode="YES" buttonBordered="NO" numberOfVisibleItems="5" id="jkg-xz-Hbn" customClass="ComboBoxCell" customModule="Subler" customModuleProvider="target">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

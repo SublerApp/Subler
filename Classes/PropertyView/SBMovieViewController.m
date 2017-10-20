@@ -12,9 +12,6 @@ NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
 #import "SBMovieViewController.h"
 #import "SBTableView.h"
 #import "SBImageBrowserView.h"
-#import "SBPopUpCellView.h"
-#import "SBCheckBoxCellView.h"
-#import "SBComboBoxCellView.h"
 
 #import <MP42Foundation/MP42Ratings.h>
 #import <MP42Foundation/MP42Image.h>
@@ -431,7 +428,7 @@ static NSArray<NSArray *> *_mediaKinds;
 
 - (NSTableCellView *)boolCellWithState:(BOOL)state tableView:(NSTableView *)tableView
 {
-    SBCheckBoxCellView *cell = [tableView makeViewWithIdentifier:@"BoolCell" owner:self];
+    CheckBoxCellView *cell = [tableView makeViewWithIdentifier:@"BoolCell" owner:self];
     cell.checkboxButton.state = state;
     return cell;
 }
@@ -445,7 +442,7 @@ static NSArray<NSArray *> *_mediaKinds;
 
 - (NSTableCellView *)popUpRatingCellWithContents:(NSArray<NSString *> *)contents value:(NSString *)value tableView:(NSTableView *)tableView
 {
-    SBPopUpCellView *popUpCell =  [tableView makeViewWithIdentifier:@"PopUpCell" owner:self];
+    PopUpCellView *popUpCell =  [tableView makeViewWithIdentifier:@"PopUpCell" owner:self];
     [popUpCell.popUpButton removeAllItems];
     for (NSString *title in contents) {
         [popUpCell.popUpButton.menu addItem:[[NSMenuItem alloc] initWithTitle:title action:NULL keyEquivalent:@""]];
@@ -468,7 +465,7 @@ static NSArray<NSArray *> *_mediaKinds;
 - (NSTableCellView *)popUpCellWithArrayContents:(NSArray<NSArray *> *)contents value:(NSNumber *)value tableView:(NSTableView *)tableView
 {
     NSInteger index = 0;
-    SBPopUpCellView *popUpCell =  [tableView makeViewWithIdentifier:@"PopUpCell" owner:self];
+    PopUpCellView *popUpCell =  [tableView makeViewWithIdentifier:@"PopUpCell" owner:self];
     [popUpCell.popUpButton removeAllItems];
     for (NSArray *array in contents) {
         [popUpCell.popUpButton.menu addItem:[[NSMenuItem alloc] initWithTitle:array.firstObject action:NULL keyEquivalent:@""]];
@@ -489,7 +486,7 @@ static NSArray<NSArray *> *_mediaKinds;
 
 - (NSTableCellView *)comboBoxCellWithArrayContents:(NSArray<NSString *> *)contents value:(NSString *)value tableView:(NSTableView *)tableView
 {
-    SBComboBoxCellView *comboBoxCell =  [tableView makeViewWithIdentifier:@"ComboCell" owner:self];
+    ComboBoxCellView *comboBoxCell =  [tableView makeViewWithIdentifier:@"ComboCell" owner:self];
     comboBoxCell.comboBox.stringValue = value;
     [comboBoxCell.comboBox addItemsWithObjectValues:contents];
     return comboBoxCell;
