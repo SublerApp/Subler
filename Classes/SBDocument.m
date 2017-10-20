@@ -9,7 +9,6 @@
 #import "SBDocument.h"
 #import "SBQueueController.h"
 #import "SBQueueItem.h"
-#import "SBTableView.h"
 
 #import "SBEmptyViewController.h"
 #import "SBMovieViewController.h"

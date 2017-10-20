@@ -7,7 +7,7 @@
 //
 
 #import "SBChapterViewController.h"
-#import "SBTableView.h"
+#import "Subler-Swift.h"
 
 #import <MP42Foundation/MP42Utilities.h>
 
@@ -15,8 +15,8 @@
 {
     NSDictionary *detailBoldAttr;
 
-    IBOutlet SBTableView    *chapterTableView;
-    IBOutlet NSButton       *removeChapter;
+    IBOutlet ExpandedTableView    *chapterTableView;
+    IBOutlet NSButton             *removeChapter;
 }
 
 - (void)loadView

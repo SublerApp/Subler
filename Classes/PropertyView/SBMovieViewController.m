@@ -10,7 +10,6 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
 NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
 
 #import "SBMovieViewController.h"
-#import "SBTableView.h"
 #import "SBImageBrowserView.h"
 
 #import <MP42Foundation/MP42Ratings.h>
@@ -20,7 +19,7 @@ NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
 
 #import "Subler-Swift.h"
 
-@interface SBMovieViewController () <NSTableViewDataSource, SBTableViewDelegate, SBImageBrowserViewDelegate>
+@interface SBMovieViewController () <NSTableViewDataSource, ExpandedTableViewDelegate, SBImageBrowserViewDelegate>
 
 // Metadata tab
 @property (nonatomic) NSArray<MP42MetadataItem *> *tags;
@@ -39,7 +38,7 @@ NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
 @property (nonatomic, weak) IBOutlet NSPopUpButton *setsPopUp;
 
 @property (nonatomic, weak) IBOutlet NSButton *removeTagButton;
-@property (nonatomic, weak) IBOutlet SBTableView *metadataTableView;
+@property (nonatomic, weak) IBOutlet ExpandedTableView *metadataTableView;
 
 // Artwork tab
 @property (nonatomic, weak) IBOutlet NSButton *removeArtworkButton;
@@ -691,14 +690,14 @@ static NSArray<NSArray *> *_mediaKinds;
     }
 }
 
-- (void)_deleteSelectionFromTableView:(NSTableView *)tableView;
+- (void)deleteSelectionIn:(NSTableView *)tableview
 {
-    [self removeTag:tableView];
+    [self removeTag:tableview];
 }
 
-- (void)_copySelectionFromTableView:(NSTableView *)tableView;
+- (void)copySelectionIn:(NSTableView *)tableview
 {
-    NSIndexSet *rowIndexes = tableView.selectedRowIndexes;
+    NSIndexSet *rowIndexes = tableview.selectedRowIndexes;
     NSArray<MP42MetadataItem *> *items = [self.tags objectsAtIndexes:rowIndexes];
 
     NSMutableString *string = [NSMutableString string];
@@ -713,13 +712,13 @@ static NSArray<NSArray *> *_mediaKinds;
     [pb setData:[NSKeyedArchiver archivedDataWithRootObject:items] forType:SublerMetadataPBoardType];
 }
 
-- (void)_cutSelectionFromTableView:(NSTableView *)tableView;
+- (void)cutSelectionIn:(NSTableView *)tableview
 {
-    [self _copySelectionFromTableView:tableView];
-    [self removeTag:tableView];
+    [self copySelectionIn:tableview];
+    [self removeTag:tableview];
 }
 
-- (void)_pasteToTableView:(NSTableView *)tableView
+- (void)pasteTo:(NSTableView *)tableview
 {
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
     NSData *archivedData = [pb dataForType:SublerMetadataPBoardType];

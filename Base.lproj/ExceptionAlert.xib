@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13528" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13528"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="SBExceptionAlertController">
+        <customObject id="-2" userLabel="File's Owner" customClass="ExceptionAlertController" customModule="Subler" customModuleProvider="target">
             <connections>
+                <outlet property="exceptionBacktraceTextView" destination="22" id="zKB-84-b61"/>
+                <outlet property="exceptionMessageTextField" destination="11" id="ibU-uB-cXG"/>
                 <outlet property="window" destination="1" id="17"/>
             </connections>
         </customObject>
@@ -48,16 +50,9 @@
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
-                        <connections>
-                            <binding destination="-2" name="value" keyPath="exceptionMessage" id="27">
-                                <dictionary key="options">
-                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                </dictionary>
-                            </binding>
-                        </connections>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                        <rect key="frame" x="456" y="12" width="76" height="32"/>
+                        <rect key="frame" x="452" y="12" width="76" height="32"/>
                         <buttonCell key="cell" type="push" title="Crash" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="14">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -88,20 +83,20 @@ DQ
                             <rect key="frame" x="1" y="1" width="594" height="211"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView importsGraphics="NO" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" smartInsertDelete="YES" id="22">
+                                <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" smartInsertDelete="YES" id="22">
                                     <rect key="frame" x="0.0" y="0.0" width="594" height="211"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <size key="minSize" width="594" height="211"/>
                                     <size key="maxSize" width="759" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <connections>
-                                        <binding destination="-2" name="attributedString" keyPath="exceptionBacktrace" id="28"/>
-                                    </connections>
                                 </textView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </clipView>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="596" id="hyx-eM-hYP"/>
+                        </constraints>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="21">
                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                             <autoresizingMask key="autoresizingMask"/>
@@ -114,20 +109,22 @@ DQ
                 </subviews>
                 <constraints>
                     <constraint firstItem="13" firstAttribute="baseline" secondItem="15" secondAttribute="baseline" id="151-d0-8fh"/>
+                    <constraint firstAttribute="trailing" secondItem="15" secondAttribute="trailing" constant="19" id="1Wc-zm-rp3"/>
                     <constraint firstItem="3" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="4mr-yY-vZS"/>
+                    <constraint firstItem="19" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20" id="5co-AN-gaw"/>
                     <constraint firstItem="9" firstAttribute="leading" secondItem="11" secondAttribute="leading" id="COx-ae-3pb"/>
-                    <constraint firstItem="3" firstAttribute="leading" secondItem="19" secondAttribute="leading" id="JPf-cu-UPl"/>
                     <constraint firstItem="13" firstAttribute="top" secondItem="19" secondAttribute="bottom" constant="20" symbolic="YES" id="OA0-no-6w6"/>
                     <constraint firstAttribute="bottom" secondItem="13" secondAttribute="bottom" constant="19" id="OSL-Ck-iYd"/>
+                    <constraint firstAttribute="trailing" secondItem="19" secondAttribute="trailing" constant="20" id="OvY-Yp-ggn"/>
+                    <constraint firstItem="22" firstAttribute="top" secondItem="3" secondAttribute="bottom" constant="17" id="Poc-rB-g0i"/>
                     <constraint firstItem="3" firstAttribute="top" secondItem="9" secondAttribute="top" id="WcA-aJ-Wo7"/>
                     <constraint firstItem="9" firstAttribute="centerX" secondItem="11" secondAttribute="centerX" id="Yaj-FU-LT1"/>
-                    <constraint firstItem="15" firstAttribute="leading" secondItem="13" secondAttribute="trailing" constant="8" id="bcL-Zd-ssY"/>
-                    <constraint firstItem="9" firstAttribute="trailing" secondItem="15" secondAttribute="trailing" id="diI-dN-cee"/>
+                    <constraint firstItem="15" firstAttribute="leading" secondItem="13" secondAttribute="trailing" constant="12" symbolic="YES" id="bcL-Zd-ssY"/>
                     <constraint firstItem="11" firstAttribute="top" secondItem="9" secondAttribute="bottom" id="jcH-Bs-23D"/>
                     <constraint firstItem="19" firstAttribute="top" secondItem="11" secondAttribute="bottom" constant="16" id="ljq-tU-pxH"/>
+                    <constraint firstItem="13" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="p8I-cK-tba"/>
                     <constraint firstAttribute="trailing" secondItem="11" secondAttribute="trailing" constant="20" symbolic="YES" id="prO-CA-w12"/>
                     <constraint firstItem="9" firstAttribute="leading" secondItem="3" secondAttribute="trailing" constant="7" id="rBG-CM-Sii"/>
-                    <constraint firstItem="11" firstAttribute="trailing" secondItem="19" secondAttribute="trailing" id="tmc-U0-18N"/>
                     <constraint firstItem="3" firstAttribute="top" secondItem="2" secondAttribute="top" constant="20" symbolic="YES" id="w2L-zU-qMY"/>
                 </constraints>
             </view>

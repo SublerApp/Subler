@@ -14,7 +14,6 @@
 #import "SBItemViewController.h"
 
 #import "SBDocument.h"
-#import "SBTableView.h"
 
 #import <MP42Foundation/MP42FileImporter.h>
 
@@ -24,12 +23,12 @@ static void *SBQueueContex = &SBQueueContex;
 
 #define SublerBatchTableViewDataType @"SublerBatchTableViewDataType"
 
-@interface SBQueueController () <NSPopoverDelegate, NSWindowDelegate, NSTableViewDelegate, NSTableViewDataSource, SBTableViewDelegate, SBItemViewDelegate>
+@interface SBQueueController () <NSPopoverDelegate, NSWindowDelegate, NSTableViewDelegate, NSTableViewDataSource, ExpandedTableViewDelegate, SBItemViewDelegate>
 
 @property (nonatomic, readonly) SBQueuePreferences *prefs;
 @property (nonatomic, readonly) NSMutableDictionary<NSString *, id> *options;
 
-@property (nonatomic, weak) IBOutlet SBTableView *table;
+@property (nonatomic, weak) IBOutlet ExpandedTableView *table;
 
 @property (nonatomic, readonly) NSImage *docImg;
 
@@ -693,9 +692,9 @@ static void *SBQueueContex = &SBQueueContex;
     }
 }
 
-- (void)_deleteSelectionFromTableView:(NSTableView *)aTableView {
-    NSMutableIndexSet *rowIndexes = [aTableView.selectedRowIndexes mutableCopy];
-    NSInteger clickedRow = aTableView.clickedRow;
+- (void)deleteSelectionIn:(NSTableView *)tableview {
+    NSMutableIndexSet *rowIndexes = [tableview.selectedRowIndexes mutableCopy];
+    NSInteger clickedRow = tableview.clickedRow;
     NSUInteger selectedIndex = -1;
 
     if (rowIndexes.count) {
@@ -717,9 +716,9 @@ static void *SBQueueContex = &SBQueueContex;
     }
 
     if (rowIndexes.count) {
-        [aTableView removeRowsAtIndexes:rowIndexes withAnimation:NSTableViewAnimationSlideUp];
+        [tableview removeRowsAtIndexes:rowIndexes withAnimation:NSTableViewAnimationSlideUp];
         [self removeItems:array];
-        [aTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedIndex] byExtendingSelection:NO];
+        [tableview selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedIndex] byExtendingSelection:NO];
 
         [self updateState];
     }
@@ -736,7 +735,7 @@ static void *SBQueueContex = &SBQueueContex;
 }
 
 - (IBAction)removeSelectedItems:(id)sender {
-    [self _deleteSelectionFromTableView:self.table];
+    [self deleteSelectionIn:self.table];
 }
 
 - (IBAction)removeCompletedItems:(id)sender {

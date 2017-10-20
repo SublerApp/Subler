@@ -169,7 +169,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     private var importMetadata: Bool
     private weak var delegate: FileImportControllerDelegate?
 
-    @IBOutlet var tableView: SBTableView!
+    @IBOutlet var tableView: ExpandedTableView!
     @IBOutlet var importMetadataCheckbox: NSButton!
 
     override public var windowNibName: NSNib.Name? {

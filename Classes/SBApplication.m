@@ -4,7 +4,7 @@
 //
 
 #import "SBApplication.h"
-#import "SBExceptionAlertController.h"
+#import "Subler-Swift.h"
 
 @implementation SBApplication
 
@@ -37,12 +37,10 @@ static void CrashMyApplication()
             // Create a string based on the exception
             NSString *exceptionMessage = [NSString stringWithFormat:@"%@\nReason: %@\nUser Info: %@", exception.name, exception.reason, exception.userInfo];
             
-            SBExceptionAlertController *alertController = [[SBExceptionAlertController alloc] init];
-            alertController.exceptionMessage = exceptionMessage;
-            alertController.exceptionBacktrace = [self _formattedExceptionBacktrace:exception.callStackSymbols];
+            ExceptionAlertController *alertController = [[ExceptionAlertController alloc] initWithExceptionMessage:exceptionMessage exceptionBacktrace:[self _formattedExceptionBacktrace:exception.callStackSymbols]];
 
             NSInteger result = [alertController runModal];
-            if (result == SBExceptionAlertControllerResultCrash)
+            if (result == NSModalResponseStop)
             {
                 CrashMyApplication();
             }
