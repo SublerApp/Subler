@@ -85,8 +85,8 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
             case is MP42AudioTrack:
                 
                 let action = Action(title: NSLocalizedString("Passthru", comment: "File Import action menu item."),
-                                         tag: 0,
-                                         enabled: needsConversion == false)
+                                    tag: 0,
+                                    enabled: needsConversion == false)
                 actions.append(action)
 
                 let formats = ["AAC - Dolby Pro Logic II", "AAC - Dolby Pro Logic", "AAC - Stereo", "AAC - Mono", "AAC - Multi-channel"]
