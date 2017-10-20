@@ -10,12 +10,10 @@
 #import "SBQueueController.h"
 #import "SBQueueItem.h"
 
-#import "SBEmptyViewController.h"
 #import "SBMovieViewController.h"
 #import "SBVideoViewController.h"
 #import "SBSoundViewController.h"
 #import "SBChapterViewController.h"
-#import "SBMultiSelectViewController.h"
 
 #import <MP42Foundation/MP42File.h>
 #import <MP42Foundation/MP42FileImporter.h>
@@ -716,8 +714,8 @@ static NSDictionary *_detailMonospacedAttr;
     id track = !metadataRow && numberOfSelectedRows == 1 ? [self trackAtAtTableRow:row] : nil;
     
     if (numberOfSelectedRows > 1) {
-        controller = [[SBMultiSelectViewController alloc] initWithNibName:@"MultiSelectView" bundle:nil];
-        [(SBMultiSelectViewController *)controller setNumberOfTracks:numberOfSelectedRows];
+        controller = [[MultiSelectViewController alloc] initWithNibName:@"MultiSelectView" bundle:nil];
+        [(MultiSelectViewController *)controller setNumberOfTracks:numberOfSelectedRows];
     } else if (metadataRow) {
         controller = [[SBMovieViewController alloc] initWithNibName:@"MovieView" bundle:nil];
         [(SBMovieViewController *)controller setMetadata:self.mp4.metadata];
@@ -733,7 +731,7 @@ static NSDictionary *_detailMonospacedAttr;
         [controller setSoundTrack:track];
         [controller setFile:self.mp4];
     } else {
-        controller = [[SBEmptyViewController alloc] initWithNibName:@"EmptyView" bundle:nil];
+        controller = [[EmptyViewController alloc] initWithNibName:@"EmptyView" bundle:nil];
     }
 
     propertyView = controller;

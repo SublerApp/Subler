@@ -69,7 +69,6 @@
 		A9A8CEF91E43754400BC2AE1 /* SBQueueScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CEF81E43754400BC2AE1 /* SBQueueScriptCommand.m */; };
 		A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */; };
 		A9AB485417F0AEAC000AA72E /* SBChapterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484B17F0AEAC000AA72E /* SBChapterViewController.m */; };
-		A9AB485517F0AEAC000AA72E /* SBEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484D17F0AEAC000AA72E /* SBEmptyViewController.m */; };
 		A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */; };
 		A9AB485717F0AEAC000AA72E /* SBSoundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB485117F0AEAC000AA72E /* SBSoundViewController.m */; };
 		A9AB485817F0AEAC000AA72E /* SBVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */; };
@@ -79,7 +78,6 @@
 		A9AB486717F0AEFD000AA72E /* SoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB486017F0AEFD000AA72E /* SoundView.xib */; };
 		A9AB486817F0AEFD000AA72E /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB486217F0AEFD000AA72E /* VideoView.xib */; };
 		A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE26BD1F3B66470041A57D /* SquaredTVArt.swift */; };
-		A9AE26C21F3B665D0041A57D /* SBMultiSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AE26C11F3B665C0041A57D /* SBMultiSelectViewController.m */; };
 		A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */; };
 		A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */; };
 		A9B46AA412B79BB10040517A /* Subler.icns in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AA312B79BB10040517A /* Subler.icns */; };
@@ -91,6 +89,8 @@
 		A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BC410618D9ABC000F8C92C /* QueueItem.xib */; };
 		A9C09C7C1F99F460007939EE /* ExceptionAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C09C7B1F99F460007939EE /* ExceptionAlertController.swift */; };
 		A9C09C981F99F971007939EE /* ExpandedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C09C971F99F971007939EE /* ExpandedTableView.swift */; };
+		A9C09C9A1F9A0808007939EE /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C09C991F9A0808007939EE /* EmptyViewController.swift */; };
+		A9C09C9C1F9A08A9007939EE /* MultiSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C09C9B1F9A08A9007939EE /* MultiSelectViewController.swift */; };
 		A9C5FA7419FA2FEC0051F3FF /* SBActivityWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C5FA7219FA2FEC0051F3FF /* SBActivityWindow.xib */; };
 		A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C828F4195950C3004C4718 /* SBQueuePreferences.m */; };
 		A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */; };
@@ -174,7 +174,6 @@
 		32DBCF750370BD2300C91783 /* Subler_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subler_Prefix.pch; sourceTree = "<group>"; };
 		610362271E76D66A000DAE60 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/MultiSelectView.strings; sourceTree = "<group>"; };
 		61CEC0CD1E7569E4000FECC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/MultiSelectView.xib; sourceTree = "<group>"; };
-		61CEC0D11E756ACC000FECC1 /* SBMultiSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMultiSelectViewController.h; path = Classes/PropertyView/SBMultiSelectViewController.h; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Subler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Subler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		948058B5106E07990037A911 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /usr/lib/libz.dylib; sourceTree = "<absolute>"; };
@@ -258,8 +257,6 @@
 		A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBAppDelegate.m; path = Classes/SBAppDelegate.m; sourceTree = "<group>"; };
 		A9AB484A17F0AEAC000AA72E /* SBChapterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterViewController.h; path = Classes/PropertyView/SBChapterViewController.h; sourceTree = "<group>"; };
 		A9AB484B17F0AEAC000AA72E /* SBChapterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterViewController.m; path = Classes/PropertyView/SBChapterViewController.m; sourceTree = "<group>"; };
-		A9AB484C17F0AEAC000AA72E /* SBEmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBEmptyViewController.h; path = Classes/PropertyView/SBEmptyViewController.h; sourceTree = "<group>"; };
-		A9AB484D17F0AEAC000AA72E /* SBEmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBEmptyViewController.m; path = Classes/PropertyView/SBEmptyViewController.m; sourceTree = "<group>"; };
 		A9AB484E17F0AEAC000AA72E /* SBMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMovieViewController.h; path = Classes/PropertyView/SBMovieViewController.h; sourceTree = "<group>"; };
 		A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMovieViewController.m; path = Classes/PropertyView/SBMovieViewController.m; sourceTree = "<group>"; };
 		A9AB485017F0AEAC000AA72E /* SBSoundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBSoundViewController.h; path = Classes/PropertyView/SBSoundViewController.h; sourceTree = "<group>"; };
@@ -267,7 +264,6 @@
 		A9AB485217F0AEAC000AA72E /* SBVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBVideoViewController.h; path = Classes/PropertyView/SBVideoViewController.h; sourceTree = "<group>"; };
 		A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBVideoViewController.m; path = Classes/PropertyView/SBVideoViewController.m; sourceTree = "<group>"; };
 		A9AE26BD1F3B66470041A57D /* SquaredTVArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SquaredTVArt.swift; path = Classes/MetadataImporters/SquaredTVArt.swift; sourceTree = "<group>"; };
-		A9AE26C11F3B665C0041A57D /* SBMultiSelectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SBMultiSelectViewController.m; path = Classes/PropertyView/SBMultiSelectViewController.m; sourceTree = "<group>"; };
 		A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataHelper.swift; path = Classes/MetadataImporters/MetadataHelper.swift; sourceTree = "<group>"; };
 		A9AF6A7318D0496400FAAB08 /* SBQueueAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueAction.h; path = Classes/SBQueueAction.h; sourceTree = "<group>"; };
 		A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueAction.m; path = Classes/SBQueueAction.m; sourceTree = "<group>"; };
@@ -306,6 +302,8 @@
 		A9C0957F0F7B6C8C00170CAF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		A9C09C7B1F99F460007939EE /* ExceptionAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExceptionAlertController.swift; path = Classes/ExceptionAlertController.swift; sourceTree = "<group>"; };
 		A9C09C971F99F971007939EE /* ExpandedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExpandedTableView.swift; path = Classes/ExpandedTableView.swift; sourceTree = "<group>"; };
+		A9C09C991F9A0808007939EE /* EmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmptyViewController.swift; path = Classes/PropertyView/EmptyViewController.swift; sourceTree = "<group>"; };
+		A9C09C9B1F9A08A9007939EE /* MultiSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MultiSelectViewController.swift; path = Classes/PropertyView/MultiSelectViewController.swift; sourceTree = "<group>"; };
 		A9C8182C0F74D6E300019BFF /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
 		A9C828F3195950C3004C4718 /* SBQueuePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueuePreferences.h; path = Classes/SBQueuePreferences.h; sourceTree = "<group>"; };
 		A9C828F4195950C3004C4718 /* SBQueuePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueuePreferences.m; path = Classes/SBQueuePreferences.m; sourceTree = "<group>"; };
@@ -530,8 +528,6 @@
 			children = (
 				A9B46AC012B79E230040517A /* SBDocument.xib */,
 				A9AB485A17F0AEFD000AA72E /* ChapterView.xib */,
-				A9AB485C17F0AEFD000AA72E /* EmptyView.xib */,
-				61CEC0CC1E7569E4000FECC1 /* MultiSelectView.xib */,
 				A9AB485E17F0AEFD000AA72E /* MovieView.xib */,
 				A9AB486017F0AEFD000AA72E /* SoundView.xib */,
 				A9AB486217F0AEFD000AA72E /* VideoView.xib */,
@@ -606,16 +602,16 @@
 		A9FD5D150F3C692400817716 /* PropertyView */ = {
 			isa = PBXGroup;
 			children = (
+				A9C09C991F9A0808007939EE /* EmptyViewController.swift */,
+				A9AB485C17F0AEFD000AA72E /* EmptyView.xib */,
+				A9C09C9B1F9A08A9007939EE /* MultiSelectViewController.swift */,
+				61CEC0CC1E7569E4000FECC1 /* MultiSelectView.xib */,
 				A96946501BA3F83D0048C004 /* SBMediaTagsController.h */,
 				A96946511BA3F83D0048C004 /* SBMediaTagsController.m */,
 				A9AB484A17F0AEAC000AA72E /* SBChapterViewController.h */,
 				A9AB484B17F0AEAC000AA72E /* SBChapterViewController.m */,
-				A9AB484C17F0AEAC000AA72E /* SBEmptyViewController.h */,
-				A9AB484D17F0AEAC000AA72E /* SBEmptyViewController.m */,
 				A9AB484E17F0AEAC000AA72E /* SBMovieViewController.h */,
 				A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */,
-				61CEC0D11E756ACC000FECC1 /* SBMultiSelectViewController.h */,
-				A9AE26C11F3B665C0041A57D /* SBMultiSelectViewController.m */,
 				A9AB485017F0AEAC000AA72E /* SBSoundViewController.h */,
 				A9AB485117F0AEAC000AA72E /* SBSoundViewController.m */,
 				A9AB485217F0AEAC000AA72E /* SBVideoViewController.h */,
@@ -838,6 +834,7 @@
 				A90057BE1F99E2D800FA4ED1 /* TokenFieldCell.swift in Sources */,
 				A9395E351F8B9ACA004C402B /* MP42FileAdditions.swift in Sources */,
 				A9A8CEF91E43754400BC2AE1 /* SBQueueScriptCommand.m in Sources */,
+				A9C09C9A1F9A0808007939EE /* EmptyViewController.swift in Sources */,
 				A9C09C981F99F971007939EE /* ExpandedTableView.swift in Sources */,
 				A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */,
 				A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */,
@@ -865,11 +862,10 @@
 				A9A77C4E1F306FA70018023B /* AttributedStyles.swift in Sources */,
 				A92AD0161F3482350082892E /* NetworkUtilities.swift in Sources */,
 				A944E5921F498FC4002E43F6 /* PresetPrefsViewController.swift in Sources */,
-				A9AE26C21F3B665D0041A57D /* SBMultiSelectViewController.m in Sources */,
 				A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */,
 				A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */,
 				A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */,
-				A9AB485517F0AEAC000AA72E /* SBEmptyViewController.m in Sources */,
+				A9C09C9C1F9A08A9007939EE /* MultiSelectViewController.swift in Sources */,
 				A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */,
 				A9A0542E1DEEC3E000D1AFA4 /* SBLanguageTransformer.m in Sources */,
 				A90057B61F99DE2700FA4ED1 /* ComboBoxCellView.swift in Sources */,
