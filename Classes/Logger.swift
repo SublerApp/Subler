@@ -30,17 +30,19 @@ class Logger : NSObject, MP42Logging {
     }
 
     func write(toLog string: String) {
-        let output = "\(currentTime()) \(string)\n"
+        queue.sync {
+            let output = "\(currentTime()) \(string)\n"
 
-        _ = fileURL.withUnsafeFileSystemRepresentation {
-            if let file = fopen($0, "a") {
-                fputs(output, file)
-                fclose(file)
+            _ = fileURL.withUnsafeFileSystemRepresentation {
+                if let file = fopen($0, "a") {
+                    fputs(output, file)
+                    fclose(file)
+                }
             }
-        }
-
-        if let delegate = delegate {
-            delegate.write(toLog: output)
+            
+            if let delegate = delegate {
+                delegate.write(toLog: output)
+            }
         }
     }
 

@@ -18,7 +18,7 @@ class MultiSelectViewController : NSViewController {
         if numberOfTracks == 1 {
             label.stringValue = NSLocalizedString("1 track selected", comment: "")
         } else {
-            label.stringValue = String(format: NSLocalizedString("%lu tracks selected", comment: ""), numberOfTracks)
+            label.stringValue = String.localizedStringWithFormat(NSLocalizedString("%lu tracks selected", comment: ""), numberOfTracks)
         }
     }
 }
