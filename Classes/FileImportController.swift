@@ -375,13 +375,13 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
 
     @IBAction func setActionValue(_ sender: NSPopUpButton) {
         let row = tableView.row(for: sender)
-        if row == -1 { return }
+        guard let selectedItem = sender.selectedItem, row > -1 else { return }
 
         switch items[row] {
         case .file(_):
             break
         case .track(let settings):
-            settings.selectedActionTag = UInt(sender.indexOfSelectedItem)
+            settings.selectedActionTag = UInt(selectedItem.tag)
         }
     }
     
