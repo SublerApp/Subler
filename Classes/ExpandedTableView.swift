@@ -118,15 +118,15 @@ class ExpandedTableView: NSTableView {
         if let action = menuItem.action {
             switch action {
             case #selector(delete(_:)):
-                if selectedRow != -1 || implements(selector: #selector(ExpandedTableViewDelegate.deleteSelection(in:))) == false {
+                if selectedRow == -1 || implements(selector: #selector(ExpandedTableViewDelegate.deleteSelection(in:))) == false {
                     return false
                 }
             case #selector(copy(_:)):
-                if selectedRow != -1 || implements(selector: #selector(ExpandedTableViewDelegate.copySelection(in:))) == false{
+                if selectedRow == -1 || implements(selector: #selector(ExpandedTableViewDelegate.copySelection(in:))) == false {
                     return false
                 }
             case #selector(cut(_:)):
-                if selectedRow != -1 || implements(selector: #selector(ExpandedTableViewDelegate.cutSelection(in:))) == false {
+                if selectedRow == -1 || implements(selector: #selector(ExpandedTableViewDelegate.cutSelection(in:))) == false {
                     return false
                 }
             case #selector(paste(_:)):
