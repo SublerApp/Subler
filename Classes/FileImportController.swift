@@ -403,7 +403,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
         switch items[row] {
         case .file(let importer):
             let groupCell = tableView.makeView(withIdentifier: trackNameColumn, owner:self) as? NSTableCellView
-            groupCell?.textField?.stringValue = importer.fileURL.lastPathComponent
+            groupCell?.textField?.attributedStringValue = importer.fileURL.lastPathComponent.groupAttributedString()
             return groupCell
             
         case .track(let settings):

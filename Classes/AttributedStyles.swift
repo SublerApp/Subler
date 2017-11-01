@@ -9,56 +9,39 @@ import Cocoa
 
 // MARK: - Attributed styles
 
-private let detailBoldMonospacedAttr = { () -> [NSAttributedStringKey : Any] in
+private func monospaceAttributes(size: CGFloat, aligment: NSTextAlignment, headIndent: CGFloat = -10.0, firstLineHeadIndent: CGFloat = 0, bold: Bool) -> [NSAttributedStringKey : Any]  {
     let ps = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-    ps.headIndent = -10.0
-    ps.alignment = NSTextAlignment.right
-
+    ps.firstLineHeadIndent = firstLineHeadIndent
+    ps.headIndent = headIndent
+    ps.alignment = aligment
+    
     if #available(macOS 10.11, *) {
-        return [NSAttributedStringKey.font: NSFont.monospacedDigitSystemFont(ofSize: NSFont.smallSystemFontSize,
-                                                                             weight: NSFont.Weight.bold),
+        return [NSAttributedStringKey.font: NSFont.monospacedDigitSystemFont(ofSize: size,
+                                                                             weight: bold ? NSFont.Weight.bold : NSFont.Weight.regular),
                 NSAttributedStringKey.paragraphStyle: ps,
                 NSAttributedStringKey.foregroundColor: NSColor.gray]
     }
     else {
-        return [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: NSFont.smallSystemFontSize),
+        return [NSAttributedStringKey.font: bold ? NSFont.boldSystemFont(ofSize: size) : NSFont.systemFont(ofSize: size),
                 NSAttributedStringKey.paragraphStyle: ps,
                 NSAttributedStringKey.foregroundColor: NSColor.gray]
     }
+}
+
+private let detailBoldMonospacedAttr = { () -> [NSAttributedStringKey : Any] in
+    return monospaceAttributes(size: NSFont.smallSystemFontSize, aligment: NSTextAlignment.right, bold: true)
 }()
 
 private let detailBoldAttr = { () -> [NSAttributedStringKey : Any] in
-    let ps = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-    ps.headIndent = -10.0
-    ps.alignment = NSTextAlignment.left
-
-    if #available(macOS 10.11, *) {
-        return [NSAttributedStringKey.font: NSFont.monospacedDigitSystemFont(ofSize: NSFont.smallSystemFontSize,
-                                                                             weight: NSFont.Weight.bold),
-                NSAttributedStringKey.paragraphStyle: ps,
-                NSAttributedStringKey.foregroundColor: NSColor.gray]
-    }
-    else {
-        return [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: NSFont.smallSystemFontSize),
-                NSAttributedStringKey.paragraphStyle: ps,
-                NSAttributedStringKey.foregroundColor: NSColor.gray]
-    }
+    return monospaceAttributes(size: NSFont.smallSystemFontSize, aligment: NSTextAlignment.left, bold: true)
 }()
 
 private let detailMonospacedAttr = { () -> [NSAttributedStringKey : Any] in
-    let ps = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-    ps.headIndent = -10.0
-    ps.alignment = NSTextAlignment.right
+    return monospaceAttributes(size: NSFont.smallSystemFontSize, aligment: NSTextAlignment.right, bold: false)
+}()
 
-    if #available(macOS 10.11, *) {
-        return [NSAttributedStringKey.font: NSFont.monospacedDigitSystemFont(ofSize: NSFont.smallSystemFontSize,
-                                                                             weight: NSFont.Weight.regular),
-                NSAttributedStringKey.paragraphStyle: ps]
-    }
-    else {
-        return [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: NSFont.smallSystemFontSize),
-                NSAttributedStringKey.paragraphStyle: ps]
-    }
+private let groupRowAttr = { () -> [NSAttributedStringKey : Any] in
+    return monospaceAttributes(size: NSFont.systemFontSize, aligment: NSTextAlignment.left, firstLineHeadIndent: 24, bold: true)
 }()
 
 extension String {
@@ -73,6 +56,10 @@ extension String {
 
     func monospacedAttributedString() -> NSAttributedString {
         return NSAttributedString(string: self, attributes: detailMonospacedAttr)
+    }
+    
+    func groupAttributedString() -> NSAttributedString {
+       return NSAttributedString(string: self, attributes: groupRowAttr)
     }
 
 }
