@@ -121,7 +121,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
 
             // Set the action menu selection
             // AC-3 Specific actions
-            if track.format == kMP42AudioCodecType_AC3 || track.format == kMP42AudioCodecType_EnhancedAC3 &&
+            if (track.format == kMP42AudioCodecType_AC3 || track.format == kMP42AudioCodecType_EnhancedAC3) &&
                 UserDefaults.standard.bool(forKey: "SBAudioConvertAC3"), let audioTrack = track as? MP42AudioTrack {
                 if UserDefaults.standard.bool(forKey: "SBAudioKeepAC3") && audioTrack.fallbackTrack == nil {
                     self.selectedActionTag = 6
