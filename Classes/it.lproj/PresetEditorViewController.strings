@@ -13,11 +13,17 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Remove selected item"; ObjectID = "53"; */
 "53.ibShadowedToolTip" = "Rimuovi l'elemento selezionato";
 
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "174"; */
+"174.title" = "Nome:";
+
 /* Class = "NSButtonCell"; title = "Save"; ObjectID = "177"; */
 "177.title" = "Salva";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "178"; */
 "178.title" = "Annulla";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "179"; */
+"179.ibExternalAccessibilityDescription" = "Preset";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Add an artwork"; ObjectID = "223"; */
 "223.ibShadowedToolTip" = "Aggiungi un'illustrazione";
@@ -28,8 +34,17 @@
 /* Class = "NSSlider"; ibShadowedToolTip = "Change artworks view zoom"; ObjectID = "235"; */
 "235.ibShadowedToolTip" = "Cambia il livello di zoom della vista delle illustrazioni";
 
+/* Class = "NSTextFieldCell"; title = "Title"; ObjectID = "CD8-S4-C35"; */
+"CD8-S4-C35.title" = "Titolo";
+
+/* Class = "NSButtonCell"; title = "Keep existing artworks"; ObjectID = "CHk-xu-U9f"; */
+"CHk-xu-U9f.title" = "Mantieni le illustrazioni esistenti";
+
 /* Class = "NSButtonCell"; title = "Keep existing annotations"; ObjectID = "KxJ-Zr-uiZ"; */
 "KxJ-Zr-uiZ.title" = "Mantieni le annotazioni esistenti";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Preset Title"; ObjectID = "RvM-No-Mwg"; */
+"RvM-No-Mwg.ibExternalAccessibilityDescription" = "Titolo Preset";
 
 /* Class = "NSTableColumn"; headerCell.title = "Annotation"; ObjectID = "j7q-XE-YXB"; */
 "j7q-XE-YXB.headerCell.title" = "Annotazione";

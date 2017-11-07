@@ -25,6 +25,9 @@
 /* Class = "NSButtonCell"; title = "Remember Size"; ObjectID = "86"; */
 "86.title" = "Ricorda dimensione";
 
+/* Class = "NSButtonCell"; title = "Infer media characteristics"; ObjectID = "86R-Dj-j6Y"; */
+"86R-Dj-j6Y.title" = "Deduci le caratteristiche del media";
+
 /* Class = "NSButtonCell"; title = "Automatically check daily"; ObjectID = "87"; */
 "87.title" = "Controlla automaticamente ogni giorno";
 
@@ -96,6 +99,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Alternate Groups:"; ObjectID = "agM-jg-8mH"; */
 "agM-jg-8mH.title" = "Gruppi di alternative:";
+
+/* Class = "NSButtonCell"; title = "Force QuickTime Compatibility"; ObjectID = "bBF-Bs-9N7"; */
+"bBF-Bs-9N7.title" = "Forza la compatibilità con QuickTime";
 
 /* Class = "NSToolbarItem"; label = "General"; ObjectID = "h9J-Wg-NA5"; */
 "h9J-Wg-NA5.label" = "Generali";

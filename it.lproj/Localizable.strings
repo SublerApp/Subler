@@ -28,11 +28,11 @@
 /* Set menu All set */
 "All" = "Tutto";
 
-/* No comment provided by engineer. */
-"Apply %@ Set" = "Applico preset %@";
+/* Action description */
+"Apply %@ preset" = "Applica il preset %@";
 
-/* No comment provided by engineer. */
-"Applying %@ set" = "Applico preset %@";
+/* Action localized description. */
+"Applying %@ preset" = "Applico il preset %@";
 
 /* Quit alert title. */
 "Are you sure you want to quit Subler?" = "Sei sicuro di voler uscire da Subler?";
@@ -247,10 +247,10 @@
 "Search Metadata" = "Cerca Metadata";
 
 /* No comment provided by engineer. */
-"Searching (service.name) for episode information…" = "Cerco le informazioni dell'episodio su (service.name)";
+"Searching %@ for episode information…" = "Cerco informazioni dell'episodio con %@…";
 
 /* No comment provided by engineer. */
-"Searching (service.name) for movie information…" = "Cerco le informazioni del film su (service.name)";
+"Searching %@ for movie information…" = "Cerco informazioni del film com %@…";
 
 /* ChapterDB */
 "Searching for chapter information…" = "Cerco le informazioni sui capitoli…";
@@ -275,6 +275,9 @@
 
 /* No comment provided by engineer. */
 "Series Name" = "Nome serie";
+
+/* No comment provided by engineer. */
+"Service ID" = "ID Servizio";
 
 /* Set track color space action description */
 "Set color space" = "Imposta spazio di colore";

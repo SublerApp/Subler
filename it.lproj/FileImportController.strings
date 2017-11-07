@@ -1,0 +1,33 @@
+/* Class = "NSTextFieldCell"; title = "Select tracks:"; ObjectID = "14"; */
+"14.title" = "Seleziona tracce:";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "15"; */
+"15.headerCell.title" = "Nome";
+
+/* Class = "NSTableColumn"; headerCell.title = "Duration"; ObjectID = "17"; */
+"17.headerCell.title" = "Durata";
+
+/* Class = "NSTableColumn"; headerCell.title = "Language"; ObjectID = "20"; */
+"20.headerCell.title" = "Lingua";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "27"; */
+"27.title" = "Annulla";
+
+/* Class = "NSButtonCell"; title = "Add"; ObjectID = "28"; */
+"28.title" = "Aggiungi";
+
+/* Class = "NSButtonCell"; title = "Import Metadata"; ObjectID = "37"; */
+"37.title" = "Importa metadata";
+
+/* Class = "NSTableColumn"; headerCell.title = "Action"; ObjectID = "39"; */
+"39.headerCell.title" = "Azioni";
+
+/* Class = "NSMenuItem"; title = "Check only tracks with the same language"; ObjectID = "D3Y-pV-hxZ"; */
+"D3Y-pV-hxZ.title" = "Abilità solo le tracce aventi la stessa lingua";
+
+/* Class = "NSMenuItem"; title = "Check"; ObjectID = "GIM-Js-R4l"; */
+"GIM-Js-R4l.title" = "Abilita";
+
+/* Class = "NSMenuItem"; title = "Uncheck"; ObjectID = "w6q-DP-C0O"; */
+"w6q-DP-C0O.title" = "Disabilita";
+

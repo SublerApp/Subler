@@ -314,6 +314,7 @@
 		A9DA3BA01B918D6200F1E40C /* SBApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBApplication.h; path = Classes/SBApplication.h; sourceTree = "<group>"; };
 		A9E932A61F34D31D00B1790B /* ArtworkSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArtworkSelector.swift; path = Classes/ArtworkSelector.swift; sourceTree = "<group>"; };
 		A9E97F131F274F1100DBA586 /* iTunesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = iTunesStore.swift; path = Classes/MetadataImporters/iTunesStore.swift; sourceTree = "<group>"; };
+		A9E9E5291FB21B4000BCC49D /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/FileImportController.strings; sourceTree = "<group>"; };
 		A9ED7B21180067A2008FD3A8 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A9EEA5EF18D65490008B54B4 /* SBOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBOptionsViewController.h; path = Classes/SBOptionsViewController.h; sourceTree = "<group>"; };
 		A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBOptionsViewController.m; path = Classes/SBOptionsViewController.m; sourceTree = "<group>"; };
@@ -966,6 +967,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A93105361F9758EC00605146 /* Base */,
+				A9E9E5291FB21B4000BCC49D /* it */,
 			);
 			name = FileImportController.xib;
 			sourceTree = "<group>";
