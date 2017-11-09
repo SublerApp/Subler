@@ -102,6 +102,9 @@ extension SBDocument: ChapterSearchControllerDelegate, MetadataSearchControllerD
         for track in tracks {
             mp4.addTrack(track)
 
+        }
+
+        if tracks.isEmpty == false {
             updateChangeCount(.changeDone)
 
             if UserDefaults.standard.bool(forKey: "SBOrganizeAlternateGroups") {
