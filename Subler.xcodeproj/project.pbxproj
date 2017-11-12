@@ -14,7 +14,6 @@
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		A90057B61F99DE2700FA4ED1 /* ComboBoxCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90057B51F99DE2700FA4ED1 /* ComboBoxCellView.swift */; };
-		A90057BA1F99E02400FA4ED1 /* ComboBoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90057B91F99E02400FA4ED1 /* ComboBoxCell.swift */; };
 		A90057BC1F99E20B00FA4ED1 /* CheckBoxCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90057BB1F99E20B00FA4ED1 /* CheckBoxCellView.swift */; };
 		A90057BE1F99E2D800FA4ED1 /* TokenFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90057BD1F99E2D800FA4ED1 /* TokenFieldCell.swift */; };
 		A90057C01F99E35300FA4ED1 /* PopUpCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90057BF1F99E35300FA4ED1 /* PopUpCellView.swift */; };
@@ -43,10 +42,11 @@
 		A956CE6B1F99EAAD00093992 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956CE6A1F99EAAD00093992 /* Logger.swift */; };
 		A9577CF61F3DC667009181F4 /* Document+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9577CF51F3DC667009181F4 /* Document+Swift.swift */; };
 		A95B8DA91B09F37800F2F152 /* Subler_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B8DA81B09F37800F2F152 /* Subler_Tests.m */; };
-		A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */; };
 		A961476313F567E10068F161 /* SBQueueController.m in Sources */ = {isa = PBXBuildFile; fileRef = A961476013F567E10068F161 /* SBQueueController.m */; };
 		A961476713F568210068F161 /* Queue.xib in Resources */ = {isa = PBXBuildFile; fileRef = A961476513F568210068F161 /* Queue.xib */; };
 		A962D9EE1F8B7F9F00802EEF /* FileImportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A962D9ED1F8B7F9F00802EEF /* FileImportController.swift */; };
+		A9676A301FB6E85300C1E300 /* LanguageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9676A2F1FB6E85300C1E300 /* LanguageTransformer.swift */; };
+		A9676A341FB6EAAD00C1E300 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9676A331FB6EAAD00C1E300 /* ItemViewController.swift */; };
 		A96946531BA3F83D0048C004 /* SBMediaTagsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A96946511BA3F83D0048C004 /* SBMediaTagsController.m */; };
 		A9707B9317B139780010F3DB /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD56966E12FAAFA90029FADB /* Quartz.framework */; };
 		A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A982D0BF140AB66400B92357 /* SBQueueItem.m */; };
@@ -64,11 +64,10 @@
 		A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A997B0A91F348AB000974C9C /* MetadataSearchController.swift */; };
 		A998DABF1BA54CFF004D7969 /* SBMediaTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */; };
 		A99EEA3F12B801AE002367D3 /* SBDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AC012B79E230040517A /* SBDocument.xib */; };
-		A9A0542E1DEEC3E000D1AFA4 /* SBLanguageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A0542D1DEEC3E000D1AFA4 /* SBLanguageTransformer.m */; };
 		A9A77C4E1F306FA70018023B /* AttributedStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A77C4D1F306FA70018023B /* AttributedStyles.swift */; };
 		A9A8CEF91E43754400BC2AE1 /* SBQueueScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CEF81E43754400BC2AE1 /* SBQueueScriptCommand.m */; };
+		A9A91B5D1FB6FBB700250D93 /* ChapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */; };
 		A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */; };
-		A9AB485417F0AEAC000AA72E /* SBChapterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484B17F0AEAC000AA72E /* SBChapterViewController.m */; };
 		A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */; };
 		A9AB485717F0AEAC000AA72E /* SBSoundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB485117F0AEAC000AA72E /* SBSoundViewController.m */; };
 		A9AB485817F0AEAC000AA72E /* SBVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */; };
@@ -85,7 +84,6 @@
 		A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B514181EFC12310055A035 /* TheTVDB.swift */; };
 		A9BA1AEE1DBF7DD700FD0B38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A9BA1AF01DBF7DD700FD0B38 /* InfoPlist.strings */; };
 		A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A9BA1AF51DBF7DD800FD0B38 /* Localizable.strings */; };
-		A9BC410318D9AB8700F8C92C /* SBItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BC410218D9AB8700F8C92C /* SBItemViewController.m */; };
 		A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9BC410618D9ABC000F8C92C /* QueueItem.xib */; };
 		A9C09C7C1F99F460007939EE /* ExceptionAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C09C7B1F99F460007939EE /* ExceptionAlertController.swift */; };
 		A9C09C981F99F971007939EE /* ExpandedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C09C971F99F971007939EE /* ExpandedTableView.swift */; };
@@ -102,8 +100,10 @@
 		A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E97F131F274F1100DBA586 /* iTunesStore.swift */; };
 		A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */; };
 		A9EEA5F818D654B9008B54B4 /* QueueOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */; };
+		A9F4FF4B1FB708FB004473A8 /* SoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F4FF4A1FB708FB004473A8 /* SoundViewController.swift */; };
 		A9F5820C1DCC861F005F3E92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9F5820B1DCC861F005F3E92 /* Assets.xcassets */; };
 		A9F7F8E01837C44B0036AE7E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9ED7B21180067A2008FD3A8 /* IOKit.framework */; };
+		A9F8045A1FB6F4FD0069FF43 /* ImageBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F804591FB6F4FD0069FF43 /* ImageBrowserView.swift */; };
 		A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */; };
 		CD4E6E5D12F744210095C84F /* ArtworkSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD4E6E5B12F744210095C84F /* ArtworkSelector.xib */; };
 		CD71FEA612F1B62600F0A98D /* MetadataSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */; };
@@ -178,7 +178,6 @@
 		8D15AC370486D014006FF6A4 /* Subler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Subler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		948058B5106E07990037A911 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /usr/lib/libz.dylib; sourceTree = "<absolute>"; };
 		A90057B51F99DE2700FA4ED1 /* ComboBoxCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ComboBoxCellView.swift; path = Classes/ComboBoxCellView.swift; sourceTree = "<group>"; };
-		A90057B91F99E02400FA4ED1 /* ComboBoxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboBoxCell.swift; sourceTree = "<group>"; };
 		A90057BB1F99E20B00FA4ED1 /* CheckBoxCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CheckBoxCellView.swift; path = Classes/CheckBoxCellView.swift; sourceTree = "<group>"; };
 		A90057BD1F99E2D800FA4ED1 /* TokenFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenFieldCell.swift; path = Classes/TokenFieldCell.swift; sourceTree = "<group>"; };
 		A90057BF1F99E35300FA4ED1 /* PopUpCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PopUpCellView.swift; path = Classes/PopUpCellView.swift; sourceTree = "<group>"; };
@@ -225,11 +224,11 @@
 		A95B8DA41B09F37700F2F152 /* Subler Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subler Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95B8DA71B09F37700F2F152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A95B8DA81B09F37800F2F152 /* Subler_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subler_Tests.m; sourceTree = "<group>"; };
-		A960E96117D4B00900FC6ED9 /* SBImageBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBImageBrowserView.h; path = Classes/SBImageBrowserView.h; sourceTree = "<group>"; };
-		A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBImageBrowserView.m; path = Classes/SBImageBrowserView.m; sourceTree = "<group>"; };
 		A961475F13F567E10068F161 /* SBQueueController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueController.h; path = Classes/SBQueueController.h; sourceTree = "<group>"; };
 		A961476013F567E10068F161 /* SBQueueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SBQueueController.m; path = Classes/SBQueueController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A962D9ED1F8B7F9F00802EEF /* FileImportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileImportController.swift; path = Classes/FileImportController.swift; sourceTree = "<group>"; };
+		A9676A2F1FB6E85300C1E300 /* LanguageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LanguageTransformer.swift; path = Classes/LanguageTransformer.swift; sourceTree = "<group>"; };
+		A9676A331FB6EAAD00C1E300 /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemViewController.swift; path = Classes/ItemViewController.swift; sourceTree = "<group>"; };
 		A96946501BA3F83D0048C004 /* SBMediaTagsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMediaTagsController.h; path = Classes/SBMediaTagsController.h; sourceTree = "<group>"; };
 		A96946511BA3F83D0048C004 /* SBMediaTagsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMediaTagsController.m; path = Classes/SBMediaTagsController.m; sourceTree = "<group>"; };
 		A97BE36E0F73D72E00652CBD /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
@@ -248,15 +247,12 @@
 		A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterImporter.swift; path = Classes/MetadataImporters/ChapterImporter.swift; sourceTree = "<group>"; };
 		A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterSearchController.swift; path = Classes/ChapterSearchController.swift; sourceTree = "<group>"; };
 		A997B0A91F348AB000974C9C /* MetadataSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataSearchController.swift; path = Classes/MetadataSearchController.swift; sourceTree = "<group>"; };
-		A9A0542C1DEEC3E000D1AFA4 /* SBLanguageTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBLanguageTransformer.h; path = Classes/SBLanguageTransformer.h; sourceTree = "<group>"; };
-		A9A0542D1DEEC3E000D1AFA4 /* SBLanguageTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBLanguageTransformer.m; path = Classes/SBLanguageTransformer.m; sourceTree = "<group>"; };
 		A9A77C4D1F306FA70018023B /* AttributedStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AttributedStyles.swift; path = Classes/AttributedStyles.swift; sourceTree = "<group>"; };
 		A9A8CEF71E43754400BC2AE1 /* SBQueueScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueScriptCommand.h; path = Classes/SBQueueScriptCommand.h; sourceTree = "<group>"; };
 		A9A8CEF81E43754400BC2AE1 /* SBQueueScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueScriptCommand.m; path = Classes/SBQueueScriptCommand.m; sourceTree = "<group>"; };
+		A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterViewController.swift; path = Classes/PropertyView/ChapterViewController.swift; sourceTree = "<group>"; };
 		A9AB484717F0AEA2000AA72E /* SBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBAppDelegate.h; path = Classes/SBAppDelegate.h; sourceTree = "<group>"; };
 		A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBAppDelegate.m; path = Classes/SBAppDelegate.m; sourceTree = "<group>"; };
-		A9AB484A17F0AEAC000AA72E /* SBChapterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBChapterViewController.h; path = Classes/PropertyView/SBChapterViewController.h; sourceTree = "<group>"; };
-		A9AB484B17F0AEAC000AA72E /* SBChapterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBChapterViewController.m; path = Classes/PropertyView/SBChapterViewController.m; sourceTree = "<group>"; };
 		A9AB484E17F0AEAC000AA72E /* SBMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMovieViewController.h; path = Classes/PropertyView/SBMovieViewController.h; sourceTree = "<group>"; };
 		A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMovieViewController.m; path = Classes/PropertyView/SBMovieViewController.m; sourceTree = "<group>"; };
 		A9AB485017F0AEAC000AA72E /* SBSoundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBSoundViewController.h; path = Classes/PropertyView/SBSoundViewController.h; sourceTree = "<group>"; };
@@ -296,8 +292,6 @@
 		A9BA1AE61DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A9BA1AEF1DBF7DD700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A9BA1AF41DBF7DD800FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A9BC410118D9AB8700F8C92C /* SBItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBItemViewController.h; path = Classes/SBItemViewController.h; sourceTree = "<group>"; };
-		A9BC410218D9AB8700F8C92C /* SBItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBItemViewController.m; path = Classes/SBItemViewController.m; sourceTree = "<group>"; };
 		A9C0603F168315C500FE3D98 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
 		A9C0957F0F7B6C8C00170CAF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		A9C09C7B1F99F460007939EE /* ExceptionAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExceptionAlertController.swift; path = Classes/ExceptionAlertController.swift; sourceTree = "<group>"; };
@@ -318,7 +312,9 @@
 		A9ED7B21180067A2008FD3A8 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A9EEA5EF18D65490008B54B4 /* SBOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBOptionsViewController.h; path = Classes/SBOptionsViewController.h; sourceTree = "<group>"; };
 		A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBOptionsViewController.m; path = Classes/SBOptionsViewController.m; sourceTree = "<group>"; };
+		A9F4FF4A1FB708FB004473A8 /* SoundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SoundViewController.swift; path = Classes/PropertyView/SoundViewController.swift; sourceTree = "<group>"; };
 		A9F5820B1DCC861F005F3E92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A9F804591FB6F4FD0069FF43 /* ImageBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageBrowserView.swift; path = Classes/ImageBrowserView.swift; sourceTree = "<group>"; };
 		A9FC6FF41EF2E3280034CCED /* Subler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Subler-Bridging-Header.h"; sourceTree = "<group>"; };
 		A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheTVDBService.swift; path = Classes/MetadataImporters/TheTVDBService.swift; sourceTree = "<group>"; };
 		CD56966E12FAAFA90029FADB /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
@@ -421,6 +417,7 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				A9F804591FB6F4FD0069FF43 /* ImageBrowserView.swift */,
 				A909440E1DD4C85B00E9F89C /* Table View */,
 				A9FC6FF41EF2E3280034CCED /* Subler-Bridging-Header.h */,
 				32DBCF750370BD2300C91783 /* Subler_Prefix.pch */,
@@ -461,7 +458,6 @@
 			isa = PBXGroup;
 			children = (
 				A90057B51F99DE2700FA4ED1 /* ComboBoxCellView.swift */,
-				A90057B91F99E02400FA4ED1 /* ComboBoxCell.swift */,
 				A90057BB1F99E20B00FA4ED1 /* CheckBoxCellView.swift */,
 				A90057BD1F99E2D800FA4ED1 /* TokenFieldCell.swift */,
 				A90057BF1F99E35300FA4ED1 /* PopUpCellView.swift */,
@@ -549,10 +545,8 @@
 				A9EEA5EF18D65490008B54B4 /* SBOptionsViewController.h */,
 				A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */,
 				A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */,
-				A9A0542C1DEEC3E000D1AFA4 /* SBLanguageTransformer.h */,
-				A9A0542D1DEEC3E000D1AFA4 /* SBLanguageTransformer.m */,
-				A9BC410118D9AB8700F8C92C /* SBItemViewController.h */,
-				A9BC410218D9AB8700F8C92C /* SBItemViewController.m */,
+				A9676A2F1FB6E85300C1E300 /* LanguageTransformer.swift */,
+				A9676A331FB6EAAD00C1E300 /* ItemViewController.swift */,
 				A9BC410618D9ABC000F8C92C /* QueueItem.xib */,
 				A9D73C5018BF3F1100C6FFA6 /* SBQueue.h */,
 				A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */,
@@ -597,20 +591,18 @@
 				A96946501BA3F83D0048C004 /* SBMediaTagsController.h */,
 				A96946511BA3F83D0048C004 /* SBMediaTagsController.m */,
 				A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */,
-				A9AB484A17F0AEAC000AA72E /* SBChapterViewController.h */,
-				A9AB484B17F0AEAC000AA72E /* SBChapterViewController.m */,
+				A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */,
 				A9AB485A17F0AEFD000AA72E /* ChapterView.xib */,
 				A9AB484E17F0AEAC000AA72E /* SBMovieViewController.h */,
 				A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */,
 				A9AB485E17F0AEFD000AA72E /* MovieView.xib */,
+				A9F4FF4A1FB708FB004473A8 /* SoundViewController.swift */,
 				A9AB485017F0AEAC000AA72E /* SBSoundViewController.h */,
 				A9AB485117F0AEAC000AA72E /* SBSoundViewController.m */,
 				A9AB486017F0AEFD000AA72E /* SoundView.xib */,
 				A9AB485217F0AEAC000AA72E /* SBVideoViewController.h */,
 				A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */,
 				A9AB486217F0AEFD000AA72E /* VideoView.xib */,
-				A960E96117D4B00900FC6ED9 /* SBImageBrowserView.h */,
-				A960E96217D4B00900FC6ED9 /* SBImageBrowserView.m */,
 			);
 			name = PropertyView;
 			sourceTree = "<group>";
@@ -802,25 +794,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
+				A9676A341FB6EAAD00C1E300 /* ItemViewController.swift in Sources */,
 				A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */,
 				A9C09C7C1F99F460007939EE /* ExceptionAlertController.swift in Sources */,
+				A9A91B5D1FB6FBB700250D93 /* ChapterViewController.swift in Sources */,
+				A9676A301FB6E85300C1E300 /* LanguageTransformer.swift in Sources */,
 				A98D98461F0280CB00A77ABC /* TheMovieDB.swift in Sources */,
 				A98D98481F02820F00A77ABC /* TheMovieDBService.swift in Sources */,
 				A962D9EE1F8B7F9F00802EEF /* FileImportController.swift in Sources */,
-				A960E96317D4B00900FC6ED9 /* SBImageBrowserView.m in Sources */,
 				A9577CF61F3DC667009181F4 /* Document+Swift.swift in Sources */,
 				A9859ACE1F4B43CC00022828 /* QueuePreset.swift in Sources */,
 				A9915AC31F4B293B003C57D1 /* PresetManager.swift in Sources */,
 				A90BC5E31F3A139700F9F3F3 /* MetadataResult.swift in Sources */,
 				A99189CD1F2F87EC00623ED7 /* ChapterImporter.swift in Sources */,
-				A9BC410318D9AB8700F8C92C /* SBItemViewController.m in Sources */,
 				A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */,
 				A9915ABF1F4B26CF003C57D1 /* MetadataPreset.swift in Sources */,
 				A900CE3E1F3ACF9700CCA08E /* MetadataResultMap.swift in Sources */,
 				A9915AC11F4B28ED003C57D1 /* Preset.swift in Sources */,
 				A92ECCE31F49984C0063BFBD /* PrefsWindowController.swift in Sources */,
 				A96946531BA3F83D0048C004 /* SBMediaTagsController.m in Sources */,
-				A9AB485417F0AEAC000AA72E /* SBChapterViewController.m in Sources */,
+				A9F4FF4B1FB708FB004473A8 /* SoundViewController.swift in Sources */,
 				A9AB485817F0AEAC000AA72E /* SBVideoViewController.m in Sources */,
 				A90057BC1F99E20B00FA4ED1 /* CheckBoxCellView.swift in Sources */,
 				A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */,
@@ -850,9 +843,9 @@
 				A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */,
 				A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */,
 				A956CE651F99E5BB00093992 /* ActivityWindowController.swift in Sources */,
-				A90057BA1F99E02400FA4ED1 /* ComboBoxCell.swift in Sources */,
 				A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */,
 				A9A77C4E1F306FA70018023B /* AttributedStyles.swift in Sources */,
+				A9F8045A1FB6F4FD0069FF43 /* ImageBrowserView.swift in Sources */,
 				A92AD0161F3482350082892E /* NetworkUtilities.swift in Sources */,
 				A944E5921F498FC4002E43F6 /* PresetPrefsViewController.swift in Sources */,
 				A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */,
@@ -860,7 +853,6 @@
 				A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */,
 				A9C09C9C1F9A08A9007939EE /* MultiSelectViewController.swift in Sources */,
 				A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */,
-				A9A0542E1DEEC3E000D1AFA4 /* SBLanguageTransformer.m in Sources */,
 				A90057B61F99DE2700FA4ED1 /* ComboBoxCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

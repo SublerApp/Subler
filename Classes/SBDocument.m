@@ -13,7 +13,6 @@
 #import "SBMovieViewController.h"
 #import "SBVideoViewController.h"
 #import "SBSoundViewController.h"
-#import "SBChapterViewController.h"
 
 #import <MP42Foundation/MP42File.h>
 #import <MP42Foundation/MP42FileImporter.h>
@@ -720,8 +719,7 @@ static NSDictionary *_detailMonospacedAttr;
         controller = [[SBMovieViewController alloc] initWithNibName:@"MovieView" bundle:nil];
         [(SBMovieViewController *)controller setMetadata:self.mp4.metadata];
     } else if ([track isMemberOfClass:[MP42ChapterTrack class]]) {
-        controller = [[SBChapterViewController alloc] initWithNibName:@"ChapterView" bundle:nil];
-        [controller setTrack:track];
+        controller = [[SBChapterViewController alloc] initWithTrack:track];
     } else if ([track isKindOfClass:[MP42VideoTrack class]]) {
         controller = [[SBVideoViewController alloc] initWithNibName:@"VideoView" bundle:nil];
         [controller setTrack:track];

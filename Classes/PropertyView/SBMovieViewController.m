@@ -10,7 +10,6 @@ NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
 NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
 
 #import "SBMovieViewController.h"
-#import "SBImageBrowserView.h"
 
 #import <MP42Foundation/MP42Ratings.h>
 #import <MP42Foundation/MP42Image.h>
@@ -982,7 +981,7 @@ static NSArray<NSArray *> *_mediaKinds;
     return itemIndexes.count;
 }
 
-- (void)_pasteToImageBrowserView:(IKImageBrowserView *)ImageBrowserView
+- (void)pasteToImageBrowserView:(SBImageBrowserView *)imagebrowserview
 {
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     NSArray *items = nil;

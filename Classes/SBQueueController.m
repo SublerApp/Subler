@@ -11,7 +11,6 @@
 #import "SBQueuePreferences.h"
 
 #import "SBOptionsViewController.h"
-#import "SBItemViewController.h"
 
 #import "SBDocument.h"
 
@@ -419,8 +418,7 @@ static void *SBQueueContex = &SBQueueContex;
 
     // the popover retains us and we retain the popover,
     // we drop the popover whenever it is closed to avoid a cycle
-    SBItemViewController *view = [[SBItemViewController alloc] initWithItem:item];
-    view.delegate = self;
+    SBItemViewController *view = [[SBItemViewController alloc] initWithItem:item delegate:self];
     self.itemPopover.contentViewController = view;
     self.itemPopover.animates = YES;
 
