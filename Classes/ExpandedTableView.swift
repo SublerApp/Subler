@@ -63,7 +63,7 @@ class ExpandedTableView: NSTableView {
 
         guard let key = event.charactersIgnoringModifiers?.utf16.first else { super.keyDown(with: event); return }
 
-        if key == NSEnterCharacter || key == NSCarriageReturnCharacter && defaultEditingColumn > 0 {
+        if (key == NSEnterCharacter || key == NSCarriageReturnCharacter) && defaultEditingColumn > 0 {
             editColumn(defaultEditingColumn, row: selectedRow, with: nil, select: true)
         }
         else if (key == NSDeleteCharacter || key == NSDeleteFunctionKey) && implements(selector: #selector(ExpandedTableViewDelegate.deleteSelection(in:))) {
