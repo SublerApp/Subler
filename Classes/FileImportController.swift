@@ -55,7 +55,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
                                     enabled: needsConversion == false)
                 actions.append(action)
                 
-                if (needsConversion) {
+                if (needsConversion || track.format == kMP42SubtitleCodecType_VobSub) {
                     let conversionAction = Action(title: NSLocalizedString("Tx3g", comment: "File Import action menu item."),
                                                   tag: 1,
                                                   enabled: true)
