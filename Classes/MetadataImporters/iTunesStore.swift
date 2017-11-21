@@ -7,6 +7,46 @@
 
 import Foundation
 
+
+
+private extension String {
+
+    // All content is licensed under the terms of the MIT open source license.
+    // Copyright (c) 2016 Matthijs Hollemans and contributors
+
+    func minimumEditDistance(other: String) -> Int {
+        let m = self.count
+        let n = other.count
+        var matrix = [[Int]](repeating: [Int](repeating: 0, count: n + 1), count: m + 1)
+
+        // initialize matrix
+        for index in 1...m {
+            // the distance of any first string to an empty second string
+            matrix[index][0] = index
+        }
+
+        for index in 1...n {
+            // the distance of any second string to an empty first string
+            matrix[0][index] = index
+        }
+
+        // compute Levenshtein distance
+        for (i, selfChar) in self.enumerated() {
+            for (j, otherChar) in other.enumerated() {
+                if otherChar == selfChar {
+                    // substitution of equal symbols with cost 0
+                    matrix[i + 1][j + 1] = matrix[i][j]
+                } else {
+                    // minimum of the cost of insertion, deletion, or substitution
+                    // added to the already computed costs in the corresponding cells
+                    matrix[i + 1][j + 1] = Swift.min(matrix[i][j] + 1, matrix[i + 1][j] + 1, matrix[i][j + 1] + 1)
+                }
+            }
+        }
+        return matrix[m][n]
+    }
+}
+
 public struct iTunesStore: MetadataService {
     
     private func sendJSONRequest<T>(url: URL, type: T.Type) -> T? where T : Decodable {
@@ -249,13 +289,33 @@ public struct iTunesStore: MetadataService {
         else { return [] }
 
         if let seasonNum = seasonNum {
-            if let results = sendJSONRequest(url: url, type: Wrapper<Collection>.self)?.results {
-                return results.flatMap { extractID(result: $0, show: seriesName, season: seasonNum, store: store) }
+            if let results = sendJSONRequest(url: url, type: Wrapper<Collection>.self)?.results, results.isEmpty == false {
+
+                let sortedResults = results.sorted(by: { (c1, c2) -> Bool in
+                    return c1.collectionName.minimumEditDistance(other: seriesName) > c2.collectionName.minimumEditDistance(other: seriesName) ? false : true
+                })
+
+                let ids = sortedResults.flatMap { extractID(result: $0, show: seriesName, season: seasonNum, store: store) }
+                if ids.isEmpty && sortedResults.first!.collectionName.minimumEditDistance(other: seriesName) < 30 {
+                    return [sortedResults.first!.collectionId]
+                } else {
+                    return ids
+                }
             }
         }
         else {
-            if let results = sendJSONRequest(url: url, type: Wrapper<Artist>.self)?.results {
-                return results.flatMap { extractID(result: $0, show: seriesName, store: store) }
+            if let results = sendJSONRequest(url: url, type: Wrapper<Artist>.self)?.results, results.isEmpty == false {
+
+                let sortedResults = results.sorted(by: { (a1, a2) -> Bool in
+                    return a1.artistName.minimumEditDistance(other: seriesName) > a2.artistName.minimumEditDistance(other: seriesName) ? false : true
+                })
+
+                let ids = sortedResults.flatMap { extractID(result: $0, show: seriesName, store: store) }
+                if ids.isEmpty && sortedResults.first!.artistName.minimumEditDistance(other: seriesName) < 30 {
+                    return [sortedResults.first!.artistId]
+                } else {
+                    return ids
+                }
             }
         }
 
