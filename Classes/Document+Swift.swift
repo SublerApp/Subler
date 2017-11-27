@@ -94,7 +94,11 @@ extension SBDocument: ChapterSearchControllerDelegate, MetadataSearchControllerD
             }
         }
         catch {
-            presentError(error)
+            if let windowForSheet = windowForSheet {
+                presentError(error, modalFor: windowForSheet, delegate: nil, didPresent: nil, contextInfo: nil)
+            } else {
+                presentError(error)
+            }
         }
     }
 

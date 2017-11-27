@@ -181,8 +181,8 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
         
         var rows: [ItemType] = Array()
         
-        let fileImporters: [MP42FileImporter] = fileURLs.flatMap {
-            return try? MP42FileImporter(url: $0)
+        let fileImporters: [MP42FileImporter] = try fileURLs.flatMap {
+            return try MP42FileImporter(url: $0)
         }
 
         for importer in fileImporters {
