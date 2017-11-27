@@ -182,12 +182,13 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
         var rows: [ItemType] = Array()
         
         let fileImporters: [MP42FileImporter] = fileURLs.flatMap {
-            let importer = MP42FileImporter(url: $0, error: nil)
+            return try? MP42FileImporter(url: $0)
+        }
+
+        for importer in fileImporters {
             rows.append(ItemType.file(importer))
-            
             let tracks = importer.tracks.map { ItemType.track(Settings(track: $0)) }
             rows.append(contentsOf: tracks)
-            return importer
         }
 
         self.metadata = fileImporters.first?.metadata
