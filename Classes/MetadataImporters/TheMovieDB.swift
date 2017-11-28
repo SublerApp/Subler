@@ -195,6 +195,14 @@ public struct TheMovieDB: MetadataService {
         }
     }
 
+    private func loadSquareTVArtwork(_ metadata: MetadataResult) -> [Artwork] {
+        guard let seasonNum = metadata[.season] as? Int,
+            let seriesId = metadata[.serviceAdditionalSeriesID] as? Int
+            else { return [] }
+        
+        return SquaredTVArt().search(theTVDBSeriesId: seriesId, season: seasonNum)
+    }
+
     private func loadTVShowArtworks(result: TMDBSeries) -> [Artwork] {
         var artworks: [Artwork] = Array()
 
@@ -239,7 +247,9 @@ public struct TheMovieDB: MetadataService {
         metadata.mediaKind = 10; // tv
 
         // TV Show Info
-        metadata[.serviceSeriesID]    = info.id
+        metadata[.serviceSeriesID]           = info.id
+        metadata[.serviceAdditionalSeriesID] = info.external_ids?.tvdb_id
+
         metadata[.seriesName]         = info.name
         metadata[.seriesDescription]  = info.overview
         metadata[.genre]              = cleanList(items: info.genres)
@@ -339,13 +349,25 @@ public struct TheMovieDB: MetadataService {
 
         artworks.append(contentsOf: metadata.remoteArtworks)
 
-        // add iTunes artwork
-        if let name = metadata[.seriesName] as? String,
-            let iTunesMetadata = iTunesStore.quickiTunesSearch(tvSeriesName: name,
-                                                               seasonNum: metadata[.season] as? Int,
-                                                               episodeNum: metadata[.episodeNumber] as? Int) {
-            artworks.insert(contentsOf: iTunesMetadata.remoteArtworks, at: 0)
+        var iTunesImage = [Artwork](), squareTVArt = [Artwork]()
+        let group = DispatchGroup()
+        DispatchQueue.global(priority: .default).async(group: group) {
+            // add iTunes artwork
+            if let name = metadata[.seriesName] as? String,
+                let iTunesMetadata = iTunesStore.quickiTunesSearch(tvSeriesName: name,
+                                                                   seasonNum: metadata[.season] as? Int,
+                                                                   episodeNum: metadata[.episodeNumber] as? Int) {
+                iTunesImage = iTunesMetadata.remoteArtworks
+            }
         }
+        DispatchQueue.global(priority: .default).async(group: group) {
+            // Add Squared TV Artwork
+            squareTVArt = self.loadSquareTVArtwork(metadata)
+        }
+        group.wait()
+
+        artworks.insert(contentsOf: iTunesImage, at: 0)
+        artworks.insert(contentsOf: squareTVArt, at: 0)
 
         metadata.remoteArtworks = artworks
 

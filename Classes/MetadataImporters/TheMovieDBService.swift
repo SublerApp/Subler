@@ -155,6 +155,11 @@ public struct TMDBContentRatingWrapper : Codable {
     let results: [TMDBContentRating]?
 }
 
+public struct TMDBExternalIDs : Codable {
+    let imdb_id: String?
+    let tvdb_id: Int?
+}
+
 public struct TMDBSeries : Codable {
     let backdrop_path: String?
     let created_by: [TMDBTuple]?
@@ -186,6 +191,8 @@ public struct TMDBSeries : Codable {
     let content_ratings: TMDBContentRatingWrapper?
     let credits: TMDBCasts?
     let images: TMDBImages?
+
+    let external_ids: TMDBExternalIDs?
 }
 
 public struct TMDBImageConfiguration : Codable {
@@ -265,7 +272,7 @@ final public class TheMovieDBService {
     }
 
     public func fetch(seriesID: Int, language: String) -> TMDBSeries?  {
-        guard let url = URL(string: basePath + "tv/" + String(seriesID) + "?api_key=" + key + "&language=" + language + "&append_to_response=content_ratings,credits,images"),
+        guard let url = URL(string: basePath + "tv/" + String(seriesID) + "?api_key=" + key + "&language=" + language + "&append_to_response=content_ratings,credits,images,external_ids"),
             let result = sendJSONRequest(url: url, language: language, type: TMDBSeries.self)
             else { return nil }
 

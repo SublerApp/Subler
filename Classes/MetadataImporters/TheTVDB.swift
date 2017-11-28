@@ -354,8 +354,8 @@ public struct TheTVDB : MetadataService, MetadataNameService {
             }
             group.wait()
 
-            artworks.insert(contentsOf: squareTVArt, at: 0)
             artworks.insert(contentsOf: iTunesImage, at: 0)
+            artworks.insert(contentsOf: squareTVArt, at: 0)
             artworks.append(contentsOf: seasonImages)
             artworks.append(contentsOf: posterImages)
         }

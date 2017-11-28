@@ -117,8 +117,9 @@ public class MetadataResult : NSObject {
         case network            = "{Network}"
 
         //
-        case serviceSeriesID    = "ServiceSeriesID"
-        case serviceEpisodeID   = "ServiceEpisodeID"
+        case serviceSeriesID              = "ServiceSeriesID"
+        case serviceAdditionalSeriesID    = "AdditionalServiceSeriesID"
+        case serviceEpisodeID             = "ServiceEpisodeID"
 
         fileprivate static var movieKeys: [Key] {
             return [.name,
