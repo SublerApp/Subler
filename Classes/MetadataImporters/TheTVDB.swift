@@ -277,11 +277,12 @@ public struct TheTVDB : MetadataService, MetadataNameService {
     }
 
     private func loadSquareTVArtwork(_ metadata: MetadataResult) -> [Artwork] {
-        guard let seasonNum = metadata[.season] as? Int,
+        guard let tvShow = metadata[.seriesName] as? String,
+            let seasonNum = metadata[.season] as? Int,
             let seriesId = metadata[.serviceSeriesID] as? Int
             else { return [] }
 
-        return SquaredTVArt().search(theTVDBSeriesId: seriesId, season: seasonNum)
+        return SquaredTVArt().search(tvShow: tvShow, theTVDBSeriesId: seriesId, season: seasonNum)
     }
 
     private func loadTVArtwork(seriesID: Int, type: ArtworkType, season: String, language: String) -> [Artwork] {

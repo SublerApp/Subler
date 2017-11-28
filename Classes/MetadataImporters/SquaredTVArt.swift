@@ -55,6 +55,17 @@ struct SquaredTVArt {
         return mapped
     }
 
+    public func search(tvShow: String, theTVDBSeriesId: Int, season: Int) -> [Artwork] {
+        let tvdbIdSearch = search(theTVDBSeriesId: theTVDBSeriesId, season: season)
+
+        if tvdbIdSearch.isEmpty == false {
+            return tvdbIdSearch
+        }
+
+        let tvShowSearch = search(tvShow: tvShow, season: season)
+        return tvShowSearch
+    }
+
     private func search(url: URL) -> [SquaredTVArtwork] {
         guard let data = URLSession.data(from: url),
             let xml = try? XMLDocument(data: data, options: .documentTidyHTML)
