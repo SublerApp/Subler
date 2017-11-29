@@ -42,10 +42,10 @@ import Cocoa
         super.loadView()
 
         // Observe the item status
-        statusObserver = self.observe(\.item.status, options: [.initial, .new]) { [weak self] observed, change in
-            guard let s = self, let status = change.newValue else { return }
+        statusObserver = item.observe(\.status, options: [.initial, .new]) { [weak self] observed, change in
+            guard let s = self else { return }
             DispatchQueue.main.async {
-                if status != SBQueueItemStatus.ready && status != SBQueueItemStatus.editing {
+                if s.item.status != SBQueueItemStatus.ready && s.item.status != SBQueueItemStatus.editing {
                     s.editButton.isEnabled = false
                 } else {
                     s.editButton.isEnabled = true
@@ -54,9 +54,9 @@ import Cocoa
         }
 
         // Observe the item actions
-        actionsObserver = self.observe(\.item.actions, options: [.initial, .new]) { [weak self] observed, change in
-            guard let s = self, let newCount = change.newValue?.count, let oldCount = change.oldValue?.count else { return }
-            let count = newCount - oldCount
+        actionsObserver = item.observe(\.actions, options: [.initial, .new, .old]) { [weak self] observed, change in
+            guard let s = self, let newCount = change.newValue?.count else { return }
+            let count = newCount - (change.oldValue?.count ?? 0)
             let height = 16.0 * CGFloat(count >= 0 ? count : 1)
             s.tableHeight.constant = height
         }

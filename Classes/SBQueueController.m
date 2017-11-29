@@ -431,10 +431,6 @@ static void *SBQueueContex = &SBQueueContex;
 
 }
 
-- (void)setPopoverSize:(NSSize)size {
-    self.itemPopover.contentSize = size;
-}
-
 - (BOOL)popoverShouldDetach:(NSPopover *)popover
 {
     if (popover == self.popover) {
