@@ -19,17 +19,22 @@
 
 @interface SBQueueItem ()
 
-@property (nonatomic, readonly) NSString *uniqueID;
+@property (nonatomic) NSString *uniqueID;
 
-@property (nonatomic, readonly) NSMutableArray<id<SBQueueActionProtocol>> *actionsInternal;
-@property (nonatomic, readwrite) NSString *localizedWorkingDescription;
+@property (nonatomic) NSMutableArray<id<SBQueueActionProtocol>> *actionsInternal;
+@property (nonatomic) NSString *localizedWorkingDescription;
 
-@property (nonatomic, readwrite, nullable) MP42File *mp4File;
-@property (atomic, readwrite) BOOL cancelled;
+@property (nonatomic, nullable) MP42File *mp4File;
+
+@property (nonatomic) dispatch_queue_t queue;
+@property (nonatomic) _Atomic int32_t cancelled;
 
 @end
 
-@implementation SBQueueItem
+@implementation SBQueueItem {
+    SBQueueItemStatus _status;
+    NSURL *_fileURL;
+}
 
 #pragma mark Initializers
 
@@ -39,6 +44,7 @@
         _uniqueID = [[NSUUID UUID] UUIDString];
         _actionsInternal = [[NSMutableArray alloc] init];
         _status = SBQueueItemStatusReady;
+        _queue = dispatch_queue_create("org.subler.itemQueue", DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
@@ -57,9 +63,9 @@
             attributes[MP4264BitData] = @YES;
         }
 
-        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"chaptersPreviewTrack"]) {
             attributes[MP42GenerateChaptersPreviewTrack] = @YES;
-            attributes[MP42ChaptersPreviewPosition] = [NSNumber numberWithFloat:[[NSUserDefaults standardUserDefaults] floatForKey:@"SBChaptersPreviewPosition"]];
+            attributes[MP42ChaptersPreviewPosition] = @([[NSUserDefaults standardUserDefaults] floatForKey:@"SBChaptersPreviewPosition"]);
         }
 
         _attributes = [attributes copy];
@@ -82,9 +88,9 @@
 
         NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 
-        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"chaptersPreviewTrack"] boolValue]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"chaptersPreviewTrack"]) {
             attributes[MP42GenerateChaptersPreviewTrack] = @YES;
-            attributes[MP42ChaptersPreviewPosition] = [NSNumber numberWithFloat:[[NSUserDefaults standardUserDefaults] floatForKey:@"SBChaptersPreviewPosition"]];
+            attributes[MP42ChaptersPreviewPosition] = @([[NSUserDefaults standardUserDefaults] floatForKey:@"SBChaptersPreviewPosition"]);
         }
 
         _attributes = [attributes copy];
@@ -128,11 +134,35 @@
 
 #pragma mark Public methods
 
-- (void)setStatus:(SBQueueItemStatus)itemStatus {
-    _status = itemStatus;
-    if (_status == SBQueueItemStatusCompleted) {
-        self.mp4File = nil;
-    }
+- (void)setStatus:(SBQueueItemStatus)status {
+    dispatch_sync(_queue, ^{
+        self->_status = status;
+        if (self->_status == SBQueueItemStatusCompleted) {
+            self.mp4File = nil;
+        }
+    });
+}
+
+- (SBQueueItemStatus)status {
+    __block SBQueueItemStatus status;
+    dispatch_sync(_queue, ^{
+        status = self->_status;
+    });
+    return status;
+}
+
+- (void)setFileURL:(NSURL * _Nonnull)fileURL {
+    dispatch_sync(_queue, ^{
+        self->_fileURL = fileURL;
+    });
+}
+
+- (NSURL *)fileURL {
+    __block NSURL *fileURL;
+    dispatch_sync(_queue, ^{
+        fileURL = self->_fileURL;
+    });
+    return fileURL;
 }
 
 - (void)addAction:(id<SBQueueActionProtocol>)action {
@@ -370,11 +400,7 @@ bail:
     // Convert from a file reference url to a normal url
     // the file will be replaced if optimized, and the reference url
     // may point to nil
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self willChangeValueForKey:@"fileURL"];
-        self->_fileURL = filePathURL;
-        [self didChangeValueForKey:@"fileURL"];
-    });
+    self.fileURL = filePathURL;
 
 #ifdef SB_SANDBOX
     if ([destination respondsToSelector:@selector(stopAccessingSecurityScopedResource)])
@@ -415,7 +441,7 @@ bail:
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
-    self = [super init];
+    self = [self init];
 
     if (self) {
 
