@@ -35,13 +35,6 @@ class OutputPrefsViewController: NSViewController, NSTokenFieldDelegate {
 
         movieField.tokenizingCharacterSet = CharacterSet(charactersIn: "%")
         tvShowField.tokenizingCharacterSet = CharacterSet(charactersIn: "%")
-
-        if let movieFormat = UserDefaults.standard.string(forKey: "SBMovieFormat") {
-            movieField.stringValue = movieFormat
-        }
-        if let tvShowFormat = UserDefaults.standard.string(forKey: "SBTVShowFormat") {
-            tvShowField.stringValue = tvShowFormat
-        }
     }
 
     // MARK: Actions

@@ -38,8 +38,8 @@ import Cocoa
                                        "chaptersPreviewTrack":          true,
                                        "SBChaptersPreviewPosition":     0.5,
 
-                                       "SBMovieFormat":                 "%{Name}",
-                                       "SBTVShowFormat":                "%{TV Show}% s%{TV Season}%e%{TV Episode #}",
+                                       "SBMovieFormat":                 ["{Name}"],
+                                       "SBTVShowFormat":                ["{TV Show}"," s", "{TV Season}", "e", "{TV Episode #}"],
                                        "SBSetMovieFormat":              false,
                                        "SBSetTVShowFormat":             false,
 

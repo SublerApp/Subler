@@ -379,13 +379,7 @@ static NSDictionary *_detailMonospacedAttr;
         _currentSavePanel.allowedFileTypes = @[[[NSUserDefaults standardUserDefaults] valueForKey:@"SBSaveFormat"]];
     }
 
-    NSString *filename = nil;
-    for (MP42Track *track in self.mp4.tracks) {
-        if (track.URL) {
-            filename = track.URL.lastPathComponent.stringByDeletingPathExtension;
-            break;
-        }
-    }
+    NSString *filename = [self preferredFileName];
 
     if (filename) {
         savePanel.nameFieldStringValue = filename;

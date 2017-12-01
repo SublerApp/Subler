@@ -9,6 +9,19 @@ import Foundation
 
 extension SBDocument: ChapterSearchControllerDelegate, MetadataSearchControllerDelegate, FileImportControllerDelegate {
 
+    // MARK: File name
+
+    @objc func preferredFileName() -> String? {
+        if let mediaKind = mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
+            (mediaKind == 10 && UserDefaults.standard.bool(forKey: "SBSetTVShowFormat")) ||
+            (mediaKind == 9 && UserDefaults.standard.bool(forKey: "SBSetMovieFormat")),
+            let name = mp4.formattedFileName() {
+            return name
+        } else {
+            return mp4.tracks.flatMap { $0.url }.first?.deletingPathExtension().lastPathComponent
+        }
+    }
+
     // MARK: Metadata
 
     @IBAction func searchMetadata(_ sender: Any?) {

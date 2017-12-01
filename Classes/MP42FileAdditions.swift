@@ -64,4 +64,37 @@ extension MP42File {
         }
         return MetadataSearchTerms.none
     }
+
+    private func outputNameFormat(mediaKind: Int) -> [String]? {
+        if mediaKind == 10 {
+            return UserDefaults.standard.stringArray(forKey: "SBTVShowFormat")
+        } else if mediaKind == 9 {
+            return UserDefaults.standard.stringArray(forKey: "SBMovieFormat")
+        }
+        return nil
+    }
+
+    func formattedFileName() -> String? {
+        guard let mediaKind = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
+              let format = outputNameFormat(mediaKind: mediaKind)
+            else { return nil }
+
+        let separators = CharacterSet(charactersIn: "{}")
+        var name = ""
+
+        for token in format {
+            if token.hasPrefix("{") && token.hasSuffix("}") {
+                let trimmedToken = token.trimmingCharacters(in: separators)
+                let metadataItems = metadata.metadataItemsFiltered(byIdentifier: trimmedToken)
+
+                if let string = metadataItems.first?.stringValue {
+                    name.append(string)
+                }
+            } else {
+                name.append(token)
+            }
+        }
+
+        return name.isEmpty ? nil : name
+    }
 }
