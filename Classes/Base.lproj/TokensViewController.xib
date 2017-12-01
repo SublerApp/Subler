@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13770" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13770"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TokensViewController" customModule="Subler" customModuleProvider="target">
+            <connections>
+                <outlet property="tokenField" destination="3eA-Oq-Zyv" id="xha-ZF-hFQ"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="16"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <tokenField verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="3eA-Oq-Zyv">
+                    <rect key="frame" x="-2" y="0.0" width="404" height="16"/>
+                    <tokenFieldCell key="cell" selectable="YES" alignment="left" allowsEditingTextAttributes="YES" id="hFL-Bt-Qm9">
+                        <font key="font" metaFont="cellTitle"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </tokenFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="-2" id="e7f-N6-4tr"/>
+                    </connections>
+                </tokenField>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="3eA-Oq-Zyv" secondAttribute="trailing" id="0zG-xK-JOF"/>
+                <constraint firstItem="3eA-Oq-Zyv" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="FmQ-N7-tXP"/>
+                <constraint firstItem="3eA-Oq-Zyv" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="HXi-hZ-PZh"/>
+                <constraint firstAttribute="bottom" secondItem="3eA-Oq-Zyv" secondAttribute="bottom" id="Hg6-Lw-f3C"/>
+            </constraints>
+            <point key="canvasLocation" x="50" y="113"/>
+        </customView>
+    </objects>
+</document>

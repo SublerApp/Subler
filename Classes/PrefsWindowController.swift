@@ -38,6 +38,11 @@ import Cocoa
                                        "chaptersPreviewTrack":          true,
                                        "SBChaptersPreviewPosition":     0.5,
 
+                                       "SBMovieFormat":                 "%{Name}",
+                                       "SBTVShowFormat":                "%{TV Show}% s%{TV Season}%e%{TV Episode #}",
+                                       "SBSetMovieFormat":              false,
+                                       "SBSetTVShowFormat":             false,
+
                                        "SBMetadataPreference|Movie":                       "TheMovieDB",
                                        "SBMetadataPreference|Movie|iTunes Store|Language": "USA (English)",
                                        "SBMetadataPreference|Movie|TheMovieDB|Language":   "en",
@@ -61,10 +66,12 @@ import Cocoa
 
     let metadataController: MetadataPrefsViewController
     let presetController: PresetPrefsViewController
+    let outputController: OutputPrefsViewController
 
     let general: NSToolbarItem.Identifier
     let metadata: NSToolbarItem.Identifier
     let presets: NSToolbarItem.Identifier
+    let output: NSToolbarItem.Identifier
     let advanced: NSToolbarItem.Identifier
 
     override var windowNibName: NSNib.Name? {
@@ -74,10 +81,12 @@ import Cocoa
     init() {
         self.metadataController = MetadataPrefsViewController()
         self.presetController = PresetPrefsViewController()
+        self.outputController = OutputPrefsViewController()
 
         self.general = NSToolbarItem.Identifier("TOOLBAR_GENERAL")
         self.metadata = NSToolbarItem.Identifier("TOOLBAR_METADATA")
         self.presets = NSToolbarItem.Identifier("TOOLBAR_SETS")
+        self.output = NSToolbarItem.Identifier("TOOLBAR_OUTPUT")
         self.advanced = NSToolbarItem.Identifier("TOOLBAR_ADVANCED")
 
         super.init(window: nil)
@@ -104,6 +113,7 @@ import Cocoa
         if identifier == general { return generalView }
         if identifier == metadata { return metadataController.view }
         if identifier == presets { return presetController.view }
+        if identifier == output { return outputController.view }
         if identifier == advanced { return advancedView }
         return nil
     }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13770" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13770"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,6 +39,11 @@
                             <action selector="setPrefView:" target="-2" id="Ag8-C8-L9t"/>
                         </connections>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="17842401-943C-414A-8A69-EF8E637F2B25" explicitItemIdentifier="TOOLBAR_OUTPUT" label="Output Name" paletteLabel="Output Name" tag="-1" image="NSFolder" autovalidates="NO" selectable="YES" id="DgV-th-SMR">
+                        <connections>
+                            <action selector="setPrefView:" target="-2" id="TZd-0g-SWe"/>
+                        </connections>
+                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="E63989A9-D0E0-4806-8068-3C2D03D45257" explicitItemIdentifier="TOOLBAR_SETS" label="Sets" paletteLabel="Sets" tag="-1" image="NSFolderSmart" autovalidates="NO" selectable="YES" id="x8c-1o-aZk">
                         <connections>
                             <action selector="setPrefView:" target="-2" id="qzJ-nP-jfu"/>
@@ -53,11 +58,12 @@
                 <defaultToolbarItems>
                     <toolbarItem reference="h9J-Wg-NA5"/>
                     <toolbarItem reference="1NM-zc-8xJ"/>
+                    <toolbarItem reference="DgV-th-SMR"/>
                     <toolbarItem reference="x8c-1o-aZk"/>
                     <toolbarItem reference="yrt-qD-Ctd"/>
                 </defaultToolbarItems>
             </toolbar>
-            <point key="canvasLocation" x="116" y="-495"/>
+            <point key="canvasLocation" x="-150" y="-1086"/>
         </window>
         <userDefaultsController id="3">
             <declaredKeys>
@@ -504,8 +510,8 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <binding destination="3" name="enabled" keyPath="values.SBOrganizeAlternateGroups" id="14C-bj-nNO"/>
                         <binding destination="3" name="value" keyPath="values.SBInferMediaCharacteristics" id="7fR-8w-Ity"/>
+                        <binding destination="3" name="enabled" keyPath="values.SBOrganizeAlternateGroups" id="14C-bj-nNO"/>
                     </connections>
                 </button>
             </subviews>
@@ -572,6 +578,7 @@
     </objects>
     <resources>
         <image name="NSAdvanced" width="32" height="32"/>
+        <image name="NSFolder" width="32" height="32"/>
         <image name="NSFolderSmart" width="32" height="32"/>
         <image name="NSPreferencesGeneral" width="32" height="32"/>
         <image name="NSUserAccounts" width="32" height="32"/>
