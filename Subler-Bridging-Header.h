@@ -4,7 +4,6 @@
 
 #import "SBDocument.h"
 #import "SBQueueItem.h"
-#import "SBQueueAction.h"
 #import "SBMovieViewController.h"
 #import "SBMediaTagsController.h"
 

@@ -81,7 +81,6 @@
 		A9AB486817F0AEFD000AA72E /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB486217F0AEFD000AA72E /* VideoView.xib */; };
 		A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE26BD1F3B66470041A57D /* SquaredTVArt.swift */; };
 		A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */; };
-		A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */; };
 		A9B46AA412B79BB10040517A /* Subler.icns in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AA312B79BB10040517A /* Subler.icns */; };
 		A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46ABE12B79D1C0040517A /* SBDocument.m */; };
 		A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B514181EFC12310055A035 /* TheTVDB.swift */; };
@@ -268,8 +267,6 @@
 		A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBVideoViewController.m; path = Classes/PropertyView/SBVideoViewController.m; sourceTree = "<group>"; };
 		A9AE26BD1F3B66470041A57D /* SquaredTVArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SquaredTVArt.swift; path = Classes/MetadataImporters/SquaredTVArt.swift; sourceTree = "<group>"; };
 		A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataHelper.swift; path = Classes/MetadataImporters/MetadataHelper.swift; sourceTree = "<group>"; };
-		A9AF6A7318D0496400FAAB08 /* SBQueueAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueAction.h; path = Classes/SBQueueAction.h; sourceTree = "<group>"; };
-		A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueAction.m; path = Classes/SBQueueAction.m; sourceTree = "<group>"; };
 		A9B3411B1679CA3E00E6EE0C /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		A9B46AA312B79BB10040517A /* Subler.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Subler.icns; path = images/Subler.icns; sourceTree = "<group>"; };
 		A9B46ABD12B79D1C0040517A /* SBDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBDocument.h; path = Classes/SBDocument.h; sourceTree = "<group>"; };
@@ -564,8 +561,6 @@
 				A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */,
 				A982D0BE140AB66400B92357 /* SBQueueItem.h */,
 				A982D0BF140AB66400B92357 /* SBQueueItem.m */,
-				A9AF6A7318D0496400FAAB08 /* SBQueueAction.h */,
-				A9AF6A7418D0496400FAAB08 /* SBQueueAction.m */,
 				A91B196B1F2B0DCB0008675F /* QueueAction.swift */,
 				A9A8CEF71E43754400BC2AE1 /* SBQueueScriptCommand.h */,
 				A9A8CEF81E43754400BC2AE1 /* SBQueueScriptCommand.m */,
@@ -856,7 +851,6 @@
 				A961476313F567E10068F161 /* SBQueueController.m in Sources */,
 				A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */,
 				A90057C01F99E35300FA4ED1 /* PopUpCellView.swift in Sources */,
-				A9AF6A7518D0496400FAAB08 /* SBQueueAction.m in Sources */,
 				A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */,
 				A956CE651F99E5BB00093992 /* ActivityWindowController.swift in Sources */,
 				A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */,

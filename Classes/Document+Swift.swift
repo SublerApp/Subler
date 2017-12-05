@@ -59,8 +59,10 @@ extension SBDocument: ChapterSearchControllerDelegate, MetadataSearchControllerD
         let map = metadata.mediaKind == 9 ? defaults.map(forKey: "SBMetadataMovieResultMap") : defaults.map(forKey: "SBMetadataTvShowResultMap")
         let keepEmptyKeys = defaults.bool(forKey: "SBMetadataKeepEmptyAnnotations")
 
-        let result = metadata.mappedMetadata(to: map!, keepEmptyKeys: keepEmptyKeys)
-        mp4.metadata.merge(result)
+        if let map = map {
+            let result = metadata.mappedMetadata(to: map, keepEmptyKeys: keepEmptyKeys)
+            mp4.metadata.merge(result)
+        }
 
         if let hdType = mp4.hdType {
             for item in mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyHDVideo) {
@@ -118,7 +120,6 @@ extension SBDocument: ChapterSearchControllerDelegate, MetadataSearchControllerD
     func didSelect(tracks: [MP42Track], metadata: MP42Metadata?) {
         for track in tracks {
             mp4.addTrack(track)
-
         }
 
         if tracks.isEmpty == false {

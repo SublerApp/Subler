@@ -7,11 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SBQueueAction.h"
-
-@class MP42File;
 
 NS_ASSUME_NONNULL_BEGIN
+
+@class MP42File;
+@class SBQueueItem;
+
+/**
+ *  SBQueue actions protocol, actions can be run by
+ *  the queue's items.
+ */
+@protocol SBQueueActionProtocol <NSObject, NSSecureCoding>
+- (void)runAction:(SBQueueItem *)item;
+@property (nonatomic, readonly) NSString *localizedDescription;
+@end
+
 
 typedef NS_ENUM(NSUInteger, SBQueueItemStatus) {
     SBQueueItemStatusUnknown = 0,

@@ -7,7 +7,59 @@
 
 import Foundation
 
-/// An actions that applies a preset to the item.
+/// SBQueue actions protocol, actions can be run by the queue's items.
+//@objc(SBQueueActionProtocol) protocol QueueActionProtocol: NSSecureCoding {
+//    @objc func runAction(_ item: SBQueueItem)
+//    @objc var localizedDescription: String { get }
+//}
+
+/// An action that search in the item source directory for additionals srt subtitles.
+@objc(SBQueueSubtitlesAction) class QueueSubtitlesAction : NSObject, SBQueueActionProtocol {
+
+    var localizedDescription: String { return NSLocalizedString("Loading subtitles", comment: "Action localized description.") }
+    override var description: String { return NSLocalizedString("Load Subtitles", comment: "Action description.") }
+
+    @objc override init() {}
+
+    private func loadExternalSubtitles(url: URL) -> [MP42FileImporter] {
+        let movieFilename = url.deletingPathExtension().lastPathComponent
+        var importers: [MP42FileImporter] = Array()
+        if let contents = try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles, .skipsPackageDescendants]) {
+            for url in contents {
+                if url.pathExtension.caseInsensitiveCompare("srt") == ComparisonResult.orderedSame {
+                    let subtitleFilename = url.deletingPathExtension().lastPathComponent
+                    if movieFilename.count < subtitleFilename.count &&
+                        subtitleFilename.compare(subtitleFilename, options: String.CompareOptions.caseInsensitive, range: movieFilename.startIndex..<movieFilename.endIndex, locale: nil) == ComparisonResult.orderedSame {
+                        if let importer = try? MP42FileImporter(url: url) {
+                            importers.append(importer)
+                        }
+                    }
+                }
+            }
+        }
+
+        return importers
+    }
+
+    func runAction(_ item: SBQueueItem) {
+        let subtitlesImporters = loadExternalSubtitles(url: item.fileURL)
+
+        for importer in subtitlesImporters {
+            for track in importer.tracks {
+                item.mp4File?.addTrack(track)
+            }
+        }
+    }
+
+    func encode(with aCoder: NSCoder) {}
+
+    required init?(coder aDecoder: NSCoder) {}
+
+    static var supportsSecureCoding: Bool { return true }
+
+}
+
+/// An action that applies a preset to the item.
 @objc(SBQueueSetAction) class QueueSetAction : NSObject, SBQueueActionProtocol {
 
     private let preset: MetadataPreset
@@ -55,7 +107,6 @@ import Foundation
 
     required init?(coder aDecoder: NSCoder) {
         guard let preset = aDecoder.decodeObject(of: MetadataPreset.self, forKey: "SBQueueActionSet") else { return nil }
-
         self.preset = preset
     }
 
@@ -85,7 +136,7 @@ extension Array where Element == Artwork {
 
 }
 
-/// An actions that fetches metadata online.
+/// An action that fetches metadata online.
 @objc(SBQueueMetadataAction) class QueueMetadataAction : NSObject, SBQueueActionProtocol {
 
     private let movieLanguage: String
@@ -217,6 +268,181 @@ extension Array where Element == Artwork {
         self.movieProvider = movieProvider
         self.tvShowProvider = tvShowProvider
         self.preferredArtwork = preferredArtwork
+    }
+
+    static var supportsSecureCoding: Bool { return true }
+
+}
+
+/// An action that organize the item tracks' groups.
+@objc(SBQueueOrganizeGroupsAction) class QueueOrganizeGroupsAction : NSObject, SBQueueActionProtocol {
+
+    var localizedDescription: String { return NSLocalizedString("Organizing groups", comment: "Organize Groups action local description") }
+    override var description: String { return NSLocalizedString("Organize Groups", comment: "Organize Groups action description") }
+
+    @objc override init() {}
+
+    func runAction(_ item: SBQueueItem) {
+        item.mp4File?.organizeAlternateGroups()
+        item.mp4File?.inferMediaCharacteristics()
+    }
+
+    func encode(with aCoder: NSCoder) {}
+
+    required init?(coder aDecoder: NSCoder) {}
+
+    static var supportsSecureCoding: Bool { return true }
+
+}
+
+/// An action that fix the item tracks' fallbacks.
+@objc(SBQueueFixFallbacksAction) class QueueFixFallbacksAction : NSObject, SBQueueActionProtocol {
+
+    var localizedDescription: String { return NSLocalizedString("Fixing Fallbacks", comment: "Action localized description.") }
+    override var description: String { return NSLocalizedString("Fix Fallbacks", comment: "Action description.") }
+
+    @objc override init() {}
+
+    func runAction(_ item: SBQueueItem) {
+        item.mp4File?.setAutoFallback()
+    }
+
+    func encode(with aCoder: NSCoder) {}
+
+    required init?(coder aDecoder: NSCoder) {}
+
+    static var supportsSecureCoding: Bool { return true }
+
+}
+
+/// An action that set unknown language tracks to preferred one.
+@objc(SBQueueSetLanguageAction) class QueueSetLanguageAction : NSObject, SBQueueActionProtocol {
+
+    var localizedDescription: String { return NSLocalizedString("Setting tracks language", comment: "Set Language action local description") }
+    override var description: String { return NSLocalizedString("Set tracks language", comment: "Set Language action description") }
+
+    let language: String
+
+    @objc init(language: String) {
+        self.language = language
+    }
+
+    func runAction(_ item: SBQueueItem) {
+        if let tracks = item.mp4File?.tracks {
+            for track in tracks {
+                if track.language == "und" {
+                    track.language = language
+                }
+            }
+        }
+    }
+
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(language, forKey: "SBQueueSetLanguageAction")
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        guard let language = aDecoder.decodeObject(of: NSString.self, forKey: "SBQueueSetLanguageAction") as String?
+            else { return nil }
+        self.language = language
+    }
+
+    static var supportsSecureCoding: Bool { return true }
+
+}
+
+/// An action that remove the tracks names.
+@objc(SBQueueClearTrackNameAction) class QueueClearTrackNameAction : NSObject, SBQueueActionProtocol {
+
+    var localizedDescription: String { return NSLocalizedString("Clearing tracks names", comment: "Action localized description") }
+    override var description: String { return NSLocalizedString("Clear tracks names", comment: "Action description") }
+
+    @objc override init() {}
+
+    func runAction(_ item: SBQueueItem) {
+        if let tracks = item.mp4File?.tracks {
+            for track in tracks {
+                track.name = ""
+            }
+        }
+    }
+
+    func encode(with aCoder: NSCoder) {}
+
+    required init?(coder aDecoder: NSCoder) {}
+
+    static var supportsSecureCoding: Bool { return true }
+
+}
+
+@objc(SBQueueColorSpaceActionTag) enum QueueColorSpaceActionTag: UInt16 {
+    case SBQueueColorSpaceActionTagNone = 1
+    case SBQueueColorSpaceActionTagRec601PAL
+    case SBQueueColorSpaceActionTagRec601SMPTEC
+    case SBQueueColorSpaceActionTagRec709
+    case SBQueueColorSpaceActionTagRec2020
+}
+
+/// An action that set the video track color space.
+@objc(SBQueueColorSpaceAction) class QueueColorSpaceAction : NSObject, SBQueueActionProtocol {
+
+    var localizedDescription: String { return NSLocalizedString("Setting color space", comment: "Set track color space action local description") }
+    override var description: String { return NSLocalizedString("Set color space", comment: "Set track color space action description") }
+
+    let colorPrimaries: UInt16;
+    let transferCharacteristics: UInt16;
+    let matrixCoefficients: UInt16;
+
+    @objc init(tag: QueueColorSpaceActionTag) {
+        switch tag {
+        case .SBQueueColorSpaceActionTagNone:
+            self.colorPrimaries = 0
+            self.transferCharacteristics = 0
+            self.matrixCoefficients = 0
+        case .SBQueueColorSpaceActionTagRec601PAL:
+            self.colorPrimaries = 5
+            self.transferCharacteristics = 1
+            self.matrixCoefficients = 6
+        case .SBQueueColorSpaceActionTagRec601SMPTEC:
+            self.colorPrimaries = 6
+            self.transferCharacteristics = 1
+            self.matrixCoefficients = 6
+        case .SBQueueColorSpaceActionTagRec709:
+            self.colorPrimaries = 1
+            self.transferCharacteristics = 1
+            self.matrixCoefficients = 1
+        case .SBQueueColorSpaceActionTagRec2020:
+            self.colorPrimaries = 9
+            self.transferCharacteristics = 1
+            self.matrixCoefficients = 9
+        }
+    }
+
+    func runAction(_ item: SBQueueItem) {
+        if let tracks = item.mp4File?.tracks(withMediaType: kMP42MediaType_Video) as? [MP42VideoTrack] {
+            for track in tracks {
+                if track.format == kMP42VideoCodecType_H264 ||
+                    track.format == kMP42VideoCodecType_HEVC ||
+                    track.format == kMP42VideoCodecType_HEVC_PSinBitstream ||
+                    track.format == kMP42VideoCodecType_MPEG4Video {
+                    track.colorPrimaries = colorPrimaries;
+                    track.transferCharacteristics = transferCharacteristics;
+                    track.matrixCoefficients = matrixCoefficients;
+                }
+            }
+        }
+    }
+
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(Int32(colorPrimaries), forKey: "SBQueueColorSpaceActionColorPrimaries")
+        aCoder.encode(Int32(transferCharacteristics), forKey: "SBQueueColorSpaceActionTransferCharacteristics")
+        aCoder.encode(Int32(matrixCoefficients), forKey: "SBQueueColorSpaceActionMatrixCoefficients")
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        self.colorPrimaries = UInt16(aDecoder.decodeInt32(forKey: "SBQueueColorSpaceActionColorPrimaries"))
+        self.transferCharacteristics = UInt16(aDecoder.decodeInt32(forKey: "SBQueueColorSpaceActionTransferCharacteristics"))
+        self.matrixCoefficients = UInt16(aDecoder.decodeInt32(forKey: "SBQueueColorSpaceActionMatrixCoefficients"))
     }
 
     static var supportsSecureCoding: Bool { return true }
