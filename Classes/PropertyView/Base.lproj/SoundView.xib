@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBSoundViewController">
             <connections>
                 <outlet property="alternateGroup" destination="hO4-U9-j72" id="7J3-sK-j8c"/>
-                <outlet property="fallback" destination="kyn-qq-nF7" id="bpX-bT-b7j"/>
-                <outlet property="follows" destination="6Kd-IU-I5v" id="oR5-Ks-iZG"/>
+                <outlet property="fallbacksPopUp" destination="kyn-qq-nF7" id="myr-hC-bw0"/>
+                <outlet property="followsPopUp" destination="6Kd-IU-I5v" id="Cog-ia-KAL"/>
                 <outlet property="mediaTagsView" destination="LIS-S6-sws" id="aeF-s7-YxZ"/>
                 <outlet property="view" destination="1" id="4"/>
                 <outlet property="volume" destination="MVR-Tx-Jpc" id="haV-1n-rRn"/>
@@ -92,7 +92,7 @@
                                                 </popUpButtonCell>
                                                 <connections>
                                                     <accessibilityConnection property="title" destination="oJQ-vl-QbS" id="Cbl-Aq-ObF"/>
-                                                    <action selector="setAltenateGroup:" target="-2" id="8eX-zt-IUC"/>
+                                                    <action selector="setTrackAlternateGroup:" target="-2" id="Xpd-ML-0hX"/>
                                                 </connections>
                                             </popUpButton>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kyn-qq-nF7">
@@ -111,7 +111,7 @@
                                                 </popUpButtonCell>
                                                 <connections>
                                                     <accessibilityConnection property="title" destination="AHt-fF-cmH" id="xln-Xh-ghS"/>
-                                                    <action selector="setFallbackTrack:" target="-2" id="Q66-7F-b86"/>
+                                                    <action selector="seTracktFallback:" target="-2" id="w1b-yu-Mre"/>
                                                 </connections>
                                             </popUpButton>
                                             <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="Wwd-LM-Zu2">
@@ -138,7 +138,7 @@
                                                 </popUpButtonCell>
                                                 <connections>
                                                     <accessibilityConnection property="title" destination="Wwd-LM-Zu2" id="c2I-EU-yGn"/>
-                                                    <action selector="setFollowsTrack:" target="-2" id="I5X-MY-2Fu"/>
+                                                    <action selector="setTrackFollows:" target="-2" id="aKE-dj-ggZ"/>
                                                 </connections>
                                             </popUpButton>
                                             <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="IeL-sA-ryZ">

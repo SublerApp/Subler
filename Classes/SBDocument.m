@@ -12,7 +12,6 @@
 
 #import "SBMovieViewController.h"
 #import "SBVideoViewController.h"
-#import "SBSoundViewController.h"
 
 #import <MP42Foundation/MP42File.h>
 #import <MP42Foundation/MP42FileImporter.h>
@@ -719,9 +718,7 @@ static NSDictionary *_detailMonospacedAttr;
         [controller setTrack:track];
         [controller setFile:self.mp4];
     } else if ([track isKindOfClass:[MP42AudioTrack class]]) {
-        controller = [[SBSoundViewController alloc] initWithNibName:@"SoundView" bundle:nil];
-        [controller setSoundTrack:track];
-        [controller setFile:self.mp4];
+        controller = [[SBSoundViewController alloc] initWithMp4:self.mp4 track:track];
     } else {
         controller = [[EmptyViewController alloc] initWithNibName:@"EmptyView" bundle:nil];
     }

@@ -72,7 +72,6 @@
 		A9A91B5D1FB6FBB700250D93 /* ChapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */; };
 		A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */; };
 		A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */; };
-		A9AB485717F0AEAC000AA72E /* SBSoundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB485117F0AEAC000AA72E /* SBSoundViewController.m */; };
 		A9AB485817F0AEAC000AA72E /* SBVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */; };
 		A9AB486417F0AEFD000AA72E /* ChapterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB485A17F0AEFD000AA72E /* ChapterView.xib */; };
 		A9AB486517F0AEFD000AA72E /* EmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB485C17F0AEFD000AA72E /* EmptyView.xib */; };
@@ -261,8 +260,6 @@
 		A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBAppDelegate.m; path = Classes/SBAppDelegate.m; sourceTree = "<group>"; };
 		A9AB484E17F0AEAC000AA72E /* SBMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMovieViewController.h; path = Classes/PropertyView/SBMovieViewController.h; sourceTree = "<group>"; };
 		A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMovieViewController.m; path = Classes/PropertyView/SBMovieViewController.m; sourceTree = "<group>"; };
-		A9AB485017F0AEAC000AA72E /* SBSoundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBSoundViewController.h; path = Classes/PropertyView/SBSoundViewController.h; sourceTree = "<group>"; };
-		A9AB485117F0AEAC000AA72E /* SBSoundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBSoundViewController.m; path = Classes/PropertyView/SBSoundViewController.m; sourceTree = "<group>"; };
 		A9AB485217F0AEAC000AA72E /* SBVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBVideoViewController.h; path = Classes/PropertyView/SBVideoViewController.h; sourceTree = "<group>"; };
 		A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBVideoViewController.m; path = Classes/PropertyView/SBVideoViewController.m; sourceTree = "<group>"; };
 		A9AE26BD1F3B66470041A57D /* SquaredTVArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SquaredTVArt.swift; path = Classes/MetadataImporters/SquaredTVArt.swift; sourceTree = "<group>"; };
@@ -604,8 +601,6 @@
 				A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */,
 				A9AB485E17F0AEFD000AA72E /* MovieView.xib */,
 				A9F4FF4A1FB708FB004473A8 /* SoundViewController.swift */,
-				A9AB485017F0AEAC000AA72E /* SBSoundViewController.h */,
-				A9AB485117F0AEAC000AA72E /* SBSoundViewController.m */,
 				A9AB486017F0AEFD000AA72E /* SoundView.xib */,
 				A9AB485217F0AEAC000AA72E /* SBVideoViewController.h */,
 				A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */,
@@ -838,7 +833,6 @@
 				A9E932A71F34D31D00B1790B /* ArtworkSelector.swift in Sources */,
 				A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */,
 				A956CE6B1F99EAAD00093992 /* Logger.swift in Sources */,
-				A9AB485717F0AEAC000AA72E /* SBSoundViewController.m in Sources */,
 				A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */,
 				A956CE691F99E93D00093992 /* ButtonToolbarItem.swift in Sources */,
 				A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */,
