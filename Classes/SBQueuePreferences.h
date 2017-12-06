@@ -34,6 +34,7 @@ extern NSString * const SBQueueMovieProviderLanguage;
 extern NSString * const SBQueueTVShowProviderLanguage;
 extern NSString * const SBQueueProviderArtwork;
 
+extern NSString * const SBQueueSetOutputFilename;
 extern NSString * const SBQueueDestination;
 
 @interface SBQueuePreferences : NSObject

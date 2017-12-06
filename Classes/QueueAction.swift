@@ -13,6 +13,27 @@ import Foundation
 //    @objc var localizedDescription: String { get }
 //}
 
+/// An action that set a formatted file name.
+@objc(SBQueueSetOutputFilenameAction) class QueueSetOutputFilenameAction: NSObject, SBQueueActionProtocol {
+
+    var localizedDescription: String { return NSLocalizedString("Setting Name", comment: "Action localized description.") }
+    override var description: String { return NSLocalizedString("Set Name", comment: "Action description.") }
+
+    @objc override init() {}
+
+    func runAction(_ item: SBQueueItem) {
+        if let formattedName = item.mp4File?.formattedFileName() {
+            let pathExtension = item.destURL.pathExtension
+            let destURL = item.destURL.deletingLastPathComponent().appendingPathComponent(formattedName).appendingPathExtension(pathExtension)
+            item.destURL = destURL
+        }
+    }
+
+    func encode(with aCoder: NSCoder) {}
+    required init?(coder aDecoder: NSCoder) {}
+    static var supportsSecureCoding: Bool { return true }
+}
+
 /// An action that search in the item source directory for additionals srt subtitles.
 @objc(SBQueueSubtitlesAction) class QueueSubtitlesAction : NSObject, SBQueueActionProtocol {
 

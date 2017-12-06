@@ -37,6 +37,7 @@ NSString * const SBQueueTVShowProviderLanguage = @"SBQueueTVShowProviderLanguage
 NSString * const SBQueueProviderArtwork = @"SBQueueProviderArtwork";
 
 NSString * const SBQueueSet = @"SBQueueSet";
+NSString * const SBQueueSetOutputFilename = @"SBQueueSetOutputFilename";
 
 @implementation SBQueuePreferences
 
@@ -45,7 +46,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
     if (self) {
         _options = [[NSMutableDictionary alloc] init];
 
-        NSArray *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueFixTrackLanguage, SBQueueFixTrackLanguageValue, SBQueueApplyColorSpace, SBQueueApplyColorSpaceValue, SBQueueFixFallbacks, SBQueueClearTrackName, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize, SBQueueShowDoneNotification, SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage, SBQueueProviderArtwork];
+        NSArray<NSString *> *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueFixTrackLanguage, SBQueueFixTrackLanguageValue, SBQueueApplyColorSpace, SBQueueApplyColorSpaceValue, SBQueueFixFallbacks, SBQueueClearTrackName, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueOptimize, SBQueueShowDoneNotification, SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage, SBQueueProviderArtwork, SBQueueSetOutputFilename];
 
         [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             self.options[obj] = [[NSUserDefaults standardUserDefaults] valueForKey:obj];
@@ -84,6 +85,8 @@ NSString * const SBQueueSet = @"SBQueueSet";
                                                                SBQueueApplyColorSpace: @NO,
                                                                SBQueueApplyColorSpaceValue: @1,
 
+                                                               SBQueueSetOutputFilename: @NO,
+
                                                                SBQueueAutoStart: @NO,
                                                                SBQueueOptimize : @YES,
                                                                SBQueueShowDoneNotification: @YES,
@@ -99,7 +102,7 @@ NSString * const SBQueueSet = @"SBQueueSet";
  * Save the queue user defaults
  */
 - (void)saveUserDefaults {
-    NSArray<NSString *> *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueFixTrackLanguage, SBQueueFixTrackLanguageValue, SBQueueApplyColorSpace, SBQueueApplyColorSpaceValue, SBQueueFixFallbacks, SBQueueClearTrackName, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueShowDoneNotification, SBQueueOptimize, SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage, SBQueueProviderArtwork];
+    NSArray<NSString *> *keys = @[SBQueueFileType, SBQueueOrganize, SBQueueFixTrackLanguage, SBQueueFixTrackLanguageValue, SBQueueApplyColorSpace, SBQueueApplyColorSpaceValue, SBQueueFixFallbacks, SBQueueClearTrackName, SBQueueMetadata, SBQueueSubtitles, SBQueueAutoStart, SBQueueShowDoneNotification, SBQueueOptimize, SBQueueMovieProvider, SBQueueTVShowProvider, SBQueueMovieProviderLanguage, SBQueueTVShowProviderLanguage, SBQueueProviderArtwork, SBQueueSetOutputFilename];
 
     [keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [[NSUserDefaults standardUserDefaults] setValue:self.options[obj] forKey:obj];

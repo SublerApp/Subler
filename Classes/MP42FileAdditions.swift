@@ -7,6 +7,14 @@
 
 import Foundation
 
+private extension String {
+    func condensingWhitespace() -> String {
+        return self.components(separatedBy: .whitespacesAndNewlines)
+            .filter { !$0.isEmpty }
+            .joined(separator: " ")
+    }
+}
+
 extension MP42File {
 
     enum TrackHDType : Int {
@@ -94,6 +102,8 @@ extension MP42File {
                 name.append(token)
             }
         }
+
+        name = name.trimmingCharacters(in: CharacterSet(charactersIn: ":/")).condensingWhitespace()
 
         return name.isEmpty ? nil : name
     }

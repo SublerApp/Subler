@@ -263,6 +263,10 @@ static void *SBQueueContex = &SBQueueContex;
                                                             preferredArtwork:[self.options[SBQueueProviderArtwork] unsignedIntegerValue]]];
     }
 
+    if ([(self.options)[SBQueueSetOutputFilename] boolValue]) {
+        [item addAction:[[SBQueueSetOutputFilenameAction alloc] init]];
+    }
+
     if ([(self.options)[SBQueueSubtitles] boolValue]) {
         [item addAction:[[SBQueueSubtitlesAction alloc] init]];
     }
