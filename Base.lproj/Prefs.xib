@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13770" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13770"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,7 +39,7 @@
                             <action selector="setPrefView:" target="-2" id="Ag8-C8-L9t"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="17842401-943C-414A-8A69-EF8E637F2B25" explicitItemIdentifier="TOOLBAR_OUTPUT" label="Output Name" paletteLabel="Output Name" tag="-1" image="NSFolder" autovalidates="NO" selectable="YES" id="DgV-th-SMR">
+                    <toolbarItem implicitItemIdentifier="17842401-943C-414A-8A69-EF8E637F2B25" explicitItemIdentifier="TOOLBAR_OUTPUT" label="Filename" paletteLabel="Filename" tag="-1" image="NSFolder" autovalidates="NO" selectable="YES" id="DgV-th-SMR">
                         <connections>
                             <action selector="setPrefView:" target="-2" id="TZd-0g-SWe"/>
                         </connections>
@@ -63,7 +63,7 @@
                     <toolbarItem reference="yrt-qD-Ctd"/>
                 </defaultToolbarItems>
             </toolbar>
-            <point key="canvasLocation" x="-150" y="-1086"/>
+            <point key="canvasLocation" x="-61" y="-1091"/>
         </window>
         <userDefaultsController id="3">
             <declaredKeys>
