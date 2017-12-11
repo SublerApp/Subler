@@ -103,7 +103,7 @@ extension MP42File {
             }
         }
 
-        name = name.trimmingCharacters(in: CharacterSet(charactersIn: ":/")).condensingWhitespace()
+        name = name.replacingOccurrences(of: ":", with: "").replacingOccurrences(of: "/", with: "-").condensingWhitespace()
 
         return name.isEmpty ? nil : name
     }
