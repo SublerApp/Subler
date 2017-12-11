@@ -39,7 +39,7 @@
                             <action selector="setPrefView:" target="-2" id="Ag8-C8-L9t"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="17842401-943C-414A-8A69-EF8E637F2B25" explicitItemIdentifier="TOOLBAR_OUTPUT" label="Filename" paletteLabel="Filename" tag="-1" image="NSFolder" autovalidates="NO" selectable="YES" id="DgV-th-SMR">
+                    <toolbarItem implicitItemIdentifier="17842401-943C-414A-8A69-EF8E637F2B25" explicitItemIdentifier="TOOLBAR_OUTPUT" label="Filename" paletteLabel="Filename" tag="-1" image="mp4-file" autovalidates="NO" selectable="YES" id="DgV-th-SMR">
                         <connections>
                             <action selector="setPrefView:" target="-2" id="TZd-0g-SWe"/>
                         </connections>
@@ -58,8 +58,8 @@
                 <defaultToolbarItems>
                     <toolbarItem reference="h9J-Wg-NA5"/>
                     <toolbarItem reference="1NM-zc-8xJ"/>
-                    <toolbarItem reference="DgV-th-SMR"/>
                     <toolbarItem reference="x8c-1o-aZk"/>
+                    <toolbarItem reference="DgV-th-SMR"/>
                     <toolbarItem reference="yrt-qD-Ctd"/>
                 </defaultToolbarItems>
             </toolbar>
@@ -578,9 +578,9 @@
     </objects>
     <resources>
         <image name="NSAdvanced" width="32" height="32"/>
-        <image name="NSFolder" width="32" height="32"/>
         <image name="NSFolderSmart" width="32" height="32"/>
         <image name="NSPreferencesGeneral" width="32" height="32"/>
         <image name="NSUserAccounts" width="32" height="32"/>
+        <image name="mp4-file" width="32" height="32"/>
     </resources>
 </document>
