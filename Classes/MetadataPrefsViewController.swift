@@ -49,7 +49,7 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTok
         self.currentTokens = []
         self.matches = []
 
-        super.init(nibName: self.nibName, bundle: nil)
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {

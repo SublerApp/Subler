@@ -20,7 +20,7 @@ class TokensViewController: NSViewController, NSTokenFieldDelegate {
     init(tokens: [String]) {
         self.tokens = tokens
         self.separators = CharacterSet(charactersIn: "{}")
-        super.init(nibName: self.nibName, bundle: nil)
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {

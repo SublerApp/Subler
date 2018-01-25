@@ -31,7 +31,7 @@ import Cocoa
     @objc init(item: SBQueueItem, delegate: ItemViewDelegate) {
         self.item = item
         self.delegate = delegate
-        super.init(nibName: self.nibName, bundle: nil)
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -45,7 +45,7 @@ import Cocoa
         statusObserver = item.observe(\.status, options: [.initial, .new]) { [weak self] observed, change in
             guard let s = self else { return }
             DispatchQueue.main.async {
-                if s.item.status != SBQueueItemStatus.ready && s.item.status != SBQueueItemStatus.editing {
+                if observed.status != SBQueueItemStatus.ready && observed.status != SBQueueItemStatus.editing {
                     s.editButton.isEnabled = false
                 } else {
                     s.editButton.isEnabled = true

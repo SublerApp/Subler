@@ -24,7 +24,7 @@ import Cocoa
 
     @objc init(track: MP42ChapterTrack) {
         self.track = track
-        super.init(nibName: self.nibName, bundle: nil)
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {

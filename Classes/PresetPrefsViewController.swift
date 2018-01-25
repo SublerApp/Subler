@@ -26,7 +26,7 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
     init() {
         self.currentRow = 0
         self.presetManager = PresetManager.shared
-        super.init(nibName: self.nibName, bundle: nil)
+        super.init(nibName: nil, bundle: nil)
     }
 
     override func loadView() {
