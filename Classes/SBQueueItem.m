@@ -459,7 +459,7 @@ bail:
                                                            [SBQueueMetadataAction class], [SBQueueSubtitlesAction class],
                                                            [SBQueueSetLanguageAction class], [SBQueueFixFallbacksAction class],
                                                            [SBQueueClearTrackNameAction class], [SBQueueOrganizeGroupsAction class],
-                                                           [SBQueueColorSpaceAction class], nil]
+                                                           [SBQueueColorSpaceAction class], [SBQueueSetOutputFilenameAction class], nil]
                                                    forKey:@"SBQueueItemActions"];
 
         _status = [decoder decodeIntForKey:@"SBQueueItemStatus"];
