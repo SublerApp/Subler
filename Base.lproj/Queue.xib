@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13528" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13528"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14087.3"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBQueueController">
             <connections>
-                <outlet property="_detachedWindow" destination="zHc-NF-Zeh" id="Cr1-ha-Wmx"/>
-                <outlet property="detachedWindow" destination="zHc-NF-Zeh" id="GMJ-fz-AdQ"/>
                 <outlet property="progressBar" destination="91" id="Pyo-9s-F6Q"/>
                 <outlet property="startItem" destination="xeY-tT-tF2" id="MmM-v9-enw"/>
                 <outlet property="statusLabel" destination="12" id="VYp-DC-guz"/>
@@ -231,17 +229,6 @@
                 <outlet property="delegate" destination="-2" id="84"/>
             </connections>
         </menu>
-        <window title="Queue Options" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="SBQueueOptionsWindow" animationBehavior="default" id="zHc-NF-Zeh" userLabel="Window - Detached Options" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="187" y="1037" width="334" height="380"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
-            <view key="contentView" id="hhb-jZ-DWa">
-                <rect key="frame" x="0.0" y="0.0" width="334" height="380"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            </view>
-            <point key="canvasLocation" x="102" y="-145"/>
-        </window>
     </objects>
     <resources>
         <image name="EncodeComplete" width="16" height="16"/>

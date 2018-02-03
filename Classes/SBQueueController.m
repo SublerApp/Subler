@@ -32,7 +32,6 @@ static void *SBQueueContex = &SBQueueContex;
 @property (nonatomic, readonly) NSImage *docImg;
 
 @property (nonatomic, strong) NSPopover *popover;
-@property (nonatomic, weak) IBOutlet NSPanel *detachedWindow;
 
 @property (nonatomic, strong) NSPopover *itemPopover;
 @property (nonatomic, strong) SBOptionsViewController *windowController;
@@ -404,16 +403,6 @@ static void *SBQueueContex = &SBQueueContex;
     }
 }
 
--(NSWindow *)createOptionsWindow {
-    if (!self.windowController) {
-        self.windowController = [[SBOptionsViewController alloc] initWithOptions:self.options];
-    }
-    _detachedWindow.contentView = self.windowController.view;
-    _detachedWindow.delegate = self;
-
-    return _detachedWindow;
-}
-
 /**
  *  Creates a popover with a SBQueueItem
  */
@@ -442,16 +431,6 @@ static void *SBQueueContex = &SBQueueContex;
     }
 
     return NO;
-}
-
-- (NSWindow *)detachableWindowForPopover:(NSPopover *)popover {
-    if (NSAppKitVersionNumber <= 1343) {
-        if (popover == self.popover) {
-            return [self createOptionsWindow];
-        }
-    }
-
-    return nil;
 }
 
 - (void)windowWillClose:(NSNotification *)notification {

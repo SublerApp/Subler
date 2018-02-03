@@ -58,7 +58,7 @@ public struct ChapterDB : ChapterService {
         var currentTime: UInt64 = 0
         var chapters: [Chapter] = Array()
 
-        for (time, name) in zip(times.flatMap { $0.stringValue }, names.flatMap { $0.stringValue }) {
+        for (time, name) in zip(times.compactMap { $0.stringValue }, names.compactMap { $0.stringValue }) {
             let timestamp = TimeFromString(time, 1000)
 
             if timestamp < currentTime {
@@ -84,7 +84,7 @@ public struct ChapterDB : ChapterService {
         guard let document = try? XMLDocument(data: data, options: []),
             let children = try? document.nodes(forXPath: "//*:chapterInfo") else { return [] }
 
-        return children.flatMap { parse(node: $0) }
+        return children.compactMap { parse(node: $0) }
     }
 
 }

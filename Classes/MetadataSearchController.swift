@@ -312,7 +312,7 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
         switch state {
         case .closing(_, let result):
 
-            DispatchQueue.global(priority: .background).async {
+            DispatchQueue.global(qos: .userInitiated).async {
                 for artwork in artworks {
                     if let data = URLSession.data(from: artwork.url) {
                         result.artworks.append(MP42Image(data: data, type: MP42_ART_JPEG))

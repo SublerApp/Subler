@@ -111,7 +111,7 @@ struct SquaredTVArt {
     private func parse(xml: XMLDocument) -> [SquaredTVArtwork] {
         guard let nodes = try? xml.nodes(forXPath: "//div[starts-with(@class,'Post ')]") else { return [] }
 
-        return nodes.flatMap { (node) -> SquaredTVArtwork? in
+        return nodes.compactMap { (node) -> SquaredTVArtwork? in
             if let subXml = try? XMLDocument(xmlString: node.xmlString, options: []),
                 let name = completeName(xml: subXml),
                 let url = thumbURL(xml: subXml),

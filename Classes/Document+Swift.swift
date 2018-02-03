@@ -18,7 +18,7 @@ extension SBDocument: ChapterSearchControllerDelegate, MetadataSearchControllerD
             let name = mp4.formattedFileName() {
             return name
         } else {
-            return mp4.tracks.flatMap { $0.url }.first?.deletingPathExtension().lastPathComponent
+            return mp4.tracks.compactMap { $0.url }.first?.deletingPathExtension().lastPathComponent
         }
     }
 

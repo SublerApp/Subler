@@ -41,12 +41,9 @@ class PresetEditorViewController: SBMovieViewController {
     }
 
     @IBAction func done(_ sender: Any) {
-        if #available(OSX 10.10, *) {
-            dismissViewController(self)
-        } else {
-            // Fallback on earlier versions
-        }
+        dismissViewController(self)
     }
+
     @IBAction func setReplaceArtworksState(_ sender: NSButton) {
         preset.replaceArtworks = sender.state == .off ? true : false
     }

@@ -32,7 +32,7 @@ class RunnableTask<T> : Runnable {
     }
 
     @discardableResult public func runAsync() -> Runnable {
-        DispatchQueue.global(priority: .background).async {
+        DispatchQueue.global().async {
             self.run()
         }
         return self

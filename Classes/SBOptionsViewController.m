@@ -66,16 +66,14 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
     // Hack to fix crappy anti-aliasing on Yosemite
     // unfortunately it fixes the checkboxes anti-aliasing,
     // but break the popup buttons one…
-    if (NSClassFromString(@"NSVisualEffectView")) {
-        self.view.wantsLayer = YES;
+    self.view.wantsLayer = YES;
 
-        for (NSButton *subview in self.view.subviews) {
-            if ([subview isKindOfClass:[NSButton class]]) {
-                NSAttributedString *string = [[NSAttributedString alloc] initWithString:subview.title
-                                                                             attributes:@{NSForegroundColorAttributeName:[NSColor labelColor],
-                                                                                        NSFontAttributeName:[NSFont labelFontOfSize:11]}];
-                subview.attributedTitle = string;
-            }
+    for (NSButton *subview in self.view.subviews) {
+        if ([subview isKindOfClass:[NSButton class]]) {
+            NSAttributedString *string = [[NSAttributedString alloc] initWithString:subview.title
+                                                                         attributes:@{NSForegroundColorAttributeName:[NSColor labelColor],
+                                                                                      NSFontAttributeName:[NSFont labelFontOfSize:11]}];
+            subview.attributedTitle = string;
         }
     }
 

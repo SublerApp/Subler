@@ -295,7 +295,7 @@ public struct iTunesStore: MetadataService {
                     return c1.collectionName.minimumEditDistance(other: seriesName) > c2.collectionName.minimumEditDistance(other: seriesName) ? false : true
                 })
 
-                let ids = sortedResults.flatMap { extractID(result: $0, show: seriesName, season: seasonNum, store: store) }
+                let ids = sortedResults.compactMap { extractID(result: $0, show: seriesName, season: seasonNum, store: store) }
                 if ids.isEmpty && sortedResults.first!.collectionName.minimumEditDistance(other: seriesName) < 30 {
                     return [sortedResults.first!.collectionId]
                 } else {
@@ -310,7 +310,7 @@ public struct iTunesStore: MetadataService {
                     return a1.artistName.minimumEditDistance(other: seriesName) > a2.artistName.minimumEditDistance(other: seriesName) ? false : true
                 })
 
-                let ids = sortedResults.flatMap { extractID(result: $0, show: seriesName, store: store) }
+                let ids = sortedResults.compactMap { extractID(result: $0, show: seriesName, store: store) }
                 if ids.isEmpty && sortedResults.first!.artistName.minimumEditDistance(other: seriesName) < 30 {
                     return [sortedResults.first!.artistId]
                 } else {
@@ -492,7 +492,7 @@ public struct iTunesStore: MetadataService {
         for node in nodes {
             if let subXml = try? XMLDocument(xmlString: node.xmlString, options: []),
                 let subNodes = try? subXml.nodes(forXPath: "//a") {
-                return subNodes.flatMap { $0.stringValue }
+                return subNodes.compactMap { $0.stringValue }
             }
         }
 

@@ -47,7 +47,7 @@ private class ArtworkImageObject : NSObject {
         }
 
         if startDownload {
-            DispatchQueue.global(priority: .default).async {
+            DispatchQueue.global(qos: .userInitiated).async {
                 let localData = URLSession.data(from: self.source.thumbURL)
                 var localCancelled = false
 

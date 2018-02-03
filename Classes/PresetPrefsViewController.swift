@@ -10,7 +10,6 @@ import Cocoa
 class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
 
     let presetManager: PresetManager
-    var popover: NSPopover?
     var currentRow: Int
 
     @IBOutlet var tableView: NSTableView!
@@ -33,10 +32,10 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
         super.loadView()
 
         observer = NotificationCenter.default.addObserver(forName: presetManager.updateNotification,
-                                               object: nil,
-                                               queue: OperationQueue.main) { [weak self] notification in
-                                                guard let s = self else { return }
-                                                s.tableView.reloadData()
+                                                          object: nil,
+                                                          queue: OperationQueue.main) { [weak self] notification in
+                                                            guard let s = self else { return }
+                                                            s.tableView.reloadData()
         }
     }
 
@@ -94,43 +93,21 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
     }
 
     @IBAction func deletePreset(_ sender: Any) {
-        closePopOver(self)
-
         let rowIndex = tableView.selectedRow
         if rowIndex > -1 {
             presetManager.remove(at: rowIndex)
         }
     }
 
-    @IBAction func closePopOver(_ sender: Any) {
-        guard let currentPopover = popover else { return }
-
-        currentPopover.close()
-        popover = nil
-        controller = nil
-    }
 
     @IBAction func toggleInfoWindow(_ sender: NSView) {
         let rowIndex = tableView.row(for: sender)
-
-        if currentRow == rowIndex && popover != nil {
-            closePopOver(self)
-        }
-        else {
-            closePopOver(self)
-
-            if let preset = presetManager.presets[rowIndex] as? MetadataPreset {
-                currentRow = rowIndex
-                controller = PresetEditorViewController.init(preset: preset)
-
-                if #available(OSX 10.10, *) {
-                    presentViewControllerAsSheet(controller!)
-                } else {
-                    popover = NSPopover()
-                    popover?.contentViewController = controller
-                    popover?.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
-                }
-            }
+        
+        if let preset = presetManager.presets[rowIndex] as? MetadataPreset {
+            currentRow = rowIndex
+            controller = PresetEditorViewController.init(preset: preset)
+            
+            presentViewControllerAsSheet(controller!)
         }
     }
 

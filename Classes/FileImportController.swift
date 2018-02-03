@@ -181,7 +181,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
         
         var rows: [ItemType] = Array()
         
-        let fileImporters: [MP42FileImporter] = try fileURLs.flatMap {
+        let fileImporters: [MP42FileImporter] = try fileURLs.compactMap {
             return try MP42FileImporter(url: $0)
         }
 
@@ -211,7 +211,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     // MARK: Public properties
 
     private var settings: [Settings] {
-        return items.flatMap {
+        return items.compactMap {
             switch $0 {
             case .file(_):
                 return nil
@@ -266,7 +266,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     }
     
     @IBAction func checkOnlyTracksWithSameLanguage(_ sender: Any) {
-        let languages = tableView.targetedRowIndexes.flatMap {
+        let languages = tableView.targetedRowIndexes.compactMap {
             let item = items[$0]
             switch item {
             case .file(_):

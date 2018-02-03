@@ -57,14 +57,14 @@ public struct TheMovieDB: MetadataService {
     private func cleanList(items: [TMDBTuple]?) -> String? {
         guard let items = items else { return nil }
         if items.count == 0 { return nil }
-        return items.flatMap { (t: TMDBTuple) -> String? in return t.name }
+        return items.compactMap { (t: TMDBTuple) -> String? in return t.name }
             .reduce("", { (s1: String, s2: String) -> String in return s1 + (s1.isEmpty ? "" : ", ") + s2 })
     }
     
     private func cleanList(cast: [TMDBCast]?) -> String? {
         guard let cast = cast else { return nil }
         if cast.count == 0 { return nil }
-        return cast.flatMap { (t: TMDBCast) -> String? in return t.name }
+        return cast.compactMap { (t: TMDBCast) -> String? in return t.name }
             .reduce("", { (s1: String, s2: String) -> String in return s1 + (s1.isEmpty ? "" : ", ") + s2 })
     }
     
@@ -72,7 +72,7 @@ public struct TheMovieDB: MetadataService {
         guard let crew = crew else { return nil }
         let found = crew.filter { (c: TMDBCrew) -> Bool in return c.job == job }
         if found.count == 0 { return nil }
-        return found.flatMap { $0.name }
+        return found.compactMap { $0.name }
             .reduce("", { $0 + ($0.isEmpty ? "" : ", " ) + $1 })
     }
     
@@ -80,7 +80,7 @@ public struct TheMovieDB: MetadataService {
         guard let crew = crew else { return nil }
         let found = crew.filter { (c: TMDBCrew) -> Bool in return c.department == department }
         if found.count == 0 { return nil }
-        return found.flatMap { $0.name }
+        return found.compactMap { $0.name }
             .reduce("", { $0 + ($0.isEmpty ? "" : ", ") + $1 })
     }
 
@@ -107,7 +107,7 @@ public struct TheMovieDB: MetadataService {
             let backdropThumbnailSize = config.backdrop_sizes.first {
 
             if let images = result.images?.posters {
-                artworks.append(contentsOf: images.flatMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, kind: .poster) } )
+                artworks.append(contentsOf: images.compactMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, kind: .poster) } )
             }
 
             if result.images?.posters?.count == 0, let posterPath = result.poster_path,
@@ -288,7 +288,7 @@ public struct TheMovieDB: MetadataService {
         metadata[.composer]          = cleanList(crew: result.crew, job: "Original Music Composer")
 
         if let ratings = info.content_ratings?.results {
-            let USRating = ratings.filter { $0.iso_3166_1 == "US" }.flatMap { $0.rating }
+            let USRating = ratings.filter { $0.iso_3166_1 == "US" }.compactMap { $0.rating }
             if let rating = USRating.first {
                 metadata[.rating] = MP42Ratings.defaultManager.ratingStringForiTunesCountry("USA",
                                                                                                            media: "TV",
@@ -342,8 +342,8 @@ public struct TheMovieDB: MetadataService {
                 let imageBaseURL = config.secure_base_url,
                 let posterThumbnailSize = config.poster_sizes.first {
 
-                artworks.append(contentsOf: seasonImages.flatMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, kind: .season) } )
-                artworks.append(contentsOf: episodeImages.flatMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, kind: .episode) } )
+                artworks.append(contentsOf: seasonImages.compactMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, kind: .season) } )
+                artworks.append(contentsOf: episodeImages.compactMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, kind: .episode) } )
             }
 
         }
@@ -352,7 +352,7 @@ public struct TheMovieDB: MetadataService {
 
         var iTunesImage = [Artwork](), squareTVArt = [Artwork]()
         let group = DispatchGroup()
-        DispatchQueue.global(priority: .default).async(group: group) {
+        DispatchQueue.global().async(group: group) {
             // add iTunes artwork
             if let name = metadata[.seriesName] as? String,
                 let iTunesMetadata = iTunesStore.quickiTunesSearch(tvSeriesName: name,
@@ -361,7 +361,7 @@ public struct TheMovieDB: MetadataService {
                 iTunesImage = iTunesMetadata.remoteArtworks
             }
         }
-        DispatchQueue.global(priority: .default).async(group: group) {
+        DispatchQueue.global().async(group: group) {
             // Add Squared TV Artwork
             squareTVArt = self.loadSquareTVArtwork(metadata)
         }

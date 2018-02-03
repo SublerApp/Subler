@@ -38,7 +38,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         var results: Set<String> = Set()
 
         let series = session.fetch(series: tvShow, language: language)
-        results.formUnion(series.flatMap { $0.seriesName } )
+        results.formUnion(series.compactMap { $0.seriesName } )
 
         if language != defaultLanguage {
             let englishResults = search(tvShow: tvShow, language: defaultLanguage)
@@ -341,16 +341,16 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         if let season = metadata[.season] as? Int {
             var iTunesImage = [Artwork](), squareTVArt = [Artwork](), seasonImages = [Artwork](), posterImages = [Artwork]()
             let group = DispatchGroup()
-            DispatchQueue.global(priority: .default).async(group: group) {
+            DispatchQueue.global().async(group: group) {
                 iTunesImage = self.loadiTunesArtwork(metadata)
             }
-            DispatchQueue.global(priority: .default).async(group: group) {
+            DispatchQueue.global().async(group: group) {
                 squareTVArt = self.loadSquareTVArtwork(metadata)
             }
-            DispatchQueue.global(priority: .default).async(group: group) {
+            DispatchQueue.global().async(group: group) {
                 seasonImages = self.loadTVArtwork(seriesID: seriesId, type: .season, season: String(season), language: language)
             }
-            DispatchQueue.global(priority: .default).async(group: group) {
+            DispatchQueue.global().async(group: group) {
                 posterImages = self.loadTVArtwork(seriesID: seriesId, type: .poster, season: String(season), language: language)
             }
             group.wait()

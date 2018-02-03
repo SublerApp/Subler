@@ -239,7 +239,7 @@ public class MetadataResult : NSObject {
     public func mappedMetadata(to map: MetadataResultMap, keepEmptyKeys: Bool) -> MP42Metadata {
         let metadata = MP42Metadata()
 
-        metadata.addItems(map.items.flatMap {
+        metadata.addItems(map.items.compactMap {
             let value = $0.value.reduce("", {
                 if let key = Key(rawValue: $1) {
                     if let value = dictionary[key] {

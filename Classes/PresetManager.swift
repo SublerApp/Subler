@@ -29,11 +29,11 @@ extension PresetManager.Error: LocalizedError {
     var presets: [Preset]
 
     @objc var metadataPresets: [MetadataPreset] {
-        return presets.flatMap { $0 as? MetadataPreset }
+        return presets.compactMap { $0 as? MetadataPreset }
     }
 
     var queuePresets: [QueuePreset] {
-        return presets.flatMap { $0 as? QueuePreset }
+        return presets.compactMap { $0 as? QueuePreset }
     }
 
     private override init() {
