@@ -38,8 +38,8 @@ import Cocoa
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func loadView() {
-        super.loadView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         // Observe the item status
         statusObserver = item.observe(\.status, options: [.initial, .new]) { [weak self] observed, change in

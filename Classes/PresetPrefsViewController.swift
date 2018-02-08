@@ -26,10 +26,11 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
         self.currentRow = 0
         self.presetManager = PresetManager.shared
         super.init(nibName: nil, bundle: nil)
+        self.title = NSLocalizedString("Sets", comment: "")
     }
 
-    override func loadView() {
-        super.loadView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         observer = NotificationCenter.default.addObserver(forName: presetManager.updateNotification,
                                                           object: nil,
@@ -98,7 +99,6 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
             presetManager.remove(at: rowIndex)
         }
     }
-
 
     @IBAction func toggleInfoWindow(_ sender: NSView) {
         let rowIndex = tableView.row(for: sender)

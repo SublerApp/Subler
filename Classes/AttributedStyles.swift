@@ -9,7 +9,7 @@ import Cocoa
 
 // MARK: - Attributed styles
 
-private func monospaceAttributes(size: CGFloat, aligment: NSTextAlignment, headIndent: CGFloat = -10.0, firstLineHeadIndent: CGFloat = 0, bold: Bool) -> [NSAttributedStringKey : Any]  {
+private func monospaceAttributes(size: CGFloat, aligment: NSTextAlignment, headIndent: CGFloat = -10.0, firstLineHeadIndent: CGFloat = 0, bold: Bool, color: NSColor = NSColor.gray) -> [NSAttributedStringKey : Any]  {
     let ps = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
     ps.firstLineHeadIndent = firstLineHeadIndent
     ps.headIndent = headIndent
@@ -19,12 +19,12 @@ private func monospaceAttributes(size: CGFloat, aligment: NSTextAlignment, headI
         return [NSAttributedStringKey.font: NSFont.monospacedDigitSystemFont(ofSize: size,
                                                                              weight: bold ? NSFont.Weight.bold : NSFont.Weight.regular),
                 NSAttributedStringKey.paragraphStyle: ps,
-                NSAttributedStringKey.foregroundColor: NSColor.gray]
+                NSAttributedStringKey.foregroundColor: color]
     }
     else {
         return [NSAttributedStringKey.font: bold ? NSFont.boldSystemFont(ofSize: size) : NSFont.systemFont(ofSize: size),
                 NSAttributedStringKey.paragraphStyle: ps,
-                NSAttributedStringKey.foregroundColor: NSColor.gray]
+                NSAttributedStringKey.foregroundColor: color]
     }
 }
 
@@ -38,6 +38,10 @@ private let detailBoldAttr = { () -> [NSAttributedStringKey : Any] in
 
 private let detailMonospacedAttr = { () -> [NSAttributedStringKey : Any] in
     return monospaceAttributes(size: NSFont.smallSystemFontSize, aligment: NSTextAlignment.right, bold: false)
+}()
+
+private let monospacedAttr = { () -> [NSAttributedStringKey : Any] in
+    return monospaceAttributes(size: NSFont.systemFontSize, aligment: NSTextAlignment.right, bold: false, color: NSColor.controlTextColor)
 }()
 
 private let groupRowAttr = { () -> [NSAttributedStringKey : Any] in
@@ -54,8 +58,12 @@ extension String {
         return NSAttributedString(string: self, attributes: detailBoldMonospacedAttr)
     }
 
-    func monospacedAttributedString() -> NSAttributedString {
+    func smallMonospacedAttributedString() -> NSAttributedString {
         return NSAttributedString(string: self, attributes: detailMonospacedAttr)
+    }
+
+    func monospacedAttributedString() -> NSAttributedString {
+        return NSAttributedString(string: self, attributes: monospacedAttr)
     }
     
     func groupAttributedString() -> NSAttributedString {

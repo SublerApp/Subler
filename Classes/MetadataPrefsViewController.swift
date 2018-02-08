@@ -50,14 +50,16 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTok
         self.matches = []
 
         super.init(nibName: nil, bundle: nil)
+
+        self.title = NSLocalizedString("Metadata", comment: "")
     }
 
     required init?(coder: NSCoder) {
         fatalError()
     }
 
-    override func loadView() {
-        super.loadView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         builtInTokenField.tokenizingCharacterSet = CharacterSet(charactersIn: "%")
 

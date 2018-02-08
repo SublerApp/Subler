@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14087.3"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -99,7 +99,7 @@
                 </textField>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="Pbz-wc-RXA" secondAttribute="bottom" constant="20" id="0R2-Y8-s5e"/>
+                <constraint firstAttribute="bottom" secondItem="Pbz-wc-RXA" secondAttribute="bottom" constant="20" symbolic="YES" id="0R2-Y8-s5e"/>
                 <constraint firstItem="Pbz-wc-RXA" firstAttribute="leading" secondItem="i8H-oP-Sif" secondAttribute="leading" id="4Vz-o1-zSY"/>
                 <constraint firstItem="rzc-AK-4Vr" firstAttribute="leading" secondItem="TBF-BD-fSk" secondAttribute="leading" constant="16" id="Aws-ML-M7P"/>
                 <constraint firstItem="TBF-BD-fSk" firstAttribute="top" secondItem="i8H-oP-Sif" secondAttribute="bottom" constant="32" id="C0O-NO-8Te"/>

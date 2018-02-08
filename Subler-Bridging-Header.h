@@ -3,8 +3,10 @@
 //
 
 #import "SBDocument.h"
+#import "SBQueueController.h"
 #import "SBQueueItem.h"
 #import "SBMovieViewController.h"
+#import "SBVideoViewController.h"
 #import "SBMediaTagsController.h"
 
 #import <MP42Foundation/MP42Ratings.h>

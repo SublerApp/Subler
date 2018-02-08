@@ -24,14 +24,15 @@ class OutputPrefsViewController: NSViewController, NSTokenFieldDelegate {
     init() {
         self.separators = CharacterSet(charactersIn: "{}")
         super.init(nibName: nil, bundle: nil)
+        self.title = NSLocalizedString("Filename", comment: "")
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func loadView() {
-        super.loadView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         movieField.tokenizingCharacterSet = CharacterSet(charactersIn: "%")
         tvShowField.tokenizingCharacterSet = CharacterSet(charactersIn: "%")

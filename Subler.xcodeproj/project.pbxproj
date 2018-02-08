@@ -21,7 +21,7 @@
 		A90300C81DAE72C4008237D8 /* SBPresetPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90300CA1DAE72C4008237D8 /* SBPresetPrefsViewController.xib */; };
 		A9067A0C1F3CA4E6008011DC /* MetadataPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */; };
 		A906B5B11E434872007D12B1 /* Queue.sdef in Resources */ = {isa = PBXBuildFile; fileRef = A906B5B01E434872007D12B1 /* Queue.sdef */; };
-		A90B023B10F3290A000416F3 /* Prefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90B023910F3290A000416F3 /* Prefs.xib */; };
+		A90B023B10F3290A000416F3 /* PrefsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90B023910F3290A000416F3 /* PrefsWindowController.xib */; };
 		A90BC5E31F3A139700F9F3F3 /* MetadataResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */; };
 		A90C3E0C1FD16AF200F64532 /* TokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */; };
 		A90CD5C01FD177230070A067 /* TokensViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90CD5C21FD177230070A067 /* TokensViewController.xib */; };
@@ -43,7 +43,8 @@
 		A956CE651F99E5BB00093992 /* ActivityWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956CE641F99E5BB00093992 /* ActivityWindowController.swift */; };
 		A956CE691F99E93D00093992 /* ButtonToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956CE681F99E93D00093992 /* ButtonToolbarItem.swift */; };
 		A956CE6B1F99EAAD00093992 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956CE6A1F99EAAD00093992 /* Logger.swift */; };
-		A9577CF61F3DC667009181F4 /* Document+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9577CF51F3DC667009181F4 /* Document+Swift.swift */; };
+		A959001A202AF21800FD8F23 /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9590018202AF21800FD8F23 /* ProgressViewController.swift */; };
+		A959001B202AF21800FD8F23 /* ProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9590019202AF21800FD8F23 /* ProgressViewController.xib */; };
 		A95B8DA91B09F37800F2F152 /* Subler_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B8DA81B09F37800F2F152 /* Subler_Tests.m */; };
 		A961476313F567E10068F161 /* SBQueueController.m in Sources */ = {isa = PBXBuildFile; fileRef = A961476013F567E10068F161 /* SBQueueController.m */; };
 		A961476713F568210068F161 /* Queue.xib in Resources */ = {isa = PBXBuildFile; fileRef = A961476513F568210068F161 /* Queue.xib */; };
@@ -52,6 +53,7 @@
 		A9676A341FB6EAAD00C1E300 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9676A331FB6EAAD00C1E300 /* ItemViewController.swift */; };
 		A96946531BA3F83D0048C004 /* SBMediaTagsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A96946511BA3F83D0048C004 /* SBMediaTagsController.m */; };
 		A9707B9317B139780010F3DB /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD56966E12FAAFA90029FADB /* Quartz.framework */; };
+		A979B3862025C8BF00468362 /* DocumentWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A979B3842025C8BF00468362 /* DocumentWindowController.swift */; };
 		A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A982D0BF140AB66400B92357 /* SBQueueItem.m */; };
 		A984DB4B0F52D644001A20B2 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A984DB4A0F52D644001A20B2 /* Sparkle.framework */; };
 		A984DB530F52D679001A20B2 /* Sparkle.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A984DB4A0F52D644001A20B2 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -66,7 +68,7 @@
 		A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */; };
 		A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A997B0A91F348AB000974C9C /* MetadataSearchController.swift */; };
 		A998DABF1BA54CFF004D7969 /* SBMediaTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */; };
-		A99EEA3F12B801AE002367D3 /* SBDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AC012B79E230040517A /* SBDocument.xib */; };
+		A99D23212029CD32002E7F27 /* PrefsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99D23202029CD32002E7F27 /* PrefsWindow.swift */; };
 		A9A77C4E1F306FA70018023B /* AttributedStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A77C4D1F306FA70018023B /* AttributedStyles.swift */; };
 		A9A8CEF91E43754400BC2AE1 /* SBQueueScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CEF81E43754400BC2AE1 /* SBQueueScriptCommand.m */; };
 		A9A91B5D1FB6FBB700250D93 /* ChapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */; };
@@ -80,6 +82,7 @@
 		A9AB486817F0AEFD000AA72E /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB486217F0AEFD000AA72E /* VideoView.xib */; };
 		A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE26BD1F3B66470041A57D /* SquaredTVArt.swift */; };
 		A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */; };
+		A9B1056E2025D9B9009E91FC /* TracksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B1056C2025D9B9009E91FC /* TracksViewController.swift */; };
 		A9B46AA412B79BB10040517A /* Subler.icns in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AA312B79BB10040517A /* Subler.icns */; };
 		A9B46ABF12B79D1C0040517A /* SBDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B46ABE12B79D1C0040517A /* SBDocument.m */; };
 		A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B514181EFC12310055A035 /* TheTVDB.swift */; };
@@ -90,17 +93,30 @@
 		A9C09C981F99F971007939EE /* ExpandedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C09C971F99F971007939EE /* ExpandedTableView.swift */; };
 		A9C09C9A1F9A0808007939EE /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C09C991F9A0808007939EE /* EmptyViewController.swift */; };
 		A9C09C9C1F9A08A9007939EE /* MultiSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C09C9B1F9A08A9007939EE /* MultiSelectViewController.swift */; };
+		A9C31E572029A75F00CEF474 /* GeneralPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C31E552029A75F00CEF474 /* GeneralPrefsViewController.swift */; };
+		A9C31E5D2029A79000CEF474 /* GeneralPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C31E5B2029A78F00CEF474 /* GeneralPrefsViewController.xib */; };
+		A9C31E602029A80F00CEF474 /* AdvancedPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C31E5E2029A80F00CEF474 /* AdvancedPrefsViewController.swift */; };
+		A9C31E642029A82200CEF474 /* AdvancedPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C31E622029A82200CEF474 /* AdvancedPrefsViewController.xib */; };
+		A9C31E662029ABC800CEF474 /* PrefsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C31E652029ABC800CEF474 /* PrefsTabViewController.swift */; };
 		A9C5FA7419FA2FEC0051F3FF /* SBActivityWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C5FA7219FA2FEC0051F3FF /* SBActivityWindow.xib */; };
 		A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C828F4195950C3004C4718 /* SBQueuePreferences.m */; };
 		A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */; };
 		A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */; };
+		A9D64527202CA92400BA172B /* SaveOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D64525202CA92400BA172B /* SaveOptions.swift */; };
+		A9D64528202CA92400BA172B /* SaveOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D64526202CA92400BA172B /* SaveOptions.xib */; };
 		A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */; };
 		A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B991B918D5C00F1E40C /* SBApplication.m */; };
 		A9DA3BA31B918D6F00F1E40C /* ExceptionAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9DA3BA11B918D6F00F1E40C /* ExceptionAlert.xib */; };
 		A9E932A71F34D31D00B1790B /* ArtworkSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E932A61F34D31D00B1790B /* ArtworkSelector.swift */; };
 		A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E97F131F274F1100DBA586 /* iTunesStore.swift */; };
+		A9ECA0532029948900D5F30C /* OffsetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ECA0512029948900D5F30C /* OffsetViewController.swift */; };
+		A9ECA0572029A10B00D5F30C /* DocumentWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9ECA0592029A10B00D5F30C /* DocumentWindowController.xib */; };
+		A9ECA05A2029A10F00D5F30C /* TracksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9ECA05C2029A10F00D5F30C /* TracksViewController.xib */; };
+		A9ECA05D2029A11500D5F30C /* DetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9ECA05F2029A11500D5F30C /* DetailsViewController.xib */; };
+		A9ECA0602029A13800D5F30C /* OffsetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9ECA0622029A13800D5F30C /* OffsetViewController.xib */; };
 		A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */; };
 		A9EEA5F818D654B9008B54B4 /* QueueOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */; };
+		A9F2A2662026EACD00C4B69A /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2A2642026EACD00C4B69A /* DetailsViewController.swift */; };
 		A9F4FF4B1FB708FB004473A8 /* SoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F4FF4A1FB708FB004473A8 /* SoundViewController.swift */; };
 		A9F5820C1DCC861F005F3E92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9F5820B1DCC861F005F3E92 /* Assets.xcassets */; };
 		A9F680A81FD06E0200018371 /* OutputPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F680A61FD06E0200018371 /* OutputPrefsViewController.swift */; };
@@ -192,7 +208,6 @@
 		A90CD5C11FD177230070A067 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TokensViewController.xib; sourceTree = "<group>"; };
 		A90CD5C61FD177280070A067 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OutputPrefsViewController.xib; sourceTree = "<group>"; };
 		A91B196B1F2B0DCB0008675F /* QueueAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueAction.swift; path = Classes/QueueAction.swift; sourceTree = "<group>"; };
-		A924A50C1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBDocument.xib; sourceTree = "<group>"; };
 		A924A50D1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/ChapterView.xib; sourceTree = "<group>"; };
 		A924A50E1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/EmptyView.xib; sourceTree = "<group>"; };
 		A924A50F1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/MovieView.xib; sourceTree = "<group>"; };
@@ -205,7 +220,7 @@
 		A924A5171D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Queue.xib; sourceTree = "<group>"; };
 		A924A5181D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QueueOptions.xib; sourceTree = "<group>"; };
 		A924A5191D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QueueItem.xib; sourceTree = "<group>"; };
-		A924A51A1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Prefs.xib; sourceTree = "<group>"; };
+		A924A51A1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PrefsWindowController.xib; sourceTree = "<group>"; };
 		A924A51B1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBActivityWindow.xib; sourceTree = "<group>"; };
 		A924A51C1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBMediaTagsController.xib; sourceTree = "<group>"; };
 		A924A51D1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ExceptionAlert.xib; sourceTree = "<group>"; };
@@ -225,7 +240,8 @@
 		A956CE641F99E5BB00093992 /* ActivityWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityWindowController.swift; path = Classes/ActivityWindowController.swift; sourceTree = "<group>"; };
 		A956CE681F99E93D00093992 /* ButtonToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonToolbarItem.swift; path = Classes/ButtonToolbarItem.swift; sourceTree = "<group>"; };
 		A956CE6A1F99EAAD00093992 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Logger.swift; path = Classes/Logger.swift; sourceTree = "<group>"; };
-		A9577CF51F3DC667009181F4 /* Document+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Document+Swift.swift"; path = "Classes/Document+Swift.swift"; sourceTree = "<group>"; };
+		A9590018202AF21800FD8F23 /* ProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProgressViewController.swift; path = Classes/ProgressViewController.swift; sourceTree = "<group>"; };
+		A9590019202AF21800FD8F23 /* ProgressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ProgressViewController.xib; path = Classes/ProgressViewController.xib; sourceTree = "<group>"; };
 		A95B8DA41B09F37700F2F152 /* Subler Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subler Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95B8DA71B09F37700F2F152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A95B8DA81B09F37800F2F152 /* Subler_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subler_Tests.m; sourceTree = "<group>"; };
@@ -236,6 +252,7 @@
 		A9676A331FB6EAAD00C1E300 /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemViewController.swift; path = Classes/ItemViewController.swift; sourceTree = "<group>"; };
 		A96946501BA3F83D0048C004 /* SBMediaTagsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMediaTagsController.h; path = Classes/SBMediaTagsController.h; sourceTree = "<group>"; };
 		A96946511BA3F83D0048C004 /* SBMediaTagsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMediaTagsController.m; path = Classes/SBMediaTagsController.m; sourceTree = "<group>"; };
+		A979B3842025C8BF00468362 /* DocumentWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentWindowController.swift; path = Classes/DocumentWindowController.swift; sourceTree = "<group>"; };
 		A97BE36E0F73D72E00652CBD /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		A982D0BE140AB66400B92357 /* SBQueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueItem.h; path = Classes/SBQueueItem.h; sourceTree = "<group>"; };
 		A982D0BF140AB66400B92357 /* SBQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueItem.m; path = Classes/SBQueueItem.m; sourceTree = "<group>"; };
@@ -252,6 +269,7 @@
 		A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterImporter.swift; path = Classes/MetadataImporters/ChapterImporter.swift; sourceTree = "<group>"; };
 		A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterSearchController.swift; path = Classes/ChapterSearchController.swift; sourceTree = "<group>"; };
 		A997B0A91F348AB000974C9C /* MetadataSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataSearchController.swift; path = Classes/MetadataSearchController.swift; sourceTree = "<group>"; };
+		A99D23202029CD32002E7F27 /* PrefsWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrefsWindow.swift; path = Classes/PrefsWindow.swift; sourceTree = "<group>"; };
 		A9A77C4D1F306FA70018023B /* AttributedStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AttributedStyles.swift; path = Classes/AttributedStyles.swift; sourceTree = "<group>"; };
 		A9A8CEF71E43754400BC2AE1 /* SBQueueScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueScriptCommand.h; path = Classes/SBQueueScriptCommand.h; sourceTree = "<group>"; };
 		A9A8CEF81E43754400BC2AE1 /* SBQueueScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueScriptCommand.m; path = Classes/SBQueueScriptCommand.m; sourceTree = "<group>"; };
@@ -264,6 +282,7 @@
 		A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBVideoViewController.m; path = Classes/PropertyView/SBVideoViewController.m; sourceTree = "<group>"; };
 		A9AE26BD1F3B66470041A57D /* SquaredTVArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SquaredTVArt.swift; path = Classes/MetadataImporters/SquaredTVArt.swift; sourceTree = "<group>"; };
 		A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataHelper.swift; path = Classes/MetadataImporters/MetadataHelper.swift; sourceTree = "<group>"; };
+		A9B1056C2025D9B9009E91FC /* TracksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TracksViewController.swift; path = Classes/TracksViewController.swift; sourceTree = "<group>"; };
 		A9B3411B1679CA3E00E6EE0C /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		A9B46AA312B79BB10040517A /* Subler.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Subler.icns; path = images/Subler.icns; sourceTree = "<group>"; };
 		A9B46ABD12B79D1C0040517A /* SBDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBDocument.h; path = Classes/SBDocument.h; sourceTree = "<group>"; };
@@ -272,7 +291,6 @@
 		A9B514181EFC12310055A035 /* TheTVDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheTVDB.swift; path = Classes/MetadataImporters/TheTVDB.swift; sourceTree = "<group>"; };
 		A9BA1ACF1DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBPresetPrefsViewController.strings; sourceTree = "<group>"; };
 		A9BA1AD01DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBMetadataPrefsViewController.strings; sourceTree = "<group>"; };
-		A9BA1AD11DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBDocument.strings; sourceTree = "<group>"; };
 		A9BA1AD21DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/ChapterView.strings; sourceTree = "<group>"; };
 		A9BA1AD31DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/EmptyView.strings; sourceTree = "<group>"; };
 		A9BA1AD41DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/MovieView.strings; sourceTree = "<group>"; };
@@ -285,7 +303,7 @@
 		A9BA1ADE1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Queue.strings; sourceTree = "<group>"; };
 		A9BA1ADF1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QueueOptions.strings; sourceTree = "<group>"; };
 		A9BA1AE01DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QueueItem.strings; sourceTree = "<group>"; };
-		A9BA1AE11DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Prefs.strings; sourceTree = "<group>"; };
+		A9BA1AE11DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/PrefsWindowController.strings; sourceTree = "<group>"; };
 		A9BA1AE21DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBActivityWindow.strings; sourceTree = "<group>"; };
 		A9BA1AE31DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBMediaTagsController.strings; sourceTree = "<group>"; };
 		A9BA1AE41DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/ExceptionAlert.strings; sourceTree = "<group>"; };
@@ -299,10 +317,17 @@
 		A9C09C971F99F971007939EE /* ExpandedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExpandedTableView.swift; path = Classes/ExpandedTableView.swift; sourceTree = "<group>"; };
 		A9C09C991F9A0808007939EE /* EmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmptyViewController.swift; path = Classes/PropertyView/EmptyViewController.swift; sourceTree = "<group>"; };
 		A9C09C9B1F9A08A9007939EE /* MultiSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MultiSelectViewController.swift; path = Classes/PropertyView/MultiSelectViewController.swift; sourceTree = "<group>"; };
+		A9C31E552029A75F00CEF474 /* GeneralPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GeneralPrefsViewController.swift; path = Classes/GeneralPrefsViewController.swift; sourceTree = "<group>"; };
+		A9C31E5C2029A78F00CEF474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GeneralPrefsViewController.xib; sourceTree = "<group>"; };
+		A9C31E5E2029A80F00CEF474 /* AdvancedPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AdvancedPrefsViewController.swift; path = Classes/AdvancedPrefsViewController.swift; sourceTree = "<group>"; };
+		A9C31E632029A82200CEF474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AdvancedPrefsViewController.xib; sourceTree = "<group>"; };
+		A9C31E652029ABC800CEF474 /* PrefsTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrefsTabViewController.swift; path = Classes/PrefsTabViewController.swift; sourceTree = "<group>"; };
 		A9C8182C0F74D6E300019BFF /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
 		A9C828F3195950C3004C4718 /* SBQueuePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueuePreferences.h; path = Classes/SBQueuePreferences.h; sourceTree = "<group>"; };
 		A9C828F4195950C3004C4718 /* SBQueuePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueuePreferences.m; path = Classes/SBQueuePreferences.m; sourceTree = "<group>"; };
 		A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataImporter.swift; path = Classes/MetadataImporters/MetadataImporter.swift; sourceTree = "<group>"; };
+		A9D64525202CA92400BA172B /* SaveOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveOptions.swift; path = Classes/SaveOptions.swift; sourceTree = "<group>"; };
+		A9D64526202CA92400BA172B /* SaveOptions.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SaveOptions.xib; path = Classes/SaveOptions.xib; sourceTree = "<group>"; };
 		A9D73C5018BF3F1100C6FFA6 /* SBQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueue.h; path = Classes/SBQueue.h; sourceTree = "<group>"; };
 		A9D73C5118BF3F1100C6FFA6 /* SBQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueue.m; path = Classes/SBQueue.m; sourceTree = "<group>"; };
 		A9DA3B991B918D5C00F1E40C /* SBApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBApplication.m; path = Classes/SBApplication.m; sourceTree = "<group>"; };
@@ -310,9 +335,15 @@
 		A9E932A61F34D31D00B1790B /* ArtworkSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArtworkSelector.swift; path = Classes/ArtworkSelector.swift; sourceTree = "<group>"; };
 		A9E97F131F274F1100DBA586 /* iTunesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = iTunesStore.swift; path = Classes/MetadataImporters/iTunesStore.swift; sourceTree = "<group>"; };
 		A9E9E5291FB21B4000BCC49D /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/FileImportController.strings; sourceTree = "<group>"; };
+		A9ECA0512029948900D5F30C /* OffsetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OffsetViewController.swift; path = Classes/OffsetViewController.swift; sourceTree = "<group>"; };
+		A9ECA0582029A10B00D5F30C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DocumentWindowController.xib; sourceTree = "<group>"; };
+		A9ECA05B2029A10F00D5F30C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TracksViewController.xib; sourceTree = "<group>"; };
+		A9ECA05E2029A11500D5F30C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DetailsViewController.xib; sourceTree = "<group>"; };
+		A9ECA0612029A13800D5F30C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OffsetViewController.xib; sourceTree = "<group>"; };
 		A9ED7B21180067A2008FD3A8 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A9EEA5EF18D65490008B54B4 /* SBOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBOptionsViewController.h; path = Classes/SBOptionsViewController.h; sourceTree = "<group>"; };
 		A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBOptionsViewController.m; path = Classes/SBOptionsViewController.m; sourceTree = "<group>"; };
+		A9F2A2642026EACD00C4B69A /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailsViewController.swift; path = Classes/DetailsViewController.swift; sourceTree = "<group>"; };
 		A9F4FF4A1FB708FB004473A8 /* SoundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SoundViewController.swift; path = Classes/PropertyView/SoundViewController.swift; sourceTree = "<group>"; };
 		A9F5820B1DCC861F005F3E92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9F680A61FD06E0200018371 /* OutputPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OutputPrefsViewController.swift; path = Classes/OutputPrefsViewController.swift; sourceTree = "<group>"; };
@@ -482,7 +513,11 @@
 			isa = PBXGroup;
 			children = (
 				A92ECCE21F49984C0063BFBD /* PrefsWindowController.swift */,
-				A90B023910F3290A000416F3 /* Prefs.xib */,
+				A90B023910F3290A000416F3 /* PrefsWindowController.xib */,
+				A9C31E552029A75F00CEF474 /* GeneralPrefsViewController.swift */,
+				A9C31E5B2029A78F00CEF474 /* GeneralPrefsViewController.xib */,
+				A9C31E5E2029A80F00CEF474 /* AdvancedPrefsViewController.swift */,
+				A9C31E622029A82200CEF474 /* AdvancedPrefsViewController.xib */,
 				A944E5911F498FC4002E43F6 /* PresetPrefsViewController.swift */,
 				A90300CA1DAE72C4008237D8 /* SBPresetPrefsViewController.xib */,
 				A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */,
@@ -491,6 +526,8 @@
 				A90CD5C71FD177280070A067 /* OutputPrefsViewController.xib */,
 				A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */,
 				A90CD5C21FD177230070A067 /* TokensViewController.xib */,
+				A9C31E652029ABC800CEF474 /* PrefsTabViewController.swift */,
+				A99D23202029CD32002E7F27 /* PrefsWindow.swift */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -570,8 +607,18 @@
 			children = (
 				A9B46ABD12B79D1C0040517A /* SBDocument.h */,
 				A9B46ABE12B79D1C0040517A /* SBDocument.m */,
-				A9577CF51F3DC667009181F4 /* Document+Swift.swift */,
-				A9B46AC012B79E230040517A /* SBDocument.xib */,
+				A979B3842025C8BF00468362 /* DocumentWindowController.swift */,
+				A9ECA0592029A10B00D5F30C /* DocumentWindowController.xib */,
+				A9B1056C2025D9B9009E91FC /* TracksViewController.swift */,
+				A9ECA05C2029A10F00D5F30C /* TracksViewController.xib */,
+				A9F2A2642026EACD00C4B69A /* DetailsViewController.swift */,
+				A9ECA05F2029A11500D5F30C /* DetailsViewController.xib */,
+				A9ECA0512029948900D5F30C /* OffsetViewController.swift */,
+				A9ECA0622029A13800D5F30C /* OffsetViewController.xib */,
+				A9590018202AF21800FD8F23 /* ProgressViewController.swift */,
+				A9590019202AF21800FD8F23 /* ProgressViewController.xib */,
+				A9D64525202CA92400BA172B /* SaveOptions.swift */,
+				A9D64526202CA92400BA172B /* SaveOptions.xib */,
 				A962D9ED1F8B7F9F00802EEF /* FileImportController.swift */,
 				A93105351F9758EC00605146 /* FileImportController.xib */,
 				A9E932A61F34D31D00B1790B /* ArtworkSelector.swift */,
@@ -748,11 +795,12 @@
 			files = (
 				A9EEA5F818D654B9008B54B4 /* QueueOptions.xib in Resources */,
 				A9AB486617F0AEFD000AA72E /* MovieView.xib in Resources */,
+				A9C31E5D2029A79000CEF474 /* GeneralPrefsViewController.xib in Resources */,
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
+				A9ECA05A2029A10F00D5F30C /* TracksViewController.xib in Resources */,
 				A9AB486717F0AEFD000AA72E /* SoundView.xib in Resources */,
 				A9F5820C1DCC861F005F3E92 /* Assets.xcassets in Resources */,
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
-				A99EEA3F12B801AE002367D3 /* SBDocument.xib in Resources */,
 				A906B5B11E434872007D12B1 /* Queue.sdef in Resources */,
 				A93105391F9758EC00605146 /* FileImportController.xib in Resources */,
 				A9AB486517F0AEFD000AA72E /* EmptyView.xib in Resources */,
@@ -761,24 +809,30 @@
 				A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */,
 				A9C5FA7419FA2FEC0051F3FF /* SBActivityWindow.xib in Resources */,
 				A9DA3BA31B918D6F00F1E40C /* ExceptionAlert.xib in Resources */,
-				A90B023B10F3290A000416F3 /* Prefs.xib in Resources */,
+				A90B023B10F3290A000416F3 /* PrefsWindowController.xib in Resources */,
 				A9AB486417F0AEFD000AA72E /* ChapterView.xib in Resources */,
 				A9AB486817F0AEFD000AA72E /* VideoView.xib in Resources */,
 				A9B46AA412B79BB10040517A /* Subler.icns in Resources */,
 				CD71FEA612F1B62600F0A98D /* MetadataSearch.xib in Resources */,
 				A90CD5C01FD177230070A067 /* TokensViewController.xib in Resources */,
+				A959001B202AF21800FD8F23 /* ProgressViewController.xib in Resources */,
 				CD4E6E5D12F744210095C84F /* ArtworkSelector.xib in Resources */,
 				61CEC0CE1E7569E4000FECC1 /* MultiSelectView.xib in Resources */,
 				A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */,
 				A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */,
+				A9C31E642029A82200CEF474 /* AdvancedPrefsViewController.xib in Resources */,
 				A998DABF1BA54CFF004D7969 /* SBMediaTagsController.xib in Resources */,
+				A9ECA0602029A13800D5F30C /* OffsetViewController.xib in Resources */,
 				A961476713F568210068F161 /* Queue.xib in Resources */,
 				A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */,
+				A9ECA0572029A10B00D5F30C /* DocumentWindowController.xib in Resources */,
 				CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */,
 				A924A51E1D4B9E93008301A7 /* SBMetadataPrefsViewController.xib in Resources */,
 				A92BBABE1F5584EA007EA182 /* PresetEditorViewController.xib in Resources */,
 				A90CD5C51FD177280070A067 /* OutputPrefsViewController.xib in Resources */,
+				A9D64528202CA92400BA172B /* SaveOptions.xib in Resources */,
 				A94A6A591ED1C5CC00049F7D /* ParseFilename in Resources */,
+				A9ECA05D2029A11500D5F30C /* DetailsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -797,6 +851,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A959001A202AF21800FD8F23 /* ProgressViewController.swift in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				A9676A341FB6EAAD00C1E300 /* ItemViewController.swift in Sources */,
 				A90C3E0C1FD16AF200F64532 /* TokensViewController.swift in Sources */,
@@ -807,12 +862,14 @@
 				A98D98461F0280CB00A77ABC /* TheMovieDB.swift in Sources */,
 				A98D98481F02820F00A77ABC /* TheMovieDBService.swift in Sources */,
 				A962D9EE1F8B7F9F00802EEF /* FileImportController.swift in Sources */,
-				A9577CF61F3DC667009181F4 /* Document+Swift.swift in Sources */,
+				A9D64527202CA92400BA172B /* SaveOptions.swift in Sources */,
 				A9859ACE1F4B43CC00022828 /* QueuePreset.swift in Sources */,
+				A9F2A2662026EACD00C4B69A /* DetailsViewController.swift in Sources */,
 				A9915AC31F4B293B003C57D1 /* PresetManager.swift in Sources */,
 				A90BC5E31F3A139700F9F3F3 /* MetadataResult.swift in Sources */,
 				A99189CD1F2F87EC00623ED7 /* ChapterImporter.swift in Sources */,
 				A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */,
+				A99D23212029CD32002E7F27 /* PrefsWindow.swift in Sources */,
 				A9915ABF1F4B26CF003C57D1 /* MetadataPreset.swift in Sources */,
 				A9F680A81FD06E0200018371 /* OutputPrefsViewController.swift in Sources */,
 				A900CE3E1F3ACF9700CCA08E /* MetadataResultMap.swift in Sources */,
@@ -824,6 +881,7 @@
 				A90057BC1F99E20B00FA4ED1 /* CheckBoxCellView.swift in Sources */,
 				A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */,
 				A90057BE1F99E2D800FA4ED1 /* TokenFieldCell.swift in Sources */,
+				A9ECA0532029948900D5F30C /* OffsetViewController.swift in Sources */,
 				A9395E351F8B9ACA004C402B /* MP42FileAdditions.swift in Sources */,
 				A9A8CEF91E43754400BC2AE1 /* SBQueueScriptCommand.m in Sources */,
 				A9C09C9A1F9A0808007939EE /* EmptyViewController.swift in Sources */,
@@ -835,11 +893,16 @@
 				A956CE6B1F99EAAD00093992 /* Logger.swift in Sources */,
 				A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */,
 				A956CE691F99E93D00093992 /* ButtonToolbarItem.swift in Sources */,
+				A9C31E572029A75F00CEF474 /* GeneralPrefsViewController.swift in Sources */,
 				A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */,
+				A9B1056E2025D9B9009E91FC /* TracksViewController.swift in Sources */,
 				A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */,
+				A9C31E602029A80F00CEF474 /* AdvancedPrefsViewController.swift in Sources */,
+				A979B3862025C8BF00468362 /* DocumentWindowController.swift in Sources */,
 				A9067A0C1F3CA4E6008011DC /* MetadataPrefsViewController.swift in Sources */,
 				A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */,
 				A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */,
+				A9C31E662029ABC800CEF474 /* PrefsTabViewController.swift in Sources */,
 				A92BBAB41F557CC0007EA182 /* PresetEditorViewController.swift in Sources */,
 				A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */,
 				A961476313F567E10068F161 /* SBQueueController.m in Sources */,
@@ -931,13 +994,13 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		A90B023910F3290A000416F3 /* Prefs.xib */ = {
+		A90B023910F3290A000416F3 /* PrefsWindowController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A924A51A1D4B9E66008301A7 /* Base */,
 				A9BA1AE11DBF773700FD0B38 /* it */,
 			);
-			name = Prefs.xib;
+			name = PrefsWindowController.xib;
 			sourceTree = "<group>";
 		};
 		A90CD5C21FD177230070A067 /* TokensViewController.xib */ = {
@@ -1049,15 +1112,6 @@
 			name = VideoView.xib;
 			sourceTree = "<group>";
 		};
-		A9B46AC012B79E230040517A /* SBDocument.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A924A50C1D4B9E66008301A7 /* Base */,
-				A9BA1AD11DBF773600FD0B38 /* it */,
-			);
-			name = SBDocument.xib;
-			sourceTree = "<group>";
-		};
 		A9BA1AF01DBF7DD700FD0B38 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1081,6 +1135,22 @@
 				A9BA1AE01DBF773700FD0B38 /* it */,
 			);
 			name = QueueItem.xib;
+			sourceTree = "<group>";
+		};
+		A9C31E5B2029A78F00CEF474 /* GeneralPrefsViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9C31E5C2029A78F00CEF474 /* Base */,
+			);
+			name = GeneralPrefsViewController.xib;
+			sourceTree = "<group>";
+		};
+		A9C31E622029A82200CEF474 /* AdvancedPrefsViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9C31E632029A82200CEF474 /* Base */,
+			);
+			name = AdvancedPrefsViewController.xib;
 			sourceTree = "<group>";
 		};
 		A9C5FA7219FA2FEC0051F3FF /* SBActivityWindow.xib */ = {
@@ -1108,6 +1178,42 @@
 				A9BA1AE41DBF773700FD0B38 /* it */,
 			);
 			name = ExceptionAlert.xib;
+			sourceTree = "<group>";
+		};
+		A9ECA0592029A10B00D5F30C /* DocumentWindowController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9ECA0582029A10B00D5F30C /* Base */,
+			);
+			name = DocumentWindowController.xib;
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		A9ECA05C2029A10F00D5F30C /* TracksViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9ECA05B2029A10F00D5F30C /* Base */,
+			);
+			name = TracksViewController.xib;
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		A9ECA05F2029A11500D5F30C /* DetailsViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9ECA05E2029A11500D5F30C /* Base */,
+			);
+			name = DetailsViewController.xib;
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		A9ECA0622029A13800D5F30C /* OffsetViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9ECA0612029A13800D5F30C /* Base */,
+			);
+			name = OffsetViewController.xib;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */ = {

@@ -61,116 +61,44 @@ import Cocoa
         defaults.register(defaults: settings)
     }
 
-    @IBOutlet var generalView: NSView!
-    @IBOutlet var advancedView: NSView!
-
-    let metadataController: MetadataPrefsViewController
-    let presetController: PresetPrefsViewController
-    let outputController: OutputPrefsViewController
-
-    let general: NSToolbarItem.Identifier
-    let metadata: NSToolbarItem.Identifier
-    let presets: NSToolbarItem.Identifier
-    let output: NSToolbarItem.Identifier
-    let advanced: NSToolbarItem.Identifier
-
     override var windowNibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "Prefs")
+        return NSNib.Name(rawValue: "PrefsWindowController")
     }
 
-    init() {
-        self.metadataController = MetadataPrefsViewController()
-        self.presetController = PresetPrefsViewController()
-        self.outputController = OutputPrefsViewController()
+    lazy var tabsViewController: NSTabViewController = {
+        let controller = PrefsTabViewController()
 
-        self.general = NSToolbarItem.Identifier("TOOLBAR_GENERAL")
-        self.metadata = NSToolbarItem.Identifier("TOOLBAR_METADATA")
-        self.presets = NSToolbarItem.Identifier("TOOLBAR_SETS")
-        self.output = NSToolbarItem.Identifier("TOOLBAR_OUTPUT")
-        self.advanced = NSToolbarItem.Identifier("TOOLBAR_ADVANCED")
+        controller.tabStyle = NSTabViewController.TabStyle.toolbar
+        controller.transitionOptions = [NSViewController.TransitionOptions.allowUserInteraction]
+        controller.canPropagateSelectedChildViewControllerTitle = true
 
-        super.init(window: nil)
-    }
+        let general = NSTabViewItem(viewController: GeneralPrefsViewController())
+        general.image = NSImage.init(imageLiteralResourceName: "NSPreferencesGeneral")
+        controller.addTabViewItem(general)
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+        let metadata = NSTabViewItem(viewController: MetadataPrefsViewController())
+        metadata.image = NSImage.init(imageLiteralResourceName: "NSUserAccounts")
+        controller.addTabViewItem(metadata)
+
+        let presets = NSTabViewItem(viewController: PresetPrefsViewController())
+        presets.image = NSImage.init(imageLiteralResourceName: "NSFolderSmart")
+        controller.addTabViewItem(presets)
+
+        let output = NSTabViewItem(viewController: OutputPrefsViewController())
+        output.image = NSImage.init(imageLiteralResourceName: "mp4-file")
+        controller.addTabViewItem(output)
+
+        let advanced = NSTabViewItem(viewController: AdvancedPrefsViewController())
+        advanced.image = NSImage.init(imageLiteralResourceName: "NSAdvanced")
+        controller.addTabViewItem(advanced)
+
+        return controller
+    }()
 
     override func windowDidLoad() {
         super.windowDidLoad()
-
-        window?.toolbar?.allowsUserCustomization = false
-        window?.toolbar?.selectedItemIdentifier = general
-
-        if let items = window?.toolbar?.items, let item = (items.filter { $0.itemIdentifier == general }).first {
-            selectItem(item, animate: false)
-        }
+        contentViewController = tabsViewController
+        window?.title = tabsViewController.tabView.selectedTabViewItem?.label ?? ""
     }
-
-    // MARK: Panel switching
-
-    private func view(for identifier: NSToolbarItem.Identifier) -> NSView? {
-        if identifier == general { return generalView }
-        if identifier == metadata { return metadataController.view }
-        if identifier == presets { return presetController.view }
-        if identifier == output { return outputController.view }
-        if identifier == advanced { return advancedView }
-        return nil
-    }
-
-    private func animationDuration(view: NSView, previousView: NSView?) -> TimeInterval {
-        guard let previousView = previousView else { return 0 }
-        return TimeInterval(abs(previousView.frame.size.height - view.frame.height)) * 0.0011
-    }
-
-    private func selectItem(_ item: NSToolbarItem, animate: Bool) {
-        guard let window = self.window,
-            let view = self.view(for: item.itemIdentifier),
-            window.contentView != view
-            else { return }
-
-        let duration = animationDuration(view: view, previousView: window.contentView)
-        window.contentView = view
-
-        if window.isVisible && animate {
-            NSAnimationContext.runAnimationGroup({ context in
-                if #available(OSX 10.11, *) {
-                    context.allowsImplicitAnimation = true
-                    context.duration = duration
-                }
-                else {
-                    context.duration = 0
-                }
-                window.layoutIfNeeded()
-                view.isHidden = true
-            }, completionHandler: {
-                view.isHidden = false
-                window.title = item.label
-            })
-        }
-        else {
-            window.title = item.label
-        }
-    }
-
-    @IBAction func setPrefView(_ sender: NSToolbarItem) {
-        selectItem(sender, animate: true)
-    }
-
-    // MARK: General panel
-
-    @IBAction func clearRecentSearches(_ sender: Any) {
-        MetadataSearchController.clearRecentSearches()
-    }
-
-    @IBAction func deleteCachedMetadata(_ sender: Any) {
-        MetadataSearchController.deleteCachedMetadata()
-    }
-
-    @IBAction func updateRatingsCountry(_ sender: Any) {
-        MP42Ratings.defaultManager.updateCountry()
-    }
-
-    @objc dynamic var ratingsCountries: [String] { return MP42Ratings.defaultManager.ratingsCountries }
 
 }

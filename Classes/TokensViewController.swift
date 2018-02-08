@@ -27,8 +27,8 @@ class TokensViewController: NSViewController, NSTokenFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func loadView() {
-        super.loadView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         tokenField.tokenizingCharacterSet = CharacterSet(charactersIn: "%")
         tokenField.stringValue = tokens.reduce("", { "\($0)%{\($1)}" })

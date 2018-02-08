@@ -80,6 +80,19 @@ extension MP42File {
         return nil
     }
 
+    // MARK: File name
+
+    @objc func preferredFileName() -> String? {
+        if let mediaKind = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
+            (mediaKind == 10 && UserDefaults.standard.bool(forKey: "SBSetTVShowFormat")) ||
+                (mediaKind == 9 && UserDefaults.standard.bool(forKey: "SBSetMovieFormat")),
+            let name = formattedFileName() {
+            return name
+        } else {
+            return tracks.compactMap { $0.url }.first?.deletingPathExtension().lastPathComponent
+        }
+    }
+
     func formattedFileName() -> String? {
         guard let mediaKind = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
               let format = outputNameFormat(mediaKind: mediaKind)

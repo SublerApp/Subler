@@ -232,10 +232,10 @@ class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTabl
                     return result.title
                 }
                 else if tableColumn?.identifier.rawValue == "chaptercount" {
-                    return "\(result.chapters.count)".monospacedAttributedString()
+                    return "\(result.chapters.count)".smallMonospacedAttributedString()
                 }
                 else if tableColumn?.identifier.rawValue == "duration" {
-                    return StringFromTime(Int64(result.duration), 1000).monospacedAttributedString()
+                    return StringFromTime(Int64(result.duration), 1000).smallMonospacedAttributedString()
                 }
                 else if tableColumn?.identifier.rawValue == "confirmations" {
                     return NSNumber(value: result.confimations)

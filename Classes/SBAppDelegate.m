@@ -263,29 +263,18 @@
                                                          NSError * _Nullable error))completionHandler
 {
     NSString *extension = url.pathExtension.lowercaseString;
-    MP42File *mp4 = nil;
-
-    if ([extension isEqualToString: @"mp4"] ||
-        [extension isEqualToString: @"m4v"] ||
-        [extension isEqualToString: @"m4a"] ||
-        [extension isEqualToString: @"m4r"] ||
-        [extension isEqualToString: @"m4b"]) {
-
-        mp4 = [[MP42File alloc] initWithURL:url error:NULL];
-    }
 
     if ([extension isEqualToString: @"mkv"] ||
         [extension isEqualToString: @"mka"] ||
         [extension isEqualToString: @"mks"] ||
-        [extension isEqualToString: @"mov"] ||
-        mp4 == nil) {
+        [extension isEqualToString: @"mov"]) {
 
         NSError *outError = nil;
 
         SBDocument *doc = [self openUntitledDocumentAndDisplay:displayDocument error:&outError];
         completionHandler(doc, NO, outError);
         if (doc) {
-            [doc showImportSheetWithFileURLs:@[url]];
+            [doc.windowControllers.firstObject showImportSheetWithFileURLs:@[url]];
         }
     }
     else {

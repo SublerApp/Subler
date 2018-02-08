@@ -27,10 +27,10 @@ class PresetEditorViewController: SBMovieViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func loadView() {
+    override func viewDidLoad() {
         self.metadata = preset.metadata
 
-        super.loadView()
+        super.viewDidLoad()
 
         view.appearance = NSAppearance(named: .aqua)
         presetTitle.stringValue = preset.title

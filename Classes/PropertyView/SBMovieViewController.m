@@ -70,9 +70,9 @@ static NSArray<NSArray *> *_mediaKinds;
     }
 }
 
-- (void)loadView
+- (void)viewDidLoad
 {
-    [super loadView];
+    [super viewDidLoad];
 
     _ratings = MP42Ratings.defaultManager.ratings;
 

@@ -60,8 +60,8 @@ static void *SBOptionsViewContex = &SBOptionsViewContex;
     return self;
 }
 
-- (void)loadView {
-    [super loadView];
+- (void)viewDidLoad {
+    [super viewDidLoad];
 
     // Hack to fix crappy anti-aliasing on Yosemite
     // unfortunately it fixes the checkboxes anti-aliasing,

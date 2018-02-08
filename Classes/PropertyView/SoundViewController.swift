@@ -7,7 +7,7 @@
 
 import Cocoa
 
-@objc(SBSoundViewController) class SoundViewController : NSViewController {
+class SoundViewController : NSViewController {
 
     let track: MP42AudioTrack
     let file: MP42File
@@ -24,7 +24,7 @@ import Cocoa
         return NSNib.Name(rawValue: "SoundView")
     }
 
-    @objc init(mp4: MP42File, track: MP42AudioTrack) {
+    init(mp4: MP42File, track: MP42AudioTrack) {
         self.file = mp4
         self.track = track
         self.mediaTagsController = SBMediaTagsController(track: track)
@@ -36,8 +36,8 @@ import Cocoa
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func loadView() {
-        super.loadView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         // Media Tags controls
         mediaTagsController.view.frame = mediaTagsView.bounds

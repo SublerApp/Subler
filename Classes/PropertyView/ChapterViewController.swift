@@ -7,7 +7,7 @@
 
 import Cocoa
 
-@objc(SBChapterViewController) class ChapterViewController : NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+class ChapterViewController : NSViewController, NSTableViewDataSource, NSTableViewDelegate {
 
     var track: MP42ChapterTrack {
         didSet {
@@ -22,7 +22,7 @@ import Cocoa
         return NSNib.Name(rawValue: "ChapterView")
     }
 
-    @objc init(track: MP42ChapterTrack) {
+    init(track: MP42ChapterTrack) {
         self.track = track
         super.init(nibName: nil, bundle: nil)
     }
@@ -31,8 +31,8 @@ import Cocoa
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func loadView() {
-        super.loadView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         tableView.defaultEditingColumn = 1
         tableView.doubleAction = #selector(doubleClickAction(_:))
     }

@@ -11,7 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class MP42File;
-@class ExpandedTableView;
 
 @interface SBDocument : NSDocument
 
@@ -19,31 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithMP4:(MP42File *)mp4File error:(NSError * __autoreleasing *)outError;
 
-@property (nonatomic, weak) IBOutlet ExpandedTableView *tracksTable;
-@property (nonatomic, strong, nullable) NSWindowController *sheetController;
-
-- (IBAction)selectFile:(id)sender;
-- (IBAction)deleteTrack:(id)sender;
-- (IBAction)sendToQueue:(id)sender;
-
-- (IBAction)showTrackOffsetSheet:(id)sender;
-- (IBAction)setTrackOffset:(id)sender;
-- (IBAction)closeOffsetSheet:(id)sender;
-
 - (IBAction)setSaveFormat:(NSPopUpButton *)sender;
-- (IBAction)cancelSaveOperation:(id)sender;
-- (IBAction)sendToExternalApp:(id)sender;
-
 - (IBAction)saveAndOptimize:(id)sender;
-
-- (IBAction)selectMetadataFile:(id)sender;
-- (IBAction)addChaptersEvery:(id)sender;
-- (IBAction)iTunesFriendlyTrackGroups:(id)sender;
-
-- (IBAction)export:(id)sender;
-
-- (void)reload;
-- (void)reloadPropertyView;
 
 @end
 

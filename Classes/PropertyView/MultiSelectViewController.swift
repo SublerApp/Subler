@@ -9,11 +9,11 @@ import Cocoa
 
 class MultiSelectViewController : NSViewController {
 
-    @objc var numberOfTracks: UInt = 0
+    var numberOfTracks: UInt = 0
     @IBOutlet var label: NSTextField!
 
-    override func loadView() {
-        super.loadView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         if numberOfTracks == 1 {
             label.stringValue = NSLocalizedString("1 track selected", comment: "")

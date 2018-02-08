@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14087.3"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="DocumentWindowController" customModule="Subler" customModuleProvider="target">
+            <connections>
+                <outlet property="addTracks" destination="FY3-O2-t3T" id="fcf-d9-3eB"/>
+                <outlet property="deleteTrack" destination="rhw-S4-nZ8" id="VaB-n8-rPm"/>
+                <outlet property="searchChapters" destination="sa2-7a-h2I" id="qix-LL-OuP"/>
+                <outlet property="searchMetadata" destination="uiq-J2-uPs" id="lv3-UJ-53r"/>
+                <outlet property="sendToQueue" destination="app-IS-8EB" id="z6b-55-tmE"/>
+                <outlet property="window" destination="s5f-yH-26m" id="YRM-He-gQ6"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="s5f-yH-26m" userLabel="Window">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="120" y="866" width="690" height="510"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <value key="minSize" type="size" width="690" height="510"/>
+            <view key="contentView" id="rip-YL-WpY">
+                <rect key="frame" x="0.0" y="0.0" width="690" height="510"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            </view>
+            <toolbar key="toolbar" implicitIdentifier="61E0A00C-CBF2-4937-9418-AC0758672070" explicitIdentifier="SBDocumentToolbar26" displayMode="iconOnly" sizeMode="regular" id="PRH-t4-qwh">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Af5-ai-sw9"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="qX7-s1-81X"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="mX6-y6-VZe"/>
+                    <toolbarItem implicitItemIdentifier="D2E8E21C-DCD4-456F-B15A-9AC0AA5556DF" label="Import" paletteLabel="Import" toolTip="Import tracks from external files" image="NSAddTemplate" id="FY3-O2-t3T" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
+                        <size key="minSize" width="36" height="24"/>
+                        <size key="maxSize" width="36" height="28"/>
+                        <button key="view" verticalHuggingPriority="750" id="UZy-eh-ZBz">
+                            <rect key="frame" x="3" y="14" width="36" height="28"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="r0z-KC-Ehd">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="selectFile:" target="-2" id="mTY-vt-vsv"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="5B6FDF6D-9486-49B2-8EA4-184D76D0864C" label="Delete Track" paletteLabel="Delete Track" toolTip="Delete the selected track" image="ToolbarRemoveTemplate" id="rhw-S4-nZ8" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
+                        <size key="minSize" width="36" height="24"/>
+                        <size key="maxSize" width="36" height="28"/>
+                        <button key="view" verticalHuggingPriority="750" id="e81-Qg-Ncc">
+                            <rect key="frame" x="19" y="14" width="36" height="28"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="ToolbarRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HWd-4N-V3A">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="deleteTrack:" target="-2" id="N1h-dg-CaR"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="66402BE4-4A7B-4048-A584-2BC0F5E69600" label="Search Metadata" paletteLabel="Search Metadata" toolTip="Search metadata on the web" image="NSRevealFreestandingTemplate" id="uiq-J2-uPs" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
+                        <size key="minSize" width="36" height="24"/>
+                        <size key="maxSize" width="36" height="24"/>
+                        <button key="view" verticalHuggingPriority="750" id="Nes-H1-fbL">
+                            <rect key="frame" x="31" y="14" width="36" height="24"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRevealFreestandingTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hLF-cH-6MQ">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="searchMetadata:" target="-2" id="3Jl-xK-nb3"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="C90398D0-2F66-43E9-8B04-6CCD8DDA90D2" label="Search Chapters" paletteLabel="Search Chapters" toolTip="Search chapters on the web" image="ToolbarChaptersTemplate" id="sa2-7a-h2I" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
+                        <size key="minSize" width="36" height="24"/>
+                        <size key="maxSize" width="36" height="28"/>
+                        <button key="view" verticalHuggingPriority="750" id="gh7-Et-PwJ">
+                            <rect key="frame" x="30" y="14" width="36" height="28"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="ToolbarChaptersTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="E5l-0l-Tsr">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="searchChapters:" target="-2" id="0wP-Eq-9mv"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="9F789D5F-C25E-449F-ABCE-DDF99B4FF988" label="Send to Queue" paletteLabel="Send to Queue" toolTip="Send the current document to the queue" image="ToolbarActionTemplate" id="app-IS-8EB" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
+                        <size key="minSize" width="36" height="24"/>
+                        <size key="maxSize" width="36" height="28"/>
+                        <button key="view" verticalHuggingPriority="750" id="c38-NC-1I2">
+                            <rect key="frame" x="25" y="14" width="36" height="28"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="ToolbarActionTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZbH-ut-l4n">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="2E3AB086-491A-436E-A610-14E36AEE8F49" label="Action" paletteLabel="Action" image="NSActionTemplate" id="V6w-Ey-bjV">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="38" height="24"/>
+                        <size key="maxSize" width="40" height="28"/>
+                        <popUpButton key="view" verticalHuggingPriority="750" id="QuP-nB-KsX">
+                            <rect key="frame" x="2" y="14" width="38" height="28"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="LML-iW-skB" id="LNp-Kr-404">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="menu"/>
+                                <menu key="menu" id="VNR-O6-D9w">
+                                    <items>
+                                        <menuItem state="on" image="NSActionTemplate" hidden="YES" id="LML-iW-skB"/>
+                                        <menuItem title="Insert a chapter every" id="0vu-Jl-QDb">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Insert a chapter every" id="o5I-IO-kDx">
+                                                <items>
+                                                    <menuItem title="1 minute" tag="1" id="5Fm-fy-9es">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="2 minutes" tag="2" id="2M2-Yg-cgc">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="5 minutes" tag="5" id="8ah-BL-bge">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="10 minutes" tag="10" id="lJT-6k-8XM">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="15 minutes" tag="15" id="0bq-Ez-KMl">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="20 minutes" tag="20" id="xWX-8M-yu0">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="30 minutes" tag="30" id="bmM-jp-jgC">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem title="Organize alternate groups" id="lIX-K2-pbc">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="iTunesFriendlyTrackGroups:" target="-2" id="2bI-YD-rCZ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Clear tracks names" id="pB8-A8-7tv">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="clearTrackNames:" target="-2" id="MeX-3f-VXG"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Fix audio fallbacks" id="rGe-lx-aht">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="fixAudioFallbacks:" target="-2" id="0By-xS-vpS"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="gUx-Ht-5aq"/>
+                                        <menuItem title="Offset…" id="9r1-yN-sCW">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showTrackOffsetSheet:" target="-2" id="0CQ-FC-l5B"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                        </popUpButton>
+                    </toolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="FY3-O2-t3T"/>
+                    <toolbarItem reference="mX6-y6-VZe"/>
+                    <toolbarItem reference="V6w-Ey-bjV"/>
+                    <toolbarItem reference="rhw-S4-nZ8"/>
+                    <toolbarItem reference="qX7-s1-81X"/>
+                    <toolbarItem reference="Af5-ai-sw9"/>
+                    <toolbarItem reference="mX6-y6-VZe"/>
+                    <toolbarItem reference="uiq-J2-uPs"/>
+                </defaultToolbarItems>
+            </toolbar>
+            <point key="canvasLocation" x="1024" y="-701"/>
+        </window>
+    </objects>
+    <resources>
+        <image name="NSActionTemplate" width="14" height="14"/>
+        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSRevealFreestandingTemplate" width="14" height="14"/>
+        <image name="ToolbarActionTemplate" width="24" height="24"/>
+        <image name="ToolbarChaptersTemplate" width="14" height="13"/>
+        <image name="ToolbarRemoveTemplate" width="16" height="16"/>
+    </resources>
+</document>

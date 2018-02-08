@@ -128,9 +128,9 @@ static NSString *getColorProfileName(uint16_t colorPrimaries,
     return [NSString stringWithFormat:@"%d-%d-%d", colorPrimaries, transferCharacteristics, matrixCoefficients];
 }
 
-- (void)loadView
+- (void)viewDidLoad
 {
-    [super loadView];
+    [super viewDidLoad];
 
     _mediaTagsController = [[SBMediaTagsController alloc] initWithTrack:track];
 
