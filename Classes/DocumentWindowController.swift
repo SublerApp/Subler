@@ -244,6 +244,13 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
         }
     }
 
+    func setProgress(title: String) {
+        if let progressController = self.progressController {
+            progressController.progressString.stringValue = title
+        }
+
+    }
+
     func endProgressReporting() {
         if let progressController = self.progressController {
             contentViewController?.dismissViewController(progressController)

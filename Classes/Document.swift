@@ -159,7 +159,10 @@ import IOKit.pwr_mgt
         }
 
         if optimize {
-            // TODO: Update progress string
+            DispatchQueue.main.async {
+                let docController = self.windowControllers.first as? DocumentWindowController
+                docController?.setProgress(title: NSLocalizedString("Optimizing…", comment: "Document Optimize sheet."))
+            }
             mp4.optimize()
         }
     }
