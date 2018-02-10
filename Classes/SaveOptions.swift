@@ -14,14 +14,47 @@ class SaveOptions: NSViewController {
     @IBOutlet var _64bit_data: NSButton!
     @IBOutlet var _64bit_time: NSButton!
 
+    private let doc: Document
+    private let savePanel: NSSavePanel
+
+    init(doc: Document, savePanel: NSSavePanel) {
+        self.doc = doc
+        self.savePanel = savePanel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let formats = doc.writableTypes(for: .saveAsOperation)
+        fileFormat.removeAllItems()
+
+        for format in formats {
+            let name = UTTypeCopyDescription(format as CFString)?.takeRetainedValue() as String? ?? format
+            fileFormat.addItem(withTitle: name)
+        }
 
         let index = UserDefaults.standard.integer(forKey: "defaultSaveFormat")
         fileFormat.selectItem(at: index)
 
+        if let format = UserDefaults.standard.string(forKey: "SBSaveFormat") {
+            savePanel.allowedFileTypes = [format]
+        }
+
+        if let filename = doc.mp4.preferredFileName() {
+            savePanel.nameFieldStringValue = filename
+        }
+
         _64bit_data.state = UserDefaults.standard.bool(forKey: "mp464bitOffset") ? .on : .off
         _64bit_time.state = UserDefaults.standard.bool(forKey: "mp464bitTimes") ? .on : .off
+
+        if doc.mp4.dataSize > 4000000000 {
+            _64bit_data.state = .on
+        }
     }
 
     override func viewWillDisappear() {
@@ -32,4 +65,23 @@ class SaveOptions: NSViewController {
         UserDefaults.standard.set(_64bit_time.state == .on, forKey: "mp464bitTimes")
     }
     
+    @IBAction func setSaveFormat(_ sender: NSPopUpButton) {
+        var requiredFileType = MP42FileTypeM4V
+        switch sender.indexOfSelectedItem {
+        case 0:
+            requiredFileType = MP42FileTypeM4V
+        case 1:
+            requiredFileType = MP42FileTypeMP4
+        case 2:
+            requiredFileType = MP42FileTypeM4A
+        case 3:
+            requiredFileType = MP42FileTypeM4B
+        case 4:
+            requiredFileType = MP42FileTypeM4R
+        default:
+            break
+        }
+        savePanel.allowedFileTypes = [requiredFileType]
+        UserDefaults.standard.set(requiredFileType, forKey: "SBSaveFormat")
+    }
 }

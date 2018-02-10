@@ -15,7 +15,7 @@ class TracksViewController: NSViewController, NSTableViewDataSource, NSTableView
 
     weak var delegate: TracksViewControllerDelegate?
 
-    private let document: SBDocument
+    private let document: Document
 
     var mp4: MP42File {
         didSet {
@@ -44,7 +44,7 @@ class TracksViewController: NSViewController, NSTableViewDataSource, NSTableView
         tracksTable.doubleAction = #selector(doubleClickAction)
     }
 
-    init(document: SBDocument, delegate: TracksViewControllerDelegate) {
+    init(document: Document, delegate: TracksViewControllerDelegate) {
         self.document = document;
         self.mp4 = document.mp4
         self.delegate = delegate

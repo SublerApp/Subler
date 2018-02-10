@@ -82,7 +82,7 @@ extension MP42File {
 
     // MARK: File name
 
-    @objc func preferredFileName() -> String? {
+    func preferredFileName() -> String? {
         if let mediaKind = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
             (mediaKind == 10 && UserDefaults.standard.bool(forKey: "SBSetTVShowFormat")) ||
                 (mediaKind == 9 && UserDefaults.standard.bool(forKey: "SBSetMovieFormat")),

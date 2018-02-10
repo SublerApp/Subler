@@ -19,10 +19,10 @@ extension NSPasteboard.PasteboardType {
 
 }
 
-@objc(SBDocumentWindowController) class DocumentWindowController: NSWindowController, TracksViewControllerDelegate, ChapterSearchControllerDelegate, MetadataSearchControllerDelegate, FileImportControllerDelegate, ProgressViewControllerDelegate, NSDraggingDestination {
+class DocumentWindowController: NSWindowController, TracksViewControllerDelegate, ChapterSearchControllerDelegate, MetadataSearchControllerDelegate, FileImportControllerDelegate, ProgressViewControllerDelegate, NSDraggingDestination {
 
-    private var doc: SBDocument {
-        return document as! SBDocument
+    private var doc: Document {
+        return document as! Document
     }
 
     private var mp4: MP42File {
@@ -133,7 +133,7 @@ extension NSPasteboard.PasteboardType {
         }
     }
 
-    @objc func reloadData() {
+    func reloadData() {
         tracksViewController.mp4 = doc.mp4
     }
 
@@ -231,7 +231,7 @@ extension NSPasteboard.PasteboardType {
 
     var progressController: ProgressViewController?
 
-    @objc func startProgressReporting() {
+    func startProgressReporting() {
         let progressController = ProgressViewController()
         progressController.delegate = self
         contentViewController?.presentViewControllerAsSheet(progressController)
@@ -244,7 +244,7 @@ extension NSPasteboard.PasteboardType {
         }
     }
 
-    @objc func endProgressReporting() {
+    func endProgressReporting() {
         if let progressController = self.progressController {
             contentViewController?.dismissViewController(progressController)
             self.progressController = nil

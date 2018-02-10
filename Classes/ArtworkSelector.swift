@@ -36,7 +36,7 @@ private class ArtworkImageObject : NSObject {
         }
     }
 
-    @objc override func imageRepresentation() -> Any! {
+    override func imageRepresentation() -> Any! {
         // Get the data outside the main thread
         var startDownload: Bool = false
         queue.sync {
@@ -76,15 +76,15 @@ private class ArtworkImageObject : NSObject {
         return localData
     }
 
-    @objc override func imageRepresentationType() -> String {
+    override func imageRepresentationType() -> String {
         return IKImageBrowserNSDataRepresentationType
     }
 
-    @objc override func imageUID() -> String {
+    override func imageUID() -> String {
         return source.thumbURL.absoluteString
     }
 
-    @objc override func imageVersion()-> Int {
+    override func imageVersion()-> Int {
         var returnValue: Int = 0
         queue.sync {
             returnValue = self.version
@@ -92,11 +92,11 @@ private class ArtworkImageObject : NSObject {
         return returnValue
     }
 
-    @objc override func imageTitle() -> String {
+    override func imageTitle() -> String {
         return source.service
     }
 
-    @objc override func imageSubtitle() -> String {
+    override func imageSubtitle() -> String {
         return source.type.description
     }
 

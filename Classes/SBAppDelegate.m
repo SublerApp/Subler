@@ -7,7 +7,6 @@
 //
 
 #import "SBAppDelegate.h"
-#import "SBDocument.h"
 #import "SBQueueController.h"
 
 #import "Subler-Swift.h"

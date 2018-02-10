@@ -9,12 +9,12 @@ import Cocoa
 
 class OffsetViewController: NSViewController {
 
-    private let doc: SBDocument
+    private let doc: Document
     private let track: MP42Track
 
     @IBOutlet var offsetField: NSTextField!
     
-    init(doc: SBDocument, track: MP42Track) {
+    init(doc: Document, track: MP42Track) {
         self.doc = doc
         self.track = track
         super.init(nibName: nil, bundle: nil)

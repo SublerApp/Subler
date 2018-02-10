@@ -12,8 +12,6 @@
 
 #import "SBOptionsViewController.h"
 
-#import "SBDocument.h"
-
 #import <MP42Foundation/MP42FileImporter.h>
 
 #import "Subler-Swift.h"
@@ -227,7 +225,7 @@ static void *SBQueueContex = &SBQueueContex;
 
         MP42File *mp4 = item.mp4File;
         dispatch_async(dispatch_get_main_queue(), ^{
-            SBDocument *doc = [[SBDocument alloc] initWithMP4:mp4 error:&error];
+            SBDocument *doc = [[SBDocument alloc] initWithMp4:mp4 error:&error];
 
             if (doc) {
                 [[NSDocumentController sharedDocumentController] addDocument:doc];
