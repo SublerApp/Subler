@@ -45,12 +45,13 @@ import Foundation
     private func loadExternalSubtitles(url: URL) -> [MP42FileImporter] {
         let movieFilename = url.deletingPathExtension().lastPathComponent
         var importers: [MP42FileImporter] = Array()
-        if let contents = try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles, .skipsPackageDescendants]) {
+        if let contents = try? FileManager.default.contentsOfDirectory(at: url.deletingLastPathComponent(), includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles, .skipsPackageDescendants]) {
             for url in contents {
-                if url.pathExtension.caseInsensitiveCompare("srt") == ComparisonResult.orderedSame {
+                let ext = url.pathExtension.lowercased()
+                if ext == "srt" || ext == "ass" || ext == "ssa" {
                     let subtitleFilename = url.deletingPathExtension().lastPathComponent
                     if movieFilename.count < subtitleFilename.count &&
-                        subtitleFilename.compare(subtitleFilename, options: String.CompareOptions.caseInsensitive, range: movieFilename.startIndex..<movieFilename.endIndex, locale: nil) == ComparisonResult.orderedSame {
+                        subtitleFilename.hasPrefix(movieFilename) {
                         if let importer = try? MP42FileImporter(url: url) {
                             importers.append(importer)
                         }
@@ -241,7 +242,7 @@ extension Array where Element == Artwork {
         }
 
         let defaults = UserDefaults.standard
-        if let map = metadata.mediaKind == 9 ? defaults.map(forKey: "SBMetadataMovieResultMap")
+        if let map = metadata.mediaKind == .movie ? defaults.map(forKey: "SBMetadataMovieResultMap")
             : defaults.map(forKey: "SBMetadataTvShowResultMap") {
             return metadata.mappedMetadata(to: map, keepEmptyKeys: false)
         }
