@@ -18,14 +18,6 @@ import Foundation
         return MetadataSearch.tvProviders
     }
 
-    @objc public static func languages(provider: String) -> [String] {
-        return MetadataSearch.service(name: provider).languages
-    }
-
-    @objc public static func languageType(provider: String) -> LanguageType {
-        return MetadataSearch.service(name: provider).languageType
-    }
-
     @objc public static func defaultLanguage(provider: String) -> String {
         return MetadataSearch.service(name: provider).defaultLanguage
     }
@@ -38,10 +30,6 @@ import Foundation
 
     @objc init(provider: String) {
         service = MetadataSearch.service(name: provider)
-    }
-
-    init(service: MetadataService) {
-        self.service = service
     }
 
     @objc public var languageType: LanguageType {

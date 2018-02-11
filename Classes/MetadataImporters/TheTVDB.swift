@@ -110,7 +110,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
     private func merge(episode: TVDBEpisode, info: TVDBSeriesInfo, actors: [TVDBActor]) -> MetadataResult {
         let result = MetadataResult()
 
-        result.mediaKind = 10
+        result.mediaKind = .tvShow
 
         // TV Show Info
         result[.serviceSeriesID]    = info.id

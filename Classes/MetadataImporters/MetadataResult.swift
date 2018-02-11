@@ -192,7 +192,12 @@ public class MetadataResult : NSObject {
 
     private var dictionary: [Key:Any]
 
-    public var mediaKind: Int
+    public enum MediaKindType: Int {
+        case tvShow = 10
+        case movie = 9
+    }
+
+    public var mediaKind: MediaKindType
     public var contentRating: Int
     public var remoteArtworks: [Artwork]
     public var artworks: [MP42Image]
@@ -201,7 +206,7 @@ public class MetadataResult : NSObject {
         self.dictionary = Dictionary()
         self.remoteArtworks = Array()
         self.artworks = Array()
-        self.mediaKind = 0
+        self.mediaKind = .movie
         self.contentRating = 0
     }
 
@@ -215,7 +220,7 @@ public class MetadataResult : NSObject {
     }
 
     lazy var orderedKeys: [Key] = {
-        let sortedKeys = self.mediaKind == 9 ? Key.movieKeys : Key.tvShowKeys
+        let sortedKeys = self.mediaKind == .movie ? Key.movieKeys : Key.tvShowKeys
         return Array(dictionary.keys).sorted(by: { (key1: Key, key2: Key) -> Bool in
             if let index1 = sortedKeys.index(of: key1), let index2 = sortedKeys.index(of: key2) {
                 return index1 < index2
@@ -262,7 +267,7 @@ public class MetadataResult : NSObject {
         })
 
         let mediaKind = MP42MetadataItem(identifier: MP42MetadataKeyMediaKind,
-                                         value: NSNumber(value: self.mediaKind),
+                                         value: NSNumber(value: self.mediaKind.rawValue),
                                          dataType: .integer,
                                          extendedLanguageTag: nil)
         metadata.addItem(mediaKind)

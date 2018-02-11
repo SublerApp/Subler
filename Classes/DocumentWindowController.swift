@@ -427,7 +427,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
 
     func didSelect(metadata: MetadataResult) {
         let defaults = UserDefaults.standard
-        let map = metadata.mediaKind == 9 ? defaults.map(forKey: "SBMetadataMovieResultMap") : defaults.map(forKey: "SBMetadataTvShowResultMap")
+        let map = metadata.mediaKind == .movie ? defaults.map(forKey: "SBMetadataMovieResultMap") : defaults.map(forKey: "SBMetadataTvShowResultMap")
         let keepEmptyKeys = defaults.bool(forKey: "SBMetadataKeepEmptyAnnotations")
 
         if let map = map {

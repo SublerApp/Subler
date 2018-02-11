@@ -36,7 +36,7 @@ public struct TheMovieDB: MetadataService {
     private func metadata(forMoviePartialResult result: TMDBMovieSearchResult, language: String?) -> MetadataResult {
         let metadata = MetadataResult()
 
-        metadata.mediaKind = 9; // movie
+        metadata.mediaKind = .movie
 
         metadata[.serviceSeriesID] = result.id
         metadata[.name]            = result.title
@@ -127,7 +127,7 @@ public struct TheMovieDB: MetadataService {
     private func metadata(forResult result: TMDBMovie, language: String?) -> MetadataResult {
         let metadata = MetadataResult()
         
-        metadata.mediaKind = 9; // movie
+        metadata.mediaKind = .movie
         
         metadata[.name]            = result.title
         metadata[.releaseDate]     = result.release_date
@@ -245,7 +245,7 @@ public struct TheMovieDB: MetadataService {
     private func metadata(forTVResult result: TMDBEpisode, info: TMDBSeries) -> MetadataResult {
         let metadata = MetadataResult()
 
-        metadata.mediaKind = 10; // tv
+        metadata.mediaKind = .tvShow
 
         // TV Show Info
         metadata[.serviceSeriesID]           = info.id

@@ -47,13 +47,13 @@ extension MP42File {
             let season = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyTVSeason).first?.numberValue?.intValue,
             let number = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyTVEpisodeNumber).first?.numberValue?.intValue,
             let mediaKind = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
-            mediaKind == 10 {
+            mediaKind == MetadataResult.MediaKindType.tvShow.rawValue {
             return MetadataSearchTerms.tvShow(seriesName: tvShow, season: season, episode: number)
         }
         else if let title = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyName).first?.stringValue,
             let _ = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyReleaseDate).first?.stringValue,
             let mediaKind = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
-            mediaKind == 9 {
+            mediaKind == MetadataResult.MediaKindType.movie.rawValue {
             return MetadataSearchTerms.movie(title: title)
         }
         else if let url = firstSourceURL() ?? fallbackURL {
@@ -72,9 +72,9 @@ extension MP42File {
     }
 
     private func outputNameFormat(mediaKind: Int) -> [String]? {
-        if mediaKind == 10 {
+        if mediaKind == MetadataResult.MediaKindType.tvShow.rawValue {
             return UserDefaults.standard.stringArray(forKey: "SBTVShowFormat")
-        } else if mediaKind == 9 {
+        } else if mediaKind == MetadataResult.MediaKindType.movie.rawValue {
             return UserDefaults.standard.stringArray(forKey: "SBMovieFormat")
         }
         return nil
@@ -84,8 +84,8 @@ extension MP42File {
 
     func preferredFileName() -> String? {
         if let mediaKind = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
-            (mediaKind == 10 && UserDefaults.standard.bool(forKey: "SBSetTVShowFormat")) ||
-                (mediaKind == 9 && UserDefaults.standard.bool(forKey: "SBSetMovieFormat")),
+            (mediaKind == MetadataResult.MediaKindType.tvShow.rawValue && UserDefaults.standard.bool(forKey: "SBSetTVShowFormat")) ||
+                (mediaKind == MetadataResult.MediaKindType.movie.rawValue && UserDefaults.standard.bool(forKey: "SBSetMovieFormat")),
             let name = formattedFileName() {
             return name
         } else {

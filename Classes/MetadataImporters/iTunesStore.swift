@@ -359,7 +359,7 @@ public struct iTunesStore: MetadataService {
     private func metadata(forTVResult result: Track, store: Store) -> MetadataResult {
         let metadata = MetadataResult()
 
-        metadata.mediaKind = 10 // TV show
+        metadata.mediaKind = .tvShow
 
         metadata[.name]            = result.trackName
         metadata[.releaseDate]     = result.releaseDate
@@ -400,7 +400,7 @@ public struct iTunesStore: MetadataService {
 
         if let contentAdvisoryRating = result.contentAdvisoryRating {
             metadata[.rating] = MP42Ratings.defaultManager.ratingStringForiTunesCountry(store.country,
-                                                                                        media: metadata.mediaKind == 9 ? "movie" : "TV",
+                                                                                        media: metadata.mediaKind == .movie ? "movie" : "TV",
                                                                                         ratingString: contentAdvisoryRating)
         }
 
@@ -437,7 +437,7 @@ public struct iTunesStore: MetadataService {
     private func metadata(forMoviePartialResult result: Track, store: Store) -> MetadataResult {
         let metadata = MetadataResult()
 
-        metadata.mediaKind = 9 // movie
+        metadata.mediaKind = .movie
 
         metadata[.name]            = result.trackName
         metadata[.releaseDate]     = result.releaseDate
@@ -448,7 +448,7 @@ public struct iTunesStore: MetadataService {
 
         if let contentAdvisoryRating = result.contentAdvisoryRating {
             metadata[.rating] = MP42Ratings.defaultManager.ratingStringForiTunesCountry(store.country,
-                                                                                                       media: metadata.mediaKind == 9 ? "movie" : "TV",
+                                                                                                       media: metadata.mediaKind == .movie ? "movie" : "TV",
                                                                                                        ratingString: contentAdvisoryRating)
         }
 
