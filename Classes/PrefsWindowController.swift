@@ -55,6 +55,8 @@ import Cocoa
                                        "SBMetadataMovieResultMap":       movieDefaultMap,
                                        "SBMetadataTvShowResultMap":      tvShowDefaultMap,
                                        "SBMetadataKeepEmptyAnnotations": false,
+
+                                       "SBFileImporterImportMetadata": true,
                                        
                                        "SBForceHvc1": true]
 

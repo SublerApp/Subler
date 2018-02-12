@@ -206,6 +206,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
         super.windowDidLoad()
         
         self.importMetadataCheckbox.isEnabled = importMetadata
+        self.importMetadataCheckbox.state = UserDefaults.standard.bool(forKey: "SBFileImporterImportMetadata") ? .on : .off
     }
 
     // MARK: Public properties
@@ -359,7 +360,9 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     // MARK: Actions
 
     @IBAction func setImportMetadata(_ sender: NSButton) {
-        importMetadata = sender.state == NSControl.StateValue.on
+        let enabled = sender.state == NSControl.StateValue.on
+        importMetadata = enabled
+        UserDefaults.standard.set(enabled, forKey: "SBFileImporterImportMetadata")
     }
 
     @IBAction func setCheck(_ sender: NSButton) {
