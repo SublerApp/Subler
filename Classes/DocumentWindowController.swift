@@ -598,7 +598,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
                 sender.draggingSourceOperationMask().contains(.copy)
         else { return [] }
 
-        return []
+        return .copy
     }
 
     func performDragOperation(_ sender: NSDraggingInfo) -> Bool {

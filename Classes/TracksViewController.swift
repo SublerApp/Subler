@@ -228,6 +228,10 @@ class TracksViewController: NSViewController, NSTableViewDataSource, NSTableView
     func tableView(_ tableView: NSTableView,
                    writeRowsWith rowIndexes: IndexSet,
                    to pboard: NSPasteboard) -> Bool {
+        guard let firstRow = rowIndexes.first,
+            let track = track(at: firstRow), track.isMuxed == false
+            else { return false }
+
         let data: Data = NSKeyedArchiver.archivedData(withRootObject: rowIndexes)
         pboard.declareTypes([pasteboardType], owner: self)
         pboard.setData(data, forType: pasteboardType)
@@ -262,6 +266,8 @@ class TracksViewController: NSViewController, NSTableViewDataSource, NSTableView
 
         if let dragRow = rowIndexes.first {
             mp4.moveTrack(at: UInt(dragRow - 1), to: UInt(row - 1))
+            tableView.reloadData()
+            // TODO: Support multiple rows drag
             return true
         }
 
