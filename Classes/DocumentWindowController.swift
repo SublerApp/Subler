@@ -360,22 +360,14 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
     @IBAction func export(_ sender: Any) {
         guard let fileName = doc.fileURL?.deletingPathExtension().lastPathComponent,
             let track = tracksViewController.selectedTracks.first,
-            let windowForSheet = doc.windowForSheet else { return }
-
-        //    if (row != -1 && [[self trackAtAtTableRow:row] isKindOfClass:[MP42SubtitleTrack class]]) {
-        //        panel.allowedFileTypes = @[@"srt"];
-        //        filename = [filename stringByAppendingFormat:@".%@", [self trackAtAtTableRow:row].language];
-        //    }
-        //    else if (row != -1 ) {
-        //        filename = [filename stringByAppendingString:@" - Chapters"];
-        //        panel.allowedFileTypes = @[@"txt"];
-        //    }
+            let windowForSheet = doc.windowForSheet
+        else { return }
 
         let ext = (track as? MP42SubtitleTrack) != nil ? "srt" : "txt"
 
         let panel = NSSavePanel()
         panel.canSelectHiddenExtension = true
-        panel.nameFieldStringValue = "\(fileName).\(ext)"
+        panel.nameFieldStringValue = "\(fileName).\(track.trackId).\(track.language).\(ext)"
 
         panel.beginSheetModal(for: windowForSheet) { (response) in
             if response == NSApplication.ModalResponse.OK, let url = panel.url {

@@ -82,13 +82,13 @@ import IOKit.pwr_mgt
         if UserDefaults.standard.bool(forKey: "chaptersPreviewTrack") {
             options[MP42GenerateChaptersPreviewTrack] = true
             options[MP42ChaptersPreviewPosition] = UserDefaults.standard.float(forKey: "SBChaptersPreviewPosition")
-
         }
 
         if let accessoryViewController = accessoryViewController {
             options[MP4264BitData] = accessoryViewController._64bit_data.state == .on ? true : false
             options[MP4264BitTime] = accessoryViewController._64bit_time.state == .on ? true : false
         }
+
         return options
     }
 
