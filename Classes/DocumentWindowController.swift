@@ -139,22 +139,19 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
 
     // MARK: State restoration
 
+    override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
+        //    [coder encodeInteger:self.tracksTable.selectedRow forKey:@"selectedRow"];
+    }
 
-    //- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
-    //{
-    //    [super encodeRestorableStateWithCoder:coder];
-    //    [coder encodeInteger:self.tracksTable.selectedRow forKey:@"selectedRow"];
-    //}
-    //
-    //- (void)restoreStateWithCoder:(NSCoder *)coder
-    //{
-    //    [super restoreStateWithCoder:coder];
-    //
-    //    NSInteger selectedRow = [coder decodeIntegerForKey:@"selectedRow"];
-    //    if (selectedRow <= self.mp4.tracks.count) {
-    //        [self.tracksTable selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedRow] byExtendingSelection:NO];
-    //    }
-    //}
+    override func restoreState(with coder: NSCoder) {
+        super.restoreState(with: coder)
+
+        //    NSInteger selectedRow = [coder decodeIntegerForKey:@"selectedRow"];
+        //    if (selectedRow <= self.mp4.tracks.count) {
+        //        [self.tracksTable selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedRow] byExtendingSelection:NO];
+        //    }
+    }
 
     // MARK: Tracks controller delegate
 
@@ -288,15 +285,17 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
 
             let handler = { (response: NSApplication.ModalResponse) in
                 if response == NSApplication.ModalResponse.OK, let url = panel.url {
-                    // NSDictionary *attributes = [self saveAttributes];
-                    let item = SBQueueItem(mp4: self.mp4, destinationURL: url, attributes: [:])
+                    let options = self.doc.saveOptions()
+                    let item = SBQueueItem(mp4: self.mp4, destinationURL: url, attributes: options)
                     queue.add(item)
+                    self.doc.releaseSavePanel()
                     self.doc.close()
                 }
             }
 
-            // [self prepareSavePanel:panel];
-            panel.beginSheetModal(for: windowForSheet, completionHandler: handler)
+            if doc.prepareSavePanel(panel) {
+                panel.beginSheetModal(for: windowForSheet, completionHandler: handler)
+            }
         }
     }
 

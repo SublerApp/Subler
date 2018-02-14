@@ -76,7 +76,7 @@ import IOKit.pwr_mgt
     private var optimize: Bool
     private var options: [String : Any]
 
-    private func defaultSaveOptions() -> [String : Any] {
+    func saveOptions() -> [String : Any] {
         var options = [String : Any]()
 
         if UserDefaults.standard.bool(forKey: "chaptersPreviewTrack") {
@@ -120,8 +120,8 @@ import IOKit.pwr_mgt
             docController?.endProgressReporting()
         }
 
-        options = defaultSaveOptions()
-        accessoryViewController = nil
+        options = saveOptions()
+        releaseSavePanel()
 
         docController?.startProgressReporting()
         super.save(to: url, ofType: typeName, for: saveOperation, completionHandler: modifiedCompletionhandler)
@@ -192,6 +192,10 @@ import IOKit.pwr_mgt
         savePanel.accessoryView = accessoryViewController?.view
 
         return true
+    }
+
+    func releaseSavePanel() {
+        accessoryViewController = nil
     }
 
     // MARK: User interface validation
