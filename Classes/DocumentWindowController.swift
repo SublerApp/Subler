@@ -537,7 +537,6 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
         }
     }
 
-
     @objc func showImportSheet(fileURLs: [URL]) {
         do {
             let controller = try FileImportController(fileURLs: fileURLs, delegate: self)

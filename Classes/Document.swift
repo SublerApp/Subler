@@ -11,16 +11,19 @@ import IOKit.pwr_mgt
 @objc(SBDocument) class Document: NSDocument {
 
     var mp4: MP42File
+    var unsupportedMp4Brand: Bool
 
     override init() {
         self.options = [:]
         self.optimize = false
+        self.unsupportedMp4Brand = false
         self.mp4 = MP42File()
     }
 
     @objc init(mp4: MP42File) throws {
         self.options = [:]
         self.optimize = false
+        self.unsupportedMp4Brand = false
         self.mp4 = mp4
         super.init()
 
@@ -35,6 +38,12 @@ import IOKit.pwr_mgt
         let documentWindowController = DocumentWindowController()
         addWindowController(documentWindowController)
         documentWindowController.showWindow(self)
+
+        if let url = fileURL, unsupportedMp4Brand {
+            // We can't edit this file, so ask the user if it wants to import it
+            documentWindowController.showImportSheet(fileURLs: [url])
+            fileURL = nil
+        }
     }
 
     // MARK: Read
@@ -44,7 +53,12 @@ import IOKit.pwr_mgt
     override open var isEntireFileLoaded: Bool { get { return false } }
 
     override func read(from url: URL, ofType typeName: String) throws {
-        mp4 = try MP42File(url: url)
+        do {
+            mp4 = try MP42File(url: url)
+        }
+        catch {
+            unsupportedMp4Brand = true
+        }
     }
 
     override func revert(toContentsOf url: URL, ofType typeName: String) throws {
