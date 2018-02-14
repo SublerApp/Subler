@@ -12,7 +12,7 @@
                 <outlet property="deleteTrack" destination="rhw-S4-nZ8" id="VaB-n8-rPm"/>
                 <outlet property="searchChapters" destination="sa2-7a-h2I" id="qix-LL-OuP"/>
                 <outlet property="searchMetadata" destination="uiq-J2-uPs" id="lv3-UJ-53r"/>
-                <outlet property="sendToQueue" destination="app-IS-8EB" id="z6b-55-tmE"/>
+                <outlet property="sendToQueue" destination="app-IS-8EB" id="jdh-iz-uSq"/>
                 <outlet property="window" destination="s5f-yH-26m" id="YRM-He-gQ6"/>
             </connections>
         </customObject>
@@ -104,6 +104,9 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                         </button>
+                        <connections>
+                            <action selector="sendToQueue:" target="-1" id="rIw-6k-8we"/>
+                        </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="2E3AB086-491A-436E-A610-14E36AEE8F49" label="Action" paletteLabel="Action" image="NSActionTemplate" id="V6w-Ey-bjV">
                         <nil key="toolTip"/>

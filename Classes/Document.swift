@@ -11,7 +11,7 @@ import IOKit.pwr_mgt
 @objc(SBDocument) class Document: NSDocument {
 
     var mp4: MP42File
-    var unsupportedMp4Brand: Bool
+    private var unsupportedMp4Brand: Bool
 
     override init() {
         self.options = [:]
@@ -76,7 +76,7 @@ import IOKit.pwr_mgt
     private var optimize: Bool
     private var options: [String : Any]
 
-    func saveOptions() -> [String : Any] {
+    private func saveOptions() -> [String : Any] {
         var options = [String : Any]()
 
         if UserDefaults.standard.bool(forKey: "chaptersPreviewTrack") {
@@ -103,6 +103,8 @@ import IOKit.pwr_mgt
         let docController = windowControllers.first as? DocumentWindowController
 
         let modifiedCompletionhandler = { (error: Error?) -> Void in
+            docController?.endProgressReporting()
+
             if let error = error {
                 completionHandler(error);
             } else {
@@ -116,8 +118,6 @@ import IOKit.pwr_mgt
                     completionHandler(error)
                 }
             }
-
-            docController?.endProgressReporting()
         }
 
         options = saveOptions()
@@ -158,7 +158,6 @@ import IOKit.pwr_mgt
 
         defer {
             allowSleep()
-            mp4.progressHandler = nil
             optimize = false
             options = [:]
         }
@@ -185,6 +184,8 @@ import IOKit.pwr_mgt
 
     private var accessoryViewController: SaveOptions?
 
+    override var shouldRunSavePanelWithAccessoryView: Bool { return false }
+
     override func prepareSavePanel(_ savePanel: NSSavePanel) -> Bool {
         self.accessoryViewController = SaveOptions(doc: self, savePanel: savePanel)
 
@@ -194,8 +195,38 @@ import IOKit.pwr_mgt
         return true
     }
 
-    func releaseSavePanel() {
+    private func releaseSavePanel() {
         accessoryViewController = nil
+    }
+
+    // MARK: Queue
+    @IBAction func sendToQueue(_ sender: Any) {
+        guard let windowForSheet = windowForSheet else { return }
+
+        let queue = SBQueueController.sharedManager
+        if mp4.hasFileRepresentation {
+            let item = SBQueueItem(mp4: mp4)
+            queue.add(item)
+            close()
+        }
+        else {
+            let panel = NSSavePanel()
+            panel.prompt = NSLocalizedString("Send To Queue", comment: "")
+
+            let handler = { (response: NSApplication.ModalResponse) in
+                if response == NSApplication.ModalResponse.OK, let url = panel.url {
+                    let options = self.saveOptions()
+                    let item = SBQueueItem(mp4: self.mp4, destinationURL: url, attributes: options)
+                    queue.add(item)
+                    self.releaseSavePanel()
+                    self.close()
+                }
+            }
+
+            if prepareSavePanel(panel) {
+                panel.beginSheetModal(for: windowForSheet, completionHandler: handler)
+            }
+        }
     }
 
     // MARK: User interface validation
@@ -206,7 +237,8 @@ import IOKit.pwr_mgt
             return true
         case #selector(save(_:)) where isDocumentEdited == true:
             return true
-        case #selector(saveAs(_:)):
+        case #selector(saveAs(_:)),
+             #selector(sendToQueue(_:)):
             return true
         case #selector(saveAndOptimize(_:)) where isDocumentEdited == false && mp4.hasFileRepresentation == true:
             return true

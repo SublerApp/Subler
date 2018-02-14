@@ -199,7 +199,6 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
              #selector(selectMetadataFile(_:)),
              #selector(searchMetadata(_:)),
              #selector(searchChapters(_:)),
-             #selector(sendToQueue(_:)),
              #selector(addChaptersEvery(_:)),
              #selector(iTunesFriendlyTrackGroups(_:)),
              #selector(clearTrackNames(_:)),
@@ -226,7 +225,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
 
     // MARK: Save status
 
-    var progressController: ProgressViewController?
+    private var progressController: ProgressViewController?
 
     func startProgressReporting() {
         let progressController = ProgressViewController()
@@ -249,6 +248,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
     }
 
     func endProgressReporting() {
+        mp4.progressHandler = nil
         if let progressController = self.progressController {
             contentViewController?.dismissViewController(progressController)
             self.progressController = nil
@@ -267,35 +267,6 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
         let workspace = NSWorkspace.shared
         if let filePath = doc.fileURL?.path, let appPath = workspace.fullPath(forApplication: "iTunes") {
             workspace.openFile(filePath, withApplication: appPath)
-        }
-    }
-
-    @IBAction func sendToQueue(_ sender: Any) {
-        guard let windowForSheet = doc.windowForSheet else { return }
-
-        let queue = SBQueueController.sharedManager
-        if mp4.hasFileRepresentation {
-            let item = SBQueueItem(mp4: mp4)
-            queue.add(item)
-            doc.close()
-        }
-        else {
-            let panel = NSSavePanel()
-            panel.prompt = NSLocalizedString("Send To Queue", comment: "")
-
-            let handler = { (response: NSApplication.ModalResponse) in
-                if response == NSApplication.ModalResponse.OK, let url = panel.url {
-                    let options = self.doc.saveOptions()
-                    let item = SBQueueItem(mp4: self.mp4, destinationURL: url, attributes: options)
-                    queue.add(item)
-                    self.doc.releaseSavePanel()
-                    self.doc.close()
-                }
-            }
-
-            if doc.prepareSavePanel(panel) {
-                panel.beginSheetModal(for: windowForSheet, completionHandler: handler)
-            }
         }
     }
 

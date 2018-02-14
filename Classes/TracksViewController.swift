@@ -258,7 +258,6 @@ class TracksViewController: NSViewController, NSTableViewDataSource, NSTableView
             }
         }
         return []
-
     }
 
     func tableView(_ tableView: NSTableView,

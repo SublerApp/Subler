@@ -47,11 +47,6 @@
 
     debugLogController = [[ActivityWindowController alloc] initWithLogger:logger];
     MP42File.globalLogger = logger;
-    
-    if ([NSUserDefaults.standardUserDefaults boolForKey:@"SBAdditionalDebugInfo"]) {
-        // TODO
-        //SBMetadataHelper.logger = logger;
-    }
 
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SBShowQueueWindow"]) {
         [[SBQueueController sharedManager] showWindow:self];
@@ -280,19 +275,6 @@
         [super openDocumentWithContentsOfURL:url display:displayDocument completionHandler:completionHandler];
     }
 
-}
-
-- (nullable __kindof NSDocument *)documentForURL:(NSURL *)url
-{
-    NSArray<__kindof NSDocument *> *documents = [self.documents copy];
-
-    for (NSDocument *doc in documents) {
-        if ([doc.fileURL isEqualTo:url.filePathURL]) {
-            return doc;
-        }
-    }
-
-    return nil;
 }
 
 @end
