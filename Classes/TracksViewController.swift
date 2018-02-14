@@ -19,7 +19,11 @@ class TracksViewController: NSViewController, NSTableViewDataSource, NSTableView
 
     var mp4: MP42File {
         didSet {
+            let selectedIndexes = tracksTable.selectedRowIndexes
             reloadData()
+            if let max = selectedIndexes.max(), mp4.tracks.count >= max {
+                tracksTable.selectRowIndexes(selectedIndexes, byExtendingSelection: false)
+            }
         }
     }
 
