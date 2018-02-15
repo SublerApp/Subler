@@ -7,7 +7,7 @@
 
 import Cocoa
 
-extension NSPasteboard.PasteboardType {
+private extension NSPasteboard.PasteboardType {
 
     static let backwardsCompatibleFileURL: NSPasteboard.PasteboardType = {
         if #available(OSX 10.13, *) {
@@ -244,7 +244,6 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
         if let progressController = self.progressController {
             progressController.progressString.stringValue = title
         }
-
     }
 
     func endProgressReporting() {
