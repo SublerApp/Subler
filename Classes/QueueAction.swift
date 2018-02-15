@@ -13,6 +13,27 @@ import Foundation
 //    @objc var localizedDescription: String { get }
 //}
 
+/// An action to remove existing metadata.
+@objc(SBQueueClearExistingMetadataAction) class QueueClearExistingMetadataAction: NSObject, SBQueueActionProtocol {
+
+    var localizedDescription: String { return NSLocalizedString("Clearing Metadata", comment: "Action localized description.") }
+    override var description: String { return NSLocalizedString("Clear Metadata", comment: "Action description.") }
+
+    @objc override init() {}
+
+    func runAction(_ item: SBQueueItem) {
+        if let metadata = item.mp4File?.metadata {
+            let dataTypes: UInt = MP42MetadataItemDataType.string.rawValue | MP42MetadataItemDataType.stringArray.rawValue | MP42MetadataItemDataType.bool.rawValue | MP42MetadataItemDataType.integer.rawValue | MP42MetadataItemDataType.integerArray.rawValue | MP42MetadataItemDataType.date.rawValue | MP42MetadataItemDataType.image.rawValue
+
+            metadata.removeItems(metadata.metadataItemsFiltered(by: MP42MetadataItemDataType(rawValue: dataTypes)))
+        }
+    }
+
+    func encode(with aCoder: NSCoder) {}
+    required init?(coder aDecoder: NSCoder) {}
+    static var supportsSecureCoding: Bool { return true }
+}
+
 /// An action that set a formatted file name.
 @objc(SBQueueSetOutputFilenameAction) class QueueSetOutputFilenameAction: NSObject, SBQueueActionProtocol {
 

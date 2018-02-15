@@ -252,6 +252,10 @@ static void *SBQueueContex = &SBQueueContex;
 - (SBQueueItem *)createItemWithURL:(NSURL *)url {
     SBQueueItem *item = [SBQueueItem itemWithURL:url];
 
+    if ([self.options[SBQueueClearExistingMetadata] boolValue]) {
+        [item addAction:[[SBQueueClearExistingMetadataAction alloc] init]];
+    }
+
     if ([(self.options)[SBQueueMetadata] boolValue]) {
         [item addAction:[[SBQueueMetadataAction alloc] initWithMovieLanguage:self.options[SBQueueMovieProviderLanguage]
                                                               tvShowLanguage:self.options[SBQueueTVShowProviderLanguage]
