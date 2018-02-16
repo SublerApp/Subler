@@ -57,6 +57,7 @@ NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
 static NSArray<NSArray *> *_contentRatings;
 static NSArray<NSArray *> *_hdVideo;
 static NSArray<NSArray *> *_mediaKinds;
+static NSDateFormatter *_formatter;
 
 + (void)initialize
 {
@@ -67,6 +68,10 @@ static NSArray<NSArray *> *_mediaKinds;
                         @[NSLocalizedString(@"Booklet", nil), @11], @[NSLocalizedString(@"Ringtone", nil), @14], @[NSLocalizedString(@"Podcast", nil), @21],
                         @[NSLocalizedString(@"iTunes U", nil), @23], @[NSLocalizedString(@"Alert Tone", nil), @27]];
         _hdVideo = @[@[NSLocalizedString(@"No", nil), @0], @[NSLocalizedString(@"720p", nil), @1], @[NSLocalizedString(@"1080p", nil), @2]];
+
+        _formatter = [[NSDateFormatter alloc] init];
+        _formatter.dateFormat = @"yyyy-MM-dd";
+        _formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
     }
 }
 
@@ -537,9 +542,14 @@ static NSArray<NSArray *> *_mediaKinds;
                 }
             }
             case MP42MetadataItemDataTypeIntegerArray:
-            case MP42MetadataItemDataTypeDate:
                 cell = [self textCellWithString:item.stringValue tableView:tableView];
                 break;
+            case MP42MetadataItemDataTypeDate:
+            {
+                NSString *formatterDate = [_formatter stringFromDate:item.dateValue];
+                cell = [self textCellWithString:formatterDate tableView:tableView];
+                break;
+            }
             case MP42MetadataItemDataTypeBool:
                 cell = [self boolCellWithState:item.numberValue.boolValue tableView:tableView];
                 break;
@@ -583,12 +593,23 @@ static NSArray<NSArray *> *_mediaKinds;
     if (row == -1) { return; };
 
     MP42MetadataItem *item = self.tags[row];
+    MP42MetadataItemDataType type = item.dataType;
+
     if ([sender.stringValue isEqualToString:item.stringValue]) { return; }
 
     id value;
     switch (item.dataType) {
         case MP42MetadataItemDataTypeString:
-            value = sender.stringValue;
+            if ([item.identifier isEqualToString:MP42MetadataKeyReleaseDate]) {
+                value = [_formatter dateFromString:sender.stringValue];
+                if (value) {
+                    type = MP42MetadataItemDataTypeDate;
+                } else {
+                    value = sender.stringValue;
+                }
+            } else {
+                value = sender.stringValue;
+            }
             break;
         case MP42MetadataItemDataTypeStringArray:
             value = [self stringsArrayFromString:sender.stringValue];
@@ -600,7 +621,11 @@ static NSArray<NSArray *> *_mediaKinds;
             value = [self numbersArrayFromString:sender.stringValue];
             break;
         case MP42MetadataItemDataTypeDate:
-            value = [NSDate dateWithString:sender.stringValue];
+            value = [_formatter dateFromString:sender.stringValue];
+            if (!value) {
+                value = sender.stringValue;
+                type = MP42MetadataItemDataTypeString;
+            }
             break;
         case MP42MetadataItemDataTypeBool:
             value = @((BOOL)sender.integerValue);
@@ -612,7 +637,7 @@ static NSArray<NSArray *> *_mediaKinds;
 
     MP42MetadataItem *editedItem = [MP42MetadataItem metadataItemWithIdentifier:item.identifier
                                                                           value:value
-                                                                       dataType:item.dataType
+                                                                       dataType:type
                                                             extendedLanguageTag:item.extendedLanguageTag];
     [self replaceMetadataItem:item withItem:editedItem];
 }
