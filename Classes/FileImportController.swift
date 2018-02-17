@@ -193,7 +193,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
 
         self.metadata = fileImporters.first?.metadata
         self.items = rows
-        self.importMetadata = metadata != nil
+        self.importMetadata = metadata != nil && UserDefaults.standard.bool(forKey: "SBFileImporterImportMetadata")
         
         super.init(window: nil)
     }
@@ -205,7 +205,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     override func windowDidLoad() {
         super.windowDidLoad()
         
-        self.importMetadataCheckbox.isEnabled = importMetadata
+        self.importMetadataCheckbox.isEnabled = metadata != nil
         self.importMetadataCheckbox.state = UserDefaults.standard.bool(forKey: "SBFileImporterImportMetadata") ? .on : .off
     }
 
