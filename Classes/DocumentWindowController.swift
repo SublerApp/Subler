@@ -50,6 +50,9 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
 
         sendToQueue.image = NSImage(named: NSImage.Name(rawValue: "NSShareTemplate"));
 
+        window.contentViewController = splitViewController
+        window.registerForDraggedTypes([NSPasteboard.PasteboardType.backwardsCompatibleFileURL])
+
         if UserDefaults.standard.bool(forKey: "rememberWindowSize") {
             window.setFrameAutosaveName(NSWindow.FrameAutosaveName(rawValue: "documentSave"))
             window.setFrameFrom("documentSave")
