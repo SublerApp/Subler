@@ -45,6 +45,10 @@ class SoundViewController : NSViewController {
 
         mediaTagsView.addSubview(mediaTagsController.view)
 
+        reloadUI()
+    }
+
+    private func reloadUI() {
         // Standard audio controls
         volume.floatValue = track.volume * 100
         alternateGroup.selectItem(at: Int(track.alternateGroup))
@@ -59,8 +63,8 @@ class SoundViewController : NSViewController {
                 if isAAC(track: audioTrack) {
                     let trackID = audioTrack.trackId > 0 ? String(audioTrack.trackId) : "na"
                     let item = NSMenuItem(title: "\(trackID) - \(audioTrack.name) - \(langs.localizedLang(forExtendedTag: audioTrack.language))",
-                                          action: #selector(seTracktFallback(_:)),
-                                          keyEquivalent: "")
+                        action: #selector(seTrackFallback(_:)),
+                        keyEquivalent: "")
                     item.target = self
                     item.representedObject = audioTrack
                     fallbacksPopUp.menu?.addItem(item)
@@ -79,8 +83,8 @@ class SoundViewController : NSViewController {
             for subTrack in subtitlesTracks {
                 let trackID = subTrack.trackId > 0 ? String(subTrack.trackId) : "na"
                 let item = NSMenuItem(title: "\(trackID) - \(subTrack.name) - \(langs.localizedLang(forExtendedTag: subTrack.language))",
-                                      action: #selector(setTrackFollows(_:)),
-                                      keyEquivalent: "")
+                    action: #selector(setTrackFollows(_:)),
+                    keyEquivalent: "")
                 item.target = self
                 item.representedObject = subTrack
                 followsPopUp.menu?.addItem(item)
@@ -112,7 +116,7 @@ class SoundViewController : NSViewController {
         }
     }
 
-    @IBAction func seTracktFallback(_ sender: NSMenuItem) {
+    @IBAction func seTrackFallback(_ sender: NSMenuItem) {
         if let newFallbackTrack = sender.representedObject as? MP42AudioTrack {
             if newFallbackTrack != track.fallbackTrack {
                 track.fallbackTrack = newFallbackTrack

@@ -14,7 +14,10 @@ class MultiSelectViewController : NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        reloadUI()
+    }
 
+    func reloadUI() {
         if numberOfTracks == 1 {
             label.stringValue = NSLocalizedString("1 track selected", comment: "")
         } else {

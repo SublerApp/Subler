@@ -11,7 +11,6 @@
 		61CEC0CE1E7569E4000FECC1 /* MultiSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61CEC0CC1E7569E4000FECC1 /* MultiSelectView.xib */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
-		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		A90057B61F99DE2700FA4ED1 /* ComboBoxCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90057B51F99DE2700FA4ED1 /* ComboBoxCellView.swift */; };
 		A90057BC1F99E20B00FA4ED1 /* CheckBoxCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90057BB1F99E20B00FA4ED1 /* CheckBoxCellView.swift */; };
@@ -59,6 +58,7 @@
 		A984DB530F52D679001A20B2 /* Sparkle.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A984DB4A0F52D644001A20B2 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A984DB730F52DD4B001A20B2 /* dsa_pub.pem */; };
 		A9859ACE1F4B43CC00022828 /* QueuePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9859ACD1F4B43CC00022828 /* QueuePreset.swift */; };
+		A98D44102036F661005CB092 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98D440F2036F661005CB092 /* AppDelegate.swift */; };
 		A98D98461F0280CB00A77ABC /* TheMovieDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98D98451F0280CB00A77ABC /* TheMovieDB.swift */; };
 		A98D98481F02820F00A77ABC /* TheMovieDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98D98471F02820F00A77ABC /* TheMovieDBService.swift */; };
 		A9915ABF1F4B26CF003C57D1 /* MetadataPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9915ABE1F4B26CF003C57D1 /* MetadataPreset.swift */; };
@@ -74,7 +74,6 @@
 		A9A77C4E1F306FA70018023B /* AttributedStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A77C4D1F306FA70018023B /* AttributedStyles.swift */; };
 		A9A8CEF91E43754400BC2AE1 /* SBQueueScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CEF81E43754400BC2AE1 /* SBQueueScriptCommand.m */; };
 		A9A91B5D1FB6FBB700250D93 /* ChapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */; };
-		A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */; };
 		A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */; };
 		A9AB485817F0AEAC000AA72E /* SBVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */; };
 		A9AB486417F0AEFD000AA72E /* ChapterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB485A17F0AEFD000AA72E /* ChapterView.xib */; };
@@ -185,11 +184,9 @@
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FBA07B3F13500E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
-		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		32DBCF750370BD2300C91783 /* Subler_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subler_Prefix.pch; sourceTree = "<group>"; };
 		610362271E76D66A000DAE60 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/MultiSelectView.strings; sourceTree = "<group>"; };
 		61CEC0CD1E7569E4000FECC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/MultiSelectView.xib; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -259,6 +256,7 @@
 		A984DB4A0F52D644001A20B2 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		A984DB730F52DD4B001A20B2 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		A9859ACD1F4B43CC00022828 /* QueuePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueuePreset.swift; path = Classes/QueuePreset.swift; sourceTree = "<group>"; };
+		A98D440F2036F661005CB092 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Classes/AppDelegate.swift; sourceTree = "<group>"; };
 		A98D98451F0280CB00A77ABC /* TheMovieDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheMovieDB.swift; path = Classes/MetadataImporters/TheMovieDB.swift; sourceTree = "<group>"; };
 		A98D98471F02820F00A77ABC /* TheMovieDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheMovieDBService.swift; path = Classes/MetadataImporters/TheMovieDBService.swift; sourceTree = "<group>"; };
 		A991319913F0615700DCAA12 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -276,8 +274,6 @@
 		A9A8CEF71E43754400BC2AE1 /* SBQueueScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueScriptCommand.h; path = Classes/SBQueueScriptCommand.h; sourceTree = "<group>"; };
 		A9A8CEF81E43754400BC2AE1 /* SBQueueScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueScriptCommand.m; path = Classes/SBQueueScriptCommand.m; sourceTree = "<group>"; };
 		A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterViewController.swift; path = Classes/PropertyView/ChapterViewController.swift; sourceTree = "<group>"; };
-		A9AB484717F0AEA2000AA72E /* SBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBAppDelegate.h; path = Classes/SBAppDelegate.h; sourceTree = "<group>"; };
-		A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBAppDelegate.m; path = Classes/SBAppDelegate.m; sourceTree = "<group>"; };
 		A9AB484E17F0AEAC000AA72E /* SBMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMovieViewController.h; path = Classes/PropertyView/SBMovieViewController.h; sourceTree = "<group>"; };
 		A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMovieViewController.m; path = Classes/PropertyView/SBMovieViewController.m; sourceTree = "<group>"; };
 		A9AB485217F0AEAC000AA72E /* SBVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBVideoViewController.h; path = Classes/PropertyView/SBVideoViewController.h; sourceTree = "<group>"; };
@@ -436,8 +432,7 @@
 				A9AF6A7818D0537F00FAAB08 /* Queue */,
 				A9915ABB1F4B26A5003C57D1 /* Presets */,
 				A9395E341F8B9ACA004C402B /* MP42FileAdditions.swift */,
-				A9AB484717F0AEA2000AA72E /* SBAppDelegate.h */,
-				A9AB484817F0AEA2000AA72E /* SBAppDelegate.m */,
+				A98D440F2036F661005CB092 /* AppDelegate.swift */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
 				A947218D1D49D9F700858DD8 /* Preferences */,
 				CD71FF1A12F1C46900F0A98D /* MetadataImporters */,
@@ -452,10 +447,8 @@
 				A9F804591FB6F4FD0069FF43 /* ImageBrowserView.swift */,
 				A909440E1DD4C85B00E9F89C /* Table View */,
 				A9FC6FF41EF2E3280034CCED /* Subler-Bridging-Header.h */,
-				32DBCF750370BD2300C91783 /* Subler_Prefix.pch */,
 				A9A77C4D1F306FA70018023B /* AttributedStyles.swift */,
 				A956CE681F99E93D00093992 /* ButtonToolbarItem.swift */,
-				2A37F4B0FDCFA73011CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -850,7 +843,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A959001A202AF21800FD8F23 /* ProgressViewController.swift in Sources */,
-				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				A9676A341FB6EAAD00C1E300 /* ItemViewController.swift in Sources */,
 				A90C3E0C1FD16AF200F64532 /* TokensViewController.swift in Sources */,
 				A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */,
@@ -866,7 +858,6 @@
 				A9915AC31F4B293B003C57D1 /* PresetManager.swift in Sources */,
 				A90BC5E31F3A139700F9F3F3 /* MetadataResult.swift in Sources */,
 				A99189CD1F2F87EC00623ED7 /* ChapterImporter.swift in Sources */,
-				A9AB484917F0AEA2000AA72E /* SBAppDelegate.m in Sources */,
 				A99D23212029CD32002E7F27 /* PrefsWindow.swift in Sources */,
 				A9915ABF1F4B26CF003C57D1 /* MetadataPreset.swift in Sources */,
 				A956C1E4202F1B170050C5E2 /* Document.swift in Sources */,
@@ -891,6 +882,7 @@
 				A956CE6B1F99EAAD00093992 /* Logger.swift in Sources */,
 				A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */,
 				A956CE691F99E93D00093992 /* ButtonToolbarItem.swift in Sources */,
+				A98D44102036F661005CB092 /* AppDelegate.swift in Sources */,
 				A9C31E572029A75F00CEF474 /* GeneralPrefsViewController.swift in Sources */,
 				A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */,
 				A9B1056E2025D9B9009E91FC /* TracksViewController.swift in Sources */,
@@ -1354,7 +1346,6 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Subler_Prefix.pch;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1384,7 +1375,6 @@
 				);
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Subler_Prefix.pch;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1393,6 +1383,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.galad.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Subler;
 				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = "Subler-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
@@ -1527,6 +1518,7 @@
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				RUN_CLANG_STATIC_ANALYZER = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
 				USER_HEADER_SEARCH_PATHS = "";

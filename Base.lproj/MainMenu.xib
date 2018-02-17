@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14092" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14087.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14092"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -492,7 +492,7 @@
             <point key="canvasLocation" x="-244" y="-303"/>
         </menu>
         <customObject id="419" customClass="NSFontManager"/>
-        <customObject id="449" userLabel="AppDelegate" customClass="SBAppDelegate"/>
+        <customObject id="449" userLabel="AppDelegate" customClass="AppDelegate" customModule="Subler" customModuleProvider="target"/>
         <customObject id="530" customClass="SUUpdater"/>
     </objects>
 </document>

@@ -6,9 +6,6 @@
 //  Copyright 2009 Damiano Galassi. All rights reserved.
 //
 
-NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
-NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
-
 #import "SBMovieViewController.h"
 
 #import <MP42Foundation/MP42Ratings.h>
@@ -17,6 +14,9 @@ NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
 #import <MP42Foundation/NSString+MP42Additions.h>
 
 #import "Subler-Swift.h"
+
+NSString *SublerMetadataPBoardType = @"SublerMetadataPBoardTypeV2";
+NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
 
 @interface SBMovieViewController () <NSTableViewDataSource, ExpandedTableViewDelegate, SBImageBrowserViewDelegate>
 

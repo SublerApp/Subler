@@ -55,9 +55,6 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
             window.setFrameFrom("documentSave")
         }
 
-        window.contentViewController = splitViewController
-        window.registerForDraggedTypes([NSPasteboard.PasteboardType.backwardsCompatibleFileURL])
-
         didSelect(tracks: [])
     }
 
@@ -498,7 +495,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
         }
     }
 
-    @objc func showImportSheet(fileURLs: [URL]) {
+    func showImportSheet(fileURLs: [URL]) {
         do {
             let controller = try FileImportController(fileURLs: fileURLs, delegate: self)
 

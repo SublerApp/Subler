@@ -11,10 +11,10 @@ class Logger : NSObject, MP42Logging {
 
     var delegate: MP42Logging?
 
-    let fileURL: URL
-    let queue: DispatchQueue
+    private let fileURL: URL
+    private let queue: DispatchQueue
 
-    @objc init(fileURL: URL) {
+    init(fileURL: URL) {
         self.fileURL = fileURL
         self.queue = DispatchQueue(label: "org.subler.LogQueue")
     }
@@ -50,7 +50,7 @@ class Logger : NSObject, MP42Logging {
         write(toLog: error.localizedDescription)
     }
 
-    @objc func clear() {
+    func clear() {
         try? FileManager.default.removeItem(at: fileURL)
     }
 

@@ -12,7 +12,7 @@ class ActivityWindowController : NSWindowController, MP42Logging {
     @IBOutlet var logView: NSTextView!
     let logger: Logger
 
-    @objc init(logger: Logger) {
+    init(logger: Logger) {
         self.logger = logger
         super.init(window: nil)
         self.logger.delegate = self

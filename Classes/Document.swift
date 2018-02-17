@@ -10,7 +10,7 @@ import IOKit.pwr_mgt
 
 @objc(SBDocument) class Document: NSDocument {
 
-    var mp4: MP42File
+    private(set) var mp4: MP42File
     private var unsupportedMp4Brand: Bool
 
     override init() {

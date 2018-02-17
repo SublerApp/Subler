@@ -166,7 +166,7 @@ extension PresetManager.Error: LocalizedError {
         preset.changed = false
     }
 
-    @objc func save() throws {
+    func save() throws {
         let manager = FileManager.default
         guard let url = appSupportURL() else { return }
 
