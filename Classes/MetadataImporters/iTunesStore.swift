@@ -291,13 +291,15 @@ public struct iTunesStore: MetadataService {
         if let seasonNum = seasonNum {
             if let results = sendJSONRequest(url: url, type: Wrapper<Collection>.self)?.results, results.isEmpty == false {
 
-                let sortedResults = results.sorted(by: { (c1, c2) -> Bool in
+                let filteredResults = results.filter { $0.collectionName.count > 0 }
+
+                let sortedResults = filteredResults.sorted(by: { (c1, c2) -> Bool in
                     return c1.collectionName.minimumEditDistance(other: seriesName) > c2.collectionName.minimumEditDistance(other: seriesName) ? false : true
                 })
 
                 let ids = sortedResults.compactMap { extractID(result: $0, show: seriesName, season: seasonNum, store: store) }
-                if ids.isEmpty && sortedResults.first!.collectionName.minimumEditDistance(other: seriesName) < 30 {
-                    return [sortedResults.first!.collectionId]
+                if ids.isEmpty, let first = sortedResults.first, first.collectionName.minimumEditDistance(other: seriesName) < 30 {
+                    return [first.collectionId]
                 } else {
                     return ids
                 }
@@ -306,13 +308,15 @@ public struct iTunesStore: MetadataService {
         else {
             if let results = sendJSONRequest(url: url, type: Wrapper<Artist>.self)?.results, results.isEmpty == false {
 
-                let sortedResults = results.sorted(by: { (a1, a2) -> Bool in
+                let filteredResults = results.filter { $0.artistName.count > 0 }
+
+                let sortedResults = filteredResults.sorted(by: { (a1, a2) -> Bool in
                     return a1.artistName.minimumEditDistance(other: seriesName) > a2.artistName.minimumEditDistance(other: seriesName) ? false : true
                 })
 
                 let ids = sortedResults.compactMap { extractID(result: $0, show: seriesName, store: store) }
-                if ids.isEmpty && sortedResults.first!.artistName.minimumEditDistance(other: seriesName) < 30 {
-                    return [sortedResults.first!.artistId]
+                if ids.isEmpty, let first = sortedResults.first, first.artistName.minimumEditDistance(other: seriesName) < 30 {
+                    return [first.artistId]
                 } else {
                     return ids
                 }
