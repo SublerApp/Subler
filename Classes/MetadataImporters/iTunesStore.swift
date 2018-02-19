@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 private extension String {
 
     // All content is licensed under the terms of the MIT open source license.
