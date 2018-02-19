@@ -142,15 +142,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         logger.clear()
         MP42File.setGlobalLogger(logger)
-    }
 
-    func applicationDidFinishLaunching(_ notification: Notification) {
         _ = SBQueueController.sharedManager
 
         if UserDefaults.standard.bool(forKey: "SBShowQueueWindow") {
             SBQueueController.sharedManager.showWindow(self)
         }
+    }
 
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        runDonateAlert()
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
