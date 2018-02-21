@@ -289,14 +289,14 @@ public struct iTunesStore: MetadataService {
         if let seasonNum = seasonNum {
             if let results = sendJSONRequest(url: url, type: Wrapper<Collection>.self)?.results, results.isEmpty == false {
 
-                let filteredResults = results.filter { $0.collectionName.count > 0 }
+                let filteredResults = results.filter { $0.collectionName.isEmpty == false }
 
                 let sortedResults = filteredResults.sorted(by: { (c1, c2) -> Bool in
                     return c1.collectionName.minimumEditDistance(other: seriesName) > c2.collectionName.minimumEditDistance(other: seriesName) ? false : true
                 })
 
                 let ids = sortedResults.compactMap { extractID(result: $0, show: seriesName, season: seasonNum, store: store) }
-                if ids.isEmpty, let first = sortedResults.first, first.collectionName.minimumEditDistance(other: seriesName) < 30 {
+                if ids.isEmpty, let first = sortedResults.first, first.collectionName.isEmpty == false, first.collectionName.minimumEditDistance(other: seriesName) < 30 {
                     return [first.collectionId]
                 } else {
                     return ids
@@ -306,14 +306,14 @@ public struct iTunesStore: MetadataService {
         else {
             if let results = sendJSONRequest(url: url, type: Wrapper<Artist>.self)?.results, results.isEmpty == false {
 
-                let filteredResults = results.filter { $0.artistName.count > 0 }
+                let filteredResults = results.filter { $0.artistName.isEmpty == false }
 
                 let sortedResults = filteredResults.sorted(by: { (a1, a2) -> Bool in
                     return a1.artistName.minimumEditDistance(other: seriesName) > a2.artistName.minimumEditDistance(other: seriesName) ? false : true
                 })
 
                 let ids = sortedResults.compactMap { extractID(result: $0, show: seriesName, store: store) }
-                if ids.isEmpty, let first = sortedResults.first, first.artistName.minimumEditDistance(other: seriesName) < 30 {
+                if ids.isEmpty, let first = sortedResults.first, first.artistName.isEmpty == false, first.artistName.minimumEditDistance(other: seriesName) < 30 {
                     return [first.artistId]
                 } else {
                     return ids
@@ -325,7 +325,7 @@ public struct iTunesStore: MetadataService {
     }
 
     public func search(tvShow: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
-        guard let store = iTunesStore.store(language: language) else { return [] }
+        guard tvShow.count > 0, let store = iTunesStore.store(language: language) else { return [] }
 
         // Determine artistId/collectionId
         let ids = { () -> [Int] in
