@@ -158,6 +158,7 @@ class TracksViewController: NSViewController, NSTableViewDataSource, NSTableView
             case trackNameColumn?:
                 let cell = tableView.makeView(withIdentifier: trackNameColumn, owner:self) as? NSTableCellView
                 cell?.textField?.stringValue = track.name
+                cell?.textField?.isEditable = true
                 return cell
 
             case trackDurationColumn?:
@@ -203,6 +204,7 @@ class TracksViewController: NSViewController, NSTableViewDataSource, NSTableView
             case trackNameColumn?:
                 let cell = tableView.makeView(withIdentifier: trackNameColumn, owner:self) as? NSTableCellView
                 cell?.textField?.stringValue = NSLocalizedString("Metadata", comment: "")
+                cell?.textField?.isEditable = false
                 return cell
 
             case trackDurationColumn?:

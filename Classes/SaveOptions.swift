@@ -14,12 +14,13 @@ class SaveOptions: NSViewController {
     @IBOutlet var _64bit_data: NSButton!
     @IBOutlet var _64bit_time: NSButton!
 
-    private let doc: Document
-    private let savePanel: NSSavePanel
+    private weak var doc: Document?
+    private weak var savePanel: NSSavePanel?
 
     init(doc: Document, savePanel: NSSavePanel) {
         self.doc = doc
         self.savePanel = savePanel
+        print("lele")
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -27,8 +28,14 @@ class SaveOptions: NSViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        print("lala")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        guard let doc = doc else { return }
 
         let formats = doc.writableTypes(for: .saveAsOperation)
         fileFormat.removeAllItems()
@@ -42,11 +49,11 @@ class SaveOptions: NSViewController {
         fileFormat.selectItem(at: index)
 
         if let format = UserDefaults.standard.string(forKey: "SBSaveFormat") {
-            savePanel.allowedFileTypes = [format]
+            savePanel?.allowedFileTypes = [format]
         }
 
         if let filename = doc.mp4.preferredFileName() {
-            savePanel.nameFieldStringValue = filename
+            savePanel?.nameFieldStringValue = filename
         }
 
         _64bit_data.state = UserDefaults.standard.bool(forKey: "mp464bitOffset") ? .on : .off
@@ -81,7 +88,7 @@ class SaveOptions: NSViewController {
         default:
             break
         }
-        savePanel.allowedFileTypes = [requiredFileType]
+        savePanel?.allowedFileTypes = [requiredFileType]
         UserDefaults.standard.set(requiredFileType, forKey: "SBSaveFormat")
     }
 }

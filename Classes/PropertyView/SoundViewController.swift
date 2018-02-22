@@ -63,7 +63,7 @@ class SoundViewController : NSViewController {
                 if isAAC(track: audioTrack) {
                     let trackID = audioTrack.trackId > 0 ? String(audioTrack.trackId) : "na"
                     let item = NSMenuItem(title: "\(trackID) - \(audioTrack.name) - \(langs.localizedLang(forExtendedTag: audioTrack.language))",
-                        action: #selector(seTrackFallback(_:)),
+                        action: #selector(setTrackFallback(_:)),
                         keyEquivalent: "")
                     item.target = self
                     item.representedObject = audioTrack
@@ -116,7 +116,7 @@ class SoundViewController : NSViewController {
         }
     }
 
-    @IBAction func seTrackFallback(_ sender: NSMenuItem) {
+    @IBAction func setTrackFallback(_ sender: NSMenuItem) {
         if let newFallbackTrack = sender.representedObject as? MP42AudioTrack {
             if newFallbackTrack != track.fallbackTrack {
                 track.fallbackTrack = newFallbackTrack
