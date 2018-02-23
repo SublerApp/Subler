@@ -8,9 +8,6 @@
 "%lu tracks selected" = "%lu tracce selezionate";
 
 /* No comment provided by engineer. */
-"-NA-" = "-ND-";
-
-/* No comment provided by engineer. */
 "1 item in queue" = "1 elemento in coda";
 
 /* No comment provided by engineer. */
@@ -21,6 +18,9 @@
 
 /* Queue -> redo add item. */
 "Add Queue Item" = "Aggiungi elemento alla coda";
+
+/* No comment provided by engineer. */
+"Advanced" = "Avanzate";
 
 /* No comment provided by engineer. */
 "Alert Tone" = "Tono di Allarme";
@@ -56,9 +56,15 @@
 "Clean" = "Pulito";
 
 /* Action description. */
+"Clear Metadata" = "Cancella Metadata";
+
+/* Action description */
 "Clear tracks names" = "Cancella i nomi delle tracce";
 
 /* Action localized description. */
+"Clearing Metadata" = "Cancello Metadata";
+
+/* Action localized description */
 "Clearing tracks names" = "Cancello i nomi delle tracce";
 
 /* No comment provided by engineer. */
@@ -98,11 +104,11 @@
 /* No comment provided by engineer. */
 "Disk #" = "# disco";
 
-/* Quit alert cancel action. */
-"Don't Quit" = "Non uscire";
-
 /* Donation -> button */
 "Don't ask me about this again for this version." = "Non chiedermelo di nuovo per questa versione.";
+
+/* Quit alert cancel action. */
+"Don't Quit" = "Non uscire";
 
 /* Donation -> button */
 "Donate" = "Dona";
@@ -111,10 +117,10 @@
 "Done" = "Fatto";
 
 /* No comment provided by engineer. */
-"Downloading additional TV metadata…" = "Scarico ulteriori metadata per la serie TV…";
+"Downloading additional movie metadata" = "Scarico ulteriori metadata per il film…";
 
 /* No comment provided by engineer. */
-"Downloading additional movie metadata" = "Scarico ulteriori metadata per il film…";
+"Downloading additional TV metadata…" = "Scarico ulteriori metadata per la serie TV…";
 
 /* No comment provided by engineer. */
 "Downloading artwork…" = "Scarico illustrazione…";
@@ -153,6 +159,9 @@
 "Fixing Fallbacks" = "Correggo ricadute";
 
 /* No comment provided by engineer. */
+"General" = "Generali";
+
+/* No comment provided by engineer. */
 "Genre" = "Genere";
 
 /* Implicit color profile */
@@ -161,6 +170,12 @@
 /* Undo cover art insert.
    Undo tag insert. */
 "Insert" = "Inserisci";
+
+/* No comment provided by engineer. */
+"iTunes Country" = "Stato iTunes";
+
+/* No comment provided by engineer. */
+"iTunes URL" = "URL iTunes";
 
 /* Media characteristic. */
 "Language Translation" = "Traduzione della lingua";
@@ -177,6 +192,9 @@
 /* Media characteristic. */
 "Main Program Content" = "Contenuto principale";
 
+/* No comment provided by engineer. */
+"Metadata" = "Metadata";
+
 /* Undo cover art delete */
 "Move" = "Muovi";
 
@@ -190,6 +208,9 @@
 "Music Video" = "Video Musicale";
 
 /* No comment provided by engineer. */
+"na" = "nd";
+
+/* No comment provided by engineer. */
 "Name" = "Nome";
 
 /* No comment provided by engineer. */
@@ -200,6 +221,9 @@
 
 /* Donation -> button */
 "Nope" = "No";
+
+/* Export alert panel -> button */
+"OK" = "OK";
 
 /* No comment provided by engineer. */
 "Optimizing" = "Ottimizzo";
@@ -237,9 +261,6 @@
 /* Set menu */
 "Save Set" = "Salva preset";
 
-/* Document Saving sheet. */
-"Saving…" = "Salvo…";
-
 /* No comment provided by engineer. */
 "Screenwriters" = "Sceneggiatori";
 
@@ -247,10 +268,10 @@
 "Search Metadata" = "Cerca Metadata";
 
 /* No comment provided by engineer. */
-"Searching %@ for episode information…" = "Cerco informazioni dell'episodio con %@…";
+"Searching %@ for episode information…" = "Cerco informazioni per l'episodio su %@…";
 
 /* No comment provided by engineer. */
-"Searching %@ for movie information…" = "Cerco informazioni del film com %@…";
+"Searching %@ for movie information…" = "Cerco informazioni per il film su %@…";
 
 /* ChapterDB */
 "Searching for chapter information…" = "Cerco le informazioni sui capitoli…";
@@ -268,7 +289,7 @@
 "Select" = "Seleziona";
 
 /* No comment provided by engineer. */
-"Send To Queue" = "Metti in coda";
+"Send To Queue" = "Aggiungi alla coda";
 
 /* No comment provided by engineer. */
 "Series Description" = "Descrizione serie";
@@ -282,11 +303,20 @@
 /* Set track color space action description */
 "Set color space" = "Imposta spazio di colore";
 
+/* Action description. */
+"Set Name" = "Imposta nome file";
+
 /* Set Language action description */
 "Set tracks language" = "Imposta la lingua delle tracce";
 
+/* No comment provided by engineer. */
+"Sets" = "Preset";
+
 /* Set track color space action local description */
 "Setting color space" = "Imposto spazio di colore";
+
+/* Action localized description. */
+"Setting Name" = "Imposto nome";
 
 /* Set Language action local description */
 "Setting tracks language" = "Imposto la lingua delle tracce";
@@ -297,11 +327,8 @@
 /* Donation -> title */
 "Support Subler" = "Sostieni Subler";
 
-/* Set menu TV Show Set */
-"TV Show" = "Serie TV";
-
 /* Export alert panel -> message */
-"There was a problem creating the file \"%@\"." = "C'è stato in problema nella creazione del file \"%@\".";
+"There was a problem creating the file " = "C'è stato in problema nella creazione del file";
 
 /* No comment provided by engineer. */
 "Track #" = "# traccia";
@@ -309,8 +336,11 @@
 /* Media characteristic. */
 "Transcribes Spoken Dialog For Accessibility" = "Trascrive i dialoghi parlati per l'accessibilità";
 
+/* Set menu TV Show Set */
+"TV Show" = "Serie TV";
+
 /* No comment provided by engineer. */
-"Unknown" = "Sconosciuto";
+"Unknown" = "Sconosciuta";
 
 /* Media characteristic. */
 "Voice Over Translation" = "Traduzione della voce fuori campo";
@@ -323,13 +353,4 @@
 
 /* Quit alert description. */
 "Your current queue will be lost. Do you want to quit anyway?" = "La tua coda corrente verrà persa. Vuoi uscire comunque?";
-
-/* No comment provided by engineer. */
-"iTunes Country" = "Stato iTunes";
-
-/* No comment provided by engineer. */
-"iTunes URL" = "URL iTunes";
-
-/* No comment provided by engineer. */
-"na" = "nd";
 

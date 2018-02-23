@@ -238,6 +238,13 @@
 		A956CE641F99E5BB00093992 /* ActivityWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityWindowController.swift; path = Classes/ActivityWindowController.swift; sourceTree = "<group>"; };
 		A956CE681F99E93D00093992 /* ButtonToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonToolbarItem.swift; path = Classes/ButtonToolbarItem.swift; sourceTree = "<group>"; };
 		A956CE6A1F99EAAD00093992 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Logger.swift; path = Classes/Logger.swift; sourceTree = "<group>"; };
+		A957E5AD2040083E00A5F776 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/GeneralPrefsViewController.strings; sourceTree = "<group>"; };
+		A957E5AE2040083E00A5F776 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SaveOptions.strings; sourceTree = "<group>"; };
+		A957E5AF2040083E00A5F776 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/TracksViewController.strings; sourceTree = "<group>"; };
+		A957E5B02040083E00A5F776 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/AdvancedPrefsViewController.strings; sourceTree = "<group>"; };
+		A957E5B12040083E00A5F776 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/OffsetViewController.strings; sourceTree = "<group>"; };
+		A957E5B22040083E00A5F776 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/ProgressViewController.strings; sourceTree = "<group>"; };
+		A957E5B32040083E00A5F776 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/DocumentWindowController.strings; sourceTree = "<group>"; };
 		A9590018202AF21800FD8F23 /* ProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProgressViewController.swift; path = Classes/ProgressViewController.swift; sourceTree = "<group>"; };
 		A95B8DA41B09F37700F2F152 /* Subler Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subler Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95B8DA71B09F37700F2F152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -306,7 +313,7 @@
 		A9BA1AE51DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = it; path = it.lproj/Credits.rtf; sourceTree = "<group>"; };
 		A9BA1AE61DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A9BA1AEF1DBF7DD700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		A9BA1AF41DBF7DD800FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A9BA1AF41DBF7DD800FD0B38 /* it */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A9C0603F168315C500FE3D98 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
 		A9C0957F0F7B6C8C00170CAF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		A9C09C7B1F99F460007939EE /* ExceptionAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExceptionAlertController.swift; path = Classes/ExceptionAlertController.swift; sourceTree = "<group>"; };
@@ -1061,6 +1068,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A9A4A967202F51FA00482D12 /* Base */,
+				A957E5AE2040083E00A5F776 /* it */,
 			);
 			name = SaveOptions.xib;
 			path = Classes;
@@ -1070,6 +1078,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A9A4A96C202F51FF00482D12 /* Base */,
+				A957E5B22040083E00A5F776 /* it */,
 			);
 			name = ProgressViewController.xib;
 			path = Classes;
@@ -1149,6 +1158,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A9C31E5C2029A78F00CEF474 /* Base */,
+				A957E5AD2040083E00A5F776 /* it */,
 			);
 			name = GeneralPrefsViewController.xib;
 			sourceTree = "<group>";
@@ -1157,6 +1167,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A9C31E632029A82200CEF474 /* Base */,
+				A957E5B02040083E00A5F776 /* it */,
 			);
 			name = AdvancedPrefsViewController.xib;
 			sourceTree = "<group>";
@@ -1192,6 +1203,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A9ECA0582029A10B00D5F30C /* Base */,
+				A957E5B32040083E00A5F776 /* it */,
 			);
 			name = DocumentWindowController.xib;
 			path = Classes;
@@ -1201,6 +1213,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A9ECA05B2029A10F00D5F30C /* Base */,
+				A957E5AF2040083E00A5F776 /* it */,
 			);
 			name = TracksViewController.xib;
 			path = Classes;
@@ -1219,6 +1232,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A9ECA0612029A13800D5F30C /* Base */,
+				A957E5B12040083E00A5F776 /* it */,
 			);
 			name = OffsetViewController.xib;
 			path = Classes;
@@ -1383,7 +1397,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.galad.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Subler;
 				SDKROOT = macosx;
-				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = "Subler-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
@@ -1518,7 +1531,6 @@
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
 				USER_HEADER_SEARCH_PATHS = "";
