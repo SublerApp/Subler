@@ -197,13 +197,14 @@
 		A90057BD1F99E2D800FA4ED1 /* TokenFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenFieldCell.swift; path = Classes/TokenFieldCell.swift; sourceTree = "<group>"; };
 		A90057BF1F99E35300FA4ED1 /* PopUpCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PopUpCellView.swift; path = Classes/PopUpCellView.swift; sourceTree = "<group>"; };
 		A900CE3D1F3ACF9700CCA08E /* MetadataResultMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataResultMap.swift; path = Classes/MetadataImporters/MetadataResultMap.swift; sourceTree = "<group>"; };
+		A90160112040213600B07AB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OutputPrefsViewController.xib; sourceTree = "<group>"; };
+		A9016012204021CB00B07AB3 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/OutputPrefsViewController.strings; sourceTree = "<group>"; };
 		A90300C91DAE72C4008237D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBPresetPrefsViewController.xib; sourceTree = "<group>"; };
 		A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataPrefsViewController.swift; path = Classes/MetadataPrefsViewController.swift; sourceTree = "<group>"; };
 		A906B5B01E434872007D12B1 /* Queue.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Queue.sdef; sourceTree = "<group>"; };
 		A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataResult.swift; path = Classes/MetadataImporters/MetadataResult.swift; sourceTree = "<group>"; };
 		A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokensViewController.swift; path = Classes/TokensViewController.swift; sourceTree = "<group>"; };
 		A90CD5C11FD177230070A067 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TokensViewController.xib; sourceTree = "<group>"; };
-		A90CD5C61FD177280070A067 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OutputPrefsViewController.xib; sourceTree = "<group>"; };
 		A91B196B1F2B0DCB0008675F /* QueueAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueAction.swift; path = Classes/QueueAction.swift; sourceTree = "<group>"; };
 		A924A50D1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/ChapterView.xib; sourceTree = "<group>"; };
 		A924A50E1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/EmptyView.xib; sourceTree = "<group>"; };
@@ -306,14 +307,13 @@
 		A9BA1ADE1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Queue.strings; sourceTree = "<group>"; };
 		A9BA1ADF1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QueueOptions.strings; sourceTree = "<group>"; };
 		A9BA1AE01DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QueueItem.strings; sourceTree = "<group>"; };
-		A9BA1AE11DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/PrefsWindowController.strings; sourceTree = "<group>"; };
 		A9BA1AE21DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBActivityWindow.strings; sourceTree = "<group>"; };
 		A9BA1AE31DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBMediaTagsController.strings; sourceTree = "<group>"; };
 		A9BA1AE41DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/ExceptionAlert.strings; sourceTree = "<group>"; };
 		A9BA1AE51DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = it; path = it.lproj/Credits.rtf; sourceTree = "<group>"; };
 		A9BA1AE61DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A9BA1AEF1DBF7DD700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		A9BA1AF41DBF7DD800FD0B38 /* it */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A9BA1AF41DBF7DD800FD0B38 /* it */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A9C0603F168315C500FE3D98 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
 		A9C0957F0F7B6C8C00170CAF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		A9C09C7B1F99F460007939EE /* ExceptionAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExceptionAlertController.swift; path = Classes/ExceptionAlertController.swift; sourceTree = "<group>"; };
@@ -745,6 +745,7 @@
 				German,
 				Base,
 				it,
+				en,
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* MP4Sub */;
 			projectDirPath = "";
@@ -995,7 +996,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A51A1D4B9E66008301A7 /* Base */,
-				A9BA1AE11DBF773700FD0B38 /* it */,
 			);
 			name = PrefsWindowController.xib;
 			sourceTree = "<group>";
@@ -1012,7 +1012,8 @@
 		A90CD5C71FD177280070A067 /* OutputPrefsViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A90CD5C61FD177280070A067 /* Base */,
+				A90160112040213600B07AB3 /* Base */,
+				A9016012204021CB00B07AB3 /* it */,
 			);
 			name = OutputPrefsViewController.xib;
 			path = Classes;
