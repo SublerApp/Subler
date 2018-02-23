@@ -151,7 +151,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        runDonateAlert()
+        if UserDefaults.standard.bool(forKey: "SBIgnoreDonationAlert") == false {
+            runDonateAlert()
+        }
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
