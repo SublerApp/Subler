@@ -9,9 +9,13 @@ import Cocoa
 
 class DetailsViewController: NSViewController {
 
+    override var nibName: NSNib.Name? {
+        return NSNib.Name(rawValue: "DetailsViewController")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
     }
-    
+
 }

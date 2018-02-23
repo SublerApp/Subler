@@ -18,6 +18,10 @@ class GeneralPrefsViewController: NSViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override var nibName: NSNib.Name? {
+        return NSNib.Name(rawValue: "GeneralPrefsViewController")
+    }
+
     @IBAction func clearRecentSearches(_ sender: Any) {
         MetadataSearchController.clearRecentSearches()
     }

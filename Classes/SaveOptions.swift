@@ -28,8 +28,8 @@ class SaveOptions: NSViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    deinit {
-        print("lala")
+    override var nibName: NSNib.Name? {
+        return NSNib.Name(rawValue: "SaveOptions")
     }
 
     override func viewDidLoad() {

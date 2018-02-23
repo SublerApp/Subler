@@ -41,6 +41,10 @@ class TracksViewController: NSViewController, NSTableViewDataSource, NSTableView
         return menu
     }()
 
+    override var nibName: NSNib.Name? {
+        return NSNib.Name(rawValue: "TracksViewController")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

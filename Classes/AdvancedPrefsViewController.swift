@@ -17,4 +17,9 @@ class AdvancedPrefsViewController: NSViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    override var nibName: NSNib.Name? {
+        return NSNib.Name(rawValue: "AdvancedPrefsViewController")
+    }
+
 }

@@ -19,6 +19,10 @@ class ProgressViewController: NSViewController {
 
     weak var delegate: ProgressViewControllerDelegate?
 
+    override var nibName: NSNib.Name? {
+        return NSNib.Name(rawValue: "ProgressViewController")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.

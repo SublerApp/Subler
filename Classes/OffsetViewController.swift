@@ -24,6 +24,10 @@ class OffsetViewController: NSViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override var nibName: NSNib.Name? {
+        return NSNib.Name(rawValue: "OffsetViewController")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         offsetField.doubleValue = track.startOffset
