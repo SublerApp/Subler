@@ -57,6 +57,13 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
             window.setFrameAutosaveName(NSWindow.FrameAutosaveName(rawValue: "documentSave"))
             window.setFrameFrom("documentSave")
         }
+        else {
+            window.setContentSize(NSSize(width: 690, height: 510))
+        }
+
+        if #available(OSX 10.11, *) {} else {
+            splitViewController.splitView.setPosition(160, ofDividerAt: 0)
+        }
 
         didSelect(tracks: [])
     }
