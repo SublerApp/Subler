@@ -110,15 +110,15 @@ class TracksViewController: NSViewController, NSTableViewDataSource, NSTableView
         let manager = MP42Languages.defaultManager
         let row = tracksTable.row(for: sender)
         let index = sender.indexOfSelectedItem
-        var language = sender.stringValue
+        var language = sender.selectedItem?.title
 
-        if index > 0 && index < manager.localizedExtendedLanguages.count {
+        if index >= 0 && index < manager.localizedExtendedLanguages.count {
             let localizedLanguage = MP42Languages.defaultManager.localizedExtendedLanguages[sender.indexOfSelectedItem]
             language = MP42Languages.defaultManager.extendedTag(forLocalizedLang: localizedLanguage)
         }
 
         if let track = track(at: row), track.language != language {
-            track.language = language
+            track.language = language ?? "und"
             document.updateChangeCount(.changeDone)
         }
     }
