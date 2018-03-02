@@ -127,24 +127,45 @@
                                                 <items>
                                                     <menuItem title="1 minute" tag="1" id="5Fm-fy-9es">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="addChaptersEvery:" target="-2" id="89f-wa-n6U"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="2 minutes" tag="2" id="2M2-Yg-cgc">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="addChaptersEvery:" target="-2" id="Sdq-Mm-1zi"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="5 minutes" tag="5" id="8ah-BL-bge">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="addChaptersEvery:" target="-2" id="s3s-EG-fNY"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="10 minutes" tag="10" id="lJT-6k-8XM">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="addChaptersEvery:" target="-2" id="zT1-7g-Dhw"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="15 minutes" tag="15" id="0bq-Ez-KMl">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="addChaptersEvery:" target="-2" id="CKK-mb-yau"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="20 minutes" tag="20" id="xWX-8M-yu0">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="addChaptersEvery:" target="-2" id="4SM-8E-UH8"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="30 minutes" tag="30" id="bmM-jp-jgC">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="addChaptersEvery:" target="-2" id="YWf-yb-tYK"/>
+                                                        </connections>
                                                     </menuItem>
                                                 </items>
                                             </menu>
