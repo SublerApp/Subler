@@ -34,8 +34,16 @@ class OutputPrefsViewController: NSViewController, NSTokenFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        movieField.tokenizingCharacterSet = CharacterSet(charactersIn: "%")
-        tvShowField.tokenizingCharacterSet = CharacterSet(charactersIn: "%")
+        movieField.tokenizingCharacterSet = CharacterSet(charactersIn: "/")
+        tvShowField.tokenizingCharacterSet = CharacterSet(charactersIn: "/")
+
+        movieField.objectValue = UserDefaults.standard.tokenArray(forKey: "SBMovieFormat")
+        tvShowField.objectValue = UserDefaults.standard.tokenArray(forKey: "SBTVShowFormat")
+    }
+
+    private func save() {
+        UserDefaults.standard.set(movieField.objectValue as! [Token], forKey: "SBMovieFormat")
+        UserDefaults.standard.set(tvShowField.objectValue as!    [Token], forKey: "SBTVShowFormat")
     }
 
     // MARK: Actions
@@ -79,19 +87,19 @@ class OutputPrefsViewController: NSViewController, NSTokenFieldDelegate {
     // MARK: Format Token Field Delegate
 
     override func controlTextDidEndEditing(_ obj: Notification) {
-
+        save()
     }
 
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
-        if let stringValue = representedObject as? String, stringValue.hasPrefix("{") {
-            return localizedMetadataKeyName(stringValue.trimmingCharacters(in: separators))
+        if let token = representedObject as? Token {
+            return localizedMetadataKeyName(token.text.trimmingCharacters(in: separators))
         }
         return representedObject as? String
     }
 
     func tokenField(_ tokenField: NSTokenField, styleForRepresentedObject representedObject: Any) -> NSTokenField.TokenStyle {
-        if let stringValue = representedObject as? String, stringValue.hasPrefix("{") {
-            return .rounded
+        if let token = representedObject as? Token {
+            return token.isPlaceholder ? .rounded : .none
         }
         else {
             return .none
@@ -99,19 +107,13 @@ class OutputPrefsViewController: NSViewController, NSTokenFieldDelegate {
     }
 
     func tokenField(_ tokenField: NSTokenField, representedObjectForEditing editingString: String) -> Any? {
-        // Disable whitespace-trimming
-        return editingString
+        let control = editingString.hasPrefix("{") && editingString.hasSuffix("}")
+        return Token(text: editingString, isPlaceholder: control)
     }
 
-//    func tokenField(_ tokenField: NSTokenField, completionsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [Any]? {
-//        matches = currentTokens.filter { $0.hasPrefix(substring) }
-//        return matches
-//
-//    }
-
     func tokenField(_ tokenField: NSTokenField, editingStringForRepresentedObject representedObject: Any) -> String? {
-        if let stringValue = representedObject as? String, stringValue.hasPrefix("{") {
-            return "%\(stringValue)%"
+        if let token =  representedObject as? Token {
+            return token.isPlaceholder ? "/\(token.text)/" : token.text
         }
         return representedObject as? String
     }
@@ -121,12 +123,96 @@ class OutputPrefsViewController: NSViewController, NSTokenFieldDelegate {
     }
 
     func tokenField(_ tokenField: NSTokenField, writeRepresentedObjects objects: [Any], to pboard: NSPasteboard) -> Bool {
-        if let strings = objects as? [String] {
-            let string = strings.reduce("", { "\($0)%\($1)" })
+        if let tokens = objects as? [Token] {
+            let string = tokens.reduce("", { "\($0)/{\($1.text)}" })
             pboard.setString(string, forType: NSPasteboard.PasteboardType.string)
             return true
+        } else {
+            return false
         }
-        return false
+    }
+
+    // MARK: Format Token Field Delegate Menu
+
+    func tokenField(_ tokenField: NSTokenField, hasMenuForRepresentedObject representedObject: Any) -> Bool {
+        if let token =  representedObject as? Token, token.isPlaceholder {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    func tokenField(_ tokenField: NSTokenField, menuForRepresentedObject representedObject: Any) -> NSMenu? {
+        if let token =  representedObject as? Token, token.isPlaceholder {
+            return menu(for: token)
+        } else {
+            return nil
+        }
+    }
+
+    @IBAction func setTokenCase(_ sender: NSMenuItem) {
+        guard let token = sender.representedObject as? Token,
+            let tokenCase = Token.Case(rawValue: sender.tag) else { return }
+
+        if token.textCase == tokenCase {
+            token.textCase = .none
+        } else {
+            token.textCase = tokenCase
+        }
+
+        save()
+    }
+
+    @IBAction func setTokenPadding(_ sender: NSMenuItem) {
+        guard let token = sender.representedObject as? Token,
+            let tokenPadding = Token.Padding(rawValue: sender.tag) else { return }
+
+        if token.textPadding == tokenPadding {
+            token.textPadding = .none
+        } else {
+            token.textPadding = tokenPadding
+        }
+
+        save()
+    }
+
+    private func menu(for token: Token) -> NSMenu {
+        let menu = NSMenu(title: "Item Menu")
+        menu.autoenablesItems = false
+
+        menu.addItem(caseMenuItem(title: NSLocalizedString("Capitalize", comment: ""), tag: Token.Case.capitalize.rawValue, token: token))
+        menu.addItem(caseMenuItem(title: NSLocalizedString("lowercase", comment: ""), tag: Token.Case.lower.rawValue, token: token))
+        menu.addItem(caseMenuItem(title: NSLocalizedString("UPPERCASE", comment: ""), tag: Token.Case.upper.rawValue, token: token))
+        menu.addItem(caseMenuItem(title: NSLocalizedString("CamelCase", comment: ""), tag: Token.Case.camel.rawValue, token: token))
+        menu.addItem(caseMenuItem(title: NSLocalizedString("snake_case", comment: ""), tag: Token.Case.snake.rawValue, token: token))
+        menu.addItem(caseMenuItem(title: NSLocalizedString("train-case", comment: ""), tag: Token.Case.train.rawValue, token: token))
+        menu.addItem(caseMenuItem(title: NSLocalizedString("dot.case", comment: ""), tag: Token.Case.dot.rawValue, token: token))
+
+        menu.addItem(paddingMenuItem(title: NSLocalizedString("Leading zero", comment: ""), tag: Token.Padding.leadingzero.rawValue, token: token))
+
+        return menu
+    }
+
+    private func caseMenuItem(title: String, tag: Int, token: Token) -> NSMenuItem {
+        let item = NSMenuItem(title: title, action: #selector(setTokenCase(_:)), keyEquivalent: "")
+        item.isEnabled = true
+        item.representedObject = token
+        item.tag = tag
+        if tag == token.textCase.rawValue {
+            item.state = .on
+        }
+        return item
+    }
+
+    private func paddingMenuItem(title: String, tag: Int, token: Token) -> NSMenuItem {
+        let item = NSMenuItem(title: title, action: #selector(setTokenPadding(_:)), keyEquivalent: "")
+        item.isEnabled = true
+        item.representedObject = token
+        item.tag = tag
+        if tag == token.textPadding.rawValue {
+            item.state = .on
+        }
+        return item
     }
     
 }

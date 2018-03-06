@@ -71,11 +71,11 @@ extension MP42File {
         return MetadataSearchTerms.none
     }
 
-    private func outputNameFormat(mediaKind: Int) -> [String]? {
+    private func outputNameFormat(mediaKind: Int) -> [Token]? {
         if mediaKind == MetadataResult.MediaKindType.tvShow.rawValue {
-            return UserDefaults.standard.stringArray(forKey: "SBTVShowFormat")
+            return UserDefaults.standard.tokenArray(forKey: "SBTVShowFormat")
         } else if mediaKind == MetadataResult.MediaKindType.movie.rawValue {
-            return UserDefaults.standard.stringArray(forKey: "SBMovieFormat")
+            return UserDefaults.standard.tokenArray(forKey: "SBMovieFormat")
         }
         return nil
     }
@@ -102,15 +102,15 @@ extension MP42File {
         var name = ""
 
         for token in format {
-            if token.hasPrefix("{") && token.hasSuffix("}") {
-                let trimmedToken = token.trimmingCharacters(in: separators)
+            if token.isPlaceholder {
+                let trimmedToken = token.text.trimmingCharacters(in: separators)
                 let metadataItems = metadata.metadataItemsFiltered(byIdentifier: trimmedToken)
 
                 if let string = metadataItems.first?.stringValue {
-                    name.append(string)
+                    name.append(token.format(text: string))
                 }
             } else {
-                name.append(token)
+                name.append(token.text)
             }
         }
 

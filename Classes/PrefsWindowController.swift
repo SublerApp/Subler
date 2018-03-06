@@ -9,10 +9,15 @@ import Cocoa
 
 @objc(SBPrefsWindowController) class PrefsWindowController: NSWindowController {
 
-    @objc public class func registerUserDefaults() {
+    public class func registerUserDefaults() {
         let defaults = UserDefaults.standard
         let movieDefaultMap = NSKeyedArchiver.archivedData(withRootObject: MetadataResultMap.movieDefaultMap)
         let tvShowDefaultMap = NSKeyedArchiver.archivedData(withRootObject: MetadataResultMap.tvShowDefaultMap)
+
+        let encoder = JSONEncoder()
+
+        let movieFormat = try? encoder.encode([Token(text: "{Name}")])
+        let tvShowFormat = try? encoder.encode([Token(text: "{TV Show}"), Token(text: " s", isPlaceholder: false), Token(text: "{TV Season}"), Token(text: "e", isPlaceholder: false), Token(text: "{TV Episode #}")])
 
         // Migrate 1.2.9 DTS setting
         if defaults.object(forKey: "SBAudioKeepDts") != nil {
@@ -38,8 +43,8 @@ import Cocoa
                                        "chaptersPreviewTrack":          true,
                                        "SBChaptersPreviewPosition":     0.5,
 
-                                       "SBMovieFormat":                 ["{Name}"],
-                                       "SBTVShowFormat":                ["{TV Show}"," s", "{TV Season}", "e", "{TV Episode #}"],
+                                       "SBMovieFormat":                 movieFormat ?? "",
+                                       "SBTVShowFormat":                tvShowFormat ?? "",
                                        "SBSetMovieFormat":              false,
                                        "SBSetTVShowFormat":             false,
 

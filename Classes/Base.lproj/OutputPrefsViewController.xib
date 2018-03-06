@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14101" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14105" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14101"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14105"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -50,7 +50,6 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </tokenFieldCell>
                     <connections>
-                        <binding destination="BZm-iR-6oK" name="value" keyPath="values.SBMovieFormat" id="mdW-QG-L7g"/>
                         <outlet property="delegate" destination="-2" id="39Q-aI-o60"/>
                     </connections>
                 </tokenField>
@@ -62,7 +61,6 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </tokenFieldCell>
                     <connections>
-                        <binding destination="BZm-iR-6oK" name="value" keyPath="values.SBTVShowFormat" id="Fa2-rF-dBm"/>
                         <outlet property="delegate" destination="-2" id="mh9-CJ-zVx"/>
                     </connections>
                 </tokenField>

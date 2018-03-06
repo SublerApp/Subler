@@ -25,6 +25,7 @@
 		A90C3E0C1FD16AF200F64532 /* TokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */; };
 		A90CD5C01FD177230070A067 /* TokensViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90CD5C21FD177230070A067 /* TokensViewController.xib */; };
 		A90CD5C51FD177280070A067 /* OutputPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90CD5C71FD177280070A067 /* OutputPrefsViewController.xib */; };
+		A91576EB204ECA6E00D93CE7 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91576EA204ECA6E00D93CE7 /* Token.swift */; };
 		A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91B196B1F2B0DCB0008675F /* QueueAction.swift */; };
 		A924A51E1D4B9E93008301A7 /* SBMetadataPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A924A5201D4B9E93008301A7 /* SBMetadataPrefsViewController.xib */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
@@ -201,6 +202,7 @@
 		A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataResult.swift; path = Classes/MetadataImporters/MetadataResult.swift; sourceTree = "<group>"; };
 		A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokensViewController.swift; path = Classes/TokensViewController.swift; sourceTree = "<group>"; };
 		A90CD5C11FD177230070A067 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TokensViewController.xib; sourceTree = "<group>"; };
+		A91576EA204ECA6E00D93CE7 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Token.swift; path = Classes/Token.swift; sourceTree = "<group>"; };
 		A91B196B1F2B0DCB0008675F /* QueueAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueAction.swift; path = Classes/QueueAction.swift; sourceTree = "<group>"; };
 		A924A50D1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/ChapterView.xib; sourceTree = "<group>"; };
 		A924A50E1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/EmptyView.xib; sourceTree = "<group>"; };
@@ -497,9 +499,10 @@
 				A90300CA1DAE72C4008237D8 /* SBPresetPrefsViewController.xib */,
 				A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */,
 				A924A5201D4B9E93008301A7 /* SBMetadataPrefsViewController.xib */,
+				A91576EA204ECA6E00D93CE7 /* Token.swift */,
+				A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */,
 				A9F680A61FD06E0200018371 /* OutputPrefsViewController.swift */,
 				A90CD5C71FD177280070A067 /* OutputPrefsViewController.xib */,
-				A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */,
 				A90CD5C21FD177230070A067 /* TokensViewController.xib */,
 				A9C31E652029ABC800CEF474 /* PrefsTabViewController.swift */,
 				A99D23202029CD32002E7F27 /* PrefsWindow.swift */,
@@ -827,6 +830,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A959001A202AF21800FD8F23 /* ProgressViewController.swift in Sources */,
+				A91576EB204ECA6E00D93CE7 /* Token.swift in Sources */,
 				A9676A341FB6EAAD00C1E300 /* ItemViewController.swift in Sources */,
 				A90C3E0C1FD16AF200F64532 /* TokensViewController.swift in Sources */,
 				A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */,

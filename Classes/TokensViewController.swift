@@ -10,7 +10,7 @@ import Cocoa
 class TokensViewController: NSViewController, NSTokenFieldDelegate {
 
     @IBOutlet var tokenField: NSTokenField!
-    let tokens: [String]
+    let tokens: [Token]
     let separators: CharacterSet
 
     override var nibName: NSNib.Name? {
@@ -18,7 +18,7 @@ class TokensViewController: NSViewController, NSTokenFieldDelegate {
     }
 
     init(tokens: [String]) {
-        self.tokens = tokens
+        self.tokens = tokens.map { Token(text: "{\($0)}") }
         self.separators = CharacterSet(charactersIn: "{}")
         super.init(nibName: nil, bundle: nil)
     }
@@ -30,31 +30,35 @@ class TokensViewController: NSViewController, NSTokenFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tokenField.tokenizingCharacterSet = CharacterSet(charactersIn: "%")
-        tokenField.stringValue = tokens.reduce("", { "\($0)%{\($1)}" })
+        tokenField.tokenizingCharacterSet = CharacterSet(charactersIn: "/")
+        tokenField.objectValue = tokens
     }
 
     // MARK: Format Token Field Delegate
 
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
-        if let stringValue = representedObject as? String, stringValue.hasPrefix("{") {
-            return localizedMetadataKeyName(stringValue.trimmingCharacters(in: separators))
+        if let token = representedObject as? Token {
+            return localizedMetadataKeyName(token.text.trimmingCharacters(in: separators))
         }
         return representedObject as? String
     }
 
     func tokenField(_ tokenField: NSTokenField, styleForRepresentedObject representedObject: Any) -> NSTokenField.TokenStyle {
-        if let stringValue = representedObject as? String, stringValue.hasPrefix("{") {
-            return .rounded
+        if let token = representedObject as? Token {
+            return token.isPlaceholder ? .rounded : .none
         }
         else {
             return .none
         }
     }
 
+    func tokenField(_ tokenField: NSTokenField, representedObjectForEditing editingString: String) -> Any? {
+        return Token(text: editingString)
+    }
+
     func tokenField(_ tokenField: NSTokenField, editingStringForRepresentedObject representedObject: Any) -> String? {
-        if let stringValue = representedObject as? String, stringValue.hasPrefix("{") {
-            return "%\(stringValue)%"
+        if let token =  representedObject as? Token {
+            return "/\(token.text)/"
         }
         return representedObject as? String
     }
@@ -64,8 +68,8 @@ class TokensViewController: NSViewController, NSTokenFieldDelegate {
     }
 
     func tokenField(_ tokenField: NSTokenField, writeRepresentedObjects objects: [Any], to pboard: NSPasteboard) -> Bool {
-        if let strings = objects as? [String] {
-            let string = strings.reduce("", { "\($0)%\($1)" })
+        if let tokens = objects as? [Token] {
+            let string = tokens.reduce("", { "\($0)/\($1.text)" })
             pboard.setString(string, forType: NSPasteboard.PasteboardType.string)
             return true
         }
