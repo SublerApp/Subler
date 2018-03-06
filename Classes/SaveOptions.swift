@@ -20,7 +20,6 @@ class SaveOptions: NSViewController {
     init(doc: Document, savePanel: NSSavePanel) {
         self.doc = doc
         self.savePanel = savePanel
-        print("lele")
         super.init(nibName: nil, bundle: nil)
     }
 
