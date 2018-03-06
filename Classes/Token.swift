@@ -124,4 +124,16 @@ extension UserDefaults {
         self.set(jsonData, forKey: defaultName)
     }
 
+    func tokenArrayFromOldStylePrefs(forKey defaultName: String) -> [Token] {
+        guard let strings = UserDefaults.standard.stringArray(forKey: defaultName) else { return [] }
+        var tokens: [Token] = Array()
+
+        for string in strings {
+            let token = Token(text: string, isPlaceholder: string.hasPrefix("{") && string.hasSuffix("}"))
+            tokens.append(token)
+        }
+
+        return tokens
+    }
+
 }

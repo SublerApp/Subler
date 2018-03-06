@@ -73,9 +73,9 @@ extension MP42File {
 
     private func outputNameFormat(mediaKind: Int) -> [Token]? {
         if mediaKind == MetadataResult.MediaKindType.tvShow.rawValue {
-            return UserDefaults.standard.tokenArray(forKey: "SBTVShowFormat")
+            return UserDefaults.standard.tokenArray(forKey: "SBTVShowFormatTokens")
         } else if mediaKind == MetadataResult.MediaKindType.movie.rawValue {
-            return UserDefaults.standard.tokenArray(forKey: "SBMovieFormat")
+            return UserDefaults.standard.tokenArray(forKey: "SBMovieFormatTokens")
         }
         return nil
     }

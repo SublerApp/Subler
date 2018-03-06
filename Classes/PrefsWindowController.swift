@@ -7,7 +7,7 @@
 
 import Cocoa
 
-@objc(SBPrefsWindowController) class PrefsWindowController: NSWindowController {
+class PrefsWindowController: NSWindowController {
 
     public class func registerUserDefaults() {
         let defaults = UserDefaults.standard
@@ -19,12 +19,26 @@ import Cocoa
         let movieFormat = try? encoder.encode([Token(text: "{Name}")])
         let tvShowFormat = try? encoder.encode([Token(text: "{TV Show}"), Token(text: " s", isPlaceholder: false), Token(text: "{TV Season}"), Token(text: "e", isPlaceholder: false), Token(text: "{TV Episode #}")])
 
-        // Migrate 1.2.9 DTS setting
-        if defaults.object(forKey: "SBAudioKeepDts") != nil {
-            if defaults.bool(forKey: "SBAudioKeepDts") {
-                defaults.set(2, forKey: "SBAudioDtsOptions")
+        if defaults.integer(forKey: "SBUpgradeCheck") < 1 {
+            // Migrate 1.2.9 DTS setting
+            if defaults.object(forKey: "SBAudioKeepDts") != nil {
+                if defaults.bool(forKey: "SBAudioKeepDts") {
+                    defaults.set(2, forKey: "SBAudioDtsOptions")
+                }
+                defaults.removeObject(forKey: "SBAudioKeepDts")
             }
-            defaults.removeObject(forKey: "SBAudioKeepDts")
+
+            // Migrate 1.4.8 filename format settings
+            let oldMovieFormat = defaults.tokenArrayFromOldStylePrefs(forKey: "SBMovieFormat")
+            if oldMovieFormat.isEmpty == false {
+                defaults.set(oldMovieFormat, forKey: "SBMovieFormatTokens")
+            }
+            let oldTvShowFormat = defaults.tokenArrayFromOldStylePrefs(forKey: "SBTVShowFormat")
+            if oldTvShowFormat.isEmpty == false {
+                defaults.set(oldTvShowFormat, forKey: "SBTVShowFormatTokens")
+            }
+
+            defaults.set(1, forKey: "SBUpgradeCheck")
         }
 
         let settings: [String: Any] = ["SBSaveFormat":                  "m4v",
@@ -43,8 +57,8 @@ import Cocoa
                                        "chaptersPreviewTrack":          true,
                                        "SBChaptersPreviewPosition":     0.5,
 
-                                       "SBMovieFormat":                 movieFormat ?? "",
-                                       "SBTVShowFormat":                tvShowFormat ?? "",
+                                       "SBMovieFormatTokens":           movieFormat ?? "",
+                                       "SBTVShowFormatTokens":          tvShowFormat ?? "",
                                        "SBSetMovieFormat":              false,
                                        "SBSetTVShowFormat":             false,
 

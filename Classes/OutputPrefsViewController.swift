@@ -37,13 +37,13 @@ class OutputPrefsViewController: NSViewController, NSTokenFieldDelegate {
         movieField.tokenizingCharacterSet = CharacterSet(charactersIn: "/")
         tvShowField.tokenizingCharacterSet = CharacterSet(charactersIn: "/")
 
-        movieField.objectValue = UserDefaults.standard.tokenArray(forKey: "SBMovieFormat")
-        tvShowField.objectValue = UserDefaults.standard.tokenArray(forKey: "SBTVShowFormat")
+        movieField.objectValue = UserDefaults.standard.tokenArray(forKey: "SBMovieFormatTokens")
+        tvShowField.objectValue = UserDefaults.standard.tokenArray(forKey: "SBTVShowFormatTokens")
     }
 
     private func save() {
-        UserDefaults.standard.set(movieField.objectValue as! [Token], forKey: "SBMovieFormat")
-        UserDefaults.standard.set(tvShowField.objectValue as!    [Token], forKey: "SBTVShowFormat")
+        UserDefaults.standard.set(movieField.objectValue as! [Token], forKey: "SBMovieFormatTokens")
+        UserDefaults.standard.set(tvShowField.objectValue as!    [Token], forKey: "SBTVShowFormatTokens")
     }
 
     // MARK: Actions
