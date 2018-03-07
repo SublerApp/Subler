@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTableViewDataSource, NSTokenFieldDelegate, NSTextFieldDelegate {
+class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTableViewDataSource, NSTextFieldDelegate {
 
     @IBOutlet var builtInTokenField: NSTokenField!
     @IBOutlet var addMetadataPopUpButton: NSPopUpButton!
@@ -28,6 +28,9 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
 
     var selectionObserver: NSKeyValueObservation?
     let sort: (MetadataResultMapItem, MetadataResultMapItem) -> Bool
+
+    let tokenDelegate: TokenDelegate
+    let tableTokenDelegate: TokenDelegate
 
     override var nibName: NSNib.Name? {
         return NSNib.Name(rawValue: "MetadataPrefsViewController")
@@ -57,6 +60,9 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
             return false
         }
 
+        self.tokenDelegate = TokenDelegate(displayMenu: false, displayString: { MetadataResult.Key.localizedDisplayName(key: $0.text) })
+        self.tableTokenDelegate = TokenDelegate(displayMenu: true, displayString: { MetadataResult.Key.localizedDisplayName(key: $0.text) })
+
         super.init(nibName: nil, bundle: nil)
 
         self.title = NSLocalizedString("Metadata", comment: "")
@@ -70,6 +76,7 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
         super.viewDidLoad()
 
         builtInTokenField.tokenizingCharacterSet = CharacterSet(charactersIn: "/")
+        builtInTokenField.delegate = tokenDelegate
 
         if let menu = addMetadataPopUpButton.menu {
             for (index, key) in MP42Metadata.writableMetadata.enumerated() {
@@ -157,6 +164,7 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
             }
             else if tableColumn?.identifier == NSUserInterfaceItemIdentifier("value"),
                 let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("value"), owner: self) as? TokenCellView {
+                cell.tokenView.delegate = tableTokenDelegate
                 cell.tokenView.tokenizingCharacterSet = CharacterSet(charactersIn: "/")
                 cell.tokenView.objectValue = item.value
                 return cell
@@ -167,104 +175,6 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
     }
 
     // MARK: Format Token Field Delegate
-
-    override func controlTextDidEndEditing(_ obj: Notification) {
-        if let tokenField = obj.object as? NSTokenField {
-            let row = tableView.row(for: tokenField)
-
-            if row != -1, let tokens = tokenField.objectValue as? [Token] {
-                map.items[row].value = tokens
-            }
-        }
-
-        save()
-    }
-
-    func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
-        if let token = representedObject as? Token {
-            if token.isPlaceholder {
-                return MetadataResult.Key.localizedDisplayName(key: token.text)
-            } else {
-                return token.text
-            }
-        }
-        return representedObject as? String
-    }
-
-    func tokenField(_ tokenField: NSTokenField, styleForRepresentedObject representedObject: Any) -> NSTokenField.TokenStyle {
-        if let token = representedObject as? Token {
-            return token.isPlaceholder ? .rounded : .none
-        } else {
-            return .none
-        }
-    }
-
-    func tokenField(_ tokenField: NSTokenField, representedObjectForEditing editingString: String) -> Any? {
-        let control = editingString.hasPrefix("{") && editingString.hasSuffix("}")
-        return Token(text: editingString, isPlaceholder: control)
-    }
-
-    func tokenField(_ tokenField: NSTokenField, completionsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [Any]? {
-        matches = currentTokens.filter { $0.hasPrefix(substring) }
-        return matches
-    }
-
-    func tokenField(_ tokenField: NSTokenField, editingStringForRepresentedObject representedObject: Any) -> String? {
-        if let token =  representedObject as? Token {
-            return token.isPlaceholder ? "/\(token.text)/" : token.text
-        }
-        return representedObject as? String
-    }
-
-    func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
-        return tokens
-    }
-
-    private let pasteboardType = NSPasteboard.PasteboardType(rawValue: "SublerTokenDataType")
-
-    func tokenField(_ tokenField: NSTokenField, writeRepresentedObjects objects: [Any], to pboard: NSPasteboard) -> Bool {
-        if let tokens = objects as? [Token] {
-            if let data = try? JSONEncoder().encode(tokens) {
-                pboard.setData(data, forType: pasteboardType)
-            }
-            let string = tokens.reduce("", { "\($0)/\($1.text)" })
-            pboard.setString(string, forType: NSPasteboard.PasteboardType.string)
-            return true
-        } else {
-            return false
-        }
-    }
-
-    func tokenField(_ tokenField: NSTokenField, readFrom pboard: NSPasteboard) -> [Any]? {
-        if let data = pboard.data(forType: pasteboardType),
-            let tokens = try? JSONDecoder().decode([Token].self, from: data) {
-            return tokens
-        } else if let string = pboard.string(forType: .string) {
-            return [string]
-        } else {
-            return nil
-        }
-    }
-
-    // MARK: Format Token Field Delegate Menu
-
-    func tokenField(_ tokenField: NSTokenField, hasMenuForRepresentedObject representedObject: Any) -> Bool {
-        if tokenField == builtInTokenField {
-            return false
-        } else if let token =  representedObject as? Token, token.isPlaceholder {
-            return true
-        } else {
-            return false
-        }
-    }
-
-    func tokenField(_ tokenField: NSTokenField, menuForRepresentedObject representedObject: Any) -> NSMenu? {
-        if let token =  representedObject as? Token, token.isPlaceholder {
-            return menu(for: token)
-        } else {
-            return nil
-        }
-    }
 
     @IBAction func setTokenCase(_ sender: NSMenuItem) {
         guard let token = sender.representedObject as? Token,
@@ -290,45 +200,6 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
         }
 
         save()
-    }
-
-    private func menu(for token: Token) -> NSMenu {
-        let menu = NSMenu(title: "Item Menu")
-        menu.autoenablesItems = false
-
-        menu.addItem(caseMenuItem(title: NSLocalizedString("Capitalize", comment: ""), tag: Token.Case.capitalize.rawValue, token: token))
-        menu.addItem(caseMenuItem(title: NSLocalizedString("lowercase", comment: ""), tag: Token.Case.lower.rawValue, token: token))
-        menu.addItem(caseMenuItem(title: NSLocalizedString("UPPERCASE", comment: ""), tag: Token.Case.upper.rawValue, token: token))
-        menu.addItem(caseMenuItem(title: NSLocalizedString("CamelCase", comment: ""), tag: Token.Case.camel.rawValue, token: token))
-        menu.addItem(caseMenuItem(title: NSLocalizedString("snake_case", comment: ""), tag: Token.Case.snake.rawValue, token: token))
-        menu.addItem(caseMenuItem(title: NSLocalizedString("train-case", comment: ""), tag: Token.Case.train.rawValue, token: token))
-        menu.addItem(caseMenuItem(title: NSLocalizedString("dot.case", comment: ""), tag: Token.Case.dot.rawValue, token: token))
-
-        menu.addItem(paddingMenuItem(title: NSLocalizedString("Leading zero", comment: ""), tag: Token.Padding.leadingzero.rawValue, token: token))
-
-        return menu
-    }
-
-    private func caseMenuItem(title: String, tag: Int, token: Token) -> NSMenuItem {
-        let item = NSMenuItem(title: title, action: #selector(setTokenCase(_:)), keyEquivalent: "")
-        item.isEnabled = true
-        item.representedObject = token
-        item.tag = tag
-        if tag == token.textCase.rawValue {
-            item.state = .on
-        }
-        return item
-    }
-
-    private func paddingMenuItem(title: String, tag: Int, token: Token) -> NSMenuItem {
-        let item = NSMenuItem(title: title, action: #selector(setTokenPadding(_:)), keyEquivalent: "")
-        item.isEnabled = true
-        item.representedObject = token
-        item.tag = tag
-        if tag == token.textPadding.rawValue {
-            item.state = .on
-        }
-        return item
     }
 
 }

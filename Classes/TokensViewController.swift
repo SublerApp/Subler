@@ -7,11 +7,11 @@
 
 import Cocoa
 
-class TokensViewController: NSViewController, NSTokenFieldDelegate {
+class TokensViewController: NSViewController {
 
     @IBOutlet var tokenField: NSTokenField!
     let tokens: [Token]
-    let separators: CharacterSet
+    let tokenDelegate: TokenDelegate
 
     override var nibName: NSNib.Name? {
         return NSNib.Name(rawValue: "TokensViewController")
@@ -19,7 +19,10 @@ class TokensViewController: NSViewController, NSTokenFieldDelegate {
 
     init(tokens: [String]) {
         self.tokens = tokens.map { Token(text: "{\($0)}") }
-        self.separators = CharacterSet(charactersIn: "{}")
+
+        let separators: CharacterSet = CharacterSet(charactersIn: "{}")
+        self.tokenDelegate = TokenDelegate(displayMenu: false, displayString: { localizedMetadataKeyName($0.text.trimmingCharacters(in: separators)) })
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -30,50 +33,9 @@ class TokensViewController: NSViewController, NSTokenFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tokenField.delegate = tokenDelegate
         tokenField.tokenizingCharacterSet = CharacterSet(charactersIn: "/")
         tokenField.objectValue = tokens
-    }
-
-    // MARK: Format Token Field Delegate
-
-    func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
-        if let token = representedObject as? Token {
-            return localizedMetadataKeyName(token.text.trimmingCharacters(in: separators))
-        }
-        return representedObject as? String
-    }
-
-    func tokenField(_ tokenField: NSTokenField, styleForRepresentedObject representedObject: Any) -> NSTokenField.TokenStyle {
-        if let token = representedObject as? Token {
-            return token.isPlaceholder ? .rounded : .none
-        }
-        else {
-            return .none
-        }
-    }
-
-    func tokenField(_ tokenField: NSTokenField, representedObjectForEditing editingString: String) -> Any? {
-        return Token(text: editingString)
-    }
-
-    func tokenField(_ tokenField: NSTokenField, editingStringForRepresentedObject representedObject: Any) -> String? {
-        if let token =  representedObject as? Token {
-            return "/\(token.text)/"
-        }
-        return representedObject as? String
-    }
-
-    func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
-        return tokens
-    }
-
-    func tokenField(_ tokenField: NSTokenField, writeRepresentedObjects objects: [Any], to pboard: NSPasteboard) -> Bool {
-        if let tokens = objects as? [Token] {
-            let string = tokens.reduce("", { "\($0)/\($1.text)" })
-            pboard.setString(string, forType: NSPasteboard.PasteboardType.string)
-            return true
-        }
-        return false
     }
 
 }

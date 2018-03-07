@@ -40,6 +40,7 @@ class PrefsWindowController: NSWindowController {
                 defaults.set(oldTvShowFormat, forKey: "SBTVShowFormatTokens")
             }
 
+            // Migrate 1.4.8 metadata map settings
             if let oldStyleMovieResultMap = defaults.mapFromOldStylePrefs(forKey: "SBMetadataMovieResultMap") {
                 defaults.set(oldStyleMovieResultMap, forKey: "SBMetadataMovieResultMap2")
             }
