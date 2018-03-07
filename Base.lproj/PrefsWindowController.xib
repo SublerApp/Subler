@@ -15,16 +15,63 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="1" customClass="PrefsWindow" customModule="Subler" customModuleProvider="target">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+            <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="625" y="992" width="620" height="220"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="620" height="220"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="62479E7E-FF80-430F-8339-ECA67F66BBB3" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="Qgp-ap-Qwi">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="vqk-zF-m6l"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="R2N-58-umt"/>
+                    <toolbarItem implicitItemIdentifier="A82604D5-732B-4A10-B161-F5E0F036A34A" explicitItemIdentifier="TOOLBAR_GENERAL" label="General" paletteLabel="General" tag="-1" image="NSPreferencesGeneral" selectable="YES" id="5r6-9s-apQ">
+                        <connections>
+                            <action selector="setPrefView:" target="-2" id="I0W-MA-Ho3"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="B4B16AB5-D0AC-49AA-8F2A-92BFA33DBB7A" explicitItemIdentifier="TOOLBAR_METADATA" label="Metadata" paletteLabel="Metadata" tag="-1" image="NSUserAccounts" selectable="YES" id="Z2w-05-k1g">
+                        <connections>
+                            <action selector="setPrefView:" target="-2" id="uqj-TW-Lva"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="9FDFABCC-7ABB-428D-9371-4AADD095798A" explicitItemIdentifier="TOOLBAR_SETS" label="Sets" paletteLabel="Sets" tag="-1" image="NSFolderSmart" selectable="YES" id="PFq-0J-qih">
+                        <connections>
+                            <action selector="setPrefView:" target="-2" id="3cc-L0-stl"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="AED95BFB-F0CC-4D21-BDD8-C2122EEF5F57" explicitItemIdentifier="TOOLBAR_OUTPUT" label="Filename" paletteLabel="Filename" tag="-1" image="mp4-file" selectable="YES" id="uxW-fx-zpe">
+                        <connections>
+                            <action selector="setPrefView:" target="-2" id="Wer-vH-QP9"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="58DDAD82-C0AC-42A2-842E-E52C50A91828" explicitItemIdentifier="TOOLBAR_ADVANCED" label="Advanced" paletteLabel="Advanced" tag="-1" image="NSAdvanced" selectable="YES" id="udf-m4-mG8">
+                        <connections>
+                            <action selector="setPrefView:" target="-2" id="da5-1C-vGr"/>
+                        </connections>
+                    </toolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="5r6-9s-apQ"/>
+                    <toolbarItem reference="Z2w-05-k1g"/>
+                    <toolbarItem reference="PFq-0J-qih"/>
+                    <toolbarItem reference="uxW-fx-zpe"/>
+                    <toolbarItem reference="udf-m4-mG8"/>
+                    <toolbarItem reference="R2N-58-umt"/>
+                </defaultToolbarItems>
+            </toolbar>
             <connections>
                 <outlet property="delegate" destination="-2" id="fTZ-1L-fn7"/>
             </connections>
-            <point key="canvasLocation" x="-387" y="-1512"/>
+            <point key="canvasLocation" x="-687" y="-1529"/>
         </window>
     </objects>
+    <resources>
+        <image name="NSAdvanced" width="32" height="32"/>
+        <image name="NSFolderSmart" width="32" height="32"/>
+        <image name="NSPreferencesGeneral" width="32" height="32"/>
+        <image name="NSUserAccounts" width="32" height="32"/>
+        <image name="mp4-file" width="32" height="32"/>
+    </resources>
 </document>

@@ -98,7 +98,6 @@
 		A9C31E5D2029A79000CEF474 /* GeneralPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C31E5B2029A78F00CEF474 /* GeneralPrefsViewController.xib */; };
 		A9C31E602029A80F00CEF474 /* AdvancedPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C31E5E2029A80F00CEF474 /* AdvancedPrefsViewController.swift */; };
 		A9C31E642029A82200CEF474 /* AdvancedPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C31E622029A82200CEF474 /* AdvancedPrefsViewController.xib */; };
-		A9C31E662029ABC800CEF474 /* PrefsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C31E652029ABC800CEF474 /* PrefsTabViewController.swift */; };
 		A9C5FA7419FA2FEC0051F3FF /* SBActivityWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C5FA7219FA2FEC0051F3FF /* SBActivityWindow.xib */; };
 		A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C828F4195950C3004C4718 /* SBQueuePreferences.m */; };
 		A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */; };
@@ -318,7 +317,6 @@
 		A9C31E5C2029A78F00CEF474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GeneralPrefsViewController.xib; sourceTree = "<group>"; };
 		A9C31E5E2029A80F00CEF474 /* AdvancedPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AdvancedPrefsViewController.swift; path = Classes/AdvancedPrefsViewController.swift; sourceTree = "<group>"; };
 		A9C31E632029A82200CEF474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AdvancedPrefsViewController.xib; sourceTree = "<group>"; };
-		A9C31E652029ABC800CEF474 /* PrefsTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrefsTabViewController.swift; path = Classes/PrefsTabViewController.swift; sourceTree = "<group>"; };
 		A9C828F3195950C3004C4718 /* SBQueuePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueuePreferences.h; path = Classes/SBQueuePreferences.h; sourceTree = "<group>"; };
 		A9C828F4195950C3004C4718 /* SBQueuePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueuePreferences.m; path = Classes/SBQueuePreferences.m; sourceTree = "<group>"; };
 		A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataImporter.swift; path = Classes/MetadataImporters/MetadataImporter.swift; sourceTree = "<group>"; };
@@ -506,7 +504,6 @@
 				A90CD5C71FD177280070A067 /* OutputPrefsViewController.xib */,
 				A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */,
 				A90CD5C21FD177230070A067 /* TokensViewController.xib */,
-				A9C31E652029ABC800CEF474 /* PrefsTabViewController.swift */,
 				A99D23202029CD32002E7F27 /* PrefsWindow.swift */,
 			);
 			name = Preferences;
@@ -883,7 +880,6 @@
 				A9067A0C1F3CA4E6008011DC /* MetadataPrefsViewController.swift in Sources */,
 				A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */,
 				A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */,
-				A9C31E662029ABC800CEF474 /* PrefsTabViewController.swift in Sources */,
 				A92BBAB41F557CC0007EA182 /* PresetEditorViewController.swift in Sources */,
 				A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */,
 				A961476313F567E10068F161 /* SBQueueController.m in Sources */,

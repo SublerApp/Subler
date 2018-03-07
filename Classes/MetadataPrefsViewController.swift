@@ -57,7 +57,6 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
             return false
         }
 
-
         super.init(nibName: nil, bundle: nil)
 
         self.title = NSLocalizedString("Metadata", comment: "")

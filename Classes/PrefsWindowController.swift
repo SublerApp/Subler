@@ -96,40 +96,77 @@ class PrefsWindowController: NSWindowController {
         return NSNib.Name(rawValue: "PrefsWindowController")
     }
 
-    lazy var tabsViewController: NSTabViewController = {
-        let controller = PrefsTabViewController()
-
-        controller.tabStyle = NSTabViewController.TabStyle.toolbar
-        controller.transitionOptions = [NSViewController.TransitionOptions.allowUserInteraction]
-        controller.canPropagateSelectedChildViewControllerTitle = true
-
-        let general = NSTabViewItem(viewController: GeneralPrefsViewController())
-        general.image = NSImage.init(imageLiteralResourceName: "NSPreferencesGeneral")
-        controller.addTabViewItem(general)
-
-        let metadata = NSTabViewItem(viewController: MetadataPrefsViewController())
-        metadata.image = NSImage.init(imageLiteralResourceName: "NSUserAccounts")
-        controller.addTabViewItem(metadata)
-
-        let presets = NSTabViewItem(viewController: PresetPrefsViewController())
-        presets.image = NSImage.init(imageLiteralResourceName: "NSFolderSmart")
-        controller.addTabViewItem(presets)
-
-        let output = NSTabViewItem(viewController: OutputPrefsViewController())
-        output.image = NSImage.init(imageLiteralResourceName: "mp4-file")
-        controller.addTabViewItem(output)
-
-        let advanced = NSTabViewItem(viewController: AdvancedPrefsViewController())
-        advanced.image = NSImage.init(imageLiteralResourceName: "NSAdvanced")
-        controller.addTabViewItem(advanced)
-
-        return controller
-    }()
-
     override func windowDidLoad() {
         super.windowDidLoad()
-        contentViewController = tabsViewController
-        window?.title = tabsViewController.tabView.selectedTabViewItem?.label ?? ""
+
+        window?.toolbar?.allowsUserCustomization = false
+        window?.toolbar?.selectedItemIdentifier = general
+
+        if let items = window?.toolbar?.items, let item = (items.filter { $0.itemIdentifier == general }).first {
+            selectItem(item, animate: false)
+        }
+    }
+
+    lazy var generalController: GeneralPrefsViewController = { return GeneralPrefsViewController() }()
+    lazy var metadataController: MetadataPrefsViewController = { return MetadataPrefsViewController() }()
+    lazy var presetController: PresetPrefsViewController = { return PresetPrefsViewController() }()
+    lazy var outputController: OutputPrefsViewController = { return OutputPrefsViewController() }()
+    lazy var advancedController: AdvancedPrefsViewController = { return AdvancedPrefsViewController() }()
+
+    let general: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_GENERAL")
+    let metadata: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_METADATA")
+    let presets: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_SETS")
+    let output: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_OUTPUT")
+    let advanced: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_ADVANCED")
+
+    // MARK: Panel switching
+
+    private func view(for identifier: NSToolbarItem.Identifier) -> NSView? {
+        if identifier == general { return generalController.view }
+        if identifier == metadata { return metadataController.view }
+        if identifier == presets { return presetController.view }
+        if identifier == output { return outputController.view }
+        if identifier == advanced { return advancedController.view }
+        return nil
+    }
+
+    private func animationDuration(view: NSView, previousView: NSView?) -> TimeInterval {
+        guard let previousView = previousView else { return 0 }
+        return TimeInterval(abs(previousView.frame.size.height - view.frame.height)) * 0.0011
+    }
+
+    private func selectItem(_ item: NSToolbarItem, animate: Bool) {
+        guard let window = self.window,
+            let view = self.view(for: item.itemIdentifier),
+            window.contentView != view
+            else { return }
+
+        let duration = animationDuration(view: view, previousView: window.contentView)
+        window.contentView = view
+
+        if window.isVisible && animate {
+            NSAnimationContext.runAnimationGroup({ context in
+                if #available(OSX 10.11, *) {
+                    context.allowsImplicitAnimation = true
+                    context.duration = duration
+                }
+                else {
+                    context.duration = 0
+                }
+                window.layoutIfNeeded()
+                view.isHidden = true
+            }, completionHandler: {
+                view.isHidden = false
+                window.title = item.label
+            })
+        }
+        else {
+            window.title = item.label
+        }
+    }
+
+    @IBAction func setPrefView(_ sender: NSToolbarItem) {
+        selectItem(sender, animate: true)
     }
 
 }
