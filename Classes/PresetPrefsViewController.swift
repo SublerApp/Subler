@@ -14,12 +14,13 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
 
     @IBOutlet var tableView: NSTableView!
     @IBOutlet var removeSetButton: NSButton!
+    @IBOutlet var editSetButton: NSButton!
 
     var controller: PresetEditorViewController?
     var observer: Any?
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "SBPresetPrefsViewController")
+        return NSNib.Name(rawValue: "PresetPrefsViewController")
     }
 
     init() {
@@ -63,6 +64,7 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
 
     func tableViewSelectionDidChange(_ notification: Notification) {
         removeSetButton.isEnabled = tableView.selectedRow != -1
+        editSetButton.isEnabled = tableView.selectedRow != -1
     }
 
     // MARK: UI Actions
@@ -100,8 +102,8 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
         }
     }
 
-    @IBAction func toggleInfoWindow(_ sender: NSView) {
-        let rowIndex = tableView.row(for: sender)
+    @IBAction func editPreset(_ sender: NSView) {
+        let rowIndex = tableView.selectedRow
         
         if let preset = presetManager.presets[rowIndex] as? MetadataPreset {
             currentRow = rowIndex
