@@ -133,7 +133,7 @@ class OutputPrefsViewController: NSViewController, NSTokenFieldDelegate {
             if let data = try? JSONEncoder().encode(tokens) {
                 pboard.setData(data, forType: pasteboardType)
             }
-            let string = tokens.reduce("", { "\($0)/{\($1.text)}" })
+            let string = tokens.reduce("", { "\($0)/\($1.text)" })
             pboard.setString(string, forType: NSPasteboard.PasteboardType.string)
             return true
         } else {
