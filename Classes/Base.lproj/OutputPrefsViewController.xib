@@ -115,7 +115,7 @@
                 <constraint firstItem="i8H-oP-Sif" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="n4G-w8-dKr"/>
                 <constraint firstItem="i8H-oP-Sif" firstAttribute="width" secondItem="rzc-AK-4Vr" secondAttribute="width" id="xG0-RB-Iyt"/>
             </constraints>
-            <point key="canvasLocation" x="-23" y="58.5"/>
+            <point key="canvasLocation" x="-51" y="-544"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="BZm-iR-6oK"/>
     </objects>

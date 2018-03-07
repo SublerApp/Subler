@@ -43,7 +43,7 @@ class OutputPrefsViewController: NSViewController, NSTokenFieldDelegate {
 
     private func save() {
         UserDefaults.standard.set(movieField.objectValue as! [Token], forKey: "SBMovieFormatTokens")
-        UserDefaults.standard.set(tvShowField.objectValue as!    [Token], forKey: "SBTVShowFormatTokens")
+        UserDefaults.standard.set(tvShowField.objectValue as! [Token], forKey: "SBTVShowFormatTokens")
     }
 
     // MARK: Actions
@@ -92,7 +92,11 @@ class OutputPrefsViewController: NSViewController, NSTokenFieldDelegate {
 
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
         if let token = representedObject as? Token {
-            return localizedMetadataKeyName(token.text.trimmingCharacters(in: separators))
+            if token.isPlaceholder {
+                return localizedMetadataKeyName(token.text.trimmingCharacters(in: separators))
+            } else {
+                return token.text
+            }
         }
         return representedObject as? String
     }
@@ -122,13 +126,29 @@ class OutputPrefsViewController: NSViewController, NSTokenFieldDelegate {
         return tokens
     }
 
+    private let pasteboardType = NSPasteboard.PasteboardType(rawValue: "SublerTokenDataType")
+
     func tokenField(_ tokenField: NSTokenField, writeRepresentedObjects objects: [Any], to pboard: NSPasteboard) -> Bool {
         if let tokens = objects as? [Token] {
+            if let data = try? JSONEncoder().encode(tokens) {
+                pboard.setData(data, forType: pasteboardType)
+            }
             let string = tokens.reduce("", { "\($0)/{\($1.text)}" })
             pboard.setString(string, forType: NSPasteboard.PasteboardType.string)
             return true
         } else {
             return false
+        }
+    }
+
+    func tokenField(_ tokenField: NSTokenField, readFrom pboard: NSPasteboard) -> [Any]? {
+        if let data = pboard.data(forType: pasteboardType),
+            let tokens = try? JSONDecoder().decode([Token].self, from: data) {
+            return tokens
+        } else if let string = pboard.string(forType: .string) {
+            return [string]
+        } else {
+            return nil
         }
     }
 

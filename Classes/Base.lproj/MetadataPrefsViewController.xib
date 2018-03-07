@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14105" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14087.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14105"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="SBMetadataPrefsViewController">
+        <customObject id="-2" userLabel="File's Owner" customClass="MetadataPrefsViewController" customModule="Subler" customModuleProvider="target">
             <connections>
                 <outlet property="addMetadataPopUpButton" destination="Jdh-Cj-6ef" id="Ph0-fz-ZY3"/>
                 <outlet property="builtInTokenField" destination="Y15-gP-AOw" id="ac2-6x-h6b"/>
-                <outlet property="itemsController" destination="4Wq-Wo-sl2" id="eTI-Pm-iTj"/>
                 <outlet property="removeMetadataButton" destination="sd5-qb-K5v" id="B6v-8K-9aR"/>
                 <outlet property="tableView" destination="Tid-Rc-Ljr" id="Y8N-pm-La7"/>
                 <outlet property="typesController" destination="RId-BH-Y2G" id="OAU-rB-hlr"/>
@@ -36,7 +35,7 @@
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="" width="149" minWidth="40" maxWidth="1000" id="6um-Rw-luk">
+                                    <tableColumn identifier="annotation" width="149" minWidth="40" maxWidth="1000" id="6um-Rw-luk">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Annotations">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -49,7 +48,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="vYq-3Z-IEz">
+                                            <tableCellView identifier="annotation" id="vYq-3Z-IEz">
                                                 <rect key="frame" x="1" y="1" width="149" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -63,9 +62,6 @@
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
-                                                        <connections>
-                                                            <binding destination="vYq-3Z-IEz" name="value" keyPath="objectValue.localizedKeyDisplayName" id="I2x-pk-tAp"/>
-                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
@@ -80,7 +76,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="" width="207" minWidth="40" maxWidth="1000" id="Aj4-bk-6RK">
+                                    <tableColumn identifier="value" width="207" minWidth="40" maxWidth="1000" id="Aj4-bk-6RK">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Value">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -93,7 +89,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="5Ey-Te-51o">
+                                            <tableCellView identifier="value" id="5Ey-Te-51o" customClass="TokenCellView" customModule="Subler" customModuleProvider="target">
                                                 <rect key="frame" x="153" y="1" width="207" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -105,7 +101,6 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </tokenFieldCell>
                                                         <connections>
-                                                            <binding destination="5Ey-Te-51o" name="value" keyPath="objectValue.value" id="abE-Cv-9mt"/>
                                                             <outlet property="delegate" destination="-2" id="2P5-NS-pMb"/>
                                                         </connections>
                                                     </tokenField>
@@ -115,14 +110,16 @@
                                                     <constraint firstItem="3sj-gY-zSo" firstAttribute="centerY" secondItem="5Ey-Te-51o" secondAttribute="centerY" id="ee7-eP-eFc"/>
                                                     <constraint firstAttribute="trailing" secondItem="3sj-gY-zSo" secondAttribute="trailing" constant="3" id="mYf-ql-jQM"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outlet property="tokenView" destination="3sj-gY-zSo" id="khh-FF-osa"/>
+                                                </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
                                 </tableColumns>
                                 <accessibility description="Metadata map"/>
                                 <connections>
-                                    <binding destination="4Wq-Wo-sl2" name="content" keyPath="arrangedObjects" id="RaQ-JH-c1I"/>
-                                    <binding destination="4Wq-Wo-sl2" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="RaQ-JH-c1I" id="VZH-su-D0I"/>
+                                    <outlet property="dataSource" destination="-2" id="42L-kY-Co5"/>
                                     <outlet property="delegate" destination="-2" id="9Dc-Qd-Jhm"/>
                                 </connections>
                             </tableView>
@@ -164,7 +161,6 @@
                     </buttonCell>
                     <connections>
                         <action selector="removeMetadata:" target="-2" id="68h-Kv-eRu"/>
-                        <binding destination="4Wq-Wo-sl2" name="enabled" keyPath="selectionIndexes.count" id="K6b-sv-ld3"/>
                     </connections>
                 </button>
                 <popUpButton toolTip="Add annotation" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Jdh-Cj-6ef">
@@ -259,7 +255,6 @@
                                 <connections>
                                     <binding destination="RId-BH-Y2G" name="content" keyPath="arrangedObjects" id="jcZ-Ta-ZjW"/>
                                     <binding destination="RId-BH-Y2G" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="jcZ-Ta-ZjW" id="xnp-ML-pVC"/>
-                                    <outlet property="delegate" destination="-2" id="6Ex-bI-tTK"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -333,11 +328,6 @@
         <arrayController objectClassName="NSString" id="RId-BH-Y2G" userLabel="Types Controller">
             <connections>
                 <binding destination="-2" name="contentArray" keyPath="self.types" id="Guk-pY-Isi"/>
-            </connections>
-        </arrayController>
-        <arrayController objectClassName="SBMetadataDefaultItem" id="4Wq-Wo-sl2">
-            <connections>
-                <binding destination="-2" name="contentArray" keyPath="self.map.items" id="KOJ-Ao-j0F"/>
             </connections>
         </arrayController>
         <userDefaultsController representsSharedInstance="YES" id="LQR-UU-5Gl"/>

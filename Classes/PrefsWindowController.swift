@@ -11,10 +11,11 @@ class PrefsWindowController: NSWindowController {
 
     public class func registerUserDefaults() {
         let defaults = UserDefaults.standard
-        let movieDefaultMap = NSKeyedArchiver.archivedData(withRootObject: MetadataResultMap.movieDefaultMap)
-        let tvShowDefaultMap = NSKeyedArchiver.archivedData(withRootObject: MetadataResultMap.tvShowDefaultMap)
 
         let encoder = JSONEncoder()
+
+        let movieDefaultMap = try? encoder.encode(MetadataResultMap.movieDefaultMap)
+        let tvShowDefaultMap = try? encoder.encode(MetadataResultMap.tvShowDefaultMap)
 
         let movieFormat = try? encoder.encode([Token(text: "{Name}")])
         let tvShowFormat = try? encoder.encode([Token(text: "{TV Show}"), Token(text: " s", isPlaceholder: false), Token(text: "{TV Season}"), Token(text: "e", isPlaceholder: false), Token(text: "{TV Episode #}")])
@@ -33,9 +34,18 @@ class PrefsWindowController: NSWindowController {
             if oldMovieFormat.isEmpty == false {
                 defaults.set(oldMovieFormat, forKey: "SBMovieFormatTokens")
             }
+
             let oldTvShowFormat = defaults.tokenArrayFromOldStylePrefs(forKey: "SBTVShowFormat")
             if oldTvShowFormat.isEmpty == false {
                 defaults.set(oldTvShowFormat, forKey: "SBTVShowFormatTokens")
+            }
+
+            if let oldStyleMovieResultMap = defaults.mapFromOldStylePrefs(forKey: "SBMetadataMovieResultMap") {
+                defaults.set(oldStyleMovieResultMap, forKey: "SBMetadataMovieResultMap2")
+            }
+
+            if let oldStyleTvShowResultMap = defaults.mapFromOldStylePrefs(forKey: "SBMetadataTvShowResultMap") {
+                defaults.set(oldStyleTvShowResultMap, forKey: "SBMetadataTvShowResultMap2")
             }
 
             defaults.set(1, forKey: "SBUpgradeCheck")
@@ -71,8 +81,8 @@ class PrefsWindowController: NSWindowController {
                                        "SBMetadataPreference|TV|TheTVDB|Language":      "en",
                                        "SBMetadataPreference|TV|TheMovieDB|Language":   "en",
 
-                                       "SBMetadataMovieResultMap":       movieDefaultMap,
-                                       "SBMetadataTvShowResultMap":      tvShowDefaultMap,
+                                       "SBMetadataMovieResultMap2":       movieDefaultMap ?? "",
+                                       "SBMetadataTvShowResultMap2":      tvShowDefaultMap ?? "",
                                        "SBMetadataKeepEmptyAnnotations": false,
 
                                        "SBFileImporterImportMetadata": true,

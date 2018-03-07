@@ -27,7 +27,7 @@
 		A90CD5C51FD177280070A067 /* OutputPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90CD5C71FD177280070A067 /* OutputPrefsViewController.xib */; };
 		A91576EB204ECA6E00D93CE7 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91576EA204ECA6E00D93CE7 /* Token.swift */; };
 		A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91B196B1F2B0DCB0008675F /* QueueAction.swift */; };
-		A924A51E1D4B9E93008301A7 /* SBMetadataPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A924A5201D4B9E93008301A7 /* SBMetadataPrefsViewController.xib */; };
+		A924A51E1D4B9E93008301A7 /* MetadataPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A924A5201D4B9E93008301A7 /* MetadataPrefsViewController.xib */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A92AD0161F3482350082892E /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92AD0151F3482350082892E /* NetworkUtilities.swift */; };
@@ -53,6 +53,7 @@
 		A9676A341FB6EAAD00C1E300 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9676A331FB6EAAD00C1E300 /* ItemViewController.swift */; };
 		A96946531BA3F83D0048C004 /* SBMediaTagsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A96946511BA3F83D0048C004 /* SBMediaTagsController.m */; };
 		A979B3862025C8BF00468362 /* DocumentWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A979B3842025C8BF00468362 /* DocumentWindowController.swift */; };
+		A97C3AA5204F18C90007AD38 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97C3AA4204F18C90007AD38 /* TokenCellView.swift */; };
 		A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A982D0BF140AB66400B92357 /* SBQueueItem.m */; };
 		A984DB4B0F52D644001A20B2 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A984DB4A0F52D644001A20B2 /* Sparkle.framework */; };
 		A984DB530F52D679001A20B2 /* Sparkle.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A984DB4A0F52D644001A20B2 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -220,7 +221,7 @@
 		A924A51B1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBActivityWindow.xib; sourceTree = "<group>"; };
 		A924A51C1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBMediaTagsController.xib; sourceTree = "<group>"; };
 		A924A51D1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ExceptionAlert.xib; sourceTree = "<group>"; };
-		A924A51F1D4B9E93008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBMetadataPrefsViewController.xib; sourceTree = "<group>"; };
+		A924A51F1D4B9E93008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MetadataPrefsViewController.xib; sourceTree = "<group>"; };
 		A925AA7B18378D7800BE84D4 /* MP42Foundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP42Foundation.xcodeproj; path = MP42Foundation/MP42Foundation.xcodeproj; sourceTree = "<group>"; };
 		A92AD0151F3482350082892E /* NetworkUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkUtilities.swift; path = Classes/NetworkUtilities.swift; sourceTree = "<group>"; };
 		A92BBAB21F557CC0007EA182 /* PresetEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PresetEditorViewController.swift; path = Classes/PresetEditorViewController.swift; sourceTree = "<group>"; };
@@ -256,6 +257,7 @@
 		A96946501BA3F83D0048C004 /* SBMediaTagsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMediaTagsController.h; path = Classes/SBMediaTagsController.h; sourceTree = "<group>"; };
 		A96946511BA3F83D0048C004 /* SBMediaTagsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMediaTagsController.m; path = Classes/SBMediaTagsController.m; sourceTree = "<group>"; };
 		A979B3842025C8BF00468362 /* DocumentWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentWindowController.swift; path = Classes/DocumentWindowController.swift; sourceTree = "<group>"; };
+		A97C3AA4204F18C90007AD38 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenCellView.swift; path = Classes/TokenCellView.swift; sourceTree = "<group>"; };
 		A982D0BE140AB66400B92357 /* SBQueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueItem.h; path = Classes/SBQueueItem.h; sourceTree = "<group>"; };
 		A982D0BF140AB66400B92357 /* SBQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueItem.m; path = Classes/SBQueueItem.m; sourceTree = "<group>"; };
 		A984DB4A0F52D644001A20B2 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
@@ -288,7 +290,7 @@
 		A9B4EE4E1643EBF3009AF6BC /* Subler.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Subler.entitlements; sourceTree = "<group>"; };
 		A9B514181EFC12310055A035 /* TheTVDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheTVDB.swift; path = Classes/MetadataImporters/TheTVDB.swift; sourceTree = "<group>"; };
 		A9BA1ACF1DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBPresetPrefsViewController.strings; sourceTree = "<group>"; };
-		A9BA1AD01DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBMetadataPrefsViewController.strings; sourceTree = "<group>"; };
+		A9BA1AD01DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MetadataPrefsViewController.strings; sourceTree = "<group>"; };
 		A9BA1AD21DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/ChapterView.strings; sourceTree = "<group>"; };
 		A9BA1AD31DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/EmptyView.strings; sourceTree = "<group>"; };
 		A9BA1AD41DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/MovieView.strings; sourceTree = "<group>"; };
@@ -469,6 +471,7 @@
 			children = (
 				A90057B51F99DE2700FA4ED1 /* ComboBoxCellView.swift */,
 				A90057BB1F99E20B00FA4ED1 /* CheckBoxCellView.swift */,
+				A97C3AA4204F18C90007AD38 /* TokenCellView.swift */,
 				A90057BD1F99E2D800FA4ED1 /* TokenFieldCell.swift */,
 				A90057BF1F99E35300FA4ED1 /* PopUpCellView.swift */,
 				A9C09C971F99F971007939EE /* ExpandedTableView.swift */,
@@ -498,11 +501,10 @@
 				A944E5911F498FC4002E43F6 /* PresetPrefsViewController.swift */,
 				A90300CA1DAE72C4008237D8 /* SBPresetPrefsViewController.xib */,
 				A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */,
-				A924A5201D4B9E93008301A7 /* SBMetadataPrefsViewController.xib */,
-				A91576EA204ECA6E00D93CE7 /* Token.swift */,
-				A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */,
+				A924A5201D4B9E93008301A7 /* MetadataPrefsViewController.xib */,
 				A9F680A61FD06E0200018371 /* OutputPrefsViewController.swift */,
 				A90CD5C71FD177280070A067 /* OutputPrefsViewController.xib */,
+				A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */,
 				A90CD5C21FD177230070A067 /* TokensViewController.xib */,
 				A9C31E652029ABC800CEF474 /* PrefsTabViewController.swift */,
 				A99D23202029CD32002E7F27 /* PrefsWindow.swift */,
@@ -636,6 +638,7 @@
 		CD71FF1A12F1C46900F0A98D /* MetadataImporters */ = {
 			isa = PBXGroup;
 			children = (
+				A91576EA204ECA6E00D93CE7 /* Token.swift */,
 				A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */,
 				A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */,
 				A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */,
@@ -805,7 +808,7 @@
 				A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */,
 				A9ECA0572029A10B00D5F30C /* DocumentWindowController.xib in Resources */,
 				CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */,
-				A924A51E1D4B9E93008301A7 /* SBMetadataPrefsViewController.xib in Resources */,
+				A924A51E1D4B9E93008301A7 /* MetadataPrefsViewController.xib in Resources */,
 				A92BBABE1F5584EA007EA182 /* PresetEditorViewController.xib in Resources */,
 				A90CD5C51FD177280070A067 /* OutputPrefsViewController.xib in Resources */,
 				A9A4A966202F51FA00482D12 /* SaveOptions.xib in Resources */,
@@ -887,6 +890,7 @@
 				A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */,
 				A90057C01F99E35300FA4ED1 /* PopUpCellView.swift in Sources */,
 				A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */,
+				A97C3AA5204F18C90007AD38 /* TokenCellView.swift in Sources */,
 				A956CE651F99E5BB00093992 /* ActivityWindowController.swift in Sources */,
 				A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */,
 				A9A77C4E1F306FA70018023B /* AttributedStyles.swift in Sources */,
@@ -999,13 +1003,13 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		A924A5201D4B9E93008301A7 /* SBMetadataPrefsViewController.xib */ = {
+		A924A5201D4B9E93008301A7 /* MetadataPrefsViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A924A51F1D4B9E93008301A7 /* Base */,
 				A9BA1AD01DBF773600FD0B38 /* it */,
 			);
-			name = SBMetadataPrefsViewController.xib;
+			name = MetadataPrefsViewController.xib;
 			path = Classes;
 			sourceTree = "<group>";
 		};

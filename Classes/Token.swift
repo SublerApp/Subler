@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Token: Codable {
+public class Token: Codable {
 
     enum Case: Int, Codable {
         case none

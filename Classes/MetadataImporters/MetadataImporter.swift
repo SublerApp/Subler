@@ -65,7 +65,7 @@ public enum MetadataNameSearch {
 
 }
 
-public enum MetadataType : Int, CustomStringConvertible {
+public enum MetadataType : Int, CustomStringConvertible, Codable {
     public var description: String {
         switch self {
         case .movie:

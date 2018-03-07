@@ -172,8 +172,12 @@ public class MetadataResult : NSObject {
                     .iTunesCountry]
         }
 
-       public var localizedDisplayName: String {
+        public var localizedDisplayName: String {
             return localizedKeys[self] ?? "Null"
+        }
+
+        public var token: Token {
+            return Token(text: self.rawValue)
         }
 
         public static var movieKeysStrings: [String] {
@@ -237,23 +241,19 @@ public class MetadataResult : NSObject {
         dictionary.merge(result.dictionary) { (_, new) in new }
     }
 
-    private func isToken(_ string: String) -> Bool {
-        return string.hasPrefix("{}") && string.hasSuffix("}") && string.count > 2
-    }
-
     public func mappedMetadata(to map: MetadataResultMap, keepEmptyKeys: Bool) -> MP42Metadata {
         let metadata = MP42Metadata()
 
         metadata.addItems(map.items.compactMap {
             let value = $0.value.reduce("", {
-                if let key = Key(rawValue: $1) {
+                if let key = Key(rawValue: $1.text) {
                     if let value = dictionary[key] {
-                        return $0 + "\(value)"
+                        return $0 + $1.format(text: "\(value)")
                     }
                     return $0
                 }
                 else {
-                    return $0 + $1
+                    return $0 + $1.text
                 }
             })
             return value.isEmpty == false || keepEmptyKeys ? MP42MetadataItem(identifier: $0.key,

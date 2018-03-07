@@ -263,8 +263,8 @@ extension Array where Element == Artwork {
         }
 
         let defaults = UserDefaults.standard
-        if let map = metadata.mediaKind == .movie ? defaults.map(forKey: "SBMetadataMovieResultMap")
-            : defaults.map(forKey: "SBMetadataTvShowResultMap") {
+        if let map = metadata.mediaKind == .movie ? defaults.map(forKey: "SBMetadataMovieResultMap2")
+            : defaults.map(forKey: "SBMetadataTvShowResultMap2") {
             return metadata.mappedMetadata(to: map, keepEmptyKeys: false)
         }
         return nil
