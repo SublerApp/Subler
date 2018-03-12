@@ -7,15 +7,38 @@
 
 import Cocoa
 
+protocol TokenChangeObserver: AnyObject {
+    func tokenDidChange(_ obj: Notification?)
+}
+
 class TokenDelegate: NSObject, NSTokenFieldDelegate {
 
     let displayMenu: Bool
     let displayString: (Token) -> String
+    let currentTokens: [Token]
+    weak var delegate: TokenChangeObserver?
 
-    init(displayMenu: Bool, displayString: @escaping (Token) -> String) {
+    init(displayMenu: Bool, displayString: @escaping (Token) -> String, currentTokens: [Token] = []) {
         self.displayMenu = displayMenu
         self.displayString = displayString
+        self.currentTokens = currentTokens
     }
+
+    // MARK: NSTextField
+
+    override func controlTextDidEndEditing(_ obj: Notification) {
+        delegate?.tokenDidChange(obj)
+    }
+
+//    override func controlTextDidBeginEditing(_ obj: Notification) {
+//        delegate?.controlTextDidBeginEditing(obj)
+//    }
+//
+//    override func controlTextDidChange(_ obj: Notification) {
+//        delegate?.controlTextDidChange(obj)
+//    }
+
+    // MARK: NSTokenFieldDelegate
 
     func tokenField(_ tokenField: NSTokenField, displayStringForRepresentedObject representedObject: Any) -> String? {
         if let token = representedObject as? Token {
@@ -41,14 +64,14 @@ class TokenDelegate: NSObject, NSTokenFieldDelegate {
         return Token(text: editingString, isPlaceholder: control)
     }
 
-//    func tokenField(_ tokenField: NSTokenField, completionsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [Any]? {
-//        matches = currentTokens.filter { $0.hasPrefix(substring) }
-//        return matches
-//    }
+    func tokenField(_ tokenField: NSTokenField, completionsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [Any]? {
+        let matches = currentTokens.filter { $0.text.hasPrefix(substring) }
+        return matches
+    }
 
     func tokenField(_ tokenField: NSTokenField, editingStringForRepresentedObject representedObject: Any) -> String? {
         if let token =  representedObject as? Token {
-            return token.isPlaceholder ? "/\(token.text)/" : token.text
+            return token.isPlaceholder ? nil : token.text
         }
         return representedObject as? String
     }
@@ -101,45 +124,96 @@ class TokenDelegate: NSObject, NSTokenFieldDelegate {
         }
     }
 
-    @IBAction func setTokenCase(_ sender: NSMenuItem) {}
-    @IBAction func setTokenPadding(_ sender: NSMenuItem) {}
+    @IBAction func setTokenCase(_ sender: NSMenuItem) {
+        guard let token = sender.representedObject as? Token,
+            let tokenCase = Token.Case(rawValue: sender.tag) else { return }
+
+        if token.textCase == tokenCase {
+            token.textCase = .none
+        } else {
+            token.textCase = tokenCase
+        }
+
+        delegate?.tokenDidChange(nil)
+    }
+
+    @IBAction func setTokenPadding(_ sender: NSMenuItem) {
+        guard let token = sender.representedObject as? Token,
+            let tokenPadding = Token.Padding(rawValue: sender.tag) else { return }
+
+        if token.textPadding == tokenPadding {
+            token.textPadding = .none
+        } else {
+            token.textPadding = tokenPadding
+        }
+
+        delegate?.tokenDidChange(nil)
+    }
+
+    @IBAction func setTokenDateFormat(_ sender: NSMenuItem) {
+        guard let token = sender.representedObject as? Token,
+            let tokenDateFormat = Token.DateFormat(rawValue: sender.tag) else { return }
+
+        if token.textDateFormat == tokenDateFormat {
+            token.textDateFormat = .none
+        } else {
+            token.textDateFormat = tokenDateFormat
+        }
+
+        delegate?.tokenDidChange(nil)
+    }
 
     private func menu(for token: Token) -> NSMenu {
         let menu = NSMenu(title: "Item Menu")
         menu.autoenablesItems = false
 
-        menu.addItem(caseMenuItem(title: NSLocalizedString("Capitalize", comment: ""), tag: Token.Case.capitalize.rawValue, token: token))
-        menu.addItem(caseMenuItem(title: NSLocalizedString("lowercase", comment: ""), tag: Token.Case.lower.rawValue, token: token))
-        menu.addItem(caseMenuItem(title: NSLocalizedString("UPPERCASE", comment: ""), tag: Token.Case.upper.rawValue, token: token))
-        menu.addItem(caseMenuItem(title: NSLocalizedString("CamelCase", comment: ""), tag: Token.Case.camel.rawValue, token: token))
-        menu.addItem(caseMenuItem(title: NSLocalizedString("snake_case", comment: ""), tag: Token.Case.snake.rawValue, token: token))
-        menu.addItem(caseMenuItem(title: NSLocalizedString("train-case", comment: ""), tag: Token.Case.train.rawValue, token: token))
-        menu.addItem(caseMenuItem(title: NSLocalizedString("dot.case", comment: ""), tag: Token.Case.dot.rawValue, token: token))
+        if token.text == "{Release Date}" {
+            menu.addItem(dateMenuItem(title: NSLocalizedString("Year", comment: ""), tag: Token.DateFormat.year.rawValue, token: token))
+            menu.addItem(dateMenuItem(title: NSLocalizedString("Month", comment: ""), tag: Token.DateFormat.month.rawValue, token: token))
+            menu.addItem(dateMenuItem(title: NSLocalizedString("Day", comment: ""), tag: Token.DateFormat.day.rawValue, token: token))
 
-        menu.addItem(paddingMenuItem(title: NSLocalizedString("Leading zero", comment: ""), tag: Token.Padding.leadingzero.rawValue, token: token))
+            menu.addItem(paddingMenuItem(title: NSLocalizedString("Leading zero", comment: ""), tag: Token.Padding.leadingzero.rawValue, token: token))
+        }
+        else {
+            menu.addItem(caseMenuItem(title: NSLocalizedString("Capitalize", comment: ""), tag: Token.Case.capitalize.rawValue, token: token))
+            menu.addItem(caseMenuItem(title: NSLocalizedString("lowercase", comment: ""), tag: Token.Case.lower.rawValue, token: token))
+            menu.addItem(caseMenuItem(title: NSLocalizedString("UPPERCASE", comment: ""), tag: Token.Case.upper.rawValue, token: token))
+            menu.addItem(caseMenuItem(title: NSLocalizedString("CamelCase", comment: ""), tag: Token.Case.camel.rawValue, token: token))
+            menu.addItem(caseMenuItem(title: NSLocalizedString("snake_case", comment: ""), tag: Token.Case.snake.rawValue, token: token))
+            menu.addItem(caseMenuItem(title: NSLocalizedString("train-case", comment: ""), tag: Token.Case.train.rawValue, token: token))
+            menu.addItem(caseMenuItem(title: NSLocalizedString("dot.case", comment: ""), tag: Token.Case.dot.rawValue, token: token))
+
+            menu.addItem(paddingMenuItem(title: NSLocalizedString("Leading zero", comment: ""), tag: Token.Padding.leadingzero.rawValue, token: token))
+        }
 
         return menu
     }
 
-    private func caseMenuItem(title: String, tag: Int, token: Token) -> NSMenuItem {
-        let item = NSMenuItem(title: title, action: #selector(setTokenCase(_:)), keyEquivalent: "")
+    private func configureMenuItem(item: NSMenuItem, token: Token, tag: Int, defaultTag: Int) {
         item.isEnabled = true
         item.representedObject = token
         item.tag = tag
-        if tag == token.textCase.rawValue {
+        item.target = self
+        if tag == defaultTag {
             item.state = .on
         }
+    }
+
+    private func caseMenuItem(title: String, tag: Int, token: Token) -> NSMenuItem {
+        let item = NSMenuItem(title: title, action: #selector(setTokenCase(_:)), keyEquivalent: "")
+        configureMenuItem(item: item, token: token, tag: tag, defaultTag: token.textCase.rawValue)
         return item
     }
 
     private func paddingMenuItem(title: String, tag: Int, token: Token) -> NSMenuItem {
         let item = NSMenuItem(title: title, action: #selector(setTokenPadding(_:)), keyEquivalent: "")
-        item.isEnabled = true
-        item.representedObject = token
-        item.tag = tag
-        if tag == token.textPadding.rawValue {
-            item.state = .on
-        }
+        configureMenuItem(item: item, token: token, tag: tag, defaultTag: token.textPadding.rawValue)
+        return item
+    }
+
+    private func dateMenuItem(title: String, tag: Int, token: Token) -> NSMenuItem {
+        let item = NSMenuItem(title: title, action: #selector(setTokenDateFormat(_:)), keyEquivalent: "")
+        configureMenuItem(item: item, token: token, tag: tag, defaultTag: token.textDateFormat.rawValue)
         return item
     }
 

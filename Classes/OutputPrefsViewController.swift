@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class OutputPrefsViewController: NSViewController {
+class OutputPrefsViewController: NSViewController, TokenChangeObserver {
 
     @IBOutlet var movieField: NSTokenField!
     @IBOutlet var tvShowField: NSTokenField!
@@ -23,7 +23,8 @@ class OutputPrefsViewController: NSViewController {
 
     init() {
         let separators: CharacterSet = CharacterSet(charactersIn: "{}")
-        self.tokenDelegate = TokenDelegate(displayMenu: true, displayString: { localizedMetadataKeyName($0.text.trimmingCharacters(in: separators)) })
+        self.tokenDelegate = TokenDelegate(displayMenu: true,
+                                           displayString: { localizedMetadataKeyName($0.text.trimmingCharacters(in: separators)) })
         super.init(nibName: nil, bundle: nil)
         self.title = NSLocalizedString("Filename", comment: "")
     }
@@ -34,6 +35,8 @@ class OutputPrefsViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tokenDelegate.delegate = self
 
         movieField.delegate = tokenDelegate
         tvShowField.delegate = tokenDelegate
@@ -90,33 +93,7 @@ class OutputPrefsViewController: NSViewController {
 
     // MARK: Format Token Field Delegate
 
-    override func controlTextDidEndEditing(_ obj: Notification) {
-        save()
-    }
-
-    @IBAction func setTokenCase(_ sender: NSMenuItem) {
-        guard let token = sender.representedObject as? Token,
-            let tokenCase = Token.Case(rawValue: sender.tag) else { return }
-
-        if token.textCase == tokenCase {
-            token.textCase = .none
-        } else {
-            token.textCase = tokenCase
-        }
-
-        save()
-    }
-
-    @IBAction func setTokenPadding(_ sender: NSMenuItem) {
-        guard let token = sender.representedObject as? Token,
-            let tokenPadding = Token.Padding(rawValue: sender.tag) else { return }
-
-        if token.textPadding == tokenPadding {
-            token.textPadding = .none
-        } else {
-            token.textPadding = tokenPadding
-        }
-
+    func tokenDidChange(_ obj: Notification?) {
         save()
     }
 

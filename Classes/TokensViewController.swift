@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class TokensViewController: NSViewController {
+class TokensViewController: NSViewController, NSTextFieldDelegate {
 
     @IBOutlet var tokenField: NSTokenField!
     let tokens: [Token]

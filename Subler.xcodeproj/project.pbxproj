@@ -500,6 +500,7 @@
 				A9C31E622029A82200CEF474 /* AdvancedPrefsViewController.xib */,
 				A944E5911F498FC4002E43F6 /* PresetPrefsViewController.swift */,
 				A90300CA1DAE72C4008237D8 /* PresetPrefsViewController.xib */,
+				A91576EA204ECA6E00D93CE7 /* Token.swift */,
 				A902E0C920504FD400445AC8 /* TokenDelegate.swift */,
 				A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */,
 				A924A5201D4B9E93008301A7 /* MetadataPrefsViewController.xib */,
@@ -638,7 +639,6 @@
 		CD71FF1A12F1C46900F0A98D /* MetadataImporters */ = {
 			isa = PBXGroup;
 			children = (
-				A91576EA204ECA6E00D93CE7 /* Token.swift */,
 				A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */,
 				A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */,
 				A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */,

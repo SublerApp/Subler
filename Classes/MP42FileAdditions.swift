@@ -106,8 +106,8 @@ extension MP42File {
                 let trimmedToken = token.text.trimmingCharacters(in: separators)
                 let metadataItems = metadata.metadataItemsFiltered(byIdentifier: trimmedToken)
 
-                if let string = metadataItems.first?.stringValue {
-                    name.append(token.format(text: string))
+                if let item = metadataItems.first {
+                    name.append(token.format(metadataItem: item))
                 }
             } else {
                 name.append(token.text)

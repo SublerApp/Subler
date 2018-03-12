@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTableViewDataSource, NSTextFieldDelegate {
+class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTableViewDataSource, TokenChangeObserver {
 
     @IBOutlet var builtInTokenField: NSTokenField!
     @IBOutlet var addMetadataPopUpButton: NSPopUpButton!
@@ -24,7 +24,6 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
     var map: MetadataResultMap
 
     var currentTokens: [String]
-    var matches: [String]
 
     var selectionObserver: NSKeyValueObservation?
     let sort: (MetadataResultMapItem, MetadataResultMapItem) -> Bool
@@ -49,7 +48,6 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
         self.map = movieMap
 
         self.currentTokens = []
-        self.matches = []
 
         let context = MP42Metadata.availableMetadata
         self.sort = { (obj1: MetadataResultMapItem ,obj2: MetadataResultMapItem) -> Bool in
@@ -74,6 +72,9 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tokenDelegate.delegate = self
+        tableTokenDelegate.delegate = self
 
         builtInTokenField.tokenizingCharacterSet = CharacterSet(charactersIn: "/")
         builtInTokenField.delegate = tokenDelegate
@@ -176,27 +177,13 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
 
     // MARK: Format Token Field Delegate
 
-    @IBAction func setTokenCase(_ sender: NSMenuItem) {
-        guard let token = sender.representedObject as? Token,
-            let tokenCase = Token.Case(rawValue: sender.tag) else { return }
+    func tokenDidChange(_ obj: Notification?) {
+        if let tokenField = obj?.object as? NSTokenField {
+            let row = tableView.row(for: tokenField)
 
-        if token.textCase == tokenCase {
-            token.textCase = .none
-        } else {
-            token.textCase = tokenCase
-        }
-
-        save()
-    }
-
-    @IBAction func setTokenPadding(_ sender: NSMenuItem) {
-        guard let token = sender.representedObject as? Token,
-            let tokenPadding = Token.Padding(rawValue: sender.tag) else { return }
-
-        if token.textPadding == tokenPadding {
-            token.textPadding = .none
-        } else {
-            token.textPadding = tokenPadding
+            if row != -1, let tokens = tokenField.objectValue as? [Token] {
+                map.items[row].value = tokens
+            }
         }
 
         save()
