@@ -28,6 +28,7 @@
 		A90CD5C51FD177280070A067 /* OutputPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90CD5C71FD177280070A067 /* OutputPrefsViewController.xib */; };
 		A91576EB204ECA6E00D93CE7 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91576EA204ECA6E00D93CE7 /* Token.swift */; };
 		A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91B196B1F2B0DCB0008675F /* QueueAction.swift */; };
+		A91EB969205ABAF400392E1C /* NSWindowAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91EB968205ABAF400392E1C /* NSWindowAdditions.swift */; };
 		A924A51E1D4B9E93008301A7 /* MetadataPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A924A5201D4B9E93008301A7 /* MetadataPrefsViewController.xib */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -206,6 +207,7 @@
 		A90CD5C11FD177230070A067 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TokensViewController.xib; sourceTree = "<group>"; };
 		A91576EA204ECA6E00D93CE7 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Token.swift; path = Classes/Token.swift; sourceTree = "<group>"; };
 		A91B196B1F2B0DCB0008675F /* QueueAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueAction.swift; path = Classes/QueueAction.swift; sourceTree = "<group>"; };
+		A91EB968205ABAF400392E1C /* NSWindowAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSWindowAdditions.swift; path = Classes/NSWindowAdditions.swift; sourceTree = "<group>"; };
 		A924A50D1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/ChapterView.xib; sourceTree = "<group>"; };
 		A924A50E1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/EmptyView.xib; sourceTree = "<group>"; };
 		A924A50F1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/MovieView.xib; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 				A9AF6A7818D0537F00FAAB08 /* Queue */,
 				A9915ABB1F4B26A5003C57D1 /* Presets */,
 				A9395E341F8B9ACA004C402B /* MP42FileAdditions.swift */,
+				A91EB968205ABAF400392E1C /* NSWindowAdditions.swift */,
 				A98D440F2036F661005CB092 /* AppDelegate.swift */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
 				A947218D1D49D9F700858DD8 /* Preferences */,
@@ -866,6 +869,7 @@
 				A9395E351F8B9ACA004C402B /* MP42FileAdditions.swift in Sources */,
 				A9A8CEF91E43754400BC2AE1 /* SBQueueScriptCommand.m in Sources */,
 				A902E0CA20504FD400445AC8 /* TokenDelegate.swift in Sources */,
+				A91EB969205ABAF400392E1C /* NSWindowAdditions.swift in Sources */,
 				A9C09C9A1F9A0808007939EE /* EmptyViewController.swift in Sources */,
 				A9C09C981F99F971007939EE /* ExpandedTableView.swift in Sources */,
 				A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class PrefsWindowController: NSWindowController {
+class PrefsWindowController: NSWindowController, NSWindowDelegate {
 
     public class func registerUserDefaults() {
         let defaults = UserDefaults.standard
@@ -106,6 +106,10 @@ class PrefsWindowController: NSWindowController {
         if let items = window?.toolbar?.items, let item = (items.filter { $0.itemIdentifier == general }).first {
             selectItem(item, animate: false)
         }
+    }
+
+    func windowWillClose(_ notification: Notification) {
+        _ = self.window?.endEditing()
     }
 
     lazy var generalController: GeneralPrefsViewController = { return GeneralPrefsViewController() }()
