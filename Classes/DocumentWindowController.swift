@@ -242,14 +242,14 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
         mp4.progressHandler = { [weak progressController] progress in
             DispatchQueue.main.async {
                 guard let progressController = progressController else { return }
-                progressController.progressBar.doubleValue = progress
+                progressController.progress = progress
             }
         }
     }
 
     func setProgress(title: String) {
         if let progressController = self.progressController {
-            progressController.progressString.stringValue = title
+            progressController.progressTitle = title
         }
     }
 

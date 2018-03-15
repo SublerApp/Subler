@@ -19,15 +19,39 @@ class ProgressViewController: NSViewController {
 
     weak var delegate: ProgressViewControllerDelegate?
 
+    private var isIndeterminate: Bool = true
+
     override var nibName: NSNib.Name? {
         return NSNib.Name(rawValue: "ProgressViewController")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
+        progressBar.isIndeterminate = true
     }
-    
+
+    var progress: Double {
+        set (progress) {
+            if isIndeterminate {
+                isIndeterminate = false
+                progressBar.isIndeterminate = false
+            }
+            progressBar.doubleValue = progress
+        }
+        get {
+            return progressBar.doubleValue
+        }
+    }
+
+    var progressTitle: String {
+        set (progressTitle) {
+            progressString.stringValue = progressTitle
+        }
+        get {
+            return progressString.stringValue
+        }
+    }
+
     @IBAction func cancel(_ sender: Any) {
         delegate?.cancel()
         cancelButton.isEnabled = false
