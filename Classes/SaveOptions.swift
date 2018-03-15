@@ -13,6 +13,7 @@ class SaveOptions: NSViewController {
 
     @IBOutlet var _64bit_data: NSButton!
     @IBOutlet var _64bit_time: NSButton!
+    @IBOutlet var optimize: NSButton!
 
     private weak var doc: Document?
     private weak var savePanel: NSSavePanel?
@@ -57,6 +58,7 @@ class SaveOptions: NSViewController {
 
         _64bit_data.state = UserDefaults.standard.bool(forKey: "mp464bitOffset") ? .on : .off
         _64bit_time.state = UserDefaults.standard.bool(forKey: "mp464bitTimes") ? .on : .off
+        optimize.state = UserDefaults.standard.bool(forKey: "mp4SaveAsOptimize") ? .on : .off
 
         if doc.mp4.dataSize > 4000000000 {
             _64bit_data.state = .on
@@ -69,6 +71,7 @@ class SaveOptions: NSViewController {
         UserDefaults.standard.set(fileFormat.indexOfSelectedItem, forKey: "defaultSaveFormat")
         UserDefaults.standard.set(_64bit_data.state == .on, forKey: "mp464bitOffset")
         UserDefaults.standard.set(_64bit_time.state == .on, forKey: "mp464bitTimes")
+        UserDefaults.standard.set(optimize.state == .on, forKey: "mp4SaveAsOptimize")
     }
     
     @IBAction func setSaveFormat(_ sender: NSPopUpButton) {

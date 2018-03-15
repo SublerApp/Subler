@@ -87,6 +87,7 @@ import IOKit.pwr_mgt
         if let accessoryViewController = accessoryViewController {
             options[MP4264BitData] = accessoryViewController._64bit_data.state == .on ? true : false
             options[MP4264BitTime] = accessoryViewController._64bit_time.state == .on ? true : false
+            optimize = accessoryViewController.optimize.state == .on ? true : false
         }
 
         return options

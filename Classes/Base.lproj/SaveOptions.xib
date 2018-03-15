@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14092" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14105" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14092"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14105"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,27 +11,28 @@
                 <outlet property="_64bit_data" destination="emp-1S-F7H" id="b8h-TJ-Hf7"/>
                 <outlet property="_64bit_time" destination="3CX-Vp-T0h" id="8cp-ub-tQL"/>
                 <outlet property="fileFormat" destination="kLA-Cm-c6R" id="bPE-OG-Iqz"/>
+                <outlet property="optimize" destination="2xF-eJ-cUB" id="H9G-cX-cA2"/>
                 <outlet property="view" destination="MW8-8K-w1S" id="gS9-5h-yIf"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="MW8-8K-w1S">
-            <rect key="frame" x="0.0" y="0.0" width="388" height="82"/>
+            <rect key="frame" x="0.0" y="0.0" width="388" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="4Ry-tR-0w3">
-                    <rect key="frame" x="24" y="0.0" width="340" height="82"/>
+                    <rect key="frame" x="24" y="0.0" width="340" height="100"/>
                     <subviews>
                         <button toolTip="Needed for mp4 larger than 4GB." translatesAutoresizingMaskIntoConstraints="NO" id="emp-1S-F7H">
-                            <rect key="frame" x="98" y="28" width="144" height="18"/>
+                            <rect key="frame" x="98" y="46" width="144" height="18"/>
                             <buttonCell key="cell" type="check" title="64 bits chunk offset" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="14x-xv-HKI">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                         </button>
                         <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="zba-Ja-Te5">
-                            <rect key="frame" x="18" y="29" width="76" height="17"/>
+                            <rect key="frame" x="18" y="47" width="76" height="17"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Options:" id="BXP-AU-x3T">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -39,7 +40,7 @@
                             </textFieldCell>
                         </textField>
                         <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kLA-Cm-c6R">
-                            <rect key="frame" x="98" y="48" width="225" height="26"/>
+                            <rect key="frame" x="98" y="66" width="225" height="26"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="nSc-Ly-xDh"/>
                             </constraints>
@@ -65,7 +66,7 @@
                             </connections>
                         </popUpButton>
                         <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="XpL-JT-4Ap">
-                            <rect key="frame" x="18" y="54" width="76" height="17"/>
+                            <rect key="frame" x="18" y="72" width="76" height="17"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="File Format:" id="caN-zU-chS">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -73,7 +74,7 @@
                             </textFieldCell>
                         </textField>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="3CX-Vp-T0h">
-                            <rect key="frame" x="98" y="8" width="102" height="18"/>
+                            <rect key="frame" x="98" y="26" width="102" height="18"/>
                             <string key="toolTip">Note: don't use this option if you are not sure of what it is doing, it's not needed in almost every case.
 Enable 64bit timescale and duration support. Normally, it's only needed if a track will be longer than 10 hours.</string>
                             <buttonCell key="cell" type="check" title="64 bits times" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="DCI-a5-K73">
@@ -81,25 +82,35 @@ Enable 64bit timescale and duration support. Normally, it's only needed if a tra
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                         </button>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="2xF-eJ-cUB">
+                            <rect key="frame" x="98" y="6" width="77" height="18"/>
+                            <buttonCell key="cell" type="check" title="Optimize" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="OZC-sc-82O">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="3CX-Vp-T0h" secondAttribute="bottom" constant="10" id="1GJ-pY-dF2"/>
-                        <constraint firstItem="3CX-Vp-T0h" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="emp-1S-F7H" secondAttribute="leading" id="3QO-pI-h1c"/>
                         <constraint firstAttribute="trailing" secondItem="kLA-Cm-c6R" secondAttribute="trailing" constant="20" id="5jk-uv-z5h"/>
                         <constraint firstItem="emp-1S-F7H" firstAttribute="baseline" secondItem="zba-Ja-Te5" secondAttribute="baseline" id="7Ht-Pq-dzg"/>
-                        <constraint firstAttribute="trailing" secondItem="3CX-Vp-T0h" secondAttribute="trailing" constant="142" id="9rK-X2-uWr"/>
+                        <constraint firstItem="3CX-Vp-T0h" firstAttribute="leading" secondItem="emp-1S-F7H" secondAttribute="leading" id="9kG-WT-XAS"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3CX-Vp-T0h" secondAttribute="trailing" constant="20" id="9rK-X2-uWr"/>
                         <constraint firstItem="kLA-Cm-c6R" firstAttribute="leading" secondItem="XpL-JT-4Ap" secondAttribute="trailing" constant="8" symbolic="YES" id="Aaf-kz-2vP"/>
                         <constraint firstItem="zba-Ja-Te5" firstAttribute="trailing" secondItem="XpL-JT-4Ap" secondAttribute="trailing" id="J9B-Ay-ffZ"/>
+                        <constraint firstItem="2xF-eJ-cUB" firstAttribute="top" secondItem="3CX-Vp-T0h" secondAttribute="bottom" constant="6" id="KuP-xy-h7a"/>
                         <constraint firstItem="XpL-JT-4Ap" firstAttribute="leading" secondItem="4Ry-tR-0w3" secondAttribute="leading" constant="20" id="Lvt-ba-5d8"/>
                         <constraint firstItem="XpL-JT-4Ap" firstAttribute="top" secondItem="4Ry-tR-0w3" secondAttribute="top" constant="11" id="Oa0-2T-0qx"/>
                         <constraint firstItem="zba-Ja-Te5" firstAttribute="width" secondItem="XpL-JT-4Ap" secondAttribute="width" id="RMM-TK-h6J"/>
+                        <constraint firstItem="3CX-Vp-T0h" firstAttribute="top" secondItem="emp-1S-F7H" secondAttribute="bottom" constant="6" id="UKK-HO-zbg"/>
+                        <constraint firstAttribute="bottom" secondItem="2xF-eJ-cUB" secondAttribute="bottom" constant="8" id="Vlt-RB-pAf"/>
                         <constraint firstItem="zba-Ja-Te5" firstAttribute="top" secondItem="XpL-JT-4Ap" secondAttribute="bottom" constant="8" id="h9j-De-mnb"/>
                         <constraint firstItem="kLA-Cm-c6R" firstAttribute="baseline" secondItem="XpL-JT-4Ap" secondAttribute="baseline" id="id1-TO-wwz"/>
-                        <constraint firstAttribute="trailing" secondItem="emp-1S-F7H" secondAttribute="trailing" constant="100" id="lCH-K0-yN4"/>
-                        <constraint firstAttribute="height" constant="82" id="owK-Sa-daJ"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2xF-eJ-cUB" secondAttribute="trailing" constant="20" id="j7J-FJ-5fA"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="emp-1S-F7H" secondAttribute="trailing" constant="20" id="lCH-K0-yN4"/>
+                        <constraint firstAttribute="height" constant="100" id="o72-z0-Eu2"/>
                         <constraint firstItem="zba-Ja-Te5" firstAttribute="leading" secondItem="4Ry-tR-0w3" secondAttribute="leading" constant="20" id="qbp-1y-b6U"/>
-                        <constraint firstItem="3CX-Vp-T0h" firstAttribute="top" secondItem="emp-1S-F7H" secondAttribute="bottom" constant="6" id="teD-Iz-KKx"/>
-                        <constraint firstItem="emp-1S-F7H" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zba-Ja-Te5" secondAttribute="trailing" constant="8" symbolic="YES" id="vk4-wu-sLE"/>
+                        <constraint firstItem="2xF-eJ-cUB" firstAttribute="leading" secondItem="3CX-Vp-T0h" secondAttribute="leading" id="tMl-9V-EIc"/>
+                        <constraint firstItem="emp-1S-F7H" firstAttribute="leading" secondItem="zba-Ja-Te5" secondAttribute="trailing" constant="8" symbolic="YES" id="vk4-wu-sLE"/>
                     </constraints>
                 </customView>
             </subviews>
@@ -108,7 +119,7 @@ Enable 64bit timescale and duration support. Normally, it's only needed if a tra
                 <constraint firstItem="4Ry-tR-0w3" firstAttribute="centerX" secondItem="MW8-8K-w1S" secondAttribute="centerX" id="ixL-3p-fAK"/>
                 <constraint firstAttribute="bottom" secondItem="4Ry-tR-0w3" secondAttribute="bottom" id="og4-yI-jBc"/>
             </constraints>
-            <point key="canvasLocation" x="-19" y="-26"/>
+            <point key="canvasLocation" x="-19" y="-54.5"/>
         </customView>
     </objects>
 </document>
