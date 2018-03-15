@@ -8,6 +8,7 @@
 import Cocoa
 
 class DocumentController : NSDocumentController {
+
     override func openDocument(withContentsOf url: URL, display displayDocument: Bool, completionHandler: @escaping (NSDocument?, Bool, Error?) -> Void) {
         let ext = url.pathExtension.lowercased()
 
@@ -25,6 +26,11 @@ class DocumentController : NSDocumentController {
         else {
             super.openDocument(withContentsOf: url, display: displayDocument, completionHandler: completionHandler)
         }
+    }
+
+    override func document(for url: URL) -> NSDocument? {
+        let filteredDocuments = self.documents.filter { $0.fileURL == url }
+        return filteredDocuments.first
     }
 }
 
@@ -73,7 +79,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let firstLaunch = defaults.bool(forKey: "SBFirstLaunch") ? false : true
 
         let donateNagTime = Double(60 * 60 * 24 * 7)
-        let donateNagTimeLong = Double(60 * 60 * 24 * 120)
+        let donateNagTimeLong = Double(60 * 60 * 24 * 180)
 
         let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
         let lastVersion = defaults.string(forKey: "SBDonateAskVersion") ?? ""
