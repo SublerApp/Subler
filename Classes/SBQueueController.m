@@ -10,8 +10,6 @@
 #import "SBQueueItem.h"
 #import "SBQueuePreferences.h"
 
-#import "SBOptionsViewController.h"
-
 #import <MP42Foundation/MP42FileImporter.h>
 
 #import "Subler-Swift.h"

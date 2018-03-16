@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc(SBMetadataImporterLanguageType) public enum LanguageType: Int {
+public enum LanguageType {
     case ISO
     case custom
 

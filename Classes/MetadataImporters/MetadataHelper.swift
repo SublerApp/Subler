@@ -7,40 +7,6 @@
 
 import Foundation
 
-/// Wrapper for Objc compatibility
-@objc public class SBMetadataImporter : NSObject {
-
-    @objc public static var movieProviders: [String] {
-        return MetadataSearch.movieProviders
-    }
-
-    @objc public static var tvProviders: [String] {
-        return MetadataSearch.tvProviders
-    }
-
-    @objc public static func defaultLanguage(provider: String) -> String {
-        return MetadataSearch.service(name: provider).defaultLanguage
-    }
-
-    @objc public static func importer(provider: String) -> SBMetadataImporter {
-        return SBMetadataImporter(provider: provider)
-    }
-
-    private let service: MetadataService
-
-    @objc init(provider: String) {
-        service = MetadataSearch.service(name: provider)
-    }
-
-    @objc public var languageType: LanguageType {
-        return service.languageType
-    }
-
-    @objc public var languages: [String] {
-        return service.languages
-    }
-}
-
 // MARK: - Filename
 
 public enum MetadataSearchTerms {

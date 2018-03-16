@@ -37,6 +37,7 @@
 		A92BBABE1F5584EA007EA182 /* PresetEditorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A92BBABC1F558388007EA182 /* PresetEditorViewController.xib */; };
 		A92ECCE31F49984C0063BFBD /* PrefsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92ECCE21F49984C0063BFBD /* PrefsWindowController.swift */; };
 		A93105391F9758EC00605146 /* FileImportController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A93105351F9758EC00605146 /* FileImportController.xib */; };
+		A932C9F3205C268A004E52FE /* QueueScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A932C9F2205C268A004E52FE /* QueueScriptCommand.swift */; };
 		A9395E351F8B9ACA004C402B /* MP42FileAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9395E341F8B9ACA004C402B /* MP42FileAdditions.swift */; };
 		A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */; };
 		A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */; };
@@ -75,7 +76,6 @@
 		A9A4A966202F51FA00482D12 /* SaveOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A4A968202F51FA00482D12 /* SaveOptions.xib */; };
 		A9A4A96B202F51FF00482D12 /* ProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A4A96D202F51FF00482D12 /* ProgressViewController.xib */; };
 		A9A77C4E1F306FA70018023B /* AttributedStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A77C4D1F306FA70018023B /* AttributedStyles.swift */; };
-		A9A8CEF91E43754400BC2AE1 /* SBQueueScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8CEF81E43754400BC2AE1 /* SBQueueScriptCommand.m */; };
 		A9A91B5D1FB6FBB700250D93 /* ChapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */; };
 		A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */; };
 		A9AB485817F0AEAC000AA72E /* SBVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */; };
@@ -100,6 +100,7 @@
 		A9C31E5D2029A79000CEF474 /* GeneralPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C31E5B2029A78F00CEF474 /* GeneralPrefsViewController.xib */; };
 		A9C31E602029A80F00CEF474 /* AdvancedPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C31E5E2029A80F00CEF474 /* AdvancedPrefsViewController.swift */; };
 		A9C31E642029A82200CEF474 /* AdvancedPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C31E622029A82200CEF474 /* AdvancedPrefsViewController.xib */; };
+		A9C3E44A205C07F4004DE24E /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C3E449205C07F4004DE24E /* OptionsViewController.swift */; };
 		A9C5FA7419FA2FEC0051F3FF /* SBActivityWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C5FA7219FA2FEC0051F3FF /* SBActivityWindow.xib */; };
 		A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C828F4195950C3004C4718 /* SBQueuePreferences.m */; };
 		A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */; };
@@ -115,7 +116,6 @@
 		A9ECA05A2029A10F00D5F30C /* TracksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9ECA05C2029A10F00D5F30C /* TracksViewController.xib */; };
 		A9ECA05D2029A11500D5F30C /* DetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9ECA05F2029A11500D5F30C /* DetailsViewController.xib */; };
 		A9ECA0602029A13800D5F30C /* OffsetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9ECA0622029A13800D5F30C /* OffsetViewController.xib */; };
-		A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */; };
 		A9EEA5F818D654B9008B54B4 /* QueueOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */; };
 		A9F2A2662026EACD00C4B69A /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2A2642026EACD00C4B69A /* DetailsViewController.swift */; };
 		A9F4FF4B1FB708FB004473A8 /* SoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F4FF4A1FB708FB004473A8 /* SoundViewController.swift */; };
@@ -231,6 +231,7 @@
 		A92BBABD1F558388007EA182 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/Base.lproj/PresetEditorViewController.xib; sourceTree = "<group>"; };
 		A92ECCE21F49984C0063BFBD /* PrefsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrefsWindowController.swift; path = Classes/PrefsWindowController.swift; sourceTree = "<group>"; };
 		A93105361F9758EC00605146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FileImportController.xib; sourceTree = "<group>"; };
+		A932C9F2205C268A004E52FE /* QueueScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueScriptCommand.swift; path = Classes/QueueScriptCommand.swift; sourceTree = "<group>"; };
 		A9395E341F8B9ACA004C402B /* MP42FileAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MP42FileAdditions.swift; path = Classes/MP42FileAdditions.swift; sourceTree = "<group>"; };
 		A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterResult.swift; path = Classes/MetadataImporters/ChapterResult.swift; sourceTree = "<group>"; };
 		A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterDB.swift; path = Classes/MetadataImporters/ChapterDB.swift; sourceTree = "<group>"; };
@@ -279,8 +280,6 @@
 		A9A4A967202F51FA00482D12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SaveOptions.xib; sourceTree = "<group>"; };
 		A9A4A96C202F51FF00482D12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ProgressViewController.xib; sourceTree = "<group>"; };
 		A9A77C4D1F306FA70018023B /* AttributedStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AttributedStyles.swift; path = Classes/AttributedStyles.swift; sourceTree = "<group>"; };
-		A9A8CEF71E43754400BC2AE1 /* SBQueueScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueScriptCommand.h; path = Classes/SBQueueScriptCommand.h; sourceTree = "<group>"; };
-		A9A8CEF81E43754400BC2AE1 /* SBQueueScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueScriptCommand.m; path = Classes/SBQueueScriptCommand.m; sourceTree = "<group>"; };
 		A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterViewController.swift; path = Classes/PropertyView/ChapterViewController.swift; sourceTree = "<group>"; };
 		A9AB484E17F0AEAC000AA72E /* SBMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMovieViewController.h; path = Classes/PropertyView/SBMovieViewController.h; sourceTree = "<group>"; };
 		A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMovieViewController.m; path = Classes/PropertyView/SBMovieViewController.m; sourceTree = "<group>"; };
@@ -321,6 +320,7 @@
 		A9C31E5C2029A78F00CEF474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GeneralPrefsViewController.xib; sourceTree = "<group>"; };
 		A9C31E5E2029A80F00CEF474 /* AdvancedPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AdvancedPrefsViewController.swift; path = Classes/AdvancedPrefsViewController.swift; sourceTree = "<group>"; };
 		A9C31E632029A82200CEF474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AdvancedPrefsViewController.xib; sourceTree = "<group>"; };
+		A9C3E449205C07F4004DE24E /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionsViewController.swift; path = Classes/OptionsViewController.swift; sourceTree = "<group>"; };
 		A9C828F3195950C3004C4718 /* SBQueuePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueuePreferences.h; path = Classes/SBQueuePreferences.h; sourceTree = "<group>"; };
 		A9C828F4195950C3004C4718 /* SBQueuePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueuePreferences.m; path = Classes/SBQueuePreferences.m; sourceTree = "<group>"; };
 		A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataImporter.swift; path = Classes/MetadataImporters/MetadataImporter.swift; sourceTree = "<group>"; };
@@ -338,8 +338,6 @@
 		A9ECA05E2029A11500D5F30C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DetailsViewController.xib; sourceTree = "<group>"; };
 		A9ECA0612029A13800D5F30C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OffsetViewController.xib; sourceTree = "<group>"; };
 		A9ED7B21180067A2008FD3A8 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
-		A9EEA5EF18D65490008B54B4 /* SBOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBOptionsViewController.h; path = Classes/SBOptionsViewController.h; sourceTree = "<group>"; };
-		A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBOptionsViewController.m; path = Classes/SBOptionsViewController.m; sourceTree = "<group>"; };
 		A9F2A2642026EACD00C4B69A /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailsViewController.swift; path = Classes/DetailsViewController.swift; sourceTree = "<group>"; };
 		A9F4FF4A1FB708FB004473A8 /* SoundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SoundViewController.swift; path = Classes/PropertyView/SoundViewController.swift; sourceTree = "<group>"; };
 		A9F5820B1DCC861F005F3E92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -569,8 +567,7 @@
 				A961476513F568210068F161 /* Queue.xib */,
 				A9C828F3195950C3004C4718 /* SBQueuePreferences.h */,
 				A9C828F4195950C3004C4718 /* SBQueuePreferences.m */,
-				A9EEA5EF18D65490008B54B4 /* SBOptionsViewController.h */,
-				A9EEA5F018D65490008B54B4 /* SBOptionsViewController.m */,
+				A9C3E449205C07F4004DE24E /* OptionsViewController.swift */,
 				A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */,
 				A9676A2F1FB6E85300C1E300 /* LanguageTransformer.swift */,
 				A9676A331FB6EAAD00C1E300 /* ItemViewController.swift */,
@@ -580,8 +577,7 @@
 				A982D0BE140AB66400B92357 /* SBQueueItem.h */,
 				A982D0BF140AB66400B92357 /* SBQueueItem.m */,
 				A91B196B1F2B0DCB0008675F /* QueueAction.swift */,
-				A9A8CEF71E43754400BC2AE1 /* SBQueueScriptCommand.h */,
-				A9A8CEF81E43754400BC2AE1 /* SBQueueScriptCommand.m */,
+				A932C9F2205C268A004E52FE /* QueueScriptCommand.swift */,
 			);
 			name = Queue;
 			sourceTree = "<group>";
@@ -849,6 +845,7 @@
 				A9D64527202CA92400BA172B /* SaveOptions.swift in Sources */,
 				A9859ACE1F4B43CC00022828 /* QueuePreset.swift in Sources */,
 				A9F2A2662026EACD00C4B69A /* DetailsViewController.swift in Sources */,
+				A932C9F3205C268A004E52FE /* QueueScriptCommand.swift in Sources */,
 				A9915AC31F4B293B003C57D1 /* PresetManager.swift in Sources */,
 				A90BC5E31F3A139700F9F3F3 /* MetadataResult.swift in Sources */,
 				A99189CD1F2F87EC00623ED7 /* ChapterImporter.swift in Sources */,
@@ -867,7 +864,6 @@
 				A90057BE1F99E2D800FA4ED1 /* TokenFieldCell.swift in Sources */,
 				A9ECA0532029948900D5F30C /* OffsetViewController.swift in Sources */,
 				A9395E351F8B9ACA004C402B /* MP42FileAdditions.swift in Sources */,
-				A9A8CEF91E43754400BC2AE1 /* SBQueueScriptCommand.m in Sources */,
 				A902E0CA20504FD400445AC8 /* TokenDelegate.swift in Sources */,
 				A91EB969205ABAF400392E1C /* NSWindowAdditions.swift in Sources */,
 				A9C09C9A1F9A0808007939EE /* EmptyViewController.swift in Sources */,
@@ -891,6 +887,7 @@
 				A92BBAB41F557CC0007EA182 /* PresetEditorViewController.swift in Sources */,
 				A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */,
 				A961476313F567E10068F161 /* SBQueueController.m in Sources */,
+				A9C3E44A205C07F4004DE24E /* OptionsViewController.swift in Sources */,
 				A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */,
 				A90057C01F99E35300FA4ED1 /* PopUpCellView.swift in Sources */,
 				A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */,
@@ -903,7 +900,6 @@
 				A944E5921F498FC4002E43F6 /* PresetPrefsViewController.swift in Sources */,
 				A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */,
 				A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */,
-				A9EEA5F218D65490008B54B4 /* SBOptionsViewController.m in Sources */,
 				A9C09C9C1F9A08A9007939EE /* MultiSelectViewController.swift in Sources */,
 				A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */,
 				A90057B61F99DE2700FA4ED1 /* ComboBoxCellView.swift in Sources */,
