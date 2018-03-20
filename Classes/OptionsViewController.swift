@@ -150,6 +150,7 @@ import Cocoa
         item.image = icon
         item.target = self
         item.representedObject = url
+        item.toolTip = url.path
         return item
     }
 
@@ -180,7 +181,6 @@ import Cocoa
         } else {
             destButton.selectItem(withTag: sameAsFileTag)
         }
-
     }
 
     private func saveRecentDestinations() {
