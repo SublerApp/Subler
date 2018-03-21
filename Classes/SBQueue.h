@@ -27,7 +27,6 @@ extern NSString *SBQueueCancelledNotification;
 @interface SBQueue : NSObject
 
 @property (atomic, readonly) SBQueueStatus status;
-@property (atomic) BOOL optimize;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithURL:(NSURL *)queueURL NS_DESIGNATED_INITIALIZER;

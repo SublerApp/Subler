@@ -13,13 +13,19 @@ NS_ASSUME_NONNULL_BEGIN
 @class MP42File;
 @class SBQueueItem;
 
+typedef NS_ENUM(NSUInteger, SBQueueActionType) {
+    SBQueueActionTypePre = 0,
+    SBQueueActionTypePost
+};
+
 /**
  *  SBQueue actions protocol, actions can be run by
  *  the queue's items.
  */
 @protocol SBQueueActionProtocol <NSObject, NSSecureCoding>
-- (void)runAction:(SBQueueItem *)item;
+- (BOOL)runAction:(SBQueueItem *)item;
 @property (nonatomic, readonly) NSString *localizedDescription;
+@property (nonatomic, readonly) SBQueueActionType type;
 @end
 
 
@@ -57,7 +63,7 @@ typedef NS_ENUM(NSUInteger, SBQueueItemStatus) {
 - (void)removeAction:(id<SBQueueActionProtocol>)action;
 
 - (BOOL)prepare:(NSError * __autoreleasing *)outError;
-- (BOOL)processWithOptions:(BOOL)optimize error:(NSError * __autoreleasing *)outError;
+- (BOOL)process:(NSError * __autoreleasing *)outError;
 - (void)cancel;
 
 @end

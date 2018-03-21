@@ -80,9 +80,6 @@ static void *SBQueueContex = &SBQueueContex;
     // Drag & Drop
     [self.table registerForDraggedTypes:@[NSFilenamesPboardType, SublerBatchTableViewDataType]];
 
-    // Observe the changes to SBQueueOptimize
-    [self addObserver:self forKeyPath:@"options.SBQueueOptimize" options:NSKeyValueObservingOptionInitial context:SBQueueContex];
-
     // Register to the queue notifications
     NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
 
@@ -172,16 +169,6 @@ static void *SBQueueContex = &SBQueueContex;
 
 - (BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem {
     return YES;
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (context == SBQueueContex) {
-        if ([keyPath isEqualToString:@"options.SBQueueOptimize"]) {
-            self.queue.optimize = [(self.options)[SBQueueOptimize] boolValue];
-        }
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
 }
 
 #pragma mark - Queue methods
@@ -292,6 +279,10 @@ static void *SBQueueContex = &SBQueueContex;
 
     if (self.options[SBQueueSet]) {
         [item addAction:[[SBQueueSetAction alloc] initWithPreset:self.options[SBQueueSet]]];
+    }
+
+    if ([self.options[SBQueueOptimize] boolValue]) {
+        [item addAction:[[SBQueueOptimizeAction alloc] init]];
     }
 
     id type;

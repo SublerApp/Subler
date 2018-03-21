@@ -310,9 +310,11 @@
     }
 
     for (id<SBQueueActionProtocol> action in self.actions) {
-        self.localizedWorkingDescription = action.localizedDescription;
-        [self progressStatus:0];
-        [action runAction:self];
+        if (action.type == SBQueueActionTypePre) {
+            self.localizedWorkingDescription = action.localizedDescription;
+            [self progressStatus:0];
+            [action runAction:self];
+        }
     }
 
     self.localizedWorkingDescription = nil;
@@ -320,7 +322,7 @@
     return YES;
 }
 
-- (BOOL)processWithOptions:(BOOL)optimize error:(NSError * __autoreleasing *)outError {
+- (BOOL)process:(NSError * __autoreleasing *)outError {
     BOOL noErr = YES;
 
 #ifdef SB_SANDBOX
@@ -376,9 +378,14 @@
 
     {
         // Optimize the file
-        if (!self.cancelled && optimize) {
-            self.localizedWorkingDescription = NSLocalizedString(@"Optimizing", @"");
-            noErr = [self.mp4File optimize];
+        if (!self.cancelled /*&& optimize*/) {
+            for (id<SBQueueActionProtocol> action in self.actions) {
+                if (action.type == SBQueueActionTypePost) {
+                    self.localizedWorkingDescription = action.localizedDescription;
+                    [self progressStatus:0];
+                    noErr = [action runAction:self];
+                }
+            }
             self.localizedWorkingDescription = nil;
         }
 
@@ -460,7 +467,7 @@ bail:
                                                            [SBQueueSetLanguageAction class], [SBQueueFixFallbacksAction class],
                                                            [SBQueueClearTrackNameAction class], [SBQueueOrganizeGroupsAction class],
                                                            [SBQueueColorSpaceAction class], [SBQueueSetOutputFilenameAction class],
-                                                           [SBQueueClearExistingMetadataAction class], nil]
+                                                           [SBQueueClearExistingMetadataAction class], [SBQueueOptimizeAction class], nil]
                                                    forKey:@"SBQueueItemActions"];
 
         _status = [decoder decodeIntForKey:@"SBQueueItemStatus"];
