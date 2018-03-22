@@ -108,7 +108,7 @@ extension UserDefaults {
 
 }
 
-// MARK: Old style map
+// MARK: Old style map, to be removed next year
 
 @objc(SBMetadataResultMapItem) private class SBMetadataResultMapItem : NSObject, NSSecureCoding {
 
