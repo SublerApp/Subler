@@ -121,22 +121,22 @@ class SectionsTableView: ExpandedTableView {
         }
     }
 
-    private func sectionForRow(row: Int, counts: [Int]) -> (section: Int?, row: Int?) {
+    private func sectionForRow(row: Int, counts: [Int]) -> (section: Int?, sectionRow: Int?) {
         var c = counts[0]
         for section in 0..<counts.count {
             if (section > 0) {
                 c = c + counts[section]
             }
             if (row >= c - counts[section]) && row < c {
-                return (section: section, row: row - (c - counts[section]) - 1)
+                return (section: section, sectionRow: row - (c - counts[section]) - 1)
             }
         }
 
-        return (section: nil, row: nil)
+        return (section: nil, sectionRow: nil)
     }
 
-    func section(for row: Int) -> (section: Int, row: Int) {
-        guard let wrappedDataSource = strongDataSource?.wrappedDataSource else { return (section: 0, row: 0) }
+    func section(for row: Int) -> (section: Int, sectionRow: Int) {
+        guard let wrappedDataSource = strongDataSource?.wrappedDataSource else { return (section: 0, sectionRow: 0) }
 
         let numberOfSections = wrappedDataSource.numberOfSections(in: self)
         var counts = [Int](repeating: 0, count: numberOfSections)
@@ -147,7 +147,7 @@ class SectionsTableView: ExpandedTableView {
         }
 
         let result = sectionForRow(row: row, counts: counts)
-        return (section: result.section ?? 0, row: result.row ?? 0)
+        return (section: result.section ?? 0, sectionRow: result.sectionRow ?? 0)
     }
 
 }

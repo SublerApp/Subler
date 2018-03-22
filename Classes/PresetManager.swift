@@ -12,23 +12,28 @@ extension PresetManager.Error: LocalizedError {
         switch self {
         case .alreadyExists:
             return NSLocalizedString("A preset already exists with the same name.", comment: "")
+        case .emptyTitle:
+            return NSLocalizedString("The preset name must not be empty.", comment: "")
         }
     }
     public var recoverySuggestion: String? {
         switch self {
         case .alreadyExists:
             return NSLocalizedString("Please enter a different name for the preset.", comment: "")
+        case .emptyTitle:
+            return NSLocalizedString("Please enter a name for the preset.", comment: "")
         }
     }
 }
 
-@objc(SBPresetManager) final class PresetManager: NSObject {
-    @objc static let shared = PresetManager()
+final class PresetManager {
+    static let shared = PresetManager()
 
     let updateNotification = Notification.Name(rawValue: "SBPresetManagerUpdatedNotification")
-    var presets: [Preset]
 
-    @objc var metadataPresets: [MetadataPreset] {
+    private var presets: [Preset]
+
+    var metadataPresets: [MetadataPreset] {
         return presets.compactMap { $0 as? MetadataPreset }
     }
 
@@ -36,9 +41,8 @@ extension PresetManager.Error: LocalizedError {
         return presets.compactMap { $0 as? QueuePreset }
     }
 
-    private override init() {
+    private init() {
         self.presets = Array()
-        super.init()
         try? load()
     }
 
@@ -46,9 +50,13 @@ extension PresetManager.Error: LocalizedError {
 
     enum Error : Swift.Error {
         case alreadyExists
+        case emptyTitle
     }
 
     func append(newElement: Preset) throws {
+        if newElement.title.isEmpty {
+            throw Error.emptyTitle
+        }
         if item(name: newElement.title) != nil {
             throw Error.alreadyExists
         }
@@ -58,20 +66,20 @@ extension PresetManager.Error: LocalizedError {
         try save(preset: newElement)
     }
 
-    func remove(at index: Int) {
+    private func remove(at index: Int) throws {
         let preset = presets[index]
-        try? FileManager.default.removeItem(at: preset.fileURL)
+        try FileManager.default.removeItem(at: preset.fileURL)
         presets.remove(at: index)
         postNotification()
     }
 
-    func remove(item: Preset) {
+    func remove(item: Preset) throws {
         if let index = presets.index(where: { $0 === item }) {
-            remove(at: index)
+            try remove(at: index)
         }
     }
 
-    @objc func item(name: String) -> Preset? {
+    func item(name: String) -> Preset? {
         return presets.filter { $0.title == name }.first
     }
 

@@ -34,7 +34,7 @@ NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
 @property (nonatomic) NSMutableDictionary<NSString *,NSNumber *> *rowHeights;
 
 @property (nonatomic, weak) IBOutlet NSPopUpButton *tagsPopUp;
-@property (nonatomic, weak) IBOutlet NSPopUpButton *setsPopUp;
+//@property (nonatomic, weak) IBOutlet NSPopUpButton *setsPopUp;
 
 @property (nonatomic, weak) IBOutlet NSButton *removeTagButton;
 @property (nonatomic, weak) IBOutlet ExpandedTableView *metadataTableView;
@@ -302,58 +302,6 @@ static NSDateFormatter *_formatter;
     }
 
     [self addMetadataItems:itemsToBeAdded];
-}
-
-- (void)updateSetsMenu:(id)sender
-{
-    NSArray<SBMetadataPreset *> *presets = SBPresetManager.shared.metadataPresets;
-    NSMenu *setListMenu = self.setsPopUp.menu;
-
-    while (setListMenu.numberOfItems > 1) {
-        [setListMenu removeItemAtIndex: 1];
-    }
-    
-    NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Save Set", @"Set menu")
-                                                     action:@selector(showSaveSet:) keyEquivalent:@""];
-    newItem.target = self;
-    [setListMenu addItem:newItem];
-
-    [setListMenu addItem:[NSMenuItem separatorItem]];
-
-    newItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"All", @"Set menu All set")
-                                         action:@selector(addMetadataSet:) keyEquivalent:@""];
-    newItem.target = self;
-    newItem.tag = 0;
-    [setListMenu addItem:newItem];
-
-    newItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Movie", @"Set menu Movie set")
-                                         action:@selector(addMetadataSet:) keyEquivalent:@""];
-    newItem.target = self;
-    newItem.tag = 1;
-    [setListMenu addItem:newItem];
-
-    newItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"TV Show", @"Set menu TV Show Set")
-                                         action:@selector(addMetadataSet:) keyEquivalent:@""];
-    newItem.target = self;
-    newItem.tag = 2;
-    [setListMenu addItem:newItem];
-
-    if (presets.count) {
-        [setListMenu addItem:[NSMenuItem separatorItem]];
-    }
-
-    NSUInteger i = 0;
-    for (SBMetadataPreset *set in presets) {
-        newItem = [[NSMenuItem alloc] initWithTitle:set.title action:@selector(applySet:) keyEquivalent:@""];
-        if (i < 9) {
-            newItem.keyEquivalent = [NSString stringWithFormat:@"%lu", (unsigned long)i+1];
-        }
-
-        newItem.target = self;
-        newItem.tag = i++;
-
-        [setListMenu addItem:newItem];
-    }
 }
 
 #pragma mark - TableView data source

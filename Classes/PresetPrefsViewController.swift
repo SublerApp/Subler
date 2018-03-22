@@ -10,7 +10,6 @@ import Cocoa
 class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, SectionsTableViewDelegate, NSTextFieldDelegate {
 
     let presetManager: PresetManager
-    var currentRow: Int
 
     @IBOutlet var tableView: SectionsTableView!
     @IBOutlet var removeSetButton: NSButton!
@@ -24,7 +23,6 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
     }
 
     init() {
-        self.currentRow = 0
         self.presetManager = PresetManager.shared
         super.init(nibName: nil, bundle: nil)
         self.title = NSLocalizedString("Sets", comment: "")
@@ -75,7 +73,7 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: (section: Int, sectionRow: Int)) -> NSView? {
         if tableColumn?.identifier == NSUserInterfaceItemIdentifier("name"),
             let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("nameCell"), owner: self) as? NSTableCellView {
-            cell.textField?.stringValue = presetManager.presets[row.sectionRow].title
+            cell.textField?.stringValue = preset(for: row)?.title ?? "Null"
             cell.textField?.isSelectable = true
             cell.textField?.isEditable = true
             return cell
@@ -91,6 +89,17 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
 
     // MARK: UI Actions
 
+    private func preset(for row: (section: Int, sectionRow: Int)) -> Preset? {
+        switch row.section {
+        case 0:
+            return presetManager.metadataPresets[row.sectionRow]
+        case 1:
+            return presetManager.queuePresets[row.sectionRow]
+        default:
+            return nil
+        }
+    }
+
     private func rename(preset: Preset, to title: String) {
         if title.isEmpty == false && preset.title != title {
 
@@ -99,7 +108,7 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
 
             do {
                 try presetManager.append(newElement: copy)
-                presetManager.remove(item: preset)
+                try presetManager.remove(item: preset)
             }
             catch {
                 view.window?.presentError(error)
@@ -113,28 +122,41 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
         if let view = obj.object as? NSTextField {
             let row = tableView.row(for: view)
             let sectionRow = tableView.section(for: row)
-            let preset = presetManager.presets[sectionRow.row]
-            rename(preset: preset, to: view.stringValue)
+            if let preset = preset(for: sectionRow) {
+                rename(preset: preset, to: view.stringValue)
+            }
         }
     }
 
     @IBAction func deletePreset(_ sender: Any) {
         let rowIndex = tableView.selectedRow
-        if rowIndex > -1 {
-            presetManager.remove(at: rowIndex)
+        let sectionRow = tableView.section(for: rowIndex)
+
+        if let preset = self.preset(for: sectionRow) {
+            do {
+                try presetManager.remove(item: preset)
+            } catch {
+                view.window?.presentError(error)
+            }
         }
     }
 
     @IBAction func editPreset(_ sender: NSView) {
         let rowIndex = tableView.selectedRow
         let sectionRow = tableView.section(for: rowIndex)
+        let preset = self.preset(for: sectionRow)
 
-        if let preset = presetManager.presets[sectionRow.row] as? MetadataPreset {
-            currentRow = rowIndex
+        switch preset {
+        case let preset as MetadataPreset:
             controller = PresetEditorViewController.init(preset: preset)
-            
             presentViewControllerAsSheet(controller!)
+        case _ as QueuePreset:
+            // TODO
+            break
+        default:
+            break
         }
+
     }
 
 }

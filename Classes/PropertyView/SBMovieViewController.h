@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addMetadataCoverArtItems:(NSArray<MP42MetadataItem *> *)items;
 - (void)removeMetadataCoverArtItems:(NSArray<MP42MetadataItem *> *)items;
 
+@property (nonatomic, weak) IBOutlet NSPopUpButton *setsPopUp;
+
 // Set save window
 @property (nonatomic, strong) IBOutlet NSWindow *saveSetWindow;
 @property (nonatomic, weak) IBOutlet NSTextField *saveSetName;

@@ -205,14 +205,14 @@ extension Array where Element == Artwork {
     var localizedDescription: String { return NSLocalizedString("Searching metadata", comment: "Action localized description.") }
     override var description: String { return NSLocalizedString("Search Metadata", comment: "Action description.") }
 
-    @objc init(movieLanguage: String, tvShowLanguage: String, movieProvider: String, tvShowProvider: String, preferredArtwork: ArtworkType) {
+    @objc init(movieLanguage: String, tvShowLanguage: String, movieProvider: String, tvShowProvider: String, preferredArtwork: Int) {
         self.movieLanguage = movieLanguage;
         self.movieProvider = movieProvider;
 
         self.tvShowLanguage = tvShowLanguage;
         self.tvShowProvider = tvShowProvider
 
-        self.preferredArtwork = preferredArtwork
+        self.preferredArtwork = ArtworkType(rawValue: preferredArtwork) ?? ArtworkType.square
     }
 
     private func load(artworkURL: URL) -> MP42Image? {

@@ -9,6 +9,50 @@ import Cocoa
 
 extension SBMovieViewController {
 
+    @IBAction func updateSetsMenu(_ sender: Any) {
+        guard let menu = setsPopUp?.menu else { return }
+
+        while menu.numberOfItems > 1 {
+            menu.removeItem(at: 1)
+        }
+
+        let saveSetItem = NSMenuItem(title: NSLocalizedString("Save Set…", comment: "Set menu"), action: #selector(showSaveSet(_:)), keyEquivalent: "")
+        saveSetItem.target = self
+        menu.addItem(saveSetItem)
+
+        let allSetItem = NSMenuItem(title: NSLocalizedString("All", comment: "Set menu All set"), action: #selector(addMetadataSet(_:)), keyEquivalent: "")
+        allSetItem.target = self
+        allSetItem.tag = 0
+        menu.addItem(allSetItem)
+
+        let movieSetItem = NSMenuItem(title: NSLocalizedString("Movie", comment: "Set menu Movie set"), action: #selector(addMetadataSet(_:)), keyEquivalent: "")
+        movieSetItem.target = self
+        movieSetItem.tag = 1
+        menu.addItem(movieSetItem)
+
+        let tvSetItem = NSMenuItem(title: NSLocalizedString("TV Show", comment: "Set menu TV Show Set"), action: #selector(addMetadataSet(_:)), keyEquivalent: "")
+        tvSetItem.target = self
+        tvSetItem.tag = 2
+        menu.addItem(tvSetItem)
+
+        let presets = PresetManager.shared.metadataPresets
+
+        if presets.isEmpty == false {
+            menu.addItem(NSMenuItem.separator())
+        }
+
+        for (index, preset) in presets.enumerated() {
+            let item = NSMenuItem(title: preset.title, action: #selector(applySet(_:)), keyEquivalent: "")
+            if index < 9 {
+                item.keyEquivalent = "\(index + 1)"
+            }
+            item.target = self
+            item.tag = index
+
+            menu.addItem(item)
+        }
+    }
+
     @IBAction func applySet(_ sender: NSMenuItem) {
         let index = sender.tag
         let preset = PresetManager.shared.metadataPresets[index]

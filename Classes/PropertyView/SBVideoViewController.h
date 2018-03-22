@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class MP42File;
 @class MP42VideoTrack;
-@class MP42SubtitleTrack;
 
 @interface SBVideoViewController : NSViewController
 

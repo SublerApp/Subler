@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc protocol Preset: AnyObject, NSSecureCoding, NSCopying {
+protocol Preset: AnyObject, NSSecureCoding, NSCopying {
     var title: String { get set }
     var changed: Bool { get set }
     var version: Int { get }

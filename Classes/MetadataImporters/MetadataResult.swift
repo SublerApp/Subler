@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Image
 
-@objc(SBArtworkType) public enum ArtworkType : Int, CustomStringConvertible {
+public enum ArtworkType : Int, CustomStringConvertible {
     public var description: String {
         switch self {
         case .poster:

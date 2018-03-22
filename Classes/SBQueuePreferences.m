@@ -63,12 +63,13 @@ NSString * const SBQueueSetOutputFilename = @"SBQueueSetOutputFilename";
             self.options[SBQueueDestination] = url;
         }
 
-        if ([[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]) {
-            SBMetadataPreset *preset = (SBMetadataPreset *)[SBPresetManager.shared itemWithName:[[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]];
-            if (preset) {
-                self.options[SBQueueSet] = preset;
-            }
-        }
+        // FIXME
+//        if ([[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]) {
+//            SBMetadataPreset *preset = (SBMetadataPreset *)[SBPresetManager.shared itemWithName:[[NSUserDefaults standardUserDefaults] valueForKey:SBQueueSet]];
+//            if (preset) {
+//                self.options[SBQueueSet] = preset;
+//            }
+//        }
 
     }
     return self;

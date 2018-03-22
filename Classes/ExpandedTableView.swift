@@ -39,7 +39,7 @@ class ExpandedTableView: NSTableView {
         }
     }
 
-    @objc var defaultEditingColumn: Int
+    var defaultEditingColumn: Int
 
     private var expandedDelegate: ExpandedTableViewDelegate? {
         get {
