@@ -6,7 +6,6 @@
 #import "SBQueuePreferences.h"
 #import "SBQueueItem.h"
 #import "SBMovieViewController.h"
-#import "SBVideoViewController.h"
 
 #import <MP42Foundation/MP42Ratings.h>
 #import <MP42Foundation/MP42Languages.h>

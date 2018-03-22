@@ -122,6 +122,14 @@ static NSDateFormatter *_formatter;
     [self updateCoverArtArray];
 }
 
+- (void)reloadData
+{
+    [self updateMetadataArray];
+    [self.metadataTableView reloadData];
+    [self updateCoverArtArray];
+    [self.artworksView reloadData];
+}
+
 #pragma mark - Metadata
 
 - (void)updateMetadataArray

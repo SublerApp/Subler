@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readwrite) MP42Metadata *metadata;
 
+- (void)reloadData;
+
 - (IBAction)addTag:(id)sender;
 - (IBAction)removeTag:(id)sender;
 

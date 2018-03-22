@@ -391,13 +391,13 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     
     // MARK: Table View
     
-    let checkColumn = NSUserInterfaceItemIdentifier(rawValue: "check")
-    let trackIdColumn = NSUserInterfaceItemIdentifier(rawValue: "trackId")
-    let trackNameColumn = NSUserInterfaceItemIdentifier(rawValue: "trackName")
-    let trackDurationColumn = NSUserInterfaceItemIdentifier(rawValue: "trackDuration")
-    let trackLanguageColumn = NSUserInterfaceItemIdentifier(rawValue: "trackLanguage")
-    let trackInfoColumn = NSUserInterfaceItemIdentifier(rawValue: "trackInfo")
-    let trackActionColumn = NSUserInterfaceItemIdentifier(rawValue: "trackAction")
+    private let checkColumn = NSUserInterfaceItemIdentifier(rawValue: "check")
+    private let trackIdColumn = NSUserInterfaceItemIdentifier(rawValue: "trackId")
+    private let trackNameColumn = NSUserInterfaceItemIdentifier(rawValue: "trackName")
+    private let trackDurationColumn = NSUserInterfaceItemIdentifier(rawValue: "trackDuration")
+    private let trackLanguageColumn = NSUserInterfaceItemIdentifier(rawValue: "trackLanguage")
+    private let trackInfoColumn = NSUserInterfaceItemIdentifier(rawValue: "trackInfo")
+    private let trackActionColumn = NSUserInterfaceItemIdentifier(rawValue: "trackAction")
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         return items.count

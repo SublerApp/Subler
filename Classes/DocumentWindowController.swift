@@ -104,60 +104,65 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
         return tracksViewController
     }()
 
+    private var metadataViewController: SBMovieViewController?
+    private var videoViewController: VideoViewController?
+    private var soundViewController: SoundViewController?
+    private var chapterViewController: ChapterViewController?
+    private var multiViewController: MultiSelectViewController?
+
+    private func clearDetailsViewControllers() {
+        metadataViewController = nil
+        videoViewController = nil
+        soundViewController = nil
+        chapterViewController = nil
+        multiViewController = nil
+    }
+
     private func detailsViewController(_ tracks: [MP42Track]) -> NSViewController {
         if tracks.count > 1 {
-            let controller = MultiSelectViewController(nibName: NSNib.Name(rawValue: "MultiSelectView"),
-                                                       bundle: nil)
-            controller.numberOfTracks = UInt(tracks.count)
+            let controller = MultiSelectViewController(numberOfTracks: UInt(tracks.count))
             return controller
-        }
-        else {
-            let track = tracks.first
-            switch track {
+        } else {
+            switch tracks.first {
 
             case let track as MP42VideoTrack:
-                let controller = SBVideoViewController(nibName: NSNib.Name(rawValue: "VideoView"),
-                                                       bundle: nil)
-                controller.setTrack(track)
-                controller.setFile(mp4)
-                return controller
+                if let videoViewController = videoViewController {
+                    videoViewController.track = track
+                } else {
+                    videoViewController = VideoViewController(mp4: mp4, track: track)
+                }
+                return videoViewController!
 
             case let track as MP42AudioTrack:
-                let controller = SoundViewController(mp4: mp4, track: track)
-                return controller
+                if let soundViewController = soundViewController {
+                    soundViewController.track = track
+                } else {
+                    soundViewController = SoundViewController(mp4: mp4, track: track)
+                }
+                return soundViewController!
 
             case let track as MP42ChapterTrack:
-                let controller = ChapterViewController(track: track)
-                return controller
+                if let chapterViewController = chapterViewController {
+                    chapterViewController.track = track
+                } else {
+                    chapterViewController = ChapterViewController(track: track)
+                }
+                return chapterViewController!
 
             default:
-                let movieViewController = SBMovieViewController(nibName: NSNib.Name(rawValue: "MovieView"),
-                                                                bundle: nil)
-                movieViewController.metadata = mp4.metadata
-
-                return movieViewController
+                if metadataViewController == nil {
+                    metadataViewController = SBMovieViewController(nibName: NSNib.Name(rawValue: "MovieView"),
+                                                                       bundle: nil)
+                    metadataViewController!.metadata = mp4.metadata
+                }
+                return metadataViewController!
             }
         }
     }
 
     func reloadData() {
+        clearDetailsViewControllers()
         tracksViewController.mp4 = doc.mp4
-    }
-
-    // MARK: State restoration
-
-    override func encodeRestorableState(with coder: NSCoder) {
-        super.encodeRestorableState(with: coder)
-        //    [coder encodeInteger:self.tracksTable.selectedRow forKey:@"selectedRow"];
-    }
-
-    override func restoreState(with coder: NSCoder) {
-        super.restoreState(with: coder)
-
-        //    NSInteger selectedRow = [coder decodeIntegerForKey:@"selectedRow"];
-        //    if (selectedRow <= self.mp4.tracks.count) {
-        //        [self.tracksTable selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedRow] byExtendingSelection:NO];
-        //    }
     }
 
     // MARK: Tracks controller delegate
@@ -411,7 +416,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
                                                   dataType: .integer, extendedLanguageTag: nil))
         }
         doc.updateChangeCount(.changeDone)
-        tracksViewController.reloadData()
+        metadataViewController?.reloadData()
     }
 
     func didSelect(chapters: [MP42TextSample]) {
@@ -454,13 +459,13 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
             mp4.metadata.merge(metadata)
 
             doc.updateChangeCount(.changeDone)
-            tracksViewController.reloadData()
+            metadataViewController?.reloadData()
         }
         else if let file = try? MP42File(url: fileURL) {
             mp4.metadata.merge(file.metadata)
 
             doc.updateChangeCount(.changeDone)
-            tracksViewController.reloadData()
+            metadataViewController?.reloadData()
         }
     }
 
@@ -552,6 +557,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
         if let metadata = metadata {
             mp4.metadata.merge(metadata)
             doc.updateChangeCount(.changeDone)
+            metadataViewController?.reloadData()
         }
 
         tracksViewController.reloadData()

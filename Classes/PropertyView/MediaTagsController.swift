@@ -87,12 +87,16 @@ class CheckBoxTableCellView: NSTableCellView {
 /// after the user press the OK button.
 ///
 /// Custom media tags are preserved.
-@objc(SBMediaTagsController) class MediaTagsController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+class MediaTagsController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
 
     @IBOutlet var tableView: NSTableView!
 
-    private let track: MP42Track
-    private let tags: [MediaTag]
+    var track: MP42Track {
+        didSet {
+            reloadUI()
+        }
+    }
+    private var tags: [MediaTag]
 
     override var nibName: NSNib.Name? {
         return NSNib.Name(rawValue: "MediaTagsController")
@@ -102,9 +106,27 @@ class CheckBoxTableCellView: NSTableCellView {
     ///  from the provided track.
     ///
     /// - Parameter track: the track
-    @objc init(track: MP42Track) {
+    init(track: MP42Track) {
         self.track = track
+        self.tags = Array()
+        super.init(nibName: nil, bundle: nil)
+    }
 
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        tableView.delegate = nil
+        tableView.dataSource = nil
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        reloadUI()
+    }
+
+    private func reloadUI() {
         let predefinedValues = MediaTag.predefinedTags(for: track.mediaType)
         var tags: [MediaTag] = Array()
 
@@ -125,16 +147,7 @@ class CheckBoxTableCellView: NSTableCellView {
 
         self.tags = tags
 
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    deinit {
-        tableView.delegate = nil
-        tableView.dataSource = nil
+        tableView.reloadData()
     }
 
     // MARK: Table view data source

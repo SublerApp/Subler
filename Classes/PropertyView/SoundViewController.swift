@@ -9,8 +9,13 @@ import Cocoa
 
 class SoundViewController : NSViewController {
 
-    let track: MP42AudioTrack
     let file: MP42File
+    var track: MP42AudioTrack {
+        didSet {
+            mediaTagsController.track = track
+            reloadUI()
+        }
+    }
 
     let mediaTagsController: MediaTagsController
 
@@ -55,10 +60,17 @@ class SoundViewController : NSViewController {
 
         let langs = MP42Languages.defaultManager
 
+        while fallbacksPopUp.numberOfItems > 1 {
+            fallbacksPopUp.removeItem(at: 1)
+        }
+
         if (track.format == kMP42AudioCodecType_AC3 || track.format == kMP42AudioCodecType_EnhancedAC3 ||
             track.format == kMP42AudioCodecType_DTS) &&
             track.conversionSettings.format != kMP42AudioCodecType_MPEG4AAC,
             let audioTracks = file.tracks(withMediaType: kMP42MediaType_Audio) as? [MP42AudioTrack] {
+
+            fallbacksPopUp.isEnabled = true
+
             for audioTrack in audioTracks {
                 if isAAC(track: audioTrack) {
                     let trackID = audioTrack.trackId > 0 ? String(audioTrack.trackId) : "na"
@@ -78,6 +90,9 @@ class SoundViewController : NSViewController {
             fallbacksPopUp.isEnabled = false
         }
 
+        while followsPopUp.numberOfItems > 1 {
+            followsPopUp.removeItem(at: 1)
+        }
 
         if let subtitlesTracks = file.tracks(withMediaType: kMP42MediaType_Subtitle) as? [MP42SubtitleTrack] {
             for subTrack in subtitlesTracks {

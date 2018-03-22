@@ -65,6 +65,7 @@
 		A98D44102036F661005CB092 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98D440F2036F661005CB092 /* AppDelegate.swift */; };
 		A98D98461F0280CB00A77ABC /* TheMovieDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98D98451F0280CB00A77ABC /* TheMovieDB.swift */; };
 		A98D98481F02820F00A77ABC /* TheMovieDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98D98471F02820F00A77ABC /* TheMovieDBService.swift */; };
+		A9907E192063DAA000DB992E /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9907E182063DAA000DB992E /* VideoViewController.swift */; };
 		A9915ABF1F4B26CF003C57D1 /* MetadataPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9915ABE1F4B26CF003C57D1 /* MetadataPreset.swift */; };
 		A9915AC11F4B28ED003C57D1 /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9915AC01F4B28ED003C57D1 /* Preset.swift */; };
 		A9915AC31F4B293B003C57D1 /* PresetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9915AC21F4B293B003C57D1 /* PresetManager.swift */; };
@@ -79,7 +80,6 @@
 		A9A77C4E1F306FA70018023B /* AttributedStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A77C4D1F306FA70018023B /* AttributedStyles.swift */; };
 		A9A91B5D1FB6FBB700250D93 /* ChapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */; };
 		A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */; };
-		A9AB485817F0AEAC000AA72E /* SBVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */; };
 		A9AB486417F0AEFD000AA72E /* ChapterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB485A17F0AEFD000AA72E /* ChapterView.xib */; };
 		A9AB486517F0AEFD000AA72E /* EmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB485C17F0AEFD000AA72E /* EmptyView.xib */; };
 		A9AB486617F0AEFD000AA72E /* MovieView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB485E17F0AEFD000AA72E /* MovieView.xib */; };
@@ -271,6 +271,7 @@
 		A98D440F2036F661005CB092 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Classes/AppDelegate.swift; sourceTree = "<group>"; };
 		A98D98451F0280CB00A77ABC /* TheMovieDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheMovieDB.swift; path = Classes/MetadataImporters/TheMovieDB.swift; sourceTree = "<group>"; };
 		A98D98471F02820F00A77ABC /* TheMovieDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheMovieDBService.swift; path = Classes/MetadataImporters/TheMovieDBService.swift; sourceTree = "<group>"; };
+		A9907E182063DAA000DB992E /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VideoViewController.swift; path = Classes/PropertyView/VideoViewController.swift; sourceTree = "<group>"; };
 		A9915ABE1F4B26CF003C57D1 /* MetadataPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataPreset.swift; path = Classes/MetadataPreset.swift; sourceTree = "<group>"; };
 		A9915AC01F4B28ED003C57D1 /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Preset.swift; path = Classes/Preset.swift; sourceTree = "<group>"; };
 		A9915AC21F4B293B003C57D1 /* PresetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PresetManager.swift; path = Classes/PresetManager.swift; sourceTree = "<group>"; };
@@ -285,8 +286,6 @@
 		A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterViewController.swift; path = Classes/PropertyView/ChapterViewController.swift; sourceTree = "<group>"; };
 		A9AB484E17F0AEAC000AA72E /* SBMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMovieViewController.h; path = Classes/PropertyView/SBMovieViewController.h; sourceTree = "<group>"; };
 		A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMovieViewController.m; path = Classes/PropertyView/SBMovieViewController.m; sourceTree = "<group>"; };
-		A9AB485217F0AEAC000AA72E /* SBVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBVideoViewController.h; path = Classes/PropertyView/SBVideoViewController.h; sourceTree = "<group>"; };
-		A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBVideoViewController.m; path = Classes/PropertyView/SBVideoViewController.m; sourceTree = "<group>"; };
 		A9AE26BD1F3B66470041A57D /* SquaredTVArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SquaredTVArt.swift; path = Classes/MetadataImporters/SquaredTVArt.swift; sourceTree = "<group>"; };
 		A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataHelper.swift; path = Classes/MetadataImporters/MetadataHelper.swift; sourceTree = "<group>"; };
 		A9AF2D1C206116680088CE91 /* SectionsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SectionsTableView.swift; path = Classes/SectionsTableView.swift; sourceTree = "<group>"; };
@@ -632,8 +631,7 @@
 				A9AB485E17F0AEFD000AA72E /* MovieView.xib */,
 				A9F4FF4A1FB708FB004473A8 /* SoundViewController.swift */,
 				A9AB486017F0AEFD000AA72E /* SoundView.xib */,
-				A9AB485217F0AEAC000AA72E /* SBVideoViewController.h */,
-				A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */,
+				A9907E182063DAA000DB992E /* VideoViewController.swift */,
 				A9AB486217F0AEFD000AA72E /* VideoView.xib */,
 			);
 			name = PropertyView;
@@ -843,6 +841,7 @@
 				A9C09C7C1F99F460007939EE /* ExceptionAlertController.swift in Sources */,
 				A9A91B5D1FB6FBB700250D93 /* ChapterViewController.swift in Sources */,
 				A9676A301FB6E85300C1E300 /* LanguageTransformer.swift in Sources */,
+				A9907E192063DAA000DB992E /* VideoViewController.swift in Sources */,
 				A98D98461F0280CB00A77ABC /* TheMovieDB.swift in Sources */,
 				A99B9A842063AD98000FAE20 /* MovieViewControllerAdditions.swift in Sources */,
 				A98D98481F02820F00A77ABC /* TheMovieDBService.swift in Sources */,
@@ -862,7 +861,6 @@
 				A9915AC11F4B28ED003C57D1 /* Preset.swift in Sources */,
 				A92ECCE31F49984C0063BFBD /* PrefsWindowController.swift in Sources */,
 				A9F4FF4B1FB708FB004473A8 /* SoundViewController.swift in Sources */,
-				A9AB485817F0AEAC000AA72E /* SBVideoViewController.m in Sources */,
 				A90057BC1F99E20B00FA4ED1 /* CheckBoxCellView.swift in Sources */,
 				A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */,
 				A90057BE1F99E2D800FA4ED1 /* TokenFieldCell.swift in Sources */,
