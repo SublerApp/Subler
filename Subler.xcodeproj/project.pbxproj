@@ -17,6 +17,7 @@
 		A90057BE1F99E2D800FA4ED1 /* TokenFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90057BD1F99E2D800FA4ED1 /* TokenFieldCell.swift */; };
 		A90057C01F99E35300FA4ED1 /* PopUpCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90057BF1F99E35300FA4ED1 /* PopUpCellView.swift */; };
 		A900CE3E1F3ACF9700CCA08E /* MetadataResultMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A900CE3D1F3ACF9700CCA08E /* MetadataResultMap.swift */; };
+		A90240DB2063BD3700E762FA /* MediaTagsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90240DA2063BD3700E762FA /* MediaTagsController.swift */; };
 		A902E0CA20504FD400445AC8 /* TokenDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A902E0C920504FD400445AC8 /* TokenDelegate.swift */; };
 		A90300C81DAE72C4008237D8 /* PresetPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90300CA1DAE72C4008237D8 /* PresetPrefsViewController.xib */; };
 		A9067A0C1F3CA4E6008011DC /* MetadataPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */; };
@@ -54,7 +55,6 @@
 		A962D9EE1F8B7F9F00802EEF /* FileImportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A962D9ED1F8B7F9F00802EEF /* FileImportController.swift */; };
 		A9676A301FB6E85300C1E300 /* LanguageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9676A2F1FB6E85300C1E300 /* LanguageTransformer.swift */; };
 		A9676A341FB6EAAD00C1E300 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9676A331FB6EAAD00C1E300 /* ItemViewController.swift */; };
-		A96946531BA3F83D0048C004 /* SBMediaTagsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A96946511BA3F83D0048C004 /* SBMediaTagsController.m */; };
 		A979B3862025C8BF00468362 /* DocumentWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A979B3842025C8BF00468362 /* DocumentWindowController.swift */; };
 		A97C3AA5204F18C90007AD38 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97C3AA4204F18C90007AD38 /* TokenCellView.swift */; };
 		A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A982D0BF140AB66400B92357 /* SBQueueItem.m */; };
@@ -71,7 +71,8 @@
 		A99189CD1F2F87EC00623ED7 /* ChapterImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */; };
 		A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */; };
 		A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A997B0A91F348AB000974C9C /* MetadataSearchController.swift */; };
-		A998DABF1BA54CFF004D7969 /* SBMediaTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */; };
+		A998DABF1BA54CFF004D7969 /* MediaTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A998DABD1BA54CFF004D7969 /* MediaTagsController.xib */; };
+		A99B9A842063AD98000FAE20 /* MovieViewControllerAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99B9A832063AD98000FAE20 /* MovieViewControllerAdditions.swift */; };
 		A99D23212029CD32002E7F27 /* PrefsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99D23202029CD32002E7F27 /* PrefsWindow.swift */; };
 		A9A4A966202F51FA00482D12 /* SaveOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A4A968202F51FA00482D12 /* SaveOptions.xib */; };
 		A9A4A96B202F51FF00482D12 /* ProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A4A96D202F51FF00482D12 /* ProgressViewController.xib */; };
@@ -86,6 +87,7 @@
 		A9AB486817F0AEFD000AA72E /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB486217F0AEFD000AA72E /* VideoView.xib */; };
 		A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE26BD1F3B66470041A57D /* SquaredTVArt.swift */; };
 		A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */; };
+		A9AF2D1D206116680088CE91 /* SectionsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AF2D1C206116680088CE91 /* SectionsTableView.swift */; };
 		A9B1056E2025D9B9009E91FC /* TracksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B1056C2025D9B9009E91FC /* TracksViewController.swift */; };
 		A9B46AA412B79BB10040517A /* Subler.icns in Resources */ = {isa = PBXBuildFile; fileRef = A9B46AA312B79BB10040517A /* Subler.icns */; };
 		A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B514181EFC12310055A035 /* TheTVDB.swift */; };
@@ -198,6 +200,7 @@
 		A900CE3D1F3ACF9700CCA08E /* MetadataResultMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataResultMap.swift; path = Classes/MetadataImporters/MetadataResultMap.swift; sourceTree = "<group>"; };
 		A90160112040213600B07AB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OutputPrefsViewController.xib; sourceTree = "<group>"; };
 		A9016012204021CB00B07AB3 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/OutputPrefsViewController.strings; sourceTree = "<group>"; };
+		A90240DA2063BD3700E762FA /* MediaTagsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MediaTagsController.swift; path = Classes/PropertyView/MediaTagsController.swift; sourceTree = "<group>"; };
 		A902E0C920504FD400445AC8 /* TokenDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenDelegate.swift; path = Classes/TokenDelegate.swift; sourceTree = "<group>"; };
 		A90300C91DAE72C4008237D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PresetPrefsViewController.xib; sourceTree = "<group>"; };
 		A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataPrefsViewController.swift; path = Classes/MetadataPrefsViewController.swift; sourceTree = "<group>"; };
@@ -222,7 +225,7 @@
 		A924A5191D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QueueItem.xib; sourceTree = "<group>"; };
 		A924A51A1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PrefsWindowController.xib; sourceTree = "<group>"; };
 		A924A51B1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBActivityWindow.xib; sourceTree = "<group>"; };
-		A924A51C1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBMediaTagsController.xib; sourceTree = "<group>"; };
+		A924A51C1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MediaTagsController.xib; sourceTree = "<group>"; };
 		A924A51D1D4B9E67008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ExceptionAlert.xib; sourceTree = "<group>"; };
 		A924A51F1D4B9E93008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MetadataPrefsViewController.xib; sourceTree = "<group>"; };
 		A925AA7B18378D7800BE84D4 /* MP42Foundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP42Foundation.xcodeproj; path = MP42Foundation/MP42Foundation.xcodeproj; sourceTree = "<group>"; };
@@ -258,8 +261,6 @@
 		A962D9ED1F8B7F9F00802EEF /* FileImportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileImportController.swift; path = Classes/FileImportController.swift; sourceTree = "<group>"; };
 		A9676A2F1FB6E85300C1E300 /* LanguageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LanguageTransformer.swift; path = Classes/LanguageTransformer.swift; sourceTree = "<group>"; };
 		A9676A331FB6EAAD00C1E300 /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemViewController.swift; path = Classes/ItemViewController.swift; sourceTree = "<group>"; };
-		A96946501BA3F83D0048C004 /* SBMediaTagsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMediaTagsController.h; path = Classes/SBMediaTagsController.h; sourceTree = "<group>"; };
-		A96946511BA3F83D0048C004 /* SBMediaTagsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMediaTagsController.m; path = Classes/SBMediaTagsController.m; sourceTree = "<group>"; };
 		A979B3842025C8BF00468362 /* DocumentWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentWindowController.swift; path = Classes/DocumentWindowController.swift; sourceTree = "<group>"; };
 		A97C3AA4204F18C90007AD38 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenCellView.swift; path = Classes/TokenCellView.swift; sourceTree = "<group>"; };
 		A982D0BE140AB66400B92357 /* SBQueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueItem.h; path = Classes/SBQueueItem.h; sourceTree = "<group>"; };
@@ -276,6 +277,7 @@
 		A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterImporter.swift; path = Classes/MetadataImporters/ChapterImporter.swift; sourceTree = "<group>"; };
 		A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterSearchController.swift; path = Classes/ChapterSearchController.swift; sourceTree = "<group>"; };
 		A997B0A91F348AB000974C9C /* MetadataSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataSearchController.swift; path = Classes/MetadataSearchController.swift; sourceTree = "<group>"; };
+		A99B9A832063AD98000FAE20 /* MovieViewControllerAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieViewControllerAdditions.swift; path = Classes/PropertyView/MovieViewControllerAdditions.swift; sourceTree = "<group>"; };
 		A99D23202029CD32002E7F27 /* PrefsWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrefsWindow.swift; path = Classes/PrefsWindow.swift; sourceTree = "<group>"; };
 		A9A4A967202F51FA00482D12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SaveOptions.xib; sourceTree = "<group>"; };
 		A9A4A96C202F51FF00482D12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ProgressViewController.xib; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 		A9AB485317F0AEAC000AA72E /* SBVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBVideoViewController.m; path = Classes/PropertyView/SBVideoViewController.m; sourceTree = "<group>"; };
 		A9AE26BD1F3B66470041A57D /* SquaredTVArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SquaredTVArt.swift; path = Classes/MetadataImporters/SquaredTVArt.swift; sourceTree = "<group>"; };
 		A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataHelper.swift; path = Classes/MetadataImporters/MetadataHelper.swift; sourceTree = "<group>"; };
+		A9AF2D1C206116680088CE91 /* SectionsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SectionsTableView.swift; path = Classes/SectionsTableView.swift; sourceTree = "<group>"; };
 		A9B1056C2025D9B9009E91FC /* TracksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TracksViewController.swift; path = Classes/TracksViewController.swift; sourceTree = "<group>"; };
 		A9B46AA312B79BB10040517A /* Subler.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Subler.icns; path = images/Subler.icns; sourceTree = "<group>"; };
 		A9B4EE4E1643EBF3009AF6BC /* Subler.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Subler.entitlements; sourceTree = "<group>"; };
@@ -306,7 +309,7 @@
 		A9BA1ADF1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QueueOptions.strings; sourceTree = "<group>"; };
 		A9BA1AE01DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QueueItem.strings; sourceTree = "<group>"; };
 		A9BA1AE21DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBActivityWindow.strings; sourceTree = "<group>"; };
-		A9BA1AE31DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBMediaTagsController.strings; sourceTree = "<group>"; };
+		A9BA1AE31DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MediaTagsController.strings; sourceTree = "<group>"; };
 		A9BA1AE41DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/ExceptionAlert.strings; sourceTree = "<group>"; };
 		A9BA1AE51DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = it; path = it.lproj/Credits.rtf; sourceTree = "<group>"; };
 		A9BA1AE61DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -476,6 +479,7 @@
 				A90057BD1F99E2D800FA4ED1 /* TokenFieldCell.swift */,
 				A90057BF1F99E35300FA4ED1 /* PopUpCellView.swift */,
 				A9C09C971F99F971007939EE /* ExpandedTableView.swift */,
+				A9AF2D1C206116680088CE91 /* SectionsTableView.swift */,
 			);
 			name = "Table View";
 			sourceTree = "<group>";
@@ -618,13 +622,13 @@
 				A9AB485C17F0AEFD000AA72E /* EmptyView.xib */,
 				A9C09C9B1F9A08A9007939EE /* MultiSelectViewController.swift */,
 				61CEC0CC1E7569E4000FECC1 /* MultiSelectView.xib */,
-				A96946501BA3F83D0048C004 /* SBMediaTagsController.h */,
-				A96946511BA3F83D0048C004 /* SBMediaTagsController.m */,
-				A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */,
+				A90240DA2063BD3700E762FA /* MediaTagsController.swift */,
+				A998DABD1BA54CFF004D7969 /* MediaTagsController.xib */,
 				A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */,
 				A9AB485A17F0AEFD000AA72E /* ChapterView.xib */,
 				A9AB484E17F0AEAC000AA72E /* SBMovieViewController.h */,
 				A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */,
+				A99B9A832063AD98000FAE20 /* MovieViewControllerAdditions.swift */,
 				A9AB485E17F0AEFD000AA72E /* MovieView.xib */,
 				A9F4FF4A1FB708FB004473A8 /* SoundViewController.swift */,
 				A9AB486017F0AEFD000AA72E /* SoundView.xib */,
@@ -801,7 +805,7 @@
 				A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */,
 				A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */,
 				A9C31E642029A82200CEF474 /* AdvancedPrefsViewController.xib in Resources */,
-				A998DABF1BA54CFF004D7969 /* SBMediaTagsController.xib in Resources */,
+				A998DABF1BA54CFF004D7969 /* MediaTagsController.xib in Resources */,
 				A9ECA0602029A13800D5F30C /* OffsetViewController.xib in Resources */,
 				A961476713F568210068F161 /* Queue.xib in Resources */,
 				A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */,
@@ -840,6 +844,7 @@
 				A9A91B5D1FB6FBB700250D93 /* ChapterViewController.swift in Sources */,
 				A9676A301FB6E85300C1E300 /* LanguageTransformer.swift in Sources */,
 				A98D98461F0280CB00A77ABC /* TheMovieDB.swift in Sources */,
+				A99B9A842063AD98000FAE20 /* MovieViewControllerAdditions.swift in Sources */,
 				A98D98481F02820F00A77ABC /* TheMovieDBService.swift in Sources */,
 				A962D9EE1F8B7F9F00802EEF /* FileImportController.swift in Sources */,
 				A9D64527202CA92400BA172B /* SaveOptions.swift in Sources */,
@@ -856,7 +861,6 @@
 				A900CE3E1F3ACF9700CCA08E /* MetadataResultMap.swift in Sources */,
 				A9915AC11F4B28ED003C57D1 /* Preset.swift in Sources */,
 				A92ECCE31F49984C0063BFBD /* PrefsWindowController.swift in Sources */,
-				A96946531BA3F83D0048C004 /* SBMediaTagsController.m in Sources */,
 				A9F4FF4B1FB708FB004473A8 /* SoundViewController.swift in Sources */,
 				A9AB485817F0AEAC000AA72E /* SBVideoViewController.m in Sources */,
 				A90057BC1F99E20B00FA4ED1 /* CheckBoxCellView.swift in Sources */,
@@ -868,6 +872,7 @@
 				A91EB969205ABAF400392E1C /* NSWindowAdditions.swift in Sources */,
 				A9C09C9A1F9A0808007939EE /* EmptyViewController.swift in Sources */,
 				A9C09C981F99F971007939EE /* ExpandedTableView.swift in Sources */,
+				A90240DB2063BD3700E762FA /* MediaTagsController.swift in Sources */,
 				A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */,
 				A9E932A71F34D31D00B1790B /* ArtworkSelector.swift in Sources */,
 				A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */,
@@ -891,6 +896,7 @@
 				A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */,
 				A90057C01F99E35300FA4ED1 /* PopUpCellView.swift in Sources */,
 				A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */,
+				A9AF2D1D206116680088CE91 /* SectionsTableView.swift in Sources */,
 				A97C3AA5204F18C90007AD38 /* TokenCellView.swift in Sources */,
 				A956CE651F99E5BB00093992 /* ActivityWindowController.swift in Sources */,
 				A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */,
@@ -1040,13 +1046,13 @@
 			name = Queue.xib;
 			sourceTree = "<group>";
 		};
-		A998DABD1BA54CFF004D7969 /* SBMediaTagsController.xib */ = {
+		A998DABD1BA54CFF004D7969 /* MediaTagsController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A924A51C1D4B9E67008301A7 /* Base */,
 				A9BA1AE31DBF773700FD0B38 /* it */,
 			);
-			name = SBMediaTagsController.xib;
+			name = MediaTagsController.xib;
 			sourceTree = "<group>";
 		};
 		A9A4A968202F51FA00482D12 /* SaveOptions.xib */ = {

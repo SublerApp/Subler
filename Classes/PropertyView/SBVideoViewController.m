@@ -7,7 +7,8 @@
 //
 
 #import "SBVideoViewController.h"
-#import "SBMediaTagsController.h"
+
+#import "Subler-Swift.h"
 
 #import <MP42Foundation/MP42File.h>
 #import <MP42Foundation/MP42Languages.h>

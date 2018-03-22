@@ -12,7 +12,7 @@ class SoundViewController : NSViewController {
     let track: MP42AudioTrack
     let file: MP42File
 
-    let mediaTagsController: SBMediaTagsController
+    let mediaTagsController: MediaTagsController
 
     @IBOutlet var mediaTagsView: NSView!
     @IBOutlet var volume: NSSlider!
@@ -27,7 +27,7 @@ class SoundViewController : NSViewController {
     init(mp4: MP42File, track: MP42AudioTrack) {
         self.file = mp4
         self.track = track
-        self.mediaTagsController = SBMediaTagsController(track: track)
+        self.mediaTagsController = MediaTagsController(track: track)
 
         super.init(nibName: nil, bundle: nil)
     }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16B2553a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14105" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11535.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14105"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="SBMediaTagsController">
+        <customObject id="-2" userLabel="File's Owner" customClass="MediaTagsController" customModule="Subler" customModuleProvider="target">
             <connections>
-                <outlet property="_tableView" destination="Ybu-U8-dMa" id="hEx-h0-wcA"/>
+                <outlet property="tableView" destination="Ybu-U8-dMa" id="jXp-4M-DYx"/>
                 <outlet property="view" destination="Guf-c1-iLM" id="1W0-HQ-Xjl"/>
             </connections>
         </customObject>
@@ -36,7 +36,7 @@
                                         <color key="backgroundColor" red="0.85882352939999995" green="0.85882352939999995" blue="0.85882352939999995" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                         <tableColumns>
-                                            <tableColumn width="261" minWidth="40" maxWidth="1000" id="9y2-Lz-Ti7">
+                                            <tableColumn identifier="" width="261" minWidth="40" maxWidth="1000" id="9y2-Lz-Ti7">
                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -49,7 +49,7 @@
                                                 </textFieldCell>
                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 <prototypeCellViews>
-                                                    <tableCellView identifier="SBCheckBoxTableCellView" id="0hG-av-Aiv" customClass="SBCheckBoxTableCellView">
+                                                    <tableCellView identifier="SBCheckBoxTableCellView" id="0hG-av-Aiv" customClass="CheckBoxTableCellView" customModule="Subler" customModuleProvider="target">
                                                         <rect key="frame" x="1" y="1" width="261" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
@@ -66,7 +66,7 @@
                                                             </button>
                                                         </subviews>
                                                         <connections>
-                                                            <outlet property="_checkBox" destination="adA-VA-Qcd" id="Bxz-W4-o8I"/>
+                                                            <outlet property="checkBox" destination="adA-VA-Qcd" id="pox-Wf-aw9"/>
                                                         </connections>
                                                     </tableCellView>
                                                 </prototypeCellViews>
