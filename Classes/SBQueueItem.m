@@ -201,7 +201,10 @@
     NSString *type;
     [self.fileURL getResourceValue:&type forKey:NSURLTypeIdentifierKey error:outError];
 
-    if ([type isEqualToString:@"com.apple.m4a-audio"] || [type isEqualToString:@"com.apple.m4v-video"] || [type isEqualToString:@"public.mpeg-4"]) {
+    if (self.mp4File) {
+        // Do nothing
+    }
+    else if ([type isEqualToString:@"com.apple.m4a-audio"] || [type isEqualToString:@"com.apple.m4v-video"] || [type isEqualToString:@"public.mpeg-4"]) {
        self.mp4File = [[MP42File alloc] initWithURL:self.fileURL error:NULL];
     } else {
         self.mp4File = [[MP42File alloc] init];

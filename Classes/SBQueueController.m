@@ -156,7 +156,7 @@ static void *SBQueueContex = &SBQueueContex;
     if (action == @selector(edit:)) {
         if (self.table.clickedRow != -1) {
             SBQueueItem *item = [self.queue itemAtIndex:self.table.clickedRow];
-            if (item.status == SBQueueItemStatusReady)
+            if (item.status == SBQueueItemStatusReady || item.status == SBQueueItemStatusCompleted)
                 return YES;
         }
     }
@@ -193,6 +193,7 @@ static void *SBQueueContex = &SBQueueContex;
  * and removes it from the queue.
  */
 - (void)editItem:(SBQueueItem *)item {
+    SBQueueItemStatus originalStatus = item.status;
     item.status = SBQueueItemStatusWorking;
     [self updateUI];
 
@@ -200,7 +201,7 @@ static void *SBQueueContex = &SBQueueContex;
         __block NSError *error;
         BOOL result = NO;
 
-        if (!item.mp4File) {
+        if (originalStatus != SBQueueItemStatusCompleted) {
             result = [item prepare:&error];
             if (result == NO) {
                 NSLog(@"%@", error);
@@ -210,7 +211,12 @@ static void *SBQueueContex = &SBQueueContex;
 
         MP42File *mp4 = item.mp4File;
         dispatch_async(dispatch_get_main_queue(), ^{
-            SBDocument *doc = [[SBDocument alloc] initWithMp4:mp4 error:&error];
+            SBDocument *doc = nil;
+            if (originalStatus == SBQueueItemStatusCompleted) {
+                doc = [[SBDocument alloc] initWithContentsOfURL:item.destURL ofType:@"" error:&error];
+            } else {
+                doc = [[SBDocument alloc] initWithMp4:mp4 error:&error];
+            }
 
             if (doc) {
                 [[NSDocumentController sharedDocumentController] addDocument:doc];
@@ -219,6 +225,7 @@ static void *SBQueueContex = &SBQueueContex;
 
                 [self.itemPopover close];
 
+                item.status = originalStatus;
                 [self removeItems:@[item]];
                 [self updateUI];
             } else {
