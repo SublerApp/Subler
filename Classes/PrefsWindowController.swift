@@ -21,13 +21,6 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
         let tvShowFormat = try? encoder.encode([Token(text: "{TV Show}"), Token(text: " s", isPlaceholder: false), Token(text: "{TV Season}"), Token(text: "e", isPlaceholder: false), Token(text: "{TV Episode #}")])
 
         if defaults.integer(forKey: "SBUpgradeCheck") < 1 {
-            // Migrate 1.2.9 DTS setting
-            if defaults.object(forKey: "SBAudioKeepDts") != nil {
-                if defaults.bool(forKey: "SBAudioKeepDts") {
-                    defaults.set(2, forKey: "SBAudioDtsOptions")
-                }
-                defaults.removeObject(forKey: "SBAudioKeepDts")
-            }
 
             // Migrate 1.4.8 filename format settings
             let oldMovieFormat = defaults.tokenArrayFromOldStylePrefs(forKey: "SBMovieFormat")
