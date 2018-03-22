@@ -7,12 +7,12 @@
 
 import Cocoa
 
-class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, SectionsTableViewDelegate, NSTextFieldDelegate {
 
     let presetManager: PresetManager
     var currentRow: Int
 
-    @IBOutlet var tableView: NSTableView!
+    @IBOutlet var tableView: SectionsTableView!
     @IBOutlet var removeSetButton: NSButton!
     @IBOutlet var editSetButton: NSButton!
 
@@ -33,6 +33,11 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.dataSource = self
+        tableView.delegate = self
+
+        tableView.reloadData()
+
         observer = NotificationCenter.default.addObserver(forName: presetManager.updateNotification,
                                                           object: nil,
                                                           queue: OperationQueue.main) { [weak self] notification in
@@ -45,17 +50,34 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
         fatalError()
     }
 
-    // MARK: Table View data source
+    // MARK: Table View with sections
 
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return presetManager.presets.count
+    func numberOfSections(in tableView: NSTableView) -> Int { return 2 }
+
+    func tableView(_ tableView: NSTableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return presetManager.metadataPresets.count
+        } else {
+            return presetManager.queuePresets.count
+        }
     }
 
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    func tableView(_ tableView: NSTableView, viewForHeaderInSection section: Int) -> NSView? {
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("headerCell"), owner: self) as? NSTableCellView {
+            cell.textField?.stringValue = section == 0 ? "Metadata" : "Queue"
+            cell.textField?.isSelectable = false
+            cell.textField?.isEditable = false
+            return cell
+        }
+        return nil
+    }
 
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: (section: Int, sectionRow: Int)) -> NSView? {
         if tableColumn?.identifier == NSUserInterfaceItemIdentifier("name"),
             let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("nameCell"), owner: self) as? NSTableCellView {
-            cell.textField?.stringValue = presetManager.presets[row].title
+            cell.textField?.stringValue = presetManager.presets[row.sectionRow].title
+            cell.textField?.isSelectable = true
+            cell.textField?.isEditable = true
             return cell
         }
 
@@ -90,7 +112,8 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
     override func controlTextDidEndEditing(_ obj: Notification) {
         if let view = obj.object as? NSTextField {
             let row = tableView.row(for: view)
-            let preset = presetManager.presets[row]
+            let sectionRow = tableView.section(for: row)
+            let preset = presetManager.presets[sectionRow.row]
             rename(preset: preset, to: view.stringValue)
         }
     }
@@ -104,8 +127,9 @@ class PresetPrefsViewController: NSViewController, NSTableViewDataSource, NSTabl
 
     @IBAction func editPreset(_ sender: NSView) {
         let rowIndex = tableView.selectedRow
-        
-        if let preset = presetManager.presets[rowIndex] as? MetadataPreset {
+        let sectionRow = tableView.section(for: rowIndex)
+
+        if let preset = presetManager.presets[sectionRow.row] as? MetadataPreset {
             currentRow = rowIndex
             controller = PresetEditorViewController.init(preset: preset)
             

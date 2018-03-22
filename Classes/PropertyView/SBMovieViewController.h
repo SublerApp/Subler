@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class MP42Metadata;
+@class MP42MetadataItem;
 
 @interface SBMovieViewController : NSViewController
 
@@ -21,9 +22,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)addMetadataSet:(id)sender;
 
-- (IBAction)showSaveSet:(id)sender;
-- (IBAction)closeSaveSheet:(id)sender;
-- (IBAction)saveSet:(id)sender;
+- (void)addMetadataItems:(NSArray<MP42MetadataItem *> *)items;
+- (void)removeMetadataItems:(NSArray<MP42MetadataItem *> *)items;
+
+- (void)addMetadataCoverArtItems:(NSArray<MP42MetadataItem *> *)items;
+- (void)removeMetadataCoverArtItems:(NSArray<MP42MetadataItem *> *)items;
+
+// Set save window
+@property (nonatomic, strong) IBOutlet NSWindow *saveSetWindow;
+@property (nonatomic, weak) IBOutlet NSTextField *saveSetName;
+
+@property (nonatomic, weak) IBOutlet NSButton *keepArtworks;
+@property (nonatomic, weak) IBOutlet NSButton *keepAnnotations;
 
 - (IBAction)zoomSliderDidChange:(id)sender;
 

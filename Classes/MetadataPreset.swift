@@ -13,14 +13,14 @@ import Foundation
         return "sbpreset2"
     }
     var title: String
-    @objc let metadata: MP42Metadata
-    @objc var replaceArtworks: Bool
-    @objc var replaceAnnotations: Bool
+    let metadata: MP42Metadata
+    var replaceArtworks: Bool
+    var replaceAnnotations: Bool
 
     let version: Int
     var changed: Bool
 
-    @objc init(title: String, metadata: MP42Metadata, replaceArtworks: Bool, replaceAnnotations: Bool) {
+    init(title: String, metadata: MP42Metadata, replaceArtworks: Bool, replaceAnnotations: Bool) {
         self.title = title
         self.metadata = metadata.copy() as! MP42Metadata
         self.replaceArtworks = replaceArtworks

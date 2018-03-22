@@ -48,7 +48,7 @@ extension PresetManager.Error: LocalizedError {
         case alreadyExists
     }
 
-    @objc func append(newElement: Preset) throws {
+    func append(newElement: Preset) throws {
         if item(name: newElement.title) != nil {
             throw Error.alreadyExists
         }

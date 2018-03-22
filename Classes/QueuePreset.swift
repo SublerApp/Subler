@@ -23,7 +23,7 @@ class QueuePreset: NSObject, Preset {
         self.title = title
         self.options = options
         self.changed = true
-        self.version = 2
+        self.version = 1
     }
 
     // MARK: NSCoding

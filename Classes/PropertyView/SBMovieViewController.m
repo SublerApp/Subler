@@ -43,13 +43,6 @@ NSString *SublerCoverArtPBoardType = @"SublerCoverArtPBoardType";
 @property (nonatomic, weak) IBOutlet NSButton *removeArtworkButton;
 @property (nonatomic, weak) IBOutlet SBImageBrowserView *artworksView;
 
-// Set save window
-@property (nonatomic, strong) IBOutlet NSWindow *saveSetWindow;
-@property (nonatomic, weak) IBOutlet NSTextField *saveSetName;
-
-@property (nonatomic, weak) IBOutlet NSButton *keepArtworks;
-@property (nonatomic, weak) IBOutlet NSButton *keepAnnotations;
-
 @end
 
 @implementation SBMovieViewController
@@ -311,40 +304,6 @@ static NSDateFormatter *_formatter;
     [self addMetadataItems:itemsToBeAdded];
 }
 
-- (void)applySet:(id)sender
-{
-    NSInteger tag = [sender tag];
-    SBMetadataPreset *preset = SBPresetManager.shared.metadataPresets[tag];
-
-    MP42MetadataItemDataType dataTypes = MP42MetadataItemDataTypeString | MP42MetadataItemDataTypeStringArray |
-                                         MP42MetadataItemDataTypeBool | MP42MetadataItemDataTypeInteger |
-                                         MP42MetadataItemDataTypeIntegerArray | MP42MetadataItemDataTypeDate;
-    NSArray<MP42MetadataItem *> *items = [preset.metadata metadataItemsFilteredByDataType:dataTypes];
-
-    if (preset.replaceAnnotations) {
-        [self removeMetadataItems:[self.metadata metadataItemsFilteredByDataType:dataTypes]];
-    }
-
-    if (items) {
-        NSMutableArray<NSString *> *identifiers = [NSMutableArray array];
-        for (MP42MetadataItem *item in items) {
-            [identifiers addObject:item.identifier];
-        }
-        [self removeMetadataItems:[self.metadata metadataItemsFilteredByIdentifiers:identifiers]];
-        [self addMetadataItems:items];
-    }
-
-    items = [preset.metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt];
-
-    if (preset.replaceArtworks) {
-        [self removeMetadataCoverArtItems:[self.metadata metadataItemsFilteredByIdentifier:MP42MetadataKeyCoverArt]];
-    }
-
-    if (items.count) {
-        [self addMetadataCoverArtItems:items];
-    }
-}
-
 - (void)updateSetsMenu:(id)sender
 {
     NSArray<SBMetadataPreset *> *presets = SBPresetManager.shared.metadataPresets;
@@ -395,33 +354,6 @@ static NSDateFormatter *_formatter;
 
         [setListMenu addItem:newItem];
     }
-}
-
-- (IBAction)showSaveSet:(id)sender
-{
-    [self.view.window beginCriticalSheet:self.saveSetWindow completionHandler:NULL];
-}
-
-- (IBAction)saveSet:(id)sender
-{
-    SBPresetManager *manager = SBPresetManager.shared;
-    SBMetadataPreset *preset = [[SBMetadataPreset alloc] initWithTitle:self.saveSetName.stringValue
-                                                              metadata:self.metadata
-                                                       replaceArtworks:self.keepArtworks.state == NSControlStateValueOff
-                                                    replaceAnnotations:self.keepAnnotations.state == NSControlStateValueOff];
-
-    NSError *error = nil;
-    if ([manager appendWithNewElement:preset error:&error]) {
-        [self.view.window endSheet:self.saveSetWindow];
-    }
-    else {
-        [[NSAlert alertWithError:error] runModal];
-    }
-}
-
-- (IBAction)closeSaveSheet:(id)sender
-{
-    [self.view.window endSheet:self.saveSetWindow];
 }
 
 #pragma mark - TableView data source
