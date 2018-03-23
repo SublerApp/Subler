@@ -12,7 +12,7 @@ import Foundation
     var pathExtension: String {
         return "sbpreset2"
     }
-    var title: String
+    @objc var title: String
     let metadata: MP42Metadata
     var replaceArtworks: Bool
     var replaceAnnotations: Bool

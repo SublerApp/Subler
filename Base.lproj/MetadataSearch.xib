@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13528" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14105" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13528"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14105"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -342,7 +342,7 @@ DQ
                                             <rect key="frame" x="1" y="0.0" width="508" height="135"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" headerView="29" id="28">
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="14" rowSizeStyle="automatic" headerView="29" viewBased="YES" id="28">
                                                     <rect key="frame" x="0.0" y="0.0" width="508" height="112"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -361,6 +361,26 @@ DQ
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                            <prototypeCellViews>
+                                                                <tableCellView identifier="resultCell" id="aPK-GO-H83">
+                                                                    <rect key="frame" x="1" y="1" width="505" height="14"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <subviews>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oYO-2n-oqa">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="505" height="14"/>
+                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                            <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="bhn-G0-mkU">
+                                                                                <font key="font" metaFont="smallSystem"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <connections>
+                                                                        <outlet property="textField" destination="oYO-2n-oqa" id="e6I-gH-e84"/>
+                                                                    </connections>
+                                                                </tableCellView>
+                                                            </prototypeCellViews>
                                                         </tableColumn>
                                                     </tableColumns>
                                                     <accessibility description="Search results"/>
@@ -402,7 +422,7 @@ DQ
                                             <rect key="frame" x="1" y="0.0" width="508" height="238"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="14" headerView="20" id="19" customClass="ExpandedTableView" customModule="Subler" customModuleProvider="target">
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="14" rowSizeStyle="automatic" headerView="20" viewBased="YES" id="19" customClass="ExpandedTableView" customModule="Subler" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="508" height="215"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -421,6 +441,26 @@ DQ
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <prototypeCellViews>
+                                                                <tableCellView identifier="annotationCell" id="GPs-fF-KER">
+                                                                    <rect key="frame" x="1" y="1" width="101" height="14"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <subviews>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zGF-Qh-sGc">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="101" height="14"/>
+                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                            <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Table View Cell" id="jdT-Ey-AUs">
+                                                                                <font key="font" metaFont="smallSystem"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <connections>
+                                                                        <outlet property="textField" destination="zGF-Qh-sGc" id="yvJ-Ae-6HS"/>
+                                                                    </connections>
+                                                                </tableCellView>
+                                                            </prototypeCellViews>
                                                         </tableColumn>
                                                         <tableColumn identifier="value" editable="NO" width="401" minWidth="40" maxWidth="1000" id="22">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Value">
@@ -434,6 +474,49 @@ DQ
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                            <prototypeCellViews>
+                                                                <tableCellView identifier="valueCellForSizing" id="Fcu-ce-uOy">
+                                                                    <rect key="frame" x="105" y="1" width="401" height="14"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <subviews>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z5j-N2-hwq">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="401" height="14"/>
+                                                                            <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Table View Cell" id="xfd-6y-9kC">
+                                                                                <font key="font" metaFont="smallSystem"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="Z5j-N2-hwq" firstAttribute="leading" secondItem="Fcu-ce-uOy" secondAttribute="leading" constant="2" id="5EB-vB-B4R"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="Z5j-N2-hwq" secondAttribute="bottom" id="NTF-f3-o57"/>
+                                                                        <constraint firstItem="Z5j-N2-hwq" firstAttribute="top" secondItem="Fcu-ce-uOy" secondAttribute="top" id="cJz-MZ-pHn"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="Z5j-N2-hwq" secondAttribute="trailing" constant="2" id="fLH-rn-D2L"/>
+                                                                    </constraints>
+                                                                    <connections>
+                                                                        <outlet property="textField" destination="Z5j-N2-hwq" id="kCI-As-43n"/>
+                                                                    </connections>
+                                                                </tableCellView>
+                                                                <tableCellView identifier="valueCell" id="5pg-aP-P6j">
+                                                                    <rect key="frame" x="105" y="17" width="401" height="14"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <subviews>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eml-He-0u5">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="401" height="14"/>
+                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                            <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="LFD-sH-prc">
+                                                                                <font key="font" metaFont="smallSystem"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <connections>
+                                                                        <outlet property="textField" destination="eml-He-0u5" id="BVy-4V-cz4"/>
+                                                                    </connections>
+                                                                </tableCellView>
+                                                            </prototypeCellViews>
                                                         </tableColumn>
                                                     </tableColumns>
                                                     <accessibility description="Result details"/>

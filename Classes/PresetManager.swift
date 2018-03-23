@@ -137,7 +137,7 @@ final class PresetManager {
                 try save(preset: newPreset)
                 return newPreset
             }
-            else if  let preset = unarchiver.decodeObject(of: [MetadataPreset.self], forKey: NSKeyedArchiveRootObjectKey) as? MetadataPreset {
+            else if let preset = unarchiver.decodeObject(of: [MetadataPreset.self], forKey: NSKeyedArchiveRootObjectKey) as? MetadataPreset {
                 return preset
             }
         }

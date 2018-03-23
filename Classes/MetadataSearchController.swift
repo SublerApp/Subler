@@ -508,8 +508,15 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
         return 0
     }
 
-    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+    private let resultCell = NSUserInterfaceItemIdentifier(rawValue: "resultCell")
+    private let annotationCell = NSUserInterfaceItemIdentifier(rawValue: "annotationCell")
+    private let valueCell = NSUserInterfaceItemIdentifier(rawValue: "valueCell")
+    private let valueCellForSizing = NSUserInterfaceItemIdentifier(rawValue: "valueCellForSizing")
+
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if tableView == resultsTable {
+            let cell = tableView.makeView(withIdentifier: resultCell, owner:self) as? NSTableCellView
+
             switch state {
             case .completed(let search, let results, _):
                 let result = results[row]
@@ -518,44 +525,62 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
                     if let season = result[.season] as? Int,
                         let episode = result[.episodeNumber] as? Int,
                         let title = result[.name] as? String {
-                            return "\(season)x\(episode) - \(title)"
+                        cell?.textField?.stringValue = "\(season)x\(episode) - \(title)"
                     }
                 case .movie:
                     if let title = result[.name] as? String {
-                        return title
+                        cell?.textField?.stringValue = title
                     }
                 }
+                return cell
             default:
-                break
+                return nil
             }
         }
         else if tableView == metadataTable {
+
             switch state {
             case .completed(_, _, let result):
                 let key = result.orderedKeys[row]
                 if tableColumn?.identifier.rawValue == "name" {
-                    return key.localizedDisplayName.boldMonospacedAttributedString()
+                    let cell = tableView.makeView(withIdentifier: annotationCell, owner:self) as? NSTableCellView
+                    cell?.textField?.attributedStringValue = key.localizedDisplayName.boldMonospacedAttributedString()
+                    return cell
                 }
                 else if tableColumn?.identifier.rawValue == "value" {
-                    return result[key]
+                    let cell = tableView.makeView(withIdentifier: valueCell, owner:self) as? NSTableCellView
+                    cell?.textField?.objectValue = result[key]
+                    return cell
                 }
             default:
                 break
             }
+
         }
         return nil
     }
 
+    private lazy var dummyCell: NSTableCellView = { return metadataTable.makeView(withIdentifier: valueCellForSizing, owner:self) as? NSTableCellView }()!
+    private lazy var dummyCellWidth: NSLayoutConstraint = {
+        let constraint = NSLayoutConstraint(item: dummyCell, attribute: NSLayoutConstraint.Attribute.width,
+                                            relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil,
+                                            attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 500)
+        dummyCell.addConstraint(constraint)
+        return constraint
+    }()
+
+    private static let minHeight = CGFloat(14.0)
+
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        if tableView.tableColumns.count > 1 {
-            let tableColumnToWrap = tableView.tableColumns[1]
-            let columnToWrap = tableView.tableColumns.index(of: tableColumnToWrap)
-            let cell = tableView.preparedCell(atColumn: columnToWrap!, row: row)!
+        if tableView == metadataTable, case .completed(_, _, let result) = state {
+            let column = tableView.tableColumns[1]
+            let key = result.orderedKeys[row]
+            dummyCell.textField?.stringValue = result[key] as? String ?? ""
+            dummyCellWidth.constant = column.width
+            dummyCell.textField?.preferredMaxLayoutWidth = column.width - 4
 
-            let constrainedBounds = NSMakeRect(0, 0, tableColumnToWrap.width, CGFloat.greatestFiniteMagnitude)
-            let naturalSize = cell.cellSize(forBounds: constrainedBounds)
-
-            return naturalSize.height > tableView.rowHeight ? naturalSize.height : tableView.rowHeight
+            let height = dummyCell.fittingSize.height
+            return height > MetadataSearchController.minHeight ? height : MetadataSearchController.minHeight
         }
         return tableView.rowHeight
     }
