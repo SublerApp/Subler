@@ -103,6 +103,8 @@ class TracksViewController: NSViewController, NSTableViewDataSource, NSTableView
         if let track = track(at: row), track.name != sender.stringValue {
             track.name = sender.stringValue
             document.updateChangeCount(.changeDone)
+            let column = tracksTable.column(for: sender)
+            tracksTable.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: IndexSet(integer: column))
         }
     }
 
@@ -254,8 +256,7 @@ class TracksViewController: NSViewController, NSTableViewDataSource, NSTableView
                    proposedDropOperation: NSTableView.DropOperation) -> NSDragOperation {
         let count = mp4.tracks.count + 1
 
-        if proposedDropOperation == .above
-        {
+        if proposedDropOperation == .above {
             if row < count && row != 0, let track = track(at: row), track.isMuxed == false {
                 return .every
             }
