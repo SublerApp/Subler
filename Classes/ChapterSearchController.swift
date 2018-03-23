@@ -222,23 +222,39 @@ class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTabl
         return 0
     }
 
-    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+    private let titleCell = NSUserInterfaceItemIdentifier(rawValue: "titleCell")
+    private let chapterCountCell = NSUserInterfaceItemIdentifier(rawValue: "chapterCountCell")
+    private let durationCell = NSUserInterfaceItemIdentifier(rawValue: "durationCell")
+    private let confirmationsCell = NSUserInterfaceItemIdentifier(rawValue: "confirmationsCell")
+
+    private let timeCell = NSUserInterfaceItemIdentifier(rawValue: "timeCell")
+    private let nameCell = NSUserInterfaceItemIdentifier(rawValue: "nameCell")
+
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if tableView == resultsTable {
             switch state {
             case .completed(let results, _):
                 let result = results[row]
 
                 if tableColumn?.identifier.rawValue == "title" {
-                    return result.title
+                    let cell = tableView.makeView(withIdentifier: titleCell, owner:self) as? NSTableCellView
+                    cell?.textField?.stringValue = result.title
+                    return cell
                 }
                 else if tableColumn?.identifier.rawValue == "chaptercount" {
-                    return "\(result.chapters.count)".smallMonospacedAttributedString()
+                    let cell = tableView.makeView(withIdentifier: titleCell, owner:self) as? NSTableCellView
+                    cell?.textField?.attributedStringValue = "\(result.chapters.count)".smallMonospacedAttributedString()
+                    return cell
                 }
                 else if tableColumn?.identifier.rawValue == "duration" {
-                    return StringFromTime(Int64(result.duration), 1000).smallMonospacedAttributedString()
+                    let cell = tableView.makeView(withIdentifier: durationCell, owner:self) as? NSTableCellView
+                    cell?.textField?.attributedStringValue = StringFromTime(Int64(result.duration), 1000).smallMonospacedAttributedString()
+                    return cell
                 }
                 else if tableColumn?.identifier.rawValue == "confirmations" {
-                    return NSNumber(value: result.confimations)
+                    let cell = tableView.makeView(withIdentifier: confirmationsCell, owner:self) as? LevelIndicatorTableCellView
+                    cell?.indicator.intValue = Int32(result.confimations)
+                    return cell
                 }
             default:
                 break
@@ -249,10 +265,14 @@ class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTabl
             case .completed(_, let result):
                 let chapter = result.chapters[row]
                 if tableColumn?.identifier.rawValue == "time" {
-                    return StringFromTime(Int64(chapter.timestamp), 1000).boldMonospacedAttributedString()
+                    let cell = tableView.makeView(withIdentifier: timeCell, owner:self) as? NSTableCellView
+                    cell?.textField?.attributedStringValue = StringFromTime(Int64(chapter.timestamp), 1000).boldMonospacedAttributedString()
+                    return cell
                 }
                 else if tableColumn?.identifier.rawValue == "name" {
-                    return chapter.name
+                    let cell = tableView.makeView(withIdentifier: nameCell, owner:self) as? NSTableCellView
+                    cell?.textField?.stringValue = chapter.name
+                    return cell
                 }
             default:
                 break
@@ -261,4 +281,9 @@ class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTabl
         return nil
     }
 
+}
+
+/// A NSTableCellView that contains a single level indicator.
+class LevelIndicatorTableCellView: NSTableCellView {
+    @IBOutlet var indicator: NSLevelIndicator!
 }
