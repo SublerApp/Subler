@@ -45,10 +45,10 @@ import Cocoa
         statusObserver = item.observe(\.status, options: [.initial, .new]) { [weak self] observed, change in
             guard let s = self else { return }
             DispatchQueue.main.async {
-                if observed.status != SBQueueItemStatus.ready && observed.status != SBQueueItemStatus.editing {
-                    s.editButton.isEnabled = false
-                } else {
+                if observed.status == SBQueueItemStatus.ready || observed.status == SBQueueItemStatus.completed {
                     s.editButton.isEnabled = true
+                } else {
+                    s.editButton.isEnabled = false
                 }
             }
         }
