@@ -592,7 +592,7 @@ static void *SBQueueContex = &SBQueueContex;
     panel.allowedFileTypes = [MP42FileImporter supportedFileFormats];
 
     [panel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
-        if (result == NSFileHandlingPanelOKButton) {
+        if (result == NSModalResponseOK) {
             [self addItemsFromURLs:panel.URLs atIndex:self.queue.count];
         }
     }];

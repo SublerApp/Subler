@@ -842,7 +842,7 @@ static NSDateFormatter *_formatter;
     panel.allowedFileTypes = @[@"public.image"];
 
     [panel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result) {
-        if (result == NSFileHandlingPanelOKButton) {
+        if (result == NSModalResponseOK) {
             [self addArtworks:panel.URLs];
         }
     }];
