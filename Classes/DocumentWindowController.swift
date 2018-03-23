@@ -283,13 +283,15 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
 
     @IBAction func deleteTrack(_ sender: Any) {
         let tracks = tracksViewController.selectedTracks
-        mp4.removeTracks(tracks)
+        if tracks.isEmpty == false {
+            mp4.removeTracks(tracks)
 
-        if UserDefaults.standard.bool(forKey: "SBOrganizeAlternateGroups") { mp4.organizeAlternateGroups() }
-        if UserDefaults.standard.bool(forKey: "SBInferMediaCharacteristics") { mp4.inferMediaCharacteristics() }
+            if UserDefaults.standard.bool(forKey: "SBOrganizeAlternateGroups") { mp4.organizeAlternateGroups() }
+            if UserDefaults.standard.bool(forKey: "SBInferMediaCharacteristics") { mp4.inferMediaCharacteristics() }
 
-        doc.updateChangeCount(.changeDone)
-        tracksViewController.reloadData()
+            doc.updateChangeCount(.changeDone)
+            tracksViewController.reloadData()
+        }
     }
 
     @IBAction func addChaptersEvery(_ sender: NSMenuItem) {
