@@ -241,8 +241,26 @@ public class MetadataResult : NSObject {
         dictionary.merge(result.dictionary) { (_, new) in new }
     }
 
+    private func truncate(string: String, to index: Int) -> String {
+        let words = string.split(separator: " ")
+        var accumulatedCounts = words.map { $0.count + 1 }
+        for index in 1..<accumulatedCounts.count {
+            accumulatedCounts[index] += accumulatedCounts[index - 1]
+        }
+        let endIndex = accumulatedCounts.filter { $0 < index }.endIndex
+        return words[0..<endIndex].joined(separator: " ") + "…"
+    }
+
     public func mappedMetadata(to map: MetadataResultMap, keepEmptyKeys: Bool) -> MP42Metadata {
         let metadata = MP42Metadata()
+
+        if dictionary[.description] == nil, let longDesc = dictionary[.longDescription] as? String {
+            if longDesc.count > 254 {
+                dictionary[.description] = truncate(string: longDesc, to: 254)
+            } else {
+                dictionary[.description] = longDesc
+            }
+        }
 
         metadata.addItems(map.items.compactMap {
             let value = $0.value.reduce("", {

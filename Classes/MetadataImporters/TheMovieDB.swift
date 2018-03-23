@@ -41,7 +41,6 @@ public struct TheMovieDB: MetadataService {
         metadata[.serviceSeriesID] = result.id
         metadata[.name]            = result.title
         metadata[.releaseDate]     = result.release_date
-        metadata[.description]     = result.overview
         metadata[.longDescription] = result.overview;
 
         return metadata
@@ -131,7 +130,6 @@ public struct TheMovieDB: MetadataService {
         
         metadata[.name]            = result.title
         metadata[.releaseDate]     = result.release_date
-        metadata[.description]     = result.overview
         metadata[.longDescription] = result.overview
 
         metadata[.genre]             = cleanList(items: result.genres)
@@ -260,7 +258,6 @@ public struct TheMovieDB: MetadataService {
         metadata[.serviceEpisodeID]  = result.id
         metadata[.name]              = result.name
         metadata[.releaseDate]       = result.air_date
-        metadata[.description]       = result.overview
         metadata[.longDescription]   = result.overview;
 
         metadata[.season]            = result.season_number

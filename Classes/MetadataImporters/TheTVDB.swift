@@ -123,7 +123,6 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         result[.serviceEpisodeID] = episode.id
         result[.name]             = episode.episodeName
         result[.releaseDate]      = episode.firstAired
-        result[.description]      = episode.overview
         result[.longDescription]  = episode.overview
 
         result[.season]           = episode.airedSeason
