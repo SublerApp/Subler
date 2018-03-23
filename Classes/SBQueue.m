@@ -222,14 +222,15 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
  * Starts the queue.
  */
 - (void)start {
-    if (self.status == SBQueueStatusWorking || self.cancelled) {
-        return;
-    } else {
-        self.status = SBQueueStatusWorking;
-    }
+    dispatch_sync(self.arrayQueue, ^{
+        if (self.status == SBQueueStatusWorking || self.cancelled) {
+            return;
+        } else {
+            self.status = SBQueueStatusWorking;
+        }
+    });
 
     dispatch_async(self.workQueue, ^{
-
         // Enable sleep assertion
         [self disableSleep];
 
@@ -287,7 +288,7 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
                 [self handleSBStatusWorking:100 index:self.currentIndex];
             }
 
-            if (self.status == SBQueueStatusCancelled) {
+            if (self.cancelled) {
                 break;
             }
         }
@@ -344,7 +345,6 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
  * sends SBQueueFailedNotification.
  */
 - (void)handleSBStatusFailed:(NSError *)error {
-    self.status = SBQueueStatusFailed;
     [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueFailedNotification object:self userInfo:@{@"Error" : error != nil ? error : [NSNull null]}];
 }
 
@@ -353,7 +353,6 @@ NSString *SBQueueCancelledNotification = @"SBQueueCancelledNotification";
  * sends SBQueueCancelledNotification.
  */
 - (void)handleSBStatusCancelled {
-    self.status = SBQueueStatusCancelled;
     [[NSNotificationCenter defaultCenter] postNotificationName:SBQueueCancelledNotification object:self];
 }
 

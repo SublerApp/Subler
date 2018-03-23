@@ -15,8 +15,6 @@ typedef NS_ENUM(NSUInteger, SBQueueStatus) {
     SBQueueStatusUnknown = 0,
     SBQueueStatusWorking,
     SBQueueStatusCompleted,
-    SBQueueStatusFailed,
-    SBQueueStatusCancelled,
 };
 
 extern NSString *SBQueueWorkingNotification;
