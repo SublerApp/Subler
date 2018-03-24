@@ -309,7 +309,8 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
 
                     if copyTrack {
                         let copy = track.copy() as! MP42AudioTrack
-                        let settings = MP42AudioConversionSettings.audioConversion(withBitRate: bitRate, mixDown: kMP42AudioMixdown_DolbyPlII, drc: drc)
+                        let copyMixdown = MP42AudioMixdown(UserDefaults.standard.integer(forKey: "SBAudioMixdown"))
+                        let settings = MP42AudioConversionSettings.audioConversion(withBitRate: bitRate, mixDown: copyMixdown, drc: drc)
 
                         copy.conversionSettings = settings
 
