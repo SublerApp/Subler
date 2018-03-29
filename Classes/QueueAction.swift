@@ -533,3 +533,25 @@ extension Array where Element == Artwork {
     required init?(coder aDecoder: NSCoder) {}
     static var supportsSecureCoding: Bool { return true }
 }
+
+@objc(SBQueueSendToiTunesAction) class QueueSendToiTunesAction: NSObject, SBQueueActionProtocol {
+
+    var type: SBQueueActionType { return .post }
+    var localizedDescription: String { return NSLocalizedString("Sending to iTunes", comment: "Action localized description.") }
+    override var description: String { return NSLocalizedString("Send to iTunes", comment: "Action description.") }
+
+    @objc override init() {}
+
+    func runAction(_ item: SBQueueItem) -> Bool {
+        let workspace = NSWorkspace.shared
+        if let appPath = workspace.fullPath(forApplication: "iTunes") {
+            return workspace.openFile(item.destURL.path, withApplication: appPath)
+        }
+
+        return false
+    }
+
+    func encode(with aCoder: NSCoder) {}
+    required init?(coder aDecoder: NSCoder) {}
+    static var supportsSecureCoding: Bool { return true }
+}

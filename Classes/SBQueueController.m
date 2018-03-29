@@ -8,7 +8,6 @@
 
 #import "SBQueueController.h"
 #import "SBQueueItem.h"
-#import "SBQueuePreferences.h"
 
 #import <MP42Foundation/MP42FileImporter.h>
 
@@ -21,7 +20,6 @@ static void *SBQueueContex = &SBQueueContex;
 @interface SBQueueController () <NSPopoverDelegate, NSWindowDelegate, NSTableViewDelegate, NSTableViewDataSource, ExpandedTableViewDelegate, SBItemViewDelegate>
 
 @property (nonatomic, readonly) SBQueuePreferences *prefs;
-@property (nonatomic, readonly) NSMutableDictionary<NSString *, id> *options;
 
 @property (nonatomic, weak) IBOutlet ExpandedTableView *table;
 
@@ -53,8 +51,6 @@ static void *SBQueueContex = &SBQueueContex;
     if (self = [super initWithWindowNibName:@"Queue"]) {
         [SBQueuePreferences registerUserDefaults];
         _prefs = [[SBQueuePreferences alloc] init];
-        _options = _prefs.options;
-
         _queue = [[SBQueue alloc] initWithURL:_prefs.queueURL];
 
         [self removeCompletedItems:self];
@@ -105,7 +101,7 @@ static void *SBQueueContex = &SBQueueContex;
 
         [self updateUI];
 
-        if ([self.options[SBQueueShowDoneNotification] boolValue]) {
+        if (self.prefs.showDoneNotification) {
             NSDictionary *info = note.userInfo;
 
             NSUserNotification *notification = [[NSUserNotification alloc] init];
@@ -244,66 +240,70 @@ static void *SBQueueContex = &SBQueueContex;
 - (SBQueueItem *)createItemWithURL:(NSURL *)url {
     SBQueueItem *item = [SBQueueItem itemWithURL:url];
 
-    if ([self.options[SBQueueClearExistingMetadata] boolValue]) {
+    if (self.prefs.clearExistingMetadata) {
         [item addAction:[[SBQueueClearExistingMetadataAction alloc] init]];
     }
 
-    if ([(self.options)[SBQueueMetadata] boolValue]) {
-        [item addAction:[[SBQueueMetadataAction alloc] initWithMovieLanguage:self.options[SBQueueMovieProviderLanguage]
-                                                              tvShowLanguage:self.options[SBQueueTVShowProviderLanguage]
-                                                           movieProvider:self.options[SBQueueMovieProvider]
-                                                          tvShowProvider:self.options[SBQueueTVShowProvider]
-                                                            preferredArtwork:[self.options[SBQueueProviderArtwork] unsignedIntegerValue]]];
+    if (self.prefs.searchMetadata) {
+        [item addAction:[[SBQueueMetadataAction alloc] initWithMovieLanguage:self.prefs.movieProviderLanguage
+                                                              tvShowLanguage:self.prefs.tvShowProviderLanguage
+                                                           movieProvider:self.prefs.movieProvider
+                                                          tvShowProvider:self.prefs.tvShowProvider
+                                                            preferredArtwork:self.prefs.providerArtwork]];
     }
 
-    if ([(self.options)[SBQueueSetOutputFilename] boolValue]) {
+    if (self.prefs.setOutputFilename) {
         [item addAction:[[SBQueueSetOutputFilenameAction alloc] init]];
     }
 
-    if ([(self.options)[SBQueueSubtitles] boolValue]) {
+    if (self.prefs.subtitles) {
         [item addAction:[[SBQueueSubtitlesAction alloc] init]];
     }
 
-    if ([(self.options)[SBQueueOrganize] boolValue]) {
+    if (self.prefs.organize) {
         [item addAction:[[SBQueueOrganizeGroupsAction alloc] init]];
     }
 
-    if ([(self.options)[SBQueueFixFallbacks] boolValue]) {
+    if (self.prefs.fixFallbacks) {
         [item addAction:[[SBQueueFixFallbacksAction alloc] init]];
     }
 
-    if ([(self.options)[SBQueueClearTrackName] boolValue]) {
+    if (self.prefs.clearTrackName) {
         [item addAction:[[SBQueueClearTrackNameAction alloc] init]];
     }
 
-    if ([(self.options)[SBQueueFixTrackLanguage] boolValue]) {
-        [item addAction:[[SBQueueSetLanguageAction alloc] initWithLanguage:self.options[SBQueueFixTrackLanguageValue]]];
+    if (self.prefs.fixTrackLanguage) {
+        [item addAction:[[SBQueueSetLanguageAction alloc] initWithLanguage:self.prefs.fixTrackLanguageValue]];
     }
 
-    if ([(self.options)[SBQueueApplyColorSpace] boolValue]) {
-        [item addAction:[[SBQueueColorSpaceAction alloc] initWithTag:[self.options[SBQueueApplyColorSpaceValue] unsignedIntegerValue]]];
+    if (self.prefs.applyColorSpace) {
+        [item addAction:[[SBQueueColorSpaceAction alloc] initWithTag:self.prefs.applyColorSpaceValue]];
     }
 
-    if (self.options[SBQueueSet]) {
-        [item addAction:[[SBQueueSetAction alloc] initWithPreset:self.options[SBQueueSet]]];
+    if (self.prefs.metadataSet) {
+        [item addAction:[[SBQueueSetAction alloc] initWithPreset:self.prefs.metadataSet]];
     }
 
-    if ([self.options[SBQueueOptimize] boolValue]) {
+    if (self.prefs.optimize) {
         [item addAction:[[SBQueueOptimizeAction alloc] init]];
+    }
+
+    if (self.prefs.sendToiTunes) {
+        [item addAction:[[SBQueueSendToiTunesAction alloc] init]];
     }
 
     id type;
     [url getResourceValue:&type forKey:NSURLTypeIdentifierKey error:NULL];
 
-    NSURL *destination = self.options[SBQueueDestination];
+    NSURL *destination = self.prefs.destination;
     if (destination) {
         destination = [[destination URLByAppendingPathComponent:url.lastPathComponent].URLByDeletingPathExtension
-                       URLByAppendingPathExtension:self.options[SBQueueFileType]];
+                       URLByAppendingPathExtension:self.prefs.fileType];
     } else  if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)@"public.mpeg-4")) {
         destination = [url copy];
     } else {
         destination = [url.URLByDeletingPathExtension
-                       URLByAppendingPathExtension:(self.options)[SBQueueFileType]];
+                       URLByAppendingPathExtension:self.prefs.fileType];
     }
 
     item.destURL = destination;
@@ -349,7 +349,7 @@ static void *SBQueueContex = &SBQueueContex;
     if (undo.undoing || undo.redoing)
         [self updateUI];
 
-    if ([(self.options)[SBQueueAutoStart] boolValue])
+    if (self.prefs.autoStart)
         [self start:self];
 
 }
@@ -389,7 +389,7 @@ static void *SBQueueContex = &SBQueueContex;
 
         // the popover retains us and we retain the popover,
         // we drop the popover whenever it is closed to avoid a cycle
-        self.popover.contentViewController = [[SBOptionsViewController alloc] initWithOptions:self.options];
+        self.popover.contentViewController = [[SBOptionsViewController alloc] initWithOptions:self.prefs];
         self.popover.animates = YES;
 
         // AppKit will close the popover when the user interacts with a user interface element outside the popover.

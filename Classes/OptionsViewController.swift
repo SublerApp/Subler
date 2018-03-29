@@ -13,7 +13,7 @@ import Cocoa
 
     private static var observerContext = 0
 
-    @objc private dynamic let options: NSMutableDictionary
+    @objc private dynamic let options: QueuePreferences
 
     @objc private dynamic var sets: [MetadataPreset]
     private var presetsObserver: Any?
@@ -21,11 +21,11 @@ import Cocoa
     @objc private dynamic let moviesProviders: [String]
     @objc private dynamic let tvShowsProviders: [String]
 
-    private let moviesProvidersKeyPath: String
-    private let tvShowsProvidersKeyPath: String
-
     @objc private dynamic var movieLanguages: [String]
     @objc private dynamic var tvShowLanguages: [String]
+
+    private var moviesObserver: Any?
+    private var tvShowObserver: Any?
 
     @objc private dynamic let languages: [String]
     private let langManager: MP42Languages
@@ -36,15 +36,13 @@ import Cocoa
         return NSNib.Name(rawValue: "QueueOptions")
     }
 
-    @objc init(options: NSMutableDictionary) {
+    @objc init(options: QueuePreferences) {
         self.options = options
 
         self.sets = []
 
         self.moviesProviders = MetadataSearch.movieProviders
         self.tvShowsProviders = MetadataSearch.tvProviders
-        self.moviesProvidersKeyPath = "options.SBQueueMovieProvider"
-        self.tvShowsProvidersKeyPath = "options.SBQueueTVShowProvider"
         self.movieLanguages = []
         self.tvShowLanguages = []
 
@@ -58,11 +56,6 @@ import Cocoa
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    deinit {
-        removeObserver(self, forKeyPath: moviesProvidersKeyPath, context: &OptionsViewController.observerContext)
-        removeObserver(self, forKeyPath: tvShowsProvidersKeyPath, context: &OptionsViewController.observerContext)
     }
 
     override func viewDidLoad() {
@@ -84,40 +77,35 @@ import Cocoa
 
         // Observe the providers changes
         // to update the specific provider languages popup
-        addObserver(self, forKeyPath: moviesProvidersKeyPath, options: [.initial, .new], context: &OptionsViewController.observerContext)
-        addObserver(self, forKeyPath: tvShowsProvidersKeyPath, options: [.initial, .new], context: &OptionsViewController.observerContext)
+
+        moviesObserver = options.observe(\.movieProvider, options: [.initial, .new]) { [weak self] observed, change in
+            guard let s = self else { return }
+            let newProvider = change.newValue ?? MetadataSearch.movieProviders.first
+            let oldLanguage = change.oldValue ?? "und"
+            let service = MetadataSearch.service(name: newProvider)
+
+            s.movieLanguages = s.localizedLanguages(service: service)
+
+            if service.languages.contains(oldLanguage) == false {
+                s.options.movieProviderLanguage = service.defaultLanguage
+            }
+        }
+
+        tvShowObserver = options.observe(\.tvShowProvider, options: [.initial, .new]) { [weak self] observed, change in
+            guard let s = self else { return }
+            let newProvider = change.newValue ?? MetadataSearch.tvProviders.first
+            let oldLanguage = change.oldValue ?? "und"
+            let service = MetadataSearch.service(name: newProvider)
+
+            s.tvShowLanguages = s.localizedLanguages(service: service)
+
+            if service.languages.contains(oldLanguage) == false {
+                s.options.tvShowProviderLanguage = service.defaultLanguage
+            }
+        }
 
         prepareDestinationPopUp()
         preparePresetsPopUp()
-    }
-
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard context == &OptionsViewController.observerContext, let changeDict = change else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-            return
-        }
-
-        if keyPath == moviesProvidersKeyPath {
-            let newProvider = changeDict[.newKey] as? String ?? MetadataSearch.movieProviders.first
-            let oldLanguage = options[SBQueueMovieProviderLanguage] as? String ?? "und"
-            let service = MetadataSearch.service(name: newProvider)
-
-            movieLanguages = localizedLanguages(service: service)
-
-            if service.languages.contains(oldLanguage) == false {
-                options[SBQueueMovieProviderLanguage] = service.defaultLanguage
-            }
-        } else if keyPath == tvShowsProvidersKeyPath {
-            let newProvider = changeDict[.newKey] as? String ?? MetadataSearch.tvProviders.first
-            let oldLanguage = options[SBQueueTVShowProviderLanguage] as? String ?? "und"
-            let service = MetadataSearch.service(name: newProvider)
-
-            tvShowLanguages = localizedLanguages(service: service)
-
-            if service.languages.contains(oldLanguage) == false {
-                options[SBQueueTVShowProviderLanguage] = service.defaultLanguage
-            }
-        }
     }
 
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
@@ -176,7 +164,7 @@ import Cocoa
     }
 
     private func selectCurrentDestination() {
-        if let url = self.options[SBQueueDestination] as? URL, let item = (destButton.menu?.items.filter { $0.representedObject as? URL == url })?.first {
+        if let url = self.options.destination, let item = (destButton.menu?.items.filter { $0.representedObject as? URL == url })?.first {
             destButton.select(item)
         } else {
             destButton.selectItem(withTag: sameAsFileTag)
@@ -207,7 +195,7 @@ import Cocoa
             recentDestinations.append(moviesURL)
         }
 
-        if let currentURL = self.options[SBQueueDestination] as? URL, recentDestinations.contains(currentURL) == false {
+        if let currentURL = self.options.destination, recentDestinations.contains(currentURL) == false {
             recentDestinations.insert(currentURL, at: 0)
         }
 
@@ -228,7 +216,7 @@ import Cocoa
 
         panel.begin(completionHandler: { (response) in
             if response == NSApplication.ModalResponse.OK, let url = panel.url {
-                self.options[SBQueueDestination] = url
+                self.options.destination = url
                 self.insertAndSelect(url)
                 self.recentDestinations.insert(url, at: 0)
                 self.saveRecentDestinations()
@@ -240,9 +228,9 @@ import Cocoa
 
     @IBAction func destination(_ sender: NSMenuItem) {
         if let url = sender.representedObject as? URL {
-            options[SBQueueDestination] = url
+            options.destination = url
         } else {
-            options[SBQueueDestination] = nil
+            options.destination = nil
         }
     }
 
@@ -252,8 +240,8 @@ import Cocoa
         let update: (Notification) -> Void = { [weak self] notification in
             guard let s = self else { return }
             s.sets = PresetManager.shared.metadataPresets
-            if let set = s.options[SBQueueSet] as? MetadataPreset, s.sets.contains(set) == false {
-                s.options[SBQueueSet] = nil
+            if let set = s.options.metadataSet, s.sets.contains(set) == false {
+                s.options.metadataSet = nil
             }
         }
 

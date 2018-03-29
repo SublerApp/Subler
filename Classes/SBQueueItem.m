@@ -470,7 +470,8 @@ bail:
                                                            [SBQueueSetLanguageAction class], [SBQueueFixFallbacksAction class],
                                                            [SBQueueClearTrackNameAction class], [SBQueueOrganizeGroupsAction class],
                                                            [SBQueueColorSpaceAction class], [SBQueueSetOutputFilenameAction class],
-                                                           [SBQueueClearExistingMetadataAction class], [SBQueueOptimizeAction class], nil]
+                                                           [SBQueueClearExistingMetadataAction class], [SBQueueOptimizeAction class],
+                                                           [SBQueueSendToiTunesAction class], nil]
                                                    forKey:@"SBQueueItemActions"];
 
         _status = [decoder decodeIntForKey:@"SBQueueItemStatus"];

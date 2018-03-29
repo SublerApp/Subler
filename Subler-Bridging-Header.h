@@ -3,7 +3,6 @@
 //
 
 #import "SBQueueController.h"
-#import "SBQueuePreferences.h"
 #import "SBQueueItem.h"
 #import "SBMovieViewController.h"
 

@@ -104,7 +104,7 @@
 		A9C31E642029A82200CEF474 /* AdvancedPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C31E622029A82200CEF474 /* AdvancedPrefsViewController.xib */; };
 		A9C3E44A205C07F4004DE24E /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C3E449205C07F4004DE24E /* OptionsViewController.swift */; };
 		A9C5FA7419FA2FEC0051F3FF /* SBActivityWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C5FA7219FA2FEC0051F3FF /* SBActivityWindow.xib */; };
-		A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C828F4195950C3004C4718 /* SBQueuePreferences.m */; };
+		A9C73536206B8F9900794673 /* QueuePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C73535206B8F9900794673 /* QueuePreferences.swift */; };
 		A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */; };
 		A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */; };
 		A9D64527202CA92400BA172B /* SaveOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D64525202CA92400BA172B /* SaveOptions.swift */; };
@@ -323,8 +323,7 @@
 		A9C31E5E2029A80F00CEF474 /* AdvancedPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AdvancedPrefsViewController.swift; path = Classes/AdvancedPrefsViewController.swift; sourceTree = "<group>"; };
 		A9C31E632029A82200CEF474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AdvancedPrefsViewController.xib; sourceTree = "<group>"; };
 		A9C3E449205C07F4004DE24E /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionsViewController.swift; path = Classes/OptionsViewController.swift; sourceTree = "<group>"; };
-		A9C828F3195950C3004C4718 /* SBQueuePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueuePreferences.h; path = Classes/SBQueuePreferences.h; sourceTree = "<group>"; };
-		A9C828F4195950C3004C4718 /* SBQueuePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueuePreferences.m; path = Classes/SBQueuePreferences.m; sourceTree = "<group>"; };
+		A9C73535206B8F9900794673 /* QueuePreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueuePreferences.swift; path = Classes/QueuePreferences.swift; sourceTree = "<group>"; };
 		A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataImporter.swift; path = Classes/MetadataImporters/MetadataImporter.swift; sourceTree = "<group>"; };
 		A9D64525202CA92400BA172B /* SaveOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveOptions.swift; path = Classes/SaveOptions.swift; sourceTree = "<group>"; };
 		A9D73C5018BF3F1100C6FFA6 /* SBQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueue.h; path = Classes/SBQueue.h; sourceTree = "<group>"; };
@@ -568,8 +567,7 @@
 				A961475F13F567E10068F161 /* SBQueueController.h */,
 				A961476013F567E10068F161 /* SBQueueController.m */,
 				A961476513F568210068F161 /* Queue.xib */,
-				A9C828F3195950C3004C4718 /* SBQueuePreferences.h */,
-				A9C828F4195950C3004C4718 /* SBQueuePreferences.m */,
+				A9C73535206B8F9900794673 /* QueuePreferences.swift */,
 				A9C3E449205C07F4004DE24E /* OptionsViewController.swift */,
 				A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */,
 				A9676A2F1FB6E85300C1E300 /* LanguageTransformer.swift */,
@@ -875,7 +873,6 @@
 				A9E932A71F34D31D00B1790B /* ArtworkSelector.swift in Sources */,
 				A9D73C5218BF3F1100C6FFA6 /* SBQueue.m in Sources */,
 				A956CE6B1F99EAAD00093992 /* Logger.swift in Sources */,
-				A9C828F5195950C3004C4718 /* SBQueuePreferences.m in Sources */,
 				A956CE691F99E93D00093992 /* ButtonToolbarItem.swift in Sources */,
 				A98D44102036F661005CB092 /* AppDelegate.swift in Sources */,
 				A9C31E572029A75F00CEF474 /* GeneralPrefsViewController.swift in Sources */,
@@ -904,6 +901,7 @@
 				A944E5921F498FC4002E43F6 /* PresetPrefsViewController.swift in Sources */,
 				A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */,
 				A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */,
+				A9C73536206B8F9900794673 /* QueuePreferences.swift in Sources */,
 				A9C09C9C1F9A08A9007939EE /* MultiSelectViewController.swift in Sources */,
 				A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */,
 				A90057B61F99DE2700FA4ED1 /* ComboBoxCellView.swift in Sources */,
