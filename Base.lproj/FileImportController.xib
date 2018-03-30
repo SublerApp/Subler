@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13528" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13528"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FileImportController" customModule="Subler" customModuleProvider="target">
             <connections>
                 <outlet property="importMetadataCheckbox" destination="36" id="ctf-Cj-LBY"/>
-                <outlet property="tableView" destination="7" id="fqn-pa-2UI"/>
+                <outlet property="tracksTableView" destination="7" id="fqn-pa-2UI"/>
                 <outlet property="window" destination="1" id="3"/>
             </connections>
         </customObject>

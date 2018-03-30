@@ -169,7 +169,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     private var importMetadata: Bool
     private weak var delegate: FileImportControllerDelegate?
 
-    @IBOutlet var tableView: ExpandedTableView!
+    @IBOutlet var tracksTableView: ExpandedTableView!
     @IBOutlet var importMetadataCheckbox: NSButton!
 
     override public var windowNibName: NSNib.Name? {
@@ -229,8 +229,8 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     // MARK: Selection
 
     private func reloadCheckColumn(forRowIndexes indexes: IndexSet) {
-        let columnIndex = tableView.column(withIdentifier: checkColumn)
-        tableView.reloadData(forRowIndexes: indexes, columnIndexes: IndexSet(integer: columnIndex))
+        let columnIndex = tracksTableView.column(withIdentifier: checkColumn)
+        tracksTableView.reloadData(forRowIndexes: indexes, columnIndexes: IndexSet(integer: columnIndex))
     }
 
     private func setCheck(value: Bool, forIndexes indexes: IndexSet) {
@@ -251,7 +251,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
             action == #selector(self.checkSelected(_:)) ||
             action == #selector(self.uncheckSelected(_:)) ||
             action == #selector(self.checkOnlyTracksWithSameLanguage(_:)) {
-            if tableView.selectedRow != -1 || tableView.clickedRow != -1 {
+            if tracksTableView.selectedRow != -1 || tracksTableView.clickedRow != -1 {
                 return true
             }
         }
@@ -259,16 +259,16 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     }
     
     @IBAction func checkSelected(_ sender: Any) {
-        setCheck(value: true, forIndexes: tableView.targetedRowIndexes)
+        setCheck(value: true, forIndexes: tracksTableView.targetedRowIndexes)
     }
     
     @IBAction func uncheckSelected(_ sender: Any) {
-        setCheck(value: false, forIndexes: tableView.targetedRowIndexes)
+        setCheck(value: false, forIndexes: tracksTableView.targetedRowIndexes)
     }
     
     @IBAction func checkOnlyTracksWithSameLanguage(_ sender: Any) {
-        let languages = tableView.targetedRowIndexes.compactMap {
-            let item = items[$0]
+        let languages = tracksTableView.targetedRowIndexes.compactMap { (index: Int) -> String? in
+            let item = items[index]
             switch item {
             case .file(_):
                 return nil
@@ -367,7 +367,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     }
 
     @IBAction func setCheck(_ sender: NSButton) {
-        let row = tableView.row(for: sender)
+        let row = tracksTableView.row(for: sender)
         if row == -1 { return }
 
         switch items[row] {
@@ -379,7 +379,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     }
 
     @IBAction func setActionValue(_ sender: NSPopUpButton) {
-        let row = tableView.row(for: sender)
+        let row = tracksTableView.row(for: sender)
         guard let selectedItem = sender.selectedItem, row > -1 else { return }
 
         switch items[row] {
