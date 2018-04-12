@@ -58,6 +58,7 @@ typedef NS_ENUM(NSUInteger, SBQueueItemStatus) {
 
 + (instancetype)itemWithMP4:(MP42File *)MP4;
 + (instancetype)itemWithMP4:(MP42File *)MP4 destinationURL:(NSURL *)destURL attributes:(NSDictionary *)dict;
++ (instancetype)itemWithMP4:(MP42File *)MP4 destinationURL:(NSURL *)destURL attributes:(NSDictionary *)dict optimize:(BOOL)optimize;
 
 - (void)addAction:(id<SBQueueActionProtocol>)action;
 - (void)removeAction:(id<SBQueueActionProtocol>)action;

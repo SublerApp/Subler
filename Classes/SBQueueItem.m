@@ -119,6 +119,19 @@
     return [[SBQueueItem alloc] initWithMP4:MP4 url:destURL attributes:dict];
 }
 
+- (instancetype)initWithMP4:(MP42File *)MP4 destinationURL:(NSURL *)destURL attributes:(NSDictionary *)dict optimize:(BOOL)optimize {
+    if (self = [self initWithMP4:MP4 url:destURL attributes:dict]) {
+        if (optimize) {
+            [_actionsInternal addObject:[[SBQueueOptimizeAction alloc] init]];
+        }
+    }
+    return self;
+}
+
++ (instancetype)itemWithMP4:(MP42File *)MP4 destinationURL:(NSURL *)destURL attributes:(NSDictionary *)dict optimize:(BOOL)optimize {
+    return [[SBQueueItem alloc] initWithMP4:MP4 destinationURL:destURL attributes:dict optimize:optimize];
+}
+
 #pragma mark KVO
 
 + (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey {

@@ -207,7 +207,7 @@ import IOKit.pwr_mgt
         let queue = SBQueueController.sharedManager
         if mp4.hasFileRepresentation {
             let item = SBQueueItem(mp4: mp4)
-            queue.add(item)
+            queue.add(item, preset: true)
             close()
         }
         else {
@@ -217,7 +217,7 @@ import IOKit.pwr_mgt
             let handler = { (response: NSApplication.ModalResponse) in
                 if response == NSApplication.ModalResponse.OK, let url = panel.url {
                     let options = self.saveOptions()
-                    let item = SBQueueItem(mp4: self.mp4, destinationURL: url, attributes: options)
+                    let item = SBQueueItem(mp4: self.mp4, destinationURL: url, attributes: options, optimize: self.optimize)
                     queue.add(item)
                     self.releaseSavePanel()
                     self.close()

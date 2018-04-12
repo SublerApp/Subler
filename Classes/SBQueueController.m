@@ -319,6 +319,11 @@ static void *SBQueueContex = &SBQueueContex;
     [self updateUI];
 }
 
+- (void)addItem:(SBQueueItem *)item preset:(BOOL)preset {
+    [item addAction:[[SBQueueOptimizeAction alloc] init]];
+    [self addItem:item];
+}
+
 /**
  *  Adds an array of SBQueueItem to the queue.
  *  Implements the undo manager.

@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class SBQueueItem;
+@class SBQueuePreferences;
 
 @interface SBQueueController : NSWindowController
 
@@ -23,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addItemsFromURLs:(NSArray<NSURL *> *)URLs atIndex:(NSInteger)index;
 - (void)addItem:(SBQueueItem *)item;
+- (void)addItem:(SBQueueItem *)item preset:(BOOL)preset;
 - (void)editItem:(SBQueueItem *)item;
 
 - (IBAction)start:(id)sender;
