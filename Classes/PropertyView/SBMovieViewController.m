@@ -128,6 +128,7 @@ static NSDateFormatter *_formatter;
     [self.metadataTableView reloadData];
     [self updateCoverArtArray];
     [self.artworksView reloadData];
+    [self.view.undoManager removeAllActionsWithTarget:self];
 }
 
 #pragma mark - Metadata
