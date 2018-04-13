@@ -128,6 +128,19 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
         }
     }
 
+    @IBAction func addPreset(_ sender: Any) {
+        var index = 0
+        while true {
+            do {
+                let preset = MetadataPreset(title: "Untitled Preset \(index)")
+                try presetManager.append(newElement: preset)
+                break
+            } catch {
+                index += 1
+            }
+        }
+    }
+
     @IBAction func deletePreset(_ sender: Any) {
         let rowIndex = tableView.selectedRow
         let sectionRow = tableView.section(for: rowIndex)

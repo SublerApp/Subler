@@ -20,6 +20,10 @@ import Foundation
     let version: Int
     var changed: Bool
 
+    convenience init(title: String) {
+        self.init(title: title, metadata: MP42Metadata(), replaceArtworks: true, replaceAnnotations: true)
+    }
+
     init(title: String, metadata: MP42Metadata, replaceArtworks: Bool, replaceAnnotations: Bool) {
         self.title = title
         self.metadata = metadata.copy() as! MP42Metadata
