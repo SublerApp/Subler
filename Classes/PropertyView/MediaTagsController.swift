@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import MP42Foundation
 
 ///  A MediaTag is composed of a tag value and a boolean state.
 private class MediaTag {

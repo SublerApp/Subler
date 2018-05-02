@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import MP42Foundation
 
 protocol ChapterSearchControllerDelegate : AnyObject {
     func didSelect(chapters: [MP42TextSample])

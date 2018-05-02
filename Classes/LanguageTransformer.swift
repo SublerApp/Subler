@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MP42Foundation
 
 @objc(SBLanguageTransformer) class LanguageTransformer : ValueTransformer {
 

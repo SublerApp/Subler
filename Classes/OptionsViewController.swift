@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import MP42Foundation
 
 @objc(SBOptionsViewController) class OptionsViewController: NSViewController {
 

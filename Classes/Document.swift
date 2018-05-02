@@ -7,6 +7,7 @@
 
 import Cocoa
 import IOKit.pwr_mgt
+import MP42Foundation
 
 @objc(SBDocument) class Document: NSDocument {
 

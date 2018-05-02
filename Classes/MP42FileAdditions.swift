@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MP42Foundation
 
 private extension String {
     func condensingWhitespace() -> String {

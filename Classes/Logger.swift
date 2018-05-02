@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MP42Foundation
 
 class Logger : NSObject, MP42Logging {
 

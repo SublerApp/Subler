@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import MP42Foundation
 
 class ActivityWindowController : NSWindowController, MP42Logging {
 

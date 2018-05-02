@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MP42Foundation
 
 extension PresetManager.Error: LocalizedError {
     public var errorDescription: String? {

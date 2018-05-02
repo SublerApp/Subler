@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import MP42Foundation
 
 protocol MetadataSearchControllerDelegate : AnyObject {
     func didSelect(metadata: MetadataResult)

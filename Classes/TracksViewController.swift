@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import MP42Foundation
 
 protocol TracksViewControllerDelegate: AnyObject {
     func didSelect(tracks: [MP42Track])

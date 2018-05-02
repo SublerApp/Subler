@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MP42Foundation
 
 public enum LanguageType {
     case ISO

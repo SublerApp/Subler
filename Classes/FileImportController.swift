@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import MP42Foundation
 
 protocol FileImportControllerDelegate : AnyObject {
     func didSelect(tracks: [MP42Track], metadata: MP42Metadata?)

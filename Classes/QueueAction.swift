@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MP42Foundation
 
 /// SBQueue actions protocol, actions can be run by the queue's items.
 //@objc(SBQueueActionProtocol) protocol QueueActionProtocol: NSSecureCoding {

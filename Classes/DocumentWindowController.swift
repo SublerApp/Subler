@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import MP42Foundation
 
 private extension NSPasteboard.PasteboardType {
 
