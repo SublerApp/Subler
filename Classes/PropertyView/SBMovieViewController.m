@@ -486,6 +486,11 @@ static NSDateFormatter *_formatter;
 
     if ([sender.stringValue isEqualToString:item.stringValue]) { return; }
 
+    if (item.dataType == MP42MetadataItemDataTypeDate &&
+        [sender.stringValue isEqualToString:[_formatter stringFromDate:item.dateValue]]) {
+        return;
+    }
+
     id value;
     switch (item.dataType) {
         case MP42MetadataItemDataTypeString:
