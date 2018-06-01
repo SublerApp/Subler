@@ -394,7 +394,7 @@
 
     {
         // Optimize the file
-        if (!self.cancelled /*&& optimize*/) {
+        if (!self.cancelled) {
             for (id<SBQueueActionProtocol> action in self.actions) {
                 if (action.type == SBQueueActionTypePost) {
                     self.localizedWorkingDescription = action.localizedDescription;
