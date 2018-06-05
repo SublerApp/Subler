@@ -72,19 +72,17 @@ class SoundViewController : NSViewController {
 
             fallbacksPopUp.isEnabled = true
 
-            for audioTrack in audioTracks {
-                if isAAC(track: audioTrack) {
-                    let trackID = audioTrack.trackId > 0 ? String(audioTrack.trackId) : "na"
-                    let item = NSMenuItem(title: "\(trackID) - \(audioTrack.name) - \(langs.localizedLang(forExtendedTag: audioTrack.language))",
-                        action: #selector(setTrackFallback(_:)),
-                        keyEquivalent: "")
-                    item.target = self
-                    item.representedObject = audioTrack
-                    fallbacksPopUp.menu?.addItem(item)
+            for audioTrack in audioTracks where isAAC(track: audioTrack) {
+                let trackID = audioTrack.trackId > 0 ? String(audioTrack.trackId) : "na"
+                let item = NSMenuItem(title: "\(trackID) - \(audioTrack.name) - \(langs.localizedLang(forExtendedTag: audioTrack.language))",
+                                      action: #selector(setTrackFallback(_:)),
+                                      keyEquivalent: "")
+                item.target = self
+                item.representedObject = audioTrack
+                fallbacksPopUp.menu?.addItem(item)
 
-                    if track.fallbackTrack == audioTrack {
-                        fallbacksPopUp.select(item)
-                    }
+                if track.fallbackTrack == audioTrack {
+                    fallbacksPopUp.select(item)
                 }
             }
         } else {
