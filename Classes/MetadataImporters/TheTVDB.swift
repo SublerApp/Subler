@@ -307,7 +307,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
             }
 
             if selected {
-                artworks.append(Artwork(url: fileURL, thumbURL: thumbURL, service: self.name, type: type))
+                artworks.append(Artwork(url: fileURL, thumbURL: image.thumbnail.isEmpty ? fileURL : thumbURL, service: self.name, type: type))
             }
         }
         return artworks
