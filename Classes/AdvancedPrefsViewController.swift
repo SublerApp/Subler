@@ -19,7 +19,7 @@ class AdvancedPrefsViewController: NSViewController {
     }
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "AdvancedPrefsViewController")
+        return "AdvancedPrefsViewController"
     }
 
 }

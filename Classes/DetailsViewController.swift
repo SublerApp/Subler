@@ -10,7 +10,7 @@ import Cocoa
 class DetailsViewController: NSViewController {
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "DetailsViewController")
+        return "DetailsViewController"
     }
 
     override func viewDidLoad() {

@@ -18,7 +18,7 @@ class MultiSelectViewController : NSViewController {
     @IBOutlet var label: NSTextField!
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "MultiSelectView")
+        return "MultiSelectView"
     }
 
     init(numberOfTracks: UInt) {

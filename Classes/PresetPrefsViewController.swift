@@ -19,7 +19,7 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
     var observer: Any?
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "PresetPrefsViewController")
+        return "PresetPrefsViewController"
     }
 
     init() {
@@ -162,7 +162,7 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
         switch preset {
         case let preset as MetadataPreset:
             controller = PresetEditorViewController.init(preset: preset)
-            presentViewControllerAsSheet(controller!)
+            presentAsSheet(controller!)
         case _ as QueuePreset:
             // TODO
             break

@@ -144,7 +144,7 @@ class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDelegate 
     }
 
     override public var windowNibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "ArtworkSelector")
+        return "ArtworkSelector"
     }
 
     // MARK: - Load images

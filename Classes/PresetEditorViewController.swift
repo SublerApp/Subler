@@ -15,7 +15,7 @@ class PresetEditorViewController: SBMovieViewController {
     @IBOutlet weak var replaceAnnotations: NSButton!
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "PresetEditorViewController")
+        return "PresetEditorViewController"
     }
 
     init(preset: MetadataPreset) {
@@ -41,7 +41,7 @@ class PresetEditorViewController: SBMovieViewController {
     }
 
     @IBAction func done(_ sender: Any) {
-        dismissViewController(self)
+        dismiss(self)
     }
 
     @IBAction func setReplaceArtworksState(_ sender: NSButton) {

@@ -19,7 +19,7 @@ class OutputPrefsViewController: NSViewController, TokenChangeObserver {
     let tokenDelegate: TokenDelegate
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "OutputPrefsViewController")
+        return "OutputPrefsViewController"
     }
 
     init() {

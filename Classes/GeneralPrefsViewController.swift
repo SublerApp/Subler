@@ -20,7 +20,7 @@ class GeneralPrefsViewController: NSViewController {
     }
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "GeneralPrefsViewController")
+        return "GeneralPrefsViewController"
     }
 
     @IBAction func clearRecentSearches(_ sender: Any) {

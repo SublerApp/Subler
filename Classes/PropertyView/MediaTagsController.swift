@@ -100,7 +100,7 @@ class MediaTagsController: NSViewController, NSTableViewDataSource, NSTableViewD
     private var tags: [MediaTag]
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "MediaTagsController")
+        return "MediaTagsController"
     }
 
     /// Initializes an SBMediaTagsController with the tags

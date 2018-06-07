@@ -26,7 +26,7 @@ class OffsetViewController: NSViewController {
     }
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "OffsetViewController")
+        return "OffsetViewController"
     }
 
     override func viewDidLoad() {
@@ -39,10 +39,10 @@ class OffsetViewController: NSViewController {
             track.startOffset = offsetField.doubleValue
             doc.updateChangeCount(.changeDone)
         }
-        dismissViewController(self)
+        dismiss(self)
     }
 
     @IBAction func dismiss(_ sender: Any) {
-        dismissViewController(self)
+        dismiss(self)
     }
 }

@@ -27,7 +27,7 @@ class SoundViewController : NSViewController {
     @IBOutlet var followsPopUp: NSPopUpButton!
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "SoundView")
+        return "SoundView"
     }
 
     init(mp4: MP42File, track: MP42AudioTrack) {

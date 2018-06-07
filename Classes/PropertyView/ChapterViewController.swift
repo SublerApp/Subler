@@ -20,7 +20,7 @@ class ChapterViewController : NSViewController, NSTableViewDataSource, NSTableVi
     @IBOutlet var removeChapter: NSButton!
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "ChapterView")
+        return "ChapterView"
     }
 
     init(track: MP42ChapterTrack) {

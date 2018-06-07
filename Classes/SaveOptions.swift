@@ -30,7 +30,7 @@ class SaveOptions: NSViewController {
     }
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "SaveOptions")
+        return "SaveOptions"
     }
 
     override func viewDidLoad() {

@@ -10,7 +10,7 @@ import Cocoa
 class EmptyViewController: NSViewController {
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "EmptyView")
+        return "EmptyView"
     }
 
 }

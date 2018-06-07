@@ -31,7 +31,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
     }
 
     override var windowNibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "DocumentWindowController")
+        return "DocumentWindowController"
     }
 
     init() {
@@ -49,14 +49,14 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
             fatalError("`window` is expected to be non nil by this time.")
         }
 
-        sendToQueue.image = NSImage(named: NSImage.Name(rawValue: "NSShareTemplate"));
+        sendToQueue.image = NSImage(named: "NSShareTemplate");
 
         window.contentViewController = splitViewController
         window.registerForDraggedTypes([NSPasteboard.PasteboardType.backwardsCompatibleFileURL])
 
         if UserDefaults.standard.bool(forKey: "rememberWindowSize") {
-            window.setFrameAutosaveName(NSWindow.FrameAutosaveName(rawValue: "documentSave"))
-            window.setFrameFrom("documentSave")
+            window.setFrameAutosaveName("documentSave")
+            window.setFrame(from: "documentSave")
         }
         else {
             window.setContentSize(NSSize(width: 690, height: 510))
@@ -70,7 +70,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
     }
 
     private static let splitViewResorationIdentifier = NSUserInterfaceItemIdentifier(rawValue: "splitViewSave")
-    private static let splitViewResorationAutosaveName = NSSplitView.AutosaveName(rawValue: "splitViewSave")
+    private static let splitViewResorationAutosaveName = "splitViewSave"
 
     private lazy var splitViewController: NSSplitViewController = {
         // Create a split view controller to contain split view items.
@@ -152,7 +152,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
 
             default:
                 if metadataViewController == nil {
-                    metadataViewController = SBMovieViewController(nibName: NSNib.Name(rawValue: "MovieView"),
+                    metadataViewController = SBMovieViewController(nibName: "MovieView",
                                                                        bundle: nil)
                     metadataViewController!.metadata = mp4.metadata
                 }
@@ -170,14 +170,14 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
 
     func didSelect(tracks: [MP42Track]) {
         let detailsItem = splitViewController.splitViewItems[1]
-        if let detailsViewController = detailsItem.viewController.childViewControllers.first {
+        if let detailsViewController = detailsItem.viewController.children.first {
             doc.undoManager?.removeAllActions(withTarget: detailsViewController)
             detailsViewController.view.removeFromSuperviewWithoutNeedingDisplay()
-            detailsItem.viewController.removeChildViewController(at: 0)
+            detailsItem.viewController.removeChild(at: 0)
         }
 
         let trackViewController = detailsViewController(tracks)
-        detailsItem.viewController.addChildViewController(trackViewController)
+        detailsItem.viewController.addChild(trackViewController)
         trackViewController.view.frame = detailsItem.viewController.view.bounds
         trackViewController.view.autoresizingMask = [NSView.AutoresizingMask.width, NSView.AutoresizingMask.height]
         detailsItem.viewController.view.addSubview(trackViewController.view)
@@ -243,7 +243,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
     func startProgressReporting() {
         let progressController = ProgressViewController()
         progressController.delegate = self
-        contentViewController?.presentViewControllerAsSheet(progressController)
+        contentViewController?.presentAsSheet(progressController)
         self.progressController = progressController
         mp4.progressHandler = { [weak progressController] progress in
             DispatchQueue.main.async {
@@ -262,7 +262,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
     func endProgressReporting() {
         mp4.progressHandler = nil
         if let progressController = self.progressController {
-            contentViewController?.dismissViewController(progressController)
+            contentViewController?.dismiss(progressController)
             self.progressController = nil
         }
     }
@@ -338,7 +338,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
     @IBAction func showTrackOffsetSheet(_ sender: Any) {
         guard let track = tracksViewController.selectedTracks.first else { return }
         let controller = OffsetViewController(doc: doc, track: track)
-        self.window?.contentViewController?.presentViewControllerAsSheet(controller)
+        self.window?.contentViewController?.presentAsSheet(controller)
     }
 
     @IBAction func export(_ sender: Any) {
@@ -569,16 +569,16 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
     // MARK: Drag & drop
 
     func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        guard let types = sender.draggingPasteboard().types,
+        guard let types = sender.draggingPasteboard.types,
             types.contains(NSPasteboard.PasteboardType.backwardsCompatibleFileURL) &&
-                sender.draggingSourceOperationMask().contains(.copy)
+                sender.draggingSourceOperationMask.contains(.copy)
         else { return [] }
 
         return .copy
     }
 
     func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        let pasteboard = sender.draggingPasteboard()
+        let pasteboard = sender.draggingPasteboard
         guard let types = pasteboard.types,
             types.contains(NSPasteboard.PasteboardType.backwardsCompatibleFileURL),
             let items = pasteboard.readObjects(forClasses: [NSURL.classForCoder()], options: [:]) as? [URL]

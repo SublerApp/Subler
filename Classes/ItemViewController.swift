@@ -25,7 +25,7 @@ import Cocoa
     @IBOutlet var tableHeight: NSLayoutConstraint!
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "QueueItem")
+        return "QueueItem"
     }
 
     @objc init(item: SBQueueItem, delegate: ItemViewDelegate) {

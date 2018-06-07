@@ -25,7 +25,7 @@ class ActivityWindowController : NSWindowController, MP42Logging {
     }
 
     override public var windowNibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "SBActivityWindow")
+        return "SBActivityWindow"
     }
 
     override func windowDidLoad() {

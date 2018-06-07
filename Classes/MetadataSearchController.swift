@@ -96,7 +96,7 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
     }
 
     override var windowNibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "MetadataSearch")
+        return "MetadataSearch"
     }
 
     override func windowDidLoad() {

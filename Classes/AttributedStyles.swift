@@ -9,42 +9,42 @@ import Cocoa
 
 // MARK: - Attributed styles
 
-private func monospaceAttributes(size: CGFloat, aligment: NSTextAlignment, headIndent: CGFloat = -10.0, firstLineHeadIndent: CGFloat = 0, bold: Bool, color: NSColor = NSColor.gray) -> [NSAttributedStringKey : Any]  {
+private func monospaceAttributes(size: CGFloat, aligment: NSTextAlignment, headIndent: CGFloat = -10.0, firstLineHeadIndent: CGFloat = 0, bold: Bool, color: NSColor = NSColor.gray) -> [NSAttributedString.Key : Any]  {
     let ps = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
     ps.firstLineHeadIndent = firstLineHeadIndent
     ps.headIndent = headIndent
     ps.alignment = aligment
     
     if #available(macOS 10.11, *) {
-        return [NSAttributedStringKey.font: NSFont.monospacedDigitSystemFont(ofSize: size,
+        return [NSAttributedString.Key.font: NSFont.monospacedDigitSystemFont(ofSize: size,
                                                                              weight: bold ? NSFont.Weight.bold : NSFont.Weight.regular),
-                NSAttributedStringKey.paragraphStyle: ps,
-                NSAttributedStringKey.foregroundColor: color]
+                NSAttributedString.Key.paragraphStyle: ps,
+                NSAttributedString.Key.foregroundColor: color]
     }
     else {
-        return [NSAttributedStringKey.font: bold ? NSFont.boldSystemFont(ofSize: size) : NSFont.systemFont(ofSize: size),
-                NSAttributedStringKey.paragraphStyle: ps,
-                NSAttributedStringKey.foregroundColor: color]
+        return [NSAttributedString.Key.font: bold ? NSFont.boldSystemFont(ofSize: size) : NSFont.systemFont(ofSize: size),
+                NSAttributedString.Key.paragraphStyle: ps,
+                NSAttributedString.Key.foregroundColor: color]
     }
 }
 
-private let detailBoldMonospacedAttr = { () -> [NSAttributedStringKey : Any] in
+private let detailBoldMonospacedAttr = { () -> [NSAttributedString.Key : Any] in
     return monospaceAttributes(size: NSFont.smallSystemFontSize, aligment: NSTextAlignment.right, bold: true)
 }()
 
-private let detailBoldAttr = { () -> [NSAttributedStringKey : Any] in
+private let detailBoldAttr = { () -> [NSAttributedString.Key : Any] in
     return monospaceAttributes(size: NSFont.smallSystemFontSize, aligment: NSTextAlignment.left, bold: true)
 }()
 
-private let detailMonospacedAttr = { () -> [NSAttributedStringKey : Any] in
+private let detailMonospacedAttr = { () -> [NSAttributedString.Key : Any] in
     return monospaceAttributes(size: NSFont.smallSystemFontSize, aligment: NSTextAlignment.right, bold: false)
 }()
 
-private let monospacedAttr = { () -> [NSAttributedStringKey : Any] in
+private let monospacedAttr = { () -> [NSAttributedString.Key : Any] in
     return monospaceAttributes(size: NSFont.systemFontSize, aligment: NSTextAlignment.right, bold: false, color: NSColor.controlTextColor)
 }()
 
-private let groupRowAttr = { () -> [NSAttributedStringKey : Any] in
+private let groupRowAttr = { () -> [NSAttributedString.Key : Any] in
     return monospaceAttributes(size: NSFont.systemFontSize, aligment: NSTextAlignment.left, firstLineHeadIndent: 24, bold: true)
 }()
 

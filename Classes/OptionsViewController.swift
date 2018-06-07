@@ -34,7 +34,7 @@ import MP42Foundation
     private var recentDestinations: [URL]
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "QueueOptions")
+        return "QueueOptions"
     }
 
     @objc init(options: QueuePreferences) {
@@ -70,8 +70,8 @@ import MP42Foundation
         for subview in view.subviews {
             if let button = subview as? NSButton {
                 button.attributedTitle = NSAttributedString(string: button.title,
-                                                            attributes: [NSAttributedStringKey.foregroundColor: NSColor.labelColor,
-                                                                        NSAttributedStringKey.font: NSFont.labelFont(ofSize: 11)])
+                                                            attributes: [NSAttributedString.Key.foregroundColor: NSColor.labelColor,
+                                                                        NSAttributedString.Key.font: NSFont.labelFont(ofSize: 11)])
 
             }
         }

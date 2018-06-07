@@ -22,7 +22,7 @@ class ProgressViewController: NSViewController {
     private var isIndeterminate: Bool = true
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "ProgressViewController")
+        return "ProgressViewController"
     }
 
     override func viewDidLoad() {

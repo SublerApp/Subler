@@ -66,7 +66,7 @@ class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTabl
     }
 
     override var windowNibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "SBChapterSearch")
+        return "SBChapterSearch"
     }
 
     override func windowDidLoad() {

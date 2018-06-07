@@ -15,7 +15,7 @@ class TokensViewController: NSViewController, NSTextFieldDelegate {
     let tokenDelegate: TokenDelegate
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "TokensViewController")
+        return "TokensViewController"
     }
 
     init(tokens: [String]) {

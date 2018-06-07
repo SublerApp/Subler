@@ -26,7 +26,7 @@ class ExceptionAlertController: NSWindowController {
     }
 
     override public var windowNibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "ExceptionAlert")
+        return "ExceptionAlert"
     }
 
     override func windowDidLoad() {

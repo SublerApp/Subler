@@ -21,7 +21,7 @@ class VideoViewController: NSViewController {
     private let mediaTagsController: MediaTagsController
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "VideoView")
+        return "VideoView"
     }
 
     init(mp4: MP42File, track: MP42VideoTrack) {

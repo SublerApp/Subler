@@ -43,7 +43,7 @@ class TracksViewController: NSViewController, NSTableViewDataSource, NSTableView
     }()
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "TracksViewController")
+        return "TracksViewController"
     }
 
     override func viewDidLoad() {
@@ -272,7 +272,7 @@ class TracksViewController: NSViewController, NSTableViewDataSource, NSTableView
                    acceptDrop info: NSDraggingInfo,
                    row: Int,
                    dropOperation: NSTableView.DropOperation) -> Bool {
-        let data: Data = info.draggingPasteboard().data(forType: pasteboardType)!
+        let data: Data = info.draggingPasteboard.data(forType: pasteboardType)!
         let rowIndexes: IndexSet = NSKeyedUnarchiver.unarchiveObject(with: data) as! IndexSet
 
         if let dragRow = rowIndexes.first {

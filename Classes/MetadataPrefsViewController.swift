@@ -33,7 +33,7 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
     let tableTokenDelegate: TokenDelegate
 
     override var nibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "MetadataPrefsViewController")
+        return "MetadataPrefsViewController"
     }
 
     init() {

@@ -174,7 +174,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
     @IBOutlet var importMetadataCheckbox: NSButton!
 
     override public var windowNibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "FileImportController")
+        return "FileImportController"
     }
     
     init(fileURLs: [URL], delegate: FileImportControllerDelegate) throws {
