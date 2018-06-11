@@ -49,7 +49,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
             fatalError("`window` is expected to be non nil by this time.")
         }
 
-        sendToQueue.image = NSImage(named: "NSShareTemplate");
+        sendToQueue.image = NSImage(named: NSImage.shareTemplateName);
 
         window.contentViewController = splitViewController
         window.registerForDraggedTypes([NSPasteboard.PasteboardType.backwardsCompatibleFileURL])
