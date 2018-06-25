@@ -342,8 +342,7 @@
     BOOL noErr = YES;
 
 #ifdef SB_SANDBOX
-    if ([destination respondsToSelector:@selector(startAccessingSecurityScopedResource)])
-        [destination startAccessingSecurityScopedResource];
+    [self.destURL startAccessingSecurityScopedResource];
 #endif
 
     // The file has been added directly to the queue
@@ -425,8 +424,7 @@ bail:
     self.fileURL = filePathURL;
 
 #ifdef SB_SANDBOX
-    if ([destination respondsToSelector:@selector(stopAccessingSecurityScopedResource)])
-        [destination stopAccessingSecurityScopedResource];
+    [self.destURL stopAccessingSecurityScopedResource];
 #endif
 
     return noErr;
