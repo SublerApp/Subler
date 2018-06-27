@@ -191,7 +191,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
     @IBOutlet var searchChapters: NSToolbarItem!
     @IBOutlet var sendToQueue: NSToolbarItem!
 
-    override func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
+    override func validate(_ item: NSToolbarItem) -> Bool {
         if item == addTracks ||
             item == searchMetadata ||
             item == searchChapters ||

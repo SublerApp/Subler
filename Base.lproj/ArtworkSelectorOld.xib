@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14269.14" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="101100" identifier="macosx"/>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14269.14"/>
+        <plugIn identifier="com.apple.imagekit.ibplugin" version="14269.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="ArtworkSelectorController" customModule="Subler" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="ArtworkSelectorControllerOldStyle" customModule="Subler" customModuleProvider="target">
             <connections>
                 <outlet property="addArtworkButton" destination="9" id="46"/>
-                <outlet property="imageBrowser" destination="dsp-Oy-lJU" id="MJV-to-bBM"/>
+                <outlet property="imageBrowser" destination="11" id="45"/>
                 <outlet property="loadMoreArtworkButton" destination="7" id="48"/>
                 <outlet property="slider" destination="8" id="43"/>
                 <outlet property="window" destination="3" id="37"/>
@@ -27,6 +28,41 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="380"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="188.66667175292969" horizontalPageScroll="10" verticalLineScroll="168" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10">
+                        <rect key="frame" x="20" y="75" width="440" height="285"/>
+                        <clipView key="contentView" copiesOnScroll="NO" id="fMP-TL-qIZ">
+                            <rect key="frame" x="1" y="1" width="438" height="283"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <ikImageBrowserView autoresizesSubviews="NO" zoomValue="0.76223719120025635" translatesAutoresizingMaskIntoConstraints="NO" id="11">
+                                    <rect key="frame" x="0.0" y="0.0" width="438" height="283"/>
+                                    <ikCellsStyle key="cellsStyleMask" shadowed="YES" titled="YES" subtitled="YES"/>
+                                    <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
+                                    <size key="cellSize" width="148" height="148"/>
+                                    <connections>
+                                        <outlet property="_dataSource" destination="-2" id="39"/>
+                                        <outlet property="_delegate" destination="-2" id="40"/>
+                                        <outlet property="dataSource" destination="-2" id="41"/>
+                                        <outlet property="delegate" destination="-2" id="42"/>
+                                    </connections>
+                                </ikImageBrowserView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="11" secondAttribute="trailing" id="GpQ-w0-pL3"/>
+                                <constraint firstAttribute="bottom" secondItem="11" secondAttribute="bottom" id="Wx5-oU-I0v"/>
+                                <constraint firstItem="11" firstAttribute="top" secondItem="fMP-TL-qIZ" secondAttribute="top" id="te2-aY-Xqb"/>
+                                <constraint firstItem="11" firstAttribute="leading" secondItem="fMP-TL-qIZ" secondAttribute="leading" id="wbB-Cq-7RD"/>
+                            </constraints>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="12">
+                            <rect key="frame" x="-100" y="-100" width="438" height="15"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="13">
+                            <rect key="frame" x="424" y="1" width="15" height="250"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9">
                         <rect key="frame" x="338" y="12" width="128" height="32"/>
                         <buttonCell key="cell" type="push" title="Set as artwork" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="14">
@@ -45,7 +81,7 @@ DQ
                         <constraints>
                             <constraint firstAttribute="width" constant="96" id="0Mf-Un-HXH"/>
                         </constraints>
-                        <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="100" maxValue="500" doubleValue="250" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="15"/>
+                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="0.20000000000000001" maxValue="1" doubleValue="0.60000000000000009" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="15"/>
                         <accessibility description="Zoom"/>
                         <connections>
                             <action selector="zoomSliderDidChange:" target="-2" id="44"/>
@@ -76,58 +112,26 @@ Gw
                             <action selector="addNoArtwork:" target="-2" id="51"/>
                         </connections>
                     </button>
-                    <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1V5-n3-xKs">
-                        <rect key="frame" x="20" y="75" width="440" height="285"/>
-                        <clipView key="contentView" drawsBackground="NO" id="5rm-GN-VhB">
-                            <rect key="frame" x="1" y="1" width="438" height="283"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <collectionView selectable="YES" allowsMultipleSelection="YES" id="dsp-Oy-lJU" customClass="CollectionView" customModule="Subler" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="438" height="283"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                    <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="jsh-bc-hMg">
-                                        <size key="itemSize" width="154" height="194"/>
-                                        <edgeInsets key="sectionInset" left="8" right="8" top="8" bottom="8"/>
-                                    </collectionViewFlowLayout>
-                                    <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <connections>
-                                        <outlet property="dataSource" destination="-2" id="oM6-JY-ET6"/>
-                                        <outlet property="delegate" destination="-2" id="uBZ-z7-Rag"/>
-                                    </connections>
-                                </collectionView>
-                            </subviews>
-                        </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="VPu-d7-Ls1">
-                            <rect key="frame" x="-100" y="-100" width="372" height="16"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="63w-uG-eHg">
-                            <rect key="frame" x="403" y="1" width="16" height="251"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                    </scrollView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="10" secondAttribute="trailing" constant="20" symbolic="YES" id="2dF-3S-sSa"/>
                     <constraint firstItem="9" firstAttribute="top" secondItem="8" secondAttribute="bottom" constant="10" id="42t-0L-Sim"/>
                     <constraint firstItem="9" firstAttribute="leading" secondItem="49" secondAttribute="trailing" constant="12" symbolic="YES" id="9KU-rV-HX6"/>
-                    <constraint firstAttribute="trailing" secondItem="9" secondAttribute="trailing" constant="20" id="Afl-w6-Sam"/>
                     <constraint firstAttribute="bottom" secondItem="7" secondAttribute="bottom" constant="19" id="Ef2-6N-v4D"/>
+                    <constraint firstItem="8" firstAttribute="top" secondItem="10" secondAttribute="bottom" constant="8" id="KQW-kp-ljW"/>
                     <constraint firstItem="49" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7" secondAttribute="trailing" constant="66" id="KZN-qg-yUG"/>
-                    <constraint firstItem="1V5-n3-xKs" firstAttribute="top" secondItem="4" secondAttribute="top" constant="20" id="Sbz-On-xIY"/>
-                    <constraint firstItem="7" firstAttribute="leading" secondItem="4" secondAttribute="leading" constant="20" id="UkB-GM-zr7"/>
                     <constraint firstItem="7" firstAttribute="baseline" secondItem="49" secondAttribute="baseline" id="X0P-3j-fGS"/>
-                    <constraint firstItem="1V5-n3-xKs" firstAttribute="leading" secondItem="4" secondAttribute="leading" constant="20" id="YA3-u4-Re0"/>
-                    <constraint firstItem="8" firstAttribute="top" secondItem="1V5-n3-xKs" secondAttribute="bottom" constant="8" id="d0O-3L-94x"/>
                     <constraint firstItem="8" firstAttribute="trailing" secondItem="9" secondAttribute="trailing" id="fJ9-o3-pFG"/>
-                    <constraint firstAttribute="trailing" secondItem="1V5-n3-xKs" secondAttribute="trailing" constant="20" id="hz6-yA-FD7"/>
+                    <constraint firstItem="10" firstAttribute="top" secondItem="4" secondAttribute="top" constant="20" symbolic="YES" id="kpP-bZ-e5s"/>
+                    <constraint firstItem="10" firstAttribute="leading" secondItem="4" secondAttribute="leading" constant="20" symbolic="YES" id="qpm-9U-Mxg"/>
                     <constraint firstItem="49" firstAttribute="baseline" secondItem="9" secondAttribute="baseline" id="s1P-63-ywo"/>
+                    <constraint firstItem="10" firstAttribute="trailing" secondItem="8" secondAttribute="trailing" id="tg4-M3-k3B"/>
+                    <constraint firstItem="10" firstAttribute="leading" secondItem="7" secondAttribute="leading" id="vgS-hd-TsB"/>
                 </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="35"/>
             </connections>
-            <point key="canvasLocation" x="154" y="-19"/>
         </window>
-        <collectionViewItem id="tcm-Rs-Ndm" customClass="ArtworkSelectorViewItem" customModule="Subler" customModuleProvider="target"/>
     </objects>
 </document>

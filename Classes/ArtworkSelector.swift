@@ -9,7 +9,7 @@ import Cocoa
 import Quartz
 
 private protocol ArtworkImageObjectDelegate: AnyObject {
-    func reloadData()
+    func reloadItem(_ item: ArtworkImageObject)
 }
 
 private class ArtworkImageObject : NSObject {
@@ -33,6 +33,14 @@ private class ArtworkImageObject : NSObject {
         queue.sync {
             cancelled = true
             delegate = nil
+        }
+    }
+
+    func image() -> NSImage? {
+        if let data = imageRepresentation() as? Data {
+            return NSImage(data: data)
+        } else {
+            return nil
         }
     }
 
@@ -60,7 +68,7 @@ private class ArtworkImageObject : NSObject {
                 // We got the data, tell the controller to update the view
                 if localCancelled == false {
                     DispatchQueue.main.async {
-                        self.delegate?.reloadData()
+                        self.delegate?.reloadItem(self)
                     }
                 }
             }
@@ -106,7 +114,7 @@ protocol ArtworkSelectorControllerDelegate: AnyObject {
     func didSelect(artworks: [Artwork])
 }
 
-class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDelegate {
+class ArtworkSelectorControllerOldStyle: NSWindowController, ArtworkImageObjectDelegate {
 
     @IBOutlet var imageBrowser: IKImageBrowserView!
     @IBOutlet var slider: NSSlider!
@@ -144,7 +152,7 @@ class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDelegate 
     }
 
     override public var windowNibName: NSNib.Name? {
-        return "ArtworkSelector"
+        return "ArtworkSelectorOld"
     }
 
     // MARK: - Load images
@@ -175,7 +183,7 @@ class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDelegate 
         imageBrowser.needsDisplay = true
     }
 
-    fileprivate func reloadData() {
+    fileprivate func reloadItem(_ item: ArtworkImageObject) {
         imageBrowser.reloadData()
     }
 
@@ -246,6 +254,216 @@ class ArtworkSelectorController: NSWindowController, ArtworkImageObjectDelegate 
             UserDefaults.standard.set(artwork.source.type.rawValue, forKey: "SBArtworkSelectorDefaultType|\(type.description)")
             UserDefaults.standard.set(artwork.source.service, forKey: "SBArtworkSelectorDefaultService|\(type.description)")
         }
+    }
+
+}
+
+@available(OSX 10.11, *)
+class CollectionView : NSCollectionView {
+    override func keyDown(with event: NSEvent) {
+        guard let key = event.charactersIgnoringModifiers?.utf16.first else { super.keyDown(with: event); return }
+
+        if key == NSEnterCharacter || key == NSCarriageReturnCharacter {
+            nextResponder?.keyDown(with: event)
+        } else if selectionIndexPaths.isEmpty {
+            if key == NSRightArrowFunctionKey || key == NSDownArrowFunctionKey {
+                animator().selectItems(at: Set([IndexPath(item: 0, section: 0)]), scrollPosition: .bottom)
+            } else if key == NSLeftArrowFunctionKey || key == NSUpArrowFunctionKey  {
+                let numberOfItems = dataSource?.collectionView(self, numberOfItemsInSection: 0) ?? 1
+                animator().selectItems(at: Set([IndexPath(item: numberOfItems - 1, section: 0)]), scrollPosition: .bottom)
+            } else {
+                super.keyDown(with: event)
+            }
+        } else {
+            super.keyDown(with: event)
+        }
+    }
+}
+
+
+@available(OSX 10.11, *)
+class ArtworkSelectorController: NSWindowController, NSCollectionViewDataSource, NSCollectionViewDelegate, ArtworkImageObjectDelegate {
+
+    @IBOutlet var imageBrowser: NSCollectionView!
+    @IBOutlet var slider: NSSlider!
+    @IBOutlet var addArtworkButton: NSButton!
+    @IBOutlet var loadMoreArtworkButton: NSButton!
+
+    private var artworksUnloaded: [Artwork]
+    private var artworks: [ArtworkImageObject]
+    private let initialSize: CGSize?
+    private let type: MetadataType
+
+    private weak var delegate: ArtworkSelectorControllerDelegate?
+
+    // MARK: - Init
+    init(artworks: [Artwork], size: CGSize? = nil, type: MetadataType, delegate: ArtworkSelectorControllerDelegate) {
+        self.delegate = delegate
+        self.initialSize = size
+        self.artworksUnloaded = artworks
+        self.artworks = Array()
+        self.type = type
+        super.init(window: nil)
+    }
+
+    required public init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        imageBrowser.delegate = nil
+        imageBrowser.dataSource = nil
+
+        for artwork in artworks {
+            artwork.cancel()
+        }
+    }
+
+    override public var windowNibName: NSNib.Name? {
+        return "ArtworkSelector"
+    }
+
+    // MARK: - Load images
+    override public func windowDidLoad() {
+        super.windowDidLoad()
+
+        window?.contentView?.wantsLayer = true
+
+        if let size = initialSize { window?.setContentSize(size) }
+
+        imageBrowser.register(ArtworkSelectorViewItem.self, forItemWithIdentifier: ArtworkSelectorController.itemView)
+        loadMoreArtworks(count: 8)
+
+        if let defaultService = UserDefaults.standard.string(forKey: "SBArtworkSelectorDefaultService|\(type.description)"),
+            let defaultType = ArtworkType(rawValue: UserDefaults.standard.integer(forKey: "SBArtworkSelectorDefaultType|\(type.description)")) {
+            selectArtwork(type: defaultType, service: defaultService)
+        }
+
+        if imageBrowser.selectionIndexPaths.count == 0 {
+            let indexPath = IndexPath(item: 0, section: 0)
+            imageBrowser.selectItems(at: [indexPath], scrollPosition: .top)
+        }
+    }
+
+    @IBAction func loadMoreArtwork(_ sender: Any) {
+        loadMoreArtworks(count: 8)
+    }
+
+    // MARK: - User Interface
+
+    @IBAction func zoomSliderDidChange(_ sender: Any) {
+        if let layout = imageBrowser.collectionViewLayout as? NSCollectionViewFlowLayout {
+            layout.itemSize = NSSize(width: Int(slider.floatValue), height: Int(slider.floatValue * 1.25))
+        }
+    }
+
+    fileprivate func reloadItem(_ item: ArtworkImageObject) {
+        let selectionIndexPaths = imageBrowser.selectionIndexPaths
+
+        if let index = artworks.firstIndex(of: item) {
+            let indexPath = IndexPath(item: index, section: 0)
+            imageBrowser.reloadItems(at: [indexPath])
+        }
+
+        if imageBrowser.selectionIndexPaths.isEmpty {
+            imageBrowser.selectionIndexPaths = selectionIndexPaths
+        }
+    }
+
+    private func selectArtwork(at index: Int) {
+        let indexPath = IndexPath(item: 0, section: 0)
+        imageBrowser.selectItems(at: [indexPath], scrollPosition: .top)
+        addArtworkButton.isEnabled = imageBrowser.selectionIndexPaths.isEmpty == false
+    }
+
+    private func loadMoreArtworks(count: Int) {
+        let endIndex = artworksUnloaded.count < count ? artworksUnloaded.count : count
+        let newArtworks = artworksUnloaded[0 ..< endIndex]
+
+        artworks.append(contentsOf: newArtworks.map {  ArtworkImageObject(artwork: $0, delegate: self) })
+        artworksUnloaded.removeFirst(endIndex)
+        loadMoreArtworkButton.isEnabled = artworksUnloaded.isEmpty == false
+
+        let range = (artworks.count - endIndex ..< artworks.count)
+        let indexes = range.map { IndexPath(item: $0, section: 0)}
+
+        imageBrowser.insertItems(at: Set(indexes))
+    }
+
+    private func selectArtwork(type: ArtworkType, service: String) {
+        if let artwork = (artworks.filter { $0.source.type == type && $0.source.service == service } as [ArtworkImageObject]).first,
+            let index = artworks.index(of: artwork) {
+            selectArtwork(at: index)
+        }
+        else if let artwork = (artworks.filter { $0.source.type == type } as [ArtworkImageObject]).first,
+            let index = artworks.index(of: artwork) {
+            selectArtwork(at: index)
+        }
+        else if artworksUnloaded.isEmpty == false {
+            for (index, artwork) in artworksUnloaded.enumerated() {
+                if artwork.type == type {
+                    let offset = artworks.count
+                    loadMoreArtworks(count: index + 1)
+                    selectArtwork(at: index + offset)
+                    break
+                }
+            }
+        }
+    }
+
+    private func selectedArtworks() -> [ArtworkImageObject] {
+        return imageBrowser.selectionIndexes.map { artworks[$0] }
+    }
+
+    // MARK: - Finishing Up
+    @IBAction func addArtwork(_ sender: Any) {
+        delegate?.didSelect(artworks:selectedArtworks().map { $0.source })
+    }
+
+    @IBAction func addNoArtwork(_ sender: Any) {
+        delegate?.didSelect(artworks: [])
+    }
+
+    // MARK: - Data source
+
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        return artworks.count
+    }
+
+    static let itemView = NSUserInterfaceItemIdentifier(rawValue: "ArtworkSelectorViewItem")
+
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+        let item = collectionView.makeItem(withIdentifier: ArtworkSelectorController.itemView, for: indexPath)
+        guard let collectionViewItem = item as? ArtworkSelectorViewItem, let index = indexPath.last else { return item }
+
+        let artwork = artworks[index]
+
+        collectionViewItem.title = artwork.imageTitle()
+        collectionViewItem.subtitle = artwork.imageSubtitle()
+        collectionViewItem.image = artwork.image()
+
+        collectionViewItem.doubleAction = #selector(addArtwork)
+        collectionViewItem.target = self
+
+        return collectionViewItem
+    }
+
+    // MARK: - Delegate
+
+    private func updateSelection() {
+        addArtworkButton.isEnabled = imageBrowser.selectionIndexes.isEmpty == false
+        if let artwork = selectedArtworks().first {
+            UserDefaults.standard.set(artwork.source.type.rawValue, forKey: "SBArtworkSelectorDefaultType|\(type.description)")
+            UserDefaults.standard.set(artwork.source.service, forKey: "SBArtworkSelectorDefaultService|\(type.description)")
+        }
+    }
+
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        updateSelection()
+    }
+
+    func collectionView(_ collectionView: NSCollectionView, didDeselectItemsAt indexPaths: Set<IndexPath>) {
+        updateSelection()
     }
 
 }

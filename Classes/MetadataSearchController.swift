@@ -61,7 +61,7 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
     private var tvShowService: MetadataService = MetadataSearch.defaultTVService
 
     // MARK: Other
-    private var artworkSelector: ArtworkSelectorController?
+    private var artworkSelector: NSWindowController?
     private weak var delegate: MetadataSearchControllerDelegate?
 
     private let terms: MetadataSearchTerms
@@ -298,10 +298,17 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
     }
 
     private func selectArtwork(artworks: [Artwork], type: MetadataType) {
-        let artworkSelectorController = ArtworkSelectorController(artworks: artworks, size: window?.frame.size,
-                                                                  type: type, delegate: self)
-        window?.beginSheet(artworkSelectorController.window!, completionHandler: nil)
-        artworkSelector = artworkSelectorController
+        if #available(OSX 10.11, *) {
+            let artworkSelectorController = ArtworkSelectorController(artworks: artworks, size: window?.frame.size,
+                                                        type: type, delegate: self)
+            window?.beginSheet(artworkSelectorController.window!, completionHandler: nil)
+            artworkSelector = artworkSelectorController
+        } else {
+            let artworkSelectorController = ArtworkSelectorControllerOldStyle(artworks: artworks, size: window?.frame.size,
+                                                        type: type, delegate: self)
+            window?.beginSheet(artworkSelectorController.window!, completionHandler: nil)
+            artworkSelector = artworkSelectorController
+        }
     }
 
     func didSelect(artworks: [Artwork]) {
