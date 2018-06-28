@@ -41,11 +41,11 @@ DQ
                         </connections>
                     </button>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8">
-                        <rect key="frame" x="364" y="49" width="96" height="18"/>
+                        <rect key="frame" x="360" y="49" width="100" height="18"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="96" id="0Mf-Un-HXH"/>
+                            <constraint firstAttribute="width" constant="100" id="0Mf-Un-HXH"/>
                         </constraints>
-                        <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="100" maxValue="500" doubleValue="250" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="15"/>
+                        <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="15"/>
                         <accessibility description="Zoom"/>
                         <connections>
                             <action selector="zoomSliderDidChange:" target="-2" id="44"/>

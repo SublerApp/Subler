@@ -267,10 +267,14 @@ class CollectionView : NSCollectionView {
             nextResponder?.keyDown(with: event)
         } else if selectionIndexPaths.isEmpty {
             if key == NSRightArrowFunctionKey || key == NSDownArrowFunctionKey {
-                animator().selectItems(at: Set([IndexPath(item: 0, section: 0)]), scrollPosition: .bottom)
+                let indexPathSet = Set([IndexPath(item: 0, section: 0)])
+                animator().selectItems(at: indexPathSet, scrollPosition: .bottom)
+                delegate?.collectionView?(self, didSelectItemsAt: indexPathSet)
             } else if key == NSLeftArrowFunctionKey || key == NSUpArrowFunctionKey  {
                 let numberOfItems = dataSource?.collectionView(self, numberOfItemsInSection: 0) ?? 1
-                animator().selectItems(at: Set([IndexPath(item: numberOfItems - 1, section: 0)]), scrollPosition: .bottom)
+                let indexPathSet = Set([IndexPath(item: numberOfItems - 1, section: 0)])
+                animator().selectItems(at: indexPathSet, scrollPosition: .bottom)
+                delegate?.collectionView?(self, didSelectItemsAt: indexPathSet)
             } else {
                 super.keyDown(with: event)
             }
@@ -352,8 +356,20 @@ class ArtworkSelectorController: NSWindowController, NSCollectionViewDataSource,
     // MARK: - User Interface
 
     @IBAction func zoomSliderDidChange(_ sender: Any) {
+        let standardSize = NSSize(width: 154, height: 194)
         if let layout = imageBrowser.collectionViewLayout as? NSCollectionViewFlowLayout {
-            layout.itemSize = NSSize(width: Int(slider.floatValue), height: Int(slider.floatValue * 1.25))
+            if slider.floatValue == 50 {
+                layout.itemSize = standardSize
+            } else if slider.floatValue < 50 {
+                let zoomValue = (CGFloat(slider.floatValue) + 50) / 100
+                layout.itemSize = NSSize(width: Int(standardSize.width * zoomValue),
+                                         height: Int(standardSize.height * zoomValue))
+
+            } else {
+                let zoomValue = pow((CGFloat(slider.floatValue) + 50) / 100, 2.4)
+                layout.itemSize = NSSize(width: Int(standardSize.width * zoomValue),
+                                         height: Int(standardSize.height * zoomValue))
+            }
         }
     }
 
@@ -365,9 +381,7 @@ class ArtworkSelectorController: NSWindowController, NSCollectionViewDataSource,
             imageBrowser.reloadItems(at: [indexPath])
         }
 
-        if imageBrowser.selectionIndexPaths.isEmpty {
             imageBrowser.selectionIndexPaths = selectionIndexPaths
-        }
     }
 
     private func selectArtwork(at index: Int) {

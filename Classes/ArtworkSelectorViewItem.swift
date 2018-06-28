@@ -13,15 +13,47 @@ class ArtworkSelectorViewItemLabel : NSTextField {
     @IBInspectable var highlightTextColor: NSColor = .alternateSelectedControlTextColor
     @IBInspectable var cornerRadius: CGFloat = 3
 
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        addObservers()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        addObservers()
+    }
+
+    deinit {
+        removeObservers()
+    }
+
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(windowDidBecomeKey), name: NSWindow.didBecomeKeyNotification, object: window)
+        NotificationCenter.default.addObserver(self, selector: #selector(windowDidBecomeKey), name: NSWindow.didResignKeyNotification, object: window)
+    }
+
+    private func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: NSWindow.didBecomeKeyNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSWindow.didResignKeyNotification, object: nil)
+    }
+
+    @objc func windowDidBecomeKey() {
+        needsDisplay = true
+    }
+
     override func draw(_ dirtyRect: NSRect) {
+        let windowIsKeyWindow = window?.isKeyWindow ?? false
+
         var attributedString = attributedStringValue
-        if isHighlighted {
+
+        if isHighlighted && windowIsKeyWindow == true {
             let mutableAttributedString = attributedString.mutableCopy() as! NSMutableAttributedString
             let range = NSRange(location: 0, length: mutableAttributedString.length)
             mutableAttributedString.removeAttribute(NSAttributedString.Key.foregroundColor, range: range)
             mutableAttributedString.addAttributes([NSAttributedString.Key.foregroundColor : highlightTextColor], range: range)
             attributedString = mutableAttributedString
         }
+
         let framesetter = CTFramesetterCreateWithAttributedString(attributedString)
 
         let path = CGMutablePath()
@@ -42,20 +74,19 @@ class ArtworkSelectorViewItemLabel : NSTextField {
         var origins = [CGPoint](repeating: CGPoint.zero, count: lineCount)
         CTFrameGetLineOrigins(totalFrame, CFRange(), &origins)
 
-        if isHighlighted {
-            for index in 0 ..< lineCount {
-                let line = lines[index]
-                let glyphRuns = CTLineGetGlyphRuns(line) as! [CTRun]
-                let glyphCount = glyphRuns.count
+        for index in 0 ..< lineCount {
+            let line = lines[index]
+            let glyphRuns = CTLineGetGlyphRuns(line) as! [CTRun]
+            let glyphCount = glyphRuns.count
 
-                let origin = origins[index]
-                // context.textPosition = pos
+            let origin = origins[index]
+            context.textPosition = origin
 
-                for i in 0 ..< glyphCount {
-                    let run = glyphRuns[i]
-                    // let attributes = CTRunGetAttributes(run)
-
-                    // if CFDictionaryGetValue(attributes, "HighlightText") {
+            for i in 0 ..< glyphCount {
+                let run = glyphRuns[i]
+                // let attributes = CTRunGetAttributes(run)
+                // if CFDictionaryGetValue(attributes, "HighlightText") {
+                if isHighlighted {
                     var runBounds = CGRect.zero
                     var ascent: CGFloat = 0, descent: CGFloat = 0, leading: CGFloat = 0
 
@@ -68,46 +99,94 @@ class ArtworkSelectorViewItemLabel : NSTextField {
                     let highlightCGColor = highlightColor.cgColor
                     let roundeRect = runBounds.insetBy(dx: -4, dy: 0)
                     let roundedPath = NSBezierPath(roundedRect: roundeRect.integral, xRadius: cornerRadius, yRadius: cornerRadius)
-                    context.setFillColor(highlightCGColor)
-                    roundedPath.fill()
 
-                    // CTRunDraw(run, context, CFRange())
-                    // }
+                    context.setFillColor(windowIsKeyWindow ? highlightCGColor : NSColor.gridColor.cgColor)
+                    roundedPath.fill()
                 }
+                CTRunDraw(run, context, CFRange())
             }
         }
-        CTFrameDraw(totalFrame, context)
+        // CTFrameDraw(totalFrame, context)
         context.restoreGState()
     }
 }
 
 class ArtworkSelectorViewItemView: NSView {
+
+    let imageLayer: CALayer = CALayer()
+    let backgroundLayer: CALayer = CALayer()
+
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        setUp()
+    }
+
+    required init?(coder decoder: NSCoder) {
+        super.init(coder: decoder)
+        setUp()
+    }
+
+    private func setUp() {
+        wantsLayer = true
+
+        imageLayer.anchorPoint = CGPoint.zero
+        imageLayer.position = CGPoint(x: 4, y: 40)
+        imageLayer.contentsGravity = .resizeAspect
+        imageLayer.shadowRadius = 1
+        imageLayer.shadowColor = NSColor.labelColor.cgColor
+        imageLayer.shadowOffset = CGSize.zero
+        imageLayer.isOpaque = true
+        backgroundLayer.anchorPoint = CGPoint.zero
+        backgroundLayer.position = CGPoint(x: 0, y: 36)
+        backgroundLayer.cornerRadius = 8
+        backgroundLayer.isHidden = true
+        backgroundLayer.isOpaque = true
+
+        let actions: [String : CAAction] = ["contents": NSNull(),
+                                            "hidden": NSNull(),
+                                            "bounds": NSNull()]
+        imageLayer.actions = actions
+        backgroundLayer.actions = actions
+
+        layer?.addSublayer(backgroundLayer)
+        layer?.addSublayer(imageLayer)
+    }
+
     override func hitTest(_ point: NSPoint) -> NSView? {
         guard let superview = superview else { return nil }
 
         if super.hitTest(point) != nil {
             let convertedPoint = superview.convert(point, to: self)
-            if let layer = layer?.sublayers?.last  {
-                if layer.hitTest(convertedPoint) != nil {
-                    return self
-                }
+            if imageLayer.hitTest(convertedPoint) != nil {
+                return self
             }
             return superview
         } else {
             return nil
         }
     }
+
+    override func layout() {
+        super.layout()
+        imageLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width - 8, height: bounds.height - 44)
+        backgroundLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - 36)
+        if #available(OSX 10.14, *) {
+            imageLayer.shadowColor = NSColor.labelColor.cgColor
+            backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+        } else {
+            backgroundLayer.backgroundColor = NSColor.controlHighlightColor.cgColor
+        }
+    }
+
 }
 
 @available(OSX 10.11, *)
 class ArtworkSelectorViewItem: NSCollectionViewItem {
 
-    @IBOutlet var subTextField: NSTextField!
-
-    private let imageLayer: CALayer = CALayer()
-    private let backgroundLayer: CALayer = CALayer()
-
     // MARK: Properties
+
+    var itemView : ArtworkSelectorViewItemView { get { return (view as? ArtworkSelectorViewItemView)! } }
+    @IBOutlet var subTextField: NSTextField!
 
     var doubleAction: Selector?
     weak var target: AnyObject?
@@ -131,10 +210,10 @@ class ArtworkSelectorViewItem: NSCollectionViewItem {
     var image: NSImage? {
         didSet {
             if image != nil {
-                imageLayer.contents = image
-                imageLayer.shadowOpacity = 0.8
+                itemView.imageLayer.contents = image
+                itemView.imageLayer.shadowOpacity = 0.8
             } else {
-                imageLayer.contents = NSImage(imageLiteralResourceName: "Placeholder")
+                itemView.imageLayer.contents = NSImage(imageLiteralResourceName: "Placeholder")
             }
         }
     }
@@ -159,59 +238,12 @@ class ArtworkSelectorViewItem: NSCollectionViewItem {
         }
     }
 
-    // MARK: View Controller life cycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-//        self.view.layer?.shouldRasterize = true
-        self.view.canDrawSubviewsIntoLayer = true
-
-        imageLayer.anchorPoint = CGPoint.zero
-        imageLayer.position = CGPoint(x: 4, y: 40)
-        imageLayer.contentsGravity = .resizeAspect
-        imageLayer.shadowRadius = 1
-        imageLayer.shadowColor = NSColor.labelColor.cgColor
-        imageLayer.shadowOffset = CGSize.zero
-        imageLayer.isOpaque = true
-        backgroundLayer.anchorPoint = CGPoint.zero
-        backgroundLayer.position = CGPoint(x: 0, y: 36)
-        backgroundLayer.backgroundColor = NSColor.controlHighlightColor.cgColor
-        backgroundLayer.cornerRadius = 8
-        backgroundLayer.isHidden = true
-        backgroundLayer.isOpaque = true
-
-        let actions: [String : CAAction] = ["contents": NSNull(),
-                                            "hidden": NSNull(),
-                                            "bounds": NSNull()]
-        imageLayer.actions = actions
-        backgroundLayer.actions = actions
-
-        view.layer?.addSublayer(backgroundLayer)
-        view.layer?.addSublayer(imageLayer)
-    }
-
-    override func viewDidLayout() {
-        let bounds = self.view.bounds
-
-        imageLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width - 8, height: bounds.height - 44)
-        backgroundLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - 36)
-
-        super.viewDidLayout()
-    }
-
-    static private let paragraph: NSParagraphStyle = {
-        let paragraph = NSMutableParagraphStyle()
-        paragraph.alignment = .center
-        return paragraph
-    }()
-
     private func updateSelectionHighlight() {
         if highlightState == .forSelection || (isSelected && highlightState != .forDeselection) {
-            backgroundLayer.isHidden = false
+            itemView.backgroundLayer.isHidden = false
             textField?.isHighlighted = true
         } else {
-            backgroundLayer.isHidden = true
+            itemView.backgroundLayer.isHidden = true
             textField?.isHighlighted = false
         }
     }

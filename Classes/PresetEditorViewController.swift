@@ -32,7 +32,9 @@ class PresetEditorViewController: SBMovieViewController {
 
         super.viewDidLoad()
 
-        view.appearance = NSAppearance(named: .aqua)
+        if #available(OSX 10.14, *) {} else {
+            view.appearance = NSAppearance(named: .aqua)
+        }
         presetTitle.stringValue = preset.title
 
         preset.changed = true
