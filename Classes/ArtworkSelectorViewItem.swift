@@ -77,12 +77,11 @@ class ArtworkSelectorViewItemLabel : NSTextField {
         for index in 0 ..< lineCount {
             let line = lines[index]
             let glyphRuns = CTLineGetGlyphRuns(line) as! [CTRun]
-            let glyphCount = glyphRuns.count
 
             let origin = origins[index]
             context.textPosition = origin
 
-            for i in 0 ..< glyphCount {
+            for i in 0 ..< glyphRuns.count {
                 let run = glyphRuns[i]
                 // let attributes = CTRunGetAttributes(run)
                 // if CFDictionaryGetValue(attributes, "HighlightText") {
@@ -115,6 +114,7 @@ class ArtworkSelectorViewItemView: NSView {
 
     let imageLayer: CALayer = CALayer()
     let backgroundLayer: CALayer = CALayer()
+    let emptyLayer: CAShapeLayer = CAShapeLayer()
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -135,20 +135,32 @@ class ArtworkSelectorViewItemView: NSView {
         imageLayer.shadowRadius = 1
         imageLayer.shadowColor = NSColor.labelColor.cgColor
         imageLayer.shadowOffset = CGSize.zero
+        imageLayer.shadowOpacity = 0.8
         imageLayer.isOpaque = true
+
         backgroundLayer.anchorPoint = CGPoint.zero
         backgroundLayer.position = CGPoint(x: 0, y: 36)
         backgroundLayer.cornerRadius = 8
         backgroundLayer.isHidden = true
         backgroundLayer.isOpaque = true
 
+        emptyLayer.anchorPoint = CGPoint.zero
+        emptyLayer.position = CGPoint(x: 10, y: 46)
+        emptyLayer.lineWidth = 3.0
+        emptyLayer.lineDashPattern = [12,5]
+        emptyLayer.strokeColor = NSColor.secondarySelectedControlColor.cgColor
+        emptyLayer.fillColor = NSColor.windowBackgroundColor.cgColor
+        emptyLayer.isOpaque = true
+
         let actions: [String : CAAction] = ["contents": NSNull(),
                                             "hidden": NSNull(),
                                             "bounds": NSNull()]
         imageLayer.actions = actions
         backgroundLayer.actions = actions
+        emptyLayer.actions = actions
 
         layer?.addSublayer(backgroundLayer)
+        layer?.addSublayer(emptyLayer)
         layer?.addSublayer(imageLayer)
     }
 
@@ -170,6 +182,12 @@ class ArtworkSelectorViewItemView: NSView {
         super.layout()
         imageLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width - 8, height: bounds.height - 44)
         backgroundLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - 36)
+
+        emptyLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width - 16, height: bounds.height - 56)
+        let path = CGMutablePath()
+        path.addRoundedRect(in: emptyLayer.bounds, cornerWidth: 14, cornerHeight: 14)
+        emptyLayer.path = path
+
         if #available(OSX 10.14, *) {
             imageLayer.shadowColor = NSColor.labelColor.cgColor
             backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
@@ -209,12 +227,8 @@ class ArtworkSelectorViewItem: NSCollectionViewItem {
 
     var image: NSImage? {
         didSet {
-            if image != nil {
-                itemView.imageLayer.contents = image
-                itemView.imageLayer.shadowOpacity = 0.8
-            } else {
-                itemView.imageLayer.contents = NSImage(imageLiteralResourceName: "Placeholder")
-            }
+            itemView.imageLayer.contents = image
+            itemView.emptyLayer.isHidden = image != nil
         }
     }
 
