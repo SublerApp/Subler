@@ -21,9 +21,9 @@ public struct TMDBMovieSearchResult : Codable {
     let title: String?
     let backdrop_path: String?
     let popularity: Double?
-    let vote_count: Int?
+    // let vote_count: Int?
     let video: Bool?
-    let vote_average: Double?
+    // let vote_average: Double?
 }
 
 public struct TMDBTVSearchResult : Codable {
@@ -31,13 +31,13 @@ public struct TMDBTVSearchResult : Codable {
     let popularity: Double?
     let id: Int
     let backdrop_path: String?
-    let vote_average: Double?
+    // let vote_average: Double?
     let overview: String?
     let first_air_date: String?
     let origin_country: [String]?
     let genre_ids: [Int]?
     let original_language: String?
-    let vote_count: Int?
+    // let vote_count: Int?
     let name: String?
     let original_name: String?
 }
@@ -52,8 +52,8 @@ public struct TMDBImage : Codable {
     let file_path: String
     let height: Int?
     let iso_639_1: String?
-    let vote_average: Double?
-    let vote_count: Int?
+    // let vote_average: Double?
+    // let vote_count: Int?
     let width: Int?
 }
 
@@ -131,8 +131,8 @@ public struct TMDBEpisode : Codable {
     let production_code: String?
     let season_number: Int?
     let still_path: String?
-    let vote_average: Double?
-    let vote_count: Int?
+    //let vote_average: Double?
+    //let vote_count: Int?
 }
 
 public struct TMDBSeason : Codable {
@@ -185,7 +185,7 @@ public struct TMDBSeries : Codable {
     let seasons: [TMDBSeason]?
     let status: String?
     let type: String?
-    let vote_average: Double?
+//    let vote_average: Double?
     let vote_count: Int?
 
     let content_ratings: TMDBContentRatingWrapper?
