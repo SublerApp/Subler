@@ -124,6 +124,7 @@ static NSDateFormatter *_formatter;
 
 - (void)reloadData
 {
+    [self.rowHeights removeAllObjects];
     [self updateMetadataArray];
     [self.metadataTableView reloadData];
     [self updateCoverArtArray];
