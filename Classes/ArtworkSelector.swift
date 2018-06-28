@@ -385,7 +385,7 @@ class ArtworkSelectorController: NSWindowController, NSCollectionViewDataSource,
     }
 
     private func selectArtwork(at index: Int) {
-        let indexPath = IndexPath(item: 0, section: 0)
+        let indexPath = IndexPath(item: index, section: 0)
         imageBrowser.selectItems(at: [indexPath], scrollPosition: .top)
         addArtworkButton.isEnabled = imageBrowser.selectionIndexPaths.isEmpty == false
     }
@@ -426,7 +426,7 @@ class ArtworkSelectorController: NSWindowController, NSCollectionViewDataSource,
     }
 
     private func selectedArtworks() -> [ArtworkImageObject] {
-        return imageBrowser.selectionIndexes.map { artworks[$0] }
+        return imageBrowser.selectionIndexPaths.map { artworks[$0.item] }
     }
 
     // MARK: - Finishing Up
