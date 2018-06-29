@@ -275,6 +275,8 @@
 		A98542DA20D1A7E500EB9803 /* ArtworkSelectorViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArtworkSelectorViewItem.swift; path = Classes/ArtworkSelectorViewItem.swift; sourceTree = "<group>"; };
 		A98542DB20D1A7E500EB9803 /* ArtworkSelectorViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ArtworkSelectorViewItem.xib; path = Classes/ArtworkSelectorViewItem.xib; sourceTree = "<group>"; };
 		A9859ACD1F4B43CC00022828 /* QueuePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueuePreset.swift; path = Classes/QueuePreset.swift; sourceTree = "<group>"; };
+		A98BC09F20E623700035278B /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/ArtworkSelector.strings; sourceTree = "<group>"; };
+		A98BC0A020E623700035278B /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/PrefsWindowController.strings; sourceTree = "<group>"; };
 		A98D440F2036F661005CB092 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Classes/AppDelegate.swift; sourceTree = "<group>"; };
 		A98D98451F0280CB00A77ABC /* TheMovieDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheMovieDB.swift; path = Classes/MetadataImporters/TheMovieDB.swift; sourceTree = "<group>"; };
 		A98D98471F02820F00A77ABC /* TheMovieDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheMovieDBService.swift; path = Classes/MetadataImporters/TheMovieDBService.swift; sourceTree = "<group>"; };
@@ -999,6 +1001,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A924A51A1D4B9E66008301A7 /* Base */,
+				A98BC0A020E623700035278B /* it */,
 			);
 			name = PrefsWindowController.xib;
 			sourceTree = "<group>";
@@ -1063,6 +1066,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A98542D620D197D300EB9803 /* Base */,
+				A98BC09F20E623700035278B /* it */,
 			);
 			name = ArtworkSelector.xib;
 			sourceTree = "<group>";
