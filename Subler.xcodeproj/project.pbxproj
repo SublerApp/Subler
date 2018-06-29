@@ -322,7 +322,7 @@
 		A9BA1AE51DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = it; path = it.lproj/Credits.rtf; sourceTree = "<group>"; };
 		A9BA1AE61DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A9BA1AEF1DBF7DD700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		A9BA1AF41DBF7DD800FD0B38 /* it */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A9BA1AF41DBF7DD800FD0B38 /* it */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A9C09C7B1F99F460007939EE /* ExceptionAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExceptionAlertController.swift; path = Classes/ExceptionAlertController.swift; sourceTree = "<group>"; };
 		A9C09C971F99F971007939EE /* ExpandedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExpandedTableView.swift; path = Classes/ExpandedTableView.swift; sourceTree = "<group>"; };
 		A9C09C991F9A0808007939EE /* EmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmptyViewController.swift; path = Classes/PropertyView/EmptyViewController.swift; sourceTree = "<group>"; };
