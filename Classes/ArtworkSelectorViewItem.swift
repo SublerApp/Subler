@@ -41,6 +41,8 @@ class ArtworkSelectorViewItemLabel : NSTextField {
         needsDisplay = true
     }
 
+    private static let inset: CGFloat = 12
+
     override func draw(_ dirtyRect: NSRect) {
         let windowIsKeyWindow = window?.isKeyWindow ?? false
 
@@ -57,7 +59,7 @@ class ArtworkSelectorViewItemLabel : NSTextField {
         let framesetter = CTFramesetterCreateWithAttributedString(attributedString)
 
         let path = CGMutablePath()
-        path.addRect(CGRect(x: 0, y: 0, width: bounds.size.width, height: bounds.size.height))
+        path.addRect(CGRect(x: 0, y: 0, width: bounds.size.width - ArtworkSelectorViewItemLabel.inset, height: bounds.size.height))
 
         let totalFrame = CTFramesetterCreateFrame(framesetter, CFRange(), path, nil)
 
@@ -69,43 +71,43 @@ class ArtworkSelectorViewItemLabel : NSTextField {
 
         // Highlight the text specified
         let lines = CTFrameGetLines(totalFrame) as! [CTLine]
-        let lineCount = lines.count
 
-        var origins = [CGPoint](repeating: CGPoint.zero, count: lineCount)
+        var origins = [CGPoint](repeating: CGPoint.zero, count: lines.count)
         CTFrameGetLineOrigins(totalFrame, CFRange(), &origins)
 
-        for index in 0 ..< lineCount {
-            let line = lines[index]
+        for (line, origin) in zip(lines, origins) {
             let glyphRuns = CTLineGetGlyphRuns(line) as! [CTRun]
+            let position = CGPoint(x: origin.x + ArtworkSelectorViewItemLabel.inset / 2, y: origin.y)
+            var offset: CGFloat = 0
 
-            let origin = origins[index]
-            context.textPosition = origin
-
-            for i in 0 ..< glyphRuns.count {
-                let run = glyphRuns[i]
-                // let attributes = CTRunGetAttributes(run)
-                // if CFDictionaryGetValue(attributes, "HighlightText") {
-                if isHighlighted {
+            if isHighlighted {
+                for run in glyphRuns {
+                    let range = CTRunGetStringRange(run)
                     var runBounds = CGRect.zero
                     var ascent: CGFloat = 0, descent: CGFloat = 0, leading: CGFloat = 0
 
                     runBounds.size.width = CGFloat(CTRunGetTypographicBounds(run, CFRange(), &ascent, &descent, &leading))
                     runBounds.size.height = ascent + descent
 
-                    runBounds.origin.x = CTLineGetOffsetForStringIndex(line, CTRunGetStringRange(run).location, nil) + origin.x
-                    runBounds.origin.y = origin.y - descent
+                    runBounds.origin.x = CTLineGetOffsetForStringIndex(line, range.location, nil) + position.x + offset
+                    runBounds.origin.y = position.y - descent
 
-                    let highlightCGColor = highlightColor.cgColor
-                    let roundeRect = runBounds.insetBy(dx: -4, dy: 0)
-                    let roundedPath = NSBezierPath(roundedRect: roundeRect.integral, xRadius: cornerRadius, yRadius: cornerRadius)
+                    offset = runBounds.origin.x + runBounds.size.width - position.x
 
-                    context.setFillColor(windowIsKeyWindow ? highlightCGColor : NSColor.gridColor.cgColor)
+                    let roundedPath = NSBezierPath(roundedRect: runBounds.insetBy(dx: -2, dy: 0).integral,
+                                                   xRadius: cornerRadius, yRadius: cornerRadius)
+                    let fillColor = windowIsKeyWindow ? highlightColor.cgColor : NSColor.gridColor.cgColor
+
+                    context.setFillColor(fillColor)
                     roundedPath.fill()
                 }
+            }
+
+            context.textPosition = position
+            for run in glyphRuns {
                 CTRunDraw(run, context, CFRange())
             }
         }
-        // CTFrameDraw(totalFrame, context)
         context.restoreGState()
     }
 }
@@ -145,7 +147,7 @@ class ArtworkSelectorViewItemView: NSView {
         backgroundLayer.isOpaque = true
 
         emptyLayer.anchorPoint = CGPoint.zero
-        emptyLayer.position = CGPoint(x: 10, y: 46)
+        emptyLayer.position = CGPoint(x: 8, y: 46)
         emptyLayer.lineWidth = 3.0
         emptyLayer.lineDashPattern = [12,5]
         emptyLayer.strokeColor = NSColor.secondarySelectedControlColor.cgColor
@@ -191,6 +193,8 @@ class ArtworkSelectorViewItemView: NSView {
         if #available(OSX 10.14, *) {
             imageLayer.shadowColor = NSColor.labelColor.cgColor
             backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+            emptyLayer.strokeColor = NSColor.secondarySelectedControlColor.cgColor
+            emptyLayer.fillColor = NSColor.windowBackgroundColor.cgColor
         } else {
             backgroundLayer.backgroundColor = NSColor.controlHighlightColor.cgColor
         }
@@ -272,12 +276,4 @@ class ArtworkSelectorViewItem: NSCollectionViewItem {
         }
     }
 
-    override func keyDown(with event: NSEvent) {
-        if event.keyCode == NSEnterCharacter, let action = doubleAction {
-            target?.performSelector(onMainThread: action, with: nil, waitUntilDone: true)
-        } else {
-            super.keyDown(with: event)
-        }
-    }
-    
 }

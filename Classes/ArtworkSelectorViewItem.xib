@@ -22,7 +22,7 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" textCompletion="NO" id="Wkh-6c-0tU" customClass="ArtworkSelectorViewItemLabel" customModule="Subler" customModuleProvider="target">
                     <rect key="frame" x="-2" y="17" width="132" height="17"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <textFieldCell key="cell" allowsUndo="NO" alignment="center" title="Label" drawsBackground="YES" usesSingleLineMode="YES" id="TsL-Ak-xnf">
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="center" title="Label" drawsBackground="YES" usesSingleLineMode="YES" id="TsL-Ak-xnf">
                         <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -31,14 +31,14 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" textCompletion="NO" id="fGU-Kh-WjD">
                     <rect key="frame" x="-2" y="4" width="132" height="14"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <textFieldCell key="cell" allowsUndo="NO" alignment="center" title="Label" drawsBackground="YES" usesSingleLineMode="YES" id="ggX-Q2-CZ0">
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="center" title="Label" drawsBackground="YES" usesSingleLineMode="YES" id="ggX-Q2-CZ0">
                         <font key="font" metaFont="system" size="10"/>
                         <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
             </subviews>
-            <point key="canvasLocation" x="-425" y="83"/>
+            <point key="canvasLocation" x="-575" y="163.5"/>
         </customView>
     </objects>
 </document>

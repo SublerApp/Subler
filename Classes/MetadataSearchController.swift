@@ -298,7 +298,7 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
     }
 
     private func selectArtwork(artworks: [Artwork], type: MetadataType) {
-        if #available(OSX 10.11, *) {
+        if #available(OSX 10.13, *) {
             let artworkSelectorController = ArtworkSelectorController(artworks: artworks, size: window?.frame.size,
                                                         type: type, delegate: self)
             window?.beginSheet(artworkSelectorController.window!, completionHandler: nil)
