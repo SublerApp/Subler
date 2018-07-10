@@ -146,6 +146,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         PrefsWindowController.registerUserDefaults()
 
         _ = documentController
+        _ = activityWindowController
 
         logger.clear()
         MP42File.setGlobalLogger(logger)
