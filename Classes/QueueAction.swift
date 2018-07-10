@@ -447,6 +447,7 @@ extension Array where Element == Artwork {
     case SBQueueColorSpaceActionTagRec601SMPTEC
     case SBQueueColorSpaceActionTagRec709
     case SBQueueColorSpaceActionTagRec2020
+    case SBQueueColorSpaceActionTagRec2100PQ
 }
 
 /// An action that set the video track color space.
@@ -481,6 +482,10 @@ extension Array where Element == Artwork {
         case .SBQueueColorSpaceActionTagRec2020:
             self.colorPrimaries = 9
             self.transferCharacteristics = 1
+            self.matrixCoefficients = 9
+        case .SBQueueColorSpaceActionTagRec2100PQ:
+            self.colorPrimaries = 9
+            self.transferCharacteristics = 16
             self.matrixCoefficients = 9
         }
     }

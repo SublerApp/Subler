@@ -127,6 +127,8 @@ class VideoViewController: NSViewController {
             return NSLocalizedString("Implicit", comment: "Implicit color profile")
         case (1, 1, 1):
             return NSLocalizedString("Rec. 709 (1-1-1)", comment: "color profile")
+        case (9, 16, 9):
+            return NSLocalizedString("Rec. 2100 PQ (9-16-9)", comment: "color profile")
         case (9, 1, 9):
             return NSLocalizedString("Rec. 2020 (9-1-9)", comment: "color profile")
         case (5, 1, 6):
@@ -308,6 +310,8 @@ class VideoViewController: NSViewController {
             colorTag = (1, 1, 1)
         case 5:
             colorTag = (9, 1, 9)
+        case 6:
+            colorTag = (9, 16, 9)
         default:
             return
         }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14105" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14269.14" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14105"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14269.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,8 +14,8 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="UlG-O3-eNc" userLabel="OptionsView">
-            <rect key="frame" x="0.0" y="0.0" width="370" height="488"/>
+        <customView misplaced="YES" id="UlG-O3-eNc" userLabel="OptionsView">
+            <rect key="frame" x="0.0" y="0.0" width="380" height="488"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="zEH-aV-Tl7">
@@ -514,7 +514,7 @@
                     </connections>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s2g-Iz-52P">
-                    <rect key="frame" x="216" y="173" width="120" height="17"/>
+                    <rect key="frame" x="216" y="173" width="144" height="17"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="111" id="57c-cZ-60x"/>
                     </constraints>
@@ -528,6 +528,7 @@
                                 <menuItem title="Rec. 601 (6-1-6)" tag="3" id="AZx-uM-CmZ"/>
                                 <menuItem title="Rec. 709 (1-1-1)" tag="4" id="1uU-j6-SSj"/>
                                 <menuItem title="Rec. 2020 (9-1-9)" tag="5" id="Tjn-8g-7PM"/>
+                                <menuItem title="Rec. 2100 PQ (9-16-9)" tag="5" id="kyg-my-fCL"/>
                             </items>
                         </menu>
                     </popUpButtonCell>

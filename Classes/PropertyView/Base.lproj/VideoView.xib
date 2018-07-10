@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14105" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14269.14" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14105"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14269.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -61,7 +61,7 @@
                                                         <nil key="positiveInfinitySymbol"/>
                                                     </numberFormatter>
                                                     <font key="font" metaFont="smallSystem"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                                 <accessibility description="Aspect Ratio Denominator"/>
@@ -96,7 +96,7 @@
                                                         <nil key="positiveInfinitySymbol"/>
                                                     </numberFormatter>
                                                     <font key="font" metaFont="smallSystem"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                                 <accessibility description="Offset Y"/>
@@ -130,7 +130,7 @@
                                                         <nil key="positiveInfinitySymbol"/>
                                                     </numberFormatter>
                                                     <font key="font" metaFont="smallSystem"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                                 <accessibility description="Scaled Size Height"/>
@@ -195,7 +195,7 @@
                                                         <nil key="positiveInfinitySymbol"/>
                                                     </numberFormatter>
                                                     <font key="font" metaFont="smallSystem"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                                 <accessibility description="Offset X"/>
@@ -230,7 +230,7 @@
                                                         <nil key="positiveInfinitySymbol"/>
                                                     </numberFormatter>
                                                     <font key="font" metaFont="smallSystem"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                                 <accessibility description="Aspect Ratio Numerator"/>
@@ -249,7 +249,7 @@
                                                         <nil key="positiveInfinitySymbol"/>
                                                     </numberFormatter>
                                                     <font key="font" metaFont="smallSystem"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                                 <accessibility description="Scaled Size Width"/>
@@ -408,6 +408,7 @@
                                                                     <menuItem title="Rec. 601 (6-1-6)" tag="3" id="XQd-tC-sVM"/>
                                                                     <menuItem title="Rec. 709 (1-1-1)" tag="4" id="bc1-gr-6m9"/>
                                                                     <menuItem title="Rec. 2020 (9-1-9)" tag="5" id="8V9-Sh-Mnu"/>
+                                                                    <menuItem title="Rec. 2100 PQ (9-16-9)" tag="5" id="d2S-Qf-ltk"/>
                                                                 </items>
                                                             </menu>
                                                         </popUpButtonCell>
