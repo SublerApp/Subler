@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import AVFoundation
 
 class ArtworkSelectorViewItemLabel : NSTextField {
 
@@ -198,6 +199,16 @@ class ArtworkSelectorViewItemView: NSView {
         } else {
             backgroundLayer.backgroundColor = NSColor.controlHighlightColor.cgColor
         }
+
+        if let image = imageLayer.contents as? NSImage {
+            let rect = AVMakeRect(aspectRatio: image.size, insideRect: imageLayer.bounds)
+            let path = CGMutablePath()
+            path.addRect(rect)
+
+            imageLayer.shadowPath = path
+        } else {
+            imageLayer.shadowPath = nil
+        }
     }
 
 }
@@ -212,6 +223,12 @@ class ArtworkSelectorViewItem: NSCollectionViewItem {
 
     var doubleAction: Selector?
     weak var target: AnyObject?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        subTextField.layer?.isOpaque = true
+        textField?.layer?.isOpaque = true
+    }
 
     override var title: String? {
         set (title) {
