@@ -152,7 +152,10 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
                     context.duration = 0
                 }
                 window.layoutIfNeeded()
+                NSAnimationContext.beginGrouping()
+                NSAnimationContext.current.duration = 0
                 view.isHidden = true
+                NSAnimationContext.endGrouping()
             }, completionHandler: {
                 view.isHidden = false
                 window.title = item.label
