@@ -14,7 +14,7 @@ import Cocoa
     @objc optional func paste(to tableview: NSTableView)
 }
 
-class ExpandedTableView: NSTableView {
+class ExpandedTableView: NSTableView, NSMenuItemValidation {
 
     @objc var pasteboardTypes: [NSPasteboard.PasteboardType]
     var pasteboardHasSupportedType: Bool {
@@ -114,7 +114,7 @@ class ExpandedTableView: NSTableView {
         }
     }
 
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         if let action = menuItem.action {
             switch action {
             case #selector(delete(_:)):

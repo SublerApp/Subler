@@ -26,7 +26,7 @@ class TokenDelegate: NSObject, NSTokenFieldDelegate {
 
     // MARK: NSTextField
 
-    override func controlTextDidEndEditing(_ obj: Notification) {
+    func controlTextDidEndEditing(_ obj: Notification) {
         delegate?.tokenDidChange(obj)
     }
 

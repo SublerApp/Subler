@@ -12,7 +12,7 @@ import Quartz
     @objc(pasteToImageBrowserView:) optional func paste(to imagebrowserview: ImageBrowserView)
 }
 
-@objc(SBImageBrowserView) class ImageBrowserView : IKImageBrowserView {
+@objc(SBImageBrowserView) class ImageBrowserView : IKImageBrowserView, NSMenuItemValidation {
 
     @objc var pasteboardTypes: [NSPasteboard.PasteboardType]
     var pasteboardHasSupportedType: Bool {
@@ -48,7 +48,7 @@ import Quartz
         return false
     }
 
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         if let action = menuItem.action {
             switch action {
             case #selector(paste(_:)):

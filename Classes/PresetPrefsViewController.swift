@@ -118,7 +118,7 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
         tableView.reloadData()
     }
 
-    override func controlTextDidEndEditing(_ obj: Notification) {
+    func controlTextDidEndEditing(_ obj: Notification) {
         if let view = obj.object as? NSTextField {
             let row = tableView.row(for: view)
             let sectionRow = tableView.section(for: row)

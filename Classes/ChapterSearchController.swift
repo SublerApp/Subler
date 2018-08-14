@@ -183,7 +183,7 @@ class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTabl
         searchButton.isEnabled = searchTitle.stringValue.isEmpty ? false : true
     }
 
-    override func controlTextDidChange(_ obj: Notification) {
+    func controlTextDidChange(_ obj: Notification) {
         updateSearchButtonVisibility()
         searchButton.keyEquivalent = "\r"
         addButton.keyEquivalent = ""

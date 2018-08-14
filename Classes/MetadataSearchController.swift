@@ -475,7 +475,7 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
         }
     }
 
-    override func controlTextDidChange(_ obj: Notification) {
+    func controlTextDidChange(_ obj: Notification) {
         updateSearchButtonVisibility()
         searchMovieButton.keyEquivalent = "\r"
         searchTvButton.keyEquivalent = "\r"

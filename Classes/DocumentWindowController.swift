@@ -20,7 +20,7 @@ private extension NSPasteboard.PasteboardType {
 
 }
 
-class DocumentWindowController: NSWindowController, TracksViewControllerDelegate, ChapterSearchControllerDelegate, MetadataSearchControllerDelegate, FileImportControllerDelegate, ProgressViewControllerDelegate, NSDraggingDestination {
+class DocumentWindowController: NSWindowController, TracksViewControllerDelegate, ChapterSearchControllerDelegate, MetadataSearchControllerDelegate, FileImportControllerDelegate, ProgressViewControllerDelegate, NSDraggingDestination, NSMenuItemValidation, NSToolbarItemValidation {
 
     private var doc: Document {
         return document as! Document
@@ -191,7 +191,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
     @IBOutlet var searchChapters: NSToolbarItem!
     @IBOutlet var sendToQueue: NSToolbarItem!
 
-    override func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
+    func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
         if item == addTracks ||
             item == searchMetadata ||
             item == searchChapters ||
@@ -206,7 +206,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
         return false
     }
 
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         switch menuItem.action {
         case #selector(selectFile(_:)),
              #selector(selectMetadataFile(_:)),

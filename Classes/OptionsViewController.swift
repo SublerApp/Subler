@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-@objc(SBOptionsViewController) class OptionsViewController: NSViewController {
+@objc(SBOptionsViewController) class OptionsViewController: NSViewController, NSMenuItemValidation {
 
     @IBOutlet var destButton: NSPopUpButton!
 
@@ -109,7 +109,7 @@ import MP42Foundation
         preparePresetsPopUp()
     }
 
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         switch menuItem.action {
         case #selector(chooseDestination(_:)),
              #selector(destination(_:)):

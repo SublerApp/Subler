@@ -226,7 +226,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 extension AppDelegate {
 
-    override func application(_ sender: NSApplication, delegateHandlesKey key: String) -> Bool {
+    func application(_ sender: NSApplication, delegateHandlesKey key: String) -> Bool {
         if key == "items" {
             return true
         } else {

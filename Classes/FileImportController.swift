@@ -12,7 +12,7 @@ protocol FileImportControllerDelegate : AnyObject {
     func didSelect(tracks: [MP42Track], metadata: MP42Metadata?)
 }
 
-class FileImportController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate {
+class FileImportController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSMenuItemValidation {
 
     private enum ItemType {
         case file(MP42FileImporter)
@@ -247,7 +247,7 @@ class FileImportController: NSWindowController, NSTableViewDataSource, NSTableVi
         reloadCheckColumn(forRowIndexes: indexes)
     }
 
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         if let action = menuItem.action,
             action == #selector(self.checkSelected(_:)) ||
             action == #selector(self.uncheckSelected(_:)) ||
