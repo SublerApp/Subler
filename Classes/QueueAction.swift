@@ -79,7 +79,7 @@ import MP42Foundation
                 let ext = url.pathExtension.lowercased()
                 if ext == "srt" || ext == "ass" || ext == "ssa" {
                     let subtitleFilename = url.deletingPathExtension().lastPathComponent
-                    if movieFilename.count < subtitleFilename.count &&
+                    if movieFilename.count <= subtitleFilename.count &&
                         subtitleFilename.hasPrefix(movieFilename) {
                         if let importer = try? MP42FileImporter(url: url) {
                             importers.append(importer)
