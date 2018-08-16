@@ -498,7 +498,8 @@ public struct iTunesStore: MetadataService {
             guard let typeNodes = try? node.nodes(forXPath: "dt[contains(@class,'cast-list__term')]"),
                 let valueNodes = try? node.nodes(forXPath: "dd[contains(@class,'cast-list__detail')]") else { continue }
 
-            if let nodeType = typeNodes.first?.stringValue?.trimmingWhitespacesAndNewlinews(), nodeType.contains(type) {
+            if let nodeType = typeNodes.first?.stringValue?.trimmingWhitespacesAndNewlinews(),
+                nodeType.caseInsensitiveCompare(type) == ComparisonResult.orderedSame {
                 return valueNodes.compactMap { $0.stringValue }
             }
         }
@@ -513,7 +514,8 @@ public struct iTunesStore: MetadataService {
             guard let typeNodes = try? node.nodes(forXPath: "dt[contains(@class,'information-list__item__term')]"),
                 let valueNodes = try? node.nodes(forXPath: "dd[contains(@class,'information-list__item__definition')]") else { continue }
 
-            if let nodeType = typeNodes.first?.stringValue, nodeType.contains(type),
+            if let nodeType = typeNodes.first?.stringValue?.trimmingWhitespacesAndNewlinews(),
+                nodeType.caseInsensitiveCompare(type) == ComparisonResult.orderedSame,
                 var value = valueNodes.first?.stringValue?.trimmingWhitespacesAndNewlinews() {
                 if let range = value.range(of: ". All Rights Reserved", options: .caseInsensitive,
                                                range: value.startIndex ..< value.endIndex, locale: nil) {

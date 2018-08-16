@@ -289,8 +289,8 @@ public struct TheMovieDB: MetadataService {
             let USRating = ratings.filter { $0.iso_3166_1 == "US" }.compactMap { $0.rating }
             if let rating = USRating.first {
                 metadata[.rating] = MP42Ratings.defaultManager.ratingStringForiTunesCountry("USA",
-                                                                                                           media: "TV",
-                                                                                                           ratingString: rating)
+                                                                                            media: "TV",
+                                                                                            ratingString: rating)
             }
         }
 

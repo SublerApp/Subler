@@ -78,7 +78,7 @@ extension URLSession {
         let sem = DispatchSemaphore(value: 0)
         var downloadData : Data? = nil
 
-        URLSession.dataTask(with: url, httpMethod: httpMethod, httpBody: httpBody, header: header, cachePolicy: cachePolicy) { (data) in
+        URLSession.dataTask(with: url, httpMethod: httpMethod, httpBody: httpBody, header: header, cachePolicy: cachePolicy) { (data, response) in
             downloadData = data
             sem.signal()
             }.resume()
@@ -88,7 +88,24 @@ extension URLSession {
         return downloadData
     }
 
-    static func dataTask(with url: URL, httpMethod: String = "GET", httpBody: Data? = nil, header: [String:String] = [:], cachePolicy: URLRequest.CachePolicy = URLRequest.CachePolicy.useProtocolCachePolicy, completionHandler: @escaping (Data?) -> Void) -> URLSessionTask {
+    static func dataAndResponse(from url: URL, httpMethod: String = "GET", httpBody: Data? = nil, header: [String:String] = [:], cachePolicy: URLRequest.CachePolicy = URLRequest.CachePolicy.useProtocolCachePolicy) -> (Data?, URLResponse?) {
+
+        let sem = DispatchSemaphore(value: 0)
+        var downloadData : Data? = nil
+        var downloadResponse: URLResponse? = nil
+
+        URLSession.dataTask(with: url, httpMethod: httpMethod, httpBody: httpBody, header: header, cachePolicy: cachePolicy) { (data, response) in
+            downloadData = data
+            downloadResponse = response
+            sem.signal()
+            }.resume()
+
+        _ = sem.wait()
+
+        return (downloadData, downloadResponse)
+    }
+
+    static func dataTask(with url: URL, httpMethod: String = "GET", httpBody: Data? = nil, header: [String:String] = [:], cachePolicy: URLRequest.CachePolicy = URLRequest.CachePolicy.useProtocolCachePolicy, completionHandler: @escaping (Data?, URLResponse?) -> Void) -> URLSessionTask {
 
         var request = URLRequest(url: url, cachePolicy: cachePolicy, timeoutInterval: 30.0)
         request.httpMethod = httpMethod
@@ -104,14 +121,14 @@ extension URLSession {
                 let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
 
                 if statusCode == 200 {
-                    completionHandler(data)
+                    completionHandler(data, response)
                 }
                 else {
-                    completionHandler(nil)
+                    completionHandler(nil, response)
                 }
             }
             else {
-                completionHandler(nil)
+                completionHandler(nil, response)
             }
         }
 

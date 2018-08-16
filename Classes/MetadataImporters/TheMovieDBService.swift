@@ -221,21 +221,33 @@ final public class TheMovieDBService {
 
     private struct Wrapper<T> : Codable where T : Codable {
         let results: T
+        let page: Int?
+        let total_results: Int?
+        let total_pages: Int?
     }
 
     // MARK: - Data request
 
-    private func sendRequest(url: URL, language: String) -> Data? {
+    private func sendRequest(url: URL, language: String) -> (Data?, URLResponse?) {
         let header = ["Content-Type" : "application/json",
                       "Accept" : "application/json;charset=utf-8",
                       "Accept-Language" : language]
 
-        return URLSession.data(from: url, header: header)
+        return URLSession.dataAndResponse(from: url, header: header)
     }
 
     private func sendJSONRequest<T>(url: URL, language: String, type: T.Type) -> T? where T : Decodable {
-        guard let data = sendRequest(url: url, language: language),
-            let result = try? JSONDecoder().decode(type, from: data)
+        let (data, response) = sendRequest(url: url, language: language)
+
+        if let httpResponse = response as? HTTPURLResponse,
+            httpResponse.statusCode == 429,
+            let retryAfter = httpResponse.allHeaderFields["Retry-After"] as? String {
+            let retryTime = (Int(retryAfter) ?? 1) * 1000000
+            usleep(useconds_t(retryTime))
+            return sendJSONRequest(url: url, language: language, type: type)
+        }
+
+        guard let data1 = data, let result = try? JSONDecoder().decode(type, from: data1)
             else { return nil }
 
         return result
@@ -243,14 +255,25 @@ final public class TheMovieDBService {
 
     // MARK: - Service calls
 
-    public func search(movie: String, language: String) -> [TMDBMovieSearchResult]  {
+    private func search(movie: String, language: String, page: Int) -> Wrapper<[TMDBMovieSearchResult]>? {
         let encodedName = movie.urlEncoded()
 
-        guard let url = URL(string: basePath + "search/movie?api_key=" + key + "&query=" + encodedName + "&language=" + language),
+        guard let url = URL(string: basePath + "search/movie?api_key=" + key + "&query=" + encodedName + "&language=" + language + "&page=" + String(page)),
             let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TMDBMovieSearchResult]>.self)
-            else { return [] }
+            else { return nil }
 
-        return result.results
+        return result
+    }
+
+    public func search(movie: String, language: String) -> [TMDBMovieSearchResult]  {
+        guard let result = search(movie: movie, language: language, page: 1) else { return [] }
+
+        if let totalPages = result.total_pages, totalPages > 1 {
+            let additionalResult = Array(2...totalPages).compactMap { search(movie: movie, language: language, page: $0)?.results }
+            return result.results + additionalResult.joined();
+        } else {
+            return result.results
+        }
     }
 
     public func fetch(movieID: Int, language: String) -> TMDBMovie?  {
