@@ -75,10 +75,12 @@ public struct iTunesStore: MetadataService {
         let language: String
         let season: String
         let country: String
-        let actor: String
+        let cast: String
         let director: String
         let producer: String
         let screenwriter: String
+        let studio: String
+        let copyright: String
     }
 
     private static let stores: [Store] = {
@@ -489,17 +491,44 @@ public struct iTunesStore: MetadataService {
     }
 
     /// Scrape people from iTunes Store website HTML
-    private func read(type: String, in xml: XMLDocument) -> [String] {
-        guard let nodes = try? xml.nodes(forXPath: "//div[starts-with(@metrics-loc,'Titledbox_\(type)')]") else { return [] }
+    func read(type: String, in xml: XMLDocument) -> [String] {
+        guard let nodes = try? xml.nodes(forXPath: "//dl[contains(@class,'cast-list__role')]") else { return [] }
 
         for node in nodes {
-            if let subXml = try? XMLDocument(xmlString: node.xmlString, options: []),
-                let subNodes = try? subXml.nodes(forXPath: "//a") {
-                return subNodes.compactMap { $0.stringValue }
+            guard let typeNodes = try? node.nodes(forXPath: "dt[contains(@class,'cast-list__term')]"),
+                let valueNodes = try? node.nodes(forXPath: "dd[contains(@class,'cast-list__detail')]") else { continue }
+
+            if let nodeType = typeNodes.first?.stringValue?.trimmingWhitespacesAndNewlinews(), nodeType.contains(type) {
+                return valueNodes.compactMap { $0.stringValue }
             }
         }
 
         return []
+    }
+
+    func readInfo(type: String, in xml: XMLDocument) -> String? {
+        guard let nodes = try? xml.nodes(forXPath: "//dl[contains(@class,'information-list--episode')]/dd/div/dl") else { return nil }
+
+        for node in nodes {
+            guard let typeNodes = try? node.nodes(forXPath: "dt[contains(@class,'information-list__item__term')]"),
+                let valueNodes = try? node.nodes(forXPath: "dd[contains(@class,'information-list__item__definition')]") else { continue }
+
+            if let nodeType = typeNodes.first?.stringValue, nodeType.contains(type),
+                var value = valueNodes.first?.stringValue?.trimmingWhitespacesAndNewlinews() {
+                if let range = value.range(of: ". All Rights Reserved", options: .caseInsensitive,
+                                               range: value.startIndex ..< value.endIndex, locale: nil) {
+                    value.removeSubrange(range)
+                }
+                if let range = value.range(of: " by", options: .caseInsensitive,
+                                               range: value.startIndex ..< value.endIndex, locale: nil) {
+                    value.removeSubrange(range)
+                }
+                value = value.replacingOccurrences(of: "Â", with: "")
+                return value
+            }
+        }
+
+        return nil
     }
 
     public func loadMovieMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
@@ -509,26 +538,14 @@ public struct iTunesStore: MetadataService {
               let xml = try? XMLDocument(data: data, options: .documentTidyHTML)
         else { return metadata }
 
-        metadata[.cast]          = read(type: store.actor, in: xml).joined(separator: ", ")
-        metadata[.director]      = read(type: store.director, in: xml).joined(separator: ", ")
+        if metadata[.director] == nil {
+            metadata[.director] = read(type: store.director, in: xml).joined(separator: ", ")
+        }
+        metadata[.cast]          = read(type: store.cast, in: xml).joined(separator: ", ")
         metadata[.producers]     = read(type: store.producer, in: xml).joined(separator: ", ")
         metadata[.screenwriters] = read(type: store.screenwriter, in: xml).joined(separator: ", ")
-
-        if let nodes = try? xml.nodes(forXPath: "//li[@class='copyright']") {
-            for node in nodes {
-                if var copyright = node.stringValue {
-                    if let range = copyright.range(of: ". All Rights Reserved", options: .caseInsensitive,
-                                                   range: copyright.startIndex ..< copyright.endIndex, locale: nil) {
-                        copyright.removeSubrange(range)
-                    }
-                    if let range = copyright.range(of: " by", options: .caseInsensitive,
-                                                   range: copyright.startIndex ..< copyright.endIndex, locale: nil) {
-                        copyright.removeSubrange(range)
-                    }
-                    metadata[.copyright] = copyright
-                }
-            }
-        }
+        metadata[.studio]        = readInfo(type: store.studio, in: xml)
+        metadata[.copyright]     = readInfo(type: store.copyright, in: xml)
 
         return metadata
     }

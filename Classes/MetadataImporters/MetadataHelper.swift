@@ -104,4 +104,8 @@ extension String {
         }
         return .none
     }
+
+    func trimmingWhitespacesAndNewlinews() -> String {
+        return trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
 }
