@@ -525,7 +525,6 @@ public struct iTunesStore: MetadataService {
                                                range: value.startIndex ..< value.endIndex, locale: nil) {
                     value.removeSubrange(range)
                 }
-                value = value.replacingOccurrences(of: "Â", with: "")
                 return value
             }
         }
@@ -537,7 +536,8 @@ public struct iTunesStore: MetadataService {
         guard let store = iTunesStore.store(language: language),
               let url = metadata[.iTunesURL] as? URL,
               let data = URLSession.data(from: url),
-              let xml = try? XMLDocument(data: data, options: .documentTidyHTML)
+              let xmlString = String(data: data, encoding: .utf8),
+              let xml = try? XMLDocument(xmlString: xmlString, options: .documentTidyHTML)
         else { return metadata }
 
         if metadata[.director] == nil {
