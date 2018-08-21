@@ -13,10 +13,12 @@ class ActivityWindowController : NSWindowController, MP42Logging {
     @IBOutlet var logView: NSTextView!
     let logger: Logger
     private let storage: NSTextStorage
+    private let attributes: [NSAttributedString.Key:Any]
 
     init(logger: Logger) {
         self.logger = logger
         self.storage = NSTextStorage()
+        self.attributes = [NSAttributedString.Key.foregroundColor: NSColor.textColor]
         super.init(window: nil)
         self.logger.delegate = self
     }
@@ -31,13 +33,12 @@ class ActivityWindowController : NSWindowController, MP42Logging {
 
     override func windowDidLoad() {
         super.windowDidLoad()
-
         logView.layoutManager?.replaceTextStorage(storage)
     }
 
     func write(toLog string: String) {
         DispatchQueue.main.async {
-            let attrString = NSAttributedString(string: string)
+            let attrString = NSAttributedString(string: string, attributes: self.attributes)
             self.storage.append(attrString)
         }
     }
