@@ -320,7 +320,9 @@ static void *SBQueueContex = &SBQueueContex;
 }
 
 - (void)addItem:(SBQueueItem *)item preset:(BOOL)preset {
-    [item addAction:[[SBQueueOptimizeAction alloc] init]];
+    if (self.prefs.optimize) {
+        [item addAction:[[SBQueueOptimizeAction alloc] init]];
+    }
     [self addItem:item];
 }
 
