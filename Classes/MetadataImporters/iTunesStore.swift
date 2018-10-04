@@ -166,7 +166,7 @@ public struct iTunesStore: MetadataService {
         let artworkUrl30: URL?
         let artworkUrl60: URL?
         let artistId: Int?
-        let collectionArtistId: Int?
+        //let collectionArtistId: String?   // Unused
         let collectionArtistViewUrl: URL?
         let collectionCensoredName: String?
         let collectionExplicitness: String?
