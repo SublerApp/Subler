@@ -33,11 +33,21 @@ import Quartz
     override init(frame frameRect: NSRect) {
         pasteboardTypes = Array()
         super.init(frame: frameRect)
+        if #available(OSX 10.14, *) {
+            updateBackgroundColor()
+        }
     }
 
     required init?(coder: NSCoder) {
         pasteboardTypes = Array()
         super.init(coder: coder)
+        if #available(OSX 10.14, *) {
+            updateBackgroundColor()
+        }
+    }
+
+    private func updateBackgroundColor() {
+        setValue(NSColor.clear, forKey: IKImageBrowserBackgroundColorKey)
     }
 
     private func implements(selector: Selector) -> Bool {
