@@ -41,6 +41,7 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
                                                           queue: OperationQueue.main) { [weak self] notification in
                                                             guard let s = self else { return }
                                                             s.tableView.reloadData()
+                                                            s.updateControlsState()
         }
     }
 
@@ -83,6 +84,10 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
     }
 
     func tableViewSelectionDidChange(_ notification: Notification) {
+        updateControlsState()
+    }
+
+    private func updateControlsState() {
         removeSetButton.isEnabled = tableView.selectedRow != -1
         editSetButton.isEnabled = tableView.selectedRow != -1
     }
@@ -142,6 +147,7 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
     }
 
     @IBAction func deletePreset(_ sender: Any) {
+        let rowIndexes = tableView.selectedRowIndexes
         let rowIndex = tableView.selectedRow
         let sectionRow = tableView.section(for: rowIndex)
 
@@ -152,6 +158,8 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
                 view.window?.presentError(error)
             }
         }
+
+        tableView.selectRowIndexes(rowIndexes, byExtendingSelection: false)
     }
 
     @IBAction func editPreset(_ sender: NSView) {
