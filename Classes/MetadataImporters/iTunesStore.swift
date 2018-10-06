@@ -46,6 +46,201 @@ private extension String {
     }
 }
 
+// MARK: - Data Types
+
+private struct Artist : Codable {
+    let artistId: Int
+    let artistLinkUrl: URL?
+    let artistName: String
+    let artistType: String
+    let primaryGenreId: Int?
+    let primaryGenreName: String?
+}
+
+extension Artist {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        do {
+            artistId = try container.decode(Int.self, forKey: .artistId)
+        } catch {
+            if let artistIdString = try? container.decode(String.self, forKey: .artistId),
+                let artistIdInt = Int(artistIdString) {
+                artistId = artistIdInt
+            } else {
+                throw error
+            }
+        }
+        artistLinkUrl = try container.decodeIfPresent(URL.self, forKey: .artistLinkUrl)
+        artistName = try container.decode(String.self, forKey: .artistName)
+        artistType = try container.decode(String.self, forKey: .artistType)
+        primaryGenreId = try container.decodeIfPresent(Int.self, forKey: .primaryGenreId)
+        primaryGenreName = try container.decodeIfPresent(String.self, forKey: .primaryGenreName)
+    }
+}
+
+private struct Collection : Codable {
+    let artistId: Int
+    let artistName: String
+    let artistViewUrl: URL?
+    let artworkUrl100: URL?
+    let artworkUrl60: URL?
+    let collectionCensoredName: String?
+    let collectionExplicitness: String?
+    let collectionId: Int
+    let collectionName: String
+    let collectionType: String
+    let collectionViewUrl: String?
+    let contentAdvisoryRating: String?
+    let copyright: String?
+    let country: String?
+    let currency: String?
+    let longDescription: String?
+    let primaryGenreName: String?
+    let releaseDate: String?
+    let trackCount: Int?
+}
+
+extension Collection {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        do {
+            artistId = try container.decode(Int.self, forKey: .artistId)
+        } catch {
+            if let artistIdString = try? container.decode(String.self, forKey: .artistId),
+                let artistIdInt = Int(artistIdString) {
+                artistId = artistIdInt
+            } else {
+                throw error
+            }
+        }
+        artistName = try container.decode(String.self, forKey: .artistName)
+        artistViewUrl = try container.decodeIfPresent(URL.self, forKey: .artistViewUrl)
+        artworkUrl100 = try container.decodeIfPresent(URL.self, forKey: .artworkUrl100)
+        artworkUrl60 = try container.decodeIfPresent(URL.self, forKey: .artworkUrl60)
+        collectionCensoredName = try container.decodeIfPresent(String.self, forKey: .collectionCensoredName)
+        collectionExplicitness = try container.decodeIfPresent(String.self, forKey: .collectionExplicitness)
+
+        do {
+            collectionId = try container.decode(Int.self, forKey: .collectionId)
+        } catch {
+            if let collectionIdString = try? container.decode(String.self, forKey: .collectionId),
+                let collectionIdInt = Int(collectionIdString) {
+                collectionId = collectionIdInt
+            } else {
+                throw error
+            }
+        }
+        collectionName = try container.decode(String.self, forKey: .collectionName)
+        collectionType = try container.decode(String.self, forKey: .collectionType)
+        collectionViewUrl = try container.decodeIfPresent(String.self, forKey: .collectionViewUrl)
+        contentAdvisoryRating = try container.decodeIfPresent(String.self, forKey: .contentAdvisoryRating)
+        copyright = try container.decodeIfPresent(String.self, forKey: .copyright)
+        country = try container.decodeIfPresent(String.self, forKey: .country)
+        currency = try container.decodeIfPresent(String.self, forKey: .currency)
+        longDescription = try container.decodeIfPresent(String.self, forKey: .longDescription)
+        primaryGenreName = try container.decodeIfPresent(String.self, forKey: .primaryGenreName)
+        releaseDate = try container.decodeIfPresent(String.self, forKey: .releaseDate)
+        trackCount = try container.decodeIfPresent(Int.self, forKey: .trackCount)
+    }
+}
+
+private struct Track : Codable {
+    let artistName: String
+    let artworkUrl100: URL?
+    let artworkUrl30: URL?
+    let artworkUrl60: URL?
+    let artistId: Int?
+    let collectionArtistId: String?
+    let collectionArtistViewUrl: URL?
+    let collectionCensoredName: String?
+    let collectionExplicitness: String?
+    let collectionId: Int?
+    let collectionName: String?
+    let collectionViewUrl: URL?
+    let contentAdvisoryRating: String?
+    let country: String?
+    let currency: String?
+    let discCount: Int?
+    let discNumber: Int?
+    let hasITunesExtras: Bool?
+    let kind: String?
+    let shortDescription: String?
+    let longDescription: String?
+    let previewUrl: URL?
+    let primaryGenreName: String?
+    let releaseDate: String?
+    let trackCensoredName: String?
+    let trackCount: Int?
+    let trackExplicitness: String?
+    let trackId: Int?
+    let trackName: String?
+    let trackNumber: Int?
+    let trackTimeMillis: Double?
+    let trackViewUrl: URL?
+    let wrapperType: String
+}
+
+extension Track {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        artistName = try container.decode(String.self, forKey: .artistName)
+        artworkUrl100 = try container.decodeIfPresent(URL.self, forKey: .artworkUrl100)
+        artworkUrl30 = try container.decodeIfPresent(URL.self, forKey: .artworkUrl30)
+        artworkUrl60 = try container.decodeIfPresent(URL.self, forKey: .artworkUrl60)
+
+        do {
+            artistId = try container.decodeIfPresent(Int.self, forKey: .artistId)
+        } catch {
+            if let artistIdString = try container.decodeIfPresent(String.self, forKey: .artistId),
+                let artistIdInt = Int(artistIdString) {
+                artistId = artistIdInt
+            } else {
+                throw error
+            }
+        }
+
+        collectionArtistId = try container.decodeIfPresent(String.self, forKey: .collectionArtistId)
+        collectionArtistViewUrl = try container.decodeIfPresent(URL.self, forKey: .collectionArtistViewUrl)
+        collectionCensoredName = try container.decodeIfPresent(String.self, forKey: .collectionCensoredName)
+        collectionExplicitness = try container.decodeIfPresent(String.self, forKey: .collectionExplicitness)
+
+        do {
+            collectionId = try container.decodeIfPresent(Int.self, forKey: .collectionId)
+        } catch {
+            if let collectionIdString = try container.decodeIfPresent(String.self, forKey: .collectionId),
+                let collectionIdInt = Int(collectionIdString) {
+                collectionId = collectionIdInt
+            } else {
+                throw error
+            }
+        }
+
+        collectionName = try container.decodeIfPresent(String.self, forKey: .collectionName)
+        collectionViewUrl = try container.decodeIfPresent(URL.self, forKey: .collectionViewUrl)
+        contentAdvisoryRating = try container.decodeIfPresent(String.self, forKey: .contentAdvisoryRating)
+        country = try container.decodeIfPresent(String.self, forKey: .country)
+        currency = try container.decodeIfPresent(String.self, forKey: .currency)
+        discCount = try container.decodeIfPresent(Int.self, forKey: .discCount)
+        discNumber = try container.decodeIfPresent(Int.self, forKey: .discNumber)
+        hasITunesExtras = try container.decodeIfPresent(Bool.self, forKey: .hasITunesExtras)
+        kind = try container.decodeIfPresent(String.self, forKey: .kind)
+        shortDescription = try container.decodeIfPresent(String.self, forKey: .shortDescription)
+        longDescription = try container.decodeIfPresent(String.self, forKey: .longDescription)
+        previewUrl = try container.decodeIfPresent(URL.self, forKey: .previewUrl)
+        primaryGenreName = try container.decodeIfPresent(String.self, forKey: .primaryGenreName)
+        releaseDate = try container.decodeIfPresent(String.self, forKey: .releaseDate)
+        trackCensoredName = try container.decodeIfPresent(String.self, forKey: .trackCensoredName)
+        trackCount = try container.decodeIfPresent(Int.self, forKey: .trackCount)
+        trackExplicitness = try container.decodeIfPresent(String.self, forKey: .trackExplicitness)
+        trackId = try container.decodeIfPresent(Int.self, forKey: .trackId)
+        trackName = try container.decodeIfPresent(String.self, forKey: .trackName)
+        trackNumber = try container.decodeIfPresent(Int.self, forKey: .trackNumber)
+        trackTimeMillis = try container.decodeIfPresent(Double.self, forKey: .trackTimeMillis)
+        trackViewUrl = try container.decodeIfPresent(URL.self, forKey: .trackViewUrl)
+        wrapperType = try container.decode(String.self, forKey: .wrapperType)
+    }
+}
 public struct iTunesStore: MetadataService {
     
     private func sendJSONRequest<T>(url: URL, type: T.Type) -> T? where T : Decodable {
@@ -125,75 +320,6 @@ public struct iTunesStore: MetadataService {
     public static func quickiTunesSearch(movieName: String) -> MetadataResult? {
         guard let language = UserDefaults.standard.string(forKey: "SBMetadataPreference|Movie|iTunes Store|Language") else { return nil }
         return iTunesStore().search(movie: movieName, language: language).first
-    }
-
-    // MARK: - Data Types
-
-    private struct Artist : Codable {
-        let artistId: Int
-        let artistLinkUrl: URL?
-        let artistName: String
-        let artistType: String
-        let primaryGenreId: Int?
-        let primaryGenreName: String?
-    }
-
-    private struct Collection : Codable {
-        let artistId: Int
-        let artistName: String
-        let artistViewUrl: URL?
-        let artworkUrl100: URL?
-        let artworkUrl60: URL?
-        let collectionCensoredName: String?
-        let collectionExplicitness: String?
-        let collectionId: Int
-        let collectionName: String
-        let collectionType: String
-        let collectionViewUrl: String?
-        let contentAdvisoryRating: String?
-        let copyright: String?
-        let country: String?
-        let currency: String?
-        let longDescription: String?
-        let primaryGenreName: String?
-        let releaseDate: String?
-        let trackCount: Int?
-    }
-    
-    private struct Track : Codable {
-        let artistName: String
-        let artworkUrl100: URL?
-        let artworkUrl30: URL?
-        let artworkUrl60: URL?
-        let artistId: Int?
-        //let collectionArtistId: String?   // Unused
-        let collectionArtistViewUrl: URL?
-        let collectionCensoredName: String?
-        let collectionExplicitness: String?
-        let collectionId: Int?
-        let collectionName: String?
-        let collectionViewUrl: URL?
-        let contentAdvisoryRating: String?
-        let country: String?
-        let currency: String?
-        let discCount: Int?
-        let discNumber: Int?
-        let hasITunesExtras: Bool?
-        let kind: String?
-        let shortDescription: String?
-        let longDescription: String?
-        let previewUrl: URL?
-        let primaryGenreName: String?
-        let releaseDate: String?
-        let trackCensoredName: String?
-        let trackCount: Int?
-        let trackExplicitness: String?
-        let trackId: Int?
-        let trackName: String?
-        let trackNumber: Int?
-        let trackTimeMillis: Double?
-        let trackViewUrl: URL?
-        let wrapperType: String
     }
 
     // MARK: - Helpers
