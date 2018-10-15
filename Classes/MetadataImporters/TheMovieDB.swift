@@ -84,6 +84,25 @@ public struct TheMovieDB: MetadataService {
             .reduce("", { $0 + ($0.isEmpty ? "" : ", ") + $1 })
     }
 
+    // MARK: - TV Series name search
+
+    public func search(tvShow: String, language: String) -> [String] {
+        let seriesIDs: [Int] =  {
+            let result = self.searchIDs(seriesName: tvShow, language: language)
+            return result.isEmpty ? self.searchIDs(seriesName: tvShow, language: defaultLanguage) : result
+        }()
+
+        var results: [String] = Array()
+
+        for id in seriesIDs {
+            if let info = session.fetch(seriesID: id, language: language), let name = info.name {
+                results.append(name)
+            }
+        }
+
+        return results
+    }
+
     // MARK: - Movie metadata loading
 
     private func loadArtwork(filePath: String, baseURL: String, thumbSize: String, kind: ArtworkType) -> Artwork? {

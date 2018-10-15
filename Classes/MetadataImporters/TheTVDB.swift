@@ -116,7 +116,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         // TV Show Info
         result[.serviceSeriesID]    = info.id
         result[.seriesName]         = info.seriesName
-        result[.seriesDescription]  = info.overview
+        result[.seriesDescription]  = info.overview?.trimmingWhitespacesAndNewlinews()
         result[.genre]              = cleanList(names: info.genre)
         result[.network]            = info.network
 
@@ -124,7 +124,7 @@ public struct TheTVDB : MetadataService, MetadataNameService {
         result[.serviceEpisodeID] = episode.id
         result[.name]             = episode.episodeName
         result[.releaseDate]      = episode.firstAired
-        result[.longDescription]  = episode.overview
+        result[.longDescription]  = episode.overview?.trimmingWhitespacesAndNewlinews()
 
         result[.season]           = episode.airedSeason
 
@@ -229,7 +229,18 @@ public struct TheTVDB : MetadataService, MetadataNameService {
     public func search(tvShow: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
         let seriesIDs: [Int] =  {
             let result = self.searchIDs(seriesName: tvShow, language: language)
-            return result.isEmpty ? self.searchIDs(seriesName: tvShow, language: defaultLanguage) : result
+            if result.isEmpty {
+                let enResults = self.searchIDs(seriesName: tvShow, language: defaultLanguage)
+                if enResults.isEmpty {
+                    let tmdb = TheMovieDB()
+                    let tvShowsTMDB = tmdb.search(tvShow: tvShow, language: language)
+                    if let tvShowTMDB = tvShowsTMDB.first {
+                        return self.searchIDs(seriesName: tvShowTMDB, language: language)
+                    }
+                }
+                return enResults
+            }
+            return result
         }()
 
         var results: [MetadataResult] = Array()
