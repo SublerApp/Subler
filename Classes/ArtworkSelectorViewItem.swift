@@ -165,6 +165,8 @@ class ArtworkSelectorViewItemView: NSView {
         layer?.addSublayer(backgroundLayer)
         layer?.addSublayer(emptyLayer)
         layer?.addSublayer(imageLayer)
+
+        layerContentsRedrawPolicy = .onSetNeedsDisplay
     }
 
     override func hitTest(_ point: NSPoint) -> NSView? {
@@ -181,6 +183,21 @@ class ArtworkSelectorViewItemView: NSView {
         }
     }
 
+    override var wantsUpdateLayer: Bool {
+        return true
+    }
+
+    override func updateLayer() {
+        if #available(OSX 10.14, *) {
+            imageLayer.shadowColor = NSColor.labelColor.cgColor
+            backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+            emptyLayer.strokeColor = NSColor.secondarySelectedControlColor.cgColor
+            emptyLayer.fillColor = NSColor.windowBackgroundColor.cgColor
+        } else {
+            backgroundLayer.backgroundColor = NSColor.controlHighlightColor.cgColor
+        }
+    }
+
     override func layout() {
         super.layout()
         imageLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width - 8, height: bounds.height - 44)
@@ -190,15 +207,6 @@ class ArtworkSelectorViewItemView: NSView {
         let path = CGMutablePath()
         path.addRoundedRect(in: emptyLayer.bounds, cornerWidth: 14, cornerHeight: 14)
         emptyLayer.path = path
-
-        if #available(OSX 10.14, *) {
-            imageLayer.shadowColor = NSColor.labelColor.cgColor
-            backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
-            emptyLayer.strokeColor = NSColor.secondarySelectedControlColor.cgColor
-            emptyLayer.fillColor = NSColor.windowBackgroundColor.cgColor
-        } else {
-            backgroundLayer.backgroundColor = NSColor.controlHighlightColor.cgColor
-        }
 
         if let image = imageLayer.contents as? NSImage {
             let rect = AVMakeRect(aspectRatio: image.size, insideRect: imageLayer.bounds)
