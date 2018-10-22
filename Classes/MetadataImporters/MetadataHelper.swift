@@ -76,7 +76,7 @@ private func parseFilename(_ filename: String) -> MetadataSearchTerms? {
 
     if lines.isEmpty == false {
         if lines.first == "tv" && lines.count >= 4 {
-            let newSeriesName = lines[1].replacingOccurrences(of: ".", with: " ")
+            let newSeriesName = lines[1].isEmpty == false ? lines[1].replacingOccurrences(of: ".", with: " ") : filename
             return MetadataSearchTerms.tvShow(seriesName: newSeriesName, season: Int(lines[2]), episode: Int(lines[3]))
         }
         else if lines.first == "movie" && lines.count >= 2 {

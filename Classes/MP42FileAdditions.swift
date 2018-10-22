@@ -58,7 +58,7 @@ extension MP42File {
             return MetadataSearchTerms.movie(title: title)
         }
         else if let url = firstSourceURL() ?? fallbackURL {
-            let parsed = url.lastPathComponent.parsedAsFilename()
+            let parsed = url.deletingPathExtension().lastPathComponent.parsedAsFilename()
 
             switch parsed {
             case .none:
