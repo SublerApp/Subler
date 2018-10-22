@@ -242,7 +242,7 @@ extension Track {
     }
 }
 public struct iTunesStore: MetadataService {
-    
+
     private func sendJSONRequest<T>(url: URL, type: T.Type) -> T? where T : Decodable {
         guard let data = URLSession.data(from: url)
             else { return nil }
@@ -308,6 +308,27 @@ public struct iTunesStore: MetadataService {
 
     public var name: String {
         return "iTunes Store"
+    }
+
+    // MARK: - TV Series name search
+
+    public func search(tvShow: String, language: String) -> [String] {
+        let searchTerm = tvShow.urlEncoded()
+
+        if searchTerm.isEmpty == false,
+            let store = iTunesStore.store(language: language),
+            let url = URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=showTerm&entity=tvShow&limit=250"),
+            let results = sendJSONRequest(url: url, type: Wrapper<Artist>.self)?.results, results.isEmpty == false {
+
+            let filteredResults = results.filter { $0.artistName.isEmpty == false }
+            let sortedResults = filteredResults.sorted(by: { (a1, a2) -> Bool in
+                return a1.artistName.minimumEditDistance(other: tvShow) > a2.artistName.minimumEditDistance(other: tvShow) ? false : true
+            })
+
+            return sortedResults.compactMap { $0.artistName }
+        } else {
+            return [];
+        }
     }
 
     // MARK: - Quick iTunes search for metadata
@@ -454,7 +475,7 @@ public struct iTunesStore: MetadataService {
     }
 
     public func search(tvShow: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
-        guard tvShow.count > 0, let store = iTunesStore.store(language: language) else { return [] }
+        guard tvShow.isEmpty == false, let store = iTunesStore.store(language: language) else { return [] }
 
         // Determine artistId/collectionId
         let ids = { () -> [Int] in

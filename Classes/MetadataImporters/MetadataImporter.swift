@@ -39,6 +39,7 @@ public protocol MetadataService {
 
     var name: String { get }
 
+    func search(tvShow: String, language: String) -> [String]
     func search(tvShow: String, language: String, season: Int?, episode: Int?) -> [MetadataResult]
     func loadTVMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult
 
@@ -47,14 +48,8 @@ public protocol MetadataService {
 
 }
 
-public protocol MetadataNameService {
-
-    func search(tvShow: String, language: String) -> [String]
-
-}
-
 public enum MetadataNameSearch {
-    case tvNameSearch(service: MetadataNameService, tvShow: String, language: String)
+    case tvNameSearch(service: MetadataService, tvShow: String, language: String)
 
     public func search(completionHandler: @escaping ([String]) -> Void) -> Runnable {
         switch self {

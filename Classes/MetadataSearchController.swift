@@ -186,10 +186,11 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
         }
         else if tvSeriesName.stringValue.count > 3 {
             if let task = nameSearchTask { task.cancel() }
+            let language = tvShowService.languageType.extendedTag(displayName: tvLanguage.titleOfSelectedItem ?? "en")
 
             tvSeriesNameSearchArray = [NSLocalizedString("Searching…", comment: "")]
 
-            nameSearchTask = MetadataNameSearch.tvNameSearch(service: TheTVDB(), tvShow: tvSeriesName.stringValue, language: "en")
+            nameSearchTask = MetadataNameSearch.tvNameSearch(service: tvShowService, tvShow: tvSeriesName.stringValue, language: language)
                 .search(completionHandler: { (results) in
                 DispatchQueue.main.async {
                     self.tvSeriesNameSearchArray = results.sorted()

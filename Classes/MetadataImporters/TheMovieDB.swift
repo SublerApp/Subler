@@ -87,20 +87,17 @@ public struct TheMovieDB: MetadataService {
     // MARK: - TV Series name search
 
     public func search(tvShow: String, language: String) -> [String] {
-        let seriesIDs: [Int] =  {
-            let result = self.searchIDs(seriesName: tvShow, language: language)
-            return result.isEmpty ? self.searchIDs(seriesName: tvShow, language: defaultLanguage) : result
-        }()
+        var results: Set<String> = Set()
 
-        var results: [String] = Array()
+        let series = session.search(series: tvShow, language: language)
+        results.formUnion(series.compactMap { $0.name } )
 
-        for id in seriesIDs {
-            if let info = session.fetch(seriesID: id, language: language), let name = info.name {
-                results.append(name)
-            }
+        if language != defaultLanguage {
+            let englishResults = search(tvShow: tvShow, language: defaultLanguage)
+            results.formUnion(englishResults)
         }
 
-        return results
+        return Array(results)
     }
 
     // MARK: - Movie metadata loading

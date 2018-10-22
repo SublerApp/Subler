@@ -8,7 +8,7 @@
 import Foundation
 import MP42Foundation
 
-public struct TheTVDB : MetadataService, MetadataNameService {
+public struct TheTVDB : MetadataService {
 
     private let session = TheTVDBService.sharedInstance
     private static let bannerPath = "https://thetvdb.com/banners/"
@@ -46,7 +46,11 @@ public struct TheTVDB : MetadataService, MetadataNameService {
             results.formUnion(englishResults)
         }
 
-        return Array(results)
+        if results.isEmpty {
+            return TheMovieDB().search(tvShow: tvShow, language: language)
+        } else {
+            return Array(results)
+        }
     }
 
     // MARK: - TV Series ID search
