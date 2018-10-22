@@ -225,7 +225,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
             return true
 
         case #selector(export(_:)) where tracksViewController.selectedTracks.isEmpty == false:
-            if let track = tracksViewController.selectedTracks.first, track.isMuxed {
+            if let track = tracksViewController.selectedTracks.first, track.isMuxed, track.canExport {
                 return true
             } else {
                 return false
