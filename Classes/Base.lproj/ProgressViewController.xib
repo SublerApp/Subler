@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14105" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.30.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14105"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.30.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,22 +20,19 @@
             <rect key="frame" x="0.0" y="0.0" width="297" height="121"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3gK-a2-TtL">
-                    <rect key="frame" x="17" y="84" width="88" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3gK-a2-TtL">
+                    <rect key="frame" x="18" y="84" width="55" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Saving…" id="1QY-aq-f1i">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <progressIndicator verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="pqx-62-iaO">
-                    <rect key="frame" x="18" y="56" width="261" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <progressIndicator verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="pqx-62-iaO">
+                    <rect key="frame" x="20" y="56" width="257" height="20"/>
                 </progressIndicator>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HZz-pP-MXs">
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HZz-pP-MXs">
                     <rect key="frame" x="201" y="12" width="82" height="32"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="13i-3e-aOA">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -48,7 +45,19 @@ Gw
                     </connections>
                 </button>
             </subviews>
-            <point key="canvasLocation" x="-65" y="-65"/>
+            <constraints>
+                <constraint firstItem="3gK-a2-TtL" firstAttribute="leading" secondItem="OYD-Bw-L9a" secondAttribute="leading" constant="20" id="9Hb-nc-IPh"/>
+                <constraint firstItem="3gK-a2-TtL" firstAttribute="top" secondItem="OYD-Bw-L9a" secondAttribute="top" constant="20" id="Bni-XK-xt2"/>
+                <constraint firstItem="pqx-62-iaO" firstAttribute="leading" secondItem="OYD-Bw-L9a" secondAttribute="leading" constant="20" id="TtA-hL-Ywf"/>
+                <constraint firstAttribute="trailing" secondItem="pqx-62-iaO" secondAttribute="trailing" constant="20" id="dVy-Uh-WBN"/>
+                <constraint firstItem="HZz-pP-MXs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OYD-Bw-L9a" secondAttribute="leading" constant="20" id="hlA-yz-Sap"/>
+                <constraint firstAttribute="bottom" secondItem="HZz-pP-MXs" secondAttribute="bottom" constant="19" id="hmg-l8-nPu"/>
+                <constraint firstItem="pqx-62-iaO" firstAttribute="top" secondItem="3gK-a2-TtL" secondAttribute="bottom" constant="9" id="iaa-xM-s4E"/>
+                <constraint firstAttribute="trailing" secondItem="HZz-pP-MXs" secondAttribute="trailing" constant="20" id="mfO-Gu-SKz"/>
+                <constraint firstItem="HZz-pP-MXs" firstAttribute="top" secondItem="pqx-62-iaO" secondAttribute="bottom" constant="17" id="pCC-91-sdi"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3gK-a2-TtL" secondAttribute="trailing" constant="20" id="xBf-Ds-zaq"/>
+            </constraints>
+            <point key="canvasLocation" x="-65.5" y="-65.5"/>
         </view>
     </objects>
 </document>
