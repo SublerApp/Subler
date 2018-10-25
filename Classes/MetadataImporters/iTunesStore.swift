@@ -233,7 +233,16 @@ extension Track {
         trackCensoredName = try container.decodeIfPresent(String.self, forKey: .trackCensoredName)
         trackCount = try container.decodeIfPresent(Int.self, forKey: .trackCount)
         trackExplicitness = try container.decodeIfPresent(String.self, forKey: .trackExplicitness)
-        trackId = try container.decodeIfPresent(Int.self, forKey: .trackId)
+        do {
+            trackId = try container.decodeIfPresent(Int.self, forKey: .trackId)
+        } catch {
+            if let trackIdString = try container.decodeIfPresent(String.self, forKey: .trackId),
+                let trackIdInt = Int(trackIdString) {
+                trackId = trackIdInt
+            } else {
+                throw error
+            }
+        }
         trackName = try container.decodeIfPresent(String.self, forKey: .trackName)
         trackNumber = try container.decodeIfPresent(Int.self, forKey: .trackNumber)
         trackTimeMillis = try container.decodeIfPresent(Double.self, forKey: .trackTimeMillis)
