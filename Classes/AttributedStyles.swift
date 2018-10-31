@@ -9,7 +9,7 @@ import Cocoa
 
 // MARK: - Attributed styles
 
-private func monospaceAttributes(size: CGFloat, aligment: NSTextAlignment, headIndent: CGFloat = -10.0, firstLineHeadIndent: CGFloat = 0, bold: Bool, color: NSColor = NSColor.gray) -> [NSAttributedString.Key : Any]  {
+private func monospaceAttributes(size: CGFloat, aligment: NSTextAlignment, headIndent: CGFloat = -10.0, firstLineHeadIndent: CGFloat = 0, bold: Bool, color: NSColor = NSColor.secondaryLabelColor) -> [NSAttributedString.Key : Any]  {
     let ps = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
     ps.firstLineHeadIndent = firstLineHeadIndent
     ps.headIndent = headIndent
