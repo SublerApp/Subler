@@ -52,7 +52,7 @@ private struct Artist : Codable {
     let artistId: Int
     let artistLinkUrl: URL?
     let artistName: String
-    let artistType: String
+    let artistType: String?
     let primaryGenreId: Int?
     let primaryGenreName: String?
 }
@@ -72,7 +72,7 @@ extension Artist {
         }
         artistLinkUrl = try container.decodeIfPresent(URL.self, forKey: .artistLinkUrl)
         artistName = try container.decode(String.self, forKey: .artistName)
-        artistType = try container.decode(String.self, forKey: .artistType)
+        artistType = try container.decodeIfPresent(String.self, forKey: .artistType)
         primaryGenreId = try container.decodeIfPresent(Int.self, forKey: .primaryGenreId)
         primaryGenreName = try container.decodeIfPresent(String.self, forKey: .primaryGenreName)
     }
@@ -431,16 +431,23 @@ public struct iTunesStore: MetadataService {
         return result.artistId
     }
 
-    private func findiTunesIDs(seriesName: String, seasonNum: Int?, store: Store) -> [Int] {
+    private func findiTunesIDs(seriesName: String, seasonNum: Int?, store: Store, relaxSearch: Bool) -> [Int] {
         // Determine artistId/collectionId
         guard let url = { () -> URL? in
             if let seasonNum = seasonNum {
                 let searchTerm = "\(seriesName) \(store.season) \(seasonNum)".urlEncoded()
-                return URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=tvSeasonTerm&entity=tvSeason&limit=250")
-            }
-            else {
+                if relaxSearch {
+                    return URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=tvSeasonTerm&limit=250")
+                } else {
+                    return URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=tvSeasonTerm&entity=tvSeason&limit=250")
+                }
+            } else {
                 let searchTerm = seriesName.urlEncoded()
-                return URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=showTerm&entity=tvShow&limit=250")
+                if relaxSearch {
+                    return URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=tvSeasonTerm&limit=250")
+                } else {
+                    return URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=showTerm&entity=tvShow&limit=250")
+                }
             }
         }()
         else { return [] }
@@ -488,9 +495,11 @@ public struct iTunesStore: MetadataService {
 
         // Determine artistId/collectionId
         let ids = { () -> [Int] in
-            let idsWithSeason = self.findiTunesIDs(seriesName: tvShow, seasonNum: season, store: store)
+            let idsWithSeason = self.findiTunesIDs(seriesName: tvShow, seasonNum: season, store: store, relaxSearch: false)
             if idsWithSeason.isEmpty == false { return idsWithSeason }
-            return self.findiTunesIDs(seriesName: tvShow, seasonNum: nil, store: store)
+            let idsWithSeasonRelaxed = self.findiTunesIDs(seriesName: tvShow, seasonNum: season, store: store, relaxSearch: true)
+            if idsWithSeasonRelaxed.isEmpty == false { return idsWithSeasonRelaxed }
+            return self.findiTunesIDs(seriesName: tvShow, seasonNum: nil, store: store, relaxSearch: true)
         }()
 
         // If we have an ID, use the lookup API to get episodes for that show/season
