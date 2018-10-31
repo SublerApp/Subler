@@ -532,8 +532,8 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
                 switch search.type {
                 case .tvShow:
                     if let season = result[.season] as? Int,
-                        let episode = result[.episodeNumber] as? Int,
-                        let title = result[.name] as? String {
+                        let episode = result[.episodeNumber] as? Int {
+                        let title = result[.name] as? String ?? NSLocalizedString("Unnamed", comment: "Metadata Search -> Unnamed episode")
                         cell?.textField?.stringValue = "\(season)x\(episode) - \(title)"
                     }
                 case .movie:
