@@ -539,7 +539,10 @@ public struct iTunesStore: MetadataService {
 
         if let s = result.collectionName?.lowercased() {
             var separated = s.components(separatedBy: ", \(store.season)")
-            
+
+            if separated.count <= 1 {
+                separated = s.components(separatedBy: ", prequel")
+            }
             if separated.count <= 1 {
                 separated = s.components(separatedBy: ", season ")
             }
@@ -551,9 +554,20 @@ public struct iTunesStore: MetadataService {
             }
 
             let trackCount = result.trackCount ?? 1
-            let season = separated.count > 1 ? Int(separated[1].trimmingCharacters(in: CharacterSet.decimalDigits.inverted)) ?? 1 : trackCount > 1 ? 1 : 0
+            let season = { () -> Int in
+                if separated.count > 1 {
+                    let season = separated[1]
+                    if season.contains("season") {
+                        return 0;
+                    } else {
+                        return Int(separated[1].trimmingCharacters(in: CharacterSet.decimalDigits.inverted)) ?? 1
+                    }
+                } else {
+                    return trackCount > 1 ? 1 : 0
+                }
+            }()
 
-            metadata[.season]    = season
+            metadata[.season] = season
             if let trackNumber = result.trackNumber {
                 metadata[.episodeID] = String(format:"%d%02d", season, trackNumber)
             }
