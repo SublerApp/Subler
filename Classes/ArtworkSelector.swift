@@ -344,8 +344,7 @@ class ArtworkSelectorController: NSWindowController, NSCollectionViewDataSource,
         }
 
         if imageBrowser.selectionIndexPaths.count == 0 {
-            let indexPath = IndexPath(item: 0, section: 0)
-            imageBrowser.selectItems(at: [indexPath], scrollPosition: .top)
+            selectArtwork(at: 0)
         }
     }
 
