@@ -267,7 +267,8 @@ final public class TheTVDBService {
     // MARK: - Service calls
     
     public func fetch(series: String, language: String) -> [TVDBSeriesSearchResult] {
-        let encodedName = series.urlEncoded()
+        // Remove + because it breaks search
+        let encodedName = series.replacingOccurrences(of: "+", with: "").urlEncoded()
 
         guard let url = URL(string: "\(basePath)search/series?name=\(encodedName)"),
             let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TVDBSeriesSearchResult]>.self)

@@ -100,36 +100,46 @@ private struct Collection : Codable {
     let trackCount: Int?
 }
 
-extension Collection {
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+extension KeyedDecodingContainer {
+
+    public func decodeIntOrString(forKey key: KeyedDecodingContainer<K>.Key) throws -> Int {
         do {
-            artistId = try container.decode(Int.self, forKey: .artistId)
+            return try self.decode(Int.self, forKey: key)
         } catch {
-            if let artistIdString = try? container.decode(String.self, forKey: .artistId),
-                let artistIdInt = Int(artistIdString) {
-                artistId = artistIdInt
+            if let stringValue = try? self.decode(String.self, forKey: key),
+                let intValue = Int(stringValue){
+                return intValue
             } else {
                 throw error
             }
         }
+    }
+
+    public func decodeIntOrStringIfPreset(forKey key: KeyedDecodingContainer<K>.Key) throws -> Int? {
+        do {
+            return try self.decodeIfPresent(Int.self, forKey: key)
+        } catch {
+            if let stringValue = try self.decodeIfPresent(String.self, forKey: key) {
+                return Int(stringValue)
+            } else {
+                throw error
+            }
+        }
+    }
+
+}
+
+extension Collection {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        artistId = try container.decodeIntOrString(forKey: .artistId)
         artistName = try container.decode(String.self, forKey: .artistName)
         artistViewUrl = try container.decodeIfPresent(URL.self, forKey: .artistViewUrl)
         artworkUrl100 = try container.decodeIfPresent(URL.self, forKey: .artworkUrl100)
         artworkUrl60 = try container.decodeIfPresent(URL.self, forKey: .artworkUrl60)
         collectionCensoredName = try container.decodeIfPresent(String.self, forKey: .collectionCensoredName)
         collectionExplicitness = try container.decodeIfPresent(String.self, forKey: .collectionExplicitness)
-
-        do {
-            collectionId = try container.decode(Int.self, forKey: .collectionId)
-        } catch {
-            if let collectionIdString = try? container.decode(String.self, forKey: .collectionId),
-                let collectionIdInt = Int(collectionIdString) {
-                collectionId = collectionIdInt
-            } else {
-                throw error
-            }
-        }
+        collectionId = try container.decodeIntOrString(forKey: .collectionId)
         collectionName = try container.decode(String.self, forKey: .collectionName)
         collectionType = try container.decode(String.self, forKey: .collectionType)
         collectionViewUrl = try container.decodeIfPresent(String.self, forKey: .collectionViewUrl)
@@ -188,34 +198,12 @@ extension Track {
         artworkUrl100 = try container.decodeIfPresent(URL.self, forKey: .artworkUrl100)
         artworkUrl30 = try container.decodeIfPresent(URL.self, forKey: .artworkUrl30)
         artworkUrl60 = try container.decodeIfPresent(URL.self, forKey: .artworkUrl60)
-
-        do {
-            artistId = try container.decodeIfPresent(Int.self, forKey: .artistId)
-        } catch {
-            if let artistIdString = try container.decodeIfPresent(String.self, forKey: .artistId),
-                let artistIdInt = Int(artistIdString) {
-                artistId = artistIdInt
-            } else {
-                throw error
-            }
-        }
-
+        artistId = try container.decodeIntOrStringIfPreset(forKey: .artistId)
         collectionArtistId = try container.decodeIfPresent(String.self, forKey: .collectionArtistId)
         collectionArtistViewUrl = try container.decodeIfPresent(URL.self, forKey: .collectionArtistViewUrl)
         collectionCensoredName = try container.decodeIfPresent(String.self, forKey: .collectionCensoredName)
         collectionExplicitness = try container.decodeIfPresent(String.self, forKey: .collectionExplicitness)
-
-        do {
-            collectionId = try container.decodeIfPresent(Int.self, forKey: .collectionId)
-        } catch {
-            if let collectionIdString = try container.decodeIfPresent(String.self, forKey: .collectionId),
-                let collectionIdInt = Int(collectionIdString) {
-                collectionId = collectionIdInt
-            } else {
-                throw error
-            }
-        }
-
+        collectionId = try container.decodeIntOrStringIfPreset(forKey: .collectionId)
         collectionName = try container.decodeIfPresent(String.self, forKey: .collectionName)
         collectionViewUrl = try container.decodeIfPresent(URL.self, forKey: .collectionViewUrl)
         contentAdvisoryRating = try container.decodeIfPresent(String.self, forKey: .contentAdvisoryRating)
@@ -233,16 +221,7 @@ extension Track {
         trackCensoredName = try container.decodeIfPresent(String.self, forKey: .trackCensoredName)
         trackCount = try container.decodeIfPresent(Int.self, forKey: .trackCount)
         trackExplicitness = try container.decodeIfPresent(String.self, forKey: .trackExplicitness)
-        do {
-            trackId = try container.decodeIfPresent(Int.self, forKey: .trackId)
-        } catch {
-            if let trackIdString = try container.decodeIfPresent(String.self, forKey: .trackId),
-                let trackIdInt = Int(trackIdString) {
-                trackId = trackIdInt
-            } else {
-                throw error
-            }
-        }
+        trackId = try container.decodeIntOrStringIfPreset(forKey: .trackId)
         trackName = try container.decodeIfPresent(String.self, forKey: .trackName)
         trackNumber = try container.decodeIfPresent(Int.self, forKey: .trackNumber)
         trackTimeMillis = try container.decodeIfPresent(Double.self, forKey: .trackTimeMillis)
@@ -437,16 +416,16 @@ public struct iTunesStore: MetadataService {
             if let seasonNum = seasonNum {
                 let searchTerm = "\(seriesName) \(store.season) \(seasonNum)".urlEncoded()
                 if relaxSearch {
-                    return URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=tvSeasonTerm&limit=250")
+                    return URL(string: "https://itunes.apple.com/search?term=\(searchTerm)&entity=tvSeason&country=\(store.country2)&lang=\(store.language2.lowercased())&limit=250")
                 } else {
-                    return URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=tvSeasonTerm&entity=tvSeason&limit=250")
+                    return URL(string: "https://itunes.apple.com/search?term=\(searchTerm)&attribute=tvSeasonTerm&entity=tvSeason&country=\(store.country2)&lang=\(store.language2.lowercased())&limit=250")
                 }
             } else {
                 let searchTerm = seriesName.urlEncoded()
                 if relaxSearch {
-                    return URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=tvSeasonTerm&limit=250")
+                    return URL(string: "https://itunes.apple.com/search?term=\(searchTerm)&entity=tvSeason&country=\(store.country2)&lang=\(store.language2.lowercased())&limit=250")
                 } else {
-                    return URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=showTerm&entity=tvShow&limit=250")
+                    return URL(string: "https://itunes.apple.com/search?term=\(searchTerm)&attribute=showTerm&entity=tvShow&country=\(store.country2)&lang=\(store.language2.lowercased())&limit=250")
                 }
             }
         }()
@@ -504,7 +483,7 @@ public struct iTunesStore: MetadataService {
 
         // If we have an ID, use the lookup API to get episodes for that show/season
         for id in ids {
-            if let lookupUrl = URL(string: "https://itunes.apple.com/lookup?country=\(store.country2)&id=\(id)&entity=tvEpisode&limit=200"),
+            if let lookupUrl = URL(string: "https://itunes.apple.com/lookup?country=\(store.country2)&id=\(id)&entity=tvEpisode&limit=250"),
                 let results = sendJSONRequest(url: lookupUrl, type: Wrapper<Track>.self) {
 
                 var filteredResults = results.results.filter { $0.wrapperType == "track" } .map { metadata(forTVResult: $0, store: store) }
@@ -562,17 +541,21 @@ public struct iTunesStore: MetadataService {
                 separated = s.components(separatedBy: ", vol. ")
             }
 
-            let trackCount = result.trackCount ?? 1
             let season = { () -> Int in
                 if separated.count > 1 {
                     let season = separated[1]
                     if season.contains("season") {
                         return 0;
                     } else {
-                        return Int(separated[1].trimmingCharacters(in: CharacterSet.decimalDigits.inverted)) ?? 1
+                        let subparts = season.components(separatedBy: ",")
+                        if subparts.count > 1 {
+                            return Int(subparts[0].trimmingCharacters(in: CharacterSet.decimalDigits.inverted)) ?? 1
+                        } else {
+                            return Int(separated[1].trimmingCharacters(in: CharacterSet.decimalDigits.inverted)) ?? 1
+                        }
                     }
                 } else {
-                    return trackCount > 1 ? 1 : 0
+                    return 0
                 }
             }()
 
@@ -617,7 +600,7 @@ public struct iTunesStore: MetadataService {
         let filteredResults = results.results.filter { $0.wrapperType == "track" }
         return filteredResults.map { metadata(forMoviePartialResult: $0, store: store) }
     }
-    
+
     private func metadata(forMoviePartialResult result: Track, store: Store) -> MetadataResult {
         let metadata = MetadataResult()
 
