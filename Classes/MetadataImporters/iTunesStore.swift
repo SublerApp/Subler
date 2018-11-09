@@ -48,6 +48,35 @@ private extension String {
 
 // MARK: - Data Types
 
+extension KeyedDecodingContainer {
+
+    public func decodeIntOrString(forKey key: KeyedDecodingContainer<K>.Key) throws -> Int {
+        do {
+            return try self.decode(Int.self, forKey: key)
+        } catch {
+            if let stringValue = try? self.decode(String.self, forKey: key),
+                let intValue = Int(stringValue){
+                return intValue
+            } else {
+                throw error
+            }
+        }
+    }
+
+    public func decodeIntOrStringIfPresent(forKey key: KeyedDecodingContainer<K>.Key) throws -> Int? {
+        do {
+            return try self.decodeIfPresent(Int.self, forKey: key)
+        } catch {
+            if let stringValue = try self.decodeIfPresent(String.self, forKey: key) {
+                return Int(stringValue)
+            } else {
+                throw error
+            }
+        }
+    }
+
+}
+
 private struct Artist : Codable {
     let artistId: Int
     let artistLinkUrl: URL?
@@ -60,20 +89,12 @@ private struct Artist : Codable {
 extension Artist {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        do {
-            artistId = try container.decode(Int.self, forKey: .artistId)
-        } catch {
-            if let artistIdString = try? container.decode(String.self, forKey: .artistId),
-                let artistIdInt = Int(artistIdString) {
-                artistId = artistIdInt
-            } else {
-                throw error
-            }
-        }
+
+        artistId = try container.decodeIntOrString(forKey: .artistId)
         artistLinkUrl = try container.decodeIfPresent(URL.self, forKey: .artistLinkUrl)
         artistName = try container.decode(String.self, forKey: .artistName)
         artistType = try container.decodeIfPresent(String.self, forKey: .artistType)
-        primaryGenreId = try container.decodeIfPresent(Int.self, forKey: .primaryGenreId)
+        primaryGenreId = try container.decodeIntOrStringIfPresent(forKey: .primaryGenreId)
         primaryGenreName = try container.decodeIfPresent(String.self, forKey: .primaryGenreName)
     }
 }
@@ -98,35 +119,6 @@ private struct Collection : Codable {
     let primaryGenreName: String?
     let releaseDate: String?
     let trackCount: Int?
-}
-
-extension KeyedDecodingContainer {
-
-    public func decodeIntOrString(forKey key: KeyedDecodingContainer<K>.Key) throws -> Int {
-        do {
-            return try self.decode(Int.self, forKey: key)
-        } catch {
-            if let stringValue = try? self.decode(String.self, forKey: key),
-                let intValue = Int(stringValue){
-                return intValue
-            } else {
-                throw error
-            }
-        }
-    }
-
-    public func decodeIntOrStringIfPreset(forKey key: KeyedDecodingContainer<K>.Key) throws -> Int? {
-        do {
-            return try self.decodeIfPresent(Int.self, forKey: key)
-        } catch {
-            if let stringValue = try self.decodeIfPresent(String.self, forKey: key) {
-                return Int(stringValue)
-            } else {
-                throw error
-            }
-        }
-    }
-
 }
 
 extension Collection {
@@ -160,7 +152,7 @@ private struct Track : Codable {
     let artworkUrl30: URL?
     let artworkUrl60: URL?
     let artistId: Int?
-    let collectionArtistId: String?
+    let collectionArtistId: Int?
     let collectionArtistViewUrl: URL?
     let collectionCensoredName: String?
     let collectionExplicitness: String?
@@ -198,12 +190,12 @@ extension Track {
         artworkUrl100 = try container.decodeIfPresent(URL.self, forKey: .artworkUrl100)
         artworkUrl30 = try container.decodeIfPresent(URL.self, forKey: .artworkUrl30)
         artworkUrl60 = try container.decodeIfPresent(URL.self, forKey: .artworkUrl60)
-        artistId = try container.decodeIntOrStringIfPreset(forKey: .artistId)
-        collectionArtistId = try container.decodeIfPresent(String.self, forKey: .collectionArtistId)
+        artistId = try container.decodeIntOrStringIfPresent(forKey: .artistId)
+        collectionArtistId = try container.decodeIntOrStringIfPresent(forKey: .collectionArtistId)
         collectionArtistViewUrl = try container.decodeIfPresent(URL.self, forKey: .collectionArtistViewUrl)
         collectionCensoredName = try container.decodeIfPresent(String.self, forKey: .collectionCensoredName)
         collectionExplicitness = try container.decodeIfPresent(String.self, forKey: .collectionExplicitness)
-        collectionId = try container.decodeIntOrStringIfPreset(forKey: .collectionId)
+        collectionId = try container.decodeIntOrStringIfPresent(forKey: .collectionId)
         collectionName = try container.decodeIfPresent(String.self, forKey: .collectionName)
         collectionViewUrl = try container.decodeIfPresent(URL.self, forKey: .collectionViewUrl)
         contentAdvisoryRating = try container.decodeIfPresent(String.self, forKey: .contentAdvisoryRating)
@@ -221,7 +213,7 @@ extension Track {
         trackCensoredName = try container.decodeIfPresent(String.self, forKey: .trackCensoredName)
         trackCount = try container.decodeIfPresent(Int.self, forKey: .trackCount)
         trackExplicitness = try container.decodeIfPresent(String.self, forKey: .trackExplicitness)
-        trackId = try container.decodeIntOrStringIfPreset(forKey: .trackId)
+        trackId = try container.decodeIntOrStringIfPresent(forKey: .trackId)
         trackName = try container.decodeIfPresent(String.self, forKey: .trackName)
         trackNumber = try container.decodeIfPresent(Int.self, forKey: .trackNumber)
         trackTimeMillis = try container.decodeIfPresent(Double.self, forKey: .trackTimeMillis)
