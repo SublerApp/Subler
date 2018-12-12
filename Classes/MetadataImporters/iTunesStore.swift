@@ -433,7 +433,7 @@ public struct iTunesStore: MetadataService {
                 })
 
                 let ids = sortedResults.compactMap { extractID(result: $0, show: seriesName, season: seasonNum, store: store) }
-                if ids.isEmpty, let first = sortedResults.first, first.collectionName.isEmpty == false, first.collectionName.minimumEditDistance(other: seriesName) < 30 {
+                if ids.isEmpty, let first = sortedResults.first, first.collectionName.isEmpty == false, first.collectionName.minimumEditDistance(other: seriesName) < 8 {
                     return [first.collectionId]
                 } else {
                     return ids
@@ -475,10 +475,12 @@ public struct iTunesStore: MetadataService {
 
         // If we have an ID, use the lookup API to get episodes for that show/season
         for id in ids {
-            if let lookupUrl = URL(string: "https://itunes.apple.com/lookup?country=\(store.country2)&id=\(id)&entity=tvEpisode&limit=250"),
+            if let lookupUrl = URL(string: "https://itunes.apple.com/lookup?country=\(store.country2)&id=\(id)&entity=tvEpisode&limit=260"),
                 let results = sendJSONRequest(url: lookupUrl, type: Wrapper<Track>.self) {
 
                 var filteredResults = results.results.filter { $0.wrapperType == "track" } .map { metadata(forTVResult: $0, store: store) }
+
+                compactMultipartSeasons(results: filteredResults)
 
                 if let season = season {
                     filteredResults = filteredResults.filter { $0[.season] as! Int == season }
@@ -495,6 +497,27 @@ public struct iTunesStore: MetadataService {
         }
 
         return []
+    }
+
+    private func compactMultipartSeasons(results: [MetadataResult]) {
+        let seasons = Dictionary(grouping: results.filter { $0[.serviceAdditionalSeriesID] != nil }, by: { $0[.season] as? Int })
+
+        for (_, episodes) in seasons {
+            let parts = Dictionary(grouping: episodes, by: { $0[.serviceAdditionalSeriesID] as! Int })
+            let max = parts.mapValues { $0.compactMap { $0[.episodeNumber] as? Int } .max() ?? 0 }
+
+            for (part, episodes) in parts {
+                let min = episodes.compactMap { $0[.episodeNumber] as? Int } .min() ?? 0
+                let count = max[part - 1] ?? 0
+
+                for episode in episodes {
+                    if min < count, let episodeNumber = episode[.episodeNumber] as? Int {
+                        episode[.episodeNumber] = episodeNumber + count
+                    }
+                    episode[.serviceAdditionalSeriesID] = nil
+                }
+            }
+        }
     }
 
     private func metadata(forTVResult result: Track, store: Store) -> MetadataResult {
@@ -532,28 +555,41 @@ public struct iTunesStore: MetadataService {
             if separated.count <= 1 {
                 separated = s.components(separatedBy: ", vol. ")
             }
+            if separated.count <= 1 {
+                separated = s.components(separatedBy: ", collection ")
+            }
+            if separated.count <= 1 {
+                separated = s.components(separatedBy: ", series ")
+            }
 
-            let season = { () -> Int in
+            let (season, part) = { () -> (Int, Int?) in
                 if separated.count > 1 {
                     let season = separated[1]
                     if season.contains("season") {
-                        return 0;
+                        return (0, nil)
                     } else {
                         let subparts = season.components(separatedBy: ",")
                         if subparts.count > 1 {
-                            return Int(subparts[0].trimmingCharacters(in: CharacterSet.decimalDigits.inverted)) ?? 1
+                            let seasonNum = Int(subparts[0].trimmingCharacters(in: CharacterSet.decimalDigits.inverted)) ?? 1
+                            let partNum = Int(subparts[1].trimmingCharacters(in: CharacterSet.decimalDigits.inverted)) ?? 1
+                            return (seasonNum, partNum);
                         } else {
-                            return Int(separated[1].trimmingCharacters(in: CharacterSet.decimalDigits.inverted)) ?? 1
+                            let seasonNum = Int(separated[1].trimmingCharacters(in: CharacterSet.decimalDigits.inverted)) ?? 1
+                            return (seasonNum, nil);
                         }
                     }
                 } else {
-                    return 0
+                    return s.contains(", pt") || s.contains(", volume") || s.contains("complete series") ? (1, nil) : (0, nil)
                 }
             }()
 
             metadata[.season] = season
             if let trackNumber = result.trackNumber {
                 metadata[.episodeID] = String(format:"%d%02d", season, trackNumber)
+            }
+
+            if let part = part {
+                metadata[.serviceAdditionalSeriesID] = part;
             }
         }
 
