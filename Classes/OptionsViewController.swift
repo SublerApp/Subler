@@ -82,7 +82,7 @@ import MP42Foundation
         moviesObserver = options.observe(\.movieProvider, options: [.initial, .new]) { [weak self] observed, change in
             guard let s = self else { return }
             let newProvider = change.newValue ?? MetadataSearch.movieProviders.first
-            let oldLanguage = change.oldValue ?? "und"
+            let oldLanguage = s.options.movieProviderLanguage
             let service = MetadataSearch.service(name: newProvider)
 
             s.movieLanguages = s.localizedLanguages(service: service)
@@ -95,7 +95,7 @@ import MP42Foundation
         tvShowObserver = options.observe(\.tvShowProvider, options: [.initial, .new]) { [weak self] observed, change in
             guard let s = self else { return }
             let newProvider = change.newValue ?? MetadataSearch.tvProviders.first
-            let oldLanguage = change.oldValue ?? "und"
+            let oldLanguage = s.options.tvShowProviderLanguage
             let service = MetadataSearch.service(name: newProvider)
 
             s.tvShowLanguages = s.localizedLanguages(service: service)

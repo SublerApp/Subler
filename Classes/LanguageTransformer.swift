@@ -21,11 +21,15 @@ import MP42Foundation
     }
 
     override func transformedValue(_ value: Any?) -> Any? {
-        return langManager.localizedLang(forExtendedTag: value as! String)
+        let code = value as! String
+        let lang =  langManager.localizedLang(forExtendedTag: code)
+        return lang
     }
 
     override func reverseTransformedValue(_ value: Any?) -> Any? {
-        return langManager.extendedTag(forLocalizedLang: value as! String)
+        let lang = value as! String
+        let code = langManager.extendedTag(forLocalizedLang: lang)
+        return code
     }
 
 }
