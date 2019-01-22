@@ -112,7 +112,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleGetInfoString</key>
-	<string>1.5.7, Copyright 2018 Damiano Galassi</string>
+	<string>1.5.8, Copyright 2019 Damiano Galassi</string>
 	<key>CFBundleIconFile</key>
 	<string>Subler.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -124,11 +124,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.5.7</string>
+	<string>1.5.8</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.5.7</string>
+	<string>1.5.8</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.video</string>
 	<key>NSAppTransportSecurity</key>
@@ -158,7 +158,7 @@
 	<key>NSAppleScriptEnabled</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2009-2018, Damiano Galassi</string>
+	<string>Copyright © 2009-2019, Damiano Galassi</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
