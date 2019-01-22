@@ -16,6 +16,9 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Remove selected item"; ObjectID = "53"; */
 "53.ibShadowedToolTip" = "Rimuovi l'elemento selezionato";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Dismiss"; ObjectID = "87e-za-hJV"; */
+"87e-za-hJV.ibShadowedToolTip" = "Chiudi";
+
 /* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "174"; */
 "174.title" = "Nome:";
 
