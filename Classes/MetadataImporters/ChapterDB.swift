@@ -12,7 +12,7 @@ public struct ChapterDB : ChapterService {
 
     public func search(title: String, duration: UInt64) -> [ChapterResult] {
 
-        guard let url = URL(string: "http://www.chapterdb.org/chapters/search?title=\(title.urlEncoded())"),
+        guard let url = URL(string: "http://chapterdb.org/chapters/search?title=\(title.urlEncoded())"),
             let data = fetch(url: url)
             else { return [] }
 
@@ -27,8 +27,17 @@ public struct ChapterDB : ChapterService {
         else { return parsed }
     }
 
+    private func fetchDetails(id: UInt64) -> [Chapter]? {
+        guard let url = URL(string: "http://chapterdb.org/chapters/\(id)"),
+            let data = fetch(url: url)
+            else { return [] }
+
+        let parsed = fullParse(data: data)
+        return parsed.first?.chapters
+    }
+
     private func fetch(url: URL) -> Data? {
-        let header = ["ApiKey": "ETET7TXFJH45YNYW0I4A"]
+        let header = ["ApiKey": "7WXY7WRDFBT33L1UX7OO"]
         return URLSession.data(from: url, header: header)
     }
 
@@ -49,10 +58,37 @@ public struct ChapterDB : ChapterService {
         return TimeFromString(duration, 1000)
     }
 
+    private func setID(node: XMLNode) -> UInt64? {
+        guard let nodes = try? node.nodes(forXPath: "./*:ref/*:chapterSetId"),
+            let setID = nodes.first?.stringValue else { return nil }
+        return UInt64(setID)
+    }
+
     private func parse(node: XMLNode) -> ChapterResult? {
         guard let title = title(node: node),
             let confirmations = confirmations(node: node),
             let duration = duration(node: node),
+            let setID = setID(node: node) else { return nil }
+
+        if let chapters = fetchDetails(id: setID) {
+            return ChapterResult(title: title, duration: duration, id: setID, confimations: confirmations, chapters: chapters)
+        } else {
+            return nil
+        }
+    }
+
+    private func parse(data: Data) -> [ChapterResult] {
+        guard let document = try? XMLDocument(data: data, options: []),
+            let children = try? document.nodes(forXPath: "//*:chapterInfo") else { return [] }
+
+        return children.compactMap { parse(node: $0) }
+    }
+
+    private func fullParse(node: XMLNode) -> ChapterResult? {
+        guard let title = title(node: node),
+            let confirmations = confirmations(node: node),
+            let duration = duration(node: node),
+            let setID = setID(node: node),
             let times = try? node.nodes(forXPath: "./*:chapters/*:chapter/@time"),
             let names = try? node.nodes(forXPath: "./*:chapters/*:chapter/@name") else { return nil }
 
@@ -74,18 +110,18 @@ public struct ChapterDB : ChapterService {
         }
 
         if chapters.isEmpty == false {
-            let result = ChapterResult(title: title, duration: duration, confimations: confirmations, chapters: chapters)
+            let result = ChapterResult(title: title, duration: duration, id: setID, confimations: confirmations, chapters: chapters)
             return result
         }
 
         return nil
     }
 
-    private func parse(data: Data) -> [ChapterResult] {
+    private func fullParse(data: Data) -> [ChapterResult] {
         guard let document = try? XMLDocument(data: data, options: []),
             let children = try? document.nodes(forXPath: "//*:chapterInfo") else { return [] }
 
-        return children.compactMap { parse(node: $0) }
+        return children.compactMap { fullParse(node: $0) }
     }
 
 }

@@ -15,6 +15,7 @@ public struct Chapter {
 public struct ChapterResult {
     public let title: String
     public let duration: UInt64
+    public let id: UInt64
     public let confimations: UInt
     public let chapters: [Chapter]
 }
