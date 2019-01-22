@@ -13,7 +13,7 @@ class DocumentController : NSDocumentController {
     override func openDocument(withContentsOf url: URL, display displayDocument: Bool, completionHandler: @escaping (NSDocument?, Bool, Error?) -> Void) {
         let ext = url.pathExtension.lowercased()
 
-        if ["mkv", "mka", "mks", "mov"].contains(ext) {
+        if ["mkv", "mka", "mks", "mov", "264", "h264"].contains(ext) {
             do {
                 let doc = try self.openUntitledDocumentAndDisplay(displayDocument)
                 completionHandler(doc, false, nil)
