@@ -306,6 +306,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
     /// Adds an array of SBQueueItem to the queue.
     /// Implements the undo manager.
     func insert(items: [SBQueueItem], at indexes: IndexSet) {
+        if items.isEmpty { return }
         guard let firstIndex = indexes.first else { fatalError() }
 
         table.beginUpdates()
@@ -591,10 +592,11 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
 
             for fileURL in directoryEnumerator {
 
-                if let value = try? url.resourceValues(forKeys: [URLResourceKey.isDirectoryKey]), let isDirectory = value.isDirectory, isDirectory == false, let fileURL = fileURL as? URL, supportedFileFormats.contains(fileURL.pathExtension.lowercased()) {
-
-                    items.append(createItem(url: fileURL))
-
+                let fileValue = try? url.resourceValues(forKeys: [URLResourceKey.isDirectoryKey])
+                if fileValue?.isDirectory ?? false {
+                    if let fileURL = fileURL as? URL, supportedFileFormats.contains(fileURL.pathExtension.lowercased()) {
+                        items.append(createItem(url: fileURL))
+                    }
                 }
             }
         } else if supportedFileFormats.contains(url.pathExtension.lowercased()) {
