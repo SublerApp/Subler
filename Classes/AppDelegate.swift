@@ -165,7 +165,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-        let state = QueueController.shared.queue.status
+        let state = QueueController.shared.status
 
         if state == .working {
             let alert = NSAlert()
@@ -237,17 +237,17 @@ extension AppDelegate {
     }
 
     @objc(items) func items() -> [SBQueueItem] {
-        let queue = QueueController.shared.queue
+        let queue = QueueController.shared
         let indexes = IndexSet(integersIn: 0..<Int(queue.count))
         return queue.items(at: indexes)
     }
 
     @objc(insertObject:inItemsAtIndex:) func insert(object: SBQueueItem, inItemsAtIndex index: UInt) {
-        QueueController.shared.queue.insert(object, at: index)
+        QueueController.shared.insert(items: [object], at: IndexSet(integer: IndexSet.Element(index)))
     }
 
     @objc(removeObjectFromItemsAtIndex:) func removeObjectFromItemsAtIndex(_ index: UInt) {
-        QueueController.shared.queue.removeItems(at: IndexSet(integer: IndexSet.Element(index)))
+        QueueController.shared.remove(at: IndexSet(integer: IndexSet.Element(index)))
     }
 
 }

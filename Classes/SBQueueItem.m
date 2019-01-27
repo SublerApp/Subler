@@ -436,7 +436,7 @@ bail:
 }
 
 - (void)progressStatus:(double)progress {
-    [self.delegate progressStatus:progress];
+    [self updateProgress:progress];
 }
 
 #pragma mark NSSecureCoding

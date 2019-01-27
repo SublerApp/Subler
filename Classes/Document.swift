@@ -21,7 +21,7 @@ import MP42Foundation
         self.mp4 = MP42File()
     }
 
-    init(mp4: MP42File) throws {
+    init(mp4: MP42File) {
         self.options = [:]
         self.optimize = false
         self.unsupportedMp4Brand = false

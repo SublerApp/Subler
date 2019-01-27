@@ -12,20 +12,19 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
 
     static let shared = QueueController()
 
-    let queue: SBQueue
-
-    private lazy var docImg: NSImage = {
-        // Load a generic movie icon to display in the table view
-        let img = NSWorkspace.shared.icon(forFileType: "mov")
-        img.size = NSSize(width: 16, height: 16)
-        return img
-    }()
+    private let queue: Queue
     private let prefs = QueuePreferences()
     private var popover: NSPopover?
     private var itemPopover: NSPopover?
     private var windowController: OptionsViewController?
 
     private let tablePasteboardType = NSPasteboard.PasteboardType("SublerBatchTableViewDataType")
+    private lazy var docImg: NSImage = {
+        // Load a generic movie icon to display in the table view
+        let img = NSWorkspace.shared.icon(forFileType: "mov")
+        img.size = NSSize(width: 16, height: 16)
+        return img
+    }()
 
     @IBOutlet var table: ExpandedTableView!
     @IBOutlet var startItem: NSToolbarItem!
@@ -42,7 +41,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         windowController = nil
         QueuePreferences.registerUserDefaults()
         if let url = prefs.queueURL {
-            queue = SBQueue(url: url)
+            queue = Queue(url: url)
         } else {
             fatalError("Invalid queue url")
         }
@@ -56,22 +55,17 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
     override func windowDidLoad() {
         super.windowDidLoad()
 
-        guard let window = window else {
-            fatalError("`window` is expected to be non nil by this time.")
-        }
-
         if #available(OSX 10.12, *) {
-            window.tabbingMode = .disallowed
+            window?.tabbingMode = .disallowed
         }
 
         table.registerForDraggedTypes([NSPasteboard.PasteboardType.backwardsCompatibleFileURL, tablePasteboardType])
-
         progressBar.isHidden = true
 
         let main = OperationQueue.main
         let nc = NotificationCenter.default
 
-        nc.addObserver(forName: NSNotification.Name.SBQueueWorking, object: queue, queue: main) {(note) in
+        nc.addObserver(forName: Queue.Working, object: queue, queue: main) {(note) in
             guard let info = note.userInfo,
                 let status = info["ProgressString"] as? String,
                 let progress = info["Progress"] as? Double,
@@ -87,7 +81,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
             }
         }
 
-        nc.addObserver(forName: NSNotification.Name.SBQueueCompleted, object: queue, queue: main) { (note) in
+        nc.addObserver(forName: Queue.Completed, object: queue, queue: main) { (note) in
             self.progressBar.isHidden = true
             self.progressBar.stopAnimation(self)
             self.progressBar.doubleValue = 0
@@ -125,12 +119,12 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
 
         if action == #selector(removeSelectedItems(_:)) {
             if let row = table?.selectedRow, row != -1 {
-                let item = queue.item(at: UInt(row))
+                let item = queue.item(at: row)
                 if item.status != .working {
                     return true
                 }
             } else if let row = table?.clickedRow, row != -1 {
-                let item = queue.item(at: UInt(row))
+                let item = queue.item(at: row)
                 if item.status != .working {
                     return true
                 }
@@ -139,7 +133,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
 
         if action == #selector(showInFinder(_:)) {
             if let row = table?.clickedRow, row != -1 {
-                let item = queue.item(at: UInt(row))
+                let item = queue.item(at: row)
                 if item.status == .completed {
                     return true
                 }
@@ -148,7 +142,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
 
         if action == #selector(edit(_:)) {
             if let row = table?.clickedRow, row != -1 {
-                let item = queue.item(at: UInt(row))
+                let item = queue.item(at: row)
                 if item.status == .completed || item.status == .ready {
                     return true
                 }
@@ -170,10 +164,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
 
     func saveToDisk() throws {
         prefs.saveUserDefaults()
-        let result = queue.saveToDisk()
-        if result {
-            //FIXME
-        }
+        try queue.saveToDisk()
     }
 
     internal func edit(item: SBQueueItem) {
@@ -192,16 +183,16 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
                 }
             }
 
-            if let mp4 = item.mp4File {
-                DispatchQueue.main.async {
-                    do {
-                        var doc: Document
-                        if originalStatus == SBQueueItemStatus.completed {
-                            try doc = Document(contentsOf: item.destURL, ofType: "")
-                        } else {
-                            try doc = Document(mp4: mp4)
-                        }
+            DispatchQueue.main.async {
+                do {
+                    var doc: Document?
+                    if originalStatus == SBQueueItemStatus.completed {
+                        try doc = Document(contentsOf: item.destURL, ofType: "")
+                    } else if let mp4 = item.mp4File {
+                        doc = Document(mp4: mp4)
+                    }
 
+                    if let doc = doc {
                         NSDocumentController.shared.addDocument(doc)
                         doc.makeWindowControllers()
                         doc.showWindows()
@@ -212,10 +203,10 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
                         let index = self.queue.index(of: item)
                         self.remove(at: index)
                         self.updateUI()
-                    } catch {
-                        //FIXME
-                        print(error)
                     }
+                } catch {
+                    //FIXME
+                    print(error)
                 }
             }
         }
@@ -280,9 +271,25 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
 
     //MARK: Queue management
 
+    var status: Queue.Status {
+        get {
+            return queue.status
+        }
+    }
+
+    var count: Int {
+        get {
+            return queue.count
+        }
+    }
+
+    func items(at indexes: IndexSet) -> [SBQueueItem] {
+        return queue.items(at: indexes)
+    }
+
     /// Adds a SBQueueItem to the queue
     func add(_ item: SBQueueItem) {
-        add(items: [item], at: IndexSet(integer: IndexSet.Element(queue.count)))
+        insert(items: [item], at: IndexSet(integer: IndexSet.Element(queue.count)))
     }
 
     func add(_ item: SBQueueItem, applyPreset: Bool) {
@@ -293,14 +300,14 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         add(item)
     }
 
-    private func add(_ items: [SBQueueItem]) {
-        let indexes = IndexSet(integersIn: Int(queue.count) ..< (Int(queue.count) + items.count))
-        add(items: items, at: indexes)
+    private func add(_ items: [SBQueueItem], at index: Int) {
+        let indexes = IndexSet(integersIn: index ..< (index + items.count))
+        insert(items: items, at: indexes)
     }
 
     /// Adds an array of SBQueueItem to the queue.
     /// Implements the undo manager.
-    private func add(items: [SBQueueItem], at indexes: IndexSet) {
+    func insert(items: [SBQueueItem], at indexes: IndexSet) {
         guard let firstIndex = indexes.first else { fatalError() }
 
         table.beginUpdates()
@@ -310,7 +317,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         var currentObjectIndex = 0
 
         while currentIndex != NSNotFound {
-            queue.insert(items[currentObjectIndex], at: UInt(currentIndex))
+            queue.insert(items[currentObjectIndex], at: currentIndex)
             currentIndex = indexes.integerGreaterThan(currentIndex) ?? NSNotFound
             currentObjectIndex += 1
         }
@@ -336,11 +343,11 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         }
     }
 
-    private func remove(at index: UInt) {
+    private func remove(at index: Int) {
         remove(at: IndexSet(integer: IndexSet.Element(index)))
     }
 
-    private func remove(at indexes: IndexSet) {
+    func remove(at indexes: IndexSet) {
         if indexes.isEmpty {
             return
         }
@@ -350,7 +357,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         let removedItems = queue.items(at: indexes)
 
         if queue.count > indexes.last! {
-            queue.removeItems(at: indexes)
+            queue.remove(at: indexes)
         }
 
         table.removeRows(at: indexes, withAnimation: .slideUp)
@@ -362,7 +369,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         guard let undo = window?.undoManager else { return }
 
         undo.registerUndo(withTarget: self) { (target) in
-            self.add(items: removedItems, at: indexes)
+            self.insert(items: removedItems, at: indexes)
         }
 
         if undo.isUndoing == false {
@@ -370,16 +377,16 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         }
     }
 
-    private func move(items: [SBQueueItem], at index: UInt) {
+    private func move(items: [SBQueueItem], at index: Int) {
         var currentIndex = index
-        var source: [UInt] = Array()
-        var dest: [UInt] = Array()
+        var source: [Int] = Array()
+        var dest: [Int] = Array()
 
         table.beginUpdates()
 
         for item in items.reversed() {
             let sourceIndex = queue.index(of: item)
-            queue.removeItems(at: IndexSet(integer: IndexSet.Element(sourceIndex)))
+            queue.remove(at: IndexSet(integer: IndexSet.Element(sourceIndex)))
 
             if sourceIndex < currentIndex {
                 currentIndex -= 1
@@ -406,9 +413,9 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         }
     }
 
-    private func move(at source: [UInt], to dest: [UInt]) {
-        var newSource: [UInt] = Array()
-        var newDest: [UInt] = Array()
+    private func move(at source: [Int], to dest: [Int]) {
+        var newSource: [Int] = Array()
+        var newDest: [Int] = Array()
 
         table.beginUpdates()
 
@@ -417,10 +424,10 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
             newDest.append(sourceIndex)
 
             if let item = queue.items(at: IndexSet(integer: IndexSet.Element(sourceIndex))).first {
-                queue.removeItems(at: IndexSet(integer: IndexSet.Element(sourceIndex)))
+                queue.remove(at: IndexSet(integer: IndexSet.Element(sourceIndex)))
                 queue.insert(item, at: destIndex)
 
-                table.moveRow(at: Int(sourceIndex), to: Int(destIndex))
+                table.moveRow(at: sourceIndex, to: destIndex)
             }
         }
 
@@ -529,6 +536,8 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         progressBar.isHidden = false
         progressBar.startAnimation(self)
 
+        window?.undoManager?.removeAllActions(withTarget: self)
+
         queue.start()
     }
 
@@ -560,7 +569,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
     @IBAction func toggleItemsOptions(_ sender: Any?) {
         guard let sender = sender as? NSView else { return }
         let index = table.row(for: sender)
-        let item = queue.item(at: UInt(index))
+        let item = queue.item(at: index)
 
         if let p = itemPopover, p.isShown, let controller = p.contentViewController as? ItemViewController, controller.item == item {
             p.close()
@@ -607,7 +616,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
                 items.append(item)
             }
         }
-        add(items)
+        add(items, at: index)
     }
 
     @IBAction func open(_ sender: Any?) {
@@ -635,7 +644,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
     private let nameColumn = NSUserInterfaceItemIdentifier(rawValue: "nameColumn")
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let item = queue.item(at: UInt(row))
+        let item = queue.item(at: row)
 
         if tableColumn?.identifier == nameColumn {
             let cell = tableView.makeView(withIdentifier: nameColumn, owner: self) as? NSTableCellView
@@ -688,7 +697,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
     @IBAction func edit(_ sender: Any?) {
         let clickedRow = table.clickedRow
         if clickedRow > -1 {
-            let item = queue.item(at: UInt(clickedRow))
+            let item = queue.item(at: clickedRow)
             edit(item: item)
         }
     }
@@ -696,7 +705,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
     @IBAction func showInFinder(_ sender: Any?) {
         let clickedRow = table.clickedRow
         if clickedRow > -1 {
-            let item = queue.item(at: UInt(clickedRow))
+            let item = queue.item(at: clickedRow)
             NSWorkspace.shared.activateFileViewerSelecting([item.destURL])
         }
     }
@@ -710,7 +719,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
 
         if indexes.isEmpty == false {
             table.removeRows(at: indexes, withAnimation: .slideUp)
-            queue.removeItems(at: indexes)
+            queue.remove(at: indexes)
             updateState()
         }
     }
@@ -743,7 +752,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
             let rowIndexes = NSKeyedUnarchiver.unarchiveObject(with: rowData) as? IndexSet {
 
             let items = queue.items(at: rowIndexes)
-            move(items: items, at: UInt(row))
+            move(items: items, at: row)
             return true
 
         } else {
