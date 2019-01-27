@@ -21,27 +21,6 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
         let tvShowFormat = try? encoder.encode([Token(text: "{TV Show}"), Token(text: " s", isPlaceholder: false), Token(text: "{TV Season}"), Token(text: "e", isPlaceholder: false), Token(text: "{TV Episode #}")])
 
         if defaults.integer(forKey: "SBUpgradeCheck") < 1 {
-
-            // Migrate 1.4.8 filename format settings
-            let oldMovieFormat = defaults.tokenArrayFromOldStylePrefs(forKey: "SBMovieFormat")
-            if oldMovieFormat.isEmpty == false {
-                defaults.set(oldMovieFormat, forKey: "SBMovieFormatTokens")
-            }
-
-            let oldTvShowFormat = defaults.tokenArrayFromOldStylePrefs(forKey: "SBTVShowFormat")
-            if oldTvShowFormat.isEmpty == false {
-                defaults.set(oldTvShowFormat, forKey: "SBTVShowFormatTokens")
-            }
-
-            // Migrate 1.4.8 metadata map settings
-            if let oldStyleMovieResultMap = defaults.mapFromOldStylePrefs(forKey: "SBMetadataMovieResultMap") {
-                defaults.set(oldStyleMovieResultMap, forKey: "SBMetadataMovieResultMap2")
-            }
-
-            if let oldStyleTvShowResultMap = defaults.mapFromOldStylePrefs(forKey: "SBMetadataTvShowResultMap") {
-                defaults.set(oldStyleTvShowResultMap, forKey: "SBMetadataTvShowResultMap2")
-            }
-
             defaults.set(1, forKey: "SBUpgradeCheck")
         }
 

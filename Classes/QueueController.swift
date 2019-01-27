@@ -178,8 +178,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
                 do {
                     try item.prepare()
                 } catch {
-                    //FIXME
-                    print(error)
+                    self.presentError(error)
                 }
             }
 
@@ -205,8 +204,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
                         self.updateUI()
                     }
                 } catch {
-                    //FIXME
-                    print(error)
+                    self.presentError(error)
                 }
             }
         }
