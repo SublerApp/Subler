@@ -11,7 +11,7 @@ import Foundation
 
     override func performDefaultImplementation() -> Any? {
         guard let args = directParameter as? [URL] else { return nil }
-        SBQueueController.sharedManager.addItems(from: args, at: 0)
+        QueueController.shared.addItemsFrom(urls: args, at: 0)
         return nil
     }
 
@@ -20,7 +20,7 @@ import Foundation
 @objc(SBQueueStartScriptCommand) class QueueStartScriptCommand: NSScriptCommand {
 
     override func performDefaultImplementation() -> Any? {
-        SBQueueController.sharedManager.start(self)
+        QueueController.shared.start(self)
         self.suspendExecution()
         return nil
     }
@@ -30,7 +30,7 @@ import Foundation
 @objc(SBQueueStopScriptCommand) class QueueStopScriptCommand: NSScriptCommand {
 
     override func performDefaultImplementation() -> Any? {
-        SBQueueController.sharedManager.stop(self)
+        QueueController.shared.stop(self)
         return nil
     }
 

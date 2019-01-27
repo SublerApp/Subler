@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc(SBQueuePreferences) class QueuePreferences: NSObject {
+class QueuePreferences: NSObject {
 
     static private let SBQueueFileType: String = "SBQueueFileType"
     static private let SBQueueOrganize: String = "SBQueueOrganize"
@@ -113,7 +113,7 @@ import Foundation
         self.init()
     }
 
-    @objc static func registerUserDefaults() {
+    static func registerUserDefaults() {
         let prefs = [QueuePreferences.SBQueueFileType : "mp4",
                      QueuePreferences.SBQueueOrganize : true,
                      QueuePreferences.SBQueueFixTrackLanguage: false,
@@ -137,7 +137,7 @@ import Foundation
         UserDefaults.standard.register(defaults: prefs)
     }
 
-    @objc func saveUserDefaults() {
+    func saveUserDefaults() {
         let ud = UserDefaults.standard
 
         ud.set(clearExistingMetadata, forKey: QueuePreferences.SBQueueClearExistingMetadata)
@@ -172,7 +172,7 @@ import Foundation
         ud.set(showDoneNotification, forKey: QueuePreferences.SBQueueShowDoneNotification)
     }
 
-    @objc var queueURL: URL? {
+    var queueURL: URL? {
         return FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.appendingPathComponent("Subler").appendingPathComponent("queue.sbqueue", isDirectory: false)
 
     }

@@ -50,13 +50,13 @@
 		A956CE6B1F99EAAD00093992 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956CE6A1F99EAAD00093992 /* Logger.swift */; };
 		A959001A202AF21800FD8F23 /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9590018202AF21800FD8F23 /* ProgressViewController.swift */; };
 		A95B8DA91B09F37800F2F152 /* Subler_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = A95B8DA81B09F37800F2F152 /* Subler_Tests.m */; };
-		A961476313F567E10068F161 /* SBQueueController.m in Sources */ = {isa = PBXBuildFile; fileRef = A961476013F567E10068F161 /* SBQueueController.m */; };
 		A961476713F568210068F161 /* Queue.xib in Resources */ = {isa = PBXBuildFile; fileRef = A961476513F568210068F161 /* Queue.xib */; };
 		A962D9EE1F8B7F9F00802EEF /* FileImportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A962D9ED1F8B7F9F00802EEF /* FileImportController.swift */; };
 		A9676A301FB6E85300C1E300 /* LanguageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9676A2F1FB6E85300C1E300 /* LanguageTransformer.swift */; };
 		A9676A341FB6EAAD00C1E300 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9676A331FB6EAAD00C1E300 /* ItemViewController.swift */; };
 		A979B3862025C8BF00468362 /* DocumentWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A979B3842025C8BF00468362 /* DocumentWindowController.swift */; };
 		A97C3AA5204F18C90007AD38 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97C3AA4204F18C90007AD38 /* TokenCellView.swift */; };
+		A97FBE3C21FC7F1C00F1FD35 /* QueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */; };
 		A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A982D0BF140AB66400B92357 /* SBQueueItem.m */; };
 		A984DB4B0F52D644001A20B2 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A984DB4A0F52D644001A20B2 /* Sparkle.framework */; };
 		A984DB530F52D679001A20B2 /* Sparkle.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A984DB4A0F52D644001A20B2 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -188,9 +188,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		610362271E76D66A000DAE60 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/MultiSelectView.strings; sourceTree = "<group>"; };
 		61CEC0CD1E7569E4000FECC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/MultiSelectView.xib; sourceTree = "<group>"; };
@@ -259,13 +257,14 @@
 		A95B8DA41B09F37700F2F152 /* Subler Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subler Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A95B8DA71B09F37700F2F152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A95B8DA81B09F37800F2F152 /* Subler_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subler_Tests.m; sourceTree = "<group>"; };
-		A961475F13F567E10068F161 /* SBQueueController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueController.h; path = Classes/SBQueueController.h; sourceTree = "<group>"; };
-		A961476013F567E10068F161 /* SBQueueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SBQueueController.m; path = Classes/SBQueueController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A962D9ED1F8B7F9F00802EEF /* FileImportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileImportController.swift; path = Classes/FileImportController.swift; sourceTree = "<group>"; };
 		A9676A2F1FB6E85300C1E300 /* LanguageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LanguageTransformer.swift; path = Classes/LanguageTransformer.swift; sourceTree = "<group>"; };
 		A9676A331FB6EAAD00C1E300 /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemViewController.swift; path = Classes/ItemViewController.swift; sourceTree = "<group>"; };
+		A96EA9E821FA47520033EC5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		A96EA9E921FA47520033EC5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A979B3842025C8BF00468362 /* DocumentWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentWindowController.swift; path = Classes/DocumentWindowController.swift; sourceTree = "<group>"; };
 		A97C3AA4204F18C90007AD38 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenCellView.swift; path = Classes/TokenCellView.swift; sourceTree = "<group>"; };
+		A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueController.swift; path = Classes/QueueController.swift; sourceTree = "<group>"; };
 		A982D0BE140AB66400B92357 /* SBQueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueItem.h; path = Classes/SBQueueItem.h; sourceTree = "<group>"; };
 		A982D0BF140AB66400B92357 /* SBQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueItem.m; path = Classes/SBQueueItem.m; sourceTree = "<group>"; };
 		A984DB4A0F52D644001A20B2 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
@@ -572,8 +571,7 @@
 		A9AF6A7818D0537F00FAAB08 /* Queue */ = {
 			isa = PBXGroup;
 			children = (
-				A961475F13F567E10068F161 /* SBQueueController.h */,
-				A961476013F567E10068F161 /* SBQueueController.m */,
+				A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */,
 				A961476513F568210068F161 /* Queue.xib */,
 				A9C73535206B8F9900794673 /* QueuePreferences.swift */,
 				A9C3E449205C07F4004DE24E /* OptionsViewController.swift */,
@@ -717,7 +715,7 @@
 				LastUpgradeCheck = 1000;
 				TargetAttributes = {
 					8D15AC270486D014006FF6A4 = {
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -733,13 +731,9 @@
 			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Subler" */;
 			compatibilityVersion = "Xcode 9.3";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
 				Base,
 				it,
 				en,
@@ -858,6 +852,7 @@
 				A9C09C7C1F99F460007939EE /* ExceptionAlertController.swift in Sources */,
 				A9A91B5D1FB6FBB700250D93 /* ChapterViewController.swift in Sources */,
 				A9676A301FB6E85300C1E300 /* LanguageTransformer.swift in Sources */,
+				A97FBE3C21FC7F1C00F1FD35 /* QueueController.swift in Sources */,
 				A9907E192063DAA000DB992E /* VideoViewController.swift in Sources */,
 				A98D98461F0280CB00A77ABC /* TheMovieDB.swift in Sources */,
 				A98542D920D197DF00EB9803 /* ArtworkSelector.swift in Sources */,
@@ -905,7 +900,6 @@
 				A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */,
 				A92BBAB41F557CC0007EA182 /* PresetEditorViewController.swift in Sources */,
 				A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */,
-				A961476313F567E10068F161 /* SBQueueController.m in Sources */,
 				A9C3E44A205C07F4004DE24E /* OptionsViewController.swift in Sources */,
 				A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */,
 				A90057C01F99E35300FA4ED1 /* PopUpCellView.swift in Sources */,
@@ -954,8 +948,8 @@
 		089C165FFE840EACC02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				089C1660FE840EACC02AAC07 /* English */,
 				A9BA1AE61DBF773700FD0B38 /* it */,
+				A96EA9E921FA47520033EC5F /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -972,8 +966,8 @@
 		2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2A37F4BAFDCFA73011CA2CEA /* English */,
 				A9BA1AE51DBF773700FD0B38 /* it */,
+				A96EA9E821FA47520033EC5F /* en */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -1394,6 +1388,7 @@
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.galad.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Subler;
@@ -1401,7 +1396,7 @@
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "Subler-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1430,6 +1425,7 @@
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.galad.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Subler;
@@ -1437,7 +1433,7 @@
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "Subler-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1504,8 +1500,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_VERSION = 4.2;
@@ -1573,7 +1570,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				OTHER_CFLAGS = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";

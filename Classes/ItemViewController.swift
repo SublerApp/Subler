@@ -7,11 +7,11 @@
 
 import Cocoa
 
-@objc(SBItemViewDelegate) protocol ItemViewDelegate: AnyObject {
-    @objc(editItem:) func edit(item: SBQueueItem)
+protocol ItemViewDelegate: AnyObject {
+    func edit(item: SBQueueItem)
 }
 
-@objc(SBItemViewController) class ItemViewController : NSViewController {
+class ItemViewController : NSViewController {
 
     @objc let item: SBQueueItem
 
@@ -28,7 +28,7 @@ import Cocoa
         return "QueueItem"
     }
 
-    @objc init(item: SBQueueItem, delegate: ItemViewDelegate) {
+    init(item: SBQueueItem, delegate: ItemViewDelegate) {
         self.item = item
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)

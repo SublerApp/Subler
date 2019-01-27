@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-@objc(SBOptionsViewController) class OptionsViewController: NSViewController, NSMenuItemValidation {
+class OptionsViewController: NSViewController, NSMenuItemValidation {
 
     @IBOutlet var destButton: NSPopUpButton!
 
@@ -37,7 +37,7 @@ import MP42Foundation
         return "QueueOptions"
     }
 
-    @objc init(options: QueuePreferences) {
+    init(options: QueuePreferences) {
         self.options = options
 
         self.sets = []

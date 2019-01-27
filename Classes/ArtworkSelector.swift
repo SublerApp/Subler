@@ -202,11 +202,11 @@ class ArtworkSelectorControllerOldStyle: NSWindowController, ArtworkImageObjectD
 
     private func selectArtwork(type: ArtworkType, service: String) {
         if let artwork = (artworks.filter { $0.source.type == type && $0.source.service == service } as [ArtworkImageObject]).first,
-            let index = artworks.index(of: artwork) {
+            let index = artworks.firstIndex(of: artwork) {
             selectArtwork(at: index)
         }
         else if let artwork = (artworks.filter { $0.source.type == type } as [ArtworkImageObject]).first,
-            let index = artworks.index(of: artwork) {
+            let index = artworks.firstIndex(of: artwork) {
             selectArtwork(at: index)
         }
         else if artworksUnloaded.isEmpty == false {
@@ -405,11 +405,11 @@ class ArtworkSelectorController: NSWindowController, NSCollectionViewDataSource,
 
     private func selectArtwork(type: ArtworkType, service: String) {
         if let artwork = (artworks.filter { $0.source.type == type && $0.source.service == service } as [ArtworkImageObject]).first,
-            let index = artworks.index(of: artwork) {
+            let index = artworks.firstIndex(of: artwork) {
             selectArtwork(at: index)
         }
         else if let artwork = (artworks.filter { $0.source.type == type } as [ArtworkImageObject]).first,
-            let index = artworks.index(of: artwork) {
+            let index = artworks.firstIndex(of: artwork) {
             selectArtwork(at: index)
         }
         else if artworksUnloaded.isEmpty == false {

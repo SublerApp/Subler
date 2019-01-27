@@ -52,8 +52,8 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
 
         let context = MP42Metadata.availableMetadata
         self.sort = { (obj1: MetadataResultMapItem ,obj2: MetadataResultMapItem) -> Bool in
-            if let right = context.index(of: obj1.key),
-                let left = context.index(of: obj2.key) {
+            if let right = context.firstIndex(of: obj1.key),
+                let left = context.firstIndex(of: obj2.key) {
                 return right > left ? false : true
             }
             return false
@@ -115,7 +115,7 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
             let item = MetadataResultMapItem(key: key)
             map.items.append(item)
             map.items.sort(by: sort)
-            if let index = map.items.index(where: { $0 === item }) {
+            if let index = map.items.firstIndex(where: { $0 === item }) {
                 tableView.insertRows(at: IndexSet(integer: index), withAnimation: .slideUp)
             }
             save()

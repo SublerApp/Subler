@@ -21,7 +21,7 @@ import MP42Foundation
         self.mp4 = MP42File()
     }
 
-    @objc init(mp4: MP42File) throws {
+    init(mp4: MP42File) throws {
         self.options = [:]
         self.optimize = false
         self.unsupportedMp4Brand = false
@@ -205,10 +205,10 @@ import MP42Foundation
     @IBAction func sendToQueue(_ sender: Any) {
         guard let windowForSheet = windowForSheet else { return }
 
-        let queue = SBQueueController.sharedManager
+        let queue = QueueController.shared
         if mp4.hasFileRepresentation {
             let item = SBQueueItem(mp4: mp4)
-            queue.add(item, preset: true)
+            queue.add(item, applyPreset: true)
             close()
         }
         else {

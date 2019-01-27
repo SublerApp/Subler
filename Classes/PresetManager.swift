@@ -75,7 +75,7 @@ final class PresetManager {
     }
 
     func remove(item: Preset) throws {
-        if let index = presets.index(where: { $0 === item }) {
+        if let index = presets.firstIndex(where: { $0 === item }) {
             try remove(at: index)
         }
     }

@@ -628,8 +628,8 @@ static NSDateFormatter *_formatter;
     }
 
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
-    [pb declareTypes:@[SublerMetadataPBoardType, NSStringPboardType] owner:nil];
-    [pb setString:string forType: NSStringPboardType];
+    [pb declareTypes:@[SublerMetadataPBoardType, NSPasteboardTypeString] owner:nil];
+    [pb setString:string forType: NSPasteboardTypeString];
     [pb setData:[NSKeyedArchiver archivedDataWithRootObject:items] forType:SublerMetadataPBoardType];
 }
 

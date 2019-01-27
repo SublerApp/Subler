@@ -151,10 +151,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         logger.clear()
         MP42File.setGlobalLogger(logger)
 
-        _ = SBQueueController.sharedManager
+        _ = QueueController.shared
 
         if UserDefaults.standard.bool(forKey: "SBShowQueueWindow") {
-            SBQueueController.sharedManager.showWindow(self)
+            QueueController.shared.showWindow(self)
         }
     }
 
@@ -165,7 +165,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-        let state = SBQueueController.sharedManager.queue.status
+        let state = QueueController.shared.queue.status
 
         if state == .working {
             let alert = NSAlert()
@@ -183,11 +183,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationWillTerminate(_ notification: Notification) {
-        try! PresetManager.shared.save()
-        if SBQueueController.sharedManager.saveQueueToDisk == false {
+        do {
+            try PresetManager.shared.save()
+            try QueueController.shared.saveToDisk()
+        } catch {
             logger.write(toLog: "Failed to save queue to disk!")
         }
-        UserDefaults.standard.set(SBQueueController.sharedManager.window?.isVisible, forKey: "SBShowQueueWindow")
+        UserDefaults.standard.set(QueueController.shared.window?.isVisible, forKey: "SBShowQueueWindow")
     }
 
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {
@@ -197,12 +199,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: actions
 
     @IBAction func openInQueue(_ sender: Any) {
-        SBQueueController.sharedManager.showWindow(self)
-        SBQueueController.sharedManager.open(sender)
+        QueueController.shared.showWindow(self)
+        QueueController.shared.open(sender)
     }
 
     @IBAction func showBatchWindow(_ sender: Any) {
-        SBQueueController.sharedManager.showWindow(self)
+        QueueController.shared.showWindow(self)
     }
 
     @IBAction func showPrefsWindow(_ sender: Any) {
@@ -235,17 +237,17 @@ extension AppDelegate {
     }
 
     @objc(items) func items() -> [SBQueueItem] {
-        let queue = SBQueueController.sharedManager.queue
+        let queue = QueueController.shared.queue
         let indexes = IndexSet(integersIn: 0..<Int(queue.count))
         return queue.items(at: indexes)
     }
 
     @objc(insertObject:inItemsAtIndex:) func insert(object: SBQueueItem, inItemsAtIndex index: UInt) {
-        SBQueueController.sharedManager.queue.insert(object, at: index)
+        QueueController.shared.queue.insert(object, at: index)
     }
 
     @objc(removeObjectFromItemsAtIndex:) func removeObjectFromItemsAtIndex(_ index: UInt) {
-        SBQueueController.sharedManager.queue.removeItems(at: IndexSet(integer: IndexSet.Element(index)))
+        QueueController.shared.queue.removeItems(at: IndexSet(integer: IndexSet.Element(index)))
     }
 
 }

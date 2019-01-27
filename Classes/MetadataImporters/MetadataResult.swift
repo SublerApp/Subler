@@ -78,7 +78,7 @@ private let localizedKeys: [MetadataResult.Key: String] = [
     .serviceEpisodeID : NSLocalizedString("Service ID", comment: "nil")
 ]
 
-public class MetadataResult : NSObject {
+public class MetadataResult {
 
     public enum Key: String {
         // Common Keys
@@ -207,7 +207,7 @@ public class MetadataResult : NSObject {
     public var remoteArtworks: [Artwork]
     public var artworks: [MP42Image]
 
-    override init() {
+    init() {
         self.dictionary = Dictionary()
         self.remoteArtworks = Array()
         self.artworks = Array()
@@ -227,7 +227,7 @@ public class MetadataResult : NSObject {
     lazy var orderedKeys: [Key] = {
         let sortedKeys = self.mediaKind == .movie ? Key.movieKeys : Key.tvShowKeys
         return Array(dictionary.keys).sorted(by: { (key1: Key, key2: Key) -> Bool in
-            if let index1 = sortedKeys.index(of: key1), let index2 = sortedKeys.index(of: key2) {
+            if let index1 = sortedKeys.firstIndex(of: key1), let index2 = sortedKeys.firstIndex(of: key2) {
                 return index1 < index2
             }
             return key1 != Key.serviceSeriesID && key1 != Key.serviceEpisodeID
