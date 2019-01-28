@@ -12,8 +12,6 @@ class OptionsViewController: NSViewController, NSMenuItemValidation {
 
     @IBOutlet var destButton: NSPopUpButton!
 
-    private static var observerContext = 0
-
     @objc private dynamic let options: QueuePreferences
 
     @objc private dynamic var sets: [MetadataPreset]

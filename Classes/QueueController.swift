@@ -178,7 +178,9 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
                 do {
                     try item.prepare()
                 } catch {
-                    self.presentError(error)
+                    DispatchQueue.main.async {
+                        self.presentError(error)
+                    }
                 }
             }
 
@@ -258,7 +260,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
 
         if let destination = prefs.destination {
             item.destURL = destination.appendingPathComponent(url.lastPathComponent).deletingPathExtension().appendingPathExtension(prefs.fileType)
-        } else if let type = value?.typeIdentifier,  UTTypeConformsTo(type as CFString, "public.mpeg-4" as CFString) {
+        } else if let type = value?.typeIdentifier, UTTypeConformsTo(type as CFString, "public.mpeg-4" as CFString) {
             item.destURL = url
         } else {
             item.destURL = url.deletingPathExtension().appendingPathExtension(prefs.fileType)
@@ -747,9 +749,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         let pboard = info.draggingPasteboard
 
-        if let source = info.draggingSource as? NSTableView, source == tableView,
-            let rowData = pboard.data(forType: tablePasteboardType),
-            let rowIndexes = NSKeyedUnarchiver.unarchiveObject(with: rowData) as? IndexSet {
+        if let source = info.draggingSource as? NSTableView, source == tableView, let rowData = pboard.data(forType: tablePasteboardType), let rowIndexes = NSKeyedUnarchiver.unarchiveObject(with: rowData) as? IndexSet {
 
             let items = queue.items(at: rowIndexes)
             move(items: items, at: row)
