@@ -8,12 +8,12 @@
 import Cocoa
 
 protocol ItemViewDelegate: AnyObject {
-    func edit(item: SBQueueItem)
+    func edit(item: QueueItem)
 }
 
 class ItemViewController : NSViewController {
 
-    @objc let item: SBQueueItem
+    @objc let item: QueueItem
 
     var delegate: ItemViewDelegate
 
@@ -28,7 +28,7 @@ class ItemViewController : NSViewController {
         return "QueueItem"
     }
 
-    init(item: SBQueueItem, delegate: ItemViewDelegate) {
+    init(item: QueueItem, delegate: ItemViewDelegate) {
         self.item = item
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
@@ -45,7 +45,7 @@ class ItemViewController : NSViewController {
         statusObserver = item.observe(\.status, options: [.initial, .new]) { [weak self] observed, change in
             guard let s = self else { return }
             DispatchQueue.main.async {
-                if observed.status == SBQueueItemStatus.ready || observed.status == SBQueueItemStatus.completed {
+                if observed.status == .ready || observed.status == .completed {
                     s.editButton.isEnabled = true
                 } else {
                     s.editButton.isEnabled = false

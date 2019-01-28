@@ -8,15 +8,6 @@
 import Foundation
 import IOKit
 
-extension SBQueueItem {
-
-    @objc func updateProgress(_ progress: Double) {
-        if let queue = delegate as? Queue {
-            queue.updateProgress(progress)
-        }
-    }
-}
-
 class Queue {
 
     static let Working = NSNotification.Name(rawValue: "QueueWorkingNotification")
@@ -30,10 +21,10 @@ class Queue {
     private var sleepAssertion: IOPMAssertionID = IOPMAssertionID(0)
     private var sleepAssertionSuccess: IOReturn = kIOReturnInvalid
 
-    private var items: [SBQueueItem]
+    private var items: [QueueItem]
 
     private var cancelled: Bool
-    private var currentItem: SBQueueItem?
+    private var currentItem: QueueItem?
 
     private let url: URL
 
@@ -55,7 +46,7 @@ class Queue {
             let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
             unarchiver.requiresSecureCoding = true
 
-            items = unarchiver.decodeObject(of: [NSArray.classForCoder(), NSMutableArray.classForCoder(), SBQueueItem.classForCoder()], forKey: NSKeyedArchiveRootObjectKey) as! [SBQueueItem]
+            items = unarchiver.decodeObject(of: [NSArray.classForCoder(), NSMutableArray.classForCoder(), QueueItem.classForCoder()], forKey: NSKeyedArchiveRootObjectKey) as! [QueueItem]
             unarchiver.finishDecoding()
         } else {
             items = Array()
@@ -112,15 +103,37 @@ class Queue {
                     self.handleSBStatusWorking(progress: 0, index: currentIndex)
                     do {
                         try currentItem.process()
+
+                        var cancelled = false
+                        self.arrayQueue.sync {
+                            cancelled = self.cancelled
+                        }
+
+                        if cancelled {
+                            currentItem.status = .cancelled
+                            self.handleSBStatusCancelled()
+                            break
+                        } else {
+                            currentItem.status = .completed
+                            completed += 1
+                        }
+
+                        self.handleSBStatusWorking(progress: 100, index: currentIndex)
+
                     } catch {
                         currentItem.status = .failed
                         failed += 1
                         self.handleSBStatusFailed(error: error)
-                    }
 
-                    var cancelled = false
-                    self.arrayQueue.sync {
-                        cancelled = self.cancelled
+                        var cancelled = false
+                        self.arrayQueue.sync {
+                            cancelled = self.cancelled
+                        }
+
+                        if cancelled {
+                            self.handleSBStatusCancelled()
+                            break
+                        }
                     }
 
                     currentItem.delegate = nil
@@ -128,16 +141,6 @@ class Queue {
                         self.currentItem = nil
                     }
 
-                    if cancelled {
-                        currentItem.status = .cancelled
-                        self.handleSBStatusCancelled()
-                        break
-                    } else {
-                        currentItem.status = .completed
-                        completed += 1
-                    }
-
-                    self.handleSBStatusWorking(progress: 100, index: currentIndex)
                 } else {
                     break
                 }
@@ -190,9 +193,9 @@ class Queue {
         }
     }
 
-    private var firstItemInQueue: SBQueueItem? {
+    private var firstItemInQueue: QueueItem? {
         get {
-            var first: SBQueueItem?
+            var first: QueueItem?
             arrayQueue.sync {
                 first = items.first(where: { (item) -> Bool in
                     return item.status != .completed && item.status != .failed
@@ -205,29 +208,29 @@ class Queue {
 
     //MARK: Item management
 
-    func append(_ item: SBQueueItem) {
+    func append(_ item: QueueItem) {
         arrayQueue.sync {
             items.append(item)
         }
     }
 
-    func item(at index: Int) -> SBQueueItem {
-        var result: SBQueueItem?
+    func item(at index: Int) -> QueueItem {
+        var result: QueueItem?
         arrayQueue.sync {
             result = items[index]
         }
         return result!
     }
 
-    func items(at indexes: IndexSet) -> [SBQueueItem] {
-        var result: [SBQueueItem] = Array()
+    func items(at indexes: IndexSet) -> [QueueItem] {
+        var result: [QueueItem] = Array()
         arrayQueue.sync {
             result = items.enumerated().filter { indexes.contains($0.offset) == true } .map { $0.element }
         }
         return result
     }
 
-    func index(of item: SBQueueItem) -> Int {
+    func index(of item: QueueItem) -> Int {
         var index = -1
         arrayQueue.sync {
             index = items.firstIndex(of: item) ?? -1
@@ -235,7 +238,7 @@ class Queue {
         return index
     }
 
-    func indexesOfItems(with status: SBQueueItemStatus) -> IndexSet {
+    func indexesOfItems(with status: QueueItem.Status) -> IndexSet {
         var indexes: [Int] = Array()
         arrayQueue.sync {
             indexes = items.enumerated().filter { $0.element.status == status } .map { $0.offset }
@@ -243,7 +246,7 @@ class Queue {
         return IndexSet(indexes)
     }
 
-    func insert(_ item: SBQueueItem, at index: Int) {
+    func insert(_ item: QueueItem, at index: Int) {
         arrayQueue.sync {
             items.insert(item, at: index)
         }
@@ -261,7 +264,7 @@ class Queue {
         }
     }
 
-    func remove(_ item: SBQueueItem) {
+    func remove(_ item: QueueItem) {
         arrayQueue.sync {
             if let index = items.firstIndex(of: item) {
                 items.remove(at: index)

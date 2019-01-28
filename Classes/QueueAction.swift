@@ -8,22 +8,34 @@
 import Foundation
 import MP42Foundation
 
-/// SBQueue actions protocol, actions can be run by the queue's items.
-//@objc(SBQueueActionProtocol) protocol QueueActionProtocol: NSSecureCoding {
-//    @objc func runAction(_ item: SBQueueItem) -> Bool
-//    @objc var localizedDescription: String { get }
-//}
+@objc enum QueueActionType: Int {
+    case pre
+    case post
+}
+
+/**
+ *  Queue actions protocol, actions can be run by
+ *  the queue's items.
+ */
+@objc protocol QueueActionProtocol: NSSecureCoding {
+
+    func runAction(_ item: QueueItem) -> Bool
+
+    var localizedDescription: String { get }
+
+    var type: QueueActionType { get }
+}
 
 /// An action to remove existing metadata.
-@objc(SBQueueClearExistingMetadataAction) class QueueClearExistingMetadataAction: NSObject, SBQueueActionProtocol {
+@objc(SBQueueClearExistingMetadataAction) class QueueClearExistingMetadataAction: NSObject, QueueActionProtocol {
 
-    var type: SBQueueActionType { return .pre }
+    var type: QueueActionType { return .pre }
     var localizedDescription: String { return NSLocalizedString("Clearing Metadata", comment: "Action localized description.") }
     override var description: String { return NSLocalizedString("Clear Metadata", comment: "Action description.") }
 
     @objc override init() {}
 
-    func runAction(_ item: SBQueueItem) -> Bool {
+    func runAction(_ item: QueueItem) -> Bool {
         if let metadata = item.mp4File?.metadata {
             let dataTypes: UInt = MP42MetadataItemDataType.string.rawValue | MP42MetadataItemDataType.stringArray.rawValue | MP42MetadataItemDataType.bool.rawValue | MP42MetadataItemDataType.integer.rawValue | MP42MetadataItemDataType.integerArray.rawValue | MP42MetadataItemDataType.date.rawValue | MP42MetadataItemDataType.image.rawValue
 
@@ -39,15 +51,15 @@ import MP42Foundation
 }
 
 /// An action that set a formatted file name.
-@objc(SBQueueSetOutputFilenameAction) class QueueSetOutputFilenameAction: NSObject, SBQueueActionProtocol {
+@objc(SBQueueSetOutputFilenameAction) class QueueSetOutputFilenameAction: NSObject, QueueActionProtocol {
 
-    var type: SBQueueActionType { return .pre }
+    var type: QueueActionType { return .pre }
     var localizedDescription: String { return NSLocalizedString("Setting Name", comment: "Action localized description.") }
     override var description: String { return NSLocalizedString("Set Name", comment: "Action description.") }
 
     @objc override init() {}
 
-    func runAction(_ item: SBQueueItem) -> Bool {
+    func runAction(_ item: QueueItem) -> Bool {
         if let formattedName = item.mp4File?.formattedFileName() {
             let pathExtension = item.destURL.pathExtension
             let destURL = item.destURL.deletingLastPathComponent().appendingPathComponent(formattedName).appendingPathExtension(pathExtension)
@@ -63,9 +75,9 @@ import MP42Foundation
 }
 
 /// An action that search in the item source directory for additionals srt subtitles.
-@objc(SBQueueSubtitlesAction) class QueueSubtitlesAction : NSObject, SBQueueActionProtocol {
+@objc(SBQueueSubtitlesAction) class QueueSubtitlesAction : NSObject, QueueActionProtocol {
 
-    var type: SBQueueActionType { return .pre }
+    var type: QueueActionType { return .pre }
     var localizedDescription: String { return NSLocalizedString("Loading subtitles", comment: "Action localized description.") }
     override var description: String { return NSLocalizedString("Load Subtitles", comment: "Action description.") }
 
@@ -92,7 +104,7 @@ import MP42Foundation
         return importers
     }
 
-    func runAction(_ item: SBQueueItem) -> Bool {
+    func runAction(_ item: QueueItem) -> Bool {
         let subtitlesImporters = loadExternalSubtitles(url: item.fileURL)
 
         for importer in subtitlesImporters {
@@ -113,7 +125,7 @@ import MP42Foundation
 }
 
 /// An action that applies a preset to the item.
-@objc(SBQueueSetAction) class QueueSetAction : NSObject, SBQueueActionProtocol {
+@objc(SBQueueSetAction) class QueueSetAction : NSObject, QueueActionProtocol {
 
     private let preset: MetadataPreset
 
@@ -121,11 +133,11 @@ import MP42Foundation
         self.preset = preset.copy() as! MetadataPreset
     }
 
-    var type: SBQueueActionType { return .pre }
+    var type: QueueActionType { return .pre }
     var localizedDescription: String { return String.localizedStringWithFormat(NSLocalizedString("Applying %@ preset", comment: "Action localized description."), preset.title) }
     override var description: String { return String.localizedStringWithFormat(NSLocalizedString("Apply %@ preset", comment: "Action description"), preset.title) }
 
-    func runAction(_ item: SBQueueItem) -> Bool {
+    func runAction(_ item: QueueItem) -> Bool {
         guard let metadata = item.mp4File?.metadata else { return false }
 
         let dataTypes: UInt = MP42MetadataItemDataType.string.rawValue | MP42MetadataItemDataType.stringArray.rawValue | MP42MetadataItemDataType.bool.rawValue | MP42MetadataItemDataType.integer.rawValue |
@@ -192,7 +204,7 @@ extension Array where Element == Artwork {
 }
 
 /// An action that fetches metadata online.
-@objc(SBQueueMetadataAction) class QueueMetadataAction : NSObject, SBQueueActionProtocol {
+@objc(SBQueueMetadataAction) class QueueMetadataAction : NSObject, QueueActionProtocol {
 
     private let movieLanguage: String
     private let movieProvider: String
@@ -202,7 +214,7 @@ extension Array where Element == Artwork {
 
     private let preferredArtwork: ArtworkType
 
-    var type: SBQueueActionType { return .pre }
+    var type: QueueActionType { return .pre }
     var localizedDescription: String { return NSLocalizedString("Searching metadata", comment: "Action localized description.") }
     override var description: String { return NSLocalizedString("Search Metadata", comment: "Action description.") }
 
@@ -283,7 +295,7 @@ extension Array where Element == Artwork {
         return nil
     }
 
-    func runAction(_ item: SBQueueItem) -> Bool {
+    func runAction(_ item: QueueItem) -> Bool {
         if let file = item.mp4File {
             let searchTerms = file.extractSearchTerms(fallbackURL: item.fileURL)
             if let metadata = searchMetadata(terms: searchTerms) {
@@ -333,15 +345,15 @@ extension Array where Element == Artwork {
 }
 
 /// An action that organize the item tracks' groups.
-@objc(SBQueueOrganizeGroupsAction) class QueueOrganizeGroupsAction : NSObject, SBQueueActionProtocol {
+@objc(SBQueueOrganizeGroupsAction) class QueueOrganizeGroupsAction : NSObject, QueueActionProtocol {
 
-    var type: SBQueueActionType { return .pre }
+    var type: QueueActionType { return .pre }
     var localizedDescription: String { return NSLocalizedString("Organizing groups", comment: "Organize Groups action local description") }
     override var description: String { return NSLocalizedString("Organize Groups", comment: "Organize Groups action description") }
 
     @objc override init() {}
 
-    func runAction(_ item: SBQueueItem) -> Bool {
+    func runAction(_ item: QueueItem) -> Bool {
         item.mp4File?.organizeAlternateGroups()
         item.mp4File?.inferMediaCharacteristics()
         return true
@@ -356,15 +368,15 @@ extension Array where Element == Artwork {
 }
 
 /// An action that fix the item tracks' fallbacks.
-@objc(SBQueueFixFallbacksAction) class QueueFixFallbacksAction : NSObject, SBQueueActionProtocol {
+@objc(SBQueueFixFallbacksAction) class QueueFixFallbacksAction : NSObject, QueueActionProtocol {
 
-    var type: SBQueueActionType { return .pre }
+    var type: QueueActionType { return .pre }
     var localizedDescription: String { return NSLocalizedString("Fixing Fallbacks", comment: "Action localized description.") }
     override var description: String { return NSLocalizedString("Fix Fallbacks", comment: "Action description.") }
 
     @objc override init() {}
 
-    func runAction(_ item: SBQueueItem) -> Bool {
+    func runAction(_ item: QueueItem) -> Bool {
         item.mp4File?.setAutoFallback()
         return true
     }
@@ -378,9 +390,9 @@ extension Array where Element == Artwork {
 }
 
 /// An action that set unknown language tracks to preferred one.
-@objc(SBQueueSetLanguageAction) class QueueSetLanguageAction : NSObject, SBQueueActionProtocol {
+@objc(SBQueueSetLanguageAction) class QueueSetLanguageAction : NSObject, QueueActionProtocol {
 
-    var type: SBQueueActionType { return .pre }
+    var type: QueueActionType { return .pre }
     var localizedDescription: String { return NSLocalizedString("Setting tracks language", comment: "Set Language action local description") }
     override var description: String { return NSLocalizedString("Set tracks language", comment: "Set Language action description") }
 
@@ -390,7 +402,7 @@ extension Array where Element == Artwork {
         self.language = language
     }
 
-    func runAction(_ item: SBQueueItem) -> Bool {
+    func runAction(_ item: QueueItem) -> Bool {
         if let tracks = item.mp4File?.tracks {
             for track in tracks {
                 if track.language == "und" {
@@ -416,15 +428,15 @@ extension Array where Element == Artwork {
 }
 
 /// An action that remove the tracks names.
-@objc(SBQueueClearTrackNameAction) class QueueClearTrackNameAction : NSObject, SBQueueActionProtocol {
+@objc(SBQueueClearTrackNameAction) class QueueClearTrackNameAction : NSObject, QueueActionProtocol {
 
-    var type: SBQueueActionType { return .pre }
+    var type: QueueActionType { return .pre }
     var localizedDescription: String { return NSLocalizedString("Clearing tracks names", comment: "Action localized description") }
     override var description: String { return NSLocalizedString("Clear tracks names", comment: "Action description") }
 
     @objc override init() {}
 
-    func runAction(_ item: SBQueueItem) -> Bool {
+    func runAction(_ item: QueueItem) -> Bool {
         if let tracks = item.mp4File?.tracks {
             for track in tracks {
                 track.name = ""
@@ -451,9 +463,9 @@ extension Array where Element == Artwork {
 }
 
 /// An action that set the video track color space.
-@objc(SBQueueColorSpaceAction) class QueueColorSpaceAction : NSObject, SBQueueActionProtocol {
+@objc(SBQueueColorSpaceAction) class QueueColorSpaceAction : NSObject, QueueActionProtocol {
 
-    var type: SBQueueActionType { return .pre }
+    var type: QueueActionType { return .pre }
     var localizedDescription: String { return NSLocalizedString("Setting color space", comment: "Set track color space action local description") }
     override var description: String { return NSLocalizedString("Set color space", comment: "Set track color space action description") }
 
@@ -490,7 +502,7 @@ extension Array where Element == Artwork {
         }
     }
 
-    func runAction(_ item: SBQueueItem) -> Bool {
+    func runAction(_ item: QueueItem) -> Bool {
         if let tracks = item.mp4File?.tracks(withMediaType: kMP42MediaType_Video) as? [MP42VideoTrack] {
             for track in tracks {
                 if track.format == kMP42VideoCodecType_H264 ||
@@ -523,15 +535,15 @@ extension Array where Element == Artwork {
 
 }
 
-@objc(SBQueueOptimizeAction) class QueueOptimizeAction: NSObject, SBQueueActionProtocol {
+@objc(SBQueueOptimizeAction) class QueueOptimizeAction: NSObject, QueueActionProtocol {
 
-    var type: SBQueueActionType { return .post }
+    var type: QueueActionType { return .post }
     var localizedDescription: String { return NSLocalizedString("Optimizing", comment: "Action localized description.") }
     override var description: String { return NSLocalizedString("Optimize", comment: "Action description.") }
 
     @objc override init() {}
 
-    func runAction(_ item: SBQueueItem) -> Bool {
+    func runAction(_ item: QueueItem) -> Bool {
         return item.mp4File?.optimize() ?? false
     }
 
@@ -540,15 +552,15 @@ extension Array where Element == Artwork {
     static var supportsSecureCoding: Bool { return true }
 }
 
-@objc(SBQueueSendToiTunesAction) class QueueSendToiTunesAction: NSObject, SBQueueActionProtocol {
+@objc(SBQueueSendToiTunesAction) class QueueSendToiTunesAction: NSObject, QueueActionProtocol {
 
-    var type: SBQueueActionType { return .post }
+    var type: QueueActionType { return .post }
     var localizedDescription: String { return NSLocalizedString("Sending to iTunes", comment: "Action localized description.") }
     override var description: String { return NSLocalizedString("Send to iTunes", comment: "Action description.") }
 
     @objc override init() {}
 
-    func runAction(_ item: SBQueueItem) -> Bool {
+    func runAction(_ item: QueueItem) -> Bool {
         let workspace = NSWorkspace.shared
         if let appPath = workspace.fullPath(forApplication: "iTunes") {
             return workspace.openFile(item.destURL.path, withApplication: appPath)

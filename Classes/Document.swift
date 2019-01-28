@@ -207,7 +207,7 @@ import MP42Foundation
 
         let queue = QueueController.shared
         if mp4.hasFileRepresentation {
-            let item = SBQueueItem(mp4: mp4)
+            let item = QueueItem(mp4: mp4)
             queue.add(item, applyPreset: true)
             close()
         }
@@ -218,7 +218,7 @@ import MP42Foundation
             let handler = { (response: NSApplication.ModalResponse) in
                 if response == NSApplication.ModalResponse.OK, let url = panel.url {
                     let options = self.saveOptions()
-                    let item = SBQueueItem(mp4: self.mp4, destinationURL: url, attributes: options, optimize: self.optimize)
+                    let item = QueueItem(mp4: self.mp4, destURL: url, attributes: options, optimize: self.optimize)
                     queue.add(item)
                     self.releaseSavePanel()
                     self.close()

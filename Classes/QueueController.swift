@@ -167,14 +167,14 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         try queue.saveToDisk()
     }
 
-    internal func edit(item: SBQueueItem) {
+    internal func edit(item: QueueItem) {
         let originalStatus = item.status
-        item.status = SBQueueItemStatus.working
+        item.status = .working
 
         updateUI()
 
         DispatchQueue.global().async {
-            if originalStatus != SBQueueItemStatus.completed {
+            if originalStatus != .completed {
                 do {
                     try item.prepare()
                 } catch {
@@ -187,7 +187,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
             DispatchQueue.main.async {
                 do {
                     var doc: Document?
-                    if originalStatus == SBQueueItemStatus.completed {
+                    if originalStatus == .completed {
                         try doc = Document(contentsOf: item.destURL, ofType: "")
                     } else if let mp4 = item.mp4File {
                         doc = Document(mp4: mp4)
@@ -214,10 +214,25 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
 
     //MARK: Items creation
 
-    /// Creates a new SBQueueItem from an NSURL,
+    private func destination(for url: URL) -> URL {
+        let value = try? url.resourceValues(forKeys: [URLResourceKey.typeIdentifierKey])
+
+        if let destination = prefs.destination {
+            return destination.appendingPathComponent(url.lastPathComponent).deletingPathExtension().appendingPathExtension(prefs.fileType)
+        } else if let type = value?.typeIdentifier, UTTypeConformsTo(type as CFString, "public.mpeg-4" as CFString) {
+            return url
+        } else {
+            return url.deletingPathExtension().appendingPathExtension(prefs.fileType)
+        }
+
+    }
+
+    /// Creates a new QueueItem from an NSURL,
     /// and adds the current actions to it.
-    private func createItem(url: URL) -> SBQueueItem {
-        let item = SBQueueItem(url: url)
+    private func createItem(url: URL) -> QueueItem {
+
+        let destURL = destination(for: url)
+        let item = QueueItem(fileURL: url, destination: destURL)
 
         if prefs.clearExistingMetadata {
             item.addAction(QueueClearExistingMetadataAction())
@@ -256,16 +271,6 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
             item.addAction(QueueSendToiTunesAction())
         }
 
-        let value = try? url.resourceValues(forKeys: [URLResourceKey.typeIdentifierKey])
-
-        if let destination = prefs.destination {
-            item.destURL = destination.appendingPathComponent(url.lastPathComponent).deletingPathExtension().appendingPathExtension(prefs.fileType)
-        } else if let type = value?.typeIdentifier, UTTypeConformsTo(type as CFString, "public.mpeg-4" as CFString) {
-            item.destURL = url
-        } else {
-            item.destURL = url.deletingPathExtension().appendingPathExtension(prefs.fileType)
-        }
-
         return item
     }
 
@@ -283,16 +288,16 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         }
     }
 
-    func items(at indexes: IndexSet) -> [SBQueueItem] {
+    func items(at indexes: IndexSet) -> [QueueItem] {
         return queue.items(at: indexes)
     }
 
-    /// Adds a SBQueueItem to the queue
-    func add(_ item: SBQueueItem) {
+    /// Adds a QueueItem to the queue
+    func add(_ item: QueueItem) {
         insert(items: [item], at: IndexSet(integer: IndexSet.Element(queue.count)))
     }
 
-    func add(_ item: SBQueueItem, applyPreset: Bool) {
+    func add(_ item: QueueItem, applyPreset: Bool) {
         //WHY APPLY PRESET?
         if prefs.optimize {
             item.addAction(QueueOptimizeAction())
@@ -300,14 +305,14 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         add(item)
     }
 
-    private func add(_ items: [SBQueueItem], at index: Int) {
+    private func add(_ items: [QueueItem], at index: Int) {
         let indexes = IndexSet(integersIn: index ..< (index + items.count))
         insert(items: items, at: indexes)
     }
 
-    /// Adds an array of SBQueueItem to the queue.
+    /// Adds an array of QueueItem to the queue.
     /// Implements the undo manager.
-    func insert(items: [SBQueueItem], at indexes: IndexSet) {
+    func insert(items: [QueueItem], at indexes: IndexSet) {
         if items.isEmpty { return }
         guard let firstIndex = indexes.first else { fatalError() }
 
@@ -378,7 +383,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         }
     }
 
-    private func move(items: [SBQueueItem], at index: Int) {
+    private func move(items: [QueueItem], at index: Int) {
         var currentIndex = index
         var source: [Int] = Array()
         var dest: [Int] = Array()
@@ -460,8 +465,8 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         }
     }
 
-    /// Creates a popover with a SBQueueItem
-    private func createItemPopover(_ item: SBQueueItem) {
+    /// Creates a popover with a QueueItem
+    private func createItemPopover(_ item: QueueItem) {
         let p = NSPopover()
 
         let view = ItemViewController(item: item, delegate: self)
@@ -583,8 +588,8 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
 
     //MARK: Open
 
-    private func itemsFrom(url: URL) -> [SBQueueItem] {
-        var items: [SBQueueItem] = Array()
+    private func itemsFrom(url: URL) -> [QueueItem] {
+        var items: [QueueItem] = Array()
         let supportedFileFormats = MP42FileImporter.supportedFileFormats()
 
         let value = try? url.resourceValues(forKeys: [URLResourceKey.isDirectoryKey])
@@ -609,7 +614,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
     }
 
     func addItemsFrom(urls: [URL], at index: Int) {
-        var items: [SBQueueItem] = Array()
+        var items: [QueueItem] = Array()
 
         for url in urls {
             let itemsFromURL = itemsFrom(url: url)
@@ -663,10 +668,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
                 cell?.imageView?.image = NSImage(named: "EncodeCanceled")
             case .cancelled:
                 cell?.imageView?.image = NSImage(named: "EncodeCanceled")
-            case .ready,
-                 .unknown:
-                cell?.imageView?.image = docImg
-            @unknown default:
+            case .ready:
                 cell?.imageView?.image = docImg
             }
 

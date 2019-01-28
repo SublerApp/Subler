@@ -236,13 +236,13 @@ extension AppDelegate {
         }
     }
 
-    @objc(items) func items() -> [SBQueueItem] {
+    @objc(items) func items() -> [QueueItem] {
         let queue = QueueController.shared
         let indexes = IndexSet(integersIn: 0..<Int(queue.count))
         return queue.items(at: indexes)
     }
 
-    @objc(insertObject:inItemsAtIndex:) func insert(object: SBQueueItem, inItemsAtIndex index: UInt) {
+    @objc(insertObject:inItemsAtIndex:) func insert(object: QueueItem, inItemsAtIndex index: UInt) {
         QueueController.shared.insert(items: [object], at: IndexSet(integer: IndexSet.Element(index)))
     }
 

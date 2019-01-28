@@ -57,7 +57,6 @@
 		A979B3862025C8BF00468362 /* DocumentWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A979B3842025C8BF00468362 /* DocumentWindowController.swift */; };
 		A97C3AA5204F18C90007AD38 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97C3AA4204F18C90007AD38 /* TokenCellView.swift */; };
 		A97FBE3C21FC7F1C00F1FD35 /* QueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */; };
-		A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A982D0BF140AB66400B92357 /* SBQueueItem.m */; };
 		A984DB4B0F52D644001A20B2 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A984DB4A0F52D644001A20B2 /* Sparkle.framework */; };
 		A984DB530F52D679001A20B2 /* Sparkle.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A984DB4A0F52D644001A20B2 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A984DB730F52DD4B001A20B2 /* dsa_pub.pem */; };
@@ -122,6 +121,7 @@
 		A9ECA05D2029A11500D5F30C /* DetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9ECA05F2029A11500D5F30C /* DetailsViewController.xib */; };
 		A9ECA0602029A13800D5F30C /* OffsetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9ECA0622029A13800D5F30C /* OffsetViewController.xib */; };
 		A9EEA5F818D654B9008B54B4 /* QueueOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9EEA5F618D654B9008B54B4 /* QueueOptions.xib */; };
+		A9EFB8CC21FF40C500129FDD /* QueueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EFB8CB21FF40C500129FDD /* QueueItem.swift */; };
 		A9F2A2662026EACD00C4B69A /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2A2642026EACD00C4B69A /* DetailsViewController.swift */; };
 		A9F4FF4B1FB708FB004473A8 /* SoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F4FF4A1FB708FB004473A8 /* SoundViewController.swift */; };
 		A9F5820C1DCC861F005F3E92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9F5820B1DCC861F005F3E92 /* Assets.xcassets */; };
@@ -265,8 +265,6 @@
 		A979B3842025C8BF00468362 /* DocumentWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentWindowController.swift; path = Classes/DocumentWindowController.swift; sourceTree = "<group>"; };
 		A97C3AA4204F18C90007AD38 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenCellView.swift; path = Classes/TokenCellView.swift; sourceTree = "<group>"; };
 		A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueController.swift; path = Classes/QueueController.swift; sourceTree = "<group>"; };
-		A982D0BE140AB66400B92357 /* SBQueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBQueueItem.h; path = Classes/SBQueueItem.h; sourceTree = "<group>"; };
-		A982D0BF140AB66400B92357 /* SBQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBQueueItem.m; path = Classes/SBQueueItem.m; sourceTree = "<group>"; };
 		A984DB4A0F52D644001A20B2 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		A984DB730F52DD4B001A20B2 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		A98542D620D197D300EB9803 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ArtworkSelector.xib; sourceTree = "<group>"; };
@@ -345,6 +343,7 @@
 		A9ECA05E2029A11500D5F30C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DetailsViewController.xib; sourceTree = "<group>"; };
 		A9ECA0612029A13800D5F30C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OffsetViewController.xib; sourceTree = "<group>"; };
 		A9ED7B21180067A2008FD3A8 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		A9EFB8CB21FF40C500129FDD /* QueueItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueItem.swift; path = Classes/QueueItem.swift; sourceTree = "<group>"; };
 		A9F2A2642026EACD00C4B69A /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailsViewController.swift; path = Classes/DetailsViewController.swift; sourceTree = "<group>"; };
 		A9F4FF4A1FB708FB004473A8 /* SoundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SoundViewController.swift; path = Classes/PropertyView/SoundViewController.swift; sourceTree = "<group>"; };
 		A9F5820B1DCC861F005F3E92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -579,8 +578,7 @@
 				A9676A331FB6EAAD00C1E300 /* ItemViewController.swift */,
 				A9BC410618D9ABC000F8C92C /* QueueItem.xib */,
 				A98D6BAA21FDC62800F0D886 /* Queue.swift */,
-				A982D0BE140AB66400B92357 /* SBQueueItem.h */,
-				A982D0BF140AB66400B92357 /* SBQueueItem.m */,
+				A9EFB8CB21FF40C500129FDD /* QueueItem.swift */,
 				A91B196B1F2B0DCB0008675F /* QueueAction.swift */,
 				A932C9F2205C268A004E52FE /* QueueScriptCommand.swift */,
 			);
@@ -851,6 +849,7 @@
 				A9C09C7C1F99F460007939EE /* ExceptionAlertController.swift in Sources */,
 				A9A91B5D1FB6FBB700250D93 /* ChapterViewController.swift in Sources */,
 				A9676A301FB6E85300C1E300 /* LanguageTransformer.swift in Sources */,
+				A9EFB8CC21FF40C500129FDD /* QueueItem.swift in Sources */,
 				A97FBE3C21FC7F1C00F1FD35 /* QueueController.swift in Sources */,
 				A9907E192063DAA000DB992E /* VideoViewController.swift in Sources */,
 				A98D98461F0280CB00A77ABC /* TheMovieDB.swift in Sources */,
@@ -899,7 +898,6 @@
 				A92BBAB41F557CC0007EA182 /* PresetEditorViewController.swift in Sources */,
 				A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */,
 				A9C3E44A205C07F4004DE24E /* OptionsViewController.swift in Sources */,
-				A982D0C0140AB66400B92357 /* SBQueueItem.m in Sources */,
 				A90057C01F99E35300FA4ED1 /* PopUpCellView.swift in Sources */,
 				A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */,
 				A9AF2D1D206116680088CE91 /* SectionsTableView.swift in Sources */,
