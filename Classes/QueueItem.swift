@@ -257,6 +257,7 @@ class QueueItem: NSObject, NSSecureCoding {
 
                     mp4.addTrack(track)
                 }
+                mp4File = mp4
             }
         }
 
