@@ -293,9 +293,7 @@ class QueueItem: NSObject, NSSecureCoding {
         guard let mp4 = mp4File else { return }
 
         weak var weakSelf = self
-        mp4.progressHandler = { (progress) in
-            weakSelf?.delegate?.updateProgress(progress)
-        }
+        mp4.progressHandler = { (progress) in weakSelf?.delegate?.updateProgress(progress) }
 
         // Check if there is enough space on the destination disk
         if filePathURL != destURL {

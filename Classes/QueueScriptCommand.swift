@@ -11,7 +11,7 @@ import Foundation
 
     override func performDefaultImplementation() -> Any? {
         guard let args = directParameter as? [URL] else { return nil }
-        QueueController.shared.addItemsFrom(urls: args, at: 0)
+        QueueController.shared.insert(contentOf: args, at: 0)
         return nil
     }
 

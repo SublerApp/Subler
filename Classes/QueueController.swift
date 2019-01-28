@@ -108,8 +108,15 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
             }
         }
 
+        nc.addObserver(forName: Queue.Failed, object: queue, queue: main) { (note) in
+            guard let info = note.userInfo,
+                let error = info["Error"] as? Error else { return }
+            self.presentError(error)
+        }
+
         // Update the UI the first time
         updateUI()
+        removeCompletedItems(self)
     }
 
     //MARK: User Interface Validation
@@ -171,7 +178,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         let originalStatus = item.status
         item.status = .working
 
-        updateUI()
+        updateUI(indexes: IndexSet(integer: queue.index(of: item)))
 
         DispatchQueue.global().async {
             if originalStatus != .completed {
@@ -203,7 +210,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
                         item.status = originalStatus
                         let index = self.queue.index(of: item)
                         self.remove(at: index)
-                        self.updateUI()
+                        self.updateState()
                     }
                 } catch {
                     self.presentError(error)
@@ -224,7 +231,6 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         } else {
             return url.deletingPathExtension().appendingPathExtension(prefs.fileType)
         }
-
     }
 
     /// Creates a new QueueItem from an NSURL,
@@ -450,6 +456,38 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         }
     }
 
+    private func items(contentOf url: URL) -> [QueueItem] {
+        var items: [QueueItem] = Array()
+        let supportedFileFormats = MP42FileImporter.supportedFileFormats()
+
+        let value = try? url.resourceValues(forKeys: [URLResourceKey.isDirectoryKey])
+
+        if let isDirectory = value?.isDirectory, isDirectory == true,
+            let directoryEnumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: [URLResourceKey.nameKey, URLResourceKey.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles], errorHandler: nil) {
+
+            for fileURL in directoryEnumerator {
+
+                let fileValue = try? url.resourceValues(forKeys: [URLResourceKey.isDirectoryKey])
+                if fileValue?.isDirectory ?? false {
+                    if let fileURL = fileURL as? URL, supportedFileFormats.contains(fileURL.pathExtension.lowercased()) {
+                        items.append(createItem(url: fileURL))
+                    }
+                }
+            }
+            items.sort { return $0.fileURL.lastPathComponent.localizedCompare($1.fileURL.lastPathComponent) == ComparisonResult.orderedAscending }
+        } else if supportedFileFormats.contains(url.pathExtension.lowercased()) {
+            items.append(createItem(url: url))
+        }
+
+        return items
+    }
+
+    func insert(contentOf urls: [URL], at index: Int) {
+        let sorted = urls.sorted(by: { return $0.lastPathComponent.localizedCompare($1.lastPathComponent) == ComparisonResult.orderedAscending })
+        let result = sorted.flatMap { items(contentOf: $0) }
+        add(result, at: index)
+    }
+
     //MARK: Popover delegate
 
     /// Creates a popover with the queue options.
@@ -588,44 +626,6 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
 
     //MARK: Open
 
-    private func itemsFrom(url: URL) -> [QueueItem] {
-        var items: [QueueItem] = Array()
-        let supportedFileFormats = MP42FileImporter.supportedFileFormats()
-
-        let value = try? url.resourceValues(forKeys: [URLResourceKey.isDirectoryKey])
-
-        if let isDirectory = value?.isDirectory, isDirectory == true,
-            let directoryEnumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: [URLResourceKey.nameKey, URLResourceKey.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles], errorHandler: nil) {
-
-            for fileURL in directoryEnumerator {
-
-                let fileValue = try? url.resourceValues(forKeys: [URLResourceKey.isDirectoryKey])
-                if fileValue?.isDirectory ?? false {
-                    if let fileURL = fileURL as? URL, supportedFileFormats.contains(fileURL.pathExtension.lowercased()) {
-                        items.append(createItem(url: fileURL))
-                    }
-                }
-            }
-        } else if supportedFileFormats.contains(url.pathExtension.lowercased()) {
-            items.append(createItem(url: url))
-        }
-
-        return items
-    }
-
-    func addItemsFrom(urls: [URL], at index: Int) {
-        var items: [QueueItem] = Array()
-
-        for url in urls {
-            let itemsFromURL = itemsFrom(url: url)
-
-            for item in itemsFromURL {
-                items.append(item)
-            }
-        }
-        add(items, at: index)
-    }
-
     @IBAction func open(_ sender: Any?) {
         guard let windowForSheet = window else { return }
 
@@ -637,7 +637,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
 
         panel.beginSheetModal(for: windowForSheet) { (response) in
             if response == NSApplication.ModalResponse.OK {
-                self.addItemsFrom(urls: panel.urls, at: Int(self.queue.count))
+                self.insert(contentOf: panel.urls, at: self.queue.count)
             }
         }
     }
@@ -645,15 +645,14 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
     //MARK: Table View
 
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return Int(queue.count)
+        return queue.count
     }
 
     private let nameColumn = NSUserInterfaceItemIdentifier(rawValue: "nameColumn")
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let item = queue.item(at: row)
-
         if tableColumn?.identifier == nameColumn {
+            let item = queue.item(at: row)
             let cell = tableView.makeView(withIdentifier: nameColumn, owner: self) as? NSTableCellView
             cell?.textField?.stringValue = item.fileURL.lastPathComponent
 
@@ -671,10 +670,8 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
             case .ready:
                 cell?.imageView?.image = docImg
             }
-
             return cell
         }
-
         return nil
     }
 
@@ -719,13 +716,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
     }
 
     @IBAction func removeCompletedItems(_ sender: Any?) {
-        let indexes = queue.indexesOfItems(with: .completed)
-
-        if indexes.isEmpty == false {
-            table.removeRows(at: indexes, withAnimation: .slideUp)
-            queue.remove(at: indexes)
-            updateState()
-        }
+        remove(at: queue.indexesOfItems(with: .completed))
     }
 
     //MARK: Drag & Drop
@@ -760,11 +751,9 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         } else {
 
             if pboard.types?.contains(NSPasteboard.PasteboardType.backwardsCompatibleFileURL) ?? false {
-
                 if let items = pboard.readObjects(forClasses: [NSURL.classForCoder()], options: [:]) as? [URL] {
-                    addItemsFrom(urls: items, at: row)
+                    insert(contentOf: items, at: row)
                 }
-
                 return true
             }
         }

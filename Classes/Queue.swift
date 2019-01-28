@@ -69,20 +69,81 @@ class Queue {
         }
     }
 
+    private enum ProcessResult {
+        case completed
+        case failed
+        case cancelled
+    }
+
+    private func process(_ item: QueueItem) -> ProcessResult {
+        return autoreleasepool { () -> ProcessResult in
+            self.arrayQueue.sync {
+                self.currentItem = currentItem
+            }
+
+            let index = self.index(of: item)
+            item.status = .working
+            item.delegate = self
+
+            defer {
+                item.delegate = nil
+                self.arrayQueue.sync {
+                    self.currentItem = nil
+                }
+            }
+
+            self.handleSBStatusWorking(progress: 0, index: index)
+            do {
+                try item.process()
+
+                var cancelled = false
+                self.arrayQueue.sync {
+                    cancelled = self.cancelled
+                }
+
+                if cancelled {
+                    item.status = .cancelled
+                    self.handleSBStatusCancelled()
+                    return .cancelled
+                } else {
+                    item.status = .completed
+                    self.handleSBStatusWorking(progress: 100, index: index)
+                    return .completed
+                }
+            } catch {
+                item.status = .failed
+                self.handleSBStatusFailed(error: error)
+
+                var cancelled = false
+                self.arrayQueue.sync {
+                    cancelled = self.cancelled
+                }
+
+                if cancelled {
+                    self.handleSBStatusCancelled()
+                    return .cancelled
+                } else {
+                    return .failed
+                }
+            }
+        }
+    }
+
     /// Starts the queue.
     func start() {
+        var shouldStart = false
         arrayQueue.sync {
-            if self.statusInternal == .working || self.cancelled {
-                return
-            } else {
+            if self.statusInternal != .working {
+                shouldStart = true
                 self.statusInternal = .working
+                self.cancelled = false
             }
+        }
+        if shouldStart == false {
+            return
         }
 
         workQueue.async {
-            self.arrayQueue.sync {
-                self.cancelled = false
-            }
             self.disableSleep()
 
             var completed: UInt = 0
@@ -92,55 +153,14 @@ class Queue {
                 try? self.saveToDisk()
 
                 if let currentItem = self.firstItemInQueue {
-                    self.arrayQueue.sync {
-                        self.currentItem = currentItem
-                    }
-
-                    let currentIndex = self.index(of: currentItem)
-                    currentItem.status = .working
-                    currentItem.delegate = self
-
-                    self.handleSBStatusWorking(progress: 0, index: currentIndex)
-                    do {
-                        try currentItem.process()
-
-                        var cancelled = false
-                        self.arrayQueue.sync {
-                            cancelled = self.cancelled
-                        }
-
-                        if cancelled {
-                            currentItem.status = .cancelled
-                            self.handleSBStatusCancelled()
-                            break
-                        } else {
-                            currentItem.status = .completed
-                            completed += 1
-                        }
-
-                        self.handleSBStatusWorking(progress: 100, index: currentIndex)
-
-                    } catch {
-                        currentItem.status = .failed
+                    let result = self.process(currentItem)
+                    if .completed == result {
+                        completed += 1
+                    } else if .failed == result {
                         failed += 1
-                        self.handleSBStatusFailed(error: error)
-
-                        var cancelled = false
-                        self.arrayQueue.sync {
-                            cancelled = self.cancelled
-                        }
-
-                        if cancelled {
-                            self.handleSBStatusCancelled()
-                            break
-                        }
+                    } else if .cancelled == result {
+                        break
                     }
-
-                    currentItem.delegate = nil
-                    self.arrayQueue.sync {
-                        self.currentItem = nil
-                    }
-
                 } else {
                     break
                 }
@@ -197,9 +217,7 @@ class Queue {
         get {
             var first: QueueItem?
             arrayQueue.sync {
-                first = items.first(where: { (item) -> Bool in
-                    return item.status != .completed && item.status != .failed
-                })
+                first = items.first(where: { $0.status == .ready })
                 first?.status = .working
             }
             return first
