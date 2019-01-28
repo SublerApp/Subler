@@ -273,12 +273,12 @@ class TracksViewController: NSViewController, NSTableViewDataSource, NSTableView
                    row: Int,
                    dropOperation: NSTableView.DropOperation) -> Bool {
         let data: Data = info.draggingPasteboard.data(forType: pasteboardType)!
-        let rowIndexes: IndexSet = NSKeyedUnarchiver.unarchiveObject(with: data) as! IndexSet
+        if let rowIndexes: IndexSet = NSKeyedUnarchiver.unarchiveObject(with: data) as? IndexSet, rowIndexes.isEmpty == false {
 
-        if let dragRow = rowIndexes.first {
-            mp4.moveTrack(at: UInt(dragRow - 1), to: UInt(row - 1))
+            let tracks = mp4.tracks.enumerated().filter { rowIndexes.contains($0.offset + 1)} .map { $0.element }
+            mp4.moveTracks(tracks, to: UInt(row - 1))
+
             tableView.reloadData()
-            // TODO: Support multiple rows drag
             return true
         }
 

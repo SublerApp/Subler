@@ -255,6 +255,12 @@ class Queue {
         }
     }
 
+    func swapAt(_ i: Int, _ j: Int) {
+        arrayQueue.sync {
+            items.swapAt(i, j)
+        }
+    }
+
     func remove(_ item: SBQueueItem) {
         arrayQueue.sync {
             if let index = items.firstIndex(of: item) {

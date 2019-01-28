@@ -387,7 +387,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
 
         for item in items.reversed() {
             let sourceIndex = queue.index(of: item)
-            queue.remove(at: IndexSet(integer: IndexSet.Element(sourceIndex)))
+            queue.remove(at: IndexSet(integer: sourceIndex))
 
             if sourceIndex < currentIndex {
                 currentIndex -= 1
@@ -398,7 +398,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
             source.append(currentIndex)
             dest.append(sourceIndex)
 
-            table.moveRow(at: Int(sourceIndex), to: Int(currentIndex))
+            table.moveRow(at: sourceIndex, to: currentIndex)
         }
 
         table.endUpdates()
@@ -424,8 +424,8 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
             newSource.append(destIndex)
             newDest.append(sourceIndex)
 
-            if let item = queue.items(at: IndexSet(integer: IndexSet.Element(sourceIndex))).first {
-                queue.remove(at: IndexSet(integer: IndexSet.Element(sourceIndex)))
+            if let item = queue.items(at: IndexSet(integer: sourceIndex)).first {
+                queue.remove(at: IndexSet(integer: sourceIndex))
                 queue.insert(item, at: destIndex)
 
                 table.moveRow(at: sourceIndex, to: destIndex)
