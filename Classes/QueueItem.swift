@@ -113,15 +113,19 @@ class QueueItem: NSObject, NSSecureCoding {
     }
 
     func addAction(_ action: QueueActionProtocol) {
+        willChangeValue(for: \.actions)
         queue.sync {
             actionsInternal.append(action)
         }
+        didChangeValue(for: \.actions)
     }
 
     func removeAction(at index: Int) {
+        willChangeValue(for: \.actions)
         _ = queue.sync {
             actionsInternal.remove(at: index)
         }
+        didChangeValue(for: \.actions)
     }
 
     // MARK: Item processing
@@ -292,8 +296,7 @@ class QueueItem: NSObject, NSSecureCoding {
 
         guard let mp4 = mp4File else { return }
 
-        weak var weakSelf = self
-        mp4.progressHandler = { (progress) in weakSelf?.delegate?.updateProgress(progress) }
+        mp4.progressHandler = { [weak self] in self?.delegate?.updateProgress($0) }
 
         // Check if there is enough space on the destination disk
         if filePathURL != destURL {
@@ -313,13 +316,12 @@ class QueueItem: NSObject, NSSecureCoding {
             }
         }
 
-        // Optimize the file
         if cancelled == false {
-            if let action = actions.first(where: { $0.type == .post }) {
+            for action in actions.filter( { $0.type == .post }) {
                 localizedWorkingDescription = action.localizedDescription
                 delegate?.updateProgress(0)
                 let result = action.runAction(self)
-                if result == false {
+                if result == false, let _ = action as? QueueOptimizeAction {
                     throw ProcessError.optimizationFailure
                 }
             }

@@ -25,6 +25,7 @@ class Queue {
 
     private var cancelled: Bool
     private var currentItem: QueueItem?
+    private var currentIndex: Int
 
     private let url: URL
 
@@ -38,6 +39,7 @@ class Queue {
         url = queueURL
         statusInternal = .unknown
         cancelled = false
+        currentIndex = -1
 
         workQueue = DispatchQueue(label: "org.subler.WorkQueue")
         arrayQueue = DispatchQueue(label: "org.subler.SaveQueue")
@@ -77,11 +79,13 @@ class Queue {
 
     private func process(_ item: QueueItem) -> ProcessResult {
         return autoreleasepool { () -> ProcessResult in
+            let index = self.index(of: item)
+
             self.arrayQueue.sync {
-                self.currentItem = currentItem
+                self.currentItem = item
+                self.currentIndex = index
             }
 
-            let index = self.index(of: item)
             item.status = .working
             item.delegate = self
 
@@ -89,6 +93,7 @@ class Queue {
                 item.delegate = nil
                 self.arrayQueue.sync {
                     self.currentItem = nil
+                    self.currentIndex = -1
                 }
             }
 
@@ -319,7 +324,11 @@ class Queue {
     // MARK: Notifications
 
     func updateProgress(_ progress: Double) {
-        handleSBStatusWorking(progress: progress, index: -1)
+        var currentIndex = -1
+        arrayQueue.sync {
+            currentIndex = self.currentIndex
+        }
+        handleSBStatusWorking(progress: progress, index: currentIndex)
     }
 
     /// Processes SBQueueStatusWorking state information. Current implementation just

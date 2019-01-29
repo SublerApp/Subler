@@ -58,7 +58,9 @@ class ItemViewController : NSViewController {
             guard let s = self, let newCount = change.newValue?.count else { return }
             let count = newCount - (change.oldValue?.count ?? 0)
             let height = 16.0 * CGFloat(count >= 0 ? count : 1)
-            s.tableHeight.constant = height
+            DispatchQueue.main.async {
+                s.tableHeight.constant = height
+            }
         }
     }
 
