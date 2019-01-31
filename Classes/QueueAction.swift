@@ -451,12 +451,30 @@ class QueueClearTrackNameAction : NSObject, QueueActionProtocol {
 }
 
 enum QueueColorSpaceActionTag: UInt16 {
-    case SBQueueColorSpaceActionTagNone = 1
-    case SBQueueColorSpaceActionTagRec601PAL
-    case SBQueueColorSpaceActionTagRec601SMPTEC
-    case SBQueueColorSpaceActionTagRec709
-    case SBQueueColorSpaceActionTagRec2020
-    case SBQueueColorSpaceActionTagRec2100PQ
+    case None = 1
+    case Rec601PAL
+    case Rec601SMPTEC
+    case Rec709
+    case Rec2020
+    case Rec2100PQ
+
+    func tagValues() -> (colorPrimaries: UInt16, transferCharacteristics: UInt16, matrixCoefficients: UInt16) {
+        switch self {
+        case .None:
+            return (0, 0, 0)
+        case .Rec601PAL:
+            return (5, 1, 6)
+        case .Rec601SMPTEC:
+            return (6, 1, 6)
+        case .Rec709:
+            return (1, 1, 1)
+        case .Rec2020:
+            return (9, 1, 9)
+        case .Rec2100PQ:
+            return (9, 16, 9)
+        }
+    }
+
 }
 
 /// An action that set the video track color space.
@@ -466,37 +484,10 @@ class QueueColorSpaceAction : NSObject, QueueActionProtocol {
     var localizedDescription: String { return NSLocalizedString("Setting color space", comment: "Set track color space action local description") }
     override var description: String { return NSLocalizedString("Set color space", comment: "Set track color space action description") }
 
-    let colorPrimaries: UInt16;
-    let transferCharacteristics: UInt16;
-    let matrixCoefficients: UInt16;
+    let tag: QueueColorSpaceActionTag;
 
     init(tag: QueueColorSpaceActionTag) {
-        switch tag {
-        case .SBQueueColorSpaceActionTagNone:
-            self.colorPrimaries = 0
-            self.transferCharacteristics = 0
-            self.matrixCoefficients = 0
-        case .SBQueueColorSpaceActionTagRec601PAL:
-            self.colorPrimaries = 5
-            self.transferCharacteristics = 1
-            self.matrixCoefficients = 6
-        case .SBQueueColorSpaceActionTagRec601SMPTEC:
-            self.colorPrimaries = 6
-            self.transferCharacteristics = 1
-            self.matrixCoefficients = 6
-        case .SBQueueColorSpaceActionTagRec709:
-            self.colorPrimaries = 1
-            self.transferCharacteristics = 1
-            self.matrixCoefficients = 1
-        case .SBQueueColorSpaceActionTagRec2020:
-            self.colorPrimaries = 9
-            self.transferCharacteristics = 1
-            self.matrixCoefficients = 9
-        case .SBQueueColorSpaceActionTagRec2100PQ:
-            self.colorPrimaries = 9
-            self.transferCharacteristics = 16
-            self.matrixCoefficients = 9
-        }
+        self.tag = tag
     }
 
     func runAction(_ item: QueueItem) -> Bool {
@@ -506,9 +497,10 @@ class QueueColorSpaceAction : NSObject, QueueActionProtocol {
                     track.format == kMP42VideoCodecType_HEVC ||
                     track.format == kMP42VideoCodecType_HEVC_PSinBitstream ||
                     track.format == kMP42VideoCodecType_MPEG4Video {
-                    track.colorPrimaries = colorPrimaries;
-                    track.transferCharacteristics = transferCharacteristics;
-                    track.matrixCoefficients = matrixCoefficients;
+                    let values = tag.tagValues()
+                    track.colorPrimaries = values.colorPrimaries;
+                    track.transferCharacteristics = values.transferCharacteristics;
+                    track.matrixCoefficients = values.matrixCoefficients;
                 }
             }
             return true
@@ -517,15 +509,11 @@ class QueueColorSpaceAction : NSObject, QueueActionProtocol {
     }
 
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(Int32(colorPrimaries), forKey: "SBQueueColorSpaceActionColorPrimaries")
-        aCoder.encode(Int32(transferCharacteristics), forKey: "SBQueueColorSpaceActionTransferCharacteristics")
-        aCoder.encode(Int32(matrixCoefficients), forKey: "SBQueueColorSpaceActionMatrixCoefficients")
+        aCoder.encode(Int32(tag.rawValue), forKey: "SBQueueColorSpaceActionTag")
     }
 
     required init?(coder aDecoder: NSCoder) {
-        self.colorPrimaries = UInt16(aDecoder.decodeInt32(forKey: "SBQueueColorSpaceActionColorPrimaries"))
-        self.transferCharacteristics = UInt16(aDecoder.decodeInt32(forKey: "SBQueueColorSpaceActionTransferCharacteristics"))
-        self.matrixCoefficients = UInt16(aDecoder.decodeInt32(forKey: "SBQueueColorSpaceActionMatrixCoefficients"))
+        self.tag = QueueColorSpaceActionTag(rawValue: UInt16(aDecoder.decodeInt32(forKey: "SBQueueColorSpaceActionTag"))) ?? .Rec709
     }
 
     static var supportsSecureCoding: Bool { return true }
@@ -558,9 +546,17 @@ class QueueSendToiTunesAction: NSObject, QueueActionProtocol {
     override init() {}
 
     func runAction(_ item: QueueItem) -> Bool {
-        let workspace = NSWorkspace.shared
-        if let appPath = workspace.fullPath(forApplication: "iTunes") {
-            return workspace.openFile(item.destURL.path, withApplication: appPath)
+
+        if let script = NSAppleScript(source: """
+            tell application "iTunes" to add (POSIX file "\(item.destURL.path)")
+            """) {
+
+            let result = automationConsent(bundleIdentifier: "com.apple.iTunes", promptIfNeeded: true)
+            if result == .granted {
+                var error: NSDictionary?
+                script.executeAndReturnError(&error)
+                return true
+            }
         }
 
         return false

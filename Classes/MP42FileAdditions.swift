@@ -16,16 +16,6 @@ private extension String {
     }
 }
 
-extension NSPasteboard.PasteboardType {
-    static let backwardsCompatibleFileURL: NSPasteboard.PasteboardType = {
-        if #available(OSX 10.13, *) {
-            return NSPasteboard.PasteboardType.fileURL
-        } else {
-            return NSPasteboard.PasteboardType(kUTTypeFileURL as String)
-        }
-    } ()
-}
-
 extension MP42File {
 
     enum TrackHDType : Int {

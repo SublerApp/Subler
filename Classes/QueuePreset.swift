@@ -10,7 +10,7 @@ import Foundation
 class QueuePreset: Preset {
 
     var title: String
-    let options: [String:Any]
+    let options: [String : Any]
 
     let version: Int
     var changed: Bool
@@ -19,7 +19,7 @@ class QueuePreset: Preset {
         return "sbqueuepreset"
     }
 
-    init(title: String, options: [String:Any]) {
+    init(title: String, options: [String : Any]) {
         self.title = title
         self.options = options
         self.changed = true

@@ -46,6 +46,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
             fatalError("Invalid queue url")
         }
         super.init(window: nil)
+        _ = window
     }
 
     required init?(coder: NSCoder) {
@@ -264,8 +265,8 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
         if prefs.fixTrackLanguage {
             item.addAction(QueueSetLanguageAction(language: prefs.fixTrackLanguageValue))
         }
-        if prefs.applyColorSpace {
-            item.addAction(QueueColorSpaceAction(tag: QueueColorSpaceActionTag(rawValue: UInt16(prefs.applyColorSpaceValue))!))
+        if prefs.applyColorSpace, let tag = QueueColorSpaceActionTag(rawValue: UInt16(prefs.applyColorSpaceValue)) {
+            item.addAction(QueueColorSpaceAction(tag: tag))
         }
         if let set = prefs.metadataSet {
             item.addAction(QueueSetAction(preset: set))

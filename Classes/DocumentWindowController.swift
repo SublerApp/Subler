@@ -264,9 +264,16 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
     private var sheetController: NSWindowController?
 
     @IBAction func sendToExternalApp(_ sender: Any) {
-        let workspace = NSWorkspace.shared
-        if let filePath = doc.fileURL?.path, let appPath = workspace.fullPath(forApplication: "iTunes") {
-            workspace.openFile(filePath, withApplication: appPath)
+
+        if let filePath = doc.fileURL?.path, let script = NSAppleScript(source: """
+            tell application "iTunes" to add (POSIX file "\(filePath)")
+            """) {
+
+            let result = automationConsent(bundleIdentifier: "com.apple.iTunes", promptIfNeeded: true)
+            if result == .granted {
+                var error: NSDictionary?
+                script.executeAndReturnError(&error)
+            }
         }
     }
 
