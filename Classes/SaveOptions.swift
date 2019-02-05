@@ -61,7 +61,7 @@ class SaveOptions: NSViewController {
         _64bit_time.state = UserDefaults.standard.bool(forKey: "mp464bitTimes") ? .on : .off
         optimize.state = UserDefaults.standard.bool(forKey: "mp4SaveAsOptimize") ? .on : .off
 
-        if doc.mp4.dataSize > 4000000000 {
+        if doc.mp4.dataSize > 3900000000 {
             _64bit_data.state = .on
         }
     }
