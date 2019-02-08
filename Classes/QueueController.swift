@@ -475,7 +475,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
                     }
                 }
             }
-            items.sort { return $0.fileURL.lastPathComponent.localizedCompare($1.fileURL.lastPathComponent) == ComparisonResult.orderedAscending }
+            items.sort { return $0.fileURL.lastPathComponent.localizedStandardCompare($1.fileURL.lastPathComponent) == ComparisonResult.orderedAscending }
         } else if supportedFileFormats.contains(url.pathExtension.lowercased()) {
             items.append(createItem(url: url))
         }
@@ -484,7 +484,7 @@ class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate,
     }
 
     func insert(contentOf urls: [URL], at index: Int) {
-        let sorted = urls.sorted(by: { return $0.lastPathComponent.localizedCompare($1.lastPathComponent) == ComparisonResult.orderedAscending })
+        let sorted = urls.sorted(by: { return $0.lastPathComponent.localizedStandardCompare($1.lastPathComponent) == ComparisonResult.orderedAscending })
         let result = sorted.flatMap { items(contentOf: $0) }
         add(result, at: index)
     }

@@ -85,7 +85,7 @@ final class PresetManager {
     }
 
     private func sort() {
-        presets.sort { return $0.title.localizedCompare($1.title) == ComparisonResult.orderedAscending }
+        presets.sort { return $0.title.localizedStandardCompare($1.title) == ComparisonResult.orderedAscending }
     }
 
     private func postNotification() {
