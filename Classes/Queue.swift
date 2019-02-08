@@ -42,13 +42,17 @@ class Queue {
         workQueue = DispatchQueue(label: "org.subler.WorkQueue")
         arrayQueue = DispatchQueue(label: "org.subler.SaveQueue")
 
-        if let data = try? Data(contentsOf: url) {
+        do {
+            let data = try Data(contentsOf: url)
             let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
             unarchiver.requiresSecureCoding = true
-
-            items = unarchiver.decodeObject(of: [NSArray.classForCoder(), NSMutableArray.classForCoder(), QueueItem.classForCoder()], forKey: NSKeyedArchiveRootObjectKey) as! [QueueItem]
+            if let decodedItems = try unarchiver.decodeTopLevelObject(of: [NSArray.classForCoder(), NSMutableArray.classForCoder(), QueueItem.classForCoder()], forKey: NSKeyedArchiveRootObjectKey) as? [QueueItem] {
+                items = decodedItems
+            } else {
+                items = Array()
+            }
             unarchiver.finishDecoding()
-        } else {
+        } catch {
             items = Array()
         }
 
