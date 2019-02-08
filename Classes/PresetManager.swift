@@ -132,13 +132,13 @@ final class PresetManager {
             unarchiver.requiresSecureCoding = true
             defer { unarchiver.finishDecoding() }
 
-            if version == 1, let preset = unarchiver.decodeObject(of: [MP42Metadata.self], forKey: NSKeyedArchiveRootObjectKey) as? MP42Metadata {
+            if version == 1, let preset = try? unarchiver.decodeTopLevelObject(of: [MP42Metadata.self], forKey: NSKeyedArchiveRootObjectKey) as? MP42Metadata {
                 let newPreset = MetadataPreset(title: preset.presetName, metadata: preset, replaceArtworks: true, replaceAnnotations: false)
                 try migratePreset(at: fileURL)
                 try save(preset: newPreset)
                 return newPreset
             }
-            else if let preset = unarchiver.decodeObject(of: [MetadataPreset.self], forKey: NSKeyedArchiveRootObjectKey) as? MetadataPreset {
+            else if let preset = try? unarchiver.decodeTopLevelObject(of: [MetadataPreset.self], forKey: NSKeyedArchiveRootObjectKey) as? MetadataPreset {
                 return preset
             }
         }

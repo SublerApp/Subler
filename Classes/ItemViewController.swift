@@ -15,10 +15,10 @@ class ItemViewController : NSViewController {
 
     @objc let item: QueueItem
 
-    var delegate: ItemViewDelegate
+    private var delegate: ItemViewDelegate
 
-    var statusObserver: NSKeyValueObservation?
-    var actionsObserver: NSKeyValueObservation?
+    private var statusObserver: NSKeyValueObservation?
+    private var actionsObserver: NSKeyValueObservation?
 
     @IBOutlet var editButton: NSButton!
     @IBOutlet var spinner: NSProgressIndicator!

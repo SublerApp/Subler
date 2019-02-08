@@ -19,8 +19,23 @@ class QueueItem: NSObject, NSSecureCoding {
         case cancelled
     }
 
+    private var destURLInternal: URL
+
     @objc dynamic let fileURL: URL
-    @objc dynamic var destURL: URL
+    @objc dynamic var destURL: URL {
+        get {
+            var result: URL = fileURL
+            queue.sync {
+                result = destURLInternal
+            }
+            return result
+        }
+        set (value) {
+            queue.sync {
+                destURLInternal = value
+            }
+        }
+    }
 
     var mp4File: MP42File?
     var localizedWorkingDescription: String?
@@ -42,7 +57,7 @@ class QueueItem: NSObject, NSSecureCoding {
         attributes = [:]
         cancelled = false
         self.fileURL = fileURL
-        self.destURL = destURL
+        self.destURLInternal = destURL
         queue = DispatchQueue(label: "org.subler.itemQueue")
     }
 
@@ -383,7 +398,7 @@ class QueueItem: NSObject, NSSecureCoding {
         uniqueID = aDecoder.decodeObject(of: [NSString.classForCoder()], forKey: "SBQueueItemID") as! String
         attributes = aDecoder.decodeObject(of: [NSDictionary.classForCoder()], forKey: "SBQueueItemAttributes") as! [String : Any]
         fileURL = aDecoder.decodeObject(of: [NSURL.classForCoder()], forKey: "SBQueueItemFileURL") as! URL
-        destURL = aDecoder.decodeObject(of: [NSURL.classForCoder()], forKey: "SBQueueItemDestURL") as! URL
+        destURLInternal = aDecoder.decodeObject(of: [NSURL.classForCoder()], forKey: "SBQueueItemDestURL") as! URL
         actionsInternal = aDecoder.decodeObject(of: [NSArray.classForCoder(), QueueSetAction.classForCoder(),
                                                      QueueMetadataAction.classForCoder(), QueueSubtitlesAction.classForCoder(),
                                                      QueueSetLanguageAction.classForCoder(), QueueFixFallbacksAction.classForCoder(),
