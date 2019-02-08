@@ -25,7 +25,6 @@ class Queue {
 
     private var cancelled: Bool
     private var currentItem: QueueItem?
-    private var currentIndex: Int
 
     private let url: URL
 
@@ -39,7 +38,6 @@ class Queue {
         url = queueURL
         statusInternal = .unknown
         cancelled = false
-        currentIndex = -1
 
         workQueue = DispatchQueue(label: "org.subler.WorkQueue")
         arrayQueue = DispatchQueue(label: "org.subler.SaveQueue")
@@ -79,11 +77,8 @@ class Queue {
 
     private func process(_ item: QueueItem) -> ProcessResult {
         return autoreleasepool { () -> ProcessResult in
-            let index = self.index(of: item)
-
             self.arrayQueue.sync {
                 self.currentItem = item
-                self.currentIndex = index
             }
 
             item.status = .working
@@ -93,11 +88,10 @@ class Queue {
                 item.delegate = nil
                 self.arrayQueue.sync {
                     self.currentItem = nil
-                    self.currentIndex = -1
                 }
             }
 
-            self.handleSBStatusWorking(progress: 0, index: index)
+            self.handleSBStatusWorking(progress: 0, index: self.index(of: item))
             do {
                 try item.process()
 
@@ -112,7 +106,7 @@ class Queue {
                     return .cancelled
                 } else {
                     item.status = .completed
-                    self.handleSBStatusWorking(progress: 100, index: index)
+                    self.handleSBStatusWorking(progress: 100, index: self.index(of: item))
                     return .completed
                 }
             } catch {
@@ -324,18 +318,14 @@ class Queue {
     // MARK: Notifications
 
     func updateProgress(_ progress: Double) {
-        var currentIndex = -1
-        arrayQueue.sync {
-            currentIndex = self.currentIndex
-        }
-        handleSBStatusWorking(progress: progress, index: currentIndex)
+        handleSBStatusWorking(progress: progress, index: -1)
     }
 
     /// Processes SBQueueStatusWorking state information. Current implementation just
     /// sends SBQueueWorkingNotification.
     private func handleSBStatusWorking(progress: Double, index: Int) {
         let itemDescription = currentItem?.localizedWorkingDescription ?? NSLocalizedString("Working", comment: "Queue Working.")
-        let info = String.localizedStringWithFormat(NSLocalizedString("%@, item %ld.", comment: ""), itemDescription, index + 1)
+        let info = String.localizedStringWithFormat(NSLocalizedString("%@.", comment: ""), itemDescription)
 
         NotificationCenter.default.post(name: Queue.Working, object: self, userInfo: ["ProgressString": info, "Progress": progress, "ItemIndex": index])
     }
