@@ -15,17 +15,10 @@ private func monospaceAttributes(size: CGFloat, aligment: NSTextAlignment, headI
     ps.headIndent = headIndent
     ps.alignment = aligment
     
-    if #available(macOS 10.11, *) {
-        return [NSAttributedString.Key.font: NSFont.monospacedDigitSystemFont(ofSize: size,
-                                                                             weight: bold ? NSFont.Weight.bold : NSFont.Weight.regular),
-                NSAttributedString.Key.paragraphStyle: ps,
-                NSAttributedString.Key.foregroundColor: color]
-    }
-    else {
-        return [NSAttributedString.Key.font: bold ? NSFont.boldSystemFont(ofSize: size) : NSFont.systemFont(ofSize: size),
-                NSAttributedString.Key.paragraphStyle: ps,
-                NSAttributedString.Key.foregroundColor: color]
-    }
+    return [NSAttributedString.Key.font: NSFont.monospacedDigitSystemFont(ofSize: size,
+                                                                            weight: bold ? NSFont.Weight.bold : NSFont.Weight.regular),
+            NSAttributedString.Key.paragraphStyle: ps,
+            NSAttributedString.Key.foregroundColor: color]
 }
 
 private let detailBoldMonospacedAttr = { () -> [NSAttributedString.Key : Any] in

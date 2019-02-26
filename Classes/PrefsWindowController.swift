@@ -123,14 +123,10 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
 
         if window.isVisible && animate {
             NSAnimationContext.runAnimationGroup({ context in
-                if #available(OSX 10.11, *) {
-                    context.allowsImplicitAnimation = true
-                    context.duration = duration
-                }
-                else {
-                    context.duration = 0
-                }
+                context.allowsImplicitAnimation = true
+                context.duration = duration
                 window.layoutIfNeeded()
+
                 NSAnimationContext.beginGrouping()
                 NSAnimationContext.current.duration = 0
                 view.isHidden = true

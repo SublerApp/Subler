@@ -221,7 +221,6 @@ class ArtworkSelectorViewItemView: NSView {
 
 }
 
-@available(OSX 10.11, *)
 class ArtworkSelectorViewItem: NSCollectionViewItem {
 
     // MARK: Properties

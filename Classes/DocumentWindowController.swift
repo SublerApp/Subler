@@ -50,9 +50,7 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
             window.setContentSize(NSSize(width: 690, height: 510))
         }
 
-        if #available(OSX 10.11, *) {} else {
-            splitViewController.splitView.setPosition(160, ofDividerAt: 0)
-        }
+        splitViewController.splitView.setPosition(160, ofDividerAt: 0)
 
         didSelect(tracks: [])
     }
@@ -68,17 +66,13 @@ class DocumentWindowController: NSWindowController, TracksViewControllerDelegate
         splitViewController.splitView.dividerStyle = NSSplitView.DividerStyle.thick
 
         let tracksSplitViewItem = NSSplitViewItem(viewController: tracksViewController)
-        if #available(OSX 10.11, *) {
-            tracksSplitViewItem.minimumThickness = 100
-        }
+        tracksSplitViewItem.minimumThickness = 100
 
         splitViewController.addSplitViewItem(tracksSplitViewItem)
 
         let detailsSplitViewItem = NSSplitViewItem(viewController: DetailsViewController())
         detailsSplitViewItem.canCollapse = true
-        if #available(OSX 10.11, *) {
-            detailsSplitViewItem.minimumThickness = 320
-        }
+        detailsSplitViewItem.minimumThickness = 320
 
         splitViewController.addSplitViewItem(detailsSplitViewItem)
 

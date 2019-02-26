@@ -33,21 +33,28 @@ import Quartz
     override init(frame frameRect: NSRect) {
         pasteboardTypes = Array()
         super.init(frame: frameRect)
-        if #available(OSX 10.14, *) {
-            updateBackgroundColor()
-        }
+        updateBackgroundColor()
     }
 
     required init?(coder: NSCoder) {
         pasteboardTypes = Array()
         super.init(coder: coder)
-        if #available(OSX 10.14, *) {
-            updateBackgroundColor()
-        }
+        updateBackgroundColor()
+    }
+
+    override func viewDidChangeEffectiveAppearance() {
+        updateBackgroundColor()
     }
 
     private func updateBackgroundColor() {
-        setValue(NSColor.clear, forKey: IKImageBrowserBackgroundColorKey)
+        if #available(OSX 10.14, *) {
+            let dark = effectiveAppearance.bestMatch(from: [.darkAqua]) == .darkAqua ? true : false
+            if dark {
+                setValue(NSColor.clear, forKey: IKImageBrowserBackgroundColorKey)
+            } else {
+                setValue(NSColor.white, forKey: IKImageBrowserBackgroundColorKey)
+            }
+        }
     }
 
     private func implements(selector: Selector) -> Bool {

@@ -258,7 +258,6 @@ class ArtworkSelectorControllerOldStyle: NSWindowController, ArtworkImageObjectD
 
 }
 
-@available(OSX 10.11, *)
 class CollectionView : NSCollectionView {
     override func keyDown(with event: NSEvent) {
         guard let key = event.charactersIgnoringModifiers?.utf16.first else { super.keyDown(with: event); return }
@@ -285,7 +284,6 @@ class CollectionView : NSCollectionView {
 }
 
 
-@available(OSX 10.11, *)
 class ArtworkSelectorController: NSWindowController, NSCollectionViewDataSource, NSCollectionViewDelegate, ArtworkImageObjectDelegate {
 
     @IBOutlet var imageBrowser: NSCollectionView!
