@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class EmptyViewController: NSViewController {
+final class EmptyViewController: NSViewController {
 
     override var nibName: NSNib.Name? {
         return "EmptyView"

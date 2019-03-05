@@ -7,7 +7,7 @@
 
 import Foundation
 
-class QueuePreferences: NSObject {
+final class QueuePreferences: NSObject {
 
     static private let SBQueueFileType: String = "SBQueueFileType"
     static private let SBQueueOrganize: String = "SBQueueOrganize"

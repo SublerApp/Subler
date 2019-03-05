@@ -7,6 +7,6 @@
 
 import Cocoa
 
-class CheckBoxCellView : NSTableCellView {
+final class CheckBoxCellView : NSTableCellView {
     @IBOutlet var checkboxButton: NSButton!
 }

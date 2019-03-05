@@ -11,7 +11,7 @@ protocol ProgressViewControllerDelegate : AnyObject {
     func cancel()
 }
 
-class ProgressViewController: NSViewController {
+final class ProgressViewController: NSViewController {
 
     @IBOutlet var cancelButton: NSButton!
     @IBOutlet var progressString: NSTextField!

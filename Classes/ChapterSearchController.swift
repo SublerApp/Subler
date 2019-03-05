@@ -12,7 +12,7 @@ protocol ChapterSearchControllerDelegate : AnyObject {
     func didSelect(chapters: [MP42TextSample])
 }
 
-class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+final class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
 
     @IBOutlet var searchTitle: NSTextField!
 

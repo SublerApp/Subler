@@ -12,7 +12,7 @@ import Quartz
     @objc(pasteToImageBrowserView:) optional func paste(to imagebrowserview: ImageBrowserView)
 }
 
-@objc(SBImageBrowserView) class ImageBrowserView : IKImageBrowserView, NSMenuItemValidation {
+@objc(SBImageBrowserView) final class ImageBrowserView : IKImageBrowserView, NSMenuItemValidation {
 
     @objc var pasteboardTypes: [NSPasteboard.PasteboardType]
     var pasteboardHasSupportedType: Bool {

@@ -8,7 +8,7 @@
 import Foundation
 import MP42Foundation
 
-@objc(SBMetadataPreset) class MetadataPreset: NSObject, Preset {
+@objc(SBMetadataPreset) final class MetadataPreset: NSObject, Preset {
 
     var pathExtension: String {
         return "sbpreset2"

@@ -7,6 +7,6 @@
 
 import Foundation
 
-class PopUpCellView : NSTableCellView {
+final class PopUpCellView : NSTableCellView {
     @IBOutlet var popUpButton: NSPopUpButton!
 }

@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-class ChapterViewController : NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+final class ChapterViewController : NSViewController, NSTableViewDataSource, NSTableViewDelegate {
 
     var track: MP42ChapterTrack {
         didSet {

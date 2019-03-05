@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class TokenFieldCell : NSTokenFieldCell {
+final class TokenFieldCell : NSTokenFieldCell {
 
     private var originalBackgroundStyle: NSView.BackgroundStyle = NSView.BackgroundStyle.light
 

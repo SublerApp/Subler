@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class ButtonToolbarItem : NSToolbarItem {
+final class ButtonToolbarItem : NSToolbarItem {
 
     override func validate() {
         if let target = target {

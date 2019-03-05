@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-class DocumentWindowController: NSWindowController, TracksViewControllerDelegate, ChapterSearchControllerDelegate, MetadataSearchControllerDelegate, FileImportControllerDelegate, ProgressViewControllerDelegate, NSDraggingDestination, NSMenuItemValidation, NSToolbarItemValidation {
+final class DocumentWindowController: NSWindowController, TracksViewControllerDelegate, ChapterSearchControllerDelegate, MetadataSearchControllerDelegate, FileImportControllerDelegate, ProgressViewControllerDelegate, NSDraggingDestination, NSMenuItemValidation, NSToolbarItemValidation {
 
     private var doc: Document {
         return document as! Document

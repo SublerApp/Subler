@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate, ItemViewDelegate, NSTableViewDataSource, NSTableViewDelegate, ExpandedTableViewDelegate, NSToolbarItemValidation, NSMenuItemValidation {
+final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate, ItemViewDelegate, NSTableViewDataSource, NSTableViewDelegate, ExpandedTableViewDelegate, NSToolbarItemValidation, NSMenuItemValidation {
 
     static let shared = QueueController()
 

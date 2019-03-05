@@ -88,7 +88,7 @@ class CheckBoxTableCellView: NSTableCellView {
 /// after the user press the OK button.
 ///
 /// Custom media tags are preserved.
-class MediaTagsController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+final class MediaTagsController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
 
     @IBOutlet var tableView: NSTableView!
 

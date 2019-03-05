@@ -8,7 +8,7 @@
 import Foundation
 import IOKit
 
-class Queue {
+final class Queue {
 
     static let Working = NSNotification.Name(rawValue: "QueueWorkingNotification")
     static let Completed = NSNotification.Name(rawValue: "QueueCompletedNotification")
@@ -56,9 +56,7 @@ class Queue {
             items = Array()
         }
 
-        for item in items where item.status == .working {
-            item.status = .failed
-        }
+        items.filter { $0.status == .working } .forEach { $0.status = .failed }
     }
 
     func saveToDisk() throws {

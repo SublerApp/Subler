@@ -12,7 +12,7 @@ protocol FileImportControllerDelegate : AnyObject {
     func didSelect(tracks: [MP42Track], metadata: MP42Metadata?)
 }
 
-class FileImportController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSMenuItemValidation {
+final class FileImportController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSMenuItemValidation {
 
     private enum ItemType {
         case file(MP42FileImporter)

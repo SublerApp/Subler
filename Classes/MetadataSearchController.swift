@@ -12,7 +12,7 @@ protocol MetadataSearchControllerDelegate : AnyObject {
     func didSelect(metadata: MetadataResult)
 }
 
-class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSComboBoxDelegate, NSComboBoxDataSource, NSTextFieldDelegate, ArtworkSelectorControllerDelegate {
+final class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSComboBoxDelegate, NSComboBoxDataSource, NSTextFieldDelegate, ArtworkSelectorControllerDelegate {
 
     @IBOutlet var searchMode: NSTabView!
     @IBOutlet var movieTab: NSTabViewItem!
@@ -414,9 +414,7 @@ class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTab
     }
 
     private func toggleUI(items: [NSControl], state: Bool) {
-        for item in items {
-            item.isEnabled = state
-        }
+        items.forEach { $0.isEnabled = true }
     }
 
     private func disableUI() {

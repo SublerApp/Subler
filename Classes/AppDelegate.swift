@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-class DocumentController : NSDocumentController {
+final class DocumentController : NSDocumentController {
 
     override func openDocument(withContentsOf url: URL, display displayDocument: Bool, completionHandler: @escaping (NSDocument?, Bool, Error?) -> Void) {
         let ext = url.pathExtension.lowercased()
@@ -36,7 +36,7 @@ class DocumentController : NSDocumentController {
 }
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private static func appSupportURL() -> URL {
         let fileManager = FileManager.default

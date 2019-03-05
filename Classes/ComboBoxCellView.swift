@@ -7,6 +7,6 @@
 
 import Cocoa
 
-class ComboBoxCellView : NSTableCellView {
+final class ComboBoxCellView : NSTableCellView {
     @IBOutlet var comboBox: NSComboBox!
 }

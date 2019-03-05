@@ -12,7 +12,7 @@ protocol TracksViewControllerDelegate: AnyObject {
     func didSelect(tracks: [MP42Track])
 }
 
-class TracksViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+final class TracksViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
 
     weak var delegate: TracksViewControllerDelegate?
 

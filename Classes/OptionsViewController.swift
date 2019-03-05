@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-class OptionsViewController: NSViewController, NSMenuItemValidation {
+final class OptionsViewController: NSViewController, NSMenuItemValidation {
 
     @IBOutlet var destButton: NSPopUpButton!
 

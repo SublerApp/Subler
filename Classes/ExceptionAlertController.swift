@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class ExceptionAlertController: NSWindowController {
+final class ExceptionAlertController: NSWindowController {
 
     @IBOutlet var exceptionMessageTextField: NSTextField!
     @IBOutlet var exceptionBacktraceTextView: NSTextView!

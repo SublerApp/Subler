@@ -8,7 +8,7 @@
 import Foundation
 import MP42Foundation
 
-class Logger : NSObject, MP42Logging {
+final class Logger : NSObject, MP42Logging {
 
     var delegate: MP42Logging?
 

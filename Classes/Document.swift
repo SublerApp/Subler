@@ -9,7 +9,7 @@ import Cocoa
 import IOKit.pwr_mgt
 import MP42Foundation
 
-@objc(SBDocument) class Document: NSDocument {
+@objc(SBDocument) final class Document: NSDocument {
 
     private(set) var mp4: MP42File
     private var unsupportedMp4Brand: Bool
@@ -51,7 +51,7 @@ import MP42Foundation
 
     override class func canConcurrentlyReadDocuments(ofType typeName: String) -> Bool { return true }
 
-    override open var isEntireFileLoaded: Bool { get { return false } }
+    override public var isEntireFileLoaded: Bool { get { return false } }
 
     override func read(from url: URL, ofType typeName: String) throws {
         do {

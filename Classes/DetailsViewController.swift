@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class DetailsViewController: NSViewController {
+final class DetailsViewController: NSViewController {
 
     override var nibName: NSNib.Name? {
         return "DetailsViewController"

@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class PresetEditorViewController: SBMovieViewController {
+final class PresetEditorViewController: SBMovieViewController {
 
     let preset: MetadataPreset
     @IBOutlet weak var presetTitle: NSTextField!

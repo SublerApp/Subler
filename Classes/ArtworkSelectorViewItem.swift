@@ -8,7 +8,7 @@
 import Cocoa
 import AVFoundation
 
-class ArtworkSelectorViewItemLabel : NSTextField {
+final class ArtworkSelectorViewItemLabel : NSTextField {
 
     @IBInspectable var highlightColor: NSColor = .alternateSelectedControlColor
     @IBInspectable var highlightTextColor: NSColor = .alternateSelectedControlTextColor
@@ -113,7 +113,7 @@ class ArtworkSelectorViewItemLabel : NSTextField {
     }
 }
 
-class ArtworkSelectorViewItemView: NSView {
+final class ArtworkSelectorViewItemView: NSView {
 
     let imageLayer: CALayer = CALayer()
     let backgroundLayer: CALayer = CALayer()
@@ -221,7 +221,7 @@ class ArtworkSelectorViewItemView: NSView {
 
 }
 
-class ArtworkSelectorViewItem: NSCollectionViewItem {
+final class ArtworkSelectorViewItem: NSCollectionViewItem {
 
     // MARK: Properties
 

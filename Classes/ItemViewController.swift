@@ -11,7 +11,7 @@ protocol ItemViewDelegate: AnyObject {
     func edit(item: QueueItem)
 }
 
-class ItemViewController : NSViewController {
+final class ItemViewController : NSViewController {
 
     @objc let item: QueueItem
 

@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-class SaveOptions: NSViewController {
+final class SaveOptions: NSViewController {
 
     @IBOutlet var fileFormat: NSPopUpButton!
 

@@ -284,7 +284,7 @@ class CollectionView : NSCollectionView {
 }
 
 
-class ArtworkSelectorController: NSWindowController, NSCollectionViewDataSource, NSCollectionViewDelegate, ArtworkImageObjectDelegate {
+final class ArtworkSelectorController: NSWindowController, NSCollectionViewDataSource, NSCollectionViewDelegate, ArtworkImageObjectDelegate {
 
     @IBOutlet var imageBrowser: NSCollectionView!
     @IBOutlet var slider: NSSlider!

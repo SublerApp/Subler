@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-class ActivityWindowController : NSWindowController, MP42Logging {
+final class ActivityWindowController : NSWindowController, MP42Logging {
 
     @IBOutlet var logView: NSTextView!
     let logger: Logger

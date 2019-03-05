@@ -7,7 +7,7 @@
 
 import Foundation
 
-class QueuePreset: Preset {
+final class QueuePreset: Preset {
 
     var title: String
     let options: [String : Any]

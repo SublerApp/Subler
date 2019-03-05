@@ -7,6 +7,6 @@
 
 import Cocoa
 
-class TokenCellView : NSTableCellView {
+final class TokenCellView : NSTableCellView {
     @IBOutlet var tokenView: NSTokenField!
 }

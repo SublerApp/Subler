@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-class OffsetViewController: NSViewController {
+final class OffsetViewController: NSViewController {
 
     private let doc: Document
     private let track: MP42Track

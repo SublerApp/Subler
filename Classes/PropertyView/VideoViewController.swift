@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-class VideoViewController: NSViewController {
+final class VideoViewController: NSViewController {
 
     private let file: MP42File
     var track: MP42VideoTrack {
