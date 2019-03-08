@@ -349,7 +349,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
             undo.setActionName(NSLocalizedString("Add Queue Item", comment: "Queue -> redo add item."))
         }
 
-        if undo.isUndoing || undo.isRedoing {
+        if !(undo.isUndoing || undo.isRedoing) {
             if prefs.autoStart {
                 start(self)
             }
