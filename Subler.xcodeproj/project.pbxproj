@@ -1428,6 +1428,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
+				OTHER_SWIFT_FLAGS = "-DSB_SANDBOX";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.galad.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Subler;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1468,6 +1469,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
+				OTHER_SWIFT_FLAGS = "-DSB_SANDBOX";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.galad.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Subler;
 				PROVISIONING_PROFILE_SPECIFIER = "";

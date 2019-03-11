@@ -20,8 +20,15 @@ final class QueueItem: NSObject, NSSecureCoding {
     }
 
     private var destURLInternal: URL
+    #if SB_SANDBOX
+    private let destURLInternalBookmark: Data?
+    #endif
 
     @objc dynamic let fileURL: URL
+    #if SB_SANDBOX
+    private let fileURLBookmark: Data?
+    #endif
+
     @objc dynamic var destURL: URL {
         get {
             var result: URL = fileURL
@@ -58,6 +65,10 @@ final class QueueItem: NSObject, NSSecureCoding {
         cancelled = false
         self.fileURL = fileURL
         self.destURLInternal = destURL
+        #if SB_SANDBOX
+        fileURLBookmark = nil
+        destURLInternalBookmark = nil
+        #endif
         queue = DispatchQueue(label: "org.subler.itemQueue")
     }
 
@@ -254,6 +265,10 @@ final class QueueItem: NSObject, NSSecureCoding {
             throw ProcessError.fileNotFound
         }
 
+        #if SB_SANDBOX
+        let fileToken = MP42SecurityAccessToken(object: fileURL as NSURL)
+        #endif
+
         if mp4File == nil {
             let value = try? fileURL.resourceValues(forKeys: [URLResourceKey.typeIdentifierKey])
 
@@ -292,16 +307,12 @@ final class QueueItem: NSObject, NSSecureCoding {
         guard let filePathURL = (fileURL as NSURL?)?.filePathURL else { return }
 
         #if SB_SANDBOX
-            destURL?.startAccessingSecurityScopedResource()
+        let destToken = MP42SecurityAccessToken(object: destURL as NSURL)
         #endif
 
         defer {
             mp4File?.progressHandler = nil
             mp4File = nil
-
-            #if SB_SANDBOX
-            destURL?.stopAccessingSecurityScopedResource()
-            #endif
         }
 
         // The file has been added directly to the queue
@@ -310,6 +321,10 @@ final class QueueItem: NSObject, NSSecureCoding {
         }
 
         guard let mp4 = mp4File else { return }
+
+        #if SB_SANDBOX
+        let mp4Token = MP42SecurityAccessToken(object: mp4)
+        #endif
 
         mp4.progressHandler = { [weak self] in self?.delegate?.updateProgress($0) }
 
@@ -381,6 +396,28 @@ final class QueueItem: NSObject, NSSecureCoding {
 
         aCoder.encode(uniqueID, forKey: "SBQueueItemID")
         aCoder.encode(mp4File, forKey: "SBQueueItemMp4File")
+
+        #if SB_SANDBOX
+
+        if let bookmark = fileURLBookmark {
+            aCoder.encode(bookmark, forKey: "SBQueueItemFileURLBookmark")
+        } else {
+            do {
+                let bookmark = try fileURL.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
+                aCoder.encode(bookmark, forKey: "SBQueueItemFileURLBookmark")
+            } catch {
+                print(error)
+            }
+        }
+
+        if let bookmark = destURLInternalBookmark {
+            aCoder.encode(bookmark, forKey: "SBQueueItemDestURLBookmark")
+        } else if let bookmark = try? MP42SecurityAccessToken.bookmark(from: destURLInternal) {
+            aCoder.encode(bookmark, forKey: "SBQueueItemDestURLBookmark")
+        }
+
+
+        #endif
         aCoder.encode(fileURL, forKey: "SBQueueItemFileURL")
         aCoder.encode(destURL, forKey: "SBQueueItemDestURL")
         aCoder.encode(attributes, forKey: "SBQueueItemAttributes")
@@ -397,8 +434,42 @@ final class QueueItem: NSObject, NSSecureCoding {
         mp4File = aDecoder.decodeObject(of: [MP42File.classForCoder()], forKey: "SBQueueItemMp4File") as? MP42File
         uniqueID = aDecoder.decodeObject(of: [NSString.classForCoder()], forKey: "SBQueueItemID") as! String
         attributes = aDecoder.decodeObject(of: [NSDictionary.classForCoder()], forKey: "SBQueueItemAttributes") as! [String : Any]
+
+        #if SB_SANDBOX
+        if var bookmark = aDecoder.decodeObject(of: [NSData.classForCoder()], forKey: "SBQueueItemFileURLBookmark") as? Data {
+            do {
+                var isStale: ObjCBool = false
+                fileURL = try MP42SecurityAccessToken.url(fromBookmark: bookmark, bookmarkDataIsStale: &isStale)
+                if isStale.boolValue == true {
+                    bookmark = try MP42SecurityAccessToken.bookmark(from: fileURL)
+                }
+            } catch {
+                return nil
+            }
+            fileURLBookmark = bookmark
+        } else {
+            return nil
+        }
+
+        if var bookmark = aDecoder.decodeObject(of: [NSData.classForCoder()], forKey: "SBQueueItemDestURLBookmark") as? Data {
+            do {
+                var isStale: ObjCBool = false
+                destURLInternal = try MP42SecurityAccessToken.url(fromBookmark: bookmark, bookmarkDataIsStale: &isStale)
+                if isStale.boolValue == true {
+                    bookmark = try MP42SecurityAccessToken.bookmark(from: destURLInternal)
+                }
+            } catch {
+                return nil
+            }
+            destURLInternalBookmark = bookmark
+        } else {
+            return nil
+        }
+        #else
         fileURL = aDecoder.decodeObject(of: [NSURL.classForCoder()], forKey: "SBQueueItemFileURL") as! URL
         destURLInternal = aDecoder.decodeObject(of: [NSURL.classForCoder()], forKey: "SBQueueItemDestURL") as! URL
+        #endif
+
         actionsInternal = aDecoder.decodeObject(of: [NSArray.classForCoder(), QueueSetAction.classForCoder(),
                                                      QueueMetadataAction.classForCoder(), QueueSubtitlesAction.classForCoder(),
                                                      QueueSetLanguageAction.classForCoder(), QueueFixFallbacksAction.classForCoder(),
