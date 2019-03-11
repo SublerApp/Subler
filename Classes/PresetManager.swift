@@ -43,7 +43,7 @@ final class PresetManager {
     }
 
     private init() {
-        self.presets = Array()
+        self.presets = []
         try? load()
     }
 

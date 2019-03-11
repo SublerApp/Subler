@@ -247,7 +247,7 @@ public struct TheTVDB : MetadataService {
             return result
         }()
 
-        var results: [MetadataResult] = Array()
+        var results: [MetadataResult] = []
 
         for id in seriesIDs {
             guard let info: TVDBSeriesInfo = {
@@ -301,7 +301,7 @@ public struct TheTVDB : MetadataService {
     }
 
     private func loadTVArtwork(seriesID: Int, type: ArtworkType, season: String, language: String) -> [Artwork] {
-        var artworks: [Artwork] = Array()
+        var artworks: [Artwork] = []
         let images: [TVDBImage] = {
             var result = session.fetch(images: seriesID, type: type, language: language)
             if result.count == 0 || language != defaultLanguage {
@@ -332,7 +332,7 @@ public struct TheTVDB : MetadataService {
         guard let id = metadata[.serviceEpisodeID] as? Int else { return metadata }
         guard let seriesId = metadata[.serviceSeriesID] as? Int else { return metadata }
 
-        var artworks: [Artwork] = Array()
+        var artworks: [Artwork] = []
 
         if let info = session.fetch(episodeInfo: id, language: language) {
             metadata[.director]       = cleanList(names: info.directors)

@@ -39,7 +39,6 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         popover = nil
         itemPopover = nil
         windowController = nil
-        QueuePreferences.registerUserDefaults()
         if let url = prefs.queueURL {
             queue = Queue(url: url)
         } else {
@@ -392,8 +391,8 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
 
     private func move(items: [QueueItem], at index: Int) {
         var currentIndex = index
-        var source: [Int] = Array()
-        var dest: [Int] = Array()
+        var source: [Int] = []
+        var dest: [Int] = []
 
         table.beginUpdates()
 
@@ -427,8 +426,8 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     }
 
     private func move(at source: [Int], to dest: [Int]) {
-        var newSource: [Int] = Array()
-        var newDest: [Int] = Array()
+        var newSource: [Int] = []
+        var newDest: [Int] = []
 
         table.beginUpdates()
 
@@ -458,7 +457,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     }
 
     private func items(contentOf url: URL) -> [QueueItem] {
-        var items: [QueueItem] = Array()
+        var items: [QueueItem] = []
         let supportedFileFormats = MP42FileImporter.supportedFileFormats()
 
         let value = try? url.resourceValues(forKeys: [URLResourceKey.isDirectoryKey])

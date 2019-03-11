@@ -109,7 +109,7 @@ public struct TheMovieDB: MetadataService {
     }
 
     private func loadMovieArtworks(result: TMDBMovie) -> [Artwork] {
-        var artworks: [Artwork] = Array()
+        var artworks: [Artwork] = []
 
         // add iTunes artwork
         if let title = result.title, let iTunesMetadata = iTunesStore.quickiTunesSearch(movieName: title) {
@@ -220,7 +220,7 @@ public struct TheMovieDB: MetadataService {
     }
 
     private func loadTVShowArtworks(result: TMDBSeries) -> [Artwork] {
-        var artworks: [Artwork] = Array()
+        var artworks: [Artwork] = []
 
         // Add TheMovieDB artworks
         if let config = session.fetchConfiguration()?.images,
@@ -332,7 +332,7 @@ public struct TheMovieDB: MetadataService {
             return result.isEmpty ? self.searchIDs(seriesName: tvShow, language: defaultLanguage) : result
         }()
 
-        var results: [MetadataResult] = Array()
+        var results: [MetadataResult] = []
 
         for id in seriesIDs {
             guard let info = session.fetch(seriesID: id, language: language) else { continue }
@@ -344,7 +344,7 @@ public struct TheMovieDB: MetadataService {
     }
 
     public func loadTVMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
-        var artworks: [Artwork] = Array()
+        var artworks: [Artwork] = []
 
         if let seriesID = metadata[.serviceSeriesID] as? Int, let episodeID = metadata[.serviceEpisodeID] as? Int,
             let season = metadata[.season] as? Int {

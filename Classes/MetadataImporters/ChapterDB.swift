@@ -93,7 +93,7 @@ public struct ChapterDB : ChapterService {
             let names = try? node.nodes(forXPath: "./*:chapters/*:chapter/@name") else { return nil }
 
         var currentTime: UInt64 = 0
-        var chapters: [Chapter] = Array()
+        var chapters: [Chapter] = []
 
         for (time, name) in zip(times.compactMap { $0.stringValue }, names.compactMap { $0.stringValue }) {
             let timestamp = TimeFromString(time, 1000)

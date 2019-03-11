@@ -133,7 +133,7 @@ class ArtworkSelectorControllerOldStyle: NSWindowController, ArtworkImageObjectD
         self.delegate = delegate
         self.initialSize = size
         self.artworksUnloaded = artworks
-        self.artworks = Array()
+        self.artworks = []
         self.type = type
         super.init(window: nil)
     }
@@ -303,7 +303,7 @@ final class ArtworkSelectorController: NSWindowController, NSCollectionViewDataS
         self.delegate = delegate
         self.initialSize = size
         self.artworksUnloaded = artworks
-        self.artworks = Array()
+        self.artworks = []
         self.type = type
         super.init(window: nil)
     }

@@ -49,11 +49,11 @@ final class Queue {
             if let decodedItems = try unarchiver.decodeTopLevelObject(of: [NSArray.classForCoder(), NSMutableArray.classForCoder(), QueueItem.classForCoder()], forKey: NSKeyedArchiveRootObjectKey) as? [QueueItem] {
                 items = decodedItems
             } else {
-                items = Array()
+                items = []
             }
             unarchiver.finishDecoding()
         } catch {
-            items = Array()
+            items = []
         }
 
         items.filter { $0.status == .working } .forEach { $0.status = .failed }
@@ -242,9 +242,9 @@ final class Queue {
     }
 
     func items(at indexes: IndexSet) -> [QueueItem] {
-        var result: [QueueItem] = Array()
+        var result: [QueueItem] = []
         arrayQueue.sync {
-            result = items.enumerated().filter { indexes.contains($0.offset) == true } .map { $0.element }
+            result = indexes.map { items[$0] }
         }
         return result
     }
@@ -258,7 +258,7 @@ final class Queue {
     }
 
     func indexesOfItems(with status: QueueItem.Status) -> IndexSet {
-        var indexes: [Int] = Array()
+        var indexes: [Int] = []
         arrayQueue.sync {
             indexes = items.enumerated().filter { $0.element.status == status } .map { $0.offset }
         }
@@ -273,7 +273,7 @@ final class Queue {
 
     func remove(at indexes: IndexSet) {
         arrayQueue.sync {
-            items = items.enumerated().filter { indexes.contains($0.offset) == false } .map { $0.element }
+            items = IndexSet(items.indices).subtracting(indexes).map { items[$0] }
         }
     }
 
@@ -292,12 +292,12 @@ final class Queue {
     }
 
     func removeCompletedItems() -> IndexSet {
-        var indexes: [Int] = Array()
+        var indexes = IndexSet()
         arrayQueue.sync {
-            indexes = items.enumerated().filter { $0.element.status == .completed } .map { $0.offset }
-            items = items.enumerated().filter { indexes.contains($0.offset) == false } .map { $0.element }
+            indexes = IndexSet(items.enumerated().filter { $0.element.status == .completed } .map { $0.offset })
+            items = IndexSet(items.indices).subtracting(indexes).map { items[$0] }
         }
-        return IndexSet(indexes)
+        return indexes
     }
 
     //MARK: Sleep

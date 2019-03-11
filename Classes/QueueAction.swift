@@ -82,7 +82,7 @@ class QueueSubtitlesAction : NSObject, QueueActionProtocol {
 
     private func loadExternalSubtitles(url: URL) -> [MP42FileImporter] {
         let movieFilename = url.deletingPathExtension().lastPathComponent
-        var importers: [MP42FileImporter] = Array()
+        var importers: [MP42FileImporter] = []
         if let contents = try? FileManager.default.contentsOfDirectory(at: url.deletingLastPathComponent(), includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles, .skipsPackageDescendants]) {
             for url in contents {
                 let ext = url.pathExtension.lowercased()

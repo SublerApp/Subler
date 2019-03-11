@@ -41,7 +41,7 @@ final class FileImportController: NSWindowController, NSTableViewDataSource, NST
             self.importable = needsConversion || muxable ? true : false
 
             // Set up the actions
-            var actions: [Action] = Array()
+            var actions: [Action] = []
 
             switch track {
             case is MP42ClosedCaptionTrack, is MP42ChapterTrack:
@@ -180,7 +180,7 @@ final class FileImportController: NSWindowController, NSTableViewDataSource, NST
     init(fileURLs: [URL], delegate: FileImportControllerDelegate) throws {
         self.delegate = delegate
         
-        var rows: [ItemType] = Array()
+        var rows: [ItemType] = []
         
         let fileImporters: [MP42FileImporter] = try fileURLs.compactMap {
             return try MP42FileImporter(url: $0)
@@ -293,7 +293,7 @@ final class FileImportController: NSWindowController, NSTableViewDataSource, NST
     
     @IBAction func addTracks(_ sender: Any) {
 
-        var selectedTracks: [MP42Track] = Array()
+        var selectedTracks: [MP42Track] = []
         let checkedTracks = settings.filter { $0.checked }
 
         for trackSettings in checkedTracks {

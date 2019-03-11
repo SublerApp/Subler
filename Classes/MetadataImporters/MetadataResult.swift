@@ -208,9 +208,9 @@ public class MetadataResult {
     public var artworks: [MP42Image]
 
     init() {
-        self.dictionary = Dictionary()
-        self.remoteArtworks = Array()
-        self.artworks = Array()
+        self.dictionary = [:]
+        self.remoteArtworks = []
+        self.artworks = []
         self.mediaKind = .movie
         self.contentRating = 0
     }

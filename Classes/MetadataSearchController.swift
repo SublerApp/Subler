@@ -43,7 +43,7 @@ final class MetadataSearchController: NSWindowController, NSTableViewDataSource,
 
     // MARK: - ComboBox
 
-    private var tvSeriesNameSearchArray: [String] = Array()
+    private var tvSeriesNameSearchArray: [String] = []
     private var nameSearchTask: Runnable?
 
     // MARK: UI State

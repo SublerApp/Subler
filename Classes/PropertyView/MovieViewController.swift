@@ -65,8 +65,8 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
 
     init(metadata: MP42Metadata) {
         self.metadata = metadata
-        self.tags = Array()
-        self.artworks = Array()
+        self.tags = []
+        self.artworks = []
         self.ratings = MP42Ratings.defaultManager.ratings
         self.columnWidth = 0
         self.previousColumnWidth = 0
@@ -123,7 +123,7 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         view.undoManager?.removeAllActions(withTarget: self)
     }
 
-    /// MARK: Metadata
+    // MARK: Metadata
 
     private func updateMetadataArray() {
 
@@ -244,7 +244,7 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         remove(metadataItems: items)
     }
 
-    /// MARK: Built-In presets
+    // MARK: Built-In presets
 
     private var allSet: [String] {
         get {
@@ -264,10 +264,10 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         }
     }
 
-    /// MARK: Sets management
+    // MARK: Sets management
 
     @IBAction func addMetadataSet(_ sender: NSMenuItem) {
-        var itemsToBeAdded: [MP42MetadataItem] = Array()
+        var itemsToBeAdded: [MP42MetadataItem] = []
         var identifiers: Set<String> = Set()
 
         switch sender.tag {
@@ -391,7 +391,7 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         }
     }
 
-    /// MARK: Table View data source
+    // MARK: Table View data source
 
     private static let keyCell = NSUserInterfaceItemIdentifier(rawValue: "NameTextCell")
     private static let boolCell = NSUserInterfaceItemIdentifier(rawValue: "BoolCell")
@@ -566,7 +566,7 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         return nil
     }
 
-    /// MARK: Table View editing
+    // MARK: Table View editing
 
     private func stringsArray(fromString string: NSString) -> [String] {
         let splitElements = ",\\s*+"
@@ -698,7 +698,7 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         replace(metadataItem: item, withItem: editedItem)
     }
 
-    /// MARK: Table View delegate
+    // MARK: Table View delegate
 
     @IBAction func doubleClickAction(_ sender: Any?) {
         // make sure they clicked a real cell and not a header or empty row
@@ -795,7 +795,7 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         removeTagButton.isEnabled = enabled
     }
 
-    /// MARK: Artworks
+    // MARK: Artworks
 
     private func updateArtworksArray() {
         artworks = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyCoverArt)
@@ -903,7 +903,7 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         }
     }
 
-    /// MARK: IKImageBrowserDataSource
+    // MARK: IKImageBrowserDataSource
 
     override func numberOfItems(inImageBrowser aBrowser: IKImageBrowserView!) -> Int {
         return artworks.count
@@ -917,7 +917,7 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         let destinationIndex = destinationIndex - indexes.count(in: 0..<destinationIndex)
 
         let items = indexes.map { artworks[$0] }
-        var modifiedArtworks = IndexSet(integersIn: artworks.startIndex..<artworks.endIndex).subtracting(indexes).map { artworks[$0] }
+        var modifiedArtworks = IndexSet(artworks.indices).subtracting(indexes).map { artworks[$0] }
 
         for item in items.reversed() {
             modifiedArtworks.insert(item, at: destinationIndex)
@@ -960,7 +960,7 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         remove(metadataArtworks: items)
     }
 
-    /// MARK: IKImageBrowserDelegate
+    // MARK: IKImageBrowserDelegate
 
     override func imageBrowserSelectionDidChange(_ aBrowser: IKImageBrowserView!) {
         let rowIndexes = aBrowser.selectionIndexes()
@@ -971,7 +971,7 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         artworksView.setZoomValue(sender.floatValue)
     }
 
-    /// MARK: Artworks drag & drop
+    // MARK: Artworks drag & drop
 
     func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
         return .generic

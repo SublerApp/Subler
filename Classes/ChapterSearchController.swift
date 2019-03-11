@@ -109,7 +109,7 @@ final class ChapterSearchController: NSWindowController, NSTableViewDataSource, 
     @IBAction func addChapter(_ sender: Any) {
         switch state {
         case .completed(_, let result):
-            var textChapters: [MP42TextSample] = Array()
+            var textChapters: [MP42TextSample] = []
             for chapter in result.chapters {
                 let sample = MP42TextSample()
                 sample.timestamp = chapter.timestamp

@@ -109,7 +109,7 @@ final class MediaTagsController: NSViewController, NSTableViewDataSource, NSTabl
     /// - Parameter track: the track
     init(track: MP42Track) {
         self.track = track
-        self.tags = Array()
+        self.tags = []
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -129,7 +129,7 @@ final class MediaTagsController: NSViewController, NSTableViewDataSource, NSTabl
 
     private func reloadUI() {
         let predefinedValues = MediaTag.predefinedTags(for: track.mediaType)
-        var tags: [MediaTag] = Array()
+        var tags: [MediaTag] = []
 
         // Add the predefined tags
         for value in predefinedValues {
