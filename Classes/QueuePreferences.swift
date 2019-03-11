@@ -71,6 +71,8 @@ final class QueuePreferences: NSObject {
     @objc dynamic var showDoneNotification: Bool
 
     override init() {
+        QueuePreferences.registerUserDefaults()
+
         let ud = UserDefaults.standard
 
         self.clearExistingMetadata = ud.bool(forKey: QueuePreferences.SBQueueClearExistingMetadata)
@@ -174,6 +176,5 @@ final class QueuePreferences: NSObject {
 
     var queueURL: URL? {
         return FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.appendingPathComponent("Subler").appendingPathComponent("queue.sbqueue", isDirectory: false)
-
     }
 }
