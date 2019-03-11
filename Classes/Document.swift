@@ -56,8 +56,7 @@ import MP42Foundation
     override func read(from url: URL, ofType typeName: String) throws {
         do {
             mp4 = try MP42File(url: url)
-        }
-        catch {
+        } catch {
             unsupportedMp4Brand = true
         }
     }
@@ -115,8 +114,7 @@ import MP42Foundation
                     self.mp4 = reloadedFile
                     docController?.reloadData()
                     completionHandler(error)
-                }
-                catch {
+                } catch {
                     completionHandler(error)
                 }
             }

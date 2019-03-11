@@ -22,7 +22,7 @@ import MP42Foundation
 
     override func transformedValue(_ value: Any?) -> Any? {
         let code = value as! String
-        let lang =  langManager.localizedLang(forExtendedTag: code)
+        let lang = langManager.localizedLang(forExtendedTag: code)
         return lang
     }
 

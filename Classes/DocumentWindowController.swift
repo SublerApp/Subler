@@ -406,7 +406,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
                                                   dataType: .integer, extendedLanguageTag: nil))
         }
         doc.updateChangeCount(.changeDone)
-        metadataViewController?.reloadData()
+        metadataViewController?.metadata = mp4.metadata
     }
 
     func didSelect(chapters: [MP42TextSample]) {
@@ -444,18 +444,14 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
 
     private func addMetadata(fileURL: URL) {
         let ext = fileURL.pathExtension.lowercased()
-        if ext == "xml" || ext == "nfo" {
-            let metadata = MP42Metadata(url: fileURL)
+        if ext == "xml" || ext == "nfo", let metadata = MP42Metadata(url: fileURL) {
             mp4.metadata.merge(metadata)
-
             doc.updateChangeCount(.changeDone)
-            metadataViewController?.reloadData()
-        }
-        else if let file = try? MP42File(url: fileURL) {
+            metadataViewController?.metadata = mp4.metadata
+        } else if let file = try? MP42File(url: fileURL) {
             mp4.metadata.merge(file.metadata)
-
             doc.updateChangeCount(.changeDone)
-            metadataViewController?.reloadData()
+            metadataViewController?.metadata = mp4.metadata
         }
     }
 
@@ -547,7 +543,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         if let metadata = metadata {
             mp4.metadata.merge(metadata)
             doc.updateChangeCount(.changeDone)
-            metadataViewController?.reloadData()
+            metadataViewController?.metadata = mp4.metadata
         }
 
         tracksViewController.reloadData()

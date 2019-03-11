@@ -13,8 +13,7 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
 
     var metadata: MP42Metadata {
         didSet {
-            updateMetadataArray()
-            updateArtworksArray()
+            reloadData()
         }
     }
 
@@ -79,6 +78,13 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        artworksView.delegate = nil
+        artworksView.dataSource = nil
+        artworksView.setDraggingDestinationDelegate(nil)
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -97,8 +103,6 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
 
         columnWidth = column.width
 
-        updateMetadataArray()
-
         metadataTableView.doubleAction = #selector(doubleClickAction(_:))
         metadataTableView.target = self
         metadataTableView.pasteboardTypes = [metadataPBoardType]
@@ -107,19 +111,10 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         artworksView.pasteboardTypes = [artworksPBoardType, NSPasteboard.PasteboardType.tiff, NSPasteboard.PasteboardType.png]
         artworksView.setZoomValue(1.0)
 
-        updateMetadataArray()
-
         reloadData()
     }
 
-    deinit {
-        artworksView.delegate = nil
-        artworksView.dataSource = nil
-        artworksView.setDraggingDestinationDelegate(nil)
-        NotificationCenter.default.removeObserver(self)
-    }
-
-    func reloadData() {
+    private func reloadData() {
         rowHeights.removeAll(keepingCapacity: true)
         updateMetadataArray()
         metadataTableView.reloadData()
