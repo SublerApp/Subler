@@ -87,7 +87,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         return tracksViewController
     }()
 
-    private var metadataViewController: SBMovieViewController?
+    private var metadataViewController: MovieViewController?
     private var videoViewController: VideoViewController?
     private var soundViewController: SoundViewController?
     private var chapterViewController: ChapterViewController?
@@ -134,9 +134,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
 
             default:
                 if metadataViewController == nil {
-                    metadataViewController = SBMovieViewController(nibName: "MovieView",
-                                                                       bundle: nil)
-                    metadataViewController!.metadata = mp4.metadata
+                    metadataViewController = MovieViewController(metadata: mp4.metadata)
                 }
                 return metadataViewController!
             }

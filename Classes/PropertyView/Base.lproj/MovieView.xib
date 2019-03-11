@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="SBMovieViewController">
+        <customObject id="-2" userLabel="File's Owner" customClass="MovieViewController" customModule="Subler" customModuleProvider="target">
             <connections>
                 <outlet property="artworksView" destination="217" id="yBS-St-WKT"/>
                 <outlet property="keepAnnotations" destination="7hc-Ee-1yE" id="nf3-GF-FwY"/>
@@ -320,9 +320,9 @@
                                         <rect key="frame" x="17" y="36" width="448" height="199"/>
                                         <clipView key="contentView" copiesOnScroll="NO" id="7IP-Gn-Bxd">
                                             <rect key="frame" x="1" y="1" width="446" height="197"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <ikImageBrowserView autoresizesSubviews="NO" zoomValue="1" allowsReordering="YES" animates="YES" translatesAutoresizingMaskIntoConstraints="NO" id="217" customClass="SBImageBrowserView">
+                                                <ikImageBrowserView autoresizesSubviews="NO" zoomValue="1" allowsReordering="YES" animates="YES" translatesAutoresizingMaskIntoConstraints="NO" id="217" customClass="ImageBrowserView" customModule="Subler" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="446" height="197"/>
                                                     <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
                                                     <size key="cellSize" width="177" height="177"/>

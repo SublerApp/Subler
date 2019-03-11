@@ -30,7 +30,7 @@ extension PresetManager.Error: LocalizedError {
 final class PresetManager {
     static let shared = PresetManager()
 
-    let updateNotification = Notification.Name(rawValue: "SBPresetManagerUpdatedNotification")
+    static let updateNotification = Notification.Name(rawValue: "SBPresetManagerUpdatedNotification")
 
     private var presets: [Preset]
 
@@ -89,7 +89,7 @@ final class PresetManager {
     }
 
     private func postNotification() {
-        NotificationCenter.default.post(name: updateNotification, object: self)
+        NotificationCenter.default.post(name: PresetManager.updateNotification, object: self)
     }
 
     // MARK: read/write

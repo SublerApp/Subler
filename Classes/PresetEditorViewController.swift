@@ -7,7 +7,7 @@
 
 import Cocoa
 
-final class PresetEditorViewController: SBMovieViewController {
+final class PresetEditorViewController: MovieViewController {
 
     let preset: MetadataPreset
     @IBOutlet weak var presetTitle: NSTextField!
@@ -20,7 +20,7 @@ final class PresetEditorViewController: SBMovieViewController {
 
     init(preset: MetadataPreset) {
         self.preset = preset
-        super.init(nibName: nil, bundle: nil)
+        super.init(metadata: preset.metadata)
     }
 
     required init?(coder: NSCoder) {

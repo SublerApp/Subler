@@ -36,7 +36,7 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
 
         tableView.reloadData()
 
-        observer = NotificationCenter.default.addObserver(forName: presetManager.updateNotification,
+        observer = NotificationCenter.default.addObserver(forName: PresetManager.updateNotification,
                                                           object: nil,
                                                           queue: OperationQueue.main) { [weak self] notification in
                                                             guard let s = self else { return }

@@ -16,7 +16,7 @@ import Cocoa
 
 class ExpandedTableView: NSTableView, NSMenuItemValidation {
 
-    @objc var pasteboardTypes: [NSPasteboard.PasteboardType]
+    var pasteboardTypes: [NSPasteboard.PasteboardType]
     var pasteboardHasSupportedType: Bool {
         get {
             // has the pasteboard got a type we support?

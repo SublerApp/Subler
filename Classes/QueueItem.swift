@@ -5,7 +5,7 @@
 //  Created by Damiano Galassi on 28/01/2019.
 //
 
-import Foundation
+import Cocoa
 import MP42Foundation
 
 final class QueueItem: NSObject, NSSecureCoding {

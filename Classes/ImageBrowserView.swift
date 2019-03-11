@@ -8,13 +8,13 @@
 import Cocoa
 import Quartz
 
-@objc(SBImageBrowserViewDelegate) protocol ImageBrowserViewDelegate : NSObjectProtocol {
+@objc protocol ImageBrowserViewDelegate : NSObjectProtocol {
     @objc(pasteToImageBrowserView:) optional func paste(to imagebrowserview: ImageBrowserView)
 }
 
-@objc(SBImageBrowserView) final class ImageBrowserView : IKImageBrowserView, NSMenuItemValidation {
+final class ImageBrowserView : IKImageBrowserView, NSMenuItemValidation {
 
-    @objc var pasteboardTypes: [NSPasteboard.PasteboardType]
+    var pasteboardTypes: [NSPasteboard.PasteboardType]
     var pasteboardHasSupportedType: Bool {
         get {
             // has the pasteboard got a type we support?

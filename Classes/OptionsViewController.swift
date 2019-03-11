@@ -246,7 +246,7 @@ final class OptionsViewController: NSViewController, NSMenuItemValidation {
 
         update(Notification(name: Notification.Name(rawValue: "")))
 
-        presetsObserver = NotificationCenter.default.addObserver(forName: PresetManager.shared.updateNotification,
+        presetsObserver = NotificationCenter.default.addObserver(forName: PresetManager.updateNotification,
                                                           object: nil,
                                                           queue: OperationQueue.main,
                                                           using: update)

@@ -62,6 +62,7 @@
 		A979B3862025C8BF00468362 /* DocumentWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A979B3842025C8BF00468362 /* DocumentWindowController.swift */; };
 		A97C3AA5204F18C90007AD38 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97C3AA4204F18C90007AD38 /* TokenCellView.swift */; };
 		A97FBE3C21FC7F1C00F1FD35 /* QueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */; };
+		A983E80B22365B5400221BAE /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A983E80A22365B5400221BAE /* MovieViewController.swift */; };
 		A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A984DB730F52DD4B001A20B2 /* dsa_pub.pem */; };
 		A98542D720D197D300EB9803 /* ArtworkSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98542D520D197D300EB9803 /* ArtworkSelector.xib */; };
 		A98542D920D197DF00EB9803 /* ArtworkSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98542D820D197DF00EB9803 /* ArtworkSelector.swift */; };
@@ -80,13 +81,11 @@
 		A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */; };
 		A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A997B0A91F348AB000974C9C /* MetadataSearchController.swift */; };
 		A998DABF1BA54CFF004D7969 /* MediaTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A998DABD1BA54CFF004D7969 /* MediaTagsController.xib */; };
-		A99B9A842063AD98000FAE20 /* MovieViewControllerAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99B9A832063AD98000FAE20 /* MovieViewControllerAdditions.swift */; };
 		A99D23212029CD32002E7F27 /* PrefsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99D23202029CD32002E7F27 /* PrefsWindow.swift */; };
 		A9A4A966202F51FA00482D12 /* SaveOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A4A968202F51FA00482D12 /* SaveOptions.xib */; };
 		A9A4A96B202F51FF00482D12 /* ProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A4A96D202F51FF00482D12 /* ProgressViewController.xib */; };
 		A9A77C4E1F306FA70018023B /* AttributedStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A77C4D1F306FA70018023B /* AttributedStyles.swift */; };
 		A9A91B5D1FB6FBB700250D93 /* ChapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */; };
-		A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */; };
 		A9AB486417F0AEFD000AA72E /* ChapterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB485A17F0AEFD000AA72E /* ChapterView.xib */; };
 		A9AB486517F0AEFD000AA72E /* EmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB485C17F0AEFD000AA72E /* EmptyView.xib */; };
 		A9AB486617F0AEFD000AA72E /* MovieView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB485E17F0AEFD000AA72E /* MovieView.xib */; };
@@ -285,6 +284,7 @@
 		A979B3842025C8BF00468362 /* DocumentWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentWindowController.swift; path = Classes/DocumentWindowController.swift; sourceTree = "<group>"; };
 		A97C3AA4204F18C90007AD38 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenCellView.swift; path = Classes/TokenCellView.swift; sourceTree = "<group>"; };
 		A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueController.swift; path = Classes/QueueController.swift; sourceTree = "<group>"; };
+		A983E80A22365B5400221BAE /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieViewController.swift; path = Classes/PropertyView/MovieViewController.swift; sourceTree = "<group>"; };
 		A984DB4A0F52D644001A20B2 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		A984DB730F52DD4B001A20B2 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		A98542D620D197D300EB9803 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ArtworkSelector.xib; sourceTree = "<group>"; };
@@ -305,14 +305,11 @@
 		A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterImporter.swift; path = Classes/MetadataImporters/ChapterImporter.swift; sourceTree = "<group>"; };
 		A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterSearchController.swift; path = Classes/ChapterSearchController.swift; sourceTree = "<group>"; };
 		A997B0A91F348AB000974C9C /* MetadataSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataSearchController.swift; path = Classes/MetadataSearchController.swift; sourceTree = "<group>"; };
-		A99B9A832063AD98000FAE20 /* MovieViewControllerAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieViewControllerAdditions.swift; path = Classes/PropertyView/MovieViewControllerAdditions.swift; sourceTree = "<group>"; };
 		A99D23202029CD32002E7F27 /* PrefsWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrefsWindow.swift; path = Classes/PrefsWindow.swift; sourceTree = "<group>"; };
 		A9A4A967202F51FA00482D12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SaveOptions.xib; sourceTree = "<group>"; };
 		A9A4A96C202F51FF00482D12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ProgressViewController.xib; sourceTree = "<group>"; };
 		A9A77C4D1F306FA70018023B /* AttributedStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AttributedStyles.swift; path = Classes/AttributedStyles.swift; sourceTree = "<group>"; };
 		A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterViewController.swift; path = Classes/PropertyView/ChapterViewController.swift; sourceTree = "<group>"; };
-		A9AB484E17F0AEAC000AA72E /* SBMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBMovieViewController.h; path = Classes/PropertyView/SBMovieViewController.h; sourceTree = "<group>"; };
-		A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBMovieViewController.m; path = Classes/PropertyView/SBMovieViewController.m; sourceTree = "<group>"; };
 		A9AE26BD1F3B66470041A57D /* SquaredTVArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SquaredTVArt.swift; path = Classes/MetadataImporters/SquaredTVArt.swift; sourceTree = "<group>"; };
 		A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataHelper.swift; path = Classes/MetadataImporters/MetadataHelper.swift; sourceTree = "<group>"; };
 		A9AF2D1C206116680088CE91 /* SectionsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SectionsTableView.swift; path = Classes/SectionsTableView.swift; sourceTree = "<group>"; };
@@ -370,7 +367,6 @@
 		A9F5820B1DCC861F005F3E92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9F680A61FD06E0200018371 /* OutputPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OutputPrefsViewController.swift; path = Classes/OutputPrefsViewController.swift; sourceTree = "<group>"; };
 		A9F804591FB6F4FD0069FF43 /* ImageBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageBrowserView.swift; path = Classes/ImageBrowserView.swift; sourceTree = "<group>"; };
-		A9FC6FF41EF2E3280034CCED /* Subler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Subler-Bridging-Header.h"; sourceTree = "<group>"; };
 		A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheTVDBService.swift; path = Classes/MetadataImporters/TheTVDBService.swift; sourceTree = "<group>"; };
 		CDE8E451174CBBD4009410B5 /* iTunesStores.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iTunesStores.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -464,7 +460,6 @@
 			children = (
 				A9F804591FB6F4FD0069FF43 /* ImageBrowserView.swift */,
 				A909440E1DD4C85B00E9F89C /* Table View */,
-				A9FC6FF41EF2E3280034CCED /* Subler-Bridging-Header.h */,
 				A9A77C4D1F306FA70018023B /* AttributedStyles.swift */,
 				A956CE681F99E93D00093992 /* ButtonToolbarItem.swift */,
 			);
@@ -662,9 +657,7 @@
 				A998DABD1BA54CFF004D7969 /* MediaTagsController.xib */,
 				A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */,
 				A9AB485A17F0AEFD000AA72E /* ChapterView.xib */,
-				A9AB484E17F0AEAC000AA72E /* SBMovieViewController.h */,
-				A9AB484F17F0AEAC000AA72E /* SBMovieViewController.m */,
-				A99B9A832063AD98000FAE20 /* MovieViewControllerAdditions.swift */,
+				A983E80A22365B5400221BAE /* MovieViewController.swift */,
 				A9AB485E17F0AEFD000AA72E /* MovieView.xib */,
 				A9F4FF4A1FB708FB004473A8 /* SoundViewController.swift */,
 				A9AB486017F0AEFD000AA72E /* SoundView.xib */,
@@ -883,7 +876,6 @@
 				A98D6BAB21FDC62800F0D886 /* Queue.swift in Sources */,
 				A98542DC20D1A7E500EB9803 /* ArtworkSelectorViewItem.swift in Sources */,
 				A90C3E0C1FD16AF200F64532 /* TokensViewController.swift in Sources */,
-				A9AB485617F0AEAC000AA72E /* SBMovieViewController.m in Sources */,
 				A9C09C7C1F99F460007939EE /* ExceptionAlertController.swift in Sources */,
 				A9A91B5D1FB6FBB700250D93 /* ChapterViewController.swift in Sources */,
 				A9676A301FB6E85300C1E300 /* LanguageTransformer.swift in Sources */,
@@ -892,7 +884,6 @@
 				A9907E192063DAA000DB992E /* VideoViewController.swift in Sources */,
 				A98D98461F0280CB00A77ABC /* TheMovieDB.swift in Sources */,
 				A98542D920D197DF00EB9803 /* ArtworkSelector.swift in Sources */,
-				A99B9A842063AD98000FAE20 /* MovieViewControllerAdditions.swift in Sources */,
 				A98D98481F02820F00A77ABC /* TheMovieDBService.swift in Sources */,
 				A962D9EE1F8B7F9F00802EEF /* FileImportController.swift in Sources */,
 				A9D64527202CA92400BA172B /* SaveOptions.swift in Sources */,
@@ -934,6 +925,7 @@
 				A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */,
 				A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */,
 				A92BBAB41F557CC0007EA182 /* PresetEditorViewController.swift in Sources */,
+				A983E80B22365B5400221BAE /* MovieViewController.swift in Sources */,
 				A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */,
 				A9C3E44A205C07F4004DE24E /* OptionsViewController.swift in Sources */,
 				A90057C01F99E35300FA4ED1 /* PopUpCellView.swift in Sources */,
@@ -1428,12 +1420,11 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
-				OTHER_SWIFT_FLAGS = "-DSB_SANDBOX";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.galad.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Subler;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "Subler-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1469,12 +1460,11 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
-				OTHER_SWIFT_FLAGS = "-DSB_SANDBOX";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.galad.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Subler;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "Subler-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1522,7 +1512,7 @@
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "SB_SANDBOX=1";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
@@ -1590,7 +1580,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "SB_SANDBOX=1";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
