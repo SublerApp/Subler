@@ -229,14 +229,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate {
 
     func application(_ sender: NSApplication, delegateHandlesKey key: String) -> Bool {
-        if key == "items" {
+        if key == "queueItems" {
             return true
         } else {
             return false
         }
     }
 
-    @objc(items) func items() -> [QueueItem] {
+    @objc(queueItems) func queueItems() -> [QueueItem] {
         let queue = QueueController.shared
         let indexes = IndexSet(integersIn: 0..<Int(queue.count))
         return queue.items(at: indexes)

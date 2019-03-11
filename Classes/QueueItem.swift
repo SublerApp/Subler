@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-final class QueueItem: NSObject, NSSecureCoding {
+@objc(SBQueueItem) final class QueueItem: NSObject, NSSecureCoding {
 
     @objc enum Status: Int {
         case ready
@@ -50,7 +50,7 @@ final class QueueItem: NSObject, NSSecureCoding {
     weak var delegate: Queue?
 
     private var statusInternal: Status
-    private let uniqueID: String
+    @objc private let uniqueID: String
     private var attributes: [String : Any]
     private var actionsInternal: [QueueActionProtocol]
 

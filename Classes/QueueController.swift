@@ -106,6 +106,10 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
                 notification.soundName = NSUserNotificationDefaultSoundName
                 NSUserNotificationCenter.default.deliver(notification)
             }
+
+            for script in self.scripts {
+                script.resumeExecution(withResult: "Completed")
+            }
         }
 
         nc.addObserver(forName: Queue.Failed, object: queue, queue: main) { (note) in
@@ -281,6 +285,12 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     }
 
     //MARK: Queue management
+
+    private var scripts: [NSScriptCommand] = []
+
+    func add(script: NSScriptCommand) {
+        scripts.append(script)
+    }
 
     var status: Queue.Status {
         get {
