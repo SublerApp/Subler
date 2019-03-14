@@ -110,6 +110,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
             for script in self.scripts {
                 script.resumeExecution(withResult: "Completed")
             }
+            self.scripts.removeAll()
         }
 
         nc.addObserver(forName: Queue.Failed, object: queue, queue: main) { (note) in

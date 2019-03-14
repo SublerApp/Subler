@@ -414,7 +414,7 @@ final class MetadataSearchController: NSWindowController, NSTableViewDataSource,
     }
 
     private func toggleUI(items: [NSControl], state: Bool) {
-        items.forEach { $0.isEnabled = true }
+        items.forEach { $0.isEnabled = state }
     }
 
     private func disableUI() {

@@ -427,7 +427,7 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         if index != -1 {
             popUpButton.selectItem(at: Int(index))
         } else {
-            let title = value ?? NSLocalizedString("Unknown", comment: "")
+            let title = value?.isEmpty ?? true ? NSLocalizedString("Unknown", comment: "") : value ?? NSLocalizedString("Unknown", comment: "")
             let item = NSMenuItem(title: title, action: nil, keyEquivalent: "")
             item.tag = -1
             popUpButton.menu?.addItem(item)
