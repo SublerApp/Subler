@@ -109,16 +109,16 @@
 			<string>SBDocument</string>
 		</dict>
 		<dict>
-			<key>CFBundleTypeName</key>
-			<string>Subler temporary file</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>sublertemp</string>
 			</array>
+			<key>CFBundleTypeName</key>
+			<string>Subler temporary file</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>NSIsRelatedItemType</key>
 			<true/>
 		</dict>
@@ -126,7 +126,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleGetInfoString</key>
-	<string>1.5.9, Copyright 2019 Damiano Galassi</string>
+	<string>1.5.10, Copyright 2019 Damiano Galassi</string>
 	<key>CFBundleIconFile</key>
 	<string>Subler.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -138,11 +138,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.5.9</string>
+	<string>1.5.10</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.5.9</string>
+	<string>1.5.10</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.video</string>
 	<key>NSAppTransportSecurity</key>
