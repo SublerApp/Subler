@@ -573,10 +573,10 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         return string.mp42_components(separatedByRegex: splitElements)
     }
 
-    private func numbersArray(fromString string: String) -> [Int] {
-        let index = UnsafeMutablePointer<Int>.allocate(capacity: 1)
+    private func numbersArray(fromString string: String) -> [UInt] {
+        let index = UnsafeMutablePointer<UInt>.allocate(capacity: 1)
         let separator = UnsafeMutablePointer<Int>.allocate(capacity: 3)
-        let count = UnsafeMutablePointer<Int>.allocate(capacity: 1)
+        let count = UnsafeMutablePointer<UInt>.allocate(capacity: 1)
 
         _ = withVaList([index, separator, count], { pointer in
             vsscanf(string, "%u%[/- ]%u", pointer)
