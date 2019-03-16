@@ -269,7 +269,8 @@ final public class TheMovieDBService {
         guard let result = search(movie: movie, language: language, page: 1) else { return [] }
 
         if let totalPages = result.total_pages, totalPages > 1 {
-            let additionalResult = Array(2...totalPages).compactMap { search(movie: movie, language: language, page: $0)?.results }
+            let pages = totalPages > 20 ? 2...20 : 2...totalPages
+            let additionalResult = Array(pages).compactMap { search(movie: movie, language: language, page: $0)?.results }
             return result.results + additionalResult.joined();
         } else {
             return result.results
