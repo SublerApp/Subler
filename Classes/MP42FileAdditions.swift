@@ -25,7 +25,7 @@ extension MP42File {
 
     var hdType: TrackHDType? {
         for track in tracks(withMediaType: kMP42MediaType_Video) as! [MP42VideoTrack] {
-            if track.width > 1280 || track.height > 720 {
+            if (track.width > 1280 || track.height > 720) && track.width <= 1920 && track.height <= 1088 {
                 return .hd1080p
             } else if track.width >= 960 && track.height >= 720 || track.width >= 1280 {
                 return .hd720p
