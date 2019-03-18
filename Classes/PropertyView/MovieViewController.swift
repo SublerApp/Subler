@@ -574,15 +574,15 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
     }
 
     private func numbersArray(fromString string: String) -> [UInt] {
-        let index = UnsafeMutablePointer<UInt>.allocate(capacity: 1)
-        let separator = UnsafeMutablePointer<Int>.allocate(capacity: 3)
-        let count = UnsafeMutablePointer<UInt>.allocate(capacity: 1)
+        let parts = string.split(separator: "/")
+        var count: UInt = 0, index: UInt = 0
 
-        _ = withVaList([index, separator, count], { pointer in
-            vsscanf(string, "%u%[/- ]%u", pointer)
-        })
+        index = UInt(parts.first ?? "") ?? 0
+        if parts.count > 1 {
+            count = UInt(parts.last ?? "") ?? 0
+        }
 
-        return [index.pointee, count.pointee]
+        return [index, count]
     }
 
     @IBAction func setMetadataStringValue(_ sender: NSTextField) {
