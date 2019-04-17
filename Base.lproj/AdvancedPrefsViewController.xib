@@ -75,6 +75,8 @@
                                 <menuItem title="192" tag="192" id="IRB-z8-OsU"/>
                                 <menuItem title="224" tag="224" id="Pr6-u5-Rp7"/>
                                 <menuItem title="256" tag="256" id="tFR-ss-ze1"/>
+                                <menuItem title="288" tag="288" id="ANf-22-vVD"/>
+                                <menuItem title="320" tag="320" id="92j-UW-bjL"/>
                             </items>
                         </menu>
                     </popUpButtonCell>
