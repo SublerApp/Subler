@@ -195,6 +195,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
              #selector(addChaptersEvery(_:)),
              #selector(iTunesFriendlyTrackGroups(_:)),
              #selector(clearTrackNames(_:)),
+             #selector(prettifyAudioTrackNames(_:)),
              #selector(fixAudioFallbacks(_:)):
             return true
 
@@ -310,6 +311,29 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
     @IBAction func clearTrackNames(_ sender: Any) {
         for track in mp4.tracks {
             track.name = ""
+        }
+
+        doc.updateChangeCount(.changeDone)
+        tracksViewController.reloadData()
+    }
+
+    @IBAction func prettifyAudioTrackNames(_ sender: Any) {
+        for track in mp4.tracks {
+            if let audioTrack = track as? MP42AudioTrack {
+                // Lookup number of channels from Format cell
+                let lowerBound = String.Index.init(encodedOffset: audioTrack.formatSummary.count-4)
+                let upperBound = String.Index.init(encodedOffset: audioTrack.formatSummary.count-3)
+                let channelCount = Int(String(audioTrack.formatSummary[lowerBound..<upperBound]))
+
+                // Derive track name from number of channels
+                if channelCount! < 2 {
+                    audioTrack.name = "Mono Audio"
+                } else if channelCount == 2 {
+                    audioTrack.name = "Stereo Audio"
+                } else {
+                    audioTrack.name = "Surround Audio"
+                }
+            }
         }
 
         doc.updateChangeCount(.changeDone)
