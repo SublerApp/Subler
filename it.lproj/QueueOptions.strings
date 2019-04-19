@@ -43,6 +43,9 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Delete all custom track names"; ObjectID = "22k-mA-HyA"; */
 "22k-mA-HyA.ibShadowedToolTip" = "Cancella tutti i nomi delle tracce";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Rename audio tracks according to channel count (Mono, Stereo, Surround)"; ObjectID = "81E-pQ-vyQ"; */
+"81E-pQ-vyQ.ibShadowedToolTip" = "Rinomina le tracce audio in base al numero di canali";
+
 /* Class = "NSButtonCell"; title = "Load external subtitles"; ObjectID = "59T-kp-mV1"; */
 "59T-kp-mV1.title" = "Carica sottotitoli esterni";
 
@@ -93,6 +96,9 @@
 
 /* Class = "NSButtonCell"; title = "Clear tracks names"; ObjectID = "mtK-5C-Pzh"; */
 "mtK-5C-Pzh.title" = "Cancella i nomi delle tracce";
+
+/* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "akF-dR-OPB"; */
+"akF-dR-OPB.title" = "Prettify nomi delle tracce audio";
 
 /* Class = "NSButtonCell"; title = "Show Notification When Done"; ObjectID = "n6P-IC-SEp"; */
 "n6P-IC-SEp.title" = "Mostra una notifica alla conclusione";

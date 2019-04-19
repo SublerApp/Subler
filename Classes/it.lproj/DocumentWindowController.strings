@@ -46,6 +46,9 @@
 /* Class = "NSMenuItem"; title = "Clear tracks names"; ObjectID = "pB8-A8-7tv"; */
 "pB8-A8-7tv.title" = "Cancella i nomi delle tracce";
 
+/* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "SN3-Fe-fRS"; */
+"SN3-Fe-fRS.title" = "Prettify nomi delle tracce audio";
+
 /* Class = "NSMenuItem"; title = "Fix audio fallbacks"; ObjectID = "rGe-lx-aht"; */
 "rGe-lx-aht.title" = "Correggi gli audio di ripiego";
 
