@@ -469,7 +469,7 @@ class QueuePrettifyAudioTrackNameAction : NSObject, QueueActionProtocol {
                         let channelCount = Int(audioTrack.formatSummary[range])!
 
                         // Use channel count to determine track name
-                        if channelCount < 2 {
+                        if channelCount == 1 {
                             audioTrack.name = "Mono Audio"
                         } else if channelCount == 2 {
                             audioTrack.name = "Stereo Audio"
