@@ -681,7 +681,7 @@ public struct iTunesStore: MetadataService {
     }
 
     /// Scrape people from iTunes Store website HTML
-    func read(type: String, in xml: XMLDocument) -> [String] {
+    private func read(type: String, in xml: XMLDocument) -> [String] {
         guard let nodes = try? xml.nodes(forXPath: "//dl[contains(@class,'cast-list__role')]") else { return [] }
 
         for node in nodes {
@@ -697,26 +697,29 @@ public struct iTunesStore: MetadataService {
         return []
     }
 
-    func readInfo(type: String, in xml: XMLDocument) -> String? {
-        guard let nodes = try? xml.nodes(forXPath: "//dl[contains(@class,'information-list--episode')]/dd/div/dl") else { return nil }
+    private struct WebpageMetadata : Codable {
+        let data: WebpageData?
+    }
+
+    private struct WebpageData: Codable {
+        let attributes: WebpageAttributes?
+    }
+
+    private struct WebpageAttributes : Codable {
+        let copyright: String?
+        let studio: String?
+    }
+
+    // Read the JSON data on the iTunes Store webpage
+    private func readAttributes(xml: XMLDocument) -> WebpageAttributes? {
+        guard let nodes = try? xml.nodes(forXPath: "//script[contains(@id,'shoebox-ember-data-store')]") else { return nil }
 
         for node in nodes {
-            guard let typeNodes = try? node.nodes(forXPath: "dt[contains(@class,'information-list__item__term')]"),
-                let valueNodes = try? node.nodes(forXPath: "dd[contains(@class,'information-list__item__definition')]") else { continue }
+            guard let string = node.stringValue, let data = string.data(using: .utf8) else { continue }
 
-            if let nodeType = typeNodes.first?.stringValue?.trimmingWhitespacesAndNewlinews(),
-                nodeType.caseInsensitiveCompare(type) == ComparisonResult.orderedSame,
-                var value = valueNodes.first?.stringValue?.trimmingWhitespacesAndNewlinews() {
-                if let range = value.range(of: ". All Rights Reserved", options: .caseInsensitive,
-                                               range: value.startIndex ..< value.endIndex, locale: nil) {
-                    value.removeSubrange(range)
-                }
-                if let range = value.range(of: " by", options: .caseInsensitive,
-                                               range: value.startIndex ..< value.endIndex, locale: nil) {
-                    value.removeSubrange(range)
-                }
-                return value
-            }
+            do {
+                return try JSONDecoder().decode(WebpageMetadata.self, from: data).data?.attributes
+            } catch {}
         }
 
         return nil
@@ -736,8 +739,22 @@ public struct iTunesStore: MetadataService {
         metadata[.cast]          = read(type: store.cast, in: xml).joined(separator: ", ")
         metadata[.producers]     = read(type: store.producer, in: xml).joined(separator: ", ")
         metadata[.screenwriters] = read(type: store.screenwriter, in: xml).joined(separator: ", ")
-        metadata[.studio]        = readInfo(type: store.studio, in: xml)
-        metadata[.copyright]     = readInfo(type: store.copyright, in: xml)
+
+        if let attributes = readAttributes(xml: xml) {
+            metadata[.studio] = attributes.studio
+
+            if var copyright = attributes.copyright {
+                if let range = copyright.range(of: ". All Rights Reserved", options: .caseInsensitive,
+                                               range: copyright.startIndex ..< copyright.endIndex, locale: nil) {
+                    copyright.removeSubrange(range)
+                }
+                if let range = copyright.range(of: " by", options: .caseInsensitive,
+                                               range: copyright.startIndex ..< copyright.endIndex, locale: nil) {
+                    copyright.removeSubrange(range)
+                }
+                metadata[.copyright] = copyright
+            }
+        }
 
         return metadata
     }
