@@ -178,7 +178,7 @@ final class OptionsViewController: NSViewController, NSMenuItemValidation {
 
     private func loadRecentDestinations() {
         if let loadedDestinations = UserDefaults.standard.array(forKey: "SBQueueRecentDestinations") as? [String] {
-            recentDestinations = loadedDestinations.compactMap { URL(fileURLWithPath: $0) }
+            recentDestinations = loadedDestinations.compactMap { URL(fileURLWithPath: $0, isDirectory: true) }
             if recentDestinations.count > 6 {
                 recentDestinations = Array(recentDestinations[0..<6])
             }
