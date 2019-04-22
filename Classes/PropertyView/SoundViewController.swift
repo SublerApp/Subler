@@ -67,7 +67,7 @@ final class SoundViewController : NSViewController {
 
         if (track.format == kMP42AudioCodecType_AC3 || track.format == kMP42AudioCodecType_EnhancedAC3 ||
             track.format == kMP42AudioCodecType_DTS) &&
-            track.conversionSettings.format != kMP42AudioCodecType_MPEG4AAC,
+            track.conversionSettings?.format != kMP42AudioCodecType_MPEG4AAC,
             let audioTracks = file.tracks(withMediaType: kMP42MediaType_Audio) as? [MP42AudioTrack] {
 
             fallbacksPopUp.isEnabled = true
@@ -113,7 +113,7 @@ final class SoundViewController : NSViewController {
     private func isAAC(track: MP42AudioTrack) -> Bool {
         return track.format == kMP42AudioCodecType_MPEG4AAC ||
             track.format == kMP42AudioCodecType_MPEG4AAC_HE ||
-            track.conversionSettings.format == kMP42AudioCodecType_MPEG4AAC
+            track.conversionSettings?.format == kMP42AudioCodecType_MPEG4AAC
     }
     
     // MARK: Actions

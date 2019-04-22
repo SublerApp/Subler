@@ -318,23 +318,9 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
     }
 
     @IBAction func prettifyAudioTrackNames(_ sender: Any) {
-        // Iterate audio tracks
-        for track in mp4.tracks {
-            if let audioTrack = track as? MP42AudioTrack {
-                // Parse format summary for channel count
-                if let range = audioTrack.formatSummary.range(of: "(\\d+)(?=\\D*$)", options: .regularExpression) {
-                    let channelCount = Int(audioTrack.formatSummary[range])!
 
-                    // Use channel count to determine track name
-                    if channelCount == 1 {
-                        audioTrack.name = "Mono Audio"
-                    } else if channelCount == 2 {
-                        audioTrack.name = "Stereo Audio"
-                    } else {
-                        audioTrack.name = "Surround Audio"
-                    }
-                }
-            }
+        for track in mp4.tracks.compactMap({ $0 as? MP42AudioTrack }) {
+            track.name = track.prettyTrackName
         }
 
         doc.updateChangeCount(.changeDone)

@@ -120,3 +120,33 @@ extension MP42File {
         return name.isEmpty ? nil : name
     }
 }
+
+extension MP42AudioTrack {
+
+    var outputChannels: UInt32 {
+        if let cs = conversionSettings as? MP42AudioConversionSettings {
+            if cs.mixDown == kMP42AudioMixdown_Mono || channels == 1 {
+                return 1
+            } else if cs.mixDown == kMP42AudioMixdown_None {
+                return channels
+            } else {
+                return 2
+            }
+        } else {
+            return channels
+        }
+    }
+
+    var prettyTrackName: String {
+        let channelCount = outputChannels
+
+        // Use channel count to determine track name
+        if channelCount == 1 {
+            return "Mono Audio"
+        } else if channelCount == 2 {
+            return "Stereo Audio"
+        } else {
+            return "Surround Audio"
+        }
+    }
+}
