@@ -182,6 +182,12 @@
                                                 <action selector="clearTrackNames:" target="-2" id="MeX-3f-VXG"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Prettify audio track names" id="SN3-Fe-fRS">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="prettifyAudioTrackNames:" target="-2" id="Sde-MB-ZdJ"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Fix audio fallbacks" id="rGe-lx-aht">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>

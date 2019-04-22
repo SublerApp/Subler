@@ -450,6 +450,47 @@ class QueueClearTrackNameAction : NSObject, QueueActionProtocol {
 
 }
 
+/// An action that renames audio tracks.
+class QueuePrettifyAudioTrackNameAction : NSObject, QueueActionProtocol {
+
+    var type: QueueActionType { return .pre }
+    var localizedDescription: String { return NSLocalizedString("Prettifying audio track names", comment: "Action localized description") }
+    override var description: String { return NSLocalizedString("Prettify audio track names", comment: "Action description") }
+
+    override init() {}
+
+    func runAction(_ item: QueueItem) -> Bool {
+        if let tracks = item.mp4File?.tracks {
+            // Iterate audio tracks
+            for track in tracks {
+                if let audioTrack = track as? MP42AudioTrack {
+                    // Parse format summary for channel count
+                    if let range = audioTrack.formatSummary.range(of: "(\\d+)(?=\\D*$)", options: .regularExpression) {
+                        let channelCount = Int(audioTrack.formatSummary[range])!
+
+                        // Use channel count to determine track name
+                        if channelCount == 1 {
+                            audioTrack.name = "Mono Audio"
+                        } else if channelCount == 2 {
+                            audioTrack.name = "Stereo Audio"
+                        } else {
+                            audioTrack.name = "Surround Audio"
+                        }
+                    }
+                }
+            }
+        }
+        return true
+    }
+
+    func encode(with aCoder: NSCoder) {}
+
+    required init?(coder aDecoder: NSCoder) {}
+
+    static var supportsSecureCoding: Bool { return true }
+
+}
+
 enum QueueColorSpaceActionTag: UInt16 {
     case None = 1
     case Rec601PAL

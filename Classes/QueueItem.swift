@@ -473,10 +473,10 @@ import MP42Foundation
         actionsInternal = aDecoder.decodeObject(of: [NSArray.classForCoder(), QueueSetAction.classForCoder(),
                                                      QueueMetadataAction.classForCoder(), QueueSubtitlesAction.classForCoder(),
                                                      QueueSetLanguageAction.classForCoder(), QueueFixFallbacksAction.classForCoder(),
-                                                     QueueClearTrackNameAction.classForCoder(), QueueOrganizeGroupsAction.classForCoder(),
-                                                     QueueColorSpaceAction.classForCoder(), QueueSetOutputFilenameAction.classForCoder(),
-                                                     QueueClearExistingMetadataAction.classForCoder(), QueueOptimizeAction.classForCoder(),
-                                                     QueueSendToiTunesAction.classForCoder()], forKey: "SBQueueItemActions") as! [QueueActionProtocol]
+                                                     QueueClearTrackNameAction.classForCoder(), QueuePrettifyAudioTrackNameAction.classForCoder(),
+                                                     QueueOrganizeGroupsAction.classForCoder(), QueueColorSpaceAction.classForCoder(),
+                                                     QueueSetOutputFilenameAction.classForCoder(), QueueClearExistingMetadataAction.classForCoder(),
+                                                     QueueOptimizeAction.classForCoder(), QueueSendToiTunesAction.classForCoder()], forKey: "SBQueueItemActions") as! [QueueActionProtocol]
     }
 }
 

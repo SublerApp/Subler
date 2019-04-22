@@ -328,6 +328,12 @@
                                     <action selector="clearTrackNames:" target="-1" id="KsZ-tN-sdV"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Prettify audio track names" id="fm8-d2-1Yi">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="prettifyAudioTrackNames:" target="-1" id="z63-Uv-MTO"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Fix audio fallbacks" id="FXb-bX-0Wb">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>

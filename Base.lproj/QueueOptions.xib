@@ -454,6 +454,20 @@
                         </binding>
                     </connections>
                 </button>
+                <button toolTip="Rename audio tracks according to channel count (Mono, Stereo, Surround)" translatesAutoresizingMaskIntoConstraints="NO" id="81E-pQ-vyQ">
+                    <rect key="frame" x="110" y="245" width="160" height="18"/>
+                    <buttonCell key="cell" type="check" title="Prettify audio track names" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="akF-dR-OPB" userLabel="Prettify audio track names">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="self.options.prettifyAudioTrackName" id="KdC-0J-tcK">
+                            <dictionary key="options">
+                                <bool key="NSValidatesImmediately" value="YES"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </button>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="08Q-2k-0Gb">
                     <rect key="frame" x="183" y="328" width="76" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" title="Poster" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="YjX-6f-SPu" id="1t8-o9-ckI">
@@ -610,6 +624,7 @@
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Pdq-s0-erT" secondAttribute="trailing" constant="20" id="K4l-zV-1mW"/>
                 <constraint firstItem="vJ5-JB-k1m" firstAttribute="width" secondItem="NhN-Lg-awX" secondAttribute="width" id="LT4-xB-E7u"/>
                 <constraint firstItem="86l-GG-SpO" firstAttribute="width" secondItem="DVM-Js-DwK" secondAttribute="width" id="MWE-ql-Ihv"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="81E-pQ-vyQ" secondAttribute="trailing" constant="20" id="Mpx-eb-bzh"/>
                 <constraint firstItem="tLh-V3-OfB" firstAttribute="leading" secondItem="bDo-OD-bck" secondAttribute="trailing" constant="8" id="NhO-8t-Aqz"/>
                 <constraint firstItem="22k-mA-HyA" firstAttribute="top" secondItem="etc-K7-Atw" secondAttribute="bottom" constant="6" id="OTk-pM-SaL"/>
                 <constraint firstItem="zEH-aV-Tl7" firstAttribute="top" secondItem="KWg-Ak-bB6" secondAttribute="bottom" constant="8" id="PYS-hz-ZPB"/>
@@ -636,7 +651,6 @@
                 <constraint firstItem="KWg-Ak-bB6" firstAttribute="top" secondItem="86l-GG-SpO" secondAttribute="bottom" constant="4" id="bid-SJ-xdV"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="TV6-Sk-Bqr" secondAttribute="trailing" constant="20" id="bwF-mF-sxu"/>
                 <constraint firstItem="DVM-Js-DwK" firstAttribute="top" secondItem="Hjl-i0-gFW" secondAttribute="bottom" constant="8" id="c6c-TQ-ldg"/>
-                <constraint firstItem="slL-2h-MPl" firstAttribute="top" secondItem="22k-mA-HyA" secondAttribute="bottom" constant="6" id="cIg-Xn-0eb"/>
                 <constraint firstItem="eTL-yP-QQ5" firstAttribute="baseline" secondItem="ZVm-yi-3cE" secondAttribute="baseline" id="cev-uP-NXR"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="yI9-2a-q2a" secondAttribute="trailing" constant="20" id="d2E-dG-y9d"/>
                 <constraint firstItem="73q-gi-fe2" firstAttribute="baseline" secondItem="5rh-cM-iOg" secondAttribute="baseline" id="dQ5-0I-48F"/>
@@ -644,7 +658,9 @@
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="etc-K7-Atw" secondAttribute="trailing" constant="20" id="dkQ-8f-2fd"/>
                 <constraint firstItem="zVi-vU-sh2" firstAttribute="top" secondItem="zEH-aV-Tl7" secondAttribute="bottom" constant="6" id="enc-oG-yK1"/>
                 <constraint firstItem="08Q-2k-0Gb" firstAttribute="baseline" secondItem="Ns9-7q-hsh" secondAttribute="baseline" id="fG1-Oh-vZ3"/>
+                <constraint firstItem="81E-pQ-vyQ" firstAttribute="leading" secondItem="slL-2h-MPl" secondAttribute="leading" id="fMQ-rX-j1c"/>
                 <constraint firstItem="s8r-Cf-VfB" firstAttribute="top" secondItem="9GN-f6-r2j" secondAttribute="bottom" constant="6" id="fmf-zf-q4j"/>
+                <constraint firstItem="81E-pQ-vyQ" firstAttribute="leading" secondItem="22k-mA-HyA" secondAttribute="leading" id="hRz-bR-msr"/>
                 <constraint firstItem="TV6-Sk-Bqr" firstAttribute="leading" secondItem="ccd-Xn-Dj3" secondAttribute="leading" id="hnH-5m-uQi"/>
                 <constraint firstItem="TV6-Sk-Bqr" firstAttribute="top" secondItem="ccd-Xn-Dj3" secondAttribute="bottom" constant="6" id="i86-G2-ukZ"/>
                 <constraint firstItem="5rh-cM-iOg" firstAttribute="top" secondItem="ZVm-yi-3cE" secondAttribute="bottom" constant="4" id="iUq-0X-QIX"/>
@@ -665,6 +681,7 @@
                 <constraint firstItem="22k-mA-HyA" firstAttribute="leading" secondItem="etc-K7-Atw" secondAttribute="leading" id="nJP-73-hpw"/>
                 <constraint firstItem="Pdq-s0-erT" firstAttribute="top" secondItem="ZZk-4j-Ji7" secondAttribute="bottom" constant="4" id="nve-cv-GjI"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZZk-4j-Ji7" secondAttribute="trailing" constant="20" id="o5D-5D-f9z"/>
+                <constraint firstItem="81E-pQ-vyQ" firstAttribute="top" secondItem="22k-mA-HyA" secondAttribute="bottom" constant="6" id="onR-dd-XHA"/>
                 <constraint firstItem="08Q-2k-0Gb" firstAttribute="leading" secondItem="Ns9-7q-hsh" secondAttribute="trailing" constant="8" id="pqo-4J-2VU"/>
                 <constraint firstItem="ZZk-4j-Ji7" firstAttribute="baseline" secondItem="swT-iM-shZ" secondAttribute="baseline" id="prq-pC-1Vf"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="86l-GG-SpO" secondAttribute="trailing" constant="20" id="qRH-fx-yda"/>
@@ -679,6 +696,7 @@
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zEH-aV-Tl7" secondAttribute="trailing" constant="20" id="uIU-b1-ler"/>
                 <constraint firstItem="MGZ-hB-jhx" firstAttribute="leading" secondItem="Uoo-hZ-D1f" secondAttribute="trailing" constant="8" id="x7P-ao-di2"/>
                 <constraint firstItem="MGZ-hB-jhx" firstAttribute="top" secondItem="zVi-vU-sh2" secondAttribute="bottom" constant="16" id="yi4-ru-tUN"/>
+                <constraint firstItem="slL-2h-MPl" firstAttribute="top" secondItem="81E-pQ-vyQ" secondAttribute="bottom" constant="6" id="yuN-3A-a71"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ccd-Xn-Dj3" secondAttribute="trailing" constant="20" id="zrg-ax-2rw"/>
             </constraints>
             <point key="canvasLocation" x="-711" y="-76"/>
