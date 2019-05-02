@@ -12,7 +12,7 @@ public struct ChapterDB : ChapterService {
 
     public func search(title: String, duration: UInt64) -> [ChapterResult] {
 
-        guard let url = URL(string: "http://chapterdb.org/chapters/search?title=\(title.urlEncoded())"),
+        guard let url = URL(string: "http://chapterdb.plex.tv/chapters/search?title=\(title.urlEncoded())"),
             let data = fetch(url: url)
             else { return [] }
 
@@ -28,7 +28,7 @@ public struct ChapterDB : ChapterService {
     }
 
     private func fetchDetails(id: UInt64) -> [Chapter]? {
-        guard let url = URL(string: "http://chapterdb.org/chapters/\(id)"),
+        guard let url = URL(string: "http://chapterdb.plex.tv/chapters/\(id)"),
             let data = fetch(url: url)
             else { return [] }
 
