@@ -149,15 +149,6 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>chapterdb.plex.tv</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSTemporaryExceptionMinimumTLSVersion</key>
-				<string>TLSv1.2</string>
-			</dict>
 			<key>mzstatic.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>

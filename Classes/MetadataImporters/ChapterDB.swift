@@ -10,9 +10,11 @@ import MP42Foundation
 
 public struct ChapterDB : ChapterService {
 
+    private let basePath = "https://chapterdb.plex.tv/chapters/"
+
     public func search(title: String, duration: UInt64) -> [ChapterResult] {
 
-        guard let url = URL(string: "http://chapterdb.plex.tv/chapters/search?title=\(title.urlEncoded())"),
+        guard let url = URL(string: "\(basePath)search?title=\(title.urlEncoded())"),
             let data = fetch(url: url)
             else { return [] }
 
@@ -28,7 +30,7 @@ public struct ChapterDB : ChapterService {
     }
 
     private func fetchDetails(id: UInt64) -> [Chapter]? {
-        guard let url = URL(string: "http://chapterdb.plex.tv/chapters/\(id)"),
+        guard let url = URL(string: "\(basePath)\(id)"),
             let data = fetch(url: url)
             else { return [] }
 
