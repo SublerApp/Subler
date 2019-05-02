@@ -9,7 +9,7 @@ import Cocoa
 import IOKit.pwr_mgt
 import MP42Foundation
 
-@objc(SBDocument) final class Document: NSDocument {
+final class Document: NSDocument {
 
     private(set) var mp4: MP42File
     private var unsupportedMp4Brand: Bool

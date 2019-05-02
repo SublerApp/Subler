@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-@objc(SBQueueItem) final class QueueItem: NSObject, NSSecureCoding {
+final class QueueItem: NSObject, NSSecureCoding {
 
     @objc enum Status: Int {
         case ready
