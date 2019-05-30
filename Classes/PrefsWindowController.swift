@@ -88,12 +88,14 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
     lazy var metadataController: MetadataPrefsViewController = { return MetadataPrefsViewController() }()
     lazy var presetController: PresetPrefsViewController = { return PresetPrefsViewController() }()
     lazy var outputController: OutputPrefsViewController = { return OutputPrefsViewController() }()
+    lazy var ocrController: OCRPrefsViewController = { return OCRPrefsViewController() }()
     lazy var advancedController: AdvancedPrefsViewController = { return AdvancedPrefsViewController() }()
 
     let general: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_GENERAL")
     let metadata: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_METADATA")
     let presets: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_SETS")
     let output: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_OUTPUT")
+    let ocr: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_OCR")
     let advanced: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_ADVANCED")
 
     // MARK: Panel switching
@@ -103,6 +105,7 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
         if identifier == metadata { return metadataController.view }
         if identifier == presets { return presetController.view }
         if identifier == output { return outputController.view }
+        if identifier == ocr { return ocrController.view }
         if identifier == advanced { return advancedController.view }
         return nil
     }

@@ -61,6 +61,7 @@
 		A9676A341FB6EAAD00C1E300 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9676A331FB6EAAD00C1E300 /* ItemViewController.swift */; };
 		A979B3862025C8BF00468362 /* DocumentWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A979B3842025C8BF00468362 /* DocumentWindowController.swift */; };
 		A97C3AA5204F18C90007AD38 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97C3AA4204F18C90007AD38 /* TokenCellView.swift */; };
+		A97D99DA22A0240C001FA3A7 /* OCRManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97D99D922A0240C001FA3A7 /* OCRManager.swift */; };
 		A97FBE3C21FC7F1C00F1FD35 /* QueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */; };
 		A983E80B22365B5400221BAE /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A983E80A22365B5400221BAE /* MovieViewController.swift */; };
 		A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A984DB730F52DD4B001A20B2 /* dsa_pub.pem */; };
@@ -115,6 +116,8 @@
 		A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */; };
 		A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */; };
 		A9D64527202CA92400BA172B /* SaveOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D64525202CA92400BA172B /* SaveOptions.swift */; };
+		A9DA03E322A0211C0056AE7B /* OCRPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DA03E122A0211C0056AE7B /* OCRPrefsViewController.swift */; };
+		A9DA03E422A0211C0056AE7B /* OCRPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9DA03E222A0211C0056AE7B /* OCRPrefsViewController.xib */; };
 		A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B991B918D5C00F1E40C /* SBApplication.m */; };
 		A9DA3BA31B918D6F00F1E40C /* ExceptionAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9DA3BA11B918D6F00F1E40C /* ExceptionAlert.xib */; };
 		A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E97F131F274F1100DBA586 /* iTunesStore.swift */; };
@@ -283,6 +286,7 @@
 		A96EA9E921FA47520033EC5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A979B3842025C8BF00468362 /* DocumentWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentWindowController.swift; path = Classes/DocumentWindowController.swift; sourceTree = "<group>"; };
 		A97C3AA4204F18C90007AD38 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenCellView.swift; path = Classes/TokenCellView.swift; sourceTree = "<group>"; };
+		A97D99D922A0240C001FA3A7 /* OCRManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OCRManager.swift; path = Classes/OCRManager.swift; sourceTree = "<group>"; };
 		A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueController.swift; path = Classes/QueueController.swift; sourceTree = "<group>"; };
 		A983E80A22365B5400221BAE /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieViewController.swift; path = Classes/PropertyView/MovieViewController.swift; sourceTree = "<group>"; };
 		A984DB4A0F52D644001A20B2 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
@@ -351,6 +355,8 @@
 		A9C73535206B8F9900794673 /* QueuePreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueuePreferences.swift; path = Classes/QueuePreferences.swift; sourceTree = "<group>"; };
 		A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataImporter.swift; path = Classes/MetadataImporters/MetadataImporter.swift; sourceTree = "<group>"; };
 		A9D64525202CA92400BA172B /* SaveOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveOptions.swift; path = Classes/SaveOptions.swift; sourceTree = "<group>"; };
+		A9DA03E122A0211C0056AE7B /* OCRPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OCRPrefsViewController.swift; path = Classes/OCRPrefsViewController.swift; sourceTree = "<group>"; };
+		A9DA03E222A0211C0056AE7B /* OCRPrefsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = OCRPrefsViewController.xib; path = Classes/OCRPrefsViewController.xib; sourceTree = "<group>"; };
 		A9DA3B991B918D5C00F1E40C /* SBApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBApplication.m; path = Classes/SBApplication.m; sourceTree = "<group>"; };
 		A9DA3BA01B918D6200F1E40C /* SBApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBApplication.h; path = Classes/SBApplication.h; sourceTree = "<group>"; };
 		A9E97F131F274F1100DBA586 /* iTunesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = iTunesStore.swift; path = Classes/MetadataImporters/iTunesStore.swift; sourceTree = "<group>"; };
@@ -545,6 +551,9 @@
 				A90CD5C71FD177280070A067 /* OutputPrefsViewController.xib */,
 				A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */,
 				A90CD5C21FD177230070A067 /* TokensViewController.xib */,
+				A97D99D922A0240C001FA3A7 /* OCRManager.swift */,
+				A9DA03E122A0211C0056AE7B /* OCRPrefsViewController.swift */,
+				A9DA03E222A0211C0056AE7B /* OCRPrefsViewController.xib */,
 				A99D23202029CD32002E7F27 /* PrefsWindow.swift */,
 			);
 			name = Preferences;
@@ -842,6 +851,7 @@
 				A998DABF1BA54CFF004D7969 /* MediaTagsController.xib in Resources */,
 				A98542D720D197D300EB9803 /* ArtworkSelector.xib in Resources */,
 				A9ECA0602029A13800D5F30C /* OffsetViewController.xib in Resources */,
+				A9DA03E422A0211C0056AE7B /* OCRPrefsViewController.xib in Resources */,
 				A961476713F568210068F161 /* Queue.xib in Resources */,
 				A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */,
 				A9ECA0572029A10B00D5F30C /* DocumentWindowController.xib in Resources */,
@@ -876,6 +886,8 @@
 				A98D6BAB21FDC62800F0D886 /* Queue.swift in Sources */,
 				A98542DC20D1A7E500EB9803 /* ArtworkSelectorViewItem.swift in Sources */,
 				A90C3E0C1FD16AF200F64532 /* TokensViewController.swift in Sources */,
+				A97D99DA22A0240C001FA3A7 /* OCRManager.swift in Sources */,
+				A9DA03E322A0211C0056AE7B /* OCRPrefsViewController.swift in Sources */,
 				A9C09C7C1F99F460007939EE /* ExceptionAlertController.swift in Sources */,
 				A9A91B5D1FB6FBB700250D93 /* ChapterViewController.swift in Sources */,
 				A9676A301FB6E85300C1E300 /* LanguageTransformer.swift in Sources */,

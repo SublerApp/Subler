@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14105" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14105"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,14 +13,14 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="1" customClass="PrefsWindow" customModule="Subler" customModuleProvider="target">
+        <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="1" customClass="PrefsWindow" customModule="Subler" customModuleProvider="target">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="625" y="992" width="620" height="220"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="contentRect" x="625" y="500" width="620" height="220"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="620" height="220"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             </view>
             <toolbar key="toolbar" implicitIdentifier="62479E7E-FF80-430F-8339-ECA67F66BBB3" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="Qgp-ap-Qwi">
                 <allowedToolbarItems>
@@ -46,6 +46,11 @@
                             <action selector="setPrefView:" target="-2" id="Wer-vH-QP9"/>
                         </connections>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="E563B234-18F6-4A09-9F56-4BB6C8F6A93E" explicitItemIdentifier="TOOLBAR_OCR" label="OCR" paletteLabel="OCR" tag="-1" image="NSEveryone" selectable="YES" id="btg-Uy-o7I">
+                        <connections>
+                            <action selector="setPrefView:" target="-2" id="rii-FH-ihc"/>
+                        </connections>
+                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="58DDAD82-C0AC-42A2-842E-E52C50A91828" explicitItemIdentifier="TOOLBAR_ADVANCED" label="Advanced" paletteLabel="Advanced" tag="-1" image="NSAdvanced" selectable="YES" id="udf-m4-mG8">
                         <connections>
                             <action selector="setPrefView:" target="-2" id="da5-1C-vGr"/>
@@ -57,6 +62,7 @@
                     <toolbarItem reference="Z2w-05-k1g"/>
                     <toolbarItem reference="PFq-0J-qih"/>
                     <toolbarItem reference="uxW-fx-zpe"/>
+                    <toolbarItem reference="btg-Uy-o7I"/>
                     <toolbarItem reference="udf-m4-mG8"/>
                     <toolbarItem reference="R2N-58-umt"/>
                 </defaultToolbarItems>
@@ -64,11 +70,12 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="fTZ-1L-fn7"/>
             </connections>
-            <point key="canvasLocation" x="-687" y="-1529"/>
+            <point key="canvasLocation" x="-735" y="-1609"/>
         </window>
     </objects>
     <resources>
         <image name="NSAdvanced" width="32" height="32"/>
+        <image name="NSEveryone" width="32" height="32"/>
         <image name="NSFolderSmart" width="32" height="32"/>
         <image name="NSPreferencesGeneral" width="32" height="32"/>
         <image name="NSUserAccounts" width="32" height="32"/>
