@@ -17,9 +17,9 @@ class OCRTableCellView : NSTableCellView {
 
             switch item.status {
             case .available:
-                actionButton.title = NSLocalizedString("Download", comment: "")
+                actionButton.title = NSLocalizedString("Get", comment: "")
             case .downloading:
-                actionButton.title = NSLocalizedString("Cancel Download", comment: "")
+                actionButton.title = NSLocalizedString("Cancel", comment: "")
             case .downloaded:
                 actionButton.title = NSLocalizedString("Remove", comment: "")
             }

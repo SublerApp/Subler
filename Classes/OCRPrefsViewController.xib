@@ -15,11 +15,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="314"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QYE-NI-76o">
-                    <rect key="frame" x="20" y="20" width="440" height="232"/>
+                    <rect key="frame" x="20" y="62" width="440" height="232"/>
                     <clipView key="contentView" id="OFf-eT-AOX">
                         <rect key="frame" x="1" y="1" width="438" height="230"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -49,7 +49,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Fec-S0-J1M">
-                                                        <rect key="frame" x="0.0" y="1" width="361" height="17"/>
+                                                        <rect key="frame" x="87" y="1" width="348" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Zhz-YB-L6R">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -57,8 +57,11 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lhm-Hc-3on">
-                                                        <rect key="frame" x="362" y="-6" width="78" height="27"/>
-                                                        <buttonCell key="cell" type="push" title="Download" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DIS-cU-NvL">
+                                                        <rect key="frame" x="-2" y="-6" width="90" height="27"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="WJc-b5-b3e"/>
+                                                        </constraints>
+                                                        <buttonCell key="cell" type="push" title="Get" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DIS-cU-NvL">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="smallSystem"/>
                                                         </buttonCell>
@@ -68,12 +71,12 @@
                                                     </button>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="Lhm-Hc-3on" firstAttribute="top" secondItem="lSD-av-rXp" secondAttribute="top" id="HFY-Dv-gax"/>
-                                                    <constraint firstItem="Fec-S0-J1M" firstAttribute="leading" secondItem="lSD-av-rXp" secondAttribute="leading" constant="2" id="TFm-Og-N3R"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Lhm-Hc-3on" secondAttribute="trailing" id="fj8-Gq-9Mz"/>
-                                                    <constraint firstItem="Fec-S0-J1M" firstAttribute="top" secondItem="lSD-av-rXp" secondAttribute="top" id="gVf-Vu-uuK"/>
-                                                    <constraint firstItem="Lhm-Hc-3on" firstAttribute="leading" secondItem="Fec-S0-J1M" secondAttribute="trailing" constant="8" id="sBh-Qb-yBo"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Fec-S0-J1M" secondAttribute="bottom" constant="1" id="uWd-3R-MSq"/>
+                                                    <constraint firstItem="Fec-S0-J1M" firstAttribute="top" secondItem="lSD-av-rXp" secondAttribute="top" id="9uf-fA-xpv"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Fec-S0-J1M" secondAttribute="bottom" constant="1" id="QLG-Ww-AZo"/>
+                                                    <constraint firstItem="Fec-S0-J1M" firstAttribute="leading" secondItem="Lhm-Hc-3on" secondAttribute="trailing" constant="6" id="UsK-RG-vQJ"/>
+                                                    <constraint firstItem="Lhm-Hc-3on" firstAttribute="leading" secondItem="lSD-av-rXp" secondAttribute="leading" constant="3" id="cOX-ia-Azj"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Fec-S0-J1M" secondAttribute="trailing" constant="2" id="duf-r8-sa5"/>
+                                                    <constraint firstItem="Lhm-Hc-3on" firstAttribute="top" secondItem="lSD-av-rXp" secondAttribute="top" id="hh0-fq-9ol"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="actionButton" destination="Lhm-Hc-3on" id="2kv-5U-ZWH"/>
@@ -102,14 +105,25 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="86L-qx-fhB">
+                    <rect key="frame" x="18" y="20" width="444" height="34"/>
+                    <textFieldCell key="cell" selectable="YES" title="Language specific OCR data files can improve the optical character recognition results." id="LFI-zD-ohi">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
                 <constraint firstItem="QYE-NI-76o" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="9Fy-vA-llH"/>
                 <constraint firstAttribute="trailing" secondItem="QYE-NI-76o" secondAttribute="trailing" constant="20" id="Vwb-4Y-WhU"/>
                 <constraint firstItem="QYE-NI-76o" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="em8-39-Ga2"/>
-                <constraint firstAttribute="bottom" secondItem="QYE-NI-76o" secondAttribute="bottom" constant="20" id="fRG-bD-lu1"/>
+                <constraint firstItem="86L-qx-fhB" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="fI4-AG-LoY"/>
+                <constraint firstItem="86L-qx-fhB" firstAttribute="top" secondItem="QYE-NI-76o" secondAttribute="bottom" constant="8" id="iWy-iw-A2N"/>
+                <constraint firstAttribute="trailing" secondItem="86L-qx-fhB" secondAttribute="trailing" constant="20" id="qeS-OH-SXd"/>
+                <constraint firstAttribute="bottom" secondItem="86L-qx-fhB" secondAttribute="bottom" constant="20" id="ulR-tl-1NW"/>
             </constraints>
-            <point key="canvasLocation" x="-366" y="98"/>
+            <point key="canvasLocation" x="-478" y="-95"/>
         </customView>
     </objects>
 </document>
