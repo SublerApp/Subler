@@ -46,7 +46,7 @@
                             <action selector="setPrefView:" target="-2" id="Wer-vH-QP9"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="E563B234-18F6-4A09-9F56-4BB6C8F6A93E" explicitItemIdentifier="TOOLBAR_OCR" label="OCR" paletteLabel="OCR" tag="-1" image="NSEveryone" selectable="YES" id="btg-Uy-o7I">
+                    <toolbarItem implicitItemIdentifier="E563B234-18F6-4A09-9F56-4BB6C8F6A93E" explicitItemIdentifier="TOOLBAR_OCR" label="OCR" paletteLabel="OCR" tag="-1" image="NSFontPanel" selectable="YES" id="btg-Uy-o7I">
                         <connections>
                             <action selector="setPrefView:" target="-2" id="rii-FH-ihc"/>
                         </connections>
@@ -75,8 +75,8 @@
     </objects>
     <resources>
         <image name="NSAdvanced" width="32" height="32"/>
-        <image name="NSEveryone" width="32" height="32"/>
         <image name="NSFolderSmart" width="32" height="32"/>
+        <image name="NSFontPanel" width="32" height="32"/>
         <image name="NSPreferencesGeneral" width="32" height="32"/>
         <image name="NSUserAccounts" width="32" height="32"/>
         <image name="mp4-file" width="32" height="32"/>
