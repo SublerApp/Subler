@@ -159,7 +159,7 @@ final class OCRManager {
                                     OCRLanguage(langCode: "kk", name: "kaz.traineddata"),
                                     OCRLanguage(langCode: "km", name: "khm.traineddata"),
                                     OCRLanguage(langCode: "ky", name: "kir.traineddata"),
-//                                    OCRLanguage(langCode: "kmr", name: "kmr.traineddata"),
+                                    OCRLanguage(langCode: "ku", name: "kmr.traineddata"),
                                     OCRLanguage(langCode: "ko", name: "kor.traineddata"),
 //                                    OCRLanguage(langCode: "kor_vert", name: "kor_vert.traineddata"),
                                     OCRLanguage(langCode: "lo", name: "lao.traineddata"),
@@ -229,16 +229,16 @@ final class OCRManager {
         NotificationCenter.default.post(name: OCRManager.updateNotification, object: self)
     }
 
-    private func destinationURL() -> URL? {
-        return FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.appendingPathComponent("Subler", isDirectory: true).appendingPathComponent("tessdata", isDirectory: true)
-    }
+    private lazy var destinationURL = {
+        return FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.appendingPathComponent("Subler", isDirectory: true).appendingPathComponent("tessdata", isDirectory: true).appendingPathComponent("v4", isDirectory: true)
+    }()
 
-    private func baseURL() -> URL? {
-        return URL(string: "https://github.com/tesseract-ocr/tessdata_fast/raw/master/")
-    }
+    private lazy var baseURL = {
+        return URL(string: "https://github.com/tesseract-ocr/tessdata/raw/master/")
+    }()
 
     func download(item: OCRLanguage) {
-        if let baseURL = baseURL(), let destURL = destinationURL() {
+        if let baseURL = baseURL, let destURL = destinationURL {
             _ = item.startDownload(from: baseURL, to: destURL, completionHandler: { _ in self.postNotification() })
             postNotification()
         }
@@ -249,7 +249,7 @@ final class OCRManager {
     }
 
     func removeDownload(item: OCRLanguage) throws {
-        if let destURL = destinationURL() {
+        if let destURL = destinationURL {
             try item.remove(destURL)
             postNotification()
         }
@@ -258,7 +258,8 @@ final class OCRManager {
     // MARK: read/write
 
     private func load() throws {
-        if let destinationURL = destinationURL() {
+        if let destinationURL = destinationURL {
+            try FileManager.default.createDirectory(at: destinationURL, withIntermediateDirectories: true, attributes: [:])
             languages.forEach { $0.checkIfDownloaded(destinationURL) }
         }
     }
