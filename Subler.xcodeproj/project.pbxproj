@@ -92,6 +92,7 @@
 		A9AB486617F0AEFD000AA72E /* MovieView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB485E17F0AEFD000AA72E /* MovieView.xib */; };
 		A9AB486717F0AEFD000AA72E /* SoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB486017F0AEFD000AA72E /* SoundView.xib */; };
 		A9AB486817F0AEFD000AA72E /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9AB486217F0AEFD000AA72E /* VideoView.xib */; };
+		A9ACF03222A2BCF200AD5B12 /* OCRPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9ACF03422A2BCF200AD5B12 /* OCRPrefsViewController.xib */; };
 		A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE26BD1F3B66470041A57D /* SquaredTVArt.swift */; };
 		A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */; };
 		A9AF2D1D206116680088CE91 /* SectionsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AF2D1C206116680088CE91 /* SectionsTableView.swift */; };
@@ -117,7 +118,6 @@
 		A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */; };
 		A9D64527202CA92400BA172B /* SaveOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D64525202CA92400BA172B /* SaveOptions.swift */; };
 		A9DA03E322A0211C0056AE7B /* OCRPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DA03E122A0211C0056AE7B /* OCRPrefsViewController.swift */; };
-		A9DA03E422A0211C0056AE7B /* OCRPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9DA03E222A0211C0056AE7B /* OCRPrefsViewController.xib */; };
 		A9DA3B9C1B918D5C00F1E40C /* SBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3B991B918D5C00F1E40C /* SBApplication.m */; };
 		A9DA3BA31B918D6F00F1E40C /* ExceptionAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9DA3BA11B918D6F00F1E40C /* ExceptionAlert.xib */; };
 		A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E97F131F274F1100DBA586 /* iTunesStore.swift */; };
@@ -313,6 +313,7 @@
 		A9A4A96C202F51FF00482D12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ProgressViewController.xib; sourceTree = "<group>"; };
 		A9A77C4D1F306FA70018023B /* AttributedStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AttributedStyles.swift; path = Classes/AttributedStyles.swift; sourceTree = "<group>"; };
 		A9A91B5C1FB6FBB700250D93 /* ChapterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterViewController.swift; path = Classes/PropertyView/ChapterViewController.swift; sourceTree = "<group>"; };
+		A9ACF03322A2BCF200AD5B12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OCRPrefsViewController.xib; sourceTree = "<group>"; };
 		A9AE26BD1F3B66470041A57D /* SquaredTVArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SquaredTVArt.swift; path = Classes/MetadataImporters/SquaredTVArt.swift; sourceTree = "<group>"; };
 		A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataHelper.swift; path = Classes/MetadataImporters/MetadataHelper.swift; sourceTree = "<group>"; };
 		A9AF2D1C206116680088CE91 /* SectionsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SectionsTableView.swift; path = Classes/SectionsTableView.swift; sourceTree = "<group>"; };
@@ -355,7 +356,6 @@
 		A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataImporter.swift; path = Classes/MetadataImporters/MetadataImporter.swift; sourceTree = "<group>"; };
 		A9D64525202CA92400BA172B /* SaveOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveOptions.swift; path = Classes/SaveOptions.swift; sourceTree = "<group>"; };
 		A9DA03E122A0211C0056AE7B /* OCRPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OCRPrefsViewController.swift; path = Classes/OCRPrefsViewController.swift; sourceTree = "<group>"; };
-		A9DA03E222A0211C0056AE7B /* OCRPrefsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = OCRPrefsViewController.xib; path = Classes/OCRPrefsViewController.xib; sourceTree = "<group>"; };
 		A9DA3B991B918D5C00F1E40C /* SBApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBApplication.m; path = Classes/SBApplication.m; sourceTree = "<group>"; };
 		A9DA3BA01B918D6200F1E40C /* SBApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SBApplication.h; path = Classes/SBApplication.h; sourceTree = "<group>"; };
 		A9E97F131F274F1100DBA586 /* iTunesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = iTunesStore.swift; path = Classes/MetadataImporters/iTunesStore.swift; sourceTree = "<group>"; };
@@ -551,7 +551,7 @@
 				A90CD5C21FD177230070A067 /* TokensViewController.xib */,
 				A97D99D922A0240C001FA3A7 /* OCRManager.swift */,
 				A9DA03E122A0211C0056AE7B /* OCRPrefsViewController.swift */,
-				A9DA03E222A0211C0056AE7B /* OCRPrefsViewController.xib */,
+				A9ACF03422A2BCF200AD5B12 /* OCRPrefsViewController.xib */,
 				A99D23202029CD32002E7F27 /* PrefsWindow.swift */,
 			);
 			name = Preferences;
@@ -849,7 +849,7 @@
 				A998DABF1BA54CFF004D7969 /* MediaTagsController.xib in Resources */,
 				A98542D720D197D300EB9803 /* ArtworkSelector.xib in Resources */,
 				A9ECA0602029A13800D5F30C /* OffsetViewController.xib in Resources */,
-				A9DA03E422A0211C0056AE7B /* OCRPrefsViewController.xib in Resources */,
+				A9ACF03222A2BCF200AD5B12 /* OCRPrefsViewController.xib in Resources */,
 				A961476713F568210068F161 /* Queue.xib in Resources */,
 				A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */,
 				A9ECA0572029A10B00D5F30C /* DocumentWindowController.xib in Resources */,
@@ -1174,6 +1174,15 @@
 				A9BA1AD61DBF773600FD0B38 /* it */,
 			);
 			name = VideoView.xib;
+			sourceTree = "<group>";
+		};
+		A9ACF03422A2BCF200AD5B12 /* OCRPrefsViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9ACF03322A2BCF200AD5B12 /* Base */,
+			);
+			name = OCRPrefsViewController.xib;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		A9BA1AF01DBF7DD700FD0B38 /* InfoPlist.strings */ = {

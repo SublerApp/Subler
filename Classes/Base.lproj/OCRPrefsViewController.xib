@@ -25,13 +25,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="19" rowSizeStyle="automatic" headerView="7KU-Cc-YiM" viewBased="YES" id="eSu-XV-7Vu">
-                                <rect key="frame" x="0.0" y="0.0" width="440" height="206"/>
+                                <rect key="frame" x="0.0" y="0.0" width="438" height="206"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn width="437" minWidth="40" maxWidth="1000" id="7YG-8f-1AH">
+                                    <tableColumn width="435" minWidth="40" maxWidth="1000" id="7YG-8f-1AH">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Language data files">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -45,11 +45,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="languageItem" id="lSD-av-rXp" customClass="OCRTableCellView" customModule="Subler" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="1" width="437" height="19"/>
+                                                <rect key="frame" x="1" y="1" width="435" height="19"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Fec-S0-J1M">
-                                                        <rect key="frame" x="87" y="2" width="350" height="17"/>
+                                                        <rect key="frame" x="87" y="2" width="348" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Zhz-YB-L6R">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -96,7 +96,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="232" id="B0d-iH-QVk"/>
                     </constraints>
-                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="C8S-5f-eDe">
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="C8S-5f-eDe">
                         <rect key="frame" x="1" y="215" width="438" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -105,7 +105,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" id="7KU-Cc-YiM">
-                        <rect key="frame" x="0.0" y="0.0" width="440" height="25"/>
+                        <rect key="frame" x="0.0" y="0.0" width="438" height="25"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
