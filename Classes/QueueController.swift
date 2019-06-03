@@ -269,6 +269,9 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         if prefs.prettifyAudioTrackName {
             item.addAction(QueuePrettifyAudioTrackNameAction())
         }
+        if prefs.renameChapters {
+            item.addAction(QueueRenameChaptersAction())
+        }
         if prefs.fixTrackLanguage {
             item.addAction(QueueSetLanguageAction(language: prefs.fixTrackLanguageValue))
         }

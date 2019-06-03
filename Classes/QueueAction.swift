@@ -114,9 +114,7 @@ class QueueSubtitlesAction : NSObject, QueueActionProtocol {
     }
 
     func encode(with aCoder: NSCoder) {}
-
     required init?(coder aDecoder: NSCoder) {}
-
     static var supportsSecureCoding: Bool { return true }
 
 }
@@ -357,9 +355,7 @@ class QueueOrganizeGroupsAction : NSObject, QueueActionProtocol {
     }
 
     func encode(with aCoder: NSCoder) {}
-
     required init?(coder aDecoder: NSCoder) {}
-
     static var supportsSecureCoding: Bool { return true }
 
 }
@@ -379,9 +375,7 @@ class QueueFixFallbacksAction : NSObject, QueueActionProtocol {
     }
 
     func encode(with aCoder: NSCoder) {}
-
     required init?(coder aDecoder: NSCoder) {}
-
     static var supportsSecureCoding: Bool { return true }
 
 }
@@ -443,9 +437,7 @@ class QueueClearTrackNameAction : NSObject, QueueActionProtocol {
     }
 
     func encode(with aCoder: NSCoder) {}
-
     required init?(coder aDecoder: NSCoder) {}
-
     static var supportsSecureCoding: Bool { return true }
 
 }
@@ -471,9 +463,35 @@ class QueuePrettifyAudioTrackNameAction : NSObject, QueueActionProtocol {
     }
 
     func encode(with aCoder: NSCoder) {}
-
     required init?(coder aDecoder: NSCoder) {}
+    static var supportsSecureCoding: Bool { return true }
 
+}
+
+/// An action that renames all the chapters titles.
+class QueueRenameChaptersAction : NSObject, QueueActionProtocol {
+
+    var type: QueueActionType { return .pre }
+    var localizedDescription: String { return NSLocalizedString("Prettifying audio track names", comment: "Action localized description") }
+    override var description: String { return NSLocalizedString("Prettify audio track names", comment: "Action description") }
+
+    override init() {}
+
+    func runAction(_ item: QueueItem) -> Bool {
+        let chaptersTracks = item.mp4File?.tracks.compactMap { $0 as? MP42ChapterTrack } ?? []
+
+        chaptersTracks.forEach {
+            for (index, chapter) in $0.chapters.enumerated() {
+                let title = "Chapter \(index + 1)"
+                $0.setTitle(title, forChapter: chapter)
+            }
+        }
+
+        return true
+    }
+
+    func encode(with aCoder: NSCoder) {}
+    required init?(coder aDecoder: NSCoder) {}
     static var supportsSecureCoding: Bool { return true }
 
 }
