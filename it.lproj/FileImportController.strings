@@ -28,6 +28,9 @@
 /* Class = "NSMenuItem"; title = "Check only tracks with the same language"; ObjectID = "D3Y-pV-hxZ"; */
 "D3Y-pV-hxZ.title" = "Abilità solo le tracce aventi la stessa lingua";
 
+/* Class = "NSTextFieldCell"; title = "Info"; ObjectID = "gDY-tC-Ecv"; */
+"gDY-tC-Ecv.title" = "Info";
+
 /* Class = "NSMenuItem"; title = "Check"; ObjectID = "GIM-Js-R4l"; */
 "GIM-Js-R4l.title" = "Abilita";
 

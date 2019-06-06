@@ -256,14 +256,14 @@
 /* Class = "NSMenuItem"; title = "Search chapters online…"; ObjectID = "blb-EP-gbJ"; */
 "blb-EP-gbJ.title" = "Cerca capitoli online…";
 
+/* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "fm8-d2-1Yi"; */
+"fm8-d2-1Yi.title" = "Rinomina le tracce audio";
+
 /* Class = "NSMenuItem"; title = "Fix audio fallbacks"; ObjectID = "FXb-bX-0Wb"; */
 "FXb-bX-0Wb.title" = "Correggi gli audio di ripiego";
 
 /* Class = "NSMenuItem"; title = "Clear tracks names"; ObjectID = "hKY-N2-NzK"; */
 "hKY-N2-NzK.title" = "Cancella i nomi delle tracce";
-
-/* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "fm8-d2-1Yi"; */
-"fm8-d2-1Yi.title" = "Prettify nomi delle tracce audio";
 
 /* Class = "NSMenuItem"; title = "Donate…"; ObjectID = "ojS-sZ-qGM"; */
 "ojS-sZ-qGM.title" = "Dona…";

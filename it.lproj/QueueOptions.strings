@@ -1,6 +1,9 @@
 /* Class = "NSButtonCell"; title = "Apply color space"; ObjectID = "0By-RQ-4mS"; */
 "0By-RQ-4mS.title" = "Applica spazio di colore";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Rename chapters titles to \"Chapter N\" format."; ObjectID = "0qr-Nt-Pan"; */
+"0qr-Nt-Pan.ibShadowedToolTip" = "Rinomina ogni capitolo nel formato \"Capitolo N\".";
+
 /* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "1dC-y4-0rx"; */
 "1dC-y4-0rx.title" = "Lingua:";
 
@@ -28,6 +31,9 @@
 /* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "4rl-TJ-0yZ"; */
 "4rl-TJ-0yZ.ibShadowedNotApplicablePlaceholder" = "Nessuno";
 
+/* Class = "NSMenuItem"; title = "Square"; ObjectID = "7zv-RG-1w4"; */
+"7zv-RG-1w4.title" = "Square";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Clear existing metadata"; ObjectID = "9GN-f6-r2j"; */
 "9GN-f6-r2j.ibShadowedToolTip" = "Cancella metadata esistenti";
 
@@ -43,11 +49,11 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Delete all custom track names"; ObjectID = "22k-mA-HyA"; */
 "22k-mA-HyA.ibShadowedToolTip" = "Cancella tutti i nomi delle tracce";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Rename audio tracks according to channel count (Mono, Stereo, Surround)"; ObjectID = "81E-pQ-vyQ"; */
-"81E-pQ-vyQ.ibShadowedToolTip" = "Rinomina le tracce audio in base al numero di canali";
-
 /* Class = "NSButtonCell"; title = "Load external subtitles"; ObjectID = "59T-kp-mV1"; */
 "59T-kp-mV1.title" = "Carica sottotitoli esterni";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Rename audio tracks according to channel count (Mono, Stereo, Surround)"; ObjectID = "81E-pQ-vyQ"; */
+"81E-pQ-vyQ.ibShadowedToolTip" = "Rinomina le tracce audio in base al numero di canali (Mono, Stereo, Surround)";
 
 /* Class = "NSButtonCell"; title = "Organize Groups"; ObjectID = "240-c7-2UW"; */
 "240-c7-2UW.title" = "Organizza gruppi";
@@ -63,6 +69,9 @@
 
 /* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "aF7-XO-EMK"; */
 "aF7-XO-EMK.ibShadowedNotApplicablePlaceholder" = "Nessuno";
+
+/* Class = "NSButtonCell"; title = "Prettify audio track names"; ObjectID = "akF-dR-OPB"; */
+"akF-dR-OPB.title" = "Rinomina le tracce audio";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Organize the mp4 alternate groups"; ObjectID = "ccd-Xn-Dj3"; */
 "ccd-Xn-Dj3.ibShadowedToolTip" = "Organizza i gruppi di alternative mp4.";
@@ -85,6 +94,9 @@
 /* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "GBM-Sa-9GJ"; */
 "GBM-Sa-9GJ.title" = "Lingua:";
 
+/* Class = "NSMenuItem"; title = "iTunes"; ObjectID = "GXR-5u-c8a"; */
+"GXR-5u-c8a.title" = "iTunes";
+
 /* Class = "NSButtonCell"; title = "Fetch Metadata"; ObjectID = "h5x-un-6cJ"; */
 "h5x-un-6cJ.title" = "Trova metadata";
 
@@ -96,9 +108,6 @@
 
 /* Class = "NSButtonCell"; title = "Clear tracks names"; ObjectID = "mtK-5C-Pzh"; */
 "mtK-5C-Pzh.title" = "Cancella i nomi delle tracce";
-
-/* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "akF-dR-OPB"; */
-"akF-dR-OPB.title" = "Prettify nomi delle tracce audio";
 
 /* Class = "NSButtonCell"; title = "Show Notification When Done"; ObjectID = "n6P-IC-SEp"; */
 "n6P-IC-SEp.title" = "Mostra una notifica alla conclusione";
@@ -174,6 +183,9 @@
 
 /* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "Unknown"; ObjectID = "Xnw-Nt-5dZ"; */
 "Xnw-Nt-5dZ.ibShadowedNotApplicablePlaceholder" = "Sconosciuta";
+
+/* Class = "NSButtonCell"; title = "Rename chapters titles"; ObjectID = "yFm-Nq-s66"; */
+"yFm-Nq-s66.title" = "Rinomina i capitoli";
 
 /* Class = "NSMenuItem"; title = "Poster"; ObjectID = "YjX-6f-SPu"; */
 "YjX-6f-SPu.title" = "Poster";

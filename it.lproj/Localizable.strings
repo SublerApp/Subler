@@ -2,9 +2,6 @@
 "-NA-" = "-ND-";
 
 /* No comment provided by engineer. */
-"%@, item %ld." = "%1$@, elemento %2$ld.";
-
-/* No comment provided by engineer. */
 "%lu items in queue." = "%lu elementi in coda.";
 
 /* No comment provided by engineer. */
@@ -15,6 +12,9 @@
 
 /* No comment provided by engineer. */
 "1 track selected" = "1 traccia selezionata";
+
+/* QueueItem Error */
+"A file already exists at the destination." = "Esiste già un file nella destinazione.";
 
 /* No comment provided by engineer. */
 "A preset already exists with the same name." = "Esiste già un preset con lo stesso nome.";
@@ -30,6 +30,9 @@
 
 /* Set menu All set */
 "All" = "Tutto";
+
+/* QueueItem Error */
+"An error occurred while optimizing the file." = "Si è verificato un errore durante l'ottimizzazione del file.";
 
 /* Action description */
 "Apply %@ preset" = "Applica il preset %@";
@@ -50,7 +53,7 @@
 "Booklet" = "Libretto";
 
 /* No comment provided by engineer. */
-"Canceled" = "Annullato";
+"Cancel Download" = "Annulla download";
 
 /* No comment provided by engineer. */
 "Capitalize" = "Capitalizza";
@@ -74,9 +77,6 @@
 "Clearing tracks names" = "Cancello i nomi delle tracce";
 
 /* No comment provided by engineer. */
-"Completed" = "Completato";
-
-/* No comment provided by engineer. */
 "Composer" = "Compositore";
 
 /* Media characteristic. */
@@ -92,11 +92,8 @@
 "Day" = "Giorno";
 
 /* Undo cover art delete
-   Undo tag delete */
+   Undo tag delete. */
 "Delete" = "Elimina";
-
-/* Queue -> Undo delete item. */
-"Delete Queue Item" = "Elimina elemento della coda";
 
 /* Media characteristic. */
 "Describes Music And Sound For Accessibility" = "Descrive la musica e il suono per l'accessibilità";
@@ -140,7 +137,7 @@
 /* Media characteristic. */
 "Easy To Read" = "Semplice da leggere";
 
-/* Undo tag editing */
+/* Undo tag editing. */
 "Editing" = "Modifico";
 
 /* No comment provided by engineer. */
@@ -155,11 +152,11 @@
 /* No comment provided by engineer. */
 "Explicit" = "Esplicito";
 
-/* No comment provided by engineer. */
-"Failed" = "Fallito";
-
 /* Export alert panel -> title */
 "File Could Not Be Saved" = "Non è stato possibile salvare il documento";
+
+/* QueueItem Error */
+"File not found." = "File non trovato.";
 
 /* No comment provided by engineer. */
 "Filename" = "Nome file";
@@ -175,6 +172,9 @@
 
 /* No comment provided by engineer. */
 "Genre" = "Genere";
+
+/* No comment provided by engineer. */
+"Get" = "Ottieni";
 
 /* Implicit color profile */
 "Implicit" = "Implicito";
@@ -216,6 +216,9 @@
 /* Undo cover art delete */
 "Move" = "Muovi";
 
+/* Queue -> move add item. */
+"Move Queue Item" = "sposta elemento coda";
+
 /* Set menu Movie set */
 "Movie" = "Film";
 
@@ -235,10 +238,19 @@
 "Network" = "Network";
 
 /* No comment provided by engineer. */
+"No" = "No";
+
+/* No comment provided by engineer. */
 "None" = "Nessuno";
 
 /* Donation -> button */
 "Nope" = "No";
+
+/* QueueItem Error */
+"Not enough disk space." = "Non c'è abbastanza spazio sul disco.";
+
+/* No comment provided by engineer. */
+"OCR" = "OCR";
 
 /* Export alert panel -> button */
 "OK" = "OK";
@@ -258,17 +270,32 @@
 /* Organize Groups action local description */
 "Organizing groups" = "Organizzo gruppi";
 
+/* File Import action menu item. */
+"Passthru" = "Passthru";
+
 /* No comment provided by engineer. */
 "Please enter a different name for the preset." = "Per favore inserisci un nome diverso per il preset.";
 
 /* No comment provided by engineer. */
 "Please enter a name for the preset." = "Per favore inserisci un nome per il preset.";
 
+/* QueueItem Error */
+"Please free some space on the destination disk." = "Per favore libera dello spazio sul disco di destinazione.";
+
+/* No comment provided by engineer. */
+"Podcast" = "Podcast";
+
+/* Action description */
+"Prettify audio track names" = "Rinomina le tracce audio";
+
+/* Action localized description */
+"Prettifying audio track names" = "Rinomino le tracce audio";
+
 /* No comment provided by engineer. */
 "Producers" = "Produttori";
 
 /* No comment provided by engineer. */
-"Queue done" = "Coda completata";
+"Queue Done" = "Coda completata";
 
 /* Quit alert default action. */
 "Quit" = "Esci";
@@ -278,6 +305,12 @@
 
 /* No comment provided by engineer. */
 "Release Date" = "Data di rilascio";
+
+/* No comment provided by engineer. */
+"Remove" = "Rimuovi";
+
+/* Queue -> redo add item. */
+"Remove Queue Item" = "rimuovi elemento coda";
 
 /* No comment provided by engineer. */
 "Ringtone" = "Suoneria";
@@ -354,8 +387,14 @@
 /* Donation -> title */
 "Support Subler" = "Sostieni Subler";
 
+/* QueueItem Error */
+"The file couldn't be optimized." = "Il file non può essere ottimizzato.";
+
 /* No comment provided by engineer. */
 "The preset name must not be empty." = "Il nome del preset non può essere vuoto.";
+
+/* My error */
+"The source file couldn't be found." = "Il file sorgente non è stato trovato.";
 
 /* Export alert panel -> message */
 "There was a problem creating the file " = "C'è stato in problema nella creazione del file";
@@ -366,11 +405,20 @@
 /* Media characteristic. */
 "Transcribes Spoken Dialog For Accessibility" = "Trascrive i dialoghi parlati per l'accessibilità";
 
+/* QueueItem Error */
+"Try to use another name for the destination file." = "Prova a usare un altro nome per il file di destinazione.";
+
 /* Set menu TV Show Set */
 "TV Show" = "Serie TV";
 
 /* No comment provided by engineer. */
 "Unknown" = "Sconosciuta";
+
+/* Metadata Search -> Unnamed episode */
+"Unnamed" = "Senza nome";
+
+/* No comment provided by engineer. */
+"UPPERCASE" = "MAIUSCOLO";
 
 /* Media characteristic. */
 "Voice Over Translation" = "Traduzione della voce fuori campo";

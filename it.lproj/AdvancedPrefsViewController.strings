@@ -52,6 +52,9 @@
 /* Class = "NSButtonCell"; title = "VobSub to Tx3g"; ObjectID = "wgy-N5-9cB"; */
 "wgy-N5-9cB.title" = "VobSub a Tx3g";
 
+/* Class = "NSTextFieldCell"; title = "HEVC:"; ObjectID = "XpG-OO-ZNT"; */
+"XpG-OO-ZNT.title" = "HEVC:";
+
 /* Class = "NSButtonCell"; title = "Keep groups organized"; ObjectID = "Yld-Or-7Hu"; */
 "Yld-Or-7Hu.title" = "Mantieni i gruppi organizzati";
 

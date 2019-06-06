@@ -7,6 +7,12 @@
 /* Class = "NSToolbarItem"; paletteLabel = "General"; ObjectID = "5r6-9s-apQ"; */
 "5r6-9s-apQ.paletteLabel" = "Generali";
 
+/* Class = "NSToolbarItem"; label = "OCR"; ObjectID = "btg-Uy-o7I"; */
+"btg-Uy-o7I.label" = "OCR";
+
+/* Class = "NSToolbarItem"; paletteLabel = "OCR"; ObjectID = "btg-Uy-o7I"; */
+"btg-Uy-o7I.paletteLabel" = "OCR";
+
 /* Class = "NSToolbarItem"; label = "Sets"; ObjectID = "PFq-0J-qih"; */
 "PFq-0J-qih.label" = "Preset";
 

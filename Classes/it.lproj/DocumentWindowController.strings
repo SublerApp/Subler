@@ -13,6 +13,9 @@
 /* Class = "NSMenuItem"; title = "5 minutes"; ObjectID = "8ah-BL-bge"; */
 "8ah-BL-bge.title" = "5 minuti";
 
+/* Class = "NSMenuItem"; title = "Offset…"; ObjectID = "9r1-yN-sCW"; */
+"9r1-yN-sCW.title" = "Offset…";
+
 /* Class = "NSToolbarItem"; label = "Send to Queue"; ObjectID = "app-IS-8EB"; */
 "app-IS-8EB.label" = "Metti in coda";
 
@@ -46,9 +49,6 @@
 /* Class = "NSMenuItem"; title = "Clear tracks names"; ObjectID = "pB8-A8-7tv"; */
 "pB8-A8-7tv.title" = "Cancella i nomi delle tracce";
 
-/* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "SN3-Fe-fRS"; */
-"SN3-Fe-fRS.title" = "Prettify nomi delle tracce audio";
-
 /* Class = "NSMenuItem"; title = "Fix audio fallbacks"; ObjectID = "rGe-lx-aht"; */
 "rGe-lx-aht.title" = "Correggi gli audio di ripiego";
 
@@ -72,6 +72,9 @@
 
 /* Class = "NSToolbarItem"; toolTip = "Search chapters on the web"; ObjectID = "sa2-7a-h2I"; */
 "sa2-7a-h2I.toolTip" = "Cerca capitoli online";
+
+/* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "SN3-Fe-fRS"; */
+"SN3-Fe-fRS.title" = "Rinomina le tracce audio";
 
 /* Class = "NSToolbarItem"; label = "Search Metadata"; ObjectID = "uiq-J2-uPs"; */
 "uiq-J2-uPs.label" = "Cerca Metadata";

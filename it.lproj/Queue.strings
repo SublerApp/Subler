@@ -25,6 +25,9 @@
 /* Class = "NSToolbarItem"; toolTip = "Add an item to the queue"; ObjectID = "mbj-v3-fFG"; */
 "mbj-v3-fFG.toolTip" = "Aggiungi un elemento alla coda";
 
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Info"; ObjectID = "o98-wM-YAQ"; */
+"o98-wM-YAQ.ibExternalAccessibilityDescription" = "Info";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Show item info"; ObjectID = "o98-wM-YAQ"; */
 "o98-wM-YAQ.ibShadowedToolTip" = "Mostra info elemento";
 
