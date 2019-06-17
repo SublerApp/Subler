@@ -297,7 +297,7 @@ public struct iTunesStore: MetadataService {
 
         if searchTerm.isEmpty == false,
             let store = iTunesStore.store(language: language),
-            let url = URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&attribute=showTerm&entity=tvShow&limit=250"),
+            let url = URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())_\(store.country2.lowercased())&term=\(searchTerm)&media=tvShow&entity=tvEpisode&attribute=tvSeasonTerm&limit=200"),
             let results = sendJSONRequest(url: url, type: Wrapper<Artist>.self)?.results, results.isEmpty == false {
 
             let filteredResults = results.filter { $0.artistName.isEmpty == false }
@@ -408,16 +408,16 @@ public struct iTunesStore: MetadataService {
             if let seasonNum = seasonNum {
                 let searchTerm = "\(seriesName) \(store.season) \(seasonNum)".urlEncoded()
                 if relaxSearch {
-                    return URL(string: "https://itunes.apple.com/search?term=\(searchTerm)&entity=tvSeason&country=\(store.country2)&lang=\(store.language2.lowercased())&limit=250")
+                    return URL(string: "https://itunes.apple.com/search?term=\(searchTerm)&media=tvShow&entity=tvSeason&country=\(store.country2)&lang=\(store.language2.lowercased())_\(store.country2.lowercased())&limit=200")
                 } else {
-                    return URL(string: "https://itunes.apple.com/search?term=\(searchTerm)&attribute=tvSeasonTerm&entity=tvSeason&country=\(store.country2)&lang=\(store.language2.lowercased())&limit=250")
+                    return URL(string: "https://itunes.apple.com/search?term=\(searchTerm)&media=tvShow&attribute=tvSeasonTerm&entity=tvSeason&country=\(store.country2)&lang=\(store.language2.lowercased())_\(store.country2.lowercased())&limit=200")
                 }
             } else {
                 let searchTerm = seriesName.urlEncoded()
                 if relaxSearch {
-                    return URL(string: "https://itunes.apple.com/search?term=\(searchTerm)&entity=tvSeason&country=\(store.country2)&lang=\(store.language2.lowercased())&limit=250")
+                    return URL(string: "https://itunes.apple.com/search?term=\(searchTerm)&media=tvShow&entity=tvSeason&country=\(store.country2)&lang=\(store.language2.lowercased())_\(store.country2.lowercased())&limit=200")
                 } else {
-                    return URL(string: "https://itunes.apple.com/search?term=\(searchTerm)&attribute=showTerm&entity=tvShow&country=\(store.country2)&lang=\(store.language2.lowercased())&limit=250")
+                    return URL(string: "https://itunes.apple.com/search?term=\(searchTerm)&media=tvShow&attribute=showTerm&entity=tvShow&country=\(store.country2)&lang=\(store.language2.lowercased())_\(store.country2.lowercased())&limit=200")
                 }
             }
         }()
@@ -621,7 +621,7 @@ public struct iTunesStore: MetadataService {
     
     public func search(movie: String, language: String) -> [MetadataResult] {
         guard let store = iTunesStore.store(language: language),
-            let url = URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2)&term=\(movie.urlEncoded())&entity=movie&limit=150"),
+            let url = URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())_\(store.country2.lowercased())&term=\(movie.urlEncoded())&entity=movie&limit=150"),
             let results = sendJSONRequest(url: url, type: Wrapper<Track>.self)
         else { return [] }
 
@@ -670,7 +670,7 @@ public struct iTunesStore: MetadataService {
     public func loadTVMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
         guard let store = iTunesStore.store(language: language),
               let playlistID = metadata[.playlistID] as? Int,
-              let url = URL(string: "https://itunes.apple.com/lookup?country=\(store.country2)&lang=\(store.language2.lowercased())&id=\(playlistID)")
+              let url = URL(string: "https://itunes.apple.com/lookup?country=\(store.country2)&lang=\(store.language2.lowercased())_\(store.country2.lowercased())&id=\(playlistID)")
             else { return metadata }
         
         if let results = sendJSONRequest(url: url, type: Wrapper<Collection>.self) {
