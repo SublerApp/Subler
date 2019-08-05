@@ -233,7 +233,6 @@ final class ArtworkSelectorViewItem: NSCollectionViewItem {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        subTextField.layer?.isOpaque = true
         textField?.layer?.isOpaque = true
     }
 
