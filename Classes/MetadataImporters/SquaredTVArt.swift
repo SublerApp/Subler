@@ -14,13 +14,12 @@ struct SquaredTVArt {
     }
 
     public func search(tvShow: String, theTVDBSeriesId: Int, season: Int) -> [Artwork] {
-        let htmlResults = SquaredTVArtHTMLScraper().search(tvShow: tvShow, theTVDBSeriesId: theTVDBSeriesId, season: season)
-
-        if htmlResults.isEmpty == false {
-            return htmlResults
-        }
-        else {
+        do {
+            return try SquaredTVArtHTMLScraper().search(tvShow: tvShow, theTVDBSeriesId: theTVDBSeriesId, season: season)
+        } catch SquaredTVArtHTMLScraper.AuthError.oathRequired {
             return SquaredTVArtJsonApi().search(tvShow: tvShow, theTVDBSeriesId: theTVDBSeriesId, season: season)
+        } catch {
+            return []
         }
     }
 }
@@ -124,6 +123,10 @@ private struct SquaredTVArtHTMLScraper {
 
     private let basePath = "https://squaredtvart.tumblr.com/"
 
+    enum AuthError: Error {
+        case oathRequired
+    }
+
     private struct SquaredTVArtwork {
         let thumbURL: URL
         let tvShow: String
@@ -140,47 +143,50 @@ private struct SquaredTVArtHTMLScraper {
         }
     }
 
-    public func search(tvShow: String) -> [Artwork] {
-        let searchTerm = tvShow.urlEncoded()
-        guard let url = URL(string: "\(basePath)search/\(searchTerm)") else { return [] }
-
-        let mapped = search(url: url).map { $0.toRemoteImage() }
-        return mapped
-    }
-
-    public func search(tvShow: String, season: Int) -> [Artwork] {
+    private func search(tvShow: String, season: Int) throws -> [Artwork]  {
         let searchTerm = "\(tvShow) Season \(season)".urlEncoded()
         guard let url = URL(string: "\(basePath)search/\(searchTerm)") else { return [] }
 
-        let mapped = search(url: url).filter { $0.season == season } .map { $0.toRemoteImage() }
+        let mapped = try search(url: url).filter { $0.season == season } .map { $0.toRemoteImage() }
         return mapped
     }
 
-    public func search(theTVDBSeriesId: Int, season: Int) -> [Artwork] {
+    private func search(theTVDBSeriesId: Int, season: Int) throws -> [Artwork] {
         let searchTerm = "\(theTVDBSeriesId) Season \(season)".urlEncoded()
         guard let url = URL(string: "\(basePath)search/\(searchTerm)") else { return [] }
 
-        let mapped = search(url: url).filter { $0.season == season } .map { $0.toRemoteImage() }
+        let mapped = try search(url: url).filter { $0.season == season } .map { $0.toRemoteImage() }
         return mapped
     }
 
-    public func search(tvShow: String, theTVDBSeriesId: Int, season: Int) -> [Artwork] {
-        let tvdbIdSearch = search(theTVDBSeriesId: theTVDBSeriesId, season: season)
+    public func search(tvShow: String, theTVDBSeriesId: Int, season: Int) throws -> [Artwork] {
+        let tvdbIdSearch = try search(theTVDBSeriesId: theTVDBSeriesId, season: season)
 
         if tvdbIdSearch.isEmpty == false {
             return tvdbIdSearch
         }
 
-        let tvShowSearch = search(tvShow: tvShow, season: season)
+        let tvShowSearch = try search(tvShow: tvShow, season: season)
         return tvShowSearch
     }
 
-    private func search(url: URL) -> [SquaredTVArtwork] {
+    private func search(url: URL) throws -> [SquaredTVArtwork] {
         guard let data = URLSession.data(from: url),
-            let xml = try? XMLDocument(data: data, options: .documentTidyHTML)
-            else { return [] }
+              let text = String(data: data, encoding: .utf8) else { return [] }
 
-        return parse(xml: xml)
+        if text.contains("Oath") {
+            throw AuthError.oathRequired
+        }
+
+        guard let range = text.range(of: "<!DOCTYPE html><html>") else { return [] }
+        let substring = text[range.lowerBound..<text.endIndex]
+
+        do {
+            let xml = try XMLDocument(xmlString: String(substring), options: [.nodePreserveAll, .documentTidyXML])
+            return parse(xml: xml)
+        } catch {
+            return []
+        }
     }
 
     private func thumbURL(xml: XMLDocument) -> URL? {
@@ -218,7 +224,7 @@ private struct SquaredTVArtHTMLScraper {
     }
 
     private func parse(xml: XMLDocument) -> [SquaredTVArtwork] {
-        guard let nodes = try? xml.nodes(forXPath: "//div[starts-with(@class,'Post ')]") else { return [] }
+        guard let nodes = try? xml.nodes(forXPath: "//article[starts-with(@class,'post ')]") else { return [] }
 
         return nodes.compactMap { (node) -> SquaredTVArtwork? in
             if let subXml = try? XMLDocument(xmlString: node.xmlString, options: []),
