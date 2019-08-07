@@ -12,7 +12,7 @@ protocol ChapterSearchControllerDelegate : AnyObject {
     func didSelect(chapters: [MP42TextSample])
 }
 
-final class ChapterSearchController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+final class ChapterSearchController: ViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
 
     @IBOutlet var searchTitle: NSTextField!
 
@@ -52,6 +52,8 @@ final class ChapterSearchController: NSViewController, NSTableViewDataSource, NS
         self.state = .none
 
         super.init(nibName: nil, bundle: nil)
+
+        self.autosave = "ChapterSearchControllerAutosaveIdentifier"
     }
 
     required init?(coder: NSCoder) {

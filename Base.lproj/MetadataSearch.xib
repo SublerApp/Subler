@@ -144,6 +144,7 @@ DQ
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="gBb-mO-eZD" firstAttribute="baseline" secondItem="Dyr-Xb-8vA" secondAttribute="baseline" id="8Wg-m1-HG3"/>
+                                    <constraint firstItem="0aO-Wz-ASZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qsS-B6-c2q" secondAttribute="trailing" constant="20" id="9UN-0q-TUf"/>
                                     <constraint firstItem="Dyr-Xb-8vA" firstAttribute="top" secondItem="e2g-GX-p4j" secondAttribute="top" constant="4" id="AYy-SY-X6w"/>
                                     <constraint firstItem="Dyr-Xb-8vA" firstAttribute="leading" secondItem="gBb-mO-eZD" secondAttribute="trailing" constant="7" id="Gas-Hm-DaP"/>
                                     <constraint firstItem="0aO-Wz-ASZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="e2g-GX-p4j" secondAttribute="leading" constant="20" symbolic="YES" id="Hk6-CI-CYe"/>
@@ -152,7 +153,6 @@ DQ
                                     <constraint firstItem="qsS-B6-c2q" firstAttribute="top" secondItem="Dyr-Xb-8vA" secondAttribute="bottom" constant="8" id="QAC-jz-sxh"/>
                                     <constraint firstItem="x4l-iV-xgr" firstAttribute="trailing" secondItem="0aO-Wz-ASZ" secondAttribute="trailing" id="crX-q8-6xo"/>
                                     <constraint firstItem="Dyr-Xb-8vA" firstAttribute="leading" secondItem="gBb-mO-eZD" secondAttribute="trailing" constant="7" id="cxE-Kb-aJS"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qsS-B6-c2q" secondAttribute="trailing" constant="20" symbolic="YES" id="erv-bk-Cev"/>
                                     <constraint firstItem="gBb-mO-eZD" firstAttribute="leading" secondItem="e2g-GX-p4j" secondAttribute="leading" constant="20" symbolic="YES" id="feD-8w-Skn"/>
                                     <constraint firstAttribute="trailing" secondItem="x4l-iV-xgr" secondAttribute="trailing" constant="17" id="fhM-i9-sRG"/>
                                     <constraint firstAttribute="bottom" secondItem="qsS-B6-c2q" secondAttribute="bottom" constant="10" id="pUJ-uL-Hfg"/>
@@ -221,7 +221,7 @@ DQ
                                         </textFieldCell>
                                     </textField>
                                     <comboBox verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yxL-hY-Wvf">
-                                        <rect key="frame" x="81" y="38" width="376" height="26"/>
+                                        <rect key="frame" x="81" y="36" width="376" height="26"/>
                                         <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesDataSource="YES" numberOfVisibleItems="5" id="o7O-s5-2MI">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -290,13 +290,13 @@ DQ
                                     <constraint firstItem="UTG-O0-5RG" firstAttribute="leading" secondItem="4yY-id-JNb" secondAttribute="trailing" constant="60" id="5bZ-A2-oAt"/>
                                     <constraint firstItem="gWo-ag-3S4" firstAttribute="baseline" secondItem="nYS-Uo-Puv" secondAttribute="baseline" id="7w2-5k-loo"/>
                                     <constraint firstItem="PoJ-z7-u2L" firstAttribute="top" secondItem="EpM-F6-30O" secondAttribute="top" id="EaM-eF-HSu"/>
-                                    <constraint firstItem="yxL-hY-Wvf" firstAttribute="top" secondItem="pC0-6X-DbE" secondAttribute="top" constant="3" id="G5G-ft-fJh"/>
+                                    <constraint firstItem="yxL-hY-Wvf" firstAttribute="top" secondItem="pC0-6X-DbE" secondAttribute="top" constant="5" id="G5G-ft-fJh"/>
                                     <constraint firstItem="r32-v1-g3U" firstAttribute="baseline" secondItem="PmP-Uz-mXF" secondAttribute="baseline" id="IcC-EN-90a"/>
                                     <constraint firstItem="PmP-Uz-mXF" firstAttribute="leading" secondItem="r32-v1-g3U" secondAttribute="trailing" constant="7" id="Nlc-DQ-qvf"/>
                                     <constraint firstItem="gWo-ag-3S4" firstAttribute="width" secondItem="PoJ-z7-u2L" secondAttribute="width" id="PI1-1C-eAU"/>
                                     <constraint firstItem="EpM-F6-30O" firstAttribute="trailing" secondItem="UTG-O0-5RG" secondAttribute="trailing" id="PKp-73-Vbb"/>
-                                    <constraint firstItem="EpM-F6-30O" firstAttribute="baseline" secondItem="yxL-hY-Wvf" secondAttribute="baseline" id="U6r-NC-15V"/>
-                                    <constraint firstItem="nYS-Uo-Puv" firstAttribute="top" secondItem="yxL-hY-Wvf" secondAttribute="bottom" constant="10" id="X20-ep-zpA"/>
+                                    <constraint firstItem="EpM-F6-30O" firstAttribute="baseline" secondItem="yxL-hY-Wvf" secondAttribute="baseline" constant="-2" id="U6r-NC-15V"/>
+                                    <constraint firstItem="nYS-Uo-Puv" firstAttribute="top" secondItem="yxL-hY-Wvf" secondAttribute="bottom" constant="8" id="X20-ep-zpA"/>
                                     <constraint firstItem="PoJ-z7-u2L" firstAttribute="leading" secondItem="pC0-6X-DbE" secondAttribute="leading" constant="16" id="YbU-68-uWT"/>
                                     <constraint firstAttribute="trailing" secondItem="EpM-F6-30O" secondAttribute="trailing" constant="17" id="baJ-gT-gpq"/>
                                     <constraint firstItem="EpM-F6-30O" firstAttribute="leading" secondItem="yxL-hY-Wvf" secondAttribute="trailing" constant="12" id="e0P-Oe-Tz3"/>
@@ -385,6 +385,9 @@ DQ
                                             </tableView>
                                         </subviews>
                                     </clipView>
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="wsU-4L-Wj8"/>
+                                    </constraints>
                                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="DSb-N5-maX">
                                         <rect key="frame" x="1" y="149" width="438" height="15"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -410,13 +413,13 @@ DQ
                             <rect key="frame" x="0.0" y="145" width="510" height="239"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9f-RN-ymm">
+                                <scrollView autohidesScrollers="YES" horizontalLineScroll="39" horizontalPageScroll="10" verticalLineScroll="39" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9f-RN-ymm">
                                     <rect key="frame" x="0.0" y="0.0" width="510" height="239"/>
                                     <clipView key="contentView" id="JKj-Cf-XlS">
                                         <rect key="frame" x="1" y="0.0" width="508" height="238"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="14" rowSizeStyle="automatic" headerView="8SH-1C-Y6N" viewBased="YES" id="7Te-u0-Sax" customClass="ExpandedTableView" customModule="Subler" customModuleProvider="target">
+                                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="37" rowSizeStyle="automatic" headerView="8SH-1C-Y6N" viewBased="YES" id="7Te-u0-Sax" customClass="ExpandedTableView" customModule="Subler" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="508" height="213"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -521,6 +524,9 @@ DQ
                                             </tableView>
                                         </subviews>
                                     </clipView>
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="ot4-UB-qcj"/>
+                                    </constraints>
                                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="vAq-7z-LNe">
                                         <rect key="frame" x="1" y="72" width="135" height="15"/>
                                         <autoresizingMask key="autoresizingMask"/>

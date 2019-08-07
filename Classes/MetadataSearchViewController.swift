@@ -11,7 +11,7 @@ protocol MetadataSearchViewControllerDelegate : AnyObject {
     func didSelect(metadata: MetadataResult)
 }
 
-class MetadataSearchViewController: NSViewController, MetadataSearchControllerDelegate, ArtworkSelectorControllerDelegate {
+class MetadataSearchViewController: ViewController, MetadataSearchControllerDelegate, ArtworkSelectorControllerDelegate {
 
     private let searchTerms: MetadataSearchTerms
 
@@ -26,18 +26,14 @@ class MetadataSearchViewController: NSViewController, MetadataSearchControllerDe
         self.delegate = delegate
         self.searchTerms = searchTerms
         super.init(nibName: nil, bundle: nil)
+        self.autosave = "MetadataSearchViewControllerAutosaveIdentifier"
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override var preferredMinimumSize: NSSize {
-        return NSSize(width: 560, height: 600)
-    }
-
     override func viewDidLoad() {
-        view.frame.size = preferredMinimumSize
         addChild(metadataViewController)
         view.addSubview(metadataViewController.view)
     }

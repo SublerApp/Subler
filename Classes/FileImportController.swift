@@ -12,7 +12,7 @@ protocol FileImportControllerDelegate : AnyObject {
     func didSelect(tracks: [MP42Track], metadata: MP42Metadata?)
 }
 
-final class FileImportController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSMenuItemValidation {
+final class FileImportController: ViewController, NSTableViewDataSource, NSTableViewDelegate, NSMenuItemValidation {
 
     private enum ItemType {
         case file(MP42FileImporter)
@@ -197,6 +197,8 @@ final class FileImportController: NSViewController, NSTableViewDataSource, NSTab
         self.importMetadata = metadata != nil && UserDefaults.standard.bool(forKey: "SBFileImporterImportMetadata")
         
         super.init(nibName: nil, bundle: nil)
+
+        self.autosave = "FileImportControllerAutosaveIdentifier"
     }
     
     required init?(coder: NSCoder) {

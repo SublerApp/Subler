@@ -41,6 +41,7 @@
 		A92AD0161F3482350082892E /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92AD0151F3482350082892E /* NetworkUtilities.swift */; };
 		A92BBAB41F557CC0007EA182 /* PresetEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92BBAB21F557CC0007EA182 /* PresetEditorViewController.swift */; };
 		A92BBABE1F5584EA007EA182 /* PresetEditorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A92BBABC1F558388007EA182 /* PresetEditorViewController.xib */; };
+		A92CE72522FAFED0000962A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CE72422FAFED0000962A4 /* ViewController.swift */; };
 		A92ECCE31F49984C0063BFBD /* PrefsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92ECCE21F49984C0063BFBD /* PrefsWindowController.swift */; };
 		A93105391F9758EC00605146 /* FileImportController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A93105351F9758EC00605146 /* FileImportController.xib */; };
 		A932C9F3205C268A004E52FE /* QueueScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A932C9F2205C268A004E52FE /* QueueScriptCommand.swift */; };
@@ -255,6 +256,7 @@
 		A92AD0151F3482350082892E /* NetworkUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkUtilities.swift; path = Classes/NetworkUtilities.swift; sourceTree = "<group>"; };
 		A92BBAB21F557CC0007EA182 /* PresetEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PresetEditorViewController.swift; path = Classes/PresetEditorViewController.swift; sourceTree = "<group>"; };
 		A92BBABD1F558388007EA182 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/Base.lproj/PresetEditorViewController.xib; sourceTree = "<group>"; };
+		A92CE72422FAFED0000962A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = Classes/ViewController.swift; sourceTree = "<group>"; };
 		A92ECCE21F49984C0063BFBD /* PrefsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrefsWindowController.swift; path = Classes/PrefsWindowController.swift; sourceTree = "<group>"; };
 		A93105361F9758EC00605146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FileImportController.xib; sourceTree = "<group>"; };
 		A932C9F2205C268A004E52FE /* QueueScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueScriptCommand.swift; path = Classes/QueueScriptCommand.swift; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				A92CE72422FAFED0000962A4 /* ViewController.swift */,
 				A9F804591FB6F4FD0069FF43 /* ImageBrowserView.swift */,
 				A909440E1DD4C85B00E9F89C /* Table View */,
 				A9A77C4D1F306FA70018023B /* AttributedStyles.swift */,
@@ -902,6 +905,7 @@
 				A9859ACE1F4B43CC00022828 /* QueuePreset.swift in Sources */,
 				A9F2A2662026EACD00C4B69A /* DetailsViewController.swift in Sources */,
 				A932C9F3205C268A004E52FE /* QueueScriptCommand.swift in Sources */,
+				A92CE72522FAFED0000962A4 /* ViewController.swift in Sources */,
 				A9915AC31F4B293B003C57D1 /* PresetManager.swift in Sources */,
 				A90BC5E31F3A139700F9F3F3 /* MetadataResult.swift in Sources */,
 				A99189CD1F2F87EC00623ED7 /* ChapterImporter.swift in Sources */,
