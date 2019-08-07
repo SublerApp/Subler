@@ -59,6 +59,8 @@
 		A962D9EE1F8B7F9F00802EEF /* FileImportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A962D9ED1F8B7F9F00802EEF /* FileImportController.swift */; };
 		A9676A301FB6E85300C1E300 /* LanguageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9676A2F1FB6E85300C1E300 /* LanguageTransformer.swift */; };
 		A9676A341FB6EAAD00C1E300 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9676A331FB6EAAD00C1E300 /* ItemViewController.swift */; };
+		A974F9D022F9B48900DBB30E /* MetadataSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974F9CE22F9B48900DBB30E /* MetadataSearchViewController.swift */; };
+		A974F9D122F9B48900DBB30E /* MetadataSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A974F9CF22F9B48900DBB30E /* MetadataSearchViewController.xib */; };
 		A979B3862025C8BF00468362 /* DocumentWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A979B3842025C8BF00468362 /* DocumentWindowController.swift */; };
 		A97C3AA5204F18C90007AD38 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97C3AA4204F18C90007AD38 /* TokenCellView.swift */; };
 		A97D99DA22A0240C001FA3A7 /* OCRManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97D99D922A0240C001FA3A7 /* OCRManager.swift */; };
@@ -135,7 +137,6 @@
 		A9F7F8E01837C44B0036AE7E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9ED7B21180067A2008FD3A8 /* IOKit.framework */; };
 		A9F8045A1FB6F4FD0069FF43 /* ImageBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F804591FB6F4FD0069FF43 /* ImageBrowserView.swift */; };
 		A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */; };
-		CD4E6E5D12F744210095C84F /* ArtworkSelectorOld.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD4E6E5B12F744210095C84F /* ArtworkSelectorOld.xib */; };
 		CD71FEA612F1B62600F0A98D /* MetadataSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */; };
 		CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */ = {isa = PBXBuildFile; fileRef = CDE8E451174CBBD4009410B5 /* iTunesStores.json */; };
 /* End PBXBuildFile section */
@@ -241,7 +242,6 @@
 		A924A5111D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/VideoView.xib; sourceTree = "<group>"; };
 		A924A5121D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		A924A5141D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MetadataSearch.xib; sourceTree = "<group>"; };
-		A924A5151D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ArtworkSelectorOld.xib; sourceTree = "<group>"; };
 		A924A5161D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SBChapterSearch.xib; sourceTree = "<group>"; };
 		A924A5171D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Queue.xib; sourceTree = "<group>"; };
 		A924A5181D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/QueueOptions.xib; sourceTree = "<group>"; };
@@ -285,6 +285,8 @@
 		A96EA9E821FA47520033EC5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		A96EA9E921FA47520033EC5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A973B9F922A906D100BCB91E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/OCRPrefsViewController.strings; sourceTree = "<group>"; };
+		A974F9CE22F9B48900DBB30E /* MetadataSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataSearchViewController.swift; path = Classes/MetadataSearchViewController.swift; sourceTree = "<group>"; };
+		A974F9CF22F9B48900DBB30E /* MetadataSearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MetadataSearchViewController.xib; path = Classes/MetadataSearchViewController.xib; sourceTree = "<group>"; };
 		A979B3842025C8BF00468362 /* DocumentWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentWindowController.swift; path = Classes/DocumentWindowController.swift; sourceTree = "<group>"; };
 		A97C3AA4204F18C90007AD38 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenCellView.swift; path = Classes/TokenCellView.swift; sourceTree = "<group>"; };
 		A97D99D922A0240C001FA3A7 /* OCRManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OCRManager.swift; path = Classes/OCRManager.swift; sourceTree = "<group>"; };
@@ -331,7 +333,6 @@
 		A9BA1AD61DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/VideoView.strings; sourceTree = "<group>"; };
 		A9BA1AD71DBF773600FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		A9BA1AD91DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MetadataSearch.strings; sourceTree = "<group>"; };
-		A9BA1ADA1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/ArtworkSelectorOld.strings; sourceTree = "<group>"; };
 		A9BA1ADD1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SBChapterSearch.strings; sourceTree = "<group>"; };
 		A9BA1ADE1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Queue.strings; sourceTree = "<group>"; };
 		A9BA1ADF1DBF773700FD0B38 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QueueOptions.strings; sourceTree = "<group>"; };
@@ -641,12 +642,13 @@
 				A962D9ED1F8B7F9F00802EEF /* FileImportController.swift */,
 				A93105351F9758EC00605146 /* FileImportController.xib */,
 				A98542D820D197DF00EB9803 /* ArtworkSelector.swift */,
-				CD4E6E5B12F744210095C84F /* ArtworkSelectorOld.xib */,
 				A98542D520D197D300EB9803 /* ArtworkSelector.xib */,
 				A98542DA20D1A7E500EB9803 /* ArtworkSelectorViewItem.swift */,
 				A98542DB20D1A7E500EB9803 /* ArtworkSelectorViewItem.xib */,
 				A997B0A91F348AB000974C9C /* MetadataSearchController.swift */,
 				CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */,
+				A974F9CE22F9B48900DBB30E /* MetadataSearchViewController.swift */,
+				A974F9CF22F9B48900DBB30E /* MetadataSearchViewController.xib */,
 				A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */,
 				A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */,
 				A9FD5D150F3C692400817716 /* PropertyView */,
@@ -744,7 +746,7 @@
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1100;
 				TargetAttributes = {
 					8D15AC270486D014006FF6A4 = {
 						LastSwiftMigration = 1020;
@@ -841,8 +843,8 @@
 				CD71FEA612F1B62600F0A98D /* MetadataSearch.xib in Resources */,
 				A90CD5C01FD177230070A067 /* TokensViewController.xib in Resources */,
 				A9A4A96B202F51FF00482D12 /* ProgressViewController.xib in Resources */,
-				CD4E6E5D12F744210095C84F /* ArtworkSelectorOld.xib in Resources */,
 				61CEC0CE1E7569E4000FECC1 /* MultiSelectView.xib in Resources */,
+				A974F9D122F9B48900DBB30E /* MetadataSearchViewController.xib in Resources */,
 				A9BC410818D9ABC000F8C92C /* QueueItem.xib in Resources */,
 				A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */,
 				A9C31E642029A82200CEF474 /* AdvancedPrefsViewController.xib in Resources */,
@@ -922,6 +924,7 @@
 				A9C09C981F99F971007939EE /* ExpandedTableView.swift in Sources */,
 				A90240DB2063BD3700E762FA /* MediaTagsController.swift in Sources */,
 				A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */,
+				A974F9D022F9B48900DBB30E /* MetadataSearchViewController.swift in Sources */,
 				A956CE6B1F99EAAD00093992 /* Logger.swift in Sources */,
 				A956CE691F99E93D00093992 /* ButtonToolbarItem.swift in Sources */,
 				A98D44102036F661005CB092 /* AppDelegate.swift in Sources */,
@@ -1304,15 +1307,6 @@
 			name = QueueOptions.xib;
 			sourceTree = "<group>";
 		};
-		CD4E6E5B12F744210095C84F /* ArtworkSelectorOld.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A924A5151D4B9E66008301A7 /* Base */,
-				A9BA1ADA1DBF773700FD0B38 /* it */,
-			);
-			name = ArtworkSelectorOld.xib;
-			sourceTree = "<group>";
-		};
 		CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1417,7 +1411,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Subler.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 5X9DE89KYV;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1456,6 +1453,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Subler.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5X9DE89KYV;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

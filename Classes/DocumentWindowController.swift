@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-final class DocumentWindowController: NSWindowController, TracksViewControllerDelegate, ChapterSearchControllerDelegate, MetadataSearchControllerDelegate, FileImportControllerDelegate, ProgressViewControllerDelegate, NSDraggingDestination, NSMenuItemValidation, NSToolbarItemValidation {
+final class DocumentWindowController: NSWindowController, TracksViewControllerDelegate, ChapterSearchControllerDelegate, MetadataSearchViewControllerDelegate, FileImportControllerDelegate, ProgressViewControllerDelegate, NSDraggingDestination, NSMenuItemValidation, NSToolbarItemValidation {
 
     private var doc: Document {
         return document as! Document
@@ -254,8 +254,6 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
 
     // MARK: Actions
 
-    private var sheetController: NSWindowController?
-
     @IBAction func sendToExternalApp(_ sender: Any) {
 
         if let filePath = doc.fileURL?.path, let script = NSAppleScript(source: """
@@ -371,15 +369,8 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
 
     @IBAction func searchMetadata(_ sender: Any?) {
         let terms = mp4.extractSearchTerms(fallbackURL : doc.fileURL)
-        let controller = MetadataSearchController(delegate: self, searchTerms: terms)
-
-        guard let windowForSheet = doc.windowForSheet, let window = controller.window
-            else { return }
-
-        sheetController = controller;
-        windowForSheet.beginSheet(window, completionHandler: { response in
-            self.sheetController = nil
-        })
+        let controller = MetadataSearchViewController(delegate: self, searchTerms: terms)
+        self.contentViewController?.presentAsSheet(controller)
     }
 
     @IBAction func searchChapters(_ sender: Any?) {
@@ -389,14 +380,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         let duration = UInt64(mp4.duration)
 
         let controller = ChapterSearchController(delegate: self, title: title, duration: duration)
-
-        guard let windowForSheet = doc.windowForSheet, let window = controller.window
-            else { return }
-
-        sheetController = controller;
-        windowForSheet.beginSheet(window, completionHandler: { response in
-            self.sheetController = nil
-        })
+        contentViewController?.presentAsSheet(controller)
     }
 
     func didSelect(metadata: MetadataResult) {
@@ -514,16 +498,8 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             if controller.onlyContainsSubtitles {
                 controller.addTracks(self)
                 tracksViewController.reloadData()
-                self.sheetController = nil;
-            }
-            else {
-                guard let windowForSheet = doc.windowForSheet, let window = controller.window
-                    else { return }
-
-                sheetController = controller;
-                windowForSheet.beginSheet(window, completionHandler: { response in
-                    self.sheetController = nil
-                })
+            } else {
+                contentViewController?.presentAsSheet(controller)
             }
         }
         catch {

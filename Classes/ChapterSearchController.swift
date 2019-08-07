@@ -12,7 +12,7 @@ protocol ChapterSearchControllerDelegate : AnyObject {
     func didSelect(chapters: [MP42TextSample])
 }
 
-final class ChapterSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+final class ChapterSearchController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
 
     @IBOutlet var searchTitle: NSTextField!
 
@@ -51,7 +51,7 @@ final class ChapterSearchController: NSWindowController, NSTableViewDataSource, 
         self.duration = duration
         self.state = .none
 
-        super.init(window: nil)
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -65,15 +65,15 @@ final class ChapterSearchController: NSWindowController, NSTableViewDataSource, 
         chapterTable.dataSource = nil
     }
 
-    override var windowNibName: NSNib.Name? {
+    override var nibName: NSNib.Name? {
         return "SBChapterSearch"
     }
 
-    override func windowDidLoad() {
-        super.windowDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         self.searchTitle.stringValue = searchTerm
-        self.window?.makeFirstResponder(self.searchTitle)
+        self.view.window?.makeFirstResponder(self.searchTitle)
 
         updateUI()
 
@@ -120,7 +120,7 @@ final class ChapterSearchController: NSWindowController, NSTableViewDataSource, 
         default:
             break
         }
-        self.window?.sheetParent?.endSheet(self.window!, returnCode: NSApplication.ModalResponse.OK)
+        presentingViewController?.dismiss(self)
     }
 
     @IBAction func closeWindow(_ sender: Any) {
@@ -130,7 +130,7 @@ final class ChapterSearchController: NSWindowController, NSTableViewDataSource, 
         default:
             break
         }
-        self.window?.sheetParent?.endSheet(self.window!, returnCode: NSApplication.ModalResponse.cancel)
+        presentingViewController?.dismiss(self)
     }
 
     // MARK - UI state
@@ -175,7 +175,7 @@ final class ChapterSearchController: NSWindowController, NSTableViewDataSource, 
             stopProgressReport()
             reloadTableData()
             swithDefaultButton(from: searchButton, to: addButton, disableOldButton: false)
-            window?.makeFirstResponder(resultsTable)
+            view.window?.makeFirstResponder(resultsTable)
         }
     }
 

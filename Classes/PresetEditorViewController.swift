@@ -43,7 +43,7 @@ final class PresetEditorViewController: MovieViewController {
     }
 
     @IBAction func done(_ sender: Any) {
-        dismiss(self)
+        presentingViewController?.dismiss(self)
     }
 
     @IBAction func setReplaceArtworksState(_ sender: NSButton) {

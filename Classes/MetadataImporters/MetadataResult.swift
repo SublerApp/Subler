@@ -200,6 +200,15 @@ public class MetadataResult {
     public enum MediaKindType: Int {
         case tvShow = 10
         case movie = 9
+
+        public var description: String {
+            switch self {
+            case .movie:
+                return "Movie"
+            case .tvShow:
+                return "TV"
+            }
+        }
     }
 
     public var mediaKind: MediaKindType

@@ -39,10 +39,10 @@ final class OffsetViewController: NSViewController {
             track.startOffset = offsetField.doubleValue
             doc.updateChangeCount(.changeDone)
         }
-        dismiss(self)
+        presentingViewController?.dismiss(self)
     }
 
     @IBAction func dismiss(_ sender: Any) {
-        dismiss(self)
+        presentingViewController?.dismiss(self)
     }
 }

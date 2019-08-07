@@ -12,7 +12,7 @@ protocol FileImportControllerDelegate : AnyObject {
     func didSelect(tracks: [MP42Track], metadata: MP42Metadata?)
 }
 
-final class FileImportController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSMenuItemValidation {
+final class FileImportController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSMenuItemValidation {
 
     private enum ItemType {
         case file(MP42FileImporter)
@@ -173,7 +173,7 @@ final class FileImportController: NSWindowController, NSTableViewDataSource, NST
     @IBOutlet var tracksTableView: ExpandedTableView!
     @IBOutlet var importMetadataCheckbox: NSButton!
 
-    override public var windowNibName: NSNib.Name? {
+    override public var nibName: NSNib.Name? {
         return "FileImportController"
     }
     
@@ -196,15 +196,15 @@ final class FileImportController: NSWindowController, NSTableViewDataSource, NST
         self.items = rows
         self.importMetadata = metadata != nil && UserDefaults.standard.bool(forKey: "SBFileImporterImportMetadata")
         
-        super.init(window: nil)
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func windowDidLoad() {
-        super.windowDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         self.importMetadataCheckbox.isEnabled = metadata != nil
         self.importMetadataCheckbox.state = UserDefaults.standard.bool(forKey: "SBFileImporterImportMetadata") ? .on : .off
@@ -288,7 +288,7 @@ final class FileImportController: NSWindowController, NSTableViewDataSource, NST
     // MARK: IBActions
     
     @IBAction func closeWindow(_ sender: Any) {
-        window?.sheetParent?.endSheet(window!, returnCode: NSApplication.ModalResponse.cancel)
+        presentingViewController?.dismiss(self)
     }
     
     @IBAction func addTracks(_ sender: Any) {
@@ -356,7 +356,7 @@ final class FileImportController: NSWindowController, NSTableViewDataSource, NST
         delegate?.didSelect(tracks: selectedTracks,
                             metadata: importMetadata ? metadata : nil)
 
-        window?.sheetParent?.endSheet(window!, returnCode: NSApplication.ModalResponse.OK)
+        presentingViewController?.dismiss(self)
     }
     
     // MARK: Actions

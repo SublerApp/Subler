@@ -9,10 +9,10 @@ import Cocoa
 import MP42Foundation
 
 protocol MetadataSearchControllerDelegate : AnyObject {
-    func didSelect(metadata: MetadataResult)
+    func didSelect(metadata: MetadataResult?)
 }
 
-final class MetadataSearchController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSComboBoxDelegate, NSComboBoxDataSource, NSTextFieldDelegate, ArtworkSelectorControllerDelegate {
+final class MetadataSearchController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSComboBoxDelegate, NSComboBoxDataSource, NSTextFieldDelegate {
 
     @IBOutlet var searchMode: NSTabView!
     @IBOutlet var movieTab: NSTabViewItem!
@@ -61,7 +61,6 @@ final class MetadataSearchController: NSWindowController, NSTableViewDataSource,
     private var tvShowService: MetadataService = MetadataSearch.defaultTVService
 
     // MARK: Other
-    private var artworkSelector: NSWindowController?
     private weak var delegate: MetadataSearchControllerDelegate?
 
     private let terms: MetadataSearchTerms
@@ -88,19 +87,19 @@ final class MetadataSearchController: NSWindowController, NSTableViewDataSource,
         self.delegate = delegate
         self.terms = searchTerms
 
-        super.init(window: nil)
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override var windowNibName: NSNib.Name? {
+    override var nibName: NSNib.Name? {
         return "MetadataSearch"
     }
 
-    override func windowDidLoad() {
-        super.windowDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         movieMetadataProvider.addItems(withTitles: MetadataSearch.movieProviders)
         tvMetadataProvider.addItems(withTitles: MetadataSearch.tvProviders)
@@ -289,55 +288,7 @@ final class MetadataSearchController: NSWindowController, NSTableViewDataSource,
     private func loadDone(search: MetadataSearch, result: MetadataResult) {
         DispatchQueue.main.async {
             self.state = .closing(search: search, result: result)
-            if result.remoteArtworks.isEmpty {
-                self.addMetadata()
-            }
-            else {
-                self.selectArtwork(artworks: result.remoteArtworks, type: search.type)
-            }
-        }
-    }
-
-    private func selectArtwork(artworks: [Artwork], type: MetadataType) {
-        if #available(OSX 10.13, *) {
-            let artworkSelectorController = ArtworkSelectorController(artworks: artworks, size: window?.frame.size,
-                                                        type: type, delegate: self)
-            window?.beginSheet(artworkSelectorController.window!, completionHandler: nil)
-            artworkSelector = artworkSelectorController
-        } else {
-            let artworkSelectorController = ArtworkSelectorControllerOldStyle(artworks: artworks, size: window?.frame.size,
-                                                        type: type, delegate: self)
-            window?.beginSheet(artworkSelectorController.window!, completionHandler: nil)
-            artworkSelector = artworkSelectorController
-        }
-    }
-
-    func didSelect(artworks: [Artwork]) {
-        window?.endSheet((artworkSelector?.window)!)
-        load(artworks: artworks)
-    }
-
-    private func load(artworks: [Artwork]) {
-        switch state {
-        case .closing(_, let result):
-
-            DispatchQueue.global(qos: .userInitiated).async {
-                for artwork in artworks {
-                    if let data = URLSession.data(from: artwork.url) {
-                        result.artworks.append(MP42Image(data: data, type: MP42_ART_JPEG))
-                    }
-                    // Hack, download smaller iTunes version if big iTunes version is not available
-                    else if artwork.service == iTunesStore().name,
-                        let data = URLSession.data(from: artwork.url.deletingPathExtension().appendingPathExtension("600x600bb.jpg")) {
-                        result.artworks.append(MP42Image(data: data, type: MP42_ART_JPEG))
-                    }
-                }
-                DispatchQueue.main.async {
-                    self.addMetadata()
-                }
-            }
-        default:
-            addMetadata()
+            self.addMetadata()
         }
     }
 
@@ -357,12 +308,11 @@ final class MetadataSearchController: NSWindowController, NSTableViewDataSource,
         default:
             break
         }
-        window?.sheetParent?.endSheet(window!, returnCode: NSApplication.ModalResponse.OK)
     }
 
     @IBAction func closeWindow(_ sender: Any) {
         cancelSearch()
-        window?.sheetParent?.endSheet(window!, returnCode: NSApplication.ModalResponse.cancel)
+        delegate?.didSelect(metadata: nil)
     }
 
     // MARK - UI state
@@ -385,10 +335,8 @@ final class MetadataSearchController: NSWindowController, NSTableViewDataSource,
             case .tvSearch:
                 progressText.stringValue = NSLocalizedString("Downloading additional TV metadata…", comment: "")
             }
-        case .closing:
-            progressText.stringValue = NSLocalizedString("Downloading artwork…", comment: "")
-        default:
-            break
+        case .closing: break
+        default: break
         }
         progressText.isHidden = false
     }
@@ -445,7 +393,7 @@ final class MetadataSearchController: NSWindowController, NSTableViewDataSource,
             swithDefaultButton(from: searchMovieButton, to: addButton, disableOldButton: nil)
             swithDefaultButton(from: searchTvButton, to: addButton, disableOldButton: nil)
             updateSearchButtonVisibility()
-            window?.makeFirstResponder(resultsTable)
+            view.window?.makeFirstResponder(resultsTable)
         case .additionalSearch:
             startProgressReport()
             reloadTableData()
