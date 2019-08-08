@@ -186,42 +186,29 @@ final class Queue {
 
     var status: Status {
         get {
-            var status: Status = .completed
-            arrayQueue.sync {
-                status = self.statusInternal
-            }
-            return status
+            return arrayQueue.sync { self.statusInternal }
         }
     }
 
     var count: Int {
         get {
-            var count = 0
-            arrayQueue.sync {
-                count = items.count
-            }
-            return count
+            return arrayQueue.sync { items.count }
         }
     }
 
     var readyCount: Int {
         get {
-            var count = 0
-            arrayQueue.sync {
-                count = items.filter { $0.status == .ready }.count
-            }
-            return count
+            return arrayQueue.sync { items.filter { $0.status == .ready }.count }
         }
     }
 
     private var firstItemInQueue: QueueItem? {
         get {
-            var first: QueueItem?
-            arrayQueue.sync {
-                first = items.first(where: { $0.status == .ready })
+            return arrayQueue.sync {
+                let first = items.first(where: { $0.status == .ready })
                 first?.status = .working
+                return first
             }
-            return first
         }
     }
 
@@ -234,53 +221,31 @@ final class Queue {
     }
 
     func item(at index: Int) -> QueueItem {
-        var result: QueueItem?
-        arrayQueue.sync {
-            result = items[index]
-        }
-        return result!
+        return arrayQueue.sync { items[index] }
     }
 
     func items(at indexes: IndexSet) -> [QueueItem] {
-        var result: [QueueItem] = []
-        arrayQueue.sync {
-            result = indexes.map { items[$0] }
-        }
-        return result
+        return arrayQueue.sync { indexes.map { items[$0] } }
     }
 
     func index(of item: QueueItem) -> Int {
-        var index = -1
-        arrayQueue.sync {
-            index = items.firstIndex(of: item) ?? -1
-        }
-        return index
+        return arrayQueue.sync { items.firstIndex(of: item) ?? -1 }
     }
 
     func indexesOfItems(with status: QueueItem.Status) -> IndexSet {
-        var indexes: [Int] = []
-        arrayQueue.sync {
-            indexes = items.enumerated().filter { $0.element.status == status } .map { $0.offset }
-        }
-        return IndexSet(indexes)
+        return arrayQueue.sync { IndexSet(items.enumerated().filter { $0.element.status == status } .map { $0.offset }) }
     }
 
     func insert(_ item: QueueItem, at index: Int) {
-        arrayQueue.sync {
-            items.insert(item, at: index)
-        }
+        arrayQueue.sync { items.insert(item, at: index) }
     }
 
     func remove(at indexes: IndexSet) {
-        arrayQueue.sync {
-            items = IndexSet(items.indices).subtracting(indexes).map { items[$0] }
-        }
+        arrayQueue.sync { items = IndexSet(items.indices).subtracting(indexes).map { items[$0] } }
     }
 
     func swapAt(_ i: Int, _ j: Int) {
-        arrayQueue.sync {
-            items.swapAt(i, j)
-        }
+        arrayQueue.sync { items.swapAt(i, j) }
     }
 
     func remove(_ item: QueueItem) {
@@ -292,12 +257,11 @@ final class Queue {
     }
 
     func removeCompletedItems() -> IndexSet {
-        var indexes = IndexSet()
-        arrayQueue.sync {
-            indexes = IndexSet(items.enumerated().filter { $0.element.status == .completed } .map { $0.offset })
+        return arrayQueue.sync {
+            let indexes = IndexSet(items.enumerated().filter { $0.element.status == .completed } .map { $0.offset })
             items = IndexSet(items.indices).subtracting(indexes).map { items[$0] }
+            return indexes
         }
-        return indexes
     }
 
     //MARK: Sleep

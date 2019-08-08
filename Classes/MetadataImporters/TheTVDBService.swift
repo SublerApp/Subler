@@ -160,19 +160,19 @@ final public class TheTVDBService {
 
     private var token: Token? {
         get {
-            var token: Token?
-            tokenQueue.sync {
+            return tokenQueue.sync {
                 if let result = savedToken, result.timestamp + 60 * 60 * 4 > Date.timeIntervalSinceReferenceDate  {
-                    token = result
+                    return result
                 }
                 else if let result = login() {
                     UserDefaults.standard.set(result.key, forKey: "SBTheTVBDToken")
                     UserDefaults.standard.set(result.timestamp, forKey: "SBTheTVBDTokenTimestamp")
                     savedToken = result
-                    token = result
+                    return result
+                } else {
+                    return nil
                 }
             }
-            return token
         }
     }
 

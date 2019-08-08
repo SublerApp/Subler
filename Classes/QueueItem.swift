@@ -31,16 +31,10 @@ import MP42Foundation
 
     @objc dynamic var destURL: URL {
         get {
-            var result: URL = fileURL
-            queue.sync {
-                result = destURLInternal
-            }
-            return result
+            return queue.sync { destURLInternal }
         }
         set (value) {
-            queue.sync {
-                destURLInternal = value
-            }
+            queue.sync { destURLInternal = value }
         }
     }
 
@@ -113,16 +107,10 @@ import MP42Foundation
 
     @objc dynamic var status: Status {
         get {
-            var status: Status = .ready
-            queue.sync {
-                status = statusInternal
-            }
-            return status
+            return queue.sync { statusInternal }
         }
         set (newStatus) {
-            queue.sync {
-                statusInternal = newStatus
-            }
+            queue.sync { statusInternal = newStatus }
         }
     }
 
@@ -130,27 +118,19 @@ import MP42Foundation
 
     @objc dynamic var actions: [QueueActionProtocol] {
         get {
-            var result: [QueueActionProtocol] = []
-            queue.sync {
-                result = actionsInternal
-            }
-            return result
+            return queue.sync { actionsInternal }
         }
     }
 
     func addAction(_ action: QueueActionProtocol) {
         willChangeValue(for: \.actions)
-        queue.sync {
-            actionsInternal.append(action)
-        }
+        queue.sync { actionsInternal.append(action) }
         didChangeValue(for: \.actions)
     }
 
     func removeAction(at index: Int) {
         willChangeValue(for: \.actions)
-        _ = queue.sync {
-            actionsInternal.remove(at: index)
-        }
+        _ = queue.sync { actionsInternal.remove(at: index) }
         didChangeValue(for: \.actions)
     }
 
