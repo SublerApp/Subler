@@ -45,12 +45,14 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         if UserDefaults.standard.bool(forKey: "rememberWindowSize") {
             window.setFrameAutosaveName("documentSave")
             window.setFrame(from: "documentSave")
+
+            splitViewController.splitView.autosaveName = DocumentWindowController.splitViewResorationAutosaveName
+            splitViewController.splitView.identifier = DocumentWindowController.splitViewResorationIdentifier
         }
         else {
             window.setContentSize(NSSize(width: 690, height: 510))
+            splitViewController.splitView.setPosition(160, ofDividerAt: 0)
         }
-
-        splitViewController.splitView.setPosition(160, ofDividerAt: 0)
 
         didSelect(tracks: [])
     }
@@ -75,9 +77,6 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         detailsSplitViewItem.minimumThickness = 320
 
         splitViewController.addSplitViewItem(detailsSplitViewItem)
-
-        splitViewController.splitView.autosaveName = DocumentWindowController.splitViewResorationAutosaveName
-        splitViewController.splitView.identifier = DocumentWindowController.splitViewResorationIdentifier
 
         return splitViewController
     }()
