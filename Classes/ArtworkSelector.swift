@@ -323,8 +323,10 @@ final class ArtworkSelectorController: NSViewController, NSCollectionViewDataSou
         case .downloading:
             disableUI()
             startProgressReport()
+            loadMoreArtworkButton.isHidden = true
         case .closing:
             disableUI()
+            loadMoreArtworkButton.isHidden = true
             stopProgressReport()
         }
     }
