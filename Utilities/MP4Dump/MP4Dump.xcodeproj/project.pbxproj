@@ -262,7 +262,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/../../MP42Foundation/contrib/**",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.galad.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MP4Dump;
 			};
@@ -285,7 +284,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/../../MP42Foundation/contrib/**",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.galad.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MP4Dump;
 			};
@@ -325,6 +323,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../MP42Foundation/contrib/**";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				VALID_ARCHS = x86_64;
@@ -363,6 +362,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../MP42Foundation/contrib/**";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				VALID_ARCHS = x86_64;
