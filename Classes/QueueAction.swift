@@ -260,7 +260,8 @@ class QueueMetadataAction : NSObject, QueueActionProtocol {
         guard let metadata = searchMetadata(info: terms) else { return nil }
 
         let artworks = metadata.remoteArtworks
-        if artworks.isEmpty == false {
+
+        if preferredArtwork != .none && artworks.isEmpty == false {
             let artwork: Artwork? = {
                 let provider = terms.isMovie ? self.movieProvider : self.tvShowProvider
                 if let artwork = artworks.filter(by: preferredArtwork, service: provider) {

@@ -25,6 +25,8 @@ public enum ArtworkType : Int, CustomStringConvertible {
             return "backdrop"
         case .iTunes:
             return "iTunes"
+        case .none:
+            return NSLocalizedString("None", comment: "Queue metadata serach artwork type")
         }
     }
 
@@ -34,6 +36,7 @@ public enum ArtworkType : Int, CustomStringConvertible {
     case episode
     case backdrop
     case iTunes
+    case none
 }
 
 public struct Artwork {
