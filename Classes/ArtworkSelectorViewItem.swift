@@ -130,6 +130,7 @@ final class ArtworkSelectorViewItemView: NSView {
     }
 
     private func setUp() {
+        layer = CALayer()
         wantsLayer = true
 
         imageLayer.anchorPoint = CGPoint.zero
@@ -143,6 +144,7 @@ final class ArtworkSelectorViewItemView: NSView {
 
         backgroundLayer.anchorPoint = CGPoint.zero
         backgroundLayer.position = CGPoint(x: 0, y: 36)
+        backgroundLayer.backgroundColor = NSColor.controlHighlightColor.cgColor
         backgroundLayer.cornerRadius = 8
         backgroundLayer.isHidden = true
         backgroundLayer.isOpaque = true
@@ -161,6 +163,8 @@ final class ArtworkSelectorViewItemView: NSView {
         imageLayer.actions = actions
         backgroundLayer.actions = actions
         emptyLayer.actions = actions
+
+        updateBackgroundColor()
 
         layer?.addSublayer(backgroundLayer)
         layer?.addSublayer(emptyLayer)
@@ -183,19 +187,22 @@ final class ArtworkSelectorViewItemView: NSView {
         }
     }
 
-    override var wantsUpdateLayer: Bool {
-        return true
-    }
-
-    override func updateLayer() {
+    private func updateBackgroundColor() {
         if #available(OSX 10.14, *) {
+            let saved = NSAppearance.current
+            NSAppearance.current = effectiveAppearance
+
             imageLayer.shadowColor = NSColor.labelColor.cgColor
             backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
             emptyLayer.strokeColor = NSColor.secondarySelectedControlColor.cgColor
             emptyLayer.fillColor = NSColor.windowBackgroundColor.cgColor
-        } else {
-            backgroundLayer.backgroundColor = NSColor.controlHighlightColor.cgColor
+
+            NSAppearance.current = saved
         }
+    }
+
+    override func viewDidChangeEffectiveAppearance() {
+        updateBackgroundColor()
     }
 
     override func layout() {

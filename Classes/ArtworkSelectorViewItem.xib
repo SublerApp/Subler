@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.3.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14868" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment version="101100" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.3.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14868"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,18 +19,16 @@
             <rect key="frame" x="0.0" y="0.0" width="128" height="171"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" id="Wkh-6c-0tU" customClass="ArtworkSelectorViewItemLabel" customModule="Subler" customModuleProvider="target">
-                    <rect key="frame" x="-4" y="17" width="136" height="17"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wkh-6c-0tU" customClass="ArtworkSelectorViewItemLabel" customModule="Subler" customModuleProvider="target">
+                    <rect key="frame" x="-4" y="17" width="136" height="15"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="center" title="Label" usesSingleLineMode="YES" id="TsL-Ak-xnf">
                         <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" id="fGU-Kh-WjD">
-                    <rect key="frame" x="-4" y="4" width="136" height="14"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGU-Kh-WjD">
+                    <rect key="frame" x="-4" y="4" width="136" height="13"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="center" title="Label" usesSingleLineMode="YES" id="ggX-Q2-CZ0">
                         <font key="font" metaFont="system" size="10"/>
                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -38,6 +36,14 @@
                     </textFieldCell>
                 </textField>
             </subviews>
+            <constraints>
+                <constraint firstItem="fGU-Kh-WjD" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="-2" id="0Wf-6t-6Lg"/>
+                <constraint firstAttribute="trailing" secondItem="Wkh-6c-0tU" secondAttribute="trailing" constant="-2" id="9df-FA-2lX"/>
+                <constraint firstAttribute="bottom" secondItem="Wkh-6c-0tU" secondAttribute="bottom" constant="17" id="EOh-x3-ntT"/>
+                <constraint firstAttribute="bottom" secondItem="fGU-Kh-WjD" secondAttribute="bottom" constant="4" id="Xx6-ak-lcw"/>
+                <constraint firstItem="Wkh-6c-0tU" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="-2" id="cPi-y8-nFz"/>
+                <constraint firstAttribute="trailing" secondItem="fGU-Kh-WjD" secondAttribute="trailing" constant="-2" id="fLm-DU-mGT"/>
+            </constraints>
             <point key="canvasLocation" x="-575" y="163.5"/>
         </customView>
     </objects>
