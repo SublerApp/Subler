@@ -129,7 +129,7 @@
 "Downloading additional TV metadata…" = "Scarico ulteriori metadata per la serie TV…";
 
 /* No comment provided by engineer. */
-"Downloading artwork…" = "Scarico illustrazione…";
+"Downloading artworks" = "Scarico illustrazione…";
 
 /* Media characteristic. */
 "Dubbed Translation" = "Traduzione doppiaggio";
@@ -240,7 +240,7 @@
 /* No comment provided by engineer. */
 "No" = "No";
 
-/* No comment provided by engineer. */
+/* Queue metadata search artwork type */
 "None" = "Nessuno";
 
 /* Donation -> button */

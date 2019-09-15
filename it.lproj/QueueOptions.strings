@@ -91,6 +91,9 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Load the external srt subtitles file"; ObjectID = "etc-K7-Atw"; */
 "etc-K7-Atw.ibShadowedToolTip" = "Carica i file di sottotitoli srt esterni";
 
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "Fid-Wo-2Eb"; */
+"Fid-Wo-2Eb.title" = "Nessuno";
+
 /* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "GBM-Sa-9GJ"; */
 "GBM-Sa-9GJ.title" = "Lingua:";
 

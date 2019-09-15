@@ -1,15 +1,15 @@
-/* Class = "NSWindow"; title = "Window"; ObjectID = "3"; */
-"3.title" = "Finestra";
+/* Class = "NSButtonCell"; title = "Load more artwork..."; ObjectID = "40h-Rv-m31"; */
+"40h-Rv-m31.title" = "Carica più illustrazioni…";
 
-/* Class = "NSSlider"; ibExternalAccessibilityDescription = "Zoom"; ObjectID = "8"; */
-"8.ibExternalAccessibilityDescription" = "Ingrandisci";
+/* Class = "NSSlider"; ibExternalAccessibilityDescription = "Zoom"; ObjectID = "fMj-Ew-Qej"; */
+"fMj-Ew-Qej.ibExternalAccessibilityDescription" = "Ingrandisci";
 
-/* Class = "NSButtonCell"; title = "Set as artwork"; ObjectID = "14"; */
-"14.title" = "Imposta come illustrazione";
+/* Class = "NSButtonCell"; title = "Set as artwork"; ObjectID = "rMb-PC-yTA"; */
+"rMb-PC-yTA.title" = "Imposta come illustrazione";
 
-/* Class = "NSButtonCell"; title = "Load more artwork..."; ObjectID = "16"; */
-"16.title" = "Carica più illustrazioni…";
+/* Class = "NSTextFieldCell"; title = "Progress status"; ObjectID = "TbL-2H-ra9"; */
+"TbL-2H-ra9.title" = "Stato progresso";
 
-/* Class = "NSButtonCell"; title = "None"; ObjectID = "50"; */
-"50.title" = "Nessuno";
+/* Class = "NSButtonCell"; title = "None"; ObjectID = "UDG-fN-bQH"; */
+"UDG-fN-bQH.title" = "Nessuno";
 
