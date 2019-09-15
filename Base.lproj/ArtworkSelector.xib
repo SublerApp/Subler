@@ -21,11 +21,11 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <collectionViewItem id="tcm-Rs-Ndm" customClass="ArtworkSelectorViewItem" customModule="Subler" customModuleProvider="target"/>
         <view id="KSl-SU-b4m">
-            <rect key="frame" x="0.0" y="0.0" width="543" height="555"/>
+            <rect key="frame" x="0.0" y="0.0" width="571" height="555"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fCL-eV-Fib">
-                    <rect key="frame" x="401" y="13" width="128" height="32"/>
+                    <rect key="frame" x="429" y="13" width="128" height="32"/>
                     <buttonCell key="cell" type="push" title="Set as artwork" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rMb-PC-yTA">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -38,9 +38,9 @@ DQ
                     </connections>
                 </button>
                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fMj-Ew-Qej">
-                    <rect key="frame" x="423" y="50" width="100" height="18"/>
+                    <rect key="frame" x="451" y="50" width="100" height="18"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="100" id="6u0-UA-h3Q"/>
+                        <constraint firstAttribute="width" constant="100" id="o7H-4a-ogx"/>
                     </constraints>
                     <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="ZF9-dG-qTM"/>
                     <accessibility description="Zoom"/>
@@ -61,7 +61,7 @@ DQ
                     </connections>
                 </button>
                 <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Zyu-WY-ltM">
-                    <rect key="frame" x="328" y="13" width="73" height="32"/>
+                    <rect key="frame" x="356" y="13" width="73" height="32"/>
                     <buttonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UDG-fN-bQH">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -74,13 +74,13 @@ Gw
                     </connections>
                 </button>
                 <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0O-We-pZd">
-                    <rect key="frame" x="20" y="76" width="503" height="459"/>
+                    <rect key="frame" x="20" y="76" width="531" height="459"/>
                     <clipView key="contentView" id="cHe-z7-drT">
-                        <rect key="frame" x="1" y="1" width="501" height="457"/>
+                        <rect key="frame" x="1" y="1" width="529" height="457"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView selectable="YES" allowsMultipleSelection="YES" id="234-cJ-3Un" customClass="CollectionView" customModule="Subler" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="501" height="457"/>
+                                <rect key="frame" x="0.0" y="0.0" width="529" height="457"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="lte-fF-bVi">
                                     <size key="itemSize" width="154" height="194"/>
@@ -116,27 +116,26 @@ Gw
                 </textField>
             </subviews>
             <constraints>
-                <constraint firstItem="NEi-uU-Lh7" firstAttribute="leading" secondItem="AYL-Jp-agY" secondAttribute="trailing" constant="7" id="9gb-nE-23k"/>
-                <constraint firstItem="fCL-eV-Fib" firstAttribute="top" secondItem="fMj-Ew-Qej" secondAttribute="bottom" constant="10" id="Bit-fx-eYz"/>
-                <constraint firstItem="c0O-We-pZd" firstAttribute="top" secondItem="KSl-SU-b4m" secondAttribute="top" constant="20" id="DaJ-l8-5JN"/>
-                <constraint firstItem="fMj-Ew-Qej" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NEi-uU-Lh7" secondAttribute="trailing" constant="8" symbolic="YES" id="DmC-ra-q6e"/>
-                <constraint firstItem="NEi-uU-Lh7" firstAttribute="centerY" secondItem="AYL-Jp-agY" secondAttribute="centerY" id="Fo0-OX-4Ly"/>
-                <constraint firstItem="fCL-eV-Fib" firstAttribute="leading" secondItem="Zyu-WY-ltM" secondAttribute="trailing" constant="12" symbolic="YES" id="Fz9-R7-etp"/>
-                <constraint firstItem="NEi-uU-Lh7" firstAttribute="leading" secondItem="AYL-Jp-agY" secondAttribute="trailing" constant="7" id="PqF-a5-1TS"/>
-                <constraint firstItem="iH5-SJ-sDV" firstAttribute="baseline" secondItem="Zyu-WY-ltM" secondAttribute="baseline" id="TZ5-Zf-m3E"/>
-                <constraint firstItem="fMj-Ew-Qej" firstAttribute="top" secondItem="c0O-We-pZd" secondAttribute="bottom" constant="8" id="X3N-5S-LkA"/>
-                <constraint firstItem="fMj-Ew-Qej" firstAttribute="trailing" secondItem="fCL-eV-Fib" secondAttribute="trailing" id="btb-8f-0H1"/>
-                <constraint firstItem="Zyu-WY-ltM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iH5-SJ-sDV" secondAttribute="trailing" constant="66" id="bzt-5D-vZw"/>
-                <constraint firstItem="AYL-Jp-agY" firstAttribute="leading" secondItem="KSl-SU-b4m" secondAttribute="leading" constant="20" id="c0r-TQ-wVA"/>
-                <constraint firstAttribute="bottom" secondItem="iH5-SJ-sDV" secondAttribute="bottom" constant="20" id="eKv-c7-1DF"/>
-                <constraint firstAttribute="bottom" secondItem="AYL-Jp-agY" secondAttribute="bottom" constant="20" id="ena-4M-4Qu"/>
-                <constraint firstAttribute="trailing" secondItem="fCL-eV-Fib" secondAttribute="trailing" constant="20" id="fgc-7c-j3N"/>
-                <constraint firstItem="Zyu-WY-ltM" firstAttribute="baseline" secondItem="fCL-eV-Fib" secondAttribute="baseline" id="jRI-f7-8kS"/>
-                <constraint firstItem="c0O-We-pZd" firstAttribute="leading" secondItem="KSl-SU-b4m" secondAttribute="leading" constant="20" id="pXh-Mx-QuV"/>
-                <constraint firstAttribute="trailing" secondItem="c0O-We-pZd" secondAttribute="trailing" constant="20" id="q23-OJ-7hs"/>
-                <constraint firstItem="iH5-SJ-sDV" firstAttribute="leading" secondItem="KSl-SU-b4m" secondAttribute="leading" constant="20" id="vLK-rL-Fm5"/>
+                <constraint firstItem="fMj-Ew-Qej" firstAttribute="top" secondItem="c0O-We-pZd" secondAttribute="bottom" constant="8" symbolic="YES" id="1F8-2H-ql1"/>
+                <constraint firstItem="iH5-SJ-sDV" firstAttribute="baseline" secondItem="Zyu-WY-ltM" secondAttribute="baseline" id="1hD-5N-Mi4"/>
+                <constraint firstItem="fMj-Ew-Qej" firstAttribute="trailing" secondItem="fCL-eV-Fib" secondAttribute="trailing" id="4rc-7P-Ji5"/>
+                <constraint firstItem="fCL-eV-Fib" firstAttribute="top" secondItem="fMj-Ew-Qej" secondAttribute="bottom" constant="10" id="89D-4X-bUH"/>
+                <constraint firstItem="fCL-eV-Fib" firstAttribute="leading" secondItem="Zyu-WY-ltM" secondAttribute="trailing" constant="12" symbolic="YES" id="A6C-Bg-TgV"/>
+                <constraint firstItem="Zyu-WY-ltM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iH5-SJ-sDV" secondAttribute="trailing" constant="12" symbolic="YES" id="IYX-sN-6GS"/>
+                <constraint firstAttribute="bottom" secondItem="AYL-Jp-agY" secondAttribute="bottom" constant="20" symbolic="YES" id="c0Q-Bt-s8Q"/>
+                <constraint firstItem="NEi-uU-Lh7" firstAttribute="leading" secondItem="AYL-Jp-agY" secondAttribute="trailing" constant="7" id="dbl-RC-7wB"/>
+                <constraint firstItem="Zyu-WY-ltM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NEi-uU-Lh7" secondAttribute="trailing" constant="8" symbolic="YES" id="g4g-af-tke"/>
+                <constraint firstItem="AYL-Jp-agY" firstAttribute="bottom" secondItem="iH5-SJ-sDV" secondAttribute="bottom" id="jBY-Dt-gql"/>
+                <constraint firstItem="c0O-We-pZd" firstAttribute="top" secondItem="KSl-SU-b4m" secondAttribute="top" constant="20" symbolic="YES" id="kSw-QX-3GJ"/>
+                <constraint firstItem="c0O-We-pZd" firstAttribute="leading" secondItem="KSl-SU-b4m" secondAttribute="leading" constant="20" symbolic="YES" id="m3v-Jo-5ZH"/>
+                <constraint firstItem="Zyu-WY-ltM" firstAttribute="baseline" secondItem="fCL-eV-Fib" secondAttribute="baseline" id="njY-Tp-FeZ"/>
+                <constraint firstItem="iH5-SJ-sDV" firstAttribute="leading" secondItem="AYL-Jp-agY" secondAttribute="leading" id="oJc-dl-adV"/>
+                <constraint firstItem="c0O-We-pZd" firstAttribute="leading" secondItem="AYL-Jp-agY" secondAttribute="leading" id="qSA-VR-WqA"/>
+                <constraint firstAttribute="trailing" secondItem="c0O-We-pZd" secondAttribute="trailing" constant="20" symbolic="YES" id="uBg-rg-gmc"/>
+                <constraint firstItem="c0O-We-pZd" firstAttribute="trailing" secondItem="fMj-Ew-Qej" secondAttribute="trailing" id="yFF-Hd-SSn"/>
+                <constraint firstItem="AYL-Jp-agY" firstAttribute="centerY" secondItem="NEi-uU-Lh7" secondAttribute="centerY" id="zvc-Fx-gsf"/>
             </constraints>
-            <point key="canvasLocation" x="171.5" y="241.5"/>
+            <point key="canvasLocation" x="72.5" y="129.5"/>
         </view>
     </objects>
 </document>

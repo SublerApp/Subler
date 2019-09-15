@@ -45,10 +45,8 @@ class MetadataSearchViewController: ViewController, MetadataSearchControllerDele
     }
 
     override func transition(from fromViewController: NSViewController, to toViewController: NSViewController, options: NSViewController.TransitionOptions = [], completionHandler completion: (() -> Void)? = nil) {
-        CATransaction.begin()
         addChild(toViewController)
         super.transition(from: fromViewController, to: toViewController, options: options, completionHandler: completion)
-        CATransaction.commit()
     }
 
     func didSelect(metadata: MetadataResult?) {
@@ -57,8 +55,9 @@ class MetadataSearchViewController: ViewController, MetadataSearchControllerDele
                 delegate?.didSelect(metadata: result)
                 presentingViewController?.dismiss(self)
             } else {
-                artworkViewController = ArtworkSelectorController(metadata: result, delegate: self)
-                transition(from: metadataViewController, to: artworkViewController!, options: [.slideForward, .allowUserInteraction], completionHandler: {
+                let controller = ArtworkSelectorController(metadata: result, delegate: self)
+                artworkViewController = controller
+                transition(from: metadataViewController, to: controller, options: [.slideForward], completionHandler: {
                     self.removeChild(at: 0)
                     self.view.window?.makeFirstResponder(self.artworkViewController?.imageBrowser)
                 })

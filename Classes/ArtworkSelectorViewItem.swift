@@ -115,9 +115,9 @@ final class ArtworkSelectorViewItemLabel : NSTextField {
 
 final class ArtworkSelectorViewItemView: NSView {
 
-    let imageLayer: CALayer = CALayer()
-    let backgroundLayer: CALayer = CALayer()
-    let emptyLayer: CAShapeLayer = CAShapeLayer()
+    private let imageLayer: CALayer = CALayer()
+    private let backgroundLayer: CALayer = CALayer()
+    private let emptyLayer: CAShapeLayer = CAShapeLayer()
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -132,6 +132,13 @@ final class ArtworkSelectorViewItemView: NSView {
     private func setUp() {
         layer = CALayer()
         wantsLayer = true
+
+        let actions: [String : CAAction] = ["contents": NSNull(),
+                                            "hidden": NSNull(),
+                                            "bounds": NSNull()]
+        imageLayer.actions = actions
+        backgroundLayer.actions = actions
+        emptyLayer.actions = actions
 
         imageLayer.anchorPoint = CGPoint.zero
         imageLayer.position = CGPoint(x: 4, y: 40)
@@ -156,13 +163,6 @@ final class ArtworkSelectorViewItemView: NSView {
         emptyLayer.strokeColor = NSColor.secondarySelectedControlColor.cgColor
         emptyLayer.fillColor = NSColor.windowBackgroundColor.cgColor
         emptyLayer.isOpaque = true
-
-        let actions: [String : CAAction] = ["contents": NSNull(),
-                                            "hidden": NSNull(),
-                                            "bounds": NSNull()]
-        imageLayer.actions = actions
-        backgroundLayer.actions = actions
-        emptyLayer.actions = actions
 
         updateBackgroundColor()
 
@@ -211,18 +211,27 @@ final class ArtworkSelectorViewItemView: NSView {
         backgroundLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - 36)
 
         emptyLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width - 16, height: bounds.height - 56)
-        let path = CGMutablePath()
-        path.addRoundedRect(in: emptyLayer.bounds, cornerWidth: 14, cornerHeight: 14)
-        emptyLayer.path = path
+        emptyLayer.path = CGPath(roundedRect: emptyLayer.bounds, cornerWidth: 14, cornerHeight: 14, transform: nil)
 
         if let image = imageLayer.contents as? NSImage {
             let rect = AVMakeRect(aspectRatio: image.size, insideRect: imageLayer.bounds)
-            let path = CGMutablePath()
-            path.addRect(rect)
-
-            imageLayer.shadowPath = path
+            imageLayer.shadowPath = CGPath(rect: rect, transform: nil)
         } else {
             imageLayer.shadowPath = nil
+        }
+    }
+
+    var highlighted: Bool = false {
+        didSet {
+            backgroundLayer.isHidden = !highlighted
+        }
+    }
+
+    var image: NSImage? {
+        didSet {
+            imageLayer.contents = image
+            imageLayer.shadowPath = nil
+            emptyLayer.isHidden = image != nil
         }
     }
 
@@ -232,7 +241,7 @@ final class ArtworkSelectorViewItem: NSCollectionViewItem {
 
     // MARK: Properties
 
-    var itemView : ArtworkSelectorViewItemView { get { return (view as? ArtworkSelectorViewItemView)! } }
+    var itemView : ArtworkSelectorViewItemView? { get { return (view as? ArtworkSelectorViewItemView) } }
     @IBOutlet var subTextField: NSTextField!
 
     var doubleAction: Selector?
@@ -261,8 +270,7 @@ final class ArtworkSelectorViewItem: NSCollectionViewItem {
 
     var image: NSImage? {
         didSet {
-            itemView.imageLayer.contents = image
-            itemView.emptyLayer.isHidden = image != nil
+            itemView?.image = image
         }
     }
 
@@ -288,10 +296,10 @@ final class ArtworkSelectorViewItem: NSCollectionViewItem {
 
     private func updateSelectionHighlight() {
         if highlightState == .forSelection || (isSelected && highlightState != .forDeselection) {
-            itemView.backgroundLayer.isHidden = false
+            itemView?.highlighted = true
             textField?.isHighlighted = true
         } else {
-            itemView.backgroundLayer.isHidden = true
+            itemView?.highlighted = false
             textField?.isHighlighted = false
         }
     }
@@ -304,6 +312,14 @@ final class ArtworkSelectorViewItem: NSCollectionViewItem {
         } else {
             super.mouseUp(with: event)
         }
+    }
+
+    override func prepareForReuse() {
+        title = nil
+        subtitle = nil
+        image = nil
+        itemView?.highlighted = false
+        textField?.isHighlighted = false
     }
 
 }

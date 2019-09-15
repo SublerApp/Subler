@@ -753,6 +753,7 @@
 				TargetAttributes = {
 					8D15AC270486D014006FF6A4 = {
 						LastSwiftMigration = 1020;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.HardenedRuntime = {
 								enabled = 1;
