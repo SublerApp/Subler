@@ -26,7 +26,7 @@ public enum ArtworkType : Int, CustomStringConvertible {
         case .iTunes:
             return "iTunes"
         case .none:
-            return NSLocalizedString("None", comment: "Queue metadata serach artwork type")
+            return NSLocalizedString("None", comment: "Queue metadata search artwork type")
         }
     }
 
