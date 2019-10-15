@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.68" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.68"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15504"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -498,7 +498,11 @@
             <point key="canvasLocation" x="-244" y="-303"/>
         </menu>
         <customObject id="419" customClass="NSFontManager"/>
-        <customObject id="449" userLabel="AppDelegate" customClass="AppDelegate" customModule="Subler" customModuleProvider="target"/>
+        <customObject id="449" userLabel="AppDelegate" customClass="AppDelegate" customModule="Subler" customModuleProvider="target">
+            <connections>
+                <outlet property="sendToExternalApp" destination="597" id="Kz4-8d-I4D"/>
+            </connections>
+        </customObject>
         <customObject id="530" customClass="SPUStandardUpdaterController"/>
     </objects>
 </document>

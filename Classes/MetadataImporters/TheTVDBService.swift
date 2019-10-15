@@ -138,16 +138,29 @@ final public class TheTVDBService {
 
     public var languages: [String] {
         get {
-            if let result = savedLanguages, result.data.isEmpty == false {
-                return result.data
-            }
-            else if let result = fetchLanguages() {
-                savedLanguages = result
-                UserDefaults.standard.set(result.data, forKey: "SBTheTVBDLanguagesArray")
-                UserDefaults.standard.set(result.timestamp, forKey: "SBTheTVBDLanguagesArrayTimestamp")
-                return result.data
-            }
-            return ["en"]
+            return ["en",
+                    "sv",
+                    "no",
+                    "da",
+                    "fi",
+                    "nl",
+                    "de",
+                    "it",
+                    "es",
+                    "fr",
+                    "pl",
+                    "hu",
+                    "el",
+                    "tr",
+                    "ru",
+                    "he",
+                    "ja",
+                    "pt",
+                    "zh",
+                    "cs",
+                    "sl",
+                    "hr",
+                    "ko"]
         }
     }
 

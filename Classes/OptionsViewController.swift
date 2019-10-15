@@ -10,6 +10,7 @@ import MP42Foundation
 
 final class OptionsViewController: NSViewController, NSMenuItemValidation {
 
+    @IBOutlet weak var sendToExternalApp: NSButton!
     @IBOutlet var destButton: NSPopUpButton!
 
     @objc private dynamic let options: QueuePreferences
@@ -59,19 +60,9 @@ final class OptionsViewController: NSViewController, NSMenuItemValidation {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Hack to fix crappy anti-aliasing on Yosemite
-        // unfortunately it fixes the checkboxes anti-aliasing,
-        // but break the popup buttons one…
-        view.wantsLayer = true
-
-        for subview in view.subviews {
-            if let button = subview as? NSButton {
-                button.attributedTitle = NSAttributedString(string: button.title,
-                                                            attributes: [NSAttributedString.Key.foregroundColor: NSColor.labelColor,
-                                                                        NSAttributedString.Key.font: NSFont.labelFont(ofSize: 11)])
-
-            }
+        
+        if #available(macOS 10.15, *) {
+            sendToExternalApp.title = NSLocalizedString("Send to TV", comment: "Send to tv app menu item")
         }
 
         // Observe the providers changes

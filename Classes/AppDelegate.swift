@@ -38,6 +38,8 @@ final class DocumentController : NSDocumentController {
 @NSApplicationMain
 final class AppDelegate: NSObject, NSApplicationDelegate {
 
+    @IBOutlet weak var sendToExternalApp: NSMenuItem!
+
     private static func appSupportURL() -> URL {
         let fileManager = FileManager.default
         if let url = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)
@@ -155,6 +157,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         if UserDefaults.standard.bool(forKey: "SBShowQueueWindow") {
             QueueController.shared.showWindow(self)
+        }
+        
+        if #available(macOS 10.15, *) {
+            sendToExternalApp.title = NSLocalizedString("Send to TV", comment: "Send to tv app menu item")
         }
     }
 

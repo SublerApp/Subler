@@ -1419,6 +1419,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.5.18;
 				DEVELOPMENT_TEAM = 5X9DE89KYV;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1437,6 +1438,7 @@
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 1.5.18;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				OTHER_SWIFT_FLAGS = "";
@@ -1460,6 +1462,7 @@
 				CODE_SIGN_ENTITLEMENTS = Subler.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.5.18;
 				DEVELOPMENT_TEAM = 5X9DE89KYV;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1477,6 +1480,7 @@
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 1.5.18;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				OTHER_SWIFT_FLAGS = "";

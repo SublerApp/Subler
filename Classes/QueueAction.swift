@@ -593,20 +593,7 @@ class QueueSendToiTunesAction: NSObject, QueueActionProtocol {
     override init() {}
 
     func runAction(_ item: QueueItem) -> Bool {
-
-        if let script = NSAppleScript(source: """
-            tell application "iTunes" to add (POSIX file "\(item.destURL.path)")
-            """) {
-
-            let result = automationConsent(bundleIdentifier: "com.apple.iTunes", promptIfNeeded: true)
-            if result == .granted {
-                var error: NSDictionary?
-                script.executeAndReturnError(&error)
-                return true
-            }
-        }
-
-        return false
+        return sendToFileExternalApp(fileURL: item.destURL)
     }
 
     func encode(with aCoder: NSCoder) {}

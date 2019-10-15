@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14868" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14868"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBOptionsViewController">
             <connections>
                 <outlet property="destButton" destination="86l-GG-SpO" id="F1P-Kx-280"/>
+                <outlet property="sendToExternalApp" destination="zVi-vU-sh2" id="blI-Vu-abD"/>
                 <outlet property="view" destination="UlG-O3-eNc" id="hzl-ex-WZi"/>
             </connections>
         </customObject>
@@ -22,7 +23,7 @@
                     <rect key="frame" x="110" y="71" width="69" height="18"/>
                     <buttonCell key="cell" type="check" title="Optimize" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="nig-pN-efw">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.optimize" id="2oW-EB-1dq">
@@ -36,7 +37,7 @@
                     <rect key="frame" x="110" y="498" width="146" height="18"/>
                     <buttonCell key="cell" type="check" title="Clear existing metadata" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="QNO-e1-WUJ">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.clearExistingMetadata" id="PhG-DP-JFS">
@@ -50,7 +51,7 @@
                     <rect key="frame" x="110" y="25" width="134" height="18"/>
                     <buttonCell key="cell" type="check" title="Auto-Start the queue" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="LYO-G0-9jA">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.autoStart" id="ag1-8O-XDb">
@@ -64,7 +65,7 @@
                     <rect key="frame" x="110" y="335" width="111" height="18"/>
                     <buttonCell key="cell" type="check" title="Organize Groups" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="240-c7-2UW">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.organize" id="phH-MF-SOh">
@@ -78,7 +79,7 @@
                     <rect key="frame" x="110" y="299" width="142" height="18"/>
                     <buttonCell key="cell" type="check" title="Load external subtitles" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="59T-kp-mV1">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.subtitles" id="BZp-nF-g91">
@@ -92,7 +93,7 @@
                     <rect key="frame" x="176" y="113" width="128" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" imagePosition="left" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="6jC-r9-LzT" id="8bb-Gy-KAS">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                         <menu key="menu" title="OtherViews" autoenablesItems="NO" id="BBw-yf-xUC">
                             <items>
                                 <menuItem isSeparatorItem="YES" state="on" id="6jC-r9-LzT"/>
@@ -129,7 +130,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="mp4" bezelStyle="roundedRect" imagePosition="left" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="10" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="iXb-rA-1f3" id="Tgc-fW-mN5">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                         <menu key="menu" title="OtherViews" autoenablesItems="NO" id="PLh-aR-2Pj">
                             <items>
                                 <menuItem title="mp4" state="on" tag="10" id="iXb-rA-1f3"/>
@@ -200,7 +201,7 @@
                     <rect key="frame" x="176" y="133" width="128" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bQx-xN-b3H">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                         <menu key="menu" title="OtherViews" id="4en-ZA-qlS"/>
                     </popUpButtonCell>
                     <connections>
@@ -232,7 +233,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CbR-eu-sGI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                         <menu key="menu" title="OtherViews" id="ptP-wd-Rxc"/>
                     </popUpButtonCell>
                     <connections>
@@ -256,7 +257,7 @@
                     <rect key="frame" x="192" y="412" width="111" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UOb-Qe-IPw">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                         <menu key="menu" title="OtherViews" id="ytE-Us-3gv"/>
                     </popUpButtonCell>
                     <connections>
@@ -302,7 +303,7 @@
                     <rect key="frame" x="202" y="392" width="111" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nqF-p0-mT7">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                         <menu key="menu" title="OtherViews" id="U0q-ED-kQf"/>
                     </popUpButtonCell>
                     <connections>
@@ -338,7 +339,7 @@
                     <rect key="frame" x="202" y="438" width="111" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gZb-sF-UQs">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                         <menu key="menu" title="OtherViews" id="0QM-sv-vRX"/>
                     </popUpButtonCell>
                     <connections>
@@ -363,7 +364,7 @@
                     <rect key="frame" x="110" y="317" width="119" height="18"/>
                     <buttonCell key="cell" type="check" title="Fix audio fallbacks" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="W6u-1c-BsI">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.fixFallbacks" id="W1e-uB-NXG">
@@ -377,7 +378,7 @@
                     <rect key="frame" x="110" y="227" width="160" height="18"/>
                     <buttonCell key="cell" type="check" title="Complete tracks language" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="cxz-2q-RIP">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.fixTrackLanguage" id="deV-oB-IXG">
@@ -405,7 +406,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kEh-SN-iHZ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                         <menu key="menu" title="OtherViews" id="LfV-JG-4EY"/>
                     </popUpButtonCell>
                     <connections>
@@ -430,7 +431,7 @@
                     <rect key="frame" x="110" y="7" width="179" height="18"/>
                     <buttonCell key="cell" type="check" title="Show Notification When Done" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="n6P-IC-SEp">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.showDoneNotification" id="5Am-9x-0Yu">
@@ -444,7 +445,7 @@
                     <rect key="frame" x="110" y="281" width="123" height="18"/>
                     <buttonCell key="cell" type="check" title="Clear tracks names" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="mtK-5C-Pzh">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.clearTrackName" id="C0n-Hb-80l">
@@ -458,7 +459,7 @@
                     <rect key="frame" x="110" y="263" width="160" height="18"/>
                     <buttonCell key="cell" type="check" title="Prettify audio track names" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="akF-dR-OPB" userLabel="Prettify audio track names">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.prettifyAudioTrackName" id="KdC-0J-tcK">
@@ -472,7 +473,7 @@
                     <rect key="frame" x="110" y="245" width="143" height="18"/>
                     <buttonCell key="cell" type="check" title="Rename chapters titles" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="yFm-Nq-s66" userLabel="Prettify audio track names">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.renameChapters" id="v5q-TA-ZZi">
@@ -486,7 +487,7 @@
                     <rect key="frame" x="183" y="364" width="76" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" title="Poster" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="YjX-6f-SPu" id="1t8-o9-ckI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                         <menu key="menu" title="OtherViews" id="0zS-9Z-m6I">
                             <items>
                                 <menuItem title="Poster" state="on" id="YjX-6f-SPu">
@@ -523,7 +524,7 @@
                     <rect key="frame" x="110" y="191" width="116" height="18"/>
                     <buttonCell key="cell" type="check" title="Apply color space" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="0By-RQ-4mS">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.applyColorSpace" id="jug-JB-zTC">
@@ -551,7 +552,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="Implicit" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="psY-0V-t0k" id="QT5-Bh-4Hc">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                         <menu key="menu" title="OtherViews" id="t0P-DA-u8W">
                             <items>
                                 <menuItem title="Implicit" state="on" tag="1" id="psY-0V-t0k"/>
@@ -573,7 +574,7 @@
                     <rect key="frame" x="110" y="155" width="125" height="18"/>
                     <buttonCell key="cell" type="check" title="Set output filename" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="Qld-0F-DsX">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.setOutputFilename" id="THt-yK-839"/>
@@ -583,7 +584,7 @@
                     <rect key="frame" x="110" y="480" width="105" height="18"/>
                     <buttonCell key="cell" type="check" title="Fetch Metadata" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="h5x-un-6cJ">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.searchMetadata" id="IjF-Yf-poW">
@@ -597,7 +598,7 @@
                     <rect key="frame" x="110" y="53" width="100" height="18"/>
                     <buttonCell key="cell" type="check" title="Send to iTunes" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="4an-VK-S2u">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" metaFont="menu" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.sendToiTunes" id="NBZ-1e-YyZ">

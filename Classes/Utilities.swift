@@ -28,6 +28,11 @@ func automationConsent(bundleIdentifier: String, promptIfNeeded: Bool) -> Privac
     if #available(macOS 10.14, *) {
         bundleIdentifier.withCString { (identifier) in
             var addressDesc = AEAddressDesc()
+
+            // Mare sure the target is running, if not the consent alert will not be shown.
+            NSWorkspace.shared.launchApplication(withBundleIdentifier: bundleIdentifier, options: [],
+                                                 additionalEventParamDescriptor: nil, launchIdentifier: nil)
+
             let createDescResult = AECreateDesc(typeApplicationBundleID, identifier, strlen(identifier), &addressDesc)
             if createDescResult == noErr {
                 let appleScriptPermission = AEDeterminePermissionToAutomateTarget(&addressDesc, typeWildCard, typeWildCard, promptIfNeeded)
@@ -51,4 +56,36 @@ func automationConsent(bundleIdentifier: String, promptIfNeeded: Bool) -> Privac
     } else {
         return .granted
     }
+}
+
+func sendToFileExternalApp(fileURL: URL) -> Bool {
+    let filePath = fileURL.path
+
+    if #available(macOS 10.15, *) {
+        if let script = NSAppleScript(source: """
+            tell application "TV" to add (POSIX file "\(filePath)")
+            """) {
+
+            let result = automationConsent(bundleIdentifier: "com.apple.TV", promptIfNeeded: true)
+            if result == .granted {
+                var error: NSDictionary?
+                script.executeAndReturnError(&error)
+                return error != nil
+            }
+        }
+    } else {
+        if let script = NSAppleScript(source: """
+            tell application "iTunes" to add (POSIX file "\(filePath)")
+            """) {
+
+            let result = automationConsent(bundleIdentifier: "com.apple.iTunes", promptIfNeeded: true)
+            if result == .granted {
+                var error: NSDictionary?
+                script.executeAndReturnError(&error)
+                return error != nil
+            }
+        }
+    }
+    
+    return false
 }

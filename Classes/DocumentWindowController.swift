@@ -254,16 +254,8 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
     // MARK: Actions
 
     @IBAction func sendToExternalApp(_ sender: Any) {
-
-        if let filePath = doc.fileURL?.path, let script = NSAppleScript(source: """
-            tell application "iTunes" to add (POSIX file "\(filePath)")
-            """) {
-
-            let result = automationConsent(bundleIdentifier: "com.apple.iTunes", promptIfNeeded: true)
-            if result == .granted {
-                var error: NSDictionary?
-                script.executeAndReturnError(&error)
-            }
+        if let fileURL = doc.fileURL {
+            _ = sendToFileExternalApp(fileURL: fileURL)
         }
     }
 
