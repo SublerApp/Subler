@@ -14,17 +14,17 @@ NSString *libraryPath = nil;
 void logCallback(MP4LogLevel loglevel, const char* fmt, va_list ap)
 {
     if (!libraryPath) {
-        NSString *libraryDir = NSSearchPathForDirectoriesInDomains( NSLibraryDirectory,
-                                                                     NSUserDomainMask,
-                                                                     YES ).firstObject;
+        NSString *libraryDir = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
+                                                                   NSUserDomainMask,
+                                                                   YES).firstObject;
         NSString *AppSupportDirectory = [[libraryDir stringByAppendingPathComponent:@"Application Support"]
                                           stringByAppendingPathComponent:@"MP4Dump"];
 
-        if (![[NSFileManager defaultManager] fileExistsAtPath:AppSupportDirectory]) {
-            [[NSFileManager defaultManager] createDirectoryAtPath:AppSupportDirectory
-                                      withIntermediateDirectories:YES
-                                                       attributes:nil
-                                                            error:NULL];
+        if (![NSFileManager.defaultManager fileExistsAtPath:AppSupportDirectory]) {
+            [NSFileManager.defaultManager createDirectoryAtPath:AppSupportDirectory
+                                    withIntermediateDirectories:YES
+                                                     attributes:nil
+                                                          error:NULL];
         }
         libraryPath = [AppSupportDirectory stringByAppendingPathComponent:@"temp.txt"];
         

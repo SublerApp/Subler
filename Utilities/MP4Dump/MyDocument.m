@@ -60,14 +60,17 @@ extern NSString *libraryPath;
 {
     MP4FileHandle fileHandle = MP4Read(absoluteURL.fileSystemRepresentation);
 
-    MP4Dump(fileHandle, 0);
+    MP4LogLevel level = (MP4LogLevel)[NSUserDefaults.standardUserDefaults integerForKey:@"LogLevel"];
 
+    MP4LogSetLevel(level);
+    MP4Dump(fileHandle, 0);
     MP4Close(fileHandle, 0);
+    
     result = [NSString stringWithContentsOfFile:libraryPath encoding:NSASCIIStringEncoding error:outError];
 
-    if ([[NSFileManager defaultManager] isDeletableFileAtPath:libraryPath])
-        [[NSFileManager defaultManager] removeItemAtPath:libraryPath error:nil];
-
+    if ([NSFileManager.defaultManager isDeletableFileAtPath:libraryPath]) {
+        [NSFileManager.defaultManager removeItemAtPath:libraryPath error:nil];
+    }
     if (result) {
         return YES;
     }
@@ -80,7 +83,6 @@ extern NSString *libraryPath;
 {
     if (outError != NULL && ![self _loadFileDump:absoluteURL error:outError]) {
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-
         return NO;
 	}
 
@@ -94,7 +96,7 @@ extern NSString *libraryPath;
 - (IBAction)setLogLevel:(id)sender
 {
     MP4LogLevel level = (MP4LogLevel)[sender tag];
-    [[NSUserDefaults standardUserDefaults] setInteger:level forKey:@"LogLevel"];
+    [NSUserDefaults.standardUserDefaults setInteger:level forKey:@"LogLevel"];
     MP4LogSetLevel(level);
 
     if ([self _loadFileDump:self.fileURL error:nil]) {
