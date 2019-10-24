@@ -23,7 +23,7 @@ extern NSString *libraryPath;
 {
     self = [super init];
     if (self) {
-        NSMutableParagraphStyle *ps = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+        NSMutableParagraphStyle *ps = [NSParagraphStyle.defaultParagraphStyle mutableCopy];
         _attributes = @{ NSFontAttributeName: [NSFont fontWithName:@"Monaco" size:11],
                          NSParagraphStyleAttributeName: ps,
                          NSForegroundColorAttributeName: NSColor.textColor };
