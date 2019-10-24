@@ -23,6 +23,7 @@
 		A9067A0C1F3CA4E6008011DC /* MetadataPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */; };
 		A906B5B11E434872007D12B1 /* Queue.sdef in Resources */ = {isa = PBXBuildFile; fileRef = A906B5B01E434872007D12B1 /* Queue.sdef */; };
 		A90B023B10F3290A000416F3 /* PrefsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90B023910F3290A000416F3 /* PrefsWindowController.xib */; };
+		A90B094C235614D200F1B191 /* iTunesStoreArtworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90B094B235614D200F1B191 /* iTunesStoreArtworks.swift */; };
 		A90BC5E31F3A139700F9F3F3 /* MetadataResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */; };
 		A90C3E0C1FD16AF200F64532 /* TokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */; };
 		A90CD5C01FD177230070A067 /* TokensViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90CD5C21FD177230070A067 /* TokensViewController.xib */; };
@@ -226,6 +227,7 @@
 		A90300C91DAE72C4008237D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PresetPrefsViewController.xib; sourceTree = "<group>"; };
 		A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataPrefsViewController.swift; path = Classes/MetadataPrefsViewController.swift; sourceTree = "<group>"; };
 		A906B5B01E434872007D12B1 /* Queue.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Queue.sdef; sourceTree = "<group>"; };
+		A90B094B235614D200F1B191 /* iTunesStoreArtworks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesStoreArtworks.swift; sourceTree = "<group>"; };
 		A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataResult.swift; path = Classes/MetadataImporters/MetadataResult.swift; sourceTree = "<group>"; };
 		A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokensViewController.swift; path = Classes/TokensViewController.swift; sourceTree = "<group>"; };
 		A90CD5C11FD177230070A067 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TokensViewController.xib; sourceTree = "<group>"; };
@@ -688,6 +690,7 @@
 				A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */,
 				A900CE3D1F3ACF9700CCA08E /* MetadataResultMap.swift */,
 				A9E97F131F274F1100DBA586 /* iTunesStore.swift */,
+				A90B094B235614D200F1B191 /* iTunesStoreArtworks.swift */,
 				A98D98451F0280CB00A77ABC /* TheMovieDB.swift */,
 				A98D98471F02820F00A77ABC /* TheMovieDBService.swift */,
 				A9B514181EFC12310055A035 /* TheTVDB.swift */,
@@ -890,6 +893,7 @@
 				A98D6BAB21FDC62800F0D886 /* Queue.swift in Sources */,
 				A98542DC20D1A7E500EB9803 /* ArtworkSelectorViewItem.swift in Sources */,
 				A90C3E0C1FD16AF200F64532 /* TokensViewController.swift in Sources */,
+				A90B094C235614D200F1B191 /* iTunesStoreArtworks.swift in Sources */,
 				A97D99DA22A0240C001FA3A7 /* OCRManager.swift in Sources */,
 				A9DA03E322A0211C0056AE7B /* OCRPrefsViewController.swift in Sources */,
 				A9C09C7C1F99F460007939EE /* ExceptionAlertController.swift in Sources */,

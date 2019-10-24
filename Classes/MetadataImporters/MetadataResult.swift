@@ -19,12 +19,15 @@ public enum ArtworkType : Int, CustomStringConvertible {
             return "season"
         case .square:
             return "square"
+        case .rectangle:
+            return "rectangle"
         case .episode:
             return "episode"
         case .backdrop:
             return "backdrop"
         case .iTunes:
             return "iTunes"
+
         case .none:
             return NSLocalizedString("None", comment: "Queue metadata search artwork type")
         }
@@ -33,6 +36,7 @@ public enum ArtworkType : Int, CustomStringConvertible {
     case poster
     case season
     case square
+    case rectangle
     case episode
     case backdrop
     case iTunes

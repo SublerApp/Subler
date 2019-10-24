@@ -756,6 +756,13 @@ public struct iTunesStore: MetadataService {
             }
         }
 
+        /*
+        guard let title = metadata[.name] as? String else { return metadata }
+
+        let additionalArtworks = iTunesStoreArtworks().search(term: title, iTunesStore: store.storeCode, locale: "en-US", type: "Movie")
+        metadata.remoteArtworks.append(contentsOf: additionalArtworks)
+        */
+
         return metadata
     }
 
