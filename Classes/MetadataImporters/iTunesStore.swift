@@ -677,6 +677,11 @@ public struct iTunesStore: MetadataService {
             metadata[.seriesDescription] = results.results.first?.longDescription
         }
 
+        guard let tvShow = metadata[.seriesName] as? String else { return metadata }
+
+        let additionalArtworks = iTunesStoreArtworks().search(term: tvShow, iTunesStore: store.storeCode, locale: "en-US", type: "TV Shows")
+        metadata.remoteArtworks.append(contentsOf: additionalArtworks)
+
         return metadata
     }
 
@@ -756,12 +761,10 @@ public struct iTunesStore: MetadataService {
             }
         }
 
-        /*
         guard let title = metadata[.name] as? String else { return metadata }
 
-        let additionalArtworks = iTunesStoreArtworks().search(term: title, iTunesStore: store.storeCode, locale: "en-US", type: "Movie")
+        let additionalArtworks = iTunesStoreArtworks().search(term: title, iTunesStore: store.storeCode, locale: "en-US", type: "Movies")
         metadata.remoteArtworks.append(contentsOf: additionalArtworks)
-        */
 
         return metadata
     }

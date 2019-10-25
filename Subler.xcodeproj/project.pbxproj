@@ -218,7 +218,7 @@
 		A90300C91DAE72C4008237D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PresetPrefsViewController.xib; sourceTree = "<group>"; };
 		A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataPrefsViewController.swift; path = Classes/MetadataPrefsViewController.swift; sourceTree = "<group>"; };
 		A906B5B01E434872007D12B1 /* Queue.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Queue.sdef; sourceTree = "<group>"; };
-		A90B094B235614D200F1B191 /* iTunesStoreArtworks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesStoreArtworks.swift; sourceTree = "<group>"; };
+		A90B094B235614D200F1B191 /* iTunesStoreArtworks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = iTunesStoreArtworks.swift; path = Classes/MetadataImporters/iTunesStoreArtworks.swift; sourceTree = "<group>"; };
 		A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataResult.swift; path = Classes/MetadataImporters/MetadataResult.swift; sourceTree = "<group>"; };
 		A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokensViewController.swift; path = Classes/TokensViewController.swift; sourceTree = "<group>"; };
 		A90CD5C11FD177230070A067 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TokensViewController.xib; sourceTree = "<group>"; };
