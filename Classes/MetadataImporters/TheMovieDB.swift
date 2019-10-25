@@ -122,6 +122,11 @@ public struct TheMovieDB: MetadataService {
             let posterThumbnailSize = config.poster_sizes.first,
             let backdropThumbnailSize = config.backdrop_sizes.first {
 
+            if let backdropPath = result.backdrop_path,
+                let artwork = loadArtwork(filePath: backdropPath, baseURL: imageBaseURL, thumbSize: backdropThumbnailSize, kind: .backdrop) {
+                artworks.append(artwork)
+            }
+
             if let images = result.images?.posters {
                 artworks.append(contentsOf: images.compactMap { loadArtwork(filePath: $0.file_path, baseURL: imageBaseURL, thumbSize: posterThumbnailSize, kind: .poster) } )
             }
@@ -131,10 +136,6 @@ public struct TheMovieDB: MetadataService {
                 artworks.append(artwork)
             }
 
-            if let backdropPath = result.backdrop_path,
-                let artwork = loadArtwork(filePath: backdropPath, baseURL: imageBaseURL, thumbSize: backdropThumbnailSize, kind: .backdrop) {
-                artworks.append(artwork)
-            }
         }
 
         return artworks
@@ -228,6 +229,13 @@ public struct TheMovieDB: MetadataService {
             let posterThumbnailSize = config.poster_sizes.first,
             let backdropThumbnailSize = config.backdrop_sizes.first {
 
+            if let backdropPath = result.backdrop_path,
+                let url = URL(string: imageBaseURL + "original" + backdropPath),
+                let thumbURL = URL(string: imageBaseURL + backdropThumbnailSize + backdropPath) {
+                let remoteImage = Artwork(url: url, thumbURL: thumbURL, service: self.name, type: .backdrop)
+                artworks.append(remoteImage)
+            }
+
             if let images = result.images?.posters {
                 for image in images {
                     if let url = URL(string: imageBaseURL + "original" + image.file_path),
@@ -246,12 +254,6 @@ public struct TheMovieDB: MetadataService {
                 artworks.append(remoteImage)
             }
 
-            if let backdropPath = result.backdrop_path,
-                let url = URL(string: imageBaseURL + "original" + backdropPath),
-                let thumbURL = URL(string: imageBaseURL + backdropThumbnailSize + backdropPath) {
-                let remoteImage = Artwork(url: url, thumbURL: thumbURL, service: self.name, type: .backdrop)
-                artworks.append(remoteImage)
-            }
         }
 
         return artworks
