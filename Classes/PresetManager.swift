@@ -113,17 +113,6 @@ final class PresetManager {
         }
     }
 
-    private func migratePreset(at fileURL: URL) throws {
-        let manager = FileManager.default
-        guard let url = appSupportURL() else { return }
-
-        let migrated = url.appendingPathComponent("migrated", isDirectory: true)
-        try manager.createDirectory(at: migrated, withIntermediateDirectories: true, attributes: [:])
-
-        let migratedFileURL = migrated.appendingPathComponent(fileURL.lastPathComponent, isDirectory: false)
-        try manager.moveItem(at: fileURL, to: migratedFileURL)
-    }
-
     private func load(fileURL: URL) throws -> Preset {
         let resourceValues = try fileURL.resourceValues(forKeys: [.isDirectoryKey])
         if resourceValues.isDirectory == false, let version = version(of: fileURL) {
@@ -132,13 +121,7 @@ final class PresetManager {
             unarchiver.requiresSecureCoding = true
             defer { unarchiver.finishDecoding() }
 
-            if version == 1, let preset = try? unarchiver.decodeTopLevelObject(of: [MP42Metadata.self], forKey: NSKeyedArchiveRootObjectKey) as? MP42Metadata {
-                let newPreset = MetadataPreset(title: preset.presetName, metadata: preset, replaceArtworks: true, replaceAnnotations: false)
-                try migratePreset(at: fileURL)
-                try save(preset: newPreset)
-                return newPreset
-            }
-            else if let preset = try? unarchiver.decodeTopLevelObject(of: [MetadataPreset.self], forKey: NSKeyedArchiveRootObjectKey) as? MetadataPreset {
+            if version == 2, let preset = try? unarchiver.decodeTopLevelObject(of: [MetadataPreset.self], forKey: NSKeyedArchiveRootObjectKey) as? MetadataPreset {
                 return preset
             }
         }

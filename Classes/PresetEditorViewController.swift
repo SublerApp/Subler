@@ -20,7 +20,7 @@ final class PresetEditorViewController: MovieViewController {
 
     init(preset: MetadataPreset) {
         self.preset = preset
-        super.init(metadata: preset.metadata)
+        super.init(mp4: nil, metadata: preset.metadata)
     }
 
     required init?(coder: NSCoder) {

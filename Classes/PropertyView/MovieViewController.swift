@@ -17,6 +17,8 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         }
     }
 
+    private var file: MP42File?
+
     // Metadata tab
     private var tags: [MP42MetadataItem]
 
@@ -63,7 +65,8 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         return "MovieView"
     }
 
-    init(metadata: MP42Metadata) {
+    init(mp4: MP42File?, metadata: MP42Metadata) {
+        self.file = mp4
         self.metadata = metadata
         self.tags = []
         self.artworks = []
@@ -225,8 +228,14 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
         let identifier = MP42Metadata.writableMetadata[sender.selectedTag()]
 
         if metadata.metadataItemsFiltered(byIdentifier: identifier).isEmpty {
-            let item = MP42MetadataItem(identifier: identifier, value: "" as NSCopying & NSObjectProtocol, dataType: MP42MetadataItemDataType.unspecified, extendedLanguageTag: nil)
-            add(metadataItems: [item])
+
+            if identifier == MP42MetadataKeyHDVideo, let hdType = file?.hdType {
+                let item = MP42MetadataItem(identifier: identifier, value: hdType.rawValue as NSCopying & NSObjectProtocol, dataType: MP42MetadataItemDataType.integer, extendedLanguageTag: nil)
+                add(metadataItems: [item])
+            } else {
+                let item = MP42MetadataItem(identifier: identifier, value: "" as NSCopying & NSObjectProtocol, dataType: MP42MetadataItemDataType.unspecified, extendedLanguageTag: nil)
+                add(metadataItems: [item])
+            }
         }
 
         if let item = metadata.metadataItemsFiltered(byIdentifier: identifier).first,
@@ -498,7 +507,8 @@ class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTabl
     private static let hdVideo: [(title: String, value: Int)] =
                    [(title: NSLocalizedString("No", comment: ""), value: 0),
                     (title: NSLocalizedString("720p", comment: ""), value: 1),
-                    (title: NSLocalizedString("1080p", comment: ""), value: 2)]
+                    (title: NSLocalizedString("1080p", comment: ""), value: 2),
+                    (title: NSLocalizedString("4k", comment: ""), value: 3)]
 
     private static let availableGenres: [String] =
                     ["Animation", "Classic TV", "Comedy", "Drama",
