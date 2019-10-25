@@ -145,7 +145,8 @@ public class MetadataResult {
                     .executiveProducer,
                     .copyright,
                     .contentID,
-                    .artistID]
+                    .artistID,
+                    .iTunesCountry]
         }
 
         fileprivate static var tvShowKeys: [Key] {
@@ -177,8 +178,49 @@ public class MetadataResult {
                     .contentID,
                     .artistID,
                     .playlistID,
-                    .iTunesCountry]
+                    .iTunesCountry,
+            ]
         }
+
+        fileprivate static var sortedKeys: [Key] {
+            return [.name,
+                    .seriesName,
+                    .composer,
+                    .genre,
+                    .releaseDate,
+
+                    .trackNumber,
+                    .diskNumber,
+                    .episodeNumber,
+                    .network,
+                    .episodeID,
+                    .season,
+
+                    .description,
+                    .longDescription,
+                    .seriesDescription,
+
+                    .rating,
+                    .studio,
+                    .cast,
+                    .director,
+                    .producers,
+                    .screenwriters,
+                    .executiveProducer,
+                    .copyright,
+                    .contentID,
+                    .artistID,
+                    .playlistID,
+
+                    .iTunesURL,
+                    .iTunesCountry,
+
+                    .serviceSeriesID,
+                    .serviceAdditionalSeriesID,
+                    .serviceEpisodeID
+            ]
+        }
+
 
         public var localizedDisplayName: String {
             return localizedKeys[self] ?? "Null"
@@ -241,7 +283,7 @@ public class MetadataResult {
     }
 
     lazy var orderedKeys: [Key] = {
-        let sortedKeys = self.mediaKind == .movie ? Key.movieKeys : Key.tvShowKeys
+        let sortedKeys = Key.sortedKeys
         return Array(dictionary.keys).sorted(by: { (key1: Key, key2: Key) -> Bool in
             if let index1 = sortedKeys.firstIndex(of: key1), let index2 = sortedKeys.firstIndex(of: key2) {
                 return index1 < index2
