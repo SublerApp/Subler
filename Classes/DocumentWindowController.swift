@@ -133,7 +133,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
 
             default:
                 if metadataViewController == nil {
-                    metadataViewController = MovieViewController(metadata: mp4.metadata)
+                    metadataViewController = MovieViewController(mp4: mp4, metadata: mp4.metadata)
                 }
                 return metadataViewController!
             }

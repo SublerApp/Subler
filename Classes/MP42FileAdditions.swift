@@ -21,11 +21,14 @@ extension MP42File {
     enum TrackHDType : Int {
         case hd720p = 1
         case hd1080p = 2
+        case hd4k = 3
     }
 
     var hdType: TrackHDType? {
         for track in tracks(withMediaType: kMP42MediaType_Video) as! [MP42VideoTrack] {
-            if (track.width > 1280 || track.height > 720) && track.width <= 1920 && track.height <= 1088 {
+            if (track.width > 1920 && track.height > 1088) {
+                return .hd4k
+            } else if (track.width > 1280 || track.height > 720) && track.width <= 1920 && track.height <= 1088 {
                 return .hd1080p
             } else if track.width >= 960 && track.height >= 720 || track.width >= 1280 {
                 return .hd720p
