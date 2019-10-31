@@ -499,16 +499,16 @@
                                 <menuItem title="Square" tag="2" id="7zv-RG-1w4">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Episode" tag="3" id="mps-yj-l7z">
+                                <menuItem title="Episode" tag="4" id="mps-yj-l7z">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Backdrop" tag="4" id="Aaf-km-GUP">
+                                <menuItem title="Backdrop" tag="5" id="Aaf-km-GUP">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="iTunes" tag="5" id="GXR-5u-c8a">
+                                <menuItem title="iTunes" tag="6" id="GXR-5u-c8a">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="None" tag="6" id="Fid-Wo-2Eb">
+                                <menuItem title="None" tag="7" id="Fid-Wo-2Eb">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
