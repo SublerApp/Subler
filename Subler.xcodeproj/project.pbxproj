@@ -31,6 +31,7 @@
 		A91576EB204ECA6E00D93CE7 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91576EA204ECA6E00D93CE7 /* Token.swift */; };
 		A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91B196B1F2B0DCB0008675F /* QueueAction.swift */; };
 		A91EB969205ABAF400392E1C /* NSWindowAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91EB968205ABAF400392E1C /* NSWindowAdditions.swift */; };
+		A91F0FA023797F2800C9DCC9 /* PropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91F0F9F23797F2800C9DCC9 /* PropertyView.swift */; };
 		A922E01C2233C93C0072FD1B /* Sparkle.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A922E01B2233C9380072FD1B /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A922E01D2233C93F0072FD1B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922E01B2233C9380072FD1B /* Sparkle.framework */; };
 		A922E0292233C9B20072FD1B /* org.sparkle-project.InstallerConnection.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = A922E01F2233C9930072FD1B /* org.sparkle-project.InstallerConnection.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -225,6 +226,7 @@
 		A91576EA204ECA6E00D93CE7 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Token.swift; path = Classes/Token.swift; sourceTree = "<group>"; };
 		A91B196B1F2B0DCB0008675F /* QueueAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueAction.swift; path = Classes/QueueAction.swift; sourceTree = "<group>"; };
 		A91EB968205ABAF400392E1C /* NSWindowAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSWindowAdditions.swift; path = Classes/NSWindowAdditions.swift; sourceTree = "<group>"; };
+		A91F0F9F23797F2800C9DCC9 /* PropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PropertyView.swift; path = Classes/PropertyView/PropertyView.swift; sourceTree = "<group>"; };
 		A922E01B2233C9380072FD1B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Sparkle/Sparkle.framework; sourceTree = "<group>"; };
 		A922E01F2233C9930072FD1B /* org.sparkle-project.InstallerConnection.xpc */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.xpc-service"; name = "org.sparkle-project.InstallerConnection.xpc"; path = "Sparkle/org.sparkle-project.InstallerConnection.xpc"; sourceTree = "<group>"; };
 		A922E0202233C9930072FD1B /* org.sparkle-project.InstallerStatus.xpc */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.xpc-service"; name = "org.sparkle-project.InstallerStatus.xpc"; path = "Sparkle/org.sparkle-project.InstallerStatus.xpc"; sourceTree = "<group>"; };
@@ -624,6 +626,7 @@
 		A9FD5D150F3C692400817716 /* PropertyView */ = {
 			isa = PBXGroup;
 			children = (
+				A91F0F9F23797F2800C9DCC9 /* PropertyView.swift */,
 				A9C09C991F9A0808007939EE /* EmptyViewController.swift */,
 				A9AB485C17F0AEFD000AA72E /* EmptyView.xib */,
 				A9C09C9B1F9A08A9007939EE /* MultiSelectViewController.swift */,
@@ -819,6 +822,7 @@
 				A959001A202AF21800FD8F23 /* ProgressViewController.swift in Sources */,
 				A91576EB204ECA6E00D93CE7 /* Token.swift in Sources */,
 				A9676A341FB6EAAD00C1E300 /* ItemViewController.swift in Sources */,
+				A91F0FA023797F2800C9DCC9 /* PropertyView.swift in Sources */,
 				A98D6BAB21FDC62800F0D886 /* Queue.swift in Sources */,
 				A98542DC20D1A7E500EB9803 /* ArtworkSelectorViewItem.swift in Sources */,
 				A90C3E0C1FD16AF200F64532 /* TokensViewController.swift in Sources */,

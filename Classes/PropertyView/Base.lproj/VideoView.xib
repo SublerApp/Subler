@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14269.14" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14269.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="SBVideoViewController">
+        <customObject id="-2" userLabel="File's Owner" customClass="VideoViewController" customModule="Subler" customModuleProvider="target">
             <connections>
                 <outlet property="alternateGroup" destination="8uz-fA-OM4" id="Tpr-cp-mwO"/>
                 <outlet property="colorHeight" destination="bGo-Zw-z0j" id="noF-0q-Gwe"/>
@@ -26,6 +26,7 @@
                 <outlet property="profileView" destination="7i2-3m-yRg" id="l8r-kn-08e"/>
                 <outlet property="sampleHeight" destination="YOz-mZ-420" id="TWa-TW-aKX"/>
                 <outlet property="sampleWidth" destination="Hh2-MV-toy" id="naV-tM-Aat"/>
+                <outlet property="tabView" destination="5" id="MjT-we-kEO"/>
                 <outlet property="trackHeight" destination="n9M-HO-S4Z" id="4mz-HY-cAo"/>
                 <outlet property="trackWidth" destination="r90-c5-7PH" id="pJe-Sk-kj7"/>
                 <outlet property="vSpacing" destination="ifV-jn-Kjv" id="Voc-C7-zkv"/>
@@ -60,7 +61,7 @@
                                                         <nil key="negativeInfinitySymbol"/>
                                                         <nil key="positiveInfinitySymbol"/>
                                                     </numberFormatter>
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -72,7 +73,7 @@
                                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="hz3-IH-Nfw">
                                                 <rect key="frame" x="18" y="305" width="141" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Normal Size:" id="soD-gL-b4G">
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -80,7 +81,7 @@
                                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="aqN-Ac-8cl">
                                                 <rect key="frame" x="289" y="305" width="35" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="pixels" id="6I1-7O-uon">
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -95,7 +96,7 @@
                                                         <nil key="negativeInfinitySymbol"/>
                                                         <nil key="positiveInfinitySymbol"/>
                                                     </numberFormatter>
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -108,13 +109,13 @@
                                                 <rect key="frame" x="161" y="256" width="138" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Preserve Aspect Ratio" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="nr0-Jc-cUj">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                 </buttonCell>
                                             </button>
                                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j7N-eK-BGR">
-                                                <rect key="frame" x="219" y="234" width="10" height="14"/>
+                                                <rect key="frame" x="219" y="233" width="10" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="x" id="GfY-OY-SWL">
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -129,7 +130,7 @@
                                                         <nil key="negativeInfinitySymbol"/>
                                                         <nil key="positiveInfinitySymbol"/>
                                                     </numberFormatter>
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -144,31 +145,31 @@
                                                     <constraint firstAttribute="width" constant="46" id="PGv-gZ-TCI"/>
                                                 </constraints>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" alignment="center" id="GNN-g2-7vd">
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
                                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="ciI-zB-M6i">
-                                                <rect key="frame" x="289" y="198" width="35" height="14"/>
+                                                <rect key="frame" x="289" y="197" width="35" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="pixels" id="EQ0-oQ-E9J">
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
                                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="IBC-4P-DBN">
-                                                <rect key="frame" x="35" y="234" width="124" height="14"/>
+                                                <rect key="frame" x="35" y="233" width="124" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Aspect Ratio:" id="Q8w-0e-NRr">
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
                                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="lQe-jX-iRS">
-                                                <rect key="frame" x="69" y="198" width="90" height="14"/>
+                                                <rect key="frame" x="69" y="197" width="90" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Offset:" id="ubI-H1-utj">
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -179,7 +180,7 @@
                                                     <constraint firstAttribute="width" constant="46" id="oX0-WH-XwB"/>
                                                 </constraints>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" alignment="center" id="wsG-87-WCu">
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -194,7 +195,7 @@
                                                         <nil key="negativeInfinitySymbol"/>
                                                         <nil key="positiveInfinitySymbol"/>
                                                     </numberFormatter>
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -204,17 +205,17 @@
                                                 </connections>
                                             </textField>
                                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="drr-hJ-0St">
-                                                <rect key="frame" x="219" y="198" width="10" height="14"/>
+                                                <rect key="frame" x="219" y="197" width="10" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="x" id="7Ug-k7-d7I">
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
                                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jJB-Ty-mki">
-                                                <rect key="frame" x="219" y="281" width="10" height="14"/>
+                                                <rect key="frame" x="219" y="280" width="10" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="x" id="lgq-Fj-LB5">
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -229,7 +230,7 @@
                                                         <nil key="negativeInfinitySymbol"/>
                                                         <nil key="positiveInfinitySymbol"/>
                                                     </numberFormatter>
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -248,7 +249,7 @@
                                                         <nil key="negativeInfinitySymbol"/>
                                                         <nil key="positiveInfinitySymbol"/>
                                                     </numberFormatter>
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -258,10 +259,10 @@
                                                 </connections>
                                             </textField>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8uz-fA-OM4">
-                                                <rect key="frame" x="161" y="166" width="62" height="22"/>
+                                                <rect key="frame" x="161" y="166" width="64" height="22"/>
                                                 <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="vVg-S9-JUk" id="1Lt-yX-9cP">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <menu key="menu" title="OtherViews" id="Wc0-3P-okr">
                                                         <items>
                                                             <menuItem title="None" state="on" id="vVg-S9-JUk"/>
@@ -282,23 +283,23 @@
                                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QID-3k-PHK">
                                                 <rect key="frame" x="219" y="305" width="10" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="x" id="ILN-KP-l0z">
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
                                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="AEE-SG-UWs">
-                                                <rect key="frame" x="41" y="281" width="118" height="14"/>
+                                                <rect key="frame" x="41" y="280" width="118" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Scaled Size:" id="1O9-J3-Plk">
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
                                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="BeZ-s7-H0q">
-                                                <rect key="frame" x="289" y="281" width="35" height="14"/>
+                                                <rect key="frame" x="289" y="280" width="35" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="pixels" id="7as-HC-onR">
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -306,7 +307,7 @@
                                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="HtH-F7-8Bv">
                                                 <rect key="frame" x="18" y="171" width="141" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Alternate Group:" id="Fye-Hi-zqu">
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -317,7 +318,7 @@
                                                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="cbR-yR-H9l">
                                                         <rect key="frame" x="18" y="28" width="141" height="14"/>
                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Forced:" id="gMo-yz-dz5">
-                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <font key="font" metaFont="controlContent" size="11"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -329,7 +330,7 @@
                                                         </constraints>
                                                         <popUpButtonCell key="cell" type="push" title="No" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="KOg-FR-dr6" id="Tx6-IV-D1K">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <font key="font" metaFont="controlContent" size="11"/>
                                                             <menu key="menu" title="OtherViews" id="UdS-Yi-1yh">
                                                                 <items>
                                                                     <menuItem title="No" state="on" id="KOg-FR-dr6"/>
@@ -347,7 +348,7 @@
                                                         <rect key="frame" x="161" y="-1" width="196" height="22"/>
                                                         <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="H3I-ix-0Ay" id="PXs-ar-sil">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <font key="font" metaFont="controlContent" size="11"/>
                                                             <menu key="menu" title="OtherViews" id="ANO-Mb-aQ0">
                                                                 <items>
                                                                     <menuItem title="None" state="on" id="H3I-ix-0Ay"/>
@@ -362,7 +363,7 @@
                                                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="fwe-5g-QAo">
                                                         <rect key="frame" x="85" y="4" width="74" height="14"/>
                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Forced track:" id="NPR-jz-Ile">
-                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <font key="font" metaFont="controlContent" size="11"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -388,7 +389,7 @@
                                                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="xfb-DL-1Pr">
                                                         <rect key="frame" x="18" y="6" width="141" height="14"/>
                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Color Space:" id="BZv-h3-OMk">
-                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <font key="font" metaFont="controlContent" size="11"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -400,7 +401,7 @@
                                                         </constraints>
                                                         <popUpButtonCell key="cell" type="push" title="Implicit" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="6PY-Np-Y3s" id="G6U-LQ-v4b">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <font key="font" metaFont="controlContent" size="11"/>
                                                             <menu key="menu" title="OtherViews" id="7qj-VS-hv7">
                                                                 <items>
                                                                     <menuItem title="Implicit" state="on" tag="1" id="6PY-Np-Y3s"/>
@@ -449,7 +450,7 @@
                                                         </constraints>
                                                         <popUpButtonCell key="cell" type="push" title="Current profile: unknown" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="NIA-f8-VWx" id="Ehv-0f-dPW">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <font key="font" metaFont="controlContent" size="11"/>
                                                             <menu key="menu" title="OtherViews" id="xaj-0K-cm0">
                                                                 <items>
                                                                     <menuItem title="Current profile: unknown" state="on" tag="1" id="NIA-f8-VWx"/>
@@ -473,7 +474,7 @@
                                                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="jin-Xn-WJl">
                                                         <rect key="frame" x="18" y="73" width="141" height="14"/>
                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="H.264 Video Profile/Level:" id="nrd-22-FZl">
-                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <font key="font" metaFont="controlContent" size="11"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>

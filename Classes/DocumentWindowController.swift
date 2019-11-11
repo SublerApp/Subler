@@ -563,4 +563,20 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         return true
     }
 
+    // MARK: Keyboard navigation
+
+    override func keyDown(with event: NSEvent) {
+        guard let key = event.charactersIgnoringModifiers?.utf16.first else { super.keyDown(with: event); return }
+
+        if key == NSRightArrowFunctionKey || key == NSLeftArrowFunctionKey {
+            let detailsItem = splitViewController.splitViewItems[1]
+            if let propertyView = detailsItem.viewController.children.first as? PropertyView {
+                propertyView.navigate(direction: Int(key))
+            }
+        } else {
+            super.keyDown(with: event)
+        }
+    }
+
+
 }

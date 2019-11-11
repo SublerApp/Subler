@@ -9,7 +9,7 @@ import Cocoa
 import Quartz
 import MP42Foundation
 
-class MovieViewController: NSViewController, NSTableViewDataSource, ExpandedTableViewDelegate, ImageBrowserViewDelegate, NSDraggingDestination {
+class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableViewDelegate, ImageBrowserViewDelegate, NSDraggingDestination {
 
     var metadata: MP42Metadata {
         didSet {

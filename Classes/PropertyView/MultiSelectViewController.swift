@@ -7,7 +7,7 @@
 
 import Cocoa
 
-final class MultiSelectViewController : NSViewController {
+final class MultiSelectViewController : PropertyView {
 
     var numberOfTracks: UInt = 0 {
         didSet {

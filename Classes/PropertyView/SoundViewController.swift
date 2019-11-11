@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-final class SoundViewController : NSViewController {
+final class SoundViewController : PropertyView {
 
     let file: MP42File
     var track: MP42AudioTrack {
