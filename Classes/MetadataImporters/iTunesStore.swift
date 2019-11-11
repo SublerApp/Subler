@@ -679,7 +679,7 @@ public struct iTunesStore: MetadataService {
 
         guard let tvShow = metadata[.seriesName] as? String else { return metadata }
 
-        let additionalArtworks = iTunesStoreArtworks().search(term: tvShow, iTunesStore: store.storeCode, locale: "en-US", type: "TV Shows")
+        let additionalArtworks = iTunesStoreArtworks().search(term: tvShow, iTunesStore: store.storeCode, locale: store.language2, type: .tvShow)
         metadata.remoteArtworks.append(contentsOf: additionalArtworks)
 
         return metadata
@@ -763,7 +763,7 @@ public struct iTunesStore: MetadataService {
 
         guard let title = metadata[.name] as? String else { return metadata }
 
-        let additionalArtworks = iTunesStoreArtworks().search(term: title, iTunesStore: store.storeCode, locale: "en-US", type: "Movies")
+        let additionalArtworks = iTunesStoreArtworks().search(term: title, iTunesStore: store.storeCode, locale: store.language2, type: .movie)
         metadata.remoteArtworks.append(contentsOf: additionalArtworks)
 
         return metadata

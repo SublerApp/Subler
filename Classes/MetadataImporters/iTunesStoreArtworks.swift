@@ -22,30 +22,68 @@ public struct iTunesStoreArtworks {
 
         return nil
     }
-    
-    private let baseURL = "https://tv.apple.com/api/uts/v2/uts/v2/search/incremental?&utsk=0&caller=0&v=36"
-    
-    func search(term: String, iTunesStore: Int, locale: String, type: String = "Movies") -> [Artwork] {
-        if let url = URL(string: "\(baseURL)&sf=\(iTunesStore)&pfm=desktop&locale=\(locale)&q=\(term.urlEncoded())"),
+
+    private let baseURL = "https://tv.apple.com/api/uts/v2/uts/v2/search/incremental?&utsk=0&caller=wta&v=36"
+    private let seasonsURL = " https://uts-api.itunes.apple.com/uts/v2/show/umc.cmc.5ge1cirmxod01u8f8m3rplx5g/itunesSeasons?sf=143441&locale=it-IT&caller=wta&utsk=0&v=34"
+
+    private func normalize(_ term: String) -> String {
+        return term.replacingOccurrences(of: " (Dubbed)", with: "")
+            .replacingOccurrences(of: " (Subtitled)", with: "")
+            .replacingOccurrences(of: " (Ex-tended Edition)", with: "")
+    }
+
+    enum MediaType {
+        case movie
+        case tvShow
+
+        var description: String {
+            get {
+                switch self {
+                case .movie:
+                    return "Movie"
+                case .tvShow:
+                    return "Show"
+                }
+            }
+        }
+    }
+
+    func search(term: String, iTunesStore: Int, locale: String, type: MediaType = .movie) -> [Artwork] {
+        let normalizedTerm = normalize(term)
+
+        if let url = URL(string: "\(baseURL)&sf=\(iTunesStore)&pfm=desktop&locale=\(locale)&q=\(normalizedTerm.urlEncoded())"),
             let result = sendJSONRequest(url: url, type: Wrapper.self) {
 
-            if let filteredResults = result.data.canvas?.shelves.filter({ $0.title == type }).flatMap({ $0.items }).filter({ $0.title == term }) {
-                let urls = filteredResults.compactMap { $0.images }.compactMap { $0.coverArt16X9 }.compactMap { $0.url }
+            let filteredResults = { () -> [Item] in
+                let items = result.data.canvas?.shelves
+                    .flatMap { $0.items }
+                    .filter { $0.type == type.description }
 
-                let artworks = urls.compactMap { (url: String) -> Artwork? in
-                    let baseURL = url.replacingOccurrences(of: "{w}x{h}.{f}", with: "")
-                    if let artworkURL = URL(string: baseURL + "1920x1080.jpg"), let thumbURL = URL(string: baseURL + "320x180.jpg") {
-                        return Artwork(url: artworkURL, thumbURL: thumbURL, service: "iTunes", type: .rectangle)
-                    } else {
-                        return nil
-                    }
+                if let results = items?.filter({ $0.title == normalizedTerm }),
+                results.isEmpty == false {
+                    return results
+                } else if let results = items {
+                    return results
+                } else {
+                    return []
                 }
-                return artworks;
+            }()
+
+            let urls = filteredResults.compactMap { $0.images }.compactMap { $0.coverArt16X9 }.compactMap { $0.url }
+
+            let artworks = urls.compactMap { (url: String) -> Artwork? in
+                let baseURL = url.replacingOccurrences(of: "{w}x{h}.{f}", with: "")
+                if let artworkURL = URL(string: baseURL + "1920x1080.jpg"), let thumbURL = URL(string: baseURL + "320x180.jpg") {
+                    return Artwork(url: artworkURL, thumbURL: thumbURL, service: "iTunes", type: .rectangle)
+                } else {
+                    return nil
+                }
             }
+           return artworks
         }
         return []
     }
-    
+
     func search(term: String, contentID: Int, iTunesStore: Int, locale: String, type: String = "Movies") -> [Artwork] {
         if let url = URL(string: "\(baseURL)&sf=\(iTunesStore)&pfm=desktop&locale=\(locale)&q=\(term.urlEncoded())"),
             let result = sendJSONRequest(url: url, type: Wrapper.self) {
