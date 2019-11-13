@@ -111,10 +111,26 @@ public struct TheMovieDB: MetadataService {
     private func loadMovieArtworks(result: TMDBMovie) -> [Artwork] {
         var artworks: [Artwork] = []
 
-        // add iTunes artwork
-        if let title = result.title, let iTunesMetadata = iTunesStore.quickiTunesSearch(movieName: title) {
-            artworks.append(contentsOf: iTunesMetadata.remoteArtworks)
+        var iTunesImage = [Artwork](), appleTV = [Artwork]()
+        let group = DispatchGroup()
+
+        DispatchQueue.global().async(group: group) {
+            // add iTunes artwork
+            if let title = result.title, let iTunesMetadata = iTunesStore.quickiTunesSearch(movieName: title) {
+                iTunesImage = iTunesMetadata.remoteArtworks
+            }
         }
+
+        DispatchQueue.global().async(group: group) {
+           if let title = result.title,
+                let store = iTunesStore.Store(language: "USA (English)") {
+                appleTV = AppleTV().search(term: title, store: store, type: .movie)
+            }
+        }
+        group.wait()
+
+        artworks.append(contentsOf: iTunesImage)
+        artworks.append(contentsOf: appleTV)
 
         // Add TheMovieDB artworks
         if let config = session.fetchConfiguration()?.images,
@@ -366,7 +382,7 @@ public struct TheMovieDB: MetadataService {
 
         artworks.append(contentsOf: metadata.remoteArtworks)
 
-        var iTunesImage = [Artwork](), squareTVArt = [Artwork]()
+        var iTunesImage = [Artwork](), appleTV = [Artwork](), squareTVArt = [Artwork]()
         let group = DispatchGroup()
         DispatchQueue.global().async(group: group) {
             // add iTunes artwork
@@ -378,11 +394,20 @@ public struct TheMovieDB: MetadataService {
             }
         }
         DispatchQueue.global().async(group: group) {
+            if let name = metadata[.seriesName] as? String,
+                let season = metadata[.season] as? Int,
+                let store = iTunesStore.Store(language: "USA (English)") {
+
+                appleTV = AppleTV().search(term: name, store: store, type: .tvShow(season: season))
+            }
+        }
+        DispatchQueue.global().async(group: group) {
             // Add Squared TV Artwork
             squareTVArt = self.loadSquareTVArtwork(metadata)
         }
         group.wait()
 
+        artworks.insert(contentsOf: appleTV, at: 0)
         artworks.insert(contentsOf: iTunesImage, at: 0)
         artworks.insert(contentsOf: squareTVArt, at: 0)
 

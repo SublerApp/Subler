@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct iTunesStoreArtworks {
+public struct AppleTV {
     
     private func sendJSONRequest<T>(url: URL, type: T.Type) -> T? where T : Decodable {
         guard let data = URLSession.data(from: url) else { return nil }
@@ -23,8 +23,13 @@ public struct iTunesStoreArtworks {
         return nil
     }
 
-    private let baseURL = "https://tv.apple.com/api/uts/v2/uts/v2/search/incremental?&utsk=0&caller=wta&v=36"
-    private let seasonsURL = " https://uts-api.itunes.apple.com/uts/v2/show/umc.cmc.5ge1cirmxod01u8f8m3rplx5g/itunesSeasons?sf=143441&locale=it-IT&caller=wta&utsk=0&v=34"
+    private let detailsURL = "https://tv.apple.com/api/uts/v2/view/product/"
+    private let searchURL = "https://tv.apple.com/api/uts/v2/uts/v2/search/incremental?"
+    private let seasonsURL = "https://tv.apple.com/api/uts/v2/show/"
+    private let options = "&utsk=0&caller=wta&v=36&pfm=desktop"
+
+    private let thumbSize = "329x185.jpg"
+    private let fullSize = "800x450.jpg"
 
     private func normalize(_ term: String) -> String {
         return term.replacingOccurrences(of: " (Dubbed)", with: "")
@@ -34,7 +39,7 @@ public struct iTunesStoreArtworks {
 
     enum MediaType {
         case movie
-        case tvShow
+        case tvShow(season: Int)
 
         var description: String {
             get {
@@ -48,19 +53,40 @@ public struct iTunesStoreArtworks {
         }
     }
 
-    func search(term: String, iTunesStore: Int, locale: String, type: MediaType = .movie) -> [Artwork] {
+    func searchSeasons(item: Item,  season: Int, store: iTunesStore.Store) -> [Artwork] {
+        let urlString = "\(seasonsURL)\(item.id)/itunesSeasons?sf=\(store.storeCode)&locale=\(store.language2)\(options)"
+        if let url = URL(string: urlString), let results = sendJSONRequest(url: url, type: Wrapper<Seasons>.self) {
+
+            let filteredResults =  results.data.seasons.values.joined().filter { $0.seasonNumber == season }
+
+            let urls = filteredResults.compactMap { $0.images }.compactMap { $0.coverArt16X9 }.compactMap { $0.url }
+
+            let artworks = urls.compactMap { (url: String) -> Artwork? in
+                let baseURL = url.replacingOccurrences(of: "{w}x{h}.{f}", with: "")
+                if let artworkURL = URL(string: baseURL + fullSize), let thumbURL = URL(string: baseURL + thumbSize) {
+                    return Artwork(url: artworkURL, thumbURL: thumbURL, service: "iTunes", type: .rectangle)
+                } else {
+                    return nil
+                }
+            }
+
+            return artworks
+        }
+        return []
+    }
+
+    func search(term: String, store: iTunesStore.Store, type: MediaType = .movie) -> [Artwork] {
         let normalizedTerm = normalize(term)
 
-        if let url = URL(string: "\(baseURL)&sf=\(iTunesStore)&pfm=desktop&locale=\(locale)&q=\(normalizedTerm.urlEncoded())"),
-            let result = sendJSONRequest(url: url, type: Wrapper.self) {
+        if let url = URL(string: "\(searchURL)&sf=\(store.storeCode)&locale=\(store.language2)\(options)&q=\(normalizedTerm.urlEncoded())"),
+            let results = sendJSONRequest(url: url, type: Wrapper<Results>.self) {
 
             let filteredResults = { () -> [Item] in
-                let items = result.data.canvas?.shelves
+                let items = results.data.canvas?.shelves
                     .flatMap { $0.items }
                     .filter { $0.type == type.description }
 
-                if let results = items?.filter({ $0.title == normalizedTerm }),
-                results.isEmpty == false {
+                if let results = items?.filter({ $0.title == normalizedTerm }), results.isEmpty == false {
                     return results
                 } else if let results = items {
                     return results
@@ -73,35 +99,18 @@ public struct iTunesStoreArtworks {
 
             let artworks = urls.compactMap { (url: String) -> Artwork? in
                 let baseURL = url.replacingOccurrences(of: "{w}x{h}.{f}", with: "")
-                if let artworkURL = URL(string: baseURL + "1920x1080.jpg"), let thumbURL = URL(string: baseURL + "320x180.jpg") {
+                if let artworkURL = URL(string: baseURL + fullSize), let thumbURL = URL(string: baseURL + thumbSize) {
                     return Artwork(url: artworkURL, thumbURL: thumbURL, service: "iTunes", type: .rectangle)
                 } else {
                     return nil
                 }
             }
-           return artworks
-        }
-        return []
-    }
 
-    func search(term: String, contentID: Int, iTunesStore: Int, locale: String, type: String = "Movies") -> [Artwork] {
-        if let url = URL(string: "\(baseURL)&sf=\(iTunesStore)&pfm=desktop&locale=\(locale)&q=\(term.urlEncoded())"),
-            let result = sendJSONRequest(url: url, type: Wrapper.self) {
-
-            let contentID = String(contentID)
-            if let filteredResults = result.data.canvas?.shelves.filter({ $0.title == type }).flatMap({ $0.items }) {
-                let urls = filteredResults.compactMap { $0.images }.compactMap { $0.coverArt16X9 }.compactMap { $0.url }.filter { $0.contains(contentID) }
-
-                let artworks = urls.compactMap { (url: String) -> Artwork? in
-                    let baseURL = url.replacingOccurrences(of: "{w}x{h}.{f}", with: "")
-                    if let artworkURL = URL(string: baseURL + "1920x1080.jpg"), let thumbURL = URL(string: baseURL + "320x180.jpg") {
-                        return Artwork(url: artworkURL, thumbURL: thumbURL, service: "iTunes Store", type: .rectangle)
-                    } else {
-                        return nil
-                    }
-                }
-                return artworks;
+            if case let MediaType.tvShow(season) = type, let item = filteredResults.first {
+                return artworks + searchSeasons(item: item, season: season, store: store)
             }
+
+            return artworks
         }
         return []
     }
@@ -168,13 +177,27 @@ public struct iTunesStoreArtworks {
         let shelves: [ItemCollection]
     }
 
-    struct Result: Codable {
+    struct Season: Codable {
+        let id, canonicalId, type, title: String
+        let images: Images
+        let url: String
+        let adamId: String
+        let seasonNumber: Int
+        let showId, showTitle: String
+        let showImages: Images
+    }
+
+    struct Seasons: Codable {
+        let seasons: [String: [Season]]
+    }
+
+    struct Results: Codable {
         let q: String
         let canvas: Canvas?
     }
 
-    struct Wrapper: Codable {
-        let data: Result
+    struct Wrapper<T>: Codable where T : Codable  {
+        let data: T
     }
 
 }

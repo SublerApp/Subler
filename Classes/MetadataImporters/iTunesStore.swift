@@ -242,7 +242,7 @@ public struct iTunesStore: MetadataService {
         let results: [T]
     }
 
-    private struct Store : Codable {
+    struct Store : Codable {
         let storeCode: Int
         let country3: String
         let country2: String
@@ -256,23 +256,36 @@ public struct iTunesStore: MetadataService {
         let screenwriter: String
         let studio: String
         let copyright: String
-    }
 
-    private static let stores: [Store] = {
-        guard let url = Bundle.main.url(forResource: "iTunesStores", withExtension: "json"),
-            let data = try? Data(contentsOf: url),
-            let result = try? JSONDecoder().decode([Store].self, from: data)
-            else { return [] }
-        return result
-    }()
+        fileprivate static let stores: [Store] = {
+            guard let url = Bundle.main.url(forResource: "iTunesStores", withExtension: "json"),
+                let data = try? Data(contentsOf: url),
+                let result = try? JSONDecoder().decode([Store].self, from: data)
+                else { return [] }
+            return result
+        }()
 
-    private static func store(language: String) -> Store? {
-        return iTunesStore.stores.filter { "\($0.country) (\($0.language))" == language }.first
+        init?(language: String) {
+            guard let store = Store.stores.filter({ "\($0.country) (\($0.language))" == language }).first else { return nil }
+            self.storeCode = store.storeCode
+            self.country3 = store.country3
+            self.country2 = store.country2
+            self.language2 = store.language2
+            self.language = store.language
+            self.season = store.season
+            self.country = store.country
+            self.cast = store.cast
+            self.director = store.director
+            self.producer = store.producer
+            self.screenwriter = store.screenwriter
+            self.studio = store.studio
+            self.copyright = store.copyright
+        }
     }
 
     public var languages: [String] {
         get {
-            return iTunesStore.stores.map { "\($0.country) (\($0.language))" }
+            return Store.stores.map { "\($0.country) (\($0.language))" }
         }
     }
 
@@ -296,7 +309,7 @@ public struct iTunesStore: MetadataService {
         let searchTerm = tvShow.urlEncoded()
 
         if searchTerm.isEmpty == false,
-            let store = iTunesStore.store(language: language),
+            let store = Store(language: language),
             let url = URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(searchTerm)&media=tvShow&entity=tvEpisode&attribute=tvSeasonTerm&limit=200"),
             let results = sendJSONRequest(url: url, type: Wrapper<Artist>.self)?.results, results.isEmpty == false {
 
@@ -462,7 +475,7 @@ public struct iTunesStore: MetadataService {
     }
 
     public func search(tvShow: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
-        guard tvShow.isEmpty == false, let store = iTunesStore.store(language: language) else { return [] }
+        guard tvShow.isEmpty == false, let store = Store(language: language) else { return [] }
 
         // Determine artistId/collectionId
         let ids = { () -> [Int] in
@@ -620,7 +633,7 @@ public struct iTunesStore: MetadataService {
     // MARK: - Search for movie metadata
     
     public func search(movie: String, language: String) -> [MetadataResult] {
-        guard let store = iTunesStore.store(language: language),
+        guard let store = Store(language: language),
             let url = URL(string: "https://itunes.apple.com/search?country=\(store.country2)&lang=\(store.language2.lowercased())&term=\(movie.urlEncoded())&entity=movie&limit=150"),
             let results = sendJSONRequest(url: url, type: Wrapper<Track>.self)
         else { return [] }
@@ -668,7 +681,7 @@ public struct iTunesStore: MetadataService {
     // MARK: - Load additional metadata
 
     public func loadTVMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
-        guard let store = iTunesStore.store(language: language),
+        guard let store = Store(language: language),
               let playlistID = metadata[.playlistID] as? Int,
               let url = URL(string: "https://itunes.apple.com/lookup?country=\(store.country2)&lang=\(store.language2.lowercased())&id=\(playlistID)")
             else { return metadata }
@@ -677,9 +690,10 @@ public struct iTunesStore: MetadataService {
             metadata[.seriesDescription] = results.results.first?.longDescription
         }
 
-        guard let tvShow = metadata[.seriesName] as? String else { return metadata }
+        guard let tvShow = metadata[.seriesName] as? String,
+              let season = metadata[.season] as? Int else { return metadata }
 
-        let additionalArtworks = iTunesStoreArtworks().search(term: tvShow, iTunesStore: store.storeCode, locale: store.language2, type: .tvShow)
+        let additionalArtworks = AppleTV().search(term: tvShow, store: store, type: .tvShow(season: season))
         metadata.remoteArtworks.append(contentsOf: additionalArtworks)
 
         return metadata
@@ -731,7 +745,7 @@ public struct iTunesStore: MetadataService {
     }
 
     public func loadMovieMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
-        guard let store = iTunesStore.store(language: language),
+        guard let store = Store(language: language),
               let url = metadata[.iTunesURL] as? URL,
               let data = URLSession.data(from: url),
               let xmlString = String(data: data, encoding: .utf8),
@@ -763,7 +777,7 @@ public struct iTunesStore: MetadataService {
 
         guard let title = metadata[.name] as? String else { return metadata }
 
-        let additionalArtworks = iTunesStoreArtworks().search(term: title, iTunesStore: store.storeCode, locale: store.language2, type: .movie)
+        let additionalArtworks = AppleTV().search(term: title, store: store, type: .movie)
         metadata.remoteArtworks.append(contentsOf: additionalArtworks)
 
         return metadata

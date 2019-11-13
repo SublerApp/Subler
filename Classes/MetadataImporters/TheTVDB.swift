@@ -300,6 +300,14 @@ public struct TheTVDB : MetadataService {
         return SquaredTVArt().search(tvShow: tvShow, theTVDBSeriesId: seriesId, season: seasonNum)
     }
 
+    private func loadAppleTVArtwork(_ metadata: MetadataResult) -> [Artwork] {
+        guard let name = metadata[.seriesName] as? String,
+            let season = metadata[.season] as? Int,
+            let store = iTunesStore.Store(language: "USA (English)") else { return [] }
+
+        return AppleTV().search(term: name, store: store, type: .tvShow(season: season))
+    }
+
     private func loadTVArtwork(seriesID: Int, type: ArtworkType, season: String, language: String) -> [Artwork] {
         var artworks: [Artwork] = []
         let images: [TVDBImage] = {
@@ -354,13 +362,16 @@ public struct TheTVDB : MetadataService {
 
         // Get additionals images
         if let season = metadata[.season] as? Int {
-            var iTunesImage = [Artwork](), squareTVArt = [Artwork](), seasonImages = [Artwork](), posterImages = [Artwork]()
+            var iTunesImage = [Artwork](), appleTV = [Artwork](), squareTVArt = [Artwork](), seasonImages = [Artwork](), posterImages = [Artwork]()
             let group = DispatchGroup()
             DispatchQueue.global().async(group: group) {
                 iTunesImage = self.loadiTunesArtwork(metadata)
             }
             DispatchQueue.global().async(group: group) {
                 squareTVArt = self.loadSquareTVArtwork(metadata)
+            }
+            DispatchQueue.global().async(group: group) {
+                appleTV = self.loadAppleTVArtwork(metadata)
             }
             DispatchQueue.global().async(group: group) {
                 seasonImages = self.loadTVArtwork(seriesID: seriesId, type: .season, season: String(season), language: language)
@@ -370,6 +381,7 @@ public struct TheTVDB : MetadataService {
             }
             group.wait()
 
+            artworks.insert(contentsOf: appleTV, at: 0)
             artworks.insert(contentsOf: iTunesImage, at: 0)
             artworks.insert(contentsOf: squareTVArt, at: 0)
             artworks.append(contentsOf: seasonImages)
