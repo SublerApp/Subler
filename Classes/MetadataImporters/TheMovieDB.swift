@@ -124,7 +124,7 @@ public struct TheMovieDB: MetadataService {
         DispatchQueue.global().async(group: group) {
            if let title = result.title,
                 let store = iTunesStore.Store(language: "USA (English)") {
-                appleTV = AppleTV().search(term: title, store: store, type: .movie)
+                appleTV = AppleTV().searchArtwork(term: title, store: store, type: .movie)
             }
         }
         group.wait()
@@ -398,7 +398,7 @@ public struct TheMovieDB: MetadataService {
                 let season = metadata[.season] as? Int,
                 let store = iTunesStore.Store(language: "USA (English)") {
 
-                appleTV = AppleTV().search(term: name, store: store, type: .tvShow(season: season))
+                appleTV = AppleTV().searchArtwork(term: name, store: store, type: .tvShow(season: season))
             }
         }
         DispatchQueue.global().async(group: group) {

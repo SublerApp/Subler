@@ -113,11 +113,13 @@ public enum MetadataSearch {
 
 extension MetadataSearch {
 
-    public static var movieProviders: [String] { get { return [TheMovieDB().name, iTunesStore().name] } }
-    public static var tvProviders: [String] { get { return [TheMovieDB().name, TheTVDB().name,  iTunesStore().name] } }
+    public static var movieProviders: [String] { get { return [AppleTV().name, TheMovieDB().name, iTunesStore().name] } }
+    public static var tvProviders: [String] { get { return [AppleTV().name, TheMovieDB().name, TheTVDB().name,  iTunesStore().name] } }
 
     public static func service(name: String?) -> MetadataService {
         switch name {
+        case AppleTV().name?:
+            return AppleTV()
         case iTunesStore().name?:
             return iTunesStore()
         case TheMovieDB().name?:

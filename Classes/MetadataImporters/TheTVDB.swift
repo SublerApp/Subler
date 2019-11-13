@@ -305,7 +305,7 @@ public struct TheTVDB : MetadataService {
             let season = metadata[.season] as? Int,
             let store = iTunesStore.Store(language: "USA (English)") else { return [] }
 
-        return AppleTV().search(term: name, store: store, type: .tvShow(season: season))
+        return AppleTV().searchArtwork(term: name, store: store, type: .tvShow(season: season))
     }
 
     private func loadTVArtwork(seriesID: Int, type: ArtworkType, season: String, language: String) -> [Artwork] {

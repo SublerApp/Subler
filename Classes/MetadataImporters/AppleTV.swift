@@ -8,19 +8,59 @@
 
 import Foundation
 
-public struct AppleTV {
-    
-    private func sendJSONRequest<T>(url: URL, type: T.Type) -> T? where T : Decodable {
-        guard let data = URLSession.data(from: url) else { return nil }
+private extension MetadataResult {
+    convenience init(item: AppleTV.Item) {
+        self.init()
 
-        do {
-            let result = try JSONDecoder().decode(type, from: data)
-            return result
-        } catch {
-            print("error: \(error)")
+        self.mediaKind = .movie
+
+        self[.name]            = item.title
+        if let releaseDate = item.releaseDate {
+            self[.releaseDate] = Date(timeIntervalSince1970: releaseDate / 1000)
+        }
+        self[.longDescription] = item.description
+
+        self[.cast]            = item.rolesSummary?.cast?.joined(separator: ", ")
+        self[.director]        = item.rolesSummary?.directors?.joined(separator: ", ")
+
+        self[.iTunesURL]       = item.url.absoluteString
+        self[.serviceSeriesID]       = item.id
+
+        let urls = [item.images.coverArt16X9?.url/*, item.images.coverArt?.url*/]
+
+        let artworks = urls.compactMap { $0}.compactMap { (url: String) -> Artwork? in
+            let baseURL = url.replacingOccurrences(of: "{w}x{h}.{f}", with: "")
+            if let artworkURL = URL(string: baseURL + AppleTV.fullSize), let thumbURL = URL(string: baseURL + AppleTV.thumbSize) {
+                return Artwork(url: artworkURL, thumbURL: thumbURL, service: "iTunes", type: .rectangle)
+            } else {
+                return nil
+            }
         }
 
-        return nil
+        self.remoteArtworks = artworks
+    }
+}
+
+public struct AppleTV: MetadataService {
+
+    public var languages: [String] {
+        get {
+            return iTunesStore().languages
+        }
+    }
+
+    public var languageType: LanguageType {
+        get {
+            return .custom
+        }
+    }
+
+    public var defaultLanguage: String {
+        return "USA (English)"
+    }
+
+    public var name: String {
+        return "Apple TV"
     }
 
     private let detailsURL = "https://tv.apple.com/api/uts/v2/view/product/"
@@ -28,8 +68,8 @@ public struct AppleTV {
     private let seasonsURL = "https://tv.apple.com/api/uts/v2/show/"
     private let options = "&utsk=0&caller=wta&v=36&pfm=desktop"
 
-    private let thumbSize = "329x185.jpg"
-    private let fullSize = "800x450.jpg"
+    fileprivate static let thumbSize = "329x185.jpg"
+    fileprivate static let fullSize = "800x450.jpg"
 
     private func normalize(_ term: String) -> String {
         return term.replacingOccurrences(of: " (Dubbed)", with: "")
@@ -39,7 +79,7 @@ public struct AppleTV {
 
     enum MediaType {
         case movie
-        case tvShow(season: Int)
+        case tvShow(season: Int?)
 
         var description: String {
             get {
@@ -53,7 +93,62 @@ public struct AppleTV {
         }
     }
 
-    func searchSeasons(item: Item,  season: Int, store: iTunesStore.Store) -> [Artwork] {
+    // MARK: - TV Series search
+
+    public func search(tvShow: String, language: String) -> [String] {
+        guard let store = iTunesStore.Store(language: language) else { return [] }
+
+        let items = search(term: tvShow, store: store)
+        return items.compactMap { $0.title }
+    }
+
+    public func search(tvShow: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
+        guard let store = iTunesStore.Store(language: language) else { return [] }
+
+        let items = search(term: tvShow, store: store, type: .tvShow(season: nil))
+        let results = items.map { MetadataResult(item: $0) }
+        return results
+    }
+
+    public func loadTVMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
+        return MetadataResult()
+    }
+
+
+    // MARK: - Movie search
+
+    public func search(movie: String, language: String) -> [MetadataResult] {
+        guard let store = iTunesStore.Store(language: language) else { return [] }
+
+        let items = search(term: movie, store: store)
+        let results = items.map { MetadataResult(item: $0) }
+        return results
+    }
+
+    public func loadMovieMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
+        guard let store = iTunesStore.Store(language: language),
+            let id = metadata[.serviceSeriesID] as? String,
+            let details = fetchMovieDetails(id: id, store: store) else { return metadata }
+
+        let content = details.content
+
+        metadata[.genre] = content.genres.map { $0.name }.joined(separator: ", ")
+        metadata[.studio] = content.studio
+
+        let rating = content.rating
+        metadata[.rating] = "\(rating.system)|\(rating.name)|\(rating.value)|"
+
+        metadata[.cast] = details.roles.filter { $0.type == RoleTitle.actor}.map { $0.personName }.joined(separator: ", ")
+        metadata[.screenwriters] = details.roles.filter { $0.type == RoleTitle.writer}.map { $0.personName }.joined(separator: ", ")
+        metadata[.producers] = details.roles.filter { $0.type == RoleTitle.producer}.map { $0.personName }.joined(separator: ", ")
+        metadata[.director] = details.roles.filter { $0.type == RoleTitle.director}.map { $0.personName }.first
+
+        return metadata
+    }
+
+    // MARK: - Artworks search
+
+    private func searchSeasons(item: Item,  season: Int, store: iTunesStore.Store) -> [Artwork] {
         let urlString = "\(seasonsURL)\(item.id)/itunesSeasons?sf=\(store.storeCode)&locale=\(store.language2)\(options)"
         if let url = URL(string: urlString), let results = sendJSONRequest(url: url, type: Wrapper<Seasons>.self) {
 
@@ -63,8 +158,8 @@ public struct AppleTV {
 
             let artworks = urls.compactMap { (url: String) -> Artwork? in
                 let baseURL = url.replacingOccurrences(of: "{w}x{h}.{f}", with: "")
-                if let artworkURL = URL(string: baseURL + fullSize), let thumbURL = URL(string: baseURL + thumbSize) {
-                    return Artwork(url: artworkURL, thumbURL: thumbURL, service: "iTunes", type: .rectangle)
+                if let artworkURL = URL(string: baseURL + AppleTV.fullSize), let thumbURL = URL(string: baseURL + AppleTV.thumbSize) {
+                    return Artwork(url: artworkURL, thumbURL: thumbURL, service: "Apple TV", type: .rectangle)
                 } else {
                     return nil
                 }
@@ -75,7 +170,7 @@ public struct AppleTV {
         return []
     }
 
-    func search(term: String, store: iTunesStore.Store, type: MediaType = .movie) -> [Artwork] {
+    func searchArtwork(term: String, store: iTunesStore.Store, type: MediaType = .movie) -> [Artwork] {
         let normalizedTerm = normalize(term)
 
         if let url = URL(string: "\(searchURL)&sf=\(store.storeCode)&locale=\(store.language2)\(options)&q=\(normalizedTerm.urlEncoded())"),
@@ -99,15 +194,17 @@ public struct AppleTV {
 
             let artworks = urls.compactMap { (url: String) -> Artwork? in
                 let baseURL = url.replacingOccurrences(of: "{w}x{h}.{f}", with: "")
-                if let artworkURL = URL(string: baseURL + fullSize), let thumbURL = URL(string: baseURL + thumbSize) {
-                    return Artwork(url: artworkURL, thumbURL: thumbURL, service: "iTunes", type: .rectangle)
+                if let artworkURL = URL(string: baseURL + AppleTV.fullSize), let thumbURL = URL(string: baseURL + AppleTV.thumbSize) {
+                    return Artwork(url: artworkURL, thumbURL: thumbURL, service: "Apple TV", type: .rectangle)
                 } else {
                     return nil
                 }
             }
 
             if case let MediaType.tvShow(season) = type, let item = filteredResults.first {
-                return artworks + searchSeasons(item: item, season: season, store: store)
+                if let season = season {
+                    return artworks + searchSeasons(item: item, season: season, store: store)
+                }
             }
 
             return artworks
@@ -115,7 +212,52 @@ public struct AppleTV {
         return []
     }
 
-    struct Image: Codable {
+    // MARK: Model
+
+    private func sendJSONRequest<T>(url: URL, type: T.Type) -> T? where T : Decodable {
+        guard let data = URLSession.data(from: url) else { return nil }
+
+        do {
+            let result = try JSONDecoder().decode(type, from: data)
+            return result
+        } catch {
+            print("error: \(error)")
+        }
+
+        return nil
+    }
+
+    private func search(term: String, store: iTunesStore.Store, type: MediaType = .movie) -> [Item] {
+        if let url = URL(string: "\(searchURL)&sf=\(store.storeCode)&locale=\(store.language2)\(options)&q=\(term.urlEncoded())"),
+            let results = sendJSONRequest(url: url, type: Wrapper<Results>.self) {
+
+            let filteredItems = results.data.canvas?.shelves
+                .flatMap { $0.items }
+                .filter { $0.type == type.description }
+
+            return filteredItems ?? []
+        }
+        return []
+    }
+
+    private func fetchMovieDetails(id: String, store: iTunesStore.Store) -> ShowDetails? {
+        if let url = URL(string: "\(detailsURL)\(id)?&sf=\(store.storeCode)&locale=\(store.language2)\(options)"),
+            let results = sendJSONRequest(url: url, type: Wrapper<ShowDetails>.self) {
+            return results.data
+        }
+        return nil
+    }
+
+    private struct Results: Codable {
+        let q: String
+        let canvas: Canvas?
+    }
+
+    private struct Wrapper<T>: Codable where T : Codable  {
+        let data: T
+    }
+
+    fileprivate struct Image: Codable {
         let width: UInt
         let height: UInt
         let hasAlpha: Bool?
@@ -123,7 +265,7 @@ public struct AppleTV {
         let url: String
     }
 
-    struct Images: Codable {
+    fileprivate struct Images: Codable {
         let bannerUberImage: Image?
         let contentLogo: Image?
         let coverArt: Image?
@@ -133,19 +275,40 @@ public struct AppleTV {
         let previewFrame: Image?
     }
 
-    struct Rating: Codable {
+    fileprivate struct Rating: Codable {
         let displayName: String
         let name: String
         let system: String
         let value: UInt
     }
 
-    struct Roles: Codable {
+    private struct Genre: Codable {
+        let name, id, type: String
+        let url: String
+    }
+
+    fileprivate struct Roles: Codable {
         let cast: [String]?
         let directors: [String]?
     }
 
-    struct Item: Codable {
+    private struct Role: Codable {
+        let type, roleTitle: RoleTitle
+        let characterName: String?
+        let personName, personId: String
+        let url: String
+    }
+
+    private enum RoleTitle: String, Codable {
+        case actor = "Actor"
+        case director = "Director"
+        case producer = "Producer"
+        case writer = "Writer"
+        case voice = "Voice"
+        case creator = "Creator"
+    }
+
+    fileprivate struct Item: Codable {
         let commonSenseRecommendedAge: UInt?
         let contentAdvisories: [String]?
         let description: String?
@@ -154,7 +317,7 @@ public struct AppleTV {
         let images: Images
         let isEntitledToPlay: Bool?
         let rating: Rating?
-        let releaseDate: Int64?
+        let releaseDate: TimeInterval?
         let rolesSummary: Roles?
         let title: String?
         let tomatometerFreshness: String?
@@ -163,7 +326,7 @@ public struct AppleTV {
         let url: URL
     }
 
-    struct ItemCollection: Codable {
+    private struct ItemCollection: Codable {
         let displayType: String?
         let id: String?
         let items: [Item]
@@ -172,12 +335,47 @@ public struct AppleTV {
         let version: String?
     }
 
-    struct Canvas: Codable {
+    private struct Canvas: Codable {
         let id: String
         let shelves: [ItemCollection]
     }
 
-    struct Season: Codable {
+    // MARK: Movie specific
+
+    private struct Content: Codable {
+        let id: String
+        let type: String
+        let isEntitledToPlay: Bool?
+        let title, contentDescription: String
+        let releaseDate: Int
+        let genres: [Genre]
+        let isUhd, isHdr: Bool?
+        let rating: Rating
+        let contentAdvisories: [String]?
+        let tomatometerFreshness: String
+        let tomatometerPercentage, commonSenseRecommendedAge: Int
+        let images: Images
+        let url: String
+        let rolesSummary: Roles
+        let duration: Int
+        let version: String?
+        let studio: String
+
+        enum CodingKeys: String, CodingKey {
+            case id, type, isEntitledToPlay, title
+            case contentDescription = "description"
+            case releaseDate, genres, isUhd, isHdr, rating, contentAdvisories, tomatometerFreshness, tomatometerPercentage, commonSenseRecommendedAge, images, url, rolesSummary, duration, version, studio
+        }
+    }
+
+    private struct ShowDetails: Codable {
+        let content: Content
+        let roles: [Role]
+    }
+
+    // MARK: Season specific
+
+    private struct Season: Codable {
         let id, canonicalId, type, title: String
         let images: Images
         let url: String
@@ -187,17 +385,8 @@ public struct AppleTV {
         let showImages: Images
     }
 
-    struct Seasons: Codable {
+    private struct Seasons: Codable {
         let seasons: [String: [Season]]
-    }
-
-    struct Results: Codable {
-        let q: String
-        let canvas: Canvas?
-    }
-
-    struct Wrapper<T>: Codable where T : Codable  {
-        let data: T
     }
 
 }
