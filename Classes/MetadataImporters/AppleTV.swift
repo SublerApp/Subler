@@ -8,6 +8,14 @@
 
 import Foundation
 
+private let formatter = { () -> DateFormatter in
+    let gmt =  TimeZone(secondsFromGMT: 0)
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"
+    formatter.timeZone = gmt
+    return formatter
+}()
+
 private extension MetadataResult {
     convenience init(item: AppleTV.Item) {
         self.init()
@@ -24,7 +32,8 @@ private extension MetadataResult {
         self[.serviceSeriesID] = item.id
 
         if let releaseDate = item.releaseDate {
-            self[.releaseDate] = Date(timeIntervalSince1970: releaseDate / 1000)
+            let date = Date(timeIntervalSince1970: releaseDate / 1000)
+            self[.releaseDate] = formatter.string(from: date)
         }
 
         let artworks = [item.images.coverArt16X9, item.images.coverArt].compactMap { $0?.artwork }
@@ -45,7 +54,8 @@ private extension MetadataResult {
         self[.serviceEpisodeID] = episode.id
         self[.name]             = episode.title
         if let releaseDate = episode.releaseDate {
-            self[.releaseDate]      = Date(timeIntervalSince1970: releaseDate / 1000)
+            let date = Date(timeIntervalSince1970: releaseDate / 1000)
+            self[.releaseDate] = formatter.string(from: date)
         }
         self[.longDescription]  = episode.episodeDescription
 
