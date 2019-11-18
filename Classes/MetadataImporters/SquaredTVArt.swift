@@ -39,7 +39,7 @@ private struct SquaredTVArtJsonApi {
 
         func toRemoteImage() -> Artwork {
             let thumbURL = alt_sizes.filter { $0.width > 200 && $0.width < 400 }.first?.url ?? original_size.url
-            return Artwork(url: original_size.url, thumbURL: thumbURL, service: "Squared TV Art", type: .square)
+            return Artwork(url: original_size.url, thumbURL: thumbURL, service: "Squared TV Art", type: .season, size: .square)
         }
     }
 
@@ -139,7 +139,7 @@ private struct SquaredTVArtHTMLScraper {
         }
 
         func toRemoteImage() -> Artwork {
-            return Artwork(url: url, thumbURL: thumbURL, service: "Squared TV Art", type: .square)
+            return Artwork(url: url, thumbURL: thumbURL, service: "Squared TV Art", type: .season, size: .rectangle)
         }
     }
 

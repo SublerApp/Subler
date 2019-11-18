@@ -13,6 +13,7 @@ public struct TVDBSeriesSearchResult : Codable {
     public let banner: String?
     public let firstAired: String?
     public let id: Int
+    public let imdbId: String?
     public let network: String?
     public let overview: String?
     public let seriesName: String?
@@ -227,7 +228,7 @@ final public class TheTVDBService {
         guard let url = URL(string: "https://api.thetvdb.com/login") else { return nil }
 
         let header = ["Content-Type" : "application/json",
-                      "Accept" : "application/json"]
+                      "Accept" : "application/vnd.thetvdb.v3"]
 
         guard let response = URLSession.data(from: url,
                                              httpMethod: "POST",
@@ -263,7 +264,7 @@ final public class TheTVDBService {
 
         let header = ["Authorization": "Bearer \(token.key)",
                       "Content-Type" : "application/json",
-                      "Accept" : "application/json",
+                      "Accept" : "application/vnd.thetvdb.v3",
                       "Accept-Language" : language]
 
         return URLSession.data(from: url, header: header)

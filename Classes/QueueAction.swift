@@ -185,9 +185,10 @@ extension Array where Element == Artwork {
         if service == iTunesServiceName {
             return self.first
         }
-        else if type == ArtworkType.iTunes {
+        // FIXME
+        /*else if type == ArtworkType.iTunes {
             return self.filter { $0.service == iTunesServiceName }.first
-        }
+        }*/
         else {
             let serviceArtwork = self.filter { $0.type == type && $0.service == service }.first
             let artwork = self.filter { $0.type == type }.first
@@ -220,7 +221,7 @@ class QueueMetadataAction : NSObject, QueueActionProtocol {
         self.tvShowLanguage = tvShowLanguage;
         self.tvShowProvider = tvShowProvider
 
-        self.preferredArtwork = ArtworkType(rawValue: preferredArtwork) ?? ArtworkType.square
+        self.preferredArtwork = ArtworkType(rawValue: preferredArtwork) ?? ArtworkType.poster
     }
 
     private func load(artworkURL: URL) -> MP42Image? {

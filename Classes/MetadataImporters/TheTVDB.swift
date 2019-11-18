@@ -320,7 +320,7 @@ public struct TheTVDB : MetadataService {
 
         for image in images {
             guard let fileURL = URL(string: TheTVDB.bannerPath + image.fileName),
-                 let thumbURL = URL(string: TheTVDB.bannerPath + image.thumbnail)
+                let thumbURL = URL(string: TheTVDB.bannerPath + image.fileName.replacingOccurrences(of: ".jpg", with: "_t.jpg"))
                 else { continue }
 
             var selected = true
@@ -330,7 +330,7 @@ public struct TheTVDB : MetadataService {
             }
 
             if selected {
-                artworks.append(Artwork(url: fileURL, thumbURL: image.thumbnail.isEmpty ? fileURL : thumbURL, service: self.name, type: type))
+                artworks.append(Artwork(url: fileURL, thumbURL: image.thumbnail.isEmpty ? fileURL : thumbURL, service: self.name, type: type, size: .standard))
             }
         }
         return artworks
@@ -356,7 +356,7 @@ public struct TheTVDB : MetadataService {
             }
 
             if let filename = info.filename, let url = URL(string: TheTVDB.bannerPath + filename) {
-                artworks.append(Artwork(url: url, thumbURL: url, service: self.name, type: .episode))
+                artworks.append(Artwork(url: url, thumbURL: url, service: self.name, type: .episode, size: .rectangle))
             }
         }
 
@@ -381,9 +381,9 @@ public struct TheTVDB : MetadataService {
             }
             group.wait()
 
-            artworks.insert(contentsOf: appleTV, at: 0)
             artworks.insert(contentsOf: iTunesImage, at: 0)
             artworks.insert(contentsOf: squareTVArt, at: 0)
+            artworks.insert(contentsOf: appleTV, at: 0)
             artworks.append(contentsOf: seasonImages)
             artworks.append(contentsOf: posterImages)
         }

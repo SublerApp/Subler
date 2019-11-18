@@ -10,6 +10,23 @@ import MP42Foundation
 
 // MARK: - Image
 
+public enum ArtworkSize : Int, CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .standard:
+            return "standard"
+        case .square:
+            return "square"
+        case .rectangle:
+            return "rectangle"
+        }
+    }
+
+    case standard
+    case square
+    case rectangle
+}
+
 public enum ArtworkType : Int, CustomStringConvertible {
     public var description: String {
         switch self {
@@ -17,16 +34,10 @@ public enum ArtworkType : Int, CustomStringConvertible {
             return "poster"
         case .season:
             return "season"
-        case .square:
-            return "square"
-        case .rectangle:
-            return "rectangle"
         case .episode:
             return "episode"
         case .backdrop:
             return "backdrop"
-        case .iTunes:
-            return "iTunes"
 
         case .none:
             return NSLocalizedString("None", comment: "Queue metadata search artwork type")
@@ -35,11 +46,8 @@ public enum ArtworkType : Int, CustomStringConvertible {
 
     case poster
     case season
-    case square
-    case rectangle
     case episode
     case backdrop
-    case iTunes
     case none
 }
 
@@ -48,6 +56,7 @@ public struct Artwork {
     public let thumbURL: URL
     public let service: String
     public let type: ArtworkType
+    public let size: ArtworkSize
 }
 
 private let localizedKeys: [MetadataResult.Key: String] = [

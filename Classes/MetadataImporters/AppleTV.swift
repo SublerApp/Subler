@@ -36,9 +36,7 @@ private extension MetadataResult {
             self[.releaseDate] = formatter.string(from: date)
         }
 
-        let artworks = [item.images.coverArt16X9, item.images.coverArt].compactMap { $0?.artwork }
-
-        self.remoteArtworks = artworks
+        self.remoteArtworks = [item.images.coverArt16X9, item.images.coverArt].compactMap { $0?.artwork(type: .poster) }
     }
 
     convenience init(item: AppleTV.Item, episode: AppleTV.Episode) {
@@ -64,10 +62,7 @@ private extension MetadataResult {
         self[.episodeNumber]   = episode.episodeNumber
         self[.trackNumber]     = episode.episodeNumber
 
-        if let rating = episode.rating {
-            let system = rating.system.replacingOccurrences(of: "_", with: "-")
-            self[.rating] = "\(system)|\(rating.displayName)|\(rating.value)|"
-        }
+        self[.rating]          = episode.rating?.formatted
 
         self[.iTunesURL]       = episode.showURL
         self[.serviceSeriesID] = episode.showID
@@ -76,10 +71,9 @@ private extension MetadataResult {
             self[.releaseDate] = Date(timeIntervalSince1970: releaseDate / 1000)
         }
 
-        let artworks = [item.images.coverArt16X9, item.images.coverArt, episode.seasonImages.coverArt16X9,
-                        episode.seasonImages.coverArt, episode.images.previewFrame].compactMap { $0?.artwork }
-
-        self.remoteArtworks = artworks
+        self.remoteArtworks = [item.images.coverArt16X9, item.images.coverArt].compactMap { $0?.artwork(type: .poster) }
+        self.remoteArtworks += [episode.seasonImages.coverArt16X9, episode.seasonImages.coverArt].compactMap { $0?.artwork(type: .season) }
+        self.remoteArtworks += [episode.images.previewFrame].compactMap { $0?.artwork(type: .episode) }
     }
 }
 
@@ -173,9 +167,7 @@ public struct AppleTV: MetadataService {
         metadata[.studio] = content.studio
 
         if metadata[.rating] == nil {
-            let rating = content.rating
-            let system = rating.system.replacingOccurrences(of: "_", with: "-")
-            metadata[.rating] = "\(system)|\(rating.displayName)|\(rating.value)|"
+            metadata[.rating] = content.rating.formatted
         }
 
         metadata[.cast] = details.roles.filter { $0.type == "Actor" }.map { $0.personName }.joined(separator: ", ") +
@@ -208,9 +200,7 @@ public struct AppleTV: MetadataService {
         metadata[.genre] = content.genres.map { $0.name }.joined(separator: ", ")
         metadata[.studio] = content.studio
 
-        let rating = content.rating
-        let system = rating.system.replacingOccurrences(of: "_", with: "-")
-        metadata[.rating] = "\(system)|\(rating.displayName)|\(rating.value)|"
+        metadata[.rating] = content.rating.formatted
 
         metadata[.cast] = details.roles.filter { $0.type == "Actor" }.map { $0.personName }.joined(separator: ", ")  +
                           details.roles.filter { $0.type == "Voice" }.map { $0.personName }.joined(separator: ", ")
@@ -229,7 +219,7 @@ public struct AppleTV: MetadataService {
         if let url = URL(string: urlString), let results = sendJSONRequest(url: url, type: Wrapper<Seasons>.self) {
 
             let filteredResults =  results.data.seasons.values.joined().filter { $0.seasonNumber == season }
-            return filteredResults.compactMap { $0.images }.compactMap { $0.coverArt16X9 }.compactMap { $0.artwork }
+            return filteredResults.compactMap { $0.images }.compactMap { $0.coverArt16X9 }.compactMap { $0.artwork(type: .season) }
         }
         return []
     }
@@ -254,7 +244,7 @@ public struct AppleTV: MetadataService {
                 }
             }()
 
-            let artworks = filteredResults.compactMap { $0.images }.compactMap { $0.coverArt16X9 }.compactMap { $0.artwork }
+            let artworks = filteredResults.compactMap { $0.images }.compactMap { $0.coverArt16X9 }.compactMap { $0.artwork(type: .poster) }
 
             if case let MediaType.tvShow(season) = type, let item = filteredResults.first {
                 if let season = season {
@@ -335,21 +325,21 @@ public struct AppleTV: MetadataService {
         let joeColor: String?
         let url: String
 
-        var type: ArtworkType {
+        var size: ArtworkSize {
             get {
                 if width > height {
                     return .rectangle
                 } else if width == height {
                     return .square
                 } else {
-                    return .poster
+                    return .standard
                 }
             }
         }
 
         var thumbSize: String {
             get {
-                switch type {
+                switch size {
                 case .square:
                     return "329x329.jpg"
                 case .rectangle:
@@ -362,7 +352,7 @@ public struct AppleTV: MetadataService {
 
         var fullSize: String {
             get {
-                switch type {
+                switch size {
                 case .square:
                     return "800x800.jpg"
                 case .rectangle:
@@ -373,14 +363,12 @@ public struct AppleTV: MetadataService {
             }
         }
 
-        var artwork: Artwork? {
-            get {
-                let baseURL = url.replacingOccurrences(of: "{w}x{h}.{f}", with: "")
-                if let artworkURL = URL(string: baseURL + fullSize), let thumbURL = URL(string: baseURL + thumbSize) {
-                    return Artwork(url: artworkURL, thumbURL: thumbURL, service: "Apple TV", type: type)
-                } else {
-                    return nil
-                }
+        func artwork(type: ArtworkType) -> Artwork? {
+            let baseURL = url.replacingOccurrences(of: "{w}x{h}.{f}", with: "")
+            if let artworkURL = URL(string: baseURL + fullSize), let thumbURL = URL(string: baseURL + thumbSize) {
+                return Artwork(url: artworkURL, thumbURL: thumbURL, service: "Apple TV", type: type, size: size)
+            } else {
+                return nil
             }
         }
     }
@@ -401,6 +389,13 @@ public struct AppleTV: MetadataService {
         let name: String
         let system: String
         let value: UInt
+
+        var formatted: String {
+            get {
+                let formattedSystem = system.replacingOccurrences(of: "_", with: "-").replacingOccurrences(of: "movies", with: "movie")
+                return "\(formattedSystem)|\(displayName)|\(value)|"
+            }
+        }
     }
 
     private struct Genre: Codable {

@@ -105,7 +105,7 @@ public struct TheMovieDB: MetadataService {
     private func loadArtwork(filePath: String, baseURL: String, thumbSize: String, kind: ArtworkType) -> Artwork? {
         guard let url = URL(string: baseURL + "original" + filePath),
             let thumbURL = URL(string: baseURL + thumbSize + filePath) else { return nil }
-        return Artwork(url: url, thumbURL: thumbURL, service: self.name, type: kind)
+        return Artwork(url: url, thumbURL: thumbURL, service: self.name, type: kind, size: .standard)
     }
 
     private func loadMovieArtworks(result: TMDBMovie) -> [Artwork] {
@@ -129,8 +129,8 @@ public struct TheMovieDB: MetadataService {
         }
         group.wait()
 
-        artworks.append(contentsOf: iTunesImage)
         artworks.append(contentsOf: appleTV)
+        artworks.append(contentsOf: iTunesImage)
 
         // Add TheMovieDB artworks
         if let config = session.fetchConfiguration()?.images,
@@ -248,7 +248,7 @@ public struct TheMovieDB: MetadataService {
             if let backdropPath = result.backdrop_path,
                 let url = URL(string: imageBaseURL + "original" + backdropPath),
                 let thumbURL = URL(string: imageBaseURL + backdropThumbnailSize + backdropPath) {
-                let remoteImage = Artwork(url: url, thumbURL: thumbURL, service: self.name, type: .backdrop)
+                let remoteImage = Artwork(url: url, thumbURL: thumbURL, service: self.name, type: .backdrop, size: .rectangle)
                 artworks.append(remoteImage)
             }
 
@@ -256,7 +256,7 @@ public struct TheMovieDB: MetadataService {
                 for image in images {
                     if let url = URL(string: imageBaseURL + "original" + image.file_path),
                         let thumbURL = URL(string: imageBaseURL + posterThumbnailSize + image.file_path) {
-                        let remoteImage = Artwork(url: url, thumbURL: thumbURL, service: self.name, type: .poster)
+                        let remoteImage = Artwork(url: url, thumbURL: thumbURL, service: self.name, type: .poster, size: .standard)
                         artworks.append(remoteImage)
                     }
                 }
@@ -266,7 +266,7 @@ public struct TheMovieDB: MetadataService {
                 let posterPath = result.poster_path,
                 let url = URL(string: imageBaseURL + "original" + posterPath),
                 let thumbURL = URL(string: imageBaseURL + posterThumbnailSize + posterPath) {
-                let remoteImage = Artwork(url: url, thumbURL: thumbURL, service: self.name, type: .poster)
+                let remoteImage = Artwork(url: url, thumbURL: thumbURL, service: self.name, type: .poster, size: .standard)
                 artworks.append(remoteImage)
             }
 
@@ -407,9 +407,9 @@ public struct TheMovieDB: MetadataService {
         }
         group.wait()
 
-        artworks.insert(contentsOf: appleTV, at: 0)
         artworks.insert(contentsOf: iTunesImage, at: 0)
         artworks.insert(contentsOf: squareTVArt, at: 0)
+        artworks.insert(contentsOf: appleTV, at: 0)
 
         metadata.remoteArtworks = artworks
 
