@@ -23,6 +23,7 @@ private extension MetadataResult {
         self.mediaKind = .movie
 
         self[.name]            = item.title
+        self[.releaseDate]     = item.formattedDate
         self[.longDescription] = item.description
 
         self[.cast]            = item.rolesSummary?.cast?.joined(separator: ", ")
@@ -30,11 +31,6 @@ private extension MetadataResult {
 
         self[.iTunesURL]       = item.url.absoluteString
         self[.serviceSeriesID] = item.id
-
-        if let releaseDate = item.releaseDate {
-            let date = Date(timeIntervalSince1970: releaseDate / 1000)
-            self[.releaseDate] = formatter.string(from: date)
-        }
 
         self.remoteArtworks = [item.images.coverArt16X9, item.images.coverArt].compactMap { $0?.artwork(type: .poster) }
     }
@@ -46,15 +42,12 @@ private extension MetadataResult {
 
         self[.serviceSeriesID] = item.id
 
-        self[.seriesName]         = item.title
-        self[.seriesDescription]  = item.description
+        self[.seriesName]        = item.title
+        self[.seriesDescription] = item.description
 
         self[.serviceEpisodeID] = episode.id
         self[.name]             = episode.title
-        if let releaseDate = episode.releaseDate {
-            let date = Date(timeIntervalSince1970: releaseDate / 1000)
-            self[.releaseDate] = formatter.string(from: date)
-        }
+        self[.releaseDate]      = episode.formattedDate
         self[.longDescription]  = episode.episodeDescription
 
         self[.season]          = episode.seasonNumber
@@ -430,6 +423,15 @@ public struct AppleTV: MetadataService {
         let title: String?
         let type: String
         let url: URL
+
+        var formattedDate: String? {
+            if let date = releaseDate {
+                let date = Date(timeIntervalSince1970: date / 1000)
+                return formatter.string(from: date)
+            } else {
+                return nil
+            }
+        }
     }
 
     private struct ItemCollection: Codable {
@@ -516,6 +518,15 @@ public struct AppleTV: MetadataService {
         let seasonURL: String
         let showURL: String
         let episodeIndex: Int
+
+        var formattedDate: String? {
+            if let date = releaseDate {
+                let date = Date(timeIntervalSince1970: date / 1000)
+                return formatter.string(from: date)
+            } else {
+                return nil
+            }
+        }
 
         enum CodingKeys: String, CodingKey {
             case id, type, isEntitledToPlay, title
