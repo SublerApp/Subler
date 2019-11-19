@@ -192,8 +192,9 @@ final class ArtworkSelectorController: NSViewController, NSCollectionViewDataSou
         let type = metadata.mediaKind.description
 
         if let defaultService = UserDefaults.standard.string(forKey: "SBArtworkSelectorDefaultService|\(type.description)"),
-            let defaultType = ArtworkType(rawValue: UserDefaults.standard.integer(forKey: "SBArtworkSelectorDefaultType|\(type.description)")) {
-            selectArtwork(type: defaultType, service: defaultService)
+            let defaultType = ArtworkType(rawValue: UserDefaults.standard.integer(forKey: "SBArtworkSelectorDefaultType|\(type.description)")),
+            let defaultSize = ArtworkSize(rawValue: UserDefaults.standard.integer(forKey: "SBArtworkSelectorDefaultSize|\(type.description)")){
+            selectArtwork(type: defaultType, size: defaultSize, service: defaultService)
         }
 
         if imageBrowser.selectionIndexPaths.count == 0 {
@@ -268,8 +269,12 @@ final class ArtworkSelectorController: NSViewController, NSCollectionViewDataSou
         }
     }
 
-    private func selectArtwork(type: ArtworkType, service: String) {
-        if let artwork = (artworks.filter { $0.source.type == type && $0.source.service == service } as [ArtworkImageObject]).first,
+    private func selectArtwork(type: ArtworkType, size: ArtworkSize, service: String) {
+        if let artwork = (artworks.filter { $0.source.type == type && $0.source.size == size && $0.source.service == service } as [ArtworkImageObject]).first,
+            let index = artworks.firstIndex(of: artwork) {
+            selectArtwork(at: index)
+        }
+        else if let artwork = (artworks.filter { $0.source.type == type && $0.source.size == size } as [ArtworkImageObject]).first,
             let index = artworks.firstIndex(of: artwork) {
             selectArtwork(at: index)
         }
@@ -410,6 +415,7 @@ final class ArtworkSelectorController: NSViewController, NSCollectionViewDataSou
         addArtworkButton.isEnabled = imageBrowser.selectionIndexes.isEmpty == false
         if let artwork = selectedArtworks().first {
             let type = metadata.mediaKind.description
+            UserDefaults.standard.set(artwork.source.size.rawValue, forKey: "SBArtworkSelectorDefaultSize|\(type.description)")
             UserDefaults.standard.set(artwork.source.type.rawValue, forKey: "SBArtworkSelectorDefaultType|\(type.description)")
             UserDefaults.standard.set(artwork.source.service, forKey: "SBArtworkSelectorDefaultService|\(type.description)")
         }
