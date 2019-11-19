@@ -44,6 +44,15 @@ public enum ArtworkType : Int, CustomStringConvertible {
         }
     }
 
+    public var isMovieType: Bool {
+        switch self {
+        case .poster, .backdrop:
+            return true
+        default:
+            return false
+        }
+    }
+
     case poster
     case season
     case episode

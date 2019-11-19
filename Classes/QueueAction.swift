@@ -178,21 +178,15 @@ class QueueSetAction : NSObject, QueueActionProtocol {
 
 extension Array where Element == Artwork {
 
-    func filter(by type: ArtworkType, service: String) -> Artwork? {
-        let iTunesServiceName = iTunesStore().name
-
-        // Special case for iTunes
-        if service == iTunesServiceName {
-            return self.first
-        }
-        // FIXME
-        /*else if type == ArtworkType.iTunes {
-            return self.filter { $0.service == iTunesServiceName }.first
-        }*/
-        else {
+    func filter(by type: ArtworkType, size: ArtworkSize, service: String) -> Artwork? {
+        if type == .backdrop || type == .episode {
             let serviceArtwork = self.filter { $0.type == type && $0.service == service }.first
             let artwork = self.filter { $0.type == type }.first
-
+            return serviceArtwork != nil ? serviceArtwork : artwork
+        }
+        else {
+            let serviceArtwork = self.filter { $0.type == type && $0.size == size && $0.service == service }.first
+            let artwork = self.filter { $0.type == type && $0.size == size}.first
             return serviceArtwork != nil ? serviceArtwork : artwork
         }
     }
@@ -209,19 +203,22 @@ class QueueMetadataAction : NSObject, QueueActionProtocol {
     private let tvShowProvider: String
 
     private let preferredArtwork: ArtworkType
+    private let preferredArtworkSize: ArtworkSize
 
     var type: QueueActionType { return .pre }
     var localizedDescription: String { return NSLocalizedString("Searching metadata", comment: "Action localized description.") }
     override var description: String { return NSLocalizedString("Search Metadata", comment: "Action description.") }
 
-    init(movieLanguage: String, tvShowLanguage: String, movieProvider: String, tvShowProvider: String, preferredArtwork: Int) {
+    init(movieLanguage: String, tvShowLanguage: String, movieProvider: String, tvShowProvider: String, preferredArtwork: Int, preferredArtworkSize: Int) {
         self.movieLanguage = movieLanguage;
         self.movieProvider = movieProvider;
 
         self.tvShowLanguage = tvShowLanguage;
         self.tvShowProvider = tvShowProvider
 
-        self.preferredArtwork = ArtworkType(rawValue: preferredArtwork) ?? ArtworkType.poster
+        self.preferredArtwork = ArtworkType(rawValue: preferredArtwork) ?? .poster
+        self.preferredArtworkSize = ArtworkSize(rawValue: preferredArtworkSize) ?? .standard
+
     }
 
     private func load(artworkURL: URL) -> MP42Image? {
@@ -265,13 +262,14 @@ class QueueMetadataAction : NSObject, QueueActionProtocol {
         if preferredArtwork != .none && artworks.isEmpty == false {
             let artwork: Artwork? = {
                 let provider = terms.isMovie ? self.movieProvider : self.tvShowProvider
-                if let artwork = artworks.filter(by: preferredArtwork, service: provider) {
+                let type = terms.isMovie && preferredArtwork.isMovieType == false ? .poster : preferredArtwork
+                if let artwork = artworks.filter(by: type, size: preferredArtworkSize, service: provider) {
                     return artwork
                 }
-                else if let artwork = artworks.filter(by: .season, service: provider) {
+                else if let artwork = artworks.filter(by: .season, size: preferredArtworkSize, service: provider) {
                     return artwork
                 }
-                else if let artwork = artworks.filter(by: .poster, service: provider) {
+                else if let artwork = artworks.filter(by: .poster, size: .standard, service: provider) {
                     return artwork
                 }
                 else {
@@ -320,6 +318,7 @@ class QueueMetadataAction : NSObject, QueueActionProtocol {
         aCoder.encode(movieProvider, forKey: "_movieProvider")
         aCoder.encode(tvShowProvider, forKey: "_tvShowProvider")
         aCoder.encode(Int32(preferredArtwork.rawValue), forKey: "_preferredArtwork")
+        aCoder.encode(Int32(preferredArtworkSize.rawValue), forKey: "_preferredArtworkSize")
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -327,7 +326,8 @@ class QueueMetadataAction : NSObject, QueueActionProtocol {
             let tvShowLanguage = aDecoder.decodeObject(of: NSString.self, forKey: "_tvShowLanguage") as String?,
             let movieProvider = aDecoder.decodeObject(of: NSString.self, forKey: "_movieProvider") as String?,
             let tvShowProvider = aDecoder.decodeObject(of: NSString.self, forKey: "_tvShowProvider") as String?,
-            let preferredArtwork = ArtworkType(rawValue: Int(aDecoder.decodeInt32(forKey: "_preferredArtwork")))
+            let preferredArtwork = ArtworkType(rawValue: Int(aDecoder.decodeInt32(forKey: "_preferredArtwork"))),
+            let preferredArtworkSize = ArtworkSize(rawValue: Int(aDecoder.decodeInt32(forKey: "_preferredArtworkSize")))
         else { return nil }
 
         self.movieLanguage = movieLanguage
@@ -335,6 +335,7 @@ class QueueMetadataAction : NSObject, QueueActionProtocol {
         self.movieProvider = movieProvider
         self.tvShowProvider = tvShowProvider
         self.preferredArtwork = preferredArtwork
+        self.preferredArtworkSize = preferredArtworkSize
     }
 
     static var supportsSecureCoding: Bool { return true }

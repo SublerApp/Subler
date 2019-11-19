@@ -37,6 +37,7 @@ final class QueuePreferences: NSObject {
     static private let SBQueueMovieProviderLanguage: String = "SBQueueMovieProviderLanguage"
     static private let SBQueueTVShowProviderLanguage: String = "SBQueueTVShowProviderLanguage"
     static private let SBQueueProviderArtwork: String = "SBQueueProviderArtwork"
+    static private let SBQueueProviderArtworkSize: String = "SBQueueProviderArtworkSize"
 
     static private let SBQueueSetOutputFilename: String = "SBQueueSetOutputFilename"
     static private let SBQueueDestination: String = "SBQueueDestination"
@@ -49,6 +50,7 @@ final class QueuePreferences: NSObject {
     @objc dynamic var tvShowProvider: String
     @objc dynamic var tvShowProviderLanguage: String
     @objc dynamic var providerArtwork: Int
+    @objc dynamic var providerArtworkSize: Int
 
     @objc dynamic var organize: Bool
     @objc dynamic var fixFallbacks: Bool
@@ -87,6 +89,7 @@ final class QueuePreferences: NSObject {
         self.tvShowProvider = ud.string(forKey: QueuePreferences.SBQueueTVShowProvider) ?? "TheTVDB"
         self.tvShowProviderLanguage = ud.string(forKey: QueuePreferences.SBQueueTVShowProviderLanguage) ?? "en"
         self.providerArtwork = ud.integer(forKey: QueuePreferences.SBQueueProviderArtwork)
+        self.providerArtworkSize = ud.integer(forKey: QueuePreferences.SBQueueProviderArtworkSize)
 
         self.organize = ud.bool(forKey: QueuePreferences.SBQueueOrganize)
         self.fixFallbacks = ud.bool(forKey: QueuePreferences.SBQueueFixFallbacks)
@@ -143,7 +146,8 @@ final class QueuePreferences: NSObject {
                      QueuePreferences.SBQueueTVShowProvider : "TheTVDB",
                      QueuePreferences.SBQueueMovieProviderLanguage : "en",
                      QueuePreferences.SBQueueTVShowProviderLanguage : "en",
-                     QueuePreferences.SBQueueProviderArtwork : 0] as [String : Any]
+                     QueuePreferences.SBQueueProviderArtwork : 0,
+                     QueuePreferences.SBQueueProviderArtworkSize: 0] as [String : Any]
         UserDefaults.standard.register(defaults: prefs)
     }
 
@@ -158,6 +162,7 @@ final class QueuePreferences: NSObject {
         ud.set(tvShowProvider, forKey: QueuePreferences.SBQueueTVShowProvider)
         ud.set(tvShowProviderLanguage, forKey: QueuePreferences.SBQueueTVShowProviderLanguage)
         ud.set(providerArtwork, forKey: QueuePreferences.SBQueueProviderArtwork)
+        ud.set(providerArtworkSize, forKey: QueuePreferences.SBQueueProviderArtworkSize)
 
         ud.set(organize, forKey: QueuePreferences.SBQueueOrganize)
         ud.set(fixFallbacks, forKey: QueuePreferences.SBQueueFixFallbacks)

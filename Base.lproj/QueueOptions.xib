@@ -16,14 +16,14 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="UlG-O3-eNc" userLabel="OptionsView">
-            <rect key="frame" x="0.0" y="0.0" width="382" height="524"/>
+            <rect key="frame" x="0.0" y="0.0" width="385" height="524"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="zEH-aV-Tl7">
                     <rect key="frame" x="110" y="71" width="69" height="18"/>
                     <buttonCell key="cell" type="check" title="Optimize" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="nig-pN-efw">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.optimize" id="2oW-EB-1dq">
@@ -37,7 +37,7 @@
                     <rect key="frame" x="110" y="498" width="146" height="18"/>
                     <buttonCell key="cell" type="check" title="Clear existing metadata" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="QNO-e1-WUJ">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.clearExistingMetadata" id="PhG-DP-JFS">
@@ -51,7 +51,7 @@
                     <rect key="frame" x="110" y="25" width="134" height="18"/>
                     <buttonCell key="cell" type="check" title="Auto-Start the queue" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="LYO-G0-9jA">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.autoStart" id="ag1-8O-XDb">
@@ -65,7 +65,7 @@
                     <rect key="frame" x="110" y="335" width="111" height="18"/>
                     <buttonCell key="cell" type="check" title="Organize Groups" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="240-c7-2UW">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.organize" id="phH-MF-SOh">
@@ -79,7 +79,7 @@
                     <rect key="frame" x="110" y="299" width="142" height="18"/>
                     <buttonCell key="cell" type="check" title="Load external subtitles" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="59T-kp-mV1">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.subtitles" id="BZp-nF-g91">
@@ -93,7 +93,7 @@
                     <rect key="frame" x="176" y="113" width="128" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" imagePosition="left" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="6jC-r9-LzT" id="8bb-Gy-KAS">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                         <menu key="menu" title="OtherViews" autoenablesItems="NO" id="BBw-yf-xUC">
                             <items>
                                 <menuItem isSeparatorItem="YES" state="on" id="6jC-r9-LzT"/>
@@ -130,7 +130,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="mp4" bezelStyle="roundedRect" imagePosition="left" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="10" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="iXb-rA-1f3" id="Tgc-fW-mN5">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                         <menu key="menu" title="OtherViews" autoenablesItems="NO" id="PLh-aR-2Pj">
                             <items>
                                 <menuItem title="mp4" state="on" tag="10" id="iXb-rA-1f3"/>
@@ -201,7 +201,7 @@
                     <rect key="frame" x="176" y="133" width="128" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bQx-xN-b3H">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                         <menu key="menu" title="OtherViews" id="4en-ZA-qlS"/>
                     </popUpButtonCell>
                     <connections>
@@ -233,7 +233,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CbR-eu-sGI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                         <menu key="menu" title="OtherViews" id="ptP-wd-Rxc"/>
                     </popUpButtonCell>
                     <connections>
@@ -257,7 +257,7 @@
                     <rect key="frame" x="192" y="412" width="111" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UOb-Qe-IPw">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                         <menu key="menu" title="OtherViews" id="ytE-Us-3gv"/>
                     </popUpButtonCell>
                     <connections>
@@ -303,7 +303,7 @@
                     <rect key="frame" x="202" y="392" width="111" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nqF-p0-mT7">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                         <menu key="menu" title="OtherViews" id="U0q-ED-kQf"/>
                     </popUpButtonCell>
                     <connections>
@@ -339,7 +339,7 @@
                     <rect key="frame" x="202" y="438" width="111" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gZb-sF-UQs">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                         <menu key="menu" title="OtherViews" id="0QM-sv-vRX"/>
                     </popUpButtonCell>
                     <connections>
@@ -364,7 +364,7 @@
                     <rect key="frame" x="110" y="317" width="119" height="18"/>
                     <buttonCell key="cell" type="check" title="Fix audio fallbacks" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="W6u-1c-BsI">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.fixFallbacks" id="W1e-uB-NXG">
@@ -378,7 +378,7 @@
                     <rect key="frame" x="110" y="227" width="160" height="18"/>
                     <buttonCell key="cell" type="check" title="Complete tracks language" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="cxz-2q-RIP">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.fixTrackLanguage" id="deV-oB-IXG">
@@ -406,7 +406,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kEh-SN-iHZ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                         <menu key="menu" title="OtherViews" id="LfV-JG-4EY"/>
                     </popUpButtonCell>
                     <connections>
@@ -431,7 +431,7 @@
                     <rect key="frame" x="110" y="7" width="179" height="18"/>
                     <buttonCell key="cell" type="check" title="Show Notification When Done" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="n6P-IC-SEp">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.showDoneNotification" id="5Am-9x-0Yu">
@@ -445,7 +445,7 @@
                     <rect key="frame" x="110" y="281" width="123" height="18"/>
                     <buttonCell key="cell" type="check" title="Clear tracks names" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="mtK-5C-Pzh">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.clearTrackName" id="C0n-Hb-80l">
@@ -459,7 +459,7 @@
                     <rect key="frame" x="110" y="263" width="160" height="18"/>
                     <buttonCell key="cell" type="check" title="Prettify audio track names" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="akF-dR-OPB" userLabel="Prettify audio track names">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.prettifyAudioTrackName" id="KdC-0J-tcK">
@@ -473,7 +473,7 @@
                     <rect key="frame" x="110" y="245" width="143" height="18"/>
                     <buttonCell key="cell" type="check" title="Rename chapters titles" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="yFm-Nq-s66" userLabel="Prettify audio track names">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.renameChapters" id="v5q-TA-ZZi">
@@ -487,7 +487,7 @@
                     <rect key="frame" x="183" y="364" width="76" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" title="Poster" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="YjX-6f-SPu" id="1t8-o9-ckI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                         <menu key="menu" title="OtherViews" id="0zS-9Z-m6I">
                             <items>
                                 <menuItem title="Poster" state="on" id="YjX-6f-SPu">
@@ -496,13 +496,13 @@
                                 <menuItem title="Season" tag="1" id="QR6-hq-GZL">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Episode" tag="4" id="mps-yj-l7z">
+                                <menuItem title="Episode" tag="2" id="mps-yj-l7z">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Backdrop" tag="5" id="Aaf-km-GUP">
+                                <menuItem title="Backdrop" tag="3" id="Aaf-km-GUP">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="None" tag="7" id="Fid-Wo-2Eb">
+                                <menuItem title="None" tag="4" id="Fid-Wo-2Eb">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
@@ -518,7 +518,7 @@
                     <rect key="frame" x="110" y="191" width="116" height="18"/>
                     <buttonCell key="cell" type="check" title="Apply color space" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="0By-RQ-4mS">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.applyColorSpace" id="jug-JB-zTC">
@@ -546,7 +546,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="Implicit" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="psY-0V-t0k" id="QT5-Bh-4Hc">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                         <menu key="menu" title="OtherViews" id="t0P-DA-u8W">
                             <items>
                                 <menuItem title="Implicit" state="on" tag="1" id="psY-0V-t0k"/>
@@ -568,7 +568,7 @@
                     <rect key="frame" x="110" y="155" width="125" height="18"/>
                     <buttonCell key="cell" type="check" title="Set output filename" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="Qld-0F-DsX">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.setOutputFilename" id="THt-yK-839"/>
@@ -578,7 +578,7 @@
                     <rect key="frame" x="110" y="480" width="105" height="18"/>
                     <buttonCell key="cell" type="check" title="Fetch Metadata" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="h5x-un-6cJ">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.searchMetadata" id="IjF-Yf-poW">
@@ -592,7 +592,7 @@
                     <rect key="frame" x="110" y="53" width="100" height="18"/>
                     <buttonCell key="cell" type="check" title="Send to iTunes" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="4an-VK-S2u">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="menu" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.sendToiTunes" id="NBZ-1e-YyZ">
@@ -602,6 +602,31 @@
                         </binding>
                     </connections>
                 </button>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="k33-Yf-DbF">
+                    <rect key="frame" x="265" y="364" width="79" height="17"/>
+                    <popUpButtonCell key="cell" type="roundRect" title="Standard" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="goC-ck-how" id="obA-0k-yqE">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="label" size="11"/>
+                        <menu key="menu" title="OtherViews" id="d8H-bj-RTq">
+                            <items>
+                                <menuItem title="Standard" state="on" id="goC-ck-how">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Square" tag="1" id="LFE-HX-iBV">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Rectangle" tag="2" id="wR3-qj-uQj">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <accessibilityConnection property="title" destination="Ns9-7q-hsh" id="Fni-7J-XtV"/>
+                        <binding destination="-2" name="enabled" keyPath="self.options.searchMetadata" id="UK3-vK-Ddd"/>
+                        <binding destination="-2" name="selectedTag" keyPath="options.providerArtworkSize" id="FCF-C0-eNc"/>
+                    </connections>
+                </popUpButton>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="slL-2h-MPl" secondAttribute="trailing" constant="20" id="0EO-hK-q5e"/>
@@ -651,6 +676,7 @@
                 <constraint firstItem="S7L-mA-j3Y" firstAttribute="top" secondItem="UlG-O3-eNc" secondAttribute="top" constant="10" id="UW4-Sm-acz"/>
                 <constraint firstItem="muY-E0-hVI" firstAttribute="leading" secondItem="NhN-Lg-awX" secondAttribute="leading" id="UYy-iL-Usr"/>
                 <constraint firstItem="vJ5-JB-k1m" firstAttribute="leading" secondItem="NhN-Lg-awX" secondAttribute="leading" id="Ua1-NB-Wag"/>
+                <constraint firstItem="08Q-2k-0Gb" firstAttribute="firstBaseline" secondItem="k33-Yf-DbF" secondAttribute="firstBaseline" id="UsX-de-5e2"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tLh-V3-OfB" secondAttribute="trailing" constant="20" id="Wcc-HA-BBf"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KWg-Ak-bB6" secondAttribute="trailing" constant="20" id="Wog-3V-dvy"/>
                 <constraint firstItem="S7L-mA-j3Y" firstAttribute="baseline" secondItem="9GN-f6-r2j" secondAttribute="baseline" id="ZEG-qv-7kM"/>
@@ -673,6 +699,7 @@
                 <constraint firstItem="08Q-2k-0Gb" firstAttribute="baseline" secondItem="Ns9-7q-hsh" secondAttribute="baseline" id="fG1-Oh-vZ3"/>
                 <constraint firstItem="81E-pQ-vyQ" firstAttribute="leading" secondItem="slL-2h-MPl" secondAttribute="leading" id="fMQ-rX-j1c"/>
                 <constraint firstItem="s8r-Cf-VfB" firstAttribute="top" secondItem="9GN-f6-r2j" secondAttribute="bottom" constant="6" id="fmf-zf-q4j"/>
+                <constraint firstItem="k33-Yf-DbF" firstAttribute="leading" secondItem="08Q-2k-0Gb" secondAttribute="trailing" constant="6" id="fnO-gF-sn4"/>
                 <constraint firstItem="81E-pQ-vyQ" firstAttribute="leading" secondItem="22k-mA-HyA" secondAttribute="leading" id="hRz-bR-msr"/>
                 <constraint firstItem="TV6-Sk-Bqr" firstAttribute="leading" secondItem="ccd-Xn-Dj3" secondAttribute="leading" id="hnH-5m-uQi"/>
                 <constraint firstItem="TV6-Sk-Bqr" firstAttribute="top" secondItem="ccd-Xn-Dj3" secondAttribute="bottom" constant="6" id="i86-G2-ukZ"/>
@@ -704,12 +731,12 @@
                 <constraint firstItem="s8r-Cf-VfB" firstAttribute="leading" secondItem="9GN-f6-r2j" secondAttribute="leading" id="r6R-Dz-3iB"/>
                 <constraint firstAttribute="bottom" secondItem="yI9-2a-q2a" secondAttribute="bottom" constant="10" id="rDU-qM-lCp"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0qr-Nt-Pan" secondAttribute="trailing" constant="20" id="reP-qw-E9F"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="08Q-2k-0Gb" secondAttribute="trailing" constant="54" id="rwm-CD-0kE"/>
                 <constraint firstItem="2Hf-2V-95U" firstAttribute="leading" secondItem="Pdq-s0-erT" secondAttribute="leading" constant="22" id="scm-66-i3p"/>
                 <constraint firstItem="MGZ-hB-jhx" firstAttribute="baseline" secondItem="Uoo-hZ-D1f" secondAttribute="baseline" id="tXr-4J-GsO"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MGZ-hB-jhx" secondAttribute="trailing" constant="20" id="tZB-I8-Qao"/>
                 <constraint firstItem="5rh-cM-iOg" firstAttribute="width" secondItem="tLh-V3-OfB" secondAttribute="width" id="u3l-hm-QNJ"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zEH-aV-Tl7" secondAttribute="trailing" constant="20" id="uIU-b1-ler"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="k33-Yf-DbF" secondAttribute="trailing" constant="20" symbolic="YES" id="vfU-tc-zYw"/>
                 <constraint firstItem="MGZ-hB-jhx" firstAttribute="leading" secondItem="Uoo-hZ-D1f" secondAttribute="trailing" constant="8" id="x7P-ao-di2"/>
                 <constraint firstItem="MGZ-hB-jhx" firstAttribute="top" secondItem="zVi-vU-sh2" secondAttribute="bottom" constant="16" id="yi4-ru-tUN"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ccd-Xn-Dj3" secondAttribute="trailing" constant="20" id="zrg-ax-2rw"/>

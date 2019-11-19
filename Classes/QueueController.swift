@@ -249,7 +249,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
             item.addAction(QueueClearExistingMetadataAction())
         }
         if prefs.searchMetadata {
-            item.addAction(QueueMetadataAction(movieLanguage: prefs.movieProviderLanguage,tvShowLanguage: prefs.tvShowProviderLanguage, movieProvider: prefs.movieProvider, tvShowProvider: prefs.tvShowProvider, preferredArtwork: prefs.providerArtwork))
+            item.addAction(QueueMetadataAction(movieLanguage: prefs.movieProviderLanguage,tvShowLanguage: prefs.tvShowProviderLanguage, movieProvider: prefs.movieProvider, tvShowProvider: prefs.tvShowProvider, preferredArtwork: prefs.providerArtwork, preferredArtworkSize: prefs.providerArtworkSize))
         }
         if prefs.setOutputFilename {
             item.addAction(QueueSetOutputFilenameAction())
