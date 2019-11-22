@@ -171,6 +171,11 @@ public struct AppleTV: MetadataService {
         metadata[.director] = details.roles.filter { $0.type == "Director" }.map { $0.personName }.first
         metadata[.composer] = details.roles.filter { $0.type == "Music" }.map { $0.personName }.first
 
+        if let season = metadata[.season] as? Int {
+            let index = metadata.remoteArtworks.count > 1 ? 1 : 0
+            metadata.remoteArtworks.insert(contentsOf: searchSeasons(id: id, season: season, store: store), at: index)
+        }
+
         return metadata
     }
 
@@ -208,8 +213,8 @@ public struct AppleTV: MetadataService {
 
     // MARK: - Artworks search
 
-    private func searchSeasons(item: Item,  season: Int, store: iTunesStore.Store) -> [Artwork] {
-        let urlString = "\(seasonsURL)\(item.id)/itunesSeasons?sf=\(store.storeCode)&locale=\(store.language2)\(options)"
+    private func searchSeasons(id: String,  season: Int, store: iTunesStore.Store) -> [Artwork] {
+        let urlString = "\(seasonsURL)\(id)/itunesSeasons?sf=\(store.storeCode)&locale=\(store.language2)\(options)"
         if let url = URL(string: urlString), let results = sendJSONRequest(url: url, type: Wrapper<Seasons>.self) {
 
             let filteredResults =  results.data.seasons.values.joined().filter { $0.seasonNumber == season }
@@ -242,7 +247,7 @@ public struct AppleTV: MetadataService {
 
             if case let MediaType.tvShow(season) = type, let item = filteredResults.first {
                 if let season = season {
-                    return artworks + searchSeasons(item: item, season: season, store: store)
+                    return artworks + searchSeasons(id: item.id, season: season, store: store)
                 }
             }
 

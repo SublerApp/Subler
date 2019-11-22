@@ -36,7 +36,7 @@ final class QueuePreferences: NSObject {
     static private let SBQueueTVShowProvider: String = "SBQueueTVShowProvider"
     static private let SBQueueMovieProviderLanguage: String = "SBQueueMovieProviderLanguage"
     static private let SBQueueTVShowProviderLanguage: String = "SBQueueTVShowProviderLanguage"
-    static private let SBQueueProviderArtwork: String = "SBQueueProviderArtwork"
+    static private let SBQueueProviderArtwork: String = "SBQueueProviderArtwork2"
     static private let SBQueueProviderArtworkSize: String = "SBQueueProviderArtworkSize"
 
     static private let SBQueueSetOutputFilename: String = "SBQueueSetOutputFilename"
