@@ -336,8 +336,8 @@ final public class TheMovieDBService {
         return result.posters ?? []
     }
 
-    public func fetch(imagesForSeriesID seriesID: Int, episodeID: Int, season: String, language: String) -> [TMDBImage] {
-        guard let url = URL(string: basePath + "tv/" + String(seriesID) +  "/season/" + season + "/episode/" + String(episodeID) + "/images?api_key=" + key + "&language=" + language + "&include_image_language=en,null"),
+    public func fetch(imagesForSeriesID seriesID: Int, episodeNumber: Int, season: String, language: String) -> [TMDBImage] {
+        guard let url = URL(string: basePath + "tv/" + String(seriesID) +  "/season/" + season + "/episode/" + String(episodeNumber) + "/images?api_key=" + key + "&language=" + language + "&include_image_language=en,null"),
             let result = sendJSONRequest(url: url, language: language, type: TMDBEpisodeImages.self)
             else { return [] }
 

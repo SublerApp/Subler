@@ -364,11 +364,11 @@ public struct TheMovieDB: MetadataService {
     public func loadTVMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
         var artworks: [Artwork] = []
 
-        if let seriesID = metadata[.serviceSeriesID] as? Int, let episodeID = metadata[.serviceEpisodeID] as? Int,
-            let season = metadata[.season] as? Int {
+        if let seriesID = metadata[.serviceSeriesID] as? Int, let season = metadata[.season] as? Int,
+            let episodeNumber = metadata[.episodeNumber] as? Int {
 
             let seasonImages = session.fetch(imagesForSeriesID: seriesID, season: String(season), language: language)
-            let episodeImages = session.fetch(imagesForSeriesID: seriesID, episodeID: episodeID, season: String(season), language: language)
+            let episodeImages = session.fetch(imagesForSeriesID: seriesID, episodeNumber: episodeNumber, season: String(season), language: language)
 
             if let config = session.fetchConfiguration()?.images,
                 let imageBaseURL = config.secure_base_url,
