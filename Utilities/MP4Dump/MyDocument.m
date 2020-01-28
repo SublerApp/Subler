@@ -40,8 +40,8 @@ extern NSString *libraryPath;
 {
     [super windowControllerDidLoadNib:aController];
 
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"LogLevel"]) {
-        [logLevelButton selectItemWithTag:[[NSUserDefaults standardUserDefaults] integerForKey:@"LogLevel"]];
+    if ([NSUserDefaults.standardUserDefaults valueForKey:@"LogLevel"]) {
+        [logLevelButton selectItemWithTag:[NSUserDefaults.standardUserDefaults integerForKey:@"LogLevel"]];
     }
 
     [self _resetTextView];
