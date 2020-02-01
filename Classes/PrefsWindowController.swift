@@ -60,7 +60,9 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
 
                                        "SBFileImporterImportMetadata": true,
                                        
-                                       "SBForceHvc1": true]
+                                       "SBForceHvc1": true,
+                                       "NSApplicationCrashOnException": true
+        ]
 
         defaults.register(defaults: settings)
     }

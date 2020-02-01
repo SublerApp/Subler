@@ -154,7 +154,7 @@
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
-	<string>SBApplication</string>
+	<string>NSApplication</string>
 	<key>OSAScriptingDefinition</key>
 	<string>Queue.sdef</string>
 	<key>SUAllowsAutomaticUpdates</key>
