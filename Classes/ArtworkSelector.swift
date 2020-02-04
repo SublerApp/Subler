@@ -300,12 +300,9 @@ final class ArtworkSelectorController: NSViewController, NSCollectionViewDataSou
 
     // MARK - UI state
 
-    private func toggleUI(items: [NSControl], state: Bool) {
-        items.forEach { $0.isEnabled = state }
-    }
-
     private func disableUI() {
-        toggleUI(items: [slider, addArtworkButton, loadMoreArtworkButton], state: false)
+        [slider, addArtworkButton, loadMoreArtworkButton].forEach { $0.isEnabled = false }
+        imageBrowser.isSelectable = false
     }
 
     private func startProgressReport() {
