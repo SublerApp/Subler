@@ -37,30 +37,23 @@ extension MP42File {
         return nil
     }
 
-    func firstSourceURL() -> URL? {
-        for track in tracks {
-            if track.url != nil {
-                return track.url
-            }
-        }
-        return nil
-    }
+    var firstSourceURL: URL? { tracks.lazy.compactMap { $0.url }.first }
 
     func extractSearchTerms(fallbackURL: URL?) -> MetadataSearchTerms {
         if let tvShow = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyTVShow).first?.stringValue,
             let season = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyTVSeason).first?.numberValue?.intValue,
             let number = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyTVEpisodeNumber).first?.numberValue?.intValue,
             let mediaKind = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
-            mediaKind == MetadataResult.MediaKindType.tvShow.rawValue {
+            mediaKind == MediaKind.tvShow.rawValue {
             return MetadataSearchTerms.tvShow(seriesName: tvShow, season: season, episode: number)
         }
         else if let title = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyName).first?.stringValue,
             let _ = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyReleaseDate).first?.stringValue,
             let mediaKind = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
-            mediaKind == MetadataResult.MediaKindType.movie.rawValue {
+            mediaKind == MediaKind.movie.rawValue {
             return MetadataSearchTerms.movie(title: title)
         }
-        else if let url = firstSourceURL() ?? fallbackURL {
+        else if let url = firstSourceURL ?? fallbackURL {
             let parsed = url.deletingPathExtension().lastPathComponent.parsedAsFilename()
 
             switch parsed {
@@ -75,21 +68,22 @@ extension MP42File {
         return MetadataSearchTerms.none
     }
 
-    private func outputNameFormat(mediaKind: Int) -> [Token]? {
-        if mediaKind == MetadataResult.MediaKindType.tvShow.rawValue {
+    private func outputNameFormat(mediaKind: MediaKind) -> [Token] {
+        switch mediaKind {
+        case .tvShow:
             return UserDefaults.standard.tokenArray(forKey: "SBTVShowFormatTokens")
-        } else if mediaKind == MetadataResult.MediaKindType.movie.rawValue {
+        case .movie:
             return UserDefaults.standard.tokenArray(forKey: "SBMovieFormatTokens")
         }
-        return nil
     }
 
     // MARK: File name
 
     func preferredFileName() -> String? {
-        if let mediaKind = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
-            (mediaKind == MetadataResult.MediaKindType.tvShow.rawValue && UserDefaults.standard.bool(forKey: "SBSetTVShowFormat")) ||
-                (mediaKind == MetadataResult.MediaKindType.movie.rawValue && UserDefaults.standard.bool(forKey: "SBSetMovieFormat")),
+        if let mediaKindValue = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
+            let mediaKind = MediaKind(rawValue: mediaKindValue),
+            (mediaKind == .tvShow && UserDefaults.standard.bool(forKey: "SBSetTVShowFormat")) ||
+                (mediaKind == .movie && UserDefaults.standard.bool(forKey: "SBSetMovieFormat")),
             let name = formattedFileName() {
             return name
         } else {
@@ -98,10 +92,11 @@ extension MP42File {
     }
 
     func formattedFileName() -> String? {
-        guard let mediaKind = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
-              let format = outputNameFormat(mediaKind: mediaKind)
+        guard let mediaKindValue = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
+              let mediaKind = MediaKind(rawValue: mediaKindValue)
             else { return nil }
 
+        let format = outputNameFormat(mediaKind: mediaKind)
         let separators = CharacterSet(charactersIn: "{}")
         var name = ""
 

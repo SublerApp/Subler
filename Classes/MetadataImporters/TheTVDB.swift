@@ -138,7 +138,7 @@ public struct TheTVDB : MetadataService {
 
         // Rating
         if let rating = info.rating, rating.count > 0 {
-            result[.rating] = Ratings.shared.rating(countryCode: "USA", media: "TV", name: rating)?.iTunesCode
+            result[.rating] = Ratings.shared.rating(countryCode: "USA", mediaKind: .tvShow, name: rating)?.iTunesCode
         }
 
         // Actors

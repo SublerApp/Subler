@@ -56,7 +56,7 @@ private extension MetadataResult {
         self[.trackNumber]     = episode.episodeNumber
 
         if let ratingCode = episode.rating?.displayName {
-            self[.rating] = Ratings.shared.rating(storeCode: store.storeCode, media: "TV", code: ratingCode)?.iTunesCode
+            self[.rating] = Ratings.shared.rating(storeCode: store.storeCode, mediaKind: .tvShow, code: ratingCode)?.iTunesCode
         }
 
         self[.iTunesURL]       = episode.showURL
@@ -163,7 +163,7 @@ public struct AppleTV: MetadataService {
         metadata[.studio] = content.studio
 
         if metadata[.rating] == nil {
-            metadata[.rating] = Ratings.shared.rating(storeCode: store.storeCode, media: "TV", code: content.rating.displayName)?.iTunesCode
+            metadata[.rating] = Ratings.shared.rating(storeCode: store.storeCode, mediaKind: .tvShow, code: content.rating.displayName)?.iTunesCode
         }
         metadata[.cast] = details.roles.filter { $0.type == "Actor" }.map { $0.personName }.joined(separator: ", ") +
                           details.roles.filter { $0.type == "Voice" }.map { $0.personName }.joined(separator: ", ")
@@ -200,7 +200,7 @@ public struct AppleTV: MetadataService {
         metadata[.genre] = content.genres.map { $0.name }.joined(separator: ", ")
         metadata[.studio] = content.studio
 
-        metadata[.rating] = Ratings.shared.rating(storeCode: store.storeCode, media: "movie", code: content.rating.displayName)?.iTunesCode
+        metadata[.rating] = Ratings.shared.rating(storeCode: store.storeCode, mediaKind: .movie, code: content.rating.displayName)?.iTunesCode
 
         metadata[.cast] = details.roles.filter { $0.type == "Actor" }.map { $0.personName }.joined(separator: ", ")  +
                           details.roles.filter { $0.type == "Voice" }.map { $0.personName }.joined(separator: ", ")

@@ -19,14 +19,14 @@ final class Ratings {
         self.countries = countries
     }
 
-    func rating(countryCode: String, media: String, name: String) -> Rating? {
+    func rating(countryCode: String, mediaKind: MediaKind, name: String) -> Rating? {
         guard let country = countries.first(where: { $0.displayName == countryCode }) else { return nil }
-        return country.ratings.first(where: {$0.media.contains(media) && $0.displayName == name})
+        return country.ratings.first(where: {$0.media.contains(mediaKind.description) && $0.displayName == name})
     }
 
-    func rating(storeCode: Int, media: String, code: String) -> Rating? {
+    func rating(storeCode: Int, mediaKind: MediaKind, code: String) -> Rating? {
         guard let country = countries.first(where: { $0.storeCode == storeCode }) else { return nil }
-        return country.ratings.first(where: {$0.media.contains(media) && $0.code == code})
+        return country.ratings.first(where: {$0.media.contains(mediaKind.description) && $0.code == code})
     }
 }
 

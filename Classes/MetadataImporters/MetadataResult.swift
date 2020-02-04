@@ -68,6 +68,20 @@ public struct Artwork {
     public let size: ArtworkSize
 }
 
+public enum MediaKind: Int {
+    case tvShow = 10
+    case movie = 9
+
+    public var description: String {
+        switch self {
+        case .movie:
+            return "Movie"
+        case .tvShow:
+            return "TV"
+        }
+    }
+}
+
 private let localizedKeys: [MetadataResult.Key: String] = [
     .name             : NSLocalizedString("Name", comment: "nil"),
     .composer         : NSLocalizedString("Composer", comment: "nil"),
@@ -103,7 +117,7 @@ private let localizedKeys: [MetadataResult.Key: String] = [
     .serviceEpisodeID : NSLocalizedString("Service ID", comment: "nil")
 ]
 
-public class MetadataResult {
+public final class MetadataResult {
 
     public enum Key: String {
         // Common Keys
@@ -263,22 +277,7 @@ public class MetadataResult {
     }
 
     private var dictionary: [Key:Any]
-
-    public enum MediaKindType: Int {
-        case tvShow = 10
-        case movie = 9
-
-        public var description: String {
-            switch self {
-            case .movie:
-                return "Movie"
-            case .tvShow:
-                return "TV"
-            }
-        }
-    }
-
-    public var mediaKind: MediaKindType
+    public var mediaKind: MediaKind
     public var contentRating: Int
     public var remoteArtworks: [Artwork]
     public var artworks: [MP42Image]

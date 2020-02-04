@@ -3,13 +3,13 @@
 	"country" : "USA",
     "storeCode" : 143441,
 	"ratings" : [
-	   { "media" : "movie", "prefix" : "mpaa", 	"itunes-code" : "NR", 		"itunes-value" : "000", "description" : "NR" },
-	   { "media" : "movie", "prefix" : "mpaa", 	"itunes-code" : "G", 		"itunes-value" : "100", "description" : "G" },
-	   { "media" : "movie", "prefix" : "mpaa", 	"itunes-code" : "PG", 		"itunes-value" : "200", "description" : "PG" },
-	   { "media" : "movie", "prefix" : "mpaa", 	"itunes-code" : "PG-13", 	"itunes-value" : "300", "description" : "PG-13" },
-	   { "media" : "movie", "prefix" : "mpaa", 	"itunes-code" : "R", 		"itunes-value" : "400", "description" : "R" },
-	   { "media" : "movie", "prefix" : "mpaa", 	"itunes-code" : "NC-17", 	"itunes-value" : "500", "description" : "NC-17" },
-	   { "media" : "movie", "prefix" : "mpaa", 	"itunes-code" : "Unrated", 	"itunes-value" : "???", "description" : "Unrated" },
+	   { "media" : "Movie", "prefix" : "mpaa", 	"itunes-code" : "NR", 		"itunes-value" : "000", "description" : "NR" },
+	   { "media" : "Movie", "prefix" : "mpaa", 	"itunes-code" : "G", 		"itunes-value" : "100", "description" : "G" },
+	   { "media" : "Movie", "prefix" : "mpaa", 	"itunes-code" : "PG", 		"itunes-value" : "200", "description" : "PG" },
+	   { "media" : "Movie", "prefix" : "mpaa", 	"itunes-code" : "PG-13", 	"itunes-value" : "300", "description" : "PG-13" },
+	   { "media" : "Movie", "prefix" : "mpaa", 	"itunes-code" : "R", 		"itunes-value" : "400", "description" : "R" },
+	   { "media" : "Movie", "prefix" : "mpaa", 	"itunes-code" : "NC-17", 	"itunes-value" : "500", "description" : "NC-17" },
+	   { "media" : "Movie", "prefix" : "mpaa", 	"itunes-code" : "Unrated", 	"itunes-value" : "???", "description" : "Unrated" },
 	   { "media" : "TV",	"prefix" : "us-tv",	"itunes-code" : "TV-Y",		"itunes-value" : "100", "description" : "TV-Y" },
 	   { "media" : "TV",	"prefix" : "us-tv",	"itunes-code" : "TV-Y7",	"itunes-value" : "200", "description" : "TV-Y7" },
 	   { "media" : "TV",	"prefix" : "us-tv",	"itunes-code" : "TV-G",		"itunes-value" : "300", "description" : "TV-G" },
@@ -23,12 +23,12 @@
 	"country" : "Australia",
     "storeCode" : 143460,
 	"ratings" : [
-	   { "media" : "movie", "prefix" : "au-movie", 	"itunes-code" : "G", 		"itunes-value" : "100",  "description" : "G" },
-	   { "media" : "movie", "prefix" : "au-movie", 	"itunes-code" : "PG", 		"itunes-value" : "200",  "description" : "PG" },
-	   { "media" : "movie", "prefix" : "au-movie", 	"itunes-code" : "M", 		"itunes-value" : "350",  "description" : "M" },
-	   { "media" : "movie", "prefix" : "au-movie", 	"itunes-code" : "MA15+",	"itunes-value" : "375",  "description" : "MA15+" },
-	   { "media" : "movie", "prefix" : "au-movie", 	"itunes-code" : "R18+", 	"itunes-value" : "400",  "description" : "R18+" },
-	   { "media" : "movie", "prefix" : "au-movie", 	"itunes-code" : "Not Rated","itunes-value" : "???",  "description" : "Not Rated" },
+	   { "media" : "Movie", "prefix" : "au-movie", 	"itunes-code" : "G", 		"itunes-value" : "100",  "description" : "G" },
+	   { "media" : "Movie", "prefix" : "au-movie", 	"itunes-code" : "PG", 		"itunes-value" : "200",  "description" : "PG" },
+	   { "media" : "Movie", "prefix" : "au-movie", 	"itunes-code" : "M", 		"itunes-value" : "350",  "description" : "M" },
+	   { "media" : "Movie", "prefix" : "au-movie", 	"itunes-code" : "MA15+",	"itunes-value" : "375",  "description" : "MA15+" },
+	   { "media" : "Movie", "prefix" : "au-movie", 	"itunes-code" : "R18+", 	"itunes-value" : "400",  "description" : "R18+" },
+	   { "media" : "Movie", "prefix" : "au-movie", 	"itunes-code" : "Not Rated","itunes-value" : "???",  "description" : "Not Rated" },
 	   { "media" : "TV", 	"prefix" : "au-tv", 	"itunes-code" : "P", 		"itunes-value" : "100",  "description" : "P" },
 	   { "media" : "TV", 	"prefix" : "au-tv", 	"itunes-code" : "C", 		"itunes-value" : "200",  "description" : "C" },
 	   { "media" : "TV", 	"prefix" : "au-tv", 	"itunes-code" : "G", 		"itunes-value" : "300",  "description" : "G" },
@@ -43,25 +43,25 @@
 	"country" : "Brasil",
     "storeCode" : 143503,
 	"ratings" : [
-	   { "media" : "movie", "prefix" : "br-movie", 	"itunes-code" : "L", 	"itunes-value" : "000",  "description" : "L" },
-	   { "media" : "movie", "prefix" : "br-movie", 	"itunes-code" : "12", 	"itunes-value" : "100",  "description" : "12" },
-	   { "media" : "movie", "prefix" : "br-movie", 	"itunes-code" : "14", 	"itunes-value" : "300",  "description" : "14" },
-	   { "media" : "movie", "prefix" : "br-movie", 	"itunes-code" : "16", 	"itunes-value" : "350",  "description" : "16" },
-	   { "media" : "movie", "prefix" : "br-movie", 	"itunes-code" : "18", 	"itunes-value" : "400",  "description" : "18" }
+	   { "media" : "Movie", "prefix" : "br-movie", 	"itunes-code" : "L", 	"itunes-value" : "000",  "description" : "L" },
+	   { "media" : "Movie", "prefix" : "br-movie", 	"itunes-code" : "12", 	"itunes-value" : "100",  "description" : "12" },
+	   { "media" : "Movie", "prefix" : "br-movie", 	"itunes-code" : "14", 	"itunes-value" : "300",  "description" : "14" },
+	   { "media" : "Movie", "prefix" : "br-movie", 	"itunes-code" : "16", 	"itunes-value" : "350",  "description" : "16" },
+	   { "media" : "Movie", "prefix" : "br-movie", 	"itunes-code" : "18", 	"itunes-value" : "400",  "description" : "18" }
 	]
 },
 {
 	"country" : "Canada",
     "storeCode" : 143455,
 	"ratings" : [
-	   { "media" : "movie", "prefix" : "ca-movie", 	"itunes-code" : "G", 		"itunes-value" : "100",  "description" : "G" },
-	   { "media" : "movie", "prefix" : "ca-movie", 	"itunes-code" : "PG", 		"itunes-value" : "200",  "description" : "PG" },
-	   { "media" : "movie", "prefix" : "ca-movie", 	"itunes-code" : "14A", 		"itunes-value" : "300",  "description" : "14A" },
-	   { "media" : "movie", "prefix" : "ca-movie", 	"itunes-code" : "18A", 		"itunes-value" : "350",  "description" : "18A" },
-	   { "media" : "movie", "prefix" : "ca-movie", 	"itunes-code" : "R", 		"itunes-value" : "400",  "description" : "R" },
-	   { "media" : "movie", "prefix" : "ca-movie", 	"itunes-code" : "A", 		"itunes-value" : "500",  "description" : "A" },
-	   { "media" : "movie", "prefix" : "ca-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "Unrated" },
-	   { "media" : "movie", "prefix" : "ca-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "Not Rated" },
+	   { "media" : "Movie", "prefix" : "ca-movie", 	"itunes-code" : "G", 		"itunes-value" : "100",  "description" : "G" },
+	   { "media" : "Movie", "prefix" : "ca-movie", 	"itunes-code" : "PG", 		"itunes-value" : "200",  "description" : "PG" },
+	   { "media" : "Movie", "prefix" : "ca-movie", 	"itunes-code" : "14A", 		"itunes-value" : "300",  "description" : "14A" },
+	   { "media" : "Movie", "prefix" : "ca-movie", 	"itunes-code" : "18A", 		"itunes-value" : "350",  "description" : "18A" },
+	   { "media" : "Movie", "prefix" : "ca-movie", 	"itunes-code" : "R", 		"itunes-value" : "400",  "description" : "R" },
+	   { "media" : "Movie", "prefix" : "ca-movie", 	"itunes-code" : "A", 		"itunes-value" : "500",  "description" : "A" },
+	   { "media" : "Movie", "prefix" : "ca-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "Unrated" },
+	   { "media" : "Movie", "prefix" : "ca-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "Not Rated" },
 	   { "media" : "TV", 	"prefix" : "ca-tv", 	"itunes-code" : "E", 	"itunes-value" : "000",  "description" : "E" },
 	   { "media" : "TV", 	"prefix" : "ca-tv", 	"itunes-code" : "C", 	"itunes-value" : "050",  "description" : "C" },
 	   { "media" : "TV", 	"prefix" : "ca-tv", 	"itunes-code" : "C8", 	"itunes-value" : "075",  "description" : "C8" },
@@ -76,11 +76,11 @@
 	"country" : "Deutschland",
     "storeCode" : 143443,
 	"ratings" : [
-	   { "media" : "movie", "prefix" : "de-movie", 	"itunes-code" : "Ab 0 Jahren", 	"itunes-value" : "075", "description" : "Ab 0 Jahren" },
-	   { "media" : "movie", "prefix" : "de-movie", 	"itunes-code" : "Ab 6 Jahren", 	"itunes-value" : "100", "description" : "Ab 6 Jahren" },
-	   { "media" : "movie", "prefix" : "de-movie", 	"itunes-code" : "Ab 12 Jahren", "itunes-value" : "200", "description" : "Ab 12 Jahren" },
-	   { "media" : "movie", "prefix" : "de-movie", 	"itunes-code" : "Ab 16 Jahren", "itunes-value" : "500", "description" : "Ab 16 Jahren" },
-	   { "media" : "movie", "prefix" : "de-movie", 	"itunes-code" : "Ab 18 Jahren", "itunes-value" : "600", "description" : "Ab 18 Jahren" },
+	   { "media" : "Movie", "prefix" : "de-movie", 	"itunes-code" : "Ab 0 Jahren", 	"itunes-value" : "075", "description" : "Ab 0 Jahren" },
+	   { "media" : "Movie", "prefix" : "de-movie", 	"itunes-code" : "Ab 6 Jahren", 	"itunes-value" : "100", "description" : "Ab 6 Jahren" },
+	   { "media" : "Movie", "prefix" : "de-movie", 	"itunes-code" : "Ab 12 Jahren", "itunes-value" : "200", "description" : "Ab 12 Jahren" },
+	   { "media" : "Movie", "prefix" : "de-movie", 	"itunes-code" : "Ab 16 Jahren", "itunes-value" : "500", "description" : "Ab 16 Jahren" },
+	   { "media" : "Movie", "prefix" : "de-movie", 	"itunes-code" : "Ab 18 Jahren", "itunes-value" : "600", "description" : "Ab 18 Jahren" },
 	   { "media" : "TV", 	"prefix" : "de-tv", 	"itunes-code" : "Ab 0 Jahren", 	"itunes-value" : "075", "description" : "Ab 0 Jahren" },
 	   { "media" : "TV", 	"prefix" : "de-tv", 	"itunes-code" : "Ab 6 Jahren", 	"itunes-value" : "100", "description" : "Ab 6 Jahren" },
 	   { "media" : "TV", 	"prefix" : "de-tv", 	"itunes-code" : "Ab 12 Jahren", "itunes-value" : "200", "description" : "Ab 12 Jahren" },
@@ -92,38 +92,38 @@
 	"country" : "France",
     "storeCode" : 143442,
 	"ratings" : [
-	   { "media" : "movie & TV", "prefix" : "fr-movie", 	"itunes-code" : "Tout public", 	"itunes-value" : "000",  "description" : "Tout public" },
-	   { "media" : "movie & TV", "prefix" : "fr-movie", 	"itunes-code" : "-10",	 		"itunes-value" : "100",  "description" : "-10" },
-	   { "media" : "movie & TV", "prefix" : "fr-movie", 	"itunes-code" : "-12",	 		"itunes-value" : "300",  "description" : "-12" },
-	   { "media" : "movie & TV", "prefix" : "fr-movie", 	"itunes-code" : "-16",	 		"itunes-value" : "375",  "description" : "-16" },
-	   { "media" : "movie & TV", "prefix" : "fr-movie", 	"itunes-code" : "-18",	 		"itunes-value" : "400",  "description" : "-18" },
-	   { "media" : "movie & TV", "prefix" : "fr-movie", 	"itunes-code" : "Unrated", 		"itunes-value" : "???",  "description" : "Unrated" }
+	   { "media" : "Movie & TV", "prefix" : "fr-movie", 	"itunes-code" : "Tout public", 	"itunes-value" : "000",  "description" : "Tout public" },
+	   { "media" : "Movie & TV", "prefix" : "fr-movie", 	"itunes-code" : "-10",	 		"itunes-value" : "100",  "description" : "-10" },
+	   { "media" : "Movie & TV", "prefix" : "fr-movie", 	"itunes-code" : "-12",	 		"itunes-value" : "300",  "description" : "-12" },
+	   { "media" : "Movie & TV", "prefix" : "fr-movie", 	"itunes-code" : "-16",	 		"itunes-value" : "375",  "description" : "-16" },
+	   { "media" : "Movie & TV", "prefix" : "fr-movie", 	"itunes-code" : "-18",	 		"itunes-value" : "400",  "description" : "-18" },
+	   { "media" : "Movie & TV", "prefix" : "fr-movie", 	"itunes-code" : "Unrated", 		"itunes-value" : "???",  "description" : "Unrated" }
 	]
 },
 {
 	"country" : "Italia",
     "storeCode" : 143450,
 	"ratings" : [
-	   { "media" : "movie", "prefix" : "it-movie", 	"itunes-code" : "T", 	"itunes-value" : "100",  "description" : "T" },
-	   { "media" : "movie", "prefix" : "it-movie", 	"itunes-code" : "VPA", 	"itunes-value" : "125",  "description" : "VPA" },
-	   { "media" : "movie", "prefix" : "it-movie", 	"itunes-code" : "VM10", "itunes-value" : "150",  "description" : "VM10" },
-	   { "media" : "movie", "prefix" : "it-movie", 	"itunes-code" : "VM12", "itunes-value" : "200",  "description" : "VM12" },
-	   { "media" : "movie", "prefix" : "it-movie", 	"itunes-code" : "VM14", "itunes-value" : "325",  "description" : "VM14" },
-	   { "media" : "movie", "prefix" : "it-movie", 	"itunes-code" : "VM18", "itunes-value" : "400",  "description" : "VM18" }
+	   { "media" : "Movie", "prefix" : "it-movie", 	"itunes-code" : "T", 	"itunes-value" : "100",  "description" : "T" },
+	   { "media" : "Movie", "prefix" : "it-movie", 	"itunes-code" : "VPA", 	"itunes-value" : "125",  "description" : "VPA" },
+	   { "media" : "Movie", "prefix" : "it-movie", 	"itunes-code" : "VM10", "itunes-value" : "150",  "description" : "VM10" },
+	   { "media" : "Movie", "prefix" : "it-movie", 	"itunes-code" : "VM12", "itunes-value" : "200",  "description" : "VM12" },
+	   { "media" : "Movie", "prefix" : "it-movie", 	"itunes-code" : "VM14", "itunes-value" : "325",  "description" : "VM14" },
+	   { "media" : "Movie", "prefix" : "it-movie", 	"itunes-code" : "VM18", "itunes-value" : "400",  "description" : "VM18" }
 	]
 },
 {
     "country" : "Ireland",
     "storeCode" : 143449,
     "ratings" : [
-       { "media" : "movie", "prefix" : "ie-movie",     "itunes-code" : "Not Rated",     "itunes-value" : "000",  "description" : "Not Rated" },
-       { "media" : "movie", "prefix" : "ie-movie",     "itunes-code" : "G",             "itunes-value" : "100",  "description" : "G" },
-       { "media" : "movie", "prefix" : "ie-movie",     "itunes-code" : "PG",            "itunes-value" : "200",  "description" : "PG" },
-       { "media" : "movie", "prefix" : "ie-movie",     "itunes-code" : "12",            "itunes-value" : "300",  "description" : "12" },
-       { "media" : "movie", "prefix" : "ie-movie",     "itunes-code" : "15",            "itunes-value" : "350",  "description" : "15" },
-       { "media" : "movie", "prefix" : "ie-movie",     "itunes-code" : "16",            "itunes-value" : "375",  "description" : "16" },
-       { "media" : "movie", "prefix" : "ie-movie",     "itunes-code" : "18",            "itunes-value" : "400",  "description" : "18" },
-       { "media" : "movie", "prefix" : "ie-movie",     "itunes-code" : "Unrated",       "itunes-value" : "???",  "description" : "Unrated" },
+       { "media" : "Movie", "prefix" : "ie-movie",     "itunes-code" : "Not Rated",     "itunes-value" : "000",  "description" : "Not Rated" },
+       { "media" : "Movie", "prefix" : "ie-movie",     "itunes-code" : "G",             "itunes-value" : "100",  "description" : "G" },
+       { "media" : "Movie", "prefix" : "ie-movie",     "itunes-code" : "PG",            "itunes-value" : "200",  "description" : "PG" },
+       { "media" : "Movie", "prefix" : "ie-movie",     "itunes-code" : "12",            "itunes-value" : "300",  "description" : "12" },
+       { "media" : "Movie", "prefix" : "ie-movie",     "itunes-code" : "15",            "itunes-value" : "350",  "description" : "15" },
+       { "media" : "Movie", "prefix" : "ie-movie",     "itunes-code" : "16",            "itunes-value" : "375",  "description" : "16" },
+       { "media" : "Movie", "prefix" : "ie-movie",     "itunes-code" : "18",            "itunes-value" : "400",  "description" : "18" },
+       { "media" : "Movie", "prefix" : "ie-movie",     "itunes-code" : "Unrated",       "itunes-value" : "???",  "description" : "Unrated" },
        { "media" : "TV",    "prefix" : "ie-tv",        "itunes-code" : "G",             "itunes-value" : "100",  "description" : "G" },
        { "media" : "TV",    "prefix" : "ie-tv",        "itunes-code" : "PG",            "itunes-value" : "350",  "description" : "PG" },
        { "media" : "TV",    "prefix" : "ie-tv",        "itunes-code" : "12",            "itunes-value" : "400",  "description" : "12" },
@@ -135,179 +135,179 @@
 	"country" : "日本",
     "storeCode" : 143462,
 	"ratings" : [
-	   { "media" : "movie", "prefix" : "jp-movie", 	"itunes-code" : "G", 		"itunes-value" : "100",  "description" : "G" },
-	   { "media" : "movie", "prefix" : "jp-movie", 	"itunes-code" : "PG12", 	"itunes-value" : "200",  "description" : "PG12" },
-	   { "media" : "movie", "prefix" : "jp-movie", 	"itunes-code" : "R15+", 	"itunes-value" : "300",  "description" : "R15+" },
-	   { "media" : "movie", "prefix" : "jp-movie", 	"itunes-code" : "R18+", 	"itunes-value" : "400",  "description" : "R18+" },
-	   { "media" : "movie", "prefix" : "jp-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "未審査" }
+	   { "media" : "Movie", "prefix" : "jp-movie", 	"itunes-code" : "G", 		"itunes-value" : "100",  "description" : "G" },
+	   { "media" : "Movie", "prefix" : "jp-movie", 	"itunes-code" : "PG12", 	"itunes-value" : "200",  "description" : "PG12" },
+	   { "media" : "Movie", "prefix" : "jp-movie", 	"itunes-code" : "R15+", 	"itunes-value" : "300",  "description" : "R15+" },
+	   { "media" : "Movie", "prefix" : "jp-movie", 	"itunes-code" : "R18+", 	"itunes-value" : "400",  "description" : "R18+" },
+	   { "media" : "Movie", "prefix" : "jp-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "未審査" }
 	]
 },
 {
 	"country" : "Mexico",
     "storeCode" : 143468,
 	"ratings" : [
-        { "media" : "movie", "prefix" : "mx-movie", 	"itunes-code" : "AA", 	"itunes-value" : "000",  "description" : "AA" },
-        { "media" : "movie", "prefix" : "mx-movie", 	"itunes-code" : "A", 	"itunes-value" : "100",  "description" : "A" },
-        { "media" : "movie", "prefix" : "mx-movie", 	"itunes-code" : "B", 	"itunes-value" : "300",  "description" : "B" },
-        { "media" : "movie", "prefix" : "mx-movie", 	"itunes-code" : "B-15", "itunes-value" : "500",  "description" : "B-15" },
-        { "media" : "movie", "prefix" : "mx-movie", 	"itunes-code" : "C", 	"itunes-value" : "600",  "description" : "C" }
+        { "media" : "Movie", "prefix" : "mx-movie", 	"itunes-code" : "AA", 	"itunes-value" : "000",  "description" : "AA" },
+        { "media" : "Movie", "prefix" : "mx-movie", 	"itunes-code" : "A", 	"itunes-value" : "100",  "description" : "A" },
+        { "media" : "Movie", "prefix" : "mx-movie", 	"itunes-code" : "B", 	"itunes-value" : "300",  "description" : "B" },
+        { "media" : "Movie", "prefix" : "mx-movie", 	"itunes-code" : "B-15", "itunes-value" : "500",  "description" : "B-15" },
+        { "media" : "Movie", "prefix" : "mx-movie", 	"itunes-code" : "C", 	"itunes-value" : "600",  "description" : "C" }
     ]
 },
 {
 	"country" : "Nederland",
     "storeCode" : 143452,
 	"ratings" : [
-	   { "media" : "movie & TV", "prefix" : "nl-movie", 	"itunes-code" : "AL/G", "itunes-value" : "000",  "description" : "AL/G" },
-	   { "media" : "movie & TV", "prefix" : "nl-movie", 	"itunes-code" : "6", 	"itunes-value" : "100",  "description" : "6" },
-	   { "media" : "movie & TV", "prefix" : "nl-movie", 	"itunes-code" : "9", 	"itunes-value" : "200",  "description" : "9" },
-	   { "media" : "movie & TV", "prefix" : "nl-movie", 	"itunes-code" : "12", 	"itunes-value" : "300",  "description" : "12" },
-	   { "media" : "movie & TV", "prefix" : "nl-movie", 	"itunes-code" : "16", 	"itunes-value" : "500",  "description" : "16" },
-	   { "media" : "movie & TV", "prefix" : "nl-movie", 	"itunes-code" : "18", 	"itunes-value" : "600",  "description" : "18" }
+	   { "media" : "Movie & TV", "prefix" : "nl-movie", 	"itunes-code" : "AL/G", "itunes-value" : "000",  "description" : "AL/G" },
+	   { "media" : "Movie & TV", "prefix" : "nl-movie", 	"itunes-code" : "6", 	"itunes-value" : "100",  "description" : "6" },
+	   { "media" : "Movie & TV", "prefix" : "nl-movie", 	"itunes-code" : "9", 	"itunes-value" : "200",  "description" : "9" },
+	   { "media" : "Movie & TV", "prefix" : "nl-movie", 	"itunes-code" : "12", 	"itunes-value" : "300",  "description" : "12" },
+	   { "media" : "Movie & TV", "prefix" : "nl-movie", 	"itunes-code" : "16", 	"itunes-value" : "500",  "description" : "16" },
+	   { "media" : "Movie & TV", "prefix" : "nl-movie", 	"itunes-code" : "18", 	"itunes-value" : "600",  "description" : "18" }
 	]
 },
 {
 	"country" : "New Zealand",
     "storeCode" : 143461,
 	"ratings" : [
-	   { "media" : "movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "G", 		"itunes-value" : "100",  "description" : "G" },
-	   { "media" : "movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "PG", 		"itunes-value" : "200",  "description" : "PG" },
-	   { "media" : "movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "M", 		"itunes-value" : "300",  "description" : "M" },
-	   { "media" : "movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "R13", 		"itunes-value" : "325",  "description" : "R13" },
-	   { "media" : "movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "RP13",		"itunes-value" : "325",  "description" : "RP13" },
-	   { "media" : "movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "R15", 		"itunes-value" : "350",  "description" : "R15" },
-	   { "media" : "movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "R16", 		"itunes-value" : "375",  "description" : "R16" },
-	   { "media" : "movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "RP16",		"itunes-value" : "375",  "description" : "RP16" },
-	   { "media" : "movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "R18", 		"itunes-value" : "400",  "description" : "R18" },
-	   { "media" : "movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "R", 		"itunes-value" : "500",  "description" : "R" },
-	   { "media" : "movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "U", 		"itunes-value" : "900",  "description" : "U" },
-	   { "media" : "movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "Not Rated","itunes-value" : "???",  "description" : "Not Rated" }
+	   { "media" : "Movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "G", 		"itunes-value" : "100",  "description" : "G" },
+	   { "media" : "Movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "PG", 		"itunes-value" : "200",  "description" : "PG" },
+	   { "media" : "Movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "M", 		"itunes-value" : "300",  "description" : "M" },
+	   { "media" : "Movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "R13", 		"itunes-value" : "325",  "description" : "R13" },
+	   { "media" : "Movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "RP13",		"itunes-value" : "325",  "description" : "RP13" },
+	   { "media" : "Movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "R15", 		"itunes-value" : "350",  "description" : "R15" },
+	   { "media" : "Movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "R16", 		"itunes-value" : "375",  "description" : "R16" },
+	   { "media" : "Movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "RP16",		"itunes-value" : "375",  "description" : "RP16" },
+	   { "media" : "Movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "R18", 		"itunes-value" : "400",  "description" : "R18" },
+	   { "media" : "Movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "R", 		"itunes-value" : "500",  "description" : "R" },
+	   { "media" : "Movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "U", 		"itunes-value" : "900",  "description" : "U" },
+	   { "media" : "Movie & TV", "prefix" : "nz-movie", 	"itunes-code" : "Not Rated","itunes-value" : "???",  "description" : "Not Rated" }
 	]
 },
 {
 	"country" : "Sverige",
     "storeCode" : 143456,
 	"ratings" : [
-	   { "media" : "movie & TV", "prefix" : "se-movie", 	"itunes-code" : "A", 		"itunes-value" : "000",  "description" : "Barntillåten" },
-	   { "media" : "movie & TV", "prefix" : "se-movie", 	"itunes-code" : "7", 		"itunes-value" : "125",  "description" : "Från 7 år" },
-	   { "media" : "movie & TV", "prefix" : "se-movie", 	"itunes-code" : "11", 		"itunes-value" : "225",  "description" : "Från 11 år" },
-	   { "media" : "movie & TV", "prefix" : "se-movie", 	"itunes-code" : "15", 		"itunes-value" : "400",  "description" : "Från 15 år" },
-	   { "media" : "movie & TV", "prefix" : "se-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "Ocensurerad" },
-	   { "media" : "movie & TV", "prefix" : "se-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "Inte klassificerad" }
+	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "A", 		"itunes-value" : "000",  "description" : "Barntillåten" },
+	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "7", 		"itunes-value" : "125",  "description" : "Från 7 år" },
+	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "11", 		"itunes-value" : "225",  "description" : "Från 11 år" },
+	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "15", 		"itunes-value" : "400",  "description" : "Från 15 år" },
+	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "Ocensurerad" },
+	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "Inte klassificerad" }
 	]
 },
 {
 	"country" : "Schweiz",
     "storeCode" : 143459,
 	"ratings" : [
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "0", 		"itunes-value" : "050",  "description" : "0" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "6", 		"itunes-value" : "075",  "description" : "6" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "7", 		"itunes-value" : "125",  "description" : "7" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "10", 		"itunes-value" : "150",  "description" : "10" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "12", 		"itunes-value" : "200",  "description" : "12" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "14", 		"itunes-value" : "325",  "description" : "14" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "16", 		"itunes-value" : "375",  "description" : "16" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "18", 		"itunes-value" : "400",  "description" : "18" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "keine alterseinstufung" }
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "0", 		"itunes-value" : "050",  "description" : "0" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "6", 		"itunes-value" : "075",  "description" : "6" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "7", 		"itunes-value" : "125",  "description" : "7" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "10", 		"itunes-value" : "150",  "description" : "10" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "12", 		"itunes-value" : "200",  "description" : "12" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "14", 		"itunes-value" : "325",  "description" : "14" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "16", 		"itunes-value" : "375",  "description" : "16" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "18", 		"itunes-value" : "400",  "description" : "18" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "keine alterseinstufung" }
 	]
 },
 {
 	"country" : "Suisse",
     "storeCode" : 143459,
 	"ratings" : [
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "0", 		"itunes-value" : "050",  "description" : "0" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "6", 		"itunes-value" : "075",  "description" : "6" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "7", 		"itunes-value" : "125",  "description" : "7" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "10", 		"itunes-value" : "150",  "description" : "10" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "12",	 	"itunes-value" : "200",  "description" : "12" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "14", 		"itunes-value" : "325",  "description" : "14" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "16", 		"itunes-value" : "375",  "description" : "16" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "18", 		"itunes-value" : "400",  "description" : "18" },
-	   { "media" : "movie", "prefix" : "ch-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "keine alterseinstufung" }
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "0", 		"itunes-value" : "050",  "description" : "0" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "6", 		"itunes-value" : "075",  "description" : "6" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "7", 		"itunes-value" : "125",  "description" : "7" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "10", 		"itunes-value" : "150",  "description" : "10" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "12",	 	"itunes-value" : "200",  "description" : "12" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "14", 		"itunes-value" : "325",  "description" : "14" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "16", 		"itunes-value" : "375",  "description" : "16" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "18", 		"itunes-value" : "400",  "description" : "18" },
+	   { "media" : "Movie", "prefix" : "ch-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "keine alterseinstufung" }
 	]
 },
 {
 	"country" : "UK",
     "storeCode" : 143444,
 	"ratings" : [
-	   { "media" : "movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "NR", 		"itunes-value" : "000", "description" : "Not Rated" },
-	   { "media" : "movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "U", 		"itunes-value" : "100", "description" : "U" },
-	   { "media" : "movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "Uc", 		"itunes-value" : "150", "description" : "Uc" },
-	   { "media" : "movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "PG",	 	"itunes-value" : "200", "description" : "PG" },
-	   { "media" : "movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "12", 		"itunes-value" : "300", "description" : "12" },
-	   { "media" : "movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "12A", 		"itunes-value" : "325", "description" : "12A" },
-	   { "media" : "movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "15",	 	"itunes-value" : "350", "description" : "15" },
-	   { "media" : "movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "18", 		"itunes-value" : "400", "description" : "18" },
+	   { "media" : "Movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "NR", 		"itunes-value" : "000", "description" : "Not Rated" },
+	   { "media" : "Movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "U", 		"itunes-value" : "100", "description" : "U" },
+	   { "media" : "Movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "Uc", 		"itunes-value" : "150", "description" : "Uc" },
+	   { "media" : "Movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "PG",	 	"itunes-value" : "200", "description" : "PG" },
+	   { "media" : "Movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "12", 		"itunes-value" : "300", "description" : "12" },
+	   { "media" : "Movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "12A", 		"itunes-value" : "325", "description" : "12A" },
+	   { "media" : "Movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "15",	 	"itunes-value" : "350", "description" : "15" },
+	   { "media" : "Movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "18", 		"itunes-value" : "400", "description" : "18" },
 	   { "media" : "TV", 			"prefix" : "uk-tv", 	"itunes-code" : "Caution",	"itunes-value" : "500", "description" : "Caution" },
-	   { "media" : "movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "R18", 		"itunes-value" : "600", "description" : "R18" },
-	   { "media" : "movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "E", 		"itunes-value" : "0",   "description" : "Exempt" },
-	   { "media" : "movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???", "description" : "Unrated" },
-	   { "media" : "movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???", "description" : "TBC" }
+	   { "media" : "Movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "R18", 		"itunes-value" : "600", "description" : "R18" },
+	   { "media" : "Movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "E", 		"itunes-value" : "0",   "description" : "Exempt" },
+	   { "media" : "Movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???", "description" : "Unrated" },
+	   { "media" : "Movie & TV", 	"prefix" : "uk-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???", "description" : "TBC" }
 	]
 },
 {
 	"country" : "Россия",
     "storeCode" : 143469,
 	"ratings" : [
-	   { "media" : "movie & TV", 	"prefix" : "ru-movie", 	"itunes-code" : "0+", 		"itunes-value" : "000", "description" : "0+" },
-	   { "media" : "movie & TV", 	"prefix" : "ru-movie", 	"itunes-code" : "6+", 		"itunes-value" : "150", "description" : "6+" },
-	   { "media" : "movie & TV", 	"prefix" : "ru-movie", 	"itunes-code" : "12+", 		"itunes-value" : "200", "description" : "12+" },
-	   { "media" : "movie & TV", 	"prefix" : "ru-movie", 	"itunes-code" : "16+",	 	"itunes-value" : "375", "description" : "16+" },
-	   { "media" : "movie & TV", 	"prefix" : "ru-movie", 	"itunes-code" : "18+", 		"itunes-value" : "400", "description" : "18+" },
-	   { "media" : "movie & TV", 	"prefix" : "ru-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???", "description" : "Unrated" }
+	   { "media" : "Movie & TV", 	"prefix" : "ru-movie", 	"itunes-code" : "0+", 		"itunes-value" : "000", "description" : "0+" },
+	   { "media" : "Movie & TV", 	"prefix" : "ru-movie", 	"itunes-code" : "6+", 		"itunes-value" : "150", "description" : "6+" },
+	   { "media" : "Movie & TV", 	"prefix" : "ru-movie", 	"itunes-code" : "12+", 		"itunes-value" : "200", "description" : "12+" },
+	   { "media" : "Movie & TV", 	"prefix" : "ru-movie", 	"itunes-code" : "16+",	 	"itunes-value" : "375", "description" : "16+" },
+	   { "media" : "Movie & TV", 	"prefix" : "ru-movie", 	"itunes-code" : "18+", 		"itunes-value" : "400", "description" : "18+" },
+	   { "media" : "Movie & TV", 	"prefix" : "ru-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???", "description" : "Unrated" }
 	]
 },
 {
 	"country" : "Pilipinas",
     "storeCode" : 143474,
 	"ratings" : [
-        { "media" : "movie & TV", 	"prefix" : "ph-movie", "itunes-code" : "G", 		"itunes-value" : "100", "description" : "G" },
-        { "media" : "movie & TV", 	"prefix" : "ph-movie", "itunes-code" : "PG", 		"itunes-value" : "300", "description" : "PG" },
-        { "media" : "movie & TV", 	"prefix" : "ph-movie", "itunes-code" : "R-13",	 	"itunes-value" : "325", "description" : "R-13" },
-        { "media" : "movie & TV", 	"prefix" : "ph-movie", "itunes-code" : "R-16",	 	"itunes-value" : "375", "description" : "R-16" },
-        { "media" : "movie & TV", 	"prefix" : "ph-movie", "itunes-code" : "R-18",      "itunes-value" : "400", "description" : "R-18" },
-        { "media" : "movie & TV", 	"prefix" : "ph-movie", "itunes-code" : "Unrated", 	"itunes-value" : "???", "description" : "Unrated" }
+        { "media" : "Movie & TV", 	"prefix" : "ph-movie", "itunes-code" : "G", 		"itunes-value" : "100", "description" : "G" },
+        { "media" : "Movie & TV", 	"prefix" : "ph-movie", "itunes-code" : "PG", 		"itunes-value" : "300", "description" : "PG" },
+        { "media" : "Movie & TV", 	"prefix" : "ph-movie", "itunes-code" : "R-13",	 	"itunes-value" : "325", "description" : "R-13" },
+        { "media" : "Movie & TV", 	"prefix" : "ph-movie", "itunes-code" : "R-16",	 	"itunes-value" : "375", "description" : "R-16" },
+        { "media" : "Movie & TV", 	"prefix" : "ph-movie", "itunes-code" : "R-18",      "itunes-value" : "400", "description" : "R-18" },
+        { "media" : "Movie & TV", 	"prefix" : "ph-movie", "itunes-code" : "Unrated", 	"itunes-value" : "???", "description" : "Unrated" }
     ]
 },
 {
 	"country" : "Hong Kong",
     "storeCode" : 143463,
 	"ratings" : [
-        { "media" : "movie & TV", 	"prefix" : "hk-movie", "itunes-code" : "第i類",	 	"itunes-value" : "100", "description" : "第i類" },
-        { "media" : "movie & TV", 	"prefix" : "hk-movie", "itunes-code" : "第ii類",     "itunes-value" : "400", "description" : "第ii類" },
-        { "media" : "movie & TV", 	"prefix" : "hk-movie", "itunes-code" : "未作評級", 	"itunes-value" : "???", "description" : "未作評級" }
+        { "media" : "Movie & TV", 	"prefix" : "hk-movie", "itunes-code" : "第i類",	 	"itunes-value" : "100", "description" : "第i類" },
+        { "media" : "Movie & TV", 	"prefix" : "hk-movie", "itunes-code" : "第ii類",     "itunes-value" : "400", "description" : "第ii類" },
+        { "media" : "Movie & TV", 	"prefix" : "hk-movie", "itunes-code" : "未作評級", 	"itunes-value" : "???", "description" : "未作評級" }
     ]
 },
 {
 	"country" : "Česká republika",
     "storeCode" : 143489,
 	"ratings" : [
-        { "media" : "movie & TV", 	"prefix" : "cz-movies", "itunes-code" : "U",                 "itunes-value" : "100", "description" : "U" },
-        { "media" : "movie & TV", 	"prefix" : "cz-movies", "itunes-code" : "12+",               "itunes-value" : "200", "description" : "12+" },
-        { "media" : "movie & TV", 	"prefix" : "cz-movies", "itunes-code" : "15+",               "itunes-value" : "350", "description" : "15+" },
-        { "media" : "movie & TV", 	"prefix" : "cz-movies", "itunes-code" : "18+",               "itunes-value" : "400", "description" : "18+" },
-        { "media" : "movie & TV", 	"prefix" : "cz-movies", "itunes-code" : "neklasifikováno",   "itunes-value" : "???", "description" : "Neklasifikováno" }
+        { "media" : "Movie & TV", 	"prefix" : "cz-movies", "itunes-code" : "U",                 "itunes-value" : "100", "description" : "U" },
+        { "media" : "Movie & TV", 	"prefix" : "cz-movies", "itunes-code" : "12+",               "itunes-value" : "200", "description" : "12+" },
+        { "media" : "Movie & TV", 	"prefix" : "cz-movies", "itunes-code" : "15+",               "itunes-value" : "350", "description" : "15+" },
+        { "media" : "Movie & TV", 	"prefix" : "cz-movies", "itunes-code" : "18+",               "itunes-value" : "400", "description" : "18+" },
+        { "media" : "Movie & TV", 	"prefix" : "cz-movies", "itunes-code" : "neklasifikováno",   "itunes-value" : "???", "description" : "Neklasifikováno" }
     ]
 },
 {
     "country" : "India",
     "storeCode" : 143467,
     "ratings" : [
-        { "media" : "movie",      "prefix" : "in-movies", "itunes-code" : "U",          "itunes-value" : "000", "description" : "U" },
-        { "media" : "movie",      "prefix" : "in-movies", "itunes-code" : "UA",         "itunes-value" : "200", "description" : "UA" },
-        { "media" : "movie",      "prefix" : "in-movies", "itunes-code" : "A",          "itunes-value" : "500", "description" : "A" },
-        { "media" : "movie",      "prefix" : "in-movies", "itunes-code" : "S",          "itunes-value" : "600", "description" : "S" },
+        { "media" : "Movie",      "prefix" : "in-movies", "itunes-code" : "U",          "itunes-value" : "000", "description" : "U" },
+        { "media" : "Movie",      "prefix" : "in-movies", "itunes-code" : "UA",         "itunes-value" : "200", "description" : "UA" },
+        { "media" : "Movie",      "prefix" : "in-movies", "itunes-code" : "A",          "itunes-value" : "500", "description" : "A" },
+        { "media" : "Movie",      "prefix" : "in-movies", "itunes-code" : "S",          "itunes-value" : "600", "description" : "S" },
         { "media" : "TV",         "prefix" : "in-tv",     "itunes-code" : "U",          "itunes-value" : "100", "description" : "U" },
         { "media" : "TV",         "prefix" : "in-tv",     "itunes-code" : "UA",         "itunes-value" : "200", "description" : "UA" },
         { "media" : "TV",         "prefix" : "in-tv",     "itunes-code" : "A",          "itunes-value" : "600", "description" : "A" },
         { "media" : "TV",         "prefix" : "in-tv",     "itunes-code" : "S",          "itunes-value" : "800", "description" : "S" },
-        { "media" : "movie & TV", "prefix" : "in-movies", "itunes-code" : "रेट नहीं की गई", "itunes-value" : "???", "description" : "रेट नहीं की गई" }
+        { "media" : "Movie & TV", "prefix" : "in-movies", "itunes-code" : "रेट नहीं की गई", "itunes-value" : "???", "description" : "रेट नहीं की गई" }
     ]
 },
 {
 	"country" : "Unknown",
     "storeCode" : 0,
 	"ratings" : [
-        { "media" : "movie & TV", 	"prefix" : "mpaa", 	"itunes-code" : "Unrated", 	"itunes-value" : "???", "description" : "Unknown" }
+        { "media" : "Movie & TV", 	"prefix" : "mpaa", 	"itunes-code" : "Unrated", 	"itunes-value" : "???", "description" : "Unknown" }
     ]
 }
 ]

@@ -178,7 +178,7 @@ public struct TheMovieDB: MetadataService {
         if let releases = result.releases {
             for release in releases.countries {
                 if release.iso_3166_1 == "US" {
-                    metadata[.rating] = Ratings.shared.rating(countryCode: "USA", media: "movie", name: release.certification)?.iTunesCode
+                    metadata[.rating] = Ratings.shared.rating(countryCode: "USA", mediaKind: .movie, name: release.certification)?.iTunesCode
                 }
             }
         }
@@ -320,7 +320,7 @@ public struct TheMovieDB: MetadataService {
         if let ratings = info.content_ratings?.results {
             let USRating = ratings.filter { $0.iso_3166_1 == "US" }.compactMap { $0.rating }
             if let rating = USRating.first {
-                metadata[.rating] = Ratings.shared.rating(countryCode: "USA", media: "TV", name: rating)?.iTunesCode
+                metadata[.rating] = Ratings.shared.rating(countryCode: "USA", mediaKind: .tvShow, name: rating)?.iTunesCode
             }
         }
 

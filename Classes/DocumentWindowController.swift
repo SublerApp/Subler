@@ -366,7 +366,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
 
     @IBAction func searchChapters(_ sender: Any?) {
         let name = mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyName).first?.stringValue
-        let url = mp4.firstSourceURL() ?? doc.fileURL
+        let url = mp4.firstSourceURL ?? doc.fileURL
         let title = (name?.isEmpty == false ? name : url?.lastPathComponent) ?? ""
         let duration = UInt64(mp4.duration)
 

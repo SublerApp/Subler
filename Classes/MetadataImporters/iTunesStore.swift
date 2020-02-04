@@ -608,7 +608,7 @@ public struct iTunesStore: MetadataService {
         }
 
         if let contentAdvisoryRating = result.contentAdvisoryRating {
-            metadata[.rating] = Ratings.shared.rating(countryCode: store.country, media: metadata.mediaKind == .movie ? "movie" : "TV", name: contentAdvisoryRating)?.iTunesCode
+            metadata[.rating] = Ratings.shared.rating(countryCode: store.country, mediaKind: metadata.mediaKind, name: contentAdvisoryRating)?.iTunesCode
         }
 
         metadata[.iTunesCountry] = store.storeCode
@@ -654,7 +654,7 @@ public struct iTunesStore: MetadataService {
         metadata[.genre]           = result.primaryGenreName
 
         if let contentAdvisoryRating = result.contentAdvisoryRating {
-            metadata[.rating] = Ratings.shared.rating(countryCode: store.country, media: metadata.mediaKind == .movie ? "movie" : "TV", name: contentAdvisoryRating)?.iTunesCode
+            metadata[.rating] = Ratings.shared.rating(countryCode: store.country, mediaKind: metadata.mediaKind, name: contentAdvisoryRating)?.iTunesCode
         }
 
         metadata[.iTunesCountry] = store.storeCode
