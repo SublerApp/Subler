@@ -77,7 +77,7 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
         window?.toolbar?.allowsUserCustomization = false
         window?.toolbar?.selectedItemIdentifier = general
 
-        if let items = window?.toolbar?.items, let item = (items.filter { $0.itemIdentifier == general }).first {
+        if let items = window?.toolbar?.items, let item = (items.first { $0.itemIdentifier == general }) {
             selectItem(item, animate: false)
         }
     }

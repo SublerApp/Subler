@@ -30,8 +30,7 @@ final class DocumentController : NSDocumentController {
     }
 
     override func document(for url: URL) -> NSDocument? {
-        let filteredDocuments = self.documents.filter { $0.fileURL == url }
-        return filteredDocuments.first
+        return self.documents.first { $0.fileURL == url }
     }
 }
 

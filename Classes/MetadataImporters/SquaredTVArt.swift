@@ -38,7 +38,7 @@ private struct SquaredTVArtJsonApi {
         let caption: String?
 
         func toRemoteImage() -> Artwork {
-            let thumbURL = alt_sizes.filter { $0.width > 200 && $0.width < 400 }.first?.url ?? original_size.url
+            let thumbURL = alt_sizes.first { $0.width > 200 && $0.width < 400 }?.url ?? original_size.url
             return Artwork(url: original_size.url, thumbURL: thumbURL, service: "Squared TV Art", type: .season, size: .square)
         }
     }
@@ -208,16 +208,14 @@ private struct SquaredTVArtHTMLScraper {
     }
 
     private func parse(info: [Substring], type: String) -> Int? {
-        let filtered = info.filter { $0.hasPrefix(type) }
-        if let seriesID = filtered.first {
+        if let seriesID = info.first(where: { $0.hasPrefix(type) }) {
             return Int(String(seriesID).replacingOccurrences(of: type, with: ""))
         }
         return nil
     }
 
     private func parseString(info: [Substring], type: String) -> String? {
-        let filtered = info.filter { $0.hasPrefix(type) }
-        if let seriesID = filtered.first {
+        if let seriesID = info.first(where: { $0.hasPrefix(type) }) {
             return String(seriesID).replacingOccurrences(of: type, with: "")
         }
         return nil

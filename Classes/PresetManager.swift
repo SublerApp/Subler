@@ -81,7 +81,7 @@ final class PresetManager {
     }
 
     func item(name: String) -> Preset? {
-        return presets.filter { $0.title == name }.first
+        return presets.first { $0.title == name }
     }
 
     private func sort() {

@@ -168,8 +168,8 @@ public struct AppleTV: MetadataService {
                           details.roles.filter { $0.type == "Voice" }.map { $0.personName }.joined(separator: ", ")
         metadata[.screenwriters] = details.roles.filter { $0.type == "Writer" }.map { $0.personName }.joined(separator: ", ")
         metadata[.producers] = details.roles.filter { $0.type == "Producer" }.map { $0.personName }.joined(separator: ", ")
-        metadata[.director] = details.roles.filter { $0.type == "Director" }.map { $0.personName }.first
-        metadata[.composer] = details.roles.filter { $0.type == "Music" }.map { $0.personName }.first
+        metadata[.director] = details.roles.first { $0.type == "Director" }.map { $0.personName }
+        metadata[.composer] = details.roles.first { $0.type == "Music" }.map { $0.personName }
 
         if let season = metadata[.season] as? Int {
             let index = metadata.remoteArtworks.count > 1 ? 1 : 0
@@ -205,8 +205,8 @@ public struct AppleTV: MetadataService {
                           details.roles.filter { $0.type == "Voice" }.map { $0.personName }.joined(separator: ", ")
         metadata[.screenwriters] = details.roles.filter { $0.type == "Writer" }.map { $0.personName }.joined(separator: ", ")
         metadata[.producers] = details.roles.filter { $0.type == "Producer" }.map { $0.personName }.joined(separator: ", ")
-        metadata[.director] = details.roles.filter { $0.type == "Director" }.map { $0.personName }.first
-        metadata[.composer] = details.roles.filter { $0.type == "Music" }.map { $0.personName }.first
+        metadata[.director] = details.roles.first { $0.type == "Director" }.map { $0.personName }
+        metadata[.composer] = details.roles.first { $0.type == "Music" }.map { $0.personName }
 
         return metadata
     }

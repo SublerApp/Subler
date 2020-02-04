@@ -266,7 +266,7 @@ public struct iTunesStore: MetadataService {
         }()
 
         init?(language: String) {
-            guard let store = Store.stores.filter({ "\($0.country) (\($0.language))" == language }).first else { return nil }
+            guard let store = Store.stores.first(where :{ "\($0.country) (\($0.language))" == language }) else { return nil }
             self.storeCode = store.storeCode
             self.country3 = store.country3
             self.country2 = store.country2
