@@ -9,7 +9,6 @@ import Foundation
 
 final class Ratings {
     static let shared = Ratings()
-
     let countries: [Country]
 
     private init() {
@@ -24,14 +23,20 @@ final class Ratings {
         guard let country = countries.first(where: { $0.displayName == countryCode }) else { return nil }
         return country.ratings.first(where: {$0.media.contains(media) && $0.displayName == name})
     }
+
+    func rating(storeCode: Int, media: String, code: String) -> Rating? {
+        guard let country = countries.first(where: { $0.storeCode == storeCode }) else { return nil }
+        return country.ratings.first(where: {$0.media.contains(media) && $0.code == code})
+    }
 }
 
 struct Country: Codable {
     let displayName: String
+    let storeCode: Int
     let ratings: [Rating]
 
     enum CodingKeys: String, CodingKey {
-        case displayName = "country", ratings
+        case displayName = "country", storeCode, ratings
     }
 }
 

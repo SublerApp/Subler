@@ -17,7 +17,7 @@ private let formatter = { () -> DateFormatter in
 }()
 
 private extension MetadataResult {
-    convenience init(item: AppleTV.Item) {
+    convenience init(item: AppleTV.Item, store: iTunesStore.Store) {
         self.init()
 
         self.mediaKind = .movie
@@ -35,7 +35,7 @@ private extension MetadataResult {
         self.remoteArtworks = [item.images.coverArt16X9, item.images.coverArt].compactMap { $0?.artwork(type: .poster) }
     }
 
-    convenience init(item: AppleTV.Item, episode: AppleTV.Episode) {
+    convenience init(item: AppleTV.Item, episode: AppleTV.Episode, store: iTunesStore.Store) {
         self.init()
 
         self.mediaKind = .tvShow
@@ -55,7 +55,9 @@ private extension MetadataResult {
         self[.episodeNumber]   = episode.episodeNumber
         self[.trackNumber]     = episode.episodeNumber
 
-        self[.rating]          = episode.rating?.formatted
+        if let ratingCode = episode.rating?.displayName {
+            self[.rating] = Ratings.shared.rating(storeCode: store.storeCode, media: "TV", code: ratingCode)?.iTunesCode
+        }
 
         self[.iTunesURL]       = episode.showURL
         self[.serviceSeriesID] = episode.showID
@@ -142,7 +144,7 @@ public struct AppleTV: MetadataService {
                 let length = seasons[seasonNumber - 1].episodeCount
                 let episodes = fetchEpisodes(id: tvShow.id, store: store, range: (startIndex, length))
                     .filter { episode != nil ? $0.episodeNumber == episode : true }
-                let results = episodes.map { MetadataResult(item: tvShow, episode: $0) }
+                let results = episodes.map { MetadataResult(item: tvShow, episode: $0, store: store) }
                 return results
             }
         }
@@ -161,9 +163,8 @@ public struct AppleTV: MetadataService {
         metadata[.studio] = content.studio
 
         if metadata[.rating] == nil {
-            metadata[.rating] = content.rating.formatted
+            metadata[.rating] = Ratings.shared.rating(storeCode: store.storeCode, media: "TV", code: content.rating.displayName)?.iTunesCode
         }
-
         metadata[.cast] = details.roles.filter { $0.type == "Actor" }.map { $0.personName }.joined(separator: ", ") +
                           details.roles.filter { $0.type == "Voice" }.map { $0.personName }.joined(separator: ", ")
         metadata[.screenwriters] = details.roles.filter { $0.type == "Writer" }.map { $0.personName }.joined(separator: ", ")
@@ -185,7 +186,7 @@ public struct AppleTV: MetadataService {
         guard let store = iTunesStore.Store(language: language) else { return [] }
 
         let items = search(term: movie, store: store)
-        let results = items.map { MetadataResult(item: $0) }
+        let results = items.map { MetadataResult(item: $0, store: store) }
         return results
     }
 
@@ -199,7 +200,7 @@ public struct AppleTV: MetadataService {
         metadata[.genre] = content.genres.map { $0.name }.joined(separator: ", ")
         metadata[.studio] = content.studio
 
-        metadata[.rating] = content.rating.formatted
+        metadata[.rating] = Ratings.shared.rating(storeCode: store.storeCode, media: "movie", code: content.rating.displayName)?.iTunesCode
 
         metadata[.cast] = details.roles.filter { $0.type == "Actor" }.map { $0.personName }.joined(separator: ", ")  +
                           details.roles.filter { $0.type == "Voice" }.map { $0.personName }.joined(separator: ", ")
@@ -388,13 +389,6 @@ public struct AppleTV: MetadataService {
         let name: String
         let system: String
         let value: UInt
-
-        var formatted: String {
-            get {
-                let formattedSystem = system.replacingOccurrences(of: "_", with: "-").replacingOccurrences(of: "movies", with: "movie")
-                return "\(formattedSystem)|\(displayName)|\(value)|"
-            }
-        }
     }
 
     private struct Genre: Codable {
