@@ -72,7 +72,7 @@ private func parseFilename(_ filename: String) -> MetadataSearchTerms? {
 
     let outputData = stdOut.fileHandleForReading.readDataToEndOfFile()
     guard let outputString = String(data: outputData, encoding: .utf8) else { return nil }
-    let lines = outputString.components(separatedBy: "\n")
+    let lines = outputString.split(separator: "\n")
 
     if lines.isEmpty == false {
         if lines.first == "tv" && lines.count >= 4 {

@@ -182,30 +182,30 @@ public class Token: Codable {
 
 fileprivate extension String {
     func capitalizingFirstLetter() -> String {
-        return prefix(1).uppercased() + dropFirst()
+        prefix(1).uppercased() + dropFirst()
     }
 
     func camelCased() -> String {
-        return self.components(separatedBy: " ")
-            .map { return $0.lowercased().capitalizingFirstLetter() }
+        split(separator: " ")
+            .map { $0.lowercased().capitalizingFirstLetter() }
             .joined()
     }
 
     func snakeCased() -> String {
-        return self.components(separatedBy: " ")
-            .map { return $0.lowercased() }
+        split(separator: " ")
+            .map { $0.lowercased() }
             .joined(separator: "_")
     }
 
     func trainCased() -> String {
-        return self.components(separatedBy: " ")
-            .map { return $0.lowercased() }
+        split(separator: " ")
+            .map { $0.lowercased() }
             .joined(separator: "-")
     }
 
     func dotCased() -> String {
-        return self.components(separatedBy: " ")
-            .map { return $0.lowercased() }
+        split(separator: " ")
+            .map { $0.lowercased() }
             .joined(separator: ".")
     }
 }

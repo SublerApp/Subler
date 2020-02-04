@@ -582,7 +582,7 @@ public struct iTunesStore: MetadataService {
                     if season.contains("season") {
                         return (0, nil)
                     } else {
-                        let subparts = season.components(separatedBy: ",")
+                        let subparts = season.split(separator: ",")
                         if subparts.count > 1 {
                             let seasonNum = Int(subparts[0].trimmingCharacters(in: CharacterSet.decimalDigits.inverted)) ?? 1
                             let partNum = Int(subparts[1].trimmingCharacters(in: CharacterSet.decimalDigits.inverted)) ?? 1
