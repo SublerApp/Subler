@@ -138,9 +138,7 @@ public struct TheTVDB : MetadataService {
 
         // Rating
         if let rating = info.rating, rating.count > 0 {
-            result[.rating] = MP42Ratings.defaultManager.ratingStringForiTunesCountry("USA",
-                                                                                      media: "TV",
-                                                                                      ratingString: rating)
+            result[.rating] = Ratings.shared.rating(countryCode: "USA", media: "TV", name: rating)?.iTunesCode
         }
 
         // Actors

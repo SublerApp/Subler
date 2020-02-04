@@ -1,0 +1,50 @@
+//
+//  Ratings.swift
+//  Subler
+//
+//  Created by Damiano Galassi on 04/02/2020.
+//
+
+import Foundation
+
+final class Ratings {
+    static let shared = Ratings()
+
+    let countries: [Country]
+
+    private init() {
+        guard let url = Bundle.main.url(forResource: "Ratings", withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let countries = try? JSONDecoder().decode([Country].self, from: data) else { fatalError() }
+
+        self.countries = countries
+    }
+
+    func rating(countryCode: String, media: String, name: String) -> Rating? {
+        guard let country = countries.first(where: { $0.displayName == countryCode }) else { return nil }
+        return country.ratings.first(where: {$0.media.contains(media) && $0.displayName == name})
+    }
+}
+
+struct Country: Codable {
+    let displayName: String
+    let ratings: [Rating]
+
+    enum CodingKeys: String, CodingKey {
+        case displayName = "country", ratings
+    }
+}
+
+struct Rating: Codable {
+    let media: String
+    let prefix: String
+    let code: String
+    let value: String
+    let displayName: String
+
+    enum CodingKeys: String, CodingKey {
+        case media, prefix, code = "itunes-code", value = "itunes-value", displayName = "description"
+    }
+
+    var iTunesCode: String { "\(prefix)|\(code)|\(value)|" }
+}

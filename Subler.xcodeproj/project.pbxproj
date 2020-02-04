@@ -66,6 +66,8 @@
 		A979B3862025C8BF00468362 /* DocumentWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A979B3842025C8BF00468362 /* DocumentWindowController.swift */; };
 		A97C3AA5204F18C90007AD38 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97C3AA4204F18C90007AD38 /* TokenCellView.swift */; };
 		A97D99DA22A0240C001FA3A7 /* OCRManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97D99D922A0240C001FA3A7 /* OCRManager.swift */; };
+		A97FA41E23E9837000EE5833 /* Ratings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97FA41D23E9837000EE5833 /* Ratings.swift */; };
+		A97FA42223E9877900EE5833 /* Ratings.json in Resources */ = {isa = PBXBuildFile; fileRef = A97FA42123E9877900EE5833 /* Ratings.json */; };
 		A97FBE3C21FC7F1C00F1FD35 /* QueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */; };
 		A983E80B22365B5400221BAE /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A983E80A22365B5400221BAE /* MovieViewController.swift */; };
 		A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A984DB730F52DD4B001A20B2 /* dsa_pub.pem */; };
@@ -280,6 +282,8 @@
 		A979B3842025C8BF00468362 /* DocumentWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentWindowController.swift; path = Classes/DocumentWindowController.swift; sourceTree = "<group>"; };
 		A97C3AA4204F18C90007AD38 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenCellView.swift; path = Classes/TokenCellView.swift; sourceTree = "<group>"; };
 		A97D99D922A0240C001FA3A7 /* OCRManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OCRManager.swift; path = Classes/OCRManager.swift; sourceTree = "<group>"; };
+		A97FA41D23E9837000EE5833 /* Ratings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ratings.swift; sourceTree = "<group>"; };
+		A97FA42123E9877900EE5833 /* Ratings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Ratings.json; sourceTree = "<group>"; };
 		A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueController.swift; path = Classes/QueueController.swift; sourceTree = "<group>"; };
 		A983E80A22365B5400221BAE /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieViewController.swift; path = Classes/PropertyView/MovieViewController.swift; sourceTree = "<group>"; };
 		A984DB730F52DD4B001A20B2 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
@@ -460,6 +464,7 @@
 				8D15AC360486D014006FF6A4 /* Info.plist */,
 				A9B46AA312B79BB10040517A /* Subler.icns */,
 				CDE8E451174CBBD4009410B5 /* iTunesStores.json */,
+				A97FA42123E9877900EE5833 /* Ratings.json */,
 				A94A6A581ED1C5CA00049F7D /* ParseFilename */,
 			);
 			name = Resources;
@@ -640,6 +645,7 @@
 				A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */,
 				A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */,
 				A900CE3D1F3ACF9700CCA08E /* MetadataResultMap.swift */,
+				A97FA41D23E9837000EE5833 /* Ratings.swift */,
 				A9E97F131F274F1100DBA586 /* iTunesStore.swift */,
 				A90B094B235614D200F1B191 /* AppleTV.swift */,
 				A98D98451F0280CB00A77ABC /* TheMovieDB.swift */,
@@ -786,6 +792,7 @@
 				A98542D720D197D300EB9803 /* ArtworkSelector.xib in Resources */,
 				A9ECA0602029A13800D5F30C /* OffsetViewController.xib in Resources */,
 				A9ACF03222A2BCF200AD5B12 /* OCRPrefsViewController.xib in Resources */,
+				A97FA42223E9877900EE5833 /* Ratings.json in Resources */,
 				A961476713F568210068F161 /* Queue.xib in Resources */,
 				A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */,
 				A9ECA0572029A10B00D5F30C /* DocumentWindowController.xib in Resources */,
@@ -854,6 +861,7 @@
 				A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */,
 				A974F9D022F9B48900DBB30E /* MetadataSearchViewController.swift in Sources */,
 				A956CE6B1F99EAAD00093992 /* Logger.swift in Sources */,
+				A97FA41E23E9837000EE5833 /* Ratings.swift in Sources */,
 				A956CE691F99E93D00093992 /* ButtonToolbarItem.swift in Sources */,
 				A98D44102036F661005CB092 /* AppDelegate.swift in Sources */,
 				A9C31E572029A75F00CEF474 /* GeneralPrefsViewController.swift in Sources */,

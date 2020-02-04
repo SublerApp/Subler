@@ -32,9 +32,9 @@ class GeneralPrefsViewController: NSViewController {
     }
 
     @IBAction func updateRatingsCountry(_ sender: Any) {
-        MP42Ratings.defaultManager.updateCountry()
+        // Unused
     }
 
-    @objc dynamic var ratingsCountries: [String] { return MP42Ratings.defaultManager.ratingsCountries }
+    @objc dynamic var ratingsCountries: [String] { return Ratings.shared.countries.map { $0.displayName } }
 
 }

@@ -23,6 +23,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     private var tags: [MP42MetadataItem]
 
     private let ratings: [String]
+    private let codes: [String]
 
     private lazy var dummyCell: NSTableCellView = {
         return self.metadataTableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "TextCellForSizing"), owner: self) as! NSTableCellView
@@ -70,10 +71,19 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         self.metadata = metadata
         self.tags = []
         self.artworks = []
-        self.ratings = MP42Ratings.defaultManager.ratings
+
+        let selectedCountry = UserDefaults.standard.string(forKey: "SBRatingsCountry")
+        let countries = selectedCountry == "All countries" ?
+            Ratings.shared.countries :
+            Ratings.shared.countries.filter { $0.displayName == selectedCountry || $0.displayName == "USA" }
+        self.ratings = countries.flatMap { country in country.ratings
+            .map { "\(country.displayName) \($0.media): \($0.displayName)" } }
+        self.codes = countries.flatMap { $0.ratings.map { $0.iTunesCode } }
+
         self.columnWidth = 0
         self.previousColumnWidth = 0
         self.rowHeights = Dictionary()
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -431,9 +441,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
         contents.forEach { popUpButton.menu?.addItem(withTitle: $0, action: nil, keyEquivalent: "") }
 
-        // WTF
-        let index = MP42Ratings.defaultManager.ratingIndexForiTunesCode(value ?? "")
-        if index != -1 {
+        if let index = self.codes.firstIndex(of: value ?? "") {
             popUpButton.selectItem(at: Int(index))
         } else {
             let title = value?.isEmpty ?? true ? NSLocalizedString("Unknown", comment: "") : value ?? NSLocalizedString("Unknown", comment: "")
@@ -682,9 +690,8 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         switch item.dataType {
         case .string:
             if item.identifier == MP42MetadataKeyRating {
-                let ratings = MP42Ratings.defaultManager.iTunesCodes
-                if index < ratings.count {
-                    value = ratings[index]
+                if index < self.codes.count {
+                    value = self.codes[index]
                 } else {
                     value = item.value as Any
                 }
