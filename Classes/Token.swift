@@ -210,21 +210,3 @@ fileprivate extension String {
     }
 }
 
-extension UserDefaults {
-
-    func tokenArray(forKey defaultName: String) -> [Token] {
-        let decoder = JSONDecoder()
-
-        guard let jsonData = self.data(forKey: defaultName),
-             let decoded = try? decoder.decode([Token].self, from: jsonData) else { return [] }
-
-        return decoded
-    }
-
-    func set(_ tokenArray: [Token], forKey defaultName: String) {
-        let encoder = JSONEncoder()
-        let jsonData = try? encoder.encode(tokenArray)
-        self.set(jsonData, forKey: defaultName)
-    }
-
-}

@@ -40,14 +40,9 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
         self.types = [NSLocalizedString("Movie", comment: ""), NSLocalizedString("TV Show", comment: "")]
 
         // Load data from preferences
-        let savedMovieMap = UserDefaults.standard.map(forKey: "SBMetadataMovieResultMap2")
-        let savedTvShowMap = UserDefaults.standard.map(forKey: "SBMetadataTvShowResultMap2")
-
-        self.movieMap = savedMovieMap ?? MetadataResultMap.movieDefaultMap
-        self.tvShowMap = savedTvShowMap ?? MetadataResultMap.tvShowDefaultMap
-
+        self.movieMap = MetadataPrefs.movieResultMap
+        self.tvShowMap = MetadataPrefs.tvShowResultMap
         self.map = movieMap
-
         self.currentTokens = []
 
         let context = MP42Metadata.availableMetadata
@@ -106,8 +101,8 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
     }
 
     private func save() {
-        UserDefaults.standard.set(movieMap, forKey: "SBMetadataMovieResultMap2")
-        UserDefaults.standard.set(tvShowMap, forKey: "SBMetadataTvShowResultMap2")
+        MetadataPrefs.movieResultMap = movieMap
+        MetadataPrefs.tvShowResultMap = tvShowMap
     }
 
     @IBAction func addMetadataItem(_ sender: NSPopUpButton) {

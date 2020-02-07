@@ -144,7 +144,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: delegates
 
     func applicationWillFinishLaunching(_ notification: Notification) {
-        PrefsWindowController.registerUserDefaults()
+        Prefs.register()
+        MetadataPrefs.register()
 
         _ = documentController
         _ = activityWindowController
@@ -154,7 +155,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         _ = QueueController.shared
 
-        if UserDefaults.standard.bool(forKey: "SBShowQueueWindow") {
+        if Prefs.showQueueWindow {
             QueueController.shared.showWindow(self)
         }
         
@@ -164,7 +165,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        if UserDefaults.standard.bool(forKey: "SBIgnoreDonationAlert") == false {
+        if Prefs.suppressDonationAlert == false {
             runDonateAlert()
         }
     }
@@ -194,7 +195,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         } catch {
             logger.write(toLog: "Failed to save queue to disk!")
         }
-        UserDefaults.standard.set(QueueController.shared.window?.isVisible, forKey: "SBShowQueueWindow")
+        Prefs.showQueueWindow = QueueController.shared.window?.isVisible ?? false
     }
 
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {

@@ -77,9 +77,9 @@ import MP42Foundation
             attributes[MP4264BitData] = true
         }
 
-        if UserDefaults.standard.bool(forKey: "chaptersPreviewTrack") {
+        if Prefs.chaptersPreviewTrack {
             attributes[MP42GenerateChaptersPreviewTrack] = true
-            attributes[MP42ChaptersPreviewPosition] = UserDefaults.standard.float(forKey: "SBChaptersPreviewPosition")
+            attributes[MP42ChaptersPreviewPosition] = Prefs.chaptersPreviewPosition
         }
     }
 
@@ -87,9 +87,9 @@ import MP42Foundation
         self.init(fileURL: mp4.url!, destURL: mp4.url!)
         mp4File = mp4
 
-        if UserDefaults.standard.bool(forKey: "chaptersPreviewTrack") {
+        if Prefs.chaptersPreviewTrack {
             attributes[MP42GenerateChaptersPreviewTrack] = true
-            attributes[MP42ChaptersPreviewPosition] = UserDefaults.standard.float(forKey: "SBChaptersPreviewPosition")
+            attributes[MP42ChaptersPreviewPosition] = Prefs.chaptersPreviewPosition
         }
     }
 
@@ -157,17 +157,16 @@ import MP42Foundation
     private func configureAudio(track: MP42AudioTrack, mp4: MP42File) {
         var conversionNeeded = false
 
-        let ud = UserDefaults.standard
-        let bitrate = ud.integer(forKey: "SBAudioBitrate")
-        let drc = ud.float(forKey: "SBAudioDRC")
-        let mixdown = Int64(ud.integer(forKey: "SBAudioMixdown"))
+        let bitrate = Prefs.audioBitrate
+        let drc = Prefs.audioDRC
+        let mixdown = MP42AudioMixdown(Prefs.audioMixdown)
 
         // AC-3 track, we might need to do the aac + ac3 trick.
         if track.format == kMP42AudioCodecType_AC3 ||
             track.format == kMP42AudioCodecType_EnhancedAC3 {
 
-            if ud.bool(forKey: "SBAudioConvertAC3") {
-                if ud.bool(forKey: "SBAudioKeepAC3") && track.fallbackTrack == nil {
+            if Prefs.audioConvertAC3 {
+                if Prefs.audioKeepAC3 && track.fallbackTrack == nil {
                     let copy = track.copy() as! MP42AudioTrack
                     let settings = MP42AudioConversionSettings(format: kMP42AudioCodecType_MPEG4AAC, bitRate: UInt(bitrate), mixDown: mixdown, drc: drc)
                     copy.conversionSettings = settings
@@ -183,8 +182,8 @@ import MP42Foundation
         }
         // DTS -> convert only if specified in the prefs.
         else if track.format ==  kMP42AudioCodecType_DTS {
-            if ud.bool(forKey: "SBAudioConvertDts") {
-                switch ud.integer(forKey: "SBAudioDtsOptions") {
+            if Prefs.audioConvertDts {
+                switch Prefs.audioDtsOptions {
                 case 1: // Convert to AC-3
 
                     let copy = track.copy() as! MP42AudioTrack
@@ -225,7 +224,7 @@ import MP42Foundation
 
     private func configureSubtitles(track: MP42SubtitleTrack, mp4: MP42File) {
         // VobSub -> only if specified in the prefs.
-        if track.format == kMP42SubtitleCodecType_VobSub && UserDefaults.standard.bool(forKey: "SBSubtitleConvertBitmap") {
+        if track.format == kMP42SubtitleCodecType_VobSub && Prefs.subtitleConvertBitmap {
             let settings = MP42ConversionSettings.subtitlesConversion()
             track.conversionSettings = settings
         } else if trackNeedConversion(track.format) {

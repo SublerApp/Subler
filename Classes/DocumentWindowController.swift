@@ -42,7 +42,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         window.contentViewController = splitViewController
         window.registerForDraggedTypes([NSPasteboard.PasteboardType.backwardsCompatibleFileURL])
 
-        if UserDefaults.standard.bool(forKey: "rememberWindowSize") {
+        if Prefs.rememberDocumentWindowSize {
             window.setFrameAutosaveName("documentSave")
             window.setFrame(from: "documentSave")
 
@@ -264,8 +264,8 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         if tracks.isEmpty == false {
             mp4.removeTracks(tracks)
 
-            if UserDefaults.standard.bool(forKey: "SBOrganizeAlternateGroups") { mp4.organizeAlternateGroups() }
-            if UserDefaults.standard.bool(forKey: "SBInferMediaCharacteristics") { mp4.inferMediaCharacteristics() }
+            if Prefs.organizeAlternateGroups { mp4.organizeAlternateGroups() }
+            if Prefs.inferMediaCharacteristics { mp4.inferMediaCharacteristics() }
 
             doc.updateChangeCount(.changeDone)
             tracksViewController.reloadData()
@@ -375,14 +375,11 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
     }
 
     func didSelect(metadata: MetadataResult) {
-        let defaults = UserDefaults.standard
-        let map = metadata.mediaKind == .movie ? defaults.map(forKey: "SBMetadataMovieResultMap2") : defaults.map(forKey: "SBMetadataTvShowResultMap2")
-        let keepEmptyKeys = defaults.bool(forKey: "SBMetadataKeepEmptyAnnotations")
+        let map = metadata.mediaKind == .movie ? MetadataPrefs.movieResultMap : MetadataPrefs.tvShowResultMap
+        let keepEmptyKeys = MetadataPrefs.keepEmptyAnnotations
 
-        if let map = map {
-            let result = metadata.mappedMetadata(to: map, keepEmptyKeys: keepEmptyKeys)
-            mp4.metadata.merge(result)
-        }
+        let result = metadata.mappedMetadata(to: map, keepEmptyKeys: keepEmptyKeys)
+        mp4.metadata.merge(result)
 
         if let hdType = mp4.hdType {
             for item in mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyHDVideo) {
@@ -510,9 +507,9 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         if tracks.isEmpty == false {
             doc.updateChangeCount(.changeDone)
 
-            if UserDefaults.standard.bool(forKey: "SBOrganizeAlternateGroups") {
+            if Prefs.organizeAlternateGroups {
                 mp4.organizeAlternateGroups()
-                if UserDefaults.standard.bool(forKey: "SBInferMediaCharacteristics") {
+                if Prefs.inferMediaCharacteristics {
                     mp4.inferMediaCharacteristics()
                 }
             }

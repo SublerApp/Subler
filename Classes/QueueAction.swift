@@ -282,12 +282,8 @@ class QueueMetadataAction : NSObject, QueueActionProtocol {
             }
         }
 
-        let defaults = UserDefaults.standard
-        if let map = metadata.mediaKind == .movie ? defaults.map(forKey: "SBMetadataMovieResultMap2")
-            : defaults.map(forKey: "SBMetadataTvShowResultMap2") {
-            return metadata.mappedMetadata(to: map, keepEmptyKeys: false)
-        }
-        return nil
+        let map = metadata.mediaKind == .movie ? MetadataPrefs.movieResultMap : MetadataPrefs.tvShowResultMap
+        return metadata.mappedMetadata(to: map, keepEmptyKeys: false)
     }
 
     func runAction(_ item: QueueItem) -> Bool {

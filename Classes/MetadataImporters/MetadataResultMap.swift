@@ -89,22 +89,3 @@ public class MetadataResultMap: Codable {
         self.type = type
     }
 }
-
-extension UserDefaults {
-
-    func map(forKey defaultName: String) -> MetadataResultMap? {
-        let decoder = JSONDecoder()
-
-        guard let jsonData = self.data(forKey: defaultName),
-            let decoded = try? decoder.decode(MetadataResultMap.self, from: jsonData) else { return nil }
-
-        return decoded
-    }
-
-    func set(_ map: MetadataResultMap, forKey defaultName: String) {
-        let encoder = JSONEncoder()
-        let jsonData = try? encoder.encode(map)
-        self.set(jsonData, forKey: defaultName)
-    }
-
-}

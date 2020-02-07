@@ -45,13 +45,13 @@ class OutputPrefsViewController: NSViewController, TokenChangeObserver {
         movieField.tokenizingCharacterSet = CharacterSet(charactersIn: "/")
         tvShowField.tokenizingCharacterSet = CharacterSet(charactersIn: "/")
 
-        movieField.objectValue = UserDefaults.standard.tokenArray(forKey: "SBMovieFormatTokens")
-        tvShowField.objectValue = UserDefaults.standard.tokenArray(forKey: "SBTVShowFormatTokens")
+        movieField.objectValue = MetadataPrefs.movieFormatTokens
+        tvShowField.objectValue = MetadataPrefs.tvShowFormatTokens
     }
 
     private func save() {
-        UserDefaults.standard.set(movieField.objectValue as! [Token], forKey: "SBMovieFormatTokens")
-        UserDefaults.standard.set(tvShowField.objectValue as! [Token], forKey: "SBTVShowFormatTokens")
+        MetadataPrefs.movieFormatTokens = movieField.objectValue as! [Token]
+        MetadataPrefs.tvShowFormatTokens = tvShowField.objectValue as! [Token]
     }
 
     // MARK: Actions

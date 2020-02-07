@@ -132,21 +132,13 @@ extension MetadataSearch {
     }
 
     public static var defaultMovieService: MetadataService {
-        get {
-            return  MetadataSearch.service(name: UserDefaults.standard.string(forKey: "SBMetadataPreference|Movie"))
-        }
-        set (newDefault) {
-            UserDefaults.standard.set(newDefault.name, forKey: "SBMetadataPreference|Movie")
-        }
+        get { MetadataSearch.service(name: MetadataPrefs.movieImporter) }
+        set { MetadataPrefs.movieImporter = newValue.name }
     }
 
     public static var defaultTVService: MetadataService {
-        get {
-            return  MetadataSearch.service(name: UserDefaults.standard.string(forKey: "SBMetadataPreference|TV"))
-        }
-        set (newDefault) {
-            UserDefaults.standard.set(newDefault.name, forKey: "SBMetadataPreference|TV")
-        }
+        get { MetadataSearch.service(name: MetadataPrefs.tvShowImporter) }
+        set { MetadataPrefs.tvShowImporter = newValue.name }
     }
 
     public static func defaultLanguage(service: MetadataService, type: MetadataType) -> String {

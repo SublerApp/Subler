@@ -72,7 +72,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         self.tags = []
         self.artworks = []
 
-        let selectedCountry = UserDefaults.standard.string(forKey: "SBRatingsCountry")
+        let selectedCountry = Prefs.ratingsCountry
         let countries = selectedCountry == "All countries" ?
             Ratings.shared.countries :
             Ratings.shared.countries.filter { $0.displayName == selectedCountry || $0.displayName == "USA" }

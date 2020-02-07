@@ -123,37 +123,37 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
             // Set the action menu selection
             // AC-3 Specific actions
             if (track.format == kMP42AudioCodecType_AC3 || track.format == kMP42AudioCodecType_EnhancedAC3) &&
-                UserDefaults.standard.bool(forKey: "SBAudioConvertAC3"), let audioTrack = track as? MP42AudioTrack {
-                if UserDefaults.standard.bool(forKey: "SBAudioKeepAC3") && audioTrack.fallbackTrack == nil {
+                Prefs.audioConvertAC3, let audioTrack = track as? MP42AudioTrack {
+                if Prefs.audioKeepAC3 && audioTrack.fallbackTrack == nil {
                     self.selectedActionTag = 6
                 } else if audioTrack.fallbackTrack != nil {
                     self.selectedActionTag = 0
                 } else {
-                    self.selectedActionTag = UInt(UserDefaults.standard.integer(forKey: "SBAudioMixdown"))
+                    self.selectedActionTag = Prefs.audioMixdown
                 }
             }
             // DTS Specific actions
             else if track.format == kMP42AudioCodecType_DTS &&
-                UserDefaults.standard.bool(forKey: "SBAudioConvertDts"), let audioTrack = track as? MP42AudioTrack {
+                Prefs.audioConvertDts, let audioTrack = track as? MP42AudioTrack {
                 if audioTrack.fallbackTrack != nil {
                     self.selectedActionTag = 0
                 }
                 else {
-                    switch UserDefaults.standard.integer(forKey: "SBAudioDtsOptions") {
+                    switch Prefs.audioDtsOptions {
                     case 1: self.selectedActionTag = 7; // Convert to AC-3
                     case 2: self.selectedActionTag = 6; // Keep DTS
-                    default: self.selectedActionTag = UInt(UserDefaults.standard.integer(forKey: "SBAudioMixdown"))
+                    default: self.selectedActionTag = Prefs.audioMixdown
                     }
                 }
             }
             // Vobsub
-            else if track.format == kMP42SubtitleCodecType_VobSub && UserDefaults.standard.bool(forKey: "SBSubtitleConvertBitmap") {
+            else if track.format == kMP42SubtitleCodecType_VobSub && Prefs.subtitleConvertBitmap {
                 self.selectedActionTag = 1
             }
             // Generic actions
             else if needsConversion {
                 if track is MP42AudioTrack {
-                    self.selectedActionTag = UInt(UserDefaults.standard.integer(forKey: "SBAudioMixdown"))
+                    self.selectedActionTag = Prefs.audioMixdown
                 } else {
                     self.selectedActionTag = 1
                 }
@@ -194,7 +194,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
 
         self.metadata = fileImporters.first?.metadata
         self.items = rows
-        self.importMetadata = metadata != nil && UserDefaults.standard.bool(forKey: "SBFileImporterImportMetadata")
+        self.importMetadata = metadata != nil && MetadataPrefs.keepImportedFilesMetadata
         
         super.init(nibName: nil, bundle: nil)
 
@@ -209,7 +209,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
         super.viewDidLoad()
         
         self.importMetadataCheckbox.isEnabled = metadata != nil
-        self.importMetadataCheckbox.state = UserDefaults.standard.bool(forKey: "SBFileImporterImportMetadata") ? .on : .off
+        self.importMetadataCheckbox.state = MetadataPrefs.keepImportedFilesMetadata ? .on : .off
     }
 
     // MARK: Public properties
@@ -303,8 +303,8 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
             case let track as MP42AudioTrack:
                 
                 if trackSettings.selectedActionTag > 0 {
-                    let bitRate = UInt(UserDefaults.standard.integer(forKey: "SBAudioBitrate"))
-                    let drc = UserDefaults.standard.float(forKey: "SBAudioDRC")
+                    let bitRate = Prefs.audioBitrate
+                    let drc = Prefs.audioDRC
                     let mixdown = Int64(trackSettings.selectedActionTag)
 
                     let copyTrack = trackSettings.selectedActionTag == 6 || trackSettings.selectedActionTag == 7 ? true : false
@@ -312,7 +312,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
 
                     if copyTrack {
                         let copy = track.copy() as! MP42AudioTrack
-                        let copyMixdown = MP42AudioMixdown(UserDefaults.standard.integer(forKey: "SBAudioMixdown"))
+                        let copyMixdown = MP42AudioMixdown(Prefs.audioMixdown)
                         let settings = MP42AudioConversionSettings.audioConversion(withBitRate: bitRate, mixDown: copyMixdown, drc: drc)
 
                         copy.conversionSettings = settings
@@ -328,7 +328,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
                         selectedTracks.append(copy)
                     }
                     else {
-                        let settings = MP42AudioConversionSettings.audioConversion(withBitRate: bitRate, mixDown: mixdown, drc: drc)
+                        let settings = MP42AudioConversionSettings.audioConversion(withBitRate: bitRate, mixDown: MP42AudioMixdown(mixdown), drc: drc)
                         track.conversionSettings = settings;
                     }
                 }
@@ -366,7 +366,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
     @IBAction func setImportMetadata(_ sender: NSButton) {
         let enabled = sender.state == NSControl.StateValue.on
         importMetadata = enabled
-        UserDefaults.standard.set(enabled, forKey: "SBFileImporterImportMetadata")
+        MetadataPrefs.keepImportedFilesMetadata = enabled
     }
 
     @IBAction func setCheck(_ sender: NSButton) {

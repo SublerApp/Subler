@@ -71,9 +71,9 @@ extension MP42File {
     private func outputNameFormat(mediaKind: MediaKind) -> [Token] {
         switch mediaKind {
         case .tvShow:
-            return UserDefaults.standard.tokenArray(forKey: "SBTVShowFormatTokens")
+            return MetadataPrefs.tvShowFormatTokens
         case .movie:
-            return UserDefaults.standard.tokenArray(forKey: "SBMovieFormatTokens")
+            return MetadataPrefs.movieFormatTokens
         }
     }
 
@@ -82,8 +82,8 @@ extension MP42File {
     func preferredFileName() -> String? {
         if let mediaKindValue = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
             let mediaKind = MediaKind(rawValue: mediaKindValue),
-            (mediaKind == .tvShow && UserDefaults.standard.bool(forKey: "SBSetTVShowFormat")) ||
-                (mediaKind == .movie && UserDefaults.standard.bool(forKey: "SBSetMovieFormat")),
+            (mediaKind == .tvShow && MetadataPrefs.setTVShowFormat) ||
+                (mediaKind == .movie && MetadataPrefs.setMovieFormat),
             let name = formattedFileName() {
             return name
         } else {

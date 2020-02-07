@@ -79,9 +79,9 @@ final class Document: NSDocument {
     private func saveOptions() -> [String : Any] {
         var options = [String : Any]()
 
-        if UserDefaults.standard.bool(forKey: "chaptersPreviewTrack") {
+        if Prefs.chaptersPreviewTrack {
             options[MP42GenerateChaptersPreviewTrack] = true
-            options[MP42ChaptersPreviewPosition] = UserDefaults.standard.float(forKey: "SBChaptersPreviewPosition")
+            options[MP42ChaptersPreviewPosition] = Prefs.chaptersPreviewPosition
         }
 
         if let accessoryViewController = accessoryViewController {
@@ -149,9 +149,9 @@ final class Document: NSDocument {
         unblockUserInteraction()
         preventSleep()
 
-        if UserDefaults.standard.bool(forKey: "SBOrganizeAlternateGroups") {
+        if Prefs.organizeAlternateGroups {
             mp4.organizeAlternateGroups()
-            if UserDefaults.standard.bool(forKey: "SBInferMediaCharacteristics") {
+            if Prefs.inferMediaCharacteristics {
                 mp4.inferMediaCharacteristics()
             }
         }

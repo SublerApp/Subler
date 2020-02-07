@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,7 @@
 		A90240DB2063BD3700E762FA /* MediaTagsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90240DA2063BD3700E762FA /* MediaTagsController.swift */; };
 		A902E0CA20504FD400445AC8 /* TokenDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A902E0C920504FD400445AC8 /* TokenDelegate.swift */; };
 		A90300C81DAE72C4008237D8 /* PresetPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90300CA1DAE72C4008237D8 /* PresetPrefsViewController.xib */; };
+		A90331BD23ED7EE5006BB91D /* Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90331BC23ED7EE5006BB91D /* Prefs.swift */; };
 		A9067A0C1F3CA4E6008011DC /* MetadataPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */; };
 		A906B5B11E434872007D12B1 /* Queue.sdef in Resources */ = {isa = PBXBuildFile; fileRef = A906B5B01E434872007D12B1 /* Queue.sdef */; };
 		A90B023B10F3290A000416F3 /* PrefsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90B023910F3290A000416F3 /* PrefsWindowController.xib */; };
@@ -216,6 +217,7 @@
 		A90240DA2063BD3700E762FA /* MediaTagsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MediaTagsController.swift; path = Classes/PropertyView/MediaTagsController.swift; sourceTree = "<group>"; };
 		A902E0C920504FD400445AC8 /* TokenDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenDelegate.swift; path = Classes/TokenDelegate.swift; sourceTree = "<group>"; };
 		A90300C91DAE72C4008237D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PresetPrefsViewController.xib; sourceTree = "<group>"; };
+		A90331BC23ED7EE5006BB91D /* Prefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Prefs.swift; path = Classes/Prefs.swift; sourceTree = "<group>"; };
 		A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataPrefsViewController.swift; path = Classes/MetadataPrefsViewController.swift; sourceTree = "<group>"; };
 		A906B5B01E434872007D12B1 /* Queue.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Queue.sdef; sourceTree = "<group>"; };
 		A90B094B235614D200F1B191 /* AppleTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppleTV.swift; path = Classes/MetadataImporters/AppleTV.swift; sourceTree = "<group>"; };
@@ -517,6 +519,8 @@
 		A947218D1D49D9F700858DD8 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
+				A90331BC23ED7EE5006BB91D /* Prefs.swift */,
+				A99D23202029CD32002E7F27 /* PrefsWindow.swift */,
 				A92ECCE21F49984C0063BFBD /* PrefsWindowController.swift */,
 				A90B023910F3290A000416F3 /* PrefsWindowController.xib */,
 				A9C31E552029A75F00CEF474 /* GeneralPrefsViewController.swift */,
@@ -536,7 +540,6 @@
 				A97D99D922A0240C001FA3A7 /* OCRManager.swift */,
 				A9DA03E122A0211C0056AE7B /* OCRPrefsViewController.swift */,
 				A9ACF03422A2BCF200AD5B12 /* OCRPrefsViewController.xib */,
-				A99D23202029CD32002E7F27 /* PrefsWindow.swift */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -708,7 +711,7 @@
 				};
 			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Subler" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -822,6 +825,7 @@
 				A90C3E0C1FD16AF200F64532 /* TokensViewController.swift in Sources */,
 				A90B094C235614D200F1B191 /* AppleTV.swift in Sources */,
 				A97D99DA22A0240C001FA3A7 /* OCRManager.swift in Sources */,
+				A90331BD23ED7EE5006BB91D /* Prefs.swift in Sources */,
 				A9DA03E322A0211C0056AE7B /* OCRPrefsViewController.swift in Sources */,
 				A9A91B5D1FB6FBB700250D93 /* ChapterViewController.swift in Sources */,
 				A9676A301FB6E85300C1E300 /* LanguageTransformer.swift in Sources */,
@@ -1236,7 +1240,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1.6.1;
+				CURRENT_PROJECT_VERSION = 1.6.2;
 				DEVELOPMENT_TEAM = 5X9DE89KYV;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1255,7 +1259,7 @@
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.2;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				OTHER_SWIFT_FLAGS = "";
@@ -1279,7 +1283,7 @@
 				CODE_SIGN_ENTITLEMENTS = Subler.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.6.1;
+				CURRENT_PROJECT_VERSION = 1.6.2;
 				DEVELOPMENT_TEAM = 5X9DE89KYV;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1297,7 +1301,7 @@
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.2;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				OTHER_SWIFT_FLAGS = "";
@@ -1379,7 +1383,7 @@
 				OTHER_CFLAGS = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -1450,7 +1454,7 @@
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;

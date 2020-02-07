@@ -30,7 +30,7 @@ final class Ratings {
     }
 }
 
-struct Country: Codable {
+struct Country: Decodable {
     let displayName: String
     let storeCode: Int
     let ratings: [Rating]
@@ -40,7 +40,7 @@ struct Country: Codable {
     }
 }
 
-struct Rating: Codable {
+struct Rating: Decodable {
     let media: String
     let prefix: String
     let code: String

@@ -9,64 +9,6 @@ import Cocoa
 
 class PrefsWindowController: NSWindowController, NSWindowDelegate {
 
-    public class func registerUserDefaults() {
-        let defaults = UserDefaults.standard
-
-        let encoder = JSONEncoder()
-
-        let movieDefaultMap = try? encoder.encode(MetadataResultMap.movieDefaultMap)
-        let tvShowDefaultMap = try? encoder.encode(MetadataResultMap.tvShowDefaultMap)
-
-        let movieFormat = try? encoder.encode([Token(text: "{Name}")])
-        let tvShowFormat = try? encoder.encode([Token(text: "{TV Show}"), Token(text: " s", isPlaceholder: false), Token(text: "{TV Season}"), Token(text: "e", isPlaceholder: false), Token(text: "{TV Episode #}")])
-
-        if defaults.integer(forKey: "SBUpgradeCheck") < 1 {
-            defaults.set(1, forKey: "SBUpgradeCheck")
-        }
-
-        let settings: [String: Any] = ["SBSaveFormat":                  "m4v",
-                                       "defaultSaveFormat":             "0",
-                                       "SBOrganizeAlternateGroups":     true,
-                                       "SBInferMediaCharacteristics":   true,
-                                       "SBAudioMixdown":                "1",
-                                       "SBAudioBitrate":                "96",
-                                       "SBAudioConvertAC3":             true,
-                                       "SBAudioKeepAC3":                true,
-                                       "SBAudioConvertDts":             true,
-                                       "SBAudioDtsOptions":             0,
-                                       "SBSubtitleConvertBitmap":       true,
-                                       "SBRatingsCountry":              "All countries",
-                                       "mp464bitOffset":                false,
-                                       "chaptersPreviewTrack":          true,
-                                       "SBChaptersPreviewPosition":     0.5,
-
-                                       "SBMovieFormatTokens":           movieFormat ?? "",
-                                       "SBTVShowFormatTokens":          tvShowFormat ?? "",
-                                       "SBSetMovieFormat":              false,
-                                       "SBSetTVShowFormat":             false,
-
-                                       "SBMetadataPreference|Movie":                       "TheMovieDB",
-                                       "SBMetadataPreference|Movie|iTunes Store|Language": "USA (English)",
-                                       "SBMetadataPreference|Movie|TheMovieDB|Language":   "en",
-
-                                       "SBMetadataPreference|TV":                       "TheTVDB",
-                                       "SBMetadataPreference|TV|iTunes Store|Language": "USA (English)",
-                                       "SBMetadataPreference|TV|TheTVDB|Language":      "en",
-                                       "SBMetadataPreference|TV|TheMovieDB|Language":   "en",
-
-                                       "SBMetadataMovieResultMap2":       movieDefaultMap ?? "",
-                                       "SBMetadataTvShowResultMap2":      tvShowDefaultMap ?? "",
-                                       "SBMetadataKeepEmptyAnnotations": false,
-
-                                       "SBFileImporterImportMetadata": true,
-                                       
-                                       "SBForceHvc1": true,
-                                       "NSApplicationCrashOnException": true
-        ]
-
-        defaults.register(defaults: settings)
-    }
-
     override var windowNibName: NSNib.Name? {
         return "PrefsWindowController"
     }

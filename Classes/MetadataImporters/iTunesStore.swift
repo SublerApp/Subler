@@ -327,13 +327,13 @@ public struct iTunesStore: MetadataService {
     // MARK: - Quick iTunes search for metadata
 
     public static func quickiTunesSearch(tvSeriesName: String, seasonNum: Int?, episodeNum: Int?) -> MetadataResult? {
-        guard let language = UserDefaults.standard.string(forKey: "SBMetadataPreference|TV|iTunes Store|Language") else { return nil }
-        return iTunesStore().search(tvShow: tvSeriesName, language: language, season: seasonNum, episode: episodeNum).first
+        // Could use some conversion from language to iTunes Store.
+        return iTunesStore().search(tvShow: tvSeriesName, language: MetadataPrefs.tvShowiTunesStoreLanguage, season: seasonNum, episode: episodeNum).first
     }
 
     public static func quickiTunesSearch(movieName: String) -> MetadataResult? {
-        guard let language = UserDefaults.standard.string(forKey: "SBMetadataPreference|Movie|iTunes Store|Language") else { return nil }
-        return iTunesStore().search(movie: movieName, language: language).first
+        // Could use some conversion from language to iTunes Store.
+        return iTunesStore().search(movie: movieName, language: MetadataPrefs.movieiTunesStoreLanguage).first
     }
 
     // MARK: - Helpers

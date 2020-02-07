@@ -46,20 +46,16 @@ final class SaveOptions: NSViewController {
             fileFormat.addItem(withTitle: name)
         }
 
-        let index = UserDefaults.standard.integer(forKey: "defaultSaveFormat")
-        fileFormat.selectItem(at: index)
-
-        if let format = UserDefaults.standard.string(forKey: "SBSaveFormat") {
-            savePanel?.allowedFileTypes = [format]
-        }
+        fileFormat.selectItem(at: Prefs.defaultSaveFormat)
+        savePanel?.allowedFileTypes = [Prefs.saveFormat]
 
         if let filename = doc.mp4.preferredFileName() {
             savePanel?.nameFieldStringValue = filename
         }
 
-        _64bit_data.state = UserDefaults.standard.bool(forKey: "mp464bitOffset") ? .on : .off
-        _64bit_time.state = UserDefaults.standard.bool(forKey: "mp464bitTimes") ? .on : .off
-        optimize.state = UserDefaults.standard.bool(forKey: "mp4SaveAsOptimize") ? .on : .off
+        _64bit_data.state = Prefs.mp464bitOffset ? .on : .off
+        _64bit_time.state = Prefs.mp464bitTimes ? .on : .off
+        optimize.state = Prefs.mp4SaveAsOptimize ? .on : .off
 
         if doc.mp4.dataSize > 3900000000 {
             _64bit_data.state = .on
@@ -69,10 +65,10 @@ final class SaveOptions: NSViewController {
     override func viewWillDisappear() {
         super.viewWillDisappear()
 
-        UserDefaults.standard.set(fileFormat.indexOfSelectedItem, forKey: "defaultSaveFormat")
-        UserDefaults.standard.set(_64bit_data.state == .on, forKey: "mp464bitOffset")
-        UserDefaults.standard.set(_64bit_time.state == .on, forKey: "mp464bitTimes")
-        UserDefaults.standard.set(optimize.state == .on, forKey: "mp4SaveAsOptimize")
+        Prefs.defaultSaveFormat = fileFormat.indexOfSelectedItem
+        Prefs.mp464bitOffset = _64bit_data.state == .on
+        Prefs.mp464bitTimes = _64bit_time.state == .on
+        Prefs.mp4SaveAsOptimize = optimize.state == .on
     }
     
     @IBAction func setSaveFormat(_ sender: NSPopUpButton) {
@@ -92,6 +88,6 @@ final class SaveOptions: NSViewController {
             break
         }
         savePanel?.allowedFileTypes = [requiredFileType]
-        UserDefaults.standard.set(requiredFileType, forKey: "SBSaveFormat")
+        Prefs.saveFormat = requiredFileType
     }
 }
