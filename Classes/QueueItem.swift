@@ -81,6 +81,10 @@ import MP42Foundation
             attributes[MP42GenerateChaptersPreviewTrack] = true
             attributes[MP42ChaptersPreviewPosition] = Prefs.chaptersPreviewPosition
         }
+
+        if Prefs.forceHvc1 {
+            attributes[MP42ForceHvc1] = true
+        }
     }
 
     convenience init(mp4: MP42File) {

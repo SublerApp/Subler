@@ -84,6 +84,10 @@ final class Document: NSDocument {
             options[MP42ChaptersPreviewPosition] = Prefs.chaptersPreviewPosition
         }
 
+        if Prefs.forceHvc1 {
+            options[MP42ForceHvc1] = true
+        }
+
         if let accessoryViewController = accessoryViewController {
             options[MP4264BitData] = accessoryViewController._64bit_data.state == .on ? true : false
             options[MP4264BitTime] = accessoryViewController._64bit_time.state == .on ? true : false
