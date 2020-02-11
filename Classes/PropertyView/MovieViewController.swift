@@ -586,7 +586,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
     // MARK: Table View editing
 
-    private func stringsArray(fromString string: NSString) -> [String] {
+    private func stringsArray(fromString string: String) -> [String] {
         let splitElements = ",\\s*+"
         return string.mp42_components(separatedByRegex: splitElements)
     }
@@ -633,7 +633,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
             }
 
         case .stringArray:
-            value = stringsArray(fromString: sender.stringValue as NSString)
+            value = stringsArray(fromString: sender.stringValue)
             break
 
         case .integer:

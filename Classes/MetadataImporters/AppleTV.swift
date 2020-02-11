@@ -70,6 +70,29 @@ private extension MetadataResult {
         self.remoteArtworks += [episode.seasonImages.coverArt16X9, episode.seasonImages.coverArt].compactMap { $0?.artwork(type: .season) }
         self.remoteArtworks += [episode.images.previewFrame].compactMap { $0?.artwork(type: .episode) }
     }
+
+    func insert(contentOf details: AppleTV.ShowDetails, store: iTunesStore.Store) {
+        let content = details.content
+
+        self[.genre] = content.genres.map { $0.name }.joined(separator: ", ")
+        self[.studio] = content.studio
+
+        self[.cast] = details.roles.filter { $0.type == "Actor" }.map { $0.personName }.joined(separator: ", ")  +
+                          details.roles.filter { $0.type == "Voice" }.map { $0.personName }.joined(separator: ", ")
+        self[.screenwriters] = details.roles.filter { $0.type == "Writer" }.map { $0.personName }.joined(separator: ", ")
+        self[.producers] = details.roles.filter { $0.type == "Producer" }.map { $0.personName }.joined(separator: ", ")
+        self[.director] = details.roles.first { $0.type == "Director" }.map { $0.personName }
+        self[.composer] = details.roles.first { $0.type == "Music" }.map { $0.personName }
+
+        self[.rating] = Ratings.shared.rating(storeCode: store.storeCode, mediaKind: self.mediaKind, code: content.rating.displayName)?
+            .iTunesCode ?? self[.rating]
+
+        switch self.mediaKind {
+        case .tvShow:
+            self[.seriesDescription]  = content.contentDescription
+        case .movie: break
+        }
+    }
 }
 
 public struct AppleTV: MetadataService {
@@ -122,13 +145,26 @@ public struct AppleTV: MetadataService {
         }
     }
 
+    private func loadDetails(_ metadata: MetadataResult, language: String) -> MetadataResult {
+        guard let store = iTunesStore.Store(language: language),
+            let id = metadata[.serviceSeriesID] as? String,
+            let details = fetchMovieDetails(id: id, store: store) else { return metadata }
+
+        metadata.insert(contentOf: details, store: store)
+
+        if let season = metadata[.season] as? Int {
+            let index = metadata.remoteArtworks.count > 1 ? 1 : 0
+            metadata.remoteArtworks.insert(contentsOf: searchSeasons(id: id, season: season, store: store), at: index)
+        }
+
+        return metadata
+    }
+
     // MARK: - TV Series search
 
     public func search(tvShow: String, language: String) -> [String] {
         guard let store = iTunesStore.Store(language: language) else { return [] }
-
-        let items = search(term: tvShow, store: store)
-        return items.compactMap { $0.title }
+        return search(term: tvShow, store: store).compactMap { $0.title }
     }
 
     public func search(tvShow: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
@@ -153,31 +189,7 @@ public struct AppleTV: MetadataService {
     }
 
     public func loadTVMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
-        guard let store = iTunesStore.Store(language: language),
-            let id = metadata[.serviceSeriesID] as? String,
-            let details = fetchMovieDetails(id: id, store: store) else { return metadata }
-
-        let content = details.content
-        metadata[.seriesDescription]  = content.contentDescription
-        metadata[.genre] = content.genres.map { $0.name }.joined(separator: ", ")
-        metadata[.studio] = content.studio
-
-        if metadata[.rating] == nil {
-            metadata[.rating] = Ratings.shared.rating(storeCode: store.storeCode, mediaKind: .tvShow, code: content.rating.displayName)?.iTunesCode
-        }
-        metadata[.cast] = details.roles.filter { $0.type == "Actor" }.map { $0.personName }.joined(separator: ", ") +
-                          details.roles.filter { $0.type == "Voice" }.map { $0.personName }.joined(separator: ", ")
-        metadata[.screenwriters] = details.roles.filter { $0.type == "Writer" }.map { $0.personName }.joined(separator: ", ")
-        metadata[.producers] = details.roles.filter { $0.type == "Producer" }.map { $0.personName }.joined(separator: ", ")
-        metadata[.director] = details.roles.first { $0.type == "Director" }.map { $0.personName }
-        metadata[.composer] = details.roles.first { $0.type == "Music" }.map { $0.personName }
-
-        if let season = metadata[.season] as? Int {
-            let index = metadata.remoteArtworks.count > 1 ? 1 : 0
-            metadata.remoteArtworks.insert(contentsOf: searchSeasons(id: id, season: season, store: store), at: index)
-        }
-
-        return metadata
+        return loadDetails(metadata, language: language)
     }
 
     // MARK: - Movie search
@@ -191,25 +203,7 @@ public struct AppleTV: MetadataService {
     }
 
     public func loadMovieMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
-        guard let store = iTunesStore.Store(language: language),
-            let id = metadata[.serviceSeriesID] as? String,
-            let details = fetchMovieDetails(id: id, store: store) else { return metadata }
-
-        let content = details.content
-
-        metadata[.genre] = content.genres.map { $0.name }.joined(separator: ", ")
-        metadata[.studio] = content.studio
-
-        metadata[.rating] = Ratings.shared.rating(storeCode: store.storeCode, mediaKind: .movie, code: content.rating.displayName)?.iTunesCode
-
-        metadata[.cast] = details.roles.filter { $0.type == "Actor" }.map { $0.personName }.joined(separator: ", ")  +
-                          details.roles.filter { $0.type == "Voice" }.map { $0.personName }.joined(separator: ", ")
-        metadata[.screenwriters] = details.roles.filter { $0.type == "Writer" }.map { $0.personName }.joined(separator: ", ")
-        metadata[.producers] = details.roles.filter { $0.type == "Producer" }.map { $0.personName }.joined(separator: ", ")
-        metadata[.director] = details.roles.first { $0.type == "Director" }.map { $0.personName }
-        metadata[.composer] = details.roles.first { $0.type == "Music" }.map { $0.personName }
-
-        return metadata
+        return loadDetails(metadata, language: language)
     }
 
     // MARK: - Artworks search
@@ -219,7 +213,7 @@ public struct AppleTV: MetadataService {
         if let url = URL(string: urlString), let results = sendJSONRequest(url: url, type: Wrapper<Seasons>.self) {
 
             let filteredResults =  results.data.seasons.values.joined().filter { $0.seasonNumber == season }
-            return filteredResults.compactMap { $0.images }.compactMap { $0.coverArt16X9 }.compactMap { $0.artwork(type: .season) }
+            return filteredResults.compactMap { $0.images.coverArt16X9?.artwork(type: .season) }
         }
         return []
     }
@@ -244,7 +238,7 @@ public struct AppleTV: MetadataService {
                 }
             }()
 
-            let artworks = filteredResults.compactMap { $0.images }.compactMap { $0.coverArt16X9 }.compactMap { $0.artwork(type: .poster) }
+            let artworks = filteredResults.compactMap { $0.images.coverArt16X9?.artwork(type: .poster) }
 
             if case let MediaType.tvShow(season) = type, let item = filteredResults.first {
                 if let season = season {
@@ -391,7 +385,7 @@ public struct AppleTV: MetadataService {
         let value: UInt
     }
 
-    private struct Genre: Codable {
+    fileprivate struct Genre: Codable {
         let name, id, type: String
         let url: String
     }
@@ -401,7 +395,7 @@ public struct AppleTV: MetadataService {
         let directors: [String]?
     }
 
-    private struct Role: Codable {
+    fileprivate struct Role: Codable {
         let type, roleTitle: String
         let characterName: String?
         let personName, personId: String
@@ -449,7 +443,7 @@ public struct AppleTV: MetadataService {
 
     // MARK: Movie specific
 
-    private struct Content: Codable {
+    fileprivate struct Content: Codable {
         let id: String
         let type: String
         let isEntitledToPlay: Bool?
@@ -473,7 +467,7 @@ public struct AppleTV: MetadataService {
         }
     }
 
-    private struct ShowDetails: Codable {
+    fileprivate struct ShowDetails: Codable {
         let content: Content
         let roles: [Role]
     }

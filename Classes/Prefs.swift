@@ -10,7 +10,15 @@ import Foundation
 private let ud = UserDefaults.standard
 
 private protocol Registable {
-    func registerDefault(in dictionary: inout [String :Any])
+    func register(in dictionary: inout [String :Any])
+}
+
+private extension UserDefaults {
+    func register(defaults values: [Registable]) {
+        var defaults = [String : Any]()
+        values.forEach { $0.register(in: &defaults) }
+        self.register(defaults: defaults)
+    }
 }
 
 @propertyWrapper
@@ -28,7 +36,7 @@ struct Stored<T> : Registable {
         set { ud.set(newValue, forKey: key) }
     }
 
-    func registerDefault(in dictionary: inout [String :Any]) {
+    func register(in dictionary: inout [String :Any]) {
         dictionary[key] = defaultValue
     }
 }
@@ -55,26 +63,21 @@ struct StoredCodable<T: Codable> : Registable {
         }
     }
 
-    func registerDefault(in dictionary: inout [String :Any]) {
+    func register(in dictionary: inout [String :Any]) {
         if let data = try? JSONEncoder().encode(defaultValue) {
             dictionary[key] = data
         }
     }
 }
 
-struct Prefs {
+enum Prefs {
 
     static func register() {
-        var defaults = [String : Any]()
-        ([_saveFormat, _organizeAlternateGroups, _defaultSaveFormat,
-          _organizeAlternateGroups, _inferMediaCharacteristics, _audioMixdown,
-          _audioBitrate, _audioDRC, _audioConvertAC3, _audioKeepAC3, _audioConvertDts,
-          _audioDtsOptions, _subtitleConvertBitmap, _ratingsCountry, _chaptersPreviewPosition,
-          _chaptersPreviewTrack, _mp464bitOffset, _mp464bitTimes, _mp4SaveAsOptimize, _forceHvc1]
-            as? [Registable])?
-            .forEach { $0.registerDefault(in: &defaults) }
-
-        ud.register(defaults: defaults)
+        ud.register(defaults: [_saveFormat, _organizeAlternateGroups, _defaultSaveFormat,
+                               _organizeAlternateGroups, _inferMediaCharacteristics, _audioMixdown,
+                               _audioBitrate, _audioDRC, _audioConvertAC3, _audioKeepAC3, _audioConvertDts,
+                               _audioDtsOptions, _subtitleConvertBitmap, _ratingsCountry, _chaptersPreviewPosition,
+                               _chaptersPreviewTrack, _mp464bitOffset, _mp464bitTimes, _mp4SaveAsOptimize, _forceHvc1])
     }
 
     @Stored(key: "SBIgnoreDonationAlert", defaultValue: false)
@@ -144,18 +147,13 @@ struct Prefs {
     static var forceHvc1: Bool
 }
 
-struct MetadataPrefs {
+enum MetadataPrefs {
 
     static func register() {
-        var defaults = [String : Any]()
-        ([_setMovieFormat, _setTVShowFormat,
-          _movieImporter, _movieiTunesStoreLanguage,
-          _tvShowImporter, _tvShowiTunesStoreLanguage, _tvShowTheTVDBLanguage, _tvShowTheMovieDBLanguage,
-          _keepEmptyAnnotations, _keepImportedFilesMetadata]
-            as? [Registable])?
-            .forEach { $0.registerDefault(in: &defaults) }
-
-        ud.register(defaults: defaults)
+        ud.register(defaults: [_setMovieFormat, _setTVShowFormat,
+                               _movieImporter, _movieiTunesStoreLanguage,
+                               _tvShowImporter, _tvShowiTunesStoreLanguage, _tvShowTheTVDBLanguage, _tvShowTheMovieDBLanguage,
+                               _keepEmptyAnnotations, _keepImportedFilesMetadata])
     }
 
     @StoredCodable(key: "SBMovieFormatTokens", defaultValue: [Token(text: "{Name}")])

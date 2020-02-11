@@ -22,7 +22,7 @@ private class MediaTag {
     /// for a particular media type.
     ///
     /// - Parameter mediaType: a MP42MediaType type.
-    /// - Returns: an array of NSString with the supported tags.
+    /// - Returns: an array of String with the supported tags.
     static func predefinedTags(for mediaType: MP42MediaType) -> [String] {
         var tags = ["public.main-program-content", "public.auxiliary-content"]
 
