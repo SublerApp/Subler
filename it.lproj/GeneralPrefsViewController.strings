@@ -1,6 +1,9 @@
 /* Class = "NSTextFieldCell"; title = "Middle"; ObjectID = "2o1-dB-mt1"; */
 "2o1-dB-mt1.title" = "Metà";
 
+/* Class = "NSButtonCell"; title = "Automatically check for update daily"; ObjectID = "2Pf-pq-4IX"; */
+"2Pf-pq-4IX.title" = "Controlla automaticamente per aggiornamenti ogni giorno";
+
 /* Class = "NSTextFieldCell"; title = "Beginning"; ObjectID = "3Vs-qA-7Z6"; */
 "3Vs-qA-7Z6.title" = "Inizio";
 
@@ -13,14 +16,14 @@
 /* Class = "NSButtonCell"; title = "Remember Size"; ObjectID = "86"; */
 "86.title" = "Ricorda dimensione";
 
-/* Class = "NSButtonCell"; title = "Automatically check daily"; ObjectID = "87"; */
-"87.title" = "Controlla automaticamente ogni giorno";
+/* Class = "NSButtonCell"; title = "Show open panel"; ObjectID = "87"; */
+"87.title" = "Mostra il pannello di apertura";
 
 /* Class = "NSTextFieldCell"; title = "Window:"; ObjectID = "88"; */
 "88.title" = "Finestra:";
 
-/* Class = "NSTextFieldCell"; title = "Check for update:"; ObjectID = "89"; */
-"89.title" = "Ricerca aggiornamenti:";
+/* Class = "NSTextFieldCell"; title = "At Launch:"; ObjectID = "89"; */
+"89.title" = "All'avvio:";
 
 /* Class = "NSButtonCell"; title = "Clear recent searches"; ObjectID = "134"; */
 "134.title" = "Cancella ricerche recenti";

@@ -31,9 +31,6 @@
 /* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "4rl-TJ-0yZ"; */
 "4rl-TJ-0yZ.ibShadowedNotApplicablePlaceholder" = "Nessuno";
 
-/* Class = "NSMenuItem"; title = "Square"; ObjectID = "7zv-RG-1w4"; */
-"7zv-RG-1w4.title" = "Square";
-
 /* Class = "NSButton"; ibShadowedToolTip = "Clear existing metadata"; ObjectID = "9GN-f6-r2j"; */
 "9GN-f6-r2j.ibShadowedToolTip" = "Cancella metadata esistenti";
 
@@ -96,9 +93,6 @@
 
 /* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "GBM-Sa-9GJ"; */
 "GBM-Sa-9GJ.title" = "Lingua:";
-
-/* Class = "NSMenuItem"; title = "iTunes"; ObjectID = "GXR-5u-c8a"; */
-"GXR-5u-c8a.title" = "iTunes";
 
 /* Class = "NSButtonCell"; title = "Fetch Metadata"; ObjectID = "h5x-un-6cJ"; */
 "h5x-un-6cJ.title" = "Trova metadata";

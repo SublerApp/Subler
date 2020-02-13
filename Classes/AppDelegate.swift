@@ -224,7 +224,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {
-        documentController.openDocument(self)
+        if Prefs.showOpenPanelAtLaunch {
+            documentController.openDocument(self)
+        }
         return false
     }
 

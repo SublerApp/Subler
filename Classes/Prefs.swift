@@ -73,7 +73,7 @@ struct StoredCodable<T: Codable> : Registable {
 enum Prefs {
 
     static func register() {
-        ud.register(defaults: [_crashOnException, _saveFormat, _organizeAlternateGroups, _defaultSaveFormat,
+        ud.register(defaults: [_crashOnException, _showOpenPanelAtLaunch, _saveFormat, _organizeAlternateGroups, _defaultSaveFormat,
                                _organizeAlternateGroups, _inferMediaCharacteristics, _audioMixdown,
                                _audioBitrate, _audioDRC, _audioConvertAC3, _audioKeepAC3, _audioConvertDts,
                                _audioDtsOptions, _subtitleConvertBitmap, _ratingsCountry, _chaptersPreviewPosition,
@@ -82,6 +82,9 @@ enum Prefs {
 
     @Stored(key: "NSApplicationCrashOnException", defaultValue: true)
     private static var crashOnException: Bool
+
+    @Stored(key: "SBShowOpenPanelAtLaunch", defaultValue: true)
+    static var showOpenPanelAtLaunch: Bool
 
     @Stored(key: "SBIgnoreDonationAlert", defaultValue: false)
     static var suppressDonationAlert: Bool
