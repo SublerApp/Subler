@@ -47,7 +47,7 @@ final class ImageBrowserView : IKImageBrowserView, NSMenuItemValidation {
     }
 
     private func updateBackgroundColor() {
-        if #available(OSX 10.14, *) {
+        if #available(macOS 10.14, *) {
             let dark = effectiveAppearance.bestMatch(from: [.darkAqua]) == .darkAqua ? true : false
             if dark {
                 setValue(NSColor.clear, forKey: IKImageBrowserBackgroundColorKey)

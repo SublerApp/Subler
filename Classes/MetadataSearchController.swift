@@ -507,7 +507,13 @@ final class MetadataSearchController: NSViewController, NSTableViewDataSource, N
                 let key = result.orderedKeys[row]
                 if tableColumn?.identifier.rawValue == "name" {
                     let cell = tableView.makeView(withIdentifier: annotationCell, owner:self) as? NSTableCellView
-                    cell?.textField?.attributedStringValue = key.localizedDisplayName.boldMonospacedAttributedString()
+                    cell?.textField?.stringValue = key.localizedDisplayName
+                    if #available(macOS 10.14, *) {
+                        cell?.textField?.textColor = .secondaryLabelColor
+                    }
+                    else {
+                        cell?.textField?.textColor = .disabledControlTextColor
+                    }
                     return cell
                 }
                 else if tableColumn?.identifier.rawValue == "value" {

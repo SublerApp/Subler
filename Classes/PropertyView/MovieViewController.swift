@@ -534,6 +534,12 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
             let cell = tableView.makeView(withIdentifier: MovieViewController.keyCell, owner: self) as? NSTableCellView
             cell?.textField?.stringValue = localizedMetadataKeyName(item.identifier)
+            if #available(macOS 10.14, *) {
+                cell?.textField?.textColor = .secondaryLabelColor
+            }
+            else {
+                cell?.textField?.textColor = .disabledControlTextColor
+            }
             return cell
 
         } else if tableColumn?.identifier == valueColumn {
