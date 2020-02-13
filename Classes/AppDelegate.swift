@@ -10,6 +10,31 @@ import MP42Foundation
 
 final class DocumentController : NSDocumentController {
 
+    private var openPanel: NSOpenPanel?
+
+    override func openDocument(_ sender: Any?) {
+        if self.openPanel == nil {
+            super.openDocument(sender)
+        }
+    }
+
+    override func beginOpenPanel(_ openPanel: NSOpenPanel, forTypes inTypes: [String]?, completionHandler: @escaping (Int) -> Void) {
+        if self.openPanel == nil {
+            self.openPanel = openPanel
+        }
+        super.beginOpenPanel(openPanel, forTypes: inTypes, completionHandler: { result in self.openPanel = nil; completionHandler(result) } )
+    }
+
+    private func dismissOpenPanel() {
+        self.openPanel?.close()
+        self.openPanel = nil
+    }
+
+    override func addDocument(_ document: NSDocument) {
+        self.dismissOpenPanel()
+        super.addDocument(document)
+    }
+
     override func openDocument(withContentsOf url: URL, display displayDocument: Bool, completionHandler: @escaping (NSDocument?, Bool, Error?) -> Void) {
         let ext = url.pathExtension.lowercased()
 
@@ -199,6 +224,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {
+        documentController.openDocument(self)
         return false
     }
 
