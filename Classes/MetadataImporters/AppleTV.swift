@@ -175,7 +175,7 @@ public struct AppleTV: MetadataService {
         if let tvShow = tvShows.first {
             let seasons = fetchSeasons(id: tvShow.id, store: store)
             let seasonNumber = season ?? 1
-            if seasons.count >= seasonNumber {
+            if seasons.count >= seasonNumber, seasonNumber > 0 {
                 let startIndex = seasons[0 ..< seasonNumber - 1].map { $0.episodeCount }.reduce(0, +)
                 let length = seasons[seasonNumber - 1].episodeCount
                 let episodes = fetchEpisodes(id: tvShow.id, store: store, range: (startIndex, length))
