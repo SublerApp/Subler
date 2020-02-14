@@ -13,7 +13,9 @@ final class DocumentController : NSDocumentController {
     private var openPanel: NSOpenPanel?
 
     override func openDocument(_ sender: Any?) {
-        if self.openPanel == nil {
+        if let openPanel = self.openPanel {
+            openPanel.makeKeyAndOrderFront(self)
+        } else {
             super.openDocument(sender)
         }
     }
