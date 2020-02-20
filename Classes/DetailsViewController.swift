@@ -13,9 +13,4 @@ final class DetailsViewController: NSViewController {
         return "DetailsViewController"
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
-    }
-
 }

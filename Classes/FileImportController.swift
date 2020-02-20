@@ -25,7 +25,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
         let enabled: Bool
     }
     
-    private class Settings {
+    private final class Settings {
         let track: MP42Track
         let importable: Bool
         let actions: [Action]
@@ -178,24 +178,12 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
     }
     
     init(fileURLs: [URL], delegate: FileImportControllerDelegate) throws {
-        self.delegate = delegate
-        
-        var rows: [ItemType] = []
-        
-        let fileImporters: [MP42FileImporter] = try fileURLs.compactMap {
-            return try MP42FileImporter(url: $0)
-        }
-
-        for importer in fileImporters {
-            rows.append(ItemType.file(importer))
-            let tracks = importer.tracks.map { ItemType.track(Settings(track: $0)) }
-            rows.append(contentsOf: tracks)
-        }
-
-        self.metadata = fileImporters.first?.metadata
-        self.items = rows
+        let importers = try fileURLs.map { try MP42FileImporter(url: $0) }
+        self.items = importers.flatMap { [ItemType.file($0)] + $0.tracks.map { ItemType.track(Settings(track: $0)) } }
+        self.metadata = importers.first?.metadata
         self.importMetadata = metadata != nil && MetadataPrefs.keepImportedFilesMetadata
-        
+        self.delegate = delegate
+
         super.init(nibName: nil, bundle: nil)
 
         self.autosave = "FileImportControllerAutosaveIdentifier"
@@ -212,8 +200,6 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
         self.importMetadataCheckbox.state = MetadataPrefs.keepImportedFilesMetadata ? .on : .off
     }
 
-    // MARK: Public properties
-
     private var settings: [Settings] {
         return items.compactMap {
             switch $0 {
@@ -225,8 +211,10 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
         }
     }
 
+    // MARK: Public properties
+
     var onlyContainsSubtitles: Bool {
-        return settings.filter { $0.track.format != kMP42SubtitleCodecType_3GText && $0.track as? MP42SubtitleTrack == nil } .isEmpty
+        return settings.allSatisfy { $0.track.format == kMP42SubtitleCodecType_3GText || $0.track as? MP42SubtitleTrack != nil }
     }
 
     // MARK: Selection
@@ -280,11 +268,8 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
             }
         }
 
-        for settings in settings {
-            settings.checked = settings.importable && languages.contains(settings.track.language)
-        }
-
-        reloadCheckColumn(forRowIndexes: IndexSet(integersIn: 0..<items.count))
+        settings.forEach { $0.checked = $0.importable && languages.contains($0.track.language) }
+        reloadCheckColumn(forRowIndexes: IndexSet(integersIn: items.indices))
     }
     
     // MARK: IBActions
@@ -294,11 +279,9 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
     }
     
     @IBAction func addTracks(_ sender: Any) {
-
         var selectedTracks: [MP42Track] = []
-        let checkedTracks = settings.filter { $0.checked }
 
-        for trackSettings in checkedTracks {
+        for trackSettings in settings where trackSettings.checked {
             switch trackSettings.track {
             case let track as MP42AudioTrack:
                 
@@ -364,14 +347,14 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
     // MARK: Actions
 
     @IBAction func setImportMetadata(_ sender: NSButton) {
-        let enabled = sender.state == NSControl.StateValue.on
+        let enabled = sender.state == .on
         importMetadata = enabled
         MetadataPrefs.keepImportedFilesMetadata = enabled
     }
 
     @IBAction func setCheck(_ sender: NSButton) {
         let row = tracksTableView.row(for: sender)
-        if row == -1 { return }
+        guard row == -1 else { return }
 
         switch items[row] {
         case .file(_):
@@ -419,7 +402,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
 
             case checkColumn?:
                 let cell = tableView.makeView(withIdentifier: checkColumn, owner:self) as? CheckBoxCellView
-                cell?.checkboxButton?.state = settings.checked ? NSControl.StateValue.on : NSControl.StateValue.off
+                cell?.checkboxButton?.state = settings.checked ? .on : .off
                 return cell
 
             case trackIdColumn?:
@@ -435,6 +418,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
             case trackDurationColumn?:
                 let cell = tableView.makeView(withIdentifier: trackDurationColumn, owner:self) as? NSTableCellView
                 cell?.textField?.stringValue = StringFromTime(Int64(settings.track.duration), 1000)
+                cell?.textField?.font = NSFont.monospacedDigitSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
                 return cell
 
             case trackLanguageColumn?:
@@ -451,7 +435,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
                 let cell = tableView.makeView(withIdentifier: trackActionColumn, owner:self) as? PopUpCellView
                 if let menu = cell?.popUpButton?.menu {
                     menu.removeAllItems()
-                    _ = settings.actions.map {
+                    settings.actions.forEach {
                         let menuItem = NSMenuItem(title: $0.title, action: nil, keyEquivalent: "")
                         menuItem.tag = $0.tag
                         menuItem.isEnabled = $0.enabled
@@ -476,6 +460,15 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
             return true
         default:
             return false
+        }
+    }
+
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        switch items[row] {
+        case .file:
+            return 19
+        default:
+            return 18
         }
     }
 }
