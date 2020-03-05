@@ -29,7 +29,7 @@ private extension MetadataResult {
         self[.cast]            = item.rolesSummary?.cast?.joined(separator: ", ")
         self[.director]        = item.rolesSummary?.directors?.joined(separator: ", ")
 
-        self[.iTunesURL]       = item.url.absoluteString
+		self[.iTunesURL]       = item.url
         self[.serviceSeriesID] = item.id
 
         self.remoteArtworks = [item.images.coverArt16X9, item.images.coverArt].compactMap { $0?.artwork(type: .poster) }
@@ -415,7 +415,7 @@ public struct AppleTV: MetadataService {
         let rolesSummary: Roles?
         let title: String?
         let type: String
-        let url: URL
+        let url: String
 
         var formattedDate: String? {
             if let date = releaseDate {
