@@ -354,7 +354,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
 
     @IBAction func setCheck(_ sender: NSButton) {
         let row = tracksTableView.row(for: sender)
-        guard row == -1 else { return }
+        guard row != -1 else { return }
 
         switch items[row] {
         case .file(_):
