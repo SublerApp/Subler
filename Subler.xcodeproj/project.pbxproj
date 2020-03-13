@@ -150,13 +150,6 @@
 			remoteGlobalIDString = A9B9C1ED182391DF00416A4E;
 			remoteInfo = MP42Foundation;
 		};
-		A925AA8318378D7900BE84D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A925AA7B18378D7800BE84D4 /* MP42Foundation.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A9B9C204182391DF00416A4E;
-			remoteInfo = MP42FoundationTests;
-		};
 		A925AA8618378DC400BE84D4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A925AA7B18378D7800BE84D4 /* MP42Foundation.xcodeproj */;
@@ -510,7 +503,6 @@
 			isa = PBXGroup;
 			children = (
 				A925AA8218378D7900BE84D4 /* MP42Foundation.framework */,
-				A925AA8418378D7900BE84D4 /* MP42FoundationFoundationTests.xctest */,
 				A98C6F84183E6C39007E5AE5 /* libmp42.a */,
 			);
 			name = Products;
@@ -740,13 +732,6 @@
 			fileType = wrapper.framework;
 			path = MP42Foundation.framework;
 			remoteRef = A925AA8118378D7900BE84D4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A925AA8418378D7900BE84D4 /* MP42FoundationFoundationTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = MP42FoundationFoundationTests.xctest;
-			remoteRef = A925AA8318378D7900BE84D4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A98C6F84183E6C39007E5AE5 /* libmp42.a */ = {
@@ -1240,7 +1225,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1.6.3;
+				CURRENT_PROJECT_VERSION = 1.6.4;
 				DEVELOPMENT_TEAM = 5X9DE89KYV;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1259,7 +1244,7 @@
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.6.3;
+				MARKETING_VERSION = 1.6.4;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				OTHER_SWIFT_FLAGS = "";
@@ -1283,7 +1268,7 @@
 				CODE_SIGN_ENTITLEMENTS = Subler.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.6.3;
+				CURRENT_PROJECT_VERSION = 1.6.4;
 				DEVELOPMENT_TEAM = 5X9DE89KYV;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1301,7 +1286,7 @@
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.6.3;
+				MARKETING_VERSION = 1.6.4;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				OTHER_SWIFT_FLAGS = "";
