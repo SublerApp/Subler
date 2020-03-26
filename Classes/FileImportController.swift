@@ -213,8 +213,16 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
 
     // MARK: Public properties
 
+    private var containsTracks: Bool {
+        settings.isEmpty == false
+    }
+
     var onlyContainsSubtitles: Bool {
-        return settings.allSatisfy { $0.track.format == kMP42SubtitleCodecType_3GText || $0.track as? MP42SubtitleTrack != nil }
+        containsTracks && settings.allSatisfy { $0.track.format == kMP42SubtitleCodecType_3GText || $0.track as? MP42SubtitleTrack != nil }
+    }
+
+    var onlyContainsMetadata: Bool {
+        containsTracks == false && metadata != nil
     }
 
     // MARK: Selection
@@ -375,9 +383,9 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
             settings.selectedActionTag = UInt(selectedItem.tag)
         }
     }
-    
+
     // MARK: Table View
-    
+
     private let checkColumn = NSUserInterfaceItemIdentifier(rawValue: "check")
     private let trackIdColumn = NSUserInterfaceItemIdentifier(rawValue: "trackId")
     private let trackNameColumn = NSUserInterfaceItemIdentifier(rawValue: "trackName")
@@ -385,18 +393,18 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
     private let trackLanguageColumn = NSUserInterfaceItemIdentifier(rawValue: "trackLanguage")
     private let trackInfoColumn = NSUserInterfaceItemIdentifier(rawValue: "trackInfo")
     private let trackActionColumn = NSUserInterfaceItemIdentifier(rawValue: "trackAction")
-    
+
     func numberOfRows(in tableView: NSTableView) -> Int {
         return items.count
     }
-    
+
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         switch items[row] {
         case .file(let importer):
             let groupCell = tableView.makeView(withIdentifier: trackNameColumn, owner:self) as? NSTableCellView
             groupCell?.textField?.attributedStringValue = importer.fileURL.lastPathComponent.groupAttributedString()
             return groupCell
-            
+
         case .track(let settings):
             switch tableColumn?.identifier {
 
