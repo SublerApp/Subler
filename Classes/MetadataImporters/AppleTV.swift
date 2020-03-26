@@ -117,11 +117,11 @@ public struct AppleTV: MetadataService {
         return "Apple TV"
     }
 
-    private let searchURL = "https://tv.apple.com/api/uts/v2/uts/v2/search/incremental?"
-    private let detailsURL = "https://tv.apple.com/api/uts/v2/view/product/"
-    private let episodesURL = "https://tv.apple.com/api/uts/v2/view/show/"
-    private let seasonsURL = "https://tv.apple.com/api/uts/v2/show/"
-    private let options = "&utsk=0&caller=wta&v=36&pfm=web"
+    private let searchURL = "https://uts-api.itunes.apple.com/uts/v2/search/incremental?"
+    private let detailsURL = "https://uts-api.itunes.apple.com/uts/v2/view/product/"
+    private let episodesURL = "https://uts-api.itunes.apple.com/uts/v2/view/show/"
+    private let seasonsURL = "https://uts-api.itunes.apple.com/uts/v2/show/"
+    private let options = "&utsk=0&caller=wta&v=40&pfm=web"
 
     private func normalize(_ term: String) -> String {
         return term.replacingOccurrences(of: " (Dubbed)", with: "")
@@ -211,7 +211,6 @@ public struct AppleTV: MetadataService {
     private func searchSeasons(id: String,  season: Int, store: iTunesStore.Store) -> [Artwork] {
         let urlString = "\(seasonsURL)\(id)/itunesSeasons?sf=\(store.storeCode)&locale=\(store.language2)\(options)"
         if let url = URL(string: urlString), let results = sendJSONRequest(url: url, type: Wrapper<Seasons>.self) {
-
             let filteredResults =  results.data.seasons.values.joined().filter { $0.seasonNumber == season }
             return filteredResults.compactMap { $0.images.coverArt16X9?.artwork(type: .season) }
         }
