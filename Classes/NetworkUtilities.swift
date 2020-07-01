@@ -83,7 +83,7 @@ extension URLSession {
             sem.signal()
             }.resume()
 
-        _ = sem.wait()
+        sem.wait()
 
         return downloadData
     }
@@ -100,7 +100,7 @@ extension URLSession {
             sem.signal()
             }.resume()
 
-        _ = sem.wait()
+        sem.wait()
 
         return (downloadData, downloadResponse)
     }

@@ -34,7 +34,7 @@ final class Logger : NSObject, MP42Logging {
         queue.sync {
             let output = "\(currentTime()) \(string)\n"
 
-            _ = fileURL.withUnsafeFileSystemRepresentation {
+            fileURL.withUnsafeFileSystemRepresentation {
                 if let file = fopen($0, "a") {
                     fputs(output, file)
                     fclose(file)

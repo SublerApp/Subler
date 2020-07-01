@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17132" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <development version="11000" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17132"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -32,10 +33,10 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view translatesAutoresizingMaskIntoConstraints="NO" id="Hv4-PS-bN1">
-                                        <rect key="frame" x="39" y="24" width="405" height="179"/>
+                                        <rect key="frame" x="39" y="21" width="405" height="184"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="AN1-Gb-9rU">
-                                                <rect key="frame" x="48" y="147" width="91" height="14"/>
+                                                <rect key="frame" x="48" y="152" width="91" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Volume:" id="Z5x-Oq-P8Z">
                                                     <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -43,7 +44,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MVR-Tx-Jpc">
-                                                <rect key="frame" x="145" y="145" width="210" height="18"/>
+                                                <rect key="frame" x="139" y="149" width="222" height="20"/>
                                                 <sliderCell key="cell" controlSize="small" state="on" alignment="left" maxValue="200" doubleValue="100" tickMarkPosition="below" numberOfTickMarks="1" sliderType="linear" id="Yee-GR-ylI">
                                                     <font key="font" metaFont="controlContent" size="11"/>
                                                 </sliderCell>
@@ -72,7 +73,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hO4-U9-j72">
-                                                <rect key="frame" x="142" y="98" width="87" height="22"/>
+                                                <rect key="frame" x="142" y="100" width="87" height="22"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="81" id="deO-aT-0vb"/>
                                                 </constraints>
@@ -97,7 +98,7 @@
                                                 </connections>
                                             </popUpButton>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kyn-qq-nF7">
-                                                <rect key="frame" x="142" y="73" width="216" height="22"/>
+                                                <rect key="frame" x="142" y="75" width="216" height="22"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="210" id="VlQ-qX-xoP"/>
                                                 </constraints>
@@ -124,7 +125,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Kd-IU-I5v">
-                                                <rect key="frame" x="142" y="49" width="216" height="22"/>
+                                                <rect key="frame" x="142" y="51" width="216" height="22"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="210" id="p8q-de-wud"/>
                                                 </constraints>
@@ -143,7 +144,7 @@
                                                 </connections>
                                             </popUpButton>
                                             <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="IeL-sA-ryZ">
-                                                <rect key="frame" x="326" y="136" width="31" height="11"/>
+                                                <rect key="frame" x="327" y="138" width="30" height="11"/>
                                                 <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+6 db" id="5ZH-ms-h3O">
                                                     <font key="font" metaFont="miniSystem"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -151,7 +152,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="nJx-6Z-zO1">
-                                                <rect key="frame" x="233" y="136" width="33" height="11"/>
+                                                <rect key="frame" x="233" y="138" width="33" height="11"/>
                                                 <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="+ 0 db" id="5af-rM-3Vd">
                                                     <font key="font" metaFont="miniSystem"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -159,7 +160,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="k0u-bj-qan">
-                                                <rect key="frame" x="143" y="136" width="33" height="11"/>
+                                                <rect key="frame" x="143" y="138" width="33" height="11"/>
                                                 <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-∞ db" id="dCR-ej-bsH">
                                                     <font key="font" metaFont="miniSystem"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -177,14 +178,14 @@
                                             <constraint firstItem="AN1-Gb-9rU" firstAttribute="width" secondItem="AHt-fF-cmH" secondAttribute="width" id="AU9-ql-aXF"/>
                                             <constraint firstItem="nJx-6Z-zO1" firstAttribute="leading" relation="lessThanOrEqual" secondItem="k0u-bj-qan" secondAttribute="trailing" constant="61" id="G5n-aF-RBC"/>
                                             <constraint firstItem="hO4-U9-j72" firstAttribute="leading" secondItem="oJQ-vl-QbS" secondAttribute="trailing" constant="8" id="Gfc-Zk-4EW"/>
-                                            <constraint firstItem="nJx-6Z-zO1" firstAttribute="top" secondItem="MVR-Tx-Jpc" secondAttribute="bottom" constant="-2" id="JR4-g6-xcz"/>
+                                            <constraint firstItem="nJx-6Z-zO1" firstAttribute="top" secondItem="MVR-Tx-Jpc" secondAttribute="bottom" constant="2" id="JR4-g6-xcz"/>
                                             <constraint firstItem="MVR-Tx-Jpc" firstAttribute="leading" secondItem="AN1-Gb-9rU" secondAttribute="trailing" constant="8" id="LPl-Nn-65j"/>
                                             <constraint firstItem="AHt-fF-cmH" firstAttribute="baseline" secondItem="kyn-qq-nF7" secondAttribute="baseline" id="M4b-iy-HSS"/>
                                             <constraint firstItem="6Kd-IU-I5v" firstAttribute="top" secondItem="kyn-qq-nF7" secondAttribute="bottom" constant="6" id="N47-7q-Mqr"/>
                                             <constraint firstItem="MVR-Tx-Jpc" firstAttribute="trailing" secondItem="kyn-qq-nF7" secondAttribute="trailing" id="PML-pJ-zuF"/>
                                             <constraint firstItem="oJQ-vl-QbS" firstAttribute="trailing" secondItem="AN1-Gb-9rU" secondAttribute="trailing" id="PZ9-Xs-c8t"/>
-                                            <constraint firstItem="k0u-bj-qan" firstAttribute="top" secondItem="MVR-Tx-Jpc" secondAttribute="bottom" constant="-2" id="Rk9-fP-I1u"/>
-                                            <constraint firstItem="IeL-sA-ryZ" firstAttribute="top" secondItem="MVR-Tx-Jpc" secondAttribute="bottom" constant="-2" id="TQQ-O6-ELd"/>
+                                            <constraint firstItem="k0u-bj-qan" firstAttribute="top" secondItem="MVR-Tx-Jpc" secondAttribute="bottom" constant="2" id="Rk9-fP-I1u"/>
+                                            <constraint firstItem="IeL-sA-ryZ" firstAttribute="top" secondItem="MVR-Tx-Jpc" secondAttribute="bottom" constant="2" id="TQQ-O6-ELd"/>
                                             <constraint firstItem="AN1-Gb-9rU" firstAttribute="width" secondItem="Wwd-LM-Zu2" secondAttribute="width" id="Xqm-mJ-Uu0"/>
                                             <constraint firstAttribute="trailing" secondItem="MVR-Tx-Jpc" secondAttribute="trailing" constant="50" id="ZRC-Nn-csX"/>
                                             <constraint firstItem="kyn-qq-nF7" firstAttribute="top" secondItem="hO4-U9-j72" secondAttribute="bottom" constant="7" id="e5h-Ks-zjC"/>

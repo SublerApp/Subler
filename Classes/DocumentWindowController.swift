@@ -37,6 +37,12 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             fatalError("`window` is expected to be non nil by this time.")
         }
 
+        #if __MAC_10_16
+        if #available(macOS 10.16, *) {
+            window.toolbarStyle = .expanded
+        }
+        #endif
+
         sendToQueue.image = NSImage(named: NSImage.shareTemplateName);
 
         window.contentViewController = splitViewController
