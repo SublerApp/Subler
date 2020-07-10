@@ -11,7 +11,7 @@
 
 NSString *libraryPath = nil;
 
-void logCallback(MP4LogLevel loglevel, const char* fmt, va_list ap)
+static void logCallback(MP4LogLevel loglevel, const char *fmt, va_list ap)
 {
     if (!libraryPath) {
         NSString *libraryDir = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
@@ -42,8 +42,8 @@ void logCallback(MP4LogLevel loglevel, const char* fmt, va_list ap)
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification
 {
-    MP4LogSetLevel(MP4_LOG_INFO);
     MP4SetLogCallback(logCallback);
+    MP4LogSetLevel(MP4_LOG_INFO);
 }
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender

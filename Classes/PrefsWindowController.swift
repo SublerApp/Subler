@@ -16,11 +16,9 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
     override func windowDidLoad() {
         super.windowDidLoad()
 
-        #if __MAC_10_16
         if #available(macOS 10.16, *) {
             window?.toolbarStyle = .preference
         }
-        #endif
 
         window?.toolbar?.allowsUserCustomization = false
         window?.toolbar?.selectedItemIdentifier = general

@@ -59,22 +59,26 @@ extern NSString *libraryPath;
 - (BOOL)_loadFileDump:(NSURL *)absoluteURL error:(NSError **)outError
 {
     MP4FileHandle fileHandle = MP4Read(absoluteURL.fileSystemRepresentation);
+    
+    if (fileHandle == MP4_INVALID_FILE_HANDLE) {
+        return NO;
+    }
 
     MP4LogLevel level = (MP4LogLevel)[NSUserDefaults.standardUserDefaults integerForKey:@"LogLevel"];
 
     MP4LogSetLevel(level);
     MP4Dump(fileHandle, 0);
     MP4Close(fileHandle, 0);
-    
+
     result = [NSString stringWithContentsOfFile:libraryPath encoding:NSASCIIStringEncoding error:outError];
 
     if ([NSFileManager.defaultManager isDeletableFileAtPath:libraryPath]) {
         [NSFileManager.defaultManager removeItemAtPath:libraryPath error:nil];
     }
+
     if (result) {
         return YES;
-    }
-    else {
+    } else {
         return NO;
     }
 }

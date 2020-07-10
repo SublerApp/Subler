@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17132.0.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17132.0.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,6 +11,7 @@
                 <outlet property="editButton" destination="J0r-57-7ab" id="aR4-lN-fpm"/>
                 <outlet property="spinner" destination="fCV-gk-gLV" id="1Vf-98-EBX"/>
                 <outlet property="tableHeight" destination="str-CQ-ds2" id="Xho-rg-kXk"/>
+                <outlet property="tableView" destination="4Xn-YH-LzM" id="oEl-5m-XGo"/>
                 <outlet property="view" destination="c22-O7-iKe" id="eHa-ul-BOp"/>
             </connections>
         </customObject>
@@ -28,7 +29,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="item.fileURL.lastPathComponent" id="viZ-d4-o7E"/>
+                        <binding destination="-2" name="value" keyPath="self.name" id="KJR-7T-87z"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="MHQ-kr-DVS">
@@ -63,7 +64,7 @@
                     </textFieldCell>
                     <connections>
                         <accessibilityConnection property="title" destination="MHQ-kr-DVS" id="c4G-0h-IbA"/>
-                        <binding destination="-2" name="value" keyPath="item.destURL.path" id="sAH-pe-Ka6"/>
+                        <binding destination="-2" name="value" keyPath="self.destPath" id="NW6-M3-Krl"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="990-0E-nlL">
@@ -83,7 +84,7 @@
                     </textFieldCell>
                     <connections>
                         <accessibilityConnection property="title" destination="990-0E-nlL" id="hpj-zk-8Y6"/>
-                        <binding destination="-2" name="value" keyPath="item.fileURL.path" id="B88-l8-ueE"/>
+                        <binding destination="-2" name="value" keyPath="self.path" id="vzZ-g7-Y9F"/>
                     </connections>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="J0r-57-7ab">
@@ -99,22 +100,21 @@
                 <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="fCV-gk-gLV">
                     <rect key="frame" x="72" y="9" width="16" height="16"/>
                 </progressIndicator>
-                <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Skr-vw-eHq" propertyAccessControl="all">
+                <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Skr-vw-eHq">
                     <rect key="frame" x="97" y="33" width="307" height="14"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="hrx-7s-pPn">
                         <rect key="frame" x="0.0" y="0.0" width="307" height="14"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="16" id="4Xn-YH-LzM">
+                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="16" id="4Xn-YH-LzM">
                                 <rect key="frame" x="0.0" y="0.0" width="307" height="16"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="description" width="304" minWidth="40" maxWidth="1000" id="JVB-Fc-gGE">
+                                    <tableColumn identifier="description" width="295" minWidth="40" maxWidth="1000" id="JVB-Fc-gGE">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                            <font key="font" metaFont="toolTip"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableHeaderCell>
@@ -144,11 +144,11 @@
                         <constraint firstAttribute="height" constant="14" id="str-CQ-ds2"/>
                     </constraints>
                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" controlSize="small" horizontal="YES" id="8jW-hn-4e9">
-                        <rect key="frame" x="0.0" y="0.0" width="307" height="14"/>
+                        <rect key="frame" x="-100" y="-100" width="296" height="11"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" controlSize="small" horizontal="NO" id="oV7-Hw-8Au">
-                        <rect key="frame" x="293" y="0.0" width="14" height="14"/>
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" controlSize="small" horizontal="NO" id="oV7-Hw-8Au">
+                        <rect key="frame" x="-100" y="-100" width="11" height="14"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>

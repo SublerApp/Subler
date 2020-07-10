@@ -59,11 +59,9 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
             window?.tabbingMode = .disallowed
         }
 
-        #if __MAC_10_16
         if #available(macOS 10.16, *) {
             window?.toolbarStyle = .unifiedCompact
         }
-        #endif
 
         table.registerForDraggedTypes([NSPasteboard.PasteboardType.backwardsCompatibleFileURL, tablePasteboardType])
         progressBar.isHidden = true
