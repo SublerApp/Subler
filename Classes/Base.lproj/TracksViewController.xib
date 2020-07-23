@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17132.0.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17140" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17132.0.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17140"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -31,7 +31,7 @@
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="trackId" editable="NO" width="35" minWidth="30" maxWidth="38" id="sB1-FL-VRd">
+                                    <tableColumn identifier="trackId" editable="NO" width="38" minWidth="30" maxWidth="38" id="sB1-FL-VRd">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Id">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -44,11 +44,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="trackId" id="UQL-IB-uNb">
-                                                <rect key="frame" x="1" y="1" width="40" height="17"/>
+                                                <rect key="frame" x="1" y="1" width="38" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MF3-VW-Szn">
-                                                        <rect key="frame" x="0.0" y="0.0" width="97" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="95" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Do not localize" id="n0U-5L-NwR">
                                                             <font key="font" metaFont="system"/>
@@ -62,11 +62,11 @@
                                                 </connections>
                                             </tableCellView>
                                             <tableCellView identifier="disabledIdCell" id="dn8-s8-to1">
-                                                <rect key="frame" x="1" y="20" width="40" height="17"/>
+                                                <rect key="frame" x="1" y="20" width="38" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mZb-Gw-cvH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="97" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="95" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Do not localize" id="bHw-nm-BXK">
                                                             <font key="font" metaFont="system"/>
@@ -81,7 +81,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="trackEnabled" width="18" minWidth="18" maxWidth="50" id="Znw-bQ-tsE">
+                                    <tableColumn identifier="trackEnabled" width="20" minWidth="18" maxWidth="20" id="Znw-bQ-tsE">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Enabled">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -93,7 +93,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="trackEnabled" id="Gfc-fL-316" customClass="CheckBoxCellView" customModule="Subler" customModuleProvider="target">
-                                                <rect key="frame" x="44" y="1" width="18" height="17"/>
+                                                <rect key="frame" x="42" y="1" width="22" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button toolTip="Enable or disable the track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JD5-tO-uQc">
@@ -115,7 +115,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="trackName" width="232" minWidth="100" maxWidth="3000" id="3zj-cH-wWV">
+                                    <tableColumn identifier="trackName" width="193.5" minWidth="100" maxWidth="3000" id="3zj-cH-wWV">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -128,11 +128,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="trackName" id="9fL-77-imQ">
-                                                <rect key="frame" x="65" y="1" width="232" height="17"/>
+                                                <rect key="frame" x="66.5" y="1" width="193" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gyX-Aq-rgC">
-                                                        <rect key="frame" x="0.0" y="0.0" width="232" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="193" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Do not localize" id="3TN-xY-oN3">
                                                             <font key="font" metaFont="system"/>
@@ -150,7 +150,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="trackDuration" editable="NO" width="90" minWidth="90" maxWidth="92" id="0dC-Ux-mUt">
+                                    <tableColumn identifier="trackDuration" editable="NO" width="92" minWidth="90" maxWidth="92" id="0dC-Ux-mUt">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -163,11 +163,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="trackDuration" id="o3M-Vh-HrA">
-                                                <rect key="frame" x="300" y="1" width="90" height="17"/>
+                                                <rect key="frame" x="263" y="1" width="92" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3k9-Ev-UfR">
-                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="92" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="00:00:00" id="LAW-aU-7Ie">
                                                             <font key="font" metaFont="system"/>
@@ -182,7 +182,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="trackLanguage" width="167.5" minWidth="130" maxWidth="200" id="qGd-Uo-RvP">
+                                    <tableColumn identifier="trackLanguage" width="137.5" minWidth="130" maxWidth="200" id="qGd-Uo-RvP">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Language">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -195,11 +195,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="trackLanguage" id="iMB-mM-hYa" customClass="PopUpCellView" customModule="Subler" customModuleProvider="target">
-                                                <rect key="frame" x="393" y="1" width="168" height="17"/>
+                                                <rect key="frame" x="358" y="1" width="138" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Afo-xh-8aB">
-                                                        <rect key="frame" x="3" y="0.0" width="162" height="18"/>
+                                                        <rect key="frame" x="3" y="0.0" width="132" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                         <popUpButtonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="right" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" id="WuP-cy-d5d">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -217,7 +217,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="trackInfo" editable="NO" width="164.5" minWidth="80" maxWidth="440" id="vmh-dT-zIv">
+                                    <tableColumn identifier="trackInfo" editable="NO" width="150.5" minWidth="80" maxWidth="440" id="vmh-dT-zIv">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Format">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -230,11 +230,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="trackInfo" id="gfy-Nm-dJU">
-                                                <rect key="frame" x="563.5" y="1" width="168" height="17"/>
+                                                <rect key="frame" x="498.5" y="1" width="150" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aWa-JY-QEe">
-                                                        <rect key="frame" x="0.0" y="0.0" width="168" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Do not localize" id="3I9-re-Mst">
                                                             <font key="font" metaFont="system"/>
@@ -248,11 +248,11 @@
                                                 </connections>
                                             </tableCellView>
                                             <tableCellView identifier="DisabledFormatCell" id="Nfv-nQ-DF5">
-                                                <rect key="frame" x="563.5" y="20" width="168" height="17"/>
+                                                <rect key="frame" x="498.5" y="20" width="150" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ezM-ed-YTi">
-                                                        <rect key="frame" x="0.0" y="0.0" width="168" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Do not localize" id="y3u-NN-Et0">
                                                             <font key="font" metaFont="system"/>
@@ -296,7 +296,7 @@
                 <constraint firstAttribute="bottom" secondItem="2JQ-Gr-ZXk" secondAttribute="bottom" id="LfY-8l-9WZ"/>
                 <constraint firstItem="2JQ-Gr-ZXk" firstAttribute="leading" secondItem="Vef-Em-112" secondAttribute="leading" constant="-1" id="NfM-fB-fz0"/>
             </constraints>
-            <point key="canvasLocation" x="517" y="-19"/>
+            <point key="canvasLocation" x="497" y="-19.5"/>
         </customView>
     </objects>
 </document>

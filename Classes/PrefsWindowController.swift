@@ -16,7 +16,7 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
     override func windowDidLoad() {
         super.windowDidLoad()
 
-        if #available(macOS 10.16, *) {
+        if #available(macOS 11, *) {
             window?.toolbarStyle = .preference
         }
 

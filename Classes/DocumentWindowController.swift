@@ -37,8 +37,8 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             fatalError("`window` is expected to be non nil by this time.")
         }
 
-        if #available(macOS 10.16, *) {
-            window.toolbarStyle = .unified
+        if #available(macOS 11, *) {
+            window.toolbarStyle = .expanded
         }
 
         sendToQueue.image = NSImage(named: NSImage.shareTemplateName);
@@ -164,6 +164,8 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         trackViewController.view.frame = detailsItem.viewController.view.bounds
         trackViewController.view.autoresizingMask = [NSView.AutoresizingMask.width, NSView.AutoresizingMask.height]
         detailsItem.viewController.view.addSubview(trackViewController.view)
+
+        self.window?.toolbar?.validateVisibleItems();
     }
 
     // MARK: Validation

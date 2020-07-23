@@ -59,7 +59,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
             window?.tabbingMode = .disallowed
         }
 
-        if #available(macOS 10.16, *) {
+        if #available(macOS 11, *) {
             window?.toolbarStyle = .unifiedCompact
         }
 
