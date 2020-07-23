@@ -107,7 +107,7 @@ enum Prefs {
     @Stored(key: "SBInferMediaCharacteristics", defaultValue: true)
     static var inferMediaCharacteristics: Bool
 
-    @Stored(key: "SBAudioMixdown", defaultValue: 1)
+    @Stored(key: "SBAudioMixdown", defaultValue: 2)
     static var audioMixdown: UInt
 
     @Stored(key: "SBAudioBitrate", defaultValue: 96)
