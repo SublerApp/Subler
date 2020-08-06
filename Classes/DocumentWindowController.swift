@@ -164,8 +164,18 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         trackViewController.view.frame = detailsItem.viewController.view.bounds
         trackViewController.view.autoresizingMask = [NSView.AutoresizingMask.width, NSView.AutoresizingMask.height]
         detailsItem.viewController.view.addSubview(trackViewController.view)
+    }
 
-        self.window?.toolbar?.validateVisibleItems();
+    func delete(tracks: [MP42Track]) {
+        if tracks.isEmpty == false {
+            mp4.removeTracks(tracks)
+
+            if Prefs.organizeAlternateGroups { mp4.organizeAlternateGroups() }
+            if Prefs.inferMediaCharacteristics { mp4.inferMediaCharacteristics() }
+
+            doc.updateChangeCount(.changeDone)
+            tracksViewController.reloadData()
+        }
     }
 
     // MARK: Validation
@@ -266,16 +276,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
     }
 
     @IBAction func deleteTrack(_ sender: Any) {
-        let tracks = tracksViewController.selectedTracks
-        if tracks.isEmpty == false {
-            mp4.removeTracks(tracks)
-
-            if Prefs.organizeAlternateGroups { mp4.organizeAlternateGroups() }
-            if Prefs.inferMediaCharacteristics { mp4.inferMediaCharacteristics() }
-
-            doc.updateChangeCount(.changeDone)
-            tracksViewController.reloadData()
-        }
+        delete(tracks: tracksViewController.selectedTracks)
     }
 
     @IBAction func addChaptersEvery(_ sender: NSMenuItem) {

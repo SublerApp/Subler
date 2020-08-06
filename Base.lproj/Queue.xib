@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.55" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17147" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.55"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17147"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,7 +21,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="233" y="759" width="378" height="332"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <value key="minSize" type="size" width="378" height="200"/>
             <view key="contentView" wantsLayer="YES" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="378" height="332"/>
@@ -30,19 +30,18 @@
                     <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="21" horizontalPageScroll="10" verticalLineScroll="21" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3">
                         <rect key="frame" x="-1" y="46" width="380" height="287"/>
                         <clipView key="contentView" id="ix7-yM-0F6">
-                            <rect key="frame" x="1" y="1" width="378" height="285"/>
+                            <rect key="frame" x="1" y="1" width="378" height="270"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="7" customClass="ExpandedTableView" customModule="Subler" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="383" height="285"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="383" height="270"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="4"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
                                         <tableColumn identifier="nameColumn" editable="NO" width="380" minWidth="40" maxWidth="3000" id="8">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="nameColumn">
-                                                <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
@@ -102,7 +101,7 @@
                             </subviews>
                         </clipView>
                         <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="6">
-                            <rect key="frame" x="1" y="270" width="378" height="16"/>
+                            <rect key="frame" x="1" y="271" width="378" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="4">
@@ -111,7 +110,7 @@
                         </scroller>
                     </scrollView>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="12">
-                        <rect key="frame" x="8" y="15" width="214" height="17"/>
+                        <rect key="frame" x="8" y="16" width="214" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Queue items" id="13">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -141,9 +140,7 @@
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="4Tn-KL-e86"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Iau-lm-QMb"/>
-                    <toolbarItem implicitItemIdentifier="3A987BC3-AE8F-4D56-8562-D2F37B9DA021" label="Add Item" paletteLabel="Add Item" toolTip="Add an item to the queue" image="NSAddTemplate" id="mbj-v3-fFG" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
-                        <size key="minSize" width="36" height="24"/>
-                        <size key="maxSize" width="36" height="28"/>
+                    <toolbarItem implicitItemIdentifier="3A987BC3-AE8F-4D56-8562-D2F37B9DA021" label="Add Item" paletteLabel="Add Item" toolTip="Add an item to the queue" image="NSAddTemplate" sizingBehavior="auto" id="mbj-v3-fFG" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <button key="view" verticalHuggingPriority="750" id="sUh-2y-iie">
                             <rect key="frame" x="9" y="14" width="36" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -156,9 +153,7 @@
                             <action selector="open:" target="-2" id="sdm-Bo-vsx"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="403860A1-8562-4F5B-BBEE-E8C1270A9077" label="Settings" paletteLabel="Settings" toolTip="Show/hide settings" image="NSActionTemplate" id="Qif-lh-Rps" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
-                        <size key="minSize" width="36" height="24"/>
-                        <size key="maxSize" width="36" height="28"/>
+                    <toolbarItem implicitItemIdentifier="403860A1-8562-4F5B-BBEE-E8C1270A9077" label="Settings" paletteLabel="Settings" toolTip="Show/hide settings" image="NSActionTemplate" sizingBehavior="auto" id="Qif-lh-Rps" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <button key="view" verticalHuggingPriority="750" id="tU5-DL-6vU">
                             <rect key="frame" x="8" y="14" width="36" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -171,9 +166,7 @@
                             <action selector="toggleOptions:" target="-2" id="f6O-LF-uNy"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="90FECCE0-5997-4C12-9158-9F7391313970" label="Start" paletteLabel="Start" toolTip="Start/stop queue" image="playBackTemplate" id="xeY-tT-tF2" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
-                        <size key="minSize" width="36" height="24"/>
-                        <size key="maxSize" width="36" height="28"/>
+                    <toolbarItem implicitItemIdentifier="90FECCE0-5997-4C12-9158-9F7391313970" label="Start" paletteLabel="Start" toolTip="Start/stop queue" image="playBackTemplate" sizingBehavior="auto" id="xeY-tT-tF2" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <button key="view" verticalHuggingPriority="750" id="sOU-an-jdB">
                             <rect key="frame" x="0.0" y="14" width="36" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -235,8 +228,8 @@
     </objects>
     <resources>
         <image name="EncodeComplete" width="16" height="16"/>
-        <image name="NSActionTemplate" width="14" height="14"/>
-        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSActionTemplate" width="15" height="15"/>
+        <image name="NSAddTemplate" width="14" height="13"/>
         <image name="info" width="16" height="16"/>
         <image name="info-pressed" width="16" height="16"/>
         <image name="playBackTemplate" width="19" height="18"/>

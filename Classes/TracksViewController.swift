@@ -10,9 +10,10 @@ import MP42Foundation
 
 protocol TracksViewControllerDelegate: AnyObject {
     func didSelect(tracks: [MP42Track])
+    func delete(tracks: [MP42Track])
 }
 
-final class TracksViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+final class TracksViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, ExpandedTableViewDelegate {
 
     weak var delegate: TracksViewControllerDelegate?
 
@@ -87,6 +88,10 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
                 sender.editColumn(sender.clickedColumn, row: sender.clickedRow, with: nil, select: true)
             }
         }
+    }
+
+    func deleteSelection(in tableview: NSTableView) {
+        delegate?.delete(tracks: selectedTracks)
     }
 
     // MARK: Actions

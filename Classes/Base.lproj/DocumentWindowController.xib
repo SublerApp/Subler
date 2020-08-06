@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17132.0.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17147" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17132.0.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17147"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -33,9 +33,7 @@
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Af5-ai-sw9"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="qX7-s1-81X"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="mX6-y6-VZe"/>
-                    <toolbarItem implicitItemIdentifier="D2E8E21C-DCD4-456F-B15A-9AC0AA5556DF" label="Import" paletteLabel="Import" toolTip="Import tracks from external files" image="NSAddTemplate" id="FY3-O2-t3T" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
-                        <size key="minSize" width="36" height="24"/>
-                        <size key="maxSize" width="36" height="28"/>
+                    <toolbarItem implicitItemIdentifier="D2E8E21C-DCD4-456F-B15A-9AC0AA5556DF" label="Import" paletteLabel="Import" toolTip="Import tracks from external files" image="NSAddTemplate" sizingBehavior="auto" id="FY3-O2-t3T" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <button key="view" verticalHuggingPriority="750" id="UZy-eh-ZBz">
                             <rect key="frame" x="3" y="14" width="36" height="28"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
@@ -48,9 +46,7 @@
                             <action selector="selectFile:" target="-2" id="mTY-vt-vsv"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="5B6FDF6D-9486-49B2-8EA4-184D76D0864C" label="Delete Track" paletteLabel="Delete Track" toolTip="Delete the selected track" image="ToolbarRemoveTemplate" id="rhw-S4-nZ8" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
-                        <size key="minSize" width="36" height="24"/>
-                        <size key="maxSize" width="36" height="28"/>
+                    <toolbarItem implicitItemIdentifier="5B6FDF6D-9486-49B2-8EA4-184D76D0864C" label="Delete Track" paletteLabel="Delete Track" toolTip="Delete the selected track" image="ToolbarRemoveTemplate" sizingBehavior="auto" id="rhw-S4-nZ8" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <button key="view" verticalHuggingPriority="750" id="e81-Qg-Ncc">
                             <rect key="frame" x="19" y="14" width="36" height="28"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
@@ -63,9 +59,7 @@
                             <action selector="deleteTrack:" target="-2" id="N1h-dg-CaR"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="66402BE4-4A7B-4048-A584-2BC0F5E69600" label="Search Metadata" paletteLabel="Search Metadata" toolTip="Search metadata on the web" image="NSRevealFreestandingTemplate" id="uiq-J2-uPs" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
-                        <size key="minSize" width="36" height="24"/>
-                        <size key="maxSize" width="36" height="24"/>
+                    <toolbarItem implicitItemIdentifier="66402BE4-4A7B-4048-A584-2BC0F5E69600" label="Search Metadata" paletteLabel="Search Metadata" toolTip="Search metadata on the web" image="NSRevealFreestandingTemplate" sizingBehavior="auto" id="uiq-J2-uPs" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <button key="view" verticalHuggingPriority="750" id="Nes-H1-fbL">
                             <rect key="frame" x="30" y="14" width="36" height="24"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
@@ -78,9 +72,7 @@
                             <action selector="searchMetadata:" target="-2" id="3Jl-xK-nb3"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="C90398D0-2F66-43E9-8B04-6CCD8DDA90D2" label="Search Chapters" paletteLabel="Search Chapters" toolTip="Search chapters on the web" image="ToolbarChaptersTemplate" id="sa2-7a-h2I" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
-                        <size key="minSize" width="36" height="24"/>
-                        <size key="maxSize" width="36" height="28"/>
+                    <toolbarItem implicitItemIdentifier="C90398D0-2F66-43E9-8B04-6CCD8DDA90D2" label="Search Chapters" paletteLabel="Search Chapters" toolTip="Search chapters on the web" image="ToolbarChaptersTemplate" sizingBehavior="auto" id="sa2-7a-h2I" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <button key="view" verticalHuggingPriority="750" id="gh7-Et-PwJ">
                             <rect key="frame" x="30" y="14" width="36" height="28"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
@@ -93,9 +85,7 @@
                             <action selector="searchChapters:" target="-2" id="0wP-Eq-9mv"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="9F789D5F-C25E-449F-ABCE-DDF99B4FF988" label="Send to Queue" paletteLabel="Send to Queue" toolTip="Send the current document to the queue" image="ToolbarActionTemplate" id="app-IS-8EB" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
-                        <size key="minSize" width="36" height="24"/>
-                        <size key="maxSize" width="36" height="28"/>
+                    <toolbarItem implicitItemIdentifier="9F789D5F-C25E-449F-ABCE-DDF99B4FF988" label="Send to Queue" paletteLabel="Send to Queue" toolTip="Send the current document to the queue" image="ToolbarActionTemplate" sizingBehavior="auto" id="app-IS-8EB" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <button key="view" verticalHuggingPriority="750" id="c38-NC-1I2">
                             <rect key="frame" x="25" y="14" width="36" height="28"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
@@ -108,10 +98,8 @@
                             <action selector="sendToQueue:" target="-1" id="rIw-6k-8we"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="2E3AB086-491A-436E-A610-14E36AEE8F49" label="Action" paletteLabel="Action" image="NSActionTemplate" id="V6w-Ey-bjV">
+                    <toolbarItem implicitItemIdentifier="2E3AB086-491A-436E-A610-14E36AEE8F49" label="Action" paletteLabel="Action" image="NSActionTemplate" sizingBehavior="auto" id="V6w-Ey-bjV">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="38" height="24"/>
-                        <size key="maxSize" width="40" height="28"/>
                         <popUpButton key="view" verticalHuggingPriority="750" id="QuP-nB-KsX">
                             <rect key="frame" x="2" y="14" width="38" height="28"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
@@ -221,13 +209,13 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="ifJ-VT-BdP"/>
             </connections>
-            <point key="canvasLocation" x="546" y="-768"/>
+            <point key="canvasLocation" x="297" y="-848"/>
         </window>
     </objects>
     <resources>
-        <image name="NSActionTemplate" width="17" height="15"/>
-        <image name="NSAddTemplate" width="15" height="11"/>
-        <image name="NSRevealFreestandingTemplate" width="15" height="13"/>
+        <image name="NSActionTemplate" width="15" height="15"/>
+        <image name="NSAddTemplate" width="14" height="13"/>
+        <image name="NSRevealFreestandingTemplate" width="15" height="15"/>
         <image name="ToolbarActionTemplate" width="24" height="24"/>
         <image name="ToolbarChaptersTemplate" width="14" height="13"/>
         <image name="ToolbarRemoveTemplate" width="16" height="16"/>

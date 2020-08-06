@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17140" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17147" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17140"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17147"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -93,7 +93,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="trackEnabled" id="Gfc-fL-316" customClass="CheckBoxCellView" customModule="Subler" customModuleProvider="target">
-                                                <rect key="frame" x="42" y="1" width="22" height="17"/>
+                                                <rect key="frame" x="42" y="1" width="20" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button toolTip="Enable or disable the track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JD5-tO-uQc">
@@ -128,11 +128,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="trackName" id="9fL-77-imQ">
-                                                <rect key="frame" x="66.5" y="1" width="193" height="17"/>
+                                                <rect key="frame" x="65" y="1" width="194" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gyX-Aq-rgC">
-                                                        <rect key="frame" x="0.0" y="0.0" width="193" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="194" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Do not localize" id="3TN-xY-oN3">
                                                             <font key="font" metaFont="system"/>
@@ -163,7 +163,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="trackDuration" id="o3M-Vh-HrA">
-                                                <rect key="frame" x="263" y="1" width="92" height="17"/>
+                                                <rect key="frame" x="261.5" y="1" width="92" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3k9-Ev-UfR">
@@ -195,11 +195,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="trackLanguage" id="iMB-mM-hYa" customClass="PopUpCellView" customModule="Subler" customModuleProvider="target">
-                                                <rect key="frame" x="358" y="1" width="138" height="17"/>
+                                                <rect key="frame" x="356.5" y="1" width="137" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Afo-xh-8aB">
-                                                        <rect key="frame" x="3" y="0.0" width="132" height="18"/>
+                                                        <rect key="frame" x="3" y="0.0" width="131" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                         <popUpButtonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="right" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" id="WuP-cy-d5d">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -230,11 +230,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="trackInfo" id="gfy-Nm-dJU">
-                                                <rect key="frame" x="498.5" y="1" width="150" height="17"/>
+                                                <rect key="frame" x="497" y="1" width="151" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aWa-JY-QEe">
-                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="151" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Do not localize" id="3I9-re-Mst">
                                                             <font key="font" metaFont="system"/>
@@ -248,11 +248,11 @@
                                                 </connections>
                                             </tableCellView>
                                             <tableCellView identifier="DisabledFormatCell" id="Nfv-nQ-DF5">
-                                                <rect key="frame" x="498.5" y="20" width="150" height="17"/>
+                                                <rect key="frame" x="497" y="20" width="151" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ezM-ed-YTi">
-                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="151" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Do not localize" id="y3u-NN-Et0">
                                                             <font key="font" metaFont="system"/>
