@@ -76,7 +76,7 @@ final class Document: NSDocument {
     private var optimize: Bool
     private var options: [String : Any]
 
-    private func saveOptions() -> [String : Any] {
+    private func saveOptions(for saveOperation: NSDocument.SaveOperationType) -> [String : Any] {
         var options = [String : Any]()
 
         if Prefs.chaptersPreviewTrack {
@@ -88,7 +88,8 @@ final class Document: NSDocument {
             options[MP42ForceHvc1] = true
         }
 
-        if let accessoryViewController = accessoryViewController {
+        if let accessoryViewController = accessoryViewController,
+           saveOperation == .saveAsOperation || saveOperation == .saveToOperation {
             options[MP4264BitData] = accessoryViewController._64bit_data.state == .on ? true : false
             options[MP4264BitTime] = accessoryViewController._64bit_time.state == .on ? true : false
             optimize = accessoryViewController.optimize.state == .on ? true : false
@@ -124,7 +125,7 @@ final class Document: NSDocument {
             }
         }
 
-        options = saveOptions()
+        options = saveOptions(for: saveOperation)
         releaseSavePanel()
 
         docController?.startProgressReporting()
@@ -219,7 +220,7 @@ final class Document: NSDocument {
 
             let handler = { (response: NSApplication.ModalResponse) in
                 if response == NSApplication.ModalResponse.OK, let url = panel.url {
-                    let options = self.saveOptions()
+                    let options = self.saveOptions(for: .saveAsOperation)
                     let item = QueueItem(mp4: self.mp4, destURL: url, attributes: options, optimize: self.optimize)
                     queue.add(item)
                     self.releaseSavePanel()
