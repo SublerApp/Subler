@@ -52,6 +52,7 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
 
         tracksTable.registerForDraggedTypes([pasteboardType])
         tracksTable.doubleAction = #selector(doubleClickAction)
+        tracksTable.scrollRowToVisible(0)
     }
 
     init(document: Document, delegate: TracksViewControllerDelegate) {

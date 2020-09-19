@@ -111,7 +111,7 @@ enum Prefs {
     static var audioMixdown: UInt
 
     @Stored(key: "SBAudioBitrate", defaultValue: 96)
-    static var audioBitrate: UInt
+    static var audioBitrate: UInt32
 
     @Stored(key: "SBAudioDRC", defaultValue: 0)
     static var audioDRC: Float

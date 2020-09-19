@@ -172,7 +172,7 @@ import MP42Foundation
             if Prefs.audioConvertAC3 {
                 if Prefs.audioKeepAC3 && track.fallbackTrack == nil {
                     let copy = track.copy() as! MP42AudioTrack
-                    let settings = MP42AudioConversionSettings(format: kMP42AudioCodecType_MPEG4AAC, bitRate: UInt(bitrate), mixDown: mixdown, drc: drc)
+                    let settings = MP42AudioConversionSettings(format: kMP42AudioCodecType_MPEG4AAC, bitRate: bitrate, mixDown: mixdown, drc: drc)
                     copy.conversionSettings = settings
 
                     track.fallbackTrack = copy
@@ -191,7 +191,7 @@ import MP42Foundation
                 case 1: // Convert to AC-3
 
                     let copy = track.copy() as! MP42AudioTrack
-                    let settings = MP42AudioConversionSettings(format: kMP42AudioCodecType_MPEG4AAC, bitRate: UInt(bitrate), mixDown: mixdown, drc: drc)
+                    let settings = MP42AudioConversionSettings(format: kMP42AudioCodecType_MPEG4AAC, bitRate: bitrate, mixDown: mixdown, drc: drc)
                     copy.conversionSettings = settings
 
                     track.fallbackTrack = copy
@@ -205,7 +205,7 @@ import MP42Foundation
                 case 2: // Keep DTS
 
                     let copy = track.copy() as! MP42AudioTrack
-                    let settings = MP42AudioConversionSettings(format: kMP42AudioCodecType_MPEG4AAC, bitRate: UInt(bitrate), mixDown: mixdown, drc: drc)
+                    let settings = MP42AudioConversionSettings(format: kMP42AudioCodecType_MPEG4AAC, bitRate: bitrate, mixDown: mixdown, drc: drc)
                     copy.conversionSettings = settings
 
                     track.fallbackTrack = copy
@@ -221,7 +221,7 @@ import MP42Foundation
 
         // If an audio track needs to be converted, apply the mixdown from the preferences.
         if trackNeedConversion(track.format) || conversionNeeded {
-            let settings = MP42AudioConversionSettings(format: kMP42AudioCodecType_MPEG4AAC, bitRate: UInt(bitrate), mixDown: mixdown, drc: drc)
+            let settings = MP42AudioConversionSettings(format: kMP42AudioCodecType_MPEG4AAC, bitRate: bitrate, mixDown: mixdown, drc: drc)
             track.conversionSettings = settings
         }
     }
