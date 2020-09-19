@@ -100,7 +100,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
                 let notification = NSUserNotification()
                 notification.title = NSLocalizedString("Queue Done", comment: "")
 
-                if let failedCount = info["FailedCount"] as? UInt,
+                if let failedCount = info["FailedCount"] as? UInt, failedCount > 0,
                     let completedCount = info["CompletedCount"] as? UInt {
                     notification.informativeText = "Completed: \(completedCount); Failed: \(failedCount)"
                 }
