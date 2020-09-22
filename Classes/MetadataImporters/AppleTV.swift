@@ -3,7 +3,7 @@
 //  iTunes Artwork
 //
 //  Created by Damiano Galassi on 15/10/2019.
-//  Copyright © 2019 Damiano Galassi. All rights reserved.
+//  Copyright © 2020 Damiano Galassi. All rights reserved.
 //
 
 import Foundation
