@@ -72,7 +72,7 @@ public struct TheTVDB : MetadataService {
     private func searchIDs(seriesName: String, language: String) -> [Int] {
         let series = session.fetch(series: seriesName, language: language)
         let sorted = series.sorted { el1, el2 -> Bool in
-            return el1.seriesName == seriesName ? true : false
+            return el1.seriesName?.caseInsensitiveCompare(seriesName) == .orderedSame ? true : false
         }
         let filteredSeries = sorted.filter { $0.status.isEmpty == false && match(series: $0, name: seriesName) }.map { $0.id }
 
