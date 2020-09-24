@@ -44,6 +44,7 @@ static void logCallback(MP4LogLevel loglevel, const char *fmt, va_list ap)
 {
     MP4SetLogCallback(logCallback);
     MP4LogSetLevel(MP4_LOG_INFO);
+    [NSUserDefaults.standardUserDefaults registerDefaults:@{@"MP42LogLevel" : @3}];
 }
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
