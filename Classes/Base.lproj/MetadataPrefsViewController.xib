@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14105" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17503.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14105"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17503.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,25 +19,24 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="550" height="497"/>
+            <rect key="frame" x="0.0" y="0.0" width="389" height="497"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1XK-zr-YdW">
-                    <rect key="frame" x="166" y="129" width="364" height="349"/>
+                    <rect key="frame" x="166" y="119" width="203" height="334"/>
                     <clipView key="contentView" id="mho-zw-2Ud">
-                        <rect key="frame" x="1" y="0.0" width="362" height="348"/>
+                        <rect key="frame" x="1" y="1" width="201" height="332"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="REl-53-Sku" viewBased="YES" id="Tid-Rc-Ljr">
-                                <rect key="frame" x="0.0" y="0.0" width="362" height="325"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <rect key="frame" x="0.0" y="0.0" width="201" height="309"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="annotation" width="149" minWidth="40" maxWidth="1000" id="6um-Rw-luk">
+                                    <tableColumn identifier="annotation" width="144.5" minWidth="40" maxWidth="1000" id="6um-Rw-luk">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Annotations">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -49,11 +48,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="annotation" id="vYq-3Z-IEz">
-                                                <rect key="frame" x="1" y="1" width="149" height="17"/>
+                                                <rect key="frame" x="1" y="1" width="150" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mve-P9-Jqq">
-                                                        <rect key="frame" x="0.0" y="0.0" width="149" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="tPk-Fn-5Rw"/>
                                                         </constraints>
@@ -76,9 +75,8 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="value" width="207" minWidth="40" maxWidth="1000" id="Aj4-bk-6RK">
+                                    <tableColumn identifier="value" width="41.5" minWidth="40" maxWidth="1000" id="Aj4-bk-6RK">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Value">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -90,11 +88,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="value" id="5Ey-Te-51o" customClass="TokenCellView" customModule="Subler" customModuleProvider="target">
-                                                <rect key="frame" x="153" y="1" width="207" height="17"/>
+                                                <rect key="frame" x="153.5" y="1" width="45" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <tokenField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3sj-gY-zSo">
-                                                        <rect key="frame" x="1" y="1" width="205" height="16"/>
+                                                        <rect key="frame" x="1" y="1" width="43" height="15"/>
                                                         <tokenFieldCell key="cell" selectable="YES" editable="YES" alignment="left" allowsEditingTextAttributes="YES" id="BaM-xn-Wzr" customClass="TokenFieldCell" customModule="Subler" customModuleProvider="target">
                                                             <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -129,20 +127,20 @@
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="TWu-b5-pMm"/>
                     </constraints>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="htB-dN-ZBI">
-                        <rect key="frame" x="1" y="7" width="0.0" height="16"/>
+                        <rect key="frame" x="1" y="333" width="362" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="V85-a0-dUm">
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <tableHeaderView key="headerView" id="REl-53-Sku">
-                        <rect key="frame" x="0.0" y="0.0" width="362" height="23"/>
+                    <tableHeaderView key="headerView" wantsLayer="YES" id="REl-53-Sku">
+                        <rect key="frame" x="0.0" y="0.0" width="201" height="23"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
                 <tokenField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y15-gP-AOw">
-                    <rect key="frame" x="18" y="52" width="514" height="16"/>
+                    <rect key="frame" x="18" y="44" width="353" height="15"/>
                     <tokenFieldCell key="cell" selectable="YES" allowsUndo="NO" alignment="left" allowsEditingTextAttributes="YES" id="rG5-g2-YmU">
                         <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -154,7 +152,7 @@
                     </connections>
                 </tokenField>
                 <button toolTip="Remove selected item" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sd5-qb-K5v">
-                    <rect key="frame" x="197" y="100" width="26" height="22"/>
+                    <rect key="frame" x="200" y="90" width="26" height="22"/>
                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9UV-xM-L5F">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -163,8 +161,8 @@
                         <action selector="removeMetadata:" target="-2" id="68h-Kv-eRu"/>
                     </connections>
                 </button>
-                <popUpButton toolTip="Add annotation" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Jdh-Cj-6ef">
-                    <rect key="frame" x="166" y="100" width="32" height="22"/>
+                <popUpButton toolTip="Add annotation" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Jdh-Cj-6ef">
+                    <rect key="frame" x="166" y="90" width="35" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="zjQ-DY-ahs"/>
                     </constraints>
@@ -184,7 +182,7 @@
                     </connections>
                 </popUpButton>
                 <button horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="ZMK-Xt-bJh">
-                    <rect key="frame" x="18" y="18" width="264" height="18"/>
+                    <rect key="frame" x="21" y="19" width="98" height="18"/>
                     <buttonCell key="cell" type="check" title="Keep empty annotations" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7Ek-lI-5Lo">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -194,21 +192,20 @@
                     </connections>
                 </button>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1q-Xr-y6R">
-                    <rect key="frame" x="20" y="129" width="138" height="348"/>
-                    <clipView key="contentView" id="KId-fX-q1q">
-                        <rect key="frame" x="1" y="0.0" width="136" height="347"/>
+                    <rect key="frame" x="20" y="119" width="138" height="334"/>
+                    <clipView key="contentView" ambiguous="YES" id="KId-fX-q1q">
+                        <rect key="frame" x="1" y="1" width="136" height="332"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="Eh9-8P-dr0" viewBased="YES" id="nXW-oy-rtu">
-                                <rect key="frame" x="0.0" y="0.0" width="136" height="324"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                            <tableView verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="Eh9-8P-dr0" viewBased="YES" id="nXW-oy-rtu">
+                                <rect key="frame" x="0.0" y="0.0" width="136" height="309"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="" width="133" minWidth="40" maxWidth="1000" id="gwa-XG-q0L">
+                                    <tableColumn width="124" minWidth="40" maxWidth="1000" id="gwa-XG-q0L">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Type">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -224,7 +221,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XEd-oS-nE5">
-                                                        <rect key="frame" x="0.0" y="0.0" width="133" height="17"/>
+                                                        <rect key="frame" x="0.0" y="1" width="133" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Do not localize" id="F4J-aT-4zI">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -260,20 +257,20 @@
                         </subviews>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="p1W-Dh-yxi">
-                        <rect key="frame" x="1" y="329" width="136" height="16"/>
+                        <rect key="frame" x="1" y="332" width="136" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="aRW-ji-g4I">
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <tableHeaderView key="headerView" id="Eh9-8P-dr0">
+                    <tableHeaderView key="headerView" wantsLayer="YES" id="Eh9-8P-dr0">
                         <rect key="frame" x="0.0" y="0.0" width="136" height="23"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8sr-aI-VZy">
-                    <rect key="frame" x="18" y="76" width="514" height="17"/>
+                    <rect key="frame" x="18" y="67" width="353" height="16"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Available values:" id="OYx-Dd-YIf">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -281,7 +278,7 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BkU-sx-jUf">
-                    <rect key="frame" x="410" y="100" width="120" height="22"/>
+                    <rect key="frame" x="249" y="87" width="120" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="MKe-YL-gx8"/>
                     </constraints>
@@ -293,37 +290,48 @@
                         <action selector="restoreDefaults:" target="-2" id="UWo-hr-lAe"/>
                     </connections>
                 </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZpH-Zy-mAt">
+                    <rect key="frame" x="18" y="461" width="323" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Map the providers' metadata to the MP4 annotations" id="cUW-9F-EvO">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
                 <constraint firstItem="Jdh-Cj-6ef" firstAttribute="bottom" secondItem="sd5-qb-K5v" secondAttribute="bottom" id="0SP-GV-ri1"/>
                 <constraint firstItem="Jdh-Cj-6ef" firstAttribute="leading" secondItem="1XK-zr-YdW" secondAttribute="leading" id="1EI-3q-Cy7"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="2i2-lP-HkJ"/>
-                <constraint firstItem="h1q-Xr-y6R" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" symbolic="YES" id="7au-yR-DYD"/>
                 <constraint firstAttribute="trailing" secondItem="1XK-zr-YdW" secondAttribute="trailing" constant="20" symbolic="YES" id="9fj-nw-Dnj"/>
                 <constraint firstItem="BkU-sx-jUf" firstAttribute="baseline" secondItem="sd5-qb-K5v" secondAttribute="baseline" id="BCC-cP-xFO"/>
                 <constraint firstItem="ZMK-Xt-bJh" firstAttribute="leading" secondItem="sd5-qb-K5v" secondAttribute="trailing" constant="-203" id="BJ5-Wy-0IT"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="bottom" secondItem="1XK-zr-YdW" secondAttribute="bottom" id="BRg-Qn-cnk"/>
+                <constraint firstItem="ZpH-Zy-mAt" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" symbolic="YES" id="BpM-Kf-SfT"/>
                 <constraint firstAttribute="trailing" secondItem="ZMK-Xt-bJh" secondAttribute="trailing" constant="270" id="DbB-rO-WGW"/>
                 <constraint firstItem="ZMK-Xt-bJh" firstAttribute="trailing" secondItem="Y15-gP-AOw" secondAttribute="trailing" constant="-250" id="FE7-1p-ZNW"/>
                 <constraint firstItem="8sr-aI-VZy" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="HFP-B1-ScR"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="leading" secondItem="Y15-gP-AOw" secondAttribute="leading" id="HMX-Qb-8MC"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="centerY" secondItem="1XK-zr-YdW" secondAttribute="centerY" id="JHk-tE-xQI"/>
                 <constraint firstItem="Jdh-Cj-6ef" firstAttribute="top" secondItem="h1q-Xr-y6R" secondAttribute="bottom" constant="8" symbolic="YES" id="NcZ-Os-USj"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZpH-Zy-mAt" secondAttribute="trailing" constant="20" symbolic="YES" id="P7f-Fl-xTL"/>
+                <constraint firstItem="h1q-Xr-y6R" firstAttribute="top" secondItem="ZpH-Zy-mAt" secondAttribute="bottom" constant="8" symbolic="YES" id="S2n-Cv-TwB"/>
                 <constraint firstItem="BkU-sx-jUf" firstAttribute="trailing" secondItem="1XK-zr-YdW" secondAttribute="trailing" id="bp9-bU-BRc"/>
                 <constraint firstItem="1XK-zr-YdW" firstAttribute="leading" secondItem="h1q-Xr-y6R" secondAttribute="trailing" constant="8" symbolic="YES" id="cCT-Qp-Bxz"/>
                 <constraint firstItem="Jdh-Cj-6ef" firstAttribute="top" secondItem="sd5-qb-K5v" secondAttribute="top" id="ewc-at-D5g"/>
                 <constraint firstItem="BkU-sx-jUf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" symbolic="YES" id="fdW-8M-iew"/>
                 <constraint firstItem="8sr-aI-VZy" firstAttribute="top" secondItem="Jdh-Cj-6ef" secondAttribute="bottom" constant="8" id="gVT-X2-Zcu"/>
-                <constraint firstItem="ZMK-Xt-bJh" firstAttribute="top" secondItem="Y15-gP-AOw" secondAttribute="bottom" constant="18" id="jNv-GA-dH3"/>
+                <constraint firstItem="ZMK-Xt-bJh" firstAttribute="top" secondItem="Y15-gP-AOw" secondAttribute="bottom" constant="8" symbolic="YES" id="jNv-GA-dH3"/>
                 <constraint firstItem="ZMK-Xt-bJh" firstAttribute="leading" secondItem="Jdh-Cj-6ef" secondAttribute="trailing" constant="-178" id="k7p-wK-1iJ"/>
                 <constraint firstItem="BkU-sx-jUf" firstAttribute="height" secondItem="Jdh-Cj-6ef" secondAttribute="height" id="lyO-6Z-Osi"/>
                 <constraint firstItem="Y15-gP-AOw" firstAttribute="top" secondItem="8sr-aI-VZy" secondAttribute="bottom" constant="8" id="mFt-Ao-lHu"/>
                 <constraint firstItem="Y15-gP-AOw" firstAttribute="trailing" secondItem="8sr-aI-VZy" secondAttribute="trailing" id="mXF-1R-Sbp"/>
                 <constraint firstAttribute="bottom" secondItem="ZMK-Xt-bJh" secondAttribute="bottom" constant="20" symbolic="YES" id="qbM-tp-ooC"/>
+                <constraint firstItem="ZpH-Zy-mAt" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" symbolic="YES" id="ttK-B9-wyu"/>
                 <constraint firstItem="sd5-qb-K5v" firstAttribute="leading" secondItem="Jdh-Cj-6ef" secondAttribute="trailing" constant="-1" id="vIk-e5-WB3"/>
                 <constraint firstItem="1XK-zr-YdW" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="166" id="yZg-V9-bxH"/>
             </constraints>
-            <point key="canvasLocation" x="-420" y="-469.5"/>
+            <point key="canvasLocation" x="-420.5" y="-469.5"/>
         </customView>
         <arrayController objectClassName="NSString" id="RId-BH-Y2G" userLabel="Types Controller">
             <connections>
@@ -333,58 +341,58 @@
         <userDefaultsController representsSharedInstance="YES" id="LQR-UU-5Gl"/>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="11" height="11"/>
-        <image name="NSRemoveTemplate" width="11" height="11"/>
+        <image name="NSAddTemplate" width="14" height="13"/>
+        <image name="NSRemoveTemplate" width="14" height="4"/>
         <image name="buttonCell:nBh-jv-KDG:image" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
-GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
-c1dOU0NvbG9ygAKADRIgwwAAgAOAC1Z7MSwgMX3SFQoWGFpOUy5vYmplY3RzoReABIAK0hUKGh2iGxyA
-BYAGgAkQANIgCiEiXxAUTlNUSUZGUmVwcmVzZW50YXRpb26AB4AITxEIxE1NACoAAAAKAAAAEAEAAAMA
-AAABAAEAAAEBAAMAAAABAAEAAAECAAMAAAACAAgACAEDAAMAAAABAAEAAAEGAAMAAAABAAEAAAEKAAMA
-AAABAAEAAAERAAQAAAABAAAACAESAAMAAAABAAEAAAEVAAMAAAABAAIAAAEWAAMAAAABAAEAAAEXAAQA
-AAABAAAAAgEcAAMAAAABAAEAAAEoAAMAAAABAAIAAAFSAAMAAAABAAEAAAFTAAMAAAACAAEAAYdzAAcA
-AAf0AAAA0AAAAAAAAAf0YXBwbAIgAABtbnRyR1JBWVhZWiAH0AACAA4ADAAAAABhY3NwQVBQTAAAAABu
-b25lAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWFwcGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVkZXNjAAAAwAAAAG9kc2NtAAABMAAABmZjcHJ0AAAHmAAAADh3
-dHB0AAAH0AAAABRrVFJDAAAH5AAAAA5kZXNjAAAAAAAAABVHZW5lcmljIEdyYXkgUHJvZmlsZQAAAAAA
-AAAAAAAAFUdlbmVyaWMgR3JheSBQcm9maWxlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAbWx1YwAAAAAAAAAfAAAADHNrU0sAAAAqAAABhGVuVVMAAAAoAAABrmNhRVMA
-AAAsAAAB1nZpVk4AAAAsAAACAnB0QlIAAAAqAAACLnVrVUEAAAAsAAACWGZyRlUAAAAqAAAChGh1SFUA
-AAAuAAACrnpoVFcAAAAQAAAC3G5iTk8AAAAsAAAC7GtvS1IAAAAYAAADGGNzQ1oAAAAkAAADMGhlSUwA
-AAAgAAADVHJvUk8AAAAkAAADdGRlREUAAAA6AAADmGl0SVQAAAAuAAAD0nN2U0UAAAAuAAAEAHpoQ04A
-AAAQAAAELmphSlAAAAAWAAAEPmVsR1IAAAAkAAAEVHB0UE8AAAA4AAAEeG5sTkwAAAAqAAAEsGVzRVMA
-AAAoAAAE2nRoVEgAAAAkAAAFAnRyVFIAAAAiAAAFJmZpRkkAAAAsAAAFSGhySFIAAAA6AAAFdHBsUEwA
-AAA2AAAFrnJ1UlUAAAAmAAAF5GFyRUcAAAAoAAAGCmRhREsAAAA0AAAGMgBWAWEAZQBvAGIAZQBjAG4A
-/QAgAHMAaQB2AP0AIABwAHIAbwBmAGkAbABHAGUAbgBlAHIAaQBjACAARwByAGEAeQAgAFAAcgBvAGYA
-aQBsAGUAUABlAHIAZgBpAGwAIABkAGUAIABnAHIAaQBzACAAZwBlAG4A6AByAGkAYwBDHqUAdQAgAGgA
-7ABuAGgAIABNAOAAdQAgAHgA4QBtACAAQwBoAHUAbgBnAFAAZQByAGYAaQBsACAAQwBpAG4AegBhACAA
-RwBlAG4A6QByAGkAYwBvBBcEMAQzBDAEOwRMBD0EOAQ5ACAEPwRABD4ERAQwBDkEOwAgAEcAcgBhAHkA
-UAByAG8AZgBpAGwAIABnAOkAbgDpAHIAaQBxAHUAZQAgAGcAcgBpAHMAwQBsAHQAYQBsAOEAbgBvAHMA
-IABzAHoA/AByAGsAZQAgAHAAcgBvAGYAaQBskBp1KHBwlo6Ccl9pY8+P8ABHAGUAbgBlAHIAaQBzAGsA
-IABnAHIA5QB0AG8AbgBlAHAAcgBvAGYAaQBsx3y8GAAgAEcAcgBhAHkAINUEuFzTDMd8AE8AYgBlAGMA
-bgD9ACABYQBlAGQA/QAgAHAAcgBvAGYAaQBsBeQF6AXVBeQF2QXcACAARwByAGEAeQAgBdsF3AXcBdkA
-UAByAG8AZgBpAGwAIABnAHIAaQAgAGcAZQBuAGUAcgBpAGMAQQBsAGwAZwBlAG0AZQBpAG4AZQBzACAA
-RwByAGEAdQBzAHQAdQBmAGUAbgAtAFAAcgBvAGYAaQBsAFAAcgBvAGYAaQBsAG8AIABnAHIAaQBnAGkA
-bwAgAGcAZQBuAGUAcgBpAGMAbwBHAGUAbgBlAHIAaQBzAGsAIABnAHIA5QBzAGsAYQBsAGUAcAByAG8A
-ZgBpAGxmbpAacHBepmPPj/Blh072TgCCLDCwMOwwpDDXMO0w1TChMKQw6wOTA7UDvQO5A7oDzAAgA8AD
-wQO/A8YDrwO7ACADswO6A8EDuQBQAGUAcgBmAGkAbAAgAGcAZQBuAOkAcgBpAGMAbwAgAGQAZQAgAGMA
-aQBuAHoAZQBuAHQAbwBzAEEAbABnAGUAbQBlAGUAbgAgAGcAcgBpAGoAcwBwAHIAbwBmAGkAZQBsAFAA
-ZQByAGYAaQBsACAAZwByAGkAcwAgAGcAZQBuAOkAcgBpAGMAbw5CDhsOIw5EDh8OJQ5MDioONQ5ADhcO
-Mg4XDjEOSA4nDkQOGwBHAGUAbgBlAGwAIABHAHIAaQAgAFAAcgBvAGYAaQBsAGkAWQBsAGUAaQBuAGUA
-bgAgAGgAYQByAG0AYQBhAHAAcgBvAGYAaQBpAGwAaQBHAGUAbgBlAHIAaQENAGsAaQAgAHAAcgBvAGYA
-aQBsACAAcwBpAHYAaQBoACAAdABvAG4AbwB2AGEAVQBuAGkAdwBlAHIAcwBhAGwAbgB5ACAAcAByAG8A
-ZgBpAGwAIABzAHoAYQByAG8BWwBjAGkEHgQxBEkEOAQ5ACAEQQQ1BEAESwQ5ACAEPwRABD4ERAQ4BDsE
-TAZFBkQGQQAgBioGOQYxBkoGQQAgAEcAcgBhAHkAIAYnBkQGOQYnBkUARwBlAG4AZQByAGUAbAAgAGcA
-cgDlAHQAbwBuAGUAYgBlAHMAawByAGkAdgBlAGwAcwBlAAB0ZXh0AAAAAENvcHlyaWdodCAyMDA3IEFw
-cGxlIEluYy4sIGFsbCByaWdodHMgcmVzZXJ2ZWQuAFhZWiAAAAAAAADzUQABAAAAARbMY3VydgAAAAAA
-AAABAc0AANIlJicoWiRjbGFzc25hbWVYJGNsYXNzZXNfEBBOU0JpdG1hcEltYWdlUmVwoycpKlpOU0lt
-YWdlUmVwWE5TT2JqZWN00iUmLC1XTlNBcnJheaIsKtIlJi8wXk5TTXV0YWJsZUFycmF5oy8sKtMyMwo0
-NTZXTlNXaGl0ZVxOU0NvbG9yU3BhY2VEMCAwABADgAzSJSY4OVdOU0NvbG9yojgq0iUmOzxXTlNJbWFn
-ZaI7Kl8QD05TS2V5ZWRBcmNoaXZlctE/QFRyb290gAEACAARABoAIwAtADIANwBGAEwAVwBeAGUAcgB5
-AIEAgwCFAIoAjACOAJUAmgClAKcAqQCrALAAswC1ALcAuQC7AMAA1wDZANsJowmoCbMJvAnPCdMJ3gnn
-CewJ9An3CfwKCwoPChYKHgorCjAKMgo0CjkKQQpECkkKUQpUCmYKaQpuAAAAAAAAAgEAAAAAAAAAQQAA
-AAAAAAAAAAAAAAAACnA
+YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T
+S2V5ZWRBcmNoaXZlctEICVRyb290gAGuCwwZGh8UJCgpMDM2PD9VJG51bGzWDQ4PEBESExQVFhcYVk5T
+U2l6ZV5OU1Jlc2l6aW5nTW9kZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0NvbG9ygAIQAIAN
+EiDDAACAA4ALVnsxLCAxfdIbDxweWk5TLm9iamVjdHOhHYAEgArSGw8gI6IhIoAFgAaACdIlDyYnXxAU
+TlNUSUZGUmVwcmVzZW50YXRpb26AB4AITxEIxE1NACoAAAAKAAAAEAEAAAMAAAABAAEAAAEBAAMAAAAB
+AAEAAAECAAMAAAACAAgACAEDAAMAAAABAAEAAAEGAAMAAAABAAEAAAEKAAMAAAABAAEAAAERAAQAAAAB
+AAAACAESAAMAAAABAAEAAAEVAAMAAAABAAIAAAEWAAMAAAABAAEAAAEXAAQAAAABAAAAAgEcAAMAAAAB
+AAEAAAEoAAMAAAABAAIAAAFSAAMAAAABAAEAAAFTAAMAAAACAAEAAYdzAAcAAAf0AAAA0AAAAAAAAAf0
+YXBwbAIgAABtbnRyR1JBWVhZWiAH0AACAA4ADAAAAABhY3NwQVBQTAAAAABub25lAAAAAAAAAAAAAAAA
+AAAAAAAA9tYAAQAAAADTLWFwcGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAVkZXNjAAAAwAAAAG9kc2NtAAABMAAABmZjcHJ0AAAHmAAAADh3dHB0AAAH0AAAABRrVFJD
+AAAH5AAAAA5kZXNjAAAAAAAAABVHZW5lcmljIEdyYXkgUHJvZmlsZQAAAAAAAAAAAAAAFUdlbmVyaWMg
+R3JheSBQcm9maWxlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+bWx1YwAAAAAAAAAfAAAADHNrU0sAAAAqAAABhGVuVVMAAAAoAAABrmNhRVMAAAAsAAAB1nZpVk4AAAAs
+AAACAnB0QlIAAAAqAAACLnVrVUEAAAAsAAACWGZyRlUAAAAqAAAChGh1SFUAAAAuAAACrnpoVFcAAAAQ
+AAAC3G5iTk8AAAAsAAAC7GtvS1IAAAAYAAADGGNzQ1oAAAAkAAADMGhlSUwAAAAgAAADVHJvUk8AAAAk
+AAADdGRlREUAAAA6AAADmGl0SVQAAAAuAAAD0nN2U0UAAAAuAAAEAHpoQ04AAAAQAAAELmphSlAAAAAW
+AAAEPmVsR1IAAAAkAAAEVHB0UE8AAAA4AAAEeG5sTkwAAAAqAAAEsGVzRVMAAAAoAAAE2nRoVEgAAAAk
+AAAFAnRyVFIAAAAiAAAFJmZpRkkAAAAsAAAFSGhySFIAAAA6AAAFdHBsUEwAAAA2AAAFrnJ1UlUAAAAm
+AAAF5GFyRUcAAAAoAAAGCmRhREsAAAA0AAAGMgBWAWEAZQBvAGIAZQBjAG4A/QAgAHMAaQB2AP0AIABw
+AHIAbwBmAGkAbABHAGUAbgBlAHIAaQBjACAARwByAGEAeQAgAFAAcgBvAGYAaQBsAGUAUABlAHIAZgBp
+AGwAIABkAGUAIABnAHIAaQBzACAAZwBlAG4A6AByAGkAYwBDHqUAdQAgAGgA7ABuAGgAIABNAOAAdQAg
+AHgA4QBtACAAQwBoAHUAbgBnAFAAZQByAGYAaQBsACAAQwBpAG4AegBhACAARwBlAG4A6QByAGkAYwBv
+BBcEMAQzBDAEOwRMBD0EOAQ5ACAEPwRABD4ERAQwBDkEOwAgAEcAcgBhAHkAUAByAG8AZgBpAGwAIABn
+AOkAbgDpAHIAaQBxAHUAZQAgAGcAcgBpAHMAwQBsAHQAYQBsAOEAbgBvAHMAIABzAHoA/AByAGsAZQAg
+AHAAcgBvAGYAaQBskBp1KHBwlo6Ccl9pY8+P8ABHAGUAbgBlAHIAaQBzAGsAIABnAHIA5QB0AG8AbgBl
+AHAAcgBvAGYAaQBsx3y8GAAgAEcAcgBhAHkAINUEuFzTDMd8AE8AYgBlAGMAbgD9ACABYQBlAGQA/QAg
+AHAAcgBvAGYAaQBsBeQF6AXVBeQF2QXcACAARwByAGEAeQAgBdsF3AXcBdkAUAByAG8AZgBpAGwAIABn
+AHIAaQAgAGcAZQBuAGUAcgBpAGMAQQBsAGwAZwBlAG0AZQBpAG4AZQBzACAARwByAGEAdQBzAHQAdQBm
+AGUAbgAtAFAAcgBvAGYAaQBsAFAAcgBvAGYAaQBsAG8AIABnAHIAaQBnAGkAbwAgAGcAZQBuAGUAcgBp
+AGMAbwBHAGUAbgBlAHIAaQBzAGsAIABnAHIA5QBzAGsAYQBsAGUAcAByAG8AZgBpAGxmbpAacHBepmPP
+j/Blh072TgCCLDCwMOwwpDDXMO0w1TChMKQw6wOTA7UDvQO5A7oDzAAgA8ADwQO/A8YDrwO7ACADswO6
+A8EDuQBQAGUAcgBmAGkAbAAgAGcAZQBuAOkAcgBpAGMAbwAgAGQAZQAgAGMAaQBuAHoAZQBuAHQAbwBz
+AEEAbABnAGUAbQBlAGUAbgAgAGcAcgBpAGoAcwBwAHIAbwBmAGkAZQBsAFAAZQByAGYAaQBsACAAZwBy
+AGkAcwAgAGcAZQBuAOkAcgBpAGMAbw5CDhsOIw5EDh8OJQ5MDioONQ5ADhcOMg4XDjEOSA4nDkQOGwBH
+AGUAbgBlAGwAIABHAHIAaQAgAFAAcgBvAGYAaQBsAGkAWQBsAGUAaQBuAGUAbgAgAGgAYQByAG0AYQBh
+AHAAcgBvAGYAaQBpAGwAaQBHAGUAbgBlAHIAaQENAGsAaQAgAHAAcgBvAGYAaQBsACAAcwBpAHYAaQBo
+ACAAdABvAG4AbwB2AGEAVQBuAGkAdwBlAHIAcwBhAGwAbgB5ACAAcAByAG8AZgBpAGwAIABzAHoAYQBy
+AG8BWwBjAGkEHgQxBEkEOAQ5ACAEQQQ1BEAESwQ5ACAEPwRABD4ERAQ4BDsETAZFBkQGQQAgBioGOQYx
+BkoGQQAgAEcAcgBhAHkAIAYnBkQGOQYnBkUARwBlAG4AZQByAGUAbAAgAGcAcgDlAHQAbwBuAGUAYgBl
+AHMAawByAGkAdgBlAGwAcwBlAAB0ZXh0AAAAAENvcHlyaWdodCAyMDA3IEFwcGxlIEluYy4sIGFsbCBy
+aWdodHMgcmVzZXJ2ZWQuAFhZWiAAAAAAAADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AANIqKywtWiRj
+bGFzc25hbWVYJGNsYXNzZXNfEBBOU0JpdG1hcEltYWdlUmVwoywuL1pOU0ltYWdlUmVwWE5TT2JqZWN0
+0iorMTJXTlNBcnJheaIxL9IqKzQ1Xk5TTXV0YWJsZUFycmF5ozQxL9M3OA85OjtXTlNXaGl0ZVxOU0Nv
+bG9yU3BhY2VEMCAwABADgAzSKis9PldOU0NvbG9yoj0v0iorQEFXTlNJbWFnZaJALwAIABEAGgAkACkA
+MgA3AEkATABRAFMAYgBoAHUAfACLAJIAnwCmAK4AsACyALQAuQC7AL0AxADJANQA1gDYANoA3wDiAOQA
+5gDoAO0BBAEGAQgJ0AnVCeAJ6Qn8CgAKCwoUChkKIQokCikKOAo8CkMKSwpYCl0KXwphCmYKbgpxCnYK
+fgAAAAAAAAIBAAAAAAAAAEIAAAAAAAAAAAAAAAAAAAqBA
 </mutableData>
         </image>
     </resources>

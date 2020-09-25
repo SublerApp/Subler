@@ -18,6 +18,25 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
 
         if #available(macOS 11, *) {
             window?.toolbarStyle = .preference
+
+            for item in window?.toolbar?.items ?? [] {
+                switch item.itemIdentifier {
+                case general:
+                    item.image = NSImage(systemSymbolName: "gearshape", accessibilityDescription: "")
+                case metadata:
+                    item.image = NSImage(systemSymbolName: "network", accessibilityDescription: "")
+                case presets:
+                    item.image = NSImage(systemSymbolName: "books.vertical", accessibilityDescription: "")
+                case output:
+                    item.image = NSImage(systemSymbolName: "rectangle.and.pencil.and.ellipsis", accessibilityDescription: "")
+                case ocr:
+                    item.image = NSImage(systemSymbolName: "doc.text.viewfinder", accessibilityDescription: "")
+                case advanced:
+                    item.image = NSImage(systemSymbolName: "gearshape.2", accessibilityDescription: "")
+                default:
+                    item.image = NSImage(systemSymbolName: "placeholdertext.fill", accessibilityDescription: "")
+                }
+            }
         }
 
         window?.toolbar?.allowsUserCustomization = false
