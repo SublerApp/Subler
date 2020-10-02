@@ -500,7 +500,7 @@ public struct AppleTV: MetadataService {
         let rating: Rating?
         let images: Images
         let url: String
-        let duration: Int
+        let duration: Int?
         let seasonID: String
         let showID: String
         let showTitle: String
