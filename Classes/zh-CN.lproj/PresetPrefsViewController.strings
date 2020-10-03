@@ -1,0 +1,24 @@
+/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "6CG-pa-ocP"; */
+"6CG-pa-ocP.title" = "Table View Cell";
+
+/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "06q-GJ-S35"; */
+"06q-GJ-S35.title" = "Table View Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "a65-Qy-pSq"; */
+"a65-Qy-pSq.title" = "Text Cell";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Edit selected set"; ObjectID = "C1d-lu-T7S"; */
+"C1d-lu-T7S.ibShadowedToolTip" = "编辑所选预设";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove selected set"; ObjectID = "gBf-6T-hQv"; */
+"gBf-6T-hQv.ibShadowedToolTip" = "移除所选预设";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "iRF-P7-a3Q"; */
+"iRF-P7-a3Q.ibExternalAccessibilityDescription" = "预设";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove selected set"; ObjectID = "SIg-lA-6FA"; */
+"SIg-lA-6FA.ibShadowedToolTip" = "移除所选预设";
+
+/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "W45-Bf-XCJ"; */
+"W45-Bf-XCJ.title" = "编辑";
+

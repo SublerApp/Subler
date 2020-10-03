@@ -1,0 +1,21 @@
+/* Class = "NSButtonCell"; title = "64 bits chunk offset"; ObjectID = "14x-xv-HKI"; */
+"14x-xv-HKI.title" = "64位块偏移";
+
+/* Class = "NSTextFieldCell"; title = "Options:"; ObjectID = "BXP-AU-x3T"; */
+"BXP-AU-x3T.title" = "选项：";
+
+/* Class = "NSTextFieldCell"; title = "File Format:"; ObjectID = "caN-zU-chS"; */
+"caN-zU-chS.title" = "文件格式：";
+
+/* Class = "NSButtonCell"; title = "64 bits times"; ObjectID = "DCI-a5-K73"; */
+"DCI-a5-K73.title" = "64位时间";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Needed for mp4 larger than 4GB."; ObjectID = "emp-1S-F7H"; */
+"emp-1S-F7H.ibShadowedToolTip" = "当 mp4 文件超过 4GB 时需要此项";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "LBi-vr-peO"; */
+"LBi-vr-peO.title" = "OtherViews";
+
+/* Class = "NSButtonCell"; title = "Optimize"; ObjectID = "OZC-sc-82O"; */
+"OZC-sc-82O.title" = "优化";
+

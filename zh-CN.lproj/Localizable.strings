@@ -1,0 +1,401 @@
+/* No comment provided by engineer. */
+"-NA-" = "-不适用-";
+
+/* No comment provided by engineer. */
+"%@." = "%@.";
+
+/* No comment provided by engineer. */
+"%lu items in queue." = "任务队列中有 %lu 项。";
+
+/* No comment provided by engineer. */
+"%lu tracks selected" = "已选中 %lu 条轨道";
+
+/* No comment provided by engineer. */
+"1 item in queue" = "任务队列中有 1 项。";
+
+/* No comment provided by engineer. */
+"1 track selected" = "已选中 1 条轨道";
+
+/* No comment provided by engineer. */
+"4k" = "4K";
+
+/* No comment provided by engineer. */
+"720p" = "HD";
+
+/* No comment provided by engineer. */
+"1080p" = "1080p HD";
+
+/* QueueItem Error */
+"A file already exists at the destination." = "文件已存在于目标文件夹。";
+
+/* File Import action menu item. */
+"AAC + AC3" = "AAC + AC3";
+
+/* File Import action menu item. */
+"AAC + Passthru" = "AAC + 直通";
+
+/* Queue -> redo add item. */
+"Add Queue Item" = "添加队列项";
+
+/* No comment provided by engineer. */
+"Advanced" = "高级";
+
+/* No comment provided by engineer. */
+"Alert Tone" = "提醒声音";
+
+/* Set menu All set */
+"All" = "全部";
+
+/* QueueItem Error */
+"An error occurred while optimizing the file." = "优化文件时发生错误。";
+
+/* Action description */
+"Apply %@ preset" = "应用 %@ 预设";
+
+/* Action localized description. */
+"Applying %@ preset" = "正在应用 %@ 预设";
+
+/* No comment provided by engineer. */
+"artistID" = "artistID";
+
+/* No comment provided by engineer. */
+"Audiobook" = "有声书";
+
+/* No comment provided by engineer. */
+"Booklet" = "小册子";
+
+/* No comment provided by engineer. */
+"Cancel Download" = "取消下载";
+
+/* No comment provided by engineer. */
+"Capitalize" = "变为大写";
+
+/* No comment provided by engineer. */
+"Cast" = "表演者";
+
+/* Action description. */
+"Clear Metadata" = "清除元数据";
+
+/* Action description */
+"Clear tracks names" = "清除轨道名称";
+
+/* Action localized description. */
+"Clearing Metadata" = "正在清除元数据";
+
+/* Action localized description */
+"Clearing tracks names" = "正在清除轨道名称";
+
+/* No comment provided by engineer. */
+"Composer" = "作曲者";
+
+/* Media characteristic. */
+"Contains Only Forced Subtitles" = "仅包含强制字幕";
+
+/* No comment provided by engineer. */
+"contentID" = "contentID";
+
+/* No comment provided by engineer. */
+"Copyright" = "版权";
+
+/* No comment provided by engineer. */
+"Current profile:" = "当前配置文件：";
+
+/* Undo cover art delete
+   Undo tag delete. */
+"Delete" = "删除";
+
+/* No comment provided by engineer. */
+"Description" = "简短描述";
+
+/* No comment provided by engineer. */
+"Director" = "导演";
+
+/* Donation -> button */
+"Donate" = "捐赠";
+
+/* Queue -> Done */
+"Done" = "完成";
+
+/* No comment provided by engineer. */
+"Downloading additional movie metadata" = "正在下载电影元数据…";
+
+/* No comment provided by engineer. */
+"Downloading additional TV metadata…" = "正在下载电视节目元数据…";
+
+/* No comment provided by engineer. */
+"Downloading artworks" = "正在下载插图";
+
+/* No comment provided by engineer. */
+"Episode ID" = "剧集 ID";
+
+/* No comment provided by engineer. */
+"Executive Producer" = "监制";
+
+/* Export alert panel -> title */
+"File Could Not Be Saved" = "无法存储文件";
+
+/* QueueItem Error */
+"File not found." = "未找到文件。";
+
+/* No comment provided by engineer. */
+"Filename" = "文件名";
+
+/* Action description. */
+"Fix Fallbacks" = "修复回退";
+
+/* Action localized description. */
+"Fixing Fallbacks" = "正在修复回退";
+
+/* No comment provided by engineer. */
+"General" = "通用";
+
+/* No comment provided by engineer. */
+"Genre" = "类型";
+
+/* No comment provided by engineer. */
+"Get" = "获取";
+
+/* No comment provided by engineer. */
+"Home Video" = "家庭视频";
+
+/* Implicit color profile */
+"Implicit" = "缺省";
+
+/* Undo cover art insert.
+   Undo tag insert. */
+"Insert" = "插入";
+
+/* No comment provided by engineer. */
+"iTunes Country" = "iTunes 地区";
+
+/* No comment provided by engineer. */
+"iTunes U" = "iTunes U";
+
+/* No comment provided by engineer. */
+"iTunes URL" = "iTunes URL";
+
+/* Action description. */
+"Load Subtitles" = "加载字幕";
+
+/* Action localized description. */
+"Loading subtitles" = "正在加载字幕";
+
+/* No comment provided by engineer. */
+"Long Description" = "完整描述";
+
+/* No comment provided by engineer. */
+"lowercase" = "小写";
+
+/* No comment provided by engineer. */
+"Metadata" = "元数据";
+
+/* Undo cover art delete */
+"Move" = "移动";
+
+/* Queue -> move add item. */
+"Move Queue Item" = "移动队列项";
+
+/* Set menu Movie set */
+"Movie" = "电影";
+
+/* No comment provided by engineer. */
+"Music" = "音乐";
+
+/* No comment provided by engineer. */
+"Music Video" = "音乐视频";
+
+/* No comment provided by engineer. */
+"na" = "na";
+
+/* No comment provided by engineer. */
+"Name" = "名称";
+
+/* No comment provided by engineer. */
+"Network" = "电视台";
+
+/* Queue metadata search artwork type */
+"None" = "无";
+
+/* Donation -> button */
+"Nope" = "下次一定！";
+
+/* QueueItem Error */
+"Not enough disk space." = "磁盘空间不足。";
+
+/* No comment provided by engineer. */
+"OCR" = "OCR";
+
+/* Export alert panel -> button */
+"OK" = "确定";
+
+/* Action description. */
+"Optimize" = "优化";
+
+/* Action localized description. */
+"Optimizing" = "正在优化";
+
+/* Document Optimize sheet. */
+"Optimizing…" = "正在优化…";
+
+/* Organize Groups action description */
+"Organize Groups" = "整理轨道分组";
+
+/* Organize Groups action local description */
+"Organizing groups" = "正在整理轨道分组";
+
+/* File Import action menu item. */
+"Passthru" = "直通";
+
+/* No comment provided by engineer. */
+"playlistID" = "playlistID";
+
+/* No comment provided by engineer. */
+"Please enter a name for the preset." = "请输入预设名称。";
+
+/* QueueItem Error */
+"Please free some space on the destination disk." = "请在目标磁盘释放一些空间。";
+
+/* No comment provided by engineer. */
+"Podcast" = "播客";
+
+/* Action description */
+"Prettify audio track names" = "美化音轨名称";
+
+/* Action localized description */
+"Prettifying audio track names" = "正在美化音轨名称";
+
+/* No comment provided by engineer. */
+"Producers" = "制作人";
+
+/* No comment provided by engineer. */
+"Queue Done" = "任务队列已完成";
+
+/* Quit alert default action. */
+"Quit" = "退出";
+
+/* No comment provided by engineer. */
+"Rating" = "分级";
+
+/* color profile */
+"Rec. 601 (5-1-6)" = "Rec. 601 (5-1-6)";
+
+/* color profile */
+"Rec. 601 (6-1-6)" = "Rec. 601 (6-1-6)";
+
+/* color profile */
+"Rec. 709 (1-1-1)" = "Rec. 709 (1-1-1)";
+
+/* color profile */
+"Rec. 2020 (9-1-9)" = "Rec. 2020 (9-1-9)";
+
+/* color profile */
+"Rec. 2100 PQ (9-16-9)" = "Rec. 2100 PQ (9-16-9)";
+
+/* No comment provided by engineer. */
+"Release Date" = "发行日期";
+
+/* No comment provided by engineer. */
+"Remove" = "移除";
+
+/* Queue -> redo add item. */
+"Remove Queue Item" = "移除队列项";
+
+/* No comment provided by engineer. */
+"Ringtone" = "铃声";
+
+/* Set menu */
+"Save Set…" = "保存预设…";
+
+/* No comment provided by engineer. */
+"Screenwriters" = "编剧";
+
+/* Action description. */
+"Search Metadata" = "搜索元数据";
+
+/* Action localized description. */
+"Searching metadata" = "正在搜索元数据";
+
+/* No comment provided by engineer. */
+"Searching…" = "正在搜索…";
+
+/* No comment provided by engineer. */
+"Season" = "季";
+
+/* Action description. */
+"Send to iTunes" = "发送到 iTunes";
+
+/* No comment provided by engineer. */
+"Send To Queue" = "发送到任务队列";
+
+/* Send to tv app menu item */
+"Send to TV" = "发送到“视频”";
+
+/* Action localized description. */
+"Sending to iTunes" = "正在发送到 iTunes";
+
+/* No comment provided by engineer. */
+"Service ID" = "服务 ID";
+
+/* Set track color space action description */
+"Set color space" = "设定色域";
+
+/* Action description. */
+"Set Name" = "设定名称";
+
+/* Set Language action description */
+"Set tracks language" = "设定轨道语言";
+
+/* No comment provided by engineer. */
+"Sets" = "预设";
+
+/* Set track color space action local description */
+"Setting color space" = "正在设定色域";
+
+/* Action localized description. */
+"Setting Name" = "正在设定名称";
+
+/* Set Language action local description */
+"Setting tracks language" = "正在设定轨道语言";
+
+/* No comment provided by engineer. */
+"Studio" = "制片商";
+
+/* Donation -> title */
+"Support Subler" = "支持 Subler";
+
+/* QueueItem Error */
+"The file couldn't be optimized." = "无法优化该文件。";
+
+/* No comment provided by engineer. */
+"The preset name must not be empty." = "预设名称不能为空。";
+
+/* My error */
+"The source file couldn't be found." = "找不到源文件。";
+
+/* Export alert panel -> message */
+"There was a problem creating the file " = "创建文件时出现问题";
+
+/* Set menu TV Show Set */
+"TV Show" = "电视节目";
+
+/* File Import action menu item. */
+"Tx3g" = "Tx3g";
+
+/* No comment provided by engineer. */
+"Unknown" = "未知";
+
+/* Metadata Search -> Unnamed episode */
+"Unnamed" = "未命名";
+
+/* No comment provided by engineer. */
+"UPPERCASE" = "大写";
+
+/* Queue Working. */
+"Working" = "任务进行中";
+
+/* Queue -> Working */
+"Working." = "任务进行中。";
+
+/* No comment provided by engineer. */
+"Year" = "年份";
+
