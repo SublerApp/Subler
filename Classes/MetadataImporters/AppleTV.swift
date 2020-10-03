@@ -1,6 +1,5 @@
 //
-//  iTunesStore.swift
-//  iTunes Artwork
+//  AppleTV.swift
 //
 //  Created by Damiano Galassi on 15/10/2019.
 //  Copyright © 2020 Damiano Galassi. All rights reserved.
@@ -174,10 +173,10 @@ public struct AppleTV: MetadataService {
 
         if let tvShow = tvShows.first {
             let seasons = fetchSeasons(id: tvShow.id, store: store)
-            let seasonNumber = season ?? 1
-            if seasons.count >= seasonNumber, seasonNumber > 0 {
-                let startIndex = seasons[0 ..< seasonNumber - 1].map { $0.episodeCount }.reduce(0, +)
-                let length = seasons[seasonNumber - 1].episodeCount
+            let seasonIndex = seasons.firstIndex(where: {$0.seasonNumber == season}) ?? -1
+            if seasons.count >= seasonIndex, seasonIndex > -1 {
+                let startIndex = seasons[0 ..< seasonIndex].map { $0.episodeCount }.reduce(0, +)
+                let length = seasons[seasonIndex].episodeCount
                 let episodes = fetchEpisodes(id: tvShow.id, store: store, range: (startIndex, length))
                     .filter { episode != nil ? $0.episodeNumber == episode : true }
                 let results = episodes.map { MetadataResult(item: tvShow, episode: $0, store: store) }
@@ -286,10 +285,12 @@ public struct AppleTV: MetadataService {
         return nil
     }
 
-    private func fetchSeasons(id: String, store: iTunesStore.Store) -> [SeasonSummary]  {
+    private func fetchSeasons(id: String, store: iTunesStore.Store) -> [(seasonNumber: Int, episodeCount: Int)]  {
         if let url = URL(string: "\(episodesURL)\(id)/episodes?sf=\(store.storeCode)&locale=\(store.language2)\(options)"),
             let results = sendJSONRequest(url: url, type: Wrapper<Episodes>.self) {
-            return results.data.seasonSummaries ?? []
+            let availableSeasons = Set(results.data.availableChannels?.flatMap { $0.seasonNumbers } ?? []).sorted()
+            let seasonsEpisodeCount = results.data.seasonSummaries?.compactMap { $0.episodeCount } ?? []
+            return zip(availableSeasons, seasonsEpisodeCount).map { (seasonNumber: $0, episodeCount: $1)}
         }
         return []
     }
@@ -538,7 +539,13 @@ public struct AppleTV: MetadataService {
         let episodeCount: Int
     }
 
+    private struct Channel: Codable {
+        let channelId: String
+        let seasonNumbers: [Int]
+    }
+
     private struct Episodes: Codable {
+        let availableChannels: [Channel]?
         let episodes: [Episode]
         let seasonSummaries: [SeasonSummary]?
     }
