@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17503.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17503.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,13 +18,13 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="308"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView autohidesScrollers="YES" horizontalLineScroll="21" horizontalPageScroll="10" verticalLineScroll="21" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QYE-NI-76o">
+                <scrollView autohidesScrollers="YES" horizontalLineScroll="23" horizontalPageScroll="10" verticalLineScroll="23" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QYE-NI-76o">
                     <rect key="frame" x="20" y="56" width="440" height="232"/>
                     <clipView key="contentView" ambiguous="YES" id="OFf-eT-AOX">
                         <rect key="frame" x="1" y="1" width="438" height="230"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="19" rowSizeStyle="automatic" headerView="7KU-Cc-YiM" viewBased="YES" id="eSu-XV-7Vu">
+                            <tableView verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="21" headerView="7KU-Cc-YiM" viewBased="YES" id="eSu-XV-7Vu">
                                 <rect key="frame" x="0.0" y="0.0" width="438" height="205"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -43,12 +43,12 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView identifier="languageItem" misplaced="YES" id="lSD-av-rXp" customClass="OCRTableCellView" customModule="Subler" customModuleProvider="target">
+                                            <tableCellView identifier="languageItem" id="lSD-av-rXp" customClass="OCRTableCellView" customModule="Subler" customModuleProvider="target">
                                                 <rect key="frame" x="1" y="1" width="435" height="19"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Fec-S0-J1M">
-                                                        <rect key="frame" x="87" y="2" width="348" height="16"/>
+                                                        <rect key="frame" x="87" y="3" width="348" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Zhz-YB-L6R">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -70,12 +70,11 @@
                                                     </button>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="Fec-S0-J1M" firstAttribute="top" secondItem="lSD-av-rXp" secondAttribute="top" constant="2" id="9uf-fA-xpv"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Fec-S0-J1M" secondAttribute="bottom" constant="2" id="QLG-Ww-AZo"/>
+                                                    <constraint firstItem="Fec-S0-J1M" firstAttribute="firstBaseline" secondItem="Lhm-Hc-3on" secondAttribute="firstBaseline" id="Knt-hm-wZj"/>
                                                     <constraint firstItem="Fec-S0-J1M" firstAttribute="leading" secondItem="Lhm-Hc-3on" secondAttribute="trailing" constant="6" id="UsK-RG-vQJ"/>
                                                     <constraint firstItem="Lhm-Hc-3on" firstAttribute="leading" secondItem="lSD-av-rXp" secondAttribute="leading" constant="3" id="cOX-ia-Azj"/>
                                                     <constraint firstAttribute="trailing" secondItem="Fec-S0-J1M" secondAttribute="trailing" constant="2" id="duf-r8-sa5"/>
-                                                    <constraint firstItem="Lhm-Hc-3on" firstAttribute="top" secondItem="lSD-av-rXp" secondAttribute="top" constant="2" id="hh0-fq-9ol"/>
+                                                    <constraint firstItem="Lhm-Hc-3on" firstAttribute="centerY" secondItem="lSD-av-rXp" secondAttribute="centerY" id="sAX-BG-Fyd"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="actionButton" destination="Lhm-Hc-3on" id="2kv-5U-ZWH"/>
