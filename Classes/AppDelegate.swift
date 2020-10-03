@@ -192,9 +192,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        if Prefs.suppressDonationAlert == false {
-            runDonateAlert()
-        }
+        //if Prefs.suppressDonationAlert == false {
+        //    runDonateAlert()
+        //}
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {

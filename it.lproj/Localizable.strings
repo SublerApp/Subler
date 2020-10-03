@@ -1,3 +1,6 @@
+/* Donation -> message */
+" A lot of time and effort have gone into development, coding, and refinement.\n If you enjoy using it, please consider showing your appreciation with a donation." = "Molto tempo e impegno sono stati dedicati allo sviluppo, alla codifica e al perfezionamento. \nSe ti piace usarlo, considera di mostrare il tuo apprezzamento con una donazione.";
+
 /* No comment provided by engineer. */
 "-NA-" = "-ND-";
 
@@ -347,6 +350,9 @@
 
 /* No comment provided by engineer. */
 "Send To Queue" = "Aggiungi alla coda";
+
+/* Send to tv app menu item */
+"Send to TV" = "Invia a TV";
 
 /* Action localized description. */
 "Sending to iTunes" = "Invio ad iTunes";
