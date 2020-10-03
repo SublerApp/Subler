@@ -163,7 +163,7 @@ public struct AppleTV: MetadataService {
 
     public func search(tvShow: String, language: String) -> [String] {
         guard let store = iTunesStore.Store(language: language) else { return [] }
-        return search(term: tvShow, store: store).compactMap { $0.title }
+        return search(term: tvShow, store: store, type: .tvShow(season: nil)).compactMap { $0.title }
     }
 
     public func search(tvShow: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
