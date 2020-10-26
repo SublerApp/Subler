@@ -94,6 +94,16 @@ private extension MetadataResult {
     }
 }
 
+private extension Array where Element == AppleTV.Item {
+    func match(title: String) -> AppleTV.Item? {
+        if let match = self.first(where: { $0.title?.caseInsensitiveCompare(title) == .orderedSame }) {
+            return match
+        } else {
+            return self.first
+        }
+    }
+}
+
 public struct AppleTV: MetadataService {
 
     public var languages: [String] {
@@ -171,7 +181,7 @@ public struct AppleTV: MetadataService {
 
         let tvShows = search(term: tvShow, store: store, type: .tvShow(season: nil))
 
-        if let tvShow = tvShows.first {
+        if let tvShow = tvShows.match(title: tvShow) {
             let seasons = fetchSeasons(id: tvShow.id, store: store)
             let seasonIndex = seasons.firstIndex(where: {$0.seasonNumber == season}) ?? -1
             if seasons.count >= seasonIndex, seasonIndex > -1 {
