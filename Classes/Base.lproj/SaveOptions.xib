@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17503.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17503.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,11 +18,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="MW8-8K-w1S">
-            <rect key="frame" x="0.0" y="0.0" width="321" height="107"/>
+            <rect key="frame" x="0.0" y="0.0" width="346" height="107"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="4Ry-tR-0w3">
-                    <rect key="frame" x="1" y="0.0" width="320" height="107"/>
+                    <rect key="frame" x="13" y="0.0" width="320" height="107"/>
                     <subviews>
                         <button toolTip="Needed for mp4 larger than 4GB." verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="emp-1S-F7H">
                             <rect key="frame" x="98" y="54" width="148" height="18"/>
@@ -114,11 +114,13 @@ Enable 64bit timescale and duration support. Normally, it's only needed if a tra
                 </customView>
             </subviews>
             <constraints>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4Ry-tR-0w3" secondAttribute="trailing" id="2j2-LL-JyG"/>
                 <constraint firstItem="4Ry-tR-0w3" firstAttribute="top" secondItem="MW8-8K-w1S" secondAttribute="top" id="QNo-o1-YrB"/>
+                <constraint firstItem="4Ry-tR-0w3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MW8-8K-w1S" secondAttribute="leading" id="o9z-Up-Eb1"/>
                 <constraint firstItem="4Ry-tR-0w3" firstAttribute="centerX" secondItem="MW8-8K-w1S" secondAttribute="centerX" id="pJc-tf-bbO"/>
                 <constraint firstAttribute="bottom" secondItem="4Ry-tR-0w3" secondAttribute="bottom" id="xRp-PB-HQl"/>
             </constraints>
-            <point key="canvasLocation" x="-503.5" y="-8.5"/>
+            <point key="canvasLocation" x="-491.5" y="-8.5"/>
         </customView>
     </objects>
 </document>
