@@ -1,3 +1,6 @@
+/* Donation -> message */
+" A lot of time and effort have gone into development, coding, and refinement.\n If you enjoy using it, please consider showing your appreciation with a donation." = "开发和改进 Subler 花费了大量时间和精力。\n如果您喜欢它，请考虑通过捐赠表示感谢。";
+
 /* No comment provided by engineer. */
 "-NA-" = "-不适用-";
 
@@ -20,13 +23,16 @@
 "4k" = "4K";
 
 /* No comment provided by engineer. */
-"720p" = "HD";
+"720p" = "720p HD";
 
 /* No comment provided by engineer. */
 "1080p" = "1080p HD";
 
 /* QueueItem Error */
 "A file already exists at the destination." = "文件已存在于目标文件夹。";
+
+/* No comment provided by engineer. */
+"A preset already exists with the same name." = "已存在同名预设。";
 
 /* File Import action menu item. */
 "AAC + AC3" = "AAC + AC3";
@@ -55,11 +61,17 @@
 /* Action localized description. */
 "Applying %@ preset" = "正在应用 %@ 预设";
 
+/* Quit alert title. */
+"Are you sure you want to quit Subler?" = "你确认要退出 Subler 吗？";
+
 /* No comment provided by engineer. */
 "artistID" = "artistID";
 
 /* No comment provided by engineer. */
 "Audiobook" = "有声书";
+
+/* Media characteristic. */
+"Auxiliary Content" = "辅助内容";
 
 /* No comment provided by engineer. */
 "Booklet" = "小册子";
@@ -100,15 +112,33 @@
 /* No comment provided by engineer. */
 "Current profile:" = "当前配置文件：";
 
+/* No comment provided by engineer. */
+"Day" = "日";
+
 /* Undo cover art delete
    Undo tag delete. */
 "Delete" = "删除";
+
+/* Media characteristic. */
+"Describes Music And Sound For Accessibility" = "描述音乐和声音的辅助功能";
+
+/* Media characteristic. */
+"Describes Video For Accessibility" = "描述视频内容的辅助功能";
 
 /* No comment provided by engineer. */
 "Description" = "简短描述";
 
 /* No comment provided by engineer. */
 "Director" = "导演";
+
+/* No comment provided by engineer. */
+"Disk #" = "光盘编号";
+
+/* Donation -> button */
+"Don't ask me about this again for this version." = "不要再询问我该版本。";
+
+/* Quit alert cancel action. */
+"Don't Quit" = "不要退出";
 
 /* Donation -> button */
 "Donate" = "捐赠";
@@ -124,6 +154,15 @@
 
 /* No comment provided by engineer. */
 "Downloading artworks" = "正在下载插图";
+
+/* Media characteristic. */
+"Dubbed Translation" = "配音翻译";
+
+/* Media characteristic. */
+"Easy To Read" = "易于阅读";
+
+/* No comment provided by engineer. */
+"Episode #" = "剧集";
 
 /* No comment provided by engineer. */
 "Episode ID" = "剧集 ID";
@@ -174,6 +213,9 @@
 /* No comment provided by engineer. */
 "iTunes URL" = "iTunes URL";
 
+/* Media characteristic. */
+"Language Translation" = "语言翻译";
+
 /* Action description. */
 "Load Subtitles" = "加载字幕";
 
@@ -186,8 +228,14 @@
 /* No comment provided by engineer. */
 "lowercase" = "小写";
 
+/* Media characteristic. */
+"Main Program Content" = "主要内容";
+
 /* No comment provided by engineer. */
 "Metadata" = "元数据";
+
+/* No comment provided by engineer. */
+"Month" = "月";
 
 /* Undo cover art delete */
 "Move" = "移动";
@@ -212,6 +260,9 @@
 
 /* No comment provided by engineer. */
 "Network" = "电视台";
+
+/* No comment provided by engineer. */
+"No" = "SD";
 
 /* Queue metadata search artwork type */
 "None" = "无";
@@ -248,6 +299,9 @@
 
 /* No comment provided by engineer. */
 "playlistID" = "playlistID";
+
+/* No comment provided by engineer. */
+"Please enter a different name for the preset." = "请换一个预设名称。";
 
 /* No comment provided by engineer. */
 "Please enter a name for the preset." = "请输入预设名称。";
@@ -312,6 +366,15 @@
 /* Action description. */
 "Search Metadata" = "搜索元数据";
 
+/* No comment provided by engineer. */
+"Searching %@ for episode information…" = "正在搜索剧集 %@ 的信息…";
+
+/* No comment provided by engineer. */
+"Searching %@ for movie information…" = "正在搜索电影 %@ 的信息…";
+
+/* ChapterDB */
+"Searching for chapter information…" = "正在搜索章节信息…";
+
 /* Action localized description. */
 "Searching metadata" = "正在搜索元数据";
 
@@ -332,6 +395,12 @@
 
 /* Action localized description. */
 "Sending to iTunes" = "正在发送到 iTunes";
+
+/* No comment provided by engineer. */
+"Series Description" = "节目描述";
+
+/* No comment provided by engineer. */
+"Series Name" = "节目";
 
 /* No comment provided by engineer. */
 "Service ID" = "服务 ID";
@@ -375,6 +444,15 @@
 /* Export alert panel -> message */
 "There was a problem creating the file " = "创建文件时出现问题";
 
+/* No comment provided by engineer. */
+"Track #" = "音轨";
+
+/* Media characteristic. */
+"Transcribes Spoken Dialog For Accessibility" = "转录对话的辅助功能";
+
+/* QueueItem Error */
+"Try to use another name for the destination file." = "请尝试使用其他文件名。";
+
 /* Set menu TV Show Set */
 "TV Show" = "电视节目";
 
@@ -390,6 +468,9 @@
 /* No comment provided by engineer. */
 "UPPERCASE" = "大写";
 
+/* Media characteristic. */
+"Voice Over Translation" = "旁白翻译";
+
 /* Queue Working. */
 "Working" = "任务进行中";
 
@@ -398,4 +479,7 @@
 
 /* No comment provided by engineer. */
 "Year" = "年份";
+
+/* Quit alert description. */
+"Your current queue will be lost. Do you want to quit anyway?" = "您当前的任务队列将会丢失，确定要退出吗？";
 

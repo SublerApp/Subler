@@ -7,6 +7,9 @@
 /* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2LD-y7-Ko1"; */
 "2LD-y7-Ko1.title" = "0";
 
+/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "97D-oX-nMc"; */
+"97D-oX-nMc.title" = "Item 1";
+
 /* Class = "NSTableColumn"; headerCell.title = "Id"; ObjectID = "a2Q-90-iMO"; */
 "a2Q-90-iMO.headerCell.title" = "ID";
 

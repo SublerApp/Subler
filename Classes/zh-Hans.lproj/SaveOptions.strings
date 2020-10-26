@@ -1,3 +1,6 @@
+/* Class = "NSButton"; ibShadowedToolTip = "Note: don't use this option if you are not sure of what it is doing, it's not needed in almost every case.\nEnable 64bit timescale and duration support. Normally, it's only needed if a track will be longer than 10 hours."; ObjectID = "3CX-Vp-T0h"; */
+"3CX-Vp-T0h.ibShadowedToolTip" = "注意：如果不确定该选项的作用，请不要使用此选项，几乎在每种情况下都不需要使用此选项。\n启用64位时标和持续时间支持：通常，仅当时长超过10小时才需要。";
+
 /* Class = "NSButtonCell"; title = "64 bits chunk offset"; ObjectID = "14x-xv-HKI"; */
 "14x-xv-HKI.title" = "64位块偏移";
 
@@ -18,4 +21,13 @@
 
 /* Class = "NSButtonCell"; title = "Optimize"; ObjectID = "OZC-sc-82O"; */
 "OZC-sc-82O.title" = "优化";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "vjJ-5z-7YZ"; */
+"vjJ-5z-7YZ.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "x4x-P4-Pf3"; */
+"x4x-P4-Pf3.title" = "Item 3";
+
+/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "Xuo-dp-0K0"; */
+"Xuo-dp-0K0.title" = "Item 1";
 

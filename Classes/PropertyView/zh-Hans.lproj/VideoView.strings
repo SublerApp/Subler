@@ -58,6 +58,9 @@
 /* Class = "NSTextFieldCell"; title = "Alternate Group:"; ObjectID = "Fye-Hi-zqu"; */
 "Fye-Hi-zqu.title" = "轨道分组：";
 
+/* Class = "NSTextFieldCell"; title = "You should only change the video profile if you want to load the file onto one of the devices listed and have been unable to do so.  However, if the video file uses advanced features of the codec, then the file may still be unplayable on the device."; ObjectID = "gcL-yf-yxF"; */
+"gcL-yf-yxF.title" = "仅当您要将文件加载到列出的设备之一且无法加载时，才应更改视频配置文件。但是，如果视频文件使用编解码器的高级功能，则该文件可能仍无法在设备上播放。";
+
 /* Class = "NSTextFieldCell"; title = "x"; ObjectID = "GfY-OY-SWL"; */
 "GfY-OY-SWL.title" = "x";
 

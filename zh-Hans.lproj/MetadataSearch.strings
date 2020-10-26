@@ -28,9 +28,6 @@
 /* Class = "NSMenu"; title = "OtherViews"; ObjectID = "eDp-3G-Kg4"; */
 "eDp-3G-Kg4.title" = "OtherViews";
 
-/* Class = "NSMenuItem"; title = "TheMovieDB"; ObjectID = "FoR-26-u9n"; */
-"FoR-26-u9n.title" = "TheMovieDB";
-
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "Fzd-0O-qsU"; */
 "Fzd-0O-qsU.title" = "Text Cell";
 
@@ -52,12 +49,6 @@
 /* Class = "NSTableView"; ibExternalAccessibilityDescription = "Search results"; ObjectID = "IDz-Ox-2sW"; */
 "IDz-Ox-2sW.ibExternalAccessibilityDescription" = "搜索结果";
 
-/* Class = "NSMenuItem"; title = "iTunes Store"; ObjectID = "j44-FV-Lpy"; */
-"j44-FV-Lpy.title" = "iTunes 商店";
-
-/* Class = "NSMenuItem"; title = "TheMovieDB"; ObjectID = "KpX-If-oKC"; */
-"KpX-If-oKC.title" = "TheMovieDB";
-
 /* Class = "NSTextFieldCell"; title = "Season #"; ObjectID = "kz7-mH-DuT"; */
 "kz7-mH-DuT.title" = "季";
 
@@ -66,9 +57,6 @@
 
 /* Class = "NSTextFieldCell"; title = "TV Show:"; ObjectID = "lE4-J1-ySV"; */
 "lE4-J1-ySV.title" = "电视节目：";
-
-/* Class = "NSMenuItem"; title = "iTunes Store"; ObjectID = "nn6-mR-Bh1"; */
-"nn6-mR-Bh1.title" = "iTunes 商店";
 
 /* Class = "NSMenu"; title = "OtherViews"; ObjectID = "obN-m7-G5Q"; */
 "obN-m7-G5Q.title" = "OtherViews";
