@@ -34,7 +34,7 @@
                     <tabViewItems>
                         <tabViewItem label="Metadata" identifier="1" id="11">
                             <view key="view" id="12">
-                                <rect key="frame" x="10" y="25" width="771" height="374"/>
+                                <rect key="frame" x="10" y="29" width="771" height="370"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <popUpButton toolTip="Add a new metadata item" translatesAutoresizingMaskIntoConstraints="NO" id="30">
@@ -91,12 +91,12 @@
                                         <accessibility description="Sets"/>
                                     </popUpButton>
                                     <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4i-wT-qDC">
-                                        <rect key="frame" x="17" y="36" width="737" height="328"/>
+                                        <rect key="frame" x="17" y="32" width="737" height="328"/>
                                         <clipView key="contentView" id="cQT-bX-0YB">
                                             <rect key="frame" x="1" y="1" width="735" height="326"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="14" rowSizeStyle="automatic" headerView="qXU-xB-xRF" viewBased="YES" floatsGroupRows="NO" id="qg5-r0-E4V" customClass="ExpandedTableView" customModule="Subler" customModuleProvider="target">
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="plain" columnReordering="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="14" rowSizeStyle="automatic" headerView="qXU-xB-xRF" viewBased="YES" floatsGroupRows="NO" id="qg5-r0-E4V" customClass="ExpandedTableView" customModule="Subler" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="735" height="303"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -117,11 +117,11 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="NameTextCell" id="kcX-eB-nsR">
-                                                                    <rect key="frame" x="1" y="1" width="123" height="14"/>
+                                                                    <rect key="frame" x="1" y="1" width="118" height="14"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="3000" translatesAutoresizingMaskIntoConstraints="NO" id="hcf-2a-yEU">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="123" height="14"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="118" height="14"/>
                                                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Do not localize" id="uNy-4D-PA4">
                                                                                 <font key="font" metaFont="smallSystemBold"/>
                                                                                 <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -141,7 +141,7 @@
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn identifier="value" width="602" minWidth="40" maxWidth="4000" id="os0-Yb-exW">
+                                                        <tableColumn identifier="value" width="611" minWidth="40" maxWidth="4000" id="os0-Yb-exW">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Value">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -154,11 +154,11 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="TextCell" id="mjh-te-NdK">
-                                                                    <rect key="frame" x="127" y="1" width="606" height="14"/>
+                                                                    <rect key="frame" x="122" y="1" width="611" height="14"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T0o-RG-lfn">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="606" height="14"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="611" height="14"/>
                                                                             <textFieldCell key="cell" controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Do not localize" id="WRR-52-lxo">
                                                                                 <font key="font" metaFont="menu" size="11"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -180,11 +180,11 @@
                                                                     </connections>
                                                                 </tableCellView>
                                                                 <tableCellView identifier="TextCellForSizing" id="OUW-Fk-klv">
-                                                                    <rect key="frame" x="127" y="17" width="606" height="14"/>
+                                                                    <rect key="frame" x="122" y="17" width="611" height="14"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AmC-rT-7Rf">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="606" height="14"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="611" height="14"/>
                                                                             <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Do not localize" id="ipR-OL-rI2">
                                                                                 <font key="font" metaFont="menu" size="11"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -203,11 +203,11 @@
                                                                     </connections>
                                                                 </tableCellView>
                                                                 <tableCellView identifier="PopUpCell" id="JEU-aR-J9v" customClass="PopUpCellView" customModule="Subler" customModuleProvider="target">
-                                                                    <rect key="frame" x="127" y="33" width="606" height="14"/>
+                                                                    <rect key="frame" x="122" y="33" width="611" height="14"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cFv-4U-VzM">
-                                                                            <rect key="frame" x="0.0" y="-2" width="600" height="18"/>
+                                                                            <rect key="frame" x="0.0" y="-2" width="605" height="18"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <popUpButtonCell key="cell" type="bevel" title="Do not localize" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="6Zb-NM-Mmo" id="Myn-C3-tc4">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -228,11 +228,11 @@
                                                                     </connections>
                                                                 </tableCellView>
                                                                 <tableCellView identifier="BoolCell" id="DGy-Nb-PAN" customClass="CheckBoxCellView" customModule="Subler" customModuleProvider="target">
-                                                                    <rect key="frame" x="127" y="49" width="606" height="17"/>
+                                                                    <rect key="frame" x="122" y="49" width="611" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oyk-jS-zmh">
-                                                                            <rect key="frame" x="0.0" y="-1" width="605" height="20"/>
+                                                                            <rect key="frame" x="0.0" y="-1" width="610" height="20"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="f5s-ar-fW6">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -248,11 +248,11 @@
                                                                     </connections>
                                                                 </tableCellView>
                                                                 <tableCellView identifier="ComboCell" id="vy5-48-Vip" customClass="ComboBoxCellView" customModule="Subler" customModuleProvider="target">
-                                                                    <rect key="frame" x="127" y="68" width="606" height="19"/>
+                                                                    <rect key="frame" x="122" y="68" width="611" height="19"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <comboBox verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="1000" translatesAutoresizingMaskIntoConstraints="NO" id="LbC-r6-Pau">
-                                                                            <rect key="frame" x="3" y="0.0" width="603" height="19"/>
+                                                                            <rect key="frame" x="3" y="0.0" width="609" height="19"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <comboBoxCell key="cell" controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="left" title="Do not localize" usesSingleLineMode="YES" buttonBordered="NO" numberOfVisibleItems="5" id="jkg-xz-Hbn">
                                                                                 <font key="font" metaFont="menu" size="11"/>
@@ -319,7 +319,7 @@
                                         <rect key="frame" x="17" y="278" width="574" height="90"/>
                                         <clipView key="contentView" copiesOnScroll="NO" id="7IP-Gn-Bxd">
                                             <rect key="frame" x="1" y="1" width="572" height="88"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <ikImageBrowserView autoresizesSubviews="NO" zoomValue="1" allowsReordering="YES" animates="YES" translatesAutoresizingMaskIntoConstraints="NO" id="217" customClass="ImageBrowserView" customModule="Subler" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="557" height="88"/>

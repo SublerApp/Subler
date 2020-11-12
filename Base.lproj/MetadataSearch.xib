@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16085" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -36,7 +36,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bfj-tB-Wq2">
-                    <rect key="frame" x="440" y="13" width="96" height="32"/>
+                    <rect key="frame" x="439" y="13" width="98" height="32"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="ARg-Xw-Ggn"/>
                     </constraints>
@@ -49,7 +49,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zM1-YP-Au2">
-                    <rect key="frame" x="344" y="13" width="96" height="32"/>
+                    <rect key="frame" x="343" y="13" width="98" height="32"/>
                     <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PJC-dF-B1z">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -65,16 +65,16 @@ Gw
                     <rect key="frame" x="20" y="20" width="16" height="16"/>
                 </progressIndicator>
                 <tabView translatesAutoresizingMaskIntoConstraints="NO" id="6hW-RR-cfF">
-                    <rect key="frame" x="-12" y="348" width="574" height="110"/>
+                    <rect key="frame" x="-12" y="349" width="574" height="109"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
                         <tabViewItem label="Movie" identifier="1" id="apc-8c-iyM">
                             <view key="view" id="e2g-GX-p4j">
-                                <rect key="frame" x="10" y="33" width="554" height="64"/>
+                                <rect key="frame" x="10" y="33" width="554" height="63"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="150" translatesAutoresizingMaskIntoConstraints="NO" id="gBb-mO-eZD">
-                                        <rect key="frame" x="18" y="42" width="44" height="16"/>
+                                        <rect key="frame" x="18" y="41" width="44" height="16"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Movie:" id="uyt-vh-nv6">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -82,7 +82,7 @@ Gw
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dyr-Xb-8vA">
-                                        <rect key="frame" x="67" y="39" width="387" height="21"/>
+                                        <rect key="frame" x="67" y="38" width="395" height="21"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="sXD-8k-I7r">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -94,13 +94,13 @@ Gw
                                         </connections>
                                     </textField>
                                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qsS-B6-c2q">
-                                        <rect key="frame" x="65" y="7" width="185" height="25"/>
+                                        <rect key="frame" x="64" y="6" width="187" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="t4t-2B-C6I"/>
                                         </constraints>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="tuc-lL-n0W">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="menu"/>
                                             <menu key="menu" title="OtherViews" id="obN-m7-G5Q"/>
                                         </popUpButtonCell>
                                         <accessibility description="Language"/>
@@ -109,13 +109,13 @@ Gw
                                         </connections>
                                     </popUpButton>
                                     <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="0aO-Wz-ASZ">
-                                        <rect key="frame" x="424" y="7" width="116" height="25"/>
+                                        <rect key="frame" x="424" y="6" width="117" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="110" id="4MR-8H-PO9"/>
                                         </constraints>
                                         <popUpButtonCell key="cell" type="push" title="iTunes Store" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" selectedItem="nn6-mR-Bh1" id="k9r-Fo-4Nl">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="menu"/>
                                             <menu key="menu" title="OtherViews" id="Gqk-Gk-yG7">
                                                 <items>
                                                     <menuItem title="iTunes Store" state="on" id="nn6-mR-Bh1"/>
@@ -129,7 +129,7 @@ Gw
                                         </connections>
                                     </popUpButton>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="x4l-iV-xgr">
-                                        <rect key="frame" x="460" y="32" width="83" height="32"/>
+                                        <rect key="frame" x="467" y="31" width="77" height="32"/>
                                         <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HF1-WK-lv1">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -240,7 +240,7 @@ DQ
                                         </constraints>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="6dD-ZJ-fLf">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="menu"/>
                                             <menu key="menu" title="OtherViews" id="eDp-3G-Kg4"/>
                                         </popUpButtonCell>
                                         <accessibility description="Language"/>
@@ -255,7 +255,7 @@ DQ
                                         </constraints>
                                         <popUpButtonCell key="cell" type="push" title="iTunes Store" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" selectedItem="j44-FV-Lpy" id="O3t-4h-3zl">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="menu"/>
                                             <menu key="menu" title="OtherViews" id="OYz-qX-3i2">
                                                 <items>
                                                     <menuItem title="iTunes Store" state="on" id="j44-FV-Lpy"/>
@@ -324,20 +324,20 @@ DQ
                     </textFieldCell>
                 </textField>
                 <splitView autosaveName="SBMetadataSearchSplitView" translatesAutoresizingMaskIntoConstraints="NO" id="BfX-EM-ktQ">
-                    <rect key="frame" x="20" y="61" width="510" height="289"/>
+                    <rect key="frame" x="20" y="60" width="510" height="291"/>
                     <subviews>
                         <customView misplaced="YES" id="8It-Zb-03g">
-                            <rect key="frame" x="0.0" y="0.0" width="510" height="102"/>
+                            <rect key="frame" x="0.0" y="0.0" width="510" height="103"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VnH-EL-2bp">
-                                    <rect key="frame" x="0.0" y="0.0" width="510" height="102"/>
+                                    <rect key="frame" x="0.0" y="1" width="510" height="102"/>
                                     <clipView key="contentView" id="I28-fS-tPQ">
-                                        <rect key="frame" x="1" y="0.0" width="508" height="101"/>
+                                        <rect key="frame" x="1" y="1" width="508" height="100"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="15" rowSizeStyle="automatic" headerView="Bv4-ow-7Qb" viewBased="YES" id="IDz-Ox-2sW">
-                                                <rect key="frame" x="0.0" y="0.0" width="508" height="76"/>
+                                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="plain" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="15" rowSizeStyle="automatic" headerView="Bv4-ow-7Qb" viewBased="YES" id="IDz-Ox-2sW">
+                                                <rect key="frame" x="0.0" y="0.0" width="508" height="75"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -399,7 +399,7 @@ DQ
                                         <rect key="frame" x="493" y="23" width="16" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
-                                    <tableHeaderView key="headerView" id="Bv4-ow-7Qb">
+                                    <tableHeaderView key="headerView" wantsLayer="YES" id="Bv4-ow-7Qb">
                                         <rect key="frame" x="0.0" y="0.0" width="508" height="25"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </tableHeaderView>
@@ -413,18 +413,18 @@ DQ
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="oBd-XH-2sW"/>
                             </constraints>
                         </customView>
-                        <customView misplaced="YES" id="YFw-L1-xW7">
-                            <rect key="frame" x="0.0" y="111" width="510" height="178"/>
+                        <customView id="YFw-L1-xW7">
+                            <rect key="frame" x="0.0" y="112" width="510" height="179"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="39" horizontalPageScroll="10" verticalLineScroll="39" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9f-RN-ymm">
-                                    <rect key="frame" x="0.0" y="-2" width="510" height="180"/>
+                                    <rect key="frame" x="0.0" y="-1" width="510" height="180"/>
                                     <clipView key="contentView" ambiguous="YES" id="JKj-Cf-XlS">
-                                        <rect key="frame" x="1" y="0.0" width="508" height="179"/>
+                                        <rect key="frame" x="1" y="1" width="508" height="178"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <tableView verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="37" rowSizeStyle="automatic" headerView="8SH-1C-Y6N" viewBased="YES" id="7Te-u0-Sax" customClass="ExpandedTableView" customModule="Subler" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="508" height="154"/>
+                                            <tableView verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="plain" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="37" rowSizeStyle="automatic" headerView="8SH-1C-Y6N" viewBased="YES" id="7Te-u0-Sax" customClass="ExpandedTableView" customModule="Subler" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="508" height="153"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -449,7 +449,7 @@ DQ
                                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wDJ-re-Kse">
                                                                         <rect key="frame" x="0.0" y="22" width="101" height="14"/>
                                                                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Table View Cell" id="5mH-2x-szO">
-                                                                            <font key="font" metaFont="systemBold" size="11"/>
+                                                                            <font key="font" metaFont="smallSystemBold"/>
                                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
@@ -545,7 +545,7 @@ DQ
                                         <rect key="frame" x="493" y="23" width="16" height="2"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
-                                    <tableHeaderView key="headerView" id="8SH-1C-Y6N">
+                                    <tableHeaderView key="headerView" wantsLayer="YES" id="8SH-1C-Y6N">
                                         <rect key="frame" x="0.0" y="0.0" width="508" height="25"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </tableHeaderView>
