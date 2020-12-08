@@ -127,8 +127,6 @@
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleGetInfoString</key>
 	<string>$(MARKETING_VERSION), Copyright 2020 Damiano Galassi</string>
-	<key>CFBundleIconFile</key>
-	<string>Subler.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
