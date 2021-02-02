@@ -78,7 +78,7 @@ extern NSString *libraryPath;
         [NSFileManager.defaultManager removeItemAtPath:libraryPath error:nil];
     }
 
-    return result;
+    return YES;
 }
 
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
