@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18121" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18121"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -45,11 +45,11 @@
                     <tabViewItems>
                         <tabViewItem label="Visual Settings" identifier="1" id="6">
                             <view key="view" id="9">
-                                <rect key="frame" x="10" y="25" width="609" height="445"/>
+                                <rect key="frame" x="10" y="29" width="609" height="441"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Drh-uk-1vk">
-                                        <rect key="frame" x="87" y="64" width="436" height="329"/>
+                                        <rect key="frame" x="87" y="62" width="436" height="329"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ifV-jn-Kjv">
                                                 <rect key="frame" x="234" y="229" width="50" height="19"/>
@@ -259,7 +259,7 @@
                                                 </connections>
                                             </textField>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8uz-fA-OM4">
-                                                <rect key="frame" x="160" y="165" width="62" height="22"/>
+                                                <rect key="frame" x="160" y="165" width="60" height="22"/>
                                                 <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="vVg-S9-JUk" id="1Lt-yX-9cP">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="controlContent" size="11"/>
@@ -410,6 +410,10 @@
                                                                     <menuItem title="Rec. 709 (1-1-1)" tag="4" id="bc1-gr-6m9"/>
                                                                     <menuItem title="Rec. 2020 (9-1-9)" tag="5" id="8V9-Sh-Mnu"/>
                                                                     <menuItem title="Rec. 2100 PQ (9-16-9)" tag="6" id="d2S-Qf-ltk"/>
+                                                                    <menuItem title="Rec. 2100 HLG (9-18-9)" tag="7" id="lAn-vv-Amd"/>
+                                                                    <menuItem title="P3-DCI (11-17-6)" tag="8" id="z4V-UV-xor"/>
+                                                                    <menuItem title="P3-D65 (12-17-6)" tag="9" id="fNy-M4-iaz"/>
+                                                                    <menuItem title="sRGB (1-13-1)" tag="10" id="l0E-aL-LGd"/>
                                                                 </items>
                                                             </menu>
                                                         </popUpButtonCell>

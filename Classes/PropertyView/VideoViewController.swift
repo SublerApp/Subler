@@ -129,12 +129,20 @@ final class VideoViewController: PropertyView {
             return NSLocalizedString("Rec. 709 (1-1-1)", comment: "color profile")
         case (9, 16, 9):
             return NSLocalizedString("Rec. 2100 PQ (9-16-9)", comment: "color profile")
+        case (9, 18, 9):
+            return NSLocalizedString("Rec. 2100 HLG (9-18-9)", comment: "color profile")
         case (9, 1, 9):
             return NSLocalizedString("Rec. 2020 (9-1-9)", comment: "color profile")
         case (5, 1, 6):
             return NSLocalizedString("Rec. 601 (5-1-6)", comment: "color profile")
         case (6, 1, 6):
             return NSLocalizedString("Rec. 601 (6-1-6)", comment: "color profile")
+        case (11, 17, 6):
+            return NSLocalizedString("P3-DCI (11-17-6)", comment: "color profile")
+        case (12, 17, 6):
+            return NSLocalizedString("P3-D65 (12-17-6)", comment: "color profile")
+        case (1, 13, 1):
+            return NSLocalizedString("sRGB (1-13-1)", comment: "color profile")
         default:
             return "\(colorTag.0)-\(colorTag.1)-\(colorTag.2)"
         }
@@ -312,6 +320,14 @@ final class VideoViewController: PropertyView {
             colorTag = (9, 1, 9)
         case 6:
             colorTag = (9, 16, 9)
+        case 7:
+            colorTag = (9, 18, 9)
+        case 8:
+            colorTag = (11, 17, 6)
+        case 9:
+            colorTag = (12, 17, 6)
+        case 10:
+            colorTag = (1, 13, 1)
         default:
             return
         }
