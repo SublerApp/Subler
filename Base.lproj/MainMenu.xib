@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18121" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18121"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -174,7 +174,7 @@
                                                 <action selector="selectMetadataFile:" target="-1" id="565"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="File…" keyEquivalent="O" id="550">
+                                        <menuItem title="File…" keyEquivalent="i" id="550">
                                             <connections>
                                                 <action selector="selectFile:" target="-1" id="551"/>
                                             </connections>
