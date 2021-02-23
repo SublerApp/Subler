@@ -201,6 +201,7 @@ final class Document: NSDocument {
     }
 
     private func releaseSavePanel() {
+        accessoryViewController?.saveUserDefaults()
         accessoryViewController = nil
     }
 

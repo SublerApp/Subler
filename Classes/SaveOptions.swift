@@ -62,13 +62,17 @@ final class SaveOptions: NSViewController {
         }
     }
 
-    override func viewWillDisappear() {
-        super.viewWillDisappear()
-
+    func saveUserDefaults()
+    {
         Prefs.defaultSaveFormat = fileFormat.indexOfSelectedItem
         Prefs.mp464bitOffset = _64bit_data.state == .on
         Prefs.mp464bitTimes = _64bit_time.state == .on
         Prefs.mp4SaveAsOptimize = optimize.state == .on
+    }
+
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        saveUserDefaults()
     }
     
     @IBAction func setSaveFormat(_ sender: NSPopUpButton) {
