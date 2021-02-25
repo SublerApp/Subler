@@ -502,6 +502,10 @@ enum QueueColorSpaceActionTag: UInt16 {
     case Rec709
     case Rec2020
     case Rec2100PQ
+    case Rec2100HLG
+    case P3DCI
+    case P3D65
+    case sRGB
 
     func tagValues() -> (colorPrimaries: UInt16, transferCharacteristics: UInt16, matrixCoefficients: UInt16) {
         switch self {
@@ -517,6 +521,14 @@ enum QueueColorSpaceActionTag: UInt16 {
             return (9, 1, 9)
         case .Rec2100PQ:
             return (9, 16, 9)
+        case .Rec2100HLG:
+            return (9, 18, 9)
+        case .P3DCI:
+            return (11, 17, 6)
+        case .P3D65:
+            return (12, 17, 6)
+        case .sRGB:
+            return (1, 13, 1)
         }
     }
 

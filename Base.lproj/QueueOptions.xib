@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18121" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18121"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -540,7 +540,7 @@
                     </connections>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s2g-Iz-52P">
-                    <rect key="frame" x="216" y="183" width="140" height="17"/>
+                    <rect key="frame" x="216" y="183" width="147" height="17"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="111" id="57c-cZ-60x"/>
                     </constraints>
@@ -554,7 +554,11 @@
                                 <menuItem title="Rec. 601 (6-1-6)" tag="3" id="AZx-uM-CmZ"/>
                                 <menuItem title="Rec. 709 (1-1-1)" tag="4" id="1uU-j6-SSj"/>
                                 <menuItem title="Rec. 2020 (9-1-9)" tag="5" id="Tjn-8g-7PM"/>
-                                <menuItem title="Rec. 2100 PQ (9-16-9)" tag="5" id="kyg-my-fCL"/>
+                                <menuItem title="Rec. 2100 PQ (9-16-9)" tag="6" id="kyg-my-fCL"/>
+                                <menuItem title="Rec. 2100 HLG (9-18-9)" tag="7" id="YSd-rH-Uvg"/>
+                                <menuItem title="P3-DCI (11-17-6)" tag="8" id="uEf-L0-ykH"/>
+                                <menuItem title="P3-D65 (12-17-6)" tag="9" id="RHU-Y8-mhX"/>
+                                <menuItem title="sRGB (1-13-1)" tag="10" id="Twp-Zx-xTw"/>
                             </items>
                         </menu>
                     </popUpButtonCell>
@@ -747,6 +751,7 @@
             <declaredKeys>
                 <string>title</string>
             </declaredKeys>
+            <classReference key="objectClass" className="Preset"/>
             <connections>
                 <binding destination="-2" name="contentArray" keyPath="sets" id="zFp-g2-I2n">
                     <dictionary key="options">
