@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -413,7 +413,7 @@
                                             <font key="font" metaFont="controlContent" size="11"/>
                                             <menu key="menu" title="OtherViews" id="T3N-JJ-mWq">
                                                 <items>
-                                                    <menuItem image="NSSmartBadgeTemplate" hidden="YES" id="B0i-yb-Nf4">
+                                                    <menuItem image="NSActionTemplate" hidden="YES" id="B0i-yb-Nf4">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                     </menuItem>
                                                     <menuItem title="Rename every chapter" id="SOg-Lz-v5L">
@@ -436,8 +436,8 @@
         </customView>
     </objects>
     <resources>
+        <image name="NSActionTemplate" width="15" height="15"/>
         <image name="NSAddTemplate" width="14" height="13"/>
         <image name="NSRemoveTemplate" width="14" height="4"/>
-        <image name="NSSmartBadgeTemplate" width="14" height="14"/>
     </resources>
 </document>

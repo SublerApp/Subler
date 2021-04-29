@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18121" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18121"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -160,12 +160,6 @@
                                         <menuItem title="Search metadata online…" keyEquivalent="M" id="549">
                                             <connections>
                                                 <action selector="searchMetadata:" target="-1" id="593"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Search chapters online…" id="blb-EP-gbJ">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="searchChapters:" target="-1" id="TBD-2j-3Yu"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Metadata…" id="564">

@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-final class DocumentWindowController: NSWindowController, TracksViewControllerDelegate, ChapterSearchControllerDelegate, MetadataSearchViewControllerDelegate, FileImportControllerDelegate, ProgressViewControllerDelegate, NSDraggingDestination, NSMenuItemValidation, NSToolbarItemValidation {
+final class DocumentWindowController: NSWindowController, TracksViewControllerDelegate, MetadataSearchViewControllerDelegate, FileImportControllerDelegate, ProgressViewControllerDelegate, NSDraggingDestination, NSMenuItemValidation, NSToolbarItemValidation {
 
     private var doc: Document {
         return document as! Document
@@ -206,7 +206,6 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         case #selector(selectFile(_:)),
              #selector(selectMetadataFile(_:)),
              #selector(searchMetadata(_:)),
-             #selector(searchChapters(_:)),
              #selector(addChaptersEvery(_:)),
              #selector(iTunesFriendlyTrackGroups(_:)),
              #selector(clearTrackNames(_:)),
@@ -371,16 +370,6 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         self.contentViewController?.presentAsSheet(controller)
     }
 
-    @IBAction func searchChapters(_ sender: Any?) {
-        let name = mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyName).first?.stringValue
-        let url = mp4.firstSourceURL ?? doc.fileURL
-        let title = (name?.isEmpty == false ? name : url?.lastPathComponent) ?? ""
-        let duration = UInt64(mp4.duration)
-
-        let controller = ChapterSearchController(delegate: self, title: title, duration: duration)
-        contentViewController?.presentAsSheet(controller)
-    }
-
     func didSelect(metadata: MetadataResult) {
         let map = metadata.mediaKind == .movie ? MetadataPrefs.movieResultMap : MetadataPrefs.tvShowResultMap
         let keepEmptyKeys = MetadataPrefs.keepEmptyAnnotations
@@ -399,17 +388,6 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         metadataViewController?.metadata = mp4.metadata
     }
 
-    func didSelect(chapters: [MP42TextSample]) {
-        let chapterTrack = MP42ChapterTrack()
-        for chapter in chapters {
-            chapterTrack.addChapter(chapter)
-        }
-
-        mp4.addTrack(chapterTrack)
-        doc.updateChangeCount(.changeDone)
-        tracksViewController.reloadData()
-    }
-
     // MARK: File import
 
     private func addChapters(fileURL: URL) {
@@ -422,6 +400,10 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
     private func updateChapters(fileURL: URL) {
         do {
             try mp4.chapters?.update(fromCSVFile: fileURL)
+            doc.updateChangeCount(.changeDone)
+            if let track = mp4.chapters {
+                chapterViewController?.track = track
+            }
         }
         catch {
             if let windowForSheet = doc.windowForSheet {
