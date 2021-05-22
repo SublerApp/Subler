@@ -130,7 +130,7 @@ public struct AppleTV: MetadataService {
     private let detailsURL = "https://uts-api.itunes.apple.com/uts/v2/view/product/"
     private let episodesURL = "https://uts-api.itunes.apple.com/uts/v2/view/show/"
     private let seasonsURL = "https://uts-api.itunes.apple.com/uts/v2/show/"
-    private let options = "&utsk=0&caller=wta&v=40&pfm=web"
+    private let options = "&utsk=0&caller=wta&v=60&pfm=web"
 
     private func normalize(_ term: String) -> String {
         return term.replacingOccurrences(of: " (Dubbed)", with: "")
