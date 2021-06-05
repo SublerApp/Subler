@@ -376,7 +376,7 @@ public struct TheMovieDB: MetadataService {
 
         }
 
-        artworks.append(contentsOf: metadata.remoteArtworks)
+        artworks.insert(contentsOf: metadata.remoteArtworks, at: 0)
 
         var iTunesImage = [Artwork](), appleTV = [Artwork](), squareTVArt = [Artwork]()
         let group = DispatchGroup()
