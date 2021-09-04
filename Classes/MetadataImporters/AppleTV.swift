@@ -232,29 +232,31 @@ public struct AppleTV: MetadataService {
         if let url = URL(string: "\(searchURL)&sf=\(store.storeCode)&locale=\(store.language2)\(options)&q=\(normalizedTerm.urlEncoded())"),
             let results = sendJSONRequest(url: url, type: Wrapper<Results>.self) {
 
-            let filteredResults = { () -> [Item] in
-                let items = results.data.canvas?.shelves
-                    .flatMap { $0.items }
+            let filteredResult = { () -> Item? in
+                let items = results.data.canvas?.shelves.first?.items
                     .filter { $0.type == type.description }
 
-                if let results = items?.filter({ $0.title == normalizedTerm }), results.isEmpty == false {
-                    return results
-                } else if let results = items {
-                    return results
+                if let result = items?.filter({ $0.title == normalizedTerm }).first {
+                    return result
+                } else if let result = items?.first {
+                    return result
                 } else {
-                    return []
+                    return nil
                 }
             }()
 
-            let artworks = filteredResults.compactMap { $0.images.coverArt16X9?.artwork(type: .poster) }
+            if let filteredResult = filteredResult {
 
-            if case let MediaType.tvShow(season) = type, let item = filteredResults.first {
-                if let season = season {
-                    return artworks + searchSeasons(id: item.id, season: season, store: store)
+                if let artworks = filteredResult.images.coverArt16X9?.artwork(type: .poster) {
+
+                    if case let MediaType.tvShow(season) = type {
+                        if let season = season {
+                            return [artworks] + searchSeasons(id: filteredResult.id, season: season, store: store)
+                        }
+                    }
+                    return [artworks]
                 }
             }
-
-            return artworks
         }
         return []
     }
