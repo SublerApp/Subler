@@ -33,11 +33,6 @@
 		A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91B196B1F2B0DCB0008675F /* QueueAction.swift */; };
 		A91EB969205ABAF400392E1C /* NSWindowAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91EB968205ABAF400392E1C /* NSWindowAdditions.swift */; };
 		A91F0FA023797F2800C9DCC9 /* PropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91F0F9F23797F2800C9DCC9 /* PropertyView.swift */; };
-		A922E01C2233C93C0072FD1B /* Sparkle.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A922E01B2233C9380072FD1B /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A922E01D2233C93F0072FD1B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922E01B2233C9380072FD1B /* Sparkle.framework */; };
-		A922E0292233C9B20072FD1B /* org.sparkle-project.InstallerConnection.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = A922E01F2233C9930072FD1B /* org.sparkle-project.InstallerConnection.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		A922E02A2233C9B20072FD1B /* org.sparkle-project.InstallerLauncher.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = A922E0222233C9930072FD1B /* org.sparkle-project.InstallerLauncher.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		A922E02B2233C9B20072FD1B /* org.sparkle-project.InstallerStatus.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = A922E0202233C9930072FD1B /* org.sparkle-project.InstallerStatus.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A924A51E1D4B9E93008301A7 /* MetadataPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A924A5201D4B9E93008301A7 /* MetadataPrefsViewController.xib */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -49,6 +44,7 @@
 		A93105391F9758EC00605146 /* FileImportController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A93105351F9758EC00605146 /* FileImportController.xib */; };
 		A932C9F3205C268A004E52FE /* QueueScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A932C9F2205C268A004E52FE /* QueueScriptCommand.swift */; };
 		A9395E351F8B9ACA004C402B /* MP42FileAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9395E341F8B9ACA004C402B /* MP42FileAdditions.swift */; };
+		A9405AF2275E282500776561 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = A9405AF1275E282500776561 /* Sparkle */; };
 		A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */; };
 		A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */; };
 		A944E5921F498FC4002E43F6 /* PresetPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A944E5911F498FC4002E43F6 /* PresetPrefsViewController.swift */; };
@@ -172,9 +168,6 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
 			dstSubfolderSpec = 16;
 			files = (
-				A922E0292233C9B20072FD1B /* org.sparkle-project.InstallerConnection.xpc in CopyFiles */,
-				A922E02A2233C9B20072FD1B /* org.sparkle-project.InstallerLauncher.xpc in CopyFiles */,
-				A922E02B2233C9B20072FD1B /* org.sparkle-project.InstallerStatus.xpc in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,7 +178,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				A925AA8818378DD000BE84D4 /* MP42Foundation.framework in Copy Files */,
-				A922E01C2233C93C0072FD1B /* Sparkle.framework in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,9 +388,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
+				A9405AF2275E282500776561 /* Sparkle in Frameworks */,
 				A9F7F8E01837C44B0036AE7E /* IOKit.framework in Frameworks */,
 				A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */,
-				A922E01D2233C93F0072FD1B /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,6 +694,9 @@
 				A925AA8718378DC400BE84D4 /* PBXTargetDependency */,
 			);
 			name = Subler;
+			packageProductDependencies = (
+				A9405AF1275E282500776561 /* Sparkle */,
+			);
 			productInstallPath = "$(HOME)/Applications";
 			productName = MP4Sub;
 			productReference = 8D15AC370486D014006FF6A4 /* Subler.app */;
@@ -740,6 +735,9 @@
 				"zh-Hans",
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* MP4Sub */;
+			packageReferences = (
+				A9405AF0275E282500776561 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			projectDirPath = "";
 			projectReferences = (
 				{
@@ -1362,6 +1360,8 @@
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_TIDY_BUGPRONE_REDUNDANT_BRANCH_CONDITION = YES;
+				CLANG_TIDY_MISC_REDUNDANT_EXPRESSION = YES;
 				CLANG_UNDEFINED_BEHAVIOR_SANITIZER_NULLABILITY = YES;
 				CLANG_WARN_ASSIGN_ENUM = YES;
 				CLANG_WARN_ATOMIC_IMPLICIT_SEQ_CST = YES;
@@ -1446,6 +1446,8 @@
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_TIDY_BUGPRONE_REDUNDANT_BRANCH_CONDITION = YES;
+				CLANG_TIDY_MISC_REDUNDANT_EXPRESSION = YES;
 				CLANG_UNDEFINED_BEHAVIOR_SANITIZER_NULLABILITY = YES;
 				CLANG_WARN_ASSIGN_ENUM = YES;
 				CLANG_WARN_ATOMIC_IMPLICIT_SEQ_CST = YES;
@@ -1537,6 +1539,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A9405AF0275E282500776561 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				branch = 2.x;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A9405AF1275E282500776561 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A9405AF0275E282500776561 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
 }
