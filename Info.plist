@@ -7,6 +7,10 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>m4v</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Video-MPEG4</string>
 			<key>CFBundleTypeRole</key>
