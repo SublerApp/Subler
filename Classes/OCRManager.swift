@@ -234,7 +234,7 @@ final class OCRManager {
     }()
 
     private lazy var baseURL = {
-        return URL(string: "https://github.com/tesseract-ocr/tessdata/raw/master/")
+        return URL(string: "https://github.com/tesseract-ocr/tessdata/raw/main/")
     }()
 
     func download(item: OCRLanguage) {
