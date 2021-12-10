@@ -213,9 +213,6 @@
 		A91EB968205ABAF400392E1C /* NSWindowAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSWindowAdditions.swift; path = Classes/NSWindowAdditions.swift; sourceTree = "<group>"; };
 		A91F0F9F23797F2800C9DCC9 /* PropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PropertyView.swift; path = Classes/PropertyView/PropertyView.swift; sourceTree = "<group>"; };
 		A922E01B2233C9380072FD1B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Sparkle/Sparkle.framework; sourceTree = "<group>"; };
-		A922E01F2233C9930072FD1B /* org.sparkle-project.InstallerConnection.xpc */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.xpc-service"; name = "org.sparkle-project.InstallerConnection.xpc"; path = "Sparkle/org.sparkle-project.InstallerConnection.xpc"; sourceTree = "<group>"; };
-		A922E0202233C9930072FD1B /* org.sparkle-project.InstallerStatus.xpc */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.xpc-service"; name = "org.sparkle-project.InstallerStatus.xpc"; path = "Sparkle/org.sparkle-project.InstallerStatus.xpc"; sourceTree = "<group>"; };
-		A922E0222233C9930072FD1B /* org.sparkle-project.InstallerLauncher.xpc */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.xpc-service"; name = "org.sparkle-project.InstallerLauncher.xpc"; path = "Sparkle/org.sparkle-project.InstallerLauncher.xpc"; sourceTree = "<group>"; };
 		A924A50D1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/ChapterView.xib; sourceTree = "<group>"; };
 		A924A50E1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/EmptyView.xib; sourceTree = "<group>"; };
 		A924A50F1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/MovieView.xib; sourceTree = "<group>"; };
@@ -432,7 +429,6 @@
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
-				A922E01E2233C9820072FD1B /* XPCServices */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
 			);
 			name = MP4Sub;
@@ -506,16 +502,6 @@
 				A9AF2D1C206116680088CE91 /* SectionsTableView.swift */,
 			);
 			name = "Table View";
-			sourceTree = "<group>";
-		};
-		A922E01E2233C9820072FD1B /* XPCServices */ = {
-			isa = PBXGroup;
-			children = (
-				A922E01F2233C9930072FD1B /* org.sparkle-project.InstallerConnection.xpc */,
-				A922E0222233C9930072FD1B /* org.sparkle-project.InstallerLauncher.xpc */,
-				A922E0202233C9930072FD1B /* org.sparkle-project.InstallerStatus.xpc */,
-			);
-			name = XPCServices;
 			sourceTree = "<group>";
 		};
 		A925AA7C18378D7800BE84D4 /* Products */ = {
