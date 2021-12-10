@@ -279,7 +279,7 @@ final class VideoViewController: PropertyView {
                 updateChangeCount()
             }
         } else if sender == offsetY {
-            let value = CGFloat(offsetX.integerValue)
+            let value = CGFloat(offsetY.integerValue)
             if track.transform.ty != value {
                 var transform = track.transform
                 transform.ty = value
