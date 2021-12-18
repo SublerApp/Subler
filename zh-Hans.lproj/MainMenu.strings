@@ -241,9 +241,6 @@
 /* Class = "NSMenuItem"; title = "Send To iTunes"; ObjectID = "597"; */
 "597.title" = "发送到 iTunes";
 
-/* Class = "NSMenuItem"; title = "At the begin"; ObjectID = "633"; */
-"633.title" = "在开始处";
-
 /* Class = "NSMenuItem"; title = "Every"; ObjectID = "634"; */
 "634.title" = "每隔";
 
@@ -273,9 +270,6 @@
 
 /* Class = "NSMenuItem"; title = "1 minutes"; ObjectID = "662"; */
 "662.title" = "1分钟";
-
-/* Class = "NSMenuItem"; title = "Search chapters online…"; ObjectID = "blb-EP-gbJ"; */
-"blb-EP-gbJ.title" = "在线搜索章节信息…";
 
 /* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "fm8-d2-1Yi"; */
 "fm8-d2-1Yi.title" = "美化音轨名称";

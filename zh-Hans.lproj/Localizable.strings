@@ -83,7 +83,7 @@
 "Capitalize" = "变为大写";
 
 /* No comment provided by engineer. */
-"Cast" = "表演者";
+"Cast" = "主演";
 
 /* Action description. */
 "Clear Metadata" = "清除元数据";
@@ -160,6 +160,9 @@
 
 /* Media characteristic. */
 "Easy To Read" = "易于阅读";
+
+/* Undo tag editing. */
+"Editing" = "编辑";
 
 /* No comment provided by engineer. */
 "Episode #" = "剧集";
