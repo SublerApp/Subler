@@ -95,6 +95,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
     private var soundViewController: SoundViewController?
     private var chapterViewController: ChapterViewController?
     private var multiViewController: MultiSelectViewController?
+    private var emptyViewController: EmptyViewController?
 
     private func clearDetailsViewControllers() {
         metadataViewController = nil
@@ -134,6 +135,12 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
                     chapterViewController = ChapterViewController(track: track)
                 }
                 return chapterViewController!
+
+            case let track where track != nil:
+                if emptyViewController == nil {
+                    emptyViewController = EmptyViewController()
+                }
+                return emptyViewController!
 
             default:
                 if metadataViewController == nil {
