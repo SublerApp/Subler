@@ -1,0 +1,63 @@
+/* Class = "NSWindow"; title = "Queue"; ObjectID = "1"; */
+"1.title" = "File d'attente";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Queue"; ObjectID = "7"; */
+"7.ibExternalAccessibilityDescription" = "File d'attente";
+
+/* Class = "NSTableColumn"; headerCell.title = "nameColumn"; ObjectID = "8"; */
+"8.headerCell.title" = "nameColumn";
+
+/* Class = "NSMenuItem"; title = "Reveal in Finder"; ObjectID = "8gi-57-i6u"; */
+"8gi-57-i6u.title" = "Afficher dans le Finder";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "11"; */
+"11.title" = "Cellule de texte";
+
+/* Class = "NSTextFieldCell"; title = "Queue items"; ObjectID = "13"; */
+"13.title" = "Mettre en file d'attente";
+
+/* Class = "NSMenuItem"; title = "Remove from queue"; ObjectID = "79"; */
+"79.title" = "Retirer de la file d'attente";
+
+/* Class = "NSMenuItem"; title = "Remove completed items"; ObjectID = "86"; */
+"86.title" = "Retirer les éléments complétés";
+
+/* Class = "NSToolbarItem"; label = "Add Item"; ObjectID = "mbj-v3-fFG"; */
+"mbj-v3-fFG.label" = "Ajouter un élément";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Add Item"; ObjectID = "mbj-v3-fFG"; */
+"mbj-v3-fFG.paletteLabel" = "Ajouter un élément";
+
+/* Class = "NSToolbarItem"; toolTip = "Add an item to the queue"; ObjectID = "mbj-v3-fFG"; */
+"mbj-v3-fFG.toolTip" = "Ajouter un élément dans la file d'attente";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Info"; ObjectID = "o98-wM-YAQ"; */
+"o98-wM-YAQ.ibExternalAccessibilityDescription" = "Info";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Show item info"; ObjectID = "o98-wM-YAQ"; */
+"o98-wM-YAQ.ibShadowedToolTip" = "Afficher les informations de l'élément";
+
+/* Class = "NSMenuItem"; title = "Edit…"; ObjectID = "qHz-Zh-l5L"; */
+"qHz-Zh-l5L.title" = "Modifier...";
+
+/* Class = "NSToolbarItem"; label = "Settings"; ObjectID = "Qif-lh-Rps"; */
+"Qif-lh-Rps.label" = "Réglages";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Settings"; ObjectID = "Qif-lh-Rps"; */
+"Qif-lh-Rps.paletteLabel" = "Réglages";
+
+/* Class = "NSToolbarItem"; toolTip = "Show/hide settings"; ObjectID = "Qif-lh-Rps"; */
+"Qif-lh-Rps.toolTip" = "Afficher/Cacher les paramètres";
+
+/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "srx-EJ-mK6"; */
+"srx-EJ-mK6.title" = "Cellule de la vue tableau";
+
+/* Class = "NSToolbarItem"; label = "Start"; ObjectID = "xeY-tT-tF2"; */
+"xeY-tT-tF2.label" = "Démarrer";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Start"; ObjectID = "xeY-tT-tF2"; */
+"xeY-tT-tF2.paletteLabel" = "Démarrer";
+
+/* Class = "NSToolbarItem"; toolTip = "Start/stop queue"; ObjectID = "xeY-tT-tF2"; */
+"xeY-tT-tF2.toolTip" = "Démarrer/Arrêter la file d'attente";
+

@@ -1,0 +1,15 @@
+/* Bundle name */
+"CFBundleName" = "Subler";
+
+/* (No Comment) */
+"Matroska video" = "Vidéo Matroska";
+
+/* Privacy - AppleEvents Sending Usage Description */
+"NSAppleEventsUsageDescription" = "Subler nécessite l'accès pour ajouter des films à iTunes ou TV";
+
+/* (No Comment) */
+"SRT Subtitles" = "Sous-titres SRT";
+
+/* (No Comment) */
+"SSA Subtitles" = "Sous-titres SSA";
+

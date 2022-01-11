@@ -208,6 +208,36 @@
 		A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataResult.swift; path = Classes/MetadataImporters/MetadataResult.swift; sourceTree = "<group>"; };
 		A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokensViewController.swift; path = Classes/TokensViewController.swift; sourceTree = "<group>"; };
 		A90CD5C11FD177230070A067 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TokensViewController.xib; sourceTree = "<group>"; };
+		A9146847278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AdvancedPrefsViewController.strings; sourceTree = "<group>"; };
+		A9146848278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ArtworkSelector.strings; sourceTree = "<group>"; };
+		A9146849278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/FileImportController.strings; sourceTree = "<group>"; };
+		A914684A278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/GeneralPrefsViewController.strings; sourceTree = "<group>"; };
+		A914684B278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		A914684C278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MediaTagsController.strings; sourceTree = "<group>"; };
+		A914684D278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MetadataSearch.strings; sourceTree = "<group>"; };
+		A914684E278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/PrefsWindowController.strings; sourceTree = "<group>"; };
+		A914684F278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Queue.strings; sourceTree = "<group>"; };
+		A9146850278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QueueItem.strings; sourceTree = "<group>"; };
+		A9146851278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QueueOptions.strings; sourceTree = "<group>"; };
+		A9146852278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/SBActivityWindow.strings; sourceTree = "<group>"; };
+		A9146853278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/SBChapterSearch.strings; sourceTree = "<group>"; };
+		A9146854278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/DocumentWindowController.strings; sourceTree = "<group>"; };
+		A9146855278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MetadataPrefsViewController.strings; sourceTree = "<group>"; };
+		A9146856278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/OCRPrefsViewController.strings; sourceTree = "<group>"; };
+		A9146857278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/OffsetViewController.strings; sourceTree = "<group>"; };
+		A9146858278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/OutputPrefsViewController.strings; sourceTree = "<group>"; };
+		A9146859278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Classes/fr.lproj/PresetEditorViewController.strings; sourceTree = "<group>"; };
+		A914685A278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/PresetPrefsViewController.strings; sourceTree = "<group>"; };
+		A914685B278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ProgressViewController.strings; sourceTree = "<group>"; };
+		A914685C278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/SaveOptions.strings; sourceTree = "<group>"; };
+		A914685D278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/TracksViewController.strings; sourceTree = "<group>"; };
+		A914685E278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Classes/PropertyView/fr.lproj/ChapterView.strings; sourceTree = "<group>"; };
+		A914685F278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Classes/PropertyView/fr.lproj/MovieView.strings; sourceTree = "<group>"; };
+		A9146860278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Classes/PropertyView/fr.lproj/MultiSelectView.strings; sourceTree = "<group>"; };
+		A9146861278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Classes/PropertyView/fr.lproj/SoundView.strings; sourceTree = "<group>"; };
+		A9146862278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Classes/PropertyView/fr.lproj/VideoView.strings; sourceTree = "<group>"; };
+		A9146863278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A9146864278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A91576EA204ECA6E00D93CE7 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Token.swift; path = Classes/Token.swift; sourceTree = "<group>"; };
 		A91B196B1F2B0DCB0008675F /* QueueAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueAction.swift; path = Classes/QueueAction.swift; sourceTree = "<group>"; };
 		A91EB968205ABAF400392E1C /* NSWindowAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSWindowAdditions.swift; path = Classes/NSWindowAdditions.swift; sourceTree = "<group>"; };
@@ -717,6 +747,7 @@
 				it,
 				en,
 				"zh-Hans",
+				fr,
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* MP4Sub */;
 			packageReferences = (
@@ -911,6 +942,7 @@
 				A9BA1AE61DBF773700FD0B38 /* it */,
 				A96EA9E921FA47520033EC5F /* en */,
 				A9E059B02529DCA9000E0E9A /* zh-Hans */,
+				A9146863278D8EFB00860468 /* fr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -921,6 +953,7 @@
 				A924A5121D4B9E66008301A7 /* Base */,
 				A9BA1AD71DBF773600FD0B38 /* it */,
 				A9E059B92529DCA9000E0E9A /* zh-Hans */,
+				A914684B278D8EFB00860468 /* fr */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -940,6 +973,7 @@
 				61CEC0CD1E7569E4000FECC1 /* Base */,
 				610362271E76D66A000DAE60 /* it */,
 				A9E059BA2529DCA9000E0E9A /* zh-Hans */,
+				A9146860278D8EFB00860468 /* fr */,
 			);
 			name = MultiSelectView.xib;
 			sourceTree = "<group>";
@@ -950,6 +984,7 @@
 				A90300C91DAE72C4008237D8 /* Base */,
 				A9BA1ACF1DBF773600FD0B38 /* it */,
 				A9E059C82529DCAA000E0E9A /* zh-Hans */,
+				A914685A278D8EFB00860468 /* fr */,
 			);
 			name = PresetPrefsViewController.xib;
 			path = Classes;
@@ -961,6 +996,7 @@
 				A924A51A1D4B9E66008301A7 /* Base */,
 				A98BC0A020E623700035278B /* it */,
 				A9E059BF2529DCAA000E0E9A /* zh-Hans */,
+				A914684E278D8EFB00860468 /* fr */,
 			);
 			name = PrefsWindowController.xib;
 			sourceTree = "<group>";
@@ -980,6 +1016,7 @@
 				A90160112040213600B07AB3 /* Base */,
 				A9016012204021CB00B07AB3 /* it */,
 				A9E059CB2529DCAA000E0E9A /* zh-Hans */,
+				A9146858278D8EFB00860468 /* fr */,
 			);
 			name = OutputPrefsViewController.xib;
 			path = Classes;
@@ -991,6 +1028,7 @@
 				A924A51F1D4B9E93008301A7 /* Base */,
 				A9BA1AD01DBF773600FD0B38 /* it */,
 				A9E059CD2529DCAA000E0E9A /* zh-Hans */,
+				A9146855278D8EFB00860468 /* fr */,
 			);
 			name = MetadataPrefsViewController.xib;
 			path = Classes;
@@ -1002,6 +1040,7 @@
 				A92BBABD1F558388007EA182 /* Base */,
 				A94868D31F56BA0F00C47B75 /* it */,
 				A9E059C12529DCAA000E0E9A /* zh-Hans */,
+				A9146859278D8EFB00860468 /* fr */,
 			);
 			name = PresetEditorViewController.xib;
 			sourceTree = "<group>";
@@ -1012,6 +1051,7 @@
 				A93105361F9758EC00605146 /* Base */,
 				A9E9E5291FB21B4000BCC49D /* it */,
 				A9E059C22529DCAA000E0E9A /* zh-Hans */,
+				A9146849278D8EFB00860468 /* fr */,
 			);
 			name = FileImportController.xib;
 			sourceTree = "<group>";
@@ -1022,6 +1062,7 @@
 				A924A5171D4B9E66008301A7 /* Base */,
 				A9BA1ADE1DBF773700FD0B38 /* it */,
 				A9E059C92529DCAA000E0E9A /* zh-Hans */,
+				A914684F278D8EFB00860468 /* fr */,
 			);
 			name = Queue.xib;
 			sourceTree = "<group>";
@@ -1032,6 +1073,7 @@
 				A98542D620D197D300EB9803 /* Base */,
 				A98BC09F20E623700035278B /* it */,
 				A9E059B82529DCA9000E0E9A /* zh-Hans */,
+				A9146848278D8EFB00860468 /* fr */,
 			);
 			name = ArtworkSelector.xib;
 			sourceTree = "<group>";
@@ -1042,6 +1084,7 @@
 				A924A51C1D4B9E67008301A7 /* Base */,
 				A9BA1AE31DBF773700FD0B38 /* it */,
 				A9E059C62529DCAA000E0E9A /* zh-Hans */,
+				A914684C278D8EFB00860468 /* fr */,
 			);
 			name = MediaTagsController.xib;
 			sourceTree = "<group>";
@@ -1052,6 +1095,7 @@
 				A9A4A967202F51FA00482D12 /* Base */,
 				A957E5AE2040083E00A5F776 /* it */,
 				A9E059B52529DCA9000E0E9A /* zh-Hans */,
+				A914685C278D8EFB00860468 /* fr */,
 			);
 			name = SaveOptions.xib;
 			path = Classes;
@@ -1063,6 +1107,7 @@
 				A9A4A96C202F51FF00482D12 /* Base */,
 				A957E5B22040083E00A5F776 /* it */,
 				A9E059C72529DCAA000E0E9A /* zh-Hans */,
+				A914685B278D8EFB00860468 /* fr */,
 			);
 			name = ProgressViewController.xib;
 			path = Classes;
@@ -1074,6 +1119,7 @@
 				A924A50D1D4B9E66008301A7 /* Base */,
 				A9BA1AD21DBF773600FD0B38 /* it */,
 				A9E059BC2529DCA9000E0E9A /* zh-Hans */,
+				A914685E278D8EFB00860468 /* fr */,
 			);
 			name = ChapterView.xib;
 			sourceTree = "<group>";
@@ -1093,6 +1139,7 @@
 				A924A50F1D4B9E66008301A7 /* Base */,
 				A9BA1AD41DBF773600FD0B38 /* it */,
 				A9E059B62529DCA9000E0E9A /* zh-Hans */,
+				A914685F278D8EFB00860468 /* fr */,
 			);
 			name = MovieView.xib;
 			sourceTree = "<group>";
@@ -1103,6 +1150,7 @@
 				A924A5101D4B9E66008301A7 /* Base */,
 				A9BA1AD51DBF773600FD0B38 /* it */,
 				A9E059C42529DCAA000E0E9A /* zh-Hans */,
+				A9146861278D8EFB00860468 /* fr */,
 			);
 			name = SoundView.xib;
 			sourceTree = "<group>";
@@ -1113,6 +1161,7 @@
 				A924A5111D4B9E66008301A7 /* Base */,
 				A9BA1AD61DBF773600FD0B38 /* it */,
 				A9E059C32529DCAA000E0E9A /* zh-Hans */,
+				A9146862278D8EFB00860468 /* fr */,
 			);
 			name = VideoView.xib;
 			sourceTree = "<group>";
@@ -1123,6 +1172,7 @@
 				A9ACF03322A2BCF200AD5B12 /* Base */,
 				A973B9F922A906D100BCB91E /* it */,
 				A9E059BB2529DCA9000E0E9A /* zh-Hans */,
+				A9146856278D8EFB00860468 /* fr */,
 			);
 			name = OCRPrefsViewController.xib;
 			path = Classes;
@@ -1133,6 +1183,7 @@
 			children = (
 				A9BA1AF41DBF7DD800FD0B38 /* it */,
 				A9E059B12529DCA9000E0E9A /* zh-Hans */,
+				A9146864278D8EFB00860468 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1143,6 +1194,7 @@
 				A924A5191D4B9E66008301A7 /* Base */,
 				A9BA1AE01DBF773700FD0B38 /* it */,
 				A9E059CA2529DCAA000E0E9A /* zh-Hans */,
+				A9146850278D8EFB00860468 /* fr */,
 			);
 			name = QueueItem.xib;
 			sourceTree = "<group>";
@@ -1153,6 +1205,7 @@
 				A9C31E5C2029A78F00CEF474 /* Base */,
 				A957E5AD2040083E00A5F776 /* it */,
 				A9E059B42529DCA9000E0E9A /* zh-Hans */,
+				A914684A278D8EFB00860468 /* fr */,
 			);
 			name = GeneralPrefsViewController.xib;
 			sourceTree = "<group>";
@@ -1163,6 +1216,7 @@
 				A9C31E632029A82200CEF474 /* Base */,
 				A957E5B02040083E00A5F776 /* it */,
 				A9E059C02529DCAA000E0E9A /* zh-Hans */,
+				A9146847278D8EFB00860468 /* fr */,
 			);
 			name = AdvancedPrefsViewController.xib;
 			sourceTree = "<group>";
@@ -1173,6 +1227,7 @@
 				A924A51B1D4B9E67008301A7 /* Base */,
 				A9BA1AE21DBF773700FD0B38 /* it */,
 				A9E059BD2529DCAA000E0E9A /* zh-Hans */,
+				A9146852278D8EFB00860468 /* fr */,
 			);
 			name = SBActivityWindow.xib;
 			sourceTree = "<group>";
@@ -1183,6 +1238,7 @@
 				A924A5161D4B9E66008301A7 /* Base */,
 				A9BA1ADD1DBF773700FD0B38 /* it */,
 				A9E059B22529DCA9000E0E9A /* zh-Hans */,
+				A9146853278D8EFB00860468 /* fr */,
 			);
 			name = SBChapterSearch.xib;
 			sourceTree = "<group>";
@@ -1193,6 +1249,7 @@
 				A9ECA0582029A10B00D5F30C /* Base */,
 				A957E5B32040083E00A5F776 /* it */,
 				A9E059CC2529DCAA000E0E9A /* zh-Hans */,
+				A9146854278D8EFB00860468 /* fr */,
 			);
 			name = DocumentWindowController.xib;
 			path = Classes;
@@ -1204,6 +1261,7 @@
 				A9ECA05B2029A10F00D5F30C /* Base */,
 				A957E5AF2040083E00A5F776 /* it */,
 				A9E059B72529DCA9000E0E9A /* zh-Hans */,
+				A914685D278D8EFB00860468 /* fr */,
 			);
 			name = TracksViewController.xib;
 			path = Classes;
@@ -1224,6 +1282,7 @@
 				A9ECA0612029A13800D5F30C /* Base */,
 				A957E5B12040083E00A5F776 /* it */,
 				A9E059C52529DCAA000E0E9A /* zh-Hans */,
+				A9146857278D8EFB00860468 /* fr */,
 			);
 			name = OffsetViewController.xib;
 			path = Classes;
@@ -1235,6 +1294,7 @@
 				A924A5181D4B9E66008301A7 /* Base */,
 				A9BA1ADF1DBF773700FD0B38 /* it */,
 				A9E059BE2529DCAA000E0E9A /* zh-Hans */,
+				A9146851278D8EFB00860468 /* fr */,
 			);
 			name = QueueOptions.xib;
 			sourceTree = "<group>";
@@ -1245,6 +1305,7 @@
 				A924A5141D4B9E66008301A7 /* Base */,
 				A9BA1AD91DBF773700FD0B38 /* it */,
 				A9E059B32529DCA9000E0E9A /* zh-Hans */,
+				A914684D278D8EFB00860468 /* fr */,
 			);
 			name = MetadataSearch.xib;
 			sourceTree = "<group>";

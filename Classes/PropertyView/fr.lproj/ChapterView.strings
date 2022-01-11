@@ -1,0 +1,36 @@
+/* Class = "NSTabViewItem"; label = "Chapters"; ObjectID = "11"; */
+"11.label" = "Chapitres";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Chapters"; ObjectID = "22"; */
+"22.ibExternalAccessibilityDescription" = "Chapitres";
+
+/* Class = "NSTableColumn"; headerCell.title = "Time"; ObjectID = "24"; */
+"24.headerCell.title" = "Heure";
+
+/* Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "25"; */
+"25.headerCell.title" = "Titre";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "26"; */
+"26.title" = "Cellule de texte";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "27"; */
+"27.title" = "Cellule de texte";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Delete selected chapter"; ObjectID = "31"; */
+"31.ibShadowedToolTip" = "Supprimer le chapitre sélectionné";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add chapter"; ObjectID = "42"; */
+"42.ibShadowedToolTip" = "Ajouter un chapitre";
+
+/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "fIl-II-Tfv"; */
+"fIl-II-Tfv.title" = "Cellule de la vue tableau";
+
+/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "Ktq-AC-XnR"; */
+"Ktq-AC-XnR.title" = "Cellule de la vue tableau";
+
+/* Class = "NSMenuItem"; title = "Rename every chapter"; ObjectID = "SOg-Lz-v5L"; */
+"SOg-Lz-v5L.title" = "Renommer chaque chapitre";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "T3N-JJ-mWq"; */
+"T3N-JJ-mWq.title" = "Autres Vues";
+

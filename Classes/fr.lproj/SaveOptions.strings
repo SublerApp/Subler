@@ -1,0 +1,33 @@
+/* Class = "NSButton"; ibShadowedToolTip = "Note: don't use this option if you are not sure of what it is doing, it's not needed in almost every case.\nEnable 64bit timescale and duration support. Normally, it's only needed if a track will be longer than 10 hours."; ObjectID = "3CX-Vp-T0h"; */
+"3CX-Vp-T0h.ibShadowedToolTip" = "Note: n'utilisez pas cette option si vous n'êtes pas sûr de ce qu'elle fait, elle n'est pas nécessaire dans la majorité des cas.\nActiver la prise en charge de l'échelle de temps et de durée 64 bits. Normalement, cela n'est nécessaire que si une piste dure plus de 10 heures.";
+
+/* Class = "NSButtonCell"; title = "64 bits chunk offset"; ObjectID = "14x-xv-HKI"; */
+"14x-xv-HKI.title" = "Décalage de bloc de 64 bits";
+
+/* Class = "NSTextFieldCell"; title = "Options:"; ObjectID = "BXP-AU-x3T"; */
+"BXP-AU-x3T.title" = "Options :";
+
+/* Class = "NSTextFieldCell"; title = "File Format:"; ObjectID = "caN-zU-chS"; */
+"caN-zU-chS.title" = "Format de fichier :";
+
+/* Class = "NSButtonCell"; title = "64 bits times"; ObjectID = "DCI-a5-K73"; */
+"DCI-a5-K73.title" = "Durées 64 bits";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Needed for mp4 larger than 4GB."; ObjectID = "emp-1S-F7H"; */
+"emp-1S-F7H.ibShadowedToolTip" = "Nécessaire pour mp4 de plus de 4 GO";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "LBi-vr-peO"; */
+"LBi-vr-peO.title" = "Autres Vues";
+
+/* Class = "NSButtonCell"; title = "Optimize"; ObjectID = "OZC-sc-82O"; */
+"OZC-sc-82O.title" = "Optimiser";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "vjJ-5z-7YZ"; */
+"vjJ-5z-7YZ.title" = "Élément 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "x4x-P4-Pf3"; */
+"x4x-P4-Pf3.title" = "Élément 3";
+
+/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "Xuo-dp-0K0"; */
+"Xuo-dp-0K0.title" = "Élément 1";
+

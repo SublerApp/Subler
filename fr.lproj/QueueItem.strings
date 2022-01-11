@@ -1,0 +1,27 @@
+/* Class = "NSTextFieldCell"; title = "Actions:"; ObjectID = "4B2-1n-ouM"; */
+"4B2-1n-ouM.title" = "Actions :";
+
+/* Class = "NSTextFieldCell"; title = "ItemName"; ObjectID = "5j3-R9-JdX"; */
+"5j3-R9-JdX.title" = "ItemName";
+
+/* Class = "NSTextFieldCell"; title = "do not localize"; ObjectID = "5mD-V5-53a"; */
+"5mD-V5-53a.title" = "Ne pas localiser";
+
+/* Class = "NSTextFieldCell"; title = "Source:"; ObjectID = "9De-A4-Oas"; */
+"9De-A4-Oas.title" = "Source :";
+
+/* Class = "NSTextFieldCell"; title = "Destination:"; ObjectID = "9R2-ND-o8w"; */
+"9R2-ND-o8w.title" = "Destination :";
+
+/* Class = "NSButtonCell"; title = "Edit…"; ObjectID = "cEO-ol-OLW"; */
+"cEO-ol-OLW.title" = "Modifier...";
+
+/* Class = "NSTextFieldCell"; title = "do not localize"; ObjectID = "OJa-Jm-vq4"; */
+"OJa-Jm-vq4.title" = "Ne pas localiser";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "OK2-Id-Rbp"; */
+"OK2-Id-Rbp.title" = "Cellule de texte";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@"; ObjectID = "YsQ-nM-zxb"; */
+"YsQ-nM-zxb.ibShadowedDisplayPattern" = "%{value1}@";
+
