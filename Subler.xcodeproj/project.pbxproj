@@ -162,13 +162,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		A922E0272233C9AC0072FD1B /* CopyFiles */ = {
+		A922E0272233C9AC0072FD1B /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
 			dstSubfolderSpec = 16;
 			files = (
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A984DB5E0F52D68E001A20B2 /* Copy Files */ = {
@@ -700,7 +701,7 @@
 				8D15AC300486D014006FF6A4 /* Sources */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
 				A984DB5E0F52D68E001A20B2 /* Copy Files */,
-				A922E0272233C9AC0072FD1B /* CopyFiles */,
+				A922E0272233C9AC0072FD1B /* Copy Files */,
 			);
 			buildRules = (
 			);
