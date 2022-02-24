@@ -38,7 +38,7 @@ func automationConsent(bundleIdentifier: String, promptIfNeeded: Bool) -> Privac
                 let appleScriptPermission = AEDeterminePermissionToAutomateTarget(&addressDesc, typeWildCard, typeWildCard, promptIfNeeded)
                 AEDisposeDesc(&addressDesc)
                 switch appleScriptPermission {
-                case -1744: //errAEEventWouldRequireUserConsent:
+                case -1744://Int32(errAEEventWouldRequireUserConsent):
                     result = .unknown
                 case noErr:
                     result = .granted
