@@ -312,6 +312,12 @@
 /* Organize Groups action local description */
 "Organizing groups" = "Organisation des groupes";
 
+/* color profile */
+"P3-D65 (12-17-6)" = "P3-D65 (12-17-6)";
+
+/* color profile */
+"P3-DCI (11-17-6)" = "P3-DCI (11-17-6)";
+
 /* File Import action menu item. */
 "Passthru" = "Passthru";
 
@@ -359,6 +365,9 @@
 
 /* color profile */
 "Rec. 2020 (9-1-9)" = "Rec. 2020 (9-1-9)";
+
+/* color profile */
+"Rec. 2100 HLG (9-18-9)" = "Rec. 2100 HLG (9-18-9)";
 
 /* color profile */
 "Rec. 2100 PQ (9-16-9)" = "Rec. 2100 PQ (9-16-9)";
@@ -446,6 +455,9 @@
 
 /* No comment provided by engineer. */
 "snake_case" = "snake_case";
+
+/* color profile */
+"sRGB (1-13-1)" = "sRGB (1-13-1)";
 
 /* No comment provided by engineer. */
 "Studio" = "Studio";

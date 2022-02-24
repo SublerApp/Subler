@@ -55,6 +55,9 @@
 /* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "EQ0-oQ-E9J"; */
 "EQ0-oQ-E9J.title" = "pixels";
 
+/* Class = "NSMenuItem"; title = "P3-D65 (12-17-6)"; ObjectID = "fNy-M4-iaz"; */
+"fNy-M4-iaz.title" = "P3-D65 (12-17-6)";
+
 /* Class = "NSTextFieldCell"; title = "Alternate Group:"; ObjectID = "Fye-Hi-zqu"; */
 "Fye-Hi-zqu.title" = "Groupe alternatif :";
 
@@ -74,13 +77,19 @@
 "i0h-ag-Pc5.title" = "Certains échantillons sont forcés";
 
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Aspect Ratio Denominator"; ObjectID = "ifV-jn-Kjv"; */
-"ifV-jn-Kjv.ibExternalAccessibilityDescription" = "Dénominateur du rapport hauteur/largeur";
+"ifV-jn-Kjv.ibExternalAccessibilityDescription" = "Dénominateur du rapport d'aspect";
 
 /* Class = "NSTextFieldCell"; title = "x"; ObjectID = "ILN-KP-l0z"; */
 "ILN-KP-l0z.title" = "x";
 
 /* Class = "NSMenuItem"; title = "No"; ObjectID = "KOg-FR-dr6"; */
 "KOg-FR-dr6.title" = "Non";
+
+/* Class = "NSMenuItem"; title = "sRGB (1-13-1)"; ObjectID = "l0E-aL-LGd"; */
+"l0E-aL-LGd.title" = "sRGB (1-13-1)";
+
+/* Class = "NSMenuItem"; title = "Rec. 2100 HLG (9-18-9)"; ObjectID = "lAn-vv-Amd"; */
+"lAn-vv-Amd.title" = "Rec. 2100 HLG (9-18-9)";
 
 /* Class = "NSTextFieldCell"; title = "x"; ObjectID = "lgq-Fj-LB5"; */
 "lgq-Fj-LB5.title" = "x";
@@ -107,10 +116,10 @@
 "nrd-22-FZl.title" = "Profil/Niveau de la vidéo H.264";
 
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Aspect Ratio Numerator"; ObjectID = "Q0D-6k-Hgx"; */
-"Q0D-6k-Hgx.ibExternalAccessibilityDescription" = "Numérateur du rapport hauteur/largeur";
+"Q0D-6k-Hgx.ibExternalAccessibilityDescription" = "Numérateur du rapport d'aspect";
 
 /* Class = "NSTextFieldCell"; title = "Aspect Ratio:"; ObjectID = "Q8w-0e-NRr"; */
-"Q8w-0e-NRr.title" = "Rapport hauteur/largeur :";
+"Q8w-0e-NRr.title" = "Rapport d'aspect :";
 
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Offset X"; ObjectID = "qFL-0W-Ye6"; */
 "qFL-0W-Ye6.ibExternalAccessibilityDescription" = "Décalage X";
@@ -153,6 +162,9 @@
 
 /* Class = "NSMenuItem"; title = "Rec. 601 (6-1-6)"; ObjectID = "XQd-tC-sVM"; */
 "XQd-tC-sVM.title" = "Rec. 601 (6-1-6)";
+
+/* Class = "NSMenuItem"; title = "P3-DCI (11-17-6)"; ObjectID = "z4V-UV-xor"; */
+"z4V-UV-xor.title" = "P3-DCI (11-17-6)";
 
 /* Class = "NSTabViewItem"; label = "Media Characteristics"; ObjectID = "ZZa-lk-8Uv"; */
 "ZZa-lk-8Uv.label" = "Caractéristiques du média";

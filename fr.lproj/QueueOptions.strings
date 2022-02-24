@@ -190,6 +190,9 @@
 /* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "Rh9-LC-qBz"; */
 "Rh9-LC-qBz.ibShadowedNotApplicablePlaceholder" = "Aucun";
 
+/* Class = "NSMenuItem"; title = "P3-D65 (12-17-6)"; ObjectID = "RHU-Y8-mhX"; */
+"RHU-Y8-mhX.title" = "P3-D65 (12-17-6)";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Search metadata online"; ObjectID = "s8r-Cf-VfB"; */
 "s8r-Cf-VfB.ibShadowedToolTip" = "Rechercher les métadonnées en ligne";
 
@@ -208,11 +211,17 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Organize the audio fallbacks"; ObjectID = "TV6-Sk-Bqr"; */
 "TV6-Sk-Bqr.ibShadowedToolTip" = "Organiser les solutions de repli audio";
 
+/* Class = "NSMenuItem"; title = "sRGB (1-13-1)"; ObjectID = "Twp-Zx-xTw"; */
+"Twp-Zx-xTw.title" = "sRGB (1-13-1)";
+
 /* Class = "NSMenu"; title = "OtherViews"; ObjectID = "U0q-ED-kQf"; */
 "U0q-ED-kQf.title" = "Autres Vues";
 
 /* Class = "NSTextFieldCell"; title = "File Type:"; ObjectID = "UbR-KJ-8iR"; */
 "UbR-KJ-8iR.title" = "Type de fichier :";
+
+/* Class = "NSMenuItem"; title = "P3-DCI (11-17-6)"; ObjectID = "uEf-L0-ykH"; */
+"uEf-L0-ykH.title" = "P3-DCI (11-17-6)";
 
 /* Class = "NSMenuItem"; title = "Other…"; ObjectID = "veS-S3-uYt"; */
 "veS-S3-uYt.title" = "Autre...";
@@ -246,6 +255,9 @@
 
 /* Class = "NSMenuItem"; title = "Poster"; ObjectID = "YjX-6f-SPu"; */
 "YjX-6f-SPu.title" = "Affiche";
+
+/* Class = "NSMenuItem"; title = "Rec. 2100 HLG (9-18-9)"; ObjectID = "YSd-rH-Uvg"; */
+"YSd-rH-Uvg.title" = "Rec. 2100 HLG (9-18-9)";
 
 /* Class = "NSMenu"; title = "OtherViews"; ObjectID = "ytE-Us-3gv"; */
 "ytE-Us-3gv.title" = "Autres Vues";
