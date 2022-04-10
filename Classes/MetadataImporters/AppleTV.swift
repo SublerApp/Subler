@@ -2,7 +2,7 @@
 //  AppleTV.swift
 //
 //  Created by Damiano Galassi on 15/10/2019.
-//  Copyright Â© 2022 Damiano Galassi. All rights reserved.
+//  Copyright © 2022 Damiano Galassi. All rights reserved.
 //
 
 import Foundation
