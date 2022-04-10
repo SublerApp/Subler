@@ -2,7 +2,7 @@
 //  AppleTV.swift
 //
 //  Created by Damiano Galassi on 15/10/2019.
-//  Copyright © 2022 Damiano Galassi. All rights reserved.
+//  Copyright Â© 2022 Damiano Galassi. All rights reserved.
 //
 
 import Foundation
@@ -28,7 +28,7 @@ private extension MetadataResult {
         self[.cast]            = item.rolesSummary?.cast?.joined(separator: ", ")
         self[.director]        = item.rolesSummary?.directors?.joined(separator: ", ")
 
-		self[.iTunesURL]       = item.url
+        self[.iTunesURL]       = item.url
         self[.serviceSeriesID] = item.id
 
         self.remoteArtworks = [item.images.coverArt16X9, item.images.coverArt].compactMap { $0?.artwork(type: .poster) }
@@ -130,7 +130,7 @@ public struct AppleTV: MetadataService {
     private let detailsURL = "https://uts-api.itunes.apple.com/uts/v2/view/product/"
     private let episodesURL = "https://uts-api.itunes.apple.com/uts/v2/view/show/"
     private let seasonsURL = "https://uts-api.itunes.apple.com/uts/v2/show/"
-    private let options = "&utsk=0&caller=wta&v=60&pfm=web"
+    private let options = "&utsk=0&caller=wta&v=58&pfm=web"
 
     private func normalize(_ term: String) -> String {
         return term.replacingOccurrences(of: " (Dubbed)", with: "")
