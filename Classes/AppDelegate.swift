@@ -170,6 +170,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: delegates
 
+    func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
+        return true
+    }
+
     func applicationWillFinishLaunching(_ notification: Notification) {
         Prefs.register()
         MetadataPrefs.register()
