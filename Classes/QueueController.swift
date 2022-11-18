@@ -55,15 +55,13 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     override func windowDidLoad() {
         super.windowDidLoad()
 
-        if #available(OSX 10.12, *) {
-            window?.tabbingMode = .disallowed
-        }
+        window?.tabbingMode = .disallowed
 
         if #available(macOS 11, *) {
-            window?.toolbarStyle = .unifiedCompact
+            window?.toolbarStyle = .expanded
         }
 
-        table.registerForDraggedTypes([NSPasteboard.PasteboardType.backwardsCompatibleFileURL, tablePasteboardType])
+        table.registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL, tablePasteboardType])
         progressBar.isHidden = true
 
         let main = OperationQueue.main
@@ -771,7 +769,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
 
         } else {
 
-            if pboard.types?.contains(NSPasteboard.PasteboardType.backwardsCompatibleFileURL) ?? false {
+            if pboard.types?.contains(NSPasteboard.PasteboardType.fileURL) ?? false {
                 if let items = pboard.readObjects(forClasses: [NSURL.classForCoder()], options: [:]) as? [URL] {
                     insert(contentOf: items, at: row)
                 }

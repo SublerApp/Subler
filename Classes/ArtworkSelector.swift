@@ -261,12 +261,7 @@ final class ArtworkSelectorController: NSViewController, NSCollectionViewDataSou
         let range = (artworks.count - endIndex ..< artworks.count)
         let indexes = range.map { IndexPath(item: $0, section: 0)}
 
-        if #available(OSX 10.13, *) {
-            imageBrowser.insertItems(at: Set(indexes))
-        } else {
-            // Call this on 10.12 and 10.11 to avoid a crash
-            imageBrowser.reloadData()
-        }
+        imageBrowser.insertItems(at: Set(indexes))
     }
 
     private func selectArtwork(type: ArtworkType, size: ArtworkSize, service: String) {

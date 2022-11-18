@@ -44,7 +44,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         sendToQueue.image = NSImage(named: NSImage.shareTemplateName);
 
         window.contentViewController = splitViewController
-        window.registerForDraggedTypes([NSPasteboard.PasteboardType.backwardsCompatibleFileURL])
+        window.registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL])
 
         if Prefs.rememberDocumentWindowSize {
             window.setFrameAutosaveName("documentSave")
@@ -524,7 +524,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
 
     func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
         guard let types = sender.draggingPasteboard.types,
-            types.contains(NSPasteboard.PasteboardType.backwardsCompatibleFileURL) &&
+            types.contains(NSPasteboard.PasteboardType.fileURL) &&
                 sender.draggingSourceOperationMask.contains(.copy)
         else { return [] }
 
@@ -534,7 +534,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
     func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
         let pasteboard = sender.draggingPasteboard
         guard let types = pasteboard.types,
-            types.contains(NSPasteboard.PasteboardType.backwardsCompatibleFileURL),
+            types.contains(NSPasteboard.PasteboardType.fileURL),
             let items = pasteboard.readObjects(forClasses: [NSURL.classForCoder()], options: [:]) as? [URL]
             else { return false }
 
