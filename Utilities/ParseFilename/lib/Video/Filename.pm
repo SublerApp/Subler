@@ -270,6 +270,7 @@ sub new {
 	$file =~ s/720p//;
 	$file =~ s/1080p//;
 	$file =~ s/x264//;
+	$file =~ s/x265//;
 
 	# Run pre-processed filename through list of patterns
 	for my $pat (@filePatterns) {
