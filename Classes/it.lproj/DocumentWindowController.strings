@@ -91,6 +91,9 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Action"; ObjectID = "V6w-Ey-bjV"; */
 "V6w-Ey-bjV.paletteLabel" = "Azione";
 
+/* Class = "NSToolbarItem"; toolTip = "Action"; ObjectID = "V6w-Ey-bjV"; */
+"V6w-Ey-bjV.toolTip" = "Azione";
+
 /* Class = "NSMenuItem"; title = "20 minutes"; ObjectID = "xWX-8M-yu0"; */
 "xWX-8M-yu0.title" = "20 minuti";
 

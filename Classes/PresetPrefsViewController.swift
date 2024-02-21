@@ -63,7 +63,7 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
 
     func tableView(_ tableView: NSTableView, viewForHeaderInSection section: Int) -> NSView? {
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("headerCell"), owner: self) as? NSTableCellView {
-            cell.textField?.stringValue = section == 0 ? "Metadata" : "Queue"
+            cell.textField?.stringValue = NSLocalizedString(section == 0 ? "Metadata" : "Queue", comment: "")
             cell.textField?.isSelectable = false
             cell.textField?.isEditable = false
             return cell

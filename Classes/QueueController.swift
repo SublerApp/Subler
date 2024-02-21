@@ -583,7 +583,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
             if queue.count == 1 {
                 statusLabel.stringValue = NSLocalizedString("1 item in queue", comment: "")
             } else {
-                statusLabel.stringValue = String.localizedStringWithFormat(NSLocalizedString("%lu items in queue.", comment: ""), queue.count)
+                statusLabel.stringValue = String.localizedStringWithFormat(NSLocalizedString("%lu items in queue", comment: ""), queue.count)
             }
         }
         updateDockTile()

@@ -1,21 +1,21 @@
-
-/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add metadata"; ObjectID = "dq1-e8-fa6"; */
-"dq1-e8-fa6.ibExternalAccessibilityDescription" = "Add metadata";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Add metadata"; ObjectID = "dq1-e8-fa6"; */
-"dq1-e8-fa6.ibShadowedToolTip" = "Add metadata";
-
-/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add metadata"; ObjectID = "fZZ-im-9BI"; */
-"fZZ-im-9BI.ibExternalAccessibilityDescription" = "Add metadata";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Add metadata"; ObjectID = "fZZ-im-9BI"; */
-"fZZ-im-9BI.ibShadowedToolTip" = "Add metadata";
-
 /* Class = "NSTextFieldCell"; title = "Set the format to create a custom filename in the Save As… panel and in the queue."; ObjectID = "hE3-zH-XFE"; */
-"hE3-zH-XFE.title" = "Set the format to create a custom filename in the Save As… panel and in the queue.";
+"hE3-zH-XFE.title" = "Establece un formato personalizado de nombres para los archivos que vayan a guardarse desde el panel «Guardar como…» o desde la cola.";
 
 /* Class = "NSButtonCell"; title = "Set filename of TV Shows to:"; ObjectID = "kQC-bu-0by"; */
-"kQC-bu-0by.title" = "Set filename of TV Shows to:";
+"kQC-bu-0by.title" = "Formato de nombre de archivo para Programas de TV:";
 
 /* Class = "NSButtonCell"; title = "Set filename of Movies to:"; ObjectID = "wci-gO-GWT"; */
-"wci-gO-GWT.title" = "Set filename of Movies to:";
+"wci-gO-GWT.title" = "Formato de nombre de archivo para Películas:";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add metadata"; ObjectID = "dq1-e8-fa6"; */
+"dq1-e8-fa6.ibExternalAccessibilityDescription" = "Agregar etiqueta";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add metadata"; ObjectID = "dq1-e8-fa6"; */
+"dq1-e8-fa6.ibShadowedToolTip" = "Agregar etiqueta";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add metadata"; ObjectID = "fZZ-im-9BI"; */
+"fZZ-im-9BI.ibExternalAccessibilityDescription" = "Agregar etiqueta";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add metadata"; ObjectID = "fZZ-im-9BI"; */
+"fZZ-im-9BI.ibShadowedToolTip" = "Agregar etiqueta";
+

@@ -5,7 +5,7 @@
 "-NA-" = "-ND-";
 
 /* No comment provided by engineer. */
-"%lu items in queue." = "%lu elementi in coda.";
+"%lu items in queue" = "%lu elementi in coda";
 
 /* No comment provided by engineer. */
 "%lu tracks selected" = "%lu tracce selezionate";
@@ -63,6 +63,9 @@
 
 /* No comment provided by engineer. */
 "Cast" = "Cast";
+
+/* Chapter */
+"Chapter" = "Capitoli";
 
 /* No comment provided by engineer. */
 "Clean" = "Pulito";
@@ -126,13 +129,13 @@
 "Done" = "Fatto";
 
 /* No comment provided by engineer. */
-"Downloading additional movie metadata" = "Scarico ulteriori metadata per il film…";
+"Downloading additional movie metadata…" = "Scarico ulteriori metadata per il film…";
 
 /* No comment provided by engineer. */
 "Downloading additional TV metadata…" = "Scarico ulteriori metadata per la serie TV…";
 
 /* No comment provided by engineer. */
-"Downloading artworks" = "Scarico illustrazione…";
+"Downloading artworks…" = "Scarico illustrazione…";
 
 /* Media characteristic. */
 "Dubbed Translation" = "Traduzione doppiaggio";
@@ -296,6 +299,9 @@
 
 /* No comment provided by engineer. */
 "Producers" = "Produttori";
+
+/* Table header title. */
+"Queue" = "Coda";
 
 /* No comment provided by engineer. */
 "Queue Done" = "Coda completata";

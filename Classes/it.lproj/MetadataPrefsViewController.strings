@@ -13,8 +13,17 @@
 /* Class = "NSTableColumn"; headerCell.title = "Type"; ObjectID = "gwa-XG-q0L"; */
 "gwa-XG-q0L.headerCell.title" = "Tipologia";
 
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Add annotation"; ObjectID = "Jdh-Cj-6ef"; */
+"Jdh-Cj-6ef.ibExternalAccessibilityDescription" = "Aggiungi annotazione";
+
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Add annotation"; ObjectID = "Jdh-Cj-6ef"; */
 "Jdh-Cj-6ef.ibShadowedToolTip" = "Aggiungi annotazione";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Restore Defaults"; ObjectID = "BkU-sx-jUf"; */
+"BkU-sx-jUf.ibExternalAccessibilityDescription" = "Ripristina default";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Restore Defaults"; ObjectID = "BkU-sx-jUf"; */
+"BkU-sx-jUf.ibShadowedToolTip" = "Ripristina default";
 
 /* Class = "NSButtonCell"; title = "Restore Defaults"; ObjectID = "nBh-jv-KDG"; */
 "nBh-jv-KDG.title" = "Ripristina default";

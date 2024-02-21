@@ -28,6 +28,27 @@
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "179"; */
 "179.ibExternalAccessibilityDescription" = "Ensembles";
 
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Sets"; ObjectID = "179"; */
+"179.ibShadowedToolTip" = "Ensembles";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add an artwork"; ObjectID = "223"; */
+"223.ibExternalAccessibilityDescription" = "Ajouter une illustration";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add an artwork"; ObjectID = "223"; */
+"223.ibShadowedToolTip" = "Ajouter une illustration";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove selected artwork"; ObjectID = "226"; */
+"226.ibExternalAccessibilityDescription" = "Retirer l'illustration sélectionnée";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove selected artwork"; ObjectID = "226"; */
+"226.ibShadowedToolTip" = "Retirer l'illustration sélectionnée";
+
+/* Class = "NSSlider"; ibExternalAccessibilityDescription = "Change artworks view zoom"; ObjectID = "235"; */
+"235.ibExternalAccessibilityDescription" = "Changer le zoom d'affichage de l'illustration";
+
+/* Class = "NSSlider"; ibShadowedToolTip = "Change artworks view zoom"; ObjectID = "235"; */
+"235.ibShadowedToolTip" = "Changer le zoom d'affichage de l'illustration";
+
 /* Class = "NSMenu"; title = "OtherViews"; ObjectID = "181"; */
 "181.title" = "Autres Vues";
 

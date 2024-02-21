@@ -51,6 +51,25 @@
 	]
 },
 {
+    "country": "Paraguay",
+    "storeCode": 143513,
+    "ratings": [
+        { "media": "Movie", "prefix": "py-movie", "itunes-code": "ATP", "itunes-value": "0", "description": "ATP" },
+        { "media": "Movie", "prefix": "py-movie", "itunes-code": "SAM13", "itunes-value": "300", "description": "SAM 13" },
+        { "media": "Movie", "prefix": "py-movie", "itunes-code": "15", "itunes-value": "350", "description": "15" },
+        { "media": "Movie", "prefix": "py-movie", "itunes-code": "SAM16", "itunes-value": "375", "description": "SAM 16" },
+        { "media": "Movie", "prefix": "py-movie", "itunes-code": "SAM18", "itunes-value": "400", "description": "SAM 18" },
+        { "media": "Movie", "prefix": "py-movie", "itunes-code": "UR", "itunes-value": "900", "description": "Sin Calificación" },
+        { "media": "TV", "prefix": "py-tv", "itunes-code": "0+", "itunes-value": "100", "description": "0+" },
+        { "media": "TV", "prefix": "py-tv", "itunes-code": "5+", "itunes-value": "150", "description": "5+" },
+        { "media": "TV", "prefix": "py-tv", "itunes-code": "7+", "itunes-value": "200", "description": "7+" },
+        { "media": "TV", "prefix": "py-tv", "itunes-code": "9+", "itunes-value": "250", "description": "9+" },
+        { "media": "TV", "prefix": "py-tv", "itunes-code": "12+", "itunes-value": "350", "description": "12+" },
+        { "media": "TV", "prefix": "py-tv", "itunes-code": "15+", "itunes-value": "450", "description": "15+" },
+        { "media": "TV", "prefix": "py-tv", "itunes-code": "18+", "itunes-value": "600", "description": "18+" }
+    ]
+},
+{
 	"country" : "Canada",
     "storeCode" : 143455,
 	"ratings" : [
@@ -143,7 +162,7 @@
 	]
 },
 {
-	"country" : "Mexico",
+	"country" : "México",
     "storeCode" : 143468,
 	"ratings" : [
         { "media" : "Movie", "prefix" : "mx-movie", 	"itunes-code" : "AA", 	"itunes-value" : "000",  "description" : "AA" },

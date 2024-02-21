@@ -1,8 +1,11 @@
 /* Class = "NSButtonCell"; title = "Load more artwork..."; ObjectID = "40h-Rv-m31"; */
 "40h-Rv-m31.title" = "加载更多插图…";
 
-/* Class = "NSSlider"; ibExternalAccessibilityDescription = "Zoom"; ObjectID = "fMj-Ew-Qej"; */
-"fMj-Ew-Qej.ibExternalAccessibilityDescription" = "缩放";
+/* Class = "NSSlider"; ibExternalAccessibilityDescription = "Change artworks view zoom"; ObjectID = "fMj-Ew-Qej"; */
+"fMj-Ew-Qej.ibExternalAccessibilityDescription" = "改变插图视图缩放";
+
+/* Class = "NSSlider"; ibShadowedToolTip = "Change artworks view zoom"; ObjectID = "fMj-Ew-Qej"; */
+"fMj-Ew-Qej.ibShadowedToolTip" = "改变插图视图缩放";
 
 /* Class = "NSButtonCell"; title = "Set as artwork"; ObjectID = "rMb-PC-yTA"; */
 "rMb-PC-yTA.title" = "设为插图";

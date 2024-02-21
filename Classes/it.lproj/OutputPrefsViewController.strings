@@ -7,3 +7,15 @@
 /* Class = "NSButtonCell"; title = "Set filename of Movies to:"; ObjectID = "wci-gO-GWT"; */
 "wci-gO-GWT.title" = "Imposta il nome del file dei Film a:";
 
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add metadata"; ObjectID = "dq1-e8-fa6"; */
+"dq1-e8-fa6.ibExternalAccessibilityDescription" = "Aggiungi metadati";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add metadata"; ObjectID = "dq1-e8-fa6"; */
+"dq1-e8-fa6.ibShadowedToolTip" = "Aggiungi metadati";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add metadata"; ObjectID = "fZZ-im-9BI"; */
+"fZZ-im-9BI.ibExternalAccessibilityDescription" = "Aggiungi metadati";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add metadata"; ObjectID = "fZZ-im-9BI"; */
+"fZZ-im-9BI.ibShadowedToolTip" = "Aggiungi metadati";
+

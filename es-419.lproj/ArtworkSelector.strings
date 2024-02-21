@@ -1,18 +1,18 @@
-
 /* Class = "NSButtonCell"; title = "Load more artwork..."; ObjectID = "40h-Rv-m31"; */
-"40h-Rv-m31.title" = "Load more artwork...";
-
-/* Class = "NSTextFieldCell"; title = "Progress status"; ObjectID = "TbL-2H-ra9"; */
-"TbL-2H-ra9.title" = "Progress status";
-
-/* Class = "NSButtonCell"; title = "None"; ObjectID = "UDG-fN-bQH"; */
-"UDG-fN-bQH.title" = "None";
+"40h-Rv-m31.title" = "Cargar más ilustraciones…";
 
 /* Class = "NSSlider"; ibExternalAccessibilityDescription = "Change artworks view zoom"; ObjectID = "fMj-Ew-Qej"; */
-"fMj-Ew-Qej.ibExternalAccessibilityDescription" = "Change artworks view zoom";
+"fMj-Ew-Qej.ibExternalAccessibilityDescription" = "Cambiar tamaño de visualización de la ilustración";
 
 /* Class = "NSSlider"; ibShadowedToolTip = "Change artworks view zoom"; ObjectID = "fMj-Ew-Qej"; */
-"fMj-Ew-Qej.ibShadowedToolTip" = "Change artworks view zoom";
+"fMj-Ew-Qej.ibShadowedToolTip" = "Cambiar tamaño de visualización de la ilustración";
 
 /* Class = "NSButtonCell"; title = "Set as artwork"; ObjectID = "rMb-PC-yTA"; */
-"rMb-PC-yTA.title" = "Set as artwork";
+"rMb-PC-yTA.title" = "Agregar";
+
+/* Class = "NSTextFieldCell"; title = "Progress status"; ObjectID = "TbL-2H-ra9"; */
+"TbL-2H-ra9.title" = "Estado del progreso";
+
+/* Class = "NSButtonCell"; title = "None"; ObjectID = "UDG-fN-bQH"; */
+"UDG-fN-bQH.title" = "Ninguna";
+

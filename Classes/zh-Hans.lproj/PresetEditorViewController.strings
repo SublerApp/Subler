@@ -40,14 +40,26 @@
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "179"; */
 "179.ibExternalAccessibilityDescription" = "预设";
 
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Sets"; ObjectID = "179"; */
+"179.ibShadowedToolTip" = "预设";
+
 /* Class = "NSMenu"; title = "OtherViews"; ObjectID = "181"; */
 "181.title" = "OtherViews";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add an artwork"; ObjectID = "223"; */
+"223.ibExternalAccessibilityDescription" = "添加插图";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Add an artwork"; ObjectID = "223"; */
 "223.ibShadowedToolTip" = "添加插图";
 
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove selected artwork"; ObjectID = "226"; */
+"226.ibExternalAccessibilityDescription" = "移除所选插图";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Remove selected artwork"; ObjectID = "226"; */
 "226.ibShadowedToolTip" = "移除所选插图";
+
+/* Class = "NSSlider"; ibExternalAccessibilityDescription = "Change artworks view zoom"; ObjectID = "235"; */
+"235.ibExternalAccessibilityDescription" = "改变插图视图缩放";
 
 /* Class = "NSSlider"; ibShadowedToolTip = "Change artworks view zoom"; ObjectID = "235"; */
 "235.ibShadowedToolTip" = "改变插图视图缩放";

@@ -1,9 +1,6 @@
-
 /* Class = "NSButtonCell"; title = "Check"; ObjectID = "7h1-sO-aUd"; */
-"7h1-sO-aUd.title" = "Check";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "bZ3-Oc-pzT"; */
-"bZ3-Oc-pzT.title" = "Text Cell";
+"7h1-sO-aUd.title" = "Verificar";
 
 /* Class = "NSTextFieldCell"; title = "Media tags:"; ObjectID = "xXI-Cs-cBg"; */
-"xXI-Cs-cBg.title" = "Media tags:";
+"xXI-Cs-cBg.title" = "Etiquetas de medios:";
+

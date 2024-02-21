@@ -1,33 +1,24 @@
-
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "06q-GJ-S35"; */
-"06q-GJ-S35.title" = "Table View Cell";
-
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "6CG-pa-ocP"; */
-"6CG-pa-ocP.title" = "Table View Cell";
-
 /* Class = "NSButton"; ibExternalAccessibilityDescription = "Edit selected set"; ObjectID = "C1d-lu-T7S"; */
-"C1d-lu-T7S.ibExternalAccessibilityDescription" = "Edit selected set";
+"C1d-lu-T7S.ibExternalAccessibilityDescription" = "Editar el preset seleccionado";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Edit selected set"; ObjectID = "C1d-lu-T7S"; */
-"C1d-lu-T7S.ibShadowedToolTip" = "Edit selected set";
-
-/* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove selected set"; ObjectID = "SIg-lA-6FA"; */
-"SIg-lA-6FA.ibExternalAccessibilityDescription" = "Remove selected set";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Remove selected set"; ObjectID = "SIg-lA-6FA"; */
-"SIg-lA-6FA.ibShadowedToolTip" = "Remove selected set";
-
-/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "W45-Bf-XCJ"; */
-"W45-Bf-XCJ.title" = "Edit";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "a65-Qy-pSq"; */
-"a65-Qy-pSq.title" = "Text Cell";
+"C1d-lu-T7S.ibShadowedToolTip" = "Editar preset";
 
 /* Class = "NSButton"; ibExternalAccessibilityDescription = "Add a new set"; ObjectID = "gBf-6T-hQv"; */
-"gBf-6T-hQv.ibExternalAccessibilityDescription" = "Add a new set";
+"gBf-6T-hQv.ibExternalAccessibilityDescription" = "Agregar un nuevo preset";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Add a new set"; ObjectID = "gBf-6T-hQv"; */
-"gBf-6T-hQv.ibShadowedToolTip" = "Add a new set";
+"gBf-6T-hQv.ibShadowedToolTip" = "Agregar preset";
 
 /* Class = "NSTableView"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "iRF-P7-a3Q"; */
-"iRF-P7-a3Q.ibExternalAccessibilityDescription" = "Sets";
+"iRF-P7-a3Q.ibExternalAccessibilityDescription" = "Preset";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove selected set"; ObjectID = "SIg-lA-6FA"; */
+"SIg-lA-6FA.ibExternalAccessibilityDescription" = "Eliminar el preset seleccionado";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove selected set"; ObjectID = "SIg-lA-6FA"; */
+"SIg-lA-6FA.ibShadowedToolTip" = "Eliminar preset";
+
+/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "W45-Bf-XCJ"; */
+"W45-Bf-XCJ.title" = "Editar";
+

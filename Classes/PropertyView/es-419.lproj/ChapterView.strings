@@ -1,48 +1,33 @@
-
 /* Class = "NSTabViewItem"; label = "Chapters"; ObjectID = "11"; */
-"11.label" = "Chapters";
+"11.label" = "Capítulos";
 
 /* Class = "NSTableView"; ibExternalAccessibilityDescription = "Chapters"; ObjectID = "22"; */
-"22.ibExternalAccessibilityDescription" = "Chapters";
+"22.ibExternalAccessibilityDescription" = "Capítulos";
 
 /* Class = "NSTableColumn"; headerCell.title = "Time"; ObjectID = "24"; */
-"24.headerCell.title" = "Time";
+"24.headerCell.title" = "Tiempo";
 
 /* Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "25"; */
-"25.headerCell.title" = "Title";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "26"; */
-"26.title" = "Text Cell";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "27"; */
-"27.title" = "Text Cell";
+"25.headerCell.title" = "Título";
 
 /* Class = "NSButton"; ibExternalAccessibilityDescription = "Delete selected chapter"; ObjectID = "31"; */
-"31.ibExternalAccessibilityDescription" = "Delete selected chapter";
+"31.ibExternalAccessibilityDescription" = "Eliminar capítulo seleccionado";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Delete selected chapter"; ObjectID = "31"; */
-"31.ibShadowedToolTip" = "Delete selected chapter";
+"31.ibShadowedToolTip" = "Eliminar capítulo seleccionado";
 
 /* Class = "NSButton"; ibExternalAccessibilityDescription = "Add chapter"; ObjectID = "42"; */
-"42.ibExternalAccessibilityDescription" = "Add chapter";
+"42.ibExternalAccessibilityDescription" = "Agregar capítulo";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Add chapter"; ObjectID = "42"; */
-"42.ibShadowedToolTip" = "Add chapter";
-
-/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Show more actions"; ObjectID = "IvH-Ff-dyN"; */
-"IvH-Ff-dyN.ibExternalAccessibilityDescription" = "Show more actions";
-
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "More actions"; ObjectID = "IvH-Ff-dyN"; */
-"IvH-Ff-dyN.ibShadowedToolTip" = "More actions";
-
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "Ktq-AC-XnR"; */
-"Ktq-AC-XnR.title" = "Table View Cell";
+"42.ibShadowedToolTip" = "Agregar capítulo";
 
 /* Class = "NSMenuItem"; title = "Rename every chapter"; ObjectID = "SOg-Lz-v5L"; */
-"SOg-Lz-v5L.title" = "Rename every chapter";
+"SOg-Lz-v5L.title" = "Renombrar capítulos";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "T3N-JJ-mWq"; */
-"T3N-JJ-mWq.title" = "OtherViews";
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Show more actions"; ObjectID = "IvH-Ff-dyN"; */
+"IvH-Ff-dyN.ibExternalAccessibilityDescription" = "Mostrar más acciones";
 
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "fIl-II-Tfv"; */
-"fIl-II-Tfv.title" = "Table View Cell";
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "More actions"; ObjectID = "IvH-Ff-dyN"; */
+"IvH-Ff-dyN.ibShadowedToolTip" = "Más acciones";
+

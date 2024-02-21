@@ -10,12 +10,24 @@
 /* Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "25"; */
 "25.headerCell.title" = "Titolo";
 
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Delete selected chapter"; ObjectID = "31"; */
+"31.ibExternalAccessibilityDescription" = "Elimina il capitolo selezionato";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Delete selected chapter"; ObjectID = "31"; */
 "31.ibShadowedToolTip" = "Elimina il capitolo selezionato";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add chapter"; ObjectID = "42"; */
+"42.ibExternalAccessibilityDescription" = "Aggiungi capitolo";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Add chapter"; ObjectID = "42"; */
 "42.ibShadowedToolTip" = "Aggiungi capitolo";
 
 /* Class = "NSMenuItem"; title = "Rename every chapter"; ObjectID = "SOg-Lz-v5L"; */
 "SOg-Lz-v5L.title" = "Rinomina ogni capitolo";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Show more actions"; ObjectID = "IvH-Ff-dyN"; */
+"IvH-Ff-dyN.ibExternalAccessibilityDescription" = "Mostra più azioni";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "More actions"; ObjectID = "IvH-Ff-dyN"; */
+"IvH-Ff-dyN.ibShadowedToolTip" = "Più azioni";
 

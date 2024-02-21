@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -241,12 +241,6 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="532"/>
-                            <menuItem title="Offset…" id="567">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="showTrackOffsetSheet:" target="-1" id="570"/>
-                                </connections>
-                            </menuItem>
                             <menuItem title="Insert a Chapter" id="573">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Insert a Chapter" id="574">
@@ -331,6 +325,13 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="fixAudioFallbacks:" target="-1" id="cpY-If-3df"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Niv-jG-TSf"/>
+                            <menuItem title="Offset…" id="567">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showTrackOffsetSheet:" target="-1" id="570"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="568"/>

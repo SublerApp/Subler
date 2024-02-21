@@ -1,63 +1,54 @@
-
 /* Class = "NSWindow"; title = "Queue"; ObjectID = "1"; */
-"1.title" = "Queue";
+"1.title" = "Cola";
 
 /* Class = "NSTableView"; ibExternalAccessibilityDescription = "Queue"; ObjectID = "7"; */
-"7.ibExternalAccessibilityDescription" = "Queue";
-
-/* Class = "NSTableColumn"; headerCell.title = "nameColumn"; ObjectID = "8"; */
-"8.headerCell.title" = "nameColumn";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "11"; */
-"11.title" = "Text Cell";
-
-/* Class = "NSTextFieldCell"; title = "Queue items"; ObjectID = "13"; */
-"13.title" = "Queue items";
-
-/* Class = "NSMenuItem"; title = "Remove from queue"; ObjectID = "79"; */
-"79.title" = "Remove from queue";
-
-/* Class = "NSMenuItem"; title = "Remove completed items"; ObjectID = "86"; */
-"86.title" = "Remove completed items";
+"7.ibExternalAccessibilityDescription" = "Cola";
 
 /* Class = "NSMenuItem"; title = "Reveal in Finder"; ObjectID = "8gi-57-i6u"; */
-"8gi-57-i6u.title" = "Reveal in Finder";
+"8gi-57-i6u.title" = "Mostrar en el Finder";
 
-/* Class = "NSToolbarItem"; label = "Settings"; ObjectID = "Qif-lh-Rps"; */
-"Qif-lh-Rps.label" = "Settings";
+/* Class = "NSTextFieldCell"; title = "Queue items"; ObjectID = "13"; */
+"13.title" = "Elementos en cola";
 
-/* Class = "NSToolbarItem"; paletteLabel = "Settings"; ObjectID = "Qif-lh-Rps"; */
-"Qif-lh-Rps.paletteLabel" = "Settings";
+/* Class = "NSMenuItem"; title = "Remove from queue"; ObjectID = "79"; */
+"79.title" = "Quitar de la cola";
 
-/* Class = "NSToolbarItem"; toolTip = "Show/hide settings"; ObjectID = "Qif-lh-Rps"; */
-"Qif-lh-Rps.toolTip" = "Show/hide settings";
+/* Class = "NSMenuItem"; title = "Remove completed items"; ObjectID = "86"; */
+"86.title" = "Quitar elementos terminados";
 
 /* Class = "NSToolbarItem"; label = "Add Item"; ObjectID = "mbj-v3-fFG"; */
-"mbj-v3-fFG.label" = "Add Item";
+"mbj-v3-fFG.label" = "Agregar elemento";
 
 /* Class = "NSToolbarItem"; paletteLabel = "Add Item"; ObjectID = "mbj-v3-fFG"; */
-"mbj-v3-fFG.paletteLabel" = "Add Item";
+"mbj-v3-fFG.paletteLabel" = "Agregar elemento";
 
 /* Class = "NSToolbarItem"; toolTip = "Add an item to the queue"; ObjectID = "mbj-v3-fFG"; */
-"mbj-v3-fFG.toolTip" = "Add an item to the queue";
+"mbj-v3-fFG.toolTip" = "Agregar elemento(s) a la cola";
 
 /* Class = "NSButton"; ibExternalAccessibilityDescription = "Info"; ObjectID = "o98-wM-YAQ"; */
 "o98-wM-YAQ.ibExternalAccessibilityDescription" = "Info";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Show item info"; ObjectID = "o98-wM-YAQ"; */
-"o98-wM-YAQ.ibShadowedToolTip" = "Show item info";
+"o98-wM-YAQ.ibShadowedToolTip" = "Mostrar información del elemento";
 
 /* Class = "NSMenuItem"; title = "Edit…"; ObjectID = "qHz-Zh-l5L"; */
-"qHz-Zh-l5L.title" = "Edit…";
+"qHz-Zh-l5L.title" = "Editar…";
 
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "srx-EJ-mK6"; */
-"srx-EJ-mK6.title" = "Table View Cell";
+/* Class = "NSToolbarItem"; label = "Settings"; ObjectID = "Qif-lh-Rps"; */
+"Qif-lh-Rps.label" = "Configuración";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Settings"; ObjectID = "Qif-lh-Rps"; */
+"Qif-lh-Rps.paletteLabel" = "Configuración";
+
+/* Class = "NSToolbarItem"; toolTip = "Show/hide settings"; ObjectID = "Qif-lh-Rps"; */
+"Qif-lh-Rps.toolTip" = "Mostrar/Ocultar configuración";
 
 /* Class = "NSToolbarItem"; label = "Start"; ObjectID = "xeY-tT-tF2"; */
-"xeY-tT-tF2.label" = "Start";
+"xeY-tT-tF2.label" = "Iniciar";
 
 /* Class = "NSToolbarItem"; paletteLabel = "Start"; ObjectID = "xeY-tT-tF2"; */
-"xeY-tT-tF2.paletteLabel" = "Start";
+"xeY-tT-tF2.paletteLabel" = "Iniciar";
 
 /* Class = "NSToolbarItem"; toolTip = "Start/stop queue"; ObjectID = "xeY-tT-tF2"; */
-"xeY-tT-tF2.toolTip" = "Start/stop queue";
+"xeY-tT-tF2.toolTip" = "Iniciar/Detener cola";
+

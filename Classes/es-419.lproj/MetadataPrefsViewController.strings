@@ -1,66 +1,47 @@
-
 /* Class = "NSTableColumn"; headerCell.title = "Annotations"; ObjectID = "6um-Rw-luk"; */
-"6um-Rw-luk.headerCell.title" = "Annotations";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "72h-Ke-os5"; */
-"72h-Ke-os5.title" = "Text Cell";
+"6um-Rw-luk.headerCell.title" = "Etiqueta";
 
 /* Class = "NSButtonCell"; title = "Keep empty annotations"; ObjectID = "7Ek-lI-5Lo"; */
-"7Ek-lI-5Lo.title" = "Keep empty annotations";
-
+"7Ek-lI-5Lo.title" = "Mantener etiquetas vacías";
 /* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "Aj4-bk-6RK"; */
-"Aj4-bk-6RK.headerCell.title" = "Value";
-
-/* Class = "NSButton"; ibExternalAccessibilityDescription = "Restore Defaults"; ObjectID = "BkU-sx-jUf"; */
-"BkU-sx-jUf.ibExternalAccessibilityDescription" = "Restore Defaults";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Restore Defaults"; ObjectID = "BkU-sx-jUf"; */
-"BkU-sx-jUf.ibShadowedToolTip" = "Restore Defaults";
-
-/* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "F4J-aT-4zI"; */
-"F4J-aT-4zI.title" = "Do not localize";
-
-/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Add annotation"; ObjectID = "Jdh-Cj-6ef"; */
-"Jdh-Cj-6ef.ibExternalAccessibilityDescription" = "Add annotation";
-
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "Add annotation"; ObjectID = "Jdh-Cj-6ef"; */
-"Jdh-Cj-6ef.ibShadowedToolTip" = "Add annotation";
-
-/* Class = "NSTextFieldCell"; title = "Available values:"; ObjectID = "OYx-Dd-YIf"; */
-"OYx-Dd-YIf.title" = "Available values:";
-
-/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Metadata map"; ObjectID = "Tid-Rc-Ljr"; */
-"Tid-Rc-Ljr.ibExternalAccessibilityDescription" = "Metadata map";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "Vaj-uI-b23"; */
-"Vaj-uI-b23.title" = "Text Cell";
+"Aj4-bk-6RK.headerCell.title" = "Valor";
 
 /* Class = "NSTextFieldCell"; title = "Map the providers' metadata to the MP4 annotations"; ObjectID = "cUW-9F-EvO"; */
-"cUW-9F-EvO.title" = "Map the providers' metadata to the MP4 annotations";
+"cUW-9F-EvO.title" = "Asigna metadatos de proveedores a las etiquetas MP4.";
 
 /* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Null"; ObjectID = "dgq-hT-1Vg"; */
-"dgq-hT-1Vg.ibShadowedIsNilPlaceholder" = "Null";
+"dgq-hT-1Vg.ibShadowedIsNilPlaceholder" = "Nulo";
 
 /* Class = "NSTableColumn"; headerCell.title = "Type"; ObjectID = "gwa-XG-q0L"; */
-"gwa-XG-q0L.headerCell.title" = "Type";
+"gwa-XG-q0L.headerCell.title" = "Tipo";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "kmV-f1-lQx"; */
-"kmV-f1-lQx.title" = "Text Cell";
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Add annotation"; ObjectID = "Jdh-Cj-6ef"; */
+"Jdh-Cj-6ef.ibExternalAccessibilityDescription" = "Agregar etiqueta";
 
-/* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "ko1-Cf-TEq"; */
-"ko1-Cf-TEq.title" = "Do not localize";
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Add annotation"; ObjectID = "Jdh-Cj-6ef"; */
+"Jdh-Cj-6ef.ibShadowedToolTip" = "Agregar etiqueta";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Restore Defaults"; ObjectID = "BkU-sx-jUf"; */
+"BkU-sx-jUf.ibExternalAccessibilityDescription" = "Restablecer valores predeterminados";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Restore Defaults"; ObjectID = "BkU-sx-jUf"; */
+"BkU-sx-jUf.ibShadowedToolTip" = "Restablecer valores predeterminados";
 
 /* Class = "NSButtonCell"; title = "Restore Defaults"; ObjectID = "nBh-jv-KDG"; */
-"nBh-jv-KDG.title" = "Restore Defaults";
+"nBh-jv-KDG.title" = "Restablecer valores predeterminados";
 
 /* Class = "NSTableView"; ibExternalAccessibilityDescription = "Metadata type"; ObjectID = "nXW-oy-rtu"; */
-"nXW-oy-rtu.ibExternalAccessibilityDescription" = "Metadata type";
+"nXW-oy-rtu.ibExternalAccessibilityDescription" = "Tipo de metadatos";
+
+/* Class = "NSTextFieldCell"; title = "Available values:"; ObjectID = "OYx-Dd-YIf"; */
+"OYx-Dd-YIf.title" = "Valores disponibles:";
 
 /* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove selected item"; ObjectID = "sd5-qb-K5v"; */
-"sd5-qb-K5v.ibExternalAccessibilityDescription" = "Remove selected item";
+"sd5-qb-K5v.ibExternalAccessibilityDescription" = "Eliminar etiqueta";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Remove selected item"; ObjectID = "sd5-qb-K5v"; */
-"sd5-qb-K5v.ibShadowedToolTip" = "Remove selected item";
+"sd5-qb-K5v.ibShadowedToolTip" = "Eliminar etiqueta";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "ywu-nj-9bP"; */
-"ywu-nj-9bP.title" = "OtherViews";
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Metadata map"; ObjectID = "Tid-Rc-Ljr"; */
+"Tid-Rc-Ljr.ibExternalAccessibilityDescription" = "Esquema de metadatos";
+

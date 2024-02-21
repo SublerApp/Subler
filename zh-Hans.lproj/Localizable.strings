@@ -8,7 +8,7 @@
 "%@." = "%@.";
 
 /* No comment provided by engineer. */
-"%lu items in queue." = "任务队列中有 %lu 项。";
+"%lu items in queue" = "任务队列中有 %lu 项";
 
 /* No comment provided by engineer. */
 "%lu tracks selected" = "已选中 %lu 条轨道";
@@ -85,6 +85,9 @@
 /* No comment provided by engineer. */
 "Cast" = "主演";
 
+/* Add Chapters Every */
+"Chapter" = "Chapter";
+
 /* Action description. */
 "Clear Metadata" = "清除元数据";
 
@@ -147,13 +150,13 @@
 "Done" = "完成";
 
 /* No comment provided by engineer. */
-"Downloading additional movie metadata" = "正在下载电影元数据…";
+"Downloading additional movie metadata…" = "正在下载电影元数据…";
 
 /* No comment provided by engineer. */
 "Downloading additional TV metadata…" = "正在下载电视节目元数据…";
 
 /* No comment provided by engineer. */
-"Downloading artworks" = "正在下载插图";
+"Downloading artworks…" = "正在下载插图…";
 
 /* Media characteristic. */
 "Dubbed Translation" = "配音翻译";
@@ -323,6 +326,9 @@
 
 /* No comment provided by engineer. */
 "Producers" = "制作人";
+
+/* Table header title. */
+"Queue" = "任务队列";
 
 /* No comment provided by engineer. */
 "Queue Done" = "任务队列已完成";

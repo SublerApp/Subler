@@ -166,7 +166,7 @@ final class VideoViewController: PropertyView {
         // H.264 Profile and level
         if track.format == kMP42VideoCodecType_H264 && track.origProfile != 0 && track.origLevel != 0 {
             profileView.isHidden = false
-            profileHeight.constant = 91
+            profileHeight.constant = 102
 
             profileLevelUnchanged.title = "\(NSLocalizedString("Current profile:", comment: "")) \(profileName(track.origProfile)) @ \(levelName(track.origLevel))"
 
@@ -193,7 +193,7 @@ final class VideoViewController: PropertyView {
             track.format == kMP42VideoCodecType_HEVC || track.format == kMP42VideoCodecType_HEVC_PSinBitstream ||
             track.format == kMP42VideoCodecType_AV1 {
             colorView.isHidden = false
-            colorHeight.constant = 24
+            colorHeight.constant = 26
 
             let colorProfile = colorProfileName(track.colorPrimaries, track.transferCharacteristics, track.matrixCoefficients)
             colorProfilePopUp.selectItem(withTitle: colorProfile)
@@ -214,7 +214,7 @@ final class VideoViewController: PropertyView {
         // Subtitles forced track
         if let track = track as? MP42SubtitleTrack {
             forcedView.isHidden = false
-            forcedHeight.constant = 46
+            forcedHeight.constant = 52
 
             if track.someSamplesAreForced == false && track.allSamplesAreForced == false {
                 forcedSubs.selectItem(withTag: 0)

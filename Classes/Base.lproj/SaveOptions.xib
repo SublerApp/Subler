@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,32 +18,22 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="MW8-8K-w1S">
-            <rect key="frame" x="0.0" y="0.0" width="346" height="107"/>
+            <rect key="frame" x="0.0" y="0.0" width="346" height="128"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="4Ry-tR-0w3">
-                    <rect key="frame" x="13" y="0.0" width="320" height="107"/>
+                    <rect key="frame" x="13" y="0.0" width="320" height="128"/>
                     <subviews>
-                        <button toolTip="Needed for mp4 larger than 4GB." verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="emp-1S-F7H">
-                            <rect key="frame" x="98" y="54" width="148" height="18"/>
-                            <buttonCell key="cell" type="check" title="64 bits chunk offset" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="14x-xv-HKI">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
-                        <textField verticalHuggingPriority="750" verticalCompressionResistancePriority="751" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="zba-Ja-Te5">
-                            <rect key="frame" x="18" y="55" width="76" height="16"/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Options:" id="BXP-AU-x3T">
+                        <textField verticalHuggingPriority="750" verticalCompressionResistancePriority="751" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="XpL-JT-4Ap">
+                            <rect key="frame" x="18" y="91" width="76" height="16"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="File Format:" id="caN-zU-chS">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kLA-Cm-c6R">
-                            <rect key="frame" x="97" y="73" width="207" height="25"/>
-                            <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="2bc-mW-hh8"/>
-                            </constraints>
+                            <rect key="frame" x="97" y="84" width="207" height="25"/>
                             <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="Xuo-dp-0K0" id="33t-f6-cVS">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" usesAppearanceFont="YES"/>
@@ -61,20 +51,30 @@
                                     </items>
                                 </menu>
                             </popUpButtonCell>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="2bc-mW-hh8"/>
+                            </constraints>
                             <connections>
                                 <action selector="setSaveFormat:" target="-2" id="sGj-K4-KMX"/>
                             </connections>
                         </popUpButton>
-                        <textField verticalHuggingPriority="750" verticalCompressionResistancePriority="751" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="XpL-JT-4Ap">
-                            <rect key="frame" x="18" y="80" width="76" height="16"/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="File Format:" id="caN-zU-chS">
+                        <textField verticalHuggingPriority="750" verticalCompressionResistancePriority="751" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="zba-Ja-Te5">
+                            <rect key="frame" x="18" y="64" width="76" height="16"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Options:" id="BXP-AU-x3T">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
+                        <button toolTip="Needed for mp4 larger than 4GB." verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="emp-1S-F7H">
+                            <rect key="frame" x="98" y="63" width="148" height="18"/>
+                            <buttonCell key="cell" type="check" title="64 bits chunk offset" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="14x-xv-HKI">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
                         <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="3CX-Vp-T0h">
-                            <rect key="frame" x="98" y="32" width="106" height="18"/>
+                            <rect key="frame" x="98" y="41" width="106" height="18"/>
                             <string key="toolTip">Note: don't use this option if you are not sure of what it is doing, it's not needed in almost every case.
 Enable 64bit timescale and duration support. Normally, it's only needed if a track will be longer than 10 hours.</string>
                             <buttonCell key="cell" type="check" title="64 bits times" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="DCI-a5-K73">
@@ -83,7 +83,7 @@ Enable 64bit timescale and duration support. Normally, it's only needed if a tra
                             </buttonCell>
                         </button>
                         <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="2xF-eJ-cUB">
-                            <rect key="frame" x="98" y="10" width="81" height="18"/>
+                            <rect key="frame" x="98" y="19" width="81" height="18"/>
                             <buttonCell key="cell" type="check" title="Optimize" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="OZC-sc-82O">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -93,23 +93,22 @@ Enable 64bit timescale and duration support. Normally, it's only needed if a tra
                     <constraints>
                         <constraint firstItem="emp-1S-F7H" firstAttribute="leading" secondItem="zba-Ja-Te5" secondAttribute="trailing" constant="8" symbolic="YES" id="0ut-Kh-HSE"/>
                         <constraint firstItem="kLA-Cm-c6R" firstAttribute="leading" secondItem="XpL-JT-4Ap" secondAttribute="trailing" constant="8" symbolic="YES" id="5vA-Wz-FyA"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="emp-1S-F7H" secondAttribute="trailing" id="8MQ-qp-YDp"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="emp-1S-F7H" secondAttribute="trailing" constant="20" symbolic="YES" id="8MQ-qp-YDp"/>
                         <constraint firstItem="3CX-Vp-T0h" firstAttribute="top" secondItem="emp-1S-F7H" secondAttribute="bottom" constant="6" symbolic="YES" id="98Y-Qn-lba"/>
-                        <constraint firstItem="emp-1S-F7H" firstAttribute="firstBaseline" secondItem="zba-Ja-Te5" secondAttribute="firstBaseline" id="Hpl-a5-PgC"/>
+                        <constraint firstItem="emp-1S-F7H" firstAttribute="baseline" secondItem="zba-Ja-Te5" secondAttribute="baseline" id="Hpl-a5-PgC"/>
                         <constraint firstItem="XpL-JT-4Ap" firstAttribute="leading" secondItem="4Ry-tR-0w3" secondAttribute="leading" constant="20" symbolic="YES" id="Nek-SD-4W7"/>
-                        <constraint firstItem="XpL-JT-4Ap" firstAttribute="top" secondItem="4Ry-tR-0w3" secondAttribute="top" constant="11" id="RF5-uz-tV6"/>
-                        <constraint firstAttribute="bottom" secondItem="2xF-eJ-cUB" secondAttribute="bottom" constant="11" id="VrE-KU-kVg"/>
+                        <constraint firstAttribute="bottom" secondItem="2xF-eJ-cUB" secondAttribute="bottom" constant="20" symbolic="YES" id="VrE-KU-kVg"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2xF-eJ-cUB" secondAttribute="trailing" constant="20" symbolic="YES" id="Xiq-8v-2P4"/>
                         <constraint firstAttribute="trailing" secondItem="kLA-Cm-c6R" secondAttribute="trailing" priority="750" constant="20" symbolic="YES" id="aAs-Qq-ZFu"/>
                         <constraint firstItem="XpL-JT-4Ap" firstAttribute="firstBaseline" secondItem="kLA-Cm-c6R" secondAttribute="firstBaseline" id="abj-FT-N5b"/>
+                        <constraint firstItem="kLA-Cm-c6R" firstAttribute="top" secondItem="4Ry-tR-0w3" secondAttribute="top" constant="20" symbolic="YES" id="dFX-DF-y5o"/>
                         <constraint firstItem="zba-Ja-Te5" firstAttribute="width" secondItem="XpL-JT-4Ap" secondAttribute="width" id="eHe-AI-a1r"/>
-                        <constraint firstItem="emp-1S-F7H" firstAttribute="top" secondItem="kLA-Cm-c6R" secondAttribute="bottom" constant="6" id="mBM-La-bss"/>
+                        <constraint firstItem="emp-1S-F7H" firstAttribute="top" secondItem="kLA-Cm-c6R" secondAttribute="bottom" constant="8" symbolic="YES" id="mBM-La-bss"/>
                         <constraint firstItem="2xF-eJ-cUB" firstAttribute="top" secondItem="3CX-Vp-T0h" secondAttribute="bottom" constant="6" symbolic="YES" id="p1e-KJ-tzD"/>
                         <constraint firstItem="3CX-Vp-T0h" firstAttribute="leading" secondItem="emp-1S-F7H" secondAttribute="leading" id="plR-zI-CaI"/>
                         <constraint firstItem="zba-Ja-Te5" firstAttribute="leading" secondItem="XpL-JT-4Ap" secondAttribute="leading" id="rg3-lA-fTa"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3CX-Vp-T0h" secondAttribute="trailing" id="rov-FB-RNx"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3CX-Vp-T0h" secondAttribute="trailing" constant="20" symbolic="YES" id="rov-FB-RNx"/>
                         <constraint firstItem="2xF-eJ-cUB" firstAttribute="leading" secondItem="3CX-Vp-T0h" secondAttribute="leading" id="twN-o0-dJ3"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kLA-Cm-c6R" secondAttribute="trailing" constant="20" symbolic="YES" id="zRg-Cf-nqI"/>
                     </constraints>
                 </customView>
             </subviews>

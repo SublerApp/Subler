@@ -339,7 +339,7 @@ final class MetadataSearchController: NSViewController, NSTableViewDataSource, N
         case .additionalSearch(let search, _, _):
             switch search {
             case .movieSeach:
-                progressText.stringValue = NSLocalizedString("Downloading additional movie metadata", comment: "")
+                progressText.stringValue = NSLocalizedString("Downloading additional movie metadata…", comment: "")
             case .tvSearch:
                 progressText.stringValue = NSLocalizedString("Downloading additional TV metadata…", comment: "")
             }

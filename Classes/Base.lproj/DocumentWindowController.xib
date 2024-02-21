@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,7 +21,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="59" y="509" width="520" height="510"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1050"/>
             <value key="minSize" type="size" width="520" height="510"/>
             <view key="contentView" id="rip-YL-WpY">
                 <rect key="frame" x="0.0" y="0.0" width="520" height="510"/>
@@ -45,11 +45,11 @@
                             <action selector="selectFile:" target="-2" id="mTY-vt-vsv"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="5B6FDF6D-9486-49B2-8EA4-184D76D0864C" label="Delete Track" paletteLabel="Delete Track" toolTip="Delete the selected track" image="ToolbarRemoveTemplate" sizingBehavior="auto" id="rhw-S4-nZ8" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
+                    <toolbarItem implicitItemIdentifier="5B6FDF6D-9486-49B2-8EA4-184D76D0864C" label="Delete Track" paletteLabel="Delete Track" toolTip="Delete the selected track" image="NSRemoveTemplate" sizingBehavior="auto" id="rhw-S4-nZ8" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <button key="view" verticalHuggingPriority="750" id="e81-Qg-Ncc">
-                            <rect key="frame" x="23" y="14" width="28" height="23"/>
+                            <rect key="frame" x="24" y="14" width="26" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="ToolbarRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HWd-4N-V3A">
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HWd-4N-V3A">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -73,7 +73,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="9F789D5F-C25E-449F-ABCE-DDF99B4FF988" label="Send to Queue" paletteLabel="Send to Queue" toolTip="Send the current document to the queue" image="ToolbarActionTemplate" sizingBehavior="auto" id="app-IS-8EB" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <button key="view" verticalHuggingPriority="750" id="c38-NC-1I2">
-                            <rect key="frame" x="28" y="14" width="30" height="23"/>
+                            <rect key="frame" x="29" y="14" width="28" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="ToolbarActionTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZbH-ut-l4n">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -84,8 +84,7 @@
                             <action selector="sendToQueue:" target="-1" id="rIw-6k-8we"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="2E3AB086-491A-436E-A610-14E36AEE8F49" label="Action" paletteLabel="Action" image="NSActionTemplate" sizingBehavior="auto" id="V6w-Ey-bjV">
-                        <nil key="toolTip"/>
+                    <toolbarItem implicitItemIdentifier="2E3AB086-491A-436E-A610-14E36AEE8F49" label="Action" paletteLabel="Action" toolTip="Action" image="NSActionTemplate" sizingBehavior="auto" id="V6w-Ey-bjV">
                         <popUpButton key="view" verticalHuggingPriority="750" id="QuP-nB-KsX">
                             <rect key="frame" x="0.0" y="14" width="50" height="25"/>
                             <autoresizingMask key="autoresizingMask"/>
@@ -183,9 +182,9 @@
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="FY3-O2-t3T"/>
-                    <toolbarItem reference="mX6-y6-VZe"/>
-                    <toolbarItem reference="V6w-Ey-bjV"/>
                     <toolbarItem reference="rhw-S4-nZ8"/>
+                    <toolbarItem reference="V6w-Ey-bjV"/>
+                    <toolbarItem reference="mX6-y6-VZe"/>
                     <toolbarItem reference="qX7-s1-81X"/>
                     <toolbarItem reference="Af5-ai-sw9"/>
                     <toolbarItem reference="mX6-y6-VZe"/>
@@ -199,10 +198,10 @@
         </window>
     </objects>
     <resources>
-        <image name="NSActionTemplate" width="15" height="15"/>
-        <image name="NSAddTemplate" width="14" height="13"/>
-        <image name="NSRevealFreestandingTemplate" width="15" height="15"/>
-        <image name="ToolbarActionTemplate" width="24" height="24"/>
-        <image name="ToolbarRemoveTemplate" width="16" height="16"/>
+        <image name="NSActionTemplate" width="20" height="20"/>
+        <image name="NSAddTemplate" width="18" height="17"/>
+        <image name="NSRemoveTemplate" width="18" height="5"/>
+        <image name="NSRevealFreestandingTemplate" width="20" height="20"/>
+        <image name="ToolbarActionTemplate" width="16" height="16"/>
     </resources>
 </document>
