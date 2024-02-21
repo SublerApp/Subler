@@ -1,0 +1,15 @@
+
+/* Class = "NSTableColumn"; headerCell.title = "Language data files"; ObjectID = "7YG-8f-1AH"; */
+"7YG-8f-1AH.headerCell.title" = "Language data files";
+
+/* Class = "NSButtonCell"; title = "Get"; ObjectID = "DIS-cU-NvL"; */
+"DIS-cU-NvL.title" = "Get";
+
+/* Class = "NSTextFieldCell"; title = "Language specific OCR data files can improve the optical character recognition results."; ObjectID = "LFI-zD-ohi"; */
+"LFI-zD-ohi.title" = "Language specific OCR data files can improve the optical character recognition results.";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "XaZ-zW-P04"; */
+"XaZ-zW-P04.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "Zhz-YB-L6R"; */
+"Zhz-YB-L6R.title" = "Table View Cell";

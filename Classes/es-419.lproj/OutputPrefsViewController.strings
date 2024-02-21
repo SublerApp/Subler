@@ -1,0 +1,21 @@
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add metadata"; ObjectID = "dq1-e8-fa6"; */
+"dq1-e8-fa6.ibExternalAccessibilityDescription" = "Add metadata";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add metadata"; ObjectID = "dq1-e8-fa6"; */
+"dq1-e8-fa6.ibShadowedToolTip" = "Add metadata";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add metadata"; ObjectID = "fZZ-im-9BI"; */
+"fZZ-im-9BI.ibExternalAccessibilityDescription" = "Add metadata";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add metadata"; ObjectID = "fZZ-im-9BI"; */
+"fZZ-im-9BI.ibShadowedToolTip" = "Add metadata";
+
+/* Class = "NSTextFieldCell"; title = "Set the format to create a custom filename in the Save As… panel and in the queue."; ObjectID = "hE3-zH-XFE"; */
+"hE3-zH-XFE.title" = "Set the format to create a custom filename in the Save As… panel and in the queue.";
+
+/* Class = "NSButtonCell"; title = "Set filename of TV Shows to:"; ObjectID = "kQC-bu-0by"; */
+"kQC-bu-0by.title" = "Set filename of TV Shows to:";
+
+/* Class = "NSButtonCell"; title = "Set filename of Movies to:"; ObjectID = "wci-gO-GWT"; */
+"wci-gO-GWT.title" = "Set filename of Movies to:";

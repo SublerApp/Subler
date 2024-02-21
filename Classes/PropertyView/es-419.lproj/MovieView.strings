@@ -1,0 +1,96 @@
+
+/* Class = "NSTabViewItem"; label = "Metadata"; ObjectID = "11"; */
+"11.label" = "Metadata";
+
+/* Class = "NSTabViewItem"; label = "Artwork"; ObjectID = "15"; */
+"15.label" = "Artwork";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Add metadata item"; ObjectID = "30"; */
+"30.ibExternalAccessibilityDescription" = "Add metadata item";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Add metadata item"; ObjectID = "30"; */
+"30.ibShadowedToolTip" = "Add metadata item";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "32"; */
+"32.title" = "OtherViews";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove selected item"; ObjectID = "53"; */
+"53.ibExternalAccessibilityDescription" = "Remove selected item";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove selected item"; ObjectID = "53"; */
+"53.ibShadowedToolTip" = "Remove selected item";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "179"; */
+"179.ibExternalAccessibilityDescription" = "Sets";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Sets"; ObjectID = "179"; */
+"179.ibShadowedToolTip" = "Sets";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "181"; */
+"181.title" = "OtherViews";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add an artwork"; ObjectID = "223"; */
+"223.ibExternalAccessibilityDescription" = "Add an artwork";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add an artwork"; ObjectID = "223"; */
+"223.ibShadowedToolTip" = "Add an artwork";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove selected artwork"; ObjectID = "226"; */
+"226.ibExternalAccessibilityDescription" = "Remove selected artwork";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove selected artwork"; ObjectID = "226"; */
+"226.ibShadowedToolTip" = "Remove selected artwork";
+
+/* Class = "NSSlider"; ibExternalAccessibilityDescription = "Change artworks view zoom"; ObjectID = "235"; */
+"235.ibExternalAccessibilityDescription" = "Change artworks view zoom";
+
+/* Class = "NSSlider"; ibShadowedToolTip = "Change artworks view zoom"; ObjectID = "235"; */
+"235.ibShadowedToolTip" = "Change artworks view zoom";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "4p7-7v-cUB"; */
+"4p7-7v-cUB.title" = "Save";
+
+/* Class = "NSMenuItem"; title = "Do not localize"; ObjectID = "6Zb-NM-Mmo"; */
+"6Zb-NM-Mmo.title" = "Do not localize";
+
+/* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "WRR-52-lxo"; */
+"WRR-52-lxo.title" = "Do not localize";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "ZRj-hi-qeJ"; */
+"ZRj-hi-qeJ.title" = "Window";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "ZSc-Yj-nco"; */
+"ZSc-Yj-nco.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "ZqF-j8-NeN"; */
+"ZqF-j8-NeN.title" = "Name:";
+
+/* Class = "NSButtonCell"; title = "Keep existing annotations"; ObjectID = "aiW-0y-PWH"; */
+"aiW-0y-PWH.title" = "Keep existing annotations";
+
+/* Class = "NSButtonCell"; title = "Keep existing artworks"; ObjectID = "doa-uZ-CNr"; */
+"doa-uZ-CNr.title" = "Keep existing artworks";
+
+/* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "ipR-OL-rI2"; */
+"ipR-OL-rI2.title" = "Do not localize";
+
+/* Class = "NSTableColumn"; headerCell.title = "Annotation"; ObjectID = "j7q-XE-YXB"; */
+"j7q-XE-YXB.headerCell.title" = "Annotation";
+
+/* Class = "NSComboBoxCell"; title = "Do not localize"; ObjectID = "jkg-xz-Hbn"; */
+"jkg-xz-Hbn.title" = "Do not localize";
+
+/* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "os0-Yb-exW"; */
+"os0-Yb-exW.headerCell.title" = "Value";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Metadata"; ObjectID = "qg5-r0-E4V"; */
+"qg5-r0-E4V.ibExternalAccessibilityDescription" = "Metadata";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "sNX-Z3-AtD"; */
+"sNX-Z3-AtD.title" = "Cancel";
+
+/* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "uNy-4D-PA4"; */
+"uNy-4D-PA4.title" = "Do not localize";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "zqi-q3-qaM"; */
+"zqi-q3-qaM.title" = "Text Cell";
