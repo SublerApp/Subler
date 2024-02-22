@@ -31,7 +31,6 @@
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Af5-ai-sw9"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="qX7-s1-81X"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="mX6-y6-VZe"/>
                     <toolbarItem implicitItemIdentifier="D2E8E21C-DCD4-456F-B15A-9AC0AA5556DF" label="Import" paletteLabel="Import" toolTip="Import tracks from external files" image="NSAddTemplate" sizingBehavior="auto" id="FY3-O2-t3T" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <button key="view" verticalHuggingPriority="750" id="UZy-eh-ZBz">
                             <rect key="frame" x="8" y="14" width="26" height="23"/>
@@ -90,7 +89,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                             <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="LML-iW-skB" id="LNp-Kr-404">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="menu"/>
+                                <font key="font" usesAppearanceFont="YES"/>
                                 <menu key="menu" id="VNR-O6-D9w">
                                     <items>
                                         <menuItem state="on" image="NSActionTemplate" hidden="YES" id="LML-iW-skB"/>
@@ -184,10 +183,8 @@
                     <toolbarItem reference="FY3-O2-t3T"/>
                     <toolbarItem reference="rhw-S4-nZ8"/>
                     <toolbarItem reference="V6w-Ey-bjV"/>
-                    <toolbarItem reference="mX6-y6-VZe"/>
                     <toolbarItem reference="qX7-s1-81X"/>
                     <toolbarItem reference="Af5-ai-sw9"/>
-                    <toolbarItem reference="mX6-y6-VZe"/>
                     <toolbarItem reference="uiq-J2-uPs"/>
                 </defaultToolbarItems>
             </toolbar>

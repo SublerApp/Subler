@@ -447,3 +447,12 @@
 /* Quit alert description. */
 "Your current queue will be lost. Do you want to quit anyway?" = "La tua coda corrente verrà persa. Vuoi uscire comunque?";
 
+/* No comment provided by engineer. */
+"Mono Audio" = "Audio mono";
+
+/* No comment provided by engineer. */
+"Stereo Audio" = "Audio stereo";
+
+/* No comment provided by engineer. */
+"Surround Audio" = "Audio surround";
+
