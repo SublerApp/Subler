@@ -140,11 +140,11 @@ extension MP42AudioTrack {
 
         // Use channel count to determine track name
         if channelCount == 1 {
-            return "Mono Audio"
+            return NSLocalizedString("Mono Audio", comment: "")
         } else if channelCount == 2 {
-            return "Stereo Audio"
+            return NSLocalizedString("Stereo Audio", comment: "")
         } else {
-            return "Surround Audio"
+            return NSLocalizedString("Surround Audio", comment: "")
         }
     }
 }

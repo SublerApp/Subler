@@ -7,14 +7,23 @@
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "a65-Qy-pSq"; */
 "a65-Qy-pSq.title" = "Cellule de texte";
 
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Edit selected set"; ObjectID = "C1d-lu-T7S"; */
+"C1d-lu-T7S.ibExternalAccessibilityDescription" = "Modifier l'ensemble sélectionné";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Edit selected set"; ObjectID = "C1d-lu-T7S"; */
 "C1d-lu-T7S.ibShadowedToolTip" = "Modifier l'ensemble sélectionné";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Remove selected set"; ObjectID = "gBf-6T-hQv"; */
-"gBf-6T-hQv.ibShadowedToolTip" = "Retirer l'ensemble sélectionné";
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add a new set"; ObjectID = "gBf-6T-hQv"; */
+"gBf-6T-hQv.ibExternalAccessibilityDescription" = "Ajouter un nouvel ensemble";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add a new set"; ObjectID = "gBf-6T-hQv"; */
+"gBf-6T-hQv.ibShadowedToolTip" = "Ajouter un nouvel ensemble";
 
 /* Class = "NSTableView"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "iRF-P7-a3Q"; */
 "iRF-P7-a3Q.ibExternalAccessibilityDescription" = "Ensembles";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove selected set"; ObjectID = "SIg-lA-6FA"; */
+"SIg-lA-6FA.ibExternalAccessibilityDescription" = "Retirer l'ensemble sélectionné";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Remove selected set"; ObjectID = "SIg-lA-6FA"; */
 "SIg-lA-6FA.ibShadowedToolTip" = "Retirer l'ensemble sélectionné";

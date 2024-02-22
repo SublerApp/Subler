@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,12 +15,23 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView misplaced="YES" id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="610" height="220"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="708" height="196"/>
+            <autoresizingMask key="autoresizingMask"/>
             <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pbz-wc-RXA">
+                    <rect key="frame" x="132" y="162" width="444" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14" id="zjg-dP-hYC"/>
+                    </constraints>
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Set the format to create a custom filename in the Save As… panel and in the queue." id="hE3-zH-XFE">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PZS-8W-dno">
-                    <rect key="frame" x="67" y="183" width="184" height="18"/>
+                    <rect key="frame" x="112" y="127" width="462" height="18"/>
                     <buttonCell key="cell" type="check" title="Set filename of Movies to:" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="wci-gO-GWT">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -30,7 +41,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TBF-BD-fSk">
-                    <rect key="frame" x="67" y="104" width="201" height="18"/>
+                    <rect key="frame" x="112" y="62" width="462" height="18"/>
                     <buttonCell key="cell" type="check" title="Set filename of TV Shows to:" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="kQC-bu-0by">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -39,13 +50,13 @@
                         <binding destination="BZm-iR-6oK" name="value" keyPath="values.SBSetTVShowFormat" id="e2b-dq-8JE"/>
                     </connections>
                 </button>
-                <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="i8H-oP-Sif">
-                    <rect key="frame" x="85" y="153" width="440" height="23"/>
+                <tokenField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="i8H-oP-Sif" userLabel="MovieFilenameField">
+                    <rect key="frame" x="134" y="97" width="440" height="23"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="440" id="6Ap-Ey-VHf"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="JPO-az-iic"/>
                     </constraints>
-                    <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" allowsEditingTextAttributes="YES" id="h4P-Ma-djC">
+                    <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" allowsEditingTextAttributes="YES" bezelStyle="round" id="h4P-Ma-djC">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -54,12 +65,12 @@
                         <outlet property="delegate" destination="-2" id="39Q-aI-o60"/>
                     </connections>
                 </tokenField>
-                <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rzc-AK-4Vr">
-                    <rect key="frame" x="85" y="74" width="440" height="23"/>
+                <tokenField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rzc-AK-4Vr" userLabel="TVShowFilenameField">
+                    <rect key="frame" x="134" y="32" width="440" height="23"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="bvK-Gm-JUU"/>
                     </constraints>
-                    <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" allowsEditingTextAttributes="YES" id="aHe-D5-fgj">
+                    <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" allowsEditingTextAttributes="YES" bezelStyle="round" id="aHe-D5-fgj">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -68,62 +79,57 @@
                         <outlet property="delegate" destination="-2" id="mh9-CJ-zVx"/>
                     </connections>
                 </tokenField>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dq1-e8-fa6">
-                    <rect key="frame" x="526" y="148" width="44" height="32"/>
-                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSSmartBadgeTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qsh-5h-jhl">
+                <button toolTip="Add metadata" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dq1-e8-fa6" userLabel="MoviePushButton">
+                    <rect key="frame" x="575" y="92" width="44" height="32"/>
+                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qsh-5h-jhl">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <accessibility description="Add metadata"/>
                     <connections>
                         <action selector="showMovieTokens:" target="-2" id="Er8-nw-di4"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fZZ-im-9BI">
-                    <rect key="frame" x="526" y="69" width="44" height="32"/>
-                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSSmartBadgeTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gf3-DD-hW7">
+                <button toolTip="Add metadata" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fZZ-im-9BI" userLabel="TVShowPushButton">
+                    <rect key="frame" x="575" y="27" width="44" height="32"/>
+                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gf3-DD-hW7">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <accessibility description="Add metadata"/>
                     <connections>
                         <action selector="showTvShowTokens:" target="-2" id="pHZ-v7-U0W"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pbz-wc-RXA">
-                    <rect key="frame" x="83" y="20" width="444" height="34"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="34" id="Y5R-jS-Whb"/>
-                    </constraints>
-                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Set the format to create a custom filename in the Save As… panel and in the queue." id="hE3-zH-XFE">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="Pbz-wc-RXA" secondAttribute="bottom" constant="20" symbolic="YES" id="0R2-Y8-s5e"/>
-                <constraint firstItem="Pbz-wc-RXA" firstAttribute="leading" secondItem="i8H-oP-Sif" secondAttribute="leading" id="4Vz-o1-zSY"/>
-                <constraint firstItem="rzc-AK-4Vr" firstAttribute="leading" secondItem="TBF-BD-fSk" secondAttribute="leading" constant="16" id="Aws-ML-M7P"/>
-                <constraint firstItem="TBF-BD-fSk" firstAttribute="top" secondItem="i8H-oP-Sif" secondAttribute="bottom" constant="32" id="C0O-NO-8Te"/>
+                <constraint firstItem="Pbz-wc-RXA" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" symbolic="YES" id="0R2-Y8-s5e"/>
+                <constraint firstItem="TBF-BD-fSk" firstAttribute="top" secondItem="i8H-oP-Sif" secondAttribute="bottom" constant="18" id="C0O-NO-8Te"/>
+                <constraint firstItem="rzc-AK-4Vr" firstAttribute="leading" secondItem="TBF-BD-fSk" secondAttribute="leading" constant="20" id="C23-YI-yYH"/>
                 <constraint firstItem="dq1-e8-fa6" firstAttribute="centerY" secondItem="i8H-oP-Sif" secondAttribute="centerY" id="Dsc-lq-HSw"/>
-                <constraint firstItem="rzc-AK-4Vr" firstAttribute="top" secondItem="TBF-BD-fSk" secondAttribute="bottom" constant="8" id="FZZ-y5-ycJ"/>
-                <constraint firstItem="PZS-8W-dno" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="GYO-gT-cbH"/>
+                <constraint firstItem="rzc-AK-4Vr" firstAttribute="top" secondItem="TBF-BD-fSk" secondAttribute="bottom" constant="8" symbolic="YES" id="FZZ-y5-ycJ"/>
                 <constraint firstItem="i8H-oP-Sif" firstAttribute="top" secondItem="PZS-8W-dno" secondAttribute="bottom" constant="8" id="Mvi-1G-Dhn"/>
-                <constraint firstItem="Pbz-wc-RXA" firstAttribute="top" secondItem="rzc-AK-4Vr" secondAttribute="bottom" constant="20" id="ZQc-Um-c3U"/>
-                <constraint firstItem="i8H-oP-Sif" firstAttribute="leading" secondItem="PZS-8W-dno" secondAttribute="leading" constant="16" id="ael-zI-oHU"/>
-                <constraint firstItem="TBF-BD-fSk" firstAttribute="leading" secondItem="PZS-8W-dno" secondAttribute="leading" id="cyH-w2-B1O"/>
-                <constraint firstItem="dq1-e8-fa6" firstAttribute="leading" secondItem="i8H-oP-Sif" secondAttribute="trailing" constant="8" id="dhO-Zz-g71"/>
+                <constraint firstItem="rzc-AK-4Vr" firstAttribute="leading" secondItem="PZS-8W-dno" secondAttribute="leading" constant="20" id="PP8-Av-1CF"/>
+                <constraint firstItem="PZS-8W-dno" firstAttribute="top" secondItem="Pbz-wc-RXA" secondAttribute="bottom" constant="18" id="QN9-Yr-xcs"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fZZ-im-9BI" secondAttribute="trailing" constant="20" symbolic="YES" id="T24-9u-WCd"/>
+                <constraint firstItem="rzc-AK-4Vr" firstAttribute="leading" secondItem="i8H-oP-Sif" secondAttribute="leading" id="Tmo-BE-ENJ"/>
+                <constraint firstItem="TBF-BD-fSk" firstAttribute="trailing" secondItem="rzc-AK-4Vr" secondAttribute="trailing" id="YmF-yr-8Zg"/>
+                <constraint firstItem="dq1-e8-fa6" firstAttribute="leading" secondItem="i8H-oP-Sif" secondAttribute="trailing" constant="8" symbolic="YES" id="dhO-Zz-g71"/>
+                <constraint firstItem="rzc-AK-4Vr" firstAttribute="leading" secondItem="Pbz-wc-RXA" secondAttribute="leading" id="g7o-lb-r0O"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dq1-e8-fa6" secondAttribute="trailing" constant="20" symbolic="YES" id="gui-Uv-2yY"/>
                 <constraint firstItem="fZZ-im-9BI" firstAttribute="centerY" secondItem="rzc-AK-4Vr" secondAttribute="centerY" id="gzL-hH-eGN"/>
-                <constraint firstItem="Pbz-wc-RXA" firstAttribute="trailing" secondItem="i8H-oP-Sif" secondAttribute="trailing" id="ipc-wG-c2z"/>
+                <constraint firstAttribute="bottom" secondItem="rzc-AK-4Vr" secondAttribute="bottom" constant="32" id="kML-fr-Qcc"/>
                 <constraint firstItem="fZZ-im-9BI" firstAttribute="leading" secondItem="rzc-AK-4Vr" secondAttribute="trailing" constant="8" id="kZg-YA-eMU"/>
+                <constraint firstItem="PZS-8W-dno" firstAttribute="trailing" secondItem="rzc-AK-4Vr" secondAttribute="trailing" id="lk9-Bu-RsX"/>
                 <constraint firstItem="i8H-oP-Sif" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="n4G-w8-dKr"/>
                 <constraint firstItem="i8H-oP-Sif" firstAttribute="width" secondItem="rzc-AK-4Vr" secondAttribute="width" id="xG0-RB-Iyt"/>
+                <constraint firstItem="Pbz-wc-RXA" firstAttribute="trailing" secondItem="rzc-AK-4Vr" secondAttribute="trailing" id="yKS-9z-lYv"/>
             </constraints>
             <point key="canvasLocation" x="-186" y="-587"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="BZm-iR-6oK"/>
     </objects>
     <resources>
-        <image name="NSSmartBadgeTemplate" width="14" height="14"/>
+        <image name="NSAddTemplate" width="18" height="17"/>
     </resources>
 </document>

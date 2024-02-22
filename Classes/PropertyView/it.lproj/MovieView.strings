@@ -22,6 +22,27 @@
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "179"; */
 "179.ibExternalAccessibilityDescription" = "Preset";
 
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Sets"; ObjectID = "179"; */
+"179.ibShadowedToolTip" = "Preset";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add an artwork"; ObjectID = "223"; */
+"223.ibExternalAccessibilityDescription" = "Aggiungi un'illustrazione";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add an artwork"; ObjectID = "223"; */
+"223.ibShadowedToolTip" = "Aggiungi un'illustrazione";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove selected artwork"; ObjectID = "226"; */
+"226.ibExternalAccessibilityDescription" = "Rimuovi l'illustrazione selezionata";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove selected artwork"; ObjectID = "226"; */
+"226.ibShadowedToolTip" = "Rimuovi l'illustrazione selezionata";
+
+/* Class = "NSSlider"; ibExternalAccessibilityDescription = "Change artworks view zoom"; ObjectID = "235"; */
+"235.ibExternalAccessibilityDescription" = "Cambia il livello di zoom della vista delle illustrazioni";
+
+/* Class = "NSSlider"; ibShadowedToolTip = "Change artworks view zoom"; ObjectID = "235"; */
+"235.ibShadowedToolTip" = "Cambia il livello di zoom della vista delle illustrazioni";
+
 /* Class = "NSButtonCell"; title = "Keep existing annotations"; ObjectID = "aiW-0y-PWH"; */
 "aiW-0y-PWH.title" = "Mantieni le annotazioni esistenti";
 

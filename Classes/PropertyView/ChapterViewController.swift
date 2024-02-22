@@ -119,7 +119,7 @@ final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTable
     }
 
     @IBAction func addChapter(_ sender: Any) {
-        track.addChapter("Chapter", duration: 0)
+        track.addChapter(NSLocalizedString("Chapter", comment: "Chapter"), duration: 0)
 
         tableView.reloadData()
         updateChangeCount()
@@ -127,7 +127,7 @@ final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTable
 
     @IBAction func renameChapters(_ sender: Any) {
         for (index, chapter) in track.chapters.enumerated() {
-            let title = "Chapter \(index + 1)"
+            let title = NSLocalizedString("Chapter", comment: "Chapter") + " \(index + 1)"
             track.setTitle(title, forChapter: chapter)
         }
         tableView.reloadData()

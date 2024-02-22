@@ -291,11 +291,11 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
 
         if minutes > 0 {
             for (index, duration) in stride(from: 0, to: mp4.duration, by: minutes).enumerated() {
-                track.addChapter("Chapter \(index + 1)", duration: UInt64(duration))
+                track.addChapter(NSLocalizedString("Chapter", comment: "Chapter") + " \(index + 1)", duration: UInt64(duration))
             }
         }
         else {
-            track.addChapter("Chapter 1", duration: UInt64(mp4.duration))
+            track.addChapter("\(NSLocalizedString("Chapter", comment: "Chapter")) 1", duration: UInt64(mp4.duration))
         }
 
         doc.updateChangeCount(.changeDone)

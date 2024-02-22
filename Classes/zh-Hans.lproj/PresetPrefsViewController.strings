@@ -7,14 +7,23 @@
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "a65-Qy-pSq"; */
 "a65-Qy-pSq.title" = "Text Cell";
 
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Edit selected set"; ObjectID = "C1d-lu-T7S"; */
+"C1d-lu-T7S.ibExternalAccessibilityDescription" = "编辑所选预设";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Edit selected set"; ObjectID = "C1d-lu-T7S"; */
 "C1d-lu-T7S.ibShadowedToolTip" = "编辑所选预设";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Remove selected set"; ObjectID = "gBf-6T-hQv"; */
-"gBf-6T-hQv.ibShadowedToolTip" = "移除所选预设";
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add a new set"; ObjectID = "gBf-6T-hQv"; */
+"gBf-6T-hQv.ibExternalAccessibilityDescription" = "添加新预设";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add a new set"; ObjectID = "gBf-6T-hQv"; */
+"gBf-6T-hQv.ibShadowedToolTip" = "添加新预设";
 
 /* Class = "NSTableView"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "iRF-P7-a3Q"; */
 "iRF-P7-a3Q.ibExternalAccessibilityDescription" = "预设";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove selected set"; ObjectID = "SIg-lA-6FA"; */
+"SIg-lA-6FA.ibExternalAccessibilityDescription" = "移除所选预设";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Remove selected set"; ObjectID = "SIg-lA-6FA"; */
 "SIg-lA-6FA.ibShadowedToolTip" = "移除所选预设";

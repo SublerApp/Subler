@@ -16,8 +16,14 @@
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "27"; */
 "27.title" = "Text Cell";
 
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Delete selected chapter"; ObjectID = "31"; */
+"31.ibExternalAccessibilityDescription" = "删除所选章节";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Delete selected chapter"; ObjectID = "31"; */
 "31.ibShadowedToolTip" = "删除所选章节";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Add chapter"; ObjectID = "42"; */
+"42.ibExternalAccessibilityDescription" = "添加章节";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Add chapter"; ObjectID = "42"; */
 "42.ibShadowedToolTip" = "添加章节";
@@ -33,4 +39,10 @@
 
 /* Class = "NSMenu"; title = "OtherViews"; ObjectID = "T3N-JJ-mWq"; */
 "T3N-JJ-mWq.title" = "OtherViews";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Show more actions"; ObjectID = "IvH-Ff-dyN"; */
+"IvH-Ff-dyN.ibExternalAccessibilityDescription" = "显示更多动作";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "More actions"; ObjectID = "IvH-Ff-dyN"; */
+"IvH-Ff-dyN.ibShadowedToolTip" = "更多操作";
 

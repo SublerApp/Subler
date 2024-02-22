@@ -22,6 +22,9 @@
 /* Class = "NSTableColumn"; headerCell.title = "Type"; ObjectID = "gwa-XG-q0L"; */
 "gwa-XG-q0L.headerCell.title" = "类型";
 
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Add annotation"; ObjectID = "Jdh-Cj-6ef"; */
+"Jdh-Cj-6ef.ibExternalAccessibilityDescription" = "添加注释条目";
+
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Add annotation"; ObjectID = "Jdh-Cj-6ef"; */
 "Jdh-Cj-6ef.ibShadowedToolTip" = "添加注释条目";
 
@@ -30,6 +33,12 @@
 
 /* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "ko1-Cf-TEq"; */
 "ko1-Cf-TEq.title" = "Do not localize";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Restore Defaults"; ObjectID = "BkU-sx-jUf"; */
+"BkU-sx-jUf.ibExternalAccessibilityDescription" = "恢复默认";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Restore Defaults"; ObjectID = "BkU-sx-jUf"; */
+"BkU-sx-jUf.ibShadowedToolTip" = "恢复默认";
 
 /* Class = "NSButtonCell"; title = "Restore Defaults"; ObjectID = "nBh-jv-KDG"; */
 "nBh-jv-KDG.title" = "恢复默认";

@@ -22,6 +22,9 @@
 /* Class = "NSTableColumn"; headerCell.title = "Type"; ObjectID = "gwa-XG-q0L"; */
 "gwa-XG-q0L.headerCell.title" = "Type";
 
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Add annotation"; ObjectID = "Jdh-Cj-6ef"; */
+"Jdh-Cj-6ef.ibExternalAccessibilityDescription" = "Ajouter une annotation";
+
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Add annotation"; ObjectID = "Jdh-Cj-6ef"; */
 "Jdh-Cj-6ef.ibShadowedToolTip" = "Ajouter une annotation";
 
@@ -30,6 +33,12 @@
 
 /* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "ko1-Cf-TEq"; */
 "ko1-Cf-TEq.title" = "Ne pas localiser";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Restore Defaults"; ObjectID = "BkU-sx-jUf"; */
+"BkU-sx-jUf.ibExternalAccessibilityDescription" = "Rétablir les valeurs par défaut";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Restore Defaults"; ObjectID = "BkU-sx-jUf"; */
+"BkU-sx-jUf.ibShadowedToolTip" = "Rétablir les valeurs par défaut";
 
 /* Class = "NSButtonCell"; title = "Restore Defaults"; ObjectID = "nBh-jv-KDG"; */
 "nBh-jv-KDG.title" = "Rétablir les valeurs par défaut";

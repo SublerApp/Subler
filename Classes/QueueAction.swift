@@ -481,7 +481,7 @@ class QueueRenameChaptersAction : NSObject, QueueActionProtocol {
 
         chaptersTracks.forEach {
             for (index, chapter) in $0.chapters.enumerated() {
-                let title = "Chapter \(index + 1)"
+                let title = NSLocalizedString("Chapter", comment: "Chapter") + " \(index + 1)"
                 $0.setTitle(title, forChapter: chapter)
             }
         }
