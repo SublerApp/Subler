@@ -611,3 +611,90 @@ class QueueSendToiTunesAction: NSObject, QueueActionProtocol {
     required init?(coder aDecoder: NSCoder) {}
     static var supportsSecureCoding: Bool { return true }
 }
+
+//MARK: Change Tracks by Language
+/// An action that changes the selected audio track to the language preferred, if such a track exists
+class QueueChangeAudioLanguageAction : NSObject, QueueActionProtocol {
+
+    var type: QueueActionType { return .pre }
+    var localizedDescription: String { return NSLocalizedString("Changing selected audio tracks by language", comment: "Change Audio Tracks local description") }
+    override var description: String { return NSLocalizedString("Changing selected audio tracks by language", comment: "Change Audio Tracks action description") }
+
+    let language: String
+
+    init(language: String) {
+        self.language = language
+    }
+
+    func runAction(_ item: QueueItem) -> Bool {
+        if let tracks = item.mp4File?.tracks {
+            for track in tracks {
+                if track.mediaType == kMP42MediaType_Audio {
+                    if track.language == language {
+                        track.isEnabled = true
+                    }
+                    else {
+                        track.isEnabled = false
+                    }
+                }
+            }
+        }
+        return true
+    }
+
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(language, forKey: "SBQueueChangeAudioLanguageAction")
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        guard let language = aDecoder.decodeObject(of: NSString.self, forKey: "SBQueueChangeAudioLanguageAction") as String?
+            else { return nil }
+        self.language = language
+    }
+
+    static var supportsSecureCoding: Bool { return true }
+
+}
+/// An action that changes the selected subtitle  track to the language preferred, if such a track exists
+class QueueChangeSubtitleLanguageAction : NSObject, QueueActionProtocol {
+
+    var type: QueueActionType { return .pre }
+    var localizedDescription: String { return NSLocalizedString("Changing selected subtitle tracks by language", comment: "Change Subtitle Tracks local description") }
+    override var description: String { return NSLocalizedString("Changing selected subtitle tracks by language", comment: "Change Subtitle Tracks action description") }
+
+    let language: String
+
+    init(language: String) {
+        self.language = language
+    }
+
+    func runAction(_ item: QueueItem) -> Bool {
+        if let tracks = item.mp4File?.tracks {
+            for track in tracks {
+                if track.mediaType == kMP42MediaType_Subtitle ||
+                    track.mediaType == kMP42MediaType_ClosedCaption {
+                    if track.language == language {
+                        track.isEnabled = true
+                    }
+                    else {
+                        track.isEnabled = false
+                    }
+                }
+            }
+        }
+        return true
+    }
+
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(language, forKey: "SBQueueChangeSubtitleLanguageAction")
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        guard let language = aDecoder.decodeObject(of: NSString.self, forKey: "SBQueueChangeSubtitleLanguageAction") as String?
+            else { return nil }
+        self.language = language
+    }
+
+    static var supportsSecureCoding: Bool { return true }
+
+}

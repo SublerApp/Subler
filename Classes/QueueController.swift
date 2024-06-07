@@ -289,7 +289,13 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         if prefs.sendToiTunes {
             item.addAction(QueueSendToiTunesAction())
         }
-
+ //MARK: Change Selected Tracks by Language
+        if prefs.changeAudioLanguage {
+            item.addAction(QueueChangeAudioLanguageAction(language: prefs.changeAudioLanguageValue))
+        }
+        if prefs.changeSubtitleLanguage {
+            item.addAction(QueueChangeSubtitleLanguageAction(language: prefs.changeSubtitleLanguageValue))
+        }
         return item
     }
 
