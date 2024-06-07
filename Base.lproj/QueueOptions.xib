@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18121" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18121"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,11 +16,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="UlG-O3-eNc" userLabel="OptionsView">
-            <rect key="frame" x="0.0" y="0.0" width="385" height="553"/>
+            <rect key="frame" x="0.0" y="0.0" width="385" height="639"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="zEH-aV-Tl7">
-                    <rect key="frame" x="112" y="79" width="68" height="16"/>
+                <button ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zEH-aV-Tl7">
+                    <rect key="frame" x="112" y="165" width="68" height="16"/>
                     <buttonCell key="cell" type="check" title="Optimize" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="nig-pN-efw">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -34,7 +34,7 @@
                     </connections>
                 </button>
                 <button toolTip="Clear existing metadata" translatesAutoresizingMaskIntoConstraints="NO" id="9GN-f6-r2j">
-                    <rect key="frame" x="112" y="528" width="145" height="16"/>
+                    <rect key="frame" x="112" y="614" width="145" height="16"/>
                     <buttonCell key="cell" type="check" title="Clear existing metadata" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="QNO-e1-WUJ">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -47,8 +47,8 @@
                         </binding>
                     </connections>
                 </button>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="MGZ-hB-jhx">
-                    <rect key="frame" x="112" y="29" width="133" height="16"/>
+                <button ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MGZ-hB-jhx">
+                    <rect key="frame" x="112" y="115" width="132" height="16"/>
                     <buttonCell key="cell" type="check" title="Auto-Start the queue" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="LYO-G0-9jA">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -61,8 +61,8 @@
                         </binding>
                     </connections>
                 </button>
-                <button toolTip="Organize the mp4 alternate groups" translatesAutoresizingMaskIntoConstraints="NO" id="ccd-Xn-Dj3">
-                    <rect key="frame" x="112" y="361" width="110" height="16"/>
+                <button toolTip="Organize the mp4 alternate groups" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ccd-Xn-Dj3">
+                    <rect key="frame" x="112" y="447" width="110" height="16"/>
                     <buttonCell key="cell" type="check" title="Organize Groups" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="240-c7-2UW">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -75,8 +75,8 @@
                         </binding>
                     </connections>
                 </button>
-                <button toolTip="Load the external srt subtitles file" translatesAutoresizingMaskIntoConstraints="NO" id="etc-K7-Atw">
-                    <rect key="frame" x="112" y="321" width="141" height="16"/>
+                <button toolTip="Load the external srt subtitles file" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="etc-K7-Atw">
+                    <rect key="frame" x="112" y="407" width="141" height="16"/>
                     <buttonCell key="cell" type="check" title="Load external subtitles" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="59T-kp-mV1">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -89,8 +89,8 @@
                         </binding>
                     </connections>
                 </button>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="86l-GG-SpO">
-                    <rect key="frame" x="176" y="121" width="128" height="17"/>
+                <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="86l-GG-SpO">
+                    <rect key="frame" x="176" y="207" width="128" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" imagePosition="left" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="6jC-r9-LzT" id="8bb-Gy-KAS">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -115,19 +115,16 @@
                         <accessibilityConnection property="title" destination="vJ5-JB-k1m" id="D3Y-SD-Lcc"/>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="vJ5-JB-k1m">
-                    <rect key="frame" x="111" y="123" width="62" height="14"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="vJ5-JB-k1m">
+                    <rect key="frame" x="111" y="209" width="62" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Location:" id="17e-9u-rVn">
                         <font key="font" metaFont="smallSystemBold"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KWg-Ak-bB6">
-                    <rect key="frame" x="176" y="101" width="128" height="17"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="128" id="FJx-GH-nWg"/>
-                    </constraints>
+                <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KWg-Ak-bB6">
+                    <rect key="frame" x="176" y="187" width="128" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" title="mp4" bezelStyle="roundedRect" imagePosition="left" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="10" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="iXb-rA-1f3" id="Tgc-fW-mN5">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -138,29 +135,32 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="128" id="FJx-GH-nWg"/>
+                    </constraints>
                     <connections>
                         <accessibilityConnection property="title" destination="muY-E0-hVI" id="iFi-gQ-ERy"/>
                         <binding destination="-2" name="selectedValue" keyPath="self.options.fileType" id="cpt-5g-SPz"/>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="muY-E0-hVI">
-                    <rect key="frame" x="111" y="103" width="62" height="14"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="muY-E0-hVI">
+                    <rect key="frame" x="111" y="189" width="62" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="File Type:" id="UbR-KJ-8iR">
                         <font key="font" metaFont="smallSystemBold"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="NhN-Lg-awX">
-                    <rect key="frame" x="111" y="155" width="62" height="14"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="NhN-Lg-awX">
+                    <rect key="frame" x="111" y="229" width="62" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Apply Set:" id="9gt-mI-zIV">
                         <font key="font" metaFont="smallSystemBold"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="eTL-yP-QQ5">
-                    <rect key="frame" x="123" y="498" width="48" height="14"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="eTL-yP-QQ5">
+                    <rect key="frame" x="123" y="572" width="48" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Movies:" id="W6m-cd-JMe">
                         <font key="font" metaFont="smallSystemBold"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -170,8 +170,8 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.searchMetadata" id="b58-Sd-wqT"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="bDo-OD-bck">
-                    <rect key="frame" x="123" y="452" width="63" height="14"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="bDo-OD-bck">
+                    <rect key="frame" x="123" y="526" width="63" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="TV Shows:" id="PCe-Pw-D2s">
                         <font key="font" metaFont="smallSystemBold"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -181,24 +181,24 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.searchMetadata" id="VZ7-3B-gA7"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="Uoo-hZ-D1f">
-                    <rect key="frame" x="18" y="30" width="89" height="14"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="Uoo-hZ-D1f">
+                    <rect key="frame" x="18" y="116" width="89" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Global options:" id="NBN-VA-pg2">
                         <font key="font" metaFont="smallSystemBold"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="S7L-mA-j3Y">
-                    <rect key="frame" x="18" y="529" width="89" height="14"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="S7L-mA-j3Y">
+                    <rect key="frame" x="18" y="615" width="89" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Add item:" id="9ls-xq-YGz">
                         <font key="font" metaFont="smallSystemBold"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DVM-Js-DwK">
-                    <rect key="frame" x="176" y="141" width="128" height="17"/>
+                <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DVM-Js-DwK">
+                    <rect key="frame" x="176" y="227" width="128" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bQx-xN-b3H">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -226,16 +226,16 @@
                         </binding>
                     </connections>
                 </popUpButton>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZVm-yi-3cE">
-                    <rect key="frame" x="177" y="484" width="111" height="17"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="111" id="GuB-yU-C8O"/>
-                    </constraints>
+                <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZVm-yi-3cE">
+                    <rect key="frame" x="177" y="570" width="111" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CbR-eu-sGI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
                         <menu key="menu" title="OtherViews" id="ptP-wd-Rxc"/>
                     </popUpButtonCell>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="111" id="GuB-yU-C8O"/>
+                    </constraints>
                     <connections>
                         <accessibilityConnection property="title" destination="eTL-yP-QQ5" id="yqm-mb-EEC"/>
                         <binding destination="-2" name="selectedObject" keyPath="options.movieProvider" previousBinding="crR-iB-g3d" id="R8x-s5-7kx">
@@ -253,8 +253,8 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.searchMetadata" id="qbd-lB-tlh"/>
                     </connections>
                 </popUpButton>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tLh-V3-OfB">
-                    <rect key="frame" x="192" y="438" width="111" height="17"/>
+                <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tLh-V3-OfB">
+                    <rect key="frame" x="192" y="524" width="111" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UOb-Qe-IPw">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -277,8 +277,8 @@
                         </binding>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="BWL-Nn-iGH">
-                    <rect key="frame" x="133" y="432" width="63" height="14"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="BWL-Nn-iGH">
+                    <rect key="frame" x="133" y="506" width="63" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Language:" id="1dC-y4-0rx">
                         <font key="font" metaFont="smallSystemBold"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -288,8 +288,8 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.searchMetadata" id="ZDg-5s-ifn"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="Ns9-7q-hsh">
-                    <rect key="frame" x="123" y="392" width="54" height="14"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="Ns9-7q-hsh">
+                    <rect key="frame" x="123" y="478" width="54" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Artwork:" id="1HP-Np-D97">
                         <font key="font" metaFont="smallSystemBold"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -299,8 +299,8 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.searchMetadata" id="P4n-8a-tkn"/>
                     </connections>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ce4-O7-Iu4">
-                    <rect key="frame" x="202" y="418" width="111" height="17"/>
+                <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ce4-O7-Iu4">
+                    <rect key="frame" x="202" y="504" width="111" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nqF-p0-mT7">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -324,8 +324,8 @@
                         </binding>
                     </connections>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="73q-gi-fe2">
-                    <rect key="frame" x="133" y="478" width="63" height="14"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="73q-gi-fe2">
+                    <rect key="frame" x="133" y="552" width="63" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Language:" id="VkG-jW-ibO">
                         <font key="font" metaFont="smallSystemBold"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -335,8 +335,8 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.searchMetadata" id="iM6-pw-fHA"/>
                     </connections>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5rh-cM-iOg">
-                    <rect key="frame" x="202" y="464" width="111" height="17"/>
+                <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5rh-cM-iOg">
+                    <rect key="frame" x="202" y="550" width="111" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gZb-sF-UQs">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -360,8 +360,8 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.searchMetadata" id="Wpf-TY-gSh"/>
                     </connections>
                 </popUpButton>
-                <button toolTip="Organize the audio fallbacks" translatesAutoresizingMaskIntoConstraints="NO" id="TV6-Sk-Bqr">
-                    <rect key="frame" x="112" y="341" width="118" height="16"/>
+                <button toolTip="Organize the audio fallbacks" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TV6-Sk-Bqr">
+                    <rect key="frame" x="112" y="427" width="118" height="16"/>
                     <buttonCell key="cell" type="check" title="Fix audio fallbacks" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="W6u-1c-BsI">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -374,8 +374,8 @@
                         </binding>
                     </connections>
                 </button>
-                <button toolTip="Set tracks without a language to the selected one" translatesAutoresizingMaskIntoConstraints="NO" id="slL-2h-MPl">
-                    <rect key="frame" x="112" y="241" width="159" height="16"/>
+                <button toolTip="Set tracks without a language to the selected one" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="slL-2h-MPl">
+                    <rect key="frame" x="112" y="327" width="159" height="16"/>
                     <buttonCell key="cell" type="check" title="Complete tracks language" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="cxz-2q-RIP">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -388,8 +388,8 @@
                         </binding>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="swT-iM-shZ">
-                    <rect key="frame" x="133" y="235" width="63" height="14"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="swT-iM-shZ">
+                    <rect key="frame" x="133" y="309" width="63" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Language:" id="GBM-Sa-9GJ">
                         <font key="font" metaFont="smallSystemBold"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -399,16 +399,16 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.fixTrackLanguage" id="PeH-Tg-UKf"/>
                     </connections>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZZk-4j-Ji7">
-                    <rect key="frame" x="203" y="221" width="112" height="17"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="112" id="jXG-U4-57N"/>
-                    </constraints>
+                <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZk-4j-Ji7">
+                    <rect key="frame" x="203" y="307" width="112" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kEh-SN-iHZ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
                         <menu key="menu" title="OtherViews" id="LfV-JG-4EY"/>
                     </popUpButtonCell>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="112" id="jXG-U4-57N"/>
+                    </constraints>
                     <connections>
                         <accessibilityConnection property="title" destination="swT-iM-shZ" id="WOm-Jt-xnu"/>
                         <binding destination="-2" name="selectedObject" keyPath="options.fixTrackLanguageValue" previousBinding="Xnw-Nt-5dZ" id="Vzu-Pl-ueX">
@@ -427,8 +427,8 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.fixTrackLanguage" id="iYk-sU-PL5"/>
                     </connections>
                 </popUpButton>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="yI9-2a-q2a">
-                    <rect key="frame" x="112" y="9" width="178" height="16"/>
+                <button ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yI9-2a-q2a">
+                    <rect key="frame" x="112" y="95" width="178" height="16"/>
                     <buttonCell key="cell" type="check" title="Show Notification When Done" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="n6P-IC-SEp">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -441,8 +441,8 @@
                         </binding>
                     </connections>
                 </button>
-                <button toolTip="Delete all custom track names" translatesAutoresizingMaskIntoConstraints="NO" id="22k-mA-HyA">
-                    <rect key="frame" x="112" y="301" width="122" height="16"/>
+                <button toolTip="Delete all custom track names" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22k-mA-HyA">
+                    <rect key="frame" x="112" y="387" width="122" height="16"/>
                     <buttonCell key="cell" type="check" title="Clear tracks names" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="mtK-5C-Pzh">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -455,8 +455,8 @@
                         </binding>
                     </connections>
                 </button>
-                <button toolTip="Rename audio tracks according to channel count (Mono, Stereo, Surround)" translatesAutoresizingMaskIntoConstraints="NO" id="81E-pQ-vyQ">
-                    <rect key="frame" x="112" y="281" width="159" height="16"/>
+                <button toolTip="Rename audio tracks according to channel count (Mono, Stereo, Surround)" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="81E-pQ-vyQ">
+                    <rect key="frame" x="112" y="367" width="159" height="16"/>
                     <buttonCell key="cell" type="check" title="Prettify audio track names" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="akF-dR-OPB" userLabel="Prettify audio track names">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -469,8 +469,8 @@
                         </binding>
                     </connections>
                 </button>
-                <button toolTip="Rename chapters titles to &quot;Chapter N&quot; format." translatesAutoresizingMaskIntoConstraints="NO" id="0qr-Nt-Pan">
-                    <rect key="frame" x="112" y="261" width="142" height="16"/>
+                <button toolTip="Rename chapters titles to &quot;Chapter N&quot; format." ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0qr-Nt-Pan">
+                    <rect key="frame" x="112" y="347" width="142" height="16"/>
                     <buttonCell key="cell" type="check" title="Rename chapters titles" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="yFm-Nq-s66" userLabel="Prettify audio track names">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -483,8 +483,8 @@
                         </binding>
                     </connections>
                 </button>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="08Q-2k-0Gb">
-                    <rect key="frame" x="183" y="390" width="70" height="17"/>
+                <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="08Q-2k-0Gb">
+                    <rect key="frame" x="183" y="476" width="70" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" title="Poster" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="YjX-6f-SPu" id="1t8-o9-ckI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -514,8 +514,8 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.searchMetadata" id="YP1-Ux-HEP"/>
                     </connections>
                 </popUpButton>
-                <button toolTip="Set the color space of video tracks to the selected one" translatesAutoresizingMaskIntoConstraints="NO" id="Pdq-s0-erT">
-                    <rect key="frame" x="112" y="203" width="115" height="16"/>
+                <button toolTip="Set the color space of video tracks to the selected one" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pdq-s0-erT">
+                    <rect key="frame" x="112" y="289" width="115" height="16"/>
                     <buttonCell key="cell" type="check" title="Apply color space" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="0By-RQ-4mS">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -528,8 +528,8 @@
                         </binding>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="2Hf-2V-95U">
-                    <rect key="frame" x="133" y="185" width="76" height="14"/>
+                <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="2Hf-2V-95U">
+                    <rect key="frame" x="133" y="271" width="76" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Color Space:" id="tMS-Tg-pPf">
                         <font key="font" metaFont="smallSystemBold"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -539,11 +539,8 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.applyColorSpace" id="I0m-dP-zcJ"/>
                     </connections>
                 </textField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s2g-Iz-52P">
-                    <rect key="frame" x="216" y="183" width="147" height="17"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="111" id="57c-cZ-60x"/>
-                    </constraints>
+                <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s2g-Iz-52P">
+                    <rect key="frame" x="216" y="269" width="147" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" title="Implicit" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="psY-0V-t0k" id="QT5-Bh-4Hc">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -562,14 +559,17 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="111" id="57c-cZ-60x"/>
+                    </constraints>
                     <connections>
                         <accessibilityConnection property="title" destination="2Hf-2V-95U" id="Eze-Wq-wVA"/>
                         <binding destination="-2" name="selectedTag" keyPath="options.applyColorSpaceValue" id="8Op-fu-qSJ"/>
                         <binding destination="-2" name="enabled" keyPath="self.options.applyColorSpace" id="XeN-JD-eln"/>
                     </connections>
                 </popUpButton>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hjl-i0-gFW">
-                    <rect key="frame" x="112" y="165" width="124" height="16"/>
+                <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hjl-i0-gFW">
+                    <rect key="frame" x="112" y="251" width="124" height="16"/>
                     <buttonCell key="cell" type="check" title="Set output filename" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="Qld-0F-DsX">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -578,8 +578,8 @@
                         <binding destination="-2" name="value" keyPath="self.options.setOutputFilename" id="THt-yK-839"/>
                     </connections>
                 </button>
-                <button toolTip="Search metadata online" translatesAutoresizingMaskIntoConstraints="NO" id="s8r-Cf-VfB">
-                    <rect key="frame" x="112" y="508" width="103" height="16"/>
+                <button toolTip="Search metadata online" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s8r-Cf-VfB">
+                    <rect key="frame" x="112" y="594" width="103" height="16"/>
                     <buttonCell key="cell" type="check" title="Fetch Metadata" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="h5x-un-6cJ">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -592,8 +592,8 @@
                         </binding>
                     </connections>
                 </button>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="zVi-vU-sh2">
-                    <rect key="frame" x="112" y="59" width="99" height="16"/>
+                <button ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zVi-vU-sh2">
+                    <rect key="frame" x="112" y="145" width="99" height="16"/>
                     <buttonCell key="cell" type="check" title="Send to iTunes" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="4an-VK-S2u">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -606,8 +606,8 @@
                         </binding>
                     </connections>
                 </button>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="k33-Yf-DbF">
-                    <rect key="frame" x="259" y="390" width="73" height="17"/>
+                <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k33-Yf-DbF">
+                    <rect key="frame" x="259" y="476" width="73" height="17"/>
                     <popUpButtonCell key="cell" type="roundRect" title="Standard" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="goC-ck-how" id="obA-0k-yqE">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -629,6 +629,90 @@
                         <accessibilityConnection property="title" destination="Ns9-7q-hsh" id="Fni-7J-XtV"/>
                         <binding destination="-2" name="selectedTag" keyPath="options.providerArtworkSize" id="FCF-C0-eNc"/>
                         <binding destination="-2" name="enabled" keyPath="self.options.searchMetadata" id="UK3-vK-Ddd"/>
+                    </connections>
+                </popUpButton>
+                <button allowsExpansionToolTips="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zdQ-fL-xQ2" userLabel="Change Audio Track Language">
+                    <rect key="frame" x="112" y="75" width="181" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Change Audio Track Language" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="6AZ-92-F7p">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="self.options.changeAudioLanguage" id="VhN-Ke-WHx">
+                            <dictionary key="options">
+                                <bool key="NSValidatesImmediately" value="YES"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </button>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7UW-Eb-LpP">
+                    <rect key="frame" x="133" y="55" width="63" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Language:" id="VMV-RK-OUP">
+                        <font key="font" metaFont="smallSystemBold"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r10-Cg-iI4">
+                    <rect key="frame" x="203" y="58" width="117" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="pvS-gK-aXr" id="xIS-JV-Mef">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="11" name="HelveticaNeue"/>
+                        <menu key="menu" id="wRa-Ii-QWX">
+                            <items>
+                                <menuItem state="on" id="pvS-gK-aXr"/>
+                                <menuItem title="Item 2" id="8Kf-xt-4oe"/>
+                                <menuItem title="Item 3" id="bdj-ZK-Hur"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="-2" name="content" keyPath="self.languages" id="ukn-yk-jUN"/>
+                    </connections>
+                </popUpButton>
+                <button allowsExpansionToolTips="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iy2-R2-kxH" userLabel="Change Audio Track Language">
+                    <rect key="frame" x="112" y="40" width="192" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Change Subtitle Track Language" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="MuY-z9-Ss5">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="self.options.changeSubtitleLanguage" id="uqN-HD-qzd">
+                            <dictionary key="options">
+                                <bool key="NSValidatesImmediately" value="YES"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </button>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ttQ-L6-c9B">
+                    <rect key="frame" x="133" y="20" width="63" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Language:" id="YF9-SV-izB">
+                        <font key="font" metaFont="smallSystemBold"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uP9-v7-Y1D">
+                    <rect key="frame" x="203" y="23" width="117" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="Zfy-P7-hOr" id="bsi-6d-G5F">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="11" name="HelveticaNeue"/>
+                        <menu key="menu" id="S1W-3g-9kS">
+                            <items>
+                                <menuItem state="on" id="Zfy-P7-hOr"/>
+                                <menuItem title="Item 2" id="5n0-Lj-7Ym"/>
+                                <menuItem title="Item 3" id="2RT-TU-pNy"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="-2" name="content" keyPath="self.languages" id="idK-QI-Fgd"/>
                     </connections>
                 </popUpButton>
             </subviews>
@@ -745,7 +829,7 @@
                 <constraint firstItem="MGZ-hB-jhx" firstAttribute="top" secondItem="zVi-vU-sh2" secondAttribute="bottom" constant="16" id="yi4-ru-tUN"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ccd-Xn-Dj3" secondAttribute="trailing" constant="20" id="zrg-ax-2rw"/>
             </constraints>
-            <point key="canvasLocation" x="-937" y="-78"/>
+            <point key="canvasLocation" x="-937.5" y="-35.5"/>
         </customView>
         <arrayController objectClassName="Preset" automaticallyPreparesContent="YES" id="vyv-na-Xpo" userLabel="Set Controller">
             <declaredKeys>
