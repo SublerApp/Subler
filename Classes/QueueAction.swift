@@ -613,7 +613,7 @@ class QueueSendToiTunesAction: NSObject, QueueActionProtocol {
 }
 
 //MARK: Change Tracks by Language
-/// An action that changes the selected audio track to the language preferred, if such a track exists
+/// An action that changes the 'enabled' audio track to the language preferred, if a track labeled with that language exists and is marked as main program content.
 class QueueChangeAudioLanguageAction : NSObject, QueueActionProtocol {
 
     var type: QueueActionType { return .pre }
@@ -631,7 +631,9 @@ class QueueChangeAudioLanguageAction : NSObject, QueueActionProtocol {
             for track in tracks {
                 if track.mediaType == kMP42MediaType_Audio {
                     if track.language == language {
-                        track.isEnabled = true
+                        if track.mediaCharacteristicTags.contains("public.main-program-content"){
+                            track.isEnabled = true
+                        }
                     }
                     else {
                         track.isEnabled = false
@@ -655,7 +657,7 @@ class QueueChangeAudioLanguageAction : NSObject, QueueActionProtocol {
     static var supportsSecureCoding: Bool { return true }
 
 }
-/// An action that changes the selected subtitle  track to the language preferred, if such a track exists
+/// An action that changes the 'enabled' subtitle  track to the language preferred, if a track labeled with that language exists and is marked as main program content
 class QueueChangeSubtitleLanguageAction : NSObject, QueueActionProtocol {
 
     var type: QueueActionType { return .pre }
@@ -674,7 +676,9 @@ class QueueChangeSubtitleLanguageAction : NSObject, QueueActionProtocol {
                 if track.mediaType == kMP42MediaType_Subtitle ||
                     track.mediaType == kMP42MediaType_ClosedCaption {
                     if track.language == language {
-                        track.isEnabled = true
+                        if track.mediaCharacteristicTags.contains("public.main-program-content"){
+                            track.isEnabled = true
+                        }
                     }
                     else {
                         track.isEnabled = false
