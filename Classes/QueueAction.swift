@@ -553,6 +553,8 @@ class QueueColorSpaceAction : NSObject, QueueActionProtocol {
                 if track.format == kMP42VideoCodecType_H264 ||
                     track.format == kMP42VideoCodecType_HEVC ||
                     track.format == kMP42VideoCodecType_HEVC_PSinBitstream ||
+                    track.format == kMP42VideoCodecType_VVC ||
+                    track.format == kMP42VideoCodecType_VVC_PSinBitstream ||
                     track.format == kMP42VideoCodecType_MPEG4Video ||
                     track.format == kMP42VideoCodecType_AV1 {
                     let values = tag.tagValues()
