@@ -9,7 +9,12 @@ import Cocoa
 import Quartz
 import MP42Foundation
 
-class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableViewDelegate, ImageBrowserViewDelegate, NSDraggingDestination {
+extension NSPasteboard.PasteboardType {
+    static let metadataDragType = NSPasteboard.PasteboardType("org.subler.metadatadragdrop")
+    static let artworkDragType = NSPasteboard.PasteboardType("org.subler.artworkdragdrop")
+}
+
+class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableViewDelegate, NSCollectionViewDataSource, NSCollectionViewDelegate, NSDraggingDestination {
 
     var metadata: MP42Metadata {
         didSet {
@@ -46,8 +51,6 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     @IBOutlet var removeTagButton: NSButton!
     @IBOutlet var metadataTableView: ExpandedTableView!
 
-    private let metadataPBoardType = NSPasteboard.PasteboardType(rawValue: "SublerMetadataPBoardTypeV2")
-
     // Set save window
     @IBOutlet var saveSetWindow: NSWindow!
     @IBOutlet var saveSetName: NSTextField!
@@ -56,11 +59,10 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
     // Artwork tab
     private var artworks: [MP42MetadataItem]
+    private let standardSize = NSSize(width: 154, height: 192)
 
     @IBOutlet var removeArtworkButton: NSButton!
-    @IBOutlet var artworksView: ImageBrowserView!
-
-    private let artworksPBoardType = NSPasteboard.PasteboardType(rawValue: "SublerCoverArtPBoardType")
+    @IBOutlet var artworksView: NSCollectionView!
 
     override var nibName: NSNib.Name? {
         return "MovieView"
@@ -94,7 +96,6 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     deinit {
         artworksView.delegate = nil
         artworksView.dataSource = nil
-        artworksView.setDraggingDestinationDelegate(nil)
         NotificationCenter.default.removeObserver(self)
     }
 
@@ -118,11 +119,11 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
         metadataTableView.doubleAction = #selector(doubleClickAction(_:))
         metadataTableView.target = self
-        metadataTableView.pasteboardTypes = [metadataPBoardType]
+        metadataTableView.pasteboardTypes = [.metadataDragType]
         metadataTableView.scrollRowToVisible(0)
 
-        artworksView.pasteboardTypes = [artworksPBoardType, NSPasteboard.PasteboardType.tiff, NSPasteboard.PasteboardType.png]
-        artworksView.setZoomValue(1.0)
+        artworksView.register(ArtworkSelectorViewItem.self, forItemWithIdentifier: ArtworkSelectorController.itemView)
+        artworksView.registerForDraggedTypes([.artworkDragType, .tiff, .png])
 
         reloadData()
     }
@@ -744,9 +745,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         let description = itemsDescriptions.reduce("") {$0 + $1 }
 
         let pb = NSPasteboard.general
-        pb.declareTypes([.string, metadataPBoardType], owner: nil)
+        pb.declareTypes([.string, .metadataDragType], owner: nil)
         pb.setString(description, forType: .string)
-        pb.setData(NSKeyedArchiver.archivedData(withRootObject: items), forType: metadataPBoardType)
+        pb.setData(NSKeyedArchiver.archivedData(withRootObject: items), forType: .metadataDragType)
     }
 
     func cutSelection(in tableview: NSTableView) {
@@ -756,7 +757,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
     func paste(to tableview: NSTableView) {
         let pb = NSPasteboard.general
-        if let archivedData = pb.data(forType: metadataPBoardType),
+        if let archivedData = pb.data(forType: .metadataDragType),
             let data = NSKeyedUnarchiver.unarchiveObject(with: archivedData) as? [MP42MetadataItem] {
             add(metadataItems: data)
         }
@@ -878,8 +879,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     }
 
     @IBAction func removeArtwork(_ sender: Any?) {
-        imageBrowser(artworksView, removeItemsAt: artworksView.selectionIndexes())
-        artworksView.reloadData()
+        let selectedIndexes = artworksView.selectionIndexes
+        artworks = IndexSet(artworks.indices).subtracting(selectedIndexes).map {artworks[$0]}
+        artworksView.deleteItems(at: artworksView.selectionIndexPaths)
     }
 
     private func add(artworks: [Any]) -> Bool {
@@ -926,95 +928,186 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         }
     }
 
-    // MARK: IKImageBrowserDataSource
+    // MARK: - Data source
 
-    override func numberOfItems(inImageBrowser aBrowser: IKImageBrowserView!) -> Int {
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
         return artworks.count
     }
 
-    override func imageBrowser(_ aBrowser: IKImageBrowserView!, itemAt index: Int) -> Any! {
-        return artworks[index].imageValue
+    static let itemView = NSUserInterfaceItemIdentifier(rawValue: "ArtworkSelectorViewItem")
+
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+        let item = collectionView.makeItem(withIdentifier: ArtworkSelectorController.itemView, for: indexPath)
+        guard let collectionViewItem = item as? ArtworkSelectorViewItem, let index = indexPath.last else { return item }
+
+        let artwork = artworks[index]
+
+        collectionViewItem.image = artwork.imageValue?.image
+        collectionViewItem.target = self
+        collectionViewItem.title = ""
+        collectionViewItem.subtitle = ""
+
+        return collectionViewItem
     }
 
-    override func imageBrowser(_ aBrowser: IKImageBrowserView!, moveItemsAt indexes: IndexSet!, to destinationIndex: Int) -> Bool {
-        let destinationIndex = destinationIndex - indexes.count(in: 0..<destinationIndex)
+    // MARK: - Delegate
 
-        let items = indexes.map { artworks[$0] }
-        var modifiedArtworks = IndexSet(artworks.indices).subtracting(indexes).map { artworks[$0] }
+    private func updateSelection() {
+        removeArtworkButton.isEnabled = artworksView.selectionIndexPaths.isEmpty ? false : true
+    }
 
-        for item in items.reversed() {
-            modifiedArtworks.insert(item, at: destinationIndex)
-        }
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        updateSelection()
+    }
 
-        replace(metadataArtworks: artworks, withItems: modifiedArtworks)
+    func collectionView(_ collectionView: NSCollectionView, didDeselectItemsAt indexPaths: Set<IndexPath>) {
+        updateSelection()
+    }
+
+    func collectionView(_ collectionView: NSCollectionView, canDragItemsAt indexPaths: Set<IndexPath>, with event: NSEvent) -> Bool {
         return true
     }
 
-    override func imageBrowser(_ aBrowser: IKImageBrowserView!, writeItemsAt itemIndexes: IndexSet!, to pasteboard: NSPasteboard!) -> Int {
-        pasteboard.declareTypes([artworksPBoardType, .tiff], owner: nil)
-
-        for image in itemIndexes.map({ artworks[$0] }).compactMap({ $0.imageValue }) {
-            if let representations = image.image?.representations {
-                let bitmapData = NSBitmapImageRep.representationOfImageReps(in: representations, using: .tiff, properties: [:])
-                pasteboard.setData(bitmapData, forType: .tiff)
-            }
-            pasteboard.setData(NSKeyedArchiver.archivedData(withRootObject: image), forType: artworksPBoardType)
-        }
-
-        return itemIndexes.count
+    func collectionView(_ collectionView: NSCollectionView, writeItemsAt indexPaths: Set<IndexPath>, to pasteboard: NSPasteboard) -> Bool {
+        pasteboard.declareTypes([.artworkDragType], owner: nil)
+        pasteboard.setData(NSKeyedArchiver.archivedData(withRootObject: indexPaths), forType: .artworkDragType)
+        return indexPaths.isEmpty == false
     }
 
-    func paste(to imagebrowserview: ImageBrowserView) {
-        let pb = NSPasteboard.general
+    func collectionView(_ collectionView: NSCollectionView,
+                        validateDrop draggingInfo: NSDraggingInfo,
+                        proposedIndexPath proposedDropIndexPath: AutoreleasingUnsafeMutablePointer<NSIndexPath>,
+                        dropOperation proposedDropOperation: UnsafeMutablePointer<NSCollectionView.DropOperation>) -> NSDragOperation {
+        return .generic
+    }
 
-        if let archivedImageData = pb.data(forType: artworksPBoardType), let image = NSKeyedUnarchiver.unarchiveObject(with: archivedImageData) as? MP42Image {
-            _ = add(artworks: [image])
+    func dropInternalArtworks(_ collectionView: NSCollectionView, draggingInfo: NSDraggingInfo, indexPath: IndexPath) {
+        draggingInfo.enumerateDraggingItems(
+            options: NSDraggingItemEnumerationOptions.concurrent,
+            for: collectionView,
+            classes: [NSPasteboardItem.self],
+            searchOptions: [:],
+            using: {(draggingItem, idx, stop) in
+                if let pasteboardItem = draggingItem.item as? NSPasteboardItem {
+                    do {
+                        if let indexPathData = pasteboardItem.data(forType: .artworkDragType),
+                           let artworkIndexPath = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(indexPathData) as? Set<IndexPath> {
+                            print(artworkIndexPath)
+                        }
+                    } catch {
+                        Swift.debugPrint("failed to unarchive indexPath for dropped photo item.")
+                    }
+                }
+            })
+    }
+
+    func dropExternalArtworks(_ collectionView: NSCollectionView, draggingInfo: NSDraggingInfo, indexPath: IndexPath) {
+        // Do things
+    }
+
+    func collectionView(_ collectionView: NSCollectionView,
+                        acceptDrop draggingInfo: NSDraggingInfo,
+                        indexPath: IndexPath,
+                        dropOperation: NSCollectionView.DropOperation) -> Bool {
+        // Check where the dragged items are coming from.
+        if let draggingSource = draggingInfo.draggingSource as? NSCollectionView, draggingSource == collectionView {
+            // Drag source from your own collection view.
+            // Move each dragged photo item to their new place.
+            dropInternalArtworks(collectionView, draggingInfo: draggingInfo, indexPath: indexPath)
         } else {
-            let classes = [NSURL.classForCoder(), NSImage.classForCoder()]
-            let options = [NSPasteboard.ReadingOptionKey.urlReadingContentsConformToTypes: NSImage.imageTypes]
-            if let items = pb.readObjects(forClasses: classes, options: options) as [AnyObject]? {
-                _ = add(artworks: items)
-            }
+            // The drop source is from another app (Finder, Mail, Safari, etc.) and there may be more than one file.
+            // Drop each dragged image file to their new place.
+            dropExternalArtworks(collectionView, draggingInfo: draggingInfo, indexPath: indexPath)
         }
-    }
-
-    override func imageBrowser(_ aBrowser: IKImageBrowserView!, removeItemsAt indexes: IndexSet!) {
-        let items = indexes.map { artworks[$0] }
-        remove(metadataArtworks: items)
-    }
-
-    // MARK: IKImageBrowserDelegate
-
-    override func imageBrowserSelectionDidChange(_ aBrowser: IKImageBrowserView!) {
-        let rowIndexes = aBrowser.selectionIndexes()
-        removeArtworkButton.isEnabled = rowIndexes?.isEmpty ?? false ? false : true
+        return true
     }
 
     @IBAction func zoomSliderDidChange(_ sender: NSControl) {
-        artworksView.setZoomValue(sender.floatValue)
-    }
+        let floatValue = CGFloat(sender.floatValue)
+        if let layout = artworksView.collectionViewLayout as? NSCollectionViewFlowLayout {
+            if floatValue == 50 {
+                layout.itemSize = standardSize
+            } else if floatValue < 50 {
+                let zoomValue = (floatValue + 50) / 100
+                layout.itemSize = NSSize(width: Int(standardSize.width * zoomValue),
+                                         height: Int((standardSize.height - 32) * zoomValue + 32))
 
-    // MARK: Artworks drag & drop
-
-    func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        return .generic
-    }
-
-    func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
-        return .generic
-    }
-
-    func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        let pb = sender.draggingPasteboard
-
-        let classes = [NSURL.classForCoder(), NSImage.classForCoder()]
-        let options = [NSPasteboard.ReadingOptionKey.urlReadingContentsConformToTypes: NSImage.imageTypes]
-        if let items = pb.readObjects(forClasses: classes, options: options) as [AnyObject]? {
-            return add(artworks: items)
-        } else {
-            return false
+            } else {
+                let zoomValue = pow((floatValue + 50) / 100, 2.4)
+                layout.itemSize = NSSize(width: Int(standardSize.width * zoomValue),
+                                         height: Int((standardSize.height - 32) * zoomValue + 32))
+            }
         }
     }
 
-    func concludeDragOperation(_ sender: NSDraggingInfo?) {}
+//    override func imageBrowser(_ aBrowser: IKImageBrowserView!, moveItemsAt indexes: IndexSet!, to destinationIndex: Int) -> Bool {
+//        let destinationIndex = destinationIndex - indexes.count(in: 0..<destinationIndex)
+//
+//        let items = indexes.map { artworks[$0] }
+//        var modifiedArtworks = IndexSet(artworks.indices).subtracting(indexes).map { artworks[$0] }
+//
+//        for item in items.reversed() {
+//            modifiedArtworks.insert(item, at: destinationIndex)
+//        }
+//
+//        replace(metadataArtworks: artworks, withItems: modifiedArtworks)
+//        return true
+//    }
+//
+//    override func imageBrowser(_ aBrowser: IKImageBrowserView!, writeItemsAt itemIndexes: IndexSet!, to pasteboard: NSPasteboard!) -> Int {
+//        pasteboard.declareTypes([artworksPBoardType, .tiff], owner: nil)
+//
+//        for image in itemIndexes.map({ artworks[$0] }).compactMap({ $0.imageValue }) {
+//            if let representations = image.image?.representations {
+//                let bitmapData = NSBitmapImageRep.representationOfImageReps(in: representations, using: .tiff, properties: [:])
+//                pasteboard.setData(bitmapData, forType: .tiff)
+//            }
+//            pasteboard.setData(NSKeyedArchiver.archivedData(withRootObject: image), forType: artworksPBoardType)
+//        }
+//
+//        return itemIndexes.count
+//    }
+//
+//    func paste(to imagebrowserview: ImageBrowserView) {
+//        let pb = NSPasteboard.general
+//
+//        if let archivedImageData = pb.data(forType: artworksPBoardType), let image = NSKeyedUnarchiver.unarchiveObject(with: archivedImageData) as? MP42Image {
+//            _ = add(artworks: [image])
+//        } else {
+//            let classes = [NSURL.classForCoder(), NSImage.classForCoder()]
+//            let options = [NSPasteboard.ReadingOptionKey.urlReadingContentsConformToTypes: NSImage.imageTypes]
+//            if let items = pb.readObjects(forClasses: classes, options: options) as [AnyObject]? {
+//                _ = add(artworks: items)
+//            }
+//        }
+//    }
+//
+//    override func imageBrowser(_ aBrowser: IKImageBrowserView!, removeItemsAt indexes: IndexSet!) {
+//        let items = indexes.map { artworks[$0] }
+//        remove(metadataArtworks: items)
+//    }
+
+//    // MARK: Artworks drag & drop
+//
+//    func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+//        return .generic
+//    }
+//
+//    func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
+//        return .generic
+//    }
+//
+//    func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+//        let pb = sender.draggingPasteboard
+//
+//        let classes = [NSURL.classForCoder(), NSImage.classForCoder()]
+//        let options = [NSPasteboard.ReadingOptionKey.urlReadingContentsConformToTypes: NSImage.imageTypes]
+//        if let items = pb.readObjects(forClasses: classes, options: options) as [AnyObject]? {
+//            return add(artworks: items)
+//        } else {
+//            return false
+//        }
+//    }
+//
+//    func concludeDragOperation(_ sender: NSDraggingInfo?) {}
 }
