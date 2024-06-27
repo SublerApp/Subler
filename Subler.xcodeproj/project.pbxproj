@@ -130,7 +130,6 @@
 		A9F5820C1DCC861F005F3E92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9F5820B1DCC861F005F3E92 /* Assets.xcassets */; };
 		A9F680A81FD06E0200018371 /* OutputPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F680A61FD06E0200018371 /* OutputPrefsViewController.swift */; };
 		A9F7F8E01837C44B0036AE7E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9ED7B21180067A2008FD3A8 /* IOKit.framework */; };
-		A9F8045A1FB6F4FD0069FF43 /* ImageBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F804591FB6F4FD0069FF43 /* ImageBrowserView.swift */; };
 		A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */; };
 		CD71FEA612F1B62600F0A98D /* MetadataSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */; };
 		CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */ = {isa = PBXBuildFile; fileRef = CDE8E451174CBBD4009410B5 /* iTunesStores.json */; };
@@ -402,7 +401,6 @@
 		A9F4FF4A1FB708FB004473A8 /* SoundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SoundViewController.swift; path = Classes/PropertyView/SoundViewController.swift; sourceTree = "<group>"; };
 		A9F5820B1DCC861F005F3E92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9F680A61FD06E0200018371 /* OutputPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OutputPrefsViewController.swift; path = Classes/OutputPrefsViewController.swift; sourceTree = "<group>"; };
-		A9F804591FB6F4FD0069FF43 /* ImageBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageBrowserView.swift; path = Classes/ImageBrowserView.swift; sourceTree = "<group>"; };
 		A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheTVDBService.swift; path = Classes/MetadataImporters/TheTVDBService.swift; sourceTree = "<group>"; };
 		CDE8E451174CBBD4009410B5 /* iTunesStores.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iTunesStores.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -476,7 +474,6 @@
 			isa = PBXGroup;
 			children = (
 				A92CE72422FAFED0000962A4 /* ViewController.swift */,
-				A9F804591FB6F4FD0069FF43 /* ImageBrowserView.swift */,
 				A909440E1DD4C85B00E9F89C /* Table View */,
 				A9A77C4D1F306FA70018023B /* AttributedStyles.swift */,
 				A956CE681F99E93D00093992 /* ButtonToolbarItem.swift */,
@@ -902,7 +899,6 @@
 				A956CE651F99E5BB00093992 /* ActivityWindowController.swift in Sources */,
 				A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */,
 				A9A77C4E1F306FA70018023B /* AttributedStyles.swift in Sources */,
-				A9F8045A1FB6F4FD0069FF43 /* ImageBrowserView.swift in Sources */,
 				A92AD0161F3482350082892E /* NetworkUtilities.swift in Sources */,
 				A944E5921F498FC4002E43F6 /* PresetPrefsViewController.swift in Sources */,
 				A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */,
