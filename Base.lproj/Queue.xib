@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,7 +17,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Queue" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="SBQueuePosition" animationBehavior="default" tabbingMode="disallowed" id="1">
+        <window title="Queue" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="SBQueuePosition" animationBehavior="default" tabbingMode="disallowed" toolbarStyle="compact" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="98" y="651" width="378" height="351"/>
@@ -56,7 +56,7 @@
                                                     <rect key="frame" x="1" y="2" width="375" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pjh-GC-aOA">
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pjh-GC-aOA">
                                                             <rect key="frame" x="29" y="-1" width="317" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="srx-EJ-mK6">
@@ -109,7 +109,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="12">
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="12">
                         <rect key="frame" x="8" y="16" width="214" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Queue items" id="13">
                             <font key="font" metaFont="system"/>
@@ -142,7 +142,7 @@
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Iau-lm-QMb"/>
                     <toolbarItem implicitItemIdentifier="3A987BC3-AE8F-4D56-8562-D2F37B9DA021" label="Add Item" paletteLabel="Add Item" toolTip="Add an item to the queue" image="NSAddTemplate" sizingBehavior="auto" id="mbj-v3-fFG" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <button key="view" verticalHuggingPriority="750" id="sUh-2y-iie">
-                            <rect key="frame" x="9" y="14" width="36" height="28"/>
+                            <rect key="frame" x="14" y="14" width="26" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZQu-If-3ju">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -155,7 +155,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="403860A1-8562-4F5B-BBEE-E8C1270A9077" label="Settings" paletteLabel="Settings" toolTip="Show/hide settings" image="NSActionTemplate" sizingBehavior="auto" id="Qif-lh-Rps" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <button key="view" verticalHuggingPriority="750" id="tU5-DL-6vU">
-                            <rect key="frame" x="8" y="14" width="36" height="28"/>
+                            <rect key="frame" x="12" y="14" width="27" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSActionTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Zdg-cC-Bdm">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -168,7 +168,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="90FECCE0-5997-4C12-9158-9F7391313970" label="Start" paletteLabel="Start" toolTip="Start/stop queue" image="playBackTemplate" sizingBehavior="auto" id="xeY-tT-tF2" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <button key="view" verticalHuggingPriority="750" id="sOU-an-jdB">
-                            <rect key="frame" x="0.0" y="14" width="36" height="28"/>
+                            <rect key="frame" x="1" y="14" width="31" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="playBackTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NP2-Hq-1TK">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -228,8 +228,8 @@
     </objects>
     <resources>
         <image name="EncodeComplete" width="16" height="16"/>
-        <image name="NSActionTemplate" width="15" height="15"/>
-        <image name="NSAddTemplate" width="14" height="13"/>
+        <image name="NSActionTemplate" width="20" height="20"/>
+        <image name="NSAddTemplate" width="18" height="17"/>
         <image name="info" width="16" height="16"/>
         <image name="info-pressed" width="16" height="16"/>
         <image name="playBackTemplate" width="19" height="18"/>

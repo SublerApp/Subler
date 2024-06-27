@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,21 +17,20 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="s5f-yH-26m" userLabel="Window">
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" toolbarStyle="expanded" id="s5f-yH-26m" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="59" y="509" width="520" height="510"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <value key="minSize" type="size" width="520" height="510"/>
             <view key="contentView" id="rip-YL-WpY">
-                <rect key="frame" x="0.0" y="0.0" width="520" height="510"/>
+                <rect key="frame" x="0.0" y="0.0" width="520" height="486"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             </view>
             <toolbar key="toolbar" implicitIdentifier="61E0A00C-CBF2-4937-9418-AC0758672070" explicitIdentifier="SBDocumentToolbar26" displayMode="iconOnly" sizeMode="regular" id="PRH-t4-qwh">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Af5-ai-sw9"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="qX7-s1-81X"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="mX6-y6-VZe"/>
                     <toolbarItem implicitItemIdentifier="D2E8E21C-DCD4-456F-B15A-9AC0AA5556DF" label="Import" paletteLabel="Import" toolTip="Import tracks from external files" image="NSAddTemplate" sizingBehavior="auto" id="FY3-O2-t3T" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
                         <button key="view" verticalHuggingPriority="750" id="UZy-eh-ZBz">
                             <rect key="frame" x="8" y="14" width="26" height="23"/>
@@ -84,7 +83,7 @@
                             <action selector="sendToQueue:" target="-1" id="rIw-6k-8we"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="2E3AB086-491A-436E-A610-14E36AEE8F49" label="Action" paletteLabel="Action" image="NSActionTemplate" sizingBehavior="auto" id="V6w-Ey-bjV">
+                    <toolbarItem implicitItemIdentifier="2E3AB086-491A-436E-A610-14E36AEE8F49" label="Action" paletteLabel="Action" image="NSActionTemplate" bordered="YES" sizingBehavior="auto" id="V6w-Ey-bjV">
                         <nil key="toolTip"/>
                         <popUpButton key="view" verticalHuggingPriority="750" id="QuP-nB-KsX">
                             <rect key="frame" x="0.0" y="14" width="50" height="25"/>
@@ -183,25 +182,23 @@
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="FY3-O2-t3T"/>
-                    <toolbarItem reference="mX6-y6-VZe"/>
                     <toolbarItem reference="V6w-Ey-bjV"/>
                     <toolbarItem reference="rhw-S4-nZ8"/>
                     <toolbarItem reference="qX7-s1-81X"/>
                     <toolbarItem reference="Af5-ai-sw9"/>
-                    <toolbarItem reference="mX6-y6-VZe"/>
                     <toolbarItem reference="uiq-J2-uPs"/>
                 </defaultToolbarItems>
             </toolbar>
             <connections>
                 <outlet property="delegate" destination="-2" id="ifJ-VT-BdP"/>
             </connections>
-            <point key="canvasLocation" x="297" y="-848"/>
+            <point key="canvasLocation" x="212" y="-864"/>
         </window>
     </objects>
     <resources>
-        <image name="NSActionTemplate" width="15" height="15"/>
-        <image name="NSAddTemplate" width="14" height="13"/>
-        <image name="NSRevealFreestandingTemplate" width="15" height="15"/>
+        <image name="NSActionTemplate" width="20" height="20"/>
+        <image name="NSAddTemplate" width="18" height="17"/>
+        <image name="NSRevealFreestandingTemplate" width="20" height="20"/>
         <image name="ToolbarActionTemplate" width="24" height="24"/>
         <image name="ToolbarRemoveTemplate" width="16" height="16"/>
     </resources>
