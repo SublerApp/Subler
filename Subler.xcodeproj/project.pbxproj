@@ -67,7 +67,6 @@
 		A97FA42223E9877900EE5833 /* Ratings.json in Resources */ = {isa = PBXBuildFile; fileRef = A97FA42123E9877900EE5833 /* Ratings.json */; };
 		A97FBE3C21FC7F1C00F1FD35 /* QueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */; };
 		A983E80B22365B5400221BAE /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A983E80A22365B5400221BAE /* MovieViewController.swift */; };
-		A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A984DB730F52DD4B001A20B2 /* dsa_pub.pem */; };
 		A98542D720D197D300EB9803 /* ArtworkSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98542D520D197D300EB9803 /* ArtworkSelector.xib */; };
 		A98542D920D197DF00EB9803 /* ArtworkSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98542D820D197DF00EB9803 /* ArtworkSelector.swift */; };
 		A98542DC20D1A7E500EB9803 /* ArtworkSelectorViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98542DA20D1A7E500EB9803 /* ArtworkSelectorViewItem.swift */; };
@@ -299,7 +298,6 @@
 		A97FA42123E9877900EE5833 /* Ratings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Ratings.json; sourceTree = "<group>"; };
 		A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueController.swift; path = Classes/QueueController.swift; sourceTree = "<group>"; };
 		A983E80A22365B5400221BAE /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieViewController.swift; path = Classes/PropertyView/MovieViewController.swift; sourceTree = "<group>"; };
-		A984DB730F52DD4B001A20B2 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		A98542D620D197D300EB9803 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ArtworkSelector.xib; sourceTree = "<group>"; };
 		A98542D820D197DF00EB9803 /* ArtworkSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtworkSelector.swift; path = Classes/ArtworkSelector.swift; sourceTree = "<group>"; };
 		A98542DA20D1A7E500EB9803 /* ArtworkSelectorViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArtworkSelectorViewItem.swift; path = Classes/ArtworkSelectorViewItem.swift; sourceTree = "<group>"; };
@@ -492,7 +490,6 @@
 				A9F5820B1DCC861F005F3E92 /* Assets.xcassets */,
 				A9BA1AF51DBF7DD800FD0B38 /* Localizable.strings */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
-				A984DB730F52DD4B001A20B2 /* dsa_pub.pem */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				8D15AC360486D014006FF6A4 /* Info.plist */,
 				CDE8E451174CBBD4009410B5 /* iTunesStores.json */,
@@ -797,7 +794,6 @@
 				A9AB486517F0AEFD000AA72E /* EmptyView.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
 				A90300C81DAE72C4008237D8 /* PresetPrefsViewController.xib in Resources */,
-				A984DB740F52DD4B001A20B2 /* dsa_pub.pem in Resources */,
 				A9C5FA7419FA2FEC0051F3FF /* SBActivityWindow.xib in Resources */,
 				A90B023B10F3290A000416F3 /* PrefsWindowController.xib in Resources */,
 				A9AB486417F0AEFD000AA72E /* ChapterView.xib in Resources */,

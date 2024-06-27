@@ -163,8 +163,6 @@
 	<false/>
 	<key>SUFeedURL</key>
 	<string>https://subler.org/appcast/appcast.xml</string>
-	<key>SUPublicDSAKeyFile</key>
-	<string>dsa_pub.pem</string>
 	<key>SUPublicEDKey</key>
 	<string>9M0JrgMq+5MrpLqTu7lT+ffThP8dRp78OQNTklwK/WE=</string>
 	<key>UTImportedTypeDeclarations</key>
