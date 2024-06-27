@@ -123,7 +123,12 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         metadataTableView.scrollRowToVisible(0)
 
         artworksView.register(ArtworkSelectorViewItem.self, forItemWithIdentifier: ArtworkSelectorController.itemView)
-        artworksView.registerForDraggedTypes([.artworkDragType, .tiff, .png])
+        artworksView.registerForDraggedTypes(NSFilePromiseReceiver.readableDraggedTypes.map { NSPasteboard.PasteboardType($0)})
+        artworksView.registerForDraggedTypes([.fileURL, .artworkDragType])
+
+        // Determine the kind of source drag originating from this app.
+        // Note, if you want to allow your app to drag items to the Finder's trash can, add ".delete".
+        artworksView.setDraggingSourceOperationMask([.copy, .delete], forLocal: false)
 
         reloadData()
     }
@@ -884,7 +889,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         artworksView.deleteItems(at: artworksView.selectionIndexPaths)
     }
 
-    private func add(artworks: [Any]) -> Bool {
+    private func add(artworks: [Any], toIndexPath: IndexPath) -> Bool {
         let items = artworks.compactMap { (artwork: Any) -> MP42Image? in
             if let url = artwork as? URL {
                 let value = try? url.resourceValues(forKeys: [URLResourceKey.typeIdentifierKey])
@@ -923,7 +928,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
         panel.beginSheetModal(for: window) { (result) in
             if result == NSApplication.ModalResponse.OK {
-                _ = self.add(artworks: panel.urls)
+                _ = self.add(artworks: panel.urls, toIndexPath: IndexPath(index: 0))
             }
         }
     }
@@ -978,7 +983,56 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
                         validateDrop draggingInfo: NSDraggingInfo,
                         proposedIndexPath proposedDropIndexPath: AutoreleasingUnsafeMutablePointer<NSIndexPath>,
                         dropOperation proposedDropOperation: UnsafeMutablePointer<NSCollectionView.DropOperation>) -> NSDragOperation {
-        return .generic
+        var dragOperation: NSDragOperation = []
+
+        guard proposedDropOperation.pointee != .on else { return dragOperation }
+
+        let pasteboard = draggingInfo.draggingPasteboard
+
+        if let draggingSource = draggingInfo.draggingSource as? NSCollectionView {
+            if draggingSource == collectionView {
+                // Drag source came from our own table view.
+                dragOperation = [.move]
+            }
+        } else {
+            // Drag source came from another app.
+            // Search through the array of NSPasteboardItems.
+            guard let items = pasteboard.pasteboardItems else { return dragOperation }
+            for item in items {
+                var type: NSPasteboard.PasteboardType
+                if #available(macOS 11.0, *) {
+                    type = NSPasteboard.PasteboardType(UTType.image.identifier)
+                } else {
+                    type = (kUTTypeImage as NSPasteboard.PasteboardType)
+                }
+                if item.availableType(from: [type]) != nil {
+                    // Drag source is coming from another app as a promised image file (for example from Photos app).
+                    dragOperation = [.copy]
+                }
+            }
+        }
+
+        // Has a drop operation been determined yet?
+        if dragOperation == [] {
+            // Look for possible URLs you can consume.
+            var acceptedTypes: [String]
+            if #available(macOS 11.0, *) {
+                acceptedTypes = [UTType.image.identifier]
+            } else {
+                acceptedTypes = [kUTTypeImage as String]
+            }
+
+            let options = [NSPasteboard.ReadingOptionKey.urlReadingFileURLsOnly: true,
+                           NSPasteboard.ReadingOptionKey.urlReadingContentsConformToTypes: acceptedTypes]
+                as [NSPasteboard.ReadingOptionKey: Any]
+            // Look only for image urls.
+            if let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: options), !urls.isEmpty {
+                // One or more of the URLs in this drag is image file.
+                // The sample allows for this; a user may be able to drag in a mix of files, any one of them being an image file.
+                dragOperation = [.copy]
+            }
+        }
+        return dragOperation
     }
 
     func dropInternalArtworks(_ collectionView: NSCollectionView, draggingInfo: NSDraggingInfo, indexPath: IndexPath) {
@@ -1001,8 +1055,84 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
             })
     }
 
+    // The temporary directory URL you use to accept file promises.
+    lazy var destinationURL: URL = {
+        let destinationURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("Drops")
+        try? FileManager.default.createDirectory(at: destinationURL, withIntermediateDirectories: true, attributes: nil)
+        return destinationURL
+    }()
+
+    // Queue you use to read and writing file promises.
+    var filePromiseQueue: OperationQueue = {
+        let queue = OperationQueue()
+        return queue
+    }()
+
+    func handlePromisedDrops(draggingInfo: NSDraggingInfo, toIndexPath: IndexPath) -> Bool {
+        var handled = false
+        if let promises = draggingInfo.draggingPasteboard.readObjects(forClasses: [NSFilePromiseReceiver.self], options: nil) {
+            if !promises.isEmpty {
+                for promise in promises {
+                    if let promiseReceiver = promise as? NSFilePromiseReceiver {
+                        promiseReceiver.receivePromisedFiles(atDestination: destinationURL, options: [:], operationQueue: filePromiseQueue) { fileURL, error in
+                            OperationQueue.main.addOperation {
+                                if error != nil {
+                                    __NSBeep()
+                                } else {
+                                    _ = self.add(artworks: [fileURL], toIndexPath:toIndexPath)
+                                }
+                            }
+                        }
+                    }
+                }
+                handled = true
+            }
+        }
+        return handled
+    }
+
+    // Find the proper drop location relative to the provided indexPath.
+    func dropLocation(indexPath: IndexPath) -> IndexPath {
+        var toIndexPath = indexPath
+        if indexPath.item == 0 {
+            toIndexPath = IndexPath(item: indexPath.item, section: indexPath.section)
+        } else {
+            toIndexPath = IndexPath(item: indexPath.item - 1, section: indexPath.section)
+        }
+        return toIndexPath
+    }
+
     func dropExternalArtworks(_ collectionView: NSCollectionView, draggingInfo: NSDraggingInfo, indexPath: IndexPath) {
-        // Do things
+        let toIndexPath = dropLocation(indexPath: indexPath)
+
+        if handlePromisedDrops(draggingInfo: draggingInfo, toIndexPath: toIndexPath) {
+            // Successfully processed the dragged items that were promised.
+        } else {
+            // Incoming drag was not promised, so move in all the outside dragged items as URLs.
+            var foundNonImageFiles = false
+
+            // Move in all the outside dragged items as URLs.
+            draggingInfo.enumerateDraggingItems(
+                options: NSDraggingItemEnumerationOptions.concurrent,
+                for: collectionView,
+                classes: [NSPasteboardItem.self],
+                searchOptions: [:],
+                using: {(draggingItem, idx, stop) in
+                    if let pasteboardItem = draggingItem.item as? NSPasteboardItem,
+                       // Are we being passed a file URL as the drag type?
+                       let itemType = pasteboardItem.availableType(from: [.fileURL]),
+                       let filePath = pasteboardItem.string(forType: itemType),
+                       let url = URL(string: filePath) {
+                        if !self.add(artworks: [url], toIndexPath:toIndexPath) {
+                            foundNonImageFiles = true
+                        }
+                    }
+                })
+
+            if foundNonImageFiles {
+                __NSBeep()
+            }
+        }
     }
 
     func collectionView(_ collectionView: NSCollectionView,
@@ -1087,27 +1217,4 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 //        remove(metadataArtworks: items)
 //    }
 
-//    // MARK: Artworks drag & drop
-//
-//    func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-//        return .generic
-//    }
-//
-//    func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
-//        return .generic
-//    }
-//
-//    func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-//        let pb = sender.draggingPasteboard
-//
-//        let classes = [NSURL.classForCoder(), NSImage.classForCoder()]
-//        let options = [NSPasteboard.ReadingOptionKey.urlReadingContentsConformToTypes: NSImage.imageTypes]
-//        if let items = pb.readObjects(forClasses: classes, options: options) as [AnyObject]? {
-//            return add(artworks: items)
-//        } else {
-//            return false
-//        }
-//    }
-//
-//    func concludeDragOperation(_ sender: NSDraggingInfo?) {}
 }
