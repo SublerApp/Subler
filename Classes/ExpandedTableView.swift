@@ -8,10 +8,10 @@
 import Cocoa
 
 @objc protocol ExpandedTableViewDelegate: NSTableViewDelegate {
-    @objc optional func deleteSelection(in tableview: NSTableView)
-    @objc optional func copySelection(in tableview: NSTableView)
-    @objc optional func cutSelection(in tableview: NSTableView)
-    @objc optional func paste(to tableview: NSTableView)
+    @MainActor @objc optional func deleteSelection(in tableview: NSTableView)
+    @MainActor @objc optional func copySelection(in tableview: NSTableView)
+    @MainActor @objc optional func cutSelection(in tableview: NSTableView)
+    @MainActor @objc optional func paste(to tableview: NSTableView)
 }
 
 class ExpandedTableView: NSTableView, NSMenuItemValidation {

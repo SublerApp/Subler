@@ -9,8 +9,8 @@ import Cocoa
 import MP42Foundation
 
 protocol TracksViewControllerDelegate: AnyObject {
-    func didSelect(tracks: [MP42Track])
-    func delete(tracks: [MP42Track])
+    @MainActor func didSelect(tracks: [MP42Track])
+    @MainActor func delete(tracks: [MP42Track])
 }
 
 final class TracksViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, ExpandedTableViewDelegate {

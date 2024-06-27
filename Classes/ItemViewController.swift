@@ -8,7 +8,7 @@
 import Cocoa
 
 protocol ItemViewDelegate: AnyObject {
-    func edit(item: QueueItem)
+    @MainActor func edit(item: QueueItem)
 }
 
 final class ItemViewController : NSViewController {

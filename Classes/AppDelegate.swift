@@ -87,7 +87,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    private lazy var prefsController: PrefsWindowController = {
+    @MainActor private lazy var prefsController: PrefsWindowController = {
         return PrefsWindowController()
     }()
 
@@ -95,15 +95,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         return Logger(fileURL: AppDelegate.appSupportURL().appendingPathComponent("debugLog.txt"))
     }()
 
-    private lazy var activityWindowController: ActivityWindowController = {
+    @MainActor private lazy var activityWindowController: ActivityWindowController = {
         return ActivityWindowController(logger: logger)
     }()
 
-    private lazy var documentController: DocumentController = {
+    @MainActor private lazy var documentController: DocumentController = {
         return DocumentController()
     }()
 
-    private func runDonateAlert() {
+    @MainActor private func runDonateAlert() {
         let defaults = UserDefaults.standard
         let firstLaunch = defaults.bool(forKey: "SBFirstLaunch") ? false : true
 
@@ -276,17 +276,17 @@ extension AppDelegate {
         }
     }
 
-    @objc(queueItems) func queueItems() -> [QueueItem] {
+    @MainActor @objc(queueItems) func queueItems() -> [QueueItem] {
         let queue = QueueController.shared
         let indexes = IndexSet(integersIn: 0..<Int(queue.count))
         return queue.items(at: indexes)
     }
 
-    @objc(insertObject:inItemsAtIndex:) func insert(object: QueueItem, inItemsAtIndex index: UInt) {
+    @MainActor @objc(insertObject:inItemsAtIndex:) func insert(object: QueueItem, inItemsAtIndex index: UInt) {
         QueueController.shared.insert(items: [object], at: IndexSet(integer: IndexSet.Element(index)))
     }
 
-    @objc(removeObjectFromItemsAtIndex:) func removeObjectFromItemsAtIndex(_ index: UInt) {
+    @MainActor @objc(removeObjectFromItemsAtIndex:) func removeObjectFromItemsAtIndex(_ index: UInt) {
         QueueController.shared.remove(at: IndexSet(integer: IndexSet.Element(index)))
     }
 

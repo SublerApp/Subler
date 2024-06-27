@@ -8,7 +8,7 @@
 import Cocoa
 
 protocol TokenChangeObserver: AnyObject {
-    func tokenDidChange(_ obj: Notification?)
+    @MainActor func tokenDidChange(_ obj: Notification?)
 }
 
 class TokenDelegate: NSObject, NSTokenFieldDelegate {

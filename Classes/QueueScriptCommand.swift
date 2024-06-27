@@ -9,7 +9,7 @@ import Foundation
 
 @objc(SBQueueScriptCommand) class QueueScriptCommand: NSScriptCommand {
 
-    override func performDefaultImplementation() -> Any? {
+    @MainActor override func performDefaultImplementation() -> Any? {
         guard let args = directParameter as? [URL] else { return nil }
         QueueController.shared.insert(contentOf: args, at: QueueController.shared.count)
         return nil
@@ -19,7 +19,7 @@ import Foundation
 
 @objc(SBQueueStartAndWaitScriptCommand) class QueueStartAndWaitScriptCommand: NSScriptCommand {
 
-    override func performDefaultImplementation() -> Any? {
+    @MainActor override func performDefaultImplementation() -> Any? {
         QueueController.shared.add(script: self)
         QueueController.shared.start(self)
         self.suspendExecution()
@@ -30,7 +30,7 @@ import Foundation
 
 @objc(SBQueueStartScriptCommand) class QueueStartScriptCommand: NSScriptCommand {
 
-    override func performDefaultImplementation() -> Any? {
+    @MainActor override func performDefaultImplementation() -> Any? {
         QueueController.shared.start(self)
         return nil
     }
@@ -39,7 +39,7 @@ import Foundation
 
 @objc(SBQueueStopScriptCommand) class QueueStopScriptCommand: NSScriptCommand {
 
-    override func performDefaultImplementation() -> Any? {
+    @MainActor override func performDefaultImplementation() -> Any? {
         QueueController.shared.stop(self)
         return nil
     }
