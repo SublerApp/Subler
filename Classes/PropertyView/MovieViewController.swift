@@ -14,7 +14,7 @@ extension NSPasteboard.PasteboardType {
     static let artworkDragType = NSPasteboard.PasteboardType("org.subler.artworkdragdrop")
 }
 
-class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableViewDelegate, NSCollectionViewDataSource, NSCollectionViewDelegate, NSDraggingDestination {
+class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableViewDelegate, NSCollectionViewDataSource, NSCollectionViewDelegate, NSDraggingDestination, NSFilePromiseProviderDelegate {
 
     var metadata: MP42Metadata {
         didSet {
@@ -129,6 +129,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         // Determine the kind of source drag originating from this app.
         // Note, if you want to allow your app to drag items to the Finder's trash can, add ".delete".
         artworksView.setDraggingSourceOperationMask([.copy, .delete], forLocal: false)
+        artworksView.setDraggingSourceOperationMask([.copy, .move], forLocal: true)
 
         reloadData()
     }
@@ -973,10 +974,74 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         return true
     }
 
-    func collectionView(_ collectionView: NSCollectionView, writeItemsAt indexPaths: Set<IndexPath>, to pasteboard: NSPasteboard) -> Bool {
-        pasteboard.declareTypes([.artworkDragType], owner: nil)
-        pasteboard.setData(NSKeyedArchiver.archivedData(withRootObject: indexPaths), forType: .artworkDragType)
-        return indexPaths.isEmpty == false
+    func filePromiseProvider(_ filePromiseProvider: NSFilePromiseProvider, fileNameForType fileType: String) -> String {
+        if let userInfo = filePromiseProvider.userInfo as? [String: AnyObject] {
+            return "Untitled." + (userInfo[FilePromiseProvider.UserInfoKeys.extensionKey] as! String)
+        } else {
+            return "Untitled.tiff"
+        }
+    }
+
+    func filePromiseProvider(_ filePromiseProvider: NSFilePromiseProvider, writePromiseTo url: URL, completionHandler: @escaping (Error?) -> Void) {
+        if let userInfo = filePromiseProvider.userInfo as? [String: AnyObject] {
+            do {
+                if let indexPathData = userInfo[FilePromiseProvider.UserInfoKeys.indexPathKey] as? Data {
+                    if let indexPath = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(indexPathData) as? IndexPath {
+                        let item = artworks[indexPath.last!]
+                        if let image = item.imageValue {
+                            try image.data?.write(to: url)
+                            completionHandler(nil)
+                        }
+                    }
+                }
+            } catch {
+                fatalError("failed to unarchive indexPath from promise provider.")
+            }
+        }
+    }
+
+    /** Dragging Source Support - Required for multi-image drag and drop.
+        Return a custom object that implements NSPasteboardWriting (or simply use NSPasteboardItem), or nil to prevent dragging for the item.
+    */
+    func collectionView(_ collectionView: NSCollectionView,
+                        pasteboardWriterForItemAt indexPath: IndexPath) -> NSPasteboardWriting? {
+        var provider: NSFilePromiseProvider?
+
+        let item = artworks[indexPath.last!]
+        guard let image = item.imageValue else { return provider }
+
+        let fileExtension = {
+            switch image.type {
+            case MP42_ART_BMP:
+                return "bmp"
+            case MP42_ART_GIF:
+                return "gif"
+            case MP42_ART_JPEG:
+                return "jpeg"
+            case MP42_ART_PNG:
+                return "png"
+            default:
+                return "tiff"
+            }
+        }()
+
+        if #available(macOS 11.0, *) {
+            let typeIdentifier = UTType(filenameExtension: fileExtension)
+            provider = FilePromiseProvider(fileType: typeIdentifier!.identifier, delegate: self)
+        } else {
+            let typeIdentifier =
+                  UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension as CFString, nil)
+            provider = FilePromiseProvider(fileType: typeIdentifier!.takeRetainedValue() as String, delegate: self)
+        }
+
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: indexPath, requiringSecureCoding: false)
+            provider!.userInfo = [FilePromiseProvider.UserInfoKeys.extensionKey: fileExtension as Any,
+                                  FilePromiseProvider.UserInfoKeys.indexPathKey: data]
+        } catch {
+            fatalError("failed to archive indexPath to pasteboard")
+        }
+        return provider
     }
 
     func collectionView(_ collectionView: NSCollectionView,
@@ -989,11 +1054,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
         let pasteboard = draggingInfo.draggingPasteboard
 
-        if let draggingSource = draggingInfo.draggingSource as? NSCollectionView {
-            if draggingSource == collectionView {
-                // Drag source came from our own table view.
-                dragOperation = [.move]
-            }
+        if let draggingSource = draggingInfo.draggingSource as? NSCollectionView, draggingSource == collectionView {
+            // Drag source came from our own collection view.
+            dragOperation = [.move]
         } else {
             // Drag source came from another app.
             // Search through the array of NSPasteboardItems.
@@ -1036,6 +1099,8 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     }
 
     func dropInternalArtworks(_ collectionView: NSCollectionView, draggingInfo: NSDraggingInfo, indexPath: IndexPath) {
+        var indexes = Set<IndexPath>()
+
         draggingInfo.enumerateDraggingItems(
             options: NSDraggingItemEnumerationOptions.concurrent,
             for: collectionView,
@@ -1045,14 +1110,28 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
                 if let pasteboardItem = draggingItem.item as? NSPasteboardItem {
                     do {
                         if let indexPathData = pasteboardItem.data(forType: .artworkDragType),
-                           let artworkIndexPath = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(indexPathData) as? Set<IndexPath> {
-                            print(artworkIndexPath)
+                           let itemIndexPath = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(indexPathData) as? IndexPath {
+                            indexes.insert(itemIndexPath)
                         }
                     } catch {
-                        Swift.debugPrint("failed to unarchive indexPath for dropped photo item.")
+                        Swift.debugPrint("failed to unarchive indexPath for dropped item.")
                     }
                 }
             })
+
+        if let last = indexPath.last {
+            let itemIndexes = indexes.compactMap { $0.last }
+            let draggedItems = itemIndexes.map { artworks[$0] }
+            let destinationIndex = last - itemIndexes.filter { $0 < last }.count
+
+            var modifiedArtworks = IndexSet(artworks.indices).subtracting(IndexSet(itemIndexes)).map { artworks[$0] }
+
+            for item in draggedItems.reversed() {
+                modifiedArtworks.insert(item, at: destinationIndex)
+            }
+
+            replace(metadataArtworks: artworks, withItems: modifiedArtworks)
+        }
     }
 
     // The temporary directory URL you use to accept file promises.
@@ -1092,7 +1171,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     }
 
     // Find the proper drop location relative to the provided indexPath.
-    func dropLocation(indexPath: IndexPath) -> IndexPath {
+    static func dropLocation(indexPath: IndexPath) -> IndexPath {
         var toIndexPath = indexPath
         if indexPath.item == 0 {
             toIndexPath = IndexPath(item: indexPath.item, section: indexPath.section)
@@ -1103,7 +1182,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     }
 
     func dropExternalArtworks(_ collectionView: NSCollectionView, draggingInfo: NSDraggingInfo, indexPath: IndexPath) {
-        let toIndexPath = dropLocation(indexPath: indexPath)
+        let toIndexPath = MovieViewController.dropLocation(indexPath: indexPath)
 
         if handlePromisedDrops(draggingInfo: draggingInfo, toIndexPath: toIndexPath) {
             // Successfully processed the dragged items that were promised.
@@ -1170,20 +1249,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         }
     }
 
-//    override func imageBrowser(_ aBrowser: IKImageBrowserView!, moveItemsAt indexes: IndexSet!, to destinationIndex: Int) -> Bool {
-//        let destinationIndex = destinationIndex - indexes.count(in: 0..<destinationIndex)
-//
-//        let items = indexes.map { artworks[$0] }
-//        var modifiedArtworks = IndexSet(artworks.indices).subtracting(indexes).map { artworks[$0] }
-//
-//        for item in items.reversed() {
-//            modifiedArtworks.insert(item, at: destinationIndex)
-//        }
-//
-//        replace(metadataArtworks: artworks, withItems: modifiedArtworks)
-//        return true
-//    }
-//
+
 //    override func imageBrowser(_ aBrowser: IKImageBrowserView!, writeItemsAt itemIndexes: IndexSet!, to pasteboard: NSPasteboard!) -> Int {
 //        pasteboard.declareTypes([artworksPBoardType, .tiff], owner: nil)
 //

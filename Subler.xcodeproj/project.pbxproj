@@ -53,6 +53,7 @@
 		A956CE651F99E5BB00093992 /* ActivityWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956CE641F99E5BB00093992 /* ActivityWindowController.swift */; };
 		A956CE691F99E93D00093992 /* ButtonToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956CE681F99E93D00093992 /* ButtonToolbarItem.swift */; };
 		A956CE6B1F99EAAD00093992 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956CE6A1F99EAAD00093992 /* Logger.swift */; };
+		A9586F672C2EF0750016350E /* FilePromiseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9586F662C2EF0750016350E /* FilePromiseProvider.swift */; };
 		A959001A202AF21800FD8F23 /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9590018202AF21800FD8F23 /* ProgressViewController.swift */; };
 		A961476713F568210068F161 /* Queue.xib in Resources */ = {isa = PBXBuildFile; fileRef = A961476513F568210068F161 /* Queue.xib */; };
 		A962D9EE1F8B7F9F00802EEF /* FileImportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A962D9ED1F8B7F9F00802EEF /* FileImportController.swift */; };
@@ -281,6 +282,7 @@
 		A957E5B12040083E00A5F776 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/OffsetViewController.strings; sourceTree = "<group>"; };
 		A957E5B22040083E00A5F776 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/ProgressViewController.strings; sourceTree = "<group>"; };
 		A957E5B32040083E00A5F776 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/DocumentWindowController.strings; sourceTree = "<group>"; };
+		A9586F662C2EF0750016350E /* FilePromiseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePromiseProvider.swift; sourceTree = "<group>"; };
 		A9590018202AF21800FD8F23 /* ProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProgressViewController.swift; path = Classes/ProgressViewController.swift; sourceTree = "<group>"; };
 		A962D9ED1F8B7F9F00802EEF /* FileImportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileImportController.swift; path = Classes/FileImportController.swift; sourceTree = "<group>"; };
 		A9676A2F1FB6E85300C1E300 /* LanguageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LanguageTransformer.swift; path = Classes/LanguageTransformer.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 				A909440E1DD4C85B00E9F89C /* Table View */,
 				A9A77C4D1F306FA70018023B /* AttributedStyles.swift */,
 				A956CE681F99E93D00093992 /* ButtonToolbarItem.swift */,
+				A9586F662C2EF0750016350E /* FilePromiseProvider.swift */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -830,6 +833,7 @@
 			files = (
 				A959001A202AF21800FD8F23 /* ProgressViewController.swift in Sources */,
 				A91576EB204ECA6E00D93CE7 /* Token.swift in Sources */,
+				A9586F672C2EF0750016350E /* FilePromiseProvider.swift in Sources */,
 				A9676A341FB6EAAD00C1E300 /* ItemViewController.swift in Sources */,
 				A91F0FA023797F2800C9DCC9 /* PropertyView.swift in Sources */,
 				A98D6BAB21FDC62800F0D886 /* Queue.swift in Sources */,

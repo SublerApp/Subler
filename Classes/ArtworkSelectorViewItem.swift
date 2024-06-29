@@ -231,6 +231,16 @@ final class ArtworkSelectorViewItemView: NSView {
         }
     }
 
+    var imageFrame: NSRect {
+        get {
+            if let image = imageLayer.contents as? NSImage {
+                AVMakeRect(aspectRatio: image.size, insideRect: imageLayer.bounds)
+            } else {
+                NSRect(x: 0, y: 0, width: 64, height: 32)
+            }
+        }
+    }
+
 }
 
 final class ArtworkSelectorViewItem: NSCollectionViewItem {
@@ -308,6 +318,26 @@ final class ArtworkSelectorViewItem: NSCollectionViewItem {
         } else {
             super.mouseUp(with: event)
         }
+    }
+
+    override var draggingImageComponents: [NSDraggingImageComponent] {
+        var components = Array<NSDraggingImageComponent>()
+
+        if let itemView {
+            let icon = NSDraggingImageComponent(key: .icon)
+            icon.contents = itemView.image
+            icon.frame = itemView.imageFrame
+            components.append(icon)
+        }
+
+        if let textField, textField.stringValue.isEmpty == false {
+            let label = NSDraggingImageComponent(key: .label)
+            label.contents = textField.stringValue
+            label.frame = textField.frame
+            components.append(label)
+        }
+
+        return components
     }
 
     override func prepareForReuse() {
