@@ -14,7 +14,7 @@ extension NSPasteboard.PasteboardType {
     static let artworkDragType = NSPasteboard.PasteboardType("org.subler.artworkdragdrop")
 }
 
-class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableViewDelegate, NSCollectionViewDataSource, NSCollectionViewDelegate, NSDraggingDestination, NSFilePromiseProviderDelegate {
+class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableViewDelegate, NSCollectionViewDataSource, CollectionViewDelegate, NSDraggingDestination, NSFilePromiseProviderDelegate {
 
     var metadata: MP42Metadata {
         didSet {
@@ -976,9 +976,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
     func filePromiseProvider(_ filePromiseProvider: NSFilePromiseProvider, fileNameForType fileType: String) -> String {
         if let userInfo = filePromiseProvider.userInfo as? [String: AnyObject] {
-            return "Untitled." + (userInfo[FilePromiseProvider.UserInfoKeys.extensionKey] as! String)
+            return "Artwork." + (userInfo[FilePromiseProvider.UserInfoKeys.extensionKey] as! String)
         } else {
-            return "Untitled.tiff"
+            return "Artwork.tiff"
         }
     }
 
@@ -1249,38 +1249,38 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         }
     }
 
+    func collectionViewDelete(in collectionView: NSCollectionView) {
+        let itemIndexes = collectionView.selectionIndexPaths.compactMap { $0.last }
+        let items = itemIndexes.map { artworks[$0] }
+        remove(metadataArtworks: items)
+    }
 
-//    override func imageBrowser(_ aBrowser: IKImageBrowserView!, writeItemsAt itemIndexes: IndexSet!, to pasteboard: NSPasteboard!) -> Int {
-//        pasteboard.declareTypes([artworksPBoardType, .tiff], owner: nil)
-//
-//        for image in itemIndexes.map({ artworks[$0] }).compactMap({ $0.imageValue }) {
-//            if let representations = image.image?.representations {
-//                let bitmapData = NSBitmapImageRep.representationOfImageReps(in: representations, using: .tiff, properties: [:])
-//                pasteboard.setData(bitmapData, forType: .tiff)
-//            }
-//            pasteboard.setData(NSKeyedArchiver.archivedData(withRootObject: image), forType: artworksPBoardType)
-//        }
-//
-//        return itemIndexes.count
-//    }
-//
-//    func paste(to imagebrowserview: ImageBrowserView) {
-//        let pb = NSPasteboard.general
-//
-//        if let archivedImageData = pb.data(forType: artworksPBoardType), let image = NSKeyedUnarchiver.unarchiveObject(with: archivedImageData) as? MP42Image {
-//            _ = add(artworks: [image])
-//        } else {
-//            let classes = [NSURL.classForCoder(), NSImage.classForCoder()]
-//            let options = [NSPasteboard.ReadingOptionKey.urlReadingContentsConformToTypes: NSImage.imageTypes]
-//            if let items = pb.readObjects(forClasses: classes, options: options) as [AnyObject]? {
-//                _ = add(artworks: items)
-//            }
-//        }
-//    }
-//
-//    override func imageBrowser(_ aBrowser: IKImageBrowserView!, removeItemsAt indexes: IndexSet!) {
-//        let items = indexes.map { artworks[$0] }
-//        remove(metadataArtworks: items)
-//    }
+    func collectionViewCopy(in collectionView: NSCollectionView) {
+        //        pasteboard.declareTypes([artworksPBoardType, .tiff], owner: nil)
+        //
+        //        for image in itemIndexes.map({ artworks[$0] }).compactMap({ $0.imageValue }) {
+        //            if let representations = image.image?.representations {
+        //                let bitmapData = NSBitmapImageRep.representationOfImageReps(in: representations, using: .tiff, properties: [:])
+        //                pasteboard.setData(bitmapData, forType: .tiff)
+        //            }
+        //            pasteboard.setData(NSKeyedArchiver.archivedData(withRootObject: image), forType: artworksPBoardType)
+        //        }
+        //
+        //        return itemIndexes.count
+    }
+
+    func collectionViewPaste(to collectionView: NSCollectionView) {
+        //        let pb = NSPasteboard.general
+        //
+        //        if let archivedImageData = pb.data(forType: artworksPBoardType), let image = NSKeyedUnarchiver.unarchiveObject(with: archivedImageData) as? MP42Image {
+        //            _ = add(artworks: [image])
+        //        } else {
+        //            let classes = [NSURL.classForCoder(), NSImage.classForCoder()]
+        //            let options = [NSPasteboard.ReadingOptionKey.urlReadingContentsConformToTypes: NSImage.imageTypes]
+        //            if let items = pb.readObjects(forClasses: classes, options: options) as [AnyObject]? {
+        //                _ = add(artworks: items)
+        //            }
+        //        }
+    }
 
 }

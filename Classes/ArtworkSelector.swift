@@ -103,7 +103,7 @@ protocol ArtworkSelectorControllerDelegate: AnyObject {
     func didAddArtworks(metadata: MetadataResult)
 }
 
-class CollectionView : NSCollectionView {
+class ArtworkCollectionView : NSCollectionView {
     override func keyDown(with event: NSEvent) {
         guard let key = event.charactersIgnoringModifiers?.utf16.first else { super.keyDown(with: event); return }
 

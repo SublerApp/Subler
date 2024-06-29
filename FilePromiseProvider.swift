@@ -6,12 +6,14 @@
 //
 
 import Cocoa
+import UniformTypeIdentifiers
 
 class FilePromiseProvider: NSFilePromiseProvider {
 
     struct UserInfoKeys {
         static let indexPathKey = "indexPath"
         static let extensionKey = "extension"
+        static let urlKey = "url"
     }
 
     /** Required:
@@ -26,7 +28,13 @@ class FilePromiseProvider: NSFilePromiseProvider {
     override func writableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
         var types = super.writableTypes(for: pasteboard)
         types.append(.artworkDragType) // Add our own internal drag type (row drag and drop reordering).
-//        types.append(.fileURL) // Add the .fileURL drag type (to promise files to other apps).
+        var type: NSPasteboard.PasteboardType
+        if #available(macOS 11.0, *) {
+            type = NSPasteboard.PasteboardType(UTType.image.identifier)
+        } else {
+            type = (kUTTypeImage as NSPasteboard.PasteboardType)
+        }
+        types.append(type)
         return types
     }
 
@@ -38,11 +46,11 @@ class FilePromiseProvider: NSFilePromiseProvider {
     override func pasteboardPropertyList(forType type: NSPasteboard.PasteboardType) -> Any? {
         guard let userInfoDict = userInfo as? [String: Any] else { return nil }
         switch type {
-//        case .fileURL:
-//            // Incoming type is "public.file-url", return (from our userInfo) the item's URL.
-//            if let url = userInfoDict[FilePromiseProvider.UserInfoKeys.urlKey] as? NSURL {
-//                return url.pasteboardPropertyList(forType: type)
-//            }
+        case .fileURL:
+            // Incoming type is "public.file-url", return (from our userInfo) the item's URL.
+            if let url = userInfoDict[FilePromiseProvider.UserInfoKeys.urlKey] as? NSURL {
+                return url.pasteboardPropertyList(forType: type)
+            }
         case .artworkDragType:
             // Incoming type is "com.mycompany.mydragdrop", return (from our userInfo) the item's indexPath.
             let indexPathData = userInfoDict[FilePromiseProvider.UserInfoKeys.indexPathKey]
