@@ -1000,9 +1000,6 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         }
     }
 
-    /** Dragging Source Support - Required for multi-image drag and drop.
-        Return a custom object that implements NSPasteboardWriting (or simply use NSPasteboardItem), or nil to prevent dragging for the item.
-    */
     func collectionView(_ collectionView: NSCollectionView,
                         pasteboardWriterForItemAt indexPath: IndexPath) -> NSPasteboardWriting? {
         var provider: NSFilePromiseProvider?
@@ -1091,7 +1088,6 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
             // Look only for image urls.
             if let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: options), !urls.isEmpty {
                 // One or more of the URLs in this drag is image file.
-                // The sample allows for this; a user may be able to drag in a mix of files, any one of them being an image file.
                 dragOperation = [.copy]
             }
         }
@@ -1256,31 +1252,25 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     }
 
     func collectionViewCopy(in collectionView: NSCollectionView) {
-        //        pasteboard.declareTypes([artworksPBoardType, .tiff], owner: nil)
-        //
-        //        for image in itemIndexes.map({ artworks[$0] }).compactMap({ $0.imageValue }) {
-        //            if let representations = image.image?.representations {
-        //                let bitmapData = NSBitmapImageRep.representationOfImageReps(in: representations, using: .tiff, properties: [:])
-        //                pasteboard.setData(bitmapData, forType: .tiff)
-        //            }
-        //            pasteboard.setData(NSKeyedArchiver.archivedData(withRootObject: image), forType: artworksPBoardType)
-        //        }
-        //
-        //        return itemIndexes.count
+        let indexes = artworksView.selectionIndexes
+        if indexes.isEmpty { return }
+
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+
+        let items = indexes.compactMap { artworks[$0].imageValue }
+        pasteboard.writeObjects(items)
     }
 
     func collectionViewPaste(to collectionView: NSCollectionView) {
-        //        let pb = NSPasteboard.general
-        //
-        //        if let archivedImageData = pb.data(forType: artworksPBoardType), let image = NSKeyedUnarchiver.unarchiveObject(with: archivedImageData) as? MP42Image {
-        //            _ = add(artworks: [image])
-        //        } else {
-        //            let classes = [NSURL.classForCoder(), NSImage.classForCoder()]
-        //            let options = [NSPasteboard.ReadingOptionKey.urlReadingContentsConformToTypes: NSImage.imageTypes]
-        //            if let items = pb.readObjects(forClasses: classes, options: options) as [AnyObject]? {
-        //                _ = add(artworks: items)
-        //            }
-        //        }
+        let pasteboard = NSPasteboard.general
+
+        let classes = [MP42Image.classForCoder(), NSURL.classForCoder(), NSImage.classForCoder()]
+        let options = [NSPasteboard.ReadingOptionKey.urlReadingContentsConformToTypes: NSImage.imageTypes]
+
+        if let items = pasteboard.readObjects(forClasses: classes, options: options) as [AnyObject]? {
+            _ = add(artworks: items, toIndexPath:IndexPath(index: 0))
+        }
     }
 
 }
