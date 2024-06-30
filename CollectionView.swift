@@ -120,7 +120,7 @@ class CollectionView: NSCollectionView, NSMenuItemValidation {
                     return false
                 }
             case #selector(paste(_:)):
-                if isSelectionEmpty || implements(selector:  #selector(CollectionViewDelegate.collectionViewPaste(to:))) == false {
+                if pasteboardHasSupportedType == false || implements(selector:  #selector(CollectionViewDelegate.collectionViewPaste(to:))) == false {
                     return false
                 }
             default:

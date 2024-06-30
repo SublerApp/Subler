@@ -62,7 +62,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     private let standardSize = NSSize(width: 154, height: 192)
 
     @IBOutlet var removeArtworkButton: NSButton!
-    @IBOutlet var artworksView: NSCollectionView!
+    @IBOutlet var artworksView: CollectionView!
 
     override var nibName: NSNib.Name? {
         return "MovieView"
@@ -125,11 +125,11 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         artworksView.register(ArtworkSelectorViewItem.self, forItemWithIdentifier: ArtworkSelectorController.itemView)
         artworksView.registerForDraggedTypes(NSFilePromiseReceiver.readableDraggedTypes.map { NSPasteboard.PasteboardType($0)})
         artworksView.registerForDraggedTypes([.fileURL, .artworkDragType])
+        artworksView.pasteboardTypes = [.fileURL, .tiff, .MP42PasteboardTypeArtwork]
 
         // Determine the kind of source drag originating from this app.
         // Note, if you want to allow your app to drag items to the Finder's trash can, add ".delete".
         artworksView.setDraggingSourceOperationMask([.copy, .delete], forLocal: false)
-        artworksView.setDraggingSourceOperationMask([.copy, .move], forLocal: true)
 
         reloadData()
     }
@@ -866,7 +866,6 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     }
 
     private func replace(metadataArtworks items: [MP42MetadataItem], withItems newItems: [MP42MetadataItem]) {
-
         metadata.removeItems(items)
         metadata.addItems(newItems)
 
@@ -882,12 +881,14 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
         updateArtworksArray()
         artworksView.reloadData()
+        updateSelection()
     }
 
     @IBAction func removeArtwork(_ sender: Any?) {
         let selectedIndexes = artworksView.selectionIndexes
         artworks = IndexSet(artworks.indices).subtracting(selectedIndexes).map {artworks[$0]}
         artworksView.deleteItems(at: artworksView.selectionIndexPaths)
+        updateSelection()
     }
 
     private func add(artworks: [Any], toIndexPath: IndexPath) -> Bool {
@@ -914,6 +915,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
             return false
         } else {
             add(metadataArtworks: items)
+            updateSelection()
             return true
         }
     }
@@ -1246,9 +1248,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     }
 
     func collectionViewDelete(in collectionView: NSCollectionView) {
-        let itemIndexes = collectionView.selectionIndexPaths.compactMap { $0.last }
-        let items = itemIndexes.map { artworks[$0] }
-        remove(metadataArtworks: items)
+        removeArtwork(self)
     }
 
     func collectionViewCopy(in collectionView: NSCollectionView) {
