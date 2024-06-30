@@ -94,13 +94,13 @@ final class MetadataSearchController: NSViewController, NSTableViewDataSource, N
         fatalError("init(coder:) has not been implemented")
     }
 
-//    deinit {
-//        resultsTable.delegate = nil
-//        resultsTable.dataSource = nil
-//
-//        metadataTable.delegate = nil
-//        metadataTable.dataSource = nil
-//    }
+    deinit {
+        resultsTable.delegate = nil
+        resultsTable.dataSource = nil
+
+        metadataTable.delegate = nil
+        metadataTable.dataSource = nil
+    }
 
     override var nibName: NSNib.Name? {
         return "MetadataSearch"

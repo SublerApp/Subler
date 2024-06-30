@@ -60,12 +60,12 @@ final class ChapterSearchController: ViewController, NSTableViewDataSource, NSTa
         fatalError("init(coder:) has not been implemented")
     }
 
-//    deinit {
-//        resultsTable.delegate = nil
-//        resultsTable.dataSource = nil
-//        chapterTable.delegate = nil
-//        chapterTable.dataSource = nil
-//    }
+    deinit {
+        resultsTable.delegate = nil
+        resultsTable.dataSource = nil
+        chapterTable.delegate = nil
+        chapterTable.dataSource = nil
+    }
 
     override var nibName: NSNib.Name? {
         return "SBChapterSearch"

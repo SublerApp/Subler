@@ -117,10 +117,10 @@ final class MediaTagsController: NSViewController, NSTableViewDataSource, NSTabl
         fatalError("init(coder:) has not been implemented")
     }
 
-//    deinit {
-//        tableView.delegate = nil
-//        tableView.dataSource = nil
-//    }
+    deinit {
+        tableView.delegate = nil
+        tableView.dataSource = nil
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
