@@ -863,6 +863,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
         updateArtworksArray()
         artworksView.reloadData()
+        updateSelection()
     }
 
     private func replace(metadataArtworks items: [MP42MetadataItem], withItems newItems: [MP42MetadataItem]) {
@@ -885,10 +886,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     }
 
     @IBAction func removeArtwork(_ sender: Any?) {
-        let selectedIndexes = artworksView.selectionIndexes
-        artworks = IndexSet(artworks.indices).subtracting(selectedIndexes).map {artworks[$0]}
-        artworksView.deleteItems(at: artworksView.selectionIndexPaths)
-        updateSelection()
+        remove(metadataArtworks: artworksView.selectionIndexes.map { artworks[$0] })
     }
 
     private func add(artworks: [Any], toIndexPath: IndexPath) -> Bool {
