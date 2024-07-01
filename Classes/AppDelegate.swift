@@ -261,7 +261,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction func help(_ sender: Any) {
-        guard let url = URL(string: "https://bitbucket.org/galad87/subler/wiki/Home") else { return }
+        guard let url = URL(string: "https://github.com/SublerApp/Subler/wiki") else { return }
         NSWorkspace.shared.open(url)
     }
 }
