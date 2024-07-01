@@ -125,9 +125,23 @@ final class ArtworkSelectorViewItemView: NSView {
         setUp()
     }
 
+    private let padding: CGFloat = 8
+    private var paddingBottom: CGFloat = 36 {
+        didSet {
+            imageLayer.position = CGPoint(x: padding / 2, y: padding / 2 + paddingBottom)
+            backgroundLayer.position = CGPoint(x: 0, y: paddingBottom)
+            emptyLayer.position = CGPoint(x: padding, y: padding + paddingBottom)
+        }
+    }
+    private let corderRadius: CGFloat = 14
+
     private func setUp() {
         layer = CALayer()
+
+        layerContentsRedrawPolicy = .onSetNeedsDisplay
         wantsLayer = true
+
+        guard let layer else { return }
 
         let actions: [String : CAAction] = ["contents": NSNull(),
                                             "hidden": NSNull(),
@@ -135,9 +149,10 @@ final class ArtworkSelectorViewItemView: NSView {
         imageLayer.actions = actions
         backgroundLayer.actions = actions
         emptyLayer.actions = actions
+        layer.actions = actions
 
         imageLayer.anchorPoint = CGPoint.zero
-        imageLayer.position = CGPoint(x: 4, y: 40)
+        imageLayer.position = CGPoint(x: padding / 2, y: padding / 2 + paddingBottom)
         imageLayer.contentsGravity = .resizeAspect
         imageLayer.shadowRadius = 1
         imageLayer.shadowColor = NSColor.labelColor.cgColor
@@ -146,14 +161,14 @@ final class ArtworkSelectorViewItemView: NSView {
         imageLayer.isOpaque = true
 
         backgroundLayer.anchorPoint = CGPoint.zero
-        backgroundLayer.position = CGPoint(x: 0, y: 36)
+        backgroundLayer.position = CGPoint(x: 0, y: paddingBottom)
         backgroundLayer.backgroundColor = NSColor.controlHighlightColor.cgColor
         backgroundLayer.cornerRadius = 8
         backgroundLayer.isHidden = true
         backgroundLayer.isOpaque = true
 
         emptyLayer.anchorPoint = CGPoint.zero
-        emptyLayer.position = CGPoint(x: 8, y: 46)
+        emptyLayer.position = CGPoint(x: padding, y: padding + paddingBottom)
         emptyLayer.lineWidth = 3.0
         emptyLayer.lineDashPattern = [12,5]
         emptyLayer.strokeColor = NSColor.secondarySelectedControlColor.cgColor
@@ -162,11 +177,9 @@ final class ArtworkSelectorViewItemView: NSView {
 
         updateBackgroundColor()
 
-        layer?.addSublayer(backgroundLayer)
-        layer?.addSublayer(emptyLayer)
-        layer?.addSublayer(imageLayer)
-
-        layerContentsRedrawPolicy = .onSetNeedsDisplay
+        layer.addSublayer(backgroundLayer)
+        layer.addSublayer(emptyLayer)
+        layer.addSublayer(imageLayer)
     }
 
     override func hitTest(_ point: NSPoint) -> NSView? {
@@ -203,11 +216,12 @@ final class ArtworkSelectorViewItemView: NSView {
 
     override func layout() {
         super.layout()
-        imageLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width - 8, height: bounds.height - 44)
-        backgroundLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - 36)
 
-        emptyLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width - 16, height: bounds.height - 56)
-        emptyLayer.path = CGPath(roundedRect: emptyLayer.bounds, cornerWidth: 14, cornerHeight: 14, transform: nil)
+        imageLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width - padding, height: bounds.height - padding - paddingBottom)
+        backgroundLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - paddingBottom)
+
+        emptyLayer.bounds = CGRect(x: 0, y: 0, width: bounds.width - padding * 2, height: bounds.height - padding * 2 - paddingBottom - 4)
+        emptyLayer.path = CGPath(roundedRect: emptyLayer.bounds, cornerWidth: corderRadius, cornerHeight: corderRadius, transform: nil)
 
         if let image = imageLayer.contents as? NSImage {
             let rect = AVMakeRect(aspectRatio: image.size, insideRect: imageLayer.bounds)
@@ -220,6 +234,12 @@ final class ArtworkSelectorViewItemView: NSView {
     var highlighted: Bool = false {
         didSet {
             backgroundLayer.isHidden = !highlighted
+        }
+    }
+
+    var areLabelsHidden: Bool = false {
+        didSet {
+            paddingBottom = areLabelsHidden ? 0 : 36
         }
     }
 
@@ -258,19 +278,24 @@ final class ArtworkSelectorViewItem: NSCollectionViewItem {
         textField?.layer?.isOpaque = true
     }
 
+    private func updateLabels() {
+        let state = title?.isEmpty == false && subtitle?.isEmpty == false
+        itemView?.areLabelsHidden = !state
+        textField?.isHidden = !state
+        subTextField?.isHidden = !state
+    }
+
     override var title: String? {
-        set (title) {
+        didSet {
             textField?.stringValue = title ?? ""
-            super.title = title
-        }
-        get {
-            return super.title
+            updateLabels()
         }
     }
 
     var subtitle: String? {
         didSet {
             subTextField?.stringValue = subtitle ?? ""
+            updateLabels()
         }
     }
 

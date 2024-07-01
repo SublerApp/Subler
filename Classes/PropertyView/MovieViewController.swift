@@ -59,7 +59,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
     // Artwork tab
     private var artworks: [MP42MetadataItem]
-    private let standardSize = NSSize(width: 154, height: 192)
+    private let standardSize = NSSize(width: 280, height: 224)
 
     @IBOutlet var removeArtworkButton: NSButton!
     @IBOutlet var artworksView: CollectionView!
@@ -949,9 +949,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         let artwork = artworks[index]
 
         collectionViewItem.image = artwork.imageValue?.image
+        collectionViewItem.title = nil
+        collectionViewItem.subtitle = nil
         collectionViewItem.target = self
-        collectionViewItem.title = ""
-        collectionViewItem.subtitle = ""
 
         return collectionViewItem
     }
@@ -1235,12 +1235,12 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
             } else if floatValue < 50 {
                 let zoomValue = (floatValue + 50) / 100
                 layout.itemSize = NSSize(width: Int(standardSize.width * zoomValue),
-                                         height: Int((standardSize.height - 32) * zoomValue + 32))
+                                         height: Int(standardSize.height * zoomValue))
 
             } else {
                 let zoomValue = pow((floatValue + 50) / 100, 2.4)
                 layout.itemSize = NSSize(width: Int(standardSize.width * zoomValue),
-                                         height: Int((standardSize.height - 32) * zoomValue + 32))
+                                         height: Int(standardSize.height * zoomValue))
             }
         }
     }
