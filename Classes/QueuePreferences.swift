@@ -42,6 +42,11 @@ final class QueuePreferences: NSObject {
     static private let SBQueueSetOutputFilename: String = "SBQueueSetOutputFilename"
     static private let SBQueueDestination: String = "SBQueueDestination"
 
+    static private let SBQueueChangeAudioLanguage: String = "SBQueueChangeAudioLanguage"
+    static private let SBQueueChangeAudioLanguageValue: String = "SBQueueChangeAudioLanguageValue"
+    static private let SBQueueChangeSubtitleLanguage: String = "SBQueueChangeSubtitleLanguage"
+    static private let SBQueueChangeSubtitleLanguageValue: String = "SBQueueChangeSubtitleLanguageValue"
+
     @objc dynamic var clearExistingMetadata: Bool
 
     @objc dynamic var searchMetadata: Bool
@@ -75,6 +80,11 @@ final class QueuePreferences: NSObject {
 
     @objc dynamic var autoStart: Bool
     @objc dynamic var showDoneNotification: Bool
+
+    @objc dynamic var changeAudioLanguage: Bool
+    @objc dynamic var changeAudioLanguageValue: String
+    @objc dynamic var changeSubtitleLanguage: Bool
+    @objc dynamic var changeSubtitleLanguageValue: String
 
     override init() {
         QueuePreferences.registerUserDefaults()
@@ -118,6 +128,11 @@ final class QueuePreferences: NSObject {
 
         self.autoStart = ud.bool(forKey: QueuePreferences.SBQueueAutoStart)
         self.showDoneNotification = ud.bool(forKey: QueuePreferences.SBQueueShowDoneNotification)
+
+        self.changeAudioLanguage = ud.bool(forKey: QueuePreferences.SBQueueChangeAudioLanguage)
+        self.changeAudioLanguageValue = ud.string(forKey: QueuePreferences.SBQueueChangeAudioLanguageValue) ?? ""
+        self.changeSubtitleLanguage = ud.bool(forKey: QueuePreferences.SBQueueChangeSubtitleLanguage)
+        self.changeSubtitleLanguageValue = ud.string(forKey: QueuePreferences.SBQueueChangeSubtitleLanguageValue) ?? ""
     }
 
     convenience init(preset: QueuePreset) {
@@ -125,29 +140,33 @@ final class QueuePreferences: NSObject {
     }
 
     static func registerUserDefaults() {
-        let prefs = [QueuePreferences.SBQueueFileType : "mp4",
-                     QueuePreferences.SBQueueOrganize : true,
+        let prefs = [QueuePreferences.SBQueueFileType: "mp4",
+                     QueuePreferences.SBQueueOrganize: true,
                      QueuePreferences.SBQueueFixTrackLanguage: false,
                      QueuePreferences.SBQueueFixTrackLanguageValue: "en",
                      QueuePreferences.SBQueueFixFallbacks: false,
                      QueuePreferences.SBQueueClearTrackName: false,
                      QueuePreferences.SBQueuePrettifyAudioTrackName: false,
                      QueuePreferences.SBQueueRenameChapters: false,
-                     QueuePreferences.SBQueueMetadata : false,
+                     QueuePreferences.SBQueueMetadata: false,
                      QueuePreferences.SBQueueSubtitles: true,
                      QueuePreferences.SBQueueApplyColorSpace: false,
                      QueuePreferences.SBQueueApplyColorSpaceValue: 1,
                      QueuePreferences.SBQueueSetOutputFilename: false,
                      QueuePreferences.SBQueueAutoStart: false,
-                     QueuePreferences.SBQueueOptimize : false,
+                     QueuePreferences.SBQueueOptimize: false,
                      QueuePreferences.SBQueueShowDoneNotification: true,
                      QueuePreferences.SBQueueClearExistingMetadata: false,
-                     QueuePreferences.SBQueueMovieProvider : "TheMovieDB",
-                     QueuePreferences.SBQueueTVShowProvider : "TheTVDB",
-                     QueuePreferences.SBQueueMovieProviderLanguage : "en",
-                     QueuePreferences.SBQueueTVShowProviderLanguage : "en",
-                     QueuePreferences.SBQueueProviderArtwork : 0,
-                     QueuePreferences.SBQueueProviderArtworkSize: 0] as [String : Any]
+                     QueuePreferences.SBQueueMovieProvider: "TheMovieDB",
+                     QueuePreferences.SBQueueTVShowProvider: "TheTVDB",
+                     QueuePreferences.SBQueueMovieProviderLanguage: "en",
+                     QueuePreferences.SBQueueTVShowProviderLanguage: "en",
+                     QueuePreferences.SBQueueProviderArtwork: 0,
+                     QueuePreferences.SBQueueProviderArtworkSize: 0,
+                     QueuePreferences.SBQueueChangeAudioLanguage: false,
+                     QueuePreferences.SBQueueChangeAudioLanguageValue: "en",
+                     QueuePreferences.SBQueueChangeSubtitleLanguage: false,
+                     QueuePreferences.SBQueueChangeSubtitleLanguageValue: "en"] as [String : Any]
         UserDefaults.standard.register(defaults: prefs)
     }
 
@@ -187,6 +206,11 @@ final class QueuePreferences: NSObject {
 
         ud.set(autoStart, forKey: QueuePreferences.SBQueueAutoStart)
         ud.set(showDoneNotification, forKey: QueuePreferences.SBQueueShowDoneNotification)
+
+        ud.set(changeAudioLanguage, forKey: QueuePreferences.SBQueueChangeAudioLanguage)
+        ud.set(changeAudioLanguageValue, forKey: QueuePreferences.SBQueueChangeAudioLanguageValue)
+        ud.set(changeSubtitleLanguage, forKey: QueuePreferences.SBQueueChangeSubtitleLanguage)
+        ud.set(changeSubtitleLanguageValue, forKey: QueuePreferences.SBQueueChangeSubtitleLanguageValue)
     }
 
     var queueURL: URL? {
