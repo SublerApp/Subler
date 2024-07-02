@@ -349,6 +349,7 @@ class QueueOrganizeGroupsAction : NSObject, QueueActionProtocol {
 
     func runAction(_ item: QueueItem) -> Bool {
         item.mp4File?.organizeAlternateGroups()
+        item.mp4File?.inferTracksLanguages()
         item.mp4File?.inferMediaCharacteristics()
         return true
     }

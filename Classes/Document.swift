@@ -157,6 +157,7 @@ final class Document: NSDocument {
         if Prefs.organizeAlternateGroups {
             mp4.organizeAlternateGroups()
             if Prefs.inferMediaCharacteristics {
+                mp4.inferTracksLanguages()
                 mp4.inferMediaCharacteristics()
             }
         }

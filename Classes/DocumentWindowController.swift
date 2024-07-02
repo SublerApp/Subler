@@ -304,6 +304,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
 
     @IBAction func iTunesFriendlyTrackGroups(_ sender: Any) {
         mp4.organizeAlternateGroups()
+        mp4.inferTracksLanguages()
         mp4.inferMediaCharacteristics()
 
         doc.updateChangeCount(.changeDone)
@@ -506,6 +507,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             if Prefs.organizeAlternateGroups {
                 mp4.organizeAlternateGroups()
                 if Prefs.inferMediaCharacteristics {
+                    mp4.inferTracksLanguages()
                     mp4.inferMediaCharacteristics()
                 }
             }
