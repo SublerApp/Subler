@@ -1227,6 +1227,33 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         return true
     }
 
+    func collectionView(_ collectionView: NSCollectionView,
+                        draggingSession session: NSDraggingSession,
+                        endedAt screenPoint: NSPoint,
+                        dragOperation operation: NSDragOperation) {
+        if operation == .delete, let items = session.draggingPasteboard.pasteboardItems {
+            // User dragged the artwork to the Finder's trash.
+            var indexes = Set<IndexPath>()
+
+            for pasteboardItem in items {
+                do {
+                    if let indexPathData = pasteboardItem.data(forType: .artworkDragType),
+                       let itemIndexPath = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(indexPathData) as? IndexPath {
+                        indexes.insert(itemIndexPath)
+                    }
+                } catch {
+                    Swift.debugPrint("failed to unarchive indexPath for dropped item.")
+                }
+            }
+
+            if indexes.isEmpty == false {
+                let itemIndexes = indexes.compactMap { $0.last }
+                let draggedItems = itemIndexes.map { artworks[$0] }
+                remove(metadataArtworks: draggedItems)
+            }
+        }
+    }
+
     @IBAction func zoomSliderDidChange(_ sender: NSControl) {
         let floatValue = CGFloat(sender.floatValue)
         if let layout = artworksView.collectionViewLayout as? NSCollectionViewFlowLayout {
