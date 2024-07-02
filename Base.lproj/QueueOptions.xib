@@ -121,7 +121,7 @@
                         <accessibilityConnection property="title" destination="vJ5-JB-k1m" id="D3Y-SD-Lcc"/>
                     </connections>
                 </popUpButton>
-                <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="vJ5-JB-k1m">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="vJ5-JB-k1m">
                     <rect key="frame" x="132" y="136" width="56" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Location:" id="17e-9u-rVn">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -129,7 +129,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="NhN-Lg-awX">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="NhN-Lg-awX">
                     <rect key="frame" x="126" y="156" width="62" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Apply Set:" id="9gt-mI-zIV">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -137,7 +137,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="eTL-yP-QQ5">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="eTL-yP-QQ5">
                     <rect key="frame" x="126" y="570" width="48" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Movies:" id="W6m-cd-JMe">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -148,7 +148,7 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.searchMetadata" id="b58-Sd-wqT"/>
                     </connections>
                 </textField>
-                <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="bDo-OD-bck">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="bDo-OD-bck">
                     <rect key="frame" x="126" y="524" width="63" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="TV Shows:" id="PCe-Pw-D2s">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -159,7 +159,7 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.searchMetadata" id="VZ7-3B-gA7"/>
                     </connections>
                 </textField>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="Uoo-hZ-D1f">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="Uoo-hZ-D1f">
                     <rect key="frame" x="18" y="35" width="89" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Global options:" id="NBN-VA-pg2">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -167,7 +167,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="S7L-mA-j3Y">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="S7L-mA-j3Y">
                     <rect key="frame" x="49" y="613" width="58" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Add item:" id="9ls-xq-YGz">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -261,7 +261,7 @@
                         </binding>
                     </connections>
                 </popUpButton>
-                <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="BWL-Nn-iGH">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="BWL-Nn-iGH">
                     <rect key="frame" x="142" y="504" width="63" height="14"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="58" id="vbR-Os-38g"/>
@@ -275,7 +275,7 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.searchMetadata" id="ZDg-5s-ifn"/>
                     </connections>
                 </textField>
-                <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="Ns9-7q-hsh">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="Ns9-7q-hsh">
                     <rect key="frame" x="126" y="476" width="54" height="14"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="98L-OX-PB1"/>
@@ -317,7 +317,7 @@
                         </binding>
                     </connections>
                 </popUpButton>
-                <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="73q-gi-fe2">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="73q-gi-fe2">
                     <rect key="frame" x="142" y="550" width="63" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Language:" id="VkG-jW-ibO">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -388,7 +388,7 @@
                         </binding>
                     </connections>
                 </button>
-                <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="swT-iM-shZ">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="swT-iM-shZ">
                     <rect key="frame" x="126" y="307" width="64" height="14"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="60" id="x6U-u1-ezQ"/>
@@ -430,7 +430,7 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.fixTrackLanguage" id="iYk-sU-PL5"/>
                     </connections>
                 </popUpButton>
-                <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="ntU-85-AaJ">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="ntU-85-AaJ">
                     <rect key="frame" x="126" y="267" width="63" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Language:" id="963-dI-WCB">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -485,9 +485,9 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LiA-V6-VEx" userLabel="Change Subtitle Language Track">
-                    <rect key="frame" x="111" y="247" width="224" height="16"/>
+                    <rect key="frame" x="111" y="247" width="218" height="16"/>
                     <string key="toolTip">In files with multiple subtitle tracks in different languages, this will enable the preferred langauge and disable all other tracks. For AppleTV and some other players, this allows the preferred language subtitles to play by default. A subtitle track labeled with the preferred language must exist in the file.</string>
-                    <buttonCell key="cell" type="check" title="Enabled subtitlses track with language" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="LD5-Kv-x0M" userLabel="Change Subtitle Language Track">
+                    <buttonCell key="cell" type="check" title="Enabled subtitles track with language" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="LD5-Kv-x0M" userLabel="Change Subtitle Language Track">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
@@ -600,7 +600,7 @@
                         </binding>
                     </connections>
                 </button>
-                <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="2Hf-2V-95U">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="2Hf-2V-95U">
                     <rect key="frame" x="126" y="192" width="76" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Color Space:" id="tMS-Tg-pPf">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -693,7 +693,7 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.searchMetadata" id="UK3-vK-Ddd"/>
                     </connections>
                 </popUpButton>
-                <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="FJc-Hc-zCR">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="FJc-Hc-zCR">
                     <rect key="frame" x="126" y="230" width="63" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Language:" id="E4E-3v-z24">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -762,7 +762,7 @@
                         <binding destination="-2" name="selectedValue" keyPath="self.options.fileType" id="cpt-5g-SPz"/>
                     </connections>
                 </popUpButton>
-                <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="muY-E0-hVI">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="muY-E0-hVI">
                     <rect key="frame" x="129" y="116" width="59" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="File Type:" id="UbR-KJ-8iR">
                         <font key="font" metaFont="smallSystemBold"/>
