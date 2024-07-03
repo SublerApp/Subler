@@ -305,7 +305,7 @@ final class ArtworkSelectorController: NSViewController, NSCollectionViewDataSou
         progress.isHidden = false
         switch state {
         case .downloading:
-            progressText.stringValue = NSLocalizedString("Downloading artworks", comment: "")
+            progressText.stringValue = NSLocalizedString("Downloading artworks…", comment: "")
         case .closing: break
         default: break
         }
