@@ -5,6 +5,7 @@
 
 * Preliminary VVC support
 * Added a queue action to set the preferred enabled track in an alternate group
+* Added Spanish (Latin America) localization
 * Preserve ambient viewing environment metadata at the container level
 * Preserve Dolby Vision AV1 metadata
 
