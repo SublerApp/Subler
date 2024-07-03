@@ -12,10 +12,10 @@ import MP42Foundation
 private class MediaTag {
 
     /// Returns the complete array of the predefined tags.
-    static let predefinedTags: [String] = ["public.main-program-content", "public.auxiliary-content",
+    static let predefinedTags: [String] = ["public.main-program-content", "public.auxiliary-content", "public.original-content",
                                            "public.subtitles.forced-only", "public.accessibility.transcribes-spoken-dialog",
-                                           "public.accessibility.describes-music-and-sound", "public.easy-to-read",
-                                           "public.accessibility.describes-video", "public.translation.dubbed",
+                                           "public.accessibility.describes-music-and-sound", "public.accessibility.enhances-speech-intelligibility",
+                                           "public.easy-to-read", "public.accessibility.describes-video", "public.translation.dubbed",
                                            "public.translation.voice-over", "public.translation"]
 
     /// Returns the predefined supported media tags
@@ -24,10 +24,10 @@ private class MediaTag {
     /// - Parameter mediaType: a MP42MediaType type.
     /// - Returns: an array of String with the supported tags.
     static func predefinedTags(for mediaType: MP42MediaType) -> [String] {
-        var tags = ["public.main-program-content", "public.auxiliary-content"]
+        var tags = ["public.main-program-content", "public.auxiliary-content", "public.original-content"]
 
         if mediaType == kMP42MediaType_Audio {
-            tags += ["public.accessibility.describes-video", "public.translation.dubbed", "public.translation.voice-over"]
+            tags += ["public.accessibility.describes-video", "public.accessibility.enhances-speech-intelligibility", "public.translation.dubbed", "public.translation.voice-over"]
         }
         if mediaType == kMP42MediaType_Subtitle ||
             mediaType == kMP42MediaType_ClosedCaption {
@@ -49,9 +49,11 @@ private class MediaTag {
     static func localizedTitle(for tag: String) -> String? {
         let localizedDescriptions = ["public.main-program-content": NSLocalizedString("Main Program Content", comment: "Media characteristic."),
                                      "public.auxiliary-content": NSLocalizedString("Auxiliary Content", comment: "Media characteristic."),
+                                     "public.original-content": NSLocalizedString("Original Content", comment: "Media characteristic."),
                                      "public.subtitles.forced-only": NSLocalizedString("Contains Only Forced Subtitles", comment: "Media characteristic."),
                                      "public.accessibility.transcribes-spoken-dialog": NSLocalizedString("Transcribes Spoken Dialog For Accessibility", comment: "Media characteristic."),
                                      "public.accessibility.describes-music-and-sound": NSLocalizedString("Describes Music And Sound For Accessibility", comment: "Media characteristic."),
+                                     "public.accessibility.enhances-speech-intelligibility": NSLocalizedString("Enhances speech intelligibility", comment: "Media characteristic."),
                                      "public.easy-to-read": NSLocalizedString("Easy To Read", comment: "Media characteristic."),
                                      "public.accessibility.describes-video": NSLocalizedString("Describes Video For Accessibility", comment: "Media characteristic."),
                                      "public.translation.dubbed": NSLocalizedString("Dubbed Translation", comment: "Media characteristic."),
