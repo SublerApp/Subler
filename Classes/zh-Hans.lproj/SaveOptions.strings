@@ -16,18 +16,6 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Needed for mp4 larger than 4GB."; ObjectID = "emp-1S-F7H"; */
 "emp-1S-F7H.ibShadowedToolTip" = "当 mp4 文件超过 4GB 时需要此项";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "LBi-vr-peO"; */
-"LBi-vr-peO.title" = "OtherViews";
-
 /* Class = "NSButtonCell"; title = "Optimize"; ObjectID = "OZC-sc-82O"; */
 "OZC-sc-82O.title" = "优化";
-
-/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "vjJ-5z-7YZ"; */
-"vjJ-5z-7YZ.title" = "Item 2";
-
-/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "x4x-P4-Pf3"; */
-"x4x-P4-Pf3.title" = "Item 3";
-
-/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "Xuo-dp-0K0"; */
-"Xuo-dp-0K0.title" = "Item 1";
 

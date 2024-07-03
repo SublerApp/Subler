@@ -241,6 +241,9 @@
 /* Class = "NSMenuItem"; title = "Send To iTunes"; ObjectID = "597"; */
 "597.title" = "发送到 iTunes";
 
+/* Class = "NSMenuItem"; title = "At the Beginning"; ObjectID = "633"; */
+"633.title" = "在开始处";
+
 /* Class = "NSMenuItem"; title = "Every"; ObjectID = "634"; */
 "634.title" = "每隔";
 

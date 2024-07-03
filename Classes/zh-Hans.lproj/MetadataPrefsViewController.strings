@@ -4,9 +4,6 @@
 /* Class = "NSButtonCell"; title = "Keep empty annotations"; ObjectID = "7Ek-lI-5Lo"; */
 "7Ek-lI-5Lo.title" = "保留空白注释";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "72h-Ke-os5"; */
-"72h-Ke-os5.title" = "Text Cell";
-
 /* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "Aj4-bk-6RK"; */
 "Aj4-bk-6RK.headerCell.title" = "值";
 
@@ -16,20 +13,11 @@
 /* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Null"; ObjectID = "dgq-hT-1Vg"; */
 "dgq-hT-1Vg.ibShadowedIsNilPlaceholder" = "无";
 
-/* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "F4J-aT-4zI"; */
-"F4J-aT-4zI.title" = "Do not localize";
-
 /* Class = "NSTableColumn"; headerCell.title = "Type"; ObjectID = "gwa-XG-q0L"; */
 "gwa-XG-q0L.headerCell.title" = "类型";
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Add annotation"; ObjectID = "Jdh-Cj-6ef"; */
 "Jdh-Cj-6ef.ibShadowedToolTip" = "添加注释条目";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "kmV-f1-lQx"; */
-"kmV-f1-lQx.title" = "Text Cell";
-
-/* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "ko1-Cf-TEq"; */
-"ko1-Cf-TEq.title" = "Do not localize";
 
 /* Class = "NSButtonCell"; title = "Restore Defaults"; ObjectID = "nBh-jv-KDG"; */
 "nBh-jv-KDG.title" = "恢复默认";
@@ -45,10 +33,4 @@
 
 /* Class = "NSTableView"; ibExternalAccessibilityDescription = "Metadata map"; ObjectID = "Tid-Rc-Ljr"; */
 "Tid-Rc-Ljr.ibExternalAccessibilityDescription" = "元数据映射";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "Vaj-uI-b23"; */
-"Vaj-uI-b23.title" = "Text Cell";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "ywu-nj-9bP"; */
-"ywu-nj-9bP.title" = "OtherViews";
 

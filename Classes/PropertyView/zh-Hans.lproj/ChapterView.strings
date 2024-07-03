@@ -10,27 +10,12 @@
 /* Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "25"; */
 "25.headerCell.title" = "标题";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "26"; */
-"26.title" = "Text Cell";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "27"; */
-"27.title" = "Text Cell";
-
 /* Class = "NSButton"; ibShadowedToolTip = "Delete selected chapter"; ObjectID = "31"; */
 "31.ibShadowedToolTip" = "删除所选章节";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Add chapter"; ObjectID = "42"; */
 "42.ibShadowedToolTip" = "添加章节";
 
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "fIl-II-Tfv"; */
-"fIl-II-Tfv.title" = "Table View Cell";
-
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "Ktq-AC-XnR"; */
-"Ktq-AC-XnR.title" = "Table View Cell";
-
 /* Class = "NSMenuItem"; title = "Rename every chapter"; ObjectID = "SOg-Lz-v5L"; */
 "SOg-Lz-v5L.title" = "重命名所有章节";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "T3N-JJ-mWq"; */
-"T3N-JJ-mWq.title" = "OtherViews";
 

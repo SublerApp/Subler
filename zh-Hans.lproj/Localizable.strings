@@ -147,13 +147,7 @@
 "Done" = "完成";
 
 /* No comment provided by engineer. */
-"Downloading additional movie metadata" = "正在下载电影元数据…";
-
-/* No comment provided by engineer. */
 "Downloading additional TV metadata…" = "正在下载电视节目元数据…";
-
-/* No comment provided by engineer. */
-"Downloading artworks" = "正在下载插图";
 
 /* Media characteristic. */
 "Dubbed Translation" = "配音翻译";
@@ -297,6 +291,12 @@
 /* Organize Groups action local description */
 "Organizing groups" = "正在整理轨道分组";
 
+/* color profile */
+"P3-D65 (12-17-6)" = "P3-D65 (12-17-6)";
+
+/* color profile */
+"P3-DCI (11-17-6)" = "P3-DCI (11-17-6)";
+
 /* File Import action menu item. */
 "Passthru" = "直通";
 
@@ -344,6 +344,9 @@
 
 /* color profile */
 "Rec. 2020 (9-1-9)" = "Rec. 2020 (9-1-9)";
+
+/* color profile */
+"Rec. 2100 HLG (9-18-9)" = "Rec. 2100 HLG (9-18-9)";
 
 /* color profile */
 "Rec. 2100 PQ (9-16-9)" = "Rec. 2100 PQ (9-16-9)";
@@ -428,6 +431,9 @@
 
 /* Set Language action local description */
 "Setting tracks language" = "正在设定轨道语言";
+
+/* color profile */
+"sRGB (1-13-1)" = "sRGB (1-13-1)";
 
 /* No comment provided by engineer. */
 "Studio" = "制片商";

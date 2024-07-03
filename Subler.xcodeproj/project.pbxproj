@@ -319,36 +319,6 @@
 		A96FE3EC2C355A3D009B3AFC /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "Classes/PropertyView/es-419.lproj/VideoView.strings"; sourceTree = "<group>"; };
 		A96FE3ED2C355A3D009B3AFC /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		A96FE3EE2C355A3D009B3AFC /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		A96FE3EF2C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/AdvancedPrefsViewController.strings"; sourceTree = "<group>"; };
-		A96FE3F02C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/ArtworkSelector.strings"; sourceTree = "<group>"; };
-		A96FE3F12C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/FileImportController.strings"; sourceTree = "<group>"; };
-		A96FE3F22C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/GeneralPrefsViewController.strings"; sourceTree = "<group>"; };
-		A96FE3F32C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/MainMenu.strings"; sourceTree = "<group>"; };
-		A96FE3F42C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/MediaTagsController.strings"; sourceTree = "<group>"; };
-		A96FE3F52C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/MetadataSearch.strings"; sourceTree = "<group>"; };
-		A96FE3F62C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/PrefsWindowController.strings"; sourceTree = "<group>"; };
-		A96FE3F72C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/Queue.strings"; sourceTree = "<group>"; };
-		A96FE3F82C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/QueueItem.strings"; sourceTree = "<group>"; };
-		A96FE3F92C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/QueueOptions.strings"; sourceTree = "<group>"; };
-		A96FE3FA2C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/SBActivityWindow.strings"; sourceTree = "<group>"; };
-		A96FE3FB2C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/SBChapterSearch.strings"; sourceTree = "<group>"; };
-		A96FE3FC2C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/DocumentWindowController.strings"; sourceTree = "<group>"; };
-		A96FE3FD2C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/MetadataPrefsViewController.strings"; sourceTree = "<group>"; };
-		A96FE3FE2C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/OCRPrefsViewController.strings"; sourceTree = "<group>"; };
-		A96FE3FF2C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/OffsetViewController.strings"; sourceTree = "<group>"; };
-		A96FE4002C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/OutputPrefsViewController.strings"; sourceTree = "<group>"; };
-		A96FE4012C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "Classes/zh-CN.lproj/PresetEditorViewController.strings"; sourceTree = "<group>"; };
-		A96FE4022C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/PresetPrefsViewController.strings"; sourceTree = "<group>"; };
-		A96FE4032C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/ProgressViewController.strings"; sourceTree = "<group>"; };
-		A96FE4042C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/SaveOptions.strings"; sourceTree = "<group>"; };
-		A96FE4052C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/TracksViewController.strings"; sourceTree = "<group>"; };
-		A96FE4062C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "Classes/PropertyView/zh-CN.lproj/ChapterView.strings"; sourceTree = "<group>"; };
-		A96FE4072C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "Classes/PropertyView/zh-CN.lproj/MovieView.strings"; sourceTree = "<group>"; };
-		A96FE4082C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "Classes/PropertyView/zh-CN.lproj/MultiSelectView.strings"; sourceTree = "<group>"; };
-		A96FE4092C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "Classes/PropertyView/zh-CN.lproj/SoundView.strings"; sourceTree = "<group>"; };
-		A96FE40A2C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "Classes/PropertyView/zh-CN.lproj/VideoView.strings"; sourceTree = "<group>"; };
-		A96FE40B2C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		A96FE40C2C355A6C009B3AFC /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A973B9F922A906D100BCB91E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/OCRPrefsViewController.strings; sourceTree = "<group>"; };
 		A974F9CE22F9B48900DBB30E /* MetadataSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataSearchViewController.swift; path = Classes/MetadataSearchViewController.swift; sourceTree = "<group>"; };
 		A974F9CF22F9B48900DBB30E /* MetadataSearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MetadataSearchViewController.xib; path = Classes/MetadataSearchViewController.xib; sourceTree = "<group>"; };
@@ -803,7 +773,6 @@
 				"zh-Hans",
 				fr,
 				"es-419",
-				"zh-CN",
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* MP4Sub */;
 			packageReferences = (
@@ -1000,7 +969,6 @@
 				A9E059B02529DCA9000E0E9A /* zh-Hans */,
 				A9146863278D8EFB00860468 /* fr */,
 				A96FE3ED2C355A3D009B3AFC /* es-419 */,
-				A96FE40B2C355A6C009B3AFC /* zh-CN */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1013,7 +981,6 @@
 				A9E059B92529DCA9000E0E9A /* zh-Hans */,
 				A914684B278D8EFB00860468 /* fr */,
 				A96FE3D52C355A3D009B3AFC /* es-419 */,
-				A96FE3F32C355A6C009B3AFC /* zh-CN */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -1035,7 +1002,6 @@
 				A9E059BA2529DCA9000E0E9A /* zh-Hans */,
 				A9146860278D8EFB00860468 /* fr */,
 				A96FE3EA2C355A3D009B3AFC /* es-419 */,
-				A96FE4082C355A6C009B3AFC /* zh-CN */,
 			);
 			name = MultiSelectView.xib;
 			sourceTree = "<group>";
@@ -1048,7 +1014,6 @@
 				A9E059C82529DCAA000E0E9A /* zh-Hans */,
 				A914685A278D8EFB00860468 /* fr */,
 				A96FE3E42C355A3D009B3AFC /* es-419 */,
-				A96FE4022C355A6C009B3AFC /* zh-CN */,
 			);
 			name = PresetPrefsViewController.xib;
 			path = Classes;
@@ -1062,7 +1027,6 @@
 				A9E059BF2529DCAA000E0E9A /* zh-Hans */,
 				A914684E278D8EFB00860468 /* fr */,
 				A96FE3D82C355A3D009B3AFC /* es-419 */,
-				A96FE3F62C355A6C009B3AFC /* zh-CN */,
 			);
 			name = PrefsWindowController.xib;
 			sourceTree = "<group>";
@@ -1084,7 +1048,6 @@
 				A9E059CB2529DCAA000E0E9A /* zh-Hans */,
 				A9146858278D8EFB00860468 /* fr */,
 				A96FE3E22C355A3D009B3AFC /* es-419 */,
-				A96FE4002C355A6C009B3AFC /* zh-CN */,
 			);
 			name = OutputPrefsViewController.xib;
 			path = Classes;
@@ -1098,7 +1061,6 @@
 				A9E059CD2529DCAA000E0E9A /* zh-Hans */,
 				A9146855278D8EFB00860468 /* fr */,
 				A96FE3DF2C355A3D009B3AFC /* es-419 */,
-				A96FE3FD2C355A6C009B3AFC /* zh-CN */,
 			);
 			name = MetadataPrefsViewController.xib;
 			path = Classes;
@@ -1112,7 +1074,6 @@
 				A9E059C12529DCAA000E0E9A /* zh-Hans */,
 				A9146859278D8EFB00860468 /* fr */,
 				A96FE3E32C355A3D009B3AFC /* es-419 */,
-				A96FE4012C355A6C009B3AFC /* zh-CN */,
 			);
 			name = PresetEditorViewController.xib;
 			sourceTree = "<group>";
@@ -1125,7 +1086,6 @@
 				A9E059C22529DCAA000E0E9A /* zh-Hans */,
 				A9146849278D8EFB00860468 /* fr */,
 				A96FE3D32C355A3D009B3AFC /* es-419 */,
-				A96FE3F12C355A6C009B3AFC /* zh-CN */,
 			);
 			name = FileImportController.xib;
 			sourceTree = "<group>";
@@ -1138,7 +1098,6 @@
 				A9E059C92529DCAA000E0E9A /* zh-Hans */,
 				A914684F278D8EFB00860468 /* fr */,
 				A96FE3D92C355A3D009B3AFC /* es-419 */,
-				A96FE3F72C355A6C009B3AFC /* zh-CN */,
 			);
 			name = Queue.xib;
 			sourceTree = "<group>";
@@ -1151,7 +1110,6 @@
 				A9E059B82529DCA9000E0E9A /* zh-Hans */,
 				A9146848278D8EFB00860468 /* fr */,
 				A96FE3D22C355A3D009B3AFC /* es-419 */,
-				A96FE3F02C355A6C009B3AFC /* zh-CN */,
 			);
 			name = ArtworkSelector.xib;
 			sourceTree = "<group>";
@@ -1164,7 +1122,6 @@
 				A9E059C62529DCAA000E0E9A /* zh-Hans */,
 				A914684C278D8EFB00860468 /* fr */,
 				A96FE3D62C355A3D009B3AFC /* es-419 */,
-				A96FE3F42C355A6C009B3AFC /* zh-CN */,
 			);
 			name = MediaTagsController.xib;
 			sourceTree = "<group>";
@@ -1177,7 +1134,6 @@
 				A9E059B52529DCA9000E0E9A /* zh-Hans */,
 				A914685C278D8EFB00860468 /* fr */,
 				A96FE3E62C355A3D009B3AFC /* es-419 */,
-				A96FE4042C355A6C009B3AFC /* zh-CN */,
 			);
 			name = SaveOptions.xib;
 			path = Classes;
@@ -1191,7 +1147,6 @@
 				A9E059C72529DCAA000E0E9A /* zh-Hans */,
 				A914685B278D8EFB00860468 /* fr */,
 				A96FE3E52C355A3D009B3AFC /* es-419 */,
-				A96FE4032C355A6C009B3AFC /* zh-CN */,
 			);
 			name = ProgressViewController.xib;
 			path = Classes;
@@ -1205,7 +1160,6 @@
 				A9E059BC2529DCA9000E0E9A /* zh-Hans */,
 				A914685E278D8EFB00860468 /* fr */,
 				A96FE3E82C355A3D009B3AFC /* es-419 */,
-				A96FE4062C355A6C009B3AFC /* zh-CN */,
 			);
 			name = ChapterView.xib;
 			sourceTree = "<group>";
@@ -1227,7 +1181,6 @@
 				A9E059B62529DCA9000E0E9A /* zh-Hans */,
 				A914685F278D8EFB00860468 /* fr */,
 				A96FE3E92C355A3D009B3AFC /* es-419 */,
-				A96FE4072C355A6C009B3AFC /* zh-CN */,
 			);
 			name = MovieView.xib;
 			sourceTree = "<group>";
@@ -1240,7 +1193,6 @@
 				A9E059C42529DCAA000E0E9A /* zh-Hans */,
 				A9146861278D8EFB00860468 /* fr */,
 				A96FE3EB2C355A3D009B3AFC /* es-419 */,
-				A96FE4092C355A6C009B3AFC /* zh-CN */,
 			);
 			name = SoundView.xib;
 			sourceTree = "<group>";
@@ -1253,7 +1205,6 @@
 				A9E059C32529DCAA000E0E9A /* zh-Hans */,
 				A9146862278D8EFB00860468 /* fr */,
 				A96FE3EC2C355A3D009B3AFC /* es-419 */,
-				A96FE40A2C355A6C009B3AFC /* zh-CN */,
 			);
 			name = VideoView.xib;
 			sourceTree = "<group>";
@@ -1266,7 +1217,6 @@
 				A9E059BB2529DCA9000E0E9A /* zh-Hans */,
 				A9146856278D8EFB00860468 /* fr */,
 				A96FE3E02C355A3D009B3AFC /* es-419 */,
-				A96FE3FE2C355A6C009B3AFC /* zh-CN */,
 			);
 			name = OCRPrefsViewController.xib;
 			path = Classes;
@@ -1279,7 +1229,6 @@
 				A9E059B12529DCA9000E0E9A /* zh-Hans */,
 				A9146864278D8EFB00860468 /* fr */,
 				A96FE3EE2C355A3D009B3AFC /* es-419 */,
-				A96FE40C2C355A6C009B3AFC /* zh-CN */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1292,7 +1241,6 @@
 				A9E059CA2529DCAA000E0E9A /* zh-Hans */,
 				A9146850278D8EFB00860468 /* fr */,
 				A96FE3DA2C355A3D009B3AFC /* es-419 */,
-				A96FE3F82C355A6C009B3AFC /* zh-CN */,
 			);
 			name = QueueItem.xib;
 			sourceTree = "<group>";
@@ -1305,7 +1253,6 @@
 				A9E059B42529DCA9000E0E9A /* zh-Hans */,
 				A914684A278D8EFB00860468 /* fr */,
 				A96FE3D42C355A3D009B3AFC /* es-419 */,
-				A96FE3F22C355A6C009B3AFC /* zh-CN */,
 			);
 			name = GeneralPrefsViewController.xib;
 			sourceTree = "<group>";
@@ -1318,7 +1265,6 @@
 				A9E059C02529DCAA000E0E9A /* zh-Hans */,
 				A9146847278D8EFB00860468 /* fr */,
 				A96FE3D12C355A3D009B3AFC /* es-419 */,
-				A96FE3EF2C355A6C009B3AFC /* zh-CN */,
 			);
 			name = AdvancedPrefsViewController.xib;
 			sourceTree = "<group>";
@@ -1331,7 +1277,6 @@
 				A9E059BD2529DCAA000E0E9A /* zh-Hans */,
 				A9146852278D8EFB00860468 /* fr */,
 				A96FE3DC2C355A3D009B3AFC /* es-419 */,
-				A96FE3FA2C355A6C009B3AFC /* zh-CN */,
 			);
 			name = SBActivityWindow.xib;
 			sourceTree = "<group>";
@@ -1344,7 +1289,6 @@
 				A9E059B22529DCA9000E0E9A /* zh-Hans */,
 				A9146853278D8EFB00860468 /* fr */,
 				A96FE3DD2C355A3D009B3AFC /* es-419 */,
-				A96FE3FB2C355A6C009B3AFC /* zh-CN */,
 			);
 			name = SBChapterSearch.xib;
 			sourceTree = "<group>";
@@ -1357,7 +1301,6 @@
 				A9E059CC2529DCAA000E0E9A /* zh-Hans */,
 				A9146854278D8EFB00860468 /* fr */,
 				A96FE3DE2C355A3D009B3AFC /* es-419 */,
-				A96FE3FC2C355A6C009B3AFC /* zh-CN */,
 			);
 			name = DocumentWindowController.xib;
 			path = Classes;
@@ -1371,7 +1314,6 @@
 				A9E059B72529DCA9000E0E9A /* zh-Hans */,
 				A914685D278D8EFB00860468 /* fr */,
 				A96FE3E72C355A3D009B3AFC /* es-419 */,
-				A96FE4052C355A6C009B3AFC /* zh-CN */,
 			);
 			name = TracksViewController.xib;
 			path = Classes;
@@ -1394,7 +1336,6 @@
 				A9E059C52529DCAA000E0E9A /* zh-Hans */,
 				A9146857278D8EFB00860468 /* fr */,
 				A96FE3E12C355A3D009B3AFC /* es-419 */,
-				A96FE3FF2C355A6C009B3AFC /* zh-CN */,
 			);
 			name = OffsetViewController.xib;
 			path = Classes;
@@ -1408,7 +1349,6 @@
 				A9E059BE2529DCAA000E0E9A /* zh-Hans */,
 				A9146851278D8EFB00860468 /* fr */,
 				A96FE3DB2C355A3D009B3AFC /* es-419 */,
-				A96FE3F92C355A6C009B3AFC /* zh-CN */,
 			);
 			name = QueueOptions.xib;
 			sourceTree = "<group>";
@@ -1421,7 +1361,6 @@
 				A9E059B32529DCA9000E0E9A /* zh-Hans */,
 				A914684D278D8EFB00860468 /* fr */,
 				A96FE3D72C355A3D009B3AFC /* es-419 */,
-				A96FE3F52C355A6C009B3AFC /* zh-CN */,
 			);
 			name = MetadataSearch.xib;
 			sourceTree = "<group>";

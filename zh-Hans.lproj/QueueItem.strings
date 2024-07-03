@@ -1,9 +1,6 @@
 /* Class = "NSTextFieldCell"; title = "Actions:"; ObjectID = "4B2-1n-ouM"; */
 "4B2-1n-ouM.title" = "行为：";
 
-/* Class = "NSTextFieldCell"; title = "do not localize"; ObjectID = "5mD-V5-53a"; */
-"5mD-V5-53a.title" = "do not localize";
-
 /* Class = "NSTextFieldCell"; title = "Source:"; ObjectID = "9De-A4-Oas"; */
 "9De-A4-Oas.title" = "文件源：";
 
@@ -12,12 +9,6 @@
 
 /* Class = "NSButtonCell"; title = "Edit…"; ObjectID = "cEO-ol-OLW"; */
 "cEO-ol-OLW.title" = "编辑…";
-
-/* Class = "NSTextFieldCell"; title = "do not localize"; ObjectID = "OJa-Jm-vq4"; */
-"OJa-Jm-vq4.title" = "do not localize";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "OK2-Id-Rbp"; */
-"OK2-Id-Rbp.title" = "Text Cell";
 
 /* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@"; ObjectID = "YsQ-nM-zxb"; */
 "YsQ-nM-zxb.ibShadowedDisplayPattern" = "%{value1}@";

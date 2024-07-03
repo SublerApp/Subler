@@ -1,14 +1,8 @@
 /* Class = "NSButtonCell"; title = "Apply color space"; ObjectID = "0By-RQ-4mS"; */
 "0By-RQ-4mS.title" = "应用色域";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "0QM-sv-vRX"; */
-"0QM-sv-vRX.title" = "OtherViews";
-
 /* Class = "NSButton"; ibShadowedToolTip = "Rename chapters titles to \"Chapter N\" format."; ObjectID = "0qr-Nt-Pan"; */
 "0qr-Nt-Pan.ibShadowedToolTip" = "将章节标题重命名至 \"Chapter N\" 格式。";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "0zS-9Z-m6I"; */
-"0zS-9Z-m6I.title" = "OtherViews";
 
 /* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "1dC-y4-0rx"; */
 "1dC-y4-0rx.title" = "语言：";
@@ -28,11 +22,8 @@
 /* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "3w0-jj-Nkk"; */
 "3w0-jj-Nkk.ibShadowedNotApplicablePlaceholder" = "无";
 
-/* Class = "NSButtonCell"; title = "Send to iTunes"; ObjectID = "4an-VK-S2u"; */
-"4an-VK-S2u.title" = "发送到 iTunes";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "4en-ZA-qlS"; */
-"4en-ZA-qlS.title" = "OtherViews";
+/* Class = "NSButtonCell"; title = "Send to AppleTV/iTunes"; ObjectID = "4an-VK-S2u"; */
+"4an-VK-S2u.title" = "发送到 TV/iTunes";
 
 /* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "4rl-TJ-0yZ"; */
 "4rl-TJ-0yZ.ibShadowedIsNilPlaceholder" = "无";
@@ -52,6 +43,15 @@
 /* Class = "NSTextFieldCell"; title = "Add item:"; ObjectID = "9ls-xq-YGz"; */
 "9ls-xq-YGz.title" = "添加项目：";
 
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Unknown"; ObjectID = "9YX-tj-U0D"; */
+"9YX-tj-U0D.ibShadowedIsNilPlaceholder" = "未知";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "Unknown"; ObjectID = "9YX-tj-U0D"; */
+"9YX-tj-U0D.ibShadowedNoSelectionPlaceholder" = "未知";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "Unknown"; ObjectID = "9YX-tj-U0D"; */
+"9YX-tj-U0D.ibShadowedNotApplicablePlaceholder" = "未知";
+
 /* Class = "NSTextFieldCell"; title = "Location:"; ObjectID = "17e-9u-rVn"; */
 "17e-9u-rVn.title" = "位置：";
 
@@ -66,6 +66,9 @@
 
 /* Class = "NSButtonCell"; title = "Organize Groups"; ObjectID = "240-c7-2UW"; */
 "240-c7-2UW.title" = "整理轨道分组";
+
+/* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "963-dI-WCB"; */
+"963-dI-WCB.title" = "语言：";
 
 /* Class = "NSMenuItem"; title = "Backdrop"; ObjectID = "Aaf-km-GUP"; */
 "Aaf-km-GUP.title" = "背景";
@@ -85,9 +88,6 @@
 /* Class = "NSMenuItem"; title = "Rec. 601 (6-1-6)"; ObjectID = "AZx-uM-CmZ"; */
 "AZx-uM-CmZ.title" = "Rec. 601 (6-1-6)";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "BBw-yf-xUC"; */
-"BBw-yf-xUC.title" = "OtherViews";
-
 /* Class = "NSButton"; ibShadowedToolTip = "Organize the mp4 alternate groups"; ObjectID = "ccd-Xn-Dj3"; */
 "ccd-Xn-Dj3.ibShadowedToolTip" = "整理 mp4 轨道分组";
 
@@ -103,8 +103,8 @@
 /* Class = "NSButtonCell"; title = "Complete tracks language"; ObjectID = "cxz-2q-RIP"; */
 "cxz-2q-RIP.title" = "补全轨道语言";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "d8H-bj-RTq"; */
-"d8H-bj-RTq.title" = "OtherViews";
+/* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "E4E-3v-z24"; */
+"E4E-3v-z24.title" = "语言：";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Load the external srt subtitles file"; ObjectID = "etc-K7-Atw"; */
 "etc-K7-Atw.ibShadowedToolTip" = "从外置 SRT 文件加载字幕";
@@ -136,9 +136,6 @@
 /* Class = "NSMenuItem"; title = "Square"; ObjectID = "LFE-HX-iBV"; */
 "LFE-HX-iBV.title" = "正方形";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "LfV-JG-4EY"; */
-"LfV-JG-4EY.title" = "OtherViews";
-
 /* Class = "NSButtonCell"; title = "Auto-Start the queue"; ObjectID = "LYO-G0-9jA"; */
 "LYO-G0-9jA.title" = "自动开始任务队列";
 
@@ -163,14 +160,8 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Set the color space of video tracks to the selected one"; ObjectID = "Pdq-s0-erT"; */
 "Pdq-s0-erT.ibShadowedToolTip" = "将视频轨道的色域设为所选项";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "PLh-aR-2Pj"; */
-"PLh-aR-2Pj.title" = "OtherViews";
-
 /* Class = "NSMenuItem"; title = "Implicit"; ObjectID = "psY-0V-t0k"; */
 "psY-0V-t0k.title" = "缺省";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "ptP-wd-Rxc"; */
-"ptP-wd-Rxc.title" = "OtherViews";
 
 /* Class = "NSButtonCell"; title = "Set output filename"; ObjectID = "Qld-0F-DsX"; */
 "Qld-0F-DsX.title" = "设定输出文件名";
@@ -190,14 +181,20 @@
 /* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "Rh9-LC-qBz"; */
 "Rh9-LC-qBz.ibShadowedNotApplicablePlaceholder" = "无";
 
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Unknown"; ObjectID = "RXT-iv-V6g"; */
+"RXT-iv-V6g.ibShadowedIsNilPlaceholder" = "未知";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "Unknown"; ObjectID = "RXT-iv-V6g"; */
+"RXT-iv-V6g.ibShadowedNoSelectionPlaceholder" = "未知";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "Unknown"; ObjectID = "RXT-iv-V6g"; */
+"RXT-iv-V6g.ibShadowedNotApplicablePlaceholder" = "未知";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Search metadata online"; ObjectID = "s8r-Cf-VfB"; */
 "s8r-Cf-VfB.ibShadowedToolTip" = "在线搜索元数据";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Set tracks without a language to the selected one"; ObjectID = "slL-2h-MPl"; */
 "slL-2h-MPl.ibShadowedToolTip" = "将未知语言的轨道设为所选项";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "t0P-DA-u8W"; */
-"t0P-DA-u8W.title" = "OtherViews";
 
 /* Class = "NSMenuItem"; title = "Rec. 2020 (9-1-9)"; ObjectID = "Tjn-8g-7PM"; */
 "Tjn-8g-7PM.title" = "Rec. 2020 (9-1-9)";
@@ -208,11 +205,14 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Organize the audio fallbacks"; ObjectID = "TV6-Sk-Bqr"; */
 "TV6-Sk-Bqr.ibShadowedToolTip" = "整理音频回退";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "U0q-ED-kQf"; */
-"U0q-ED-kQf.title" = "OtherViews";
+/* Class = "NSMenuItem"; title = "sRGB (1-13-1)"; ObjectID = "Twp-Zx-xTw"; */
+"Twp-Zx-xTw.title" = "sRGB (1-13-1)";
 
 /* Class = "NSTextFieldCell"; title = "File Type:"; ObjectID = "UbR-KJ-8iR"; */
 "UbR-KJ-8iR.title" = "文件类型：";
+
+/* Class = "NSMenuItem"; title = "P3-DCI (11-17-6)"; ObjectID = "uEf-L0-ykH"; */
+"uEf-L0-ykH.title" = "P3-DCI (11-17-6)";
 
 /* Class = "NSMenuItem"; title = "Other…"; ObjectID = "veS-S3-uYt"; */
 "veS-S3-uYt.title" = "其他…";
@@ -247,6 +247,6 @@
 /* Class = "NSMenuItem"; title = "Poster"; ObjectID = "YjX-6f-SPu"; */
 "YjX-6f-SPu.title" = "海报";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "ytE-Us-3gv"; */
-"ytE-Us-3gv.title" = "OtherViews";
+/* Class = "NSMenuItem"; title = "Rec. 2100 HLG (9-18-9)"; ObjectID = "YSd-rH-Uvg"; */
+"YSd-rH-Uvg.title" = "Rec. 2100 HLG (9-18-9)";
 

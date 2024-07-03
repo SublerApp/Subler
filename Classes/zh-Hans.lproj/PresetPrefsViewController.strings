@@ -1,12 +1,3 @@
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "6CG-pa-ocP"; */
-"6CG-pa-ocP.title" = "Table View Cell";
-
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "06q-GJ-S35"; */
-"06q-GJ-S35.title" = "Table View Cell";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "a65-Qy-pSq"; */
-"a65-Qy-pSq.title" = "Text Cell";
-
 /* Class = "NSButton"; ibShadowedToolTip = "Edit selected set"; ObjectID = "C1d-lu-T7S"; */
 "C1d-lu-T7S.ibShadowedToolTip" = "编辑所选预设";
 

@@ -22,9 +22,6 @@
 /* Class = "NSTextFieldCell"; title = "Downmix audio to:"; ObjectID = "114"; */
 "114.title" = "缩混音频至：";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "117"; */
-"117.title" = "OtherViews";
-
 /* Class = "NSMenuItem"; title = "Multi-Channel"; ObjectID = "118"; */
 "118.title" = "多声道";
 
@@ -42,9 +39,6 @@
 
 /* Class = "NSTextFieldCell"; title = "Bitrate (per channel):"; ObjectID = "190"; */
 "190.title" = "位速率 (每声道)：";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "193"; */
-"193.title" = "OtherViews";
 
 /* Class = "NSMenuItem"; title = "64"; ObjectID = "194"; */
 "194.title" = "64";
@@ -97,17 +91,11 @@
 /* Class = "NSMenuItem"; title = "224"; ObjectID = "Pr6-u5-Rp7"; */
 "Pr6-u5-Rp7.title" = "224";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "rX2-PN-Ebm"; */
-"rX2-PN-Ebm.title" = "OtherViews";
-
 /* Class = "NSMenuItem"; title = "Keep DTS"; ObjectID = "SCt-75-DDV"; */
 "SCt-75-DDV.title" = "保留 DTS";
 
 /* Class = "NSMenuItem"; title = "256"; ObjectID = "tFR-ss-ze1"; */
 "tFR-ss-ze1.title" = "256";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "v6x-m2-JTe"; */
-"v6x-m2-JTe.title" = "OtherViews";
 
 /* Class = "NSButtonCell"; title = "VobSub to Tx3g"; ObjectID = "wgy-N5-9cB"; */
 "wgy-N5-9cB.title" = "VobSub 至 Tx3g";
