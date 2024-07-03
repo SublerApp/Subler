@@ -58,7 +58,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         window?.tabbingMode = .disallowed
 
         if #available(macOS 11, *) {
-            window?.toolbarStyle = .expanded
+            window?.toolbarStyle = .unified
         }
 
         table.registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL, tablePasteboardType])
