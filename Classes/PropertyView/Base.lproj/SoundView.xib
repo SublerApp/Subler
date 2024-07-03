@@ -80,7 +80,7 @@
                                                 <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="QBa-Jt-TO2" id="jSp-EO-3Gh">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="controlContent" size="11"/>
-                                                    <menu key="menu" title="OtherViews" id="uZy-Zq-VUz">
+                                                    <menu key="menu" id="uZy-Zq-VUz">
                                                         <items>
                                                             <menuItem title="None" state="on" id="QBa-Jt-TO2" userLabel="Alternate group"/>
                                                             <menuItem title="1" tag="1" id="mXc-eW-usD"/>
@@ -105,7 +105,7 @@
                                                 <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Qdb-gu-B3h" id="NRh-66-Ilv">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="controlContent" size="11"/>
-                                                    <menu key="menu" title="OtherViews" id="QUX-Wz-JDa">
+                                                    <menu key="menu" id="QUX-Wz-JDa">
                                                         <items>
                                                             <menuItem title="None" state="on" id="Qdb-gu-B3h" userLabel="Fallback"/>
                                                         </items>
@@ -132,7 +132,7 @@
                                                 <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Zgh-b7-8aY" id="vO8-pC-sox">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="controlContent" size="11"/>
-                                                    <menu key="menu" title="OtherViews" id="DMC-Pz-yne">
+                                                    <menu key="menu" id="DMC-Pz-yne">
                                                         <items>
                                                             <menuItem title="None" state="on" id="Zgh-b7-8aY"/>
                                                         </items>

@@ -97,7 +97,7 @@
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" imagePosition="left" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="6jC-r9-LzT" id="8bb-Gy-KAS">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
-                        <menu key="menu" title="OtherViews" autoenablesItems="NO" id="BBw-yf-xUC">
+                        <menu key="menu" autoenablesItems="NO" id="BBw-yf-xUC">
                             <items>
                                 <menuItem isSeparatorItem="YES" state="on" id="6jC-r9-LzT"/>
                                 <menuItem title="Same as file" tag="10" id="WKY-e5-5Mn">
@@ -180,7 +180,7 @@
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bQx-xN-b3H">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
-                        <menu key="menu" title="OtherViews" id="4en-ZA-qlS"/>
+                        <menu key="menu" id="4en-ZA-qlS"/>
                     </popUpButtonCell>
                     <constraints>
                         <constraint firstAttribute="width" constant="130" id="pXB-Tf-k7W"/>
@@ -212,7 +212,7 @@
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CbR-eu-sGI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
-                        <menu key="menu" title="OtherViews" id="ptP-wd-Rxc"/>
+                        <menu key="menu" id="ptP-wd-Rxc"/>
                     </popUpButtonCell>
                     <constraints>
                         <constraint firstAttribute="width" constant="150" id="gQU-lK-gKx"/>
@@ -239,7 +239,7 @@
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UOb-Qe-IPw">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
-                        <menu key="menu" title="OtherViews" id="ytE-Us-3gv"/>
+                        <menu key="menu" id="ytE-Us-3gv"/>
                     </popUpButtonCell>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="0mv-KK-PJA"/>
@@ -294,7 +294,7 @@
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nqF-p0-mT7">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
-                        <menu key="menu" title="OtherViews" id="U0q-ED-kQf"/>
+                        <menu key="menu" id="U0q-ED-kQf"/>
                     </popUpButtonCell>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="K7b-6w-2iA"/>
@@ -333,7 +333,7 @@
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gZb-sF-UQs">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
-                        <menu key="menu" title="OtherViews" id="0QM-sv-vRX"/>
+                        <menu key="menu" id="0QM-sv-vRX"/>
                     </popUpButtonCell>
                     <constraints>
                         <constraint firstAttribute="width" constant="150" id="6X3-dl-1ua"/>
@@ -407,7 +407,7 @@
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kEh-SN-iHZ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
-                        <menu key="menu" title="OtherViews" id="LfV-JG-4EY"/>
+                        <menu key="menu" id="LfV-JG-4EY"/>
                     </popUpButtonCell>
                     <constraints>
                         <constraint firstAttribute="width" constant="111" id="lRb-wg-Yi4"/>
@@ -446,7 +446,7 @@
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tj2-P4-OCU">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
-                        <menu key="menu" title="OtherViews" id="nKa-Pm-TBr"/>
+                        <menu key="menu" id="nKa-Pm-TBr"/>
                     </popUpButtonCell>
                     <constraints>
                         <constraint firstAttribute="width" constant="111" id="TPO-2B-Dq4"/>
@@ -560,7 +560,7 @@
                     <popUpButtonCell key="cell" type="roundRect" title="Poster" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="YjX-6f-SPu" id="1t8-o9-ckI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
-                        <menu key="menu" title="OtherViews" id="0zS-9Z-m6I">
+                        <menu key="menu" id="0zS-9Z-m6I">
                             <items>
                                 <menuItem title="Poster" state="on" id="YjX-6f-SPu">
                                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -616,7 +616,7 @@
                     <popUpButtonCell key="cell" type="roundRect" title="Implicit" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="psY-0V-t0k" id="QT5-Bh-4Hc">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
-                        <menu key="menu" title="OtherViews" id="t0P-DA-u8W">
+                        <menu key="menu" id="t0P-DA-u8W">
                             <items>
                                 <menuItem title="Implicit" state="on" tag="1" id="psY-0V-t0k"/>
                                 <menuItem title="Rec. 601 (5-1-6)" tag="2" id="ge0-Fr-3vK"/>
@@ -673,7 +673,7 @@
                     <popUpButtonCell key="cell" type="roundRect" title="Standard" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="goC-ck-how" id="obA-0k-yqE">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
-                        <menu key="menu" title="OtherViews" id="d8H-bj-RTq">
+                        <menu key="menu" id="d8H-bj-RTq">
                             <items>
                                 <menuItem title="Standard" state="on" id="goC-ck-how">
                                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -709,7 +709,7 @@
                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="muE-Km-mrP">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
-                        <menu key="menu" title="OtherViews" id="BId-1P-TkD"/>
+                        <menu key="menu" id="BId-1P-TkD"/>
                     </popUpButtonCell>
                     <constraints>
                         <constraint firstAttribute="width" constant="111" id="nzJ-Os-QsK"/>
@@ -747,7 +747,7 @@
                     <popUpButtonCell key="cell" type="roundRect" title="mp4" bezelStyle="roundedRect" imagePosition="left" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="10" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="iXb-rA-1f3" id="Tgc-fW-mN5">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="label" size="11"/>
-                        <menu key="menu" title="OtherViews" autoenablesItems="NO" id="PLh-aR-2Pj">
+                        <menu key="menu" autoenablesItems="NO" id="PLh-aR-2Pj">
                             <items>
                                 <menuItem title="mp4" state="on" tag="10" id="iXb-rA-1f3"/>
                                 <menuItem title="m4v" id="FrC-Ub-23H"/>

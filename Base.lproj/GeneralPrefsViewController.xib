@@ -178,7 +178,7 @@
                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="237">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
-                                <menu key="menu" title="OtherViews" id="238"/>
+                                <menu key="menu" id="238"/>
                             </popUpButtonCell>
                             <connections>
                                 <accessibilityConnection property="title" destination="206" id="SzO-00-e3U"/>

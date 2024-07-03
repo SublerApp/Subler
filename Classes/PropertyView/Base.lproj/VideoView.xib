@@ -263,7 +263,7 @@
                                                 <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="vVg-S9-JUk" id="1Lt-yX-9cP">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="controlContent" size="11"/>
-                                                    <menu key="menu" title="OtherViews" id="Wc0-3P-okr">
+                                                    <menu key="menu" id="Wc0-3P-okr">
                                                         <items>
                                                             <menuItem title="None" state="on" id="vVg-S9-JUk"/>
                                                             <menuItem title="1" tag="1" id="S4p-0Y-kRW"/>
@@ -331,7 +331,7 @@
                                                         <popUpButtonCell key="cell" type="push" title="No" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="KOg-FR-dr6" id="Tx6-IV-D1K">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="controlContent" size="11"/>
-                                                            <menu key="menu" title="OtherViews" id="UdS-Yi-1yh">
+                                                            <menu key="menu" id="UdS-Yi-1yh">
                                                                 <items>
                                                                     <menuItem title="No" state="on" id="KOg-FR-dr6"/>
                                                                     <menuItem title="Some Samples Are Forced" tag="1" id="i0h-ag-Pc5"/>
@@ -349,7 +349,7 @@
                                                         <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="H3I-ix-0Ay" id="PXs-ar-sil">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="controlContent" size="11"/>
-                                                            <menu key="menu" title="OtherViews" id="ANO-Mb-aQ0">
+                                                            <menu key="menu" id="ANO-Mb-aQ0">
                                                                 <items>
                                                                     <menuItem title="None" state="on" id="H3I-ix-0Ay"/>
                                                                 </items>
@@ -402,7 +402,7 @@
                                                         <popUpButtonCell key="cell" type="push" title="Implicit" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="6PY-Np-Y3s" id="G6U-LQ-v4b">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="controlContent" size="11"/>
-                                                            <menu key="menu" title="OtherViews" id="7qj-VS-hv7">
+                                                            <menu key="menu" id="7qj-VS-hv7">
                                                                 <items>
                                                                     <menuItem title="Implicit" state="on" tag="1" id="6PY-Np-Y3s"/>
                                                                     <menuItem title="Rec. 601 (5-1-6)" tag="2" id="X7B-de-Yur"/>
@@ -455,7 +455,7 @@
                                                         <popUpButtonCell key="cell" type="push" title="Current profile: unknown" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="NIA-f8-VWx" id="Ehv-0f-dPW">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="controlContent" size="11"/>
-                                                            <menu key="menu" title="OtherViews" id="xaj-0K-cm0">
+                                                            <menu key="menu" id="xaj-0K-cm0">
                                                                 <items>
                                                                     <menuItem title="Current profile: unknown" state="on" tag="1" id="NIA-f8-VWx"/>
                                                                     <menuItem isSeparatorItem="YES" id="DP4-Ae-LOu"/>

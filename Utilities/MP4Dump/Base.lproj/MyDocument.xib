@@ -59,7 +59,7 @@
                         <popUpButtonCell key="cell" type="bevel" title="Info" bezelStyle="regularSquare" imagePosition="left" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="bezel" tag="3" inset="2" selectedItem="100042" id="100026">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="menu"/>
-                            <menu key="menu" title="OtherViews" id="100027">
+                            <menu key="menu" id="100027">
                                 <items>
                                     <menuItem title="Error" tag="1" id="100029">
                                         <connections>

@@ -43,7 +43,7 @@
                             <popUpButtonCell key="cell" type="push" title="Discard DTS" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="2Ad-Fs-Zpj" id="bVg-GU-Gs9">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
-                                <menu key="menu" title="OtherViews" id="rX2-PN-Ebm">
+                                <menu key="menu" id="rX2-PN-Ebm">
                                     <items>
                                         <menuItem title="Discard DTS" state="on" id="2Ad-Fs-Zpj">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -116,7 +116,7 @@
                             <popUpButtonCell key="cell" type="push" title="Dolby Pro Logic II" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="121" id="116">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
-                                <menu key="menu" title="OtherViews" id="117">
+                                <menu key="menu" id="117">
                                     <items>
                                         <menuItem title="Dolby Pro Logic II" state="on" tag="1" id="121"/>
                                         <menuItem title="Dolby Pro Logic" tag="2" id="120"/>
@@ -167,7 +167,7 @@
                             <popUpButtonCell key="cell" type="push" title="0" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="aHL-pt-Ze0" id="sRN-fQ-JQy">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
-                                <menu key="menu" title="OtherViews" id="v6x-m2-JTe">
+                                <menu key="menu" id="v6x-m2-JTe">
                                     <items>
                                         <menuItem title="0" state="on" id="aHL-pt-Ze0"/>
                                         <menuItem title="1" tag="1" id="6bP-oF-42N"/>
@@ -209,7 +209,7 @@
                             <popUpButtonCell key="cell" type="push" title="64" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="64" imageScaling="proportionallyDown" inset="2" selectedItem="194" id="192">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
-                                <menu key="menu" title="OtherViews" id="193">
+                                <menu key="menu" id="193">
                                     <items>
                                         <menuItem title="64" state="on" tag="64" id="194"/>
                                         <menuItem title="80" tag="80" id="195"/>
