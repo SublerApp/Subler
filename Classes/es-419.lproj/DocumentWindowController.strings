@@ -1,0 +1,87 @@
+/* Class = "NSMenuItem"; title = "15 minutes"; ObjectID = "0bq-Ez-KMl"; */
+"0bq-Ez-KMl.title" = "15 minutos";
+
+/* Class = "NSMenuItem"; title = "Insert a chapter every"; ObjectID = "0vu-Jl-QDb"; */
+"0vu-Jl-QDb.title" = "Insertar un capítulo cada";
+
+/* Class = "NSMenuItem"; title = "2 minutes"; ObjectID = "2M2-Yg-cgc"; */
+"2M2-Yg-cgc.title" = "2 minutos";
+
+/* Class = "NSMenuItem"; title = "1 minute"; ObjectID = "5Fm-fy-9es"; */
+"5Fm-fy-9es.title" = "1 minuto";
+
+/* Class = "NSMenuItem"; title = "5 minutes"; ObjectID = "8ah-BL-bge"; */
+"8ah-BL-bge.title" = "5 minutos";
+
+/* Class = "NSMenuItem"; title = "Offset…"; ObjectID = "9r1-yN-sCW"; */
+"9r1-yN-sCW.title" = "Desplazamiento…";
+
+/* Class = "NSToolbarItem"; label = "Send to Queue"; ObjectID = "app-IS-8EB"; */
+"app-IS-8EB.label" = "Enviar a la cola";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Send to Queue"; ObjectID = "app-IS-8EB"; */
+"app-IS-8EB.paletteLabel" = "Enviar a la cola";
+
+/* Class = "NSToolbarItem"; toolTip = "Send the current document to the queue"; ObjectID = "app-IS-8EB"; */
+"app-IS-8EB.toolTip" = "Enviar documento actual a la cola";
+
+/* Class = "NSMenuItem"; title = "30 minutes"; ObjectID = "bmM-jp-jgC"; */
+"bmM-jp-jgC.title" = "30 minutos";
+
+/* Class = "NSToolbarItem"; label = "Import"; ObjectID = "FY3-O2-t3T"; */
+"FY3-O2-t3T.label" = "Importar";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Import"; ObjectID = "FY3-O2-t3T"; */
+"FY3-O2-t3T.paletteLabel" = "Importar";
+
+/* Class = "NSToolbarItem"; toolTip = "Import tracks from external files"; ObjectID = "FY3-O2-t3T"; */
+"FY3-O2-t3T.toolTip" = "Importar pistas desde archivo externo";
+
+/* Class = "NSMenuItem"; title = "Organize alternate groups"; ObjectID = "lIX-K2-pbc"; */
+"lIX-K2-pbc.title" = "Organizar grupos alternativos";
+
+/* Class = "NSMenuItem"; title = "10 minutes"; ObjectID = "lJT-6k-8XM"; */
+"lJT-6k-8XM.title" = "10 minutos";
+
+/* Class = "NSMenu"; title = "Insert a chapter every"; ObjectID = "o5I-IO-kDx"; */
+"o5I-IO-kDx.title" = "Insertar un capítulo cada";
+
+/* Class = "NSMenuItem"; title = "Clear tracks names"; ObjectID = "pB8-A8-7tv"; */
+"pB8-A8-7tv.title" = "Limpiar nombres de pistas";
+
+/* Class = "NSMenuItem"; title = "Fix audio fallbacks"; ObjectID = "rGe-lx-aht"; */
+"rGe-lx-aht.title" = "Corregir alternativas de audio";
+
+/* Class = "NSToolbarItem"; label = "Delete Track"; ObjectID = "rhw-S4-nZ8"; */
+"rhw-S4-nZ8.label" = "Eliminar pista";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Delete Track"; ObjectID = "rhw-S4-nZ8"; */
+"rhw-S4-nZ8.paletteLabel" = "Eliminar pista";
+
+/* Class = "NSToolbarItem"; toolTip = "Delete the selected track"; ObjectID = "rhw-S4-nZ8"; */
+"rhw-S4-nZ8.toolTip" = "Eliminar pista seleccionada";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "s5f-yH-26m"; */
+"s5f-yH-26m.title" = "Ventana";
+
+/* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "SN3-Fe-fRS"; */
+"SN3-Fe-fRS.title" = "Mejorar nombres de pistas de audio";
+
+/* Class = "NSToolbarItem"; label = "Search Metadata"; ObjectID = "uiq-J2-uPs"; */
+"uiq-J2-uPs.label" = "Buscar metadatos";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Search Metadata"; ObjectID = "uiq-J2-uPs"; */
+"uiq-J2-uPs.paletteLabel" = "Buscar metadatos";
+
+/* Class = "NSToolbarItem"; toolTip = "Search metadata on the web"; ObjectID = "uiq-J2-uPs"; */
+"uiq-J2-uPs.toolTip" = "Buscar metadatos en línea";
+
+/* Class = "NSToolbarItem"; label = "Action"; ObjectID = "V6w-Ey-bjV"; */
+"V6w-Ey-bjV.label" = "Más acciones";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Action"; ObjectID = "V6w-Ey-bjV"; */
+"V6w-Ey-bjV.paletteLabel" = "Más acciones";
+
+/* Class = "NSMenuItem"; title = "20 minutes"; ObjectID = "xWX-8M-yu0"; */
+"xWX-8M-yu0.title" = "20 minutos";
+

@@ -5,6 +5,9 @@
 "-NA-" = "-ND-";
 
 /* No comment provided by engineer. */
+"%@." = "%@.";
+
+/* No comment provided by engineer. */
 "%lu items in queue." = "%lu elementi in coda.";
 
 /* No comment provided by engineer. */
@@ -16,11 +19,26 @@
 /* No comment provided by engineer. */
 "1 track selected" = "1 traccia selezionata";
 
+/* No comment provided by engineer. */
+"4k" = "4k";
+
+/* No comment provided by engineer. */
+"720p" = "720p";
+
+/* No comment provided by engineer. */
+"1080p" = "1080p";
+
 /* QueueItem Error */
 "A file already exists at the destination." = "Esiste già un file nella destinazione.";
 
 /* No comment provided by engineer. */
 "A preset already exists with the same name." = "Esiste già un preset con lo stesso nome.";
+
+/* File Import action menu item. */
+"AAC + AC3" = "AAC + AC3";
+
+/* File Import action menu item. */
+"AAC + Passthru" = "AAC + Passthru";
 
 /* Queue -> redo add item. */
 "Add Queue Item" = "Aggiungi elemento alla coda";
@@ -45,6 +63,9 @@
 
 /* Quit alert title. */
 "Are you sure you want to quit Subler?" = "Sei sicuro di voler uscire da Subler?";
+
+/* No comment provided by engineer. */
+"artistID" = "artistID";
 
 /* No comment provided by engineer. */
 "Audiobook" = "Audiolibro";
@@ -84,6 +105,9 @@
 
 /* Media characteristic. */
 "Contains Only Forced Subtitles" = "Contiene solo sottotitoli forzati";
+
+/* No comment provided by engineer. */
+"contentID" = "contentID";
 
 /* No comment provided by engineer. */
 "Copyright" = "Copyright";
@@ -126,13 +150,13 @@
 "Done" = "Fatto";
 
 /* No comment provided by engineer. */
-"Downloading additional movie metadata" = "Scarico ulteriori metadata per il film…";
+"Downloading additional movie metadata…" = "Scarico ulteriori metadata per il film…";
 
 /* No comment provided by engineer. */
 "Downloading additional TV metadata…" = "Scarico ulteriori metadata per la serie TV…";
 
 /* No comment provided by engineer. */
-"Downloading artworks" = "Scarico illustrazione…";
+"Downloading artworks…" = "Scarico illustrazione…";
 
 /* Media characteristic. */
 "Dubbed Translation" = "Traduzione doppiaggio";
@@ -142,6 +166,14 @@
 
 /* Undo tag editing. */
 "Editing" = "Modifico";
+
+/* Enable audio track action description
+   Enable audio track local description */
+"Enabling audio track with selected language" = "Abilito traccia audio con lingua";
+
+/* Enable subtitles track action description
+   Enable subtitles track local description */
+"Enabling subtitles track with selected language" = "Abilito traccia sottotitoli con lingua";
 
 /* No comment provided by engineer. */
 "Episode #" = "# episodio";
@@ -179,6 +211,9 @@
 /* No comment provided by engineer. */
 "Get" = "Ottieni";
 
+/* No comment provided by engineer. */
+"Home Video" = "Home Video";
+
 /* Implicit color profile */
 "Implicit" = "Implicito";
 
@@ -188,6 +223,9 @@
 
 /* No comment provided by engineer. */
 "iTunes Country" = "Stato iTunes";
+
+/* No comment provided by engineer. */
+"iTunes U" = "iTunes U";
 
 /* No comment provided by engineer. */
 "iTunes URL" = "URL iTunes";
@@ -207,11 +245,17 @@
 /* No comment provided by engineer. */
 "Long Description" = "Descrizione completa";
 
+/* No comment provided by engineer. */
+"lowercase" = "minuscolo";
+
 /* Media characteristic. */
 "Main Program Content" = "Contenuto principale";
 
 /* No comment provided by engineer. */
 "Metadata" = "Metadata";
+
+/* No comment provided by engineer. */
+"Mono Audio" = "Mono Audio";
 
 /* No comment provided by engineer. */
 "Month" = "Mese";
@@ -273,8 +317,17 @@
 /* Organize Groups action local description */
 "Organizing groups" = "Organizzo gruppi";
 
+/* color profile */
+"P3-D65 (12-17-6)" = "P3-D65 (12-17-6)";
+
+/* color profile */
+"P3-DCI (11-17-6)" = "P3-DCI (11-17-6)";
+
 /* File Import action menu item. */
 "Passthru" = "Passthru";
+
+/* No comment provided by engineer. */
+"playlistID" = "playlistID";
 
 /* No comment provided by engineer. */
 "Please enter a different name for the preset." = "Per favore inserisci un nome diverso per il preset.";
@@ -305,6 +358,24 @@
 
 /* No comment provided by engineer. */
 "Rating" = "Classificazione";
+
+/* color profile */
+"Rec. 601 (5-1-6)" = "Rec. 601 (5-1-6)";
+
+/* color profile */
+"Rec. 601 (6-1-6)" = "Rec. 601 (6-1-6)";
+
+/* color profile */
+"Rec. 709 (1-1-1)" = "Rec. 709 (1-1-1)";
+
+/* color profile */
+"Rec. 2020 (9-1-9)" = "Rec. 2020 (9-1-9)";
+
+/* color profile */
+"Rec. 2100 HLG (9-18-9)" = "Rec. 2100 HLG (9-18-9)";
+
+/* color profile */
+"Rec. 2100 PQ (9-16-9)" = "Rec. 2100 PQ (9-16-9)";
 
 /* No comment provided by engineer. */
 "Release Date" = "Data di rilascio";
@@ -387,11 +458,20 @@
 /* Set Language action local description */
 "Setting tracks language" = "Imposto la lingua delle tracce";
 
+/* color profile */
+"sRGB (1-13-1)" = "sRGB (1-13-1)";
+
+/* No comment provided by engineer. */
+"Stereo Audio" = "Stereo Audio";
+
 /* No comment provided by engineer. */
 "Studio" = "Studio";
 
 /* Donation -> title */
 "Support Subler" = "Sostieni Subler";
+
+/* No comment provided by engineer. */
+"Surround Audio" = "Surround Audio";
 
 /* QueueItem Error */
 "The file couldn't be optimized." = "Il file non può essere ottimizzato.";
@@ -416,6 +496,9 @@
 
 /* Set menu TV Show Set */
 "TV Show" = "Serie TV";
+
+/* File Import action menu item. */
+"Tx3g" = "Tx3g";
 
 /* No comment provided by engineer. */
 "Unknown" = "Sconosciuta";

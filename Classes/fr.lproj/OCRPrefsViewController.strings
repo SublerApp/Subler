@@ -7,9 +7,3 @@
 /* Class = "NSTextFieldCell"; title = "Language specific OCR data files can improve the optical character recognition results."; ObjectID = "LFI-zD-ohi"; */
 "LFI-zD-ohi.title" = "Les fichiers de données linguistiques OCR spécifiques peuvent améliorer les résultats de la reconnaissance de caractères.";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "XaZ-zW-P04"; */
-"XaZ-zW-P04.title" = "Cellule de texte";
-
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "Zhz-YB-L6R"; */
-"Zhz-YB-L6R.title" = "Cellule de la vue tableau";
-

@@ -13,6 +13,9 @@
 /* Class = "NSTabViewItem"; label = "Movie"; ObjectID = "apc-8c-iyM"; */
 "apc-8c-iyM.label" = "Film";
 
+/* Class = "NSMenuItem"; title = "TheMovieDB"; ObjectID = "FoR-26-u9n"; */
+"FoR-26-u9n.title" = "TheMovieDB";
+
 /* Class = "NSTabViewItem"; label = "TV Episode"; ObjectID = "GPk-3A-rQI"; */
 "GPk-3A-rQI.label" = "Episodio TV";
 
@@ -27,6 +30,9 @@
 
 /* Class = "NSMenuItem"; title = "iTunes Store"; ObjectID = "j44-FV-Lpy"; */
 "j44-FV-Lpy.title" = "iTunes Store";
+
+/* Class = "NSMenuItem"; title = "TheMovieDB"; ObjectID = "KpX-If-oKC"; */
+"KpX-If-oKC.title" = "TheMovieDB";
 
 /* Class = "NSTextFieldCell"; title = "Season #"; ObjectID = "kz7-mH-DuT"; */
 "kz7-mH-DuT.title" = "# Stagione";
@@ -54,6 +60,9 @@
 
 /* Class = "NSTableColumn"; headerCell.title = "Annotation"; ObjectID = "XgL-ec-DEt"; */
 "XgL-ec-DEt.headerCell.title" = "Annotazione";
+
+/* Class = "NSMenuItem"; title = "TheTVDB"; ObjectID = "xjQ-ex-5kU"; */
+"xjQ-ex-5kU.title" = "TheTVDB";
 
 /* Class = "NSTextFieldCell"; title = "Episode #"; ObjectID = "Zik-QU-m81"; */
 "Zik-QU-m81.title" = "# Episodio";

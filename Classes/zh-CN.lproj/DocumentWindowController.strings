@@ -1,0 +1,87 @@
+/* Class = "NSMenuItem"; title = "15 minutes"; ObjectID = "0bq-Ez-KMl"; */
+"0bq-Ez-KMl.title" = "15分钟";
+
+/* Class = "NSMenuItem"; title = "Insert a chapter every"; ObjectID = "0vu-Jl-QDb"; */
+"0vu-Jl-QDb.title" = "插入章节标记 每隔";
+
+/* Class = "NSMenuItem"; title = "2 minutes"; ObjectID = "2M2-Yg-cgc"; */
+"2M2-Yg-cgc.title" = "2分钟";
+
+/* Class = "NSMenuItem"; title = "1 minute"; ObjectID = "5Fm-fy-9es"; */
+"5Fm-fy-9es.title" = "1分钟";
+
+/* Class = "NSMenuItem"; title = "5 minutes"; ObjectID = "8ah-BL-bge"; */
+"8ah-BL-bge.title" = "5分钟";
+
+/* Class = "NSMenuItem"; title = "Offset…"; ObjectID = "9r1-yN-sCW"; */
+"9r1-yN-sCW.title" = "偏移…";
+
+/* Class = "NSToolbarItem"; label = "Send to Queue"; ObjectID = "app-IS-8EB"; */
+"app-IS-8EB.label" = "发送到任务队列";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Send to Queue"; ObjectID = "app-IS-8EB"; */
+"app-IS-8EB.paletteLabel" = "发送到任务队列";
+
+/* Class = "NSToolbarItem"; toolTip = "Send the current document to the queue"; ObjectID = "app-IS-8EB"; */
+"app-IS-8EB.toolTip" = "将当前文档发送到任务队列";
+
+/* Class = "NSMenuItem"; title = "30 minutes"; ObjectID = "bmM-jp-jgC"; */
+"bmM-jp-jgC.title" = "30分钟";
+
+/* Class = "NSToolbarItem"; label = "Import"; ObjectID = "FY3-O2-t3T"; */
+"FY3-O2-t3T.label" = "导入";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Import"; ObjectID = "FY3-O2-t3T"; */
+"FY3-O2-t3T.paletteLabel" = "导入";
+
+/* Class = "NSToolbarItem"; toolTip = "Import tracks from external files"; ObjectID = "FY3-O2-t3T"; */
+"FY3-O2-t3T.toolTip" = "从外部文件导入轨道";
+
+/* Class = "NSMenuItem"; title = "Organize alternate groups"; ObjectID = "lIX-K2-pbc"; */
+"lIX-K2-pbc.title" = "整理轨道分组";
+
+/* Class = "NSMenuItem"; title = "10 minutes"; ObjectID = "lJT-6k-8XM"; */
+"lJT-6k-8XM.title" = "10分钟";
+
+/* Class = "NSMenu"; title = "Insert a chapter every"; ObjectID = "o5I-IO-kDx"; */
+"o5I-IO-kDx.title" = "插入章节标记 每隔";
+
+/* Class = "NSMenuItem"; title = "Clear tracks names"; ObjectID = "pB8-A8-7tv"; */
+"pB8-A8-7tv.title" = "清除轨道名称";
+
+/* Class = "NSMenuItem"; title = "Fix audio fallbacks"; ObjectID = "rGe-lx-aht"; */
+"rGe-lx-aht.title" = "修复音频回退";
+
+/* Class = "NSToolbarItem"; label = "Delete Track"; ObjectID = "rhw-S4-nZ8"; */
+"rhw-S4-nZ8.label" = "删除轨道";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Delete Track"; ObjectID = "rhw-S4-nZ8"; */
+"rhw-S4-nZ8.paletteLabel" = "删除轨道";
+
+/* Class = "NSToolbarItem"; toolTip = "Delete the selected track"; ObjectID = "rhw-S4-nZ8"; */
+"rhw-S4-nZ8.toolTip" = "删除所选轨道";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "s5f-yH-26m"; */
+"s5f-yH-26m.title" = "窗口";
+
+/* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "SN3-Fe-fRS"; */
+"SN3-Fe-fRS.title" = "美化音轨名称";
+
+/* Class = "NSToolbarItem"; label = "Search Metadata"; ObjectID = "uiq-J2-uPs"; */
+"uiq-J2-uPs.label" = "搜索元数据";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Search Metadata"; ObjectID = "uiq-J2-uPs"; */
+"uiq-J2-uPs.paletteLabel" = "搜索元数据";
+
+/* Class = "NSToolbarItem"; toolTip = "Search metadata on the web"; ObjectID = "uiq-J2-uPs"; */
+"uiq-J2-uPs.toolTip" = "从网络搜索元数据";
+
+/* Class = "NSToolbarItem"; label = "Action"; ObjectID = "V6w-Ey-bjV"; */
+"V6w-Ey-bjV.label" = "行为";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Action"; ObjectID = "V6w-Ey-bjV"; */
+"V6w-Ey-bjV.paletteLabel" = "行为";
+
+/* Class = "NSMenuItem"; title = "20 minutes"; ObjectID = "xWX-8M-yu0"; */
+"xWX-8M-yu0.title" = "20分钟";
+

@@ -1,14 +1,8 @@
 /* Class = "NSButtonCell"; title = "Apply color space"; ObjectID = "0By-RQ-4mS"; */
 "0By-RQ-4mS.title" = "Appliquer un espace colorimétrique";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "0QM-sv-vRX"; */
-"0QM-sv-vRX.title" = "Autres Vues";
-
 /* Class = "NSButton"; ibShadowedToolTip = "Rename chapters titles to \"Chapter N\" format."; ObjectID = "0qr-Nt-Pan"; */
 "0qr-Nt-Pan.ibShadowedToolTip" = "Renommer les titres de chapitres au format \"Chapitre N\".";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "0zS-9Z-m6I"; */
-"0zS-9Z-m6I.title" = "Autres Vues";
 
 /* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "1dC-y4-0rx"; */
 "1dC-y4-0rx.title" = "Langue :";
@@ -28,11 +22,8 @@
 /* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "3w0-jj-Nkk"; */
 "3w0-jj-Nkk.ibShadowedNotApplicablePlaceholder" = "Aucun";
 
-/* Class = "NSButtonCell"; title = "Send to iTunes"; ObjectID = "4an-VK-S2u"; */
-"4an-VK-S2u.title" = "Envoyer à iTunes";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "4en-ZA-qlS"; */
-"4en-ZA-qlS.title" = "Autres Vues";
+/* Class = "NSButtonCell"; title = "Send to AppleTV/iTunes"; ObjectID = "4an-VK-S2u"; */
+"4an-VK-S2u.title" = "Envoyer à TV/iTunes";
 
 /* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "4rl-TJ-0yZ"; */
 "4rl-TJ-0yZ.ibShadowedIsNilPlaceholder" = "Aucun";
@@ -52,6 +43,15 @@
 /* Class = "NSTextFieldCell"; title = "Add item:"; ObjectID = "9ls-xq-YGz"; */
 "9ls-xq-YGz.title" = "Ajouter l'élément :";
 
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Unknown"; ObjectID = "9YX-tj-U0D"; */
+"9YX-tj-U0D.ibShadowedIsNilPlaceholder" = "Inconnu";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "Unknown"; ObjectID = "9YX-tj-U0D"; */
+"9YX-tj-U0D.ibShadowedNoSelectionPlaceholder" = "Inconnu";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "Unknown"; ObjectID = "9YX-tj-U0D"; */
+"9YX-tj-U0D.ibShadowedNotApplicablePlaceholder" = "Inconnu";
+
 /* Class = "NSTextFieldCell"; title = "Location:"; ObjectID = "17e-9u-rVn"; */
 "17e-9u-rVn.title" = "Emplacement :";
 
@@ -66,6 +66,9 @@
 
 /* Class = "NSButtonCell"; title = "Organize Groups"; ObjectID = "240-c7-2UW"; */
 "240-c7-2UW.title" = "Organiser les groupes";
+
+/* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "963-dI-WCB"; */
+"963-dI-WCB.title" = "Langue :";
 
 /* Class = "NSMenuItem"; title = "Backdrop"; ObjectID = "Aaf-km-GUP"; */
 "Aaf-km-GUP.title" = "Toile de fond";
@@ -85,9 +88,6 @@
 /* Class = "NSMenuItem"; title = "Rec. 601 (6-1-6)"; ObjectID = "AZx-uM-CmZ"; */
 "AZx-uM-CmZ.title" = "Rec. 601 (6-1-6)";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "BBw-yf-xUC"; */
-"BBw-yf-xUC.title" = "Autres Vues";
-
 /* Class = "NSButton"; ibShadowedToolTip = "Organize the mp4 alternate groups"; ObjectID = "ccd-Xn-Dj3"; */
 "ccd-Xn-Dj3.ibShadowedToolTip" = "Organiser les groupes MP4 alternatifs";
 
@@ -103,8 +103,8 @@
 /* Class = "NSButtonCell"; title = "Complete tracks language"; ObjectID = "cxz-2q-RIP"; */
 "cxz-2q-RIP.title" = "Compléter la langue des pistes";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "d8H-bj-RTq"; */
-"d8H-bj-RTq.title" = "Autres Vues";
+/* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "E4E-3v-z24"; */
+"E4E-3v-z24.title" = "Langue :";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Load the external srt subtitles file"; ObjectID = "etc-K7-Atw"; */
 "etc-K7-Atw.ibShadowedToolTip" = "Charger le fichier externe de sous-titres";
@@ -136,9 +136,6 @@
 /* Class = "NSMenuItem"; title = "Square"; ObjectID = "LFE-HX-iBV"; */
 "LFE-HX-iBV.title" = "Carré";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "LfV-JG-4EY"; */
-"LfV-JG-4EY.title" = "Autres Vues";
-
 /* Class = "NSButtonCell"; title = "Auto-Start the queue"; ObjectID = "LYO-G0-9jA"; */
 "LYO-G0-9jA.title" = "Démarrage automatique de la file d'attente";
 
@@ -163,14 +160,8 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Set the color space of video tracks to the selected one"; ObjectID = "Pdq-s0-erT"; */
 "Pdq-s0-erT.ibShadowedToolTip" = "Définir l'espace colorimétrique des pistes vidéo sur celui sélectionné";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "PLh-aR-2Pj"; */
-"PLh-aR-2Pj.title" = "Autres Vues";
-
 /* Class = "NSMenuItem"; title = "Implicit"; ObjectID = "psY-0V-t0k"; */
 "psY-0V-t0k.title" = "Implicite";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "ptP-wd-Rxc"; */
-"ptP-wd-Rxc.title" = "Autres Vues";
 
 /* Class = "NSButtonCell"; title = "Set output filename"; ObjectID = "Qld-0F-DsX"; */
 "Qld-0F-DsX.title" = "Définir le nom du fichier de sortie";
@@ -193,14 +184,20 @@
 /* Class = "NSMenuItem"; title = "P3-D65 (12-17-6)"; ObjectID = "RHU-Y8-mhX"; */
 "RHU-Y8-mhX.title" = "P3-D65 (12-17-6)";
 
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Unknown"; ObjectID = "RXT-iv-V6g"; */
+"RXT-iv-V6g.ibShadowedIsNilPlaceholder" = "Inconnu";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "Unknown"; ObjectID = "RXT-iv-V6g"; */
+"RXT-iv-V6g.ibShadowedNoSelectionPlaceholder" = "Inconnu";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "Unknown"; ObjectID = "RXT-iv-V6g"; */
+"RXT-iv-V6g.ibShadowedNotApplicablePlaceholder" = "Inconnu";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Search metadata online"; ObjectID = "s8r-Cf-VfB"; */
 "s8r-Cf-VfB.ibShadowedToolTip" = "Rechercher les métadonnées en ligne";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Set tracks without a language to the selected one"; ObjectID = "slL-2h-MPl"; */
 "slL-2h-MPl.ibShadowedToolTip" = "Définir les pistes sans langue à celle sélectionnée";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "t0P-DA-u8W"; */
-"t0P-DA-u8W.title" = "Autres Vues";
 
 /* Class = "NSMenuItem"; title = "Rec. 2020 (9-1-9)"; ObjectID = "Tjn-8g-7PM"; */
 "Tjn-8g-7PM.title" = "Rec. 2020 (9-1-9)";
@@ -213,9 +210,6 @@
 
 /* Class = "NSMenuItem"; title = "sRGB (1-13-1)"; ObjectID = "Twp-Zx-xTw"; */
 "Twp-Zx-xTw.title" = "sRGB (1-13-1)";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "U0q-ED-kQf"; */
-"U0q-ED-kQf.title" = "Autres Vues";
 
 /* Class = "NSTextFieldCell"; title = "File Type:"; ObjectID = "UbR-KJ-8iR"; */
 "UbR-KJ-8iR.title" = "Type de fichier :";
@@ -258,7 +252,4 @@
 
 /* Class = "NSMenuItem"; title = "Rec. 2100 HLG (9-18-9)"; ObjectID = "YSd-rH-Uvg"; */
 "YSd-rH-Uvg.title" = "Rec. 2100 HLG (9-18-9)";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "ytE-Us-3gv"; */
-"ytE-Us-3gv.title" = "Autres Vues";
 

@@ -64,15 +64,6 @@
 /* Class = "NSWindow"; title = "Window"; ObjectID = "s5f-yH-26m"; */
 "s5f-yH-26m.title" = "Finestra";
 
-/* Class = "NSToolbarItem"; label = "Search Chapters"; ObjectID = "sa2-7a-h2I"; */
-"sa2-7a-h2I.label" = "Cerca capitoli";
-
-/* Class = "NSToolbarItem"; paletteLabel = "Search Chapters"; ObjectID = "sa2-7a-h2I"; */
-"sa2-7a-h2I.paletteLabel" = "Cerca capitoli";
-
-/* Class = "NSToolbarItem"; toolTip = "Search chapters on the web"; ObjectID = "sa2-7a-h2I"; */
-"sa2-7a-h2I.toolTip" = "Cerca capitoli online";
-
 /* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "SN3-Fe-fRS"; */
 "SN3-Fe-fRS.title" = "Rinomina le tracce audio";
 

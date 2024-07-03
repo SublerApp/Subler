@@ -1,0 +1,255 @@
+/* Class = "NSButtonCell"; title = "Apply color space"; ObjectID = "0By-RQ-4mS"; */
+"0By-RQ-4mS.title" = "Asignar espacio de color";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Rename chapters titles to \"Chapter N\" format."; ObjectID = "0qr-Nt-Pan"; */
+"0qr-Nt-Pan.ibShadowedToolTip" = "Renombrar capítulos al formato \"Capítulo N\"";
+
+/* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "1dC-y4-0rx"; */
+"1dC-y4-0rx.title" = "Idioma:";
+
+/* Class = "NSTextFieldCell"; title = "Artwork:"; ObjectID = "1HP-Np-D97"; */
+"1HP-Np-D97.title" = "Ilustración:";
+
+/* Class = "NSMenuItem"; title = "Rec. 709 (1-1-1)"; ObjectID = "1uU-j6-SSj"; */
+"1uU-j6-SSj.title" = "Rec. 709 (1-1-1)";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "3w0-jj-Nkk"; */
+"3w0-jj-Nkk.ibShadowedIsNilPlaceholder" = "Ninguno";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "None"; ObjectID = "3w0-jj-Nkk"; */
+"3w0-jj-Nkk.ibShadowedNoSelectionPlaceholder" = "Ninguno";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "3w0-jj-Nkk"; */
+"3w0-jj-Nkk.ibShadowedNotApplicablePlaceholder" = "Ninguno";
+
+/* Class = "NSButtonCell"; title = "Send to AppleTV/iTunes"; ObjectID = "4an-VK-S2u"; */
+"4an-VK-S2u.title" = "Agregar a TV/iTunes";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "4rl-TJ-0yZ"; */
+"4rl-TJ-0yZ.ibShadowedIsNilPlaceholder" = "Ninguno";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "None"; ObjectID = "4rl-TJ-0yZ"; */
+"4rl-TJ-0yZ.ibShadowedNoSelectionPlaceholder" = "Ninguno";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "4rl-TJ-0yZ"; */
+"4rl-TJ-0yZ.ibShadowedNotApplicablePlaceholder" = "Ninguno";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Clear existing metadata"; ObjectID = "9GN-f6-r2j"; */
+"9GN-f6-r2j.ibShadowedToolTip" = "Borrar metadatos existentes";
+
+/* Class = "NSTextFieldCell"; title = "Apply Set:"; ObjectID = "9gt-mI-zIV"; */
+"9gt-mI-zIV.title" = "Agregar preset:";
+
+/* Class = "NSTextFieldCell"; title = "Add item:"; ObjectID = "9ls-xq-YGz"; */
+"9ls-xq-YGz.title" = "Agregar elemento:";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Unknown"; ObjectID = "9YX-tj-U0D"; */
+"9YX-tj-U0D.ibShadowedIsNilPlaceholder" = "Desconocido";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "Unknown"; ObjectID = "9YX-tj-U0D"; */
+"9YX-tj-U0D.ibShadowedNoSelectionPlaceholder" = "Desconocido";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "Unknown"; ObjectID = "9YX-tj-U0D"; */
+"9YX-tj-U0D.ibShadowedNotApplicablePlaceholder" = "Desconocido";
+
+/* Class = "NSTextFieldCell"; title = "Location:"; ObjectID = "17e-9u-rVn"; */
+"17e-9u-rVn.title" = "Ubicación:";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Delete all custom track names"; ObjectID = "22k-mA-HyA"; */
+"22k-mA-HyA.ibShadowedToolTip" = "Eliminar todos los nombres de pistas personalizados";
+
+/* Class = "NSButtonCell"; title = "Load external subtitles"; ObjectID = "59T-kp-mV1"; */
+"59T-kp-mV1.title" = "Cargar subtítulos externos";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Rename audio tracks according to channel count (Mono, Stereo, Surround)"; ObjectID = "81E-pQ-vyQ"; */
+"81E-pQ-vyQ.ibShadowedToolTip" = "Renombrar pistas de audio según el número de canales (Mono, Estéreo, Envolvente)";
+
+/* Class = "NSButtonCell"; title = "Organize Groups"; ObjectID = "240-c7-2UW"; */
+"240-c7-2UW.title" = "Organizar grupos";
+
+/* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "963-dI-WCB"; */
+"963-dI-WCB.title" = "Idioma:";
+
+/* Class = "NSMenuItem"; title = "Backdrop"; ObjectID = "Aaf-km-GUP"; */
+"Aaf-km-GUP.title" = "Fondo";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "aF7-XO-EMK"; */
+"aF7-XO-EMK.ibShadowedIsNilPlaceholder" = "Ninguno";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "None"; ObjectID = "aF7-XO-EMK"; */
+"aF7-XO-EMK.ibShadowedNoSelectionPlaceholder" = "Ninguno";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "aF7-XO-EMK"; */
+"aF7-XO-EMK.ibShadowedNotApplicablePlaceholder" = "Ninguno";
+
+/* Class = "NSButtonCell"; title = "Prettify audio track names"; ObjectID = "akF-dR-OPB"; */
+"akF-dR-OPB.title" = "Mejorar nombres de pistas de audio";
+
+/* Class = "NSMenuItem"; title = "Rec. 601 (6-1-6)"; ObjectID = "AZx-uM-CmZ"; */
+"AZx-uM-CmZ.title" = "Rec. 601 (6-1-6)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Organize the mp4 alternate groups"; ObjectID = "ccd-Xn-Dj3"; */
+"ccd-Xn-Dj3.ibShadowedToolTip" = "Organizar grupos alternativos del mp4";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "crR-iB-g3d"; */
+"crR-iB-g3d.ibShadowedIsNilPlaceholder" = "Ninguno";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "None"; ObjectID = "crR-iB-g3d"; */
+"crR-iB-g3d.ibShadowedNoSelectionPlaceholder" = "Ninguno";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "crR-iB-g3d"; */
+"crR-iB-g3d.ibShadowedNotApplicablePlaceholder" = "Ninguno";
+
+/* Class = "NSButtonCell"; title = "Complete tracks language"; ObjectID = "cxz-2q-RIP"; */
+"cxz-2q-RIP.title" = "Completar idioma de pistas";
+
+/* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "E4E-3v-z24"; */
+"E4E-3v-z24.title" = "Idioma:";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Load the external srt subtitles file"; ObjectID = "etc-K7-Atw"; */
+"etc-K7-Atw.ibShadowedToolTip" = "Cargar subtítulos desde archivo SRT externo";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "Fid-Wo-2Eb"; */
+"Fid-Wo-2Eb.title" = "Ninguno";
+
+/* Class = "NSMenuItem"; title = "m4v"; ObjectID = "FrC-Ub-23H"; */
+"FrC-Ub-23H.title" = "m4v";
+
+/* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "GBM-Sa-9GJ"; */
+"GBM-Sa-9GJ.title" = "Idioma:";
+
+/* Class = "NSMenuItem"; title = "Rec. 601 (5-1-6)"; ObjectID = "ge0-Fr-3vK"; */
+"ge0-Fr-3vK.title" = "Rec. 601 (5-1-6)";
+
+/* Class = "NSMenuItem"; title = "Standard"; ObjectID = "goC-ck-how"; */
+"goC-ck-how.title" = "Estándar";
+
+/* Class = "NSButtonCell"; title = "Fetch Metadata"; ObjectID = "h5x-un-6cJ"; */
+"h5x-un-6cJ.title" = "Obtener metadatos";
+
+/* Class = "NSMenuItem"; title = "mp4"; ObjectID = "iXb-rA-1f3"; */
+"iXb-rA-1f3.title" = "mp4";
+
+/* Class = "NSMenuItem"; title = "Rec. 2100 PQ (9-16-9)"; ObjectID = "kyg-my-fCL"; */
+"kyg-my-fCL.title" = "Rec. 2100 PQ (9-16-9)";
+
+/* Class = "NSMenuItem"; title = "Square"; ObjectID = "LFE-HX-iBV"; */
+"LFE-HX-iBV.title" = "Cuadrado";
+
+/* Class = "NSButtonCell"; title = "Auto-Start the queue"; ObjectID = "LYO-G0-9jA"; */
+"LYO-G0-9jA.title" = "Iniciar cola automáticamente";
+
+/* Class = "NSMenuItem"; title = "Episode"; ObjectID = "mps-yj-l7z"; */
+"mps-yj-l7z.title" = "Episodio";
+
+/* Class = "NSButtonCell"; title = "Clear tracks names"; ObjectID = "mtK-5C-Pzh"; */
+"mtK-5C-Pzh.title" = "Limpiar nombres de pistas";
+
+/* Class = "NSButtonCell"; title = "Show Notification When Done"; ObjectID = "n6P-IC-SEp"; */
+"n6P-IC-SEp.title" = "Mostrar notificación al terminar";
+
+/* Class = "NSTextFieldCell"; title = "Global options:"; ObjectID = "NBN-VA-pg2"; */
+"NBN-VA-pg2.title" = "Opciones generales:";
+
+/* Class = "NSButtonCell"; title = "Optimize"; ObjectID = "nig-pN-efw"; */
+"nig-pN-efw.title" = "Optimizar";
+
+/* Class = "NSTextFieldCell"; title = "TV Shows:"; ObjectID = "PCe-Pw-D2s"; */
+"PCe-Pw-D2s.title" = "Programas de TV:";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Set the color space of video tracks to the selected one"; ObjectID = "Pdq-s0-erT"; */
+"Pdq-s0-erT.ibShadowedToolTip" = "Establecer espacio de color de pistas de vídeo en la seleccionada";
+
+/* Class = "NSMenuItem"; title = "Implicit"; ObjectID = "psY-0V-t0k"; */
+"psY-0V-t0k.title" = "Implícito";
+
+/* Class = "NSButtonCell"; title = "Set output filename"; ObjectID = "Qld-0F-DsX"; */
+"Qld-0F-DsX.title" = "Establecer nombre del archivo de salida";
+
+/* Class = "NSButtonCell"; title = "Clear existing metadata"; ObjectID = "QNO-e1-WUJ"; */
+"QNO-e1-WUJ.title" = "Borrar metadatos existentes";
+
+/* Class = "NSMenuItem"; title = "Season"; ObjectID = "QR6-hq-GZL"; */
+"QR6-hq-GZL.title" = "Temporada";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "Rh9-LC-qBz"; */
+"Rh9-LC-qBz.ibShadowedIsNilPlaceholder" = "Ninguno";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "None"; ObjectID = "Rh9-LC-qBz"; */
+"Rh9-LC-qBz.ibShadowedNoSelectionPlaceholder" = "Ninguno";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "Rh9-LC-qBz"; */
+"Rh9-LC-qBz.ibShadowedNotApplicablePlaceholder" = "Ninguno";
+
+/* Class = "NSMenuItem"; title = "P3-D65 (12-17-6)"; ObjectID = "RHU-Y8-mhX"; */
+"RHU-Y8-mhX.title" = "P3-D65 (12-17-6)";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Unknown"; ObjectID = "RXT-iv-V6g"; */
+"RXT-iv-V6g.ibShadowedIsNilPlaceholder" = "Desconocido";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "Unknown"; ObjectID = "RXT-iv-V6g"; */
+"RXT-iv-V6g.ibShadowedNoSelectionPlaceholder" = "Desconocido";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "Unknown"; ObjectID = "RXT-iv-V6g"; */
+"RXT-iv-V6g.ibShadowedNotApplicablePlaceholder" = "Desconocido";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Search metadata online"; ObjectID = "s8r-Cf-VfB"; */
+"s8r-Cf-VfB.ibShadowedToolTip" = "Buscar metadatos en línea";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Set tracks without a language to the selected one"; ObjectID = "slL-2h-MPl"; */
+"slL-2h-MPl.ibShadowedToolTip" = "Establecer pistas sin idioma a la pista seleccionada";
+
+/* Class = "NSMenuItem"; title = "Rec. 2020 (9-1-9)"; ObjectID = "Tjn-8g-7PM"; */
+"Tjn-8g-7PM.title" = "Rec. 2020 (9-1-9)";
+
+/* Class = "NSTextFieldCell"; title = "Color Space:"; ObjectID = "tMS-Tg-pPf"; */
+"tMS-Tg-pPf.title" = "Espacio de color:";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Organize the audio fallbacks"; ObjectID = "TV6-Sk-Bqr"; */
+"TV6-Sk-Bqr.ibShadowedToolTip" = "Organizar alternativas de audio";
+
+/* Class = "NSMenuItem"; title = "sRGB (1-13-1)"; ObjectID = "Twp-Zx-xTw"; */
+"Twp-Zx-xTw.title" = "sRGB (1-13-1)";
+
+/* Class = "NSTextFieldCell"; title = "File Type:"; ObjectID = "UbR-KJ-8iR"; */
+"UbR-KJ-8iR.title" = "Tipo de archivo:";
+
+/* Class = "NSMenuItem"; title = "P3-DCI (11-17-6)"; ObjectID = "uEf-L0-ykH"; */
+"uEf-L0-ykH.title" = "P3-DCI (11-17-6)";
+
+/* Class = "NSMenuItem"; title = "Other…"; ObjectID = "veS-S3-uYt"; */
+"veS-S3-uYt.title" = "Otro…";
+
+/* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "VkG-jW-ibO"; */
+"VkG-jW-ibO.title" = "Idioma:";
+
+/* Class = "NSTextFieldCell"; title = "Movies:"; ObjectID = "W6m-cd-JMe"; */
+"W6m-cd-JMe.title" = "Películas:";
+
+/* Class = "NSButtonCell"; title = "Fix audio fallbacks"; ObjectID = "W6u-1c-BsI"; */
+"W6u-1c-BsI.title" = "Corregir alternativas de audio";
+
+/* Class = "NSMenuItem"; title = "Same as file"; ObjectID = "WKY-e5-5Mn"; */
+"WKY-e5-5Mn.title" = "Igual que el archivo";
+
+/* Class = "NSMenuItem"; title = "Rectangle"; ObjectID = "wR3-qj-uQj"; */
+"wR3-qj-uQj.title" = "Rectángulo";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Unknown"; ObjectID = "Xnw-Nt-5dZ"; */
+"Xnw-Nt-5dZ.ibShadowedIsNilPlaceholder" = "Desconocido";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "Unknown"; ObjectID = "Xnw-Nt-5dZ"; */
+"Xnw-Nt-5dZ.ibShadowedNoSelectionPlaceholder" = "Desconocido";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "Unknown"; ObjectID = "Xnw-Nt-5dZ"; */
+"Xnw-Nt-5dZ.ibShadowedNotApplicablePlaceholder" = "Desconocido";
+
+/* Class = "NSButtonCell"; title = "Rename chapters titles"; ObjectID = "yFm-Nq-s66"; */
+"yFm-Nq-s66.title" = "Renombrar capítulos";
+
+/* Class = "NSMenuItem"; title = "Poster"; ObjectID = "YjX-6f-SPu"; */
+"YjX-6f-SPu.title" = "Póster";
+
+/* Class = "NSMenuItem"; title = "Rec. 2100 HLG (9-18-9)"; ObjectID = "YSd-rH-Uvg"; */
+"YSd-rH-Uvg.title" = "Rec. 2100 HLG (9-18-9)";
+

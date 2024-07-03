@@ -16,6 +16,9 @@
 /* Class = "NSTableColumn"; headerCell.title = "Language"; ObjectID = "qGd-Uo-RvP"; */
 "qGd-Uo-RvP.headerCell.title" = "Lingua";
 
+/* Class = "NSTableColumn"; headerCell.title = "Id"; ObjectID = "sB1-FL-VRd"; */
+"sB1-FL-VRd.headerCell.title" = "Id";
+
 /* Class = "NSTableColumn"; headerCell.title = "Format"; ObjectID = "vmh-dT-zIv"; */
 "vmh-dT-zIv.headerCell.title" = "Formato";
 

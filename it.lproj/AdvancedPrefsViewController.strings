@@ -1,8 +1,17 @@
 /* Class = "NSMenuItem"; title = "Discard DTS"; ObjectID = "2Ad-Fs-Zpj"; */
 "2Ad-Fs-Zpj.title" = "Scarta DTS";
 
+/* Class = "NSMenuItem"; title = "1"; ObjectID = "6bP-oF-42N"; */
+"6bP-oF-42N.title" = "1";
+
+/* Class = "NSMenuItem"; title = "3"; ObjectID = "7Wi-iB-6hX"; */
+"7Wi-iB-6hX.title" = "3";
+
 /* Class = "NSButtonCell"; title = "Infer media characteristics"; ObjectID = "86R-Dj-j6Y"; */
 "86R-Dj-j6Y.title" = "Deduci le caratteristiche del media";
+
+/* Class = "NSMenuItem"; title = "320"; ObjectID = "92j-UW-bjL"; */
+"92j-UW-bjL.title" = "320";
 
 /* Class = "NSTextFieldCell"; title = "Convert:"; ObjectID = "102"; */
 "102.title" = "Converti:";
@@ -31,26 +40,68 @@
 /* Class = "NSTextFieldCell"; title = "Bitrate (per channel):"; ObjectID = "190"; */
 "190.title" = "Bitrate (per canale):";
 
+/* Class = "NSMenuItem"; title = "64"; ObjectID = "194"; */
+"194.title" = "64";
+
+/* Class = "NSMenuItem"; title = "80"; ObjectID = "195"; */
+"195.title" = "80";
+
+/* Class = "NSMenuItem"; title = "96"; ObjectID = "196"; */
+"196.title" = "96";
+
+/* Class = "NSMenuItem"; title = "112"; ObjectID = "197"; */
+"197.title" = "112";
+
+/* Class = "NSMenuItem"; title = "128"; ObjectID = "198"; */
+"198.title" = "128";
+
+/* Class = "NSMenuItem"; title = "144"; ObjectID = "199"; */
+"199.title" = "144";
+
+/* Class = "NSMenuItem"; title = "160"; ObjectID = "200"; */
+"200.title" = "160";
+
 /* Class = "NSTextFieldCell"; title = "kbps"; ObjectID = "202"; */
 "202.title" = "kbps";
 
 /* Class = "NSTextFieldCell"; title = "Alternate Groups:"; ObjectID = "agM-jg-8mH"; */
 "agM-jg-8mH.title" = "Gruppi di alternative:";
 
+/* Class = "NSMenuItem"; title = "0"; ObjectID = "aHL-pt-Ze0"; */
+"aHL-pt-Ze0.title" = "0";
+
+/* Class = "NSMenuItem"; title = "288"; ObjectID = "ANf-22-vVD"; */
+"ANf-22-vVD.title" = "288";
+
 /* Class = "NSButtonCell"; title = "Force QuickTime Compatibility"; ObjectID = "bBF-Bs-9N7"; */
 "bBF-Bs-9N7.title" = "Forza la compatibilità con QuickTime";
+
+/* Class = "NSMenuItem"; title = "192"; ObjectID = "IRB-z8-OsU"; */
+"IRB-z8-OsU.title" = "192";
 
 /* Class = "NSTextFieldCell"; title = "DRC:"; ObjectID = "kde-QJ-Sl9"; */
 "kde-QJ-Sl9.title" = "DRC:";
 
+/* Class = "NSMenuItem"; title = "2"; ObjectID = "nQQ-EY-I7P"; */
+"nQQ-EY-I7P.title" = "2";
+
 /* Class = "NSMenuItem"; title = "Convert to AC-3"; ObjectID = "pD5-2K-ahJ"; */
 "pD5-2K-ahJ.title" = "Converti in AC-3";
+
+/* Class = "NSMenuItem"; title = "224"; ObjectID = "Pr6-u5-Rp7"; */
+"Pr6-u5-Rp7.title" = "224";
 
 /* Class = "NSMenuItem"; title = "Keep DTS"; ObjectID = "SCt-75-DDV"; */
 "SCt-75-DDV.title" = "Mantieni DTS";
 
+/* Class = "NSMenuItem"; title = "256"; ObjectID = "tFR-ss-ze1"; */
+"tFR-ss-ze1.title" = "256";
+
 /* Class = "NSButtonCell"; title = "VobSub to Tx3g"; ObjectID = "wgy-N5-9cB"; */
 "wgy-N5-9cB.title" = "VobSub a Tx3g";
+
+/* Class = "NSMenuItem"; title = "4"; ObjectID = "wnj-LB-PfM"; */
+"wnj-LB-PfM.title" = "4";
 
 /* Class = "NSTextFieldCell"; title = "HEVC:"; ObjectID = "XpG-OO-ZNT"; */
 "XpG-OO-ZNT.title" = "HEVC:";

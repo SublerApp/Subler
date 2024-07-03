@@ -1,0 +1,15 @@
+/* Class = "NSButtonCell"; title = "Load more artwork..."; ObjectID = "40h-Rv-m31"; */
+"40h-Rv-m31.title" = "Cargar más ilustraciones…";
+
+/* Class = "NSSlider"; ibExternalAccessibilityDescription = "Zoom"; ObjectID = "fMj-Ew-Qej"; */
+"fMj-Ew-Qej.ibExternalAccessibilityDescription" = "Cambiar tamaño de visualización de la ilustración";
+
+/* Class = "NSButtonCell"; title = "Set as artwork"; ObjectID = "rMb-PC-yTA"; */
+"rMb-PC-yTA.title" = "Agregar";
+
+/* Class = "NSTextFieldCell"; title = "Progress status"; ObjectID = "TbL-2H-ra9"; */
+"TbL-2H-ra9.title" = "Estado del progreso";
+
+/* Class = "NSButtonCell"; title = "None"; ObjectID = "UDG-fN-bQH"; */
+"UDG-fN-bQH.title" = "Ninguna";
+

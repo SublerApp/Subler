@@ -1,0 +1,156 @@
+/* Class = "NSTextFieldCell"; title = "Scaled Size:"; ObjectID = "1O9-J3-Plk"; */
+"1O9-J3-Plk.title" = "Redimensionar a:";
+
+/* Class = "NSMenuItem"; title = "3"; ObjectID = "3D2-8h-I0N"; */
+"3D2-8h-I0N.title" = "3";
+
+/* Class = "NSTabViewItem"; label = "Visual Settings"; ObjectID = "6"; */
+"6.label" = "Configuración visual";
+
+/* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "6I1-7O-uon"; */
+"6I1-7O-uon.title" = "píxeles";
+
+/* Class = "NSMenuItem"; title = "Implicit"; ObjectID = "6PY-Np-Y3s"; */
+"6PY-Np-Y3s.title" = "Implícito";
+
+/* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "7as-HC-onR"; */
+"7as-HC-onR.title" = "píxeles";
+
+/* Class = "NSTextFieldCell"; title = "x"; ObjectID = "7Ug-k7-d7I"; */
+"7Ug-k7-d7I.title" = "x";
+
+/* Class = "NSMenuItem"; title = "Rec. 2020 (9-1-9)"; ObjectID = "8V9-Sh-Mnu"; */
+"8V9-Sh-Mnu.title" = "Rec. 2020 (9-1-9)";
+
+/* Class = "NSMenuItem"; title = "Baseline @ 2.1 (iPod classic, iPod nano)"; ObjectID = "8y5-eT-wSx"; */
+"8y5-eT-wSx.title" = "Baseline @ 2.1 (iPod classic, iPod nano)";
+
+/* Class = "NSMenuItem"; title = "2"; ObjectID = "a5f-nN-J1C"; */
+"a5f-nN-J1C.title" = "2";
+
+/* Class = "NSMenuItem"; title = "4"; ObjectID = "B3w-wZ-pOJ"; */
+"B3w-wZ-pOJ.title" = "4";
+
+/* Class = "NSMenuItem"; title = "Rec. 709 (1-1-1)"; ObjectID = "bc1-gr-6m9"; */
+"bc1-gr-6m9.title" = "Rec. 709 (1-1-1)";
+
+/* Class = "NSMenuItem"; title = "Main @ 3.1 (iPhone, iPod touch, iPad, tv)"; ObjectID = "bMn-03-nc8"; */
+"bMn-03-nc8.title" = "Main @ 3.1 (iPhone, iPod touch, iPad, tv)";
+
+/* Class = "NSTextFieldCell"; title = "Color Space:"; ObjectID = "BZv-h3-OMk"; */
+"BZv-h3-OMk.title" = "Espacio de color:";
+
+/* Class = "NSMenuItem"; title = "Rec. 2100 PQ (9-16-9)"; ObjectID = "d2S-Qf-ltk"; */
+"d2S-Qf-ltk.title" = "Rec. 2100 PQ (9-16-9)";
+
+/* Class = "NSMenuItem"; title = "5"; ObjectID = "Ejg-9c-E4w"; */
+"Ejg-9c-E4w.title" = "5";
+
+/* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "EQ0-oQ-E9J"; */
+"EQ0-oQ-E9J.title" = "píxeles";
+
+/* Class = "NSMenuItem"; title = "P3-D65 (12-17-6)"; ObjectID = "fNy-M4-iaz"; */
+"fNy-M4-iaz.title" = "P3-D65 (12-17-6)";
+
+/* Class = "NSTextFieldCell"; title = "Alternate Group:"; ObjectID = "Fye-Hi-zqu"; */
+"Fye-Hi-zqu.title" = "Grupo alternativo:";
+
+/* Class = "NSTextFieldCell"; title = "You should only change the video profile if you want to load the file onto one of the devices listed and have been unable to do so.  However, if the video file uses advanced features of the codec, then the file may still be unplayable on the device."; ObjectID = "gcL-yf-yxF"; */
+"gcL-yf-yxF.title" = "Debes cambiar el perfil de vídeo solo si quieres reproducir el archivo en uno de los dispositivos de la lista y no lo has logrado. Sin embargo, si el archivo de vídeo utiliza características avanzadas del códec, es posible que aún no puedas reproducirlo en el dispositivo.";
+
+/* Class = "NSTextFieldCell"; title = "x"; ObjectID = "GfY-OY-SWL"; */
+"GfY-OY-SWL.title" = "x";
+
+/* Class = "NSTextFieldCell"; title = "Forced:"; ObjectID = "gMo-yz-dz5"; */
+"gMo-yz-dz5.title" = "Forzado:";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "H3I-ix-0Ay"; */
+"H3I-ix-0Ay.title" = "Ninguna";
+
+/* Class = "NSMenuItem"; title = "Some Samples Are Forced"; ObjectID = "i0h-ag-Pc5"; */
+"i0h-ag-Pc5.title" = "Algunas muestras son forzadas";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Aspect Ratio Denominator"; ObjectID = "ifV-jn-Kjv"; */
+"ifV-jn-Kjv.ibExternalAccessibilityDescription" = "Denominador de relación de aspecto";
+
+/* Class = "NSTextFieldCell"; title = "x"; ObjectID = "ILN-KP-l0z"; */
+"ILN-KP-l0z.title" = "x";
+
+/* Class = "NSMenuItem"; title = "No"; ObjectID = "KOg-FR-dr6"; */
+"KOg-FR-dr6.title" = "No";
+
+/* Class = "NSMenuItem"; title = "sRGB (1-13-1)"; ObjectID = "l0E-aL-LGd"; */
+"l0E-aL-LGd.title" = "sRGB (1-13-1)";
+
+/* Class = "NSMenuItem"; title = "Rec. 2100 HLG (9-18-9)"; ObjectID = "lAn-vv-Amd"; */
+"lAn-vv-Amd.title" = "Rec. 2100 HLG (9-18-9)";
+
+/* Class = "NSTextFieldCell"; title = "x"; ObjectID = "lgq-Fj-LB5"; */
+"lgq-Fj-LB5.title" = "x";
+
+/* Class = "NSMenuItem"; title = "All Samples Are Forced"; ObjectID = "MLa-b8-424"; */
+"MLa-b8-424.title" = "Todas las muestras son forzadas";
+
+/* Class = "NSMenuItem"; title = "High @ 3.1"; ObjectID = "Mre-1h-VoX"; */
+"Mre-1h-VoX.title" = "High @ 3.1";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Scaled Size Height"; ObjectID = "n9M-HO-S4Z"; */
+"n9M-HO-S4Z.ibExternalAccessibilityDescription" = "Altura del tamaño redimensionado";
+
+/* Class = "NSMenuItem"; title = "Current profile: unknown"; ObjectID = "NIA-f8-VWx"; */
+"NIA-f8-VWx.title" = "Perfil actual: desconocido";
+
+/* Class = "NSTextFieldCell"; title = "Forced track:"; ObjectID = "NPR-jz-Ile"; */
+"NPR-jz-Ile.title" = "Pista forzada:";
+
+/* Class = "NSButtonCell"; title = "Preserve Aspect Ratio"; ObjectID = "nr0-Jc-cUj"; */
+"nr0-Jc-cUj.title" = "Mantener relación de aspecto";
+
+/* Class = "NSTextFieldCell"; title = "H.264 Video Profile/Level:"; ObjectID = "nrd-22-FZl"; */
+"nrd-22-FZl.title" = "Perfil/Nivel del vídeo H.264:";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Aspect Ratio Numerator"; ObjectID = "Q0D-6k-Hgx"; */
+"Q0D-6k-Hgx.ibExternalAccessibilityDescription" = "Numerador de relación de aspecto";
+
+/* Class = "NSTextFieldCell"; title = "Aspect Ratio:"; ObjectID = "Q8w-0e-NRr"; */
+"Q8w-0e-NRr.title" = "Relación de aspecto:";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Offset X"; ObjectID = "qFL-0W-Ye6"; */
+"qFL-0W-Ye6.ibExternalAccessibilityDescription" = "Desplazamiento X";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Scaled Size Width"; ObjectID = "r90-c5-7PH"; */
+"r90-c5-7PH.ibExternalAccessibilityDescription" = "Ancho del tamaño redimensionado";
+
+/* Class = "NSMenuItem"; title = "1"; ObjectID = "S4p-0Y-kRW"; */
+"S4p-0Y-kRW.title" = "1";
+
+/* Class = "NSTextFieldCell"; title = "Normal Size:"; ObjectID = "soD-gL-b4G"; */
+"soD-gL-b4G.title" = "Dimensiones:";
+
+/* Class = "NSMenuItem"; title = "6"; ObjectID = "sqU-tK-Ekm"; */
+"sqU-tK-Ekm.title" = "6";
+
+/* Class = "NSTextFieldCell"; title = "Offset:"; ObjectID = "ubI-H1-utj"; */
+"ubI-H1-utj.title" = "Desplazamiento:";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "vVg-S9-JUk"; */
+"vVg-S9-JUk.title" = "Ninguno";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Offset Y"; ObjectID = "wlV-Oh-ui5"; */
+"wlV-Oh-ui5.ibExternalAccessibilityDescription" = "Desplazamiento Y";
+
+/* Class = "NSMenuItem"; title = "Rec. 601 (5-1-6)"; ObjectID = "X7B-de-Yur"; */
+"X7B-de-Yur.title" = "Rec. 601 (5-1-6)";
+
+/* Class = "NSMenuItem"; title = "High @ 4.1"; ObjectID = "Xeg-lb-cfA"; */
+"Xeg-lb-cfA.title" = "High @ 4.1";
+
+/* Class = "NSMenuItem"; title = "Rec. 601 (6-1-6)"; ObjectID = "XQd-tC-sVM"; */
+"XQd-tC-sVM.title" = "Rec. 601 (6-1-6)";
+
+/* Class = "NSMenuItem"; title = "P3-DCI (11-17-6)"; ObjectID = "z4V-UV-xor"; */
+"z4V-UV-xor.title" = "P3-DCI (11-17-6)";
+
+/* Class = "NSTabViewItem"; label = "Media Characteristics"; ObjectID = "ZZa-lk-8Uv"; */
+"ZZa-lk-8Uv.label" = "Características del medio";
+

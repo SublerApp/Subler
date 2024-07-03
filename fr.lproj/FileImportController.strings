@@ -7,23 +7,11 @@
 /* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2LD-y7-Ko1"; */
 "2LD-y7-Ko1.title" = "0";
 
-/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "97D-oX-nMc"; */
-"97D-oX-nMc.title" = "Objet 1";
-
 /* Class = "NSTableColumn"; headerCell.title = "Id"; ObjectID = "a2Q-90-iMO"; */
 "a2Q-90-iMO.headerCell.title" = "Id";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "atx-lx-B6i"; */
-"atx-lx-B6i.title" = "Cellule de texte";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "BjT-y6-csH"; */
-"BjT-y6-csH.title" = "Cellule de texte";
-
 /* Class = "NSMenuItem"; title = "Check only tracks with the same language"; ObjectID = "D3Y-pV-hxZ"; */
 "D3Y-pV-hxZ.title" = "Vérifier seulement les pistes de la même langue";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "DT7-XG-FT6"; */
-"DT7-XG-FT6.title" = "Cellule de texte";
 
 /* Class = "NSTableColumn"; headerCell.title = "Language"; ObjectID = "dyL-5A-jbn"; */
 "dyL-5A-jbn.headerCell.title" = "Langue";
@@ -31,17 +19,8 @@
 /* Class = "NSMenuItem"; title = "Check"; ObjectID = "GIM-Js-R4l"; */
 "GIM-Js-R4l.title" = "Vérifier";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "HiW-NY-fnP"; */
-"HiW-NY-fnP.title" = "Cellule de texte";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "ifF-d9-qC8"; */
-"ifF-d9-qC8.title" = "Cellule de texte";
-
 /* Class = "NSTableColumn"; headerCell.title = "Duration"; ObjectID = "jac-jE-VHr"; */
 "jac-jE-VHr.headerCell.title" = "Durée";
-
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "jCv-4h-sH5"; */
-"jCv-4h-sH5.title" = "Cellule de la vue tableau";
 
 /* Class = "NSTextFieldCell"; title = "Info"; ObjectID = "JH3-2P-Na2"; */
 "JH3-2P-Na2.title" = "Info";

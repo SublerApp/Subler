@@ -10,9 +10,6 @@
 /* Class = "NSMenuItem"; title = "Reveal in Finder"; ObjectID = "8gi-57-i6u"; */
 "8gi-57-i6u.title" = "Afficher dans le Finder";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "11"; */
-"11.title" = "Cellule de texte";
-
 /* Class = "NSTextFieldCell"; title = "Queue items"; ObjectID = "13"; */
 "13.title" = "Mettre en file d'attente";
 
@@ -48,9 +45,6 @@
 
 /* Class = "NSToolbarItem"; toolTip = "Show/hide settings"; ObjectID = "Qif-lh-Rps"; */
 "Qif-lh-Rps.toolTip" = "Afficher/Cacher les paramètres";
-
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "srx-EJ-mK6"; */
-"srx-EJ-mK6.title" = "Cellule de la vue tableau";
 
 /* Class = "NSToolbarItem"; label = "Start"; ObjectID = "xeY-tT-tF2"; */
 "xeY-tT-tF2.label" = "Démarrer";

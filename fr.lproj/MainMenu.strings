@@ -13,9 +13,6 @@
 /* Class = "NSMenu"; title = "Window"; ObjectID = "24"; */
 "24.title" = "Fenêtre";
 
-/* Class = "NSMenu"; title = "AMainMenu"; ObjectID = "29"; */
-"29.title" = "AMenuPrincipal";
-
 /* Class = "NSMenuItem"; title = "Subler"; ObjectID = "56"; */
 "56.title" = "Subler";
 

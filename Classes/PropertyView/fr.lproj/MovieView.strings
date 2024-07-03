@@ -1,9 +1,6 @@
 /* Class = "NSButtonCell"; title = "Save"; ObjectID = "4p7-7v-cUB"; */
 "4p7-7v-cUB.title" = "Enregistrer";
 
-/* Class = "NSMenuItem"; title = "Do not localize"; ObjectID = "6Zb-NM-Mmo"; */
-"6Zb-NM-Mmo.title" = "Ne pas localiser";
-
 /* Class = "NSTabViewItem"; label = "Metadata"; ObjectID = "11"; */
 "11.label" = "Métadonnées";
 
@@ -16,9 +13,6 @@
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Add a new metadata item"; ObjectID = "30"; */
 "30.ibShadowedToolTip" = "Ajouter un nouvel élément de métadonnées";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "32"; */
-"32.title" = "Autres Vues";
-
 /* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove selected item"; ObjectID = "53"; */
 "53.ibExternalAccessibilityDescription" = "Retirer l'élément sélectionné";
 
@@ -28,23 +22,14 @@
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "179"; */
 "179.ibExternalAccessibilityDescription" = "Ensembles";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "181"; */
-"181.title" = "Autres Vues";
-
 /* Class = "NSButtonCell"; title = "Keep existing annotations"; ObjectID = "aiW-0y-PWH"; */
 "aiW-0y-PWH.title" = "Conserver les annotations existantes";
 
 /* Class = "NSButtonCell"; title = "Keep existing artworks"; ObjectID = "doa-uZ-CNr"; */
 "doa-uZ-CNr.title" = "Conserver les illustrations existantes";
 
-/* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "ipR-OL-rI2"; */
-"ipR-OL-rI2.title" = "Ne pas localiser";
-
 /* Class = "NSTableColumn"; headerCell.title = "Annotation"; ObjectID = "j7q-XE-YXB"; */
 "j7q-XE-YXB.headerCell.title" = "Annotation";
-
-/* Class = "NSComboBoxCell"; title = "Do not localize"; ObjectID = "jkg-xz-Hbn"; */
-"jkg-xz-Hbn.title" = "Ne pas localiser";
 
 /* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "os0-Yb-exW"; */
 "os0-Yb-exW.headerCell.title" = "Valeur";
@@ -55,21 +40,9 @@
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "sNX-Z3-AtD"; */
 "sNX-Z3-AtD.title" = "Annuler";
 
-/* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "uNy-4D-PA4"; */
-"uNy-4D-PA4.title" = "Ne pas localiser";
-
-/* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "WRR-52-lxo"; */
-"WRR-52-lxo.title" = "Ne pas localiser";
-
 /* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "ZqF-j8-NeN"; */
 "ZqF-j8-NeN.title" = "Nom :";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "zqi-q3-qaM"; */
-"zqi-q3-qaM.title" = "Cellule de texte";
-
 /* Class = "NSWindow"; title = "Window"; ObjectID = "ZRj-hi-qeJ"; */
 "ZRj-hi-qeJ.title" = "Fenêtre";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "ZSc-Yj-nco"; */
-"ZSc-Yj-nco.title" = "Cellule de texte";
 

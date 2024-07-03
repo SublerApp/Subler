@@ -1,0 +1,18 @@
+/* Class = "NSTextFieldCell"; title = "Actions:"; ObjectID = "4B2-1n-ouM"; */
+"4B2-1n-ouM.title" = "Acciones:";
+
+/* Class = "NSTextFieldCell"; title = "ItemName"; ObjectID = "5j3-R9-JdX"; */
+"5j3-R9-JdX.title" = "ItemName";
+
+/* Class = "NSTextFieldCell"; title = "Source:"; ObjectID = "9De-A4-Oas"; */
+"9De-A4-Oas.title" = "Fuente:";
+
+/* Class = "NSTextFieldCell"; title = "Destination:"; ObjectID = "9R2-ND-o8w"; */
+"9R2-ND-o8w.title" = "Destino:";
+
+/* Class = "NSButtonCell"; title = "Edit…"; ObjectID = "cEO-ol-OLW"; */
+"cEO-ol-OLW.title" = "Editar…";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@"; ObjectID = "YsQ-nM-zxb"; */
+"YsQ-nM-zxb.ibShadowedDisplayPattern" = "%{value1}@";
+

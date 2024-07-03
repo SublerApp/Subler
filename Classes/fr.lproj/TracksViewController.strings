@@ -1,26 +1,11 @@
 /* Class = "NSTableColumn"; headerCell.title = "Duration"; ObjectID = "0dC-Ux-mUt"; */
 "0dC-Ux-mUt.headerCell.title" = "Durée";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "1Yu-8E-I2L"; */
-"1Yu-8E-I2L.title" = "Cellule de texte";
-
-/* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "3I9-re-Mst"; */
-"3I9-re-Mst.title" = "Ne pas localiser";
-
-/* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "3TN-xY-oN3"; */
-"3TN-xY-oN3.title" = "Ne pas localiser";
-
 /* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "3zj-cH-wWV"; */
 "3zj-cH-wWV.headerCell.title" = "Nom";
 
-/* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "bHw-nm-BXK"; */
-"bHw-nm-BXK.title" = "Ne pas localiser";
-
 /* Class = "NSTableView"; ibExternalAccessibilityDescription = "Tracks"; ObjectID = "Bpi-e7-pHx"; */
 "Bpi-e7-pHx.ibExternalAccessibilityDescription" = "Pistes";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "Fgi-du-Xch"; */
-"Fgi-du-Xch.title" = "Cellule de texte";
 
 /* Class = "NSButton"; ibExternalAccessibilityDescription = "Enabled"; ObjectID = "JD5-tO-uQc"; */
 "JD5-tO-uQc.ibExternalAccessibilityDescription" = "Activé";
@@ -34,9 +19,6 @@
 /* Class = "NSTextFieldCell"; title = "Text"; ObjectID = "LgC-JT-Lsx"; */
 "LgC-JT-Lsx.title" = "Texte";
 
-/* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "n0U-5L-NwR"; */
-"n0U-5L-NwR.title" = "Ne pas localiser";
-
 /* Class = "NSTableColumn"; headerCell.title = "Language"; ObjectID = "qGd-Uo-RvP"; */
 "qGd-Uo-RvP.headerCell.title" = "Langue";
 
@@ -45,12 +27,6 @@
 
 /* Class = "NSTableColumn"; headerCell.title = "Format"; ObjectID = "vmh-dT-zIv"; */
 "vmh-dT-zIv.headerCell.title" = "Format";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "wZU-Ig-GWL"; */
-"wZU-Ig-GWL.title" = "Cellule de texte";
-
-/* Class = "NSTextFieldCell"; title = "Do not localize"; ObjectID = "y3u-NN-Et0"; */
-"y3u-NN-Et0.title" = "Ne pas localiser";
 
 /* Class = "NSTableColumn"; headerCell.title = "Enabled"; ObjectID = "Znw-bQ-tsE"; */
 "Znw-bQ-tsE.headerCell.title" = "Activé";

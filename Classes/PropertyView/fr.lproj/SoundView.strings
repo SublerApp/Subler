@@ -25,9 +25,6 @@
 /* Class = "NSTextFieldCell"; title = "-∞ db"; ObjectID = "dCR-ej-bsH"; */
 "dCR-ej-bsH.title" = "-∞ dB";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "DMC-Pz-yne"; */
-"DMC-Pz-yne.title" = "Autres Vues";
-
 /* Class = "NSMenuItem"; title = "4"; ObjectID = "e5A-Zf-BwW"; */
 "e5A-Zf-BwW.title" = "4";
 
@@ -43,14 +40,8 @@
 /* Class = "NSMenuItem"; title = "None"; ObjectID = "Qdb-gu-B3h"; */
 "Qdb-gu-B3h.title" = "Aucun";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "QUX-Wz-JDa"; */
-"QUX-Wz-JDa.title" = "Autres Vues";
-
 /* Class = "NSMenuItem"; title = "6"; ObjectID = "RPZ-ZF-Pvg"; */
 "RPZ-ZF-Pvg.title" = "6";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "uZy-Zq-VUz"; */
-"uZy-Zq-VUz.title" = "Autres Vues";
 
 /* Class = "NSMenuItem"; title = "2"; ObjectID = "xjR-b6-VG2"; */
 "xjR-b6-VG2.title" = "2";

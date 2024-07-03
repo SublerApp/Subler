@@ -1,14 +1,8 @@
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Metadata Provider"; ObjectID = "0aO-Wz-ASZ"; */
 "0aO-Wz-ASZ.ibExternalAccessibilityDescription" = "Fournisseur de métadonnées";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "0u1-ap-s6L"; */
-"0u1-ap-s6L.title" = "Cellule de texte";
-
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Language"; ObjectID = "4yY-id-JNb"; */
 "4yY-id-JNb.ibExternalAccessibilityDescription" = "Langue";
-
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "5mH-2x-szO"; */
-"5mH-2x-szO.title" = "Cellule de la vue tableau";
 
 /* Class = "NSButtonCell"; title = "Search"; ObjectID = "5Mu-cI-Uiu"; */
 "5Mu-cI-Uiu.title" = "Rechercher";
@@ -19,29 +13,14 @@
 /* Class = "NSTabViewItem"; label = "Movie"; ObjectID = "apc-8c-iyM"; */
 "apc-8c-iyM.label" = "Film";
 
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "cXa-al-MIH"; */
-"cXa-al-MIH.title" = "Cellule de la vue tableau";
-
 /* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "d9Q-FE-uuK"; */
 "d9Q-FE-uuK.headerCell.title" = "Valeur";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "eDp-3G-Kg4"; */
-"eDp-3G-Kg4.title" = "Autres Vues";
 
 /* Class = "NSMenuItem"; title = "TheMovieDB"; ObjectID = "FoR-26-u9n"; */
 "FoR-26-u9n.title" = "TheMovieDB";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "Fzd-0O-qsU"; */
-"Fzd-0O-qsU.title" = "Cellule de texte";
-
 /* Class = "NSTabViewItem"; label = "TV Episode"; ObjectID = "GPk-3A-rQI"; */
 "GPk-3A-rQI.label" = "Épisode TV";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "Gqk-Gk-yG7"; */
-"Gqk-Gk-yG7.title" = "Autres Vues";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "gQU-uU-Cfx"; */
-"gQU-uU-Cfx.title" = "Cellule de texte";
 
 /* Class = "NSTextFieldCell"; title = "Progress status"; ObjectID = "gYx-cY-5Xj"; */
 "gYx-cY-5Xj.title" = "État de la progression";
@@ -61,20 +40,11 @@
 /* Class = "NSTextFieldCell"; title = "Season #"; ObjectID = "kz7-mH-DuT"; */
 "kz7-mH-DuT.title" = "Saison #";
 
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "L0d-pm-lX4"; */
-"L0d-pm-lX4.title" = "Cellule de la vue tableau";
-
 /* Class = "NSTextFieldCell"; title = "TV Show:"; ObjectID = "lE4-J1-ySV"; */
 "lE4-J1-ySV.title" = "Émission de TV :";
 
 /* Class = "NSMenuItem"; title = "iTunes Store"; ObjectID = "nn6-mR-Bh1"; */
 "nn6-mR-Bh1.title" = "iTunes Store";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "obN-m7-G5Q"; */
-"obN-m7-G5Q.title" = "Autres Vues";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "OYz-qX-3i2"; */
-"OYz-qX-3i2.title" = "Autres Vues";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "PJC-dF-B1z"; */
 "PJC-dF-B1z.title" = "Annuler";
@@ -90,9 +60,6 @@
 
 /* Class = "NSTextFieldCell"; title = "Movie:"; ObjectID = "uyt-vh-nv6"; */
 "uyt-vh-nv6.title" = "Film :";
-
-/* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "wLe-r3-x0V"; */
-"wLe-r3-x0V.title" = "Cellule de la vue tableau";
 
 /* Class = "NSTableColumn"; headerCell.title = "Annotation"; ObjectID = "XgL-ec-DEt"; */
 "XgL-ec-DEt.headerCell.title" = "Annotation";

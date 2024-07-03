@@ -13,6 +13,12 @@
 /* Class = "NSMenu"; title = "Window"; ObjectID = "24"; */
 "24.title" = "Finestra";
 
+/* Class = "NSMenuItem"; title = "Subler"; ObjectID = "56"; */
+"56.title" = "Subler";
+
+/* Class = "NSMenu"; title = "Subler"; ObjectID = "57"; */
+"57.title" = "Subler";
+
 /* Class = "NSMenuItem"; title = "About Subler"; ObjectID = "58"; */
 "58.title" = "Info su Subler";
 
@@ -33,6 +39,12 @@
 
 /* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "80"; */
 "80.title" = "Salva col nome…";
+
+/* Class = "NSMenu"; title = "File"; ObjectID = "81"; */
+"81.title" = "File";
+
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "83"; */
+"83.title" = "File";
 
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "103"; */
 "103.title" = "Aiuto";
@@ -199,11 +211,20 @@
 /* Class = "NSMenuItem"; title = "Search metadata online…"; ObjectID = "549"; */
 "549.title" = "Cerca metadata online…";
 
+/* Class = "NSMenuItem"; title = "File…"; ObjectID = "550"; */
+"550.title" = "File…";
+
 /* Class = "NSMenuItem"; title = "New"; ObjectID = "555"; */
 "555.title" = "Nuovo";
 
 /* Class = "NSMenuItem"; title = "Send To Queue"; ObjectID = "561"; */
 "561.title" = "Aggiungi alla coda";
+
+/* Class = "NSMenuItem"; title = "Metadata…"; ObjectID = "564"; */
+"564.title" = "Metadata…";
+
+/* Class = "NSMenuItem"; title = "Offset…"; ObjectID = "567"; */
+"567.title" = "Compensazione";
 
 /* Class = "NSMenuItem"; title = "Insert a Chapter"; ObjectID = "573"; */
 "573.title" = "Inserisci un capitolo";
@@ -220,7 +241,7 @@
 /* Class = "NSMenuItem"; title = "Send To iTunes"; ObjectID = "597"; */
 "597.title" = "Invia ad iTunes";
 
-/* Class = "NSMenuItem"; title = "At the begin"; ObjectID = "633"; */
+/* Class = "NSMenuItem"; title = "At the Beginning"; ObjectID = "633"; */
 "633.title" = "All'inizio";
 
 /* Class = "NSMenuItem"; title = "Every"; ObjectID = "634"; */
@@ -252,9 +273,6 @@
 
 /* Class = "NSMenuItem"; title = "1 minutes"; ObjectID = "662"; */
 "662.title" = "1 minuto";
-
-/* Class = "NSMenuItem"; title = "Search chapters online…"; ObjectID = "blb-EP-gbJ"; */
-"blb-EP-gbJ.title" = "Cerca capitoli online…";
 
 /* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "fm8-d2-1Yi"; */
 "fm8-d2-1Yi.title" = "Rinomina le tracce audio";

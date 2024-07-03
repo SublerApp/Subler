@@ -4,6 +4,12 @@
 /* Class = "NSTextFieldCell"; title = "Select tracks:"; ObjectID = "1JV-df-zeq"; */
 "1JV-df-zeq.title" = "Seleziona tracce:";
 
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2LD-y7-Ko1"; */
+"2LD-y7-Ko1.title" = "0";
+
+/* Class = "NSTableColumn"; headerCell.title = "Id"; ObjectID = "a2Q-90-iMO"; */
+"a2Q-90-iMO.headerCell.title" = "Id";
+
 /* Class = "NSMenuItem"; title = "Check only tracks with the same language"; ObjectID = "D3Y-pV-hxZ"; */
 "D3Y-pV-hxZ.title" = "Abilità solo le tracce aventi la stessa lingua";
 
@@ -15,6 +21,12 @@
 
 /* Class = "NSTableColumn"; headerCell.title = "Duration"; ObjectID = "jac-jE-VHr"; */
 "jac-jE-VHr.headerCell.title" = "Durata";
+
+/* Class = "NSTextFieldCell"; title = "Info"; ObjectID = "JH3-2P-Na2"; */
+"JH3-2P-Na2.title" = "Info";
+
+/* Class = "NSTextFieldCell"; title = "id"; ObjectID = "Nrs-BO-n8T"; */
+"Nrs-BO-n8T.title" = "id";
 
 /* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "oS0-t5-87P"; */
 "oS0-t5-87P.headerCell.title" = "Nome";

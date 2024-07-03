@@ -156,13 +156,13 @@
 "dot.case" = "dot.case";
 
 /* No comment provided by engineer. */
-"Downloading additional movie metadata" = "Téléchargement de métadonnées de film additionnelles...";
+"Downloading additional movie metadata…" = "Téléchargement de métadonnées de film additionnelles...";
 
 /* No comment provided by engineer. */
 "Downloading additional TV metadata…" = "Téléchargement de métadonnées TV additionnelles...";
 
 /* No comment provided by engineer. */
-"Downloading artworks" = "Téléchargement d'illustrations";
+"Downloading artworks…" = "Téléchargement d'illustrations…";
 
 /* Media characteristic. */
 "Dubbed Translation" = "Traduction doublée";

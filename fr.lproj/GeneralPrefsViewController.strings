@@ -37,9 +37,6 @@
 /* Class = "NSTextFieldCell"; title = "Show ratings for:"; ObjectID = "207"; */
 "207.title" = "Afficher les notes pour :";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "238"; */
-"238.title" = "Autres Vues";
-
 /* Class = "NSTextFieldCell"; title = "USA ratings are always shown."; ObjectID = "250"; */
 "250.title" = "Les notes USA sont toujours affichées.";
 

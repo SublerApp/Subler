@@ -1,0 +1,21 @@
+/* Get Info string */
+"CFBundleGetInfoString" = "1.8, Copyright 2024 Damiano Galassi";
+
+/* Bundle name */
+"CFBundleName" = "Subler";
+
+/* (No Comment) */
+"Matroska video" = "Matroska 视频";
+
+/* Privacy - AppleEvents Sending Usage Description */
+"NSAppleEventsUsageDescription" = "Subler 需要将电影添加到 iTunes 或“电视”的访问权限";
+
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "Copyright © 2009-2024, Damiano Galassi";
+
+/* (No Comment) */
+"SRT Subtitles" = "SRT 字幕";
+
+/* (No Comment) */
+"SSA Subtitles" = "SSA 字幕";
+

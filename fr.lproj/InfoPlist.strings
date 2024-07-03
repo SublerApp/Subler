@@ -1,5 +1,5 @@
 /* Get Info string */
-"CFBundleGetInfoString" = "1.7.2, Droits d'auteur 2022 Damiano Galassi";
+"CFBundleGetInfoString" = "1.8, Droits d'auteur 2024 Damiano Galassi";
 
 /* Bundle name */
 "CFBundleName" = "Subler";
@@ -11,7 +11,7 @@
 "NSAppleEventsUsageDescription" = "Subler nécessite l'accès pour ajouter des films à iTunes ou TV";
 
 /* Copyright (human-readable) */
-"NSHumanReadableCopyright" = "Droit d'auteur © 2009-2022, Damiano Galassi";
+"NSHumanReadableCopyright" = "Droit d'auteur © 2009-2024, Damiano Galassi";
 
 /* (No Comment) */
 "SRT Subtitles" = "Sous-titres SRT";

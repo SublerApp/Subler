@@ -1,0 +1,521 @@
+/* Donation -> message */
+" A lot of time and effort have gone into development, coding, and refinement.\n If you enjoy using it, please consider showing your appreciation with a donation." = "Se ha invertido mucho tiempo y esfuerzo en el desarrollo, la escritura de código y el pulimento.\nSi te gusta la aplicación, considera mostrar tu aprecio haciendo una donación.";
+
+/* No comment provided by engineer. */
+"-NA-" = "-NA-";
+
+/* No comment provided by engineer. */
+"%@." = "%@.";
+
+/* No comment provided by engineer. */
+"%lu items in queue." = "%lu elementos en la cola";
+
+/* No comment provided by engineer. */
+"%lu tracks selected" = "%lu pistas seleccionadas";
+
+/* No comment provided by engineer. */
+"1 item in queue" = "1 elemento en la cola";
+
+/* No comment provided by engineer. */
+"1 track selected" = "1 pista seleccionada";
+
+/* No comment provided by engineer. */
+"4k" = "4K";
+
+/* No comment provided by engineer. */
+"720p" = "720p";
+
+/* No comment provided by engineer. */
+"1080p" = "1080p";
+
+/* QueueItem Error */
+"A file already exists at the destination." = "Ya existe un archivo con el mismo nombre.";
+
+/* No comment provided by engineer. */
+"A preset already exists with the same name." = "Ya existe un preset con el mismo nombre.";
+
+/* File Import action menu item. */
+"AAC + AC3" = "AAC + AC3";
+
+/* File Import action menu item. */
+"AAC + Passthru" = "AAC + Passthru";
+
+/* Queue -> redo add item. */
+"Add Queue Item" = "agregar a la cola";
+
+/* No comment provided by engineer. */
+"Advanced" = "Avanzado";
+
+/* No comment provided by engineer. */
+"Alert Tone" = "Tono";
+
+/* Set menu All set */
+"All" = "Todo";
+
+/* QueueItem Error */
+"An error occurred while optimizing the file." = "Se ha producido un error al optimizar el archivo.";
+
+/* Action description */
+"Apply %@ preset" = "Agregar preset de %@";
+
+/* Action localized description. */
+"Applying %@ preset" = "Agregando preset de %@";
+
+/* Quit alert title. */
+"Are you sure you want to quit Subler?" = "¿De verdad quieres salir de Subler?";
+
+/* No comment provided by engineer. */
+"artistID" = "Id del artista";
+
+/* No comment provided by engineer. */
+"Audiobook" = "Audiolibro";
+
+/* Media characteristic. */
+"Auxiliary Content" = "Contenido auxiliar";
+
+/* No comment provided by engineer. */
+"Booklet" = "Folleto";
+
+/* No comment provided by engineer. */
+"CamelCase" = "CamelCase";
+
+/* No comment provided by engineer. */
+"Cancel Download" = "Cancelar descarga";
+
+/* No comment provided by engineer. */
+"Capitalize" = "Mayúscula inicial";
+
+/* No comment provided by engineer. */
+"Cast" = "Reparto";
+
+/* No comment provided by engineer. */
+"Clean" = "Apto";
+
+/* Action description. */
+"Clear Metadata" = "Borrar metadatos";
+
+/* Action description */
+"Clear tracks names" = "Limpiar nombres de pistas";
+
+/* Action localized description. */
+"Clearing Metadata" = "Borrando metadatos";
+
+/* Action localized description */
+"Clearing tracks names" = "Limpiando nombres de pistas";
+
+/* No comment provided by engineer. */
+"Composer" = "Compositor";
+
+/* Media characteristic. */
+"Contains Only Forced Subtitles" = "Contiene solo subtítulos forzados";
+
+/* No comment provided by engineer. */
+"contentID" = "Id del contenido";
+
+/* No comment provided by engineer. */
+"Copyright" = "Copyright";
+
+/* No comment provided by engineer. */
+"Current profile:" = "Perfil actual:";
+
+/* No comment provided by engineer. */
+"Day" = "Día";
+
+/* Undo cover art delete
+   Undo tag delete. */
+"Delete" = "Eliminar";
+
+/* Media characteristic. */
+"Describes Music And Sound For Accessibility" = "Describe la música y el sonido para la accesibilidad";
+
+/* Media characteristic. */
+"Describes Video For Accessibility" = "Describe el vídeo para la accesibilidad";
+
+/* No comment provided by engineer. */
+"Description" = "Descripción";
+
+/* No comment provided by engineer. */
+"Director" = "Director";
+
+/* No comment provided by engineer. */
+"Disk #" = "Disco nro.";
+
+/* Donation -> button */
+"Don't ask me about this again for this version." = "No volver a preguntarme esto para esta versión.";
+
+/* Quit alert cancel action. */
+"Don't Quit" = "No salir";
+
+/* Donation -> button */
+"Donate" = "Hacer una donación";
+
+/* Queue -> Done */
+"Done" = "Terminado";
+
+/* No comment provided by engineer. */
+"dot.case" = "dot.case";
+
+/* No comment provided by engineer. */
+"Downloading additional movie metadata…" = "Descargando metadatos adicionales de la película…";
+
+/* No comment provided by engineer. */
+"Downloading additional TV metadata…" = "Descargando metadatos adicionales del programa…";
+
+/* No comment provided by engineer. */
+"Downloading artworks…" = "Descargando ilustraciones…";
+
+/* Media characteristic. */
+"Dubbed Translation" = "Traducción doblada";
+
+/* Media characteristic. */
+"Easy To Read" = "Fácil de leer";
+
+/* Undo tag editing. */
+"Editing" = "Edición";
+
+/* No comment provided by engineer. */
+"Episode #" = "Episodio nro.";
+
+/* No comment provided by engineer. */
+"Episode ID" = "Id del episodio";
+
+/* No comment provided by engineer. */
+"Executive Producer" = "Productor ejecutivo";
+
+/* No comment provided by engineer. */
+"Explicit" = "Explícito";
+
+/* Export alert panel -> title */
+"File Could Not Be Saved" = "No se ha podido guardar el archivo";
+
+/* QueueItem Error */
+"File not found." = "Archivo no encontrado.";
+
+/* No comment provided by engineer. */
+"Filename" = "Nombre del archivo";
+
+/* Action description. */
+"Fix Fallbacks" = "Corregir alternativas";
+
+/* Action localized description. */
+"Fixing Fallbacks" = "Corrigiendo alternativas";
+
+/* No comment provided by engineer. */
+"General" = "General";
+
+/* No comment provided by engineer. */
+"Genre" = "Género";
+
+/* No comment provided by engineer. */
+"Get" = "Obtener";
+
+/* No comment provided by engineer. */
+"Home Video" = "Vídeo casero";
+
+/* Implicit color profile */
+"Implicit" = "Implícito";
+
+/* Undo cover art insert.
+   Undo tag insert. */
+"Insert" = "insertar";
+
+/* No comment provided by engineer. */
+"iTunes Country" = "País de iTunes";
+
+/* No comment provided by engineer. */
+"iTunes U" = "iTunes U";
+
+/* No comment provided by engineer. */
+"iTunes URL" = "URL de iTunes";
+
+/* Media characteristic. */
+"Language Translation" = "Traducción de idioma";
+
+/* No comment provided by engineer. */
+"Leading zero" = "Cero inicial";
+
+/* Action description. */
+"Load Subtitles" = "Cargar subtítulos";
+
+/* Action localized description. */
+"Loading subtitles" = "Cargando subtítulos";
+
+/* No comment provided by engineer. */
+"Long Description" = "Descripción completa";
+
+/* No comment provided by engineer. */
+"lowercase" = "minúsculas";
+
+/* Media characteristic. */
+"Main Program Content" = "Contenido del programa principal";
+
+/* No comment provided by engineer. */
+"Metadata" = "Metadatos";
+
+/* No comment provided by engineer. */
+"Month" = "Mes";
+
+/* Undo cover art delete */
+"Move" = "Mover";
+
+/* Queue -> move add item. */
+"Move Queue Item" = "Mover elemento de la cola";
+
+/* Set menu Movie set */
+"Movie" = "Película";
+
+/* No comment provided by engineer. */
+"Music" = "Música";
+
+/* No comment provided by engineer. */
+"Music Video" = "Videoclip";
+
+/* No comment provided by engineer. */
+"na" = "na";
+
+/* No comment provided by engineer. */
+"Name" = "Título";
+
+/* No comment provided by engineer. */
+"Network" = "Cadena de TV";
+
+/* No comment provided by engineer. */
+"No" = "No";
+
+/* Queue metadata search artwork type */
+"None" = "Ninguna";
+
+/* Donation -> button */
+"Nope" = "No";
+
+/* QueueItem Error */
+"Not enough disk space." = "No hay suficiente espacio en disco.";
+
+/* No comment provided by engineer. */
+"OCR" = "OCR";
+
+/* Export alert panel -> button */
+"OK" = "OK";
+
+/* Action description. */
+"Optimize" = "Optimizar";
+
+/* Action localized description. */
+"Optimizing" = "Optimizando";
+
+/* Document Optimize sheet. */
+"Optimizing…" = "Optimizando…";
+
+/* Organize Groups action description */
+"Organize Groups" = "Organizar grupos";
+
+/* Organize Groups action local description */
+"Organizing groups" = "Organizando grupos";
+
+/* color profile */
+"P3-D65 (12-17-6)" = "P3-D65 (12-17-6)";
+
+/* color profile */
+"P3-DCI (11-17-6)" = "P3-DCI (11-17-6)";
+
+/* File Import action menu item. */
+"Passthru" = "Passthru";
+
+/* No comment provided by engineer. */
+"playlistID" = "Id de la playlist";
+
+/* No comment provided by engineer. */
+"Please enter a different name for the preset." = "Por favor, ingresa un nombre diferente para el preset.";
+
+/* No comment provided by engineer. */
+"Please enter a name for the preset." = "Por favor, ingresa un nombre para el preset.";
+
+/* QueueItem Error */
+"Please free some space on the destination disk." = "Por favor, libera espacio en el disco de destino.";
+
+/* No comment provided by engineer. */
+"Podcast" = "Podcast";
+
+/* Action description */
+"Prettify audio track names" = "Mejorar nombres de pistas de audio";
+
+/* Action localized description */
+"Prettifying audio track names" = "Mejorando nombres de pistas de audio";
+
+/* No comment provided by engineer. */
+"Producers" = "Productores";
+
+/* No comment provided by engineer. */
+"Queue Done" = "Cola terminada";
+
+/* Quit alert default action. */
+"Quit" = "Salir";
+
+/* No comment provided by engineer. */
+"Rating" = "Clasificación";
+
+/* color profile */
+"Rec. 601 (5-1-6)" = "Rec. 601 (5-1-6)";
+
+/* color profile */
+"Rec. 601 (6-1-6)" = "Rec. 601 (6-1-6)";
+
+/* color profile */
+"Rec. 709 (1-1-1)" = "Rec. 709 (1-1-1)";
+
+/* color profile */
+"Rec. 2020 (9-1-9)" = "Rec. 2020 (9-1-9)";
+
+/* color profile */
+"Rec. 2100 HLG (9-18-9)" = "Rec. 2100 HLG (9-18-9)";
+
+/* color profile */
+"Rec. 2100 PQ (9-16-9)" = "Rec. 2100 PQ (9-16-9)";
+
+/* No comment provided by engineer. */
+"Release Date" = "Fecha de lanzamiento";
+
+/* No comment provided by engineer. */
+"Remove" = "Eliminar";
+
+/* Queue -> redo add item. */
+"Remove Queue Item" = "quitar de la cola";
+
+/* No comment provided by engineer. */
+"Ringtone" = "Tono de llamada";
+
+/* Set menu */
+"Save Set…" = "Guardar preset…";
+
+/* No comment provided by engineer. */
+"Screenwriters" = "Guionistas";
+
+/* Action description. */
+"Search Metadata" = "Buscar metadatos";
+
+/* No comment provided by engineer. */
+"Searching %@ for episode information…" = "Buscando información sobre el episodio en %@…";
+
+/* No comment provided by engineer. */
+"Searching %@ for movie information…" = "Buscando información sobre la película en %@…";
+
+/* ChapterDB */
+"Searching for chapter information…" = "Buscando información sobre el capítulo…";
+
+/* Action localized description. */
+"Searching metadata" = "Buscando metadatos";
+
+/* No comment provided by engineer. */
+"Searching…" = "Buscando…";
+
+/* No comment provided by engineer. */
+"Season" = "Temporada";
+
+/* Action description. */
+"Send to iTunes" = "Agregar a iTunes";
+
+/* No comment provided by engineer. */
+"Send To Queue" = "Enviar a la cola";
+
+/* Send to tv app menu item */
+"Send to TV" = "Agregar a TV";
+
+/* Action localized description. */
+"Sending to iTunes" = "Agregando a iTunes";
+
+/* No comment provided by engineer. */
+"Series Description" = "Descripción del programa";
+
+/* No comment provided by engineer. */
+"Series Name" = "Programa";
+
+/* No comment provided by engineer. */
+"Service ID" = "Id del servicio";
+
+/* Set track color space action description */
+"Set color space" = "Asignar espacio de color";
+
+/* Action description. */
+"Set Name" = "Establecer nombre";
+
+/* Set Language action description */
+"Set tracks language" = "Establecer idioma de pistas";
+
+/* No comment provided by engineer. */
+"Sets" = "Preset";
+
+/* Set track color space action local description */
+"Setting color space" = "Asignando espacio de color";
+
+/* Action localized description. */
+"Setting Name" = "Estableciendo nombre";
+
+/* Set Language action local description */
+"Setting tracks language" = "Estableciendo idioma de pistas";
+
+/* No comment provided by engineer. */
+"snake_case" = "snake_case";
+
+/* color profile */
+"sRGB (1-13-1)" = "sRGB (1-13-1)";
+
+/* No comment provided by engineer. */
+"Studio" = "Estudio";
+
+/* Donation -> title */
+"Support Subler" = "Apoyar a Subler";
+
+/* QueueItem Error */
+"The file couldn't be optimized." = "El archivo no pudo ser optimizado.";
+
+/* No comment provided by engineer. */
+"The preset name must not be empty." = "El nombre del preset no debe estar vacío.";
+
+/* My error */
+"The source file couldn't be found." = "El archivo no pudo ser encontrado.";
+
+/* Export alert panel -> message */
+"There was a problem creating the file " = "Hubo un problema al crear el archivo ";
+
+/* No comment provided by engineer. */
+"Track #" = "Pista nro.";
+
+/* No comment provided by engineer. */
+"train-case" = "train-case";
+
+/* Media characteristic. */
+"Transcribes Spoken Dialog For Accessibility" = "Transcribe el diálogo hablado para la accesibilidad";
+
+/* QueueItem Error */
+"Try to use another name for the destination file." = "Intenta usar otro nombre para el archivo de destino.";
+
+/* Set menu TV Show Set */
+"TV Show" = "Programa de TV";
+
+/* File Import action menu item. */
+"Tx3g" = "Tx3g";
+
+/* No comment provided by engineer. */
+"Unknown" = "Desconocido";
+
+/* Metadata Search -> Unnamed episode */
+"Unnamed" = "Sin nombre";
+
+/* No comment provided by engineer. */
+"UPPERCASE" = "MAYÚSCULAS";
+
+/* Media characteristic. */
+"Voice Over Translation" = "Traducción de voz en off";
+
+/* Queue Working. */
+"Working" = "Guardando";
+
+/* Queue -> Working */
+"Working." = "Guardando…";
+
+/* No comment provided by engineer. */
+"Year" = "Año";
+
+/* Quit alert description. */
+"Your current queue will be lost. Do you want to quit anyway?" = "La cola actual se perderá. ¿De verdad quieres salir?";
+

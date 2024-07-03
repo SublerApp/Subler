@@ -1,0 +1,69 @@
+/* Class = "NSButtonCell"; title = "Keep existing annotations"; ObjectID = "0nh-AI-EEk"; */
+"0nh-AI-EEk.title" = "Mantener propiedades existentes";
+
+/* Class = "NSButtonCell"; title = "Keep existing artworks"; ObjectID = "2ur-nu-rZh"; */
+"2ur-nu-rZh.title" = "Mantener ilustraciones existentes";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Add metadata item"; ObjectID = "30"; */
+"30.ibExternalAccessibilityDescription" = "Agregar propiedad";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Add a new metadata item"; ObjectID = "30"; */
+"30.ibShadowedToolTip" = "Agregar propiedad";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove selected item"; ObjectID = "53"; */
+"53.ibExternalAccessibilityDescription" = "Eliminar propiedad";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove selected item"; ObjectID = "53"; */
+"53.ibShadowedToolTip" = "Eliminar propiedad";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Dismiss"; ObjectID = "87e-za-hJV"; */
+"87e-za-hJV.ibShadowedToolTip" = "Cerrar";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "167"; */
+"167.title" = "Ventana";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "174"; */
+"174.title" = "Nombre:";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "177"; */
+"177.title" = "Guardar";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "178"; */
+"178.title" = "Cancelar";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "179"; */
+"179.ibExternalAccessibilityDescription" = "Preset";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add an artwork"; ObjectID = "223"; */
+"223.ibShadowedToolTip" = "Agregar ilustración";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove selected artwork"; ObjectID = "226"; */
+"226.ibShadowedToolTip" = "Eliminar ilustración seleccionada";
+
+/* Class = "NSSlider"; ibShadowedToolTip = "Change artworks view zoom"; ObjectID = "235"; */
+"235.ibShadowedToolTip" = "Cambiar tamaño de visualización de la ilustración";
+
+/* Class = "NSTextFieldCell"; title = "Title"; ObjectID = "CD8-S4-C35"; */
+"CD8-S4-C35.title" = "Título";
+
+/* Class = "NSButtonCell"; title = "Keep existing artworks"; ObjectID = "CHk-xu-U9f"; */
+"CHk-xu-U9f.title" = "Mantener ilustraciones existentes";
+
+/* Class = "NSTableColumn"; headerCell.title = "Annotation"; ObjectID = "j7q-XE-YXB"; */
+"j7q-XE-YXB.headerCell.title" = "Propiedad";
+
+/* Class = "NSButtonCell"; title = "Keep existing annotations"; ObjectID = "KxJ-Zr-uiZ"; */
+"KxJ-Zr-uiZ.title" = "Mantener propiedades existentes";
+
+/* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "os0-Yb-exW"; */
+"os0-Yb-exW.headerCell.title" = "Valor";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Metadata"; ObjectID = "qg5-r0-E4V"; */
+"qg5-r0-E4V.ibExternalAccessibilityDescription" = "Metadatos";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Preset Title"; ObjectID = "RvM-No-Mwg"; */
+"RvM-No-Mwg.ibExternalAccessibilityDescription" = "Título del preset";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "xfY-4F-IAd"; */
+"xfY-4F-IAd.title" = "Cerrar";
+

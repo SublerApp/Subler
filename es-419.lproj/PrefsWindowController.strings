@@ -1,0 +1,39 @@
+/* Class = "NSWindow"; title = "Preferences"; ObjectID = "1"; */
+"1.title" = "Configuración";
+
+/* Class = "NSToolbarItem"; label = "General"; ObjectID = "5r6-9s-apQ"; */
+"5r6-9s-apQ.label" = "General";
+
+/* Class = "NSToolbarItem"; paletteLabel = "General"; ObjectID = "5r6-9s-apQ"; */
+"5r6-9s-apQ.paletteLabel" = "General";
+
+/* Class = "NSToolbarItem"; label = "OCR"; ObjectID = "btg-Uy-o7I"; */
+"btg-Uy-o7I.label" = "OCR";
+
+/* Class = "NSToolbarItem"; paletteLabel = "OCR"; ObjectID = "btg-Uy-o7I"; */
+"btg-Uy-o7I.paletteLabel" = "OCR";
+
+/* Class = "NSToolbarItem"; label = "Sets"; ObjectID = "PFq-0J-qih"; */
+"PFq-0J-qih.label" = "Preset";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Sets"; ObjectID = "PFq-0J-qih"; */
+"PFq-0J-qih.paletteLabel" = "Preset";
+
+/* Class = "NSToolbarItem"; label = "Advanced"; ObjectID = "udf-m4-mG8"; */
+"udf-m4-mG8.label" = "Avanzado";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Advanced"; ObjectID = "udf-m4-mG8"; */
+"udf-m4-mG8.paletteLabel" = "Avanzado";
+
+/* Class = "NSToolbarItem"; label = "Filename"; ObjectID = "uxW-fx-zpe"; */
+"uxW-fx-zpe.label" = "Nombre de archivo";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Filename"; ObjectID = "uxW-fx-zpe"; */
+"uxW-fx-zpe.paletteLabel" = "Nombre de archivo";
+
+/* Class = "NSToolbarItem"; label = "Metadata"; ObjectID = "Z2w-05-k1g"; */
+"Z2w-05-k1g.label" = "Metadatos";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Metadata"; ObjectID = "Z2w-05-k1g"; */
+"Z2w-05-k1g.paletteLabel" = "Metadatos";
+

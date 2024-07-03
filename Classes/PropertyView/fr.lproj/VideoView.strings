@@ -16,9 +16,6 @@
 /* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "7as-HC-onR"; */
 "7as-HC-onR.title" = "pixels";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "7qj-VS-hv7"; */
-"7qj-VS-hv7.title" = "Autres Vues";
-
 /* Class = "NSTextFieldCell"; title = "x"; ObjectID = "7Ug-k7-d7I"; */
 "7Ug-k7-d7I.title" = "x";
 
@@ -30,9 +27,6 @@
 
 /* Class = "NSMenuItem"; title = "2"; ObjectID = "a5f-nN-J1C"; */
 "a5f-nN-J1C.title" = "2";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "ANO-Mb-aQ0"; */
-"ANO-Mb-aQ0.title" = "Autres Vues";
 
 /* Class = "NSMenuItem"; title = "4"; ObjectID = "B3w-wZ-pOJ"; */
 "B3w-wZ-pOJ.title" = "4";
@@ -139,23 +133,14 @@
 /* Class = "NSTextFieldCell"; title = "Offset:"; ObjectID = "ubI-H1-utj"; */
 "ubI-H1-utj.title" = "Décalage :";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "UdS-Yi-1yh"; */
-"UdS-Yi-1yh.title" = "Autres Vues";
-
 /* Class = "NSMenuItem"; title = "None"; ObjectID = "vVg-S9-JUk"; */
 "vVg-S9-JUk.title" = "Aucun";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "Wc0-3P-okr"; */
-"Wc0-3P-okr.title" = "Autres Vues";
 
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Offset Y"; ObjectID = "wlV-Oh-ui5"; */
 "wlV-Oh-ui5.ibExternalAccessibilityDescription" = "Décalage Y";
 
 /* Class = "NSMenuItem"; title = "Rec. 601 (5-1-6)"; ObjectID = "X7B-de-Yur"; */
 "X7B-de-Yur.title" = "Rec. 601 (5-1-6)";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "xaj-0K-cm0"; */
-"xaj-0K-cm0.title" = "Autres Vues";
 
 /* Class = "NSMenuItem"; title = "High @ 4.1"; ObjectID = "Xeg-lb-cfA"; */
 "Xeg-lb-cfA.title" = "High @ 4.1";

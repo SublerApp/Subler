@@ -13,17 +13,44 @@
 /* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "7as-HC-onR"; */
 "7as-HC-onR.title" = "pixel";
 
+/* Class = "NSTextFieldCell"; title = "x"; ObjectID = "7Ug-k7-d7I"; */
+"7Ug-k7-d7I.title" = "x";
+
+/* Class = "NSMenuItem"; title = "Rec. 2020 (9-1-9)"; ObjectID = "8V9-Sh-Mnu"; */
+"8V9-Sh-Mnu.title" = "Rec. 2020 (9-1-9)";
+
+/* Class = "NSMenuItem"; title = "Baseline @ 2.1 (iPod classic, iPod nano)"; ObjectID = "8y5-eT-wSx"; */
+"8y5-eT-wSx.title" = "Baseline @ 2.1 (iPod classic, iPod nano)";
+
+/* Class = "NSMenuItem"; title = "2"; ObjectID = "a5f-nN-J1C"; */
+"a5f-nN-J1C.title" = "2";
+
+/* Class = "NSMenuItem"; title = "Rec. 709 (1-1-1)"; ObjectID = "bc1-gr-6m9"; */
+"bc1-gr-6m9.title" = "Rec. 709 (1-1-1)";
+
+/* Class = "NSMenuItem"; title = "Main @ 3.1 (iPhone, iPod touch, iPad, tv)"; ObjectID = "bMn-03-nc8"; */
+"bMn-03-nc8.title" = "Main @ 3.1 (iPhone, iPod touch, iPad, tv)";
+
 /* Class = "NSTextFieldCell"; title = "Color Space:"; ObjectID = "BZv-h3-OMk"; */
 "BZv-h3-OMk.title" = "Spazio di colore:";
 
+/* Class = "NSMenuItem"; title = "Rec. 2100 PQ (9-16-9)"; ObjectID = "d2S-Qf-ltk"; */
+"d2S-Qf-ltk.title" = "Rec. 2100 PQ (9-16-9)";
+
 /* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "EQ0-oQ-E9J"; */
 "EQ0-oQ-E9J.title" = "pixel";
+
+/* Class = "NSMenuItem"; title = "P3-D65 (12-17-6)"; ObjectID = "fNy-M4-iaz"; */
+"fNy-M4-iaz.title" = "P3-D65 (12-17-6)";
 
 /* Class = "NSTextFieldCell"; title = "Alternate Group:"; ObjectID = "Fye-Hi-zqu"; */
 "Fye-Hi-zqu.title" = "Gruppo di alternative:";
 
 /* Class = "NSTextFieldCell"; title = "You should only change the video profile if you want to load the file onto one of the devices listed and have been unable to do so.  However, if the video file uses advanced features of the codec, then the file may still be unplayable on the device."; ObjectID = "gcL-yf-yxF"; */
 "gcL-yf-yxF.title" = "Dovresti cambiare il profilo video solo se vuoi caricare il file su uno dei dispositivi nella lista e non sei riuscito a farlo. Tuttavia, se il file video usa funzioni avanzate del codec, il file potrebbe essere non riproducibile lo stesso.";
+
+/* Class = "NSTextFieldCell"; title = "x"; ObjectID = "GfY-OY-SWL"; */
+"GfY-OY-SWL.title" = "x";
 
 /* Class = "NSTextFieldCell"; title = "Forced:"; ObjectID = "gMo-yz-dz5"; */
 "gMo-yz-dz5.title" = "Forzato:";
@@ -37,11 +64,26 @@
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Aspect Ratio Denominator"; ObjectID = "ifV-jn-Kjv"; */
 "ifV-jn-Kjv.ibExternalAccessibilityDescription" = "Denominatore rapporto proporzioni";
 
+/* Class = "NSTextFieldCell"; title = "x"; ObjectID = "ILN-KP-l0z"; */
+"ILN-KP-l0z.title" = "x";
+
 /* Class = "NSMenuItem"; title = "No"; ObjectID = "KOg-FR-dr6"; */
 "KOg-FR-dr6.title" = "No";
 
+/* Class = "NSMenuItem"; title = "sRGB (1-13-1)"; ObjectID = "l0E-aL-LGd"; */
+"l0E-aL-LGd.title" = "sRGB (1-13-1)";
+
+/* Class = "NSMenuItem"; title = "Rec. 2100 HLG (9-18-9)"; ObjectID = "lAn-vv-Amd"; */
+"lAn-vv-Amd.title" = "Rec. 2100 HLG (9-18-9)";
+
+/* Class = "NSTextFieldCell"; title = "x"; ObjectID = "lgq-Fj-LB5"; */
+"lgq-Fj-LB5.title" = "x";
+
 /* Class = "NSMenuItem"; title = "All Samples Are Forced"; ObjectID = "MLa-b8-424"; */
 "MLa-b8-424.title" = "Tutti i campioni sono forzati";
+
+/* Class = "NSMenuItem"; title = "High @ 3.1"; ObjectID = "Mre-1h-VoX"; */
+"Mre-1h-VoX.title" = "High @ 3.1";
 
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Scaled Size Height"; ObjectID = "n9M-HO-S4Z"; */
 "n9M-HO-S4Z.ibExternalAccessibilityDescription" = "Altezza dimensione in scala";
@@ -73,6 +115,9 @@
 /* Class = "NSTextFieldCell"; title = "Normal Size:"; ObjectID = "soD-gL-b4G"; */
 "soD-gL-b4G.title" = "Dimensioni normali:";
 
+/* Class = "NSMenuItem"; title = "6"; ObjectID = "sqU-tK-Ekm"; */
+"sqU-tK-Ekm.title" = "6";
+
 /* Class = "NSTextFieldCell"; title = "Offset:"; ObjectID = "ubI-H1-utj"; */
 "ubI-H1-utj.title" = "Compensazione:";
 
@@ -81,6 +126,18 @@
 
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Offset Y"; ObjectID = "wlV-Oh-ui5"; */
 "wlV-Oh-ui5.ibExternalAccessibilityDescription" = "Compensazione Y";
+
+/* Class = "NSMenuItem"; title = "Rec. 601 (5-1-6)"; ObjectID = "X7B-de-Yur"; */
+"X7B-de-Yur.title" = "Rec. 601 (5-1-6)";
+
+/* Class = "NSMenuItem"; title = "High @ 4.1"; ObjectID = "Xeg-lb-cfA"; */
+"Xeg-lb-cfA.title" = "High @ 4.1";
+
+/* Class = "NSMenuItem"; title = "Rec. 601 (6-1-6)"; ObjectID = "XQd-tC-sVM"; */
+"XQd-tC-sVM.title" = "Rec. 601 (6-1-6)";
+
+/* Class = "NSMenuItem"; title = "P3-DCI (11-17-6)"; ObjectID = "z4V-UV-xor"; */
+"z4V-UV-xor.title" = "P3-DCI (11-17-6)";
 
 /* Class = "NSTabViewItem"; label = "Media Characteristics"; ObjectID = "ZZa-lk-8Uv"; */
 "ZZa-lk-8Uv.label" = "Caratteristiche media";

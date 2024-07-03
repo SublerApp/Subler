@@ -1,0 +1,117 @@
+/* Class = "NSMenuItem"; title = "Discard DTS"; ObjectID = "2Ad-Fs-Zpj"; */
+"2Ad-Fs-Zpj.title" = "丢弃 DTS";
+
+/* Class = "NSMenuItem"; title = "1"; ObjectID = "6bP-oF-42N"; */
+"6bP-oF-42N.title" = "1";
+
+/* Class = "NSMenuItem"; title = "3"; ObjectID = "7Wi-iB-6hX"; */
+"7Wi-iB-6hX.title" = "3";
+
+/* Class = "NSButtonCell"; title = "Infer media characteristics"; ObjectID = "86R-Dj-j6Y"; */
+"86R-Dj-j6Y.title" = "推断媒体特征";
+
+/* Class = "NSMenuItem"; title = "320"; ObjectID = "92j-UW-bjL"; */
+"92j-UW-bjL.title" = "320";
+
+/* Class = "NSTextFieldCell"; title = "Convert:"; ObjectID = "102"; */
+"102.title" = "转换：";
+
+/* Class = "NSButtonCell"; title = "AC-3 audio to AAC"; ObjectID = "104"; */
+"104.title" = "AC-3 音频至 AAC";
+
+/* Class = "NSTextFieldCell"; title = "Downmix audio to:"; ObjectID = "114"; */
+"114.title" = "缩混音频至：";
+
+/* Class = "NSMenuItem"; title = "Multi-Channel"; ObjectID = "118"; */
+"118.title" = "多声道";
+
+/* Class = "NSMenuItem"; title = "Stereo"; ObjectID = "119"; */
+"119.title" = "立体声";
+
+/* Class = "NSMenuItem"; title = "Dolby Pro Logic"; ObjectID = "120"; */
+"120.title" = "Dolby Pro Logic";
+
+/* Class = "NSMenuItem"; title = "Dolby Pro Logic II"; ObjectID = "121"; */
+"121.title" = "Dolby Pro Logic II";
+
+/* Class = "NSMenuItem"; title = "Mono"; ObjectID = "122"; */
+"122.title" = "单声道";
+
+/* Class = "NSTextFieldCell"; title = "Bitrate (per channel):"; ObjectID = "190"; */
+"190.title" = "位速率 (每声道)：";
+
+/* Class = "NSMenuItem"; title = "64"; ObjectID = "194"; */
+"194.title" = "64";
+
+/* Class = "NSMenuItem"; title = "80"; ObjectID = "195"; */
+"195.title" = "80";
+
+/* Class = "NSMenuItem"; title = "96"; ObjectID = "196"; */
+"196.title" = "96";
+
+/* Class = "NSMenuItem"; title = "112"; ObjectID = "197"; */
+"197.title" = "112";
+
+/* Class = "NSMenuItem"; title = "128"; ObjectID = "198"; */
+"198.title" = "128";
+
+/* Class = "NSMenuItem"; title = "144"; ObjectID = "199"; */
+"199.title" = "144";
+
+/* Class = "NSMenuItem"; title = "160"; ObjectID = "200"; */
+"200.title" = "160";
+
+/* Class = "NSTextFieldCell"; title = "kbps"; ObjectID = "202"; */
+"202.title" = "kbps";
+
+/* Class = "NSTextFieldCell"; title = "Alternate Groups:"; ObjectID = "agM-jg-8mH"; */
+"agM-jg-8mH.title" = "轨道分组：";
+
+/* Class = "NSMenuItem"; title = "0"; ObjectID = "aHL-pt-Ze0"; */
+"aHL-pt-Ze0.title" = "0";
+
+/* Class = "NSMenuItem"; title = "288"; ObjectID = "ANf-22-vVD"; */
+"ANf-22-vVD.title" = "288";
+
+/* Class = "NSButtonCell"; title = "Force QuickTime Compatibility"; ObjectID = "bBF-Bs-9N7"; */
+"bBF-Bs-9N7.title" = "强制 QuickTime 兼容性";
+
+/* Class = "NSMenuItem"; title = "192"; ObjectID = "IRB-z8-OsU"; */
+"IRB-z8-OsU.title" = "192";
+
+/* Class = "NSTextFieldCell"; title = "DRC:"; ObjectID = "kde-QJ-Sl9"; */
+"kde-QJ-Sl9.title" = "DRC：";
+
+/* Class = "NSMenuItem"; title = "2"; ObjectID = "nQQ-EY-I7P"; */
+"nQQ-EY-I7P.title" = "2";
+
+/* Class = "NSMenuItem"; title = "Convert to AC-3"; ObjectID = "pD5-2K-ahJ"; */
+"pD5-2K-ahJ.title" = "转换至 AC-3";
+
+/* Class = "NSMenuItem"; title = "224"; ObjectID = "Pr6-u5-Rp7"; */
+"Pr6-u5-Rp7.title" = "224";
+
+/* Class = "NSMenuItem"; title = "Keep DTS"; ObjectID = "SCt-75-DDV"; */
+"SCt-75-DDV.title" = "保留 DTS";
+
+/* Class = "NSMenuItem"; title = "256"; ObjectID = "tFR-ss-ze1"; */
+"tFR-ss-ze1.title" = "256";
+
+/* Class = "NSButtonCell"; title = "VobSub to Tx3g"; ObjectID = "wgy-N5-9cB"; */
+"wgy-N5-9cB.title" = "VobSub 至 Tx3g";
+
+/* Class = "NSMenuItem"; title = "4"; ObjectID = "wnj-LB-PfM"; */
+"wnj-LB-PfM.title" = "4";
+
+/* Class = "NSTextFieldCell"; title = "HEVC:"; ObjectID = "XpG-OO-ZNT"; */
+"XpG-OO-ZNT.title" = "HEVC：";
+
+/* Class = "NSButtonCell"; title = "Keep groups organized"; ObjectID = "Yld-Or-7Hu"; */
+"Yld-Or-7Hu.title" = "保持轨道分组有序";
+
+/* Class = "NSButtonCell"; title = "DTS audio to AAC"; ObjectID = "ZcC-1D-D4s"; */
+"ZcC-1D-D4s.title" = "DTS 音频至 AAC";
+
+/* Class = "NSButtonCell"; title = "Keep AC-3"; ObjectID = "Zgy-z5-6UG"; */
+"Zgy-z5-6UG.title" = "保留 AC-3";
+
