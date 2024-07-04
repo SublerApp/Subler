@@ -175,6 +175,9 @@
    Enable subtitles track local description */
 "Enabling subtitles track with selected language" = "Abilito traccia sottotitoli con lingua";
 
+/* Media characteristic. */
+"Enhances speech intelligibility" = "Migliora l'intelligibilità del parlato";
+
 /* No comment provided by engineer. */
 "Episode #" = "# episodio";
 
@@ -316,6 +319,9 @@
 
 /* Organize Groups action local description */
 "Organizing groups" = "Organizzo gruppi";
+
+/* Media characteristic. */
+"Original Content" = "Contenuto inedito";
 
 /* color profile */
 "P3-D65 (12-17-6)" = "P3-D65 (12-17-6)";
