@@ -1,6 +1,13 @@
 # Subler News
 
 
+## Subler 1.8.1
+
+* Fixed 64bit files creation
+* Fixed reading some MP4 file
+* Added "Original Content" and "Enhances speech intelligibility" media characteristics
+
+
 ## Subler 1.8
 
 * Preliminary VVC support
