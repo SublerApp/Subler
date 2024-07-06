@@ -1,11 +1,17 @@
 # Subler News
 
 
+## Subler 1.8.2
+
+- Improved save performance
+
+
 ## Subler 1.8.1
 
 * Fixed 64bit files creation
 * Fixed reading some MP4 file
 * Added "Original Content" and "Enhances speech intelligibility" media characteristics
+* Added "Compilation" metadata
 
 
 ## Subler 1.8
