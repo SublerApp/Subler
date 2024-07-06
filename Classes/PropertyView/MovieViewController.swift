@@ -751,9 +751,10 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         let description = itemsDescriptions.reduce("") {$0 + $1 }
 
         let pb = NSPasteboard.general
+        let data = try? NSKeyedArchiver.archivedData(withRootObject: items, requiringSecureCoding: true)
         pb.declareTypes([.string, .metadataDragType], owner: nil)
         pb.setString(description, forType: .string)
-        pb.setData(NSKeyedArchiver.archivedData(withRootObject: items), forType: .metadataDragType)
+        pb.setData(data, forType: .metadataDragType)
     }
 
     func cutSelection(in tableview: NSTableView) {
@@ -764,7 +765,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     func paste(to tableview: NSTableView) {
         let pb = NSPasteboard.general
         if let archivedData = pb.data(forType: .metadataDragType),
-            let data = NSKeyedUnarchiver.unarchiveObject(with: archivedData) as? [MP42MetadataItem] {
+           let data = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [MP42MetadataItem.classForCoder()], from: archivedData) as? [MP42MetadataItem] {
             add(metadataItems: data)
         }
     }

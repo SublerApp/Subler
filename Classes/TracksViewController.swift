@@ -251,7 +251,7 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
             let track = track(at: firstRow), track.isMuxed == false
             else { return false }
 
-        let data: Data = NSKeyedArchiver.archivedData(withRootObject: rowIndexes)
+        let data = try? NSKeyedArchiver.archivedData(withRootObject: rowIndexes, requiringSecureCoding: true)
         pboard.declareTypes([pasteboardType], owner: self)
         pboard.setData(data, forType: pasteboardType)
         return true

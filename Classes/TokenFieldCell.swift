@@ -9,7 +9,7 @@ import Cocoa
 
 final class TokenFieldCell : NSTokenFieldCell {
 
-    private var originalBackgroundStyle: NSView.BackgroundStyle = NSView.BackgroundStyle.light
+    private var originalBackgroundStyle: NSView.BackgroundStyle = NSView.BackgroundStyle.normal
 
     override var backgroundStyle: NSView.BackgroundStyle {
         get {
@@ -17,7 +17,7 @@ final class TokenFieldCell : NSTokenFieldCell {
         }
         set (newBackgroundStyle) {
             super.backgroundStyle = newBackgroundStyle
-            if newBackgroundStyle == NSView.BackgroundStyle.dark {
+            if newBackgroundStyle == NSView.BackgroundStyle.emphasized {
                 textColor = NSColor.controlHighlightColor
             } else {
                 textColor = NSColor.controlTextColor
@@ -27,7 +27,7 @@ final class TokenFieldCell : NSTokenFieldCell {
 
     override func setUpFieldEditorAttributes(_ textObj: NSText) -> NSText {
         originalBackgroundStyle = backgroundStyle
-        backgroundStyle = NSView.BackgroundStyle.light
+        backgroundStyle = NSView.BackgroundStyle.normal
         drawsBackground = true
         return super.setUpFieldEditorAttributes(textObj)
     }

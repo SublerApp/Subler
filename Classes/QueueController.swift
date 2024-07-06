@@ -747,7 +747,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     //MARK: Drag & Drop
 
     func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
-        let data = NSKeyedArchiver.archivedData(withRootObject: rowIndexes)
+        let data = try? NSKeyedArchiver.archivedData(withRootObject: rowIndexes, requiringSecureCoding: true)
         pboard.declareTypes([tablePasteboardType], owner: self)
         pboard.setData(data, forType: tablePasteboardType)
         return true
