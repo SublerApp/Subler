@@ -97,15 +97,34 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
     private var multiViewController: MultiSelectViewController?
     private var emptyViewController: EmptyViewController?
 
+    private var selectedTabIndexesDict: [String:Int] = [:]
+
+    private func saveTabIndex(_ propertyView: PropertyView?) {
+        if let propertyView {
+            selectedTabIndexesDict[String(describing: type(of: propertyView))] =  propertyView.selectedViewIndex()
+        }
+    }
+
+    private func selectTabViewItem(for propertyView: PropertyView) {
+        let key = String(describing: type(of: propertyView))
+        if let tabIndex = selectedTabIndexesDict[key] {
+            propertyView.selectTabViewItem(at: tabIndex)
+            selectedTabIndexesDict.removeValue(forKey: key)
+        }
+    }
+
     private func clearDetailsViewControllers() {
+        saveTabIndex(metadataViewController)
         metadataViewController = nil
+        saveTabIndex(videoViewController)
         videoViewController = nil
+        saveTabIndex(soundViewController)
         soundViewController = nil
         chapterViewController = nil
         multiViewController = nil
     }
 
-    private func detailsViewController(_ tracks: [MP42Track]) -> NSViewController {
+    private func detailsViewController(_ tracks: [MP42Track]) -> PropertyView {
         if tracks.count > 1 {
             let controller = MultiSelectViewController(numberOfTracks: UInt(tracks.count))
             return controller
@@ -171,6 +190,8 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         trackViewController.view.frame = detailsItem.viewController.view.bounds
         trackViewController.view.autoresizingMask = [NSView.AutoresizingMask.width, NSView.AutoresizingMask.height]
         detailsItem.viewController.view.addSubview(trackViewController.view)
+
+        selectTabViewItem(for: trackViewController)
     }
 
     func delete(tracks: [MP42Track]) {

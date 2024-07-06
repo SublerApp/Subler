@@ -17,4 +17,16 @@ class PropertyView : NSViewController {
             tabView?.selectPreviousTabViewItem(self)
         }
     }
+
+    func selectTabViewItem(at index: Int) {
+        tabView?.selectTabViewItem(at: index)
+    }
+
+    func selectedViewIndex() -> Int {
+        var index = NSNotFound
+        if let item = tabView?.selectedTabViewItem {
+            index = tabView?.indexOfTabViewItem(item) ?? NSNotFound
+        }
+        return index
+    }
 }
