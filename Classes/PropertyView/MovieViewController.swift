@@ -979,7 +979,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         if let userInfo = filePromiseProvider.userInfo as? [String: AnyObject] {
             return "Artwork." + (userInfo[FilePromiseProvider.UserInfoKeys.extensionKey] as! String)
         } else {
-            return "Artwork.tiff"
+            return "Artwork"
         }
     }
 
@@ -1016,10 +1016,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
                 return "gif"
             case MP42_ART_JPEG:
                 return "jpeg"
-            case MP42_ART_PNG:
-                return "png"
+            case MP42_ART_PNG: fallthrough
             default:
-                return "tiff"
+                return "png"
             }
         }()
 
