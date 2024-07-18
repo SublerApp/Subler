@@ -29,7 +29,9 @@
 		A90C3E0C1FD16AF200F64532 /* TokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */; };
 		A90CD5C01FD177230070A067 /* TokensViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90CD5C21FD177230070A067 /* TokensViewController.xib */; };
 		A90CD5C51FD177280070A067 /* OutputPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90CD5C71FD177280070A067 /* OutputPrefsViewController.xib */; };
+		A90D327D2C4931A700BC7A48 /* DocumentToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90D327C2C4931A700BC7A48 /* DocumentToolbarDelegate.swift */; };
 		A91576EB204ECA6E00D93CE7 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91576EA204ECA6E00D93CE7 /* Token.swift */; };
+		A9196C532C497030008C97F8 /* QueueToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9196C522C497030008C97F8 /* QueueToolbarDelegate.swift */; };
 		A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91B196B1F2B0DCB0008675F /* QueueAction.swift */; };
 		A91EB969205ABAF400392E1C /* NSWindowAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91EB968205ABAF400392E1C /* NSWindowAdditions.swift */; };
 		A91F0FA023797F2800C9DCC9 /* PropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91F0F9F23797F2800C9DCC9 /* PropertyView.swift */; };
@@ -209,6 +211,7 @@
 		A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataResult.swift; path = Classes/MetadataImporters/MetadataResult.swift; sourceTree = "<group>"; };
 		A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokensViewController.swift; path = Classes/TokensViewController.swift; sourceTree = "<group>"; };
 		A90CD5C11FD177230070A067 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TokensViewController.xib; sourceTree = "<group>"; };
+		A90D327C2C4931A700BC7A48 /* DocumentToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentToolbarDelegate.swift; path = Classes/DocumentToolbarDelegate.swift; sourceTree = "<group>"; };
 		A9146847278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AdvancedPrefsViewController.strings; sourceTree = "<group>"; };
 		A9146848278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ArtworkSelector.strings; sourceTree = "<group>"; };
 		A9146849278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/FileImportController.strings; sourceTree = "<group>"; };
@@ -240,6 +243,7 @@
 		A9146863278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A9146864278D8EFB00860468 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A91576EA204ECA6E00D93CE7 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Token.swift; path = Classes/Token.swift; sourceTree = "<group>"; };
+		A9196C522C497030008C97F8 /* QueueToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueToolbarDelegate.swift; path = Classes/QueueToolbarDelegate.swift; sourceTree = "<group>"; };
 		A91B196B1F2B0DCB0008675F /* QueueAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueAction.swift; path = Classes/QueueAction.swift; sourceTree = "<group>"; };
 		A91EB968205ABAF400392E1C /* NSWindowAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSWindowAdditions.swift; path = Classes/NSWindowAdditions.swift; sourceTree = "<group>"; };
 		A91F0F9F23797F2800C9DCC9 /* PropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PropertyView.swift; path = Classes/PropertyView/PropertyView.swift; sourceTree = "<group>"; };
@@ -618,6 +622,7 @@
 		A9AF6A7818D0537F00FAAB08 /* Queue */ = {
 			isa = PBXGroup;
 			children = (
+				A9196C522C497030008C97F8 /* QueueToolbarDelegate.swift */,
 				A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */,
 				A961476513F568210068F161 /* Queue.xib */,
 				A9C73535206B8F9900794673 /* QueuePreferences.swift */,
@@ -638,6 +643,7 @@
 			isa = PBXGroup;
 			children = (
 				A956C1E3202F1B170050C5E2 /* Document.swift */,
+				A90D327C2C4931A700BC7A48 /* DocumentToolbarDelegate.swift */,
 				A979B3842025C8BF00468362 /* DocumentWindowController.swift */,
 				A9ECA0592029A10B00D5F30C /* DocumentWindowController.xib */,
 				A9B1056C2025D9B9009E91FC /* TracksViewController.swift */,
@@ -873,6 +879,7 @@
 				A98542DC20D1A7E500EB9803 /* ArtworkSelectorViewItem.swift in Sources */,
 				A90C3E0C1FD16AF200F64532 /* TokensViewController.swift in Sources */,
 				A90B094C235614D200F1B191 /* AppleTV.swift in Sources */,
+				A9196C532C497030008C97F8 /* QueueToolbarDelegate.swift in Sources */,
 				A97D99DA22A0240C001FA3A7 /* OCRManager.swift in Sources */,
 				A90331BD23ED7EE5006BB91D /* Prefs.swift in Sources */,
 				A9DA03E322A0211C0056AE7B /* OCRPrefsViewController.swift in Sources */,
@@ -924,6 +931,7 @@
 				A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */,
 				A9C31E602029A80F00CEF474 /* AdvancedPrefsViewController.swift in Sources */,
 				A979B3862025C8BF00468362 /* DocumentWindowController.swift in Sources */,
+				A90D327D2C4931A700BC7A48 /* DocumentToolbarDelegate.swift in Sources */,
 				A9067A0C1F3CA4E6008011DC /* MetadataPrefsViewController.swift in Sources */,
 				A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */,
 				A92BBAB41F557CC0007EA182 /* PresetEditorViewController.swift in Sources */,

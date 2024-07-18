@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate, ItemViewDelegate, NSTableViewDataSource, NSTableViewDelegate, ExpandedTableViewDelegate, NSToolbarItemValidation, NSMenuItemValidation {
+final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate, ItemViewDelegate, NSTableViewDataSource, NSTableViewDelegate, ExpandedTableViewDelegate, NSUserInterfaceValidations {
 
     static let shared = QueueController()
 
@@ -17,6 +17,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     private var popover: NSPopover?
     private var itemPopover: NSPopover?
     private var windowController: OptionsViewController?
+    private let toolbarDelegate = QueueToolbarDelegate()
 
     private let tablePasteboardType = NSPasteboard.PasteboardType("SublerBatchTableViewDataType")
     private lazy var docImg: NSImage = {
@@ -27,7 +28,6 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     }()
 
     @IBOutlet var table: ExpandedTableView!
-    @IBOutlet var startItem: NSToolbarItem!
     @IBOutlet var statusLabel: NSTextField!
     @IBOutlet var progressBar: NSProgressIndicator!
 
@@ -61,6 +61,13 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
             window?.toolbarStyle = .unified
         }
 
+        let toolbar = NSToolbar(identifier: "SublerQueueToolbar")
+        toolbar.delegate = toolbarDelegate
+        toolbar.allowsUserCustomization = true
+        toolbar.autosavesConfiguration = true
+        toolbar.displayMode = .iconOnly
+        self.window?.toolbar = toolbar
+
         table.registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL, tablePasteboardType])
         progressBar.isHidden = true
 
@@ -89,7 +96,9 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
             self.progressBar.doubleValue = 0
             self.progressBar.isIndeterminate = true
 
-            self.startItem.image = NSImage(named: "playBackTemplate")
+            if let toolbar = self.window?.toolbar {
+                self.toolbarDelegate.setState(working: false, toolbar: toolbar)
+            }
             self.statusLabel.stringValue = NSLocalizedString("Done", comment: "Queue -> Done")
 
             self.updateUI()
@@ -128,10 +137,9 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
 
     //MARK: User Interface Validation
 
-    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        let action = menuItem.action
-
-        if action == #selector(removeSelectedItems(_:)) {
+    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        switch item.action {
+        case #selector(removeSelectedItems(_:)):
             if let row = table?.selectedRow, row != -1 {
                 let item = queue.item(at: row)
                 if item.status != .working {
@@ -143,35 +151,34 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
                     return true
                 }
             }
-        }
-
-        if action == #selector(showInFinder(_:)) {
+            return false
+        case #selector(showInFinder(_:)):
             if let row = table?.clickedRow, row != -1 {
                 let item = queue.item(at: row)
                 if item.status == .completed {
                     return true
                 }
             }
-        }
-
-        if action == #selector(edit(_:)) {
+            return false
+        case #selector(edit(_:)):
             if let row = table?.clickedRow, row != -1 {
                 let item = queue.item(at: row)
                 if item.status == .completed || item.status == .ready {
                     return true
                 }
             }
-        }
-
-        if action == #selector(removeCompletedItems(_:)) {
+            return false
+        case #selector(removeCompletedItems(_:)):
             return true
+        case #selector(toggleOptions(_:)):
+            return true
+        case #selector(toggleStartStop(_:)):
+            return true
+        case #selector(open(_:)):
+            return true
+        default:
+            return false
         }
-
-        return false
-    }
-
-    func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
-        return true
     }
 
     //MARK: Queue
@@ -600,7 +607,9 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
             return
         }
 
-        startItem.image = NSImage(named: "stopTemplate")
+        if let toolbar = self.window?.toolbar {
+            self.toolbarDelegate.setState(working: true, toolbar: toolbar)
+        }
         statusLabel.stringValue = NSLocalizedString("Working.", comment: "Queue -> Working")
         progressBar.isHidden = false
         progressBar.startAnimation(self)

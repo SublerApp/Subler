@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="QueueController" customModule="Subler" customModuleProvider="target">
             <connections>
                 <outlet property="progressBar" destination="91" id="Pyo-9s-F6Q"/>
-                <outlet property="startItem" destination="xeY-tT-tF2" id="MmM-v9-enw"/>
                 <outlet property="statusLabel" destination="12" id="VYp-DC-guz"/>
                 <outlet property="table" destination="7" id="KrN-pl-mlK"/>
                 <outlet property="window" destination="1" id="25"/>
@@ -21,7 +20,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="98" y="651" width="378" height="351"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <value key="minSize" type="size" width="378" height="200"/>
             <view key="contentView" wantsLayer="YES" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="378" height="351"/>
@@ -136,57 +135,6 @@
                     <constraint firstItem="12" firstAttribute="top" secondItem="91" secondAttribute="top" id="lVR-wY-vXK"/>
                 </constraints>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="7CCC4E53-430A-4EDF-8C9B-E7533A5972A1" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="DiU-kc-8B9">
-                <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="4Tn-KL-e86"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Iau-lm-QMb"/>
-                    <toolbarItem implicitItemIdentifier="3A987BC3-AE8F-4D56-8562-D2F37B9DA021" label="Add Item" paletteLabel="Add Item" toolTip="Add an item to the queue" image="NSAddTemplate" sizingBehavior="auto" id="mbj-v3-fFG" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
-                        <button key="view" verticalHuggingPriority="750" id="sUh-2y-iie">
-                            <rect key="frame" x="14" y="14" width="26" height="23"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZQu-If-3ju">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
-                        <connections>
-                            <action selector="open:" target="-2" id="sdm-Bo-vsx"/>
-                        </connections>
-                    </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="403860A1-8562-4F5B-BBEE-E8C1270A9077" label="Settings" paletteLabel="Settings" toolTip="Show/hide settings" image="NSActionTemplate" sizingBehavior="auto" id="Qif-lh-Rps" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
-                        <button key="view" verticalHuggingPriority="750" id="tU5-DL-6vU">
-                            <rect key="frame" x="12" y="14" width="27" height="23"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSActionTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Zdg-cC-Bdm">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
-                        <connections>
-                            <action selector="toggleOptions:" target="-2" id="f6O-LF-uNy"/>
-                        </connections>
-                    </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="90FECCE0-5997-4C12-9158-9F7391313970" label="Start" paletteLabel="Start" toolTip="Start/stop queue" image="playBackTemplate" sizingBehavior="auto" id="xeY-tT-tF2" customClass="ButtonToolbarItem" customModule="Subler" customModuleProvider="target">
-                        <button key="view" verticalHuggingPriority="750" id="sOU-an-jdB">
-                            <rect key="frame" x="1" y="14" width="31" height="23"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="playBackTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NP2-Hq-1TK">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
-                        <connections>
-                            <action selector="toggleStartStop:" target="-2" id="hYg-up-ePS"/>
-                        </connections>
-                    </toolbarItem>
-                </allowedToolbarItems>
-                <defaultToolbarItems>
-                    <toolbarItem reference="xeY-tT-tF2"/>
-                    <toolbarItem reference="Iau-lm-QMb"/>
-                    <toolbarItem reference="Qif-lh-Rps"/>
-                    <toolbarItem reference="mbj-v3-fFG"/>
-                </defaultToolbarItems>
-            </toolbar>
             <connections>
                 <outlet property="delegate" destination="-2" id="c4X-w0-NMZ"/>
             </connections>
@@ -228,10 +176,7 @@
     </objects>
     <resources>
         <image name="EncodeComplete" width="16" height="16"/>
-        <image name="NSActionTemplate" width="20" height="20"/>
-        <image name="NSAddTemplate" width="18" height="17"/>
         <image name="info" width="16" height="16"/>
         <image name="info-pressed" width="16" height="16"/>
-        <image name="playBackTemplate" width="19" height="18"/>
     </resources>
 </document>

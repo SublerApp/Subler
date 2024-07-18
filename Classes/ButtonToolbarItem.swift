@@ -9,18 +9,71 @@ import Cocoa
 
 final class ButtonToolbarItem : NSToolbarItem {
 
+    override init(itemIdentifier: NSToolbarItem.Identifier) {
+        super.init(itemIdentifier: itemIdentifier)
+    }
+
+    init(itemIdentifier: NSToolbarItem.Identifier, label: String, toolTip: String, image: String, action: Selector) {
+        super.init(itemIdentifier: itemIdentifier)
+
+        self.label = label
+        self.toolTip = toolTip
+        self.image = NSImage(named: image)
+        self.action = action
+
+        if #available(macOS 14, *) {
+            self.isBordered = true
+        } else {
+            let button = NSButton.init(image: self.image!, target: self.target, action: self.action)
+            button.isBordered = true
+            button.bezelStyle = .toolbar
+
+            if #available(macOS 11, *) {
+                self.isBordered = true
+                let views =  ["button" : button];
+                let constraint = NSLayoutConstraint.constraints(withVisualFormat: "H:[button(>=40)]",
+                                                                options: [], metrics: nil, views: views)
+                NSLayoutConstraint.activate(constraint)
+            } else {
+                self.minSize = NSMakeSize(32, 16)
+            }
+
+            self.view = button
+        }
+    }
+
     override func validate() {
-        if let target = target {
-            isEnabled = target.validateToolbarItem(self)
+        guard let action else { return }
+
+        if let target = NSApplication.shared.target(forAction: action, to: target, from: self) as? AnyObject {
+            if target.responds(to: #selector(NSUserInterfaceValidations.validateUserInterfaceItem(_:))) {
+                self.isEnabled = target.validateUserInterfaceItem(self)
+            } else if target.responds(to: #selector(NSToolbarItemValidation.validateToolbarItem(_:))) {
+                self.isEnabled = target.validateToolbarItem(self)
+            } else {
+                super.validate()
+            }
+        } else {
+            super.validate()
         }
     }
 
     override var menuFormRepresentation: NSMenuItem? {
         get {
-            let menuItem = NSMenuItem(title: label, action: action, keyEquivalent: "")
-            menuItem.target = target
-            menuItem.isEnabled = target?.validateToolbarItem(self) ?? false
-            return menuItem
+            if let menu = self.view?.menu {
+                let menuItem = NSMenuItem()
+                menuItem.title = self.label
+
+                if menu.numberOfItems > 0 {
+                    menuItem.submenu = menu
+                } else {
+                    menuItem.action = self.action
+                }
+
+                return menuItem
+            } else {
+                return NSMenuItem(title: self.label, action: self.action, keyEquivalent: "")
+            }
         }
         set (menuItem) {
             super.menuFormRepresentation = menuItem

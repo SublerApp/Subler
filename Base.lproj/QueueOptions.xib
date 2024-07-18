@@ -487,7 +487,7 @@
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LiA-V6-VEx" userLabel="Change Subtitle Language Track">
                     <rect key="frame" x="111" y="247" width="218" height="16"/>
                     <string key="toolTip">In files with multiple subtitle tracks in different languages, this will enable the preferred langauge and disable all other tracks. For AppleTV and some other players, this allows the preferred language subtitles to play by default. A subtitle track labeled with the preferred language must exist in the file.</string>
-                    <buttonCell key="cell" type="check" title="Enabled subtitles track with language" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="LD5-Kv-x0M" userLabel="Change Subtitle Language Track">
+                    <buttonCell key="cell" type="check" title="Enable subtitles track with language" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="LD5-Kv-x0M" userLabel="Change Subtitle Language Track">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>

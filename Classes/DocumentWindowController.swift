@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-final class DocumentWindowController: NSWindowController, TracksViewControllerDelegate, MetadataSearchViewControllerDelegate, FileImportControllerDelegate, ProgressViewControllerDelegate, NSDraggingDestination, NSMenuItemValidation, NSToolbarItemValidation {
+final class DocumentWindowController: NSWindowController, TracksViewControllerDelegate, MetadataSearchViewControllerDelegate, FileImportControllerDelegate, ProgressViewControllerDelegate, NSDraggingDestination, NSUserInterfaceValidations {
 
     private var doc: Document {
         return document as! Document
@@ -30,6 +30,8 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         fatalError("init(coder:) has not been implemented")
     }
 
+    private let toolbarDelegate = DocumentToolbarDelegate()
+
     override func windowDidLoad() {
         super.windowDidLoad()
 
@@ -41,7 +43,12 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             window.toolbarStyle = .expanded
         }
 
-        sendToQueue.image = NSImage(named: NSImage.shareTemplateName);
+        let toolbar = NSToolbar(identifier: "SublerDocumentToolbar")
+        toolbar.delegate = toolbarDelegate
+        toolbar.allowsUserCustomization = true
+        toolbar.autosavesConfiguration = true
+        toolbar.displayMode = .iconAndLabel
+        self.window?.toolbar = toolbar
 
         window.contentViewController = splitViewController
         window.registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL])
@@ -208,29 +215,9 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
 
     // MARK: Validation
 
-    @IBOutlet var addTracks: NSToolbarItem!
-    @IBOutlet var deleteTrack: NSToolbarItem!
-    @IBOutlet var searchMetadata: NSToolbarItem!
-    @IBOutlet var searchChapters: NSToolbarItem!
-    @IBOutlet var sendToQueue: NSToolbarItem!
+    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        switch item.action {
 
-    func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
-        if item == addTracks ||
-            item == searchMetadata ||
-            item == searchChapters ||
-            item == sendToQueue {
-            return true;
-        }
-
-        if item == deleteTrack {
-            return tracksViewController.selectedTracks.isEmpty == false && NSApp.isActive;
-        }
-
-        return false
-    }
-
-    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        switch menuItem.action {
         case #selector(selectFile(_:)),
              #selector(selectMetadataFile(_:)),
              #selector(searchMetadata(_:)),
@@ -253,6 +240,9 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             } else {
                 return false
             }
+
+        case #selector(DocumentWindowController.deleteTrack(_:)):
+            return tracksViewController.selectedTracks.isEmpty == false && NSApp.isActive
 
         default:
             return false
