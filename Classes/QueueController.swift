@@ -19,7 +19,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     private var windowController: OptionsViewController?
     private let toolbarDelegate = QueueToolbarDelegate()
 
-    private let tablePasteboardType = NSPasteboard.PasteboardType("SublerBatchTableViewDataType")
+    private let tablePasteboardType = NSPasteboard.PasteboardType("SublerQueueTableViewDataType")
     private lazy var docImg: NSImage = {
         // Load a generic movie icon to display in the table view
         let img = NSWorkspace.shared.icon(forFileType: "mov")
@@ -632,10 +632,20 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     }
 
     @IBAction func toggleOptions(_ sender: Any?) {
+        guard let window = self.window else { return }
         createOptionsPopover()
 
         if let p = popover, p.isShown == false {
-            if let target = ((sender as? NSView) != nil) ? sender as? NSView : window?.contentView {
+            let toolbarItem = window.toolbar?.visibleItems?.first(where: { $0.itemIdentifier == .queueSettings })
+            let target = ((toolbarItem?.view?.window) != nil) ? toolbarItem?.view : window.contentView
+
+            if #available(macOS 14, *) {
+                if let toolbarItem, let toolbar = window.toolbar, toolbar.isVisible == true {
+                    p.show(relativeTo: toolbarItem)
+                } else if let target {
+                    p.show(relativeTo: target.bounds, of: target, preferredEdge: .maxY)
+                }
+            } else if let target {
                 p.show(relativeTo: target.bounds, of: target, preferredEdge: .maxY)
             }
         } else {

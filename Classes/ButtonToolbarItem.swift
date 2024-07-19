@@ -7,18 +7,39 @@
 
 import Cocoa
 
+extension NSToolbarItem {
+    func setSymbol(symbolName: String?, fallbackName: String) {
+        var image: NSImage?
+
+        if #available(macOS 11, *) {
+            if let symbolName {
+                image = NSImage.init(systemSymbolName: symbolName, accessibilityDescription: nil)
+                if image == nil {
+                    image = NSImage(named: symbolName)
+                }
+            }
+        }
+
+        if image == nil {
+            image = NSImage(named: fallbackName)
+        }
+
+        self.image = image
+    }
+}
+
 final class ButtonToolbarItem : NSToolbarItem {
 
     override init(itemIdentifier: NSToolbarItem.Identifier) {
         super.init(itemIdentifier: itemIdentifier)
     }
 
-    init(itemIdentifier: NSToolbarItem.Identifier, label: String, toolTip: String, image: String, action: Selector) {
+    init(itemIdentifier: NSToolbarItem.Identifier, label: String, toolTip: String, image: String, symbolName: String? = nil, action: Selector) {
         super.init(itemIdentifier: itemIdentifier)
 
         self.label = label
         self.toolTip = toolTip
-        self.image = NSImage(named: image)
+        self.setSymbol(symbolName: symbolName, fallbackName: image)
         self.action = action
 
         if #available(macOS 14, *) {

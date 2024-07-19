@@ -243,7 +243,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         QueueController.shared.open(sender)
     }
 
-    @IBAction func showBatchWindow(_ sender: Any) {
+    @IBAction func showQueueWindow(_ sender: Any) {
         QueueController.shared.showWindow(self)
     }
 

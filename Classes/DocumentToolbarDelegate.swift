@@ -22,16 +22,18 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
 
         if itemIdentifier == .importTracks {
             return ButtonToolbarItem(itemIdentifier: itemIdentifier,
-                               label: NSLocalizedString("Import", comment: "Toolbar"),
-                               toolTip: NSLocalizedString("Import tracks from external files", comment: "Toolbar"),
-                               image: "NSAddTemplate",
-                               action: #selector(DocumentWindowController.selectFile(_:)))
+                                     label: NSLocalizedString("Import", comment: "Toolbar"),
+                                     toolTip: NSLocalizedString("Import tracks from external files", comment: "Toolbar"),
+                                     image: "NSAddTemplate",
+                                     symbolName: "plus",
+                                     action: #selector(DocumentWindowController.selectFile(_:)))
         } else if itemIdentifier == .deleteTracks {
             return ButtonToolbarItem(itemIdentifier: itemIdentifier,
-                               label: NSLocalizedString("Delete", comment: "Toolbar"),
-                               toolTip: NSLocalizedString("Delete the selected track", comment: "Toolbar"),
-                               image: "ToolbarRemoveTemplate",
-                               action: #selector(DocumentWindowController.deleteTrack(_:)))
+                                     label: NSLocalizedString("Delete", comment: "Toolbar"),
+                                     toolTip: NSLocalizedString("Delete the selected track", comment: "Toolbar"),
+                                     image: "ToolbarRemoveTemplate",
+                                     symbolName: "minus",
+                                     action: #selector(DocumentWindowController.deleteTrack(_:)))
         } else if itemIdentifier == .actions {
             let submenu = NSMenu()
             for minutes in [1, 2, 5, 10, 15, 20, 30] {
@@ -99,34 +101,37 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
             }
         } else if itemIdentifier == .searchMetadata {
             return ButtonToolbarItem(itemIdentifier: itemIdentifier,
-                               label: NSLocalizedString("Search Metadata", comment: "Toolbar"),
-                               toolTip: NSLocalizedString("Search metadata on the web", comment: "Toolbar"),
-                               image: "NSRevealFreestandingTemplate",
-                               action: #selector(DocumentWindowController.searchMetadata(_:)))
+                                     label: NSLocalizedString("Search Metadata", comment: "Toolbar"),
+                                     toolTip: NSLocalizedString("Search metadata on the web", comment: "Toolbar"),
+                                     image: "NSRevealFreestandingTemplate",
+                                     symbolName: "sparkle.magnifyingglass",
+                                     action: #selector(DocumentWindowController.searchMetadata(_:)))
         } else if itemIdentifier == .sendToQueue {
             return ButtonToolbarItem(itemIdentifier: itemIdentifier,
-                               label: NSLocalizedString("Send to Queue", comment: "Toolbar"),
-                               toolTip: NSLocalizedString("Send the current document to the queue", comment: "Toolbar"),
-                               image: "ToolbarActionTemplate",
-                               action: #selector(Document.sendToQueue(_:)))
+                                     label: NSLocalizedString("Send to Queue", comment: "Toolbar"),
+                                     toolTip: NSLocalizedString("Send the current document to the queue", comment: "Toolbar"),
+                                     image: "ToolbarActionTemplate",
+                                     symbolName: "photo.badge.plus",
+                                     action: #selector(Document.sendToQueue(_:)))
             //        sendToQueue.image = NSImage(named: NSImage.shareTemplateName);
         } else if itemIdentifier == .showQueue {
             return ButtonToolbarItem(itemIdentifier: itemIdentifier,
-                               label: NSLocalizedString("Show Queue", comment: "Toolbar"),
-                               toolTip: NSLocalizedString("Show the Queue window", comment: "Toolbar"),
-                               image: "ToolbarActionTemplate",
-                               action: #selector(Document.sendToQueue(_:)))
+                                     label: NSLocalizedString("Show Queue", comment: "Toolbar"),
+                                     toolTip: NSLocalizedString("Show the Queue window", comment: "Toolbar"),
+                                     image: "ToolbarActionTemplate",
+                                     symbolName: "photo.stack",
+                                     action: #selector(AppDelegate.showQueueWindow(_:)))
         }
 
         return nil
     }
 
     @MainActor func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return [.importTracks, .deleteTracks, .actions, .flexibleSpace, .searchMetadata]
+        return [.importTracks, .deleteTracks, .space, .actions, .flexibleSpace, .searchMetadata]
     }
 
     @MainActor func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return [.importTracks, .deleteTracks, .actions, .flexibleSpace, .searchMetadata, .sendToQueue, .showQueue, .flexibleSpace, .space]
+        return [.importTracks, .deleteTracks, .actions, .searchMetadata, .sendToQueue, .showQueue, .flexibleSpace, .space]
     }
 
 }
