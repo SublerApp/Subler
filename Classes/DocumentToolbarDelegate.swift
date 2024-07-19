@@ -113,10 +113,9 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      image: "ToolbarActionTemplate",
                                      symbolName: "photo.badge.plus",
                                      action: #selector(Document.sendToQueue(_:)))
-            //        sendToQueue.image = NSImage(named: NSImage.shareTemplateName);
         } else if itemIdentifier == .showQueue {
             return ButtonToolbarItem(itemIdentifier: itemIdentifier,
-                                     label: NSLocalizedString("Show Queue", comment: "Toolbar"),
+                                     label: NSLocalizedString("Queue", comment: "Toolbar"),
                                      toolTip: NSLocalizedString("Show the Queue window", comment: "Toolbar"),
                                      image: "ToolbarActionTemplate",
                                      symbolName: "photo.stack",

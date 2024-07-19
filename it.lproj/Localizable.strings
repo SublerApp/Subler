@@ -4,6 +4,9 @@
 /* No comment provided by engineer. */
 "-NA-" = "-ND-";
 
+/* Toolbar */
+"(minutes) minutes" = "(minutes) minuti";
+
 /* No comment provided by engineer. */
 "%@." = "%@.";
 
@@ -15,6 +18,9 @@
 
 /* No comment provided by engineer. */
 "1 item in queue" = "1 elemento in coda";
+
+/* Toolbar */
+"1 minute" = "1 minuto";
 
 /* No comment provided by engineer. */
 "1 track selected" = "1 traccia selezionata";
@@ -39,6 +45,15 @@
 
 /* File Import action menu item. */
 "AAC + Passthru" = "AAC + Passthru";
+
+/* Toolbar */
+"Action" = "Azione";
+
+/* Toolbar */
+"Add an item to the queue" = "Aggiungi un elemento alla coda";
+
+/* Toolbar */
+"Add Item" = "Aggiungi elemento";
 
 /* Queue -> redo add item. */
 "Add Queue Item" = "Aggiungi elemento alla coda";
@@ -91,7 +106,8 @@
 /* Action description. */
 "Clear Metadata" = "Cancella Metadata";
 
-/* Action description */
+/* Action description
+   Toolbar */
 "Clear tracks names" = "Cancella i nomi delle tracce";
 
 /* Action localized description. */
@@ -118,9 +134,13 @@
 /* No comment provided by engineer. */
 "Day" = "Giorno";
 
-/* Undo cover art delete
+/* Toolbar
+   Undo cover art delete
    Undo tag delete. */
 "Delete" = "Elimina";
+
+/* Toolbar */
+"Delete the selected track" = "Elimina la traccia selezionata";
 
 /* Media characteristic. */
 "Describes Music And Sound For Accessibility" = "Descrive la musica e il suono per l'accessibilità";
@@ -199,11 +219,14 @@
 /* No comment provided by engineer. */
 "Filename" = "Nome file";
 
+/* Toolbar */
+"Fix audio fallbacks" = "Correggi gli audio di ripiego";
+
 /* Action description. */
-"Fix Fallbacks" = "Correggi ricadute";
+"Fix Fallbacks" = "Correggi ripieghi";
 
 /* Action localized description. */
-"Fixing Fallbacks" = "Correggo ricadute";
+"Fixing Fallbacks" = "Correggo ripiego";
 
 /* No comment provided by engineer. */
 "General" = "Generali";
@@ -220,9 +243,18 @@
 /* Implicit color profile */
 "Implicit" = "Implicito";
 
+/* Toolbar */
+"Import" = "Importa";
+
+/* Toolbar */
+"Import tracks from external files" = "Importa le tracce da un file esterno";
+
 /* Undo cover art insert.
    Undo tag insert. */
 "Insert" = "Inserisci";
+
+/* Toolbar */
+"Insert a chapter every" = "Inserisci un capitolo ogni";
 
 /* No comment provided by engineer. */
 "iTunes Country" = "Stato iTunes";
@@ -302,6 +334,9 @@
 /* No comment provided by engineer. */
 "OCR" = "OCR";
 
+/* Toolbar */
+"Offset…" = "Compensazione…";
+
 /* Export alert panel -> button */
 "OK" = "OK";
 
@@ -313,6 +348,9 @@
 
 /* Document Optimize sheet. */
 "Optimizing…" = "Ottimizzo…";
+
+/* Toolbar */
+"Organize alternate groups" = "Organizza i gruppi di alternative";
 
 /* Organize Groups action description */
 "Organize Groups" = "Organizza Gruppi";
@@ -347,7 +385,8 @@
 /* No comment provided by engineer. */
 "Podcast" = "Podcast";
 
-/* Action description */
+/* Action description
+   Toolbar */
 "Prettify audio track names" = "Rinomina le tracce audio";
 
 /* Action localized description */
@@ -355,6 +394,9 @@
 
 /* No comment provided by engineer. */
 "Producers" = "Produttori";
+
+/* Toolbar */
+"Queue" = "Coda";
 
 /* No comment provided by engineer. */
 "Queue Done" = "Coda completata";
@@ -401,8 +443,12 @@
 /* No comment provided by engineer. */
 "Screenwriters" = "Sceneggiatori";
 
-/* Action description. */
+/* Action description.
+   Toolbar */
 "Search Metadata" = "Cerca Metadata";
+
+/* Toolbar */
+"Search metadata on the web" = "Cerca metadata online";
 
 /* No comment provided by engineer. */
 "Searching %@ for episode information…" = "Cerco informazioni per l'episodio su %@…";
@@ -422,8 +468,14 @@
 /* No comment provided by engineer. */
 "Season" = "Stagione";
 
+/* Toolbar */
+"Send the current document to the queue" = "Mette il documento corrente in coda";
+
 /* Action description. */
 "Send to iTunes" = "Invia ad iTunes";
+
+/* Toolbar */
+"Send to Queue" = "Aggiungi alla coda";
 
 /* No comment provided by engineer. */
 "Send To Queue" = "Aggiungi alla coda";
@@ -464,11 +516,29 @@
 /* Set Language action local description */
 "Setting tracks language" = "Imposto la lingua delle tracce";
 
+/* Toolbar */
+"Settings" = "Impostazioni";
+
+/* Toolbar */
+"Show the Queue window" = "Mostra la finestra della Cosa";
+
+/* Toolbar */
+"Show/Hide settings" = "Mostra/nascondi impostazioni";
+
 /* color profile */
 "sRGB (1-13-1)" = "sRGB (1-13-1)";
 
+/* Toolbar */
+"Start" = "Avvia";
+
+/* Toolbar */
+"Start/Stop queue" = "Avvia/ferma coda";
+
 /* No comment provided by engineer. */
 "Stereo Audio" = "Stereo Audio";
+
+/* Toolbar */
+"Stop" = "Interrompi";
 
 /* No comment provided by engineer. */
 "Studio" = "Studio";

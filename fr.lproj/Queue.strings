@@ -19,15 +19,6 @@
 /* Class = "NSMenuItem"; title = "Remove completed items"; ObjectID = "86"; */
 "86.title" = "Retirer les éléments complétés";
 
-/* Class = "NSToolbarItem"; label = "Add Item"; ObjectID = "mbj-v3-fFG"; */
-"mbj-v3-fFG.label" = "Ajouter un élément";
-
-/* Class = "NSToolbarItem"; paletteLabel = "Add Item"; ObjectID = "mbj-v3-fFG"; */
-"mbj-v3-fFG.paletteLabel" = "Ajouter un élément";
-
-/* Class = "NSToolbarItem"; toolTip = "Add an item to the queue"; ObjectID = "mbj-v3-fFG"; */
-"mbj-v3-fFG.toolTip" = "Ajouter un élément dans la file d'attente";
-
 /* Class = "NSButton"; ibExternalAccessibilityDescription = "Info"; ObjectID = "o98-wM-YAQ"; */
 "o98-wM-YAQ.ibExternalAccessibilityDescription" = "Info";
 
@@ -36,22 +27,4 @@
 
 /* Class = "NSMenuItem"; title = "Edit…"; ObjectID = "qHz-Zh-l5L"; */
 "qHz-Zh-l5L.title" = "Modifier...";
-
-/* Class = "NSToolbarItem"; label = "Settings"; ObjectID = "Qif-lh-Rps"; */
-"Qif-lh-Rps.label" = "Réglages";
-
-/* Class = "NSToolbarItem"; paletteLabel = "Settings"; ObjectID = "Qif-lh-Rps"; */
-"Qif-lh-Rps.paletteLabel" = "Réglages";
-
-/* Class = "NSToolbarItem"; toolTip = "Show/hide settings"; ObjectID = "Qif-lh-Rps"; */
-"Qif-lh-Rps.toolTip" = "Afficher/Cacher les paramètres";
-
-/* Class = "NSToolbarItem"; label = "Start"; ObjectID = "xeY-tT-tF2"; */
-"xeY-tT-tF2.label" = "Démarrer";
-
-/* Class = "NSToolbarItem"; paletteLabel = "Start"; ObjectID = "xeY-tT-tF2"; */
-"xeY-tT-tF2.paletteLabel" = "Démarrer";
-
-/* Class = "NSToolbarItem"; toolTip = "Start/stop queue"; ObjectID = "xeY-tT-tF2"; */
-"xeY-tT-tF2.toolTip" = "Démarrer/Arrêter la file d'attente";
 

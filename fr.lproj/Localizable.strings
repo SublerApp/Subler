@@ -4,6 +4,9 @@
 /* No comment provided by engineer. */
 "-NA-" = "-NA-";
 
+/* Toolbar */
+"(minutes) minutes" = "(minutes) minutes";
+
 /* No comment provided by engineer. */
 "%@." = "%@.";
 
@@ -15,6 +18,9 @@
 
 /* No comment provided by engineer. */
 "1 item in queue" = "1 élément dans la file d'attente";
+
+/* Toolbar */
+"1 minute" = "1 minute";
 
 /* No comment provided by engineer. */
 "1 track selected" = "1 piste sélectionnée";
@@ -39,6 +45,15 @@
 
 /* File Import action menu item. */
 "AAC + Passthru" = "AAC + Passthru";
+
+/* Toolbar */
+"Action" = "Action";
+
+/* Toolbar */
+"Add an item to the queue" = "Ajouter un élément dans la file d'attente";
+
+/* Toolbar */
+"Add Item" = "Ajouter un élément";
 
 /* Queue -> redo add item. */
 "Add Queue Item" = "Ajouter l'élément de la file d'attente";
@@ -94,7 +109,8 @@
 /* Action description. */
 "Clear Metadata" = "Nettoyer les métadonnées";
 
-/* Action description */
+/* Action description
+   Toolbar */
 "Clear tracks names" = "Effacer les noms des pistes";
 
 /* Action localized description. */
@@ -121,9 +137,13 @@
 /* No comment provided by engineer. */
 "Day" = "Jour";
 
-/* Undo cover art delete
+/* Toolbar
+   Undo cover art delete
    Undo tag delete. */
 "Delete" = "Supprimer";
+
+/* Toolbar */
+"Delete the selected track" = "Supprimer la piste sélectionnée";
 
 /* Media characteristic. */
 "Describes Music And Sound For Accessibility" = "Décrit la musique et le son pour l'accessibilité";
@@ -194,6 +214,9 @@
 /* No comment provided by engineer. */
 "Filename" = "Nom de fichier";
 
+/* Toolbar */
+"Fix audio fallbacks" = "Corriger les solutions de repli audio";
+
 /* Action description. */
 "Fix Fallbacks" = "Corriger les solutions de repli";
 
@@ -215,9 +238,18 @@
 /* Implicit color profile */
 "Implicit" = "Implicite";
 
+/* Toolbar */
+"Import" = "Importer";
+
+/* Toolbar */
+"Import tracks from external files" = "Importer les pistes de fichiers externes";
+
 /* Undo cover art insert.
    Undo tag insert. */
 "Insert" = "Insérer";
+
+/* Toolbar */
+"Insert a chapter every" = "Insérer un chapitre à chaque";
 
 /* No comment provided by engineer. */
 "iTunes Country" = "Pays iTunes";
@@ -294,6 +326,9 @@
 /* No comment provided by engineer. */
 "OCR" = "OCR";
 
+/* Toolbar */
+"Offset…" = "Décalage...";
+
 /* Export alert panel -> button */
 "OK" = "OK";
 
@@ -305,6 +340,9 @@
 
 /* Document Optimize sheet. */
 "Optimizing…" = "Optimisation...";
+
+/* Toolbar */
+"Organize alternate groups" = "Organiser les groupes alternatifs";
 
 /* Organize Groups action description */
 "Organize Groups" = "Organiser les groupes";
@@ -336,7 +374,8 @@
 /* No comment provided by engineer. */
 "Podcast" = "Podcast";
 
-/* Action description */
+/* Action description
+   Toolbar */
 "Prettify audio track names" = "Embellir les noms des pistes audio";
 
 /* Action localized description */
@@ -344,6 +383,9 @@
 
 /* No comment provided by engineer. */
 "Producers" = "Producteurs";
+
+/* Toolbar */
+"Queue" = "File d'attente";
 
 /* No comment provided by engineer. */
 "Queue Done" = "File d'attente terminée";
@@ -390,8 +432,12 @@
 /* No comment provided by engineer. */
 "Screenwriters" = "Scénaristes";
 
-/* Action description. */
+/* Action description.
+   Toolbar */
 "Search Metadata" = "Rechercher les métadonnées";
+
+/* Toolbar */
+"Search metadata on the web" = "Rechercher les métadonnées sur le Web";
 
 /* No comment provided by engineer. */
 "Searching %@ for episode information…" = "Recherche de %@ pour information sur l'épisode…";
@@ -411,8 +457,14 @@
 /* No comment provided by engineer. */
 "Season" = "Saison";
 
+/* Toolbar */
+"Send the current document to the queue" = "Envoyer le document actuel dans la file d'attente";
+
 /* Action description. */
 "Send to iTunes" = "Envoyer à iTunes";
+
+/* Toolbar */
+"Send to Queue" = "Envoyer dans la file d'attente";
 
 /* No comment provided by engineer. */
 "Send To Queue" = "Envoyer dans la file d'attente";
@@ -453,11 +505,26 @@
 /* Set Language action local description */
 "Setting tracks language" = "Définition de la langue des pistes";
 
+/* Toolbar */
+"Settings" = "Réglages";
+
+/* Toolbar */
+"Show/Hide settings" = "Afficher/Cacher les paramètres";
+
 /* No comment provided by engineer. */
 "snake_case" = "snake_case";
 
 /* color profile */
 "sRGB (1-13-1)" = "sRGB (1-13-1)";
+
+/* Toolbar */
+"Start" = "Démarrer";
+
+/* Toolbar */
+"Start/Stop queue" = "Démarrer/Arrêter la file d'attente";
+
+/* Toolbar */
+"Stop" = "Arrêter";
 
 /* No comment provided by engineer. */
 "Studio" = "Studio";

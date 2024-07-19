@@ -2,17 +2,17 @@
 "CFBundleName" = "Subler";
 
 /* (No Comment) */
-"Matroska video" = "Vídeo Matroska";
+"Matroska video" = "Matroska 视频";
 
 /* Privacy - AppleEvents Sending Usage Description */
-"NSAppleEventsUsageDescription" = "Subler necesita acceso para agregar películas a iTunes o a TV";
+"NSAppleEventsUsageDescription" = "Subler 需要将电影添加到 iTunes 或“电视”的访问权限";
 
 /* Copyright (human-readable) */
 "NSHumanReadableCopyright" = "Copyright © 2009-2024, Damiano Galassi";
 
 /* (No Comment) */
-"SRT Subtitles" = "Subtítulos SRT";
+"SRT Subtitles" = "SRT 字幕";
 
 /* (No Comment) */
-"SSA Subtitles" = "Subtítulos SSA";
+"SSA Subtitles" = "SSA 字幕";
 

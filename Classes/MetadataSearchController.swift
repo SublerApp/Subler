@@ -1,5 +1,5 @@
 //
-//  ChapterSearchController.swift
+//  MetadataSearchController.swift
 //  Subler
 //
 //  Created by Damiano Galassi on 31/07/2017.

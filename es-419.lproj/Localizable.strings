@@ -4,6 +4,9 @@
 /* No comment provided by engineer. */
 "-NA-" = "-NA-";
 
+/* Toolbar */
+"(minutes) minutes" = "(minutes) minutos";
+
 /* No comment provided by engineer. */
 "%@." = "%@.";
 
@@ -15,6 +18,9 @@
 
 /* No comment provided by engineer. */
 "1 item in queue" = "1 elemento en la cola";
+
+/* Toolbar */
+"1 minute" = "1 minuto";
 
 /* No comment provided by engineer. */
 "1 track selected" = "1 pista seleccionada";
@@ -39,6 +45,15 @@
 
 /* File Import action menu item. */
 "AAC + Passthru" = "AAC + Passthru";
+
+/* Toolbar */
+"Action" = "Acción";
+
+/* Toolbar */
+"Add an item to the queue" = "Agregar a la cola";
+
+/* Toolbar */
+"Add Item" = "Agregar elemento";
 
 /* Queue -> redo add item. */
 "Add Queue Item" = "agregar a la cola";
@@ -94,7 +109,8 @@
 /* Action description. */
 "Clear Metadata" = "Borrar metadatos";
 
-/* Action description */
+/* Action description
+   Toolbar */
 "Clear tracks names" = "Limpiar nombres de pistas";
 
 /* Action localized description. */
@@ -121,9 +137,13 @@
 /* No comment provided by engineer. */
 "Day" = "Día";
 
-/* Undo cover art delete
+/* Toolbar
+   Undo cover art delete
    Undo tag delete. */
 "Delete" = "Eliminar";
+
+/* Toolbar */
+"Delete the selected track" = "Eliminar pista seleccionada";
 
 /* Media characteristic. */
 "Describes Music And Sound For Accessibility" = "Describe la música y el sonido para la accesibilidad";
@@ -194,6 +214,9 @@
 /* No comment provided by engineer. */
 "Filename" = "Nombre del archivo";
 
+/* Toolbar */
+"Fix audio fallbacks" = "Corregir alternativas de audio";
+
 /* Action description. */
 "Fix Fallbacks" = "Corregir alternativas";
 
@@ -215,9 +238,18 @@
 /* Implicit color profile */
 "Implicit" = "Implícito";
 
+/* Toolbar */
+"Import" = "Importar";
+
+/* Toolbar */
+"Import tracks from external files" = "Importar pistas desde archivo externo";
+
 /* Undo cover art insert.
    Undo tag insert. */
 "Insert" = "insertar";
+
+/* Toolbar */
+"Insert a chapter every" = "Insertar un capítulo cada";
 
 /* No comment provided by engineer. */
 "iTunes Country" = "País de iTunes";
@@ -294,6 +326,9 @@
 /* No comment provided by engineer. */
 "OCR" = "OCR";
 
+/* Toolbar */
+"Offset…" = "Desplazamiento…";
+
 /* Export alert panel -> button */
 "OK" = "OK";
 
@@ -336,7 +371,8 @@
 /* No comment provided by engineer. */
 "Podcast" = "Podcast";
 
-/* Action description */
+/* Action description
+   Toolbar */
 "Prettify audio track names" = "Mejorar nombres de pistas de audio";
 
 /* Action localized description */
@@ -344,6 +380,9 @@
 
 /* No comment provided by engineer. */
 "Producers" = "Productores";
+
+/* Toolbar */
+"Queue" = "Cola";
 
 /* No comment provided by engineer. */
 "Queue Done" = "Cola terminada";
@@ -390,8 +429,12 @@
 /* No comment provided by engineer. */
 "Screenwriters" = "Guionistas";
 
-/* Action description. */
+/* Action description.
+   Toolbar */
 "Search Metadata" = "Buscar metadatos";
+
+/* Toolbar */
+"Search metadata on the web" = "Buscar metadatos en línea";
 
 /* No comment provided by engineer. */
 "Searching %@ for episode information…" = "Buscando información sobre el episodio en %@…";
@@ -411,8 +454,14 @@
 /* No comment provided by engineer. */
 "Season" = "Temporada";
 
+/* Toolbar */
+"Send the current document to the queue" = "Enviar documento actual a la cola";
+
 /* Action description. */
 "Send to iTunes" = "Agregar a iTunes";
+
+/* Toolbar */
+"Send to Queue" = "Enviar a la cola";
 
 /* No comment provided by engineer. */
 "Send To Queue" = "Enviar a la cola";
@@ -453,11 +502,26 @@
 /* Set Language action local description */
 "Setting tracks language" = "Estableciendo idioma de pistas";
 
+/* Toolbar */
+"Settings" = "Configuración";
+
+/* Toolbar */
+"Show/Hide settings" = "Mostrar/Ocultar configuración";
+
 /* No comment provided by engineer. */
 "snake_case" = "snake_case";
 
 /* color profile */
 "sRGB (1-13-1)" = "sRGB (1-13-1)";
+
+/* Toolbar */
+"Start" = "Iniciar";
+
+/* Toolbar */
+"Start/Stop queue" = "Iniciar/Detener cola";
+
+/* Toolbar */
+"Stop" = "Stop";
 
 /* No comment provided by engineer. */
 "Studio" = "Estudio";

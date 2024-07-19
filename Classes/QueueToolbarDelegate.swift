@@ -56,9 +56,10 @@ class QueueToolbarDelegate: NSObject, NSToolbarDelegate {
 
         if working {
             item.setSymbol(symbolName: "stop.fill", fallbackName: "stopTemplate")
-            item.image = NSImage(named: "stopTemplate")
+            item.label = NSLocalizedString("Stop", comment: "Toolbar")
         } else {
             item.setSymbol(symbolName: "play.fill", fallbackName: "playBackTemplate")
+            item.label = NSLocalizedString("Start", comment: "Toolbar")
         }
     }
 }
