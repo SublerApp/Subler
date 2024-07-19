@@ -181,6 +181,9 @@
 /* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "Rh9-LC-qBz"; */
 "Rh9-LC-qBz.ibShadowedNotApplicablePlaceholder" = "无";
 
+/* Class = "NSMenuItem"; title = "P3-D65 (12-17-6)"; ObjectID = "RHU-Y8-mhX"; */
+"RHU-Y8-mhX.title" = "P3-D65 (12-17-6)";
+
 /* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Unknown"; ObjectID = "RXT-iv-V6g"; */
 "RXT-iv-V6g.ibShadowedIsNilPlaceholder" = "未知";
 

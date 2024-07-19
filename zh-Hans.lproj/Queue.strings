@@ -16,15 +16,6 @@
 /* Class = "NSMenuItem"; title = "Remove completed items"; ObjectID = "86"; */
 "86.title" = "移除已完成项";
 
-/* Class = "NSToolbarItem"; label = "Add Item"; ObjectID = "mbj-v3-fFG"; */
-"mbj-v3-fFG.label" = "添加项目";
-
-/* Class = "NSToolbarItem"; paletteLabel = "Add Item"; ObjectID = "mbj-v3-fFG"; */
-"mbj-v3-fFG.paletteLabel" = "添加项目";
-
-/* Class = "NSToolbarItem"; toolTip = "Add an item to the queue"; ObjectID = "mbj-v3-fFG"; */
-"mbj-v3-fFG.toolTip" = "添加一个项目到任务队列";
-
 /* Class = "NSButton"; ibExternalAccessibilityDescription = "Info"; ObjectID = "o98-wM-YAQ"; */
 "o98-wM-YAQ.ibExternalAccessibilityDescription" = "简介";
 
@@ -33,22 +24,4 @@
 
 /* Class = "NSMenuItem"; title = "Edit…"; ObjectID = "qHz-Zh-l5L"; */
 "qHz-Zh-l5L.title" = "编辑…";
-
-/* Class = "NSToolbarItem"; label = "Settings"; ObjectID = "Qif-lh-Rps"; */
-"Qif-lh-Rps.label" = "设置";
-
-/* Class = "NSToolbarItem"; paletteLabel = "Settings"; ObjectID = "Qif-lh-Rps"; */
-"Qif-lh-Rps.paletteLabel" = "设置";
-
-/* Class = "NSToolbarItem"; toolTip = "Show/hide settings"; ObjectID = "Qif-lh-Rps"; */
-"Qif-lh-Rps.toolTip" = "显示/隐藏设置";
-
-/* Class = "NSToolbarItem"; label = "Start"; ObjectID = "xeY-tT-tF2"; */
-"xeY-tT-tF2.label" = "开始";
-
-/* Class = "NSToolbarItem"; paletteLabel = "Start"; ObjectID = "xeY-tT-tF2"; */
-"xeY-tT-tF2.paletteLabel" = "开始";
-
-/* Class = "NSToolbarItem"; toolTip = "Start/stop queue"; ObjectID = "xeY-tT-tF2"; */
-"xeY-tT-tF2.toolTip" = "开始/终止任务队列";
 

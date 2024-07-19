@@ -16,6 +16,9 @@
 /* No comment provided by engineer. */
 "1 item in queue" = "任务队列中有 1 项。";
 
+/* Toolbar */
+"1 minute" = "1分钟";
+
 /* No comment provided by engineer. */
 "1 track selected" = "已选中 1 条轨道";
 
@@ -39,6 +42,15 @@
 
 /* File Import action menu item. */
 "AAC + Passthru" = "AAC + 直通";
+
+/* Toolbar */
+"Action" = "行为";
+
+/* Toolbar */
+"Add an item to the queue" = "添加一个项目到任务队列";
+
+/* Toolbar */
+"Add Item" = "添加项目";
 
 /* Queue -> redo add item. */
 "Add Queue Item" = "添加队列项";
@@ -88,7 +100,8 @@
 /* Action description. */
 "Clear Metadata" = "清除元数据";
 
-/* Action description */
+/* Action description
+   Toolbar */
 "Clear tracks names" = "清除轨道名称";
 
 /* Action localized description. */
@@ -115,9 +128,13 @@
 /* No comment provided by engineer. */
 "Day" = "日";
 
-/* Undo cover art delete
+/* Toolbar
+   Undo cover art delete
    Undo tag delete. */
 "Delete" = "删除";
+
+/* Toolbar */
+"Delete the selected track" = "删除所选轨道";
 
 /* Media characteristic. */
 "Describes Music And Sound For Accessibility" = "描述音乐和声音的辅助功能";
@@ -147,7 +164,13 @@
 "Done" = "完成";
 
 /* No comment provided by engineer. */
+"Downloading additional movie metadata…" = "正在下载电影元数据…";
+
+/* No comment provided by engineer. */
 "Downloading additional TV metadata…" = "正在下载电视节目元数据…";
+
+/* No comment provided by engineer. */
+"Downloading artworks…" = "正在下载插图";
 
 /* Media characteristic. */
 "Dubbed Translation" = "配音翻译";
@@ -176,6 +199,9 @@
 /* No comment provided by engineer. */
 "Filename" = "文件名";
 
+/* Toolbar */
+"Fix audio fallbacks" = "修复音频回退";
+
 /* Action description. */
 "Fix Fallbacks" = "修复回退";
 
@@ -197,9 +223,18 @@
 /* Implicit color profile */
 "Implicit" = "缺省";
 
+/* Toolbar */
+"Import" = "导入";
+
+/* Toolbar */
+"Import tracks from external files" = "从外部文件导入轨道";
+
 /* Undo cover art insert.
    Undo tag insert. */
 "Insert" = "插入";
+
+/* Toolbar */
+"Insert a chapter every" = "插入章节标记 每隔";
 
 /* No comment provided by engineer. */
 "iTunes Country" = "iTunes 地区";
@@ -273,6 +308,9 @@
 /* No comment provided by engineer. */
 "OCR" = "OCR";
 
+/* Toolbar */
+"Offset…" = "偏移…";
+
 /* Export alert panel -> button */
 "OK" = "确定";
 
@@ -284,6 +322,9 @@
 
 /* Document Optimize sheet. */
 "Optimizing…" = "正在优化…";
+
+/* Toolbar */
+"Organize alternate groups" = "整理轨道分组";
 
 /* Organize Groups action description */
 "Organize Groups" = "整理轨道分组";
@@ -315,7 +356,8 @@
 /* No comment provided by engineer. */
 "Podcast" = "播客";
 
-/* Action description */
+/* Action description
+   Toolbar */
 "Prettify audio track names" = "美化音轨名称";
 
 /* Action localized description */
@@ -323,6 +365,9 @@
 
 /* No comment provided by engineer. */
 "Producers" = "制作人";
+
+/* Toolbar */
+"Queue" = "任务队列";
 
 /* No comment provided by engineer. */
 "Queue Done" = "任务队列已完成";
@@ -369,8 +414,12 @@
 /* No comment provided by engineer. */
 "Screenwriters" = "编剧";
 
-/* Action description. */
+/* Action description.
+   Toolbar */
 "Search Metadata" = "搜索元数据";
+
+/* Toolbar */
+"Search metadata on the web" = "从网络搜索元数据";
 
 /* No comment provided by engineer. */
 "Searching %@ for episode information…" = "正在搜索剧集 %@ 的信息…";
@@ -390,8 +439,14 @@
 /* No comment provided by engineer. */
 "Season" = "季";
 
+/* Toolbar */
+"Send the current document to the queue" = "将当前文档发送到任务队列";
+
 /* Action description. */
 "Send to iTunes" = "发送到 iTunes";
+
+/* Toolbar */
+"Send to Queue" = "发送到任务队列";
 
 /* No comment provided by engineer. */
 "Send To Queue" = "发送到任务队列";
@@ -432,8 +487,20 @@
 /* Set Language action local description */
 "Setting tracks language" = "正在设定轨道语言";
 
+/* Toolbar */
+"Settings" = "设置";
+
+/* Toolbar */
+"Show/Hide settings" = "显示/隐藏设置";
+
 /* color profile */
 "sRGB (1-13-1)" = "sRGB (1-13-1)";
+
+/* Toolbar */
+"Start" = "开始";
+
+/* Toolbar */
+"Start/Stop queue" = "开始/终止任务队列";
 
 /* No comment provided by engineer. */
 "Studio" = "制片商";
