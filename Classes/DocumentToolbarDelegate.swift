@@ -31,7 +31,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
             return ButtonToolbarItem(itemIdentifier: itemIdentifier,
                                      label: NSLocalizedString("Delete", comment: "Toolbar"),
                                      toolTip: NSLocalizedString("Delete the selected track", comment: "Toolbar"),
-                                     image: "ToolbarRemoveTemplate",
+                                     image: "NSRemoveTemplate",
                                      symbolName: "minus",
                                      action: #selector(DocumentWindowController.deleteTrack(_:)))
         } else if itemIdentifier == .actions {
