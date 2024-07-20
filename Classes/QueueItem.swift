@@ -416,7 +416,7 @@ import MP42Foundation
         statusInternal = QueueItem.Status(rawValue: Int(aDecoder.decodeInt32(forKey: "SBQueueItemStatus"))) ?? .failed
         mp4File = aDecoder.decodeObject(of: [MP42File.classForCoder()], forKey: "SBQueueItemMp4File") as? MP42File
         uniqueID = aDecoder.decodeObject(of: [NSString.classForCoder()], forKey: "SBQueueItemID") as! String
-        attributes = aDecoder.decodeObject(of: [NSDictionary.classForCoder()], forKey: "SBQueueItemAttributes") as! [String : Any]
+        attributes = aDecoder.decodeObject(of: [NSDictionary.classForCoder(), NSString.classForCoder(), NSNumber.classForCoder()], forKey: "SBQueueItemAttributes") as! [String : Any]
 
         #if SB_SANDBOX
         if var bookmark = aDecoder.decodeObject(of: [NSData.classForCoder()], forKey: "SBQueueItemFileURLBookmark") as? Data {
