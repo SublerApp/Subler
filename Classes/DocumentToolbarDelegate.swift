@@ -76,6 +76,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
             if #available(macOS 10.15, *) {
                 let item = NSMenuToolbarItem(itemIdentifier: itemIdentifier)
                 item.label = label
+                item.paletteLabel = label
                 if #available(macOS 11.0, *) {
                     item.image = NSImage.init(systemSymbolName: "ellipsis.circle", accessibilityDescription: nil)
                 } else {
@@ -96,6 +97,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
 
                 let item = ButtonToolbarItem(itemIdentifier: itemIdentifier)
                 item.label = label
+                item.paletteLabel = label
                 item.view = popUpButton
                 item.minSize = NSSize(width: 48, height: 16)
 

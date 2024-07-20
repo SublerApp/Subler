@@ -38,6 +38,7 @@ final class ButtonToolbarItem : NSToolbarItem {
         super.init(itemIdentifier: itemIdentifier)
 
         self.label = label
+        self.paletteLabel = label
         self.toolTip = toolTip
         self.setSymbol(symbolName: symbolName, fallbackName: image)
         self.action = action
