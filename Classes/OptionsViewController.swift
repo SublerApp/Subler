@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-final class OptionsViewController: NSViewController, NSMenuItemValidation {
+final class OptionsViewController: NSViewController, NSUserInterfaceValidations {
 
     @IBOutlet weak var sendToExternalApp: NSButton!
     @IBOutlet var destButton: NSPopUpButton!
@@ -98,8 +98,8 @@ final class OptionsViewController: NSViewController, NSMenuItemValidation {
         preparePresetsPopUp()
     }
 
-    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        switch menuItem.action {
+    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        switch item.action {
         case #selector(chooseDestination(_:)),
              #selector(destination(_:)):
              return true

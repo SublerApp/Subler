@@ -12,7 +12,7 @@ protocol FileImportControllerDelegate : AnyObject {
     func didSelect(tracks: [MP42Track], metadata: MP42Metadata?)
 }
 
-final class FileImportController: ViewController, NSTableViewDataSource, NSTableViewDelegate, NSMenuItemValidation {
+final class FileImportController: ViewController, NSTableViewDataSource, NSTableViewDelegate, NSUserInterfaceValidations {
 
     private enum ItemType {
         case file(MP42FileImporter)
@@ -245,8 +245,8 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
         reloadCheckColumn(forRowIndexes: indexes)
     }
 
-    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        if let action = menuItem.action,
+    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        if let action = item.action,
             action == #selector(self.checkSelected(_:)) ||
             action == #selector(self.uncheckSelected(_:)) ||
             action == #selector(self.checkOnlyTracksWithSameLanguage(_:)) {

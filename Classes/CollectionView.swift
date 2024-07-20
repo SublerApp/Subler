@@ -14,7 +14,7 @@ import Cocoa
     @MainActor @objc optional func collectionViewPaste(to collectionView: NSCollectionView)
 }
 
-class CollectionView: NSCollectionView, NSMenuItemValidation {
+class CollectionView: NSCollectionView, NSUserInterfaceValidations {
 
     var pasteboardTypes: [NSPasteboard.PasteboardType]
     var pasteboardHasSupportedType: Bool {
@@ -104,8 +104,8 @@ class CollectionView: NSCollectionView, NSMenuItemValidation {
         }
     }
 
-    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        if let action = menuItem.action {
+    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        if let action = item.action {
             switch action {
             case #selector(delete(_:)):
                 if isSelectionEmpty || implements(selector: #selector(CollectionViewDelegate.collectionViewDelete(in:))) == false {

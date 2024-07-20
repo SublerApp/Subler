@@ -14,7 +14,7 @@ import Cocoa
     @MainActor @objc optional func paste(to tableview: NSTableView)
 }
 
-class ExpandedTableView: NSTableView, NSMenuItemValidation {
+class ExpandedTableView: NSTableView {
 
     var pasteboardTypes: [NSPasteboard.PasteboardType]
     var pasteboardHasSupportedType: Bool {
@@ -114,8 +114,8 @@ class ExpandedTableView: NSTableView, NSMenuItemValidation {
         }
     }
 
-    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        if let action = menuItem.action {
+    override func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        if let action = item.action {
             switch action {
             case #selector(delete(_:)):
                 if selectedRow == -1 || implements(selector: #selector(ExpandedTableViewDelegate.deleteSelection(in:))) == false {
@@ -137,6 +137,6 @@ class ExpandedTableView: NSTableView, NSMenuItemValidation {
                 break
             }
         }
-        return true
+        return super.validateUserInterfaceItem(item)
     }
 }

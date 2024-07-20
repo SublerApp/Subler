@@ -9,11 +9,11 @@ import Cocoa
 
 class PrefsWindow: NSWindow {
 
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        if menuItem.action == #selector(NSWindow.toggleToolbarShown(_:)) {
+    override func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        if item.action == #selector(NSWindow.toggleToolbarShown(_:)) {
             return false
         }
-        return super.validateMenuItem(menuItem)
+        return super.validateUserInterfaceItem(item)
     }
 
 }
