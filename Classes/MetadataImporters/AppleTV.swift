@@ -238,7 +238,7 @@ public struct AppleTV: MetadataService {
 
                 if let result = items?.filter({ $0.title == normalizedTerm }).first {
                     return result
-                } else if let result = items?.first {
+                } else if let result = items?.filter({ $0.title?.minimumEditDistance(other: normalizedTerm) ?? Int.max < 8 }).first {
                     return result
                 } else {
                     return nil
