@@ -5,7 +5,7 @@
 "-NA-" = "-NA-";
 
 /* Toolbar */
-"(minutes) minutes" = "(minutes) minutes";
+"%@ minutes" = "%@ minutes";
 
 /* No comment provided by engineer. */
 "%@." = "%@.";

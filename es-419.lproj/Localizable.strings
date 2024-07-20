@@ -5,7 +5,7 @@
 "-NA-" = "-NA-";
 
 /* Toolbar */
-"(minutes) minutes" = "(minutes) minutos";
+"%@ minutes" = "%@ minutos";
 
 /* No comment provided by engineer. */
 "%@." = "%@.";
@@ -340,6 +340,9 @@
 
 /* Document Optimize sheet. */
 "Optimizing…" = "Optimizando…";
+
+/* Toolbar */
+"Organize alternate groups" = "Organizar grupos alternativos";
 
 /* Organize Groups action description */
 "Organize Groups" = "Organizar grupos";

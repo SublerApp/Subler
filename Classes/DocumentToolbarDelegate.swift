@@ -38,8 +38,10 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
             let submenu = NSMenu()
             for minutes in [1, 2, 5, 10, 15, 20, 30] {
                 let menuItem = NSMenuItem()
-                menuItem.title = minutes == 1 ? NSLocalizedString("1 minute", comment: "Toolbar") :
-                                            NSLocalizedString("\(minutes) minutes", comment: "Toolbar")
+                let title = minutes == 1 ? NSLocalizedString("1 minute", comment: "Toolbar") :
+                                        String(format: NSLocalizedString("%@ minutes", comment: "Toolbar"), "\(minutes)")
+
+                menuItem.title = title
                 menuItem.action =  #selector(DocumentWindowController.addChaptersEvery(_:))
                 menuItem.tag = minutes
                 submenu.addItem(menuItem)
