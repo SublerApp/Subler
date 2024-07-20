@@ -765,7 +765,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     func paste(to tableview: NSTableView) {
         let pb = NSPasteboard.general
         if let archivedData = pb.data(forType: .metadataDragType),
-           let data = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [MP42MetadataItem.classForCoder()], from: archivedData) as? [MP42MetadataItem] {
+           let data = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.classForCoder(), MP42MetadataItem.classForCoder()], from: archivedData) as? [MP42MetadataItem] {
             add(metadataItems: data)
         }
     }
