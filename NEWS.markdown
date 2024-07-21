@@ -1,11 +1,15 @@
 # Subler News
 
 
+## Subler 1.8.4
+
+- Fixed metadata copy & paste
+
 ## Subler 1.8.3
 
 - Reworked windows toolbars
 - Improved AppleTV provider artworks matching to avoid showing unrelated artworks
-- Fixed a regressione that broke ALAC muxing
+- Fixed a regression that broke ALAC muxing
 
 
 ## Subler 1.8.2
