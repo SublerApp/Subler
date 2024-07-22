@@ -38,6 +38,10 @@ class MetadataSearchViewController: ViewController, MetadataSearchControllerDele
         view.addSubview(metadataViewController.view)
     }
 
+    override func viewDidAppear() {
+        self.view.window?.autorecalculatesKeyViewLoop = true
+    }
+
     override func addChild(_ childViewController: NSViewController) {
         childViewController.view.frame.size = view.frame.size
         childViewController.view.autoresizingMask = [NSView.AutoresizingMask.width, NSView.AutoresizingMask.height]

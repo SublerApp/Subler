@@ -14,6 +14,10 @@ import Cocoa
     @MainActor @objc optional func paste(to tableview: NSTableView)
 }
 
+protocol ExpandedTableViewCellActionable {
+    func performAction()
+}
+
 class ExpandedTableView: NSTableView {
 
     var pasteboardTypes: [NSPasteboard.PasteboardType]
@@ -59,12 +63,20 @@ class ExpandedTableView: NSTableView {
         super.init(coder: coder)
     }
 
+    private func performAction() {
+        if let view = self.view(atColumn: defaultEditingColumn, row: selectedRow, makeIfNecessary: false) as? ExpandedTableViewCellActionable  {
+            view.performAction()
+        } else {
+            editColumn(defaultEditingColumn, row: selectedRow, with: nil, select: true)
+        }
+    }
+
     override func keyDown(with event: NSEvent) {
 
         guard let key = event.charactersIgnoringModifiers?.utf16.first else { super.keyDown(with: event); return }
 
         if (key == NSEnterCharacter || key == NSCarriageReturnCharacter) && defaultEditingColumn > 0 {
-            editColumn(defaultEditingColumn, row: selectedRow, with: nil, select: true)
+            performAction()
         }
         else if (key == NSDeleteCharacter || key == NSDeleteFunctionKey) && implements(selector: #selector(ExpandedTableViewDelegate.deleteSelection(in:))) {
             if selectedRow == -1 {
@@ -72,6 +84,9 @@ class ExpandedTableView: NSTableView {
             } else {
                 expandedDelegate?.deleteSelection!(in: self)
             }
+        }
+        else if key == NSRightArrowFunctionKey || key == NSLeftArrowFunctionKey {
+            self.window?.windowController?.keyDown(with: event)
         }
         else if key == 27 && selectedRow != -1 {
             deselectAll(self)

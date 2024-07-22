@@ -7,6 +7,10 @@
 
 import Cocoa
 
-final class PopUpCellView : NSTableCellView {
+final class PopUpCellView : NSTableCellView, ExpandedTableViewCellActionable {
     @IBOutlet var popUpButton: NSPopUpButton!
+
+    func performAction() {
+        self.popUpButton.performClick(self)
+    }
 }

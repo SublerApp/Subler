@@ -7,6 +7,10 @@
 
 import Cocoa
 
-final class CheckBoxCellView : NSTableCellView {
+final class CheckBoxCellView : NSTableCellView, ExpandedTableViewCellActionable {
     @IBOutlet var checkboxButton: NSButton!
+
+    func performAction() {
+        self.checkboxButton.performClick(self)
+    }
 }

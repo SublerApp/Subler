@@ -117,6 +117,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
         columnWidth = column.width
 
+        metadataTableView.defaultEditingColumn = 1
         metadataTableView.doubleAction = #selector(doubleClickAction(_:))
         metadataTableView.target = self
         metadataTableView.pasteboardTypes = [.metadataDragType]

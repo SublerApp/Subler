@@ -5,6 +5,7 @@
 
 - Fixed metadata copy & paste
 
+
 ## Subler 1.8.3
 
 - Reworked windows toolbars

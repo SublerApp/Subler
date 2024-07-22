@@ -67,6 +67,14 @@ class CollectionView: NSCollectionView, NSUserInterfaceValidations {
         else if key == 27 && isSelected {
             deselectAll(self)
         }
+        else if self.isSelectionEmpty && (key == NSUpArrowFunctionKey || key == NSDownArrowFunctionKey) {
+            let indexPathSet = Set([IndexPath(item: 0, section: 0)])
+            animator().selectItems(at: indexPathSet, scrollPosition: .bottom)
+            delegate?.collectionView?(self, didSelectItemsAt: indexPathSet)
+        }
+        else if self.isSelectionEmpty && (key == NSRightArrowFunctionKey || key == NSLeftArrowFunctionKey) {
+            self.window?.windowController?.keyDown(with: event)
+        }
         else {
             super.keyDown(with: event)
         }
