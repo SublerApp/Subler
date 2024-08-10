@@ -1,6 +1,12 @@
 # Subler News
 
 
+## Subler 1.8.5
+
+- Improved keyboard navigation in the document window
+- Fixed FLAC audio decoding
+
+
 ## Subler 1.8.4
 
 - Fixed metadata copy & paste
