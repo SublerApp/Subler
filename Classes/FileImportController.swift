@@ -115,6 +115,17 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
                                                   enabled: true)
                     actions.append(conversionAction)
                 }
+
+                let audioTrack = track as! MP42AudioTrack
+                let channelCount = audioTrack.channels
+                
+                if track.format == kMP42AudioCodecType_MPEG4AAC && channelCount > 2 {
+                    let conversionAction = Action(title: NSLocalizedString("AAC + Passthru", comment: "File Import action menu item."),
+                                                tag: 6,
+                                                enabled: true)
+                    actions.append(conversionAction)
+                }
+                
             default:
                 break
             }
