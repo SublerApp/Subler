@@ -205,9 +205,9 @@ final class ArtworkSelectorController: NSViewController, NSCollectionViewDataSou
     }
 
     override func viewWillAppear() {
-        if let layout = imageBrowser.collectionViewLayout as? NSCollectionViewFlowLayout {
-            layout.itemSize = standardSize
-        }
+        let zoomValue = Prefs.artworkSelectorZoomLevel
+        setZoomValue(zoomValue)
+        slider.floatValue = zoomValue
     }
 
     @IBAction func loadMoreArtwork(_ sender: Any) {
@@ -216,21 +216,26 @@ final class ArtworkSelectorController: NSViewController, NSCollectionViewDataSou
 
     // MARK: - User Interface
 
-    @IBAction func zoomSliderDidChange(_ sender: Any) {
+    func setZoomValue(_ newZoomValue: Float) {
         if let layout = imageBrowser.collectionViewLayout as? NSCollectionViewFlowLayout {
-            if slider.floatValue == 50 {
+            if newZoomValue == 50 {
                 layout.itemSize = standardSize
-            } else if slider.floatValue < 50 {
-                let zoomValue = (CGFloat(slider.floatValue) + 50) / 100
+            } else if newZoomValue < 50 {
+                let zoomValue = (CGFloat(newZoomValue) + 50) / 100
                 layout.itemSize = NSSize(width: Int(standardSize.width * zoomValue),
                                          height: Int((standardSize.height - 32) * zoomValue + 32))
 
             } else {
-                let zoomValue = pow((CGFloat(slider.floatValue) + 50) / 100, 2.4)
+                let zoomValue = pow((CGFloat(newZoomValue) + 50) / 100, 2.4)
                 layout.itemSize = NSSize(width: Int(standardSize.width * zoomValue),
                                          height: Int((standardSize.height - 32) * zoomValue + 32))
             }
         }
+    }
+
+    @IBAction func zoomSliderDidChange(_ sender: Any) {
+        setZoomValue(slider.floatValue)
+        Prefs.artworkSelectorZoomLevel = slider.floatValue
     }
 
     fileprivate func reloadItem(_ item: ArtworkImageObject) {

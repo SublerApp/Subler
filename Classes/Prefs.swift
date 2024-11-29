@@ -151,6 +151,9 @@ enum Prefs {
 
     @Stored(key: "SBForceHvc1", defaultValue: true)
     static var forceHvc1: Bool
+
+    @Stored(key: "SBArtworkSelectorZoomLevel", defaultValue: 50)
+    static var artworkSelectorZoomLevel: Float
 }
 
 enum MetadataPrefs {
@@ -158,7 +161,8 @@ enum MetadataPrefs {
     static func register() {
         ud.register(defaults: [_setMovieFormat, _setTVShowFormat,
                                _movieImporter, _movieiTunesStoreLanguage,
-                               _tvShowImporter, _tvShowiTunesStoreLanguage, _tvShowTheTVDBLanguage, _tvShowTheMovieDBLanguage,
+                               _tvShowImporter, _tvShowiTunesStoreLanguage,
+                               _tvShowTheTVDBLanguage, _tvShowTheMovieDBLanguage,
                                _keepEmptyAnnotations, _keepImportedFilesMetadata])
     }
 
