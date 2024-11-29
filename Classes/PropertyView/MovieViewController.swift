@@ -62,6 +62,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     private let standardSize = NSSize(width: 280, height: 224)
 
     @IBOutlet var removeArtworkButton: NSButton!
+    @IBOutlet var zoomSlider: NSSlider!
     @IBOutlet var artworksView: CollectionView!
 
     override var nibName: NSNib.Name? {
@@ -133,6 +134,12 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         artworksView.setDraggingSourceOperationMask([.copy, .delete], forLocal: false)
 
         reloadData()
+    }
+
+    override func viewWillAppear() {
+        let zoomValue = Prefs.movieArtworkSelectorZoomLevel
+        setZoomValue(zoomValue)
+        zoomSlider.floatValue = zoomValue
     }
 
     private func reloadData() {
@@ -1255,22 +1262,26 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         }
     }
 
-    @IBAction func zoomSliderDidChange(_ sender: NSControl) {
-        let floatValue = CGFloat(sender.floatValue)
+    private func setZoomValue(_ newZoomValue: Float) {
         if let layout = artworksView.collectionViewLayout as? NSCollectionViewFlowLayout {
-            if floatValue == 50 {
+            if newZoomValue == 50 {
                 layout.itemSize = standardSize
-            } else if floatValue < 50 {
-                let zoomValue = (floatValue + 50) / 100
+            } else if newZoomValue < 50 {
+                let zoomValue = (CGFloat(newZoomValue) + 50) / 100
                 layout.itemSize = NSSize(width: Int(standardSize.width * zoomValue),
                                          height: Int(standardSize.height * zoomValue))
 
             } else {
-                let zoomValue = pow((floatValue + 50) / 100, 2.4)
+                let zoomValue = pow((CGFloat(newZoomValue) + 50) / 100, 2.4)
                 layout.itemSize = NSSize(width: Int(standardSize.width * zoomValue),
                                          height: Int(standardSize.height * zoomValue))
             }
         }
+    }
+
+    @IBAction func zoomSliderDidChange(_ sender: NSControl) {
+        setZoomValue(sender.floatValue)
+        Prefs.movieArtworkSelectorZoomLevel = sender.floatValue
     }
 
     func collectionViewDelete(in collectionView: NSCollectionView) {

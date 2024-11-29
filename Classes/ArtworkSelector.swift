@@ -216,7 +216,7 @@ final class ArtworkSelectorController: NSViewController, NSCollectionViewDataSou
 
     // MARK: - User Interface
 
-    func setZoomValue(_ newZoomValue: Float) {
+    private func setZoomValue(_ newZoomValue: Float) {
         if let layout = imageBrowser.collectionViewLayout as? NSCollectionViewFlowLayout {
             if newZoomValue == 50 {
                 layout.itemSize = standardSize
