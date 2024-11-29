@@ -143,6 +143,10 @@ final class VideoViewController: PropertyView {
             return NSLocalizedString("P3-D65 (12-17-6)", comment: "color profile")
         case (1, 13, 1):
             return NSLocalizedString("sRGB (1-13-1)", comment: "color profile")
+        case (9, 16, 15):
+            return NSLocalizedString("IPT-C2 (9-16-15)", comment: "color profile")
+        case (2, 2, 2):
+            return NSLocalizedString("Undefined (2-2-2)", comment: "color profile")
         default:
             return "\(colorTag.0)-\(colorTag.1)-\(colorTag.2)"
         }
@@ -192,7 +196,7 @@ final class VideoViewController: PropertyView {
         if track.format == kMP42VideoCodecType_H264 || track.format == kMP42VideoCodecType_MPEG4Video ||
             track.format == kMP42VideoCodecType_HEVC || track.format == kMP42VideoCodecType_HEVC_PSinBitstream ||
             track.format == kMP42VideoCodecType_VVC || track.format == kMP42VideoCodecType_VVC_PSinBitstream ||
-            track.format == kMP42VideoCodecType_AV1 {
+            track.format == kMP42VideoCodecType_AV1  || track.format == kMP42VideoCodecType_DolbyVisionHEVC {
             colorView.isHidden = false
             colorHeight.constant = 24
 
@@ -330,6 +334,10 @@ final class VideoViewController: PropertyView {
             colorTag = (12, 17, 6)
         case 10:
             colorTag = (1, 13, 1)
+        case 11:
+            colorTag = (9, 16, 15)
+        case 12:
+            colorTag = (2, 2, 2)
         default:
             return
         }
