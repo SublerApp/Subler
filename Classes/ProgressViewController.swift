@@ -8,7 +8,7 @@
 import Cocoa
 
 protocol ProgressViewControllerDelegate : AnyObject {
-    func cancel()
+    func cancelSave()
 }
 
 final class ProgressViewController: NSViewController {
@@ -53,7 +53,7 @@ final class ProgressViewController: NSViewController {
     }
 
     @IBAction func cancel(_ sender: Any) {
-        delegate?.cancel()
+        delegate?.cancelSave()
         cancelButton.isEnabled = false
     }
 }

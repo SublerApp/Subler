@@ -280,8 +280,8 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         }
     }
 
-    func cancel() {
-        mp4.cancel()
+    func cancelSave() {
+        doc.cancelSave()
     }
 
     // MARK: Actions

@@ -15,6 +15,7 @@ final class Document: NSDocument {
     private var unsupportedMp4Brand: Bool
 
     override init() {
+        self.cancelled = false
         self.options = [:]
         self.optimize = false
         self.unsupportedMp4Brand = false
@@ -22,6 +23,7 @@ final class Document: NSDocument {
     }
 
     init(mp4: MP42File) {
+        self.cancelled = false
         self.options = [:]
         self.optimize = false
         self.unsupportedMp4Brand = false
@@ -75,6 +77,7 @@ final class Document: NSDocument {
 
     private var optimize: Bool
     private var options: [String : Any]
+    private var cancelled: Bool
 
     private func saveOptions(for saveOperation: NSDocument.SaveOperationType) -> [String : Any] {
         var options = [String : Any]()
@@ -132,6 +135,11 @@ final class Document: NSDocument {
         super.save(to: url, ofType: typeName, for: saveOperation, completionHandler: modifiedCompletionhandler)
     }
 
+    func cancelSave() {
+        cancelled = true
+        mp4.cancel()
+    }
+
     private var sleepAssertion: IOPMAssertionID = IOPMAssertionID(0)
     private var sleepAssertionSuccess: IOReturn = kIOReturnInvalid
 
@@ -177,13 +185,15 @@ final class Document: NSDocument {
             fatalError("Unsupported save operation")
         }
 
-        if optimize {
+        if optimize && cancelled == false {
             DispatchQueue.main.async {
                 let docController = self.windowControllers.first as? DocumentWindowController
                 docController?.setProgress(title: NSLocalizedString("Optimizing…", comment: "Document Optimize sheet."))
             }
             mp4.optimize()
         }
+
+        cancelled = false
     }
 
     // MARK: Save panel
