@@ -75,6 +75,8 @@ final class Document: NSDocument {
 
     // MARK: Save
 
+    override nonisolated class var autosavesInPlace: Bool { return false }
+
     private var optimize: Bool
     private var options: [String : Any]
     private var cancelled: Bool
