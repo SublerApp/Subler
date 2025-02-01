@@ -260,7 +260,8 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
         if let action = item.action,
             action == #selector(self.checkSelected(_:)) ||
             action == #selector(self.uncheckSelected(_:)) ||
-            action == #selector(self.checkOnlyTracksWithSameLanguage(_:)) {
+            action == #selector(self.checkOnlyTracksWithSameLanguage(_:)) ||
+			action == #selector(self.checkOnlySelectedTracks(_:)) {
             if tracksTableView.selectedRow != -1 || tracksTableView.clickedRow != -1 {
                 return true
             }
@@ -288,6 +289,23 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
         }
 
         settings.forEach { $0.checked = $0.importable && languages.contains($0.track.language) }
+        reloadCheckColumn(forRowIndexes: IndexSet(integersIn: items.indices))
+    }
+	
+	@IBAction func checkOnlySelectedTracks(_ sender: Any) {
+		let targetedIndices = tracksTableView.targetedRowIndexes;
+		var selectedIndices = tracksTableView.selectedRowIndexes;
+		if (!selectedIndices.contains(targetedIndices.first!))
+		{
+			// This is a shortcut for quickly selecting specific rows.
+			// If the rows are selected and right-clicked, the target is within the selection.
+			// If the user didn't both first selecting rows, use the target index (visible with a selection-border in the UI).
+			// If the user did select but targets another row, use the target row
+			// because if it was intentional, only the targeted row is selected
+			// and if it was not intentional, it's easy to fix and open the menu on top of an actual selected row.
+			selectedIndices = targetedIndices;
+		}
+		settings.enumerated().forEach { (index, item) in item.checked = selectedIndices.contains(index + 1) }
         reloadCheckColumn(forRowIndexes: IndexSet(integersIn: items.indices))
     }
     
