@@ -36,6 +36,12 @@
                         <action selector="checkOnlyTracksWithSameLanguage:" target="-2" id="3Gg-ed-oeo"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Check only selected tracks" id="KMR-fY-lFl">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="checkOnlySelectedTracks:" target="-2" id="6Fc-pF-u5c"/>
+                    </connections>
+                </menuItem>
             </items>
             <point key="canvasLocation" x="139" y="146"/>
         </menu>
