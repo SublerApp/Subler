@@ -1,0 +1,445 @@
+{
+  "data" : {
+    "AE" : {
+      "localesSupported" : [ "en_GB", "ar_AE" ],
+      "storefrontId" : 143481
+    },
+    "AG" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143540
+    },
+    "AI" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143538
+    },
+    "AM" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143524
+    },
+    "AR" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143505
+    },
+    "AT" : {
+      "localesSupported" : [ "en_GB", "de_DE" ],
+      "storefrontId" : 143445
+    },
+    "AU" : {
+      "localesSupported" : [ "en_AU" ],
+      "storefrontId" : 143460
+    },
+    "AZ" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143568
+    },
+    "BE" : {
+      "localesSupported" : [ "nl_NL", "en_GB", "fr_FR" ],
+      "storefrontId" : 143446
+    },
+    "BG" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143526
+    },
+    "BH" : {
+      "localesSupported" : [ "en_GB", "ar_BH" ],
+      "storefrontId" : 143559
+    },
+    "BM" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143542
+    },
+    "BN" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143560
+    },
+    "BO" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143556
+    },
+    "BR" : {
+      "localesSupported" : [ "en_GB", "pt_BR" ],
+      "storefrontId" : 143503
+    },
+    "BS" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143539
+    },
+    "BW" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143525
+    },
+    "BY" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143565
+    },
+    "BZ" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143555
+    },
+    "CA" : {
+      "localesSupported" : [ "fr_CA", "en_CA" ],
+      "storefrontId" : 143455
+    },
+    "CH" : {
+      "localesSupported" : [ "de_DE", "fr_FR", "de_CH", "en_GB", "it_IT" ],
+      "storefrontId" : 143459
+    },
+    "CL" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143483
+    },
+    "CO" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143501
+    },
+    "CR" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143495
+    },
+    "CV" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143580
+    },
+    "CY" : {
+      "localesSupported" : [ "tr_TR", "en_GB", "el_GR" ],
+      "storefrontId" : 143557
+    },
+    "CZ" : {
+      "localesSupported" : [ "en_GB", "cs_CZ" ],
+      "storefrontId" : 143489
+    },
+    "DE" : {
+      "localesSupported" : [ "en_GB", "de_DE" ],
+      "storefrontId" : 143443
+    },
+    "DK" : {
+      "localesSupported" : [ "en_GB", "da_DK" ],
+      "storefrontId" : 143458
+    },
+    "DM" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143545
+    },
+    "DO" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143508
+    },
+    "EC" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143509
+    },
+    "EE" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143518
+    },
+    "EG" : {
+      "localesSupported" : [ "en_GB", "ar_EG" ],
+      "storefrontId" : 143516
+    },
+    "ES" : {
+      "localesSupported" : [ "ca_ES", "en_GB", "es_ES" ],
+      "storefrontId" : 143454
+    },
+    "FI" : {
+      "localesSupported" : [ "fi_FI", "en_GB" ],
+      "storefrontId" : 143447
+    },
+    "FJ" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143583
+    },
+    "FM" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143591
+    },
+    "FR" : {
+      "localesSupported" : [ "en_GB", "fr_FR" ],
+      "storefrontId" : 143442
+    },
+    "GB" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143444
+    },
+    "GD" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143546
+    },
+    "GH" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143573
+    },
+    "GM" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143584
+    },
+    "GR" : {
+      "localesSupported" : [ "el_GR", "en_GB" ],
+      "storefrontId" : 143448
+    },
+    "GT" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143504
+    },
+    "GW" : {
+      "localesSupported" : [ "en_GB", "fr_FR" ],
+      "storefrontId" : 143585
+    },
+    "HK" : {
+      "localesSupported" : [ "yue_Hant", "en_GB", "zh_Hant" ],
+      "storefrontId" : 143463
+    },
+    "HN" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143510
+    },
+    "HU" : {
+      "localesSupported" : [ "en_GB", "hu_HU" ],
+      "storefrontId" : 143482
+    },
+    "ID" : {
+      "localesSupported" : [ "en_GB", "id_ID" ],
+      "storefrontId" : 143476
+    },
+    "IE" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143449
+    },
+    "IL" : {
+      "localesSupported" : [ "en_GB", "iw_IL" ],
+      "storefrontId" : 143491
+    },
+    "IN" : {
+      "localesSupported" : [ "en_GB", "hi_IN" ],
+      "storefrontId" : 143467
+    },
+    "IT" : {
+      "localesSupported" : [ "it_IT", "en_GB" ],
+      "storefrontId" : 143450
+    },
+    "JO" : {
+      "localesSupported" : [ "en_GB", "ar_JO" ],
+      "storefrontId" : 143528
+    },
+    "JP" : {
+      "localesSupported" : [ "en_US", "ja_JP" ],
+      "storefrontId" : 143462
+    },
+    "KH" : {
+      "localesSupported" : [ "en_GB", "fr_FR" ],
+      "storefrontId" : 143579
+    },
+    "KN" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143548
+    },
+    "KR" : {
+      "localesSupported" : [ "en_GB", "ko_KR" ],
+      "storefrontId" : 143466
+    },
+    "KY" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143544
+    },
+    "LA" : {
+      "localesSupported" : [ "en_GB", "fr_FR" ],
+      "storefrontId" : 143587
+    },
+    "LB" : {
+      "localesSupported" : [ "en_GB", "ar_LB" ],
+      "storefrontId" : 143497
+    },
+    "LK" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143486
+    },
+    "LT" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143520
+    },
+    "LU" : {
+      "localesSupported" : [ "en_GB", "de_DE", "fr_FR" ],
+      "storefrontId" : 143451
+    },
+    "LV" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143519
+    },
+    "MD" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143523
+    },
+    "MN" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143592
+    },
+    "MO" : {
+      "localesSupported" : [ "yue_Hant", "en_GB", "zh_Hant" ],
+      "storefrontId" : 143515
+    },
+    "MT" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143521
+    },
+    "MU" : {
+      "localesSupported" : [ "en_GB", "fr_FR" ],
+      "storefrontId" : 143533
+    },
+    "MX" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143468
+    },
+    "MY" : {
+      "localesSupported" : [ "ms_MY", "en_GB" ],
+      "storefrontId" : 143473
+    },
+    "MZ" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143593
+    },
+    "NA" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143594
+    },
+    "NE" : {
+      "localesSupported" : [ "en_GB", "fr_FR" ],
+      "storefrontId" : 143534
+    },
+    "NI" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143512
+    },
+    "NL" : {
+      "localesSupported" : [ "en_GB", "nl_NL" ],
+      "storefrontId" : 143452
+    },
+    "NO" : {
+      "localesSupported" : [ "nb_NO", "en_GB" ],
+      "storefrontId" : 143457
+    },
+    "NZ" : {
+      "localesSupported" : [ "en_GB", "en_AU" ],
+      "storefrontId" : 143461
+    },
+    "OM" : {
+      "localesSupported" : [ "ar_OM", "en_GB" ],
+      "storefrontId" : 143562
+    },
+    "PA" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143485
+    },
+    "PE" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143507
+    },
+    "PH" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143474
+    },
+    "PL" : {
+      "localesSupported" : [ "en_GB", "pl_PL" ],
+      "storefrontId" : 143478
+    },
+    "PT" : {
+      "localesSupported" : [ "en_GB", "pt_PT" ],
+      "storefrontId" : 143453
+    },
+    "PY" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143513
+    },
+    "QA" : {
+      "localesSupported" : [ "ar_QA", "en_GB" ],
+      "storefrontId" : 143498
+    },
+    "RU" : {
+      "localesSupported" : [ "en_GB", "uk_UA", "ru_RU" ],
+      "storefrontId" : 143469
+    },
+    "SA" : {
+      "localesSupported" : [ "ar_SA", "en_GB" ],
+      "storefrontId" : 143479
+    },
+    "SE" : {
+      "localesSupported" : [ "en_GB", "sv_SE" ],
+      "storefrontId" : 143456
+    },
+    "SG" : {
+      "localesSupported" : [ "zh_Hans", "en_GB" ],
+      "storefrontId" : 143464
+    },
+    "SI" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143499
+    },
+    "SK" : {
+      "localesSupported" : [ "en_GB", "sk_SK" ],
+      "storefrontId" : 143496
+    },
+    "SV" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143506
+    },
+    "SZ" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143602
+    },
+    "TH" : {
+      "localesSupported" : [ "en_GB", "th_TH" ],
+      "storefrontId" : 143475
+    },
+    "TJ" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143603
+    },
+    "TM" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143604
+    },
+    "TR" : {
+      "localesSupported" : [ "en_GB", "tr_TR" ],
+      "storefrontId" : 143480
+    },
+    "TT" : {
+      "localesSupported" : [ "en_GB", "fr_FR" ],
+      "storefrontId" : 143551
+    },
+    "TW" : {
+      "localesSupported" : [ "en_GB", "zh_Hant" ],
+      "storefrontId" : 143470
+    },
+    "UA" : {
+      "localesSupported" : [ "en_GB", "uk_UA", "ru_RU" ],
+      "storefrontId" : 143492
+    },
+    "UG" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143537
+    },
+    "US" : {
+      "localesSupported" : [ "en_US", "es_MX" ],
+      "storefrontId" : 143441
+    },
+    "VE" : {
+      "localesSupported" : [ "en_GB", "es_MX" ],
+      "storefrontId" : 143502
+    },
+    "VG" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143543
+    },
+    "VN" : {
+      "localesSupported" : [ "vi_VI", "en_GB" ],
+      "storefrontId" : 143471
+    },
+    "ZA" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143472
+    },
+    "ZW" : {
+      "localesSupported" : [ "en_GB" ],
+      "storefrontId" : 143605
+    }
+  }
+}
+
