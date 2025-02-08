@@ -261,7 +261,8 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
             action == #selector(self.checkSelected(_:)) ||
             action == #selector(self.uncheckSelected(_:)) ||
             action == #selector(self.checkOnlyTracksWithSameLanguage(_:)) ||
-			action == #selector(self.checkOnlySelectedTracks(_:)) {
+			action == #selector(self.checkOnlySelectedTracks(_:)) ||
+			action == #selector(self.uncheckAllTracks(_:)) {
             if tracksTableView.selectedRow != -1 || tracksTableView.clickedRow != -1 {
                 return true
             }
@@ -306,9 +307,14 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
 			selectedIndices = targetedIndices;
 		}
 		settings.enumerated().forEach { (index, item) in item.checked = selectedIndices.contains(index + 1) }
-        reloadCheckColumn(forRowIndexes: IndexSet(integersIn: items.indices))
-    }
-    
+		reloadCheckColumn(forRowIndexes: IndexSet(integersIn: items.indices))
+	}
+	
+	@IBAction func uncheckAllTracks(_ sender: Any) {
+		settings.enumerated().forEach { (index, item) in item.checked = false }
+		reloadCheckColumn(forRowIndexes: IndexSet(integersIn: items.indices))
+	}
+	
     // MARK: IBActions
     
     @IBAction func closeWindow(_ sender: Any) {
