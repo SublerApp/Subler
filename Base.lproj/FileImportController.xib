@@ -36,6 +36,19 @@
                         <action selector="checkOnlyTracksWithSameLanguage:" target="-2" id="3Gg-ed-oeo"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Check only selected tracks" id="KMR-fY-lFl">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="checkOnlySelectedTracks:" target="-2" id="6Fc-pF-u5c"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="ysZ-lN-Giu"/>
+                <menuItem title="Uncheck All" id="hgt-xJ-ZhD">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="uncheckAllTracks:" target="-2" id="e3T-C5-VtQ"/>
+                    </connections>
+                </menuItem>
             </items>
             <point key="canvasLocation" x="139" y="146"/>
         </menu>
