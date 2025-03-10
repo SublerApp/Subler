@@ -15,7 +15,7 @@ extension NSToolbarItem.Identifier {
 
 class QueueToolbarDelegate: NSObject, NSToolbarDelegate {
 
-    var target: AnyObject?
+    weak var target: AnyObject?
 
     @MainActor func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
 
