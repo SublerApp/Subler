@@ -18,6 +18,8 @@ private extension NSToolbarItem.Identifier {
 
 class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
 
+    var target: AnyObject?
+
     @MainActor func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
 
         if itemIdentifier == .importTracks {
@@ -26,6 +28,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      toolTip: NSLocalizedString("Import tracks from external files", comment: "Toolbar"),
                                      image: "NSAddTemplate",
                                      symbolName: "plus",
+                                     target: target,
                                      action: #selector(DocumentWindowController.selectFile(_:)))
         } else if itemIdentifier == .deleteTracks {
             return ButtonToolbarItem(itemIdentifier: itemIdentifier,
@@ -33,6 +36,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      toolTip: NSLocalizedString("Delete the selected track", comment: "Toolbar"),
                                      image: "NSRemoveTemplate",
                                      symbolName: "minus",
+                                     target: target,
                                      action: #selector(DocumentWindowController.deleteTrack(_:)))
         } else if itemIdentifier == .actions {
             let submenu = NSMenu()
@@ -109,6 +113,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      toolTip: NSLocalizedString("Search metadata on the web", comment: "Toolbar"),
                                      image: "NSRevealFreestandingTemplate",
                                      symbolName: "sparkle.magnifyingglass",
+                                     target: target,
                                      action: #selector(DocumentWindowController.searchMetadata(_:)))
         } else if itemIdentifier == .sendToQueue {
             return ButtonToolbarItem(itemIdentifier: itemIdentifier,
@@ -116,6 +121,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      toolTip: NSLocalizedString("Send the current document to the queue", comment: "Toolbar"),
                                      image: "ToolbarActionTemplate",
                                      symbolName: "photo.badge.plus",
+                                     target: target,
                                      action: #selector(Document.sendToQueue(_:)))
         } else if itemIdentifier == .showQueue {
             return ButtonToolbarItem(itemIdentifier: itemIdentifier,
@@ -123,6 +129,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      toolTip: NSLocalizedString("Show the Queue window", comment: "Toolbar"),
                                      image: "ToolbarActionTemplate",
                                      symbolName: "photo.stack",
+                                     target: target,
                                      action: #selector(AppDelegate.showQueueWindow(_:)))
         }
 

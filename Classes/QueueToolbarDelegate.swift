@@ -15,6 +15,8 @@ extension NSToolbarItem.Identifier {
 
 class QueueToolbarDelegate: NSObject, NSToolbarDelegate {
 
+    var target: AnyObject?
+
     @MainActor func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
 
         if itemIdentifier == .queueAdd {
@@ -23,6 +25,7 @@ class QueueToolbarDelegate: NSObject, NSToolbarDelegate {
                                      toolTip: NSLocalizedString("Add an item to the queue", comment: "Toolbar"),
                                      image: "NSAddTemplate",
                                      symbolName: "plus",
+                                     target: target,
                                      action: #selector(QueueController.open(_:)))
         } else if itemIdentifier == .queueSettings {
             return ButtonToolbarItem(itemIdentifier: itemIdentifier,
@@ -30,6 +33,7 @@ class QueueToolbarDelegate: NSObject, NSToolbarDelegate {
                                      toolTip: NSLocalizedString("Show/Hide settings", comment: "Toolbar"),
                                      image: "NSActionTemplate",
                                      symbolName: "ellipsis.circle",
+                                     target: target,
                                      action: #selector(QueueController.toggleOptions(_:)))
         } else if itemIdentifier == .queueStartStop {
             return ButtonToolbarItem(itemIdentifier: itemIdentifier,
@@ -37,6 +41,7 @@ class QueueToolbarDelegate: NSObject, NSToolbarDelegate {
                                      toolTip: NSLocalizedString("Start/Stop queue", comment: "Toolbar"),
                                      image: "playBackTemplate",
                                      symbolName: "play.fill",
+                                     target: target,
                                      action: #selector(QueueController.toggleStartStop(_:)))
         }
 

@@ -43,6 +43,8 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             window.toolbarStyle = .expanded
         }
 
+        toolbarDelegate.target = self
+
         let toolbar = NSToolbar(identifier: "SublerDocumentToolbar")
         toolbar.delegate = toolbarDelegate
         toolbar.allowsUserCustomization = true
