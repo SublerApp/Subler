@@ -244,6 +244,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
     }
 
     private func setCheck(value: Bool, forIndexes indexes: IndexSet) {
+        var modifiedIndexes = IndexSet()
         for index in indexes {
             let item = items[index]
             switch item {
@@ -251,9 +252,10 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
                 break
             case .track(let settings):
                 settings.checked = value && settings.importable
+                modifiedIndexes.insert(index)
             }
         }
-        reloadCheckColumn(forRowIndexes: indexes)
+        reloadCheckColumn(forRowIndexes: modifiedIndexes)
     }
 
     func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
