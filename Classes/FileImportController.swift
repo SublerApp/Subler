@@ -290,25 +290,36 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
             }
         }
 
-        settings.forEach { $0.checked = $0.importable && languages.contains($0.track.language) }
-        reloadCheckColumn(forRowIndexes: IndexSet(integersIn: items.indices))
+        var modifiedIndexes = IndexSet()
+
+        items.enumerated().forEach { (index, item) in
+            switch item {
+            case .file(_):
+                break
+            case .track(let settings):
+                settings.checked = settings.importable && languages.contains(settings.track.language)
+                modifiedIndexes.insert(index)
+            }
+        }
+
+        reloadCheckColumn(forRowIndexes: modifiedIndexes)
     }
 	
 	@IBAction func checkOnlySelectedTracks(_ sender: Any) {
 		let targetedIndices = tracksTableView.targetedRowIndexes;
-		var selectedIndices = tracksTableView.selectedRowIndexes;
-		if (!selectedIndices.contains(targetedIndices.first!))
-		{
-			// This is a shortcut for quickly selecting specific rows.
-			// If the rows are selected and right-clicked, the target is within the selection.
-			// If the user didn't both first selecting rows, use the target index (visible with a selection-border in the UI).
-			// If the user did select but targets another row, use the target row
-			// because if it was intentional, only the targeted row is selected
-			// and if it was not intentional, it's easy to fix and open the menu on top of an actual selected row.
-			selectedIndices = targetedIndices;
-		}
-		settings.enumerated().forEach { (index, item) in item.checked = selectedIndices.contains(index + 1) }
-        reloadCheckColumn(forRowIndexes: IndexSet(integersIn: items.indices))
+        var modifiedIndexes = IndexSet()
+
+        items.enumerated().forEach { (index, item) in
+            switch item {
+            case .file(_):
+                break
+            case .track(let settings):
+                settings.checked = targetedIndices.contains(index)
+                modifiedIndexes.insert(index)
+            }
+        }
+
+        reloadCheckColumn(forRowIndexes: modifiedIndexes)
     }
     
     // MARK: IBActions
