@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -36,21 +36,8 @@
                         <action selector="checkOnlyTracksWithSameLanguage:" target="-2" id="3Gg-ed-oeo"/>
                     </connections>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="XqU-K4-wr2"/>
-                <menuItem title="Uncheck all" id="CSo-l5-OQn">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="uncheckAll:" target="-2" id="1ij-4B-ZXg"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Check all" id="ivD-V3-8h5">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="checkAll:" target="-2" id="3F4-ah-wZn"/>
-                    </connections>
-                </menuItem>
             </items>
-            <point key="canvasLocation" x="-421" y="140"/>
+            <point key="canvasLocation" x="139" y="146"/>
         </menu>
         <view id="XhE-7o-ek3">
             <rect key="frame" x="0.0" y="0.0" width="683" height="283"/>
@@ -280,7 +267,7 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="bevel" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="FNV-pf-MUt">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="message"/>
+                                                            <font key="font" metaFont="menu"/>
                                                             <menu key="menu" id="i8l-4s-h93"/>
                                                         </popUpButtonCell>
                                                         <connections>

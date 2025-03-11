@@ -259,22 +259,14 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
     }
 
     func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-        guard let action = item.action else { return false }
-
-        switch action {
-        case #selector(self.checkSelected(_:)): fallthrough
-        case #selector(self.uncheckSelected(_:)): fallthrough
-        case #selector(self.checkOnlyTracksWithSameLanguage(_:)):
+        if let action = item.action,
+            action == #selector(self.checkSelected(_:)) ||
+            action == #selector(self.uncheckSelected(_:)) ||
+            action == #selector(self.checkOnlyTracksWithSameLanguage(_:)) {
             if tracksTableView.selectedRow != -1 || tracksTableView.clickedRow != -1 {
                 return true
             }
-        case #selector(self.checkAll(_:)): fallthrough
-        case #selector(self.uncheckAll(_:)):
-            return true
-        default:
-            return false
         }
-
         return false
     }
     
@@ -285,15 +277,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
     @IBAction func uncheckSelected(_ sender: Any) {
         setCheck(value: false, forIndexes: tracksTableView.targetedRowIndexes)
     }
-
-    @IBAction func checkAll(_ sender: Any) {
-        setCheck(value: true, forIndexes: IndexSet(integersIn: 0..<items.count))
-    }
-
-    @IBAction func uncheckAll(_ sender: Any) {
-        setCheck(value: false, forIndexes: IndexSet(integersIn: 0..<items.count))
-    }
-
+    
     @IBAction func checkOnlyTracksWithSameLanguage(_ sender: Any) {
         let languages = tracksTableView.targetedRowIndexes.compactMap { (index: Int) -> String? in
             let item = items[index]
