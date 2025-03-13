@@ -129,7 +129,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      toolTip: NSLocalizedString("Show the Queue window", comment: "Toolbar"),
                                      image: "ToolbarActionTemplate",
                                      symbolName: "photo.stack",
-                                     target: target,
+                                     target: nil,
                                      action: #selector(AppDelegate.showQueueWindow(_:)))
         }
 
