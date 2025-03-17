@@ -1,5 +1,11 @@
 # Subler News
 
+## Subler 1.8.7
+
+- Preserves additional metadata from Matroska
+- Fixed a regression tha made the "Send to queue" and "Queue" toolbar button unclickable
+
+
 ## Subler 1.8.6
 
 - Added a "Check only selected track" contextual menu item in the importer sheet [karstenBriksoft]
