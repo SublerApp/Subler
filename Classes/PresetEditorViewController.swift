@@ -42,6 +42,15 @@ final class PresetEditorViewController: MovieViewController {
         replaceAnnotations.state = preset.replaceAnnotations == false ? .on : .off
     }
 
+    override var zoomLevel: Float {
+        get {
+            Prefs.presetArtworkSelectorZoomLevel
+        }
+        set (value) {
+            Prefs.presetArtworkSelectorZoomLevel = value;
+        }
+    }
+
     @IBAction func done(_ sender: Any) {
         presentingViewController?.dismiss(self)
     }
