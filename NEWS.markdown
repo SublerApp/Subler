@@ -1,9 +1,14 @@
 # Subler News
 
+## Subler 1.8.8
+
+- Fixed a crash that happened when editing a preset
+
+
 ## Subler 1.8.7
 
 - Preserves additional metadata from Matroska
-- Fixed a regression tha made the "Send to queue" and "Queue" toolbar button unclickable
+- Fixed a regression that made the "Send to queue" and "Queue" toolbar button unclickable
 
 
 ## Subler 1.8.6
