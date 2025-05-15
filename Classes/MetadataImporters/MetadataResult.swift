@@ -19,12 +19,36 @@ public enum ArtworkSize : Int, CustomStringConvertible {
             return "square"
         case .rectangle:
             return "rectangle"
+        case .vertical:
+            return "vertical"
+        case .fullscreen:
+            return "fullscreen"
+        case .widescreen:
+            return "widescreen"
+        case .maxres:
+            return "maxres"
+        case .low:
+            return "low"
+        case .medium:
+            return "medium"
+        case .high:
+            return "high"
+        case .`default`:
+            return "default"
         }
     }
 
     case standard
     case square
     case rectangle
+    case vertical
+    case fullscreen
+    case widescreen
+    case maxres
+    case low
+    case medium
+    case high
+    case `default`
 }
 
 public enum ArtworkType : Int, CustomStringConvertible {
@@ -38,6 +62,8 @@ public enum ArtworkType : Int, CustomStringConvertible {
             return "episode"
         case .backdrop:
             return "backdrop"
+        case .person:
+            return "person"
 
         case .none:
             return NSLocalizedString("None", comment: "Queue metadata search artwork type")
@@ -57,15 +83,34 @@ public enum ArtworkType : Int, CustomStringConvertible {
     case season
     case episode
     case backdrop
+    case person
     case none
 }
 
-public struct Artwork {
+public struct Artwork: Equatable, Hashable {
     public let url: URL
     public let thumbURL: URL
     public let service: String
     public let type: ArtworkType
     public let size: ArtworkSize
+
+    public static func == (lhs: Artwork, rhs: Artwork) -> Bool {
+        return lhs.url == rhs.url
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(url)
+    }
+
+    public static func unique(artworks: [Artwork]) -> [Artwork] {
+        var uniques = [Artwork]()
+        for artwork in artworks {
+            if !uniques.contains(artwork) {
+                uniques.append(artwork)
+            }
+        }
+        return uniques
+    }
 }
 
 public enum MediaKind: Int {

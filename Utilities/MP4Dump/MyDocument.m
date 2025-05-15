@@ -52,6 +52,11 @@ extern NSString *libraryPath;
     }
 }
 
++ (BOOL)autosavesInPlace
+{
+    return NO;
+}
+
 - (void)_resetTextView
 {
     textView.string = @"";

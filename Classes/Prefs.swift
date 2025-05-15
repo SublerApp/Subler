@@ -155,8 +155,11 @@ enum Prefs {
     @Stored(key: "SBArtworkSelectorZoomLevel", defaultValue: 50)
     static var artworkSelectorZoomLevel: Float
 
-    @Stored(key: "SBMoviewArtworkSelectorZoomLevel", defaultValue: 50)
+    @Stored(key: "SBMovieArtworkSelectorZoomLevel", defaultValue: 50)
     static var movieArtworkSelectorZoomLevel: Float
+
+    @Stored(key: "SBPresetArtworkSelectorZoomLevel", defaultValue: 0)
+    static var presetArtworkSelectorZoomLevel: Float
 }
 
 enum MetadataPrefs {

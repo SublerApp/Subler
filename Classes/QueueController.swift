@@ -61,6 +61,8 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
             window?.toolbarStyle = .unified
         }
 
+        toolbarDelegate.target = self
+
         let toolbar = NSToolbar(identifier: "SublerQueueToolbar")
         toolbar.delegate = toolbarDelegate
         toolbar.allowsUserCustomization = true

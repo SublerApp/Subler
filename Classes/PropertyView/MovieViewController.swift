@@ -137,7 +137,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     }
 
     override func viewWillAppear() {
-        let zoomValue = Prefs.movieArtworkSelectorZoomLevel
+        let zoomValue = zoomLevel
         setZoomValue(zoomValue)
         zoomSlider.floatValue = zoomValue
     }
@@ -1262,6 +1262,15 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         }
     }
 
+    var zoomLevel: Float {
+        get {
+            Prefs.movieArtworkSelectorZoomLevel
+        }
+        set (value) {
+            Prefs.movieArtworkSelectorZoomLevel = value;
+        }
+    }
+
     private func setZoomValue(_ newZoomValue: Float) {
         if let layout = artworksView.collectionViewLayout as? NSCollectionViewFlowLayout {
             if newZoomValue == 50 {
@@ -1281,7 +1290,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
     @IBAction func zoomSliderDidChange(_ sender: NSControl) {
         setZoomValue(sender.floatValue)
-        Prefs.movieArtworkSelectorZoomLevel = sender.floatValue
+        zoomLevel = sender.floatValue
     }
 
     func collectionViewDelete(in collectionView: NSCollectionView) {

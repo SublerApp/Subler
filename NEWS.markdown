@@ -1,5 +1,25 @@
 # Subler News
 
+## Subler 1.8.8
+
+- Fixed a crash that happened when editing a preset
+
+
+## Subler 1.8.7
+
+- Preserves additional metadata from Matroska
+- Fixed a regression that made the "Send to queue" and "Queue" toolbar button unclickable
+
+
+## Subler 1.8.6
+
+- Added a "Check only selected track" contextual menu item in the importer sheet [karstenBriksoft]
+- Added ability to set imported multichannel AAC track to Passthru + AAC [sxflynn]
+- Added IPT-C2 and Undefined color profiles
+- Improved the artworks views to make them remember the zoom level
+- Improved the behaviour of a cancelled save operation to avoid running an optimize pass
+- Fixed the issue where Apple TV metadata isn't returned for TV/Movies that Apple doesn't currently sell in the given region [Mock1]
+
 
 ## Subler 1.8.5
 

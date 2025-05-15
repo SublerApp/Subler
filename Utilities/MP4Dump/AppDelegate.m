@@ -52,4 +52,9 @@ static void logCallback(MP4LogLevel loglevel, const char *fmt, va_list ap)
     return NO;
 }
 
+- (BOOL)applicationSupportsSecureRestorableState:(NSApplication *)app
+{
+    return YES;
+}
+
 @end

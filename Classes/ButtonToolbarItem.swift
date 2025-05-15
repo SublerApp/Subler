@@ -34,14 +34,15 @@ final class ButtonToolbarItem : NSToolbarItem {
         super.init(itemIdentifier: itemIdentifier)
     }
 
-    init(itemIdentifier: NSToolbarItem.Identifier, label: String, toolTip: String, image: String, symbolName: String? = nil, action: Selector) {
+    init(itemIdentifier: NSToolbarItem.Identifier, label: String, toolTip: String, image: String, symbolName: String? = nil, target: AnyObject?, action: Selector) {
         super.init(itemIdentifier: itemIdentifier)
 
         self.label = label
         self.paletteLabel = label
         self.toolTip = toolTip
-        self.setSymbol(symbolName: symbolName, fallbackName: image)
+        self.target = target
         self.action = action
+        self.setSymbol(symbolName: symbolName, fallbackName: image)
 
         if #available(macOS 14, *) {
             self.isBordered = true

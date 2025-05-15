@@ -43,6 +43,8 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             window.toolbarStyle = .expanded
         }
 
+        toolbarDelegate.target = self
+
         let toolbar = NSToolbar(identifier: "SublerDocumentToolbar")
         toolbar.delegate = toolbarDelegate
         toolbar.allowsUserCustomization = true
@@ -225,7 +227,8 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
              #selector(iTunesFriendlyTrackGroups(_:)),
              #selector(clearTrackNames(_:)),
              #selector(prettifyAudioTrackNames(_:)),
-             #selector(fixAudioFallbacks(_:)):
+             #selector(fixAudioFallbacks(_:)),
+             #selector(sendToQueue(_:)):
             return true
 
         case #selector(sendToExternalApp(_:)) where mp4.hasFileRepresentation && doc.isDocumentEdited == false:
@@ -285,6 +288,10 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
     }
 
     // MARK: Actions
+
+    @IBAction func sendToQueue(_ sender: Any) {
+        doc.sendToQueue(self)
+    }
 
     @IBAction func sendToExternalApp(_ sender: Any) {
         if let fileURL = doc.fileURL {

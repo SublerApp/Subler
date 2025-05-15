@@ -86,6 +86,7 @@
 		A99189D11F2F88F700623ED7 /* ChapterSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */; };
 		A997B0AA1F348AB000974C9C /* MetadataSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A997B0A91F348AB000974C9C /* MetadataSearchController.swift */; };
 		A998DABF1BA54CFF004D7969 /* MediaTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A998DABD1BA54CFF004D7969 /* MediaTagsController.xib */; };
+		A99B7FD82D53764F0027BCB5 /* AppleTVv3.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99B7FD72D53764F0027BCB5 /* AppleTVv3.swift */; };
 		A99D23212029CD32002E7F27 /* PrefsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99D23202029CD32002E7F27 /* PrefsWindow.swift */; };
 		A9A4A966202F51FA00482D12 /* SaveOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A4A968202F51FA00482D12 /* SaveOptions.xib */; };
 		A9A4A96B202F51FF00482D12 /* ProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A4A96D202F51FF00482D12 /* ProgressViewController.xib */; };
@@ -115,6 +116,8 @@
 		A9C3E44A205C07F4004DE24E /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C3E449205C07F4004DE24E /* OptionsViewController.swift */; };
 		A9C5FA7419FA2FEC0051F3FF /* SBActivityWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C5FA7219FA2FEC0051F3FF /* SBActivityWindow.xib */; };
 		A9C73536206B8F9900794673 /* QueuePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C73535206B8F9900794673 /* QueuePreferences.swift */; };
+		A9CB19022D10415D0074DC9F /* Storefronts.json in Resources */ = {isa = PBXBuildFile; fileRef = A9CB19012D10415D0074DC9F /* Storefronts.json */; };
+		A9CB19052D10417D0074DC9F /* Alpha2.json in Resources */ = {isa = PBXBuildFile; fileRef = A9CB19042D10417D0074DC9F /* Alpha2.json */; };
 		A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */; };
 		A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */; };
 		A9D64527202CA92400BA172B /* SaveOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D64525202CA92400BA172B /* SaveOptions.swift */; };
@@ -351,6 +354,7 @@
 		A99189CC1F2F87EC00623ED7 /* ChapterImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterImporter.swift; path = Classes/MetadataImporters/ChapterImporter.swift; sourceTree = "<group>"; };
 		A99189D01F2F88F700623ED7 /* ChapterSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterSearchController.swift; path = Classes/ChapterSearchController.swift; sourceTree = "<group>"; };
 		A997B0A91F348AB000974C9C /* MetadataSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataSearchController.swift; path = Classes/MetadataSearchController.swift; sourceTree = "<group>"; };
+		A99B7FD72D53764F0027BCB5 /* AppleTVv3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppleTVv3.swift; path = Classes/MetadataImporters/AppleTVv3.swift; sourceTree = "<group>"; };
 		A99D23202029CD32002E7F27 /* PrefsWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrefsWindow.swift; path = Classes/PrefsWindow.swift; sourceTree = "<group>"; };
 		A9A4A967202F51FA00482D12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SaveOptions.xib; sourceTree = "<group>"; };
 		A9A4A96C202F51FF00482D12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ProgressViewController.xib; sourceTree = "<group>"; };
@@ -391,6 +395,8 @@
 		A9C31E632029A82200CEF474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AdvancedPrefsViewController.xib; sourceTree = "<group>"; };
 		A9C3E449205C07F4004DE24E /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionsViewController.swift; path = Classes/OptionsViewController.swift; sourceTree = "<group>"; };
 		A9C73535206B8F9900794673 /* QueuePreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueuePreferences.swift; path = Classes/QueuePreferences.swift; sourceTree = "<group>"; };
+		A9CB19012D10415D0074DC9F /* Storefronts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Storefronts.json; sourceTree = "<group>"; };
+		A9CB19042D10417D0074DC9F /* Alpha2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Alpha2.json; sourceTree = "<group>"; };
 		A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataImporter.swift; path = Classes/MetadataImporters/MetadataImporter.swift; sourceTree = "<group>"; };
 		A9D64525202CA92400BA172B /* SaveOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveOptions.swift; path = Classes/SaveOptions.swift; sourceTree = "<group>"; };
 		A9DA03E122A0211C0056AE7B /* OCRPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OCRPrefsViewController.swift; path = Classes/OCRPrefsViewController.swift; sourceTree = "<group>"; };
@@ -530,6 +536,8 @@
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				8D15AC360486D014006FF6A4 /* Info.plist */,
 				CDE8E451174CBBD4009410B5 /* iTunesStores.json */,
+				A9CB19012D10415D0074DC9F /* Storefronts.json */,
+				A9CB19042D10417D0074DC9F /* Alpha2.json */,
 				A97FA42123E9877900EE5833 /* Ratings.json */,
 				A94A6A581ED1C5CA00049F7D /* ParseFilename */,
 			);
@@ -705,6 +713,7 @@
 				A97FA41D23E9837000EE5833 /* Ratings.swift */,
 				A9E97F131F274F1100DBA586 /* iTunesStore.swift */,
 				A90B094B235614D200F1B191 /* AppleTV.swift */,
+				A99B7FD72D53764F0027BCB5 /* AppleTVv3.swift */,
 				A98D98451F0280CB00A77ABC /* TheMovieDB.swift */,
 				A98D98471F02820F00A77ABC /* TheMovieDBService.swift */,
 				A9B514181EFC12310055A035 /* TheTVDB.swift */,
@@ -752,7 +761,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1610;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					8D15AC270486D014006FF6A4 = {
 						LastSwiftMigration = 1020;
@@ -821,6 +830,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9EEA5F818D654B9008B54B4 /* QueueOptions.xib in Resources */,
+				A9CB19022D10415D0074DC9F /* Storefronts.json in Resources */,
 				A9AB486617F0AEFD000AA72E /* MovieView.xib in Resources */,
 				A9C31E5D2029A79000CEF474 /* GeneralPrefsViewController.xib in Resources */,
 				A98542DD20D1A7E500EB9803 /* ArtworkSelectorViewItem.xib in Resources */,
@@ -850,6 +860,7 @@
 				A98542D720D197D300EB9803 /* ArtworkSelector.xib in Resources */,
 				A9ECA0602029A13800D5F30C /* OffsetViewController.xib in Resources */,
 				A9ACF03222A2BCF200AD5B12 /* OCRPrefsViewController.xib in Resources */,
+				A9CB19052D10417D0074DC9F /* Alpha2.json in Resources */,
 				A97FA42223E9877900EE5833 /* Ratings.json in Resources */,
 				A961476713F568210068F161 /* Queue.xib in Resources */,
 				A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */,
@@ -928,6 +939,7 @@
 				A9C31E572029A75F00CEF474 /* GeneralPrefsViewController.swift in Sources */,
 				A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */,
 				A9B1056E2025D9B9009E91FC /* TracksViewController.swift in Sources */,
+				A99B7FD82D53764F0027BCB5 /* AppleTVv3.swift in Sources */,
 				A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */,
 				A9C31E602029A80F00CEF474 /* AdvancedPrefsViewController.swift in Sources */,
 				A979B3862025C8BF00468362 /* DocumentWindowController.swift in Sources */,
@@ -1391,7 +1403,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1.8.5;
+				CURRENT_PROJECT_VERSION = 1.8.8;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1408,7 +1420,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.5;
+				MARKETING_VERSION = 1.8.8;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				OTHER_SWIFT_FLAGS = "";
@@ -1433,7 +1445,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8.5;
+				CURRENT_PROJECT_VERSION = 1.8.8;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1449,7 +1461,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.5;
+				MARKETING_VERSION = 1.8.8;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				OTHER_SWIFT_FLAGS = "";
@@ -1463,6 +1475,7 @@
 		C05733CC08A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_OPTIMIZATION = space;
 				CLANG_ANALYZER_GCD_PERFORMANCE = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = YES;
@@ -1551,6 +1564,7 @@
 		C05733CD08A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_OPTIMIZATION = space;
 				CLANG_ANALYZER_GCD_PERFORMANCE = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = YES;

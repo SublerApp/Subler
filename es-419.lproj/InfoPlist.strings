@@ -8,7 +8,7 @@
 "NSAppleEventsUsageDescription" = "Subler necesita acceso para agregar películas a iTunes o a TV";
 
 /* Copyright (human-readable) */
-"NSHumanReadableCopyright" = "Copyright © 2009-2024, Damiano Galassi";
+"NSHumanReadableCopyright" = "Copyright © 2009-2025, Damiano Galassi";
 
 /* (No Comment) */
 "SRT Subtitles" = "Subtítulos SRT";

@@ -244,6 +244,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
     }
 
     private func setCheck(value: Bool, forIndexes indexes: IndexSet) {
+        var modifiedIndexes = IndexSet()
         for index in indexes {
             let item = items[index]
             switch item {
@@ -251,16 +252,18 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
                 break
             case .track(let settings):
                 settings.checked = value && settings.importable
+                modifiedIndexes.insert(index)
             }
         }
-        reloadCheckColumn(forRowIndexes: indexes)
+        reloadCheckColumn(forRowIndexes: modifiedIndexes)
     }
 
     func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
         if let action = item.action,
             action == #selector(self.checkSelected(_:)) ||
             action == #selector(self.uncheckSelected(_:)) ||
-            action == #selector(self.checkOnlyTracksWithSameLanguage(_:)) {
+            action == #selector(self.checkOnlyTracksWithSameLanguage(_:)) ||
+			action == #selector(self.checkOnlySelectedTracks(_:)) {
             if tracksTableView.selectedRow != -1 || tracksTableView.clickedRow != -1 {
                 return true
             }
@@ -287,8 +290,36 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
             }
         }
 
-        settings.forEach { $0.checked = $0.importable && languages.contains($0.track.language) }
-        reloadCheckColumn(forRowIndexes: IndexSet(integersIn: items.indices))
+        var modifiedIndexes = IndexSet()
+
+        items.enumerated().forEach { (index, item) in
+            switch item {
+            case .file(_):
+                break
+            case .track(let settings):
+                settings.checked = settings.importable && languages.contains(settings.track.language)
+                modifiedIndexes.insert(index)
+            }
+        }
+
+        reloadCheckColumn(forRowIndexes: modifiedIndexes)
+    }
+	
+	@IBAction func checkOnlySelectedTracks(_ sender: Any) {
+		let targetedIndices = tracksTableView.targetedRowIndexes;
+        var modifiedIndexes = IndexSet()
+
+        items.enumerated().forEach { (index, item) in
+            switch item {
+            case .file(_):
+                break
+            case .track(let settings):
+                settings.checked = targetedIndices.contains(index)
+                modifiedIndexes.insert(index)
+            }
+        }
+
+        reloadCheckColumn(forRowIndexes: modifiedIndexes)
     }
     
     // MARK: IBActions
