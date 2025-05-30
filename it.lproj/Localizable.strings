@@ -600,3 +600,5 @@
 /* Quit alert description. */
 "Your current queue will be lost. Do you want to quit anyway?" = "La tua coda corrente verrà persa. Vuoi uscire comunque?";
 
+/* Temporary window name suffix. */
+" - Temp" = " - Temporaneo";

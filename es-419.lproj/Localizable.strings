@@ -586,3 +586,5 @@
 /* Quit alert description. */
 "Your current queue will be lost. Do you want to quit anyway?" = "La cola actual se perderá. ¿De verdad quieres salir?";
 
+/* Temporary window name suffix. */
+" - Temp" = " - Temporal";
