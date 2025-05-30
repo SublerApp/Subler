@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
-		4A0F93662DD9AE6600BC764A /* AutomationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0F93652DD9AE5B00BC764A /* AutomationController.swift */; };
 		61CEC0CE1E7569E4000FECC1 /* MultiSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61CEC0CC1E7569E4000FECC1 /* MultiSelectView.xib */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
@@ -194,7 +193,6 @@
 /* Begin PBXFileReference section */
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		4A0F93652DD9AE5B00BC764A /* AutomationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomationController.swift; sourceTree = "<group>"; };
 		610362271E76D66A000DAE60 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/MultiSelectView.strings; sourceTree = "<group>"; };
 		61CEC0CD1E7569E4000FECC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/MultiSelectView.xib; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -501,7 +499,6 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				4A0F93652DD9AE5B00BC764A /* AutomationController.swift */,
 				A9FAC5FE1BAC3BAC00525E42 /* Document */,
 				A9AF6A7818D0537F00FAAB08 /* Queue */,
 				A9915ABB1F4B26A5003C57D1 /* Presets */,
@@ -947,7 +944,6 @@
 				A9C31E602029A80F00CEF474 /* AdvancedPrefsViewController.swift in Sources */,
 				A979B3862025C8BF00468362 /* DocumentWindowController.swift in Sources */,
 				A90D327D2C4931A700BC7A48 /* DocumentToolbarDelegate.swift in Sources */,
-				4A0F93662DD9AE6600BC764A /* AutomationController.swift in Sources */,
 				A9067A0C1F3CA4E6008011DC /* MetadataPrefsViewController.swift in Sources */,
 				A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */,
 				A92BBAB41F557CC0007EA182 /* PresetEditorViewController.swift in Sources */,
