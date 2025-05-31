@@ -17,7 +17,7 @@
 "86.title" = "记住尺寸";
 
 /* Class = "NSButtonCell"; title = "Show open panel"; ObjectID = "87"; */
-"87.title" = "显示“打开”面板";
+"87.title" = "显示"打开"面板";
 
 /* Class = "NSTextFieldCell"; title = "Window:"; ObjectID = "88"; */
 "88.title" = "窗口：";
@@ -42,4 +42,13 @@
 
 /* Class = "NSTextFieldCell"; title = "End"; ObjectID = "He0-rl-DBi"; */
 "He0-rl-DBi.title" = "结尾处";
+
+/* Class = "NSTextFieldCell"; title = "Log Format:"; ObjectID = "logFormatLabelCell"; */
+"logFormatLabelCell.title" = "日志格式：";
+
+/* Class = "NSMenuItem"; title = "Time Only"; ObjectID = "timeOnlyItem"; */
+"timeOnlyItem.title" = "仅时间";
+
+/* Class = "NSMenuItem"; title = "Date and Time"; ObjectID = "dateTimeItem"; */
+"dateTimeItem.title" = "日期和时间";
 

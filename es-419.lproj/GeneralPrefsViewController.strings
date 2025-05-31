@@ -43,3 +43,12 @@
 /* Class = "NSTextFieldCell"; title = "End"; ObjectID = "He0-rl-DBi"; */
 "He0-rl-DBi.title" = "Final";
 
+/* Class = "NSTextFieldCell"; title = "Log Format:"; ObjectID = "logFormatLabelCell"; */
+"logFormatLabelCell.title" = "Formato de registro:";
+
+/* Class = "NSMenuItem"; title = "Time Only"; ObjectID = "timeOnlyItem"; */
+"timeOnlyItem.title" = "Solo hora";
+
+/* Class = "NSMenuItem"; title = "Date and Time"; ObjectID = "dateTimeItem"; */
+"dateTimeItem.title" = "Fecha y hora";
+

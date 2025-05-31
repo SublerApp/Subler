@@ -81,7 +81,12 @@ final class Logger : NSObject, MP42Logging {
     
     static func defaultFormat() -> LogFormat {
         // TODO: Load from preferences
-        return .dateAndTime
+        let logPref: Int = Prefs.logFormat
+        if(logPref != 0) {
+            return .dateAndTime
+        } else {
+            return .timeOnly
+        }
     }
     
     static func makeDefault() -> Logger {
