@@ -1,0 +1,8 @@
+/* Class = "NSTextFieldCell"; title = "Log Format:"; ObjectID = "logFormatLabelCell"; */
+"logFormatLabelCell.title" = "Log Format:";
+
+/* Class = "NSMenuItem"; title = "Time Only"; ObjectID = "timeOnlyItem"; */
+"timeOnlyItem.title" = "Time Only";
+
+/* Class = "NSMenuItem"; title = "Date and Time"; ObjectID = "dateTimeItem"; */
+"dateTimeItem.title" = "Date and Time"; 
