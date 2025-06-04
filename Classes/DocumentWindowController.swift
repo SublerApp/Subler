@@ -516,10 +516,14 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
 
     func didSelect(tracks: [MP42Track], metadata: MP42Metadata?) {
         var fileName = "Untitled"
-        for track in tracks {
-            mp4.addTrack(track)
-            if track.mediaType == "vide" {
-                fileName = track.url?.lastPathComponent ?? ""
+        let suffix = NSLocalizedString(" - Temp", comment: "Appended to window titles to indicate the file is temporary or unsaved")
+        let currentTitle = window?.title ?? ""
+        if currentTitle == fileName || currentTitle == "" {
+            for track in tracks {
+                mp4.addTrack(track)
+                if track.mediaType == "vide" {
+                    fileName = track.url?.lastPathComponent ?? ""
+                }
             }
         }
 
@@ -540,8 +544,9 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             doc.updateChangeCount(.changeDone)
             metadataViewController?.metadata = mp4.metadata
         }
-        let suffix = NSLocalizedString(" - Temp", comment: "Appended to window titles to indicate the file is temporary or unsaved")
-        window?.title = (fileName) + (suffix)
+        if fileName != "Untitled" {
+            window?.title = (fileName) + (suffix)
+        }
         tracksViewController.reloadData()
     }
 
