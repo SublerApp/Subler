@@ -288,9 +288,3 @@
 
 /* Class = "NSMenuItem"; title = "Open in Queue…"; ObjectID = "YfF-TG-cvE"; */
 "YfF-TG-cvE.title" = "Apri in coda…";
-
-/* Class = "NSMenuItem"; title = "Remove completed items from queue"; ObjectID = "JcI-Ih-pOV"; */
-"JcI-Ih-pOV.title" = "Rimuovi gli elementi completati dalla coda";
-
-/* Class = "NSMenuItem"; title = "Start/stop queue"; ObjectID = "yw4-pb-tNR"; */
-"yw4-pb-tNR.title" = "Avvia/ferma la coda";
