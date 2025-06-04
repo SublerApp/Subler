@@ -43,12 +43,3 @@
 /* Class = "NSTextFieldCell"; title = "End"; ObjectID = "He0-rl-DBi"; */
 "He0-rl-DBi.title" = "结尾处";
 
-/* Class = "NSTextFieldCell"; title = "Log Format:"; ObjectID = "logFormatLabelCell"; */
-"logFormatLabelCell.title" = "日志格式：";
-
-/* Class = "NSMenuItem"; title = "Time Only"; ObjectID = "timeOnlyItem"; */
-"timeOnlyItem.title" = "仅时间";
-
-/* Class = "NSMenuItem"; title = "Date and Time"; ObjectID = "dateTimeItem"; */
-"dateTimeItem.title" = "日期和时间";
-
