@@ -39,8 +39,8 @@ class GeneralPrefsViewController: NSViewController {
 
     @objc dynamic var logFormatOptions: [String] {
         return [
-            NSLocalizedString("timeOnlyItem.title", comment: "Log format option"),
-            NSLocalizedString("dateTimeItem.title", comment: "Log format option")
+            "Time Only",
+            "Date and Time"
         ]
     }
 
