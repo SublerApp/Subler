@@ -21,6 +21,7 @@
                 <string>windowSize</string>
                 <string>rememberWindowSize</string>
                 <string>chaptersPreviewTrack</string>
+                <string>SBLogFormat</string>
             </declaredKeys>
         </userDefaultsController>
         <customView id="76">
@@ -173,7 +174,7 @@
                             <connections>
                                 <accessibilityConnection property="title" destination="logFormatLabel" id="logFormatAccessibility"/>
                                 <binding destination="-2" name="content" keyPath="logFormatOptions" id="logFormatContentBinding"/>
-                                <binding destination="3" name="selectedValue" keyPath="values.SBLogFormat" previousBinding="logFormatContentBinding" id="logFormatBinding"/>
+                                <binding destination="3" name="selectedTag" keyPath="values.SBLogFormat" previousBinding="logFormatContentBinding" id="logFormatBinding"/>
                             </connections>
                         </popUpButton>
                         <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="79">

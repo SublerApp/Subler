@@ -8,23 +8,27 @@
 import Foundation
 import MP42Foundation
 
+enum LogFormat: Int {
+    case timeOnly = 0
+    case dateAndTime = 1
+}
+
 final class Logger : NSObject, MP42Logging {
 
     var delegate: MP42Logging?
 
     private let fileURL: URL
     private let queue: DispatchQueue
-    private let format: LogFormat
-    
-    enum LogFormat {
-        case timeOnly
-        case dateAndTime
+    private var format: LogFormat {
+        get {
+            let logPref: Int = Prefs.logFormat
+            return LogFormat(rawValue: logPref) ?? .timeOnly
+        }
     }
-
+    
     init(fileURL: URL, format: LogFormat = Logger.defaultFormat()) {
         self.fileURL = fileURL
         self.queue = DispatchQueue(label: "org.subler.LogQueue")
-        self.format = format
     }
 
     private func currentTime() -> String {
@@ -80,13 +84,8 @@ final class Logger : NSObject, MP42Logging {
     }
     
     static func defaultFormat() -> LogFormat {
-        // TODO: Load from preferences
         let logPref: Int = Prefs.logFormat
-        if(logPref != 0) {
-            return .dateAndTime
-        } else {
-            return .timeOnly
-        }
+        return LogFormat(rawValue: logPref) ?? .timeOnly
     }
     
     static func makeDefault() -> Logger {
