@@ -45,3 +45,27 @@ import Foundation
     }
 
 }
+
+@objc(SBQueueRemoveCompletedScriptCommand) class QueueRemoveCompletedScriptCommand: NSScriptCommand {
+
+    @MainActor override func performDefaultImplementation() -> Any? {
+        QueueController.shared.removeCompletedItems(self)
+        return nil
+    }
+
+}
+
+@objc(SBQueueStatusScriptCommand) class SBQueueStatusScriptCommand: NSScriptCommand {
+
+    @MainActor override func performDefaultImplementation() -> Any? {
+        switch QueueController.shared.status {
+        case .unknown:
+            return 0 // idle
+        case .working:
+            return 1 // running
+        case .completed:
+            return 2 // completed
+        }
+    }
+
+}
