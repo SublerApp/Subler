@@ -530,9 +530,16 @@ class SBFetchMetadataResultsScriptCommand: NSScriptCommand, ScriptCommandDocumen
         let semaphore = DispatchSemaphore(value: 0)
         var searchResults: [SBMetadataResult] = []
         
+        // Get the optional limit parameter
+        let limit = self.evaluatedArguments?["limit"] as? Int
+        
+        // Get the optional provider and language parameters
+        let provider = self.evaluatedArguments?["provider"] as? String
+        let language = self.evaluatedArguments?["language"] as? String
+        
         // Run the search on a background queue to avoid blocking main thread
         DispatchQueue.global(qos: .userInitiated).async {
-            self.searchMetadataResults(terms: searchTerms) { results in
+            self.searchMetadataResults(terms: searchTerms, provider: provider, language: language) { results in
                 searchResults = results ?? []
                 logger.write(toLog: "Metadata search completed with \(searchResults.count) results")
                 semaphore.signal()
@@ -541,9 +548,6 @@ class SBFetchMetadataResultsScriptCommand: NSScriptCommand, ScriptCommandDocumen
         
         // Wait for the search to complete
         semaphore.wait()
-        
-        // Get the optional limit parameter
-        let limit = self.evaluatedArguments?["limit"] as? Int
         
         // Apply limit if specified
         if let limit = limit, limit > 0 {
@@ -583,71 +587,105 @@ class SBFetchMetadataResultsScriptCommand: NSScriptCommand, ScriptCommandDocumen
         return formattedResults
     }
     
-    private func searchMetadataResults(terms: MetadataSearchTerms, completion: @escaping ([SBMetadataResult]?) -> Void) {
-        // Use default services and settings
-        let movieService = MetadataSearch.defaultMovieService
-        let tvShowService = MetadataSearch.defaultTVService
+    private func searchMetadataResults(terms: MetadataSearchTerms, provider: String? = nil, language: String? = nil, completion: @escaping ([SBMetadataResult]?) -> Void) {
+        // Determine which services to use based on provider parameter
+        let movieService: MetadataService
+        let tvShowService: MetadataService
         
+        if let providerName = provider {
+            // Use the specified provider for both movie and TV searches
+            let service = MetadataSearch.service(name: providerName)
+            movieService = service
+            tvShowService = service
+        } else {
+            // Use default services
+            movieService = MetadataSearch.defaultMovieService
+            tvShowService = MetadataSearch.defaultTVService
+        }
+        
+        // Convert language to appropriate format for the service
+        let convertedLanguage: String?
+        if let languageCode = language {
+            if movieService.languageType == .ISO {
+                // For ISO services (TheMovieDB, TheTVDB), use the language code as-is
+                convertedLanguage = languageCode
+            } else {
+                // For custom services (Apple TV, iTunes Store), try to find a matching store
+                let availableLanguages = movieService.languages
+                if let matchingLanguage = availableLanguages.first(where: { $0.lowercased().contains(languageCode.lowercased()) }) {
+                    convertedLanguage = matchingLanguage
+                } else {
+                    // Fall back to default language if no match found
+                    convertedLanguage = movieService.defaultLanguage
+                }
+            }
+        } else {
+            convertedLanguage = nil
+        }
+        
+        // Determine which language to use for the search
+        let searchLanguage = convertedLanguage ?? movieService.defaultLanguage
+        
+        // Perform the search based on media type
         switch terms {
-        case let .movie(title):
-            let movieSearch = MetadataSearch.movieSeach(service: movieService, movie: title, language: MetadataSearch.defaultLanguage(service: movieService, type: .movie))
-            _ = movieSearch.search(completionHandler: { results in
-                // Convert results to SBMetadataResult objects
-                let metadataResults = results.map { result in
-                    // Extract year from releaseDate if it's a string
-                    let year: Int? = {
-                        if let releaseDate = result[.releaseDate] as? String {
-                            // Try to extract year from date string (e.g., "2023-12-25" -> 2023)
-                            let components = releaseDate.split(separator: "-")
-                            if let yearString = components.first {
-                                return Int(yearString)
-                            }
-                        }
-                        return nil
-                    }()
-                    
-                    return SBMetadataResult(
-                        title: result[.name] as? String,
-                        year: year,
-                        series: nil,
-                        season: nil,
-                        episode: nil,
-                        mediaType: "movie"
-                    )
-                }
-                completion(metadataResults)
-            }).run()
+        case .movie(let title):
+            let results = movieService.search(movie: title, language: searchLanguage)
             
-        case let .tvShow(title, season, episode):
-            let tvSearch = MetadataSearch.tvSearch(service: tvShowService, tvShow: title, season: season, episode: episode, language: MetadataSearch.defaultLanguage(service: tvShowService, type: .tvShow))
-            _ = tvSearch.search(completionHandler: { results in
-                // Convert results to SBMetadataResult objects
-                let metadataResults = results.map { result in
-                    // Extract year from releaseDate if it's a string
-                    let year: Int? = {
-                        if let releaseDate = result[.releaseDate] as? String {
-                            // Try to extract year from date string (e.g., "2023-12-25" -> 2023)
-                            let components = releaseDate.split(separator: "-")
-                            if let yearString = components.first {
-                                return Int(yearString)
-                            }
+            // Convert MetadataResult to SBMetadataResult
+            let sbResults = results.map { result in
+                // Extract year from releaseDate if it's a string
+                let year: Int? = {
+                    if let releaseDate = result[.releaseDate] as? String {
+                        // Try to extract year from date string (e.g., "2023-12-25" -> 2023)
+                        let components = releaseDate.split(separator: "-")
+                        if let yearString = components.first {
+                            return Int(yearString)
                         }
-                        return nil
-                    }()
-                    
-                    return SBMetadataResult(
-                        title: result[.name] as? String,
-                        year: year,
-                        series: result[.seriesName] as? String,
-                        season: result[.season] as? Int,
-                        episode: result[.episodeNumber] as? Int,
-                        mediaType: "tvshow"
-                    )
-                }
-                completion(metadataResults)
-            }).run()
+                    }
+                    return nil
+                }()
+                
+                return SBMetadataResult(
+                    title: result[.name] as? String,
+                    year: year,
+                    series: nil,
+                    season: nil,
+                    episode: nil,
+                    mediaType: "movie"
+                )
+            }
+            completion(sbResults)
+            
+        case .tvShow(let title, let season, let episode):
+            let results = tvShowService.search(tvShow: title, language: searchLanguage, season: season, episode: episode)
+            
+            // Convert MetadataResult to SBMetadataResult
+            let sbResults = results.map { result in
+                // Extract year from releaseDate if it's a string
+                let year: Int? = {
+                    if let releaseDate = result[.releaseDate] as? String {
+                        // Try to extract year from date string (e.g., "2023-12-25" -> 2023)
+                        let components = releaseDate.split(separator: "-")
+                        if let yearString = components.first {
+                            return Int(yearString)
+                        }
+                    }
+                    return nil
+                }()
+                
+                return SBMetadataResult(
+                    title: result[.name] as? String,
+                    year: year,
+                    series: result[.seriesName] as? String,
+                    season: result[.season] as? Int,
+                    episode: result[.episodeNumber] as? Int,
+                    mediaType: "tvshow"
+                )
+            }
+            completion(sbResults)
+            
         case .none:
-            completion(nil)
+            completion([])
         }
     }
 }
@@ -664,6 +702,10 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
             return nil
         }
         
+        // Get the optional provider and language parameters
+        let provider = self.evaluatedArguments?["provider"] as? String
+        let language = self.evaluatedArguments?["language"] as? String
+        
         guard let sublerDoc = getTargetDocument() else {
             logger.write(toLog: "No document available for metadata operation")
             return nil
@@ -674,7 +716,7 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
         let searchTerms = mp4File.extractSearchTerms(fallbackURL: sublerDoc.fileURL)
         
         // Perform search and apply the nth result
-        searchMetadataAndSetResult(terms: searchTerms, resultIndex: resultIndex - 1) { success in
+        searchMetadataAndSetResult(terms: searchTerms, resultIndex: resultIndex - 1, provider: provider, language: language) { success in
             DispatchQueue.main.async {
                 if success {
                     // Trigger UI refresh
@@ -691,19 +733,54 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
         return nil
     }
     
-    private func searchMetadataAndSetResult(terms: MetadataSearchTerms, resultIndex: Int, completion: @escaping (Bool) -> Void) {
-        // Use default services and settings
-        let movieService = MetadataSearch.defaultMovieService
-        let tvShowService = MetadataSearch.defaultTVService
+    private func searchMetadataAndSetResult(terms: MetadataSearchTerms, resultIndex: Int, provider: String?, language: String?, completion: @escaping (Bool) -> Void) {
+        // Determine which services to use based on provider parameter
+        let movieService: MetadataService
+        let tvShowService: MetadataService
+        
+        if let providerName = provider {
+            // Use the specified provider for both movie and TV searches
+            let service = MetadataSearch.service(name: providerName)
+            movieService = service
+            tvShowService = service
+        } else {
+            // Use default services
+            movieService = MetadataSearch.defaultMovieService
+            tvShowService = MetadataSearch.defaultTVService
+        }
+        
+        // Convert language to appropriate format for the service
+        let convertedLanguage: String?
+        if let languageCode = language {
+            if movieService.languageType == .ISO {
+                // For ISO services (TheMovieDB, TheTVDB), use the language code as-is
+                convertedLanguage = languageCode
+            } else {
+                // For custom services (Apple TV, iTunes Store), try to find a matching store
+                let availableLanguages = movieService.languages
+                if let matchingLanguage = availableLanguages.first(where: { $0.lowercased().contains(languageCode.lowercased()) }) {
+                    convertedLanguage = matchingLanguage
+                } else {
+                    // Fall back to default language if no match found
+                    convertedLanguage = movieService.defaultLanguage
+                }
+            }
+        } else {
+            convertedLanguage = nil
+        }
+        
+        // Determine which language to use for the search
+        let searchLanguage = convertedLanguage ?? movieService.defaultLanguage
         
         // Get user preferences for artwork from Queue preferences
         let queuePrefs = QueuePreferences()
         let preferredArtwork = ArtworkType(rawValue: queuePrefs.providerArtwork) ?? .poster
         let preferredArtworkSize = ArtworkSize(rawValue: queuePrefs.providerArtworkSize) ?? .standard
         
+        // Perform the search based on media type
         switch terms {
         case let .movie(title):
-            let movieSearch = MetadataSearch.movieSeach(service: movieService, movie: title, language: MetadataSearch.defaultLanguage(service: movieService, type: .movie))
+            let movieSearch = MetadataSearch.movieSeach(service: movieService, movie: title, language: searchLanguage)
             _ = movieSearch.search(completionHandler: { results in
                 if resultIndex >= 0 && resultIndex < results.count {
                     let selectedResult = results[resultIndex]
@@ -753,7 +830,7 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
             }).run()
             
         case let .tvShow(title, season, episode):
-            let tvSearch = MetadataSearch.tvSearch(service: tvShowService, tvShow: title, season: season, episode: episode, language: MetadataSearch.defaultLanguage(service: tvShowService, type: .tvShow))
+            let tvSearch = MetadataSearch.tvSearch(service: tvShowService, tvShow: title, season: season, episode: episode, language: searchLanguage)
             _ = tvSearch.search(completionHandler: { results in
                 if resultIndex >= 0 && resultIndex < results.count {
                     let selectedResult = results[resultIndex]

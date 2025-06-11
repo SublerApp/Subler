@@ -52,6 +52,8 @@
         <command name="fetch metadata candidates" code="SublFRes" description="Fetch metadata results without applying them.">
             <cocoa class="SBFetchMetadataResultsScriptCommand" />
             <parameter name="limit" code="limt" type="integer" optional="yes" description="Maximum number of results to return." />
+            <parameter name="provider" code="prov" type="text" optional="yes" description="Metadata provider to use (Apple TV, TheMovieDB, TheTVDB, iTunes Store)." />
+            <parameter name="language" code="lang" type="text" optional="yes" description="Language for metadata search (e.g., 'en', 'es', 'fr')." />
             <result description="The metadata results.">
                 <type type="text" list="yes"/>
             </result>
