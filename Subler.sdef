@@ -64,6 +64,8 @@
             <direct-parameter description="The result index to set (1-based).">
                 <type type="integer" />
             </direct-parameter>
+            <parameter name="provider" code="prov" type="text" optional="yes" description="Metadata provider to use (Apple TV, TheMovieDB, TheTVDB, iTunes Store)." />
+            <parameter name="language" code="lang" type="text" optional="yes" description="Language for metadata search (e.g., 'en', 'es', 'fr')." />
         </command>
 
         <!-- Edit Commands -->
