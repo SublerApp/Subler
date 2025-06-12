@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dictionary SYSTEM "file:///localhost/System/Library/DTDs/sdef.dtd">
-<dictionary title="Subler Terminology">
+<dictionary title="Subler Terminology" xmlns:xi="http://www.w3.org/2001/XInclude">
     
     <xi:include href="file:///System/Library/ScriptingDefinitions/CocoaStandard.sdef" xpointer="xpointer(/dictionary/suite)" />
 
@@ -15,10 +15,6 @@
         <!-- Commands -->
 
         <!-- File Commands -->
-        <command name="new file" code="SublFilN" description="Create a new blank Subler document.">
-            <cocoa class="SBNewFileScriptCommand" />
-        </command>
-
         <command name="import file" code="SublFilI" description="Import a file into the active document.">
             <cocoa class="SBImportFileScriptCommand" />
             <direct-parameter description="The file to import.">
@@ -151,6 +147,10 @@
         </enumeration>
 
         <!-- Queue Classes -->
+        <class name="document" code="docu" description="A Subler document" plural="documents">
+            <cocoa class="Document"/>
+        </class>
+        
         <class name="queue item" code="QIte" description="A queue item" inherits="item" plural="queue items">
             <cocoa class="SBQueueItem"/>
 

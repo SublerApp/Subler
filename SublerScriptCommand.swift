@@ -50,26 +50,6 @@ extension ScriptCommandDocumentTargeting where Self: NSScriptCommand {
     }
 }
 
-@objc(SBNewFileScriptCommand)
-class SBNewFileScriptCommand: NSScriptCommand {
-
-    override func performDefaultImplementation() -> Any? {
-        let logger = Logger.makeDefault()
-
-        // Create a new document
-        let docController = NSDocumentController.shared
-        
-        do {
-            _ = try docController.openUntitledDocumentAndDisplay(true)
-            logger.write(toLog: "Script successfully created new document")
-        } catch {
-            logger.write(toLog: "Script failed to create new document: \(error.localizedDescription)")
-        }
-        
-        return nil
-    }
-}
-
 @objc(SBImportFileScriptCommand)
 class SBImportFileScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
     

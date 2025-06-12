@@ -9,6 +9,7 @@ import Cocoa
 import IOKit.pwr_mgt
 import MP42Foundation
 
+@objc(Document)
 final class Document: NSDocument {
 
     private(set) var mp4: MP42File
