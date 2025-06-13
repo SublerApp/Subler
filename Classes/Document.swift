@@ -21,6 +21,7 @@ final class Document: NSDocument {
         self.optimize = false
         self.unsupportedMp4Brand = false
         self.mp4 = MP42File()
+        super.init()
     }
 
     init(mp4: MP42File) {
