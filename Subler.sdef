@@ -20,6 +20,7 @@
             <direct-parameter description="The file to import.">
                 <type type="file" />
             </direct-parameter>
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to import into." />
         </command>
 
         <command name="save as" code="SublSave" description="Save the active document to a file.">
@@ -27,6 +28,7 @@
             <direct-parameter description="The destination file path.">
                 <type type="file" />
             </direct-parameter>
+            <parameter name="doc" code="docu" type="document" optional="yes" description="The target document to save." />
         </command>
 
         <command name="send to queue" code="SublSenQ" description="Send the active document to the queue.">
@@ -34,19 +36,23 @@
             <direct-parameter description="The destination file path.">
                 <type type="file" />
             </direct-parameter>
+            <parameter name="doc" code="docu" type="document" optional="yes" description="The target document to send to queue." />
         </command>
 
-        <command name="close file" code="SublClos" description="Close the active document window without prompting for unsaved changes.">
+        <command name="close document" code="SublClos" description="Close the active document window without prompting for unsaved changes.">
             <cocoa class="SBCloseFileScriptCommand" />
+            <parameter name="doc" code="docu" type="document" optional="yes" description="The target document to close." />
         </command>
 
         <!-- Metadata Commands -->
         <command name="fetch metadata" code="SublMeta" description="Fetch metadata for the active document.">
             <cocoa class="SBFetchMetadataScriptCommand" />
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to fetch metadata for." />
         </command>
 
         <command name="fetch metadata candidates" code="SublFRes" description="Fetch metadata results without applying them.">
             <cocoa class="SBFetchMetadataResultsScriptCommand" />
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to fetch metadata candidates for." />
             <parameter name="limit" code="limt" type="integer" optional="yes" description="Maximum number of results to return." />
             <parameter name="provider" code="prov" type="text" optional="yes" description="Metadata provider to use (Apple TV, TheMovieDB, TheTVDB, iTunes Store)." />
             <parameter name="language" code="lang" type="text" optional="yes" description="Language for metadata search (e.g., 'en', 'es', 'fr')." />
@@ -60,6 +66,7 @@
             <direct-parameter description="The result index to set (1-based).">
                 <type type="integer" />
             </direct-parameter>
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to set metadata for." />
             <parameter name="provider" code="prov" type="text" optional="yes" description="Metadata provider to use (Apple TV, TheMovieDB, TheTVDB, iTunes Store)." />
             <parameter name="language" code="lang" type="text" optional="yes" description="Language for metadata search (e.g., 'en', 'es', 'fr')." />
         </command>
@@ -67,18 +74,22 @@
         <!-- Edit Commands -->
         <command name="organize alternate groups" code="SublOrgG" description="Organize alternate audio groups.">
             <cocoa class="SBOrganizeAlternateGroupsScriptCommand" />
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to organize alternate groups for." />
         </command>
 
         <command name="clear track names" code="SublClea" description="Clear all track names.">
             <cocoa class="SBClearTrackNamesScriptCommand" />
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to clear track names for." />
         </command>
 
         <command name="prettify audio track names" code="SublPret" description="Prettify audio track names.">
             <cocoa class="SBPrettifyAudioTrackNamesScriptCommand" />
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to prettify audio track names for." />
         </command>
 
         <command name="fix audio fallbacks" code="SublFixF" description="Fix audio fallback settings.">
             <cocoa class="SBFixAudioFallbacksScriptCommand" />
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to fix audio fallbacks for." />
         </command>
 
         <!-- Queue Commands -->
@@ -149,6 +160,18 @@
         <!-- Queue Classes -->
         <class name="document" code="docu" description="A Subler document" plural="documents">
             <cocoa class="Document"/>
+            <property name="id" code="ID  " type="integer" access="r" description="The unique identifier of the document.">
+                <cocoa key="uniqueID"/>
+            </property>
+            <property name="name" code="pnam" type="text" access="r" description="The name of the document.">
+                <cocoa key="displayName"/>
+            </property>
+            <property name="modified" code="imod" type="boolean" access="r" description="Whether the document has been modified.">
+                <cocoa key="isDocumentEdited"/>
+            </property>
+            <property name="file" code="file" type="file" access="r" description="The file associated with the document.">
+                <cocoa key="fileURL"/>
+            </property>
         </class>
         
         <class name="queue item" code="QIte" description="A queue item" inherits="item" plural="queue items">

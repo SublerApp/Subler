@@ -13,7 +13,17 @@ import MP42Foundation
 protocol ScriptCommandDocumentTargeting {}
 extension ScriptCommandDocumentTargeting where Self: NSScriptCommand {
     func getTargetDocument() -> Document? {
-        // First, try to get document from direct parameter
+        // First, check for explicit document parameters ('into' or 'doc')
+        if let evaluatedArgs = self.evaluatedArguments {
+            if let doc = evaluatedArgs["into"] as? Document {
+                return doc
+            }
+            if let doc = evaluatedArgs["doc"] as? Document {
+                return doc
+            }
+        }
+        
+        // Then, try to get document from direct parameter
         if let directParameter = self.directParameter as? Document {
             return directParameter
         }
