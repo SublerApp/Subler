@@ -22,7 +22,7 @@
 				<string>com.apple.protected-mpeg-4-video</string>
 			</array>
 			<key>NSDocumentClass</key>
-			<string>Document</string>
+			<string>Subler.Document</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeName</key>

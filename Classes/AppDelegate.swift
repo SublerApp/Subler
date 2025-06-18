@@ -10,6 +10,18 @@ import MP42Foundation
 
 final class DocumentController : NSDocumentController {
 
+    override func makeUntitledDocument(ofType typeName: String) throws -> NSDocument {
+        return Document()
+    }
+
+    override func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        if item.action == #selector(NSDocumentController.newDocument(_:)) ||
+           item.action == #selector(NSDocumentController.openDocument(_:)) {
+            return true
+        }
+        return super.validateUserInterfaceItem(item)
+    }
+
     private var openPanel: NSOpenPanel?
 
     override func openDocument(_ sender: Any?) {
