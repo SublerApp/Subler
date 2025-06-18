@@ -10,6 +10,10 @@ import MP42Foundation
 
 final class DocumentController : NSDocumentController {
 
+    override func makeDocument(withContentsOf url: URL, ofType typeName: String) throws -> NSDocument {
+        return try Document(contentsOf: url, ofType: typeName)
+    }
+
     override func makeUntitledDocument(ofType typeName: String) throws -> NSDocument {
         return Document()
     }
@@ -167,7 +171,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         Prefs.register()
         MetadataPrefs.register()
 
-        _ = documentController
         _ = activityWindowController
 
         logger.clear()

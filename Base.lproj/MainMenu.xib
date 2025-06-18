@@ -502,6 +502,7 @@
             </items>
             <point key="canvasLocation" x="-244" y="-303"/>
         </menu>
+        <customObject id="Msu-dq-xzt" customClass="DocumentController" customModule="Subler" customModuleProvider="target"/>
         <customObject id="419" customClass="NSFontManager"/>
         <customObject id="449" userLabel="AppDelegate" customClass="AppDelegate" customModule="Subler" customModuleProvider="target">
             <connections>
