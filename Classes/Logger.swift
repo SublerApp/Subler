@@ -14,7 +14,7 @@ final class Logger : NSObject, MP42Logging {
 
     private let fileURL: URL
     private let queue: DispatchQueue
-    
+
     init(fileURL: URL) {
         self.fileURL = fileURL
         self.queue = DispatchQueue(label: "org.subler.LogQueue")
@@ -54,5 +54,6 @@ final class Logger : NSObject, MP42Logging {
     func clear() {
         try? FileManager.default.removeItem(at: fileURL)
     }
+    
     
 }
