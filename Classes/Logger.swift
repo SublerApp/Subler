@@ -54,6 +54,6 @@ final class Logger : NSObject, MP42Logging {
     func clear() {
         try? FileManager.default.removeItem(at: fileURL)
     }
-    
-    
+
+
 }
