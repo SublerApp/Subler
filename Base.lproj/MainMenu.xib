@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -147,7 +147,7 @@
                                     <action selector="sendToQueue:" target="-1" id="599"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Send To iTunes" keyEquivalent="I" id="597" userLabel="10">
+                            <menuItem title="Send To iTunes" id="597" userLabel="10">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="sendToExternalApp:" target="-1" id="598"/>
@@ -241,7 +241,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="532"/>
-                            <menuItem title="Offset…" keyEquivalent="O" id="567">
+                            <menuItem title="Offset…" id="567">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="showTrackOffsetSheet:" target="-1" id="570"/>
@@ -309,40 +309,28 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Organize alternate groups" keyEquivalent="G" id="652">
+                            <menuItem title="Organize alternate groups" id="652">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="iTunesFriendlyTrackGroups:" target="-1" id="654"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Clear tracks names" keyEquivalent="N" id="hKY-N2-NzK">
+                            <menuItem title="Clear tracks names" id="hKY-N2-NzK">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="clearTrackNames:" target="-1" id="KsZ-tN-sdV"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Prettify audio track names" keyEquivalent="P" id="fm8-d2-1Yi">
+                            <menuItem title="Prettify audio track names" id="fm8-d2-1Yi">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="prettifyAudioTrackNames:" target="-1" id="z63-Uv-MTO"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Fix audio fallbacks" keyEquivalent="F" id="FXb-bX-0Wb">
+                            <menuItem title="Fix audio fallbacks" id="FXb-bX-0Wb">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="fixAudioFallbacks:" target="-1" id="cpY-If-3df"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="yw4-pb-tNR"/>
-                            <menuItem title="Start/stop queue" keyEquivalent="Q" id="mpO-jc-pWM">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="toggleStartStop:" target="-1" id="nZm-7v-GM4"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Remove completed items from queue" keyEquivalent="r" id="JcI-Ih-pOV">
-                                <connections>
-                                    <action selector="removeCompletedItems:" target="-1" id="hcq-g7-Iu7"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="568"/>
