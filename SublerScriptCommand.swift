@@ -64,17 +64,17 @@ extension ScriptCommandDocumentTargeting where Self: NSScriptCommand {
 class SBImportFileScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
     
     override func performDefaultImplementation() -> Any? {
-        let logger = Logger.makeDefault()
+        //let logger = Logger.makeDefault()
 
         // Get file path using the helper method
         guard let path = extractFilePath() else {
-            logger.write(toLog: "Script failed to get file parameter - expected file reference or path string")
+            //logger.write(toLog: "Script failed to get file parameter - expected file reference or path string")
             return nil
         }
 
         // Get target document using universal method
         guard let doc = getTargetDocument() else {
-            logger.write(toLog: "No document available for import")
+            //logger.write(toLog: "No document available for import")
             return nil
         }
 
@@ -87,12 +87,12 @@ class SBImportFileScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting
             if windowController.responds(to: selector) {
                 let fileURLs = [fileURL]
                 _ = windowController.perform(selector, with: fileURLs)
-                logger.write(toLog: "Script successfully imported file into target document")
+                //logger.write(toLog: "Script successfully imported file into target document")
             } else {
-                logger.write(toLog: "importFilesDirectly method not found on target document")
+                //logger.write(toLog: "importFilesDirectly method not found on target document")
             }
         } else {
-            logger.write(toLog: "No window controller found for target document")
+            //logger.write(toLog: "No window controller found for target document")
         }
 
         return path
@@ -103,9 +103,9 @@ class SBImportFileScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting
 class SBFetchMetadataScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
     
     override func performDefaultImplementation() -> Any? {
-        let logger = Logger.makeDefault()
+        //let logger = Logger.makeDefault()
         guard let sublerDoc = getTargetDocument() else {
-            logger.write(toLog: "No document available for fetching metadata")
+            //logger.write(toLog: "No document available for fetching metadata")
             return nil
         }
 
@@ -128,9 +128,9 @@ class SBFetchMetadataScriptCommand: NSScriptCommand, ScriptCommandDocumentTarget
                     
                     // Log the metadata that was applied
                     let metadataCount = mp4File.metadata.items.count
-                    logger.write(toLog: "Script successfully applied \(metadataCount) metadata items")
+                    //logger.write(toLog: "Script successfully applied \(metadataCount) metadata items")
                 } else {
-                    logger.write(toLog: "No metadata found")
+                    //logger.write(toLog: "No metadata found")
                 }
             }
         }
@@ -248,18 +248,18 @@ class SBFetchMetadataScriptCommand: NSScriptCommand, ScriptCommandDocumentTarget
 class SBOrganizeAlternateGroupsScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
     
     override func performDefaultImplementation() -> Any? {
-        let logger = Logger.makeDefault()
+        //let logger = Logger.makeDefault()
         guard let sublerDoc = getTargetDocument() else {
-            logger.write(toLog: "No document available for organizing alternate groups")
+            //logger.write(toLog: "No document available for organizing alternate groups")
             return nil
         }
         
         // Use the existing IBAction instead of duplicating logic
         if let windowController = sublerDoc.windowControllers.first as? DocumentWindowController {
             windowController.iTunesFriendlyTrackGroups(self)
-            logger.write(toLog: "Script successfully organized alternate groups")
+            //logger.write(toLog: "Script successfully organized alternate groups")
         } else {
-            logger.write(toLog: "No window controller found for organizing alternate groups")
+            //logger.write(toLog: "No window controller found for organizing alternate groups")
         }
         
         return nil
@@ -270,18 +270,18 @@ class SBOrganizeAlternateGroupsScriptCommand: NSScriptCommand, ScriptCommandDocu
 class SBClearTrackNamesScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
     
     override func performDefaultImplementation() -> Any? {
-        let logger = Logger.makeDefault()
+        //let logger = Logger.makeDefault()
         guard let sublerDoc = getTargetDocument() else {
-            logger.write(toLog: "No document available for clearing track names")
+            //logger.write(toLog: "No document available for clearing track names")
             return nil
         }
         
         // Use the existing IBAction instead of duplicating logic
         if let windowController = sublerDoc.windowControllers.first as? DocumentWindowController {
             windowController.clearTrackNames(self)
-            logger.write(toLog: "Script successfully cleared all track names")
+            //logger.write(toLog: "Script successfully cleared all track names")
         } else {
-            logger.write(toLog: "No window controller found for clearing track names")
+            //logger.write(toLog: "No window controller found for clearing track names")
         }
         
         return nil
@@ -292,18 +292,18 @@ class SBClearTrackNamesScriptCommand: NSScriptCommand, ScriptCommandDocumentTarg
 class SBPrettifyAudioTrackNamesScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
     
     override func performDefaultImplementation() -> Any? {
-        let logger = Logger.makeDefault()
+        //let logger = Logger.makeDefault()
         guard let sublerDoc = getTargetDocument() else {
-            logger.write(toLog: "No document available for prettifying audio track names")
+            //logger.write(toLog: "No document available for prettifying audio track names")
             return nil
         }
         
         // Use the existing IBAction instead of duplicating logic
         if let windowController = sublerDoc.windowControllers.first as? DocumentWindowController {
             windowController.prettifyAudioTrackNames(self)
-            logger.write(toLog: "Script successfully prettified audio track names")
+            //logger.write(toLog: "Script successfully prettified audio track names")
         } else {
-            logger.write(toLog: "No window controller found for prettifying audio track names")
+            //logger.write(toLog: "No window controller found for prettifying audio track names")
         }
         
         return nil
@@ -314,18 +314,18 @@ class SBPrettifyAudioTrackNamesScriptCommand: NSScriptCommand, ScriptCommandDocu
 class SBFixAudioFallbacksScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
     
     override func performDefaultImplementation() -> Any? {
-        let logger = Logger.makeDefault()
+        //let logger = Logger.makeDefault()
         guard let sublerDoc = getTargetDocument() else {
-            logger.write(toLog: "No document available for fixing audio fallbacks")
+            //logger.write(toLog: "No document available for fixing audio fallbacks")
             return nil
         }
         
         // Use the existing IBAction instead of duplicating logic
         if let windowController = sublerDoc.windowControllers.first as? DocumentWindowController {
             windowController.fixAudioFallbacks(self)
-            logger.write(toLog: "Script successfully fixed audio fallbacks")
+            //logger.write(toLog: "Script successfully fixed audio fallbacks")
         } else {
-            logger.write(toLog: "No window controller found for fixing audio fallbacks")
+            //logger.write(toLog: "No window controller found for fixing audio fallbacks")
         }
         
         return nil
@@ -336,11 +336,11 @@ class SBFixAudioFallbacksScriptCommand: NSScriptCommand, ScriptCommandDocumentTa
 class SBSaveAsScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
     
     override func performDefaultImplementation() -> Any? {
-        let logger = Logger.makeDefault()
+        //let logger = Logger.makeDefault()
         
         // Get the target document (frontmost or specified)
         guard let sublerDoc = getTargetDocument() else {
-            logger.write(toLog: "No document available for save as operation")
+            //logger.write(toLog: "No document available for save as operation")
             return nil
         }
         
@@ -359,7 +359,7 @@ class SBSaveAsScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
         
         // Get the window controller for progress reporting
         guard let windowController = sublerDoc.windowControllers.first as? DocumentWindowController else {
-            logger.write(toLog: "No window controller found for progress reporting")
+            //logger.write(toLog: "No window controller found for progress reporting")
             return nil
         }
         
@@ -403,12 +403,12 @@ class SBSaveAsScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
                         windowController.reloadData()
                     }
                 }
-                logger.write(toLog: "Script save of \(fileName) completed")
+                //logger.write(toLog: "Script save of \(fileName) completed")
             } catch {
                 DispatchQueue.main.async {
                     // End progress reporting on error
                     windowController.endProgressReporting()
-                    logger.write(toLog: "Failed to save document: \(error.localizedDescription)")
+                    //logger.write(toLog: "Failed to save document: \(error.localizedDescription)")
                 }
             }
         }
@@ -421,11 +421,11 @@ class SBSaveAsScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
 class SBSendToQueueScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
     
     override func performDefaultImplementation() -> Any? {
-        let logger = Logger.makeDefault()
+        //let logger = Logger.makeDefault()
         
         // Get the target document (frontmost or specified)
         guard let sublerDoc = getTargetDocument() else {
-            logger.write(toLog: "No document available for send to queue operation")
+            //logger.write(toLog: "No document available for send to queue operation")
             return nil
         }
         
@@ -447,7 +447,7 @@ class SBSendToQueueScriptCommand: NSScriptCommand, ScriptCommandDocumentTargetin
         
         // Add the queue item
         QueueController.shared.add(item)
-        logger.write(toLog: "Script successfully sent document to queue: \(fileName)")
+        //logger.write(toLog: "Script successfully sent document to queue: \(fileName)")
         
         // Close the document window since it's now in the queue
         DispatchQueue.main.async {
@@ -462,11 +462,11 @@ class SBSendToQueueScriptCommand: NSScriptCommand, ScriptCommandDocumentTargetin
 class SBCloseFileScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
     
     override func performDefaultImplementation() -> Any? {
-        let logger = Logger.makeDefault()
+        //let logger = Logger.makeDefault()
         
         // Get the target document (frontmost or specified)
         guard let sublerDoc = getTargetDocument() else {
-            logger.write(toLog: "No document available for close operation")
+            //logger.write(toLog: "No document available for close operation")
             return nil
         }
         
@@ -475,7 +475,7 @@ class SBCloseFileScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting 
             sublerDoc.close()
         }
         
-        logger.write(toLog: "Script successfully closed document")
+        //logger.write(toLog: "Script successfully closed document")
         return nil
     }
 }
@@ -504,9 +504,9 @@ class SBMetadataResult: NSObject {
 class SBFetchMetadataResultsScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
     
     override func performDefaultImplementation() -> Any? {
-        let logger = Logger.makeDefault()
+        //let logger = Logger.makeDefault()
         guard let sublerDoc = getTargetDocument() else {
-            logger.write(toLog: "No document available for fetching metadata results")
+            //logger.write(toLog: "No document available for fetching metadata results")
             return []
         }
 
@@ -514,7 +514,7 @@ class SBFetchMetadataResultsScriptCommand: NSScriptCommand, ScriptCommandDocumen
         let mp4File = sublerDoc.mp4
         let searchTerms = mp4File.extractSearchTerms(fallbackURL: sublerDoc.fileURL)
         
-        logger.write(toLog: "Starting metadata search for terms: \(searchTerms)")
+        //logger.write(toLog: "Starting metadata search for terms: \(searchTerms)")
         
         // Use a semaphore to make this synchronous, but run search on background queue
         let semaphore = DispatchSemaphore(value: 0)
@@ -531,7 +531,7 @@ class SBFetchMetadataResultsScriptCommand: NSScriptCommand, ScriptCommandDocumen
         DispatchQueue.global(qos: .userInitiated).async {
             self.searchMetadataResults(terms: searchTerms, provider: provider, language: language) { results in
                 searchResults = results ?? []
-                logger.write(toLog: "Metadata search completed with \(searchResults.count) results")
+                //logger.write(toLog: "Metadata search completed with \(searchResults.count) results")
                 semaphore.signal()
             }
         }
@@ -573,7 +573,7 @@ class SBFetchMetadataResultsScriptCommand: NSScriptCommand, ScriptCommandDocumen
             }
         }
         
-        logger.write(toLog: "Returning \(formattedResults.count) results")
+        //logger.write(toLog: "Returning \(formattedResults.count) results")
         return formattedResults
     }
     
@@ -684,11 +684,11 @@ class SBFetchMetadataResultsScriptCommand: NSScriptCommand, ScriptCommandDocumen
 class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
     
     override func performDefaultImplementation() -> Any? {
-        let logger = Logger.makeDefault()
+        //let logger = Logger.makeDefault()
         
         // Get the result index from direct parameter
         guard let resultIndex = self.directParameter as? Int else {
-            logger.write(toLog: "Missing result index parameter")
+            //logger.write(toLog: "Missing result index parameter")
             return nil
         }
         
@@ -697,7 +697,7 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
         let language = self.evaluatedArguments?["language"] as? String
         
         guard let sublerDoc = getTargetDocument() else {
-            logger.write(toLog: "No document available for metadata operation")
+            //logger.write(toLog: "No document available for metadata operation")
             return nil
         }
         
@@ -713,9 +713,9 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
                     if let windowController = sublerDoc.windowControllers.first as? DocumentWindowController {
                         windowController.reloadData()
                     }
-                    logger.write(toLog: "Successfully set metadata result \(resultIndex)")
+                    //logger.write(toLog: "Successfully set metadata result \(resultIndex)")
                 } else {
-                    logger.write(toLog: "Failed to set metadata result \(resultIndex) - index out of bounds or no results")
+                    //logger.write(toLog: "Failed to set metadata result \(resultIndex) - index out of bounds or no results")
                 }
             }
         }
