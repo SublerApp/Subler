@@ -70,7 +70,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         return PrefsWindowController()
     }()
 
-    private let logger = Logger.makeDefault()
+    private let logger = Logger.shared
 
     @MainActor private lazy var activityWindowController: ActivityWindowController = {
         return ActivityWindowController(logger: logger)
@@ -176,7 +176,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         //if Prefs.suppressDonationAlert == false {
         //    runDonateAlert()
         //}
-        _ = logger  // force lazy init
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {

@@ -8,26 +8,22 @@
 import Foundation
 import MP42Foundation
 
-enum LogFormat: Int {
-    case timeOnly = 0
-    case dateAndTime = 1
-}
-
 final class Logger : NSObject, MP42Logging {
 
+    enum Format: Int {
+        case timeOnly = 0
+        case dateAndTime = 1
+    }
+
+    static let shared = Logger(fileURL: defaultDestinationURL)
+
     var delegate: MP42Logging?
+    var format: Format { Format(rawValue: Prefs.logFormat) ?? .timeOnly }
 
     private let fileURL: URL
     private let queue: DispatchQueue
 
-    private var format: LogFormat {
-        get {
-            let logPref: Int = Prefs.logFormat
-            return LogFormat(rawValue: logPref) ?? .timeOnly
-        }
-    }
-
-    init(fileURL: URL, format: LogFormat = Logger.defaultFormat()) {
+    init(fileURL: URL) {
         self.fileURL = fileURL
         self.queue = DispatchQueue(label: "org.subler.LogQueue")
     }
@@ -69,7 +65,7 @@ final class Logger : NSObject, MP42Logging {
                     fclose(file)
                 }
             }
-            
+
             if let delegate = delegate {
                 delegate.write(toLog: output)
             }
@@ -84,21 +80,11 @@ final class Logger : NSObject, MP42Logging {
         try? FileManager.default.removeItem(at: fileURL)
     }
 
-    static func defaultFormat() -> LogFormat {
-        let logPref: Int = Prefs.logFormat
-        return LogFormat(rawValue: logPref) ?? .timeOnly
-    }
-
-    static func makeDefault() -> Logger {
-        Logger(fileURL: defaultLogFile)
-    }
-
-    static var defaultLogFile: URL = {
-        let url = defaultDirectoryURL().appendingPathComponent("debugLog.txt")
-        return url
+    private static let defaultDestinationURL: URL = {
+        appSupportURL().appendingPathComponent("debugLog.txt")
     }()
 
-    static func defaultDirectoryURL() -> URL {
+    private static func appSupportURL() -> URL {
         let fileManager = FileManager.default
         if let url = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)
             .first?.appendingPathComponent("Subler") {

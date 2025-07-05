@@ -28,7 +28,7 @@ final class Queue {
 
     private let url: URL
 
-    private let logger = Logger.makeDefault()
+    private let logger = Logger.shared
 
     enum Status {
         case unknown

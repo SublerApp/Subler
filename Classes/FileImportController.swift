@@ -527,7 +527,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
     // MARK: Private methods
 
     private func logTracksTable() {
-        let logger = Logger.makeDefault()
+        let logger = Logger.shared
 
         // Helper function to truncate strings
         func truncate(_ str: String, to length: Int) -> String {
@@ -567,21 +567,6 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
 
             case .track(let settings):
                 let track = settings.track
-                let info: String
-
-                switch track {
-                case is MP42VideoTrack:
-                    info = "\(track.format)"
-                case is MP42AudioTrack:
-                    let audioTrack = track as! MP42AudioTrack
-                    info = "\(track.format) (\(audioTrack.channels)ch)"
-                case is MP42SubtitleTrack:
-                    info = "\(track.format)"
-                case is MP42ChapterTrack:
-                    info = "Chapter track"
-                default:
-                    info = "\(track.format)"
-                }
 
                 // Get the selected action description
                 let selectedAction = settings.actions.first { $0.tag == settings.selectedActionTag }
