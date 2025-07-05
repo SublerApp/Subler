@@ -66,34 +66,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var sendToExternalApp: NSMenuItem!
 
-    private static func appSupportURL() -> URL {
-        let fileManager = FileManager.default
-        if let url = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)
-            .first?.appendingPathComponent("Subler") {
-
-            do {
-                if fileManager.fileExists(atPath: url.path) == false {
-                    try fileManager.createDirectory(at: url, withIntermediateDirectories: true, attributes: [:])
-                }
-            }
-            catch _ {
-                fatalError("Couldn't create the app support directory")
-            }
-
-            return url
-        }
-        else {
-            fatalError("Couldn't find the app support directory")
-        }
-    }
-
     @MainActor private lazy var prefsController: PrefsWindowController = {
         return PrefsWindowController()
     }()
 
-    private lazy var logger: Logger = {
-        return Logger(fileURL: AppDelegate.appSupportURL().appendingPathComponent("debugLog.txt"))
-    }()
+    private let logger = Logger.makeDefault()
 
     @MainActor private lazy var activityWindowController: ActivityWindowController = {
         return ActivityWindowController(logger: logger)
@@ -199,6 +176,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         //if Prefs.suppressDonationAlert == false {
         //    runDonateAlert()
         //}
+        _ = logger  // force lazy init
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
