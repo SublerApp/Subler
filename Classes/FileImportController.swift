@@ -329,8 +329,6 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
     }
     
     @IBAction func addTracks(_ sender: Any) {
-        logTracksTable()
-        
         var selectedTracks: [MP42Track] = []
 
         for trackSettings in settings where trackSettings.checked {
@@ -522,79 +520,5 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
         default:
             return 18
         }
-    }
-
-    // MARK: Private methods
-
-    private func logTracksTable() {
-        let logger = Logger.shared
-
-        // Helper function to truncate strings
-        func truncate(_ str: String, to length: Int) -> String {
-            if str.count <= length {
-                return str.padding(toLength: length, withPad: " ", startingAt: 0)
-            }
-            return String(str.prefix(length - 1)) + "~"
-        }
-
-        // Helper function to format duration
-        func formatDuration(_ duration: Double, timescale: UInt32) -> String {
-            if duration <= 0 || timescale == 0 {
-                return "Unknown"
-            }
-            let seconds = duration / Double(timescale)
-            let hours = Int(seconds) / 3600
-            let minutes = (Int(seconds) % 3600) / 60
-            let secs = Int(seconds) % 60
-            let millisecs = Int((seconds - Double(Int(seconds))) * 1000)
-            return String(format: "%02d:%02d:%02d.%03d", hours, minutes, secs, millisecs)
-        }
-
-        // Build the entire table as a single string
-        var tableLines: [String] = []
-
-        tableLines.append("File Import: Processing tracks with applied settings:")
-        tableLines.append("----------------------------------------------------------------------------------------------")
-        tableLines.append("|   | Id | Name                  | Duration     | Language      | Info        | Action       |")
-        tableLines.append("----------------------------------------------------------------------------------------------")
-
-        var trackId = 1
-        for item in items {
-            switch item {
-            case .file(_):
-                // Skip file headers in table format
-                break
-
-            case .track(let settings):
-                let track = settings.track
-
-                // Get the selected action description
-                let selectedAction = settings.actions.first { $0.tag == settings.selectedActionTag }
-                let action = selectedAction?.title ?? "Unknown"
-
-                // Format the data with proper truncation and alignment
-                let name = truncate(track.name.isEmpty ? "Unnamed" : track.name, to: 21)
-                let language = truncate(MP42Languages.defaultManager.localizedLang(forExtendedTag: track.language), to: 13)
-                let infoTruncated = truncate(track.formatSummary, to: 10)
-                let actionTruncated = truncate(action, to: 13)
-                let duration = formatDuration(Double(track.duration), timescale: track.timescale)
-                let selected = settings.checked ? "X" : " "
-                let id = String(format: "%02d", trackId)
-
-                // Create properly aligned row with fixed column widths
-                // The truncate function now handles padding, so we just need to pad duration
-                let durationPadded = duration.padding(toLength: 12, withPad: " ", startingAt: 0)
-
-                let row = "| \(selected) | \(id) | \(name) | \(durationPadded) | \(language) | \(infoTruncated) | \(actionTruncated) |"
-                tableLines.append(row)
-
-                trackId += 1
-            }
-        }
-
-        tableLines.append("----------------------------------------------------------------------------------------------")
-
-        // Log the entire table as a single entry
-        logger.write(toLog: tableLines.joined(separator: "\n"))
     }
 }

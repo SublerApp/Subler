@@ -21,26 +21,25 @@
                 <string>windowSize</string>
                 <string>rememberWindowSize</string>
                 <string>chaptersPreviewTrack</string>
-                <string>SBLogFormat</string>
             </declaredKeys>
         </userDefaultsController>
         <customView id="76">
-            <rect key="frame" x="0.0" y="0.0" width="660" height="316"/>
+            <rect key="frame" x="0.0" y="0.0" width="660" height="299"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="dxI-5Q-gDD">
-                    <rect key="frame" x="133" y="0.0" width="395" height="316"/>
+                    <rect key="frame" x="136" y="0.0" width="389" height="299"/>
                     <subviews>
-                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XPF-Mh-XYC">
-                            <rect key="frame" x="147" y="150" width="57" height="14"/>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XPF-Mh-XYC">
+                            <rect key="frame" x="147" y="139" width="57" height="14"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Beginning" id="3Vs-qA-7Z6">
                                 <font key="font" metaFont="message" size="11"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField focusRingType="none" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="249">
-                            <rect key="frame" x="129" y="107" width="165" height="14"/>
+                        <textField verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="249">
+                            <rect key="frame" x="129" y="95" width="165" height="14"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="USA ratings are always shown." id="250">
                                 <font key="font" metaFont="message" size="11"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -48,7 +47,7 @@
                             </textFieldCell>
                         </textField>
                         <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="133">
-                            <rect key="frame" x="124" y="43" width="182" height="32"/>
+                            <rect key="frame" x="125" y="44" width="188" height="32"/>
                             <buttonCell key="cell" type="push" title="Clear recent searches" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="134">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -58,7 +57,7 @@
                             </connections>
                         </button>
                         <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="80">
-                            <rect key="frame" x="129" y="217" width="121" height="18"/>
+                            <rect key="frame" x="129" y="204" width="117" height="18"/>
                             <buttonCell key="cell" type="check" title="Remember Size" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="86">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -71,8 +70,8 @@
                                 </binding>
                             </connections>
                         </button>
-                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="139">
-                            <rect key="frame" x="18" y="53" width="107" height="16"/>
+                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="139">
+                            <rect key="frame" x="18" y="54" width="107" height="16"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Privacy:" id="140">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -80,7 +79,7 @@
                             </textFieldCell>
                         </textField>
                         <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="82">
-                            
+                            <rect key="frame" x="129" y="180" width="232" height="18"/>
                             <buttonCell key="cell" type="check" title="Create Preview Images at position:" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="84">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -94,15 +93,15 @@
                             </connections>
                         </button>
                         <slider verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="JhA-jk-CGt">
-                            <rect key="frame" x="147" y="158" width="220" height="28"/>
+                            <rect key="frame" x="147" y="152" width="214" height="24"/>
                             <sliderCell key="cell" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="below" numberOfTickMarks="7" sliderType="linear" id="iKX-dX-4IV"/>
                             <connections>
                                 <binding destination="3" name="value" keyPath="values.SBChaptersPreviewPosition" id="JtQ-lM-MNU"/>
                                 <binding destination="3" name="enabled" keyPath="values.chaptersPreviewTrack" id="hNU-uO-zsL"/>
                             </connections>
                         </slider>
-                        <textField focusRingType="none" horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="206">
-                            <rect key="frame" x="18" y="126" width="107" height="16"/>
+                        <textField horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="206">
+                            <rect key="frame" x="18" y="115" width="107" height="16"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Show ratings for:" id="207">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -110,7 +109,7 @@
                             </textFieldCell>
                         </textField>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="136">
-                            <rect key="frame" x="124" y="13" width="182" height="32"/>
+                            <rect key="frame" x="125" y="13" width="188" height="32"/>
                             <buttonCell key="cell" type="push" title="Delete cached metadata" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="137">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -119,8 +118,8 @@
                                 <action selector="deleteCachedMetadata:" target="-2" id="141"/>
                             </connections>
                         </button>
-                        <textField focusRingType="none" horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="81">
-                            <rect key="frame" x="18" y="192" width="107" height="16"/>
+                        <textField horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="81">
+                            <rect key="frame" x="18" y="181" width="107" height="16"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Chapters:" id="85">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -128,7 +127,7 @@
                             </textFieldCell>
                         </textField>
                         <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="B5v-6Q-3Qa">
-                            <rect key="frame" x="129" y="257" width="246" height="18"/>
+                            <rect key="frame" x="129" y="242" width="242" height="18"/>
                             <buttonCell key="cell" type="check" title="Automatically check for update daily" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="2Pf-pq-4IX">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -137,48 +136,32 @@
                                 <binding destination="3" name="value" keyPath="values.SUEnableAutomaticChecks" id="6AF-uh-wt7"/>
                             </connections>
                         </button>
-                        <textField focusRingType="none" horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="77">
-                            <rect key="frame" x="18" y="280" width="107" height="16"/>
+                        <textField horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="77">
+                            <rect key="frame" x="18" y="263" width="107" height="16"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="At Launch:" id="89">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tVb-Qq-sU7">
-                            <rect key="frame" x="343" y="150" width="24" height="14"/>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tVb-Qq-sU7">
+                            <rect key="frame" x="337" y="139" width="24" height="14"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="End" id="He0-rl-DBi">
                                 <font key="font" metaFont="message" size="11"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField focusRingType="none" horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="78">
-                            <rect key="frame" x="18" y="218" width="107" height="16"/>
+                        <textField horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="78">
+                            <rect key="frame" x="18" y="205" width="107" height="16"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Window:" id="88">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <popUpButton verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="logFormatPopup">
-                            <rect key="frame" x="128" y="75" width="187" height="25"/>
-                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="logFormatCell">
-                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="message"/>
-                                <menu key="menu" id="logFormatMenu"/>
-                            </popUpButtonCell>
-                            <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="logFormatWidth"/>
-                            </constraints>
-                            <connections>
-                                <accessibilityConnection property="title" destination="logFormatLabel" id="logFormatAccessibility"/>
-                                <binding destination="-2" name="content" keyPath="logFormatOptions" id="logFormatContentBinding"/>
-                                <binding destination="3" name="selectedTag" keyPath="values.SBLogFormat" previousBinding="logFormatContentBinding" id="logFormatBinding"/>
-                            </connections>
-                        </popUpButton>
                         <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="79">
-                            <rect key="frame" x="129" y="279" width="130" height="18"/>
+                            <rect key="frame" x="129" y="262" width="126" height="18"/>
                             <buttonCell key="cell" type="check" title="Show open panel" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="87">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -188,15 +171,15 @@
                             </connections>
                         </button>
                         <popUpButton verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="236">
-                            <rect key="frame" x="128" y="119" width="187" height="25"/>
+                            <rect key="frame" x="129" y="108" width="185" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="mhj-Zx-MME"/>
+                            </constraints>
                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="237">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                                 <menu key="menu" id="238"/>
                             </popUpButtonCell>
-                            <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="mhj-Zx-MME"/>
-                            </constraints>
                             <connections>
                                 <accessibilityConnection property="title" destination="206" id="SzO-00-e3U"/>
                                 <action selector="updateRatingsCountry:" target="-2" id="242"/>
@@ -204,19 +187,11 @@
                                 <binding destination="123" name="selectedValue" keyPath="values.SBRatingsCountry" previousBinding="245" id="248"/>
                             </connections>
                         </popUpButton>
-                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mNP-6I-gV4">
-                            <rect key="frame" x="235" y="150" width="44" height="14"/>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mNP-6I-gV4">
+                            <rect key="frame" x="232" y="139" width="44" height="14"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Middle" id="2o1-dB-mt1">
                                 <font key="font" metaFont="message" size="11"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                        </textField>
-                        <textField focusRingType="none" horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="logFormatLabel">
-                            <rect key="frame" x="18" y="82" width="107" height="16"/>
-                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Log Format:" id="logFormatLabelCell">
-                                <font key="font" metaFont="system"/>
-                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
@@ -237,7 +212,7 @@
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="79" secondAttribute="trailing" constant="20" symbolic="YES" id="C2B-fq-5vM"/>
                         <constraint firstItem="81" firstAttribute="leading" secondItem="78" secondAttribute="leading" id="Ctg-6r-Vpm"/>
                         <constraint firstAttribute="bottom" secondItem="136" secondAttribute="bottom" constant="20" symbolic="YES" id="Cxf-3a-EqU"/>
-                        <constraint firstItem="133" firstAttribute="top" secondItem="249" secondAttribute="bottom" constant="37" id="DFU-xm-8vq"/>
+                        <constraint firstItem="133" firstAttribute="top" secondItem="249" secondAttribute="bottom" constant="23" id="DFU-xm-8vq"/>
                         <constraint firstItem="B5v-6Q-3Qa" firstAttribute="leading" secondItem="79" secondAttribute="leading" id="FJg-U6-HDs"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="B5v-6Q-3Qa" secondAttribute="trailing" constant="20" id="J3X-XR-5sZ"/>
                         <constraint firstItem="82" firstAttribute="leading" secondItem="81" secondAttribute="trailing" constant="8" id="LHd-r8-b8o"/>
@@ -266,12 +241,6 @@
                         <constraint firstItem="mNP-6I-gV4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XPF-Mh-XYC" secondAttribute="trailing" constant="8" symbolic="YES" id="jyx-OY-6tw"/>
                         <constraint firstItem="133" firstAttribute="firstBaseline" secondItem="139" secondAttribute="firstBaseline" id="kA6-a1-Krp"/>
                         <constraint firstItem="249" firstAttribute="leading" secondItem="236" secondAttribute="leading" id="kh1-gL-cmS"/>
-                        <constraint firstItem="logFormatPopup" firstAttribute="firstBaseline" secondItem="logFormatLabel" secondAttribute="firstBaseline" id="logFormatBaseline"/>
-                        <constraint firstItem="logFormatLabel" firstAttribute="leading" secondItem="78" secondAttribute="leading" id="logFormatLabelLeading"/>
-                        <constraint firstItem="logFormatLabel" firstAttribute="width" secondItem="78" secondAttribute="width" id="logFormatLabelWidth"/>
-                        <constraint firstItem="logFormatPopup" firstAttribute="leading" secondItem="logFormatLabel" secondAttribute="trailing" constant="8" id="logFormatLeading"/>
-                        <constraint firstItem="logFormatLabel" firstAttribute="top" secondItem="80" secondAttribute="bottom" constant="120" id="logFormatTop"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="logFormatPopup" secondAttribute="trailing" constant="20" symbolic="YES" id="logFormatTrailing"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="249" secondAttribute="trailing" constant="20" symbolic="YES" id="mef-Mj-rvp"/>
                         <constraint firstItem="236" firstAttribute="leading" secondItem="206" secondAttribute="trailing" constant="8" id="n47-AS-gXR"/>
                         <constraint firstItem="80" firstAttribute="leading" secondItem="78" secondAttribute="trailing" constant="8" id="nPD-Zb-eKT"/>

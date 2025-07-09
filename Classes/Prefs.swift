@@ -77,8 +77,7 @@ enum Prefs {
                                _defaultSaveFormat, _organizeAlternateGroups, _inferMediaCharacteristics, _audioMixdown,
                                _audioBitrate, _audioDRC, _audioConvertAC3, _audioKeepAC3, _audioConvertDts,
                                _audioDtsOptions, _subtitleConvertBitmap, _ratingsCountry, _chaptersPreviewPosition,
-                               _chaptersPreviewTrack, _mp464bitOffset, _mp464bitTimes, _mp4SaveAsOptimize, _forceHvc1,
-                               _logFormat])
+                               _chaptersPreviewTrack, _mp464bitOffset, _mp464bitTimes, _mp4SaveAsOptimize, _forceHvc1])
     }
 
     @Stored(key: "NSApplicationCrashOnException", defaultValue: true)
@@ -161,9 +160,6 @@ enum Prefs {
 
     @Stored(key: "SBPresetArtworkSelectorZoomLevel", defaultValue: 0)
     static var presetArtworkSelectorZoomLevel: Float
-
-    @Stored(key: "SBLogFormat", defaultValue: 0)
-    static var logFormat: Int  // 0 = Time Only, 1 = Date and Time
 }
 
 enum MetadataPrefs {

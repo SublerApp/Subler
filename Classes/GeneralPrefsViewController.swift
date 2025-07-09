@@ -37,11 +37,4 @@ class GeneralPrefsViewController: NSViewController {
 
     @objc dynamic var ratingsCountries: [String] { return Ratings.shared.countries.map { $0.displayName } }
 
-    @objc dynamic var logFormatOptions: [String] {
-        return [
-            "Time Only",
-            "Date and Time"
-        ]
-    }
-    
 }

@@ -104,7 +104,6 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
             }, completionHandler: {
                 view.isHidden = false
                 window.title = item.label
-                self.window?.makeFirstResponder(view.nextKeyView)
             })
         }
         else {

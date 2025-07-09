@@ -28,8 +28,6 @@ final class Queue {
 
     private let url: URL
 
-    private let logger = Logger.shared
-
     enum Status {
         case unknown
         case working
@@ -159,12 +157,9 @@ final class Queue {
                     let result = self.process(currentItem)
                     if .completed == result {
                         completed += 1
-                        self.logger.write(toLog: currentItem.fileURL.lastPathComponent + " completed")
                     } else if .failed == result {
                         failed += 1
-                        self.logger.write(toLog: currentItem.fileURL.lastPathComponent + " failed")
                     } else if .cancelled == result {
-                        self.logger.write(toLog: currentItem.fileURL.lastPathComponent + " cancelled")
                         break
                     }
                 } else {

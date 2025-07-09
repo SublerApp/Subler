@@ -159,8 +159,7 @@ private let localizedKeys: [MetadataResult.Key: String] = [
     .network          : NSLocalizedString("Network", comment: "nil"),
 
     .serviceSeriesID  : NSLocalizedString("Service ID", comment: "nil"),
-    .serviceAdditionalSeriesID : NSLocalizedString("Service Additional ID", comment: "nil"),
-    .serviceEpisodeID : NSLocalizedString("Service Episode ID", comment: "nil")
+    .serviceEpisodeID : NSLocalizedString("Service ID", comment: "nil")
 ]
 
 public final class MetadataResult {
@@ -202,10 +201,10 @@ public final class MetadataResult {
         case season             = "{Season}"
         case network            = "{Network}"
 
-        // Services internal IDs
-        case serviceSeriesID              = "{ServiceSeriesID}"
-        case serviceAdditionalSeriesID    = "{AdditionalServiceSeriesID}"
-        case serviceEpisodeID             = "{ServiceEpisodeID}"
+        //
+        case serviceSeriesID              = "ServiceSeriesID"
+        case serviceAdditionalSeriesID    = "AdditionalServiceSeriesID"
+        case serviceEpisodeID             = "ServiceEpisodeID"
 
         fileprivate static var movieKeys: [Key] {
             return [.name,
@@ -224,11 +223,7 @@ public final class MetadataResult {
                     .copyright,
                     .contentID,
                     .artistID,
-                    .iTunesCountry,
-
-                    .serviceSeriesID,
-                    .serviceAdditionalSeriesID,
-                    .serviceEpisodeID]
+                    .iTunesCountry]
         }
 
         fileprivate static var tvShowKeys: [Key] {
@@ -261,10 +256,6 @@ public final class MetadataResult {
                     .artistID,
                     .playlistID,
                     .iTunesCountry,
-
-                    .serviceSeriesID,
-                    .serviceAdditionalSeriesID,
-                    .serviceEpisodeID
             ]
         }
 
