@@ -10,22 +10,6 @@ import MP42Foundation
 
 final class DocumentController : NSDocumentController {
 
-    override func makeDocument(withContentsOf url: URL, ofType typeName: String) throws -> NSDocument {
-        return try Document(contentsOf: url, ofType: typeName)
-    }
-
-    override func makeUntitledDocument(ofType typeName: String) throws -> NSDocument {
-        return Document()
-    }
-
-    override func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-        if item.action == #selector(NSDocumentController.newDocument(_:)) ||
-           item.action == #selector(NSDocumentController.openDocument(_:)) {
-            return true
-        }
-        return super.validateUserInterfaceItem(item)
-    }
-
     private var openPanel: NSOpenPanel?
 
     override func openDocument(_ sender: Any?) {
@@ -81,35 +65,12 @@ final class DocumentController : NSDocumentController {
 final class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var sendToExternalApp: NSMenuItem!
-    
-    private static func appSupportURL() -> URL {
-        let fileManager = FileManager.default
-        if let url = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)
-            .first?.appendingPathComponent("Subler") {
-
-            do {
-                if fileManager.fileExists(atPath: url.path) == false {
-                    try fileManager.createDirectory(at: url, withIntermediateDirectories: true, attributes: [:])
-                }
-            }
-            catch _ {
-                fatalError("Couldn't create the app support directory")
-            }
-
-            return url
-        }
-        else {
-            fatalError("Couldn't find the app support directory")
-        }
-    }
 
     @MainActor private lazy var prefsController: PrefsWindowController = {
         return PrefsWindowController()
     }()
 
-    private lazy var logger: Logger = {
-        return Logger(fileURL: AppDelegate.appSupportURL().appendingPathComponent("debugLog.txt"))
-    }()
+    private let logger = Logger.shared
 
     @MainActor private lazy var activityWindowController: ActivityWindowController = {
         return ActivityWindowController(logger: logger)
@@ -194,6 +155,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         Prefs.register()
         MetadataPrefs.register()
 
+        _ = documentController
         _ = activityWindowController
 
         logger.clear()
