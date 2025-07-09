@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
+		4A021AEF2DF759C400CBD3EC /* SublerScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A021AEE2DF759C400CBD3EC /* SublerScriptCommand.swift */; };
+		4AFFB6D22DF751110099E229 /* Subler.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 4AFFB6D12DF751110099E229 /* Subler.sdef */; };
 		61CEC0CE1E7569E4000FECC1 /* MultiSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61CEC0CC1E7569E4000FECC1 /* MultiSelectView.xib */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
@@ -22,7 +24,6 @@
 		A90300C81DAE72C4008237D8 /* PresetPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90300CA1DAE72C4008237D8 /* PresetPrefsViewController.xib */; };
 		A90331BD23ED7EE5006BB91D /* Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90331BC23ED7EE5006BB91D /* Prefs.swift */; };
 		A9067A0C1F3CA4E6008011DC /* MetadataPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */; };
-		A906B5B11E434872007D12B1 /* Queue.sdef in Resources */ = {isa = PBXBuildFile; fileRef = A906B5B01E434872007D12B1 /* Queue.sdef */; };
 		A90B023B10F3290A000416F3 /* PrefsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90B023910F3290A000416F3 /* PrefsWindowController.xib */; };
 		A90B094C235614D200F1B191 /* AppleTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90B094B235614D200F1B191 /* AppleTV.swift */; };
 		A90BC5E31F3A139700F9F3F3 /* MetadataResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */; };
@@ -193,6 +194,8 @@
 /* Begin PBXFileReference section */
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4A021AEE2DF759C400CBD3EC /* SublerScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SublerScriptCommand.swift; sourceTree = "<group>"; };
+		4AFFB6D12DF751110099E229 /* Subler.sdef */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Subler.sdef; sourceTree = "<group>"; };
 		610362271E76D66A000DAE60 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/PropertyView/it.lproj/MultiSelectView.strings; sourceTree = "<group>"; };
 		61CEC0CD1E7569E4000FECC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/MultiSelectView.xib; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -209,7 +212,6 @@
 		A90300C91DAE72C4008237D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PresetPrefsViewController.xib; sourceTree = "<group>"; };
 		A90331BC23ED7EE5006BB91D /* Prefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Prefs.swift; path = Classes/Prefs.swift; sourceTree = "<group>"; };
 		A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataPrefsViewController.swift; path = Classes/MetadataPrefsViewController.swift; sourceTree = "<group>"; };
-		A906B5B01E434872007D12B1 /* Queue.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Queue.sdef; sourceTree = "<group>"; };
 		A90B094B235614D200F1B191 /* AppleTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppleTV.swift; path = Classes/MetadataImporters/AppleTV.swift; sourceTree = "<group>"; };
 		A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataResult.swift; path = Classes/MetadataImporters/MetadataResult.swift; sourceTree = "<group>"; };
 		A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokensViewController.swift; path = Classes/TokensViewController.swift; sourceTree = "<group>"; };
@@ -485,8 +487,8 @@
 		2A37F4AAFDCFA73011CA2CEA /* MP4Sub */ = {
 			isa = PBXGroup;
 			children = (
+				4AFFB6D12DF751110099E229 /* Subler.sdef */,
 				A9B4EE4E1643EBF3009AF6BC /* Subler.entitlements */,
-				A906B5B01E434872007D12B1 /* Queue.sdef */,
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
@@ -617,6 +619,7 @@
 		A9915ABB1F4B26A5003C57D1 /* Presets */ = {
 			isa = PBXGroup;
 			children = (
+				4A021AEE2DF759C400CBD3EC /* SublerScriptCommand.swift */,
 				A9915AC21F4B293B003C57D1 /* PresetManager.swift */,
 				A9915AC01F4B28ED003C57D1 /* Preset.swift */,
 				A9915ABE1F4B26CF003C57D1 /* MetadataPreset.swift */,
@@ -839,12 +842,12 @@
 				A9AB486717F0AEFD000AA72E /* SoundView.xib in Resources */,
 				A9F5820C1DCC861F005F3E92 /* Assets.xcassets in Resources */,
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
-				A906B5B11E434872007D12B1 /* Queue.sdef in Resources */,
 				A93105391F9758EC00605146 /* FileImportController.xib in Resources */,
 				A9AB486517F0AEFD000AA72E /* EmptyView.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
 				A90300C81DAE72C4008237D8 /* PresetPrefsViewController.xib in Resources */,
 				A9C5FA7419FA2FEC0051F3FF /* SBActivityWindow.xib in Resources */,
+				4AFFB6D22DF751110099E229 /* Subler.sdef in Resources */,
 				A90B023B10F3290A000416F3 /* PrefsWindowController.xib in Resources */,
 				A9AB486417F0AEFD000AA72E /* ChapterView.xib in Resources */,
 				A9AB486817F0AEFD000AA72E /* VideoView.xib in Resources */,
@@ -938,6 +941,7 @@
 				A98D44102036F661005CB092 /* AppDelegate.swift in Sources */,
 				A9C31E572029A75F00CEF474 /* GeneralPrefsViewController.swift in Sources */,
 				A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */,
+				4A021AEF2DF759C400CBD3EC /* SublerScriptCommand.swift in Sources */,
 				A9B1056E2025D9B9009E91FC /* TracksViewController.swift in Sources */,
 				A99B7FD82D53764F0027BCB5 /* AppleTVv3.swift in Sources */,
 				A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */,
