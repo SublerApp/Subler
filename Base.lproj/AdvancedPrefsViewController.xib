@@ -160,10 +160,7 @@
                             </textFieldCell>
                         </textField>
                         <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ETf-LE-57P">
-                            <rect key="frame" x="154" y="41" width="65" height="25"/>
-                            <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="fZU-8d-Ua1"/>
-                            </constraints>
+                            <rect key="frame" x="153" y="41" width="67" height="25"/>
                             <popUpButtonCell key="cell" type="push" title="0" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="aHL-pt-Ze0" id="sRN-fQ-JQy">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -177,21 +174,42 @@
                                     </items>
                                 </menu>
                             </popUpButtonCell>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="fZU-8d-Ua1"/>
+                            </constraints>
                             <connections>
                                 <accessibilityConnection property="title" destination="Pud-GM-vyU" id="I13-DW-46I"/>
                                 <binding destination="123" name="selectedTag" keyPath="values.SBAudioDRC" id="ozi-Zd-fSY"/>
                             </connections>
                         </popUpButton>
-                        <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="hgg-QV-i0I">
-                            <rect key="frame" x="18" y="286" width="133" height="16"/>
+                        <textField focusRingType="none" verticalHuggingPriority="750" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="hgg-QV-i0I">
+                            <rect key="frame" x="18" y="314" width="133" height="16"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Alternate Groups:" id="agM-jg-8mH">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
+                        <textField focusRingType="none" verticalHuggingPriority="750" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="exotic-audio-label">
+                            <rect key="frame" x="18" y="132" width="133" height="16"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Exotic audio:" id="exotic-audio-label-cell">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="exotic-audio-checkbox">
+                            <rect key="frame" x="155" y="131" width="263" height="18"/>
+                            <buttonCell key="cell" type="check" title="Disable multi-channel tracks by default" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="exotic-audio-checkbox-cell">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <binding destination="3" name="value" keyPath="values.SBDisableExoticAudio" id="exotic-audio-binding"/>
+                            </connections>
+                        </button>
                         <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="QpA-Yd-jpF">
-                            <rect key="frame" x="155" y="265" width="183" height="18"/>
+                            <rect key="frame" x="155" y="291" width="238" height="18"/>
                             <buttonCell key="cell" type="check" title="Infer media characteristics" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="86R-Dj-j6Y">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -202,10 +220,7 @@
                             </connections>
                         </button>
                         <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="191">
-                            <rect key="frame" x="155" y="70" width="65" height="25"/>
-                            <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="gDw-hn-dbd"/>
-                            </constraints>
+                            <rect key="frame" x="154" y="69" width="67" height="25"/>
                             <popUpButtonCell key="cell" type="push" title="64" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="64" imageScaling="proportionallyDown" inset="2" selectedItem="194" id="192">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -226,13 +241,16 @@
                                     </items>
                                 </menu>
                             </popUpButtonCell>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="gDw-hn-dbd"/>
+                            </constraints>
                             <connections>
                                 <accessibilityConnection property="title" destination="189" id="hSG-o4-8UE"/>
                                 <binding destination="123" name="selectedTag" keyPath="values.SBAudioBitrate" id="205"/>
                             </connections>
                         </popUpButton>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="edJ-A5-eyf">
-                            <rect key="frame" x="172" y="143" width="88" height="18"/>
+                            <rect key="frame" x="172" y="162" width="92" height="18"/>
                             <buttonCell key="cell" type="check" title="Keep AC-3" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Zgy-z5-6UG">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -285,13 +303,19 @@
                         <constraint firstItem="101" firstAttribute="leading" secondItem="hgg-QV-i0I" secondAttribute="leading" id="V5i-g6-rPa"/>
                         <constraint firstItem="olE-Dy-uJm" firstAttribute="leading" secondItem="101" secondAttribute="trailing" constant="8" id="Wck-0t-JIW"/>
                         <constraint firstItem="Pud-GM-vyU" firstAttribute="leading" secondItem="189" secondAttribute="leading" id="Wxi-ZW-QRQ"/>
-                        <constraint firstItem="115" firstAttribute="top" secondItem="edJ-A5-eyf" secondAttribute="bottom" constant="20" id="ZB0-Ig-fhK"/>
+                        <constraint firstItem="115" firstAttribute="top" secondItem="edJ-A5-eyf" secondAttribute="bottom" constant="40" id="ZB0-Ig-fhK"/>
                         <constraint firstItem="hjZ-wQ-Sbb" firstAttribute="leading" secondItem="101" secondAttribute="trailing" constant="8" id="ZKS-d6-oJ6"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="edJ-A5-eyf" secondAttribute="trailing" constant="20" symbolic="YES" id="ZYM-ne-01S"/>
                         <constraint firstItem="olE-Dy-uJm" firstAttribute="top" secondItem="hjZ-wQ-Sbb" secondAttribute="bottom" constant="7" id="ZpI-qc-wxr"/>
                         <constraint firstItem="ETf-LE-57P" firstAttribute="leading" secondItem="Pud-GM-vyU" secondAttribute="trailing" constant="7" id="avr-Vp-M13"/>
                         <constraint firstItem="Z2f-U9-9ZT" firstAttribute="width" secondItem="Pud-GM-vyU" secondAttribute="width" id="cXa-gD-TzD"/>
                         <constraint firstItem="113" firstAttribute="width" secondItem="189" secondAttribute="width" id="dg6-kk-hDf"/>
+                        <constraint firstItem="exotic-audio-checkbox" firstAttribute="baseline" secondItem="exotic-audio-label" secondAttribute="baseline" id="exotic-audio-checkbox-baseline"/>
+                        <constraint firstItem="exotic-audio-checkbox" firstAttribute="leading" secondItem="exotic-audio-label" secondAttribute="trailing" constant="8" id="exotic-audio-checkbox-leading"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="exotic-audio-checkbox" secondAttribute="trailing" constant="20" symbolic="YES" id="exotic-audio-checkbox-trailing"/>
+                        <constraint firstItem="exotic-audio-label" firstAttribute="leading" secondItem="hgg-QV-i0I" secondAttribute="leading" id="exotic-audio-label-leading"/>
+                        <constraint firstItem="exotic-audio-label" firstAttribute="top" secondItem="edJ-A5-eyf" secondAttribute="bottom" constant="15" id="exotic-audio-label-top"/>
+                        <constraint firstItem="exotic-audio-label" firstAttribute="width" secondItem="hgg-QV-i0I" secondAttribute="width" id="exotic-audio-label-width"/>
                         <constraint firstItem="191" firstAttribute="baseline" secondItem="201" secondAttribute="baseline" id="fjE-Sl-C45"/>
                         <constraint firstItem="rmU-Gb-jzF" firstAttribute="top" secondItem="olE-Dy-uJm" secondAttribute="bottom" constant="5" id="hEg-lY-NlJ"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fTk-UL-aoX" secondAttribute="trailing" constant="20" symbolic="YES" id="hvb-cB-oAO"/>
