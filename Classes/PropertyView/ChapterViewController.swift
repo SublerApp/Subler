@@ -119,7 +119,7 @@ final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTable
     }
 
     @IBAction func addChapter(_ sender: Any) {
-        track.addChapter("Chapter", duration: 0)
+        track.addChapter("Chapter", timestamp: 0)
 
         tableView.reloadData()
         updateChangeCount()

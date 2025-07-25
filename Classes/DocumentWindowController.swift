@@ -308,12 +308,12 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         let minutes = sender.tag * 60 * 1000
 
         if minutes > 0 {
-            for (index, duration) in stride(from: 0, to: mp4.duration, by: minutes).enumerated() {
-                track.addChapter("Chapter \(index + 1)", duration: UInt64(duration))
+            for (index, timestamp) in stride(from: 0, to: mp4.duration, by: minutes).enumerated() {
+                track.addChapter("Chapter \(index + 1)", timestamp: UInt64(timestamp))
             }
         }
         else {
-            track.addChapter("Chapter 1", duration: UInt64(mp4.duration))
+            track.addChapter("Chapter 1", timestamp: 0)
         }
 
         doc.updateChangeCount(.changeDone)
