@@ -83,8 +83,8 @@ public enum ArtworkType : Int, CustomStringConvertible {
     case season
     case episode
     case backdrop
-    case person
-    case none
+    case person = 5
+    case none = 4
 }
 
 public struct Artwork: Equatable, Hashable {
