@@ -40,6 +40,13 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      action: #selector(DocumentWindowController.deleteTrack(_:)))
         } else if itemIdentifier == .actions {
             let submenu = NSMenu()
+
+            let menuItem = NSMenuItem()
+            menuItem.title = NSLocalizedString("At the Beginning", comment: "Toolbar")
+            menuItem.action =  #selector(DocumentWindowController.addChaptersEvery(_:))
+            menuItem.tag = -1
+            submenu.addItem(menuItem)
+
             for minutes in [1, 2, 5, 10, 15, 20, 30] {
                 let menuItem = NSMenuItem()
                 let title = minutes == 1 ? NSLocalizedString("1 minute", comment: "Toolbar") :
