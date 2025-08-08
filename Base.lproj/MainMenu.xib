@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -147,12 +147,13 @@
                                     <action selector="sendToQueue:" target="-1" id="599"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Send To iTunes" id="597" userLabel="10">
+                            <menuItem title="Send To iTunes" keyEquivalent="I" id="597" userLabel="10">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="sendToExternalApp:" target="-1" id="598"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Wqy-Ps-5Qb"/>
                             <menuItem title="Import" id="544">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Import" id="545">
@@ -182,6 +183,23 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="74" userLabel="2">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Start Queue" keyEquivalent="B" id="TRh-ZN-Id8">
+                                <connections>
+                                    <action selector="toggleStartStop:" target="449" id="ea4-oe-9YQ"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Remove completed items from queue" id="Cre-T6-PID">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="removeCompletedItems:" target="-1" id="ouO-db-qWo"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="7Ls-cX-HSz" userLabel="2">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
                             <menuItem title="Page Setup..." keyEquivalent="P" id="77" userLabel="5">
@@ -241,8 +259,8 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="532"/>
-                            <menuItem title="Offset…" id="567">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Offset…" keyEquivalent="o" id="567">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="showTrackOffsetSheet:" target="-1" id="570"/>
                                 </connections>
@@ -309,31 +327,31 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Organize alternate groups" id="652">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Organize alternate groups" keyEquivalent="g" id="652">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="iTunesFriendlyTrackGroups:" target="-1" id="654"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Clear tracks names" id="hKY-N2-NzK">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Clear tracks names" keyEquivalent="n" id="hKY-N2-NzK">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="clearTrackNames:" target="-1" id="KsZ-tN-sdV"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Prettify audio track names" id="fm8-d2-1Yi">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Prettify audio track names" keyEquivalent="p" id="fm8-d2-1Yi">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="prettifyAudioTrackNames:" target="-1" id="z63-Uv-MTO"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Fix audio fallbacks" id="FXb-bX-0Wb">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Fix audio fallbacks" keyEquivalent="f" id="FXb-bX-0Wb">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="fixAudioFallbacks:" target="-1" id="cpY-If-3df"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="568"/>
+                            <menuItem isSeparatorItem="YES" id="yw4-pb-tNR"/>
                             <menuItem title="Find" id="218">
                                 <menu key="submenu" title="Find" id="220">
                                     <items>
