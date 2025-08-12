@@ -764,7 +764,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					8D15AC270486D014006FF6A4 = {
 						LastSwiftMigration = 1020;
@@ -1680,8 +1680,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sparkle-project/Sparkle";
 			requirement = {
-				branch = 2.x;
-				kind = branch;
+				kind = exactVersion;
+				version = 2.7.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
