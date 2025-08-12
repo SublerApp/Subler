@@ -1,5 +1,16 @@
 # Subler News
 
+## Subler 1.8.9
+
+- Expanded the AppleScript dictionary [Mock1]
+- Added additional keyboard shortcuts [Mock1]
+- Added support for unofficial metadata often used for Audiobooks
+- Make it possible to use the services ids in the metadata map
+- Fixed the "Insert a chaper at the beginning" menu item action
+- Fixed Swedish Ratings
+- Fixed the "None" artwork option in the Queue
+
+
 ## Subler 1.8.8
 
 - Fixed a crash that happened when editing a preset
@@ -166,7 +177,7 @@
 ## Subler 1.5.22
 
 * "4k" is not set automatically anymore because the AppleTV won't stream mp4 with such metadata.
-* Fixes an an additional issue that could led to a crash when importing a 5.1 channels ac3 file on macOS 10.15.
+* Fixes an issue that could led to a crash when importing a 5.1 channels ac3 file on macOS 10.15.
 * Fixes Indian iTunes Store.
 
 
