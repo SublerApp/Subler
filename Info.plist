@@ -22,7 +22,7 @@
 				<string>com.apple.protected-mpeg-4-video</string>
 			</array>
 			<key>NSDocumentClass</key>
-			<string>Subler.Document</string>
+			<string>SBDocument</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeName</key>
@@ -36,7 +36,7 @@
 				<string>public.mpeg-4</string>
 			</array>
 			<key>NSDocumentClass</key>
-			<string>Subler.Document</string>
+			<string>SBDocument</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeName</key>
@@ -50,7 +50,7 @@
 				<string>public.mpeg-4-audio</string>
 			</array>
 			<key>NSDocumentClass</key>
-			<string>Subler.Document</string>
+			<string>SBDocument</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeName</key>
@@ -64,7 +64,7 @@
 				<string>com.apple.protected-mpeg-4-audio</string>
 			</array>
 			<key>NSDocumentClass</key>
-			<string>Subler.Document</string>
+			<string>SBDocument</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -80,7 +80,7 @@
 				<string>com.apple.mpeg-4-ringtone</string>
 			</array>
 			<key>NSDocumentClass</key>
-			<string>Subler.Document</string>
+			<string>SBDocument</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -96,7 +96,7 @@
 			<key>LSHandlerRank</key>
 			<string>Alternate</string>
 			<key>NSDocumentClass</key>
-			<string>Subler.Document</string>
+			<string>SBDocument</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -110,7 +110,7 @@
 			<key>LSHandlerRank</key>
 			<string>Alternate</string>
 			<key>NSDocumentClass</key>
-			<string>Subler.Document</string>
+			<string>SBDocument</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -158,7 +158,7 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>OSAScriptingDefinition</key>
-	<string>Queue.sdef</string>
+	<string>Subler.sdef</string>
 	<key>SUAllowsAutomaticUpdates</key>
 	<false/>
 	<key>SUFeedURL</key>

@@ -514,6 +514,22 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         }
     }
 
+    @objc func importFilesDirectly(_ fileURLs: [URL]) {
+        do {
+            let controller = try FileImportController(fileURLs: fileURLs, delegate: self)
+
+            // Call addTracks directly - the Settings initialization logic runs when the controller is created
+            controller.addTracks(self)
+            tracksViewController.reloadData()
+        } catch {
+            if let windowForSheet = doc.windowForSheet {
+                presentError(error, modalFor: windowForSheet, delegate: nil, didPresent: nil, contextInfo: nil)
+            } else {
+                presentError(error)
+            }
+        }
+    }
+
     func didSelect(tracks: [MP42Track], metadata: MP42Metadata?) {
         for track in tracks {
             mp4.addTrack(track)
