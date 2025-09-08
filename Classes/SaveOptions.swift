@@ -7,6 +7,7 @@
 
 import Cocoa
 import MP42Foundation
+import UniformTypeIdentifiers
 
 final class SaveOptions: NSViewController {
 
@@ -46,11 +47,20 @@ final class SaveOptions: NSViewController {
             fileFormat.addItem(withTitle: name)
         }
 
-        fileFormat.selectItem(at: Prefs.defaultSaveFormat)
-        savePanel?.allowedFileTypes = [Prefs.saveFormat]
+        let idx = Prefs.defaultSaveFormat > -1 && Prefs.defaultSaveFormat < formats.count ? Prefs.defaultSaveFormat : 1
+        let format = formats[idx]
+
+        fileFormat.selectItem(at: idx)
 
         if let filename = doc.mp4.preferredFileName() {
             savePanel?.nameFieldStringValue = filename
+        }
+
+        if #available(macOS 15.0, *) {
+            let type = UTType(format) ?? .mpeg4Movie
+            savePanel?.currentContentType = type
+        } else {
+            savePanel?.allowedFileTypes = [Prefs.saveFormat]
         }
 
         _64bit_data.state = Prefs.mp464bitOffset ? .on : .off
@@ -62,8 +72,7 @@ final class SaveOptions: NSViewController {
         }
     }
 
-    func saveUserDefaults()
-    {
+    func saveUserDefaults() {
         Prefs.defaultSaveFormat = fileFormat.indexOfSelectedItem
         Prefs.mp464bitOffset = _64bit_data.state == .on
         Prefs.mp464bitTimes = _64bit_time.state == .on
@@ -91,7 +100,12 @@ final class SaveOptions: NSViewController {
         default:
             break
         }
-        savePanel?.allowedFileTypes = [requiredFileType]
+        if #available(macOS 15.0, *) {
+            let type = UTType(filenameExtension: requiredFileType) ?? .mpeg4Movie
+            savePanel?.currentContentType = type
+        } else {
+            savePanel?.allowedFileTypes = [requiredFileType]
+        }
         Prefs.saveFormat = requiredFileType
     }
 }

@@ -25,6 +25,10 @@
 			<string>SBDocument</string>
 		</dict>
 		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>mp4</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Movie-MPEG4</string>
 			<key>CFBundleTypeRole</key>
@@ -39,6 +43,10 @@
 			<string>SBDocument</string>
 		</dict>
 		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>m4a</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Audio-MPEG4</string>
 			<key>CFBundleTypeRole</key>
@@ -53,6 +61,10 @@
 			<string>SBDocument</string>
 		</dict>
 		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>m4b</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Audiobook</string>
 			<key>CFBundleTypeRole</key>
