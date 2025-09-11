@@ -29,7 +29,7 @@ private extension MetadataResult {
         self[.director]        = item.rolesSummary?.directors?.joined(separator: ", ")
 
         self[.iTunesURL]       = item.url
-        self[.serviceSeriesID] = item.id
+        self[.serviceContentID] = item.id
 
         self.remoteArtworks = [item.images.coverArt16X9, item.images.coverArt].compactMap { $0?.artwork(type: .poster) }
     }
@@ -39,7 +39,7 @@ private extension MetadataResult {
 
         self.mediaKind = .tvShow
 
-        self[.serviceSeriesID] = item.id
+        self[.serviceContentID] = item.id
 
         self[.seriesName]        = item.title
         self[.seriesDescription] = item.description
@@ -59,7 +59,7 @@ private extension MetadataResult {
         }
 
         self[.iTunesURL]       = episode.showURL
-        self[.serviceSeriesID] = episode.showID
+        self[.serviceContentID] = episode.showID
 
         if let releaseDate = item.releaseDate {
             self[.releaseDate] = Date(timeIntervalSince1970: releaseDate / 1000)
@@ -156,7 +156,7 @@ public struct AppleTV: MetadataService {
 
     private func loadDetails(_ metadata: MetadataResult, language: String) -> MetadataResult {
         guard let store = iTunesStore.Store(language: language),
-            let id = metadata[.serviceSeriesID] as? String,
+            let id = metadata[.serviceContentID] as? String,
             let details = fetchMovieDetails(id: id, store: store) else { return metadata }
 
         metadata.insert(contentOf: details, store: store)

@@ -39,7 +39,7 @@ public struct TheMovieDB: MetadataService {
 
         metadata.mediaKind = .movie
 
-        metadata[.serviceSeriesID] = result.id
+        metadata[.serviceContentID] = result.id
         metadata[.name]            = result.title
         metadata[.releaseDate]     = result.release_date
         metadata[.longDescription] = result.overview;
@@ -184,12 +184,13 @@ public struct TheMovieDB: MetadataService {
         }
 
         metadata.remoteArtworks = loadMovieArtworks(result: result)
+        metadata[.serviceContentID] = result.id
 
         return metadata
     }
 
     public func loadMovieMetadata(_ partialMetadata: MetadataResult, language: String) -> MetadataResult {
-        guard let movieID = partialMetadata[.serviceSeriesID] as? Int,
+        guard let movieID = partialMetadata[.serviceContentID] as? Int,
               let result = session.fetch(movieID: movieID, language: language)
             else { return partialMetadata }
 
@@ -228,7 +229,7 @@ public struct TheMovieDB: MetadataService {
     private func loadSquareTVArtwork(_ metadata: MetadataResult) -> [Artwork] {
         guard let tvShow = metadata[.seriesName] as? String,
             let seasonNum = metadata[.season] as? Int,
-            let seriesId = metadata[.serviceAdditionalSeriesID] as? Int
+            let seriesId = metadata[.serviceAdditionalContentID] as? Int
             else { return [] }
 
         return SquaredTVArt().search(tvShow: tvShow, theTVDBSeriesId: seriesId, season: seasonNum)
@@ -279,8 +280,8 @@ public struct TheMovieDB: MetadataService {
         metadata.mediaKind = .tvShow
 
         // TV Show Info
-        metadata[.serviceSeriesID]           = info.id
-        metadata[.serviceAdditionalSeriesID] = info.external_ids?.tvdb_id
+        metadata[.serviceContentID]           = info.id
+        metadata[.serviceAdditionalContentID] = info.external_ids?.tvdb_id
 
         metadata[.seriesName]         = info.name
         metadata[.seriesDescription]  = info.overview
@@ -360,7 +361,7 @@ public struct TheMovieDB: MetadataService {
     public func loadTVMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
         var artworks: [Artwork] = []
 
-        if let seriesID = metadata[.serviceSeriesID] as? Int, let season = metadata[.season] as? Int,
+        if let seriesID = metadata[.serviceContentID] as? Int, let season = metadata[.season] as? Int,
             let episodeNumber = metadata[.episodeNumber] as? Int {
 
             let seasonImages = session.fetch(imagesForSeriesID: seriesID, season: String(season), language: language)

@@ -158,8 +158,8 @@ private let localizedKeys: [MetadataResult.Key: String] = [
     .season           : NSLocalizedString("Season", comment: "nil"),
     .network          : NSLocalizedString("Network", comment: "nil"),
 
-    .serviceSeriesID  : NSLocalizedString("Service ID", comment: "nil"),
-    .serviceAdditionalSeriesID : NSLocalizedString("Service Additional ID", comment: "nil"),
+    .serviceContentID  : NSLocalizedString("Service Content ID", comment: "nil"),
+    .serviceAdditionalContentID : NSLocalizedString("Service Additional Content ID", comment: "nil"),
     .serviceEpisodeID : NSLocalizedString("Service Episode ID", comment: "nil")
 ]
 
@@ -203,8 +203,8 @@ public final class MetadataResult {
         case network            = "{Network}"
 
         // Services internal IDs
-        case serviceSeriesID              = "{ServiceSeriesID}"
-        case serviceAdditionalSeriesID    = "{AdditionalServiceSeriesID}"
+        case serviceContentID             = "{ServiceSeriesID}"
+        case serviceAdditionalContentID   = "{AdditionalServiceSeriesID}"
         case serviceEpisodeID             = "{ServiceEpisodeID}"
 
         fileprivate static var movieKeys: [Key] {
@@ -226,8 +226,8 @@ public final class MetadataResult {
                     .artistID,
                     .iTunesCountry,
 
-                    .serviceSeriesID,
-                    .serviceAdditionalSeriesID,
+                    .serviceContentID,
+                    .serviceAdditionalContentID,
                     .serviceEpisodeID]
         }
 
@@ -262,8 +262,8 @@ public final class MetadataResult {
                     .playlistID,
                     .iTunesCountry,
 
-                    .serviceSeriesID,
-                    .serviceAdditionalSeriesID,
+                    .serviceContentID,
+                    .serviceAdditionalContentID,
                     .serviceEpisodeID
             ]
         }
@@ -301,8 +301,8 @@ public final class MetadataResult {
                     .iTunesURL,
                     .iTunesCountry,
 
-                    .serviceSeriesID,
-                    .serviceAdditionalSeriesID,
+                    .serviceContentID,
+                    .serviceAdditionalContentID,
                     .serviceEpisodeID
             ]
         }
@@ -359,7 +359,7 @@ public final class MetadataResult {
             if let index1 = sortedKeys.firstIndex(of: key1), let index2 = sortedKeys.firstIndex(of: key2) {
                 return index1 < index2
             }
-            return key1 != Key.serviceSeriesID && key1 != Key.serviceEpisodeID
+            return key1 != Key.serviceContentID && key1 != Key.serviceEpisodeID
         })
     }()
 
