@@ -493,7 +493,7 @@
 "Series Name" = "Nome serie";
 
 /* No comment provided by engineer. */
-"Service ID" = "ID Servizio";
+"Service Content ID" = "ID Contenuto Servizio";
 
 /* Set track color space action description */
 "Set color space" = "Imposta spazio di colore";
