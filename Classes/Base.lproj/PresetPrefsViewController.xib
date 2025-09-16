@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24127" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24127"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -102,52 +102,52 @@
                         <constraint firstAttribute="height" constant="200" id="JWr-Hr-fVF"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="356" id="m8D-Ig-Qb7"/>
                     </constraints>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="D9w-7o-pBY">
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="D9w-7o-pBY">
                         <rect key="frame" x="1" y="184" width="354" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Z7j-pj-gXo">
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Z7j-pj-gXo">
                         <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
                 <button toolTip="Remove selected set" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SIg-lA-6FA">
                     <rect key="frame" x="44" y="19" width="25" height="23"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="25" id="KCi-qM-zwt"/>
-                        <constraint firstAttribute="height" constant="21" id="MLy-Qh-J3X"/>
-                    </constraints>
                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Y2I-ux-1v2">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="25" id="KCi-qM-zwt"/>
+                        <constraint firstAttribute="height" constant="21" id="MLy-Qh-J3X"/>
+                    </constraints>
                     <connections>
                         <action selector="deletePreset:" target="-2" id="afj-BK-TQl"/>
                     </connections>
                 </button>
                 <button toolTip="Edit selected set" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C1d-lu-T7S">
                     <rect key="frame" x="85" y="19" width="45" height="23"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="8we-xP-MsB"/>
-                    </constraints>
                     <buttonCell key="cell" type="smallSquare" title="Edit" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="W45-Bf-XCJ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="8we-xP-MsB"/>
+                    </constraints>
                     <connections>
                         <action selector="editPreset:" target="-2" id="u8x-oY-2Gk"/>
                     </connections>
                 </button>
                 <button toolTip="Remove selected set" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gBf-6T-hQv">
                     <rect key="frame" x="20" y="19" width="25" height="23"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="21" id="6f5-Cg-MfD"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="25" id="x23-FV-5XN"/>
-                    </constraints>
                     <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="f7j-PR-nTF">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="6f5-Cg-MfD"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="25" id="x23-FV-5XN"/>
+                    </constraints>
                     <connections>
                         <action selector="addPreset:" target="-2" id="Mlv-pO-Ewu"/>
                     </connections>
@@ -171,7 +171,7 @@
         </customView>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="14" height="13"/>
-        <image name="NSRemoveTemplate" width="14" height="4"/>
+        <image name="NSAddTemplate" width="18" height="17"/>
+        <image name="NSRemoveTemplate" width="18" height="5"/>
     </resources>
 </document>

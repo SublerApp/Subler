@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17132" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24127" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <development version="11000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17132"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24127"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -33,10 +32,10 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view translatesAutoresizingMaskIntoConstraints="NO" id="Hv4-PS-bN1">
-                                        <rect key="frame" x="39" y="21" width="405" height="184"/>
+                                        <rect key="frame" x="39" y="25" width="405" height="177"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="AN1-Gb-9rU">
-                                                <rect key="frame" x="48" y="152" width="91" height="14"/>
+                                                <rect key="frame" x="48" y="145" width="91" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Volume:" id="Z5x-Oq-P8Z">
                                                     <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -44,7 +43,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MVR-Tx-Jpc">
-                                                <rect key="frame" x="139" y="149" width="222" height="20"/>
+                                                <rect key="frame" x="143" y="142" width="214" height="20"/>
                                                 <sliderCell key="cell" controlSize="small" state="on" alignment="left" maxValue="200" doubleValue="100" tickMarkPosition="below" numberOfTickMarks="1" sliderType="linear" id="Yee-GR-ylI">
                                                     <font key="font" metaFont="controlContent" size="11"/>
                                                 </sliderCell>
@@ -54,7 +53,7 @@
                                                 </connections>
                                             </slider>
                                             <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="oJQ-vl-QbS">
-                                                <rect key="frame" x="48" y="103" width="91" height="14"/>
+                                                <rect key="frame" x="48" y="99" width="91" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="Alternate Group:" id="CTV-P7-IaD">
                                                     <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -65,7 +64,7 @@
                                                 </connections>
                                             </textField>
                                             <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="AHt-fF-cmH">
-                                                <rect key="frame" x="48" y="78" width="91" height="14"/>
+                                                <rect key="frame" x="48" y="76" width="91" height="14"/>
                                                 <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Fallback:" id="8KY-0L-cm1">
                                                     <font key="font" metaFont="controlContent" size="11"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -73,10 +72,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hO4-U9-j72">
-                                                <rect key="frame" x="142" y="100" width="87" height="22"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="81" id="deO-aT-0vb"/>
-                                                </constraints>
+                                                <rect key="frame" x="141" y="94" width="89" height="22"/>
                                                 <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="QBa-Jt-TO2" id="jSp-EO-3Gh">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="controlContent" size="11"/>
@@ -92,16 +88,16 @@
                                                         </items>
                                                     </menu>
                                                 </popUpButtonCell>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="81" id="deO-aT-0vb"/>
+                                                </constraints>
                                                 <connections>
                                                     <accessibilityConnection property="title" destination="oJQ-vl-QbS" id="Cbl-Aq-ObF"/>
                                                     <action selector="setTrackAlternateGroup:" target="-2" id="Xpd-ML-0hX"/>
                                                 </connections>
                                             </popUpButton>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kyn-qq-nF7">
-                                                <rect key="frame" x="142" y="75" width="216" height="22"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="210" id="VlQ-qX-xoP"/>
-                                                </constraints>
+                                                <rect key="frame" x="141" y="71" width="218" height="22"/>
                                                 <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Qdb-gu-B3h" id="NRh-66-Ilv">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="controlContent" size="11"/>
@@ -111,6 +107,9 @@
                                                         </items>
                                                     </menu>
                                                 </popUpButtonCell>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="210" id="VlQ-qX-xoP"/>
+                                                </constraints>
                                                 <connections>
                                                     <accessibilityConnection property="title" destination="AHt-fF-cmH" id="xln-Xh-ghS"/>
                                                     <action selector="setTrackFallback:" target="-2" id="dW2-e8-n1H"/>
@@ -125,10 +124,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Kd-IU-I5v">
-                                                <rect key="frame" x="142" y="51" width="216" height="22"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="210" id="p8q-de-wud"/>
-                                                </constraints>
+                                                <rect key="frame" x="141" y="49" width="218" height="22"/>
                                                 <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Zgh-b7-8aY" id="vO8-pC-sox">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="controlContent" size="11"/>
@@ -138,13 +134,16 @@
                                                         </items>
                                                     </menu>
                                                 </popUpButtonCell>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="210" id="p8q-de-wud"/>
+                                                </constraints>
                                                 <connections>
                                                     <accessibilityConnection property="title" destination="Wwd-LM-Zu2" id="c2I-EU-yGn"/>
                                                     <action selector="setTrackFollows:" target="-2" id="aKE-dj-ggZ"/>
                                                 </connections>
                                             </popUpButton>
                                             <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="IeL-sA-ryZ">
-                                                <rect key="frame" x="327" y="138" width="30" height="11"/>
+                                                <rect key="frame" x="327" y="131" width="30" height="11"/>
                                                 <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="+6 db" id="5ZH-ms-h3O">
                                                     <font key="font" metaFont="miniSystem"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -152,7 +151,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="nJx-6Z-zO1">
-                                                <rect key="frame" x="233" y="138" width="33" height="11"/>
+                                                <rect key="frame" x="233" y="131" width="33" height="11"/>
                                                 <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="+ 0 db" id="5af-rM-3Vd">
                                                     <font key="font" metaFont="miniSystem"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -160,7 +159,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="k0u-bj-qan">
-                                                <rect key="frame" x="143" y="138" width="33" height="11"/>
+                                                <rect key="frame" x="143" y="131" width="33" height="11"/>
                                                 <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-∞ db" id="dCR-ej-bsH">
                                                     <font key="font" metaFont="miniSystem"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24127" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24127"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -73,7 +73,7 @@ Gw
                                 <rect key="frame" x="10" y="33" width="554" height="69"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="150" translatesAutoresizingMaskIntoConstraints="NO" id="gBb-mO-eZD">
+                                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="150" translatesAutoresizingMaskIntoConstraints="NO" id="gBb-mO-eZD">
                                         <rect key="frame" x="18" y="45" width="44" height="16"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Movie:" id="uyt-vh-nv6">
                                             <font key="font" metaFont="system"/>
@@ -81,7 +81,7 @@ Gw
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dyr-Xb-8vA">
+                                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dyr-Xb-8vA">
                                         <rect key="frame" x="67" y="42" width="395" height="21"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="sXD-8k-I7r">
                                             <font key="font" metaFont="system"/>
@@ -97,7 +97,7 @@ Gw
                                         <rect key="frame" x="64" y="6" width="187" height="25"/>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="tuc-lL-n0W">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu"/>
+                                            <font key="font" metaFont="message"/>
                                             <menu key="menu" id="obN-m7-G5Q"/>
                                         </popUpButtonCell>
                                         <constraints>
@@ -112,7 +112,7 @@ Gw
                                         <rect key="frame" x="424" y="6" width="117" height="25"/>
                                         <popUpButtonCell key="cell" type="push" title="iTunes Store" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" selectedItem="nn6-mR-Bh1" id="k9r-Fo-4Nl">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu"/>
+                                            <font key="font" metaFont="message"/>
                                             <menu key="menu" id="Gqk-Gk-yG7">
                                                 <items>
                                                     <menuItem title="iTunes Store" state="on" id="nn6-mR-Bh1"/>
@@ -166,7 +166,7 @@ DQ
                                 <rect key="frame" x="10" y="33" width="554" height="69"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="PoJ-z7-u2L">
+                                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="PoJ-z7-u2L">
                                         <rect key="frame" x="14" y="45" width="61" height="16"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="TV Show:" id="lE4-J1-ySV">
                                             <font key="font" metaFont="system"/>
@@ -174,7 +174,7 @@ DQ
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gWo-ag-3S4">
+                                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gWo-ag-3S4">
                                         <rect key="frame" x="14" y="13" width="61" height="16"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Season #" id="kz7-mH-DuT">
                                             <font key="font" metaFont="system"/>
@@ -182,7 +182,7 @@ DQ
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nYS-Uo-Puv">
+                                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nYS-Uo-Puv">
                                         <rect key="frame" x="80" y="10" width="30" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="9CR-ib-DtF"/>
@@ -197,7 +197,7 @@ DQ
                                             <outlet property="delegate" destination="-2" id="wF7-SW-Zgw"/>
                                         </connections>
                                     </textField>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PmP-Uz-mXF">
+                                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PmP-Uz-mXF">
                                         <rect key="frame" x="184" y="10" width="30" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="JnI-dd-MkA"/>
@@ -212,7 +212,7 @@ DQ
                                             <outlet property="delegate" destination="-2" id="Em3-9Q-0I2"/>
                                         </connections>
                                     </textField>
-                                    <textField focusRingType="none" horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r32-v1-g3U">
+                                    <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r32-v1-g3U">
                                         <rect key="frame" x="115" y="13" width="64" height="16"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Episode #" id="Zik-QU-m81">
                                             <font key="font" metaFont="system"/>
@@ -220,7 +220,7 @@ DQ
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <comboBox focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yxL-hY-Wvf">
+                                    <comboBox verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yxL-hY-Wvf">
                                         <rect key="frame" x="79" y="42" width="386" height="23"/>
                                         <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesDataSource="YES" numberOfVisibleItems="5" id="o7O-s5-2MI">
                                             <font key="font" metaFont="system"/>
@@ -237,7 +237,7 @@ DQ
                                         <rect key="frame" x="211" y="6" width="160" height="25"/>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="6dD-ZJ-fLf">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu"/>
+                                            <font key="font" metaFont="message"/>
                                             <menu key="menu" id="eDp-3G-Kg4"/>
                                         </popUpButtonCell>
                                         <constraints>
@@ -252,7 +252,7 @@ DQ
                                         <rect key="frame" x="424" y="6" width="117" height="25"/>
                                         <popUpButtonCell key="cell" type="push" title="iTunes Store" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" selectedItem="j44-FV-Lpy" id="O3t-4h-3zl">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu"/>
+                                            <font key="font" metaFont="message"/>
                                             <menu key="menu" id="OYz-qX-3i2">
                                                 <items>
                                                     <menuItem title="iTunes Store" state="on" id="j44-FV-Lpy"/>
@@ -315,7 +315,7 @@ DQ
                         <outlet property="delegate" destination="-2" id="1gw-D2-r7v"/>
                     </connections>
                 </tabView>
-                <textField hidden="YES" focusRingType="none" horizontalHuggingPriority="249" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dWj-kw-NVW">
+                <textField hidden="YES" horizontalHuggingPriority="249" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dWj-kw-NVW">
                     <rect key="frame" x="41" y="21" width="297" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Progress status" id="gYx-cY-5Xj">
                         <font key="font" metaFont="message" size="11"/>
@@ -359,7 +359,7 @@ DQ
                                                                 <rect key="frame" x="1" y="1" width="505" height="15"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OFv-ne-Jzf">
+                                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OFv-ne-Jzf">
                                                                         <rect key="frame" x="0.0" y="1" width="505" height="14"/>
                                                                         <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="wLe-r3-x0V">
                                                                             <font key="font" metaFont="message" size="11"/>
@@ -446,7 +446,7 @@ DQ
                                                                 <rect key="frame" x="1" y="1" width="101" height="37"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wDJ-re-Kse">
+                                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wDJ-re-Kse">
                                                                         <rect key="frame" x="0.0" y="22" width="101" height="14"/>
                                                                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" id="5mH-2x-szO">
                                                                             <font key="font" metaFont="smallSystemBold"/>
@@ -482,7 +482,7 @@ DQ
                                                                 <rect key="frame" x="105" y="1" width="401" height="14"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Szc-uj-Lea">
+                                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Szc-uj-Lea">
                                                                         <rect key="frame" x="0.0" y="0.0" width="401" height="14"/>
                                                                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="cXa-al-MIH">
                                                                             <font key="font" metaFont="message" size="11"/>
@@ -505,7 +505,7 @@ DQ
                                                                 <rect key="frame" x="105" y="17" width="401" height="37"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uJ3-OT-6fm">
+                                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uJ3-OT-6fm">
                                                                         <rect key="frame" x="0.0" y="12" width="401" height="14"/>
                                                                         <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" id="L0d-pm-lX4">
                                                                             <font key="font" metaFont="message" size="11"/>
@@ -585,7 +585,7 @@ DQ
                 <constraint firstItem="BfX-EM-ktQ" firstAttribute="leading" secondItem="QEr-1S-JZX" secondAttribute="leading" id="mjk-ta-h2N"/>
                 <constraint firstItem="zM1-YP-Au2" firstAttribute="leading" secondItem="dWj-kw-NVW" secondAttribute="trailing" constant="14" id="vyk-qX-8IX"/>
             </constraints>
-            <point key="canvasLocation" x="168" y="157"/>
+            <point key="canvasLocation" x="244" y="72"/>
         </view>
     </objects>
 </document>

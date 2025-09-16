@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16085" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24127" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24127"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,14 +24,14 @@
             </declaredKeys>
         </userDefaultsController>
         <customView id="94" userLabel="Advanced View">
-            <rect key="frame" x="0.0" y="0.0" width="610" height="321"/>
+            <rect key="frame" x="0.0" y="0.0" width="610" height="329"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="W4x-d1-Fk8">
-                    <rect key="frame" x="115" y="-1" width="381" height="322"/>
+                    <rect key="frame" x="112" y="-1" width="387" height="330"/>
                     <subviews>
                         <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="101">
-                            <rect key="frame" x="18" y="232" width="133" height="16"/>
+                            <rect key="frame" x="18" y="236" width="133" height="16"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Convert:" id="102">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -39,10 +39,10 @@
                             </textFieldCell>
                         </textField>
                         <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rmU-Gb-jzF">
-                            <rect key="frame" x="172" y="183" width="137" height="25"/>
+                            <rect key="frame" x="171" y="184" width="138" height="25"/>
                             <popUpButtonCell key="cell" type="push" title="Discard DTS" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="2Ad-Fs-Zpj" id="bVg-GU-Gs9">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
+                                <font key="font" metaFont="message"/>
                                 <menu key="menu" id="rX2-PN-Ebm">
                                     <items>
                                         <menuItem title="Discard DTS" state="on" id="2Ad-Fs-Zpj">
@@ -68,7 +68,7 @@
                             </textFieldCell>
                         </textField>
                         <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="3fA-qQ-VvX">
-                            <rect key="frame" x="155" y="285" width="162" height="18"/>
+                            <rect key="frame" x="155" y="293" width="166" height="18"/>
                             <buttonCell key="cell" type="check" title="Keep groups organized" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Yld-Or-7Hu">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -78,7 +78,7 @@
                             </connections>
                         </button>
                         <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="Z2f-U9-9ZT">
-                            <rect key="frame" x="18" y="19" width="133" height="16"/>
+                            <rect key="frame" x="18" y="20" width="133" height="16"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="HEVC:" id="XpG-OO-ZNT">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -86,7 +86,7 @@
                             </textFieldCell>
                         </textField>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99">
-                            <rect key="frame" x="155" y="164" width="136" height="18"/>
+                            <rect key="frame" x="155" y="165" width="140" height="18"/>
                             <buttonCell key="cell" type="check" title="AC-3 audio to AAC" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="104">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -96,7 +96,7 @@
                             </connections>
                         </button>
                         <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="113">
-                            <rect key="frame" x="18" y="107" width="133" height="16"/>
+                            <rect key="frame" x="18" y="105" width="133" height="16"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Downmix audio to:" id="114">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -112,10 +112,10 @@
                             </textFieldCell>
                         </textField>
                         <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="115">
-                            <rect key="frame" x="155" y="101" width="144" height="25"/>
+                            <rect key="frame" x="154" y="99" width="145" height="25"/>
                             <popUpButtonCell key="cell" type="push" title="Dolby Pro Logic II" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="121" id="116">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
+                                <font key="font" metaFont="message"/>
                                 <menu key="menu" id="117">
                                     <items>
                                         <menuItem title="Dolby Pro Logic II" state="on" tag="1" id="121"/>
@@ -132,7 +132,7 @@
                             </connections>
                         </popUpButton>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hjZ-wQ-Sbb">
-                            <rect key="frame" x="155" y="231" width="119" height="18"/>
+                            <rect key="frame" x="155" y="235" width="123" height="18"/>
                             <buttonCell key="cell" type="check" title="VobSub to Tx3g" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="wgy-N5-9cB">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -142,7 +142,7 @@
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="olE-Dy-uJm">
-                            <rect key="frame" x="155" y="210" width="136" height="18"/>
+                            <rect key="frame" x="155" y="212" width="140" height="18"/>
                             <buttonCell key="cell" type="check" title="DTS audio to AAC" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="ZcC-1D-D4s">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -152,7 +152,7 @@
                             </connections>
                         </button>
                         <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="Pud-GM-vyU">
-                            <rect key="frame" x="18" y="47" width="133" height="16"/>
+                            <rect key="frame" x="18" y="48" width="133" height="16"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="DRC:" id="kde-QJ-Sl9">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -160,13 +160,10 @@
                             </textFieldCell>
                         </textField>
                         <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ETf-LE-57P">
-                            <rect key="frame" x="154" y="41" width="65" height="25"/>
-                            <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="fZU-8d-Ua1"/>
-                            </constraints>
+                            <rect key="frame" x="153" y="41" width="67" height="25"/>
                             <popUpButtonCell key="cell" type="push" title="0" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="aHL-pt-Ze0" id="sRN-fQ-JQy">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
+                                <font key="font" metaFont="message"/>
                                 <menu key="menu" id="v6x-m2-JTe">
                                     <items>
                                         <menuItem title="0" state="on" id="aHL-pt-Ze0"/>
@@ -177,13 +174,16 @@
                                     </items>
                                 </menu>
                             </popUpButtonCell>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="fZU-8d-Ua1"/>
+                            </constraints>
                             <connections>
                                 <accessibilityConnection property="title" destination="Pud-GM-vyU" id="I13-DW-46I"/>
                                 <binding destination="123" name="selectedTag" keyPath="values.SBAudioDRC" id="ozi-Zd-fSY"/>
                             </connections>
                         </popUpButton>
                         <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="hgg-QV-i0I">
-                            <rect key="frame" x="18" y="286" width="133" height="16"/>
+                            <rect key="frame" x="18" y="294" width="133" height="16"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Alternate Groups:" id="agM-jg-8mH">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -191,7 +191,7 @@
                             </textFieldCell>
                         </textField>
                         <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="QpA-Yd-jpF">
-                            <rect key="frame" x="155" y="265" width="183" height="18"/>
+                            <rect key="frame" x="155" y="271" width="187" height="18"/>
                             <buttonCell key="cell" type="check" title="Infer media characteristics" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="86R-Dj-j6Y">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -202,13 +202,10 @@
                             </connections>
                         </button>
                         <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="191">
-                            <rect key="frame" x="155" y="70" width="65" height="25"/>
-                            <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="gDw-hn-dbd"/>
-                            </constraints>
+                            <rect key="frame" x="154" y="69" width="67" height="25"/>
                             <popUpButtonCell key="cell" type="push" title="64" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="64" imageScaling="proportionallyDown" inset="2" selectedItem="194" id="192">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
+                                <font key="font" metaFont="message"/>
                                 <menu key="menu" id="193">
                                     <items>
                                         <menuItem title="64" state="on" tag="64" id="194"/>
@@ -226,13 +223,16 @@
                                     </items>
                                 </menu>
                             </popUpButtonCell>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="gDw-hn-dbd"/>
+                            </constraints>
                             <connections>
                                 <accessibilityConnection property="title" destination="189" id="hSG-o4-8UE"/>
                                 <binding destination="123" name="selectedTag" keyPath="values.SBAudioBitrate" id="205"/>
                             </connections>
                         </popUpButton>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="edJ-A5-eyf">
-                            <rect key="frame" x="172" y="143" width="88" height="18"/>
+                            <rect key="frame" x="172" y="142" width="92" height="18"/>
                             <buttonCell key="cell" type="check" title="Keep AC-3" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Zgy-z5-6UG">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -243,7 +243,7 @@
                             </connections>
                         </button>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="fTk-UL-aoX">
-                            <rect key="frame" x="155" y="18" width="208" height="18"/>
+                            <rect key="frame" x="155" y="19" width="212" height="18"/>
                             <buttonCell key="cell" type="check" title="Force QuickTime Compatibility" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bBF-Bs-9N7">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>

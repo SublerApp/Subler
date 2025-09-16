@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24127" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24127"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -181,9 +181,10 @@
                 <constraint firstItem="Skr-vw-eHq" firstAttribute="leading" secondItem="0Or-PU-gfk" secondAttribute="trailing" constant="8" id="rq3-29-5vx"/>
                 <constraint firstAttribute="bottom" secondItem="J0r-57-7ab" secondAttribute="bottom" constant="9" id="vQ6-oB-s7z"/>
             </constraints>
-            <point key="canvasLocation" x="125" y="-121"/>
+            <point key="canvasLocation" x="200" y="-110"/>
         </customView>
         <arrayController objectClassName="SBQueueAction" id="J6Q-ls-Vzn">
+            <classReference key="objectClass" className="SBQueueAction"/>
             <connections>
                 <binding destination="-2" name="contentArray" keyPath="item.actions" id="DPr-Hj-MPk"/>
             </connections>

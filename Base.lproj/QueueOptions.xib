@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24127" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24127"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -485,7 +485,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LiA-V6-VEx" userLabel="Change Subtitle Language Track">
-                    <rect key="frame" x="111" y="247" width="218" height="16"/>
+                    <rect key="frame" x="111" y="247" width="211" height="16"/>
                     <string key="toolTip">In files with multiple subtitle tracks in different languages, this will enable the preferred langauge and disable all other tracks. For AppleTV and some other players, this allows the preferred language subtitles to play by default. A subtitle track labeled with the preferred language must exist in the file.</string>
                     <buttonCell key="cell" type="check" title="Enable subtitles track with language" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="LD5-Kv-x0M" userLabel="Change Subtitle Language Track">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
