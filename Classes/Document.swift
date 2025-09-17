@@ -205,6 +205,8 @@ final class Document: NSDocument {
     private var accessoryViewController: SaveOptions?
 
     override var shouldRunSavePanelWithAccessoryView: Bool { return false }
+    
+    override var savePanelShowsFileFormatsControl: Bool { return false }
 
     override func prepareSavePanel(_ savePanel: NSSavePanel) -> Bool {
         self.accessoryViewController = SaveOptions(doc: self, savePanel: savePanel)

@@ -73,8 +73,8 @@ struct StoredCodable<T: Codable> : Registable {
 enum Prefs {
 
     static func register() {
-        ud.register(defaults: [_crashOnException, _showOpenPanelAtLaunch, _suppressDonationAlert, _saveFormat, _organizeAlternateGroups,
-                               _defaultSaveFormat, _organizeAlternateGroups, _inferMediaCharacteristics, _audioMixdown,
+        ud.register(defaults: [_crashOnException, _showOpenPanelAtLaunch, _suppressDonationAlert, _fileType, _organizeAlternateGroups,
+                               _organizeAlternateGroups, _inferMediaCharacteristics, _audioMixdown,
                                _audioBitrate, _audioDRC, _audioConvertAC3, _audioKeepAC3, _audioConvertDts,
                                _audioDtsOptions, _subtitleConvertBitmap, _ratingsCountry, _chaptersPreviewPosition,
                                _chaptersPreviewTrack, _mp464bitOffset, _mp464bitTimes, _mp4SaveAsOptimize, _forceHvc1,
@@ -96,11 +96,8 @@ enum Prefs {
     @Stored(key: "rememberWindowSize", defaultValue: false)
     static var rememberDocumentWindowSize: Bool
 
-    @Stored(key: "SBSaveFormat", defaultValue: "m4v")
-    static var saveFormat: String
-
-    @Stored(key: "defaultSaveFormat", defaultValue: 0)
-    static var defaultSaveFormat: Int
+    @Stored(key: "SBSaveFormat", defaultValue: "mp4")
+    static var fileType: String
 
     @Stored(key: "SBOrganizeAlternateGroups", defaultValue: true)
     static var organizeAlternateGroups: Bool
