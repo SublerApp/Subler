@@ -29,15 +29,14 @@
                                 <rect key="frame" x="10" y="29" width="753" height="237"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19">
-                                        <rect key="frame" x="17" y="36" width="719" height="195"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19">
+                                        <rect key="frame" x="17" y="32" width="719" height="199"/>
                                         <clipView key="contentView" id="gfP-N5-8Ji">
-                                            <rect key="frame" x="1" y="1" width="717" height="193"/>
+                                            <rect key="frame" x="1" y="1" width="717" height="197"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="plain" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="14" headerView="23" viewBased="YES" id="22" customClass="ExpandedTableView" customModule="Subler" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="717" height="176"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="717" height="180"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -307,7 +306,7 @@
                                                                     <rect key="frame" x="1" y="1" width="96" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sbg-eG-N9u">
+                                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sbg-eG-N9u">
                                                                             <rect key="frame" x="0.0" y="3" width="96" height="14"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="right" id="fIl-II-Tfv">
@@ -342,7 +341,7 @@
                                                                     <rect key="frame" x="100" y="1" width="615" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KkS-kR-z72">
+                                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KkS-kR-z72">
                                                                             <rect key="frame" x="0.0" y="3" width="615" height="14"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" id="Ktq-AC-XnR">
@@ -383,32 +382,19 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
-                                    <button toolTip="Delete selected chapter" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="31">
-                                        <rect key="frame" x="42" y="7" width="26" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="32">
+                                    <button toolTip="Add chapter" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="42">
+                                        <rect key="frame" x="11" y="1" width="36" height="27"/>
+                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSAddTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="43">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="removeChapter:" target="-2" id="48"/>
-                                        </connections>
-                                    </button>
-                                    <button toolTip="Add chapter" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="42">
-                                        <rect key="frame" x="17" y="7" width="26" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="43">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="addChapter:" target="-2" id="50"/>
                                         </connections>
                                     </button>
-                                    <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IvH-Ff-dyN">
-                                        <rect key="frame" x="76" y="7" width="33" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <popUpButtonCell key="cell" type="smallSquare" bezelStyle="smallSquare" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="frw-Vk-Gwo">
+                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IvH-Ff-dyN">
+                                        <rect key="frame" x="70" y="4" width="45" height="22"/>
+                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="frw-Vk-Gwo">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="controlContent" size="11"/>
                                             <menu key="menu" id="T3N-JJ-mWq">
@@ -426,13 +412,35 @@
                                             </menu>
                                         </popUpButtonCell>
                                     </popUpButton>
+                                    <button toolTip="Delete selected chapter" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="31">
+                                        <rect key="frame" x="36" y="1" width="36" height="27"/>
+                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="only" alignment="center" controlSize="small" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="32">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="smallSystem"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="removeChapter:" target="-2" id="48"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="19" firstAttribute="leading" secondItem="12" secondAttribute="leading" constant="17" id="21K-r4-gXZ"/>
+                                    <constraint firstItem="42" firstAttribute="top" secondItem="19" secondAttribute="bottom" constant="8" symbolic="YES" id="Ngw-J5-tMS"/>
+                                    <constraint firstItem="31" firstAttribute="firstBaseline" secondItem="IvH-Ff-dyN" secondAttribute="firstBaseline" id="PDg-oB-otB"/>
+                                    <constraint firstItem="42" firstAttribute="firstBaseline" secondItem="31" secondAttribute="firstBaseline" id="TNn-sR-1Ns"/>
+                                    <constraint firstItem="42" firstAttribute="leading" secondItem="19" secondAttribute="leading" id="XGG-xy-ibf"/>
+                                    <constraint firstAttribute="trailing" secondItem="19" secondAttribute="trailing" constant="17" id="cNR-fN-seC"/>
+                                    <constraint firstItem="19" firstAttribute="top" secondItem="12" secondAttribute="top" constant="6" id="dMH-VU-NKD"/>
+                                    <constraint firstAttribute="bottom" secondItem="42" secondAttribute="bottom" constant="8" id="mjM-zH-dIu"/>
+                                    <constraint firstItem="IvH-Ff-dyN" firstAttribute="leading" secondItem="31" secondAttribute="trailing" constant="8" symbolic="YES" id="rvP-0R-kpo"/>
+                                    <constraint firstItem="31" firstAttribute="leading" secondItem="42" secondAttribute="trailing" constant="1" id="teO-jO-fZC"/>
+                                </constraints>
                             </view>
                         </tabViewItem>
                     </tabViewItems>
                 </tabView>
             </subviews>
-            <point key="canvasLocation" x="-36" y="-92"/>
+            <point key="canvasLocation" x="-36.5" y="-92"/>
         </customView>
     </objects>
     <resources>
