@@ -1,0 +1,211 @@
+{
+  "fill" : {
+    "linear-gradient" : [
+      "extended-gray:0.75000,1.00000",
+      "extended-gray:0.50000,1.00000"
+    ]
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "fill" : "none",
+          "glass" : true,
+          "image-name" : "Pen.png",
+          "name" : "Pen",
+          "position" : {
+            "scale" : 0.56,
+            "translation-in-points" : [
+              275.7747802734375,
+              -56.494140625
+            ]
+          }
+        }
+      ],
+      "opacity" : 0.94,
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.2
+      },
+      "specular" : false,
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0.5
+      }
+    },
+    {
+      "blur-material" : 0.5,
+      "layers" : [
+        {
+          "blend-mode" : "normal",
+          "fill-specializations" : [
+            {
+              "value" : {
+                "solid" : "extended-gray:1.00000,1.00000"
+              }
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "extended-gray:1.00000,1.00000"
+              }
+            }
+          ],
+          "glass" : true,
+          "image-name" : "Text.png",
+          "name" : "Subler text",
+          "position" : {
+            "scale" : 0.66,
+            "translation-in-points" : [
+              -4.905029296875,
+              344.1019287109375
+            ]
+          }
+        }
+      ],
+      "lighting" : "individual",
+      "opacity" : 0.9,
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 1
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.05
+      }
+    },
+    {
+      "blend-mode" : "normal",
+      "blur-material" : null,
+      "hidden" : false,
+      "layers" : [
+        {
+          "fill" : {
+            "automatic-gradient" : "srgb:0.29413,0.63184,1.00000,1.00000"
+          },
+          "hidden" : false,
+          "image-name" : "Child2.jpg",
+          "name" : "Top",
+          "position" : {
+            "scale" : 0.64,
+            "translation-in-points" : [
+              0,
+              -579.3180541992188
+            ]
+          }
+        },
+        {
+          "blend-mode" : "normal",
+          "fill" : {
+            "automatic-gradient" : "srgb:0.09742,0.52924,1.00000,1.00000"
+          },
+          "glass" : true,
+          "hidden" : false,
+          "image-name" : "Child2.jpg",
+          "name" : "Center",
+          "position" : {
+            "scale" : 0.64,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "blend-mode" : "normal",
+          "fill" : {
+            "automatic-gradient" : "srgb:0.00000,0.47843,1.00000,1.00000"
+          },
+          "hidden" : false,
+          "image-name" : "Child2.jpg",
+          "name" : "Bottom",
+          "position" : {
+            "scale" : 0.64,
+            "translation-in-points" : [
+              0,
+              578.4395446777344
+            ]
+          }
+        }
+      ],
+      "opacity" : 1,
+      "shadow" : {
+        "kind" : "layer-color",
+        "opacity" : 1
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.1
+      }
+    },
+    {
+      "blur-material" : null,
+      "layers" : [
+        {
+          "blend-mode" : "normal",
+          "fill" : {
+            "solid" : "srgb:0.12984,0.12985,0.12984,1.00000"
+          },
+          "glass" : false,
+          "hidden" : false,
+          "image-name" : "Strip.svg",
+          "name" : "Strip",
+          "opacity" : 1,
+          "position" : {
+            "scale" : 1.27,
+            "translation-in-points" : [
+              2.326171875,
+              -66.71942138671875
+            ]
+          }
+        },
+        {
+          "blend-mode" : "normal",
+          "fill-specializations" : [
+            {
+              "value" : {
+                "solid" : "srgb:1.00000,1.00000,1.00000,1.00000"
+              }
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "extended-gray:0.75000,1.00000"
+              }
+            }
+          ],
+          "glass" : true,
+          "hidden" : false,
+          "image-name" : "White.png",
+          "name" : "Background",
+          "opacity" : 0.5,
+          "position" : {
+            "scale" : 1.4,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "lighting" : "individual",
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.2
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.2
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}

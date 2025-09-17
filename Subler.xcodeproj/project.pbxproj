@@ -122,6 +122,7 @@
 		A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */; };
 		A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */; };
 		A9D64527202CA92400BA172B /* SaveOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D64525202CA92400BA172B /* SaveOptions.swift */; };
+		A9D8CA822E798CBD007C7B59 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A9D8CA812E798CBD007C7B59 /* AppIcon.icon */; };
 		A9DA03E322A0211C0056AE7B /* OCRPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DA03E122A0211C0056AE7B /* OCRPrefsViewController.swift */; };
 		A9E385782C316FBE000A050D /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E385772C316FBE000A050D /* CollectionView.swift */; };
 		A9E3857C2C317010000A050D /* FilePromiseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3857B2C317010000A050D /* FilePromiseProvider.swift */; };
@@ -401,6 +402,7 @@
 		A9CB19042D10417D0074DC9F /* Alpha2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Alpha2.json; sourceTree = "<group>"; };
 		A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataImporter.swift; path = Classes/MetadataImporters/MetadataImporter.swift; sourceTree = "<group>"; };
 		A9D64525202CA92400BA172B /* SaveOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveOptions.swift; path = Classes/SaveOptions.swift; sourceTree = "<group>"; };
+		A9D8CA812E798CBD007C7B59 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		A9DA03E122A0211C0056AE7B /* OCRPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OCRPrefsViewController.swift; path = Classes/OCRPrefsViewController.swift; sourceTree = "<group>"; };
 		A9E059B02529DCA9000E0E9A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		A9E059B12529DCA9000E0E9A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -533,6 +535,7 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A9D8CA812E798CBD007C7B59 /* AppIcon.icon */,
 				A9F5820B1DCC861F005F3E92 /* Assets.xcassets */,
 				A9BA1AF51DBF7DD800FD0B38 /* Localizable.strings */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
@@ -837,6 +840,7 @@
 				A9AB486617F0AEFD000AA72E /* MovieView.xib in Resources */,
 				A9C31E5D2029A79000CEF474 /* GeneralPrefsViewController.xib in Resources */,
 				A98542DD20D1A7E500EB9803 /* ArtworkSelectorViewItem.xib in Resources */,
+				A9D8CA822E798CBD007C7B59 /* AppIcon.icon in Resources */,
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
 				A9ECA05A2029A10F00D5F30C /* TracksViewController.xib in Resources */,
 				A9AB486717F0AEFD000AA72E /* SoundView.xib in Resources */,
