@@ -33,13 +33,13 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="19" rowSizeStyle="automatic" viewBased="YES" id="7" customClass="ExpandedTableView" customModule="Subler" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="503" height="458"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="512" height="458"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="4"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn identifier="nameColumn" editable="NO" width="491" minWidth="40" maxWidth="3000" id="8">
+                                        <tableColumn identifier="nameColumn" editable="NO" width="500" minWidth="40" maxWidth="3000" id="8">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="nameColumn">
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -52,11 +52,11 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView id="ofF-gY-wBR">
-                                                    <rect key="frame" x="1" y="2" width="500" height="19"/>
+                                                    <rect key="frame" x="1" y="2" width="509" height="19"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pjh-GC-aOA">
-                                                            <rect key="frame" x="29" y="2" width="442" height="17"/>
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pjh-GC-aOA">
+                                                            <rect key="frame" x="29" y="2" width="451" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Name" id="srx-EJ-mK6">
                                                                 <font key="font" metaFont="system"/>
@@ -70,7 +70,7 @@
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="EncodeComplete" id="uXb-c3-MQO"/>
                                                         </imageView>
                                                         <button toolTip="Show item info" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o98-wM-YAQ">
-                                                            <rect key="frame" x="477" y="2" width="16" height="16"/>
+                                                            <rect key="frame" x="486" y="2" width="16" height="16"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                             <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="info" imagePosition="overlaps" alignment="center" alternateImage="info-pressed" imageScaling="proportionallyDown" inset="2" id="AFW-1U-iaL">
                                                                 <behavior key="behavior" lightByContents="YES"/>
@@ -99,7 +99,7 @@
                                 </tableView>
                             </subviews>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="6">
+                        <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="6">
                             <rect key="frame" x="1" y="443" width="503" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
@@ -108,7 +108,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="12">
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="12">
                         <rect key="frame" x="8" y="16" width="339" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Queue items" id="13">
                             <font key="font" metaFont="system"/>
