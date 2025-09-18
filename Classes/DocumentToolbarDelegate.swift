@@ -88,7 +88,10 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                 let item = NSMenuToolbarItem(itemIdentifier: itemIdentifier)
                 item.label = label
                 item.paletteLabel = label
-                if #available(macOS 11.0, *) {
+                item.toolTip = NSLocalizedString("Perform tasks with the selected items", comment: "Toolbar")
+                if #available(macOS 26.0, *) {
+                    item.image = NSImage.init(systemSymbolName: "ellipsis", accessibilityDescription: nil)
+                } else if #available(macOS 26.0, *) {
                     item.image = NSImage.init(systemSymbolName: "ellipsis.circle", accessibilityDescription: nil)
                 } else {
                     item.image = NSImage(named:"NSActionTemplate")
@@ -109,6 +112,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                 let item = ButtonToolbarItem(itemIdentifier: itemIdentifier)
                 item.label = label
                 item.paletteLabel = label
+                item.toolTip = NSLocalizedString("Perform tasks with the selected items", comment: "Toolbar")
                 item.view = popUpButton
                 item.minSize = NSSize(width: 48, height: 16)
 

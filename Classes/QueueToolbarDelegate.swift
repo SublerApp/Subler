@@ -28,11 +28,15 @@ class QueueToolbarDelegate: NSObject, NSToolbarDelegate {
                                      target: target,
                                      action: #selector(QueueController.open(_:)))
         } else if itemIdentifier == .queueSettings {
+            var symbolName = "ellipsis.circle"
+            if #available(macOS 26.0, *) {
+                symbolName = "ellipsis"
+            }
             return ButtonToolbarItem(itemIdentifier: itemIdentifier,
                                      label: NSLocalizedString("Settings", comment: "Toolbar"),
                                      toolTip: NSLocalizedString("Show/Hide settings", comment: "Toolbar"),
                                      image: "NSActionTemplate",
-                                     symbolName: "ellipsis.circle",
+                                     symbolName: symbolName,
                                      target: target,
                                      action: #selector(QueueController.toggleOptions(_:)))
         } else if itemIdentifier == .queueStartStop {
