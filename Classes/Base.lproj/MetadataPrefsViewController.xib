@@ -164,7 +164,7 @@
                     <rect key="frame" x="163" y="87" width="53" height="25"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" pullsDown="YES" selectedItem="5wF-Yq-18d" id="Hfq-XE-kzZ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" id="ywu-nj-9bP">
                             <items>
                                 <menuItem image="NSAddTemplate" hidden="YES" id="5wF-Yq-18d">
