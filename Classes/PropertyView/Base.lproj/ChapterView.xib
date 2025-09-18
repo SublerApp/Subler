@@ -30,13 +30,13 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19">
-                                        <rect key="frame" x="17" y="32" width="719" height="199"/>
+                                        <rect key="frame" x="17" y="40" width="719" height="191"/>
                                         <clipView key="contentView" id="gfP-N5-8Ji">
-                                            <rect key="frame" x="1" y="1" width="717" height="197"/>
+                                            <rect key="frame" x="1" y="1" width="717" height="189"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="plain" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="14" headerView="23" viewBased="YES" id="22" customClass="ExpandedTableView" customModule="Subler" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="717" height="180"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="717" height="172"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -383,7 +383,7 @@
                                         </tableHeaderView>
                                     </scrollView>
                                     <button toolTip="Add chapter" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="42">
-                                        <rect key="frame" x="11" y="1" width="36" height="27"/>
+                                        <rect key="frame" x="11" y="9" width="36" height="27"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSAddTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="43">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -393,7 +393,7 @@
                                         </connections>
                                     </button>
                                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IvH-Ff-dyN">
-                                        <rect key="frame" x="70" y="4" width="45" height="22"/>
+                                        <rect key="frame" x="70" y="12" width="45" height="22"/>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="frw-Vk-Gwo">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="controlContent" size="11"/>
@@ -413,7 +413,7 @@
                                         </popUpButtonCell>
                                     </popUpButton>
                                     <button toolTip="Delete selected chapter" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="31">
-                                        <rect key="frame" x="36" y="1" width="36" height="27"/>
+                                        <rect key="frame" x="36" y="9" width="36" height="27"/>
                                         <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="only" alignment="center" controlSize="small" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="32">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
@@ -430,7 +430,7 @@
                                     <constraint firstItem="42" firstAttribute="leading" secondItem="19" secondAttribute="leading" id="XGG-xy-ibf"/>
                                     <constraint firstAttribute="trailing" secondItem="19" secondAttribute="trailing" constant="17" id="cNR-fN-seC"/>
                                     <constraint firstItem="19" firstAttribute="top" secondItem="12" secondAttribute="top" constant="6" id="dMH-VU-NKD"/>
-                                    <constraint firstAttribute="bottom" secondItem="42" secondAttribute="bottom" constant="8" id="mjM-zH-dIu"/>
+                                    <constraint firstAttribute="bottom" secondItem="42" secondAttribute="bottom" constant="16" id="mjM-zH-dIu"/>
                                     <constraint firstItem="IvH-Ff-dyN" firstAttribute="leading" secondItem="31" secondAttribute="trailing" constant="8" symbolic="YES" id="rvP-0R-kpo"/>
                                     <constraint firstItem="31" firstAttribute="leading" secondItem="42" secondAttribute="trailing" constant="1" id="teO-jO-fZC"/>
                                     <constraint firstItem="IvH-Ff-dyN" firstAttribute="top" secondItem="31" secondAttribute="top" id="yyG-lL-AQz"/>
