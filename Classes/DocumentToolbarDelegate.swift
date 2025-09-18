@@ -90,6 +90,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                 item.paletteLabel = label
                 item.toolTip = NSLocalizedString("Perform tasks with the selected items", comment: "Toolbar")
                 if #available(macOS 26.0, *) {
+                    item.showsIndicator = false
                     item.image = NSImage.init(systemSymbolName: "ellipsis", accessibilityDescription: nil)
                 } else if #available(macOS 26.0, *) {
                     item.image = NSImage.init(systemSymbolName: "ellipsis.circle", accessibilityDescription: nil)
