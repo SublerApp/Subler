@@ -1,8 +1,8 @@
 {
   "fill" : {
     "linear-gradient" : [
-      "extended-gray:0.75000,1.00000",
-      "extended-gray:0.50000,1.00000"
+      "extended-gray:0.23459,1.00000",
+      "extended-gray:0.06807,1.00000"
     ]
   },
   "groups" : [
@@ -52,13 +52,14 @@
             }
           ],
           "glass" : true,
+          "hidden" : false,
           "image-name" : "Text.png",
           "name" : "Subler text",
           "position" : {
-            "scale" : 0.66,
+            "scale" : 0.6,
             "translation-in-points" : [
               -4.905029296875,
-              344.1019287109375
+              320.3299560546875
             ]
           }
         }
@@ -82,30 +83,25 @@
       "layers" : [
         {
           "fill" : {
-            "automatic-gradient" : "srgb:0.29413,0.63184,1.00000,1.00000"
+            "automatic-gradient" : "extended-gray:0.50000,1.00000"
           },
-          "hidden" : false,
-          "image-name" : "Child2.jpg",
-          "name" : "Top",
+          "image-name" : "Rectangle.svg",
+          "name" : "Rectangle",
           "position" : {
-            "scale" : 0.64,
+            "scale" : 1.22,
             "translation-in-points" : [
               0,
-              -579.3180541992188
+              -590
             ]
           }
         },
         {
           "blend-mode" : "normal",
-          "fill" : {
-            "automatic-gradient" : "srgb:0.09742,0.52924,1.00000,1.00000"
-          },
-          "glass" : true,
-          "hidden" : false,
-          "image-name" : "Child2.jpg",
-          "name" : "Center",
+          "image-name" : "bars 2.png",
+          "name" : "bars 2",
+          "opacity" : 0.9,
           "position" : {
-            "scale" : 0.64,
+            "scale" : 1.22,
             "translation-in-points" : [
               0,
               0
@@ -113,18 +109,31 @@
           }
         },
         {
-          "blend-mode" : "normal",
-          "fill" : {
-            "automatic-gradient" : "srgb:0.00000,0.47843,1.00000,1.00000"
-          },
+          "fill" : "automatic",
           "hidden" : false,
-          "image-name" : "Child2.jpg",
-          "name" : "Bottom",
+          "image-name" : "IMG_2689.png",
+          "name" : "IMG_2689",
+          "opacity" : 1,
           "position" : {
-            "scale" : 0.64,
+            "scale" : 1.22,
             "translation-in-points" : [
               0,
-              578.4395446777344
+              0
+            ]
+          }
+        },
+        {
+          "fill" : {
+            "automatic-gradient" : "extended-gray:0.25000,1.00000"
+          },
+          "hidden" : false,
+          "image-name" : "Rectangle.svg",
+          "name" : "Rectangle",
+          "position" : {
+            "scale" : 1.22,
+            "translation-in-points" : [
+              0,
+              590
             ]
           }
         }
@@ -137,36 +146,49 @@
       "specular" : true,
       "translucency" : {
         "enabled" : true,
-        "value" : 0.1
+        "value" : 0.2
       }
     },
     {
+      "blend-mode" : "normal",
       "blur-material" : null,
       "layers" : [
         {
-          "blend-mode" : "normal",
-          "fill" : {
-            "solid" : "srgb:0.12984,0.12985,0.12984,1.00000"
-          },
-          "glass" : false,
-          "hidden" : false,
-          "image-name" : "Strip.svg",
-          "name" : "Strip",
-          "opacity" : 1,
+          "fill-specializations" : [
+            {
+              "value" : {
+                "linear-gradient" : [
+                  "extended-gray:1.00000,1.00000",
+                  "display-p3:0.90000,0.90000,0.90000,1.00000"
+                ]
+              }
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "extended-gray:0.75000,1.00000"
+              }
+            }
+          ],
+          "glass" : true,
+          "image-name" : "Film Strip.svg",
+          "name" : "Film Strip",
           "position" : {
-            "scale" : 1.27,
+            "scale" : 1.4,
             "translation-in-points" : [
-              2.326171875,
-              -66.71942138671875
+              -432,
+              66
             ]
           }
         },
         {
-          "blend-mode" : "normal",
           "fill-specializations" : [
             {
               "value" : {
-                "solid" : "srgb:1.00000,1.00000,1.00000,1.00000"
+                "linear-gradient" : [
+                  "extended-gray:1.00000,1.00000",
+                  "display-p3:0.90000,0.90000,0.90000,1.00000"
+                ]
               }
             },
             {
@@ -178,27 +200,27 @@
           ],
           "glass" : true,
           "hidden" : false,
-          "image-name" : "White.png",
-          "name" : "Background",
-          "opacity" : 0.5,
+          "image-name" : "Film Strip.svg",
+          "name" : "Film Strip",
           "position" : {
             "scale" : 1.4,
             "translation-in-points" : [
-              0,
-              0
+              432,
+              66
             ]
           }
         }
       ],
       "lighting" : "individual",
+      "opacity" : 0.9,
       "shadow" : {
-        "kind" : "neutral",
+        "kind" : "layer-color",
         "opacity" : 0.2
       },
       "specular" : true,
       "translucency" : {
         "enabled" : true,
-        "value" : 0.2
+        "value" : 0
       }
     }
   ],
