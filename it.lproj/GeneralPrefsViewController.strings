@@ -43,3 +43,6 @@
 /* Class = "NSTextFieldCell"; title = "End"; ObjectID = "He0-rl-DBi"; */
 "He0-rl-DBi.title" = "Fine";
 
+/* Class = "NSTextFieldCell"; title = "Log Format:"; ObjectID = "logFormatLabelCell"; */
+"logFormatLabelCell.title" = "Formato resoconto:";
+

@@ -19,6 +19,9 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Dismiss"; ObjectID = "87e-za-hJV"; */
 "87e-za-hJV.ibShadowedToolTip" = "Chiudi";
 
+/* Class = "NSWindow"; title = "Window"; ObjectID = "167"; */
+"167.title" = "Finestra";
+
 /* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "174"; */
 "174.title" = "Nome:";
 

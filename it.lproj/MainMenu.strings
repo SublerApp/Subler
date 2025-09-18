@@ -274,6 +274,9 @@
 /* Class = "NSMenuItem"; title = "1 minutes"; ObjectID = "662"; */
 "662.title" = "1 minuto";
 
+/* Class = "NSMenuItem"; title = "Remove completed items from queue"; ObjectID = "Cre-T6-PID"; */
+"Cre-T6-PID.title" = "Rimuovi gli elementi completati dalla coda";
+
 /* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "fm8-d2-1Yi"; */
 "fm8-d2-1Yi.title" = "Rinomina le tracce audio";
 
@@ -285,6 +288,9 @@
 
 /* Class = "NSMenuItem"; title = "Donate…"; ObjectID = "ojS-sZ-qGM"; */
 "ojS-sZ-qGM.title" = "Dona…";
+
+/* Class = "NSMenuItem"; title = "Start Queue"; ObjectID = "TRh-ZN-Id8"; */
+"TRh-ZN-Id8.title" = "Avvia coda";
 
 /* Class = "NSMenuItem"; title = "Open in Queue…"; ObjectID = "YfF-TG-cvE"; */
 "YfF-TG-cvE.title" = "Apri in coda…";

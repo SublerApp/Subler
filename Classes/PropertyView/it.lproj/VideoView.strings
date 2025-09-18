@@ -1,6 +1,9 @@
 /* Class = "NSTextFieldCell"; title = "Scaled Size:"; ObjectID = "1O9-J3-Plk"; */
 "1O9-J3-Plk.title" = "Dimensioni in scala:";
 
+/* Class = "NSMenuItem"; title = "3"; ObjectID = "3D2-8h-I0N"; */
+"3D2-8h-I0N.title" = "3";
+
 /* Class = "NSTabViewItem"; label = "Visual Settings"; ObjectID = "6"; */
 "6.label" = "Impostazioni visive";
 
@@ -25,6 +28,9 @@
 /* Class = "NSMenuItem"; title = "2"; ObjectID = "a5f-nN-J1C"; */
 "a5f-nN-J1C.title" = "2";
 
+/* Class = "NSMenuItem"; title = "4"; ObjectID = "B3w-wZ-pOJ"; */
+"B3w-wZ-pOJ.title" = "4";
+
 /* Class = "NSMenuItem"; title = "Rec. 709 (1-1-1)"; ObjectID = "bc1-gr-6m9"; */
 "bc1-gr-6m9.title" = "Rec. 709 (1-1-1)";
 
@@ -36,6 +42,9 @@
 
 /* Class = "NSMenuItem"; title = "Rec. 2100 PQ (9-16-9)"; ObjectID = "d2S-Qf-ltk"; */
 "d2S-Qf-ltk.title" = "Rec. 2100 PQ (9-16-9)";
+
+/* Class = "NSMenuItem"; title = "5"; ObjectID = "Ejg-9c-E4w"; */
+"Ejg-9c-E4w.title" = "5";
 
 /* Class = "NSTextFieldCell"; title = "pixels"; ObjectID = "EQ0-oQ-E9J"; */
 "EQ0-oQ-E9J.title" = "pixel";
@@ -100,6 +109,9 @@
 /* Class = "NSTextFieldCell"; title = "H.264 Video Profile/Level:"; ObjectID = "nrd-22-FZl"; */
 "nrd-22-FZl.title" = "Profilo/Livello video H.264:";
 
+/* Class = "NSMenuItem"; title = "Undefined (2-2-2)"; ObjectID = "Pxl-vS-IAs"; */
+"Pxl-vS-IAs.title" = "Non definito (2-2-2)";
+
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Aspect Ratio Numerator"; ObjectID = "Q0D-6k-Hgx"; */
 "Q0D-6k-Hgx.ibExternalAccessibilityDescription" = "Numeratore rapporto proporzioni";
 
@@ -111,6 +123,9 @@
 
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Scaled Size Width"; ObjectID = "r90-c5-7PH"; */
 "r90-c5-7PH.ibExternalAccessibilityDescription" = "Larghezza dimensione in scala";
+
+/* Class = "NSMenuItem"; title = "1"; ObjectID = "S4p-0Y-kRW"; */
+"S4p-0Y-kRW.title" = "1";
 
 /* Class = "NSTextFieldCell"; title = "Normal Size:"; ObjectID = "soD-gL-b4G"; */
 "soD-gL-b4G.title" = "Dimensioni normali:";

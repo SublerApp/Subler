@@ -25,6 +25,9 @@
 /* Class = "NSTextFieldCell"; title = "Info"; ObjectID = "JH3-2P-Na2"; */
 "JH3-2P-Na2.title" = "Info";
 
+/* Class = "NSMenuItem"; title = "Check only selected tracks"; ObjectID = "KMR-fY-lFl"; */
+"KMR-fY-lFl.title" = "Abilita solo le tracce selezionate";
+
 /* Class = "NSTextFieldCell"; title = "id"; ObjectID = "Nrs-BO-n8T"; */
 "Nrs-BO-n8T.title" = "id";
 
