@@ -9,7 +9,15 @@
     {
       "layers" : [
         {
-          "fill" : "none",
+          "fill-specializations" : [
+            {
+              "value" : "none"
+            },
+            {
+              "appearance" : "dark",
+              "value" : "none"
+            }
+          ],
           "glass" : true,
           "image-name" : "Pen.png",
           "name" : "Pen",
@@ -37,21 +45,6 @@
       "blur-material" : 0.5,
       "layers" : [
         {
-          "fill" : {
-            "solid" : "extended-gray:1.00000,1.00000"
-          },
-          "image-name" : "Path.png",
-          "name" : "Path",
-          "position" : {
-            "scale" : 1.9,
-            "translation-in-points" : [
-              0,
-              290
-            ]
-          }
-        },
-        {
-          "blend-mode" : "normal",
           "fill-specializations" : [
             {
               "value" : {
@@ -61,19 +54,18 @@
             {
               "appearance" : "dark",
               "value" : {
-                "solid" : "extended-gray:1.00000,1.00000"
+                "solid" : "extended-gray:0.75000,1.00000"
               }
             }
           ],
           "glass" : true,
-          "hidden" : true,
-          "image-name" : "Text.png",
-          "name" : "Subler text",
+          "image-name" : "Path.png",
+          "name" : "Path",
           "position" : {
-            "scale" : 0.6,
+            "scale" : 1.9,
             "translation-in-points" : [
-              -4.905029296875,
-              320.3299560546875
+              0,
+              290
             ]
           }
         }
@@ -99,6 +91,7 @@
           "fill" : {
             "automatic-gradient" : "extended-gray:0.50000,1.00000"
           },
+          "hidden" : false,
           "image-name" : "Rectangle.svg",
           "name" : "Rectangle",
           "position" : {
@@ -111,9 +104,22 @@
         },
         {
           "blend-mode" : "normal",
+          "hidden" : false,
           "image-name" : "bars 2.png",
           "name" : "bars 2",
-          "opacity" : 0.9,
+          "opacity-specializations" : [
+            {
+              "value" : 0.86
+            },
+            {
+              "appearance" : "dark",
+              "value" : 0.8
+            },
+            {
+              "appearance" : "tinted",
+              "value" : 0.86
+            }
+          ],
           "position" : {
             "scale" : 1.22,
             "translation-in-points" : [
@@ -239,9 +245,6 @@
     }
   ],
   "supported-platforms" : {
-    "circles" : [
-      "watchOS"
-    ],
     "squares" : "shared"
   }
 }
