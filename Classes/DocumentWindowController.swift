@@ -49,7 +49,11 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         toolbar.delegate = toolbarDelegate
         toolbar.allowsUserCustomization = true
         toolbar.autosavesConfiguration = true
-        toolbar.displayMode = .iconAndLabel
+        if #available(macOS 26, *) {
+            toolbar.displayMode = .iconAndLabel
+        } else {
+            toolbar.displayMode = .iconOnly
+        }
         self.window?.toolbar = toolbar
 
         window.contentViewController = splitViewController

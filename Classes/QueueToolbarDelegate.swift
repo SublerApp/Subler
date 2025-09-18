@@ -24,7 +24,7 @@ class QueueToolbarDelegate: NSObject, NSToolbarDelegate {
                                      label: NSLocalizedString("Add Item", comment: "Toolbar"),
                                      toolTip: NSLocalizedString("Add an item to the queue", comment: "Toolbar"),
                                      image: "NSAddTemplate",
-                                     symbolName: "plus",
+                                     symbolName: "doc.badge.plus",
                                      target: target,
                                      action: #selector(QueueController.open(_:)))
         } else if itemIdentifier == .queueSettings {

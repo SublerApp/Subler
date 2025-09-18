@@ -27,7 +27,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      label: NSLocalizedString("Import", comment: "Toolbar"),
                                      toolTip: NSLocalizedString("Import tracks from external files", comment: "Toolbar"),
                                      image: "NSAddTemplate",
-                                     symbolName: "plus",
+                                     symbolName: "doc.badge.plus",
                                      target: target,
                                      action: #selector(DocumentWindowController.selectFile(_:)))
         } else if itemIdentifier == .deleteTracks {
@@ -35,7 +35,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      label: NSLocalizedString("Delete", comment: "Toolbar"),
                                      toolTip: NSLocalizedString("Delete the selected track", comment: "Toolbar"),
                                      image: "NSRemoveTemplate",
-                                     symbolName: "minus",
+                                     symbolName: "nosign",
                                      target: target,
                                      action: #selector(DocumentWindowController.deleteTrack(_:)))
         } else if itemIdentifier == .actions {
@@ -119,7 +119,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      label: NSLocalizedString("Search Metadata", comment: "Toolbar"),
                                      toolTip: NSLocalizedString("Search metadata on the web", comment: "Toolbar"),
                                      image: "NSRevealFreestandingTemplate",
-                                     symbolName: "sparkle.magnifyingglass",
+                                     symbolName: "doc.text.magnifyingglass",
                                      target: target,
                                      action: #selector(DocumentWindowController.searchMetadata(_:)))
         } else if itemIdentifier == .sendToQueue {
@@ -144,7 +144,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
     }
 
     @MainActor func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return [.importTracks, .deleteTracks, .space, .actions, .flexibleSpace, .searchMetadata]
+        return [.importTracks, .searchMetadata, .actions, .space, .deleteTracks, .flexibleSpace, .sendToQueue, .showQueue,]
     }
 
     @MainActor func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
