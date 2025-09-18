@@ -14,10 +14,10 @@
           "image-name" : "Pen.png",
           "name" : "Pen",
           "position" : {
-            "scale" : 0.56,
+            "scale" : 0.54,
             "translation-in-points" : [
-              275.7747802734375,
-              -56.494140625
+              276,
+              -56
             ]
           }
         }
@@ -37,6 +37,20 @@
       "blur-material" : 0.5,
       "layers" : [
         {
+          "fill" : {
+            "solid" : "extended-gray:1.00000,1.00000"
+          },
+          "image-name" : "Path.png",
+          "name" : "Path",
+          "position" : {
+            "scale" : 1.23,
+            "translation-in-points" : [
+              0,
+              290
+            ]
+          }
+        },
+        {
           "blend-mode" : "normal",
           "fill-specializations" : [
             {
@@ -52,7 +66,7 @@
             }
           ],
           "glass" : true,
-          "hidden" : false,
+          "hidden" : true,
           "image-name" : "Text.png",
           "name" : "Subler text",
           "position" : {
