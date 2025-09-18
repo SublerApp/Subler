@@ -1,5 +1,11 @@
 # Subler News
 
+## Subler 1.9.0
+
+- Updated UI for macOS 26
+- Preserves extended language tags from Matroska files
+- Fixed the services ids in the metadata map
+
 ## Subler 1.8.9
 
 - Expanded the AppleScript dictionary [Mock1]
