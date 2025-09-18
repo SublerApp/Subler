@@ -148,9 +148,9 @@
                 <constraint firstItem="C1d-lu-T7S" firstAttribute="leading" secondItem="SIg-lA-6FA" secondAttribute="trailing" constant="16" id="R2g-fk-MQZ"/>
                 <constraint firstItem="Bgi-pA-eAO" firstAttribute="leading" secondItem="Sl5-b6-dQC" secondAttribute="leading" constant="20" id="SNz-hG-5Nz"/>
                 <constraint firstAttribute="bottom" secondItem="gBf-6T-hQv" secondAttribute="bottom" constant="20" id="UFw-zI-fr5"/>
-                <constraint firstItem="SIg-lA-6FA" firstAttribute="firstBaseline" secondItem="C1d-lu-T7S" secondAttribute="firstBaseline" id="bDa-f2-Rk0"/>
                 <constraint firstItem="gBf-6T-hQv" firstAttribute="firstBaseline" secondItem="SIg-lA-6FA" secondAttribute="firstBaseline" id="cTP-Hu-NGv"/>
                 <constraint firstAttribute="trailing" secondItem="Bgi-pA-eAO" secondAttribute="trailing" constant="20" id="cgL-bl-uVt"/>
+                <constraint firstItem="C1d-lu-T7S" firstAttribute="top" secondItem="SIg-lA-6FA" secondAttribute="top" id="d4R-oi-p96"/>
                 <constraint firstItem="gBf-6T-hQv" firstAttribute="leading" secondItem="Sl5-b6-dQC" secondAttribute="leading" constant="20" id="faN-Ws-UIJ"/>
                 <constraint firstItem="SIg-lA-6FA" firstAttribute="leading" secondItem="gBf-6T-hQv" secondAttribute="trailing" constant="2" id="opb-OA-4BC"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="C1d-lu-T7S" secondAttribute="trailing" constant="20" symbolic="YES" id="ydN-Lk-gHL"/>

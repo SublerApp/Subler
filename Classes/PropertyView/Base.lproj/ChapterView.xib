@@ -425,15 +425,15 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="19" firstAttribute="leading" secondItem="12" secondAttribute="leading" constant="17" id="21K-r4-gXZ"/>
+                                    <constraint firstItem="31" firstAttribute="top" secondItem="42" secondAttribute="top" id="GlU-QC-OYe"/>
                                     <constraint firstItem="42" firstAttribute="top" secondItem="19" secondAttribute="bottom" constant="8" symbolic="YES" id="Ngw-J5-tMS"/>
-                                    <constraint firstItem="31" firstAttribute="firstBaseline" secondItem="IvH-Ff-dyN" secondAttribute="firstBaseline" id="PDg-oB-otB"/>
-                                    <constraint firstItem="42" firstAttribute="firstBaseline" secondItem="31" secondAttribute="firstBaseline" id="TNn-sR-1Ns"/>
                                     <constraint firstItem="42" firstAttribute="leading" secondItem="19" secondAttribute="leading" id="XGG-xy-ibf"/>
                                     <constraint firstAttribute="trailing" secondItem="19" secondAttribute="trailing" constant="17" id="cNR-fN-seC"/>
                                     <constraint firstItem="19" firstAttribute="top" secondItem="12" secondAttribute="top" constant="6" id="dMH-VU-NKD"/>
                                     <constraint firstAttribute="bottom" secondItem="42" secondAttribute="bottom" constant="8" id="mjM-zH-dIu"/>
                                     <constraint firstItem="IvH-Ff-dyN" firstAttribute="leading" secondItem="31" secondAttribute="trailing" constant="8" symbolic="YES" id="rvP-0R-kpo"/>
                                     <constraint firstItem="31" firstAttribute="leading" secondItem="42" secondAttribute="trailing" constant="1" id="teO-jO-fZC"/>
+                                    <constraint firstItem="IvH-Ff-dyN" firstAttribute="top" secondItem="31" secondAttribute="top" id="yyG-lL-AQz"/>
                                 </constraints>
                             </view>
                         </tabViewItem>
