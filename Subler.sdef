@@ -4,11 +4,6 @@
     
     <xi:include href="file:///System/Library/ScriptingDefinitions/CocoaStandard.sdef" xpointer="xpointer(/dictionary/suite)" />
 
-    <class-extension extends="application" description="Queue's top level scripting object.">
-        <element type="queue item" access="r" description="The queue items">
-            <cocoa key="queueItems"/>
-        </element>
-    </class-extension>
 
     <suite name="Subler Automation Suite" code="Subl" description="Automation functions for Subler.">
         
@@ -196,6 +191,12 @@
             </property>
 
         </class>
+        
+        <class-extension extends="application" description="Queue's top level scripting object.">
+            <element type="queue item" access="r" description="The queue items">
+                <cocoa key="queueItems"/>
+            </element>
+        </class-extension>
 
     </suite>
 </dictionary>
