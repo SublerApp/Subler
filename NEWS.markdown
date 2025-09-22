@@ -1,10 +1,17 @@
 # Subler News
 
+## Subler 1.9.1
+
+- Fixed the queue AppleSCript dictionary
+- Added a work around for a macOS 26 issue that could cause a crash when editing the file name and metadata token fields in the preferences
+
+
 ## Subler 1.9.0
 
 - Updated UI for macOS 26
 - Preserves extended language tags from Matroska files
 - Fixed the services ids in the metadata map
+
 
 ## Subler 1.8.9
 
