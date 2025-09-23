@@ -158,6 +158,20 @@ import MP42Foundation
         }
     }
 
+    private func downmixAudio(track: MP42AudioTrack) -> MP42AudioTrack {
+        let bitrate = Prefs.audioBitrate
+        let drc = Prefs.audioDRC
+        let mixdown = MP42AudioMixdown(Prefs.audioMixdown)
+
+        // Create a copy for downmixing
+        let copy = track.copy() as! MP42AudioTrack
+        let settings1 = MP42AudioConversionSettings(format: kMP42AudioCodecType_MPEG4AAC, bitRate: bitrate, mixDown: mixdown, drc: drc)
+        copy.conversionSettings = settings1
+        copy.isEnabled = true
+        track.fallbackTrack = copy
+        return copy
+    }
+
     private func configureAudio(track: MP42AudioTrack, mp4: MP42File) {
         var conversionNeeded = false
 
@@ -165,17 +179,47 @@ import MP42Foundation
         let drc = Prefs.audioDRC
         let mixdown = MP42AudioMixdown(Prefs.audioMixdown)
 
+        // Handle exotic audio tracks
+        if (track.format == kMP42AudioCodecType_TrueHD || track.format == kMP42AudioCodecType_Opus) && !Prefs.disableExoticAudio {
+            // If we want to convert True HD or Opus to AAC, we can do so this way
+            if track.channels > 2 && mixdown != kMP42AudioMixdown_None {
+                // Create a copy for downmixing
+                let copy = downmixAudio(track: track)
+                track.isEnabled = false
+
+                mp4.addTrack(copy)
+            }
+
+            // Set up the original track with conversion settings
+            let settings = MP42AudioConversionSettings(format: kMP42AudioCodecType_AC3, bitRate: bitrate, mixDown: kMP42AudioMixdown_None, drc: drc)
+            track.conversionSettings = settings
+
+            return
+        }
+
+        // AAC track handling
+        if track.format == kMP42AudioCodecType_MPEG4AAC && track.channels > 2 && track.fallbackTrack == nil {
+            if mixdown != kMP42AudioMixdown_None {
+                // Create a copy for downmixing
+                let copy = downmixAudio(track: track)
+                track.isEnabled = false
+
+                mp4.addTrack(copy)
+            } else {
+                // If no downmixing is requested, just pass through the original track
+                track.isEnabled = true
+            }
+            // Set up the original track with conversion settings
+            let settings = MP42AudioConversionSettings(format: kMP42AudioCodecType_AC3, bitRate: bitrate, mixDown: kMP42AudioMixdown_None, drc: drc)
+            track.conversionSettings = settings
+        }
         // AC-3 track, we might need to do the aac + ac3 trick.
-        if track.format == kMP42AudioCodecType_AC3 ||
+        else if track.format == kMP42AudioCodecType_AC3 ||
             track.format == kMP42AudioCodecType_EnhancedAC3 {
 
             if Prefs.audioConvertAC3 {
                 if Prefs.audioKeepAC3 && track.fallbackTrack == nil {
-                    let copy = track.copy() as! MP42AudioTrack
-                    let settings = MP42AudioConversionSettings(format: kMP42AudioCodecType_MPEG4AAC, bitRate: bitrate, mixDown: mixdown, drc: drc)
-                    copy.conversionSettings = settings
-
-                    track.fallbackTrack = copy
+                    let copy = downmixAudio(track: track)
                     track.isEnabled = false
 
                     mp4.addTrack(copy)
@@ -190,11 +234,7 @@ import MP42Foundation
                 switch Prefs.audioDtsOptions {
                 case 1: // Convert to AC-3
 
-                    let copy = track.copy() as! MP42AudioTrack
-                    let settings = MP42AudioConversionSettings(format: kMP42AudioCodecType_MPEG4AAC, bitRate: bitrate, mixDown: mixdown, drc: drc)
-                    copy.conversionSettings = settings
-
-                    track.fallbackTrack = copy
+                    let copy = downmixAudio(track: track)
                     track.isEnabled = false
 
                     // Wouldn't it be better to use pref settings too instead of 640/Multichannel and the drc from the prefs?
@@ -204,11 +244,7 @@ import MP42Foundation
 
                 case 2: // Keep DTS
 
-                    let copy = track.copy() as! MP42AudioTrack
-                    let settings = MP42AudioConversionSettings(format: kMP42AudioCodecType_MPEG4AAC, bitRate: bitrate, mixDown: mixdown, drc: drc)
-                    copy.conversionSettings = settings
-
-                    track.fallbackTrack = copy
+                    let copy = downmixAudio(track: track)
                     track.isEnabled = false
 
                     mp4.addTrack(copy)
@@ -256,7 +292,32 @@ import MP42Foundation
             let value = try? fileURL.resourceValues(forKeys: [URLResourceKey.typeIdentifierKey])
 
             if let type = value?.typeIdentifier, type == "com.apple.m4a-audio" || type == "com.apple.m4v-video" || type == "public.mpeg-4" {
+                // Create MP42File and configure audio tracks
                 mp4File = try MP42File(url: fileURL)
+                if let mp4 = mp4File {
+                    // Collect tracks to remove
+                    var tracksToRemove: [MP42Track] = []
+
+                    // Configure audio tracks for existing MP4 files
+                    for track in mp4.tracks {
+                        if let audioTrack = track as? MP42AudioTrack {
+                            if (Prefs.disableExoticAudio && (audioTrack.format == kMP42AudioCodecType_TrueHD || (audioTrack.format == kMP42AudioCodecType_Opus && audioTrack.channels > 2))) {
+                                // Add exotic audio tracks to removal list
+                                tracksToRemove.append(audioTrack)
+                            } else if audioTrack.format == kMP42AudioCodecType_MPEG4AAC &&
+                                      audioTrack.channels > 2 &&
+                                      audioTrack.fallbackTrack == nil &&
+                                      Prefs.audioMixdown != 0 {
+                                configureAudio(track: audioTrack, mp4: mp4)
+                            }
+                        }
+                    }
+
+                    // Remove collected tracks after processing
+                    if !tracksToRemove.isEmpty {
+                        mp4.removeTracks(tracksToRemove)
+                    }
+                }
             } else {
                 let mp4 = MP42File()
                 let importer = try MP42FileImporter(url: fileURL)
@@ -264,16 +325,28 @@ import MP42Foundation
 
                 mp4.metadata.merge(importer.metadata)
 
-                for track in activeTracks {
+                // Collect tracks to remove
+                var tracksToRemove: [MP42Track] = []
 
-                    if let track = track as? MP42AudioTrack {
-                        configureAudio(track: track, mp4: mp4)
+                for track in activeTracks {
+                    if let audioTrack = track as? MP42AudioTrack {
+                        if (Prefs.disableExoticAudio && (audioTrack.format == kMP42AudioCodecType_TrueHD || (audioTrack.format == kMP42AudioCodecType_Opus && audioTrack.channels > 2))) {
+                            // Add exotic audio tracks to removal list
+                            tracksToRemove.append(audioTrack)
+                        }
+                        configureAudio(track: audioTrack, mp4: mp4)
                     } else if let track = track as? MP42SubtitleTrack {
                         configureSubtitles(track: track, mp4: mp4)
                     }
 
                     mp4.addTrack(track)
                 }
+
+                // Remove collected tracks after processing
+                if !tracksToRemove.isEmpty {
+                    mp4.removeTracks(tracksToRemove)
+                }
+                
                 mp4File = mp4
             }
         }

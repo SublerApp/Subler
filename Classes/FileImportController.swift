@@ -124,6 +124,17 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
                                                 tag: 6,
                                                 enabled: true)
                     actions.append(conversionAction)
+                    let conversionAction2 = Action(title: NSLocalizedString("AAC + AC3", comment: "File Import action menu item."),
+                                                tag: 7,
+                                                enabled: true)
+                    actions.append(conversionAction2)
+                }
+
+                if (track.format == kMP42AudioCodecType_Opus || track.format == kMP42AudioCodecType_TrueHD) && channelCount > 2 {
+                    let conversionAction = Action(title: NSLocalizedString("AAC + AC3", comment: "File Import action menu item."),
+                                                tag: 7,
+                                                enabled: true)
+                    actions.append(conversionAction)
                 }
                 
             default:
@@ -132,13 +143,44 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
             self.actions = actions
 
             // Set the action menu selection
+            // AAC, 6 channel Specific actions
+            if track.format == kMP42AudioCodecType_MPEG4AAC,
+               let audioTrack = track as? MP42AudioTrack,
+               audioTrack.channels > 2,
+               Prefs.audioMixdown != 0 {
+                // This handles AAC, 6 ch without any fallback stereo track
+                if audioTrack.fallbackTrack != nil {
+                    self.selectedActionTag = 0 // Passthru
+                } else {
+                    self.selectedActionTag = 7 // AAC + AC3
+                }
+            }
+
+            // Exotic audio Specific actions
+            else if (track.format == kMP42AudioCodecType_Opus || track.format == kMP42AudioCodecType_TrueHD),
+                let audioTrack = track as? MP42AudioTrack {
+                if audioTrack.channels > 2 {
+                    if Prefs.disableExoticAudio {
+                        // If multi-channelexotic audio is disabled, we default to off and AAC - Multichannel
+                        self.checked = false
+                        self.selectedActionTag = 5 // AAC - Multichannel
+                    } else {
+                        // If multi-channel exotic audio is enabled, we default to AAC + AC3
+                        self.selectedActionTag = 7 // AAC + AC3
+                    }
+                } else {
+                    // Otherwise, default to AAC - Stereo
+                    self.selectedActionTag = 3 // AAC - Stereo 
+                }
+            }
+
             // AC-3 Specific actions
-            if (track.format == kMP42AudioCodecType_AC3 || track.format == kMP42AudioCodecType_EnhancedAC3) &&
+            else if (track.format == kMP42AudioCodecType_AC3 || track.format == kMP42AudioCodecType_EnhancedAC3) &&
                 Prefs.audioConvertAC3, let audioTrack = track as? MP42AudioTrack {
                 if Prefs.audioKeepAC3 && audioTrack.fallbackTrack == nil {
-                    self.selectedActionTag = 6
+                    self.selectedActionTag = 6 // AAC + Passthru
                 } else if audioTrack.fallbackTrack != nil {
-                    self.selectedActionTag = 0
+                    self.selectedActionTag = 0 // Passthru
                 } else {
                     self.selectedActionTag = Prefs.audioMixdown
                 }
@@ -147,7 +189,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
             else if track.format == kMP42AudioCodecType_DTS &&
                 Prefs.audioConvertDts, let audioTrack = track as? MP42AudioTrack {
                 if audioTrack.fallbackTrack != nil {
-                    self.selectedActionTag = 0
+                    self.selectedActionTag = 0 // Passthru
                 }
                 else {
                     switch Prefs.audioDtsOptions {
@@ -159,18 +201,18 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
             }
             // Vobsub
             else if track.format == kMP42SubtitleCodecType_VobSub && Prefs.subtitleConvertBitmap {
-                self.selectedActionTag = 1
+                self.selectedActionTag = 1 // Tx3g
             }
             // Generic actions
             else if needsConversion {
                 if track is MP42AudioTrack {
                     self.selectedActionTag = Prefs.audioMixdown
                 } else {
-                    self.selectedActionTag = 1
+                    self.selectedActionTag = 1 // Tx3g
                 }
             }
             else {
-                self.selectedActionTag = 0
+                self.selectedActionTag = 0 // Passthru
             }
         }
     }
