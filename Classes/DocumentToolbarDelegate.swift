@@ -27,7 +27,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      label: NSLocalizedString("Import", comment: "Toolbar"),
                                      toolTip: NSLocalizedString("Import tracks from external files", comment: "Toolbar"),
                                      image: "NSAddTemplate",
-                                     symbolName: "plus",
+                                     symbolName: "doc.badge.plus",
                                      target: target,
                                      action: #selector(DocumentWindowController.selectFile(_:)))
         } else if itemIdentifier == .deleteTracks {
@@ -35,11 +35,18 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      label: NSLocalizedString("Delete", comment: "Toolbar"),
                                      toolTip: NSLocalizedString("Delete the selected track", comment: "Toolbar"),
                                      image: "NSRemoveTemplate",
-                                     symbolName: "minus",
+                                     symbolName: "nosign",
                                      target: target,
                                      action: #selector(DocumentWindowController.deleteTrack(_:)))
         } else if itemIdentifier == .actions {
             let submenu = NSMenu()
+
+            let menuItem = NSMenuItem()
+            menuItem.title = NSLocalizedString("At the Beginning", comment: "Toolbar")
+            menuItem.action =  #selector(DocumentWindowController.addChaptersEvery(_:))
+            menuItem.tag = -1
+            submenu.addItem(menuItem)
+
             for minutes in [1, 2, 5, 10, 15, 20, 30] {
                 let menuItem = NSMenuItem()
                 let title = minutes == 1 ? NSLocalizedString("1 minute", comment: "Toolbar") :
@@ -81,7 +88,11 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                 let item = NSMenuToolbarItem(itemIdentifier: itemIdentifier)
                 item.label = label
                 item.paletteLabel = label
-                if #available(macOS 11.0, *) {
+                item.toolTip = NSLocalizedString("Perform tasks with the selected items", comment: "Toolbar")
+                if #available(macOS 26.0, *) {
+                    item.showsIndicator = false
+                    item.image = NSImage.init(systemSymbolName: "ellipsis", accessibilityDescription: nil)
+                } else if #available(macOS 26.0, *) {
                     item.image = NSImage.init(systemSymbolName: "ellipsis.circle", accessibilityDescription: nil)
                 } else {
                     item.image = NSImage(named:"NSActionTemplate")
@@ -102,6 +113,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                 let item = ButtonToolbarItem(itemIdentifier: itemIdentifier)
                 item.label = label
                 item.paletteLabel = label
+                item.toolTip = NSLocalizedString("Perform tasks with the selected items", comment: "Toolbar")
                 item.view = popUpButton
                 item.minSize = NSSize(width: 48, height: 16)
 
@@ -112,7 +124,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      label: NSLocalizedString("Search Metadata", comment: "Toolbar"),
                                      toolTip: NSLocalizedString("Search metadata on the web", comment: "Toolbar"),
                                      image: "NSRevealFreestandingTemplate",
-                                     symbolName: "sparkle.magnifyingglass",
+                                     symbolName: "doc.text.magnifyingglass",
                                      target: target,
                                      action: #selector(DocumentWindowController.searchMetadata(_:)))
         } else if itemIdentifier == .sendToQueue {
@@ -137,7 +149,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
     }
 
     @MainActor func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return [.importTracks, .deleteTracks, .space, .actions, .flexibleSpace, .searchMetadata]
+        return [.importTracks, .searchMetadata, .actions, .space, .deleteTracks, .flexibleSpace, .sendToQueue, .showQueue,]
     }
 
     @MainActor func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {

@@ -7,6 +7,7 @@
 
 import Cocoa
 import MP42Foundation
+import UniformTypeIdentifiers
 
 final class SaveOptions: NSViewController {
 
@@ -18,6 +19,8 @@ final class SaveOptions: NSViewController {
 
     private weak var doc: Document?
     private weak var savePanel: NSSavePanel?
+    
+    private static let fileTypes = [MP42FileTypeM4V, MP42FileTypeMP4, MP42FileTypeM4A, MP42FileTypeM4B, MP42FileTypeM4R]
 
     init(doc: Document, savePanel: NSSavePanel) {
         self.doc = doc
@@ -32,26 +35,37 @@ final class SaveOptions: NSViewController {
     override var nibName: NSNib.Name? {
         return "SaveOptions"
     }
+    
+    private func setUpFileFormats()
+    {
+        guard let doc = doc else { return }
+        
+        let types = doc.writableTypes(for: .saveAsOperation)
+
+        fileFormat.removeAllItems()
+        
+        for type in types {
+            let name = UTTypeCopyDescription(type as CFString)?.takeRetainedValue() as String? ?? type
+            fileFormat.addItem(withTitle: name)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setUpFileFormats()
+        
         guard let doc = doc else { return }
-
-        let formats = doc.writableTypes(for: .saveAsOperation)
-        fileFormat.removeAllItems()
-
-        for format in formats {
-            let name = UTTypeCopyDescription(format as CFString)?.takeRetainedValue() as String? ?? format
-            fileFormat.addItem(withTitle: name)
-        }
-
-        fileFormat.selectItem(at: Prefs.defaultSaveFormat)
-        savePanel?.allowedFileTypes = [Prefs.saveFormat]
+        
+        let fileType = Prefs.fileType
+        let index = SaveOptions.fileTypes.firstIndex(of: fileType) ?? 1
+        fileFormat.selectItem(at: index)
 
         if let filename = doc.mp4.preferredFileName() {
             savePanel?.nameFieldStringValue = filename
         }
+
+        setFileType(filenameExtension: fileType)
 
         _64bit_data.state = Prefs.mp464bitOffset ? .on : .off
         _64bit_time.state = Prefs.mp464bitTimes ? .on : .off
@@ -62,9 +76,8 @@ final class SaveOptions: NSViewController {
         }
     }
 
-    func saveUserDefaults()
-    {
-        Prefs.defaultSaveFormat = fileFormat.indexOfSelectedItem
+    func saveUserDefaults() {
+        Prefs.fileType = SaveOptions.fileTypes[fileFormat.indexOfSelectedItem]
         Prefs.mp464bitOffset = _64bit_data.state == .on
         Prefs.mp464bitTimes = _64bit_time.state == .on
         Prefs.mp4SaveAsOptimize = optimize.state == .on
@@ -74,24 +87,22 @@ final class SaveOptions: NSViewController {
         super.viewWillDisappear()
         saveUserDefaults()
     }
-    
-    @IBAction func setSaveFormat(_ sender: NSPopUpButton) {
-        var requiredFileType = MP42FileTypeM4V
-        switch sender.indexOfSelectedItem {
-        case 0:
-            requiredFileType = MP42FileTypeM4V
-        case 1:
-            requiredFileType = MP42FileTypeMP4
-        case 2:
-            requiredFileType = MP42FileTypeM4A
-        case 3:
-            requiredFileType = MP42FileTypeM4B
-        case 4:
-            requiredFileType = MP42FileTypeM4R
-        default:
-            break
+
+    func setFileType(filenameExtension: String)
+    {
+        if #available(macOS 15.0, *) {
+            let type = UTType(filenameExtension: filenameExtension) ?? .mpeg4Movie
+            savePanel?.currentContentType = type
+        } else {
+            savePanel?.allowedFileTypes = [filenameExtension]
         }
-        savePanel?.allowedFileTypes = [requiredFileType]
-        Prefs.saveFormat = requiredFileType
+    }
+
+    @IBAction func setSaveFormat(_ sender: NSPopUpButton) {
+        let index = sender.indexOfSelectedItem
+        let selectedFileType = SaveOptions.fileTypes.indices.contains(index) ?
+                                SaveOptions.fileTypes[index] : MP42FileTypeMP4
+        
+        setFileType(filenameExtension: selectedFileType)
     }
 }

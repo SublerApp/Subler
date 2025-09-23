@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="848px" viewBox="0 0 60 848" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Film Strip</title>
+    <g id="Film-Strip" stroke="none" fill="none" fill-rule="evenodd" stroke-width="1">
+        <g id="Film-Strip-Right" fill="#FFFFFF">
+            <rect id="Rectangle" fill-rule="nonzero" x="0" y="297" width="60" height="56" rx="8"></rect>
+            <rect id="Rectangle" fill-rule="nonzero" x="0" y="198" width="60" height="56" rx="8"></rect>
+            <rect id="Rectangle" fill-rule="nonzero" x="0" y="99" width="60" height="56" rx="8"></rect>
+            <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="60" height="56" rx="8"></rect>
+            <rect id="Rectangle" fill-rule="nonzero" x="0" y="792" width="60" height="56" rx="8"></rect>
+            <rect id="Rectangle-Copy" fill-rule="nonzero" x="0" y="396" width="60" height="56" rx="8"></rect>
+            <rect id="Rectangle-Copy-2" fill-rule="nonzero" x="0" y="495" width="60" height="56" rx="8"></rect>
+            <rect id="Rectangle-Copy-3" fill-rule="nonzero" x="0" y="594" width="60" height="56" rx="8"></rect>
+            <rect id="Rectangle-Copy-4" fill-rule="nonzero" x="0" y="693" width="60" height="56" rx="8"></rect>
+        </g>
+    </g>
+</svg>

@@ -6,7 +6,6 @@
 //
 
 import Cocoa
-import Quartz
 import MP42Foundation
 
 private protocol ArtworkImageObjectDelegate: AnyObject {

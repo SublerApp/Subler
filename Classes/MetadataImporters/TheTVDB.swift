@@ -118,7 +118,7 @@ public struct TheTVDB : MetadataService {
         result.mediaKind = .tvShow
 
         // TV Show Info
-        result[.serviceSeriesID]    = info.id
+        result[.serviceContentID]    = info.id
         result[.seriesName]         = info.seriesName
         result[.seriesDescription]  = info.overview?.trimmingWhitespacesAndNewlinews()
         result[.genre]              = cleanList(names: info.genre)
@@ -292,7 +292,7 @@ public struct TheTVDB : MetadataService {
     private func loadSquareTVArtwork(_ metadata: MetadataResult) -> [Artwork] {
         guard let tvShow = metadata[.seriesName] as? String,
             let seasonNum = metadata[.season] as? Int,
-            let seriesId = metadata[.serviceSeriesID] as? Int
+            let seriesId = metadata[.serviceContentID] as? Int
             else { return [] }
 
         return SquaredTVArt().search(tvShow: tvShow, theTVDBSeriesId: seriesId, season: seasonNum)
@@ -336,7 +336,7 @@ public struct TheTVDB : MetadataService {
 
     public func loadTVMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
         guard let id = metadata[.serviceEpisodeID] as? Int else { return metadata }
-        guard let seriesId = metadata[.serviceSeriesID] as? Int else { return metadata }
+        guard let seriesId = metadata[.serviceContentID] as? Int else { return metadata }
 
         var artworks: [Artwork] = []
 

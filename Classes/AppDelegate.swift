@@ -62,7 +62,7 @@ final class DocumentController : NSDocumentController {
 }
 
 @NSApplicationMain
-final class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 
     @IBOutlet weak var sendToExternalApp: NSMenuItem!
 
@@ -211,6 +211,25 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             documentController.openDocument(self)
         }
         return false
+    }
+
+    @IBAction func toggleStartStop(_ sender: Any?) {
+        QueueController.shared.toggleStartStop(sender)
+    }
+
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        let action = menuItem.action
+
+        if action == #selector(toggleStartStop(_:)) {
+            let state = QueueController.shared.status
+            if state == .working {
+                menuItem.title = NSLocalizedString("Stop Queue", comment: "Main Menu -> Stop Queue")
+            } else {
+                menuItem.title = NSLocalizedString("Start Queue", comment: "Main Menu -> Start Queue")
+            }
+        }
+
+        return true
     }
 
     // MARK: actions

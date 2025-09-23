@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file:///localhost/System/Library/DTDs/sdef.dtd">
+<dictionary title="Subler Terminology" xmlns:xi="http://www.w3.org/2001/XInclude">
+    
+    <xi:include href="file:///System/Library/ScriptingDefinitions/CocoaStandard.sdef" xpointer="xpointer(/dictionary/suite)" />
+
+
+    <suite name="Subler Automation Suite" code="Subl" description="Automation functions for Subler.">
+        
+        <!-- Commands -->
+
+        <!-- File Commands -->
+        <command name="import file" code="SublFilI" description="Import a file into the active document.">
+            <cocoa class="SBImportFileScriptCommand" />
+            <direct-parameter description="The file to import.">
+                <type type="file" />
+            </direct-parameter>
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to import into." />
+        </command>
+
+        <command name="save as" code="SublSave" description="Save the active document to a file.">
+            <cocoa class="SBSaveAsScriptCommand" />
+            <direct-parameter description="The destination file path.">
+                <type type="file" />
+            </direct-parameter>
+            <parameter name="doc" code="docu" type="document" optional="yes" description="The target document to save." />
+        </command>
+
+        <command name="send to queue" code="SublSenQ" description="Send the active document to the queue.">
+            <cocoa class="SBSendToQueueScriptCommand" />
+            <direct-parameter description="The destination file path.">
+                <type type="file" />
+            </direct-parameter>
+            <parameter name="doc" code="docu" type="document" optional="yes" description="The target document to send to queue." />
+        </command>
+
+        <command name="close document" code="SublClos" description="Close the active document window without prompting for unsaved changes.">
+            <cocoa class="SBCloseFileScriptCommand" />
+            <parameter name="doc" code="docu" type="document" optional="yes" description="The target document to close." />
+        </command>
+
+        <!-- Metadata Commands -->
+        <command name="fetch metadata" code="SublMeta" description="Fetch metadata for the active document.">
+            <cocoa class="SBFetchMetadataScriptCommand" />
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to fetch metadata for." />
+        </command>
+
+        <command name="fetch metadata candidates" code="SublFRes" description="Fetch metadata results without applying them.">
+            <cocoa class="SBFetchMetadataResultsScriptCommand" />
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to fetch metadata candidates for." />
+            <parameter name="limit" code="limt" type="integer" optional="yes" description="Maximum number of results to return." />
+            <parameter name="provider" code="prov" type="text" optional="yes" description="Metadata provider to use (Apple TV, TheMovieDB, TheTVDB, iTunes Store)." />
+            <parameter name="language" code="lang" type="text" optional="yes" description="Language for metadata search (e.g., 'en', 'es', 'fr')." />
+            <result description="The metadata results.">
+                <type type="text" list="yes"/>
+            </result>
+        </command>
+
+        <command name="fetch and set metadata candidate" code="SublSetM" description="Fetch metadata and set the specified result.">
+            <cocoa class="SBFetchAndSetMetadataResultScriptCommand" />
+            <direct-parameter description="The result index to set (1-based).">
+                <type type="integer" />
+            </direct-parameter>
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to set metadata for." />
+            <parameter name="provider" code="prov" type="text" optional="yes" description="Metadata provider to use (Apple TV, TheMovieDB, TheTVDB, iTunes Store)." />
+            <parameter name="language" code="lang" type="text" optional="yes" description="Language for metadata search (e.g., 'en', 'es', 'fr')." />
+        </command>
+
+        <!-- Edit Commands -->
+        <command name="organize alternate groups" code="SublOrgG" description="Organize alternate audio groups.">
+            <cocoa class="SBOrganizeAlternateGroupsScriptCommand" />
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to organize alternate groups for." />
+        </command>
+
+        <command name="clear track names" code="SublClea" description="Clear all track names.">
+            <cocoa class="SBClearTrackNamesScriptCommand" />
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to clear track names for." />
+        </command>
+
+        <command name="prettify audio track names" code="SublPret" description="Prettify audio track names.">
+            <cocoa class="SBPrettifyAudioTrackNamesScriptCommand" />
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to prettify audio track names for." />
+        </command>
+
+        <command name="fix audio fallbacks" code="SublFixF" description="Fix audio fallback settings.">
+            <cocoa class="SBFixAudioFallbacksScriptCommand" />
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to fix audio fallbacks for." />
+        </command>
+
+        <!-- Queue Commands -->
+        <command name="add to queue" code="SublQAdd" description="Add a file to queue.">
+            <cocoa class="SBQueueScriptCommand"/>
+            <direct-parameter description="The file(s) to be added.">
+                <type type="file" list="yes"/>
+            </direct-parameter>
+        </command>
+
+        <command name="start queue and wait" code="SublQStw" description="Start the queue and wait until its completion.">
+            <cocoa class="SBQueueStartAndWaitScriptCommand"/>
+        </command>
+
+        <command name="start queue" code="SublQSta" description="Start the queue.">
+            <cocoa class="SBQueueStartScriptCommand"/>
+        </command>
+
+        <command name="stop queue" code="SublQSto" description="Stop the queue.">
+            <cocoa class="SBQueueStopScriptCommand"/>
+        </command>
+
+        <command name="remove completed items from queue" code="SublQRem" description="Remove all completed items from the queue.">
+            <cocoa class="SBQueueRemoveCompletedScriptCommand"/>
+        </command>
+
+        <command name="get queue status" code="SublQSts" description="Get the current status of the queue.">
+            <cocoa class="SBQueueStatusScriptCommand"/>
+            <result description="The status of the queue.">
+                <type type="queue status"/>
+            </result>
+        </command>
+
+        <!-- Queue Enumerations -->
+        <enumeration name="queue status" code="QSts" description="The status of the queue.">
+            <enumerator name="idle" code="QIDL" description="Queue is idle.">
+                <cocoa integer-value="0"/>
+            </enumerator>
+            <enumerator name="running" code="QRUN" description="Queue is running.">
+                <cocoa integer-value="1"/>
+            </enumerator>
+            <enumerator name="completed" code="QCOM" description="Queue has completed.">
+                <cocoa integer-value="2"/>
+            </enumerator>
+        </enumeration>
+
+        <enumeration name="queue item status" code="QISt" description="A status">
+            <enumerator name="ready" code="STA1" description="Ready status.">
+                <cocoa integer-value="0"/>
+            </enumerator>
+            <enumerator name="editing" code="STA2" description="Editing status.">
+                <cocoa integer-value="1"/>
+            </enumerator>
+            <enumerator name="working" code="STA3" description="Working status.">
+                <cocoa integer-value="2"/>
+            </enumerator>
+            <enumerator name="completed" code="STA4" description="Completed status.">
+                <cocoa integer-value="3"/>
+            </enumerator>
+            <enumerator name="failed" code="STA5" description="Failed status.">
+                <cocoa integer-value="4"/>
+            </enumerator>
+            <enumerator name="cancelled" code="STA6" description="Cancelled status.">
+                <cocoa integer-value="5"/>
+            </enumerator>
+        </enumeration>
+
+        <!-- Queue Classes -->
+        <class name="document" code="docu" description="A Subler document" plural="documents">
+            <cocoa class="SBDocument"/>
+            <property name="id" code="ID  " type="integer" access="r" description="The unique identifier of the document.">
+                <cocoa key="uniqueID"/>
+            </property>
+            <property name="name" code="pnam" type="text" access="r" description="The name of the document.">
+                <cocoa key="displayName"/>
+            </property>
+            <property name="modified" code="imod" type="boolean" access="r" description="Whether the document has been modified.">
+                <cocoa key="isDocumentEdited"/>
+            </property>
+            <property name="file" code="file" type="file" access="r" description="The file associated with the document.">
+                <cocoa key="fileURL"/>
+            </property>
+        </class>
+        
+        <class name="queue item" code="QIte" description="A queue item" inherits="item" plural="queue items">
+            <cocoa class="SBQueueItem"/>
+
+            <property name="id" code="ID  " type="text" access="r" description="The unique identifier of the queue item.">
+                <cocoa key="uniqueID"/>
+            </property>
+
+            <property name="status" code="StAt" type="queue item status" access="r" description="The status of the queue item.">
+            </property>
+
+            <property name="name" code="pnam" type="text" access="r" description="The name of the queue item.">
+            </property>
+
+            <property name="sourcePath" code="SOUR" type="text" access="r" description="The source URL of the queue item.">
+                <cocoa key="sourcePath"/>
+            </property>
+
+            <property name="destinationPath" code="DEST" type="text" access="r" description="The destination URL of the queue item.">
+                <cocoa key="destinationPath"/>
+            </property>
+
+        </class>
+        
+        <class-extension extends="application" description="Queue's top level scripting object.">
+            <element type="queue item" access="r" description="The queue items">
+                <cocoa key="queueItems"/>
+            </element>
+        </class-extension>
+
+    </suite>
+</dictionary>

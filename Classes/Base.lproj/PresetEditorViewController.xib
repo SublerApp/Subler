@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24127" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24127"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -32,35 +32,27 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button toolTip="Add an artwork" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="223">
-                    <rect key="frame" x="20" y="58" width="25" height="22"/>
-                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="224">
+                    <rect key="frame" x="13" y="52" width="44" height="32"/>
+                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="224">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="20" id="oYK-j2-5dM"/>
-                        <constraint firstAttribute="width" constant="25" id="rcu-X5-nFG"/>
-                    </constraints>
                     <connections>
                         <action selector="selectArtwork:" target="-2" id="232"/>
                     </connections>
                 </button>
                 <button toolTip="Remove selected artwork" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="226">
-                    <rect key="frame" x="44" y="58" width="25" height="22"/>
-                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="227">
+                    <rect key="frame" x="45" y="52" width="44" height="32"/>
+                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="only" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="227">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="25" id="CRL-bR-7Ew"/>
-                        <constraint firstAttribute="height" constant="20" id="ni3-qc-LeG"/>
-                    </constraints>
                     <connections>
                         <action selector="removeArtwork:" target="-2" id="231"/>
                     </connections>
                 </button>
                 <slider toolTip="Change artworks view zoom" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="235">
-                    <rect key="frame" x="117" y="59" width="84" height="20"/>
+                    <rect key="frame" x="118" y="59" width="84" height="20"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="QRF-MH-hBi"/>
                     </constraints>
@@ -69,11 +61,11 @@
                         <action selector="zoomSliderDidChange:" target="-2" id="237"/>
                     </connections>
                 </slider>
-                <popUpButton toolTip="Add a new metadata item" translatesAutoresizingMaskIntoConstraints="NO" id="30">
-                    <rect key="frame" x="207" y="58" width="32" height="22"/>
-                    <popUpButtonCell key="cell" type="smallSquare" bezelStyle="smallSquare" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" inset="2" pullsDown="YES" id="31">
+                <popUpButton toolTip="Add a new metadata item" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="30">
+                    <rect key="frame" x="205" y="55" width="53" height="25"/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" pullsDown="YES" id="31">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="message" size="11"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" id="32">
                             <items>
                                 <menuItem image="NSAddTemplate" hidden="YES" id="33">
@@ -82,35 +74,27 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="20" id="FwO-uK-Ro2"/>
-                        <constraint firstAttribute="width" constant="32" id="OwN-pr-6cc"/>
-                    </constraints>
                     <accessibility description="Add metadata item"/>
                     <connections>
                         <action selector="addTag:" target="-2" id="37"/>
                     </connections>
                 </popUpButton>
                 <button toolTip="Remove selected item" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="53">
-                    <rect key="frame" x="238" y="58" width="24" height="22"/>
-                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="54">
+                    <rect key="frame" x="249" y="52" width="44" height="32"/>
+                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="only" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="54">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="20" id="EIo-Lg-ZeL"/>
-                        <constraint firstAttribute="width" constant="24" id="s0Y-ye-DSo"/>
-                    </constraints>
                     <accessibility description="Remove selected item"/>
                     <connections>
                         <action selector="removeTag:" target="-2" id="55"/>
                     </connections>
                 </button>
-                <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="179">
-                    <rect key="frame" x="270" y="58" width="35" height="22"/>
-                    <popUpButtonCell key="cell" type="smallSquare" bezelStyle="smallSquare" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="184" id="180">
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="179">
+                    <rect key="frame" x="299" y="55" width="54" height="25"/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="184" id="180">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="message" size="11"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" id="181">
                             <items>
                                 <menuItem image="NSActionTemplate" hidden="YES" id="184">
@@ -119,20 +103,16 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="35" id="8JP-5S-7Ff"/>
-                        <constraint firstAttribute="height" constant="20" id="SNb-1F-FBI"/>
-                    </constraints>
                     <accessibility description="Sets"/>
                 </popUpButton>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4i-wT-qDC">
-                    <rect key="frame" x="208" y="87" width="448" height="250"/>
+                    <rect key="frame" x="208" y="89" width="448" height="248"/>
                     <clipView key="contentView" id="cQT-bX-0YB">
-                        <rect key="frame" x="1" y="1" width="446" height="248"/>
+                        <rect key="frame" x="1" y="1" width="446" height="246"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="14" rowSizeStyle="automatic" headerView="qXU-xB-xRF" viewBased="YES" floatsGroupRows="NO" id="qg5-r0-E4V" customClass="ExpandedTableView" customModule="Subler" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="446" height="225"/>
+                                <rect key="frame" x="0.0" y="0.0" width="446" height="223"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -328,7 +308,7 @@
                         </subviews>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="tkU-nC-Bdd">
-                        <rect key="frame" x="1" y="233" width="446" height="16"/>
+                        <rect key="frame" x="1" y="231" width="446" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="B65-gn-id0">
@@ -422,33 +402,33 @@
                 <constraint firstAttribute="trailing" secondItem="RvM-No-Mwg" secondAttribute="trailing" constant="20" id="1Va-CN-zbu"/>
                 <constraint firstItem="r4i-wT-qDC" firstAttribute="leading" secondItem="3Ac-rb-Kn1" secondAttribute="trailing" constant="8" symbolic="YES" id="1cm-wR-oSm"/>
                 <constraint firstItem="Bmy-64-g1U" firstAttribute="firstBaseline" secondItem="aKt-Ed-1jG" secondAttribute="firstBaseline" id="1vd-dr-ZyG"/>
-                <constraint firstItem="223" firstAttribute="top" secondItem="3Ac-rb-Kn1" secondAttribute="bottom" constant="8" symbolic="YES" id="74e-Mf-nNB"/>
-                <constraint firstItem="226" firstAttribute="leading" secondItem="223" secondAttribute="trailing" constant="-1" id="7tB-nW-cen"/>
+                <constraint firstItem="226" firstAttribute="firstBaseline" secondItem="235" secondAttribute="firstBaseline" id="6hT-HA-5KM"/>
+                <constraint firstItem="223" firstAttribute="top" secondItem="3Ac-rb-Kn1" secondAttribute="bottom" constant="8" id="74e-Mf-nNB"/>
+                <constraint firstItem="226" firstAttribute="leading" secondItem="223" secondAttribute="trailing" constant="2" id="7tB-nW-cen"/>
                 <constraint firstItem="223" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="8Zj-EW-Vyb"/>
-                <constraint firstItem="235" firstAttribute="centerY" secondItem="226" secondAttribute="centerY" id="CbE-lC-Wv3"/>
+                <constraint firstItem="226" firstAttribute="firstBaseline" secondItem="223" secondAttribute="firstBaseline" id="EgB-Zm-8pA"/>
                 <constraint firstItem="30" firstAttribute="leading" secondItem="235" secondAttribute="trailing" constant="8" symbolic="YES" id="F2d-dE-tnx"/>
-                <constraint firstItem="30" firstAttribute="centerY" secondItem="53" secondAttribute="centerY" id="Gb1-qz-uOA"/>
                 <constraint firstItem="3Ac-rb-Kn1" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="HAd-d5-Zqq"/>
                 <constraint firstAttribute="bottom" secondItem="87e-za-hJV" secondAttribute="bottom" constant="20" symbolic="YES" id="KmM-wz-0vL"/>
-                <constraint firstItem="235" firstAttribute="leading" secondItem="226" secondAttribute="trailing" constant="50" id="PPb-LG-b6P"/>
-                <constraint firstItem="235" firstAttribute="centerY" secondItem="30" secondAttribute="centerY" id="Rt6-r3-gRX"/>
-                <constraint firstItem="53" firstAttribute="leading" secondItem="30" secondAttribute="trailing" constant="-1" id="SLY-iP-zbc"/>
+                <constraint firstItem="53" firstAttribute="leading" secondItem="30" secondAttribute="trailing" constant="2" id="SLY-iP-zbc"/>
                 <constraint firstItem="3Ac-rb-Kn1" firstAttribute="top" secondItem="RvM-No-Mwg" secondAttribute="bottom" constant="10" id="U9m-z8-qMt"/>
                 <constraint firstItem="Bmy-64-g1U" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="XWe-w9-IAz"/>
+                <constraint firstItem="235" firstAttribute="firstBaseline" secondItem="30" secondAttribute="firstBaseline" id="YBQ-Ew-mzj"/>
                 <constraint firstItem="RvM-No-Mwg" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="a5X-ng-Nlh"/>
                 <constraint firstItem="Bmy-64-g1U" firstAttribute="top" secondItem="223" secondAttribute="bottom" constant="20" id="beI-tF-PTE"/>
-                <constraint firstItem="226" firstAttribute="centerY" secondItem="223" secondAttribute="centerY" id="eWE-NB-Wul"/>
                 <constraint firstItem="87e-za-hJV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aKt-Ed-1jG" secondAttribute="trailing" constant="8" symbolic="YES" id="fIT-dN-zIE"/>
                 <constraint firstAttribute="trailing" secondItem="87e-za-hJV" secondAttribute="trailing" constant="20" id="hm1-Tx-JAI"/>
+                <constraint firstItem="30" firstAttribute="top" secondItem="53" secondAttribute="top" id="iDy-bp-bu4"/>
+                <constraint firstItem="235" firstAttribute="trailing" secondItem="3Ac-rb-Kn1" secondAttribute="trailing" id="iFX-NK-Yis"/>
                 <constraint firstItem="r4i-wT-qDC" firstAttribute="top" secondItem="RvM-No-Mwg" secondAttribute="bottom" constant="10" id="iqg-eq-k2z"/>
                 <constraint firstItem="aKt-Ed-1jG" firstAttribute="firstBaseline" secondItem="87e-za-hJV" secondAttribute="firstBaseline" id="jRn-Mm-dWK"/>
                 <constraint firstItem="RvM-No-Mwg" firstAttribute="top" secondItem="1" secondAttribute="top" constant="10" id="k2D-op-c65"/>
-                <constraint firstItem="30" firstAttribute="top" secondItem="r4i-wT-qDC" secondAttribute="bottom" constant="8" symbolic="YES" id="kzG-BO-fiE"/>
-                <constraint firstItem="53" firstAttribute="centerY" secondItem="179" secondAttribute="centerY" id="prk-Ob-Q8v"/>
                 <constraint firstAttribute="trailing" secondItem="r4i-wT-qDC" secondAttribute="trailing" constant="20" id="w3O-Hw-KeB"/>
-                <constraint firstItem="179" firstAttribute="leading" secondItem="53" secondAttribute="trailing" constant="8" symbolic="YES" id="wzu-l1-8QD"/>
+                <constraint firstItem="30" firstAttribute="top" secondItem="r4i-wT-qDC" secondAttribute="bottom" constant="10" id="wEi-0v-zHU"/>
+                <constraint firstItem="179" firstAttribute="leading" secondItem="53" secondAttribute="trailing" constant="16" id="wzu-l1-8QD"/>
+                <constraint firstItem="53" firstAttribute="top" secondItem="179" secondAttribute="top" id="yLs-nz-mLs"/>
             </constraints>
-            <point key="canvasLocation" x="146" y="-91.5"/>
+            <point key="canvasLocation" x="227" y="-39.5"/>
         </customView>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="167" userLabel="Preset Save">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
@@ -537,7 +517,7 @@ Gw
                     <constraint firstAttribute="trailing" secondItem="170" secondAttribute="trailing" constant="20" id="xh2-2u-G14"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="215" y="-265"/>
+            <point key="canvasLocation" x="227" y="314"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="z7a-RX-pNz"/>
     </objects>

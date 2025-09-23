@@ -49,7 +49,11 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         toolbar.delegate = toolbarDelegate
         toolbar.allowsUserCustomization = true
         toolbar.autosavesConfiguration = true
-        toolbar.displayMode = .iconAndLabel
+        if #available(macOS 26, *) {
+            toolbar.displayMode = .iconAndLabel
+        } else {
+            toolbar.displayMode = .iconOnly
+        }
         self.window?.toolbar = toolbar
 
         window.contentViewController = splitViewController
@@ -308,12 +312,12 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         let minutes = sender.tag * 60 * 1000
 
         if minutes > 0 {
-            for (index, duration) in stride(from: 0, to: mp4.duration, by: minutes).enumerated() {
-                track.addChapter("Chapter \(index + 1)", duration: UInt64(duration))
+            for (index, timestamp) in stride(from: 0, to: mp4.duration, by: minutes).enumerated() {
+                track.addChapter("Chapter \(index + 1)", timestamp: UInt64(timestamp))
             }
         }
         else {
-            track.addChapter("Chapter 1", duration: UInt64(mp4.duration))
+            track.addChapter("Chapter 1", timestamp: 0)
         }
 
         doc.updateChangeCount(.changeDone)
@@ -506,6 +510,22 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             }
         }
         catch {
+            if let windowForSheet = doc.windowForSheet {
+                presentError(error, modalFor: windowForSheet, delegate: nil, didPresent: nil, contextInfo: nil)
+            } else {
+                presentError(error)
+            }
+        }
+    }
+
+    @objc func importFilesDirectly(_ fileURLs: [URL]) {
+        do {
+            let controller = try FileImportController(fileURLs: fileURLs, delegate: self)
+
+            // Call addTracks directly - the Settings initialization logic runs when the controller is created
+            controller.addTracks(self)
+            tracksViewController.reloadData()
+        } catch {
             if let windowForSheet = doc.windowForSheet {
                 presentError(error, modalFor: windowForSheet, delegate: nil, didPresent: nil, contextInfo: nil)
             } else {

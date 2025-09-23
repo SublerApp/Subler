@@ -97,7 +97,15 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
             s.map.items.sort(by: s.sort)
             s.tableView.reloadData()
             s.builtInTokenField.stringValue = s.currentTokens.reduce("", { "\($0)/\($1)" })
+
+            s.updateControlsState()
         }
+
+        updateControlsState()
+    }
+
+    private func updateControlsState() {
+        removeMetadataButton.isEnabled = tableView.selectedRow != -1
     }
 
     private func save() {
@@ -140,6 +148,10 @@ class MetadataPrefsViewController : NSViewController, NSTableViewDelegate, NSTab
     }
 
     // MARK: Table View
+
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        updateControlsState()
+    }
 
     func numberOfRows(in tableView: NSTableView) -> Int {
         if tableView == self.tableView {

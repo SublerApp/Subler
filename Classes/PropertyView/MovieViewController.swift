@@ -6,7 +6,7 @@
 //
 
 import Cocoa
-import Quartz
+import UniformTypeIdentifiers
 import MP42Foundation
 
 extension NSPasteboard.PasteboardType {

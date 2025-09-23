@@ -1,0 +1,250 @@
+{
+  "fill" : {
+    "linear-gradient" : [
+      "extended-gray:0.37375,1.00000",
+      "extended-gray:0.06807,1.00000"
+    ]
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "fill-specializations" : [
+            {
+              "value" : "none"
+            },
+            {
+              "appearance" : "dark",
+              "value" : "none"
+            }
+          ],
+          "glass" : true,
+          "image-name" : "Pen.png",
+          "name" : "Pen",
+          "position" : {
+            "scale" : 0.54,
+            "translation-in-points" : [
+              276,
+              -56
+            ]
+          }
+        }
+      ],
+      "opacity" : 0.94,
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.2
+      },
+      "specular" : false,
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0.5
+      }
+    },
+    {
+      "blur-material" : 0.5,
+      "layers" : [
+        {
+          "fill-specializations" : [
+            {
+              "value" : {
+                "solid" : "extended-gray:1.00000,1.00000"
+              }
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "extended-gray:0.75000,1.00000"
+              }
+            }
+          ],
+          "glass" : true,
+          "image-name" : "Path.png",
+          "name" : "Path",
+          "position" : {
+            "scale" : 1.9,
+            "translation-in-points" : [
+              0,
+              290
+            ]
+          }
+        }
+      ],
+      "lighting" : "individual",
+      "opacity" : 0.9,
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 1
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.05
+      }
+    },
+    {
+      "blend-mode" : "normal",
+      "blur-material" : null,
+      "hidden" : false,
+      "layers" : [
+        {
+          "fill" : {
+            "automatic-gradient" : "extended-gray:0.50000,1.00000"
+          },
+          "hidden" : false,
+          "image-name" : "Rectangle.svg",
+          "name" : "Rectangle",
+          "position" : {
+            "scale" : 1.22,
+            "translation-in-points" : [
+              0,
+              -590
+            ]
+          }
+        },
+        {
+          "blend-mode" : "normal",
+          "hidden" : false,
+          "image-name" : "bars 2.png",
+          "name" : "bars 2",
+          "opacity-specializations" : [
+            {
+              "value" : 0.86
+            },
+            {
+              "appearance" : "dark",
+              "value" : 0.8
+            },
+            {
+              "appearance" : "tinted",
+              "value" : 0.86
+            }
+          ],
+          "position" : {
+            "scale" : 1.22,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "fill" : "automatic",
+          "hidden" : false,
+          "image-name" : "IMG_2689.png",
+          "name" : "IMG_2689",
+          "opacity" : 1,
+          "position" : {
+            "scale" : 1.22,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "fill" : {
+            "automatic-gradient" : "extended-gray:0.25000,1.00000"
+          },
+          "hidden" : false,
+          "image-name" : "Rectangle.svg",
+          "name" : "Rectangle",
+          "position" : {
+            "scale" : 1.22,
+            "translation-in-points" : [
+              0,
+              590
+            ]
+          }
+        }
+      ],
+      "opacity" : 1,
+      "shadow" : {
+        "kind" : "layer-color",
+        "opacity" : 1
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.2
+      }
+    },
+    {
+      "blend-mode" : "normal",
+      "blur-material" : null,
+      "layers" : [
+        {
+          "fill-specializations" : [
+            {
+              "value" : {
+                "linear-gradient" : [
+                  "extended-gray:1.00000,1.00000",
+                  "extended-gray:0.85000,1.00000"
+                ]
+              }
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "extended-gray:0.75000,1.00000"
+              }
+            }
+          ],
+          "glass" : true,
+          "image-name" : "Film Strip.svg",
+          "name" : "Film Strip",
+          "position" : {
+            "scale" : 1.4,
+            "translation-in-points" : [
+              -428,
+              68
+            ]
+          }
+        },
+        {
+          "fill-specializations" : [
+            {
+              "value" : {
+                "linear-gradient" : [
+                  "extended-gray:1.00000,1.00000",
+                  "extended-gray:0.85000,1.00000"
+                ]
+              }
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "extended-gray:0.75000,1.00000"
+              }
+            }
+          ],
+          "glass" : true,
+          "hidden" : false,
+          "image-name" : "Film Strip.svg",
+          "name" : "Film Strip",
+          "position" : {
+            "scale" : 1.4,
+            "translation-in-points" : [
+              428,
+              68
+            ]
+          }
+        }
+      ],
+      "lighting" : "individual",
+      "opacity" : 0.9,
+      "shadow" : {
+        "kind" : "layer-color",
+        "opacity" : 0.2
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "squares" : "shared"
+  }
+}

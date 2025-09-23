@@ -25,3 +25,6 @@
 /* Class = "NSMenuItem"; title = "Edit…"; ObjectID = "qHz-Zh-l5L"; */
 "qHz-Zh-l5L.title" = "Modifica…";
 
+/* Class = "NSTextFieldCell"; title = "Name"; ObjectID = "srx-EJ-mK6"; */
+"srx-EJ-mK6.title" = "Nome";
+

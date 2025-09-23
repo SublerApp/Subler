@@ -34,7 +34,7 @@ private extension MetadataResult {
 
             self.mediaKind          = .movie
             self[.name]             = item.title
-            self[.serviceSeriesID]  = item.id
+            self[.serviceContentID]  = item.id
 
             self[.genre]            = item.genres?.first?.name
 
@@ -61,7 +61,7 @@ private extension MetadataResult {
 
             self.mediaKind          = .tvShow
             self[.seriesName]       = item.title
-            self[.serviceSeriesID]  = item.id
+            self[.serviceContentID]  = item.id
 
             self[.genre]            = item.genres?.first?.name
 
@@ -77,7 +77,7 @@ private extension MetadataResult {
                 self[.network]          = episode.network
                 self[.description]      = episode.description
 
-                self[.serviceAdditionalSeriesID] = episode.seasonId
+                self[.serviceAdditionalContentID] = episode.seasonId
 
                 self[.episodeID]        = String(format: "S%02dE%02d", episode.seasonNumber ?? 0, episode.episodeNumber ?? 0)
                 self[.cast]             = episode.rolesSummary?.cast?.joined(separator: ", ")
@@ -115,7 +115,7 @@ private extension MetadataResult {
         default:
 
             self[.name]             = item.title
-            self[.serviceSeriesID]  = item.id
+            self[.serviceContentID]  = item.id
             self[.description]      = item.type
 
             if let releaseDate = item.releaseDate {
@@ -731,7 +731,7 @@ public struct AppleTVv3: MetadataService {
 
     private func details(_ metadata: MetadataResult) -> MetadataResult {
 
-        guard let id = metadata[.serviceSeriesID] else { return metadata }
+        guard let id = metadata[.serviceContentID] else { return metadata }
 
         if metadata.mediaKind == .movie {
 
@@ -752,7 +752,7 @@ public struct AppleTVv3: MetadataService {
 
         if metadata.mediaKind == .tvShow {
 
-            guard let sID = metadata[.serviceAdditionalSeriesID] else { return metadata }
+            guard let sID = metadata[.serviceAdditionalContentID] else { return metadata }
 
             var components = AppleTVv3.urlComponents
             components.path = AppleTVv3.seasonsPath + "/\(sID)" + AppleTVv3.qualifierMetadata
@@ -761,7 +761,7 @@ public struct AppleTVv3: MetadataService {
             guard let results = JSONRequest(components: components, type: ContentDetail.self) else { return metadata }
             metadata.insert(contentOf: results.data)
 
-            guard let shID = metadata[.serviceSeriesID] else { return metadata }
+            guard let shID = metadata[.serviceContentID] else { return metadata }
             components.path = AppleTVv3.showsPath + "/\(shID)"
             guard let results = JSONRequest(components: components, type: DataWrapper<GeneralResult>.self) else { return metadata }
 

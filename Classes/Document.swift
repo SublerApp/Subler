@@ -9,6 +9,7 @@ import Cocoa
 import IOKit.pwr_mgt
 import MP42Foundation
 
+@objc(SBDocument)
 final class Document: NSDocument {
 
     private(set) var mp4: MP42File
@@ -20,6 +21,7 @@ final class Document: NSDocument {
         self.optimize = false
         self.unsupportedMp4Brand = false
         self.mp4 = MP42File()
+        super.init()
     }
 
     init(mp4: MP42File) {
@@ -217,6 +219,8 @@ final class Document: NSDocument {
     private var accessoryViewController: SaveOptions?
 
     override var shouldRunSavePanelWithAccessoryView: Bool { return false }
+    
+    override var savePanelShowsFileFormatsControl: Bool { return false }
 
     override func prepareSavePanel(_ savePanel: NSSavePanel) -> Bool {
         self.accessoryViewController = SaveOptions(doc: self, savePanel: savePanel)

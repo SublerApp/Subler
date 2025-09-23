@@ -476,10 +476,10 @@ public struct iTunesStore: MetadataService {
     }
 
     private func compactMultipartSeasons(results: [MetadataResult]) {
-        let seasons = Dictionary(grouping: results.filter { $0[.serviceAdditionalSeriesID] != nil }, by: { $0[.season] as? Int })
+        let seasons = Dictionary(grouping: results.filter { $0[.serviceAdditionalContentID] != nil }, by: { $0[.season] as? Int })
 
         for (_, episodes) in seasons {
-            let parts = Dictionary(grouping: episodes, by: { $0[.serviceAdditionalSeriesID] as! Int })
+            let parts = Dictionary(grouping: episodes, by: { $0[.serviceAdditionalContentID] as! Int })
             let max = parts.mapValues { $0.compactMap { $0[.episodeNumber] as? Int } .max() ?? 0 }
 
             for (part, episodes) in parts {
@@ -490,7 +490,7 @@ public struct iTunesStore: MetadataService {
                     if min < count, let episodeNumber = episode[.episodeNumber] as? Int {
                         episode[.episodeNumber] = episodeNumber + count
                     }
-                    episode[.serviceAdditionalSeriesID] = nil
+                    episode[.serviceAdditionalContentID] = nil
                 }
             }
         }
@@ -565,7 +565,7 @@ public struct iTunesStore: MetadataService {
             }
 
             if let part = part {
-                metadata[.serviceAdditionalSeriesID] = part;
+                metadata[.serviceAdditionalContentID] = part;
             }
         }
 
@@ -576,7 +576,8 @@ public struct iTunesStore: MetadataService {
         metadata[.iTunesCountry] = store.storeCode
         metadata[.iTunesURL] = result.trackViewUrl
         metadata[.contentID] = result.trackId
-        
+        metadata[.serviceContentID] = result.trackId
+
         if result.trackExplicitness == "explicit" {
             metadata.contentRating = 4
         }
@@ -622,7 +623,8 @@ public struct iTunesStore: MetadataService {
         metadata[.iTunesCountry] = store.storeCode
         metadata[.iTunesURL] = result.trackViewUrl
         metadata[.contentID] = result.trackId
-        
+        metadata[.serviceContentID] = result.trackId
+
         if result.trackExplicitness == "explicit" {
             metadata.contentRating = 4
         }

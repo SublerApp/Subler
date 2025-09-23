@@ -67,7 +67,11 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         toolbar.delegate = toolbarDelegate
         toolbar.allowsUserCustomization = true
         toolbar.autosavesConfiguration = true
-        toolbar.displayMode = .iconAndLabel
+        if #available(macOS 26, *) {
+            toolbar.displayMode = .iconAndLabel
+        } else {
+            toolbar.displayMode = .iconOnly
+        }
         self.window?.toolbar = toolbar
 
         table.registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL, tablePasteboardType])

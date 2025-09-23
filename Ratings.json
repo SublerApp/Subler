@@ -206,12 +206,12 @@
 	"country" : "Sverige",
     "storeCode" : 143456,
 	"ratings" : [
-	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "A", 		"itunes-value" : "000",  "description" : "Barntillåten" },
-	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "7", 		"itunes-value" : "125",  "description" : "Från 7 år" },
-	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "11", 		"itunes-value" : "225",  "description" : "Från 11 år" },
-	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "15", 		"itunes-value" : "400",  "description" : "Från 15 år" },
-	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "Ocensurerad" },
-	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "Unrated", 	"itunes-value" : "???",  "description" : "Inte klassificerad" }
+	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "Barntillåten", "itunes-value" : "000",  "description" : "Barntillåten" },
+	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "Från 7 År",    "itunes-value" : "125",  "description" : "Från 7 år" },
+	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "Från 11 År",   "itunes-value" : "225",  "description" : "Från 11 år" },
+	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "Från 15 År",   "itunes-value" : "400",  "description" : "Från 15 år" },
+	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "Unrated",      "itunes-value" : "???",  "description" : "Ocensurerad" },
+	   { "media" : "Movie & TV", "prefix" : "se-movie", 	"itunes-code" : "Unrated", 	    "itunes-value" : "???",  "description" : "Inte klassificerad" }
 	]
 },
 {
