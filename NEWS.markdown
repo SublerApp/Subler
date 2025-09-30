@@ -2,7 +2,7 @@
 
 ## Subler 1.9.1
 
-- Fixed the queue AppleSCript dictionary
+- Fixed the queue AppleScript dictionary
 - Added a work around for a macOS 26 issue that could cause a crash when editing the file name and metadata token fields in the preferences
 
 
