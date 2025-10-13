@@ -360,11 +360,11 @@ public struct AppleTV: MetadataService {
             get {
                 switch size {
                 case .square:
-                    return "800x800.jpg"
+                    return "1600x1600.jpg"
                 case .rectangle:
-                    return "800x450.jpg"
+                    return "1920x1080.jpg"
                 default:
-                    return "600x900.jpg"
+                    return "1200x1800.jpg"
                 }
             }
         }
