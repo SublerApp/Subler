@@ -1319,4 +1319,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         }
     }
 
+    func collectionViewCut(in collectionView: NSCollectionView) {
+        collectionViewCopy(in: collectionView)
+        collectionViewDelete(in: collectionView)
+    }
+
 }
