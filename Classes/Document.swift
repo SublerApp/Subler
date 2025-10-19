@@ -60,7 +60,21 @@ final class Document: NSDocument {
     override func read(from url: URL, ofType typeName: String) throws {
         do {
             mp4 = try MP42File(url: url)
+            // Check if this is an AAC file with more than 2 channels that needs downmixing
+            for track in mp4.tracks {
+                if let audioTrack = track as? MP42AudioTrack,
+                   audioTrack.format == kMP42AudioCodecType_MPEG4AAC,
+                   audioTrack.channels > 2,
+                   audioTrack.fallbackTrack == nil,
+                   Prefs.audioMixdown != 0 {
+                    // Clear the mp4 property and mark as unsupported
+                    mp4 = MP42File()
+                    unsupportedMp4Brand = true
+                }
+            }
         } catch {
+            // Clear the mp4 property when marking as unsupported
+            mp4 = MP42File()
             unsupportedMp4Brand = true
         }
     }
