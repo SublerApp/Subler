@@ -442,6 +442,26 @@ class QueueClearTrackNameAction : NSObject, QueueActionProtocol {
 
 }
 
+/// An action that removes track start offsets.
+class QueueClearTrackOffsetAction : NSObject, QueueActionProtocol {
+
+    var type: QueueActionType { return .pre }
+    var localizedDescription: String { return NSLocalizedString("Clearing tracks offsets", comment: "Action localized description") }
+    override var description: String { return NSLocalizedString("Clear tracks offsets", comment: "Action description") }
+
+    override init() {}
+
+    func runAction(_ item: QueueItem) -> Bool {
+        item.mp4File?.clearTrackOffsets()
+        return true
+    }
+
+    func encode(with aCoder: NSCoder) {}
+    required init?(coder aDecoder: NSCoder) {}
+    static var supportsSecureCoding: Bool { return true }
+
+}
+
 /// An action that renames audio tracks.
 class QueuePrettifyAudioTrackNameAction : NSObject, QueueActionProtocol {
 

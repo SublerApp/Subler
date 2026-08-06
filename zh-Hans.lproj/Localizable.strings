@@ -107,11 +107,18 @@
    Toolbar */
 "Clear tracks names" = "清除轨道名称";
 
+/* Action description
+   Toolbar */
+"Clear tracks offsets" = "清除轨道偏移";
+
 /* Action localized description. */
 "Clearing Metadata" = "正在清除元数据";
 
 /* Action localized description */
 "Clearing tracks names" = "正在清除轨道名称";
+
+/* Action localized description */
+"Clearing tracks offsets" = "正在清除轨道偏移";
 
 /* No comment provided by engineer. */
 "Composer" = "作曲者";

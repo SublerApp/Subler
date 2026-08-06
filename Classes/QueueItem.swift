@@ -456,7 +456,7 @@ import MP42Foundation
         actionsInternal = aDecoder.decodeObject(of: [NSArray.classForCoder(), QueueSetAction.classForCoder(),
                                                      QueueMetadataAction.classForCoder(), QueueSubtitlesAction.classForCoder(),
                                                      QueueSetLanguageAction.classForCoder(), QueueFixFallbacksAction.classForCoder(),
-                                                     QueueClearTrackNameAction.classForCoder(), QueuePrettifyAudioTrackNameAction.classForCoder(),
+                                                     QueueClearTrackNameAction.classForCoder(), QueueClearTrackOffsetAction.classForCoder(), QueuePrettifyAudioTrackNameAction.classForCoder(),
                                                      QueueRenameChaptersAction.classForCoder(),
                                                      QueueOrganizeGroupsAction.classForCoder(), QueueColorSpaceAction.classForCoder(),
                                                      QueueSetOutputFilenameAction.classForCoder(), QueueClearExistingMetadataAction.classForCoder(),

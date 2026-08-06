@@ -16,7 +16,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="UlG-O3-eNc" userLabel="OptionsView">
-            <rect key="frame" x="0.0" y="0.0" width="382" height="642"/>
+            <rect key="frame" x="0.0" y="0.0" width="382" height="664"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zEH-aV-Tl7">
@@ -527,8 +527,22 @@
                         </binding>
                     </connections>
                 </button>
+                <button toolTip="Remove start offsets from all tracks" verticalHuggingPriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="cTo-Of-Btn">
+                    <rect key="frame" x="111" y="360" width="124" height="16"/>
+                    <buttonCell key="cell" type="check" title="Clear tracks offsets" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="cTo-Of-Cel">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="label" size="11"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="self.options.clearTrackOffset" id="cTo-Of-Bnd">
+                            <dictionary key="options">
+                                <bool key="NSValidatesImmediately" value="YES"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </button>
                 <button toolTip="Rename audio tracks according to channel count (Mono, Stereo, Surround)" verticalHuggingPriority="753" translatesAutoresizingMaskIntoConstraints="NO" id="81E-pQ-vyQ">
-                    <rect key="frame" x="111" y="360" width="159" height="16"/>
+                    <rect key="frame" x="111" y="340" width="159" height="16"/>
                     <buttonCell key="cell" type="check" title="Prettify audio track names" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="akF-dR-OPB" userLabel="Prettify audio track names">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="label" size="11"/>
@@ -847,10 +861,13 @@
                 <constraint firstItem="etc-K7-Atw" firstAttribute="leading" secondItem="S7L-mA-j3Y" secondAttribute="trailing" constant="7" id="lRh-Vo-1XH"/>
                 <constraint firstItem="KWg-Ak-bB6" firstAttribute="firstBaseline" secondItem="muY-E0-hVI" secondAttribute="firstBaseline" id="lu4-VE-F0x"/>
                 <constraint firstItem="22k-mA-HyA" firstAttribute="top" secondItem="etc-K7-Atw" secondAttribute="bottom" constant="6" symbolic="YES" id="mRD-fX-qMt"/>
+                <constraint firstItem="cTo-Of-Btn" firstAttribute="top" secondItem="22k-mA-HyA" secondAttribute="bottom" constant="6" symbolic="YES" id="cTo-Of-Top"/>
+                <constraint firstItem="cTo-Of-Btn" firstAttribute="leading" secondItem="S7L-mA-j3Y" secondAttribute="trailing" constant="7" id="cTo-Of-Ld"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cTo-Of-Btn" secondAttribute="trailing" constant="20" symbolic="YES" id="cTo-Of-Tr"/>
                 <constraint firstItem="86l-GG-SpO" firstAttribute="top" secondItem="DVM-Js-DwK" secondAttribute="bottom" constant="4" id="mYq-MI-cyr"/>
                 <constraint firstItem="ZZk-4j-Ji7" firstAttribute="top" secondItem="slL-2h-MPl" secondAttribute="bottom" constant="4" id="n9b-Ub-usn"/>
                 <constraint firstItem="08Q-2k-0Gb" firstAttribute="baseline" secondItem="k33-Yf-DbF" secondAttribute="baseline" id="nPl-tv-zwn"/>
-                <constraint firstItem="81E-pQ-vyQ" firstAttribute="top" secondItem="22k-mA-HyA" secondAttribute="bottom" constant="6" symbolic="YES" id="ntR-jS-xXX"/>
+                <constraint firstItem="81E-pQ-vyQ" firstAttribute="top" secondItem="cTo-Of-Btn" secondAttribute="bottom" constant="6" symbolic="YES" id="ntR-jS-xXX"/>
                 <constraint firstItem="5rh-cM-iOg" firstAttribute="top" secondItem="ZVm-yi-3cE" secondAttribute="bottom" constant="4" id="o3T-cH-W5B"/>
                 <constraint firstItem="5rh-cM-iOg" firstAttribute="leading" secondItem="73q-gi-fe2" secondAttribute="trailing" constant="9" id="oAW-Hc-PIL"/>
                 <constraint firstItem="s8r-Cf-VfB" firstAttribute="leading" secondItem="9GN-f6-r2j" secondAttribute="leading" id="oUh-bK-O8z"/>
