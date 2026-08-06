@@ -1,9 +1,5 @@
 # Subler News
 
-## Subler 1.9.2
-
-- Added new chapter options to queue settings
-
 ## Subler 1.9.1
 
 - Fixed the queue AppleScript dictionary
