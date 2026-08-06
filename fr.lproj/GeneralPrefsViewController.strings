@@ -16,9 +16,6 @@
 /* Class = "NSButtonCell"; title = "Remember Size"; ObjectID = "86"; */
 "86.title" = "Se souvenir de la taille";
 
-/* Class = "NSButtonCell"; title = "Show open panel"; ObjectID = "87"; */
-"87.title" = "Afficher le panneau d'ouverture";
-
 /* Class = "NSTextFieldCell"; title = "Window:"; ObjectID = "88"; */
 "88.title" = "Fenêtre :";
 

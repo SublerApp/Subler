@@ -508,6 +508,12 @@
 /* Toolbar */
 "Settings" = "Réglages";
 
+/* At launch preference */
+"Show open panel" = "Afficher le panneau d'ouverture";
+
+/* At launch preference */
+"Show queue" = "Afficher la file d'attente";
+
 /* Toolbar */
 "Show/Hide settings" = "Afficher/Cacher les paramètres";
 

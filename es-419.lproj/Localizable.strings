@@ -508,6 +508,12 @@
 /* Toolbar */
 "Settings" = "Configuración";
 
+/* At launch preference */
+"Show open panel" = "Mostrar panel de apertura de archivo";
+
+/* At launch preference */
+"Show queue" = "Mostrar cola";
+
 /* Toolbar */
 "Show/Hide settings" = "Mostrar/Ocultar configuración";
 

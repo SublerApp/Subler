@@ -534,6 +534,12 @@ Toolbar */
 /* Toolbar */
 "Settings" = "Impostazioni";
 
+/* At launch preference */
+"Show open panel" = "Mostra il pannello di apertura";
+
+/* At launch preference */
+"Show queue" = "Mostra la coda";
+
 /* Toolbar */
 "Show the Queue window" = "Mostra la finestra della Cosa";
 

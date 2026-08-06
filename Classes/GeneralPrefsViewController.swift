@@ -37,6 +37,13 @@ class GeneralPrefsViewController: NSViewController {
 
     @objc dynamic var ratingsCountries: [String] { return Ratings.shared.countries.map { $0.displayName } }
 
+    @objc dynamic var atLaunchOptions: [String] {
+        return [
+            NSLocalizedString("Show open panel", comment: "At launch preference"),
+            NSLocalizedString("Show queue", comment: "At launch preference")
+        ]
+    }
+
     @objc dynamic var logFormatOptions: [String] {
         return [
             NSLocalizedString("Time Only", comment: ""),

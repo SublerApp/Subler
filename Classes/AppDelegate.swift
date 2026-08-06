@@ -163,7 +163,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 
         _ = QueueController.shared
 
-        if Prefs.showQueueWindow {
+        if Prefs.atLaunchAction == Prefs.AtLaunchAction.showQueue.rawValue || Prefs.showQueueWindow {
             QueueController.shared.showWindow(self)
         }
         
@@ -207,7 +207,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     }
 
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {
-        if Prefs.showOpenPanelAtLaunch {
+        if Prefs.atLaunchAction == Prefs.AtLaunchAction.showOpenPanel.rawValue {
             documentController.openDocument(self)
         }
         return false

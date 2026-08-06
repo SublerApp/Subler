@@ -493,6 +493,12 @@
 /* Toolbar */
 "Settings" = "设置";
 
+/* At launch preference */
+"Show open panel" = "显示“打开”面板";
+
+/* At launch preference */
+"Show queue" = "显示队列";
+
 /* Toolbar */
 "Show/Hide settings" = "显示/隐藏设置";
 

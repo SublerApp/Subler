@@ -22,6 +22,7 @@
                 <string>rememberWindowSize</string>
                 <string>chaptersPreviewTrack</string>
                 <string>SBLogFormat</string>
+                <string>SBAtLaunchAction</string>
             </declaredKeys>
         </userDefaultsController>
         <customView id="76">
@@ -177,16 +178,22 @@
                                 <binding destination="3" name="selectedTag" keyPath="values.SBLogFormat" previousBinding="logFormatContentBinding" id="logFormatBinding"/>
                             </connections>
                         </popUpButton>
-                        <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="79">
-                            <rect key="frame" x="129" y="291" width="130" height="18"/>
-                            <buttonCell key="cell" type="check" title="Show open panel" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="87">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
+                        <popUpButton verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="atLaunchPopup">
+                            <rect key="frame" x="128" y="287" width="167" height="25"/>
+                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="atLaunchCell">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="message"/>
+                                <menu key="menu" id="atLaunchMenu"/>
+                            </popUpButtonCell>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="atLaunchWidth"/>
+                            </constraints>
                             <connections>
-                                <binding destination="3" name="value" keyPath="values.SBShowOpenPanelAtLaunch" id="T36-sT-wu3"/>
+                                <accessibilityConnection property="title" destination="77" id="atLaunchAccessibility"/>
+                                <binding destination="-2" name="content" keyPath="atLaunchOptions" id="atLaunchContentBinding"/>
+                                <binding destination="3" name="selectedIndex" keyPath="values.SBAtLaunchAction" previousBinding="atLaunchContentBinding" id="atLaunchBinding"/>
                             </connections>
-                        </button>
+                        </popUpButton>
                         <popUpButton verticalHuggingPriority="1000" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="236">
                             <rect key="frame" x="128" y="122" width="187" height="25"/>
                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="237">
@@ -223,12 +230,12 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="133" firstAttribute="width" secondItem="136" secondAttribute="width" id="05F-cw-fMw"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="79" secondAttribute="trailing" id="0bd-hZ-ylz"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="atLaunchPopup" secondAttribute="trailing" id="0bd-hZ-ylz"/>
                         <constraint firstItem="78" firstAttribute="firstBaseline" secondItem="80" secondAttribute="firstBaseline" id="1td-Oe-7AD"/>
-                        <constraint firstItem="79" firstAttribute="leading" secondItem="B5v-6Q-3Qa" secondAttribute="leading" id="2Mr-Mj-vU1"/>
+                        <constraint firstItem="atLaunchPopup" firstAttribute="leading" secondItem="B5v-6Q-3Qa" secondAttribute="leading" id="2Mr-Mj-vU1"/>
                         <constraint firstItem="JhA-jk-CGt" firstAttribute="top" secondItem="82" secondAttribute="bottom" constant="8" symbolic="YES" id="2vm-yX-6Ce"/>
                         <constraint firstItem="80" firstAttribute="top" secondItem="B5v-6Q-3Qa" secondAttribute="bottom" constant="24" id="3ue-nN-QeE"/>
-                        <constraint firstItem="B5v-6Q-3Qa" firstAttribute="top" secondItem="79" secondAttribute="bottom" constant="6" symbolic="YES" id="5ve-SK-Mci"/>
+                        <constraint firstItem="B5v-6Q-3Qa" firstAttribute="top" secondItem="atLaunchPopup" secondAttribute="bottom" constant="8" symbolic="YES" id="5ve-SK-Mci"/>
                         <constraint firstAttribute="bottom" secondItem="136" secondAttribute="bottom" constant="20" symbolic="YES" id="6Bj-Ao-4kA"/>
                         <constraint firstItem="78" firstAttribute="width" secondItem="81" secondAttribute="width" id="8Em-7b-7bc"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JhA-jk-CGt" secondAttribute="trailing" id="8sB-JV-mUa"/>
@@ -242,13 +249,13 @@
                         <constraint firstItem="206" firstAttribute="width" secondItem="logFormatLabel" secondAttribute="width" id="G5L-ax-8Io"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="B5v-6Q-3Qa" secondAttribute="trailing" id="Ies-Bx-zqg"/>
                         <constraint firstAttribute="trailing" secondItem="B5v-6Q-3Qa" secondAttribute="trailing" priority="750" constant="19" id="L97-mT-mLE"/>
-                        <constraint firstItem="77" firstAttribute="firstBaseline" secondItem="79" secondAttribute="firstBaseline" id="LWO-5R-E6y"/>
+                        <constraint firstItem="77" firstAttribute="firstBaseline" secondItem="atLaunchPopup" secondAttribute="firstBaseline" id="LWO-5R-E6y"/>
                         <constraint firstItem="136" firstAttribute="top" secondItem="133" secondAttribute="bottom" constant="10" id="MKK-lc-cU2"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="133" secondAttribute="trailing" id="MPl-R6-UUO"/>
                         <constraint firstItem="XPF-Mh-XYC" firstAttribute="top" secondItem="JhA-jk-CGt" secondAttribute="bottom" constant="6" id="MvX-7T-WjO"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="82" secondAttribute="trailing" id="N5X-3a-SM6"/>
                         <constraint firstItem="77" firstAttribute="leading" secondItem="dxI-5Q-gDD" secondAttribute="leading" constant="20" symbolic="YES" id="Ndo-DG-rTs"/>
-                        <constraint firstItem="79" firstAttribute="leading" secondItem="77" secondAttribute="trailing" constant="8" symbolic="YES" id="Oa0-iG-Y8X"/>
+                        <constraint firstItem="atLaunchPopup" firstAttribute="leading" secondItem="77" secondAttribute="trailing" constant="8" symbolic="YES" id="Oa0-iG-Y8X"/>
                         <constraint firstItem="82" firstAttribute="leading" secondItem="81" secondAttribute="trailing" constant="8" symbolic="YES" id="OhX-HZ-gdU"/>
                         <constraint firstItem="236" firstAttribute="leading" secondItem="206" secondAttribute="trailing" constant="8" symbolic="YES" id="Sgq-Ky-wad"/>
                         <constraint firstItem="206" firstAttribute="leading" secondItem="logFormatLabel" secondAttribute="leading" id="TIw-54-KF5"/>
