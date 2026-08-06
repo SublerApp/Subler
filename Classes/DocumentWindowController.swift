@@ -308,17 +308,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
     }
 
     @IBAction func addChaptersEvery(_ sender: NSMenuItem) {
-        let track: MP42ChapterTrack = mp4.chapters ?? { let track = MP42ChapterTrack(); self.mp4.addTrack(track); return track }()
-        let minutes = sender.tag * 60 * 1000
-
-        if minutes > 0 {
-            for (index, timestamp) in stride(from: 0, to: mp4.duration, by: minutes).enumerated() {
-                track.addChapter("Chapter \(index + 1)", timestamp: UInt64(timestamp))
-            }
-        }
-        else {
-            track.addChapter("Chapter 1", timestamp: 0)
-        }
+        mp4.addChapters(everyMinutes: sender.tag)
 
         doc.updateChangeCount(.changeDone)
         tracksViewController.reloadData()

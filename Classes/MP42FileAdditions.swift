@@ -18,6 +18,39 @@ private extension String {
 
 extension MP42File {
 
+    /// Policy for inserting chapter markers when a chapter track already exists.
+    enum ChaptersInsertPolicy: Int {
+        /// Clear existing markers, then insert interval chapters.
+        case replace = 0
+        /// Keep existing markers and append interval chapters.
+        case merge = 1
+    }
+
+    /// Adds chapter markers at a fixed interval, matching the document window "Insert a chapter every…" action.
+    /// - Parameter minutes: Interval in minutes. Values `<= 0` insert a single chapter at the beginning.
+    /// - Parameter policy: Whether to replace or merge with existing chapter markers. Defaults to `.merge`.
+    func addChapters(everyMinutes minutes: Int, policy: ChaptersInsertPolicy = .merge) {
+        let track: MP42ChapterTrack = chapters ?? {
+            let track = MP42ChapterTrack()
+            addTrack(track)
+            return track
+        }()
+
+        if policy == .replace, track.chapterCount() > 0 {
+            track.removeChapters(at: IndexSet(integersIn: 0..<Int(track.chapterCount())))
+        }
+
+        let interval = minutes * 60 * 1000
+
+        if interval > 0 {
+            for (index, timestamp) in stride(from: 0, to: duration, by: interval).enumerated() {
+                track.addChapter("Chapter \(index + 1)", timestamp: UInt64(timestamp))
+            }
+        } else {
+            track.addChapter("Chapter 1", timestamp: 0)
+        }
+    }
+
     enum TrackHDType : Int {
         case hd720p = 1
         case hd1080p = 2

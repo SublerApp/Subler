@@ -77,11 +77,6 @@ import MP42Foundation
             attributes[MP4264BitData] = true
         }
 
-        if Prefs.chaptersPreviewTrack {
-            attributes[MP42GenerateChaptersPreviewTrack] = true
-            attributes[MP42ChaptersPreviewPosition] = Prefs.chaptersPreviewPosition
-        }
-
         if Prefs.forceHvc1 {
             attributes[MP42ForceHvc1] = true
         }
@@ -136,6 +131,19 @@ import MP42Foundation
         willChangeValue(for: \.actions)
         _ = queue.sync { actionsInternal.remove(at: index) }
         didChangeValue(for: \.actions)
+    }
+
+    /// Enables or disables chapter preview image generation using the General preference for position.
+    func setChaptersPreviewGeneration(_ enabled: Bool) {
+        queue.sync {
+            if enabled {
+                attributes[MP42GenerateChaptersPreviewTrack] = true
+                attributes[MP42ChaptersPreviewPosition] = Prefs.chaptersPreviewPosition
+            } else {
+                attributes.removeValue(forKey: MP42GenerateChaptersPreviewTrack)
+                attributes.removeValue(forKey: MP42ChaptersPreviewPosition)
+            }
+        }
     }
 
     // MARK: Item processing
@@ -457,10 +465,11 @@ import MP42Foundation
                                                      QueueMetadataAction.classForCoder(), QueueSubtitlesAction.classForCoder(),
                                                      QueueSetLanguageAction.classForCoder(), QueueFixFallbacksAction.classForCoder(),
                                                      QueueClearTrackNameAction.classForCoder(), QueuePrettifyAudioTrackNameAction.classForCoder(),
-                                                     QueueRenameChaptersAction.classForCoder(),
+                                                     QueueRenameChaptersAction.classForCoder(), QueueAddChaptersAction.classForCoder(),
                                                      QueueOrganizeGroupsAction.classForCoder(), QueueColorSpaceAction.classForCoder(),
                                                      QueueSetOutputFilenameAction.classForCoder(), QueueClearExistingMetadataAction.classForCoder(),
-                                                     QueueOptimizeAction.classForCoder(), QueueSendToiTunesAction.classForCoder()], forKey: "SBQueueItemActions") as! [QueueActionProtocol]
+                                                     QueueOptimizeAction.classForCoder(), QueueSendToiTunesAction.classForCoder(),
+                                                     QueueChangeAudioLanguageAction.classForCoder(), QueueChangeSubtitleLanguageAction.classForCoder()], forKey: "SBQueueItemActions") as! [QueueActionProtocol]
     }
 }
 
