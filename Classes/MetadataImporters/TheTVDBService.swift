@@ -9,103 +9,260 @@ import Foundation
 import MP42Foundation
 
 public struct TVDBSeriesSearchResult : Codable {
-    public let aliases: [String]
-    public let banner: String?
-    public let firstAired: String?
-    public let id: Int
-    public let imdbId: String?
+    public let aliases: [String]?
+    public let thumbnail: String?
+    public let first_air_time: String?
+    public let tvdb_id: String
     public let network: String?
     public let overview: String?
-    public let seriesName: String?
+    public let name: String?
     public let status: String
 }
 
-public struct TVDBSeriesInfo : Codable {
-    public let added: String?
-    public let airsDayOfWeek: String?
-    public let airsTime: String?
-    public let firstAired: String?
-
-    public let aliases: [String]
-    public let banner: String?
-    public let genre: [String]
-
-    public let id: Int
-    public let imdbId: String?
-
-    public let lastUpdated: Int?
-
-    public let network: String?
-    public let networkId: String?
-
-    public let rating: String?
-    public let runtime: String?
-
-    public let seriesId: String
-    public let seriesName: String
-    public let overview: String?
-
-    //public let siteRating: Double?
-    //public let siteRatingCount: Double?
-
-    //public let status: String?
-}
-
-public struct TVDBActor : Codable {
-    public let id: Int
+public struct TVDBAlias : Codable {
+    public let language: String
     public let name: String
-    //public let role: String?
 }
 
-public struct TVDBRatingInfo : Codable {
-    public let average: Double
-    public let count: Int
+public class TVDBArtworkType : Codable {
+    public let id: Int64
+    public let name: String
+    public let imageFormat: String
+    public let width: Int64
+    public let height: Int64
+    public let thumbHeight: Int64
+    public let thumbWidth: Int64
+    public let recordType: String
 }
 
-public struct TVDBImage : Codable {
-    public let fileName: String
-    public let keyType: String
-    public let ratingsInfo: TVDBRatingInfo?
-    public let resolution: String?
-    public let subKey: String?
+public class TVDBArtworkStatus : Codable {
+    let id: Int64
+    let name: String?
+}
+
+public class TVDBArtworkExtendedRecord: Codable {
+    public let episodeId: Int?
+    public let height: Int64
+    public let id: Int64
+    public let image: String
+    public let includesText: Bool
+    public let language: String?
+    public let movieId: Int?
+    public let networkId: Int?
+    public let peopleId: Int?
+    public let score: Double
+    public let seasonId: Int?
+    public let seriesId: Int?
+    public let seriesPeopleId: Int?
+    public let status: TVDBArtworkStatus
+//    public let tagOptions: TVDBTagOptions
     public let thumbnail: String
+    public let thumbnailHeight: Int64
+    public let thumbnailWidth: Int64
+    public let type: Int64
+    public let updatedAt: Int64
 }
 
-public struct TVDBEpisode : Codable {
+public class TVDBGenreBaseRecord: Codable {
+    public let id: Int64
+    public let name: String
+    public let slug: String
+}
+
+public struct TVDBCharacter : Codable {
+    public let aliases: [TVDBAlias]?
+//    public let episode: TVDBRecordInfo
+    public let episodeId: Int?
+    public let id: Int
+    public let image: String?
+    public let isFeatured: Bool?
+    public let movieId: Int?
+    public let name: String?
+    public let nameTranslations: [String]?
+    public let overviewTranslations: [String]?
+    public let peopleId: Int
+    public let personImgURL: String?
+    public let peopleType: String
+    public let seriesId: Int
+//    public let series: TVDBRecordInfo
+    public let sort: Int
+//    public let tagOptions: TVDBTagOptions
+    public let type: Int
+    public let url: String
+    public let personName: String
+}
+
+public struct TVDBParentCompany: Codable {
+    public let id: Int?
+    public let name: String?
+}
+
+public struct TVDBCompany: Codable {
+    public let activeDate: String?
+    public let aliases: [TVDBAlias]
+    public let country: String
+    public let id: Int64
+    public let inactiveDate: String?
+    public let name: String
+    public let nameTranslations: [String]
+    public let overviewTranslations: [String]
+    public let primaryCompanyType: Int64
+    public let slug: String
+    public let parentCompany: TVDBParentCompany?
+//    public let tagOptions: TVDBTagOptions
+}
+
+public struct TVDBContentRating: Codable {
+    public let id: Int64
+    public let name: String
+    public let description: String
+    public let country: String
+    public let contentType: String
+    public let order: Int
+    public let fullName: String?
+}
+
+public struct TVDBRemoteId: Codable {
+    public let id: String
+    public let type: Int64
+    public let sourceName: String
+}
+
+public class TVDBStatus: Codable {
+    public let id: Int64?
+    public let keepUpdated: Bool
+    public let name: String
+    public let recordType: String
+}
+
+public struct TVDBSeriesBaseRecord : Codable {
+    public let aliases: [TVDBAlias]
+    public let averageRuntime: Int?
+    public let defaultSeasonType: Int64
+//    public let episodes: [Episode]
+    public let firstAired: String
+    public let id: Int
+    public let image: String
+    public let isOrderRandomized: Bool
+    public let lastAired: String
+    public let lastUpdated: String
+    public let name: String
+    public let nameTranslations: [String]
+    public let nextAired: String
+    public let originalCountry: String
+    public let originalLanguage: String
+    public let overview: String?
+    public let overviewTranslations: [String]
+    public let score: Int
+    public let slug: String
+//    public let status: Status
+    public let year: String?
+}
+
+public struct TVDBSeriesExtendedRecord : Codable {
+    public let abbreviation: String?
+//    public let airsDays: TVDBSeriesAirsDays
+    public let aliases: [TVDBAlias]
+    public let artworks: [TVDBArtworkExtendedRecord]
+    public let averageRuntime: Int?
+    public let characters: [TVDBCharacter]?
+    public let contentRatings: [TVDBContentRating]
+    public let country: String?
+    public let defaultSeasonType: Int64
+//    public let episodes: [Episode]
+    public let firstAired: String
+//    public let lists: TVDBList
+    public let genres: [TVDBGenreBaseRecord]
+    public let id: Int
+    public let image: String?
+    public let isOrderRandomized: Bool
+    public let lastAired: String
+    public let lastUpdated: String
+    public let name: String
+    public let nameTranslations: [String]
+    public let companies: [TVDBCompany]
+    public let nextAired: String
+    public let originalCountry: String
+    public let originalLanguage: String
+    public let originalNetwork: TVDBCompany?
+    public let overview: String?
+    public let latestNetwork: TVDBCompany?
+    public let overviewTranslations: [String]
+    public let remoteIds: [TVDBRemoteId]
+    public let score: Double
+//    public let seasons: [TVDBSeasonBaseRecord]
+//    public let seasons: [TVDBSeasonType]
+    public let status: TVDBStatus
+    public let slug: String
+//    public let status: Status
+//    public let tags: [TVDBTagOptions]
+//    public let trailers: [TVDBTrailer]
+//    public let translations: [TVDBTranslationExtended]
+    public let year: String
+}
+
+public struct TVDBEpisodeWrapper : Codable {
+    public let episodes: [TVDBEpisodeBaseRecord]
+//    public let series: TVDBSeriesInfo
+}
+
+public struct TVDBEpisodeBaseRecord : Codable {
     public let absoluteNumber: Double?
-    public let airedEpisodeNumber: Int
-    public let airedSeason: Int
-
-    //public let dvdEpisodeNumber: Double?
-    //public let dvdSeason: Double?
-
-    public let episodeName: String?
-    public let firstAired: String?
-
+    public let aired: String?
+    public let airsBeforeEpisode: Int?
+    public let airsBeforeSeason: Int?
+    public let finaleType: String?
     public let id: Int
+    public let image: String?
+    public let imageType: Int?
+    public let isMovie: Int
+    public let lastUpdated: String
+    public let name: String
+    public let nameTranslations: [String]
+    public let number: Int
     public let overview: String?
+    public let overviewTranslations: [String]
+    public let runtime: Int?
+    public let seasonNumber: Int
+//    public let seasons: []?
+    public let seriesId: Int
+    public let year: String?
 }
 
-public struct TVDBEpisodeInfo : Codable {
-    public let absoluteNumber: Int?
-    public let airedEpisodeNumber: Int?
-    public let airedSeason: Int?
-
-    public let directors: [String]
-
-    //public let dvdEpisodeNumber: Double?
-    //public let dvdSeason: Double?
-
-    public let episodeName: String?
-    public let filename: String?
-    public let firstAired: String?
-
-    public let guestStars: [String]
-
-    public let id: Int
-    public let overview: String?
-
-    public let writers: [String]
+public struct TVDBEpisodeExtendedRecord : Codable {
+    public let aired: String?
+    public let airsAfterSeason: Int?
+    public let airsBeforeEpisode: Int?
+    public let airsBeforeSeason: Int?
+//    public let awards: [TVDBAwardBaseRecord]
+    public let characters: [TVDBCharacter]?
+    public let companies: [TVDBCompany]
+    public let contentRatings: [TVDBContentRating]
+    public let finaleType: String?
+    public let id: Int64
+    public let image: String?
+    public let imageType: Int?
+    public let isMovie: Int64
+    public let lastUpdated: String
+    public let linkedMovie: Int?
+    public let name: String
+    public let nameTranslations: [String]
+    public let networks: [TVDBCompany]?
+//    public let nominations: [TVDBAwardNomineeBaseRecorde]
+    public let number: Int
+    public let overview: String
+    public let overviewTranslations: [String]
+    public let productionCode: String?
+    public let remoteIds: [TVDBRemoteId]
+    public let runtime: Int?
+    public let seasonNumber: Int
+//    public let season: []
+    public let seriesId: Int64
+    public let studios: [TVDBCompany]?
+//    public let tagOptions: [TVDBTagOption]
+//    public let trailers: [TVDBTrailer]
+//    public let translations: [TVDBTranslationExtended]
+    public let year: String
 }
 
 private extension ArtworkType {
@@ -128,7 +285,8 @@ final public class TheTVDBService {
     private let queue: DispatchQueue
     private let tokenQueue: DispatchQueue
 
-    private let basePath = "https://api.thetvdb.com/"
+    private static let apiKey = "7bba6aca-a2c7-42d1-9c34-ed84bb44dfc6"
+    private static let basePath = "https://api4.thetvdb.com/v4/"
 
     private struct Languages {
         let data: [String]
@@ -139,16 +297,16 @@ final public class TheTVDBService {
 
     public var languages: [String] {
         get {
-            return ["en",
+            return ["eng",
                     "sv",
                     "no",
                     "da",
                     "fi",
                     "nl",
                     "de",
-                    "it",
+                    "ita",
                     "es",
-                    "fr",
+                    "fra",
                     "pl",
                     "hu",
                     "el",
@@ -170,6 +328,9 @@ final public class TheTVDBService {
         let timestamp: TimeInterval
     }
 
+    private static let tokenKey = "SBTheTVBDv4Token"
+    private static let tokenTimestampKey = "SBTheTVBDv4TokenTimestamp"
+
     private var savedToken: Token?
 
     private var token: Token? {
@@ -179,8 +340,8 @@ final public class TheTVDBService {
                     return result
                 }
                 else if let result = login() {
-                    UserDefaults.standard.set(result.key, forKey: "SBTheTVBDToken")
-                    UserDefaults.standard.set(result.timestamp, forKey: "SBTheTVBDTokenTimestamp")
+                    UserDefaults.standard.set(result.key, forKey: TheTVDBService.tokenKey)
+                    UserDefaults.standard.set(result.timestamp, forKey: TheTVDBService.tokenTimestampKey)
                     savedToken = result
                     return result
                 } else {
@@ -194,15 +355,15 @@ final public class TheTVDBService {
         queue = DispatchQueue(label: "org.subler.TheTVDBQueue")
         tokenQueue = DispatchQueue(label: "org.subler.TheTVDBTokenQueue")
 
-        if let languagesArray = UserDefaults.standard.object(forKey: "SBTheTVBDLanguagesArray") as? [String] {
-            let timestamp = UserDefaults.standard.double(forKey: "SBTheTVBDLanguagesArrayTimestamp")
+        if let languagesArray = UserDefaults.standard.object(forKey: "SBTheTVBDv4LanguagesArray") as? [String] {
+            let timestamp = UserDefaults.standard.double(forKey: "SBTheTVBDv4LanguagesArrayTimestamp")
             if timestamp + 60 * 60 * 24 * 30 > Date.timeIntervalSinceReferenceDate {
                 savedLanguages = Languages(data: languagesArray, timestamp: timestamp)
             }
         }
 
-        if let tokenKey = UserDefaults.standard.string(forKey: "SBTheTVBDToken") {
-            let timestamp = UserDefaults.standard.double(forKey: "SBTheTVBDTokenTimestamp")
+        if let tokenKey = UserDefaults.standard.string(forKey: TheTVDBService.tokenKey) {
+            let timestamp = UserDefaults.standard.double(forKey: TheTVDBService.tokenTimestampKey)
             if timestamp + 60 * 60 * 4 > Date.timeIntervalSinceReferenceDate {
                 savedToken = Token(key: tokenKey, timestamp: timestamp)
             }
@@ -211,8 +372,9 @@ final public class TheTVDBService {
 
     private struct Wrapper<T> : Codable where T : Codable {
         let data: T
+        let status: String
     }
-    
+
     // MARK: - Login
 
     private func login() -> Token? {
@@ -224,19 +386,24 @@ final public class TheTVDBService {
             let token: String
         }
 
-        guard let apikey = try? JSONEncoder().encode(ApiKey(apikey: "3498815BE9484A62")) else { return nil }
-        guard let url = URL(string: "https://api.thetvdb.com/login") else { return nil }
+        guard let apikey = try? JSONEncoder().encode(ApiKey(apikey: TheTVDBService.apiKey)) else { return nil }
+        guard let url = URL(string: TheTVDBService.basePath + "login") else { return nil }
 
-        let header = ["Content-Type" : "application/json",
-                      "Accept" : "application/vnd.thetvdb.v3"]
+        let header = ["Content-Type" : "application/json"]
 
         guard let response = URLSession.data(from: url,
                                              httpMethod: "POST",
                                              httpBody:apikey,
                                              header: header) else { return nil }
 
-        guard let responseToken = try? JSONDecoder().decode(TokenWrapper.self, from: response) else { return nil }
-        return Token(key: responseToken.token, timestamp: Date.timeIntervalSinceReferenceDate)
+        do {
+            let responseToken = try JSONDecoder().decode(Wrapper<TokenWrapper>.self, from: response)
+            return Token(key: responseToken.data.token, timestamp: Date.timeIntervalSinceReferenceDate)
+        } catch {
+            print("\(error)")
+        }
+
+        return nil
     }
 
     // MARK: - Languages
@@ -249,12 +416,27 @@ final public class TheTVDBService {
             let name: String
         }
 
-        guard let url = URL(string: "\(basePath)languages"),
-            let result = sendJSONRequest(url: url, language: "en", type: Wrapper<[Language]>.self)
+        guard let url = URL(string: "\(TheTVDBService.basePath)languages"),
+            let result = sendJSONRequest(url: url, language: "eng", type: Wrapper<[Language]>.self)
             else { return nil }
 
         let langManager = MP42Languages.defaultManager
         return Languages(data: result.data.map { langManager.extendedTag(forISO_639_1:$0.abbreviation) }, timestamp: Date.timeIntervalSinceReferenceDate)
+    }
+
+    private var artworkTypes: [TVDBArtworkType]?
+
+    public func fetchArtworkTypes() -> [TVDBArtworkType] {
+        if let artworkTypes {
+            return artworkTypes
+        } else {
+            guard let url = URL(string: "\(TheTVDBService.basePath)artwork/types"),
+                  let result = sendJSONRequest(url: url, language: "eng", type: Wrapper<[TVDBArtworkType]>.self)
+            else { return [] }
+
+            artworkTypes = result.data
+            return result.data
+        }
     }
 
     // MARK: - Data request
@@ -263,19 +445,28 @@ final public class TheTVDBService {
         guard let token = self.token else { return nil }
 
         let header = ["Authorization": "Bearer \(token.key)",
-                      "Content-Type" : "application/json",
-                      "Accept" : "application/vnd.thetvdb.v3",
+                      "accept" : "application/json",
                       "Accept-Language" : language]
 
         return URLSession.data(from: url, header: header)
     }
 
     private func sendJSONRequest<T>(url: URL, language: String, type: T.Type) -> T? where T : Decodable {
-        guard let data = sendRequest(url: url, language: language),
-            let result = try? JSONDecoder().decode(type, from: data)
-            else { return nil }
+        guard let data = sendRequest(url: url, language: language) else { return nil }
 
-        return result
+//        let response = String(data: data, encoding: .utf8)
+//        if let response {
+//            print(response)
+//        }
+
+        do {
+            let result = try JSONDecoder().decode(type, from: data)
+            return result
+        } catch {
+            print(error)
+        }
+
+        return nil
     }
 
     // MARK: - Service calls
@@ -284,33 +475,17 @@ final public class TheTVDBService {
         // Remove + because it breaks search
         let encodedName = series.replacingOccurrences(of: "+", with: "").replacingOccurrences(of: "*", with: "-").urlEncoded()
 
-        guard let url = URL(string: "\(basePath)search/series?name=\(encodedName)"),
+        guard let url = URL(string: "\(TheTVDBService.basePath)search?query=\(encodedName)&type=series&language=eng"),
             let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TVDBSeriesSearchResult]>.self)
             else { return [] }
 
         return result.data
     }
 
-    public func fetch(seriesInfo seriesID: Int, language: String) -> TVDBSeriesInfo? {
-        guard let url = URL(string: "\(basePath)series/\(seriesID)"),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<TVDBSeriesInfo>.self)
+    public func fetch(seriesInfo seriesID: String, language: String) -> TVDBSeriesExtendedRecord? {
+        guard let url = URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/extended"),
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<TVDBSeriesExtendedRecord>.self)
             else { return nil }
-
-        return result.data
-    }
-
-    public func fetch(actors seriesID: Int, language: String) -> [TVDBActor] {
-        guard let url = URL(string: "\(basePath)series/\(seriesID)/actors"),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TVDBActor]>.self)
-            else { return [] }
-
-        return result.data
-    }
-
-    public func fetch(images seriesID: Int, type: ArtworkType, language: String) -> [TVDBImage] {
-        guard let url = URL(string: "\(basePath)series/\(seriesID)/images/query?keyType=\(type.theTVDBName)"),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TVDBImage]>.self)
-            else { return [] }
 
         return result.data
     }
@@ -318,25 +493,25 @@ final public class TheTVDBService {
     private func episodesURL(seriesID: Int, season: Int?, episode: Int?) -> URL? {
         switch (season, episode) {
         case let (season?, episode?):
-            return URL(string: "\(basePath)series/\(seriesID)/episodes/query?airedSeason=\(season)&airedEpisode=\(episode)")
+            return URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default?page=0&season=\(season)&episodeNumber=\(episode)")
         case let (season?, _):
-            return URL(string: "\(basePath)series/\(seriesID)/episodes/query?airedSeason=\(season)")
+            return URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default?page=0&season=\(season)")
         default:
-            return URL(string: "\(basePath)series/\(seriesID)/episodes")
+            return URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default?page=0")
         }
     }
     
-    public func fetch(episodeForSeriesID seriesID: Int, season: Int?, episode: Int?, language: String) -> [TVDBEpisode] {
+    public func fetch(episodesForSeriesID seriesID: Int, season: Int?, episode: Int?, language: String) -> [TVDBEpisodeBaseRecord] {
         guard let url = episodesURL(seriesID: seriesID, season: season, episode: episode),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TVDBEpisode]>.self)
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<TVDBEpisodeWrapper>.self)
             else { return [] }
 
-        return result.data
+        return result.data.episodes
     }
 
-    public func fetch(episodeInfo episodeID: Int, language: String) -> TVDBEpisodeInfo? {
-        guard let url = URL(string: "\(basePath)episodes/\(episodeID)"),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<TVDBEpisodeInfo>.self)
+    public func fetch(episodeInfo episodeID: Int, language: String) -> TVDBEpisodeExtendedRecord? {
+        guard let url = URL(string: "\(TheTVDBService.basePath)episodes/\(episodeID)/extended"),
+            let result = sendJSONRequest(url: url, language: language, type: Wrapper<TVDBEpisodeExtendedRecord>.self)
             else { return nil }
 
         return result.data

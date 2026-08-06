@@ -39,7 +39,7 @@ public struct TheTVDB : MetadataService {
         var results: Set<String> = Set()
 
         let series = session.fetch(series: tvShow, language: language)
-        results.formUnion(series.compactMap { $0.seriesName } )
+        results.formUnion(series.compactMap { $0.name } )
 
         if language != defaultLanguage {
             let englishResults = search(tvShow: tvShow, language: defaultLanguage)
@@ -56,30 +56,32 @@ public struct TheTVDB : MetadataService {
     // MARK: - TV Series ID search
 
     private func match(series: TVDBSeriesSearchResult, name: String) -> Bool {
-        if let name = series.seriesName, name.caseInsensitiveCompare(name) == .orderedSame  {
+        if let name = series.name, name.caseInsensitiveCompare(name) == .orderedSame  {
             return true
         }
 
-        for alias in series.aliases {
-            if alias.caseInsensitiveCompare(name) == .orderedSame {
-                return true
+        if let aliases = series.aliases {
+            for alias in aliases {
+                if alias.caseInsensitiveCompare(name) == .orderedSame {
+                    return true
+                }
             }
         }
 
         return false
     }
 
-    private func searchIDs(seriesName: String, language: String) -> [Int] {
+    private func searchIDs(seriesName: String, language: String) -> [String] {
         let series = session.fetch(series: seriesName, language: language)
         let sorted = series.sorted { el1, el2 -> Bool in
-            return el1.seriesName?.caseInsensitiveCompare(seriesName) == .orderedSame ? true : false
+            return el1.name?.caseInsensitiveCompare(seriesName) == .orderedSame ? true : false
         }
-        let filteredSeries = sorted.filter { $0.status.isEmpty == false && match(series: $0, name: seriesName) }.map { $0.id }
+        let filteredSeries = sorted.filter { $0.status.isEmpty == false && match(series: $0, name: seriesName) }.map { $0.tvdb_id }
 
         if filteredSeries.isEmpty == false {
             return filteredSeries
         }
-        else if let firstItemsID = series.first?.id {
+        else if let firstItemsID = series.first?.tvdb_id {
             return [firstItemsID]
         }
         else {
@@ -89,13 +91,23 @@ public struct TheTVDB : MetadataService {
 
     // MARK: - Helpers
 
-    private func cleanList(actors: [TVDBActor]) -> String {
-        return actors.map { $0.name } .reduce("", { $0 + ($0.isEmpty ? "" : ", ") + $1 })
+    private func cleanList(characters: [TVDBCharacter], type: String) -> String {
+        return characters.filter { $0.peopleType == type }
+            .map { $0.personName }
+            .reduce("", { $0 + ($0.isEmpty ? "" : ", ") + $1 })
     }
 
-    private func cleanList(names: [String]) -> String {
-        return names.reduce("", { $0 + ($0.isEmpty ? "" : ", ") + $1 })
+    private func cleanList(genres: [TVDBGenreBaseRecord]) -> String {
+        return genres.map {$0.name }.reduce("", { $0 + ($0.isEmpty ? "" : ", ") + $1 })
     }
+
+    private func cleanList(ratings: [TVDBContentRating]) -> String? {
+        if let rating =  ratings.filter({ $0.country == "usa" }).first {
+            return Ratings.shared.rating(countryCode: "USA", mediaKind: .tvShow, name: rating.name)?.iTunesCode
+        }
+        return nil
+    }
+
 
     private func areInIncreasingOrder(ep1: MetadataResult, ep2: MetadataResult) -> Bool {
         guard let v1 = ep1[.episodeNumber] as? Int,
@@ -112,37 +124,79 @@ public struct TheTVDB : MetadataService {
         }
     }
 
-    private func merge(episode: TVDBEpisode, info: TVDBSeriesInfo, actors: [TVDBActor]) -> MetadataResult {
+    fileprivate func cleanArtworks(_ info: TVDBSeriesExtendedRecord) -> [Artwork] {
+        var artworks: [Artwork] = []
+        let artworkTypes = session.fetchArtworkTypes()
+
+        for artwork in info.artworks {
+            let url = URL(string: artwork.image)
+            let thumbnailURL = URL(string: artwork.thumbnail)
+
+            var type: ArtworkType?
+            var size: ArtworkSize = .default
+
+            let artworkType = artworkTypes.first(where: { $0.id == artwork.type })
+            switch (artworkType?.name, artworkType?.recordType) {
+            case ("Poster", "series"):
+                type = .poster
+            case ("Poster", "season"):
+                type = .season
+            case ("Background", "series"),
+                ("Background", "season"):
+                type = .backdrop
+            default:
+                break
+            }
+
+            switch (artworkType?.width ?? 1, artworkType?.height ?? 1) {
+            case (let width, let height) where width == height:
+                size = .square
+            case (let width, let height) where width >= height:
+                size = .rectangle
+            case (let width, let height) where height < width:
+                size = .default
+            default:
+                break
+            }
+
+            if let url, let thumbnailURL, let type {
+                let entry = Artwork(url: url,
+                                    thumbURL: thumbnailURL,
+                                    service: self.name,
+                                    type: type,
+                                    size: size)
+                artworks.append(entry)
+            }
+        }
+
+        return artworks
+    }
+
+    private func merge(episode: TVDBEpisodeBaseRecord, info: TVDBSeriesExtendedRecord) -> MetadataResult {
         let result = MetadataResult()
 
         result.mediaKind = .tvShow
 
         // TV Show Info
-        result[.serviceContentID]    = info.id
-        result[.seriesName]         = info.seriesName
+        result[.serviceContentID]   = info.id
+        result[.seriesName]         = info.name
         result[.seriesDescription]  = info.overview?.trimmingWhitespacesAndNewlinews()
-        result[.genre]              = cleanList(names: info.genre)
-        result[.network]            = info.network
+        result[.genre]              = cleanList(genres: info.genres)
+        result[.network]            = info.originalNetwork?.name
+        result[.rating] = cleanList(ratings: info.contentRatings)
+        result[.cast] = cleanList(characters: info.characters ?? [], type: "Actor")
 
         // Episode Info
         result[.serviceEpisodeID] = episode.id
-        result[.name]             = episode.episodeName
-        result[.releaseDate]      = episode.firstAired
+        result[.name]             = episode.name
+        result[.releaseDate]      = episode.aired
         result[.longDescription]  = episode.overview?.trimmingWhitespacesAndNewlinews()
+        result[.season]           = episode.seasonNumber
+        result[.episodeID]        = String(format: "%d%02d", episode.seasonNumber, episode.number)
+        result[.episodeNumber]    = episode.number
+        result[.trackNumber]      = episode.number
 
-        result[.season]           = episode.airedSeason
-
-        result[.episodeID]        = String(format: "%d%02d", episode.airedSeason, episode.airedEpisodeNumber)
-        result[.episodeNumber]    = episode.airedEpisodeNumber
-        result[.trackNumber]      = episode.airedEpisodeNumber
-
-        // Rating
-        if let rating = info.rating, rating.count > 0 {
-            result[.rating] = Ratings.shared.rating(countryCode: "USA", mediaKind: .tvShow, name: rating)?.iTunesCode
-        }
-
-        // Actors
-        result[.cast] = cleanList(actors: actors)
+        result.remoteArtworks += cleanArtworks(info)
 
         // TheTVDB does not provide the following fields normally associated with TV shows in SBMetadataResult:
         // "Copyright", "Comments", "Producers", "Artist"
@@ -150,14 +204,14 @@ public struct TheTVDB : MetadataService {
         return result
     }
 
-    private func loadEpisodes(info: TVDBSeriesInfo, actors: [TVDBActor], season: Int?, episode: Int?, language: String) -> [MetadataResult] {
-        let episodes = session.fetch(episodeForSeriesID: info.id, season: season, episode: episode, language: language)
-        let filteredEpisodes = episodes.filter {
-            (season != nil ? $0.airedSeason == season : true) &&
-            (episode != nil ? $0.airedEpisodeNumber == episode : true)
-        }
+    private func loadEpisodes(info: TVDBSeriesExtendedRecord, season: Int?, episode: Int?, language: String) -> [MetadataResult] {
+        let episodes = session.fetch(episodesForSeriesID: info.id, season: season, episode: episode, language: language)
+//        let filteredEpisodes = episodes.filter {
+//            (season != nil ? $0.airedSeason == season : true) &&
+//            (episode != nil ? $0.airedEpisodeNumber == episode : true)
+//        }
 
-        return filteredEpisodes.map { merge(episode: $0, info: info, actors: actors) }
+        return episodes.map { merge(episode: $0, info: info) }
     }
 
     // MARK: - Nil values check
@@ -213,8 +267,8 @@ public struct TheTVDB : MetadataService {
         }
     }
 
-    private func merge(info: TVDBSeriesInfo, results: [MetadataResult]) {
-        let name = info.seriesName
+    private func merge(info: TVDBSeriesExtendedRecord, results: [MetadataResult]) {
+        let name = info.name
         for result in results {
             result[.seriesName] = name
         }
@@ -229,7 +283,7 @@ public struct TheTVDB : MetadataService {
     // MARK: - TV Search
 
     public func search(tvShow: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
-        let seriesIDs: [Int] =  {
+        let seriesIDs: [String] =  {
             let result = self.searchIDs(seriesName: tvShow, language: language)
             if result.isEmpty {
                 let enResults = self.searchIDs(seriesName: tvShow, language: defaultLanguage)
@@ -248,13 +302,12 @@ public struct TheTVDB : MetadataService {
         var results: [MetadataResult] = []
 
         for id in seriesIDs {
-            guard let info: TVDBSeriesInfo = {
+            guard let info: TVDBSeriesExtendedRecord = {
                 let result = session.fetch(seriesInfo: id, language: language)
                 return result != nil ? result : session.fetch(seriesInfo: id, language: defaultLanguage)
                 }()
                 else { continue }
-            let actors = session.fetch(actors: id, language: language)
-            let episodes = loadEpisodes(info: info, actors: actors, season: season, episode: episode, language: language)
+            let episodes = loadEpisodes(info: info, season: season, episode: episode, language: language)
 
             let nilValues = checkMissingValues(results: episodes)
 
@@ -265,7 +318,7 @@ public struct TheTVDB : MetadataService {
                 }
 
                 if nilValues.contains(.episodesInfo) {
-                    let enResults = loadEpisodes(info: info, actors: actors, season: season, episode: episode, language: defaultLanguage)
+                    let enResults = loadEpisodes(info: info, season: season, episode: episode, language: defaultLanguage)
                     merge(enResults: enResults, results: episodes)
                 }
             }
@@ -306,45 +359,16 @@ public struct TheTVDB : MetadataService {
         return AppleTV().searchArtwork(term: name, store: store, type: .tvShow(season: season))
     }
 
-    private func loadTVArtwork(seriesID: Int, type: ArtworkType, season: String, language: String) -> [Artwork] {
-        var artworks: [Artwork] = []
-        let images: [TVDBImage] = {
-            var result = session.fetch(images: seriesID, type: type, language: language)
-            if result.count == 0 || language != defaultLanguage {
-                result.append(contentsOf: session.fetch(images: seriesID, type: type, language: defaultLanguage))
-            }
-            return result
-        }()
-
-        for image in images {
-            guard let fileURL = URL(string: TheTVDB.bannerPath + image.fileName),
-                let thumbURL = URL(string: TheTVDB.bannerPath + image.fileName.replacingOccurrences(of: ".jpg", with: "_t.jpg"))
-                else { continue }
-
-            var selected = true
-
-            if type == .season, let subKey = image.subKey, subKey != season {
-                selected = false
-            }
-
-            if selected {
-                artworks.append(Artwork(url: fileURL, thumbURL: image.thumbnail.isEmpty ? fileURL : thumbURL, service: self.name, type: type, size: .standard))
-            }
-        }
-        return artworks
-    }
-
     public func loadTVMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
         guard let id = metadata[.serviceEpisodeID] as? Int else { return metadata }
-        guard let seriesId = metadata[.serviceContentID] as? Int else { return metadata }
 
         var artworks: [Artwork] = []
 
         if let info = session.fetch(episodeInfo: id, language: language) {
-            metadata[.director]       = cleanList(names: info.directors)
-            metadata[.screenwriters]  = cleanList(names: info.writers)
+            metadata[.director]       = cleanList(characters: info.characters ?? [], type: "Director")
+            metadata[.screenwriters]  = cleanList(characters: info.characters ?? [], type: "Writer")
 
-            let guests = cleanList(names: info.guestStars)
+            let guests = cleanList(characters: info.characters ?? [], type: "Guest Star")
             if let actors = metadata[.cast] as? String {
                 if actors.count > 0 && guests.count > 0 {
                     metadata[.cast] = actors + ", " + guests
@@ -353,14 +377,14 @@ public struct TheTVDB : MetadataService {
                 metadata[.cast] = guests
             }
 
-            if let filename = info.filename, let url = URL(string: TheTVDB.bannerPath + filename) {
+            if let path = info.image, let url = URL(string: path) {
                 artworks.append(Artwork(url: url, thumbURL: url, service: self.name, type: .episode, size: .rectangle))
             }
         }
 
         // Get additionals images
-        if let season = metadata[.season] as? Int {
-            var iTunesImage = [Artwork](), appleTV = [Artwork](), squareTVArt = [Artwork](), seasonImages = [Artwork](), posterImages = [Artwork]()
+        if ((metadata[.season] as? Int) != nil) {
+            var iTunesImage = [Artwork](), appleTV = [Artwork](), squareTVArt = [Artwork]()
             let group = DispatchGroup()
             DispatchQueue.global().async(group: group) {
                 iTunesImage = self.loadiTunesArtwork(metadata)
@@ -371,22 +395,14 @@ public struct TheTVDB : MetadataService {
             DispatchQueue.global().async(group: group) {
                 appleTV = self.loadAppleTVArtwork(metadata)
             }
-            DispatchQueue.global().async(group: group) {
-                seasonImages = self.loadTVArtwork(seriesID: seriesId, type: .season, season: String(season), language: language)
-            }
-            DispatchQueue.global().async(group: group) {
-                posterImages = self.loadTVArtwork(seriesID: seriesId, type: .poster, season: String(season), language: language)
-            }
             group.wait()
 
             artworks.insert(contentsOf: iTunesImage, at: 0)
             artworks.insert(contentsOf: squareTVArt, at: 0)
             artworks.insert(contentsOf: appleTV, at: 0)
-            artworks.append(contentsOf: seasonImages)
-            artworks.append(contentsOf: posterImages)
         }
 
-        metadata.remoteArtworks = artworks
+        metadata.remoteArtworks.insert(contentsOf: artworks, at: 0)
 
         return metadata
     }
