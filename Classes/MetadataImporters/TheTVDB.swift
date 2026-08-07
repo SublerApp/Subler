@@ -56,7 +56,7 @@ public struct TheTVDB : MetadataService {
     // MARK: - TV Series ID search
 
     private func match(series: TVDBSeriesSearchResult, name: String) -> Bool {
-        if let name = series.name, name.caseInsensitiveCompare(name) == .orderedSame  {
+        if let seriesName = series.name, seriesName.caseInsensitiveCompare(name) == .orderedSame  {
             return true
         }
 
@@ -172,15 +172,15 @@ public struct TheTVDB : MetadataService {
         return artworks
     }
 
-    private func merge(episode: TVDBEpisodeBaseRecord, info: TVDBSeriesExtendedRecord) -> MetadataResult {
+    private func merge(episode: TVDBEpisodeBaseRecord, info: TVDBSeriesExtendedRecord, translation: TVDBTranslation?) -> MetadataResult {
         let result = MetadataResult()
 
         result.mediaKind = .tvShow
 
         // TV Show Info
         result[.serviceContentID]   = info.id
-        result[.seriesName]         = info.name
-        result[.seriesDescription]  = info.overview?.trimmingWhitespacesAndNewlinews()
+        result[.seriesName]         = translation?.name ?? info.name
+        result[.seriesDescription]  = (translation?.overview ?? info.overview)?.trimmingWhitespacesAndNewlinews()
         result[.genre]              = cleanList(genres: info.genres)
         result[.network]            = info.originalNetwork?.name
         result[.rating] = cleanList(ratings: info.contentRatings)
@@ -205,44 +205,15 @@ public struct TheTVDB : MetadataService {
     }
 
     private func loadEpisodes(info: TVDBSeriesExtendedRecord, season: Int?, episode: Int?, language: String) -> [MetadataResult] {
+        let translation = session.fetch(seriesTranslation: String(info.id), language: language)
         let episodes = session.fetch(episodesForSeriesID: info.id, season: season, episode: episode, language: language)
-//        let filteredEpisodes = episodes.filter {
-//            (season != nil ? $0.airedSeason == season : true) &&
-//            (episode != nil ? $0.airedEpisodeNumber == episode : true)
-//        }
 
-        return episodes.map { merge(episode: $0, info: info) }
-    }
-
-    // MARK: - Nil values check
-
-    private struct NilValues : OptionSet {
-        let rawValue: Int
-
-        static let episodesInfo = NilValues(rawValue: 1)
-        static let seriesInfo = NilValues(rawValue: 2)
-    }
-
-    private func checkMissingValues(results: [MetadataResult]) -> NilValues {
-
-        var options: NilValues = []
-
-        for result in results {
-            if result[.seriesName] == nil {
-                options.insert(.seriesInfo)
-            }
-            if result[.name] == nil {
-                options.insert(.episodesInfo)
-            }
-            if result[.longDescription] == nil {
-                options.insert(.episodesInfo)
-            }
-            if result[.seriesDescription] == nil {
-                options.insert(.seriesInfo)
-            }
+        let filteredEpisodes = episodes.filter {
+            (season != nil ? $0.seasonNumber == season : true) &&
+            (episode != nil ? $0.number == episode : true)
         }
 
-        return options
+        return filteredEpisodes.map { merge(episode: $0, info: info, translation: translation ) }
     }
 
     private func merge(enResults: [MetadataResult], results: [MetadataResult]) {
@@ -302,29 +273,11 @@ public struct TheTVDB : MetadataService {
         var results: [MetadataResult] = []
 
         for id in seriesIDs {
-            guard let info: TVDBSeriesExtendedRecord = {
-                let result = session.fetch(seriesInfo: id, language: language)
-                return result != nil ? result : session.fetch(seriesInfo: id, language: defaultLanguage)
-                }()
-                else { continue }
-            let episodes = loadEpisodes(info: info, season: season, episode: episode, language: language)
-
-            let nilValues = checkMissingValues(results: episodes)
-
-            if language != defaultLanguage {
-                if nilValues.contains(.seriesInfo),
-                    let enInfo = session.fetch(seriesInfo: id, language: defaultLanguage) {
-                    merge(info: enInfo, results: episodes)
-                }
-
-                if nilValues.contains(.episodesInfo) {
-                    let enResults = loadEpisodes(info: info, season: season, episode: episode, language: defaultLanguage)
-                    merge(enResults: enResults, results: episodes)
-                }
+            if let info = session.fetch(seriesInfo: id, language: language) {
+                let episodes = loadEpisodes(info: info, season: season, episode: episode, language: language)
+                results.append(contentsOf: episodes.sorted(by: areInIncreasingOrder))
+                break
             }
-
-            results.append(contentsOf: episodes.sorted(by: areInIncreasingOrder))
-            break
         }
 
         return results

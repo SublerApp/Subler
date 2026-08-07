@@ -100,7 +100,7 @@ public struct TVDBParentCompany: Codable {
 public struct TVDBCompany: Codable {
     public let activeDate: String?
     public let aliases: [TVDBAlias]
-    public let country: String
+    public let country: String?
     public let id: Int64
     public let inactiveDate: String?
     public let name: String
@@ -128,6 +128,22 @@ public struct TVDBRemoteId: Codable {
     public let sourceName: String
 }
 
+public struct TVDBTranslation : Codable {
+    public let aliases: [String]?
+    public let isAlias: Bool?
+    public let isPrimary: Bool?
+    public let language: String
+    public let name: String?
+    public let overview: String?
+    public let tagline: String?
+}
+
+public struct TVDBTranslationExtended : Codable {
+    public let nameTranslations: [TVDBTranslation]?
+    public let overviewTranslations: [TVDBTranslation]?
+    public let alias: [String]?
+}
+
 public class TVDBStatus: Codable {
     public let id: Int64?
     public let keepUpdated: Bool
@@ -135,11 +151,70 @@ public class TVDBStatus: Codable {
     public let recordType: String
 }
 
+public struct TVDBEpisodeBaseRecord : Codable {
+    public let absoluteNumber: Double?
+    public let aired: String?
+    public let airsBeforeEpisode: Int?
+    public let airsBeforeSeason: Int?
+    public let finaleType: String?
+    public let id: Int
+    public let image: String?
+    public let imageType: Int?
+    public let isMovie: Int
+    public let lastUpdated: String
+    public let name: String?
+    public let nameTranslations: [String]?
+    public let number: Int
+    public let overview: String?
+    public let overviewTranslations: [String]?
+    public let runtime: Int?
+    public let seasonNumber: Int
+//    public let seasons: []?
+    public let seriesId: Int
+    public let year: String?
+}
+
+public struct TVDBEpisodeExtendedRecord : Codable {
+    public let aired: String?
+    public let airsAfterSeason: Int?
+    public let airsBeforeEpisode: Int?
+    public let airsBeforeSeason: Int?
+//    public let awards: [TVDBAwardBaseRecord]
+    public let characters: [TVDBCharacter]?
+    public let companies: [TVDBCompany]
+    public let contentRatings: [TVDBContentRating]
+    public let finaleType: String?
+    public let id: Int64
+    public let image: String?
+    public let imageType: Int?
+    public let isMovie: Int64
+    public let lastUpdated: String
+    public let linkedMovie: Int?
+    public let name: String
+    public let nameTranslations: [String]
+    public let networks: [TVDBCompany]?
+//    public let nominations: [TVDBAwardNomineeBaseRecorde]
+    public let number: Int
+    public let overview: String?
+    public let overviewTranslations: [String]?
+    public let productionCode: String?
+    public let remoteIds: [TVDBRemoteId]
+    public let runtime: Int?
+    public let seasonNumber: Int
+//    public let season: []
+    public let seriesId: Int64
+    public let studios: [TVDBCompany]?
+//    public let tagOptions: [TVDBTagOption]
+//    public let trailers: [TVDBTrailer]
+    public let translations: TVDBTranslationExtended?
+    public let year: String
+}
+
 public struct TVDBSeriesBaseRecord : Codable {
     public let aliases: [TVDBAlias]
     public let averageRuntime: Int?
     public let defaultSeasonType: Int64
-//    public let episodes: [Episode]
+    public let episodes: [TVDBEpisodeBaseRecord]?
     public let firstAired: String
     public let id: Int
     public let image: String
@@ -169,7 +244,7 @@ public struct TVDBSeriesExtendedRecord : Codable {
     public let contentRatings: [TVDBContentRating]
     public let country: String?
     public let defaultSeasonType: Int64
-//    public let episodes: [Episode]
+    public let episodes: [TVDBEpisodeBaseRecord]?
     public let firstAired: String
 //    public let lists: TVDBList
     public let genres: [TVDBGenreBaseRecord]
@@ -197,71 +272,7 @@ public struct TVDBSeriesExtendedRecord : Codable {
 //    public let status: Status
 //    public let tags: [TVDBTagOptions]
 //    public let trailers: [TVDBTrailer]
-//    public let translations: [TVDBTranslationExtended]
-    public let year: String
-}
-
-public struct TVDBEpisodeWrapper : Codable {
-    public let episodes: [TVDBEpisodeBaseRecord]
-//    public let series: TVDBSeriesInfo
-}
-
-public struct TVDBEpisodeBaseRecord : Codable {
-    public let absoluteNumber: Double?
-    public let aired: String?
-    public let airsBeforeEpisode: Int?
-    public let airsBeforeSeason: Int?
-    public let finaleType: String?
-    public let id: Int
-    public let image: String?
-    public let imageType: Int?
-    public let isMovie: Int
-    public let lastUpdated: String
-    public let name: String
-    public let nameTranslations: [String]
-    public let number: Int
-    public let overview: String?
-    public let overviewTranslations: [String]
-    public let runtime: Int?
-    public let seasonNumber: Int
-//    public let seasons: []?
-    public let seriesId: Int
-    public let year: String?
-}
-
-public struct TVDBEpisodeExtendedRecord : Codable {
-    public let aired: String?
-    public let airsAfterSeason: Int?
-    public let airsBeforeEpisode: Int?
-    public let airsBeforeSeason: Int?
-//    public let awards: [TVDBAwardBaseRecord]
-    public let characters: [TVDBCharacter]?
-    public let companies: [TVDBCompany]
-    public let contentRatings: [TVDBContentRating]
-    public let finaleType: String?
-    public let id: Int64
-    public let image: String?
-    public let imageType: Int?
-    public let isMovie: Int64
-    public let lastUpdated: String
-    public let linkedMovie: Int?
-    public let name: String
-    public let nameTranslations: [String]
-    public let networks: [TVDBCompany]?
-//    public let nominations: [TVDBAwardNomineeBaseRecorde]
-    public let number: Int
-    public let overview: String
-    public let overviewTranslations: [String]
-    public let productionCode: String?
-    public let remoteIds: [TVDBRemoteId]
-    public let runtime: Int?
-    public let seasonNumber: Int
-//    public let season: []
-    public let seriesId: Int64
-    public let studios: [TVDBCompany]?
-//    public let tagOptions: [TVDBTagOption]
-//    public let trailers: [TVDBTrailer]
-//    public let translations: [TVDBTranslationExtended]
+    public let translations: TVDBTranslationExtended?
     public let year: String
 }
 
@@ -417,7 +428,7 @@ final public class TheTVDBService {
         }
 
         guard let url = URL(string: "\(TheTVDBService.basePath)languages"),
-            let result = sendJSONRequest(url: url, language: "eng", type: Wrapper<[Language]>.self)
+            let result = sendJSONRequest(url: url, type: Wrapper<[Language]>.self)
             else { return nil }
 
         let langManager = MP42Languages.defaultManager
@@ -431,7 +442,7 @@ final public class TheTVDBService {
             return artworkTypes
         } else {
             guard let url = URL(string: "\(TheTVDBService.basePath)artwork/types"),
-                  let result = sendJSONRequest(url: url, language: "eng", type: Wrapper<[TVDBArtworkType]>.self)
+                  let result = sendJSONRequest(url: url, type: Wrapper<[TVDBArtworkType]>.self)
             else { return [] }
 
             artworkTypes = result.data
@@ -441,18 +452,17 @@ final public class TheTVDBService {
 
     // MARK: - Data request
 
-    private func sendRequest(url: URL, language: String) -> Data? {
+    private func sendRequest(url: URL) -> Data? {
         guard let token = self.token else { return nil }
 
         let header = ["Authorization": "Bearer \(token.key)",
-                      "accept" : "application/json",
-                      "Accept-Language" : language]
+                      "accept" : "application/json"]
 
         return URLSession.data(from: url, header: header)
     }
 
-    private func sendJSONRequest<T>(url: URL, language: String, type: T.Type) -> T? where T : Decodable {
-        guard let data = sendRequest(url: url, language: language) else { return nil }
+    private func sendJSONRequest<T>(url: URL, type: T.Type) -> T? where T : Decodable {
+        guard let data = sendRequest(url: url) else { return nil }
 
 //        let response = String(data: data, encoding: .utf8)
 //        if let response {
@@ -476,7 +486,7 @@ final public class TheTVDBService {
         let encodedName = series.replacingOccurrences(of: "+", with: "").replacingOccurrences(of: "*", with: "-").urlEncoded()
 
         guard let url = URL(string: "\(TheTVDBService.basePath)search?query=\(encodedName)&type=series&language=eng"),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<[TVDBSeriesSearchResult]>.self)
+            let result = sendJSONRequest(url: url, type: Wrapper<[TVDBSeriesSearchResult]>.self)
             else { return [] }
 
         return result.data
@@ -484,34 +494,50 @@ final public class TheTVDBService {
 
     public func fetch(seriesInfo seriesID: String, language: String) -> TVDBSeriesExtendedRecord? {
         guard let url = URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/extended"),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<TVDBSeriesExtendedRecord>.self)
+            let result = sendJSONRequest(url: url, type: Wrapper<TVDBSeriesExtendedRecord>.self)
             else { return nil }
 
         return result.data
     }
 
-    private func episodesURL(seriesID: Int, season: Int?, episode: Int?) -> URL? {
+    public func fetch(seriesTranslation seriesID: String, language: String) -> TVDBTranslation? {
+        guard let url = URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/translations/\(language)"),
+            let result = sendJSONRequest(url: url, type: Wrapper<TVDBTranslation>.self)
+            else { return nil }
+
+        return result.data
+    }
+
+    private func episodesURL(seriesID: Int, season: Int?, episode: Int?, language: String) -> URL? {
         switch (season, episode) {
         case let (season?, episode?):
-            return URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default?page=0&season=\(season)&episodeNumber=\(episode)")
+            return URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default/\(language)?page=0&season=\(season)&episodeNumber=\(episode)")
         case let (season?, _):
-            return URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default?page=0&season=\(season)")
+            return URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default/\(language)?page=0&season=\(season)")
         default:
-            return URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default?page=0")
+            return URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default/\(language)?page=0")
         }
     }
     
     public func fetch(episodesForSeriesID seriesID: Int, season: Int?, episode: Int?, language: String) -> [TVDBEpisodeBaseRecord] {
-        guard let url = episodesURL(seriesID: seriesID, season: season, episode: episode),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<TVDBEpisodeWrapper>.self)
+        guard let url = episodesURL(seriesID: seriesID, season: season, episode: episode, language: language),
+            let result = sendJSONRequest(url: url, type: Wrapper<TVDBSeriesBaseRecord>.self)
             else { return [] }
 
-        return result.data.episodes
+        return result.data.episodes ?? []
     }
 
     public func fetch(episodeInfo episodeID: Int, language: String) -> TVDBEpisodeExtendedRecord? {
         guard let url = URL(string: "\(TheTVDBService.basePath)episodes/\(episodeID)/extended"),
-            let result = sendJSONRequest(url: url, language: language, type: Wrapper<TVDBEpisodeExtendedRecord>.self)
+            let result = sendJSONRequest(url: url, type: Wrapper<TVDBEpisodeExtendedRecord>.self)
+            else { return nil }
+
+        return result.data
+    }
+
+    public func fetch(episodesTranslation episodeID: Int, language: String) -> TVDBTranslation? {
+        guard let url = URL(string: "\(TheTVDBService.basePath)episodes/\(episodeID)/translations/\(language)"),
+            let result = sendJSONRequest(url: url, type: Wrapper<TVDBTranslation>.self)
             else { return nil }
 
         return result.data
