@@ -277,6 +277,9 @@
 /* Class = "NSMenuItem"; title = "Remove completed items from queue"; ObjectID = "Cre-T6-PID"; */
 "Cre-T6-PID.title" = "Rimuovi gli elementi completati dalla coda";
 
+/* Class = "NSMenuItem"; title = "Remove all items from queue"; ObjectID = "Rma-Al-Que"; */
+"Rma-Al-Que.title" = "Rimuovi tutti gli elementi dalla coda";
+
 /* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "fm8-d2-1Yi"; */
 "fm8-d2-1Yi.title" = "Rinomina le tracce audio";
 

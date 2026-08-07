@@ -19,6 +19,9 @@
 /* Class = "NSMenuItem"; title = "Remove completed items"; ObjectID = "86"; */
 "86.title" = "Retirer les éléments complétés";
 
+/* Class = "NSMenuItem"; title = "Remove all items"; ObjectID = "Ral-Qi-Ctx"; */
+"Ral-Qi-Ctx.title" = "Retirer tous les éléments";
+
 /* Class = "NSButton"; ibExternalAccessibilityDescription = "Info"; ObjectID = "o98-wM-YAQ"; */
 "o98-wM-YAQ.ibExternalAccessibilityDescription" = "Info";
 
