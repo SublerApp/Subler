@@ -165,8 +165,8 @@ extension MetadataSearch {
     }
 
     public static func setDefaultLanguage(_ language: String, service: MetadataService, type: MetadataType) {
-        let extendedLanguage = service.languageType.extendedTag(displayName: language)
-        UserDefaults.standard.set(extendedLanguage, forKey: "SBMetadataPreference|\(type.description)|\(service.name)|Language")
+        let language = service.languageType.tag(displayName: language)
+        UserDefaults.standard.set(language, forKey: "SBMetadataPreference|\(type.description)|\(service.name)|Language")
     }
 
 }

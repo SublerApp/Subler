@@ -149,13 +149,36 @@ public class TVDBStatus : Codable {
 
 public struct TVDBSeriesSearchResult : Codable {
     public let aliases: [String]?
-    public let thumbnail: String?
+    public let companies: [String]?
+    public let companyType: String?
+    public let country: String?
+    public let directory: String?
     public let first_air_time: String?
-    public let tvdb_id: String
-    public let network: String?
-    public let overview: String?
+    public let genres: [String]?
+    public let id: String
+    public let image_url: String?
     public let name: String?
+    public let is_official: Bool?
+    public let name_translated: String?
+    public let network: String?
+    public let objectID: String?
+    public let officialList: String?
+    public let overview: String?
+    public let overviews: Dictionary<String, String>?
+    public let overview_translated: [String]?
+    public let poster: String?
+    public let posters: [String]?
+    public let primary_language: String?
     public let status: String
+    public let slug: String?
+    public let studios: [String]?
+    public let title: String?
+    public let thumbnail: String?
+    public let translations: Dictionary<String, String>?
+    public let translationsWithLang: [String]?
+    public let tvdb_id: String
+    public let type: String?
+    public let year: String?
 }
 
 public struct TVDBEpisodeBaseRecord : Codable {
@@ -447,11 +470,11 @@ final public class TheTVDBService {
 
     // MARK: - Service calls
     
-    public func fetch(series: String, language: String) -> [TVDBSeriesSearchResult] {
+    public func fetch(series: String) -> [TVDBSeriesSearchResult] {
         // Remove + because it breaks search
         let encodedName = series.replacingOccurrences(of: "+", with: "").replacingOccurrences(of: "*", with: "-").urlEncoded()
 
-        guard let url = URL(string: "\(TheTVDBService.basePath)search?query=\(encodedName)&type=series&language=eng"),
+        guard let url = URL(string: "\(TheTVDBService.basePath)search?query=\(encodedName)&type=series"),
             let result = sendJSONRequest(url: url, type: Wrapper<[TVDBSeriesSearchResult]>.self)
             else { return [] }
 

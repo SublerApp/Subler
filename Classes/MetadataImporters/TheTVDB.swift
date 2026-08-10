@@ -11,7 +11,6 @@ import MP42Foundation
 public struct TheTVDB : MetadataService {
 
     private let session = TheTVDBService.sharedInstance
-    private static let bannerPath = "https://thetvdb.com/banners/"
 
     public var languageType: LanguageType {
         get {
@@ -26,7 +25,7 @@ public struct TheTVDB : MetadataService {
     }
 
     public var defaultLanguage: String {
-        return "en"
+        return "eng"
     }
 
     public var name: String {
@@ -38,13 +37,8 @@ public struct TheTVDB : MetadataService {
     public func search(tvShow: String, language: String) -> [String] {
         var results: Set<String> = Set()
 
-        let series = session.fetch(series: tvShow, language: language)
-        results.formUnion(series.compactMap { $0.name } )
-
-        if language != defaultLanguage {
-            let englishResults = search(tvShow: tvShow, language: defaultLanguage)
-            results.formUnion(englishResults)
-        }
+        let series = session.fetch(series: tvShow)
+        results.formUnion(series.compactMap { $0.translations?[language] } )
 
         if results.isEmpty {
             return TheMovieDB().search(tvShow: tvShow, language: language)
@@ -72,7 +66,7 @@ public struct TheTVDB : MetadataService {
     }
 
     private func searchIDs(seriesName: String, language: String) -> [String] {
-        let series = session.fetch(series: seriesName, language: language)
+        let series = session.fetch(series: seriesName)
         let sorted = series.sorted { el1, el2 -> Bool in
             return el1.name?.caseInsensitiveCompare(seriesName) == .orderedSame ? true : false
         }
@@ -80,8 +74,7 @@ public struct TheTVDB : MetadataService {
 
         if filteredSeries.isEmpty == false {
             return filteredSeries
-        }
-        else if let firstItemsID = series.first?.tvdb_id {
+        } else if let firstItemsID = series.first?.tvdb_id {
             return [firstItemsID]
         }
         else {
@@ -107,7 +100,6 @@ public struct TheTVDB : MetadataService {
         }
         return nil
     }
-
 
     private func areInIncreasingOrder(ep1: MetadataResult, ep2: MetadataResult) -> Bool {
         guard let v1 = ep1[.episodeNumber] as? Int,
