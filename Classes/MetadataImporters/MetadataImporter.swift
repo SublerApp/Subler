@@ -10,12 +10,16 @@ import MP42Foundation
 
 public enum LanguageType {
     case ISO
+    case ISO_639_2
     case custom
 
     public func displayName(language: String) -> String {
         switch self {
         case .ISO:
-            return MP42Languages.defaultManager .localizedLang(forExtendedTag: language)
+            return MP42Languages.defaultManager.localizedLang(forExtendedTag: language)
+        case .ISO_639_2:
+            let extendedTag = MP42Languages.defaultManager.extendedTag(forISO_639_2: language)
+            return MP42Languages.defaultManager.localizedLang(forExtendedTag: extendedTag)
         case .custom:
             return language
         }
@@ -25,6 +29,20 @@ public enum LanguageType {
         switch self {
         case .ISO:
             return MP42Languages.defaultManager.extendedTag(forLocalizedLang: displayName)
+        case .ISO_639_2:
+            return MP42Languages.defaultManager.extendedTag(forLocalizedLang: displayName)
+        case .custom:
+            return displayName
+        }
+    }
+
+    public func tag(displayName: String) -> String {
+        switch self {
+        case .ISO:
+            return MP42Languages.defaultManager.extendedTag(forLocalizedLang: displayName)
+        case .ISO_639_2:
+            let extendedTag = MP42Languages.defaultManager.extendedTag(forLocalizedLang: displayName)
+            return MP42Languages.defaultManager.iso_639_2Code(forExtendedTag: extendedTag)
         case .custom:
             return displayName
         }

@@ -15,7 +15,7 @@ public struct TheTVDB : MetadataService {
 
     public var languageType: LanguageType {
         get {
-            return .ISO
+            return .ISO_639_2
         }
     }
 

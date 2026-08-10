@@ -8,15 +8,11 @@
 import Foundation
 import MP42Foundation
 
-public struct TVDBSeriesSearchResult : Codable {
-    public let aliases: [String]?
-    public let thumbnail: String?
-    public let first_air_time: String?
-    public let tvdb_id: String
-    public let network: String?
-    public let overview: String?
-    public let name: String?
-    public let status: String
+struct TVDBLanguage : Codable {
+    let id: String
+    let name: String
+    let nativeName: String
+    let shortCode: String?
 }
 
 public struct TVDBAlias : Codable {
@@ -40,7 +36,7 @@ public class TVDBArtworkStatus : Codable {
     let name: String?
 }
 
-public class TVDBArtworkExtendedRecord: Codable {
+public class TVDBArtworkExtendedRecord : Codable {
     public let episodeId: Int?
     public let height: Int64
     public let id: Int64
@@ -63,7 +59,7 @@ public class TVDBArtworkExtendedRecord: Codable {
     public let updatedAt: Int64
 }
 
-public class TVDBGenreBaseRecord: Codable {
+public class TVDBGenreBaseRecord : Codable {
     public let id: Int64
     public let name: String
     public let slug: String
@@ -92,12 +88,12 @@ public struct TVDBCharacter : Codable {
     public let personName: String
 }
 
-public struct TVDBParentCompany: Codable {
+public struct TVDBParentCompany : Codable {
     public let id: Int?
     public let name: String?
 }
 
-public struct TVDBCompany: Codable {
+public struct TVDBCompany : Codable {
     public let activeDate: String?
     public let aliases: [TVDBAlias]
     public let country: String?
@@ -112,7 +108,7 @@ public struct TVDBCompany: Codable {
 //    public let tagOptions: TVDBTagOptions
 }
 
-public struct TVDBContentRating: Codable {
+public struct TVDBContentRating : Codable {
     public let id: Int64
     public let name: String
     public let description: String
@@ -122,7 +118,7 @@ public struct TVDBContentRating: Codable {
     public let fullName: String?
 }
 
-public struct TVDBRemoteId: Codable {
+public struct TVDBRemoteId : Codable {
     public let id: String
     public let type: Int64
     public let sourceName: String
@@ -144,11 +140,22 @@ public struct TVDBTranslationExtended : Codable {
     public let alias: [String]?
 }
 
-public class TVDBStatus: Codable {
+public class TVDBStatus : Codable {
     public let id: Int64?
     public let keepUpdated: Bool
     public let name: String
     public let recordType: String
+}
+
+public struct TVDBSeriesSearchResult : Codable {
+    public let aliases: [String]?
+    public let thumbnail: String?
+    public let first_air_time: String?
+    public let tvdb_id: String
+    public let network: String?
+    public let overview: String?
+    public let name: String?
+    public let status: String
 }
 
 public struct TVDBEpisodeBaseRecord : Codable {
@@ -276,19 +283,6 @@ public struct TVDBSeriesExtendedRecord : Codable {
     public let year: String
 }
 
-private extension ArtworkType {
-    var theTVDBName: String {
-        switch self {
-        case .poster:
-            return "poster"
-        case .season:
-            return "season"
-        default:
-            return "poster"
-        }
-    }
-}
-
 final public class TheTVDBService {
 
     public static let sharedInstance = TheTVDBService()
@@ -299,38 +293,23 @@ final public class TheTVDBService {
     private static let apiKey = "7bba6aca-a2c7-42d1-9c34-ed84bb44dfc6"
     private static let basePath = "https://api4.thetvdb.com/v4/"
 
-    private struct Languages {
-        let data: [String]
-        let timestamp: TimeInterval
-    }
-
-    private var savedLanguages: Languages?
+    private var savedLanguages: [String]
 
     public var languages: [String] {
         get {
-            return ["eng",
-                    "sv",
-                    "no",
-                    "da",
-                    "fi",
-                    "nl",
-                    "de",
-                    "ita",
-                    "es",
-                    "fra",
-                    "pl",
-                    "hu",
-                    "el",
-                    "tr",
-                    "ru",
-                    "he",
-                    "ja",
-                    "pt",
-                    "zh",
-                    "cs",
-                    "sl",
-                    "hr",
-                    "ko"]
+            return queue.sync {
+                let now = Date.timeIntervalSinceReferenceDate
+                let timestamp = UserDefaults.standard.double(forKey: "SBTheTVBDv4LanguagesArrayTimestamp")
+                if let languagesArray = UserDefaults.standard.object(forKey: "SBTheTVBDv4LanguagesArray") as? [String], languagesArray.isEmpty == false,
+                   timestamp + 60 * 60 * 24 * 30 > Date.timeIntervalSinceReferenceDate {
+                    savedLanguages = languagesArray
+                } else {
+                    savedLanguages = fetchLanguages()
+                    UserDefaults.standard.set(savedLanguages, forKey: "SBTheTVBDv4LanguagesArray")
+                    UserDefaults.standard.set(now, forKey: "SBTheTVBDv4LanguagesArrayTimestamp")
+                }
+                return savedLanguages
+            }
         }
     }
 
@@ -365,13 +344,7 @@ final public class TheTVDBService {
     private init() {
         queue = DispatchQueue(label: "org.subler.TheTVDBQueue")
         tokenQueue = DispatchQueue(label: "org.subler.TheTVDBTokenQueue")
-
-        if let languagesArray = UserDefaults.standard.object(forKey: "SBTheTVBDv4LanguagesArray") as? [String] {
-            let timestamp = UserDefaults.standard.double(forKey: "SBTheTVBDv4LanguagesArrayTimestamp")
-            if timestamp + 60 * 60 * 24 * 30 > Date.timeIntervalSinceReferenceDate {
-                savedLanguages = Languages(data: languagesArray, timestamp: timestamp)
-            }
-        }
+        savedLanguages = []
 
         if let tokenKey = UserDefaults.standard.string(forKey: TheTVDBService.tokenKey) {
             let timestamp = UserDefaults.standard.double(forKey: TheTVDBService.tokenTimestampKey)
@@ -419,20 +392,13 @@ final public class TheTVDBService {
 
     // MARK: - Languages
 
-    private func fetchLanguages() -> Languages? {
-        struct Language: Codable {
-            let abbreviation: String
-            let englishName: String
-            let id: Int
-            let name: String
-        }
+    private func fetchLanguages() -> [String] {
 
         guard let url = URL(string: "\(TheTVDBService.basePath)languages"),
-            let result = sendJSONRequest(url: url, type: Wrapper<[Language]>.self)
-            else { return nil }
+            let result = sendJSONRequest(url: url, type: Wrapper<[TVDBLanguage]>.self)
+            else { return [] }
 
-        let langManager = MP42Languages.defaultManager
-        return Languages(data: result.data.map { langManager.extendedTag(forISO_639_1:$0.abbreviation) }, timestamp: Date.timeIntervalSinceReferenceDate)
+        return result.data.map { $0.id }
     }
 
     private var artworkTypes: [TVDBArtworkType]?
