@@ -49,7 +49,7 @@ public struct TheTVDB : MetadataService {
 
     // MARK: - TV Series ID search
 
-    private func match(series: TVDBSeriesSearchResult, name: String) -> Bool {
+    private func match(series: TVDBSearchResult, name: String) -> Bool {
         if let seriesName = series.name, seriesName.caseInsensitiveCompare(name) == .orderedSame  {
             return true
         }
@@ -70,7 +70,7 @@ public struct TheTVDB : MetadataService {
         let sorted = series.sorted { el1, el2 -> Bool in
             return el1.name?.caseInsensitiveCompare(seriesName) == .orderedSame ? true : false
         }
-        let filteredSeries = sorted.filter { $0.status.isEmpty == false && match(series: $0, name: seriesName) }.map { $0.tvdb_id }
+        let filteredSeries = sorted.filter { $0.status?.isEmpty == false && match(series: $0, name: seriesName) }.map { $0.tvdb_id }
 
         if filteredSeries.isEmpty == false {
             return filteredSeries
@@ -94,11 +94,17 @@ public struct TheTVDB : MetadataService {
         return genres.map {$0.name }.reduce("", { $0 + ($0.isEmpty ? "" : ", ") + $1 })
     }
 
-    private func cleanList(ratings: [TVDBContentRating]) -> String? {
+    private func cleanList(ratings: [TVDBContentRating], mediaKind: MediaKind) -> String? {
         if let rating =  ratings.filter({ $0.country == "usa" }).first {
-            return Ratings.shared.rating(countryCode: "USA", mediaKind: .tvShow, name: rating.name)?.iTunesCode
+            return Ratings.shared.rating(countryCode: "USA", mediaKind: mediaKind, name: rating.name)?.iTunesCode
         }
         return nil
+    }
+
+    private func cleanList(companies: [TVDBCompany]) -> String {
+        return companies
+            .map { $0.name }
+            .reduce("", { $0 + ($0.isEmpty ? "" : ", ") + $1 })
     }
 
     private func areInIncreasingOrder(ep1: MetadataResult, ep2: MetadataResult) -> Bool {
@@ -116,11 +122,56 @@ public struct TheTVDB : MetadataService {
         }
     }
 
-    fileprivate func cleanArtworks(_ info: TVDBSeriesExtendedRecord) -> [Artwork] {
+    fileprivate func cleanArtworks(_ records: [TVDBArtworBaseRecord]) -> [Artwork] {
         var artworks: [Artwork] = []
         let artworkTypes = session.fetchArtworkTypes()
 
-        for artwork in info.artworks {
+        for artwork in records {
+            let url = URL(string: artwork.image)
+            let thumbnailURL = URL(string: artwork.thumbnail)
+
+            var type: ArtworkType?
+            var size: ArtworkSize = .default
+
+            let artworkType = artworkTypes.first(where: { $0.id == artwork.type })
+            switch (artworkType?.name, artworkType?.recordType) {
+            case ("Poster", "movie"):
+                type = .poster
+            case ("Background", "movie"):
+                type = .backdrop
+            default:
+                break
+            }
+
+            switch (artworkType?.width ?? 1, artworkType?.height ?? 1) {
+            case (let width, let height) where width == height:
+                size = .square
+            case (let width, let height) where width >= height:
+                size = .rectangle
+            case (let width, let height) where height < width:
+                size = .default
+            default:
+                break
+            }
+
+            if let url, let thumbnailURL, let type {
+                let entry = Artwork(url: url,
+                                    thumbURL: thumbnailURL,
+                                    service: self.name,
+                                    type: type,
+                                    size: size)
+                artworks.append(entry)
+            }
+        }
+
+        return artworks
+    }
+
+    fileprivate func cleanArtworks(_ records: [TVDBArtworkExtendedRecord]) -> [Artwork] {
+        var artworks: [Artwork] = []
+        let artworkTypes = session.fetchArtworkTypes()
+
+        for artwork in records {
             let url = URL(string: artwork.image)
             let thumbnailURL = URL(string: artwork.thumbnail)
 
@@ -175,8 +226,8 @@ public struct TheTVDB : MetadataService {
         result[.seriesDescription]  = (translation?.overview ?? info.overview)?.trimmingWhitespacesAndNewlinews()
         result[.genre]              = cleanList(genres: info.genres)
         result[.network]            = info.originalNetwork?.name
-        result[.rating] = cleanList(ratings: info.contentRatings)
-        result[.cast] = cleanList(characters: info.characters ?? [], type: "Actor")
+        result[.rating]             = cleanList(ratings: info.contentRatings, mediaKind: .tvShow)
+        result[.cast]               = cleanList(characters: info.characters ?? [], type: "Actor")
 
         // Episode Info
         result[.serviceEpisodeID] = episode.id
@@ -188,7 +239,7 @@ public struct TheTVDB : MetadataService {
         result[.episodeNumber]    = episode.number
         result[.trackNumber]      = episode.number
 
-        result.remoteArtworks += cleanArtworks(info)
+        result.remoteArtworks += cleanArtworks(info.artworks)
 
         // TheTVDB does not provide the following fields normally associated with TV shows in SBMetadataResult:
         // "Copyright", "Comments", "Producers", "Artist"
@@ -380,13 +431,71 @@ public struct TheTVDB : MetadataService {
         return metadata
     }
 
-    // MARK: - Unimplemented movie search
+    // MARK: - Movie search
+
+    private func metadata(forMoviePartialResult result: TVDBSearchResult, language: String?) -> MetadataResult {
+        let metadata = MetadataResult()
+
+        metadata.mediaKind = .movie
+
+        metadata[.serviceContentID] = result.tvdb_id
+        metadata[.name]             = result.translations?[language ?? defaultLanguage] ?? result.name
+        metadata[.releaseDate]      = result.first_air_time
+        metadata[.longDescription]  = (result.overviews?[language ?? defaultLanguage] ?? result.overview)?.trimmingWhitespacesAndNewlinews()
+        metadata[.studio]           = result.studios?.first
+
+        return metadata
+    }
 
     public func search(movie: String, language: String) -> [MetadataResult] {
-        return []
+        let results = session.fetch(movie: movie)
+        return results.map { metadata(forMoviePartialResult: $0, language: language) }
     }
 
     public func loadMovieMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
+        guard let movieID = metadata[.serviceContentID] as? String,
+              let info = session.fetch(movieInfo: movieID)
+            else { return metadata }
+
+        metadata[.releaseDate]       = info.first_release?.date
+        metadata[.rating]            = cleanList(ratings: info.contentRatings ?? [], mediaKind: .movie)
+        metadata[.genre]             = cleanList(genres: info.genres)
+        metadata[.studio]            = cleanList(companies: info.companies?.studio ?? [])
+        metadata[.cast]              = cleanList(characters: info.characters ?? [], type: "Actor")
+        metadata[.director]          = cleanList(characters: info.characters ?? [], type: "Director")
+        metadata[.screenwriters]     = cleanList(characters: info.characters ?? [], type: "Writer")
+        metadata[.producers]         = cleanList(characters: info.characters ?? [], type: "Producer")
+        metadata[.executiveProducer] = cleanList(characters: info.characters ?? [], type: "Executive Producer")
+        metadata[.composer]          = cleanList(characters: info.characters ?? [], type: "Original Music Composer")
+
+        metadata[.serviceContentID] = info.id
+
+        var artworks: [Artwork] = []
+        artworks += cleanArtworks(info.artworks)
+
+        var iTunesImage = [Artwork](), appleTV = [Artwork]()
+        let group = DispatchGroup()
+        let queue = DispatchQueue.global()
+
+        queue.async(group: group) {
+            // add iTunes artwork
+            if let iTunesMetadata = iTunesStore.quickiTunesSearch(movieName: info.name) {
+                iTunesImage = iTunesMetadata.remoteArtworks
+            }
+        }
+
+        queue.async(group: group) {
+           if let store = iTunesStore.Store(language: "USA (English)") {
+               appleTV = AppleTV().searchArtwork(term: info.name, store: store, type: .movie)
+            }
+        }
+        group.wait()
+
+        artworks.insert(contentsOf: iTunesImage, at: 0)
+        artworks.insert(contentsOf: appleTV, at: 0)
+
+        metadata.remoteArtworks = artworks
+
         return metadata
     }
 }

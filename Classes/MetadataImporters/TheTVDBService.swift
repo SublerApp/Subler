@@ -36,6 +36,18 @@ public class TVDBArtworkStatus : Codable {
     let name: String?
 }
 
+public class TVDBArtworBaseRecord : Codable {
+    public let height: Int64
+    public let id: Int64
+    public let image: String
+    public let includesText: Bool
+    public let language: String?
+    public let score: Double?
+    public let thumbnail: String
+    public let type: Int64
+    public let width: Int64
+}
+
 public class TVDBArtworkExtendedRecord : Codable {
     public let episodeId: Int?
     public let height: Int64
@@ -79,7 +91,7 @@ public struct TVDBCharacter : Codable {
     public let peopleId: Int
     public let personImgURL: String?
     public let peopleType: String
-    public let seriesId: Int
+    public let seriesId: Int?
 //    public let series: TVDBRecordInfo
     public let sort: Int
 //    public let tagOptions: TVDBTagOptions
@@ -95,17 +107,31 @@ public struct TVDBParentCompany : Codable {
 
 public struct TVDBCompany : Codable {
     public let activeDate: String?
-    public let aliases: [TVDBAlias]
+    public let aliases: [TVDBAlias]?
     public let country: String?
     public let id: Int64
     public let inactiveDate: String?
     public let name: String
-    public let nameTranslations: [String]
-    public let overviewTranslations: [String]
+    public let nameTranslations: [String]?
+    public let overviewTranslations: [String]?
     public let primaryCompanyType: Int64
     public let slug: String
     public let parentCompany: TVDBParentCompany?
 //    public let tagOptions: TVDBTagOptions
+}
+
+public struct TVDBCompanies : Codable {
+    public let studio: [TVDBCompany]?
+    public let network: [TVDBCompany]?
+    public let production: [TVDBCompany]?
+    public let distributor: [TVDBCompany]?
+    public let special_effects: [TVDBCompany]?
+}
+
+public struct TVDBStudioBaseRecord : Codable {
+    public let id: Int64
+    public let name: String
+    public let parentStudio: Int?
 }
 
 public struct TVDBContentRating : Codable {
@@ -140,6 +166,12 @@ public struct TVDBTranslationExtended : Codable {
     public let alias: [String]?
 }
 
+public struct TVDBRelease : Codable {
+    public let country: String
+    public let date: String
+    public let detail: String?
+}
+
 public class TVDBStatus : Codable {
     public let id: Int64?
     public let keepUpdated: Bool
@@ -147,7 +179,7 @@ public class TVDBStatus : Codable {
     public let recordType: String
 }
 
-public struct TVDBSeriesSearchResult : Codable {
+public struct TVDBSearchResult : Codable {
     public let aliases: [String]?
     public let companies: [String]?
     public let companyType: String?
@@ -169,7 +201,7 @@ public struct TVDBSeriesSearchResult : Codable {
     public let poster: String?
     public let posters: [String]?
     public let primary_language: String?
-    public let status: String
+    public let status: String?
     public let slug: String?
     public let studios: [String]?
     public let title: String?
@@ -179,6 +211,44 @@ public struct TVDBSeriesSearchResult : Codable {
     public let tvdb_id: String
     public let type: String?
     public let year: String?
+}
+
+public struct TVDBMovieExtendedRecord : Codable {
+    public let aliases: [TVDBAlias]?
+    public let artworks: [TVDBArtworBaseRecord]
+    public let audioLanguages: [String]?
+    //    public let awards: [TVDBAwardBaseRecord]
+    public let boxOffice: String?
+    public let boxOfficeUS: String?
+    public let budget: String?
+    public let characters: [TVDBCharacter]?
+    public let companies: TVDBCompanies?
+    public let contentRatings: [TVDBContentRating]?
+    public let first_release: TVDBRelease?
+    public let genres: [TVDBGenreBaseRecord]
+    public let id: Int64
+    public let image: String?
+//    public let inspirations: [TVDBInspiration]?
+    public let lastUpdated: String
+//    public let lists: TVDBList
+    public let name: String
+    public let nameTranslations: [String]
+    public let originalCountry: String?
+    public let originalLanguage: String?
+    public let overviewTranslations: [String]?
+//    public let production_countries: [TVDBProductionCountry]?
+    public let releases: [TVDBRelease]?
+    public let remoteIds: [TVDBRemoteId]
+    public let runtime: Int?
+    public let score: Double?
+    public let slug: String?
+    public let spoken_languages: [String]?
+    public let studios: [TVDBStudioBaseRecord]?
+    public let subtitleLanguages: [String]?
+//    public let tagOptions: [TVDBTagOption]
+//    public let trailers: [TVDBTrailer]
+    public let translations: TVDBTranslationExtended?
+    public let year: String
 }
 
 public struct TVDBEpisodeBaseRecord : Codable {
@@ -200,7 +270,7 @@ public struct TVDBEpisodeBaseRecord : Codable {
     public let runtime: Int?
     public let seasonNumber: Int
 //    public let seasons: []?
-    public let seriesId: Int
+    public let seriesId: Int?
     public let year: String?
 }
 
@@ -211,7 +281,7 @@ public struct TVDBEpisodeExtendedRecord : Codable {
     public let airsBeforeSeason: Int?
 //    public let awards: [TVDBAwardBaseRecord]
     public let characters: [TVDBCharacter]?
-    public let companies: [TVDBCompany]
+    public let companies: [TVDBCompany]?
     public let contentRatings: [TVDBContentRating]
     public let finaleType: String?
     public let id: Int64
@@ -285,7 +355,7 @@ public struct TVDBSeriesExtendedRecord : Codable {
     public let lastUpdated: String
     public let name: String
     public let nameTranslations: [String]
-    public let companies: [TVDBCompany]
+    public let companies: [TVDBCompany]?
     public let nextAired: String
     public let originalCountry: String
     public let originalLanguage: String
@@ -469,13 +539,40 @@ final public class TheTVDBService {
     }
 
     // MARK: - Service calls
-    
-    public func fetch(series: String) -> [TVDBSeriesSearchResult] {
+
+    public func fetch(movie: String) -> [TVDBSearchResult] {
+        // Remove + because it breaks search
+        let encodedName = movie.replacingOccurrences(of: "+", with: "").replacingOccurrences(of: "*", with: "-").urlEncoded()
+
+        guard let url = URL(string: "\(TheTVDBService.basePath)search?query=\(encodedName)&type=movie"),
+            let result = sendJSONRequest(url: url, type: Wrapper<[TVDBSearchResult]>.self)
+            else { return [] }
+
+        return result.data
+    }
+
+    public func fetch(movieInfo movieID: String) -> TVDBMovieExtendedRecord? {
+        guard let url = URL(string: "\(TheTVDBService.basePath)movies/\(movieID)/extended"),
+            let result = sendJSONRequest(url: url, type: Wrapper<TVDBMovieExtendedRecord>.self)
+            else { return nil }
+
+        return result.data
+    }
+
+    public func fetch(movieTranslation movieID: String, language: String) -> TVDBTranslation? {
+        guard let url = URL(string: "\(TheTVDBService.basePath)movies/\(movieID)/translations/\(language)"),
+            let result = sendJSONRequest(url: url, type: Wrapper<TVDBTranslation>.self)
+            else { return nil }
+
+        return result.data
+    }
+
+    public func fetch(series: String) -> [TVDBSearchResult] {
         // Remove + because it breaks search
         let encodedName = series.replacingOccurrences(of: "+", with: "").replacingOccurrences(of: "*", with: "-").urlEncoded()
 
         guard let url = URL(string: "\(TheTVDBService.basePath)search?query=\(encodedName)&type=series"),
-            let result = sendJSONRequest(url: url, type: Wrapper<[TVDBSeriesSearchResult]>.self)
+            let result = sendJSONRequest(url: url, type: Wrapper<[TVDBSearchResult]>.self)
             else { return [] }
 
         return result.data
