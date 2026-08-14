@@ -481,7 +481,7 @@ final public class TheTVDBService {
         return result.data
     }
 
-    public func fetch(seriesInfo seriesID: String, language: String) -> TVDBSeriesExtendedRecord? {
+    public func fetch(seriesInfo seriesID: String) -> TVDBSeriesExtendedRecord? {
         guard let url = URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/extended"),
             let result = sendJSONRequest(url: url, type: Wrapper<TVDBSeriesExtendedRecord>.self)
             else { return nil }

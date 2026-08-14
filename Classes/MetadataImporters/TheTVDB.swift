@@ -65,7 +65,7 @@ public struct TheTVDB : MetadataService {
         return false
     }
 
-    private func searchIDs(seriesName: String, language: String) -> [String] {
+    private func searchIDs(seriesName: String) -> [String] {
         let series = session.fetch(series: seriesName)
         let sorted = series.sorted { el1, el2 -> Bool in
             return el1.name?.caseInsensitiveCompare(seriesName) == .orderedSame ? true : false
@@ -208,6 +208,37 @@ public struct TheTVDB : MetadataService {
         return filteredEpisodes.map { merge(episode: $0, info: info, translation: translation ) }
     }
 
+    // MARK: - Nil values check
+
+    private struct NilValues : OptionSet {
+        let rawValue: Int
+
+        static let episodesInfo = NilValues(rawValue: 1)
+        static let seriesInfo = NilValues(rawValue: 2)
+    }
+
+    private func checkMissingValues(results: [MetadataResult]) -> NilValues {
+
+        var options: NilValues = []
+
+        for result in results {
+            if result[.seriesName] == nil {
+                options.insert(.seriesInfo)
+            }
+            if result[.name] == nil {
+                options.insert(.episodesInfo)
+            }
+            if result[.longDescription] == nil {
+                options.insert(.episodesInfo)
+            }
+            if result[.seriesDescription] == nil {
+                options.insert(.seriesInfo)
+            }
+        }
+
+        return options
+    }
+
     private func merge(enResults: [MetadataResult], results: [MetadataResult]) {
         if enResults.count != results.count { return }
 
@@ -246,33 +277,30 @@ public struct TheTVDB : MetadataService {
     // MARK: - TV Search
 
     public func search(tvShow: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
-        let seriesIDs: [String] =  {
-            let result = self.searchIDs(seriesName: tvShow, language: language)
-            if result.isEmpty {
-                let enResults = self.searchIDs(seriesName: tvShow, language: defaultLanguage)
-                if enResults.isEmpty {
-                    let tmdb = TheMovieDB()
-                    let tvShowsTMDB = tmdb.search(tvShow: tvShow, language: language)
-                    if let tvShowTMDB = tvShowsTMDB.first {
-                        return self.searchIDs(seriesName: tvShowTMDB, language: language)
-                    }
-                }
-                return enResults
-            }
-            return result
-        }()
-
-        var results: [MetadataResult] = []
+        let seriesIDs: [String] = self.searchIDs(seriesName: tvShow)
 
         for id in seriesIDs {
-            if let info = session.fetch(seriesInfo: id, language: language) {
-                let episodes = loadEpisodes(info: info, season: season, episode: episode, language: language)
-                results.append(contentsOf: episodes.sorted(by: areInIncreasingOrder))
-                break
+            if let info = session.fetch(seriesInfo: id) {
+                let availableLanguage = info.overviewTranslations.first(where: { $0 == language }) ??
+                    info.overviewTranslations.first(where: { $0 == defaultLanguage }) ??
+                    info.overviewTranslations.first ?? defaultLanguage
+
+                let episodes = loadEpisodes(info: info, season: season, episode: episode, language: availableLanguage)
+
+                let nilValues = checkMissingValues(results: episodes)
+
+                if language != defaultLanguage {
+                    if nilValues.contains(.episodesInfo) {
+                        let enResults = loadEpisodes(info: info, season: season, episode: episode, language: defaultLanguage)
+                        merge(enResults: enResults, results: episodes)
+                    }
+                }
+
+                return episodes.sorted(by: areInIncreasingOrder)
             }
         }
 
-        return results
+        return []
     }
 
     // MARK: - Additional metadata
