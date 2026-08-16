@@ -74,7 +74,7 @@ public class TVDBArtworkExtendedRecord : Codable {
 public class TVDBGenreBaseRecord : Codable {
     public let id: Int64
     public let name: String
-    public let slug: String
+    public let slug: String?
 }
 
 public struct TVDBCharacter : Codable {
@@ -114,8 +114,8 @@ public struct TVDBCompany : Codable {
     public let name: String
     public let nameTranslations: [String]?
     public let overviewTranslations: [String]?
-    public let primaryCompanyType: Int64
-    public let slug: String
+    public let primaryCompanyType: Int64?
+    public let slug: String?
     public let parentCompany: TVDBParentCompany?
 //    public let tagOptions: TVDBTagOptions
 }
@@ -327,9 +327,9 @@ public struct TVDBSeriesBaseRecord : Codable {
     public let originalCountry: String
     public let originalLanguage: String
     public let overview: String?
-    public let overviewTranslations: [String]
-    public let score: Int
-    public let slug: String
+    public let overviewTranslations: [String]?
+    public let score: Int?
+    public let slug: String?
 //    public let status: Status
     public let year: String?
 }
