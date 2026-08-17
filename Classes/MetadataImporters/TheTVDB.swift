@@ -249,7 +249,7 @@ public struct TheTVDB : MetadataService {
 
     private func loadEpisodes(info: TVDBSeriesExtendedRecord, season: Int?, episode: Int?, language: String) -> [MetadataResult] {
         let translation = session.fetch(seriesTranslation: String(info.id), language: language)
-        let episodes = session.fetch(episodesForSeriesID: info.id, season: season, episode: episode, language: language)
+        let episodes = session.fetch(translatedEpisodesForSeriesID: info.id, season: season, episode: episode, language: language)
 
         let filteredEpisodes = episodes.filter {
             (season != nil ? $0.seasonNumber == season : true) &&

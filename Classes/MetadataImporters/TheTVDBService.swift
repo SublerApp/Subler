@@ -311,11 +311,11 @@ public struct TVDBEpisodeExtendedRecord : Codable {
 }
 
 public struct TVDBSeriesBaseRecord : Codable {
-    public let aliases: [TVDBAlias]
+    public let aliases: [TVDBAlias]?
     public let averageRuntime: Int?
-    public let defaultSeasonType: Int64
+    public let defaultSeasonType: Int64?
     public let episodes: [TVDBEpisodeBaseRecord]?
-    public let firstAired: String
+    public let firstAired: String?
     public let id: Int
     public let image: String
     public let isOrderRandomized: Bool
@@ -334,18 +334,23 @@ public struct TVDBSeriesBaseRecord : Codable {
     public let year: String?
 }
 
+public struct TVDBSeriesEpisodes : Codable {
+    public let series: TVDBSeriesBaseRecord
+    public let episodes: [TVDBEpisodeBaseRecord]
+}
+
 public struct TVDBSeriesExtendedRecord : Codable {
     public let abbreviation: String?
 //    public let airsDays: TVDBSeriesAirsDays
-    public let aliases: [TVDBAlias]
+    public let aliases: [TVDBAlias]?
     public let artworks: [TVDBArtworkExtendedRecord]
     public let averageRuntime: Int?
     public let characters: [TVDBCharacter]?
     public let contentRatings: [TVDBContentRating]
     public let country: String?
-    public let defaultSeasonType: Int64
+    public let defaultSeasonType: Int64?
     public let episodes: [TVDBEpisodeBaseRecord]?
-    public let firstAired: String
+    public let firstAired: String?
 //    public let lists: TVDBList
     public let genres: [TVDBGenreBaseRecord]
     public let id: Int
@@ -447,8 +452,16 @@ final public class TheTVDBService {
         }
     }
 
+    private struct Links : Codable {
+        let next: String?
+        let page_size: Int
+        let prev: String?
+        let total_items: Int
+    }
+
     private struct Wrapper<T> : Codable where T : Codable {
         let data: T
+        let links: Links?
         let status: String
     }
 
@@ -529,8 +542,7 @@ final public class TheTVDBService {
 //        }
 
         do {
-            let result = try JSONDecoder().decode(type, from: data)
-            return result
+            return try JSONDecoder().decode(type, from: data)
         } catch {
             print(error)
         }
@@ -594,23 +606,45 @@ final public class TheTVDBService {
         return result.data
     }
 
-    private func episodesURL(seriesID: Int, season: Int?, episode: Int?, language: String) -> URL? {
+    private func episodesURL(seriesID: Int, season: Int?, episode: Int?, language: String, page: UInt) -> URL? {
         switch (season, episode) {
         case let (season?, episode?):
-            return URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default/\(language)?page=0&season=\(season)&episodeNumber=\(episode)")
+            return URL(string:
+                "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default?page=\(page)&season=\(season)&episodeNumber=\(episode)")
         case let (season?, _):
-            return URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default/\(language)?page=0&season=\(season)")
+            return URL(string:
+                "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default?page=\(page)&season=\(season)")
         default:
-            return URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default/\(language)?page=0")
+            return URL(string:
+                "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default?page=\(page)")
         }
     }
-    
+
     public func fetch(episodesForSeriesID seriesID: Int, season: Int?, episode: Int?, language: String) -> [TVDBEpisodeBaseRecord] {
-        guard let url = episodesURL(seriesID: seriesID, season: season, episode: episode, language: language),
-            let result = sendJSONRequest(url: url, type: Wrapper<TVDBSeriesBaseRecord>.self)
+        guard let url = episodesURL(seriesID: seriesID, season: season, episode: episode, language: language, page: 0),
+            let result = sendJSONRequest(url: url, type: Wrapper<TVDBSeriesEpisodes>.self)
             else { return [] }
 
-        return result.data.episodes ?? []
+        return result.data.episodes
+    }
+
+    public func fetch(translatedEpisodesForSeriesID seriesID: Int, season: Int?, episode: Int?, language: String) -> [TVDBEpisodeBaseRecord] {
+        var episodes: [TVDBEpisodeBaseRecord] = Array()
+        var url = URL(string: "\(TheTVDBService.basePath)series/\(seriesID)/episodes/default/\(language)?page=0")
+
+        while let requestURL = url {
+            let result = sendJSONRequest(url: requestURL, type: Wrapper<TVDBSeriesBaseRecord>.self)
+
+            episodes += result?.data.episodes ?? []
+
+            if let next = result?.links?.next {
+                url = URL(string: next)
+            } else {
+                url = nil
+            }
+        }
+
+        return episodes
     }
 
     public func fetch(episodeInfo episodeID: Int, language: String) -> TVDBEpisodeExtendedRecord? {
