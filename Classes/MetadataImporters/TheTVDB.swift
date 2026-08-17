@@ -215,7 +215,10 @@ public struct TheTVDB : MetadataService {
         return artworks
     }
 
-    private func merge(episode: TVDBEpisodeBaseRecord, info: TVDBSeriesExtendedRecord, translation: TVDBTranslation?) -> MetadataResult {
+    private func merge(episode: TVDBEpisodeBaseRecord,
+                       info: TVDBSeriesExtendedRecord,
+                       translation: TVDBTranslation?,
+                       episodeTranslation: TVDBTranslation?) -> MetadataResult {
         let result = MetadataResult()
 
         result.mediaKind = .tvShow
@@ -231,9 +234,9 @@ public struct TheTVDB : MetadataService {
 
         // Episode Info
         result[.serviceEpisodeID] = episode.id
-        result[.name]             = episode.name
+        result[.name]             = episodeTranslation?.name ?? episode.name
         result[.releaseDate]      = episode.aired
-        result[.longDescription]  = episode.overview?.trimmingWhitespacesAndNewlinews()
+        result[.longDescription]  = (episodeTranslation?.overview ?? episode.overview)?.trimmingWhitespacesAndNewlinews()
         result[.season]           = episode.seasonNumber
         result[.episodeID]        = String(format: "%d%02d", episode.seasonNumber, episode.number)
         result[.episodeNumber]    = episode.number
@@ -247,16 +250,24 @@ public struct TheTVDB : MetadataService {
         return result
     }
 
-    private func loadEpisodes(info: TVDBSeriesExtendedRecord, season: Int?, episode: Int?, language: String) -> [MetadataResult] {
+    private func loadEpisodes(info: TVDBSeriesExtendedRecord, seasonID: Int?, episodeID: Int?, language: String) -> [MetadataResult] {
         let translation = session.fetch(seriesTranslation: String(info.id), language: language)
-        let episodes = session.fetch(translatedEpisodesForSeriesID: info.id, season: season, episode: episode, language: language)
 
-        let filteredEpisodes = episodes.filter {
-            (season != nil ? $0.seasonNumber == season : true) &&
-            (episode != nil ? $0.number == episode : true)
+        if let seasonID, let episodeID,
+           let episode = session.fetch(episodesForSeriesID: info.id, season: seasonID, episode: episodeID).first,
+           let episodeTranslation = session.fetch(episodesTranslation: episode.id, language: language) {
+            return [merge(episode: episode, info: info, translation: translation, episodeTranslation: episodeTranslation)]
         }
+        else {
+            let episodes = session.fetch(translatedEpisodesForSeriesID: info.id, season: seasonID, episode: episodeID, language: language)
 
-        return filteredEpisodes.map { merge(episode: $0, info: info, translation: translation ) }
+            let filteredEpisodes = episodes.filter {
+                (seasonID != nil ? $0.seasonNumber == seasonID : true) &&
+                (episodeID != nil ? $0.number == episodeID : true)
+            }
+
+            return filteredEpisodes.map { merge(episode: $0, info: info, translation: translation, episodeTranslation: nil ) }
+        }
     }
 
     // MARK: - Nil values check
@@ -336,13 +347,13 @@ public struct TheTVDB : MetadataService {
                     info.overviewTranslations.first(where: { $0 == defaultLanguage }) ??
                     info.overviewTranslations.first ?? defaultLanguage
 
-                let episodes = loadEpisodes(info: info, season: season, episode: episode, language: availableLanguage)
+                let episodes = loadEpisodes(info: info, seasonID: season, episodeID: episode, language: availableLanguage)
 
                 let nilValues = checkMissingValues(results: episodes)
 
                 if language != defaultLanguage {
                     if nilValues.contains(.episodesInfo) {
-                        let enResults = loadEpisodes(info: info, season: season, episode: episode, language: defaultLanguage)
+                        let enResults = loadEpisodes(info: info, seasonID: season, episodeID: episode, language: defaultLanguage)
                         merge(enResults: enResults, results: episodes)
                     }
                 }

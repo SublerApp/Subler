@@ -606,7 +606,7 @@ final public class TheTVDBService {
         return result.data
     }
 
-    private func episodesURL(seriesID: Int, season: Int?, episode: Int?, language: String, page: UInt) -> URL? {
+    private func episodesURL(seriesID: Int, season: Int?, episode: Int?, page: UInt) -> URL? {
         switch (season, episode) {
         case let (season?, episode?):
             return URL(string:
@@ -620,8 +620,8 @@ final public class TheTVDBService {
         }
     }
 
-    public func fetch(episodesForSeriesID seriesID: Int, season: Int?, episode: Int?, language: String) -> [TVDBEpisodeBaseRecord] {
-        guard let url = episodesURL(seriesID: seriesID, season: season, episode: episode, language: language, page: 0),
+    public func fetch(episodesForSeriesID seriesID: Int, season: Int?, episode: Int?) -> [TVDBEpisodeBaseRecord] {
+        guard let url = episodesURL(seriesID: seriesID, season: season, episode: episode, page: 0),
             let result = sendJSONRequest(url: url, type: Wrapper<TVDBSeriesEpisodes>.self)
             else { return [] }
 
