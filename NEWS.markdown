@@ -1,5 +1,12 @@
 # Subler News
 
+## Subler 1.9.2
+
+- Updated the TVDB scraper to use the v4 API
+- AppleTV artworks are retrieved at higher resolution
+- Fixed the cut command to make it work on artworks
+
+
 ## Subler 1.9.1
 
 - Fixed the queue AppleScript dictionary
