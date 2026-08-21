@@ -420,15 +420,6 @@
 /* No comment provided by engineer. */
 "Remove" = "Eliminar";
 
-/* Toolbar */
-"Remove all" = "Eliminar todos";
-
-/* Toolbar */
-"Remove completed" = "Eliminar completados";
-
-/* Toolbar */
-"Remove items from the queue" = "Eliminar elementos de la cola";
-
 /* Queue -> redo add item. */
 "Remove Queue Item" = "quitar de la cola";
 

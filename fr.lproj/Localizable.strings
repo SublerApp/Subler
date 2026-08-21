@@ -420,15 +420,6 @@
 /* No comment provided by engineer. */
 "Remove" = "Retirer";
 
-/* Toolbar */
-"Remove all" = "Tout retirer";
-
-/* Toolbar */
-"Remove completed" = "Retirer les éléments complétés";
-
-/* Toolbar */
-"Remove items from the queue" = "Retirer des éléments de la file d'attente";
-
 /* Queue -> redo add item. */
 "Remove Queue Item" = "Retirer l'élément de la file d'attente";
 

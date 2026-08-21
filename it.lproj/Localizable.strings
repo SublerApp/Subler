@@ -437,15 +437,6 @@ Toolbar */
 /* No comment provided by engineer. */
 "Remove" = "Rimuovi";
 
-/* Toolbar */
-"Remove all" = "Rimuovi tutti";
-
-/* Toolbar */
-"Remove completed" = "Rimuovi completati";
-
-/* Toolbar */
-"Remove items from the queue" = "Rimuovi elementi dalla coda";
-
 /* Queue -> redo add item. */
 "Remove Queue Item" = "rimuovi elemento coda";
 

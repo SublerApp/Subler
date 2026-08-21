@@ -405,15 +405,6 @@
 /* No comment provided by engineer. */
 "Remove" = "移除";
 
-/* Toolbar */
-"Remove all" = "全部移除";
-
-/* Toolbar */
-"Remove completed" = "移除已完成项";
-
-/* Toolbar */
-"Remove items from the queue" = "从队列中移除项目";
-
 /* Queue -> redo add item. */
 "Remove Queue Item" = "移除队列项";
 
