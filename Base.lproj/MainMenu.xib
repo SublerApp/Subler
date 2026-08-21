@@ -199,6 +199,15 @@ CA
                                     <action selector="removeCompletedItems:" target="-1" id="ouO-db-qWo"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Remove all items from queue" id="Rma-Al-Que">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="removeAllItems:" target="-1" id="ral-ac-t01"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="7Ls-cX-HSz" userLabel="2">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>

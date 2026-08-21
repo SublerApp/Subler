@@ -63,7 +63,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
 
         toolbarDelegate.target = self
 
-        let toolbar = NSToolbar(identifier: "SublerQueueToolbar")
+        let toolbar = NSToolbar(identifier: "SublerQueueToolbar.v2")
         toolbar.delegate = toolbarDelegate
         toolbar.allowsUserCustomization = true
         toolbar.autosavesConfiguration = true
@@ -143,6 +143,11 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
 
     //MARK: User Interface Validation
 
+    private var hasRemovableItems: Bool {
+        let indexes = IndexSet(integersIn: 0..<queue.count)
+        return queue.items(at: indexes).contains { $0.status != .working }
+    }
+
     func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
         switch item.action {
         case #selector(removeSelectedItems(_:)):
@@ -176,6 +181,8 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
             return false
         case #selector(removeCompletedItems(_:)):
             return true
+        case #selector(removeAllItems(_:)), #selector(removeToolbarItem(_:)):
+            return hasRemovableItems
         case #selector(toggleOptions(_:)):
             return true
         case #selector(toggleStartStop(_:)):
@@ -767,6 +774,25 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
 
     @IBAction func removeCompletedItems(_ sender: Any?) {
         remove(at: queue.indexesOfItems(with: .completed))
+    }
+
+    @IBAction func removeAllItems(_ sender: Any?) {
+        var indexes = IndexSet(integersIn: 0..<queue.count)
+        for item in queue.items(at: indexes) where item.status == .working {
+            indexes.remove(IndexSet.Element(queue.index(of: item)))
+        }
+        remove(at: indexes)
+    }
+
+    @IBAction func removeToolbarItem(_ sender: Any?) {
+        let flags = NSApp.currentEvent?.modifierFlags.intersection(.deviceIndependentFlagsMask) ?? []
+        if flags.contains(.option) && flags.contains(.shift) {
+            removeAllItems(sender)
+        } else if flags.contains(.option) {
+            removeCompletedItems(sender)
+        } else {
+            removeSelectedItems(sender)
+        }
     }
 
     //MARK: Drag & Drop

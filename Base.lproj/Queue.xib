@@ -168,6 +168,12 @@
                         <action selector="removeCompletedItems:" target="-2" id="88"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Remove all items" id="Ral-Qi-Ctx">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="removeAllItems:" target="-2" id="ral-qi-act"/>
+                    </connections>
+                </menuItem>
             </items>
             <connections>
                 <outlet property="delegate" destination="-2" id="84"/>
