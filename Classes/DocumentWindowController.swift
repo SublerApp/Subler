@@ -61,7 +61,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
 
         if Prefs.rememberDocumentWindowSize {
             window.setFrameAutosaveName("documentSave")
-            window.setFrame(from: "documentSave")
+            window.setFrameUsingName("documentSave")
 
             splitViewController.splitView.autosaveName = DocumentWindowController.splitViewResorationAutosaveName
             splitViewController.splitView.identifier = DocumentWindowController.splitViewResorationIdentifier

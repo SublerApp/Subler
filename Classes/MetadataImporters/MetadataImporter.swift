@@ -10,12 +10,16 @@ import MP42Foundation
 
 public enum LanguageType {
     case ISO
+    case ISO_639_2
     case custom
 
     public func displayName(language: String) -> String {
         switch self {
         case .ISO:
-            return MP42Languages.defaultManager .localizedLang(forExtendedTag: language)
+            return MP42Languages.defaultManager.localizedLang(forExtendedTag: language)
+        case .ISO_639_2:
+            let extendedTag = MP42Languages.defaultManager.extendedTag(forISO_639_2: language)
+            return MP42Languages.defaultManager.localizedLang(forExtendedTag: extendedTag)
         case .custom:
             return language
         }
@@ -25,6 +29,20 @@ public enum LanguageType {
         switch self {
         case .ISO:
             return MP42Languages.defaultManager.extendedTag(forLocalizedLang: displayName)
+        case .ISO_639_2:
+            return MP42Languages.defaultManager.extendedTag(forLocalizedLang: displayName)
+        case .custom:
+            return displayName
+        }
+    }
+
+    public func tag(displayName: String) -> String {
+        switch self {
+        case .ISO:
+            return MP42Languages.defaultManager.extendedTag(forLocalizedLang: displayName)
+        case .ISO_639_2:
+            let extendedTag = MP42Languages.defaultManager.extendedTag(forLocalizedLang: displayName)
+            return MP42Languages.defaultManager.iso_639_2Code(forExtendedTag: extendedTag)
         case .custom:
             return displayName
         }
@@ -113,7 +131,7 @@ public enum MetadataSearch {
 
 extension MetadataSearch {
 
-    public static var movieProviders: [String] { get { return [AppleTV().name, TheMovieDB().name, iTunesStore().name] } }
+    public static var movieProviders: [String] { get { return [AppleTV().name, TheMovieDB().name, TheTVDB().name, iTunesStore().name] } }
     public static var tvProviders: [String] { get { return [AppleTV().name, TheMovieDB().name, TheTVDB().name,  iTunesStore().name] } }
 
     public static func service(name: String?) -> MetadataService {
@@ -147,8 +165,8 @@ extension MetadataSearch {
     }
 
     public static func setDefaultLanguage(_ language: String, service: MetadataService, type: MetadataType) {
-        let extendedLanguage = service.languageType.extendedTag(displayName: language)
-        UserDefaults.standard.set(extendedLanguage, forKey: "SBMetadataPreference|\(type.description)|\(service.name)|Language")
+        let language = service.languageType.tag(displayName: language)
+        UserDefaults.standard.set(language, forKey: "SBMetadataPreference|\(type.description)|\(service.name)|Language")
     }
 
 }
