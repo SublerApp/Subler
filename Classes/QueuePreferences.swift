@@ -13,6 +13,7 @@ final class QueuePreferences: NSObject {
     static private let SBQueueOrganize: String = "SBQueueOrganize"
     static private let SBQueueFixFallbacks: String = "SBQueueFixFallbacks"
     static private let SBQueueClearTrackName: String = "SBQueueClearTrackName"
+    static private let SBQueueClearTrackOffset: String = "SBQueueClearTrackOffset"
     static private let SBQueuePrettifyAudioTrackName: String = "SBQueuePrettifyAudioTrackName"
     static private let SBQueueRenameChapters: String = "SBQueueRenameChapters"
     static private let SBQueueMetadata: String = "SBQueueMetadata"
@@ -60,6 +61,7 @@ final class QueuePreferences: NSObject {
     @objc dynamic var organize: Bool
     @objc dynamic var fixFallbacks: Bool
     @objc dynamic var clearTrackName: Bool
+    @objc dynamic var clearTrackOffset: Bool
     @objc dynamic var prettifyAudioTrackName: Bool
     @objc dynamic var renameChapters: Bool
     @objc dynamic var subtitles: Bool
@@ -104,6 +106,7 @@ final class QueuePreferences: NSObject {
         self.organize = ud.bool(forKey: QueuePreferences.SBQueueOrganize)
         self.fixFallbacks = ud.bool(forKey: QueuePreferences.SBQueueFixFallbacks)
         self.clearTrackName = ud.bool(forKey: QueuePreferences.SBQueueClearTrackName)
+        self.clearTrackOffset = ud.bool(forKey: QueuePreferences.SBQueueClearTrackOffset)
         self.prettifyAudioTrackName = ud.bool(forKey: QueuePreferences.SBQueuePrettifyAudioTrackName)
         self.renameChapters = ud.bool(forKey: QueuePreferences.SBQueueRenameChapters)
         self.subtitles = ud.bool(forKey: QueuePreferences.SBQueueSubtitles)
@@ -146,6 +149,7 @@ final class QueuePreferences: NSObject {
                      QueuePreferences.SBQueueFixTrackLanguageValue: "en",
                      QueuePreferences.SBQueueFixFallbacks: false,
                      QueuePreferences.SBQueueClearTrackName: false,
+                     QueuePreferences.SBQueueClearTrackOffset: false,
                      QueuePreferences.SBQueuePrettifyAudioTrackName: false,
                      QueuePreferences.SBQueueRenameChapters: false,
                      QueuePreferences.SBQueueMetadata: false,
@@ -186,6 +190,7 @@ final class QueuePreferences: NSObject {
         ud.set(organize, forKey: QueuePreferences.SBQueueOrganize)
         ud.set(fixFallbacks, forKey: QueuePreferences.SBQueueFixFallbacks)
         ud.set(clearTrackName, forKey: QueuePreferences.SBQueueClearTrackName)
+        ud.set(clearTrackOffset, forKey: QueuePreferences.SBQueueClearTrackOffset)
         ud.set(prettifyAudioTrackName, forKey: QueuePreferences.SBQueuePrettifyAudioTrackName)
         ud.set(renameChapters, forKey: QueuePreferences.SBQueueRenameChapters)
         ud.set(subtitles, forKey: QueuePreferences.SBQueueSubtitles)

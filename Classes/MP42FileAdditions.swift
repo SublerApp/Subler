@@ -117,6 +117,14 @@ extension MP42File {
 
         return name.isEmpty ? nil : name
     }
+
+    func clearTrackOffsets() {
+        for track in tracks {
+            if track.startOffset != 0 {
+                track.startOffset = 0
+            }
+        }
+    }
 }
 
 extension MP42AudioTrack {

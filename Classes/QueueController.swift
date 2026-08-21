@@ -281,6 +281,9 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         if prefs.clearTrackName {
             item.addAction(QueueClearTrackNameAction())
         }
+        if prefs.clearTrackOffset {
+            item.addAction(QueueClearTrackOffsetAction())
+        }
         if prefs.prettifyAudioTrackName {
             item.addAction(QueuePrettifyAudioTrackNameAction())
         }

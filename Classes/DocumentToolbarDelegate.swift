@@ -78,6 +78,9 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                          action: #selector(DocumentWindowController.fixAudioFallbacks(_:)),
                          keyEquivalent: "")
             menu.addItem(NSMenuItem.separator())
+            menu.addItem(withTitle: NSLocalizedString("Clear tracks offsets", comment: "Toolbar"),
+                         action: #selector(DocumentWindowController.clearTrackOffsets(_:)),
+                         keyEquivalent: "")
             menu.addItem(withTitle: NSLocalizedString("Offset…", comment: "Toolbar"),
                          action: #selector(DocumentWindowController.showTrackOffsetSheet(_:)),
                          keyEquivalent: "")

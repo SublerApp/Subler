@@ -288,6 +288,28 @@ class SBClearTrackNamesScriptCommand: NSScriptCommand, ScriptCommandDocumentTarg
     }
 }
 
+@objc(SBClearTrackOffsetsScriptCommand)
+class SBClearTrackOffsetsScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
+    
+    override func performDefaultImplementation() -> Any? {
+        let logger = Logger.shared
+        guard let sublerDoc = targetedDocument() else {
+            logger.write(toLog: "No document available for clearing track offsets")
+            return nil
+        }
+        
+        // Use the existing IBAction instead of duplicating logic
+        if let windowController = sublerDoc.windowControllers.first as? DocumentWindowController {
+            windowController.clearTrackOffsets(self)
+            logger.write(toLog: "Script successfully cleared all track offsets")
+        } else {
+            logger.write(toLog: "No window controller found for clearing track offsets")
+        }
+        
+        return nil
+    }
+}
+
 @objc(SBPrettifyAudioTrackNamesScriptCommand)
 class SBPrettifyAudioTrackNamesScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
     

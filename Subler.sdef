@@ -77,6 +77,11 @@
             <parameter name="into" code="into" type="document" optional="yes" description="The target document to clear track names for." />
         </command>
 
+        <command name="clear track offsets" code="SublClOf" description="Clear all track offsets.">
+            <cocoa class="SBClearTrackOffsetsScriptCommand" />
+            <parameter name="into" code="into" type="document" optional="yes" description="The target document to clear track offsets for." />
+        </command>
+
         <command name="prettify audio track names" code="SublPret" description="Prettify audio track names.">
             <cocoa class="SBPrettifyAudioTrackNamesScriptCommand" />
             <parameter name="into" code="into" type="document" optional="yes" description="The target document to prettify audio track names for." />

@@ -230,6 +230,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
              #selector(addChaptersEvery(_:)),
              #selector(iTunesFriendlyTrackGroups(_:)),
              #selector(clearTrackNames(_:)),
+             #selector(clearTrackOffsets(_:)),
              #selector(prettifyAudioTrackNames(_:)),
              #selector(fixAudioFallbacks(_:)),
              #selector(sendToQueue(_:)):
@@ -337,6 +338,13 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         for track in mp4.tracks {
             track.name = ""
         }
+
+        doc.updateChangeCount(.changeDone)
+        tracksViewController.reloadData()
+    }
+
+    @IBAction func clearTrackOffsets(_ sender: Any) {
+        mp4.clearTrackOffsets()
 
         doc.updateChangeCount(.changeDone)
         tracksViewController.reloadData()
