@@ -284,6 +284,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         if prefs.prettifyAudioTrackName {
             item.addAction(QueuePrettifyAudioTrackNameAction())
         }
+        // Create chapters before rename/preview so markers exist when previews are generated.
         if prefs.addChapters {
             let policy = MP42File.ChaptersInsertPolicy(rawValue: prefs.addChaptersPolicy) ?? .replace
             item.addAction(QueueAddChaptersAction(minutes: prefs.addChaptersInterval, policy: policy))
@@ -291,6 +292,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         if prefs.renameChapters {
             item.addAction(QueueRenameChaptersAction())
         }
+        // Previews when explicitly requested, or whenever the queue is creating chapters.
         item.setChaptersPreviewGeneration(prefs.chaptersPreview || prefs.addChapters)
         if prefs.fixTrackLanguage {
             item.addAction(QueueSetLanguageAction(language: prefs.fixTrackLanguageValue))

@@ -325,6 +325,9 @@ import MP42Foundation
 
         guard let mp4 = mp4File else { return }
 
+        // Chapter previews run at the end of write/update. Create-chapters is a pre-action,
+        // so after prepare() we only keep preview generation when markers actually exist.
+        // Missing chapters must not fail the queue item.
         updateChaptersPreviewGeneration(for: mp4)
 
         #if SB_SANDBOX
