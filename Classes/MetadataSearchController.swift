@@ -193,7 +193,7 @@ final class MetadataSearchController: NSViewController, NSTableViewDataSource, N
         }
         else if tvSeriesName.stringValue.count > 3 {
             if let task = nameSearchTask { task.cancel() }
-            let language = tvShowService.languageType.extendedTag(displayName: tvLanguage.titleOfSelectedItem ?? "en")
+            let language = tvShowService.languageType.tag(displayName: tvLanguage.titleOfSelectedItem ?? "en")
 
             tvSeriesNameSearchArray = [NSLocalizedString("Searching…", comment: "")]
 
@@ -243,7 +243,7 @@ final class MetadataSearchController: NSViewController, NSTableViewDataSource, N
 
     private func searchMovie() {
         let title = movieName.stringValue
-        let language = movieService.languageType.extendedTag(displayName: movieLanguage.titleOfSelectedItem ?? "en")
+        let language = movieService.languageType.tag(displayName: movieLanguage.titleOfSelectedItem ?? "en")
         let searcher = MetadataSearch.movieSeach(service: movieService, movie: title, language: language)
         let task = searcher.search(completionHandler: { self.searchDone(search: searcher, results: $0) }).runAsync()
         state = .searching(search: searcher, task: task)
@@ -251,7 +251,7 @@ final class MetadataSearchController: NSViewController, NSTableViewDataSource, N
 
     private func searchTVShow() {
         let title = tvSeriesName.stringValue
-        let language = tvShowService.languageType.extendedTag(displayName: tvLanguage.titleOfSelectedItem ?? "en")
+        let language = tvShowService.languageType.tag(displayName: tvLanguage.titleOfSelectedItem ?? "en")
         let season = Int(tvSeasonNum.stringValue)
         let episode = Int(tvEpisodeNum.stringValue)
         let searcher = MetadataSearch.tvSearch(service: tvShowService, tvShow: title, season: season, episode: episode, language: language)
