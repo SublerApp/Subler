@@ -644,11 +644,29 @@
                         <binding destination="-2" name="enabled" keyPath="self.options.addChapters" id="chPol-pen"/>
                     </connections>
                 </popUpButton>
-                <button toolTip="Create chapter preview images using the position from General Settings" verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="chPrv-btn">
-                    <rect key="frame" x="111" y="260" width="185" height="16"/>
-                    <buttonCell key="cell" type="check" title="Create chapter preview images" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="chPrv-cell">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="label" size="11"/>
+                <button
+					toolTip="Create chapter preview images after chapters exist (also enabled automatically when Add chapters is on). Uses the position from General Settings."
+					verticalHuggingPriority="751"
+					translatesAutoresizingMaskIntoConstraints="NO"
+					id="chPrv-btn">
+                    <rect key="frame" x="111" y="260" width="185" height="16" />
+                    <buttonCell
+						key="cell"
+						type="check"
+						title="Create chapter preview images"
+						bezelStyle="regularSquare"
+						imagePosition="left"
+						alignment="left"
+						controlSize="small"
+						state="on"
+						inset="2"
+						id="chPrv-cell">
+                        <behavior
+							key="behavior"
+							changeContents="YES"
+							doesNotDimImage="YES"
+							lightByContents="YES" />
+                        <font key="font" metaFont="label" size="11" />
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="self.options.chaptersPreview" id="chPrv-bind">
