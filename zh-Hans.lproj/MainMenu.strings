@@ -226,9 +226,6 @@
 /* Class = "NSMenuItem"; title = "Offset…"; ObjectID = "567"; */
 "567.title" = "偏移…";
 
-/* Class = "NSMenuItem"; title = "Clear tracks offsets"; ObjectID = "cTo-Cl-rOf"; */
-"cTo-Cl-rOf.title" = "清除轨道偏移";
-
 /* Class = "NSMenuItem"; title = "Insert a Chapter"; ObjectID = "573"; */
 "573.title" = "插入章节标记";
 

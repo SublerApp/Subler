@@ -58,12 +58,6 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Delete all custom track names"; ObjectID = "22k-mA-HyA"; */
 "22k-mA-HyA.ibShadowedToolTip" = "Eliminar todos los nombres de pistas personalizados";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Remove start offsets from all tracks"; ObjectID = "cTo-Of-Btn"; */
-"cTo-Of-Btn.ibShadowedToolTip" = "Eliminar los desplazamientos de inicio de todas las pistas";
-
-/* Class = "NSButtonCell"; title = "Clear tracks offsets"; ObjectID = "cTo-Of-Cel"; */
-"cTo-Of-Cel.title" = "Limpiar desplazamientos de pistas";
-
 /* Class = "NSButtonCell"; title = "Load external subtitles"; ObjectID = "59T-kp-mV1"; */
 "59T-kp-mV1.title" = "Cargar subtítulos externos";
 

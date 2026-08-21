@@ -58,12 +58,6 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Delete all custom track names"; ObjectID = "22k-mA-HyA"; */
 "22k-mA-HyA.ibShadowedToolTip" = "删除所有自定轨道名称";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Remove start offsets from all tracks"; ObjectID = "cTo-Of-Btn"; */
-"cTo-Of-Btn.ibShadowedToolTip" = "移除所有轨道的起始偏移";
-
-/* Class = "NSButtonCell"; title = "Clear tracks offsets"; ObjectID = "cTo-Of-Cel"; */
-"cTo-Of-Cel.title" = "清除轨道偏移";
-
 /* Class = "NSButtonCell"; title = "Load external subtitles"; ObjectID = "59T-kp-mV1"; */
 "59T-kp-mV1.title" = "加载外置字幕";
 

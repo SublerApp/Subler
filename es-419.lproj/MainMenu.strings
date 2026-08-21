@@ -226,9 +226,6 @@
 /* Class = "NSMenuItem"; title = "Offset…"; ObjectID = "567"; */
 "567.title" = "Desplazamiento…";
 
-/* Class = "NSMenuItem"; title = "Clear tracks offsets"; ObjectID = "cTo-Cl-rOf"; */
-"cTo-Cl-rOf.title" = "Limpiar desplazamientos de pistas";
-
 /* Class = "NSMenuItem"; title = "Insert a Chapter"; ObjectID = "573"; */
 "573.title" = "Insertar un capítulo";
 

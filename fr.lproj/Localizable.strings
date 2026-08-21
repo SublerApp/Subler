@@ -113,18 +113,11 @@
    Toolbar */
 "Clear tracks names" = "Effacer les noms des pistes";
 
-/* Action description
-   Toolbar */
-"Clear tracks offsets" = "Effacer les décalages des pistes";
-
 /* Action localized description. */
 "Clearing Metadata" = "Nettoyage des métadonnées";
 
 /* Action localized description */
 "Clearing tracks names" = "Effacement des noms des pistes";
-
-/* Action localized description */
-"Clearing tracks offsets" = "Effacement des décalages des pistes";
 
 /* No comment provided by engineer. */
 "Composer" = "Compositeur";
