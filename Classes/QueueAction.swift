@@ -472,8 +472,8 @@ class QueuePrettifyAudioTrackNameAction : NSObject, QueueActionProtocol {
 class QueueRenameChaptersAction : NSObject, QueueActionProtocol {
 
     var type: QueueActionType { return .pre }
-    var localizedDescription: String { return NSLocalizedString("Prettifying audio track names", comment: "Action localized description") }
-    override var description: String { return NSLocalizedString("Prettify audio track names", comment: "Action description") }
+    var localizedDescription: String { return NSLocalizedString("Renaming chapters titles", comment: "Action localized description") }
+    override var description: String { return NSLocalizedString("Rename chapters titles", comment: "Action description") }
 
     override init() {}
 
@@ -492,6 +492,45 @@ class QueueRenameChaptersAction : NSObject, QueueActionProtocol {
 
     func encode(with aCoder: NSCoder) {}
     required init?(coder aDecoder: NSCoder) {}
+    static var supportsSecureCoding: Bool { return true }
+
+}
+
+/// An action that inserts chapter markers at a fixed interval.
+class QueueAddChaptersAction : NSObject, QueueActionProtocol {
+
+    var type: QueueActionType { return .pre }
+    var localizedDescription: String { return NSLocalizedString("Adding chapters", comment: "Action localized description") }
+    override var description: String { return NSLocalizedString("Add chapters", comment: "Action description") }
+
+    let minutes: Int
+    let policy: MP42File.ChaptersInsertPolicy
+
+    init(minutes: Int, policy: MP42File.ChaptersInsertPolicy = .replace) {
+        self.minutes = minutes
+        self.policy = policy
+    }
+
+    func runAction(_ item: QueueItem) -> Bool {
+        guard let mp4 = item.mp4File else { return false }
+        mp4.addChapters(everyMinutes: minutes, policy: policy)
+        return true
+    }
+
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(Int32(minutes), forKey: "SBQueueAddChaptersActionMinutes")
+        aCoder.encode(Int32(policy.rawValue), forKey: "SBQueueAddChaptersActionPolicy")
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        self.minutes = Int(aDecoder.decodeInt32(forKey: "SBQueueAddChaptersActionMinutes"))
+        if aDecoder.containsValue(forKey: "SBQueueAddChaptersActionPolicy") {
+            self.policy = MP42File.ChaptersInsertPolicy(rawValue: Int(aDecoder.decodeInt32(forKey: "SBQueueAddChaptersActionPolicy"))) ?? .replace
+        } else {
+            self.policy = .replace
+        }
+    }
+
     static var supportsSecureCoding: Bool { return true }
 
 }

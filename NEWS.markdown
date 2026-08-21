@@ -26,7 +26,7 @@
 - Added additional keyboard shortcuts [Mock1]
 - Added support for unofficial metadata often used for Audiobooks
 - Make it possible to use the services ids in the metadata map
-- Fixed the "Insert a chaper at the beginning" menu item action
+- Fixed the "Insert a chapter at the beginning" menu item action
 - Fixed Swedish Ratings
 - Fixed the "None" artwork option in the Queue
 
@@ -172,7 +172,7 @@
 
 ## Subler 1.6.4
 
-* Fixes an issue that prevented uncheking tracks in the import sheet.
+* Fixes an issue that prevented unchecking tracks in the import sheet.
 * Fixes an issue that prevented the parsing of some metadata.
 * Improves Srt export. Subtitles tracks with edit lists are properly exported.
 * Improved VobSub OCR subtitles timing.

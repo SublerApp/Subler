@@ -77,11 +77,6 @@ import MP42Foundation
             attributes[MP4264BitData] = true
         }
 
-        if Prefs.chaptersPreviewTrack {
-            attributes[MP42GenerateChaptersPreviewTrack] = true
-            attributes[MP42ChaptersPreviewPosition] = Prefs.chaptersPreviewPosition
-        }
-
         if Prefs.forceHvc1 {
             attributes[MP42ForceHvc1] = true
         }
@@ -136,6 +131,31 @@ import MP42Foundation
         willChangeValue(for: \.actions)
         _ = queue.sync { actionsInternal.remove(at: index) }
         didChangeValue(for: \.actions)
+    }
+
+    /// Enables or disables chapter preview image generation using the General preference for position.
+    func setChaptersPreviewGeneration(_ enabled: Bool) {
+        queue.sync {
+            if enabled {
+                attributes[MP42GenerateChaptersPreviewTrack] = true
+                attributes[MP42ChaptersPreviewPosition] = Prefs.chaptersPreviewPosition
+            } else {
+                attributes.removeValue(forKey: MP42GenerateChaptersPreviewTrack)
+                attributes.removeValue(forKey: MP42ChaptersPreviewPosition)
+            }
+        }
+    }
+
+    private func updateChaptersPreviewGeneration(for mp4: MP42File) {
+        let hasChapters = (mp4.chapters?.chapterCount() ?? 0) > 0
+        let previewRequested = queue.sync { attributes[MP42GenerateChaptersPreviewTrack] != nil }
+        let createdChapters = actions.contains { $0 is QueueAddChaptersAction }
+
+        if hasChapters && (previewRequested || createdChapters) {
+            setChaptersPreviewGeneration(true)
+        } else {
+            setChaptersPreviewGeneration(false)
+        }
     }
 
     // MARK: Item processing
@@ -305,6 +325,11 @@ import MP42Foundation
 
         guard let mp4 = mp4File else { return }
 
+        // Chapter previews run at the end of write/update. Create-chapters is a pre-action,
+        // so after prepare() we only keep preview generation when markers actually exist.
+        // Missing chapters must not fail the queue item.
+        updateChaptersPreviewGeneration(for: mp4)
+
         #if SB_SANDBOX
         let mp4Token = MP42SecurityAccessToken(object: mp4)
         #endif
@@ -457,10 +482,11 @@ import MP42Foundation
                                                      QueueMetadataAction.classForCoder(), QueueSubtitlesAction.classForCoder(),
                                                      QueueSetLanguageAction.classForCoder(), QueueFixFallbacksAction.classForCoder(),
                                                      QueueClearTrackNameAction.classForCoder(), QueuePrettifyAudioTrackNameAction.classForCoder(),
-                                                     QueueRenameChaptersAction.classForCoder(),
+                                                     QueueRenameChaptersAction.classForCoder(), QueueAddChaptersAction.classForCoder(),
                                                      QueueOrganizeGroupsAction.classForCoder(), QueueColorSpaceAction.classForCoder(),
                                                      QueueSetOutputFilenameAction.classForCoder(), QueueClearExistingMetadataAction.classForCoder(),
-                                                     QueueOptimizeAction.classForCoder(), QueueSendToiTunesAction.classForCoder()], forKey: "SBQueueItemActions") as! [QueueActionProtocol]
+                                                     QueueOptimizeAction.classForCoder(), QueueSendToiTunesAction.classForCoder(),
+                                                     QueueChangeAudioLanguageAction.classForCoder(), QueueChangeSubtitleLanguageAction.classForCoder()], forKey: "SBQueueItemActions") as! [QueueActionProtocol]
     }
 }
 
