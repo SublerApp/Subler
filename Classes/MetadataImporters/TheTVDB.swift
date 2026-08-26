@@ -148,8 +148,8 @@ public struct TheTVDB : MetadataService {
                 size = .square
             case (let width, let height) where width >= height:
                 size = .rectangle
-            case (let width, let height) where height < width:
-                size = .default
+            case (let width, let height) where height > width:
+                size = .standard
             default:
                 break
             }
@@ -196,8 +196,8 @@ public struct TheTVDB : MetadataService {
                 size = .square
             case (let width, let height) where width >= height:
                 size = .rectangle
-            case (let width, let height) where height < width:
-                size = .default
+            case (let width, let height) where height > width:
+                size = .standard
             default:
                 break
             }
