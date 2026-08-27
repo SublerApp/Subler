@@ -199,7 +199,7 @@ public final class MetadataResult {
         case diskNumber         = "{Disk #}"
         case episodeNumber      = "{Episode #}"
         case episodeID          = "{Episode ID}"
-        case season             = "{Season}"
+        case season             = "{Season #}"
         case network            = "{Network}"
 
         // Services internal IDs
