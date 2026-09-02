@@ -91,6 +91,10 @@ extension MP42File {
         }
     }
 
+    func preferredFileDirectory() -> URL? {
+        return tracks.compactMap { $0.url }.first?.deletingLastPathComponent()
+    }
+
     func formattedFileName() -> String? {
         guard let mediaKindValue = metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyMediaKind).first?.numberValue?.intValue,
               let mediaKind = MediaKind(rawValue: mediaKindValue)

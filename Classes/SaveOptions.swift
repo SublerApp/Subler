@@ -50,6 +50,19 @@ final class SaveOptions: NSViewController {
         }
     }
 
+    /// The folder the save panel should open at, or nil to leave it
+    /// at the last folder used.
+    private func preferredDirectory(for doc: Document) -> URL? {
+        switch Prefs.saveAsLocation {
+        case .lastUsed:
+            return nil
+        case .sameAsFile:
+            return doc.fileURL?.deletingLastPathComponent() ?? doc.mp4.preferredFileDirectory()
+        case .custom:
+            return Prefs.saveAsCustomLocation
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -63,6 +76,10 @@ final class SaveOptions: NSViewController {
 
         if let filename = doc.mp4.preferredFileName() {
             savePanel?.nameFieldStringValue = filename
+        }
+
+        if let directory = preferredDirectory(for: doc) {
+            savePanel?.directoryURL = directory
         }
 
         setFileType(filenameExtension: fileType)

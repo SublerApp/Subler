@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MP42Foundation
 
 private let ud = UserDefaults.standard
 
@@ -70,6 +71,16 @@ struct StoredCodable<T: Codable> : Registable {
     }
 }
 
+/// The folder the Save As… panel opens at.
+enum SaveAsLocation: Int {
+    /// The last folder used, the standard AppKit behaviour.
+    case lastUsed = 0
+    /// The folder holding the file the tracks were imported from.
+    case sameAsFile = 1
+    /// A folder picked by the user.
+    case custom = 2
+}
+
 enum Prefs {
 
     static func register() {
@@ -78,7 +89,7 @@ enum Prefs {
                                _audioBitrate, _audioDRC, _audioConvertAC3, _audioKeepAC3, _audioConvertDts,
                                _audioDtsOptions, _subtitleConvertBitmap, _ratingsCountry, _chaptersPreviewPosition,
                                _chaptersPreviewTrack, _mp464bitOffset, _mp464bitTimes, _mp4SaveAsOptimize, _forceHvc1,
-                               _logFormat])
+                               _logFormat, _saveAsLocationValue])
     }
 
     @Stored(key: "NSApplicationCrashOnException", defaultValue: true)
@@ -161,6 +172,40 @@ enum Prefs {
 
     @Stored(key: "SBLogFormat", defaultValue: 0)
     static var logFormat: Int  // 0 = Time Only, 1 = Date and Time
+
+    @Stored(key: "SBSaveAsLocationMode", defaultValue: 0)
+    private static var saveAsLocationValue: Int
+
+    static var saveAsLocation: SaveAsLocation {
+        get { SaveAsLocation(rawValue: saveAsLocationValue) ?? .lastUsed }
+        set { saveAsLocationValue = newValue.rawValue }
+    }
+
+    private static let saveAsCustomLocationKey = "SBSaveAsCustomLocation"
+
+    /// The folder used when saveAsLocation is set to custom, stored as a
+    /// security scoped bookmark so it stays reachable after a relaunch.
+    static var saveAsCustomLocation: URL? {
+        get {
+            guard let bookmark = ud.data(forKey: saveAsCustomLocationKey) else { return nil }
+
+            var stale = ObjCBool(false)
+            guard let url = try? MP42SecurityAccessToken.url(fromBookmark: bookmark, bookmarkDataIsStale: &stale) else { return nil }
+
+            if stale.boolValue, let refreshed = try? MP42SecurityAccessToken.bookmark(from: url) {
+                ud.set(refreshed, forKey: saveAsCustomLocationKey)
+            }
+
+            return url
+        }
+        set {
+            if let url = newValue, let bookmark = try? MP42SecurityAccessToken.bookmark(from: url) {
+                ud.set(bookmark, forKey: saveAsCustomLocationKey)
+            } else {
+                ud.removeObject(forKey: saveAsCustomLocationKey)
+            }
+        }
+    }
 }
 
 enum MetadataPrefs {
