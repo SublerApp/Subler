@@ -66,6 +66,12 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     private var discoveredFieldsTable: NSTableView!
     private var discoveredFields: [DiscoveredField] = []
 
+    /// Bumped on every Test Connection click; a completion or timeout
+    /// callback that doesn't match the current generation is stale (a
+    /// previous test that's still winding down, or the selection changed
+    /// mid-request) and is ignored instead of touching the UI.
+    private var testGeneration = 0
+
     /// The live mapping-row text fields for the selected source, keyed by
     /// which annotation they map, so a best-guess or a drop can update a
     /// row's displayed text without rebuilding the whole detail form (which
@@ -354,6 +360,10 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         detailContainer.subviews.forEach { $0.removeFromSuperview() }
         discoveredFields = []
         mappingFields = [:]
+        // Invalidates any Test Connection still in flight for whatever was
+        // selected before -- its completion/timeout callback checks this
+        // and will now no-op instead of writing into the new source's pane.
+        testGeneration += 1
 
         guard let index = selectedIndex, sources.indices.contains(index) else {
             let placeholder = NSTextField(wrappingLabelWithString: NSLocalizedString("Select a source on the left, or click + to add one.", comment: ""))
@@ -670,6 +680,13 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
     // MARK: - Test Connection / field discovery
 
+    /// Network timeout used elsewhere (NetworkUtilities.dataTask) is 30s;
+    /// this is the outer watchdog on the UI side of a test, a little more
+    /// generous so a real (if slow) response always wins the race, but
+    /// still tight enough that a stuck test never leaves the button
+    /// disabled and the status line reading "Testing…" indefinitely.
+    private let testConnectionWatchdogInterval: TimeInterval = 35
+
     @objc private func testConnection(_ sender: Any) {
         guard let index = selectedIndex, sources.indices.contains(index) else { return }
 
@@ -677,10 +694,16 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         // still in that field) before reading the source out to test it.
         view.window?.makeFirstResponder(nil)
 
+        let urlTemplate = sources[index].searchURLTemplate.trimmingCharacters(in: .whitespaces)
+        guard urlTemplate.isEmpty == false else {
+            showInputError(NSLocalizedString("Value required: enter a Search URL above before testing.", comment: ""),
+                            highlighting: detailContainer.viewWithTag(FieldTag.urlTemplate.rawValue) as? NSTextField)
+            return
+        }
+
         let query = testQueryField.stringValue.trimmingCharacters(in: .whitespaces)
         guard query.isEmpty == false else {
-            statusLabel.textColor = .systemRed
-            statusLabel.stringValue = NSLocalizedString("Enter a sample search term first.", comment: "")
+            showInputError(NSLocalizedString("Value required: enter a sample search term.", comment: ""), highlighting: testQueryField)
             return
         }
 
@@ -689,14 +712,49 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         statusLabel.stringValue = NSLocalizedString("Testing…", comment: "")
         testButton.isEnabled = false
 
+        testGeneration += 1
+        let generation = testGeneration
+
         let service = CustomSourceService(source: source)
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             let result = service.discoverFields(forQuery: query)
             DispatchQueue.main.async {
-                guard let self = self, self.selectedIndex == index else { return }
+                guard let self = self, self.testGeneration == generation else { return }
                 self.testButton.isEnabled = true
                 self.handleDiscovery(result, source: source)
             }
+        }
+
+        // Belt-and-suspenders: if nothing has come back (success, failure,
+        // or the network layer's own 30s timeout) by the watchdog interval,
+        // stop waiting and tell the user, rather than leaving "Testing…"
+        // and a disabled button on screen indefinitely.
+        DispatchQueue.main.asyncAfter(deadline: .now() + testConnectionWatchdogInterval) { [weak self] in
+            guard let self = self, self.testGeneration == generation else { return }
+            self.testGeneration += 1
+            self.testButton.isEnabled = true
+            self.statusLabel.textColor = .systemRed
+            self.statusLabel.stringValue = NSLocalizedString("The request took too long and was given up on -- check the URL and your network connection.", comment: "")
+        }
+    }
+
+    /// Puts a red border on `field` for a couple of seconds so a missing
+    /// required value is impossible to miss, on top of the status line.
+    private func highlightMissingField(_ field: NSTextField) {
+        field.wantsLayer = true
+        field.layer?.borderColor = NSColor.systemRed.cgColor
+        field.layer?.borderWidth = 2
+        field.layer?.cornerRadius = 4
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { [weak field] in
+            field?.layer?.borderWidth = 0
+        }
+    }
+
+    private func showInputError(_ message: String, highlighting field: NSTextField?) {
+        statusLabel.textColor = .systemRed
+        statusLabel.stringValue = message
+        if let field = field {
+            highlightMissingField(field)
         }
     }
 
