@@ -517,7 +517,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         let queryField = NSTextField()
         queryField.placeholderString = NSLocalizedString("e.g. Inception", comment: "")
         queryField.translatesAutoresizingMaskIntoConstraints = false
-        queryField.widthAnchor.constraint(equalToConstant: 160).isActive = true
+        queryField.widthAnchor.constraint(equalToConstant: 260).isActive = true
         self.testQueryField = queryField
 
         let button = NSButton(title: NSLocalizedString("Test Connection", comment: ""), target: self, action: #selector(testConnection(_:)))
@@ -532,9 +532,23 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         let status = NSTextField(wrappingLabelWithString: "")
         status.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize - 1)
         status.textColor = .secondaryLabelColor
-        status.preferredMaxLayoutWidth = 460
+        status.preferredMaxLayoutWidth = 380
         status.translatesAutoresizingMaskIntoConstraints = false
+        // Selectable (without being editable) so the message -- an HTTP
+        // status, a server error body, an auth hint -- can be selected and
+        // copied normally, on top of the explicit Copy button below.
+        status.isSelectable = true
         self.statusLabel = status
+
+        let copyStatusButton = NSButton(title: NSLocalizedString("Copy", comment: ""), target: self, action: #selector(copyStatusMessage(_:)))
+        copyStatusButton.bezelStyle = .inline
+        copyStatusButton.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize - 1)
+        copyStatusButton.toolTip = NSLocalizedString("Copy this message to the clipboard.", comment: "")
+
+        let statusRow = NSStackView(views: [status, copyStatusButton])
+        statusRow.orientation = .horizontal
+        statusRow.alignment = .firstBaseline
+        statusRow.spacing = 6
 
         let help = NSTextField(wrappingLabelWithString: NSLocalizedString("Runs a real search against this source. Fields it finds appear on the right below \u{2014} drag one onto a mapping to use it, or leave it to a best guess.", comment: ""))
         help.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize - 1)
@@ -542,12 +556,19 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         help.preferredMaxLayoutWidth = 460
         help.translatesAutoresizingMaskIntoConstraints = false
 
-        let container = NSStackView(views: [row, status, help])
+        let container = NSStackView(views: [row, statusRow, help])
         container.orientation = .vertical
         container.alignment = .leading
         container.spacing = 4
         container.translatesAutoresizingMaskIntoConstraints = false
         return container
+    }
+
+    @objc private func copyStatusMessage(_ sender: Any) {
+        let message = statusLabel.stringValue
+        guard message.isEmpty == false else { return }
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(message, forType: .string)
     }
 
     /// The field-mapping section itself: the existing label + JSON-path
@@ -689,7 +710,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         fieldContainer.addSubview(secureField)
         fieldContainer.addSubview(plainField)
         NSLayoutConstraint.activate([
-            fieldContainer.widthAnchor.constraint(equalToConstant: 280),
+            fieldContainer.widthAnchor.constraint(equalToConstant: 360),
             secureField.leadingAnchor.constraint(equalTo: fieldContainer.leadingAnchor),
             secureField.trailingAnchor.constraint(equalTo: fieldContainer.trailingAnchor),
             secureField.topAnchor.constraint(equalTo: fieldContainer.topAnchor),
