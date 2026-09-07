@@ -63,6 +63,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     private var testQueryField: NSTextField!
     private var testButton: NSButton!
     private var statusLabel: NSTextField!
+    private var copyStatusButton: NSButton!
     private var discoveredFieldsTable: NSTableView!
     private var discoveredFields: [DiscoveredField] = []
 
@@ -196,15 +197,21 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         scrollView.documentView = table
         self.tableView = table
 
+        // Sized and styled to match the +/- buttons on the Sets tab
+        // (PresetPrefsViewController.xib: rounded bezel, image-only, 44x32)
+        // rather than the smaller toolbar-style square button, so the two
+        // preferences panes feel like one app.
         let addButton = NSButton(image: NSImage(named: NSImage.addTemplateName) ?? NSImage(),
                                   target: self, action: #selector(addSource(_:)))
-        addButton.bezelStyle = .smallSquare
+        addButton.bezelStyle = .rounded
+        addButton.imagePosition = .imageOnly
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.toolTip = NSLocalizedString("Add a new metadata source", comment: "")
 
         let removeButton = NSButton(image: NSImage(named: NSImage.removeTemplateName) ?? NSImage(),
                                      target: self, action: #selector(removeSource(_:)))
-        removeButton.bezelStyle = .smallSquare
+        removeButton.bezelStyle = .rounded
+        removeButton.imagePosition = .imageOnly
         removeButton.translatesAutoresizingMaskIntoConstraints = false
         removeButton.toolTip = NSLocalizedString("Remove the selected metadata source", comment: "")
         self.removeButton = removeButton
@@ -220,11 +227,13 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
             addButton.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 4),
             addButton.leadingAnchor.constraint(equalTo: pane.leadingAnchor),
-            addButton.widthAnchor.constraint(equalToConstant: 24),
+            addButton.widthAnchor.constraint(equalToConstant: 44),
+            addButton.heightAnchor.constraint(equalToConstant: 32),
 
             removeButton.topAnchor.constraint(equalTo: addButton.topAnchor),
             removeButton.leadingAnchor.constraint(equalTo: addButton.trailingAnchor, constant: 1),
-            removeButton.widthAnchor.constraint(equalToConstant: 24),
+            removeButton.widthAnchor.constraint(equalToConstant: 44),
+            removeButton.heightAnchor.constraint(equalToConstant: 32),
 
             pane.bottomAnchor.constraint(equalTo: addButton.bottomAnchor)
         ])
@@ -455,7 +464,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     /// best-guess fill-in) doesn't have to rebuild the whole form.
     private func makeTextRow(label: String?, value: String, tag: Int, placeholder: String = "",
                               secure: Bool = false, disabled: Bool = false, help: String? = nil,
-                              fieldWidth: CGFloat = 320, droppable: Bool = false,
+                              fieldWidth: CGFloat = 400, droppable: Bool = false,
                               fieldCreated: ((NSTextField) -> Void)? = nil) -> NSView {
         let container = NSStackView()
         container.orientation = .vertical
@@ -517,7 +526,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         let queryField = NSTextField()
         queryField.placeholderString = NSLocalizedString("e.g. Inception", comment: "")
         queryField.translatesAutoresizingMaskIntoConstraints = false
-        queryField.widthAnchor.constraint(equalToConstant: 260).isActive = true
+        queryField.widthAnchor.constraint(equalToConstant: 400).isActive = true
         self.testQueryField = queryField
 
         let button = NSButton(title: NSLocalizedString("Test Connection", comment: ""), target: self, action: #selector(testConnection(_:)))
@@ -540,10 +549,18 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         status.isSelectable = true
         self.statusLabel = status
 
-        let copyStatusButton = NSButton(title: NSLocalizedString("Copy", comment: ""), target: self, action: #selector(copyStatusMessage(_:)))
-        copyStatusButton.bezelStyle = .inline
+        let copyStatusButton = NSButton(title: "", target: self, action: #selector(copyStatusMessage(_:)))
+        copyStatusButton.bezelStyle = .smallSquare
+        copyStatusButton.isBordered = false
+        copyStatusButton.translatesAutoresizingMaskIntoConstraints = false
         copyStatusButton.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize - 1)
         copyStatusButton.toolTip = NSLocalizedString("Copy this message to the clipboard.", comment: "")
+        NSLayoutConstraint.activate([
+            copyStatusButton.widthAnchor.constraint(equalToConstant: 22),
+            copyStatusButton.heightAnchor.constraint(equalToConstant: 22)
+        ])
+        self.copyStatusButton = copyStatusButton
+        setCopyStatusButtonImage()
 
         let statusRow = NSStackView(views: [status, copyStatusButton])
         statusRow.orientation = .horizontal
@@ -569,6 +586,21 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         guard message.isEmpty == false else { return }
         NSPasteboard.general.clearContents()
         NSPasteboard.general.setString(message, forType: .string)
+    }
+
+    /// Same macOS-11-only SF Symbols constraint as the API key reveal
+    /// button (see setAPIKeyRevealButtonState below) -- "doc.on.doc" is
+    /// the standard two-staggered-pages copy glyph used throughout macOS
+    /// and this Claude interface; pre-11 falls back to a plain "Copy"
+    /// text title since no icon is available.
+    private func setCopyStatusButtonImage() {
+        if #available(macOS 11, *) {
+            copyStatusButton.image = NSImage(systemSymbolName: "doc.on.doc", accessibilityDescription: NSLocalizedString("Copy this message to the clipboard.", comment: ""))
+            copyStatusButton.title = ""
+        } else {
+            copyStatusButton.image = nil
+            copyStatusButton.title = NSLocalizedString("Copy", comment: "")
+        }
     }
 
     /// The field-mapping section itself: the existing label + JSON-path
@@ -710,7 +742,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         fieldContainer.addSubview(secureField)
         fieldContainer.addSubview(plainField)
         NSLayoutConstraint.activate([
-            fieldContainer.widthAnchor.constraint(equalToConstant: 360),
+            fieldContainer.widthAnchor.constraint(equalToConstant: 400),
             secureField.leadingAnchor.constraint(equalTo: fieldContainer.leadingAnchor),
             secureField.trailingAnchor.constraint(equalTo: fieldContainer.trailingAnchor),
             secureField.topAnchor.constraint(equalTo: fieldContainer.topAnchor),
@@ -724,7 +756,16 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         let revealButton = NSButton(title: "", target: self, action: #selector(toggleAPIKeyVisibility(_:)))
         revealButton.bezelStyle = .smallSquare
         revealButton.isBordered = false
+        revealButton.translatesAutoresizingMaskIntoConstraints = false
         revealButton.toolTip = NSLocalizedString("Show/hide the API key -- useful for confirming it matches exactly what you tested outside Subler.", comment: "")
+        // A borderless image-only button otherwise shrink-wraps to almost
+        // nothing (the icon alone renders barely 10pt tall) -- too small to
+        // notice next to the field it belongs to, so give it a real hit
+        // target the same size as the Copy icon button below.
+        NSLayoutConstraint.activate([
+            revealButton.widthAnchor.constraint(equalToConstant: 22),
+            revealButton.heightAnchor.constraint(equalToConstant: 22)
+        ])
         self.apiKeyRevealButton = revealButton
         setAPIKeyRevealButtonState(showingPlainText: false)
 
