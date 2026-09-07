@@ -97,10 +97,31 @@ public struct CustomSourceService: MetadataService {
         guard let url = requestURL(forQuery: query) else {
             return .failure(NSLocalizedString("Couldn't build a request URL -- check the search URL template.", comment: ""))
         }
-        guard let data = URLSession.data(from: url, header: requestHeaders()) else {
-            return .failure(NSLocalizedString("The request failed -- check the URL and your network connection.", comment: ""))
+
+        let response = rawRequest(url: url, headers: requestHeaders())
+
+        if let networkError = response.networkError {
+            return .failure(String(format: NSLocalizedString("The request failed: %@", comment: ""), networkError))
         }
-        guard let json = try? JSONSerialization.jsonObject(with: data) else {
+        guard let statusCode = response.statusCode else {
+            return .failure(NSLocalizedString("No response was received -- check the URL and your network connection.", comment: ""))
+        }
+        guard (200...299).contains(statusCode) else {
+            // A non-2xx response almost always means the request reached
+            // the server fine and something about how it's configured is
+            // wrong (a bad/missing API key, the wrong endpoint path) --
+            // very different from a real network failure, and worth
+            // telling apart. Surface whatever body came back too, since
+            // most JSON APIs put the actual reason there (e.g.
+            // {"message":"Unauthenticated."} for a bad token).
+            let bodySnippet = response.data.flatMap { String(data: $0, encoding: .utf8) }?
+                .trimmingCharacters(in: .whitespacesAndNewlines).prefix(200)
+            if let bodySnippet = bodySnippet, bodySnippet.isEmpty == false {
+                return .failure(String(format: NSLocalizedString("Server returned HTTP %d: %@", comment: ""), statusCode, String(bodySnippet)))
+            }
+            return .failure(String(format: NSLocalizedString("Server returned HTTP %d.", comment: ""), statusCode))
+        }
+        guard let data = response.data, let json = try? JSONSerialization.jsonObject(with: data) else {
             return .failure(NSLocalizedString("The response wasn't valid JSON.", comment: ""))
         }
 
@@ -111,6 +132,39 @@ public struct CustomSourceService: MetadataService {
             items = JSONPath.resolve(source.resultsPath, in: json) as? [Any] ?? []
         }
         return .items(items)
+    }
+
+    /// The result of a raw HTTP request, keeping the body even on a
+    /// non-2xx response (NetworkUtilities.dataTask, used elsewhere in
+    /// Subler, discards the body whenever the status code isn't 200 --
+    /// fine for providers that only ever expect success, but this is the
+    /// one place in the app whose whole job is telling the user why a
+    /// request to a URL *they* configured didn't work).
+    private struct RawResponse {
+        let data: Data?
+        let statusCode: Int?
+        let networkError: String?
+    }
+
+    private func rawRequest(url: URL, headers: [String: String]) -> RawResponse {
+        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 30.0)
+        request.httpMethod = "GET"
+        for (key, value) in headers {
+            request.addValue(value, forHTTPHeaderField: key)
+        }
+
+        let semaphore = DispatchSemaphore(value: 0)
+        var result = RawResponse(data: nil, statusCode: nil, networkError: nil)
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            result = RawResponse(data: data,
+                                  statusCode: (response as? HTTPURLResponse)?.statusCode,
+                                  networkError: error?.localizedDescription)
+            semaphore.signal()
+        }.resume()
+
+        semaphore.wait()
+        return result
     }
 
     private func results(forQuery query: String, mediaKind: MediaKind) -> [MetadataResult] {
