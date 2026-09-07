@@ -116,10 +116,29 @@ public struct CustomSourceService: MetadataService {
             // {"message":"Unauthenticated."} for a bad token).
             let bodySnippet = response.data.flatMap { String(data: $0, encoding: .utf8) }?
                 .trimmingCharacters(in: .whitespacesAndNewlines).prefix(200)
-            if let bodySnippet = bodySnippet, bodySnippet.isEmpty == false {
-                return .failure(String(format: NSLocalizedString("Server returned HTTP %d: %@", comment: ""), statusCode, String(bodySnippet)))
+            // A 401/403 is almost always the auth setup rather than the
+            // token itself -- naming exactly what was sent (or that
+            // nothing was) turns "it's still not working" into something
+            // checkable without leaving this dialog.
+            let authHint: String
+            switch source.authentication {
+            case .none:
+                authHint = NSLocalizedString(" No API key was sent -- Authentication is set to None.", comment: "")
+            case .header(let name) where name.trimmingCharacters(in: .whitespaces).isEmpty:
+                authHint = NSLocalizedString(" No API key was sent -- the header name is blank.", comment: "")
+            case .header(let name):
+                authHint = String(format: NSLocalizedString(" Sent as header \u{201c}%@\u{201d}.", comment: ""), name)
+            case .queryParameter(let name) where name.trimmingCharacters(in: .whitespaces).isEmpty:
+                authHint = NSLocalizedString(" No API key was sent -- the parameter name is blank.", comment: "")
+            case .queryParameter(let name):
+                authHint = String(format: NSLocalizedString(" Sent as query parameter \u{201c}%@\u{201d}.", comment: ""), name)
             }
-            return .failure(String(format: NSLocalizedString("Server returned HTTP %d.", comment: ""), statusCode))
+            let authHintText = (statusCode == 401 || statusCode == 403) ? authHint : ""
+
+            if let bodySnippet = bodySnippet, bodySnippet.isEmpty == false {
+                return .failure(String(format: NSLocalizedString("Server returned HTTP %d: %@%@", comment: ""), statusCode, String(bodySnippet), authHintText))
+            }
+            return .failure(String(format: NSLocalizedString("Server returned HTTP %d.%@", comment: ""), statusCode, authHintText))
         }
         guard let data = response.data, let json = try? JSONSerialization.jsonObject(with: data) else {
             return .failure(NSLocalizedString("The response wasn't valid JSON.", comment: ""))

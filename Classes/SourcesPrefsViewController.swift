@@ -669,12 +669,19 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
     @objc private func authTypeChanged(_ sender: NSPopUpButton) {
         updateSelected { source in
-            let currentName = source.authentication.parameterName
             switch sender.indexOfSelectedItem {
             case 1:
-                source.authentication = .queryParameter(name: currentName.isEmpty ? "api_key" : currentName)
+                // Switching *into* Query Parameter: keep a name the user
+                // already typed for this same mode, but never carry over a
+                // header name like "Authorization" from a different mode --
+                // that's not a sensible query parameter name and silently
+                // sending the wrong one is exactly how a source can look
+                // configured correctly while still failing every request.
+                if case .queryParameter = source.authentication { /* keep existing name */ }
+                else { source.authentication = .queryParameter(name: "api_key") }
             case 2:
-                source.authentication = .header(name: currentName.isEmpty ? "Authorization" : currentName)
+                if case .header = source.authentication { /* keep existing name */ }
+                else { source.authentication = .header(name: "Authorization") }
             default:
                 source.authentication = .none
             }
