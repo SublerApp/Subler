@@ -700,12 +700,12 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
             plainField.bottomAnchor.constraint(equalTo: fieldContainer.bottomAnchor)
         ])
 
-        let revealButton = NSButton(image: NSImage(systemSymbolName: "eye", accessibilityDescription: NSLocalizedString("Show API key", comment: "")) ?? NSImage(),
-                                     target: self, action: #selector(toggleAPIKeyVisibility(_:)))
+        let revealButton = NSButton(title: "", target: self, action: #selector(toggleAPIKeyVisibility(_:)))
         revealButton.bezelStyle = .smallSquare
         revealButton.isBordered = false
         revealButton.toolTip = NSLocalizedString("Show/hide the API key -- useful for confirming it matches exactly what you tested outside Subler.", comment: "")
         self.apiKeyRevealButton = revealButton
+        setAPIKeyRevealButtonState(showingPlainText: false)
 
         let row = NSStackView(views: [labelField, fieldContainer, revealButton])
         row.orientation = .horizontal
@@ -738,14 +738,30 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
             apiKeyPlainField.stringValue = apiKeySecureField.stringValue
             apiKeyPlainField.isHidden = false
             apiKeySecureField.isHidden = true
-            apiKeyRevealButton.image = NSImage(systemSymbolName: "eye.slash", accessibilityDescription: NSLocalizedString("Hide API key", comment: ""))
+            setAPIKeyRevealButtonState(showingPlainText: true)
             view.window?.makeFirstResponder(apiKeyPlainField)
         } else {
             apiKeySecureField.stringValue = apiKeyPlainField.stringValue
             apiKeySecureField.isHidden = false
             apiKeyPlainField.isHidden = true
-            apiKeyRevealButton.image = NSImage(systemSymbolName: "eye", accessibilityDescription: NSLocalizedString("Show API key", comment: ""))
+            setAPIKeyRevealButtonState(showingPlainText: false)
             view.window?.makeFirstResponder(apiKeySecureField)
+        }
+    }
+
+    /// SF Symbols (systemSymbolName) need macOS 11 -- this project's
+    /// deployment target is 10.13, same constraint the toolbar icons in
+    /// PrefsWindowController already work around -- so pre-11 falls back
+    /// to a plain text title instead of an icon.
+    private func setAPIKeyRevealButtonState(showingPlainText: Bool) {
+        if #available(macOS 11, *) {
+            let symbolName = showingPlainText ? "eye.slash" : "eye"
+            let description = showingPlainText ? NSLocalizedString("Hide API key", comment: "") : NSLocalizedString("Show API key", comment: "")
+            apiKeyRevealButton.image = NSImage(systemSymbolName: symbolName, accessibilityDescription: description)
+            apiKeyRevealButton.title = ""
+        } else {
+            apiKeyRevealButton.image = nil
+            apiKeyRevealButton.title = showingPlainText ? NSLocalizedString("Hide", comment: "") : NSLocalizedString("Show", comment: "")
         }
     }
 
