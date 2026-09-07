@@ -18,6 +18,9 @@
 		A90057BE1F99E2D800FA4ED1 /* TokenFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90057BD1F99E2D800FA4ED1 /* TokenFieldCell.swift */; };
 		A90057C01F99E35300FA4ED1 /* PopUpCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90057BF1F99E35300FA4ED1 /* PopUpCellView.swift */; };
 		A900CE3E1F3ACF9700CCA08E /* MetadataResultMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A900CE3D1F3ACF9700CCA08E /* MetadataResultMap.swift */; };
+		DF1E00368CDF34C96953999B /* CustomMetadataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EBC4D6C8B2510E5A31850E /* CustomMetadataSource.swift */; };
+		064C94E76685F5D27A479B74 /* JSONPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270AAC0A8FE07A658D4E4D9D /* JSONPath.swift */; };
+		35B23DD485248E331FF0A4A3 /* CustomSourceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16C14AAA77ABD55EF9A119E /* CustomSourceService.swift */; };
 		A90240DB2063BD3700E762FA /* MediaTagsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90240DA2063BD3700E762FA /* MediaTagsController.swift */; };
 		A902E0CA20504FD400445AC8 /* TokenDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A902E0C920504FD400445AC8 /* TokenDelegate.swift */; };
 		A90300C81DAE72C4008237D8 /* PresetPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90300CA1DAE72C4008237D8 /* PresetPrefsViewController.xib */; };
@@ -206,6 +209,9 @@
 		A90057BD1F99E2D800FA4ED1 /* TokenFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenFieldCell.swift; path = Classes/TokenFieldCell.swift; sourceTree = "<group>"; };
 		A90057BF1F99E35300FA4ED1 /* PopUpCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PopUpCellView.swift; path = Classes/PopUpCellView.swift; sourceTree = "<group>"; };
 		A900CE3D1F3ACF9700CCA08E /* MetadataResultMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataResultMap.swift; path = Classes/MetadataImporters/MetadataResultMap.swift; sourceTree = "<group>"; };
+		00EBC4D6C8B2510E5A31850E /* CustomMetadataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomMetadataSource.swift; path = Classes/MetadataImporters/CustomMetadataSource.swift; sourceTree = "<group>"; };
+		270AAC0A8FE07A658D4E4D9D /* JSONPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = JSONPath.swift; path = Classes/MetadataImporters/JSONPath.swift; sourceTree = "<group>"; };
+		A16C14AAA77ABD55EF9A119E /* CustomSourceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomSourceService.swift; path = Classes/MetadataImporters/CustomSourceService.swift; sourceTree = "<group>"; };
 		A90160112040213600B07AB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OutputPrefsViewController.xib; sourceTree = "<group>"; };
 		A9016012204021CB00B07AB3 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/OutputPrefsViewController.strings; sourceTree = "<group>"; };
 		A90240DA2063BD3700E762FA /* MediaTagsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MediaTagsController.swift; path = Classes/PropertyView/MediaTagsController.swift; sourceTree = "<group>"; };
@@ -779,6 +785,9 @@
 				A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */,
 				A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */,
 				A900CE3D1F3ACF9700CCA08E /* MetadataResultMap.swift */,
+				00EBC4D6C8B2510E5A31850E /* CustomMetadataSource.swift */,
+				270AAC0A8FE07A658D4E4D9D /* JSONPath.swift */,
+				A16C14AAA77ABD55EF9A119E /* CustomSourceService.swift */,
 				A97FA41D23E9837000EE5833 /* Ratings.swift */,
 				A9E97F131F274F1100DBA586 /* iTunesStore.swift */,
 				A90B094B235614D200F1B191 /* AppleTV.swift */,
@@ -989,6 +998,9 @@
 				A956C1E4202F1B170050C5E2 /* Document.swift in Sources */,
 				A9F680A81FD06E0200018371 /* OutputPrefsViewController.swift in Sources */,
 				A900CE3E1F3ACF9700CCA08E /* MetadataResultMap.swift in Sources */,
+				DF1E00368CDF34C96953999B /* CustomMetadataSource.swift in Sources */,
+				064C94E76685F5D27A479B74 /* JSONPath.swift in Sources */,
+				35B23DD485248E331FF0A4A3 /* CustomSourceService.swift in Sources */,
 				A9915AC11F4B28ED003C57D1 /* Preset.swift in Sources */,
 				A92ECCE31F49984C0063BFBD /* PrefsWindowController.swift in Sources */,
 				A9F4FF4B1FB708FB004473A8 /* SoundViewController.swift in Sources */,

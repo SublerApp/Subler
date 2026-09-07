@@ -131,8 +131,28 @@ public enum MetadataSearch {
 
 extension MetadataSearch {
 
-    public static var movieProviders: [String] { get { return [AppleTV().name, TheMovieDB().name, TheTVDB().name, iTunesStore().name] } }
-    public static var tvProviders: [String] { get { return [AppleTV().name, TheMovieDB().name, TheTVDB().name,  iTunesStore().name] } }
+    private static var builtInMovieProviders: [String] { return [AppleTV().name, TheMovieDB().name, TheTVDB().name, iTunesStore().name] }
+    private static var builtInTVProviders: [String] { return [AppleTV().name, TheMovieDB().name, TheTVDB().name, iTunesStore().name] }
+
+    /// Subler's four built-in providers, plus any user-configured custom
+    /// source (see CustomMetadataSource) that lists Movies among its media
+    /// types.
+    public static var movieProviders: [String] {
+        let customNames = MetadataPrefs.additionalMetadataSources
+            .filter { $0.mediaTypes.contains(.movie) }
+            .map { $0.name }
+        return builtInMovieProviders + customNames
+    }
+
+    /// Subler's four built-in providers, plus any user-configured custom
+    /// source (see CustomMetadataSource) that lists TV Shows among its
+    /// media types.
+    public static var tvProviders: [String] {
+        let customNames = MetadataPrefs.additionalMetadataSources
+            .filter { $0.mediaTypes.contains(.tvShow) }
+            .map { $0.name }
+        return builtInTVProviders + customNames
+    }
 
     public static func service(name: String?) -> MetadataService {
         switch name {
@@ -145,6 +165,10 @@ extension MetadataSearch {
         case TheTVDB().name?:
             return TheTVDB()
         default:
+            if let name = name,
+               let source = MetadataPrefs.additionalMetadataSources.first(where: { $0.name == name }) {
+                return CustomSourceService(source: source)
+            }
             return TheMovieDB()
         }
     }

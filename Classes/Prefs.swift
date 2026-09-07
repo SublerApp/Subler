@@ -256,6 +256,10 @@ enum MetadataPrefs {
     @Stored(key: "SBMetadataOverwriteExistingAnnotations", defaultValue: true)
     static var overwriteExistingAnnotations: Bool
 
+    /// User-configured additional metadata sources -- see CustomMetadataSource.
+    @StoredCodable(key: "SBAdditionalMetadataSources", defaultValue: [])
+    static var additionalMetadataSources: [CustomMetadataSource]
+
     @Stored(key: "SBFileImporterImportMetadata", defaultValue: false)
     static var keepImportedFilesMetadata: Bool
 }
