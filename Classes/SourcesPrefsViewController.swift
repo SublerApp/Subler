@@ -79,6 +79,15 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     /// query field).
     private var mappingFields: [MetadataResult.Key: NSTextField] = [:]
 
+    /// The API Key row keeps a masked field and a plain one stacked in the
+    /// same spot, toggled by the reveal button -- a masked-only field made
+    /// it impossible to visually confirm the key matches what actually
+    /// worked outside the app (e.g. in a curl test), which is exactly the
+    /// question that matters when a source keeps failing to authenticate.
+    private var apiKeySecureField: NSSecureTextField!
+    private var apiKeyPlainField: NSTextField!
+    private var apiKeyRevealButton: NSButton!
+
     /// Tags for the detail form's fixed, one-of-a-kind text fields.
     /// Field-mapping rows (one per MetadataResult.Key.customSourceMappableKeys
     /// entry) are tagged starting at mappingTagOffset instead, since there's
@@ -405,9 +414,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
         stack.addArrangedSubview(makeSectionLabel(NSLocalizedString("Authentication", comment: "")))
         stack.addArrangedSubview(makeAuthRow(source: source))
-        stack.addArrangedSubview(makeTextRow(label: NSLocalizedString("API Key", comment: ""),
-                                              value: source.apiKey, tag: FieldTag.apiKey.rawValue, secure: true,
-                                              help: NSLocalizedString("Sent exactly as entered -- for a header like \u{201c}Authorization: Bearer <key>\u{201d}, enter \u{201c}Bearer abc123\u{201d} here, not just the key.", comment: "")))
+        stack.addArrangedSubview(makeAPIKeyRow(source: source))
 
         stack.addArrangedSubview(makeSectionLabel(NSLocalizedString("Artwork", comment: "")))
         stack.addArrangedSubview(makeTextRow(label: NSLocalizedString("Artwork URL Path", comment: ""),
@@ -651,6 +658,95 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         row.alignment = .firstBaseline
         row.spacing = 8
         return row
+    }
+
+    /// A masked field and a plain field occupying the same spot, with a
+    /// reveal button to swap which one is visible -- see the property
+    /// comments on apiKeySecureField for why a masked-only field isn't
+    /// enough here.
+    private func makeAPIKeyRow(source: CustomMetadataSource) -> NSView {
+        let labelField = NSTextField(labelWithString: NSLocalizedString("API Key", comment: ""))
+        labelField.translatesAutoresizingMaskIntoConstraints = false
+        labelField.widthAnchor.constraint(equalToConstant: 130).isActive = true
+
+        let secureField = NSSecureTextField()
+        secureField.stringValue = source.apiKey
+        secureField.tag = FieldTag.apiKey.rawValue
+        secureField.delegate = self
+        secureField.translatesAutoresizingMaskIntoConstraints = false
+        self.apiKeySecureField = secureField
+
+        let plainField = NSTextField()
+        plainField.stringValue = source.apiKey
+        plainField.tag = FieldTag.apiKey.rawValue
+        plainField.delegate = self
+        plainField.isHidden = true
+        plainField.translatesAutoresizingMaskIntoConstraints = false
+        self.apiKeyPlainField = plainField
+
+        let fieldContainer = NSView()
+        fieldContainer.translatesAutoresizingMaskIntoConstraints = false
+        fieldContainer.addSubview(secureField)
+        fieldContainer.addSubview(plainField)
+        NSLayoutConstraint.activate([
+            fieldContainer.widthAnchor.constraint(equalToConstant: 280),
+            secureField.leadingAnchor.constraint(equalTo: fieldContainer.leadingAnchor),
+            secureField.trailingAnchor.constraint(equalTo: fieldContainer.trailingAnchor),
+            secureField.topAnchor.constraint(equalTo: fieldContainer.topAnchor),
+            secureField.bottomAnchor.constraint(equalTo: fieldContainer.bottomAnchor),
+            plainField.leadingAnchor.constraint(equalTo: fieldContainer.leadingAnchor),
+            plainField.trailingAnchor.constraint(equalTo: fieldContainer.trailingAnchor),
+            plainField.topAnchor.constraint(equalTo: fieldContainer.topAnchor),
+            plainField.bottomAnchor.constraint(equalTo: fieldContainer.bottomAnchor)
+        ])
+
+        let revealButton = NSButton(image: NSImage(systemSymbolName: "eye", accessibilityDescription: NSLocalizedString("Show API key", comment: "")) ?? NSImage(),
+                                     target: self, action: #selector(toggleAPIKeyVisibility(_:)))
+        revealButton.bezelStyle = .smallSquare
+        revealButton.isBordered = false
+        revealButton.toolTip = NSLocalizedString("Show/hide the API key -- useful for confirming it matches exactly what you tested outside Subler.", comment: "")
+        self.apiKeyRevealButton = revealButton
+
+        let row = NSStackView(views: [labelField, fieldContainer, revealButton])
+        row.orientation = .horizontal
+        row.alignment = .firstBaseline
+        row.spacing = 8
+
+        let help = NSTextField(wrappingLabelWithString: NSLocalizedString("Sent exactly as entered -- for a header like \u{201c}Authorization: Bearer <key>\u{201d}, enter \u{201c}Bearer abc123\u{201d} here, not just the key.", comment: ""))
+        help.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize - 1)
+        help.textColor = .tertiaryLabelColor
+        help.preferredMaxLayoutWidth = 460
+        help.translatesAutoresizingMaskIntoConstraints = false
+
+        let container = NSStackView(views: [row, help])
+        container.orientation = .vertical
+        container.alignment = .leading
+        container.spacing = 2
+        container.translatesAutoresizingMaskIntoConstraints = false
+        return container
+    }
+
+    @objc private func toggleAPIKeyVisibility(_ sender: NSButton) {
+        // Commits whichever of the two fields is currently being edited,
+        // same as before running Test Connection -- keeps the model in
+        // sync even if the click-through to this button doesn't count as
+        // "ending" the edit on its own.
+        view.window?.makeFirstResponder(nil)
+
+        let revealing = apiKeyPlainField.isHidden
+        if revealing {
+            apiKeyPlainField.stringValue = apiKeySecureField.stringValue
+            apiKeyPlainField.isHidden = false
+            apiKeySecureField.isHidden = true
+            apiKeyRevealButton.image = NSImage(systemSymbolName: "eye.slash", accessibilityDescription: NSLocalizedString("Hide API key", comment: ""))
+            view.window?.makeFirstResponder(apiKeyPlainField)
+        } else {
+            apiKeySecureField.stringValue = apiKeyPlainField.stringValue
+            apiKeySecureField.isHidden = false
+            apiKeyPlainField.isHidden = true
+            apiKeyRevealButton.image = NSImage(systemSymbolName: "eye", accessibilityDescription: NSLocalizedString("Show API key", comment: ""))
+            view.window?.makeFirstResponder(apiKeySecureField)
+        }
     }
 
     // MARK: - Actions
