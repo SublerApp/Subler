@@ -110,3 +110,49 @@ public enum JSONPath {
         }
     }
 }
+
+/// One field found while walking a sample JSON item: the path a mapping
+/// row would use to reach it (in the syntax above), paired with a
+/// stringified sample value for display.
+public struct DiscoveredField: Equatable {
+    public let path: String
+    public let sampleValue: String
+}
+
+public extension JSONPath {
+
+    /// Walks a single decoded JSON value -- typically one item taken from
+    /// a source's results array -- and returns every leaf field reachable
+    /// from it, as paths in this file's syntax (e.g. "title",
+    /// "images[].url", "credits.cast[].name") paired with a sample value.
+    ///
+    /// Used by the Sources preferences pane's "Test Connection" feature,
+    /// so a field mapping's JSON path can be picked from what a source
+    /// actually returned rather than guessed and typed by hand.
+    static func discoverFields(in value: Any, maxDepth: Int = 4) -> [DiscoveredField] {
+        var results: [DiscoveredField] = []
+        walk(value, prefix: "", depth: 0, maxDepth: maxDepth, into: &results)
+        return results
+    }
+
+    private static func walk(_ value: Any, prefix: String, depth: Int, maxDepth: Int, into results: inout [DiscoveredField]) {
+        guard depth < maxDepth else { return }
+
+        if let dict = value as? [String: Any] {
+            for (key, subvalue) in dict.sorted(by: { $0.key < $1.key }) {
+                let path = prefix.isEmpty ? key : "\(prefix).\(key)"
+                walk(subvalue, prefix: path, depth: depth + 1, maxDepth: maxDepth, into: &results)
+            }
+        } else if let array = value as? [Any] {
+            guard let first = array.first else { return }
+            let path = "\(prefix)[]"
+            if first is [String: Any] {
+                walk(first, prefix: path, depth: depth + 1, maxDepth: maxDepth, into: &results)
+            } else if let sample = stringify(array) {
+                results.append(DiscoveredField(path: path, sampleValue: sample))
+            }
+        } else if prefix.isEmpty == false, let sample = stringify(value) {
+            results.append(DiscoveredField(path: prefix, sampleValue: sample))
+        }
+    }
+}

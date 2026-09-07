@@ -5,6 +5,38 @@
 
 import Cocoa
 
+/// A text field that also accepts a plain-text drag as a way of setting
+/// its content -- used by the field-mapping rows below so a field found by
+/// "Test Connection" can be dragged in rather than typed. Dropping still
+/// goes through `onDrop` rather than relying on NSTextField's own built-in
+/// text-drag handling, so the dropped text always replaces the field's
+/// entire contents (matching "assign this JSON path to this row") instead
+/// of inserting at a caret position.
+private final class DroppableTextField: NSTextField {
+    var onDrop: ((String) -> Void)?
+
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        registerForDraggedTypes([.string])
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        registerForDraggedTypes([.string])
+    }
+
+    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        return sender.draggingPasteboard.canReadObject(forClasses: [NSString.self], options: nil) ? .copy : []
+    }
+
+    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        guard let string = sender.draggingPasteboard.string(forType: .string) else { return false }
+        stringValue = string
+        onDrop?(string)
+        return true
+    }
+}
+
 /// Preferences pane for user-configured additional metadata sources (see
 /// CustomMetadataSource / CustomSourceService). A source is entirely data
 /// -- a name, a search URL template, where results live in the JSON
@@ -23,6 +55,23 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     private var tableView: NSTableView!
     private var removeButton: NSButton!
     private var detailContainer: NSView!
+
+    /// Test Connection / field discovery state for the currently selected
+    /// source. Rebuilt fresh whenever the selection changes (rebuildDetail);
+    /// not persisted -- it's a scratchpad for filling in field mappings,
+    /// not part of CustomMetadataSource itself.
+    private var testQueryField: NSTextField!
+    private var testButton: NSButton!
+    private var statusLabel: NSTextField!
+    private var discoveredFieldsTable: NSTableView!
+    private var discoveredFields: [DiscoveredField] = []
+
+    /// The live mapping-row text fields for the selected source, keyed by
+    /// which annotation they map, so a best-guess or a drop can update a
+    /// row's displayed text without rebuilding the whole detail form (which
+    /// would also throw away whatever the user just typed into the test
+    /// query field).
+    private var mappingFields: [MetadataResult.Key: NSTextField] = [:]
 
     /// Tags for the detail form's fixed, one-of-a-kind text fields.
     /// Field-mapping rows (one per MetadataResult.Key.customSourceMappableKeys
@@ -169,10 +218,15 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     }
 
     func numberOfRows(in tableView: NSTableView) -> Int {
+        if tableView === discoveredFieldsTable { return discoveredFields.count }
         return sources.count
     }
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        if tableView === discoveredFieldsTable {
+            return discoveredFieldCell(for: row)
+        }
+
         let identifier = NSUserInterfaceItemIdentifier("nameCell")
         let cell: NSTableCellView
         if let reused = tableView.makeView(withIdentifier: identifier, owner: self) as? NSTableCellView {
@@ -198,7 +252,43 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         return cell
     }
 
+    func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
+        guard tableView === discoveredFieldsTable, discoveredFields.indices.contains(row) else { return nil }
+        let item = NSPasteboardItem()
+        _ = item.setString(discoveredFields[row].path, forType: .string)
+        return item
+    }
+
+    private func discoveredFieldCell(for row: Int) -> NSView {
+        let identifier = NSUserInterfaceItemIdentifier("discoveredFieldCell")
+        let cell: NSTableCellView
+        if let reused = discoveredFieldsTable.makeView(withIdentifier: identifier, owner: self) as? NSTableCellView {
+            cell = reused
+        } else {
+            let newCell = NSTableCellView()
+            let textField = NSTextField(labelWithString: "")
+            textField.lineBreakMode = .byTruncatingTail
+            textField.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
+            textField.translatesAutoresizingMaskIntoConstraints = false
+            newCell.addSubview(textField)
+            newCell.textField = textField
+            newCell.identifier = identifier
+            NSLayoutConstraint.activate([
+                textField.leadingAnchor.constraint(equalTo: newCell.leadingAnchor, constant: 4),
+                textField.trailingAnchor.constraint(equalTo: newCell.trailingAnchor, constant: -4),
+                textField.centerYAnchor.constraint(equalTo: newCell.centerYAnchor)
+            ])
+            cell = newCell
+        }
+
+        let field = discoveredFields[row]
+        cell.textField?.stringValue = "\(field.path)  —  \(field.sampleValue)"
+        cell.textField?.toolTip = NSLocalizedString("Drag onto a field below to map it.", comment: "") + " (\(field.path))"
+        return cell
+    }
+
     func tableViewSelectionDidChange(_ notification: Notification) {
+        guard let changedTable = notification.object as? NSTableView, changedTable === tableView else { return }
         let row = tableView.selectedRow
         selectedIndex = row >= 0 ? row : nil
         updateRemoveButtonState()
@@ -262,6 +352,8 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
     private func rebuildDetail() {
         detailContainer.subviews.forEach { $0.removeFromSuperview() }
+        discoveredFields = []
+        mappingFields = [:]
 
         guard let index = selectedIndex, sources.indices.contains(index) else {
             let placeholder = NSTextField(wrappingLabelWithString: NSLocalizedString("Select a source on the left, or click + to add one.", comment: ""))
@@ -315,10 +407,8 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
                                               tag: -1,
                                               disabled: true,
                                               help: NSLocalizedString("JSON path (relative to each result) for each annotation below. Leave a field blank to skip it.", comment: "")))
-        for (mappingIndex, key) in MetadataResult.Key.customSourceMappableKeys.enumerated() {
-            let existingPath = source.fieldMappings.first(where: { $0.field == key })?.jsonPath ?? ""
-            stack.addArrangedSubview(makeTextRow(label: key.localizedDisplayName, value: existingPath, tag: mappingTagOffset + mappingIndex, fieldWidth: 260))
-        }
+        stack.addArrangedSubview(makeDiscoverRow())
+        stack.addArrangedSubview(makeFieldMappingSplit(source: source))
 
         detailContainer.addSubview(stack)
         NSLayoutConstraint.activate([
@@ -337,10 +427,15 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
     /// A label + text field row, with optional help text on the line
     /// below. Pass `label: nil, disabled: true` for a help-text-only row
-    /// (used as the intro line above the field-mapping list).
+    /// (used as the intro line above the field-mapping list). Pass
+    /// `droppable: true` to accept a dragged JSON path (from the Discovered
+    /// Fields table) as well as typed input; `fieldCreated` hands back the
+    /// text field itself, so a caller that needs to update it later (a
+    /// best-guess fill-in) doesn't have to rebuild the whole form.
     private func makeTextRow(label: String?, value: String, tag: Int, placeholder: String = "",
                               secure: Bool = false, disabled: Bool = false, help: String? = nil,
-                              fieldWidth: CGFloat = 320) -> NSView {
+                              fieldWidth: CGFloat = 320, droppable: Bool = false,
+                              fieldCreated: ((NSTextField) -> Void)? = nil) -> NSView {
         let container = NSStackView()
         container.orientation = .vertical
         container.alignment = .leading
@@ -353,7 +448,16 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
             labelField.translatesAutoresizingMaskIntoConstraints = false
             labelField.widthAnchor.constraint(equalToConstant: 130).isActive = true
 
-            let textField: NSTextField = secure ? NSSecureTextField() : NSTextField()
+            let textField: NSTextField
+            if droppable {
+                let dropField = DroppableTextField()
+                dropField.onDrop = { [weak self] droppedValue in
+                    self?.commitMappingValue(tag: tag, value: droppedValue)
+                }
+                textField = dropField
+            } else {
+                textField = secure ? NSSecureTextField() : NSTextField()
+            }
             textField.stringValue = value
             textField.placeholderString = placeholder
             textField.tag = tag
@@ -366,6 +470,8 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
             row.alignment = .firstBaseline
             row.spacing = 8
             container.addArrangedSubview(row)
+
+            fieldCreated?(textField)
         }
 
         if let help = help {
@@ -378,6 +484,108 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         }
 
         return container
+    }
+
+    /// The sample-search-term field, "Test Connection" button, and status
+    /// line above the field-mapping split.
+    private func makeDiscoverRow() -> NSView {
+        let labelField = NSTextField(labelWithString: NSLocalizedString("Sample Search Term", comment: ""))
+        labelField.translatesAutoresizingMaskIntoConstraints = false
+        labelField.widthAnchor.constraint(equalToConstant: 130).isActive = true
+
+        let queryField = NSTextField()
+        queryField.placeholderString = NSLocalizedString("e.g. Inception", comment: "")
+        queryField.translatesAutoresizingMaskIntoConstraints = false
+        queryField.widthAnchor.constraint(equalToConstant: 160).isActive = true
+        self.testQueryField = queryField
+
+        let button = NSButton(title: NSLocalizedString("Test Connection", comment: ""), target: self, action: #selector(testConnection(_:)))
+        button.bezelStyle = .rounded
+        self.testButton = button
+
+        let row = NSStackView(views: [labelField, queryField, button])
+        row.orientation = .horizontal
+        row.alignment = .firstBaseline
+        row.spacing = 8
+
+        let status = NSTextField(wrappingLabelWithString: "")
+        status.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize - 1)
+        status.textColor = .secondaryLabelColor
+        status.preferredMaxLayoutWidth = 460
+        status.translatesAutoresizingMaskIntoConstraints = false
+        self.statusLabel = status
+
+        let help = NSTextField(wrappingLabelWithString: NSLocalizedString("Runs a real search against this source. Fields it finds appear on the right below \u{2014} drag one onto a mapping to use it, or leave it to a best guess.", comment: ""))
+        help.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize - 1)
+        help.textColor = .tertiaryLabelColor
+        help.preferredMaxLayoutWidth = 460
+        help.translatesAutoresizingMaskIntoConstraints = false
+
+        let container = NSStackView(views: [row, status, help])
+        container.orientation = .vertical
+        container.alignment = .leading
+        container.spacing = 4
+        container.translatesAutoresizingMaskIntoConstraints = false
+        return container
+    }
+
+    /// The field-mapping section itself: the existing label + JSON-path
+    /// rows on the left, and the Discovered Fields table (populated by
+    /// Test Connection) on the right.
+    private func makeFieldMappingSplit(source: CustomMetadataSource) -> NSView {
+        let mappingColumn = NSStackView()
+        mappingColumn.orientation = .vertical
+        mappingColumn.alignment = .leading
+        mappingColumn.spacing = 8
+        mappingColumn.translatesAutoresizingMaskIntoConstraints = false
+
+        for (mappingIndex, key) in MetadataResult.Key.customSourceMappableKeys.enumerated() {
+            let existingPath = source.fieldMappings.first(where: { $0.field == key })?.jsonPath ?? ""
+            let row = makeTextRow(label: key.localizedDisplayName, value: existingPath,
+                                   tag: mappingTagOffset + mappingIndex, fieldWidth: 220, droppable: true,
+                                   fieldCreated: { [weak self] field in self?.mappingFields[key] = field })
+            mappingColumn.addArrangedSubview(row)
+        }
+
+        let discoveredColumn = makeDiscoveredFieldsTable()
+
+        let split = NSStackView(views: [mappingColumn, discoveredColumn])
+        split.orientation = .horizontal
+        split.alignment = .top
+        split.spacing = 16
+        split.translatesAutoresizingMaskIntoConstraints = false
+        return split
+    }
+
+    private func makeDiscoveredFieldsTable() -> NSView {
+        let scrollView = NSScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.hasVerticalScroller = true
+        scrollView.autohidesScrollers = true
+        scrollView.borderType = .bezelBorder
+
+        let table = NSTableView()
+        table.usesAlternatingRowBackgroundColors = true
+        table.allowsMultipleSelection = false
+        table.dataSource = self
+        table.delegate = self
+        table.headerView = nil
+        table.setDraggingSourceOperationMask(.copy, forLocal: false)
+        table.setDraggingSourceOperationMask(.copy, forLocal: true)
+
+        let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("discoveredField"))
+        column.title = NSLocalizedString("Discovered Fields", comment: "")
+        table.addTableColumn(column)
+
+        scrollView.documentView = table
+        self.discoveredFieldsTable = table
+
+        NSLayoutConstraint.activate([
+            scrollView.widthAnchor.constraint(equalToConstant: 260),
+            scrollView.heightAnchor.constraint(equalToConstant: 300)
+        ])
+
+        return scrollView
     }
 
     private func makeMediaTypesRow(source: CustomMetadataSource) -> NSView {
@@ -460,20 +668,116 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         rebuildDetail()
     }
 
+    // MARK: - Test Connection / field discovery
+
+    @objc private func testConnection(_ sender: Any) {
+        guard let index = selectedIndex, sources.indices.contains(index) else { return }
+
+        // Commit whatever's mid-edit (e.g. the URL template, if focus is
+        // still in that field) before reading the source out to test it.
+        view.window?.makeFirstResponder(nil)
+
+        let query = testQueryField.stringValue.trimmingCharacters(in: .whitespaces)
+        guard query.isEmpty == false else {
+            statusLabel.textColor = .systemRed
+            statusLabel.stringValue = NSLocalizedString("Enter a sample search term first.", comment: "")
+            return
+        }
+
+        let source = sources[index]
+        statusLabel.textColor = .secondaryLabelColor
+        statusLabel.stringValue = NSLocalizedString("Testing…", comment: "")
+        testButton.isEnabled = false
+
+        let service = CustomSourceService(source: source)
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            let result = service.discoverFields(forQuery: query)
+            DispatchQueue.main.async {
+                guard let self = self, self.selectedIndex == index else { return }
+                self.testButton.isEnabled = true
+                self.handleDiscovery(result, source: source)
+            }
+        }
+    }
+
+    private func handleDiscovery(_ result: CustomSourceService.FieldDiscoveryResult, source: CustomMetadataSource) {
+        if let error = result.errorMessage {
+            statusLabel.textColor = .systemRed
+            statusLabel.stringValue = error
+            discoveredFields = []
+        } else {
+            statusLabel.textColor = .secondaryLabelColor
+            statusLabel.stringValue = String(format: NSLocalizedString("Found %d field(s). Unmapped fields below were filled in with a best guess.", comment: ""), result.fields.count)
+            discoveredFields = result.fields
+            applyBestGuesses(source: source)
+        }
+        discoveredFieldsTable.reloadData()
+    }
+
+    /// Fills in any mapping that's still empty with the discovered field
+    /// whose name looks like the best match, without touching a mapping
+    /// the user already set (by hand or by an earlier drag) -- a guess
+    /// only ever proposes, it never overrides a real choice.
+    private func applyBestGuesses(source: CustomMetadataSource) {
+        let synonyms: [MetadataResult.Key: [String]] = [
+            .name: ["title", "name"],
+            .genre: ["genre", "genres", "category", "categories"],
+            .releaseDate: ["releasedate", "airdate", "date", "year", "premiered"],
+            .description: ["overview", "description", "summary", "synopsis"],
+            .longDescription: ["overview", "description", "longdescription", "plot"],
+            .rating: ["rating", "contentrating", "certification", "voteaverage"],
+            .studio: ["studio", "network", "publisher", "label"],
+            .cast: ["cast", "actors", "performers"],
+            .director: ["director", "directors"],
+            .producers: ["producer", "producers"],
+            .screenwriters: ["writer", "writers", "screenwriter", "screenwriters", "author", "authors"],
+            .executiveProducer: ["executiveproducer", "executiveproducers"],
+            .copyright: ["copyright", "rights"]
+        ]
+
+        for key in MetadataResult.Key.customSourceMappableKeys {
+            let currentPath = source.fieldMappings.first(where: { $0.field == key })?.jsonPath ?? ""
+            guard currentPath.isEmpty else { continue }
+            guard let candidates = synonyms[key] else { continue }
+
+            guard let match = discoveredFields.first(where: { candidates.contains(normalizedLeaf(of: $0.path)) }) else { continue }
+
+            updateSelected { source in
+                source.fieldMappings.removeAll { $0.field == key }
+                source.fieldMappings.append(CustomSourceFieldMapping(field: key, jsonPath: match.path))
+            }
+            mappingFields[key]?.stringValue = match.path
+        }
+    }
+
+    /// The last dot-separated component of a discovered path, lowercased
+    /// with underscores stripped, so "release_date" and "releaseDate" and
+    /// "images[].release_date" all normalize to the same lookup key.
+    private func normalizedLeaf(of path: String) -> String {
+        let lastComponent = path.components(separatedBy: ".").last ?? path
+        let withoutBrackets = lastComponent.replacingOccurrences(of: "[]", with: "")
+        return withoutBrackets.lowercased().replacingOccurrences(of: "_", with: "")
+    }
+
     // MARK: - Text field delegate
+
+    private func commitMappingValue(tag: Int, value: String) {
+        guard tag >= mappingTagOffset, MetadataResult.Key.customSourceMappableKeys.indices.contains(tag - mappingTagOffset) else { return }
+        let key = MetadataResult.Key.customSourceMappableKeys[tag - mappingTagOffset]
+        let path = value.trimmingCharacters(in: .whitespaces)
+        updateSelected { source in
+            source.fieldMappings.removeAll { $0.field == key }
+            if path.isEmpty == false {
+                source.fieldMappings.append(CustomSourceFieldMapping(field: key, jsonPath: path))
+            }
+        }
+    }
 
     func controlTextDidEndEditing(_ obj: Notification) {
         guard let textField = obj.object as? NSTextField else { return }
 
         if textField.tag >= mappingTagOffset {
-            let key = MetadataResult.Key.customSourceMappableKeys[textField.tag - mappingTagOffset]
-            let path = textField.stringValue.trimmingCharacters(in: .whitespaces)
-            updateSelected { source in
-                source.fieldMappings.removeAll { $0.field == key }
-                if path.isEmpty == false {
-                    source.fieldMappings.append(CustomSourceFieldMapping(field: key, jsonPath: path))
-                }
-            }
+            commitMappingValue(tag: textField.tag, value: textField.stringValue)
             return
         }
 

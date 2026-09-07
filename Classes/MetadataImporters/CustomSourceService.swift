@@ -52,14 +52,56 @@ public struct CustomSourceService: MetadataService {
         return metadata
     }
 
+    // MARK: - Test Connection / field discovery
+
+    /// One field discovered in a sample response, alongside any error that
+    /// kept the request from producing fields at all.
+    public struct FieldDiscoveryResult {
+        public let fields: [DiscoveredField]
+        public let errorMessage: String?
+    }
+
+    /// Runs a real search with `query` and reports the fields found in the
+    /// first result, so the Sources preferences pane can offer them for
+    /// mapping instead of the user having to already know -- and type out
+    /// by hand -- the response's shape. Synchronous, like the rest of this
+    /// type; callers on the main thread should dispatch this to a
+    /// background queue, same as any other search here.
+    public func discoverFields(forQuery query: String) -> FieldDiscoveryResult {
+        switch fetchRawItems(forQuery: query) {
+        case .failure(let message):
+            return FieldDiscoveryResult(fields: [], errorMessage: message)
+        case .items(let items):
+            guard let firstItem = items.first else {
+                return FieldDiscoveryResult(fields: [], errorMessage: NSLocalizedString("The request succeeded but returned no results for that search term -- try a different one.", comment: ""))
+            }
+            let fields = JSONPath.discoverFields(in: firstItem)
+            if fields.isEmpty {
+                return FieldDiscoveryResult(fields: [], errorMessage: NSLocalizedString("No fields were found in the response.", comment: ""))
+            }
+            return FieldDiscoveryResult(fields: fields, errorMessage: nil)
+        }
+    }
+
     // MARK: - Request / response handling
 
-    private func results(forQuery query: String, mediaKind: MediaKind) -> [MetadataResult] {
-        guard query.isEmpty == false,
-              let url = requestURL(forQuery: query),
-              let data = URLSession.data(from: url, header: requestHeaders()),
-              let json = try? JSONSerialization.jsonObject(with: data) else {
-            return []
+    private enum RawFetchOutcome {
+        case items([Any])
+        case failure(String)
+    }
+
+    private func fetchRawItems(forQuery query: String) -> RawFetchOutcome {
+        guard query.isEmpty == false else {
+            return .failure(NSLocalizedString("Enter a sample search term first.", comment: ""))
+        }
+        guard let url = requestURL(forQuery: query) else {
+            return .failure(NSLocalizedString("Couldn't build a request URL -- check the search URL template.", comment: ""))
+        }
+        guard let data = URLSession.data(from: url, header: requestHeaders()) else {
+            return .failure(NSLocalizedString("The request failed -- check the URL and your network connection.", comment: ""))
+        }
+        guard let json = try? JSONSerialization.jsonObject(with: data) else {
+            return .failure(NSLocalizedString("The response wasn't valid JSON.", comment: ""))
         }
 
         let items: [Any]
@@ -68,7 +110,11 @@ public struct CustomSourceService: MetadataService {
         } else {
             items = JSONPath.resolve(source.resultsPath, in: json) as? [Any] ?? []
         }
+        return .items(items)
+    }
 
+    private func results(forQuery query: String, mediaKind: MediaKind) -> [MetadataResult] {
+        guard case .items(let items) = fetchRawItems(forQuery: query) else { return [] }
         return items.map { makeMetadataResult(from: $0, mediaKind: mediaKind) }
     }
 
