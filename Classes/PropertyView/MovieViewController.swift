@@ -498,6 +498,19 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         return cell
     }
 
+    /// Maps a stored raw rating code (e.g. "mpaa|NC-17|500|") to the
+    /// human-readable string shown in the Rating combo box (e.g. "USA
+    /// Movie: NC-17"). A value that doesn't match any known code -- a
+    /// custom rating the user typed in -- is returned unchanged, so it
+    /// round-trips through the combo box as free text.
+    private func ratingDisplayValue(_ rawValue: String?) -> String? {
+        guard let rawValue = rawValue, rawValue.isEmpty == false else { return rawValue }
+        if let index = self.codes.firstIndex(of: rawValue) {
+            return self.ratings[index]
+        }
+        return rawValue
+    }
+
     private func comboBoxCell(contents: [String], value: String?, tableView: NSTableView) -> ComboBoxCellView {
         guard let cell = tableView.makeView(withIdentifier: MovieViewController.comboCell, owner: self) as? ComboBoxCellView, let comboBox = cell.comboBox else { fatalError() }
 
@@ -569,7 +582,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
                 if item.identifier == MP42MetadataKeyUserGenre {
                     return comboBoxCell(contents: MovieViewController.availableGenres, value: item.stringValue, tableView: tableView)
                 } else if item.identifier == MP42MetadataKeyRating {
-                    return popUpRatingCell(contents: ratings, value: item.stringValue, tableView: tableView)
+                    return comboBoxCell(contents: ratings, value: ratingDisplayValue(item.stringValue), tableView: tableView)
                 } else {
                     return textCell(string: item.stringValue, tableView: tableView)
                 }
@@ -653,6 +666,14 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
                 } else {
                     value = sender.stringValue
                 }
+            } else if item.identifier == MP42MetadataKeyRating {
+                if let index = self.ratings.firstIndex(of: sender.stringValue) {
+                    value = self.codes[index]
+                } else {
+                    // Not one of the predefined ratings -- treat it as a
+                    // custom, freely-typed rating and store it as-is.
+                    value = sender.stringValue
+                }
             } else {
                 value = sender.stringValue
             }
@@ -713,15 +734,6 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         var value: Any = -1
 
         switch item.dataType {
-        case .string:
-            if item.identifier == MP42MetadataKeyRating {
-                if index < self.codes.count {
-                    value = self.codes[index]
-                } else {
-                    value = item.value as Any
-                }
-            }
-
         case .integer:
             if item.identifier == MP42MetadataKeyContentRating {
                 value = MovieViewController.contentRatings[index].value
