@@ -233,6 +233,8 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
             return discoveredFieldCell(for: row)
         }
 
+        guard sources.indices.contains(row) else { return nil }
+
         let identifier = NSUserInterfaceItemIdentifier("nameCell")
         let cell: NSTableCellView
         if let reused = tableView.makeView(withIdentifier: identifier, owner: self) as? NSTableCellView {
@@ -265,7 +267,9 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         return item
     }
 
-    private func discoveredFieldCell(for row: Int) -> NSView {
+    private func discoveredFieldCell(for row: Int) -> NSView? {
+        guard discoveredFields.indices.contains(row) else { return nil }
+
         let identifier = NSUserInterfaceItemIdentifier("discoveredFieldCell")
         let cell: NSTableCellView
         if let reused = discoveredFieldsTable.makeView(withIdentifier: identifier, owner: self) as? NSTableCellView {
