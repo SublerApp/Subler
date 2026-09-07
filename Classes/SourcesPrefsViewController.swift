@@ -310,7 +310,13 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         }
 
         let field = discoveredFields[row]
-        cell.textField?.stringValue = "\(field.path)  —  \(field.sampleValue)"
+        // JSONPath.discoverFields already caps sample-value length -- this
+        // is a defense-in-depth backstop, since a stack sample confirmed
+        // this exact line is where an oversized string turned a table
+        // layout pass into a multi-second (effectively hung) main-thread
+        // stall.
+        let displaySample = field.sampleValue.count > 200 ? String(field.sampleValue.prefix(200)) + "\u{2026}" : field.sampleValue
+        cell.textField?.stringValue = "\(field.path)  —  \(displaySample)"
         cell.textField?.toolTip = NSLocalizedString("Drag onto a field below to map it.", comment: "") + " (\(field.path))"
         return cell
     }

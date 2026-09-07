@@ -203,10 +203,19 @@ public struct CustomSourceService: MetadataService {
     }
 
     private func requestHeaders() -> [String: String] {
+        // Some JSON APIs behave differently (a different response shape,
+        // or bot-protection in front of them) without these two -- Subler's
+        // existing hardcoded providers always send them, so custom sources
+        // should too rather than relying on every server defaulting
+        // sensibly when they're absent.
+        var headers = [
+            "Accept": "application/json",
+            "User-Agent": "Subler"
+        ]
         if case .header(let headerName) = source.authentication, headerName.isEmpty == false {
-            return [headerName: source.apiKey]
+            headers[headerName] = source.apiKey
         }
-        return [:]
+        return headers
     }
 
     private func makeMetadataResult(from item: Any, mediaKind: MediaKind) -> MetadataResult {

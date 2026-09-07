@@ -135,11 +135,32 @@ public extension JSONPath {
         return results
     }
 
+    /// Hard cap on how many fields a single response gets flattened into.
+    /// A real API response can have a dictionary with hundreds of keys at
+    /// some nesting level (localized-name maps, per-size image variants,
+    /// etc.) -- left uncapped, that many rows landing in the Discovered
+    /// Fields table at once is exactly the kind of thing that turns one
+    /// AppKit table layout pass into an effective hang.
+    private static let maxDiscoveredFields = 300
+
+    /// Hard cap on one field's displayed sample value. A single leaf can
+    /// be an enormous joined array or a long blob of text -- without this,
+    /// a table cell built from it can make NSTableView's layout pass take
+    /// long enough to look and feel like a genuine app hang (confirmed via
+    /// a stack sample landing on this exact cell-building code every time).
+    private static let maxSampleValueLength = 200
+
+    private static func truncatedForDisplay(_ value: String) -> String {
+        guard value.count > maxSampleValueLength else { return value }
+        return String(value.prefix(maxSampleValueLength)) + "\u{2026}"
+    }
+
     private static func walk(_ value: Any, prefix: String, depth: Int, maxDepth: Int, into results: inout [DiscoveredField]) {
-        guard depth < maxDepth else { return }
+        guard depth < maxDepth, results.count < maxDiscoveredFields else { return }
 
         if let dict = value as? [String: Any] {
             for (key, subvalue) in dict.sorted(by: { $0.key < $1.key }) {
+                guard results.count < maxDiscoveredFields else { return }
                 let path = prefix.isEmpty ? key : "\(prefix).\(key)"
                 walk(subvalue, prefix: path, depth: depth + 1, maxDepth: maxDepth, into: &results)
             }
@@ -149,10 +170,10 @@ public extension JSONPath {
             if first is [String: Any] {
                 walk(first, prefix: path, depth: depth + 1, maxDepth: maxDepth, into: &results)
             } else if let sample = stringify(array) {
-                results.append(DiscoveredField(path: path, sampleValue: sample))
+                results.append(DiscoveredField(path: path, sampleValue: truncatedForDisplay(sample)))
             }
         } else if prefix.isEmpty == false, let sample = stringify(value) {
-            results.append(DiscoveredField(path: prefix, sampleValue: sample))
+            results.append(DiscoveredField(path: prefix, sampleValue: truncatedForDisplay(sample)))
         }
     }
 }
