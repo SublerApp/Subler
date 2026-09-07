@@ -54,6 +54,7 @@
 		A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */; };
 		A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */; };
 		A944E5921F498FC4002E43F6 /* PresetPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A944E5911F498FC4002E43F6 /* PresetPrefsViewController.swift */; };
+		25ACA4E969B29A4321AE33FB /* SourcesPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7893DEE0706621CAF0D615DB /* SourcesPrefsViewController.swift */; };
 		A94A6A591ED1C5CC00049F7D /* ParseFilename in Resources */ = {isa = PBXBuildFile; fileRef = A94A6A581ED1C5CA00049F7D /* ParseFilename */; };
 		A956C1E4202F1B170050C5E2 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956C1E3202F1B170050C5E2 /* Document.swift */; };
 		A956CE651F99E5BB00093992 /* ActivityWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956CE641F99E5BB00093992 /* ActivityWindowController.swift */; };
@@ -347,6 +348,7 @@
 		A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterResult.swift; path = Classes/MetadataImporters/ChapterResult.swift; sourceTree = "<group>"; };
 		A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterDB.swift; path = Classes/MetadataImporters/ChapterDB.swift; sourceTree = "<group>"; };
 		A944E5911F498FC4002E43F6 /* PresetPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PresetPrefsViewController.swift; path = Classes/PresetPrefsViewController.swift; sourceTree = "<group>"; };
+		7893DEE0706621CAF0D615DB /* SourcesPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SourcesPrefsViewController.swift; path = Classes/SourcesPrefsViewController.swift; sourceTree = "<group>"; };
 		A94868D31F56BA0F00C47B75 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = Classes/it.lproj/PresetEditorViewController.strings; sourceTree = "<group>"; };
 		A94A6A581ED1C5CA00049F7D /* ParseFilename */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ParseFilename; path = Utilities/ParseFilename; sourceTree = "<group>"; };
 		A956C1E3202F1B170050C5E2 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Document.swift; path = Classes/Document.swift; sourceTree = "<group>"; };
@@ -664,6 +666,7 @@
 				A9C31E622029A82200CEF474 /* AdvancedPrefsViewController.xib */,
 				A944E5911F498FC4002E43F6 /* PresetPrefsViewController.swift */,
 				A90300CA1DAE72C4008237D8 /* PresetPrefsViewController.xib */,
+				7893DEE0706621CAF0D615DB /* SourcesPrefsViewController.swift */,
 				A91576EA204ECA6E00D93CE7 /* Token.swift */,
 				A902E0C920504FD400445AC8 /* TokenDelegate.swift */,
 				A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */,
@@ -1045,6 +1048,7 @@
 				A9A77C4E1F306FA70018023B /* AttributedStyles.swift in Sources */,
 				A92AD0161F3482350082892E /* NetworkUtilities.swift in Sources */,
 				A944E5921F498FC4002E43F6 /* PresetPrefsViewController.swift in Sources */,
+				25ACA4E969B29A4321AE33FB /* SourcesPrefsViewController.swift in Sources */,
 				A9E97F141F274F1100DBA586 /* iTunesStore.swift in Sources */,
 				A9BE561B220307F100FF6BE3 /* Utilities.swift in Sources */,
 				A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */,

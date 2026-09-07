@@ -41,6 +41,11 @@
                             <action selector="setPrefView:" target="-2" id="3cc-L0-stl"/>
                         </connections>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="7C3E9A4F-2B6D-4E58-9F1A-6D5C8B2A4E7F" explicitItemIdentifier="TOOLBAR_SOURCES" label="Sources" paletteLabel="Sources" tag="-1" image="NSShareTemplate" sizingBehavior="auto" selectable="YES" id="Src-cE-8mQ">
+                        <connections>
+                            <action selector="setPrefView:" target="-2" id="Src-ac-9nP"/>
+                        </connections>
+                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="AED95BFB-F0CC-4D21-BDD8-C2122EEF5F57" explicitItemIdentifier="TOOLBAR_OUTPUT" label="Filename" paletteLabel="Filename" tag="-1" image="mp4-file" sizingBehavior="auto" selectable="YES" id="uxW-fx-zpe">
                         <connections>
                             <action selector="setPrefView:" target="-2" id="Wer-vH-QP9"/>
@@ -61,6 +66,7 @@
                     <toolbarItem reference="5r6-9s-apQ"/>
                     <toolbarItem reference="Z2w-05-k1g"/>
                     <toolbarItem reference="PFq-0J-qih"/>
+                    <toolbarItem reference="Src-cE-8mQ"/>
                     <toolbarItem reference="uxW-fx-zpe"/>
                     <toolbarItem reference="btg-Uy-o7I"/>
                     <toolbarItem reference="udf-m4-mG8"/>
@@ -78,6 +84,7 @@
         <image name="NSFolderSmart" width="32" height="32"/>
         <image name="NSFontPanel" width="32" height="32"/>
         <image name="NSPreferencesGeneral" width="32" height="32"/>
+        <image name="NSShareTemplate" width="32" height="32"/>
         <image name="NSUserAccounts" width="32" height="32"/>
         <image name="mp4-file" width="32" height="32"/>
     </resources>

@@ -27,6 +27,8 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
                     item.image = NSImage(systemSymbolName: "network", accessibilityDescription: "")
                 case presets:
                     item.image = NSImage(systemSymbolName: "books.vertical", accessibilityDescription: "")
+                case sources:
+                    item.image = NSImage(systemSymbolName: "square.and.arrow.down.on.square", accessibilityDescription: "")
                 case output:
                     item.image = NSImage(systemSymbolName: "rectangle.and.pencil.and.ellipsis", accessibilityDescription: "")
                 case ocr:
@@ -54,6 +56,7 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
     lazy var generalController: GeneralPrefsViewController = { return GeneralPrefsViewController() }()
     lazy var metadataController: MetadataPrefsViewController = { return MetadataPrefsViewController() }()
     lazy var presetController: PresetPrefsViewController = { return PresetPrefsViewController() }()
+    lazy var sourcesController: SourcesPrefsViewController = { return SourcesPrefsViewController() }()
     lazy var outputController: OutputPrefsViewController = { return OutputPrefsViewController() }()
     lazy var ocrController: OCRPrefsViewController = { return OCRPrefsViewController() }()
     lazy var advancedController: AdvancedPrefsViewController = { return AdvancedPrefsViewController() }()
@@ -61,6 +64,7 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
     let general: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_GENERAL")
     let metadata: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_METADATA")
     let presets: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_SETS")
+    let sources: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_SOURCES")
     let output: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_OUTPUT")
     let ocr: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_OCR")
     let advanced: NSToolbarItem.Identifier = NSToolbarItem.Identifier("TOOLBAR_ADVANCED")
@@ -71,6 +75,7 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
         if identifier == general { return generalController.view }
         if identifier == metadata { return metadataController.view }
         if identifier == presets { return presetController.view }
+        if identifier == sources { return sourcesController.view }
         if identifier == output { return outputController.view }
         if identifier == ocr { return ocrController.view }
         if identifier == advanced { return advancedController.view }
