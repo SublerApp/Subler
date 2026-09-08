@@ -805,9 +805,16 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         button.bezelStyle = .rounded
         self.testButton = button
 
+        // .centerY, not .firstBaseline -- a plain text field and a
+        // .rounded-bezel push button have different internal baseline
+        // metrics, so lining them up by baseline leaves the button (and the
+        // label's text next to it) sitting visibly higher than the entry
+        // field. Centering the whole row on the entry field's own height is
+        // what actually reads as aligned, and matches how the label's
+        // "prompt" text lines up with its field elsewhere in Subler.
         let row = NSStackView(views: [labelField, queryField, button])
         row.orientation = .horizontal
-        row.alignment = .firstBaseline
+        row.alignment = .centerY
         row.spacing = 8
 
         let status = NSTextField(wrappingLabelWithString: "")
@@ -833,6 +840,10 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         ])
         self.copyStatusButton = copyStatusButton
         setCopyStatusButtonImage()
+        // Only worth showing once there's an error message worth grabbing
+        // verbatim -- see setStatusMessage(_:isError:). Nothing has run yet
+        // when this row is first built, so start hidden.
+        copyStatusButton.isHidden = true
 
         let statusRow = NSStackView(views: [status, copyStatusButton])
         statusRow.orientation = .horizontal
@@ -865,6 +876,18 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     /// the standard two-staggered-pages copy glyph used throughout macOS
     /// and this Claude interface; pre-11 falls back to a plain "Copy"
     /// text title since no icon is available.
+    /// The one place that sets the status line's text and color -- and,
+    /// alongside it, whether the Copy button is shown. Copying only makes
+    /// sense once there's an error message worth grabbing verbatim (a
+    /// server response body, an HTTP status) to paste elsewhere; for the
+    /// routine "Testing…" or a plain success summary, the icon is just
+    /// clutter next to text nobody needs to copy.
+    private func setStatusMessage(_ message: String, isError: Bool) {
+        statusLabel.textColor = isError ? .systemRed : .secondaryLabelColor
+        statusLabel.stringValue = message
+        copyStatusButton.isHidden = isError == false
+    }
+
     private func setCopyStatusButtonImage() {
         if #available(macOS 11, *) {
             copyStatusButton.image = NSImage(systemSymbolName: "doc.on.doc", accessibilityDescription: NSLocalizedString("Copy this message to the clipboard.", comment: ""))
@@ -1165,9 +1188,16 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         self.apiKeyRevealButton = revealButton
         setAPIKeyRevealButtonState(showingPlainText: false)
 
+        // .centerY, same reasoning as the Test Connection row above --
+        // fieldContainer is a plain wrapper NSView with no intrinsic
+        // baseline of its own (AppKit falls back to its bottom edge for
+        // .firstBaseline, which reads as misaligned against labelField and
+        // revealButton), so centering the row vertically is what actually
+        // lines the label, the key field, and the eye icon up with each
+        // other.
         let row = NSStackView(views: [labelField, fieldContainer, revealButton])
         row.orientation = .horizontal
-        row.alignment = .firstBaseline
+        row.alignment = .centerY
         row.spacing = 8
 
         let help = NSTextField(wrappingLabelWithString: NSLocalizedString("Sent exactly as entered -- for a header like \u{201c}Authorization: Bearer <key>\u{201d}, enter \u{201c}Bearer abc123\u{201d} here, not just the key.", comment: ""))
@@ -1345,8 +1375,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         }
 
         let source = sources[index]
-        statusLabel.textColor = .secondaryLabelColor
-        statusLabel.stringValue = NSLocalizedString("Testing…", comment: "")
+        setStatusMessage(NSLocalizedString("Testing…", comment: ""), isError: false)
         testButton.isEnabled = false
 
         testGeneration += 1
@@ -1370,8 +1399,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
             guard let self = self, self.testGeneration == generation else { return }
             self.testGeneration += 1
             self.testButton.isEnabled = true
-            self.statusLabel.textColor = .systemRed
-            self.statusLabel.stringValue = NSLocalizedString("The request took too long and was given up on -- check the URL and your network connection.", comment: "")
+            self.setStatusMessage(NSLocalizedString("The request took too long and was given up on -- check the URL and your network connection.", comment: ""), isError: true)
         }
     }
 
@@ -1388,8 +1416,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     }
 
     private func showInputError(_ message: String, highlighting field: NSTextField?) {
-        statusLabel.textColor = .systemRed
-        statusLabel.stringValue = message
+        setStatusMessage(message, isError: true)
         if let field = field {
             highlightMissingField(field)
         }
@@ -1397,12 +1424,10 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
     private func handleDiscovery(_ result: CustomSourceService.FieldDiscoveryResult, source: CustomMetadataSource) {
         if let error = result.errorMessage {
-            statusLabel.textColor = .systemRed
-            statusLabel.stringValue = error
+            setStatusMessage(error, isError: true)
             discoveredFields = []
         } else {
-            statusLabel.textColor = .secondaryLabelColor
-            statusLabel.stringValue = String(format: NSLocalizedString("Found %d field(s). Unmapped fields below were filled in with a best guess.", comment: ""), result.fields.count)
+            setStatusMessage(String(format: NSLocalizedString("Found %d field(s). Unmapped fields below were filled in with a best guess.", comment: ""), result.fields.count), isError: false)
             discoveredFields = result.fields
             applyBestGuesses(source: source)
         }
