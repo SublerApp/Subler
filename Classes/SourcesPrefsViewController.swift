@@ -610,7 +610,14 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
             scrollView.trailingAnchor.constraint(equalTo: pane.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: -4),
 
-            addButton.leadingAnchor.constraint(equalTo: pane.leadingAnchor),
+            // +12 to match the mapping table's own left edge -- the
+            // scrollable form inside this pane insets its content 12pt
+            // from detailContainer's (and so this pane's) leading edge
+            // (see rebuildDetail's stack.leadingAnchor constraint), so
+            // lining this button up with the pane itself would leave it
+            // sitting 12pt further left than the field-mapping frame
+            // above it.
+            addButton.leadingAnchor.constraint(equalTo: pane.leadingAnchor, constant: 12),
             addButton.widthAnchor.constraint(equalToConstant: 44),
             addButton.heightAnchor.constraint(equalToConstant: 32),
 
@@ -1373,6 +1380,15 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
             applyBestGuesses(source: source)
         }
         discoveredFieldsTable.reloadData()
+        // applyBestGuesses already pokes each guessed row's own text field
+        // directly for instant feedback, but that only reaches a row
+        // AppKit has already asked for a view for -- a mapping table
+        // that's taller than its scroll area (more rows than fit
+        // on-screen at once) can have rows further down that haven't been
+        // built yet. A full reload guarantees every row reflects the
+        // model (which updateSelected already updated) once, regardless
+        // of what's been scrolled into view yet.
+        mappingTableView?.reloadData()
     }
 
     /// Fills in any mapping that's still empty with the discovered field
