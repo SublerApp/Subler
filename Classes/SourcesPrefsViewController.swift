@@ -51,6 +51,16 @@ private final class FieldPickerViewController: NSViewController, NSTableViewData
 
     private var tableView: NSTableView!
 
+    /// Set by the caller right after showing the popover. Cancel and Add
+    /// both close it through this directly (popover.close()) rather than
+    /// NSViewController.dismiss(_:) -- dismiss(_:) only closes a popover
+    /// when this view controller is recognized as *presented*, which
+    /// isn't guaranteed just from being assigned as contentViewController,
+    /// so a button inside the popover calling it could silently do
+    /// nothing, leaving only the popover's own outside-click handling to
+    /// ever close it.
+    weak var popover: NSPopover?
+
     init(allKeys: [MetadataResult.Key], alreadyUsed: Set<MetadataResult.Key>, onAdd: @escaping ([MetadataResult.Key]) -> Void) {
         self.allKeys = allKeys
         self.alreadyUsed = alreadyUsed
@@ -167,14 +177,14 @@ private final class FieldPickerViewController: NSViewController, NSTableViewData
 
     @objc private func addTapped(_ sender: Any) {
         let selected = tableView.selectedRowIndexes.compactMap { allKeys.indices.contains($0) ? allKeys[$0] : nil }
-        dismiss(nil)
+        popover?.close()
         if selected.isEmpty == false {
             onAdd(selected)
         }
     }
 
     @objc private func cancelTapped(_ sender: Any) {
-        dismiss(nil)
+        popover?.close()
     }
 }
 
@@ -703,6 +713,12 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
         addMappingButton?.isEnabled = true
         updateRemoveMappingButtonState()
+        // Belt-and-suspenders: makeMappingTableColumn's freshly-created
+        // table should pick up its rows the moment it's laid out, but
+        // forcing a reload here removes any doubt -- a table that
+        // ends up rendering fewer rows than the model actually has would
+        // look exactly like "removing one item removed everything".
+        mappingTableView?.reloadData()
     }
 
     private func makeSectionLabel(_ title: String) -> NSView {
@@ -1247,6 +1263,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         // or losing focus), which is what a popover hosting real controls
         // (a table plus Add/Cancel buttons) should use.
         popover.behavior = .semitransient
+        picker.popover = popover
         popover.show(relativeTo: sender.bounds, of: sender, preferredEdge: .maxY)
     }
 
@@ -1263,12 +1280,14 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     @objc private func removeMappingField(_ sender: Any) {
         guard let index = selectedIndex, sources.indices.contains(index) else { return }
         let row = mappingTableView.selectedRow
-        let keys = sources[index].visibleFields
-        guard keys.indices.contains(row) else { return }
-        let key = keys[row]
+        guard sources[index].visibleFields.indices.contains(row) else { return }
 
+        // Removes by index, entirely inside the mutation closure, rather
+        // than resolving a key beforehand and matching by equality --
+        // guarantees exactly the one selected row goes, never anything
+        // else, regardless of how MetadataResult.Key equality behaves.
         updateSelected { source in
-            source.visibleFields.removeAll { $0 == key }
+            let key = source.visibleFields.remove(at: row)
             source.fieldMappings.removeAll { $0.field == key }
         }
         rebuildDetail()
