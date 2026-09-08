@@ -236,6 +236,52 @@ public struct CustomSourceService: MetadataService {
             result.remoteArtworks = [Artwork(url: artworkURL, thumbURL: artworkURL, service: source.name, type: type, size: .default)]
         }
 
+        // Media Kind reflects which search actually ran (a custom source
+        // is only ever asked for movies or TV shows, never both at once --
+        // see search(movie:) / search(tvShow:...) above), not something a
+        // JSON path could sensibly map, so it's always set directly here
+        // rather than being one of the field mappings.
+        result[.mediaKind] = mediaKind == .movie ? "Movie" : "TV Show"
+
+        // A source that doesn't return its own copyright field still
+        // usually returns a release date -- falling back to that year is
+        // a reasonable stand-in, and only kicks in when nothing was
+        // already mapped in above.
+        if isEmptyString(result[.copyright]), let year = firstFourDigitYear(in: result[.releaseDate] as? String) {
+            result[.copyright] = year
+        }
+
+        // A title like "Busty Housewives Vol. 4", "... #4", or "... 4" is
+        // a numbered entry in a series. Most sources don't return a
+        // separate series field, so -- again, only when nothing is
+        // already mapped in -- derive one by stripping the trailing
+        // number/Vol./# off the title.
+        if isEmptyString(result[.seriesDescription]), let name = result[.name] as? String, let derived = seriesDescription(fromTitle: name) {
+            result[.seriesDescription] = derived
+        }
+
         return result
+    }
+
+    private func isEmptyString(_ value: Any?) -> Bool {
+        guard let string = value as? String else { return true }
+        return string.trimmingCharacters(in: .whitespaces).isEmpty
+    }
+
+    private func firstFourDigitYear(in dateString: String?) -> String? {
+        guard let dateString = dateString,
+              let range = dateString.range(of: "\\d{4}", options: .regularExpression) else { return nil }
+        return String(dateString[range])
+    }
+
+    /// Strips a trailing series indicator -- "4", "Vol. 4", "Vol.4", "#4",
+    /// "Volume 4" (case-insensitive) -- off the end of `title`, returning
+    /// the remainder as the series' own name. Returns nil when the title
+    /// doesn't end in anything that looks like one (nothing to strip is
+    /// not the same as an empty series description).
+    private func seriesDescription(fromTitle title: String) -> String? {
+        guard let range = title.range(of: "\\s+(?:vol\\.?|volume|#)?\\s*#?\\d+\\s*$", options: [.regularExpression, .caseInsensitive]) else { return nil }
+        let stripped = String(title[title.startIndex..<range.lowerBound]).trimmingCharacters(in: .whitespaces)
+        return stripped.isEmpty ? nil : stripped
     }
 }

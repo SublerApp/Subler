@@ -437,14 +437,6 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         stack.addArrangedSubview(makeAuthRow(source: source))
         stack.addArrangedSubview(makeAPIKeyRow(source: source))
 
-        stack.addArrangedSubview(makeSectionLabel(NSLocalizedString("Artwork", comment: "")))
-        stack.addArrangedSubview(makeTextRow(label: NSLocalizedString("Artwork URL Path", comment: ""),
-                                              value: source.artworkPath, tag: FieldTag.artworkPath.rawValue,
-                                              placeholder: NSLocalizedString("optional", comment: ""),
-                                              help: NSLocalizedString("JSON path (relative to each result) to its poster/cover image URL. Drag a field from Discovered Fields below onto this to fill it in.", comment: ""),
-                                              droppable: true,
-                                              fieldCreated: { [weak self] field in self?.artworkPathField = field }))
-
         stack.addArrangedSubview(makeSectionLabel(NSLocalizedString("Field Mapping", comment: "")))
         stack.addArrangedSubview(makeTextRow(label: nil,
                                               value: "",
@@ -634,6 +626,18 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
                                    fieldCreated: { [weak self] field in self?.mappingFields[key] = field })
             mappingColumn.addArrangedSubview(row)
         }
+
+        // Artwork URL Path isn't a MetadataResult.Key mapping (it's its
+        // own CustomMetadataSource property, since it produces an Artwork
+        // rather than a text annotation), but it belongs alongside the
+        // other things a discovered field gets dragged onto rather than
+        // set apart in its own section above.
+        let artworkRow = makeTextRow(label: NSLocalizedString("Artwork URL Path", comment: ""),
+                                      value: source.artworkPath, tag: FieldTag.artworkPath.rawValue,
+                                      placeholder: NSLocalizedString("optional", comment: ""),
+                                      fieldWidth: 220, droppable: true,
+                                      fieldCreated: { [weak self] field in self?.artworkPathField = field })
+        mappingColumn.addArrangedSubview(artworkRow)
 
         let discoveredColumn = makeDiscoveredFieldsTable()
 
@@ -989,7 +993,8 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
             .producers: ["producer", "producers"],
             .screenwriters: ["writer", "writers", "screenwriter", "screenwriters", "author", "authors"],
             .executiveProducer: ["executiveproducer", "executiveproducers"],
-            .copyright: ["copyright", "rights"]
+            .copyright: ["copyright", "rights"],
+            .seriesDescription: ["series", "seriesname", "franchise", "collection"]
         ]
 
         for key in MetadataResult.Key.customSourceMappableKeys {

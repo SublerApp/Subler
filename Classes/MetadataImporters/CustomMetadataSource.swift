@@ -93,7 +93,7 @@ public extension MetadataResult.Key {
     static var customSourceMappableKeys: [MetadataResult.Key] {
         return [.name, .genre, .releaseDate, .description, .longDescription,
                 .rating, .studio, .cast, .director, .producers,
-                .screenwriters, .executiveProducer, .copyright]
+                .screenwriters, .executiveProducer, .copyright, .seriesDescription]
     }
 }
 
