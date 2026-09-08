@@ -80,6 +80,13 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     /// query field).
     private var mappingFields: [MetadataResult.Key: NSTextField] = [:]
 
+    /// The Artwork URL Path field, kept around the same way mappingFields
+    /// are -- so a best-guess fill-in can update its displayed text
+    /// without rebuilding the whole detail form. Artwork isn't a
+    /// MetadataResult.Key mapping (it's its own CustomMetadataSource
+    /// property), so it can't live in mappingFields alongside those.
+    private var artworkPathField: NSTextField?
+
     /// The API Key row keeps a masked field and a plain one stacked in the
     /// same spot, toggled by the reveal button -- a masked-only field made
     /// it impossible to visually confirm the key matches what actually
@@ -241,41 +248,14 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         return pane
     }
 
-    // TEMPORARY diagnostic counters -- to be removed once the Test
-    // Connection hang is actually root-caused. A stack sample twice
-    // landed 100% of the time inside discoveredFieldCell(for:) itself
-    // (not blocked in any AppKit/system call), which doesn't match
-    // anything an inspection of that function's code explains, so this
-    // logs actual call counts/timing to Xcode's console to tell an
-    // infinite/runaway call loop apart from one slow call.
-    private static var diagNumberOfRowsCalls = 0
-    private static var diagViewForRowCalls = 0
-    private static var diagCellCalls = 0
-
     func numberOfRows(in tableView: NSTableView) -> Int {
-        if tableView === discoveredFieldsTable {
-            SourcesPrefsViewController.diagNumberOfRowsCalls += 1
-            if SourcesPrefsViewController.diagNumberOfRowsCalls <= 20 || SourcesPrefsViewController.diagNumberOfRowsCalls % 200 == 0 {
-                print("[DIAG] numberOfRows call #\(SourcesPrefsViewController.diagNumberOfRowsCalls) -> \(discoveredFields.count)")
-            }
-            return discoveredFields.count
-        }
+        if tableView === discoveredFieldsTable { return discoveredFields.count }
         return sources.count
     }
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if tableView === discoveredFieldsTable {
-            SourcesPrefsViewController.diagViewForRowCalls += 1
-            if SourcesPrefsViewController.diagViewForRowCalls <= 20 || SourcesPrefsViewController.diagViewForRowCalls % 200 == 0 {
-                print("[DIAG] viewFor row call #\(SourcesPrefsViewController.diagViewForRowCalls) row=\(row)")
-            }
-            let start = DispatchTime.now()
-            let result = discoveredFieldCell(for: row)
-            let elapsedMs = Double(DispatchTime.now().uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000
-            if elapsedMs > 50 {
-                print("[DIAG] discoveredFieldCell(for: \(row)) took \(elapsedMs) ms")
-            }
-            return result
+            return discoveredFieldCell(for: row)
         }
 
         guard sources.indices.contains(row) else { return nil }
@@ -313,10 +293,6 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     }
 
     private func discoveredFieldCell(for row: Int) -> NSView? {
-        SourcesPrefsViewController.diagCellCalls += 1
-        if SourcesPrefsViewController.diagCellCalls <= 20 || SourcesPrefsViewController.diagCellCalls % 200 == 0 {
-            print("[DIAG] discoveredFieldCell entry #\(SourcesPrefsViewController.diagCellCalls) row=\(row) totalFields=\(discoveredFields.count)")
-        }
         guard discoveredFields.indices.contains(row) else { return nil }
 
         let identifier = NSUserInterfaceItemIdentifier("discoveredFieldCell")
@@ -341,18 +317,10 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         }
 
         let field = discoveredFields[row]
-        if SourcesPrefsViewController.diagCellCalls <= 20 {
-            print("[DIAG] discoveredFieldCell #\(SourcesPrefsViewController.diagCellCalls) got field, path.count=\(field.path.count) sampleValue.count=\(field.sampleValue.utf8.count) utf8 bytes")
-        }
         // JSONPath.discoverFields already caps sample-value length -- this
-        // is a defense-in-depth backstop, since a stack sample confirmed
-        // this exact line is where an oversized string turned a table
-        // layout pass into a multi-second (effectively hung) main-thread
-        // stall.
+        // is a defense-in-depth backstop against an oversized string
+        // making this table cell expensive to build.
         let displaySample = field.sampleValue.count > 200 ? String(field.sampleValue.prefix(200)) + "\u{2026}" : field.sampleValue
-        if SourcesPrefsViewController.diagCellCalls <= 20 {
-            print("[DIAG] discoveredFieldCell #\(SourcesPrefsViewController.diagCellCalls) truncated ok, displaySample.count=\(displaySample.count)")
-        }
         cell.textField?.stringValue = "\(field.path)  —  \(displaySample)"
         cell.textField?.toolTip = NSLocalizedString("Drag onto a field below to map it.", comment: "") + " (\(field.path))"
         return cell
@@ -425,6 +393,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         detailContainer.subviews.forEach { $0.removeFromSuperview() }
         discoveredFields = []
         mappingFields = [:]
+        artworkPathField = nil
         // Invalidates any Test Connection still in flight for whatever was
         // selected before -- its completion/timeout callback checks this
         // and will now no-op instead of writing into the new source's pane.
@@ -472,7 +441,9 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         stack.addArrangedSubview(makeTextRow(label: NSLocalizedString("Artwork URL Path", comment: ""),
                                               value: source.artworkPath, tag: FieldTag.artworkPath.rawValue,
                                               placeholder: NSLocalizedString("optional", comment: ""),
-                                              help: NSLocalizedString("JSON path (relative to each result) to its poster/cover image URL.", comment: "")))
+                                              help: NSLocalizedString("JSON path (relative to each result) to its poster/cover image URL. Drag a field from Discovered Fields below onto this to fill it in.", comment: ""),
+                                              droppable: true,
+                                              fieldCreated: { [weak self] field in self?.artworkPathField = field }))
 
         stack.addArrangedSubview(makeSectionLabel(NSLocalizedString("Field Mapping", comment: "")))
         stack.addArrangedSubview(makeTextRow(label: nil,
@@ -525,7 +496,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
             if droppable {
                 let dropField = DroppableTextField()
                 dropField.onDrop = { [weak self] droppedValue in
-                    self?.commitMappingValue(tag: tag, value: droppedValue)
+                    self?.commitDroppedValue(tag: tag, value: droppedValue)
                 }
                 textField = dropField
             } else {
@@ -1034,6 +1005,21 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
             }
             mappingFields[key]?.stringValue = match.path
         }
+
+        // Artwork URL Path isn't a MetadataResult.Key mapping (it's its
+        // own CustomMetadataSource property), so it falls outside the loop
+        // above -- without this, "Test Connection" would list an obvious
+        // poster/cover field in Discovered Fields and still leave Artwork
+        // URL Path blank for the user to fill in by hand or drag
+        // themselves, even though the whole point of a best guess is not
+        // making them do that.
+        if source.artworkPath.trimmingCharacters(in: .whitespaces).isEmpty {
+            let artworkCandidates = ["poster", "image", "cover", "coverimage", "thumbnail", "thumb", "artwork", "backdrop", "posterurl", "boxart", "art"]
+            if let match = discoveredFields.first(where: { artworkCandidates.contains(normalizedLeaf(of: $0.path)) }) {
+                updateSelected { $0.artworkPath = match.path }
+                artworkPathField?.stringValue = match.path
+            }
+        }
     }
 
     /// The last dot-separated component of a discovered path, lowercased
@@ -1046,6 +1032,21 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     }
 
     // MARK: - Text field delegate
+
+    /// Routes a dragged-in value to wherever it actually belongs -- a
+    /// field-mapping row (commitMappingValue) or the Artwork URL Path
+    /// field, which isn't a MetadataResult.Key mapping and so isn't
+    /// covered by commitMappingValue's tag range. A drop sets the field's
+    /// displayed text itself (see DroppableTextField.performDragOperation
+    /// above); this only needs to persist it into the model, the same way
+    /// controlTextDidEndEditing does for typed input.
+    private func commitDroppedValue(tag: Int, value: String) {
+        if tag == FieldTag.artworkPath.rawValue {
+            updateSelected { $0.artworkPath = value.trimmingCharacters(in: .whitespaces) }
+        } else {
+            commitMappingValue(tag: tag, value: value)
+        }
+    }
 
     private func commitMappingValue(tag: Int, value: String) {
         guard tag >= mappingTagOffset, MetadataResult.Key.customSourceMappableKeys.indices.contains(tag - mappingTagOffset) else { return }

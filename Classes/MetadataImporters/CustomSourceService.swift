@@ -68,20 +68,14 @@ public struct CustomSourceService: MetadataService {
     /// type; callers on the main thread should dispatch this to a
     /// background queue, same as any other search here.
     public func discoverFields(forQuery query: String) -> FieldDiscoveryResult {
-        print("[DIAG] discoverFields starting for query='\(query)' on thread \(Thread.isMainThread ? "MAIN" : "background")")
         switch fetchRawItems(forQuery: query) {
         case .failure(let message):
-            print("[DIAG] fetchRawItems failed: \(message)")
             return FieldDiscoveryResult(fields: [], errorMessage: message)
         case .items(let items):
-            print("[DIAG] fetchRawItems returned \(items.count) item(s)")
             guard let firstItem = items.first else {
                 return FieldDiscoveryResult(fields: [], errorMessage: NSLocalizedString("The request succeeded but returned no results for that search term -- try a different one.", comment: ""))
             }
-            let walkStart = DispatchTime.now()
             let fields = JSONPath.discoverFields(in: firstItem)
-            let walkMs = Double(DispatchTime.now().uptimeNanoseconds - walkStart.uptimeNanoseconds) / 1_000_000
-            print("[DIAG] JSONPath.discoverFields returned \(fields.count) field(s) in \(walkMs) ms")
             if fields.isEmpty {
                 return FieldDiscoveryResult(fields: [], errorMessage: NSLocalizedString("No fields were found in the response.", comment: ""))
             }
