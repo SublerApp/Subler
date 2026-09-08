@@ -411,7 +411,8 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         if tableView === discoveredFieldsTable { return discoveredFields.count }
         if tableView === mappingTableView {
             guard let index = selectedIndex, sources.indices.contains(index) else { return 0 }
-            return sources[index].visibleFields.count
+            // +1 for the trailing Artwork URL Path row -- see mappingRowCell.
+            return sources[index].visibleFields.count + 1
         }
         return sources.count
     }
@@ -508,8 +509,17 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         removeButton.isEnabled = tableView.selectedRow != -1
     }
 
+    /// Disabled with nothing selected, same as the Sources list's remove
+    /// button -- and also disabled when the Artwork URL Path row (always
+    /// the table's last row) is selected, since it isn't part of
+    /// visibleFields and so isn't removable, only editable.
     private func updateRemoveMappingButtonState() {
-        removeMappingButton?.isEnabled = (mappingTableView?.selectedRow ?? -1) != -1
+        guard let mappingTableView = mappingTableView, let index = selectedIndex, sources.indices.contains(index) else {
+            removeMappingButton?.isEnabled = false
+            return
+        }
+        let row = mappingTableView.selectedRow
+        removeMappingButton?.isEnabled = sources[index].visibleFields.indices.contains(row)
     }
 
     @objc private func addSource(_ sender: Any) {
@@ -542,6 +552,9 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     // MARK: - Detail pane
 
     private func makeDetailPane() -> NSView {
+        let pane = NSView()
+        pane.translatesAutoresizingMaskIntoConstraints = false
+
         let scrollView = NSScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.hasVerticalScroller = true
@@ -560,7 +573,57 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         ])
 
         self.detailContainer = container
-        return scrollView
+
+        // The field-mapping list's own +/- buttons live here, outside the
+        // scrollable form, rather than inline underneath the mapping table
+        // -- built once (like the Sources list's own, in makeListPane)
+        // rather than rebuilt with the rest of the form on every selection
+        // change. Pinned to this pane's own bottom edge exactly the way
+        // the Sources list pane pins its +/- buttons to its bottom edge,
+        // so with both panes filling the same split view height, the two
+        // button rows land at the same Y position -- a shared footer
+        // rather than the mapping ones drifting wherever the mapping
+        // section happens to scroll to.
+        let addButton = NSButton(image: NSImage(named: NSImage.addTemplateName) ?? NSImage(),
+                                  target: self, action: #selector(addMappingField(_:)))
+        addButton.bezelStyle = .rounded
+        addButton.imagePosition = .imageOnly
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.toolTip = NSLocalizedString("Add a field to map", comment: "")
+        self.addMappingButton = addButton
+
+        let removeButton = NSButton(image: NSImage(named: NSImage.removeTemplateName) ?? NSImage(),
+                                     target: self, action: #selector(removeMappingField(_:)))
+        removeButton.bezelStyle = .rounded
+        removeButton.imagePosition = .imageOnly
+        removeButton.translatesAutoresizingMaskIntoConstraints = false
+        removeButton.toolTip = NSLocalizedString("Remove the selected field mapping", comment: "")
+        self.removeMappingButton = removeButton
+
+        pane.addSubview(scrollView)
+        pane.addSubview(addButton)
+        pane.addSubview(removeButton)
+
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: pane.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: pane.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: pane.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: -4),
+
+            addButton.leadingAnchor.constraint(equalTo: pane.leadingAnchor),
+            addButton.widthAnchor.constraint(equalToConstant: 44),
+            addButton.heightAnchor.constraint(equalToConstant: 32),
+
+            removeButton.topAnchor.constraint(equalTo: addButton.topAnchor),
+            removeButton.leadingAnchor.constraint(equalTo: addButton.trailingAnchor, constant: 1),
+            removeButton.widthAnchor.constraint(equalToConstant: 44),
+            removeButton.heightAnchor.constraint(equalToConstant: 32),
+
+            pane.bottomAnchor.constraint(equalTo: addButton.bottomAnchor)
+        ])
+
+        updateRemoveMappingButtonState()
+        return pane
     }
 
     private func rebuildDetail() {
@@ -568,6 +631,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         discoveredFields = []
         mappingFields = [:]
         artworkPathField = nil
+        mappingTableView = nil
         // Invalidates any Test Connection still in flight for whatever was
         // selected before -- its completion/timeout callback checks this
         // and will now no-op instead of writing into the new source's pane.
@@ -584,6 +648,8 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
                 placeholder.trailingAnchor.constraint(equalTo: detailContainer.trailingAnchor, constant: -12),
                 placeholder.bottomAnchor.constraint(equalTo: detailContainer.bottomAnchor, constant: -12)
             ])
+            addMappingButton?.isEnabled = false
+            updateRemoveMappingButtonState()
             return
         }
 
@@ -627,6 +693,9 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
             stack.trailingAnchor.constraint(equalTo: detailContainer.trailingAnchor, constant: -12),
             stack.bottomAnchor.constraint(equalTo: detailContainer.bottomAnchor, constant: -12)
         ])
+
+        addMappingButton?.isEnabled = true
+        updateRemoveMappingButtonState()
     }
 
     private func makeSectionLabel(_ title: String) -> NSView {
@@ -783,34 +852,18 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         }
     }
 
-    /// The field-mapping section itself: the mapping table (with its own
-    /// +/- buttons) and the Artwork URL Path row on the left, and the
-    /// Discovered Fields table (populated by Test Connection) on the
-    /// right.
+    /// The field-mapping section itself: the mapping table (every mapped
+    /// field, Artwork URL Path included as its last row -- see
+    /// mappingRowCell) on the left, and the Discovered Fields table
+    /// (populated by Test Connection) on the right. The table's own +/-
+    /// buttons live in the detail pane's footer (see makeDetailPane), not
+    /// here, so they stay aligned with the Sources list's own instead of
+    /// scrolling away with the rest of the form.
     private func makeFieldMappingSplit(source: CustomMetadataSource) -> NSView {
         let mappingTableColumn = makeMappingTableColumn()
-
-        // Artwork URL Path isn't a MetadataResult.Key mapping (it's its
-        // own CustomMetadataSource property, since it produces an Artwork
-        // rather than a text annotation) and so isn't addable/removable
-        // via the +/- buttons above, but it belongs alongside the other
-        // things a discovered field gets dragged onto rather than set
-        // apart in its own section elsewhere.
-        let artworkRow = makeTextRow(label: NSLocalizedString("Artwork URL Path", comment: ""),
-                                      value: source.artworkPath, tag: FieldTag.artworkPath.rawValue,
-                                      placeholder: NSLocalizedString("optional", comment: ""),
-                                      fieldWidth: 220, droppable: true,
-                                      fieldCreated: { [weak self] field in self?.artworkPathField = field })
-
-        let leftColumn = NSStackView(views: [mappingTableColumn, artworkRow])
-        leftColumn.orientation = .vertical
-        leftColumn.alignment = .leading
-        leftColumn.spacing = 10
-        leftColumn.translatesAutoresizingMaskIntoConstraints = false
-
         let discoveredColumn = makeDiscoveredFieldsTable()
 
-        let split = NSStackView(views: [leftColumn, discoveredColumn])
+        let split = NSStackView(views: [mappingTableColumn, discoveredColumn])
         split.orientation = .horizontal
         split.alignment = .top
         split.spacing = 16
@@ -819,14 +872,13 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     }
 
     /// The scrolling list of the selected source's currently-mapped
-    /// fields, plus the same-styled +/- buttons as the Sources list (see
-    /// makeListPane) -- "+" opens a picker of every field Subler knows how
-    /// to map (see FieldPickerViewController), "-" removes whichever row
-    /// is selected.
+    /// fields, sized to match the Sources list's height (see
+    /// sourceListVisibleHeight). Its last row is always Artwork URL Path
+    /// (see mappingRowCell) -- grouped in with the other mapped fields
+    /// rather than broken out on its own, even though it isn't itself
+    /// addable/removable via the "+"/"-" buttons in the detail pane's
+    /// footer, since it isn't a MetadataResult.Key mapping.
     private func makeMappingTableColumn() -> NSView {
-        let column = NSView()
-        column.translatesAutoresizingMaskIntoConstraints = false
-
         let scrollView = NSScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.hasVerticalScroller = true
@@ -849,56 +901,29 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         scrollView.documentView = table
         self.mappingTableView = table
 
-        let addButton = NSButton(image: NSImage(named: NSImage.addTemplateName) ?? NSImage(),
-                                  target: self, action: #selector(addMappingField(_:)))
-        addButton.bezelStyle = .rounded
-        addButton.imagePosition = .imageOnly
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.toolTip = NSLocalizedString("Add a field to map", comment: "")
-        self.addMappingButton = addButton
-
-        let removeButton = NSButton(image: NSImage(named: NSImage.removeTemplateName) ?? NSImage(),
-                                     target: self, action: #selector(removeMappingField(_:)))
-        removeButton.bezelStyle = .rounded
-        removeButton.imagePosition = .imageOnly
-        removeButton.translatesAutoresizingMaskIntoConstraints = false
-        removeButton.toolTip = NSLocalizedString("Remove the selected field mapping", comment: "")
-        self.removeMappingButton = removeButton
-
-        column.addSubview(scrollView)
-        column.addSubview(addButton)
-        column.addSubview(removeButton)
-
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: column.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: column.leadingAnchor),
             scrollView.widthAnchor.constraint(equalToConstant: 380),
-            scrollView.heightAnchor.constraint(equalToConstant: sourceListVisibleHeight),
-
-            addButton.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 4),
-            addButton.leadingAnchor.constraint(equalTo: column.leadingAnchor),
-            addButton.widthAnchor.constraint(equalToConstant: 44),
-            addButton.heightAnchor.constraint(equalToConstant: 32),
-
-            removeButton.topAnchor.constraint(equalTo: addButton.topAnchor),
-            removeButton.leadingAnchor.constraint(equalTo: addButton.trailingAnchor, constant: 1),
-            removeButton.widthAnchor.constraint(equalToConstant: 44),
-            removeButton.heightAnchor.constraint(equalToConstant: 32),
-
-            column.bottomAnchor.constraint(equalTo: addButton.bottomAnchor)
+            scrollView.heightAnchor.constraint(equalToConstant: sourceListVisibleHeight)
         ])
 
-        updateRemoveMappingButtonState()
-        return column
+        return scrollView
     }
 
-    /// One row of the mapping table: the field's display name and a
-    /// droppable text field for its JSON path, tagged mappingTagOffset +
-    /// its index into the selected source's visibleFields -- see
-    /// commitMappingRowValue.
+    /// One row of the mapping table. Every row except the last is one of
+    /// the selected source's visibleFields, tagged mappingTagOffset + its
+    /// index for commitMappingRowValue; the last row (index ==
+    /// visibleFields.count) is always Artwork URL Path, tagged and
+    /// committed the same way it always has been (FieldTag.artworkPath),
+    /// since it's a CustomMetadataSource property rather than a
+    /// MetadataResult.Key mapping.
     private func mappingRowCell(for row: Int) -> NSView? {
         guard let index = selectedIndex, sources.indices.contains(index) else { return nil }
-        let keys = sources[index].visibleFields
+        let source = sources[index]
+        let keys = source.visibleFields
+
+        if row == keys.count {
+            return artworkRowCell(source: source)
+        }
         guard keys.indices.contains(row) else { return nil }
         let key = keys[row]
         let tag = mappingTagOffset + row
@@ -915,12 +940,53 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         dropField.onDrop = { [weak self] droppedValue in
             self?.commitMappingRowValue(tag: tag, value: droppedValue)
         }
-        dropField.stringValue = sources[index].fieldMappings.first(where: { $0.field == key })?.jsonPath ?? ""
+        dropField.stringValue = source.fieldMappings.first(where: { $0.field == key })?.jsonPath ?? ""
         dropField.tag = tag
         dropField.delegate = self
         dropField.translatesAutoresizingMaskIntoConstraints = false
         dropField.widthAnchor.constraint(equalToConstant: 220).isActive = true
         mappingFields[key] = dropField
+
+        let rowStack = NSStackView(views: [labelField, dropField])
+        rowStack.orientation = .horizontal
+        rowStack.alignment = .firstBaseline
+        rowStack.spacing = 8
+        rowStack.translatesAutoresizingMaskIntoConstraints = false
+
+        cell.addSubview(rowStack)
+        NSLayoutConstraint.activate([
+            rowStack.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: 4),
+            rowStack.trailingAnchor.constraint(lessThanOrEqualTo: cell.trailingAnchor, constant: -4),
+            rowStack.centerYAnchor.constraint(equalTo: cell.centerYAnchor)
+        ])
+
+        return cell
+    }
+
+    /// The mapping table's Artwork URL Path row -- see mappingRowCell.
+    /// Not a MetadataResult.Key mapping, so it's built and committed
+    /// separately (commitDroppedValue / the .artworkPath case in
+    /// controlTextDidEndEditing) rather than through commitMappingRowValue.
+    private func artworkRowCell(source: CustomMetadataSource) -> NSView {
+        let cell = NSTableCellView()
+        cell.identifier = NSUserInterfaceItemIdentifier("artworkFieldCell")
+
+        let labelField = NSTextField(labelWithString: NSLocalizedString("Artwork URL Path", comment: ""))
+        labelField.lineBreakMode = .byTruncatingTail
+        labelField.translatesAutoresizingMaskIntoConstraints = false
+        labelField.widthAnchor.constraint(equalToConstant: 130).isActive = true
+
+        let dropField = DroppableTextField()
+        dropField.onDrop = { [weak self] droppedValue in
+            self?.commitDroppedValue(tag: FieldTag.artworkPath.rawValue, value: droppedValue)
+        }
+        dropField.stringValue = source.artworkPath
+        dropField.placeholderString = NSLocalizedString("optional", comment: "")
+        dropField.tag = FieldTag.artworkPath.rawValue
+        dropField.delegate = self
+        dropField.translatesAutoresizingMaskIntoConstraints = false
+        dropField.widthAnchor.constraint(equalToConstant: 220).isActive = true
+        self.artworkPathField = dropField
 
         let rowStack = NSStackView(views: [labelField, dropField])
         rowStack.orientation = .horizontal
