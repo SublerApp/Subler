@@ -1238,7 +1238,15 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
         let popover = NSPopover()
         popover.contentViewController = picker
-        popover.behavior = .transient
+        // .transient closes the popover on any click AppKit judges to be
+        // "outside" it -- which can include the very first click used to
+        // select a row in its own table view, before "Add" is ever
+        // reached, since the popover doesn't yet have full key/first-
+        // responder status at that instant. .semitransient only closes on
+        // a click outside the popover's *window* (a different app window,
+        // or losing focus), which is what a popover hosting real controls
+        // (a table plus Add/Cancel buttons) should use.
+        popover.behavior = .semitransient
         popover.show(relativeTo: sender.bounds, of: sender, preferredEdge: .maxY)
     }
 

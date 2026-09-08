@@ -102,11 +102,16 @@ public extension MetadataResult.Key {
     /// still short of the *full* MetadataResult.Key list -- iTunes- and
     /// TV-service-internal bookkeeping keys (contentID, playlistID,
     /// serviceEpisodeID, and the like) aren't something a JSON API a user
-    /// configures by hand could sensibly fill in.
+    /// configures by hand could sensibly fill in. contentRating is also
+    /// excluded: the real content-rating MP4 atom comes from
+    /// MetadataResult.contentRating (a separate Int property, same as
+    /// mediaKind), never from this string-keyed dictionary, so mapping it
+    /// here wouldn't do anything -- and it has no localizedKeys entry, so
+    /// it would show up as literally "Null" in the picker.
     static var customSourceAllMappableKeys: [MetadataResult.Key] {
         return customSourceDefaultFields + [.composer, .seriesName, .network, .season,
                                              .episodeNumber, .episodeID, .trackNumber,
-                                             .diskNumber, .contentRating]
+                                             .diskNumber]
     }
 }
 
