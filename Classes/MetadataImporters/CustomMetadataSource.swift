@@ -85,15 +85,28 @@ public struct CustomSourceFieldMapping: Codable, Equatable {
     }
 }
 
-/// The fields a custom source's mapping table can fill in. Deliberately the
-/// "common" subset of MetadataResult.Key -- the annotations that make sense
-/// coming from an arbitrary JSON API -- rather than the full list, which
-/// also includes iTunes- and TV-service-internal bookkeeping keys.
 public extension MetadataResult.Key {
-    static var customSourceMappableKeys: [MetadataResult.Key] {
+    /// The starter set of fields a newly-added custom source shows for
+    /// mapping -- the "common" subset of MetadataResult.Key that makes
+    /// sense coming from an arbitrary JSON API. A source can add more (or
+    /// remove some of these) via the Preferences pane's "+"/"-" buttons
+    /// afterwards -- this is only the default, not a ceiling.
+    static var customSourceDefaultFields: [MetadataResult.Key] {
         return [.name, .genre, .releaseDate, .description, .longDescription,
                 .rating, .studio, .cast, .director, .producers,
                 .screenwriters, .executiveProducer, .copyright, .seriesDescription]
+    }
+
+    /// Every field the "+" picker in Preferences > Sources offers, whether
+    /// or not it's already part of a given source's mapping. Deliberately
+    /// still short of the *full* MetadataResult.Key list -- iTunes- and
+    /// TV-service-internal bookkeeping keys (contentID, playlistID,
+    /// serviceEpisodeID, and the like) aren't something a JSON API a user
+    /// configures by hand could sensibly fill in.
+    static var customSourceAllMappableKeys: [MetadataResult.Key] {
+        return customSourceDefaultFields + [.composer, .seriesName, .network, .season,
+                                             .episodeNumber, .episodeID, .trackNumber,
+                                             .diskNumber, .contentRating]
     }
 }
 
@@ -132,6 +145,14 @@ public struct CustomMetadataSource: Codable, Equatable {
     /// URL. Optional -- a source without artwork just leaves this empty.
     public var artworkPath: String
 
+    /// Which MetadataResult.Key fields this source currently shows a
+    /// mapping row for, and in what order -- the Preferences pane's "+"
+    /// and "-" buttons add to and remove from this list. Kept separate
+    /// from fieldMappings so a field can be added to the list (and shown,
+    /// empty, ready to fill in) before it has a JSON path, and so removing
+    /// a row is unambiguous even when its path was already blank.
+    public var visibleFields: [MetadataResult.Key]
+
     public init(name: String = "",
                 mediaTypes: Set<CustomSourceMediaType> = [.movie],
                 searchURLTemplate: String = "",
@@ -139,7 +160,8 @@ public struct CustomMetadataSource: Codable, Equatable {
                 authentication: CustomSourceAuthentication = .none,
                 apiKey: String = "",
                 fieldMappings: [CustomSourceFieldMapping] = [],
-                artworkPath: String = "") {
+                artworkPath: String = "",
+                visibleFields: [MetadataResult.Key] = MetadataResult.Key.customSourceDefaultFields) {
         self.name = name
         self.mediaTypes = mediaTypes
         self.searchURLTemplate = searchURLTemplate
@@ -148,5 +170,40 @@ public struct CustomMetadataSource: Codable, Equatable {
         self.apiKey = apiKey
         self.fieldMappings = fieldMappings
         self.artworkPath = artworkPath
+        self.visibleFields = visibleFields
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case name, mediaTypes, searchURLTemplate, resultsPath, authentication, apiKey, fieldMappings, artworkPath, visibleFields
+    }
+
+    /// Custom only so a source saved before visibleFields existed decodes
+    /// with a sensible default instead of failing to load at all -- every
+    /// other property is still decoded plainly, and encode(to:) is left
+    /// for Swift to synthesize from the CodingKeys above.
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        mediaTypes = try container.decode(Set<CustomSourceMediaType>.self, forKey: .mediaTypes)
+        searchURLTemplate = try container.decode(String.self, forKey: .searchURLTemplate)
+        resultsPath = try container.decode(String.self, forKey: .resultsPath)
+        authentication = try container.decode(CustomSourceAuthentication.self, forKey: .authentication)
+        apiKey = try container.decode(String.self, forKey: .apiKey)
+        fieldMappings = try container.decode([CustomSourceFieldMapping].self, forKey: .fieldMappings)
+        artworkPath = try container.decode(String.self, forKey: .artworkPath)
+
+        let mappedKeys = fieldMappings.map { $0.field }
+        if let savedVisibleFields = try container.decodeIfPresent([MetadataResult.Key].self, forKey: .visibleFields) {
+            // Still show a field with a saved mapping even if it somehow
+            // isn't in the saved visibleFields list -- a mapping the user
+            // already filled in should never just disappear from view.
+            visibleFields = savedVisibleFields + mappedKeys.filter { savedVisibleFields.contains($0) == false }
+        } else {
+            // Pre-existing source saved before this property existed: show
+            // every field it already has a mapping for, plus the original
+            // starter set, so nothing already configured drops out of view.
+            let defaults = MetadataResult.Key.customSourceDefaultFields
+            visibleFields = defaults + mappedKeys.filter { defaults.contains($0) == false }
+        }
     }
 }

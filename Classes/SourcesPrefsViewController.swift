@@ -37,6 +37,147 @@ private final class DroppableTextField: NSTextField {
     }
 }
 
+/// The "+" button's popover content: pick one or more of Subler's
+/// metadata fields to add to a source's mapping list. Fields already
+/// mapped are listed but disabled (greyed out) rather than left out
+/// entirely, so it's clear why they can't be picked again rather than
+/// just silently missing. Cmd-click (NSTableView's normal multi-select
+/// gesture) picks several before a single "Add".
+private final class FieldPickerViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+
+    private let allKeys: [MetadataResult.Key]
+    private let alreadyUsed: Set<MetadataResult.Key>
+    private let onAdd: ([MetadataResult.Key]) -> Void
+
+    private var tableView: NSTableView!
+
+    init(allKeys: [MetadataResult.Key], alreadyUsed: Set<MetadataResult.Key>, onAdd: @escaping ([MetadataResult.Key]) -> Void) {
+        self.allKeys = allKeys
+        self.alreadyUsed = alreadyUsed
+        self.onAdd = onAdd
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func loadView() {
+        let container = NSView(frame: NSRect(x: 0, y: 0, width: 260, height: 320))
+
+        let label = NSTextField(wrappingLabelWithString: NSLocalizedString("Cmd-click to select multiple fields.", comment: ""))
+        label.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
+        label.textColor = .secondaryLabelColor
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        let scrollView = NSScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.hasVerticalScroller = true
+        scrollView.autohidesScrollers = true
+        scrollView.borderType = .bezelBorder
+
+        let table = NSTableView()
+        table.usesAlternatingRowBackgroundColors = true
+        table.allowsMultipleSelection = true
+        table.headerView = nil
+        table.dataSource = self
+        table.delegate = self
+
+        let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("field"))
+        column.title = NSLocalizedString("Field", comment: "")
+        table.addTableColumn(column)
+
+        scrollView.documentView = table
+        self.tableView = table
+
+        let addButton = NSButton(title: NSLocalizedString("Add", comment: ""), target: self, action: #selector(addTapped(_:)))
+        addButton.bezelStyle = .rounded
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.keyEquivalent = "\r"
+
+        let cancelButton = NSButton(title: NSLocalizedString("Cancel", comment: ""), target: self, action: #selector(cancelTapped(_:)))
+        cancelButton.bezelStyle = .rounded
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+
+        container.addSubview(label)
+        container.addSubview(scrollView)
+        container.addSubview(addButton)
+        container.addSubview(cancelButton)
+
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: container.topAnchor, constant: 10),
+            label.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
+            label.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10),
+
+            scrollView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 6),
+            scrollView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
+            scrollView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10),
+            scrollView.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: -8),
+
+            addButton.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10),
+            addButton.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -10),
+
+            cancelButton.trailingAnchor.constraint(equalTo: addButton.leadingAnchor, constant: -8),
+            cancelButton.bottomAnchor.constraint(equalTo: addButton.bottomAnchor)
+        ])
+
+        self.view = container
+    }
+
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return allKeys.count
+    }
+
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard allKeys.indices.contains(row) else { return nil }
+        let key = allKeys[row]
+
+        let identifier = NSUserInterfaceItemIdentifier("fieldPickerCell")
+        let cell: NSTableCellView
+        if let reused = tableView.makeView(withIdentifier: identifier, owner: self) as? NSTableCellView {
+            cell = reused
+        } else {
+            let newCell = NSTableCellView()
+            let textField = NSTextField(labelWithString: "")
+            textField.translatesAutoresizingMaskIntoConstraints = false
+            newCell.addSubview(textField)
+            newCell.textField = textField
+            newCell.identifier = identifier
+            NSLayoutConstraint.activate([
+                textField.leadingAnchor.constraint(equalTo: newCell.leadingAnchor, constant: 4),
+                textField.trailingAnchor.constraint(equalTo: newCell.trailingAnchor, constant: -4),
+                textField.centerYAnchor.constraint(equalTo: newCell.centerYAnchor)
+            ])
+            cell = newCell
+        }
+
+        let used = alreadyUsed.contains(key)
+        cell.textField?.stringValue = key.localizedDisplayName
+        cell.textField?.textColor = used ? .disabledControlTextColor : .labelColor
+        cell.textField?.toolTip = used ? NSLocalizedString("Already added to this source's mapping.", comment: "") : nil
+        return cell
+    }
+
+    /// Keeps an already-mapped field from being picked again -- shown, so
+    /// it's clear it exists and why it's unavailable, but not selectable.
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+        guard allKeys.indices.contains(row) else { return false }
+        return alreadyUsed.contains(allKeys[row]) == false
+    }
+
+    @objc private func addTapped(_ sender: Any) {
+        let selected = tableView.selectedRowIndexes.compactMap { allKeys.indices.contains($0) ? allKeys[$0] : nil }
+        dismiss(nil)
+        if selected.isEmpty == false {
+            onAdd(selected)
+        }
+    }
+
+    @objc private func cancelTapped(_ sender: Any) {
+        dismiss(nil)
+    }
+}
+
 /// Preferences pane for user-configured additional metadata sources (see
 /// CustomMetadataSource / CustomSourceService). A source is entirely data
 /// -- a name, a search URL template, where results live in the JSON
@@ -66,6 +207,14 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     private var copyStatusButton: NSButton!
     private var discoveredFieldsTable: NSTableView!
     private var discoveredFields: [DiscoveredField] = []
+
+    /// The field-mapping list itself, plus its own +/- buttons (styled and
+    /// sized like the Sources list's) for adding/removing which fields a
+    /// source maps at all. Rebuilt fresh in rebuildDetail, same as the
+    /// other detail-pane controls.
+    private var mappingTableView: NSTableView!
+    private var addMappingButton: NSButton!
+    private var removeMappingButton: NSButton!
 
     /// Bumped on every Test Connection click; a completion or timeout
     /// callback that doesn't match the current generation is stale (a
@@ -97,9 +246,11 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     private var apiKeyRevealButton: NSButton!
 
     /// Tags for the detail form's fixed, one-of-a-kind text fields.
-    /// Field-mapping rows (one per MetadataResult.Key.customSourceMappableKeys
-    /// entry) are tagged starting at mappingTagOffset instead, since there's
-    /// one per key rather than one overall.
+    /// Field-mapping rows are tagged starting at mappingTagOffset instead,
+    /// as mappingTagOffset + the row's index into the *selected source's
+    /// own* visibleFields array (not a fixed global list -- each source's
+    /// mapped-field list is now its own, user-editable set), since there's
+    /// one row per visible field rather than one overall.
     private enum FieldTag: Int {
         case name = 0
         case urlTemplate = 1
@@ -109,6 +260,14 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         case artworkPath = 5
     }
     private let mappingTagOffset = 1000
+
+    /// The Sources list on the left gets its height implicitly: the split
+    /// view's fixed height (420, see loadView) minus the add/remove
+    /// buttons' row (a 4pt gap plus their 32pt height). The field-mapping
+    /// table and the Discovered Fields table match it exactly, so all
+    /// three lists in this pane feel like one design rather than the
+    /// mapping section looking cramped or oversized next to the others.
+    private let sourceListVisibleHeight: CGFloat = 420 - 4 - 32
 
     init() {
         self.sources = MetadataPrefs.additionalMetadataSources
@@ -250,12 +409,19 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
     func numberOfRows(in tableView: NSTableView) -> Int {
         if tableView === discoveredFieldsTable { return discoveredFields.count }
+        if tableView === mappingTableView {
+            guard let index = selectedIndex, sources.indices.contains(index) else { return 0 }
+            return sources[index].visibleFields.count
+        }
         return sources.count
     }
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if tableView === discoveredFieldsTable {
             return discoveredFieldCell(for: row)
+        }
+        if tableView === mappingTableView {
+            return mappingRowCell(for: row)
         }
 
         guard sources.indices.contains(row) else { return nil }
@@ -327,15 +493,23 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     }
 
     func tableViewSelectionDidChange(_ notification: Notification) {
-        guard let changedTable = notification.object as? NSTableView, changedTable === tableView else { return }
-        let row = tableView.selectedRow
-        selectedIndex = row >= 0 ? row : nil
-        updateRemoveButtonState()
-        rebuildDetail()
+        guard let changedTable = notification.object as? NSTableView else { return }
+        if changedTable === tableView {
+            let row = tableView.selectedRow
+            selectedIndex = row >= 0 ? row : nil
+            updateRemoveButtonState()
+            rebuildDetail()
+        } else if changedTable === mappingTableView {
+            updateRemoveMappingButtonState()
+        }
     }
 
     private func updateRemoveButtonState() {
         removeButton.isEnabled = tableView.selectedRow != -1
+    }
+
+    private func updateRemoveMappingButtonState() {
+        removeMappingButton?.isEnabled = (mappingTableView?.selectedRow ?? -1) != -1
     }
 
     @objc private func addSource(_ sender: Any) {
@@ -609,44 +783,159 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         }
     }
 
-    /// The field-mapping section itself: the existing label + JSON-path
-    /// rows on the left, and the Discovered Fields table (populated by
-    /// Test Connection) on the right.
+    /// The field-mapping section itself: the mapping table (with its own
+    /// +/- buttons) and the Artwork URL Path row on the left, and the
+    /// Discovered Fields table (populated by Test Connection) on the
+    /// right.
     private func makeFieldMappingSplit(source: CustomMetadataSource) -> NSView {
-        let mappingColumn = NSStackView()
-        mappingColumn.orientation = .vertical
-        mappingColumn.alignment = .leading
-        mappingColumn.spacing = 8
-        mappingColumn.translatesAutoresizingMaskIntoConstraints = false
-
-        for (mappingIndex, key) in MetadataResult.Key.customSourceMappableKeys.enumerated() {
-            let existingPath = source.fieldMappings.first(where: { $0.field == key })?.jsonPath ?? ""
-            let row = makeTextRow(label: key.localizedDisplayName, value: existingPath,
-                                   tag: mappingTagOffset + mappingIndex, fieldWidth: 220, droppable: true,
-                                   fieldCreated: { [weak self] field in self?.mappingFields[key] = field })
-            mappingColumn.addArrangedSubview(row)
-        }
+        let mappingTableColumn = makeMappingTableColumn()
 
         // Artwork URL Path isn't a MetadataResult.Key mapping (it's its
         // own CustomMetadataSource property, since it produces an Artwork
-        // rather than a text annotation), but it belongs alongside the
-        // other things a discovered field gets dragged onto rather than
-        // set apart in its own section above.
+        // rather than a text annotation) and so isn't addable/removable
+        // via the +/- buttons above, but it belongs alongside the other
+        // things a discovered field gets dragged onto rather than set
+        // apart in its own section elsewhere.
         let artworkRow = makeTextRow(label: NSLocalizedString("Artwork URL Path", comment: ""),
                                       value: source.artworkPath, tag: FieldTag.artworkPath.rawValue,
                                       placeholder: NSLocalizedString("optional", comment: ""),
                                       fieldWidth: 220, droppable: true,
                                       fieldCreated: { [weak self] field in self?.artworkPathField = field })
-        mappingColumn.addArrangedSubview(artworkRow)
+
+        let leftColumn = NSStackView(views: [mappingTableColumn, artworkRow])
+        leftColumn.orientation = .vertical
+        leftColumn.alignment = .leading
+        leftColumn.spacing = 10
+        leftColumn.translatesAutoresizingMaskIntoConstraints = false
 
         let discoveredColumn = makeDiscoveredFieldsTable()
 
-        let split = NSStackView(views: [mappingColumn, discoveredColumn])
+        let split = NSStackView(views: [leftColumn, discoveredColumn])
         split.orientation = .horizontal
         split.alignment = .top
         split.spacing = 16
         split.translatesAutoresizingMaskIntoConstraints = false
         return split
+    }
+
+    /// The scrolling list of the selected source's currently-mapped
+    /// fields, plus the same-styled +/- buttons as the Sources list (see
+    /// makeListPane) -- "+" opens a picker of every field Subler knows how
+    /// to map (see FieldPickerViewController), "-" removes whichever row
+    /// is selected.
+    private func makeMappingTableColumn() -> NSView {
+        let column = NSView()
+        column.translatesAutoresizingMaskIntoConstraints = false
+
+        let scrollView = NSScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.hasVerticalScroller = true
+        scrollView.autohidesScrollers = true
+        scrollView.borderType = .bezelBorder
+
+        let table = NSTableView()
+        table.usesAlternatingRowBackgroundColors = true
+        table.allowsMultipleSelection = false
+        table.dataSource = self
+        table.delegate = self
+        table.headerView = nil
+        table.rowHeight = 28
+
+        let tableColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("mappingField"))
+        tableColumn.title = NSLocalizedString("Field Mapping", comment: "")
+        tableColumn.width = 360
+        table.addTableColumn(tableColumn)
+
+        scrollView.documentView = table
+        self.mappingTableView = table
+
+        let addButton = NSButton(image: NSImage(named: NSImage.addTemplateName) ?? NSImage(),
+                                  target: self, action: #selector(addMappingField(_:)))
+        addButton.bezelStyle = .rounded
+        addButton.imagePosition = .imageOnly
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.toolTip = NSLocalizedString("Add a field to map", comment: "")
+        self.addMappingButton = addButton
+
+        let removeButton = NSButton(image: NSImage(named: NSImage.removeTemplateName) ?? NSImage(),
+                                     target: self, action: #selector(removeMappingField(_:)))
+        removeButton.bezelStyle = .rounded
+        removeButton.imagePosition = .imageOnly
+        removeButton.translatesAutoresizingMaskIntoConstraints = false
+        removeButton.toolTip = NSLocalizedString("Remove the selected field mapping", comment: "")
+        self.removeMappingButton = removeButton
+
+        column.addSubview(scrollView)
+        column.addSubview(addButton)
+        column.addSubview(removeButton)
+
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: column.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: column.leadingAnchor),
+            scrollView.widthAnchor.constraint(equalToConstant: 380),
+            scrollView.heightAnchor.constraint(equalToConstant: sourceListVisibleHeight),
+
+            addButton.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 4),
+            addButton.leadingAnchor.constraint(equalTo: column.leadingAnchor),
+            addButton.widthAnchor.constraint(equalToConstant: 44),
+            addButton.heightAnchor.constraint(equalToConstant: 32),
+
+            removeButton.topAnchor.constraint(equalTo: addButton.topAnchor),
+            removeButton.leadingAnchor.constraint(equalTo: addButton.trailingAnchor, constant: 1),
+            removeButton.widthAnchor.constraint(equalToConstant: 44),
+            removeButton.heightAnchor.constraint(equalToConstant: 32),
+
+            column.bottomAnchor.constraint(equalTo: addButton.bottomAnchor)
+        ])
+
+        updateRemoveMappingButtonState()
+        return column
+    }
+
+    /// One row of the mapping table: the field's display name and a
+    /// droppable text field for its JSON path, tagged mappingTagOffset +
+    /// its index into the selected source's visibleFields -- see
+    /// commitMappingRowValue.
+    private func mappingRowCell(for row: Int) -> NSView? {
+        guard let index = selectedIndex, sources.indices.contains(index) else { return nil }
+        let keys = sources[index].visibleFields
+        guard keys.indices.contains(row) else { return nil }
+        let key = keys[row]
+        let tag = mappingTagOffset + row
+
+        let cell = NSTableCellView()
+        cell.identifier = NSUserInterfaceItemIdentifier("mappingFieldCell")
+
+        let labelField = NSTextField(labelWithString: key.localizedDisplayName)
+        labelField.lineBreakMode = .byTruncatingTail
+        labelField.translatesAutoresizingMaskIntoConstraints = false
+        labelField.widthAnchor.constraint(equalToConstant: 130).isActive = true
+
+        let dropField = DroppableTextField()
+        dropField.onDrop = { [weak self] droppedValue in
+            self?.commitMappingRowValue(tag: tag, value: droppedValue)
+        }
+        dropField.stringValue = sources[index].fieldMappings.first(where: { $0.field == key })?.jsonPath ?? ""
+        dropField.tag = tag
+        dropField.delegate = self
+        dropField.translatesAutoresizingMaskIntoConstraints = false
+        dropField.widthAnchor.constraint(equalToConstant: 220).isActive = true
+        mappingFields[key] = dropField
+
+        let rowStack = NSStackView(views: [labelField, dropField])
+        rowStack.orientation = .horizontal
+        rowStack.alignment = .firstBaseline
+        rowStack.spacing = 8
+        rowStack.translatesAutoresizingMaskIntoConstraints = false
+
+        cell.addSubview(rowStack)
+        NSLayoutConstraint.activate([
+            rowStack.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: 4),
+            rowStack.trailingAnchor.constraint(lessThanOrEqualTo: cell.trailingAnchor, constant: -4),
+            rowStack.centerYAnchor.constraint(equalTo: cell.centerYAnchor)
+        ])
+
+        return cell
     }
 
     private func makeDiscoveredFieldsTable() -> NSView {
@@ -674,7 +963,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
         NSLayoutConstraint.activate([
             scrollView.widthAnchor.constraint(equalToConstant: 260),
-            scrollView.heightAnchor.constraint(equalToConstant: 300)
+            scrollView.heightAnchor.constraint(equalToConstant: sourceListVisibleHeight)
         ])
 
         return scrollView
@@ -859,6 +1148,51 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         }
     }
 
+    /// Opens the field picker popover, anchored to the "+" button, listing
+    /// every field this source doesn't already map (already-mapped ones
+    /// are shown but greyed out and unselectable -- see
+    /// FieldPickerViewController). Cmd-click there selects several at
+    /// once; "Add" appends all of them to the source's visibleFields.
+    @objc private func addMappingField(_ sender: NSButton) {
+        guard let index = selectedIndex, sources.indices.contains(index) else { return }
+        let alreadyUsed = Set(sources[index].visibleFields)
+
+        let picker = FieldPickerViewController(allKeys: MetadataResult.Key.customSourceAllMappableKeys,
+                                                alreadyUsed: alreadyUsed) { [weak self] chosen in
+            self?.addMappingFields(chosen)
+        }
+        picker.preferredContentSize = NSSize(width: 260, height: 320)
+
+        let popover = NSPopover()
+        popover.contentViewController = picker
+        popover.behavior = .transient
+        popover.show(relativeTo: sender.bounds, of: sender, preferredEdge: .maxY)
+    }
+
+    private func addMappingFields(_ keys: [MetadataResult.Key]) {
+        guard keys.isEmpty == false else { return }
+        updateSelected { source in
+            for key in keys where source.visibleFields.contains(key) == false {
+                source.visibleFields.append(key)
+            }
+        }
+        rebuildDetail()
+    }
+
+    @objc private func removeMappingField(_ sender: Any) {
+        guard let index = selectedIndex, sources.indices.contains(index) else { return }
+        let row = mappingTableView.selectedRow
+        let keys = sources[index].visibleFields
+        guard keys.indices.contains(row) else { return }
+        let key = keys[row]
+
+        updateSelected { source in
+            source.visibleFields.removeAll { $0 == key }
+            source.fieldMappings.removeAll { $0.field == key }
+        }
+        rebuildDetail()
+    }
+
     @objc private func authTypeChanged(_ sender: NSPopUpButton) {
         updateSelected { source in
             switch sender.indexOfSelectedItem {
@@ -997,7 +1331,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
             .seriesDescription: ["series", "seriesname", "franchise", "collection"]
         ]
 
-        for key in MetadataResult.Key.customSourceMappableKeys {
+        for key in source.visibleFields {
             let currentPath = source.fieldMappings.first(where: { $0.field == key })?.jsonPath ?? ""
             guard currentPath.isEmpty else { continue }
             guard let candidates = synonyms[key] else { continue }
@@ -1038,24 +1372,30 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
     // MARK: - Text field delegate
 
-    /// Routes a dragged-in value to wherever it actually belongs -- a
-    /// field-mapping row (commitMappingValue) or the Artwork URL Path
-    /// field, which isn't a MetadataResult.Key mapping and so isn't
-    /// covered by commitMappingValue's tag range. A drop sets the field's
+    /// Used only by the Artwork URL Path row now -- mapping-table rows
+    /// wire their own onDrop straight to commitMappingRowValue (see
+    /// mappingRowCell), since Artwork isn't a MetadataResult.Key mapping
+    /// and so isn't covered by that lookup. A drop sets the field's
     /// displayed text itself (see DroppableTextField.performDragOperation
     /// above); this only needs to persist it into the model, the same way
     /// controlTextDidEndEditing does for typed input.
     private func commitDroppedValue(tag: Int, value: String) {
-        if tag == FieldTag.artworkPath.rawValue {
-            updateSelected { $0.artworkPath = value.trimmingCharacters(in: .whitespaces) }
-        } else {
-            commitMappingValue(tag: tag, value: value)
-        }
+        guard tag == FieldTag.artworkPath.rawValue else { return }
+        updateSelected { $0.artworkPath = value.trimmingCharacters(in: .whitespaces) }
     }
 
-    private func commitMappingValue(tag: Int, value: String) {
-        guard tag >= mappingTagOffset, MetadataResult.Key.customSourceMappableKeys.indices.contains(tag - mappingTagOffset) else { return }
-        let key = MetadataResult.Key.customSourceMappableKeys[tag - mappingTagOffset]
+    /// Commits a mapping-table row's text, looking the row's key up by its
+    /// index into the *selected source's* visibleFields -- see
+    /// mappingRowCell, which tags each row mappingTagOffset + its index.
+    /// Unlike the old fixed-array scheme, this stays correct as fields are
+    /// added/removed, since a tag is only ever read back against the same
+    /// source state it was created for (any add/remove rebuilds the whole
+    /// detail pane, handing out fresh tags).
+    private func commitMappingRowValue(tag: Int, value: String) {
+        guard let index = selectedIndex, sources.indices.contains(index) else { return }
+        let row = tag - mappingTagOffset
+        guard sources[index].visibleFields.indices.contains(row) else { return }
+        let key = sources[index].visibleFields[row]
         let path = value.trimmingCharacters(in: .whitespaces)
         updateSelected { source in
             source.fieldMappings.removeAll { $0.field == key }
@@ -1069,7 +1409,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         guard let textField = obj.object as? NSTextField else { return }
 
         if textField.tag >= mappingTagOffset {
-            commitMappingValue(tag: textField.tag, value: textField.stringValue)
+            commitMappingRowValue(tag: textField.tag, value: textField.stringValue)
             return
         }
 
