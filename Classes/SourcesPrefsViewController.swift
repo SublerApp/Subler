@@ -241,14 +241,41 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         return pane
     }
 
+    // TEMPORARY diagnostic counters -- to be removed once the Test
+    // Connection hang is actually root-caused. A stack sample twice
+    // landed 100% of the time inside discoveredFieldCell(for:) itself
+    // (not blocked in any AppKit/system call), which doesn't match
+    // anything an inspection of that function's code explains, so this
+    // logs actual call counts/timing to Xcode's console to tell an
+    // infinite/runaway call loop apart from one slow call.
+    private static var diagNumberOfRowsCalls = 0
+    private static var diagViewForRowCalls = 0
+    private static var diagCellCalls = 0
+
     func numberOfRows(in tableView: NSTableView) -> Int {
-        if tableView === discoveredFieldsTable { return discoveredFields.count }
+        if tableView === discoveredFieldsTable {
+            SourcesPrefsViewController.diagNumberOfRowsCalls += 1
+            if SourcesPrefsViewController.diagNumberOfRowsCalls <= 20 || SourcesPrefsViewController.diagNumberOfRowsCalls % 200 == 0 {
+                print("[DIAG] numberOfRows call #\(SourcesPrefsViewController.diagNumberOfRowsCalls) -> \(discoveredFields.count)")
+            }
+            return discoveredFields.count
+        }
         return sources.count
     }
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if tableView === discoveredFieldsTable {
-            return discoveredFieldCell(for: row)
+            SourcesPrefsViewController.diagViewForRowCalls += 1
+            if SourcesPrefsViewController.diagViewForRowCalls <= 20 || SourcesPrefsViewController.diagViewForRowCalls % 200 == 0 {
+                print("[DIAG] viewFor row call #\(SourcesPrefsViewController.diagViewForRowCalls) row=\(row)")
+            }
+            let start = DispatchTime.now()
+            let result = discoveredFieldCell(for: row)
+            let elapsedMs = Double(DispatchTime.now().uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000
+            if elapsedMs > 50 {
+                print("[DIAG] discoveredFieldCell(for: \(row)) took \(elapsedMs) ms")
+            }
+            return result
         }
 
         guard sources.indices.contains(row) else { return nil }
@@ -286,6 +313,10 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     }
 
     private func discoveredFieldCell(for row: Int) -> NSView? {
+        SourcesPrefsViewController.diagCellCalls += 1
+        if SourcesPrefsViewController.diagCellCalls <= 20 || SourcesPrefsViewController.diagCellCalls % 200 == 0 {
+            print("[DIAG] discoveredFieldCell entry #\(SourcesPrefsViewController.diagCellCalls) row=\(row) totalFields=\(discoveredFields.count)")
+        }
         guard discoveredFields.indices.contains(row) else { return nil }
 
         let identifier = NSUserInterfaceItemIdentifier("discoveredFieldCell")
@@ -310,12 +341,18 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         }
 
         let field = discoveredFields[row]
+        if SourcesPrefsViewController.diagCellCalls <= 20 {
+            print("[DIAG] discoveredFieldCell #\(SourcesPrefsViewController.diagCellCalls) got field, path.count=\(field.path.count) sampleValue.count=\(field.sampleValue.utf8.count) utf8 bytes")
+        }
         // JSONPath.discoverFields already caps sample-value length -- this
         // is a defense-in-depth backstop, since a stack sample confirmed
         // this exact line is where an oversized string turned a table
         // layout pass into a multi-second (effectively hung) main-thread
         // stall.
         let displaySample = field.sampleValue.count > 200 ? String(field.sampleValue.prefix(200)) + "\u{2026}" : field.sampleValue
+        if SourcesPrefsViewController.diagCellCalls <= 20 {
+            print("[DIAG] discoveredFieldCell #\(SourcesPrefsViewController.diagCellCalls) truncated ok, displaySample.count=\(displaySample.count)")
+        }
         cell.textField?.stringValue = "\(field.path)  —  \(displaySample)"
         cell.textField?.toolTip = NSLocalizedString("Drag onto a field below to map it.", comment: "") + " (\(field.path))"
         return cell
