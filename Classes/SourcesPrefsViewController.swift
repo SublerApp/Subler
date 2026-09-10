@@ -4,6 +4,7 @@
 //
 
 import Cocoa
+import MP42Foundation
 
 /// A text field that also accepts a plain-text drag as a way of setting
 /// its content -- used by the field-mapping rows below so a field found by
@@ -430,7 +431,7 @@ private final class FlippedView: NSView {
 /// Editing is live: every field commit calls `onChange` immediately with
 /// the updated source, same as the old pane's direct writes into
 /// MetadataPrefs.additionalMetadataSources.
-final class CustomSourceDetailViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+final class CustomSourceDetailViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NSMenuDelegate {
 
     private var source: CustomMetadataSource
     var onChange: ((CustomMetadataSource) -> Void)?
@@ -631,10 +632,8 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.toolTip = NSLocalizedString("Add a field to map", comment: "")
         if let menu = addButton.menu {
-            let faceItem = NSMenuItem()
-            faceItem.image = NSImage(named: NSImage.addTemplateName)
-            faceItem.isHidden = true
-            menu.addItem(faceItem)
+            menu.delegate = self
+            addFaceItem(to: menu)
             appendMappingFieldMenuItems(to: menu)
         }
         self.addMappingButton = addButton
@@ -1448,12 +1447,42 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         }
     }
 
+    /// The "+" pulldown's non-selectable face item (its icon when closed) --
+    /// factored out since both the initial build (makeDetailPane) and
+    /// every rebuild (menuNeedsUpdate) need to recreate it after
+    /// menu.removeAllItems().
+    private func addFaceItem(to menu: NSMenu) {
+        let faceItem = NSMenuItem()
+        faceItem.image = NSImage(named: NSImage.addTemplateName)
+        faceItem.isHidden = true
+        menu.addItem(faceItem)
+    }
+
+    /// Rebuilds the "+" pulldown's contents right before it opens (see
+    /// menuNeedsUpdate) -- appendMappingFieldMenuItems depends on the
+    /// source's current visibleFields, which changes over the window's
+    /// lifetime as fields are added and removed, so a menu built once
+    /// and never touched again would drift out of date.
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        menu.removeAllItems()
+        addFaceItem(to: menu)
+        appendMappingFieldMenuItems(to: menu)
+    }
+
     /// Builds the "+" pulldown's menu: two "add a whole set" shortcuts
     /// (mirroring the main metadata table's All/Movie/TV Show quick-adds),
-    /// then every individually mappable field. Works the same whether
-    /// Test Connection has been run yet or not -- a field or a whole set
-    /// can be added before discovery (to fill in by hand) or after (to
-    /// map something discovery didn't guess).
+    /// then one shortcut per user-defined Set (Preferences > Sets) whose
+    /// fields the field-mapping system can actually use (see
+    /// mappableKeys(for:)) -- lets a source reuse the same fields the
+    /// user already bothered to define in a Set, for ease of use, without
+    /// hunting for each one individually below -- then every individually
+    /// mappable field that isn't already part of this source's mapping
+    /// (once a field's been added, offering it again would either be a
+    /// no-op or, worse, look like it should create a second copy, so it's
+    /// left out of the list entirely rather than staying clickable).
+    /// Works the same whether Test Connection has been run yet or not --
+    /// a field or a whole set can be added before discovery (to fill in
+    /// by hand) or after (to map something discovery didn't guess).
     private func appendMappingFieldMenuItems(to menu: NSMenu) {
         let defaultsItem = NSMenuItem(title: NSLocalizedString("Add Default Fields", comment: ""),
                                        action: #selector(addDefaultMappingFields(_:)), keyEquivalent: "")
@@ -1465,14 +1494,66 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         allItem.target = self
         menu.addItem(allItem)
 
+        let presetShortcuts = PresetManager.shared.metadataPresets.compactMap { preset -> (String, [MetadataResult.Key])? in
+            let keys = CustomSourceDetailViewController.mappableKeys(for: preset)
+            return keys.isEmpty ? nil : (preset.title, keys)
+        }
+        if presetShortcuts.isEmpty == false {
+            menu.addItem(.separator())
+            for (title, keys) in presetShortcuts {
+                let item = NSMenuItem(title: title, action: #selector(addPresetMappingFields(_:)), keyEquivalent: "")
+                item.target = self
+                item.representedObject = keys
+                menu.addItem(item)
+            }
+        }
+
         menu.addItem(.separator())
 
-        for key in MetadataResult.Key.customSourceAllMappableKeys {
+        for key in MetadataResult.Key.customSourceAllMappableKeys where source.visibleFields.contains(key) == false {
             let item = NSMenuItem(title: key.localizedDisplayName, action: #selector(addMappingFieldMenuItem(_:)), keyEquivalent: "")
             item.target = self
             item.representedObject = key
             menu.addItem(item)
         }
+    }
+
+    /// Reverse-maps a Set's (MetadataPreset's) MP42 metadata items back to
+    /// the MetadataResult.Key values the field-mapping list understands,
+    /// by reading the user's current provider result maps (Preferences >
+    /// Metadata) backwards -- those are what normally turn a search
+    /// result's {Genre}-style keys into a file's actual MP42 atoms, so
+    /// reading them the other way answers "which field-mapping key, if
+    /// any, corresponds to this atom". A handful of built-in map entries
+    /// splice in fixed text alongside a placeholder (e.g. the TV map's
+    /// Album entry: seriesName + ", Season " + season) -- those don't
+    /// invert to a single key, so they're skipped rather than guessed at,
+    /// as is anything the field-mapping system doesn't support at all
+    /// (MetadataResult.Key.customSourceAllMappableKeys).
+    private static func mappableKeys(for preset: MetadataPreset) -> [MetadataResult.Key] {
+        var reverse: [String: MetadataResult.Key] = [:]
+        for map in [MetadataPrefs.movieResultMap, MetadataPrefs.tvShowResultMap] {
+            for item in map.items {
+                guard item.value.count == 1, let token = item.value.first, token.isPlaceholder,
+                      let key = MetadataResult.Key(rawValue: token.text) else { continue }
+                reverse[item.key] = key
+            }
+        }
+
+        let allowed = Set(MetadataResult.Key.customSourceAllMappableKeys)
+        var seen = Set<MetadataResult.Key>()
+        var keys: [MetadataResult.Key] = []
+        for item in preset.metadata.items {
+            guard let key = reverse[item.identifier], allowed.contains(key), seen.contains(key) == false else { continue }
+            seen.insert(key)
+            keys.append(key)
+        }
+        return keys
+    }
+
+    @objc private func addPresetMappingFields(_ sender: NSMenuItem) {
+        guard let keys = sender.representedObject as? [MetadataResult.Key] else { return }
+        addMappingFields(keys)
     }
 
     @objc private func addMappingFieldMenuItem(_ sender: NSMenuItem) {
