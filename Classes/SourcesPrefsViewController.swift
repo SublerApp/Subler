@@ -240,6 +240,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     }
 
     @objc private func addSource(_ sender: Any) {
+        NSLog("[CustomSources] \"+\" clicked")
         sources.append(CustomMetadataSource(name: NSLocalizedString("New Source", comment: "")))
         save()
         tableView.reloadData()
@@ -278,23 +279,41 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
     @objc private func sourceRowDoubleClicked(_ sender: Any) {
         let row = tableView.clickedRow
-        guard sources.indices.contains(row) else { return }
+        NSLog("[CustomSources] row double-clicked, clickedRow=\(row)")
+        guard sources.indices.contains(row) else {
+            NSLog("[CustomSources] double-click row \(row) out of range (sources.count=\(sources.count)), ignoring")
+            return
+        }
         tableView.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
         openDetailWindow(for: row)
     }
 
     private func openDetailWindow(for index: Int) {
-        guard sources.indices.contains(index) else { return }
+        NSLog("[CustomSources] openDetailWindow(for: \(index)); sources.count=\(sources.count); existing window controller=\(detailWindowController != nil)")
+        guard sources.indices.contains(index) else {
+            NSLog("[CustomSources] openDetailWindow: index \(index) out of range, aborting")
+            return
+        }
+        // Bring the app itself forward first -- ordering a brand-new
+        // window front while some other app (or even this app, if it
+        // isn't currently active) has focus can otherwise leave the new
+        // window sitting behind everything with no visible change.
+        NSApp.activate(ignoringOtherApps: true)
         if let existing = detailWindowController {
+            NSLog("[CustomSources] reconfiguring existing detail window for index \(index)")
             existing.reconfigure(index: index, source: sources[index])
             existing.window?.makeKeyAndOrderFront(nil)
+            existing.window?.orderFrontRegardless()
         } else {
+            NSLog("[CustomSources] creating new CustomSourceDetailWindowController for index \(index)")
             let controller = CustomSourceDetailWindowController(index: index, source: sources[index], delegate: self)
             self.detailWindowController = controller
+            NSLog("[CustomSources] detail window created: \(String(describing: controller.window))")
             controller.window?.center()
             controller.window?.makeKeyAndOrderFront(nil)
+            controller.window?.orderFrontRegardless()
+            NSLog("[CustomSources] detail window ordered front; isVisible=\(controller.window?.isVisible ?? false) isKeyWindow=\(controller.window?.isKeyWindow ?? false)")
         }
-        NSApp.activate(ignoringOtherApps: true)
     }
 }
 
@@ -344,6 +363,7 @@ final class CustomSourceDetailWindowController: NSWindowController, NSWindowDele
     var editingIndex: Int
 
     init(index: Int, source: CustomMetadataSource, delegate: CustomSourceDetailWindowDelegate) {
+        NSLog("[CustomSources] CustomSourceDetailWindowController.init start, index=\(index)")
         self.editingIndex = index
         self.delegate = delegate
 
@@ -364,6 +384,7 @@ final class CustomSourceDetailWindowController: NSWindowController, NSWindowDele
             window.title = CustomSourceDetailWindowController.title(for: updated)
             self.delegate?.customSourceDetail(self, didUpdate: updated, at: self.editingIndex)
         }
+        NSLog("[CustomSources] CustomSourceDetailWindowController.init done, window frame=\(window.frame)")
     }
 
     required init?(coder: NSCoder) {
@@ -384,6 +405,7 @@ final class CustomSourceDetailWindowController: NSWindowController, NSWindowDele
     }
 
     func windowWillClose(_ notification: Notification) {
+        NSLog("[CustomSources] detail window will close (editingIndex=\(editingIndex))")
         delegate?.customSourceDetailWindowWillClose(self)
     }
 }
@@ -518,6 +540,7 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
     }
 
     override func loadView() {
+        NSLog("[CustomSources] detail view loadView")
         let container = NSView(frame: NSRect(x: 0, y: 0, width: 700, height: 640))
         self.view = container
         // The actual content is a single scrollable form -- see
@@ -537,7 +560,9 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSLog("[CustomSources] detail view viewDidLoad, rebuilding form")
         rebuildDetail()
+        NSLog("[CustomSources] detail view rebuildDetail finished")
     }
 
     private func update(_ mutate: (inout CustomMetadataSource) -> Void) {
