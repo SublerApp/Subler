@@ -520,6 +520,27 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
     /// how many mapped fields are usable.
     private let fieldTablesHeight: CGFloat = 280
 
+    /// Rows queued by stretchRowToFillDetailWidth while the form is being
+    /// built, actually pinned to detailContainer's trailing edge only once
+    /// rebuildDetail has finished assembling the whole view hierarchy (see
+    /// activatePendingWidthStretches).
+    ///
+    /// A make*Row helper (makeTextRow, makeAuthRow, makeAPIKeyRow,
+    /// makeFieldMappingSplit) returns a detached view that rebuildDetail
+    /// only adds to `stack` after the helper returns -- and `stack` itself
+    /// isn't added to detailContainer until the very end of rebuildDetail.
+    /// Auto Layout refuses to activate a constraint between two views that
+    /// don't yet share a common ancestor (it throws NSGenericException
+    /// "Unable to activate constraint ... because they have no common
+    /// ancestor"), and since nothing in this code catches that, it
+    /// unwinds all the way up through rebuildDetail, the window's lazy
+    /// view-loading, and everything that called it -- silently aborting
+    /// the "+"/double-click that started it, with no crash (AppKit's own
+    /// event loop swallows the exception) and no window ever appearing.
+    /// Queuing the view here and activating the constraint later, once
+    /// detailContainer is actually its ancestor, avoids that entirely.
+    private var pendingWidthStretchViews: [NSView] = []
+
     init(source: CustomMetadataSource) {
         self.source = source
         super.init(nibName: nil, bundle: nil)
@@ -665,6 +686,7 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         mappingFields = [:]
         artworkPathField = nil
         mappingTableView = nil
+        pendingWidthStretchViews = []
         // Invalidates any Test Connection still in flight from before this
         // rebuild -- its completion/timeout callback checks this and will
         // now no-op instead of writing into a form that's just been torn
@@ -712,6 +734,10 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
             stack.trailingAnchor.constraint(equalTo: detailContainer.trailingAnchor, constant: -12),
             stack.bottomAnchor.constraint(equalTo: detailContainer.bottomAnchor, constant: -12)
         ])
+        // Only now does every row queued by stretchRowToFillDetailWidth
+        // actually share an ancestor with detailContainer -- see
+        // pendingWidthStretchViews.
+        activatePendingWidthStretches()
 
         addMappingButton?.isEnabled = true
         updateRemoveMappingButtonState()
@@ -736,10 +762,27 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
     /// width the window currently has rather than only ever sitting at
     /// its content's natural minimum size.
     private func stretchRowToFillDetailWidth(_ row: NSView) {
-        row.trailingAnchor.constraint(lessThanOrEqualTo: detailContainer.trailingAnchor, constant: -12).isActive = true
-        let preferredWidth = row.trailingAnchor.constraint(equalTo: detailContainer.trailingAnchor, constant: -12)
-        preferredWidth.priority = .defaultHigh
-        preferredWidth.isActive = true
+        // Queued, not activated immediately -- see pendingWidthStretchViews.
+        // `row` isn't attached under detailContainer yet at this point (the
+        // caller returns it up to rebuildDetail, which only wires it into
+        // the view hierarchy afterwards), so activating a constraint
+        // against detailContainer.trailingAnchor here would throw.
+        pendingWidthStretchViews.append(row)
+    }
+
+    /// Actually pins each row queued by stretchRowToFillDetailWidth to
+    /// detailContainer's trailing edge. Must run after detailContainer.
+    /// addSubview(stack) (see rebuildDetail), once every queued row is a
+    /// real descendant of detailContainer and the constraint has a common
+    /// ancestor to activate against.
+    private func activatePendingWidthStretches() {
+        for row in pendingWidthStretchViews {
+            row.trailingAnchor.constraint(lessThanOrEqualTo: detailContainer.trailingAnchor, constant: -12).isActive = true
+            let preferredWidth = row.trailingAnchor.constraint(equalTo: detailContainer.trailingAnchor, constant: -12)
+            preferredWidth.priority = .defaultHigh
+            preferredWidth.isActive = true
+        }
+        pendingWidthStretchViews.removeAll()
     }
 
     /// A label + text field row, with optional help text on the line
