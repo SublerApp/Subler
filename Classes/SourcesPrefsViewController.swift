@@ -37,157 +37,6 @@ private final class DroppableTextField: NSTextField {
     }
 }
 
-/// The "+" button's popover content: pick one or more of Subler's
-/// metadata fields to add to a source's mapping list. Fields already
-/// mapped are listed but disabled (greyed out) rather than left out
-/// entirely, so it's clear why they can't be picked again rather than
-/// just silently missing. Cmd-click (NSTableView's normal multi-select
-/// gesture) picks several before a single "Add".
-private final class FieldPickerViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
-
-    private let allKeys: [MetadataResult.Key]
-    private let alreadyUsed: Set<MetadataResult.Key>
-    private let onAdd: ([MetadataResult.Key]) -> Void
-
-    private var tableView: NSTableView!
-
-    /// Set by the caller right after showing the popover. Cancel and Add
-    /// both close it through this directly (popover.close()) rather than
-    /// NSViewController.dismiss(_:) -- dismiss(_:) only closes a popover
-    /// when this view controller is recognized as *presented*, which
-    /// isn't guaranteed just from being assigned as contentViewController,
-    /// so a button inside the popover calling it could silently do
-    /// nothing, leaving only the popover's own outside-click handling to
-    /// ever close it.
-    weak var popover: NSPopover?
-
-    init(allKeys: [MetadataResult.Key], alreadyUsed: Set<MetadataResult.Key>, onAdd: @escaping ([MetadataResult.Key]) -> Void) {
-        self.allKeys = allKeys
-        self.alreadyUsed = alreadyUsed
-        self.onAdd = onAdd
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func loadView() {
-        let container = NSView(frame: NSRect(x: 0, y: 0, width: 260, height: 320))
-
-        let label = NSTextField(wrappingLabelWithString: NSLocalizedString("Cmd-click to select multiple fields.", comment: ""))
-        label.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
-        label.textColor = .secondaryLabelColor
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        let scrollView = NSScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.hasVerticalScroller = true
-        scrollView.autohidesScrollers = true
-        scrollView.borderType = .bezelBorder
-
-        let table = NSTableView()
-        table.usesAlternatingRowBackgroundColors = true
-        table.allowsMultipleSelection = true
-        table.headerView = nil
-        table.dataSource = self
-        table.delegate = self
-
-        let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("field"))
-        column.title = NSLocalizedString("Field", comment: "")
-        table.addTableColumn(column)
-
-        scrollView.documentView = table
-        self.tableView = table
-
-        let addButton = NSButton(title: NSLocalizedString("Add", comment: ""), target: self, action: #selector(addTapped(_:)))
-        addButton.bezelStyle = .rounded
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.keyEquivalent = "\r"
-
-        let cancelButton = NSButton(title: NSLocalizedString("Cancel", comment: ""), target: self, action: #selector(cancelTapped(_:)))
-        cancelButton.bezelStyle = .rounded
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-
-        container.addSubview(label)
-        container.addSubview(scrollView)
-        container.addSubview(addButton)
-        container.addSubview(cancelButton)
-
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: container.topAnchor, constant: 10),
-            label.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
-            label.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10),
-
-            scrollView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 6),
-            scrollView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
-            scrollView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10),
-            scrollView.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: -8),
-
-            addButton.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10),
-            addButton.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -10),
-
-            cancelButton.trailingAnchor.constraint(equalTo: addButton.leadingAnchor, constant: -8),
-            cancelButton.bottomAnchor.constraint(equalTo: addButton.bottomAnchor)
-        ])
-
-        self.view = container
-    }
-
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return allKeys.count
-    }
-
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard allKeys.indices.contains(row) else { return nil }
-        let key = allKeys[row]
-
-        let identifier = NSUserInterfaceItemIdentifier("fieldPickerCell")
-        let cell: NSTableCellView
-        if let reused = tableView.makeView(withIdentifier: identifier, owner: self) as? NSTableCellView {
-            cell = reused
-        } else {
-            let newCell = NSTableCellView()
-            let textField = NSTextField(labelWithString: "")
-            textField.translatesAutoresizingMaskIntoConstraints = false
-            newCell.addSubview(textField)
-            newCell.textField = textField
-            newCell.identifier = identifier
-            NSLayoutConstraint.activate([
-                textField.leadingAnchor.constraint(equalTo: newCell.leadingAnchor, constant: 4),
-                textField.trailingAnchor.constraint(equalTo: newCell.trailingAnchor, constant: -4),
-                textField.centerYAnchor.constraint(equalTo: newCell.centerYAnchor)
-            ])
-            cell = newCell
-        }
-
-        let used = alreadyUsed.contains(key)
-        cell.textField?.stringValue = key.localizedDisplayName
-        cell.textField?.textColor = used ? .disabledControlTextColor : .labelColor
-        cell.textField?.toolTip = used ? NSLocalizedString("Already added to this source's mapping.", comment: "") : nil
-        return cell
-    }
-
-    /// Keeps an already-mapped field from being picked again -- shown, so
-    /// it's clear it exists and why it's unavailable, but not selectable.
-    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
-        guard allKeys.indices.contains(row) else { return false }
-        return alreadyUsed.contains(allKeys[row]) == false
-    }
-
-    @objc private func addTapped(_ sender: Any) {
-        let selected = tableView.selectedRowIndexes.compactMap { allKeys.indices.contains($0) ? allKeys[$0] : nil }
-        popover?.close()
-        if selected.isEmpty == false {
-            onAdd(selected)
-        }
-    }
-
-    @objc private func cancelTapped(_ sender: Any) {
-        popover?.close()
-    }
-}
-
 /// Preferences pane for user-configured additional metadata sources (see
 /// CustomMetadataSource / CustomSourceService). A source is entirely data
 /// -- a name, a search URL template, where results live in the JSON
@@ -222,8 +71,19 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     /// sized like the Sources list's) for adding/removing which fields a
     /// source maps at all. Rebuilt fresh in rebuildDetail, same as the
     /// other detail-pane controls.
+    ///
+    /// "+" is an NSPopUpButton (pullsDown, "NSAddTemplate" face) rather
+    /// than a plain button with a custom popover -- this matches Subler's
+    /// own field picker exactly (MovieViewController's tagsPopUp, the "+"
+    /// below the main metadata table): one flat menu of every mappable
+    /// field plus a couple of "add a whole set" shortcuts at the top,
+    /// single click to add, no separate Add/Cancel step. Its menu is
+    /// static (built once in makeDetailPane) since -- unlike the old
+    /// popover -- it no longer greys out already-mapped fields: clicking
+    /// one that's already in the list just reveals its existing row,
+    /// exactly like addTag(_:) does for the main table.
     private var mappingTableView: NSTableView!
-    private var addMappingButton: NSButton!
+    private var addMappingButton: NSPopUpButton!
     private var removeMappingButton: NSButton!
 
     /// Bumped on every Test Connection click; a completion or timeout
@@ -594,12 +454,23 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         // button rows land at the same Y position -- a shared footer
         // rather than the mapping ones drifting wherever the mapping
         // section happens to scroll to.
-        let addButton = NSButton(image: NSImage(named: NSImage.addTemplateName) ?? NSImage(),
-                                  target: self, action: #selector(addMappingField(_:)))
+        // A pulldown NSPopUpButton with a "+" face, exactly like Subler's
+        // own field-adding control below the main metadata table
+        // (MovieViewController's tagsPopUp): one flat menu, click a field
+        // to add it, no separate popover/Add/Cancel step. Static content,
+        // so it's built once here rather than per selection change -- see
+        // appendMappingFieldMenuItems.
+        let addButton = NSPopUpButton(frame: .zero, pullsDown: true)
         addButton.bezelStyle = .rounded
-        addButton.imagePosition = .imageOnly
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.toolTip = NSLocalizedString("Add a field to map", comment: "")
+        if let menu = addButton.menu {
+            let faceItem = NSMenuItem()
+            faceItem.image = NSImage(named: NSImage.addTemplateName)
+            faceItem.isHidden = true
+            menu.addItem(faceItem)
+            appendMappingFieldMenuItems(to: menu)
+        }
         self.addMappingButton = addButton
 
         let removeButton = NSButton(image: NSImage(named: NSImage.removeTemplateName) ?? NSImage(),
@@ -788,8 +659,11 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         return container
     }
 
-    /// The sample-search-term field, "Test Connection" button, and status
-    /// line above the field-mapping split.
+    /// The sample-search-term field, "Test / Retrieve" button, and status
+    /// line above the field-mapping split. Named "Test / Retrieve" rather
+    /// than just "Test Connection" since it does both at once: it
+    /// exercises the source's search URL/auth *and* is how field values
+    /// get retrieved for the Discovered Fields list on the right.
     private func makeDiscoverRow() -> NSView {
         let labelField = NSTextField(labelWithString: NSLocalizedString("Sample Search Term", comment: ""))
         labelField.translatesAutoresizingMaskIntoConstraints = false
@@ -801,7 +675,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         queryField.widthAnchor.constraint(equalToConstant: 400).isActive = true
         self.testQueryField = queryField
 
-        let button = NSButton(title: NSLocalizedString("Test Connection", comment: ""), target: self, action: #selector(testConnection(_:)))
+        let button = NSButton(title: NSLocalizedString("Test / Retrieve", comment: ""), target: self, action: #selector(testConnection(_:)))
         button.bezelStyle = .rounded
         self.testButton = button
 
@@ -1267,44 +1141,64 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         }
     }
 
-    /// Opens the field picker popover, anchored to the "+" button, listing
-    /// every field this source doesn't already map (already-mapped ones
-    /// are shown but greyed out and unselectable -- see
-    /// FieldPickerViewController). Cmd-click there selects several at
-    /// once; "Add" appends all of them to the source's visibleFields.
-    @objc private func addMappingField(_ sender: NSButton) {
-        guard let index = selectedIndex, sources.indices.contains(index) else { return }
-        let alreadyUsed = Set(sources[index].visibleFields)
+    /// Builds the "+" pulldown's menu: two "add a whole set" shortcuts
+    /// (mirroring the main metadata table's All/Movie/TV Show quick-adds),
+    /// then every individually mappable field. Works the same whether
+    /// Test Connection has been run yet or not -- a field or a whole set
+    /// can be added before discovery (to fill in by hand) or after (to
+    /// map something discovery didn't guess).
+    private func appendMappingFieldMenuItems(to menu: NSMenu) {
+        let defaultsItem = NSMenuItem(title: NSLocalizedString("Add Default Fields", comment: ""),
+                                       action: #selector(addDefaultMappingFields(_:)), keyEquivalent: "")
+        defaultsItem.target = self
+        menu.addItem(defaultsItem)
 
-        let picker = FieldPickerViewController(allKeys: MetadataResult.Key.customSourceAllMappableKeys,
-                                                alreadyUsed: alreadyUsed) { [weak self] chosen in
-            self?.addMappingFields(chosen)
+        let allItem = NSMenuItem(title: NSLocalizedString("Add All Fields", comment: ""),
+                                  action: #selector(addAllMappingFields(_:)), keyEquivalent: "")
+        allItem.target = self
+        menu.addItem(allItem)
+
+        menu.addItem(.separator())
+
+        for key in MetadataResult.Key.customSourceAllMappableKeys {
+            let item = NSMenuItem(title: key.localizedDisplayName, action: #selector(addMappingFieldMenuItem(_:)), keyEquivalent: "")
+            item.target = self
+            item.representedObject = key
+            menu.addItem(item)
         }
-        picker.preferredContentSize = NSSize(width: 260, height: 320)
+    }
 
-        let popover = NSPopover()
-        popover.contentViewController = picker
-        // .transient closes the popover on any click AppKit judges to be
-        // "outside" it -- which can include the very first click used to
-        // select a row in its own table view, before "Add" is ever
-        // reached, since the popover doesn't yet have full key/first-
-        // responder status at that instant. .semitransient only closes on
-        // a click outside the popover's *window* (a different app window,
-        // or losing focus), which is what a popover hosting real controls
-        // (a table plus Add/Cancel buttons) should use.
-        popover.behavior = .semitransient
-        picker.popover = popover
-        popover.show(relativeTo: sender.bounds, of: sender, preferredEdge: .maxY)
+    @objc private func addMappingFieldMenuItem(_ sender: NSMenuItem) {
+        guard let key = sender.representedObject as? MetadataResult.Key else { return }
+        addMappingFields([key])
+    }
+
+    @objc private func addDefaultMappingFields(_ sender: Any) {
+        addMappingFields(MetadataResult.Key.customSourceDefaultFields)
+    }
+
+    @objc private func addAllMappingFields(_ sender: Any) {
+        addMappingFields(MetadataResult.Key.customSourceAllMappableKeys)
     }
 
     private func addMappingFields(_ keys: [MetadataResult.Key]) {
         guard keys.isEmpty == false else { return }
+        guard let index = selectedIndex, sources.indices.contains(index) else { return }
         updateSelected { source in
             for key in keys where source.visibleFields.contains(key) == false {
                 source.visibleFields.append(key)
             }
         }
         rebuildDetail()
+
+        // Matches addTag(_:)'s behavior on the main metadata table:
+        // picking a single field that's already mapped doesn't duplicate
+        // it, it just reveals the existing row.
+        if keys.count == 1, let key = keys.first, sources.indices.contains(index),
+           let row = sources[index].visibleFields.firstIndex(of: key) {
+            mappingTableView?.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
+            mappingTableView?.scrollRowToVisible(row)
+        }
     }
 
     @objc private func removeMappingField(_ sender: Any) {
