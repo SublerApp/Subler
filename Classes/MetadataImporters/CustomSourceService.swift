@@ -172,17 +172,43 @@ public struct CustomSourceService: MetadataService {
             request.addValue(value, forHTTPHeaderField: key)
         }
 
+        // Logged with NSLog (not print) so it shows up in Console.app/the
+        // Xcode debug area even in a Release-ish run. Only header *names*
+        // are logged, never values -- the API key lives in there.
+        NSLog("[CustomSource:%@] request -> %@  headers=%@", source.name, url.absoluteString, Array(headers.keys).sorted())
+
         let semaphore = DispatchSemaphore(value: 0)
         var result = RawResponse(data: nil, statusCode: nil, networkError: nil)
+        var completed = false
 
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            result = RawResponse(data: data,
-                                  statusCode: (response as? HTTPURLResponse)?.statusCode,
-                                  networkError: error?.localizedDescription)
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            completed = true
+            let statusCode = (response as? HTTPURLResponse)?.statusCode
+            result = RawResponse(data: data, statusCode: statusCode, networkError: error?.localizedDescription)
+            NSLog("[CustomSource:%@] completion -> status=%@ bytes=%d error=%@",
+                  source.name, statusCode.map(String.init) ?? "nil", data?.count ?? -1, error?.localizedDescription ?? "nil")
             semaphore.signal()
-        }.resume()
+        }
+        task.resume()
 
-        semaphore.wait()
+        // A plain semaphore.wait() blocks this thread forever if the
+        // completion handler is ever never invoked (a dropped/invalidated
+        // task, a session-level bug) -- which is exactly what an "it just
+        // hangs, no error at all, until some *other*, outer watchdog gives
+        // up" report looks like. Bounding the wait a couple of seconds past
+        // the request's own 30s timeoutInterval means this method itself can
+        // never hang past that, and the log line above/below tells us
+        // whether the request was even sent and whether URLSession ever
+        // called back at all.
+        let waitResult = semaphore.wait(timeout: .now() + 32)
+        if waitResult == .timedOut {
+            if completed == false {
+                task.cancel()
+            }
+            NSLog("[CustomSource:%@] semaphore wait TIMED OUT after 32s -- URLSession never called the completion handler.", source.name)
+            return RawResponse(data: nil, statusCode: nil,
+                                networkError: NSLocalizedString("URLSession never responded to this request -- it neither succeeded, failed, nor timed out on its own within 32 seconds.", comment: ""))
+        }
         return result
     }
 
