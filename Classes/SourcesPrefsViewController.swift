@@ -44,100 +44,28 @@ private final class DroppableTextField: NSTextField {
 /// from the response to Subler's own metadata annotations -- so adding one
 /// never needs a code change.
 ///
-/// Left: the list of configured sources, with add/remove buttons. Right:
-/// the selected source's settings, in a scrolling form since the field
-/// mapping section alone is one row per mappable annotation.
-final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+/// This view controller owns only the list of configured sources and its
+/// add/remove buttons. A source's actual settings -- name, URL, auth, field
+/// mappings, Test/Retrieve -- live in their own window (see
+/// CustomSourceDetailWindowController below), opened by clicking "+" (for a
+/// brand-new source) or double-clicking a row (to edit an existing one),
+/// rather than docked inline next to the list. That mapping section is
+/// substantial (one row per mappable annotation, plus a Discovered Fields
+/// list beside it), and a dedicated, resizable window gives it real room
+/// instead of squeezing it into a fixed-height split view.
+final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
 
     private var sources: [CustomMetadataSource]
     private var selectedIndex: Int?
 
     private var tableView: NSTableView!
     private var removeButton: NSButton!
-    private var detailContainer: NSView!
 
-    /// Test Connection / field discovery state for the currently selected
-    /// source. Rebuilt fresh whenever the selection changes (rebuildDetail);
-    /// not persisted -- it's a scratchpad for filling in field mappings,
-    /// not part of CustomMetadataSource itself.
-    private var testQueryField: NSTextField!
-    private var testButton: NSButton!
-    private var statusLabel: NSTextField!
-    private var copyStatusButton: NSButton!
-    private var discoveredFieldsTable: NSTableView!
-    private var discoveredFields: [DiscoveredField] = []
-
-    /// The field-mapping list itself, plus its own +/- buttons (styled and
-    /// sized like the Sources list's) for adding/removing which fields a
-    /// source maps at all. Rebuilt fresh in rebuildDetail, same as the
-    /// other detail-pane controls.
-    ///
-    /// "+" is an NSPopUpButton (pullsDown, "NSAddTemplate" face) rather
-    /// than a plain button with a custom popover -- this matches Subler's
-    /// own field picker exactly (MovieViewController's tagsPopUp, the "+"
-    /// below the main metadata table): one flat menu of every mappable
-    /// field plus a couple of "add a whole set" shortcuts at the top,
-    /// single click to add, no separate Add/Cancel step. Its menu is
-    /// static (built once in makeDetailPane) since -- unlike the old
-    /// popover -- it no longer greys out already-mapped fields: clicking
-    /// one that's already in the list just reveals its existing row,
-    /// exactly like addTag(_:) does for the main table.
-    private var mappingTableView: NSTableView!
-    private var addMappingButton: NSPopUpButton!
-    private var removeMappingButton: NSButton!
-
-    /// Bumped on every Test Connection click; a completion or timeout
-    /// callback that doesn't match the current generation is stale (a
-    /// previous test that's still winding down, or the selection changed
-    /// mid-request) and is ignored instead of touching the UI.
-    private var testGeneration = 0
-
-    /// The live mapping-row text fields for the selected source, keyed by
-    /// which annotation they map, so a best-guess or a drop can update a
-    /// row's displayed text without rebuilding the whole detail form (which
-    /// would also throw away whatever the user just typed into the test
-    /// query field).
-    private var mappingFields: [MetadataResult.Key: NSTextField] = [:]
-
-    /// The Artwork URL Path field, kept around the same way mappingFields
-    /// are -- so a best-guess fill-in can update its displayed text
-    /// without rebuilding the whole detail form. Artwork isn't a
-    /// MetadataResult.Key mapping (it's its own CustomMetadataSource
-    /// property), so it can't live in mappingFields alongside those.
-    private var artworkPathField: NSTextField?
-
-    /// The API Key row keeps a masked field and a plain one stacked in the
-    /// same spot, toggled by the reveal button -- a masked-only field made
-    /// it impossible to visually confirm the key matches what actually
-    /// worked outside the app (e.g. in a curl test), which is exactly the
-    /// question that matters when a source keeps failing to authenticate.
-    private var apiKeySecureField: NSSecureTextField!
-    private var apiKeyPlainField: NSTextField!
-    private var apiKeyRevealButton: NSButton!
-
-    /// Tags for the detail form's fixed, one-of-a-kind text fields.
-    /// Field-mapping rows are tagged starting at mappingTagOffset instead,
-    /// as mappingTagOffset + the row's index into the *selected source's
-    /// own* visibleFields array (not a fixed global list -- each source's
-    /// mapped-field list is now its own, user-editable set), since there's
-    /// one row per visible field rather than one overall.
-    private enum FieldTag: Int {
-        case name = 0
-        case urlTemplate = 1
-        case resultsPath = 2
-        case authName = 3
-        case apiKey = 4
-        case artworkPath = 5
-    }
-    private let mappingTagOffset = 1000
-
-    /// The Sources list on the left gets its height implicitly: the split
-    /// view's fixed height (420, see loadView) minus the add/remove
-    /// buttons' row (a 4pt gap plus their 32pt height). The field-mapping
-    /// table and the Discovered Fields table match it exactly, so all
-    /// three lists in this pane feel like one design rather than the
-    /// mapping section looking cramped or oversized next to the others.
-    private let sourceListVisibleHeight: CGFloat = 420 - 4 - 32
+    /// The single reusable detail window -- reconfigured in place (see
+    /// openDetailWindow) if it's already open when "+" or a double-click
+    /// asks for a different source, rather than allowing several of these
+    /// windows to pile up at once.
+    private var detailWindowController: CustomSourceDetailWindowController?
 
     init() {
         self.sources = MetadataPrefs.additionalMetadataSources
@@ -156,27 +84,17 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         headerLabel.font = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        let descriptionLabel = NSTextField(wrappingLabelWithString: NSLocalizedString("Add a metadata source by describing its search API: where to search, where the results are in its response, and which response fields map to which annotations. No coding required.", comment: ""))
+        let descriptionLabel = NSTextField(wrappingLabelWithString: NSLocalizedString("Add a metadata source by describing its search API: where to search, where the results are in its response, and which response fields map to which annotations. No coding required. Double-click a source below to edit it, or click + to add a new one.", comment: ""))
         descriptionLabel.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
         descriptionLabel.textColor = .secondaryLabelColor
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.preferredMaxLayoutWidth = 660
 
-        let splitView = NSSplitView()
-        splitView.isVertical = true
-        splitView.dividerStyle = .thin
-        splitView.translatesAutoresizingMaskIntoConstraints = false
-
         let listPane = makeListPane()
-        let detailPane = makeDetailPane()
-
-        splitView.addArrangedSubview(listPane)
-        splitView.addArrangedSubview(detailPane)
-        splitView.setHoldingPriority(NSLayoutConstraint.Priority.defaultLow + 1, forSubviewAt: 0)
 
         container.addSubview(headerLabel)
         container.addSubview(descriptionLabel)
-        container.addSubview(splitView)
+        container.addSubview(listPane)
 
         NSLayoutConstraint.activate([
             headerLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 20),
@@ -187,13 +105,14 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
             descriptionLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 20),
             descriptionLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -20),
 
-            splitView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 12),
-            splitView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 20),
-            splitView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -20),
-            splitView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -20),
-            splitView.heightAnchor.constraint(equalToConstant: 420),
-
-            listPane.widthAnchor.constraint(equalToConstant: 180)
+            // No fixed height here (unlike the old split view) -- this pane
+            // simply fills whatever's left below the description, so the
+            // list gets taller now that it isn't sharing this pane with an
+            // inline detail form anymore.
+            listPane.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 12),
+            listPane.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 20),
+            listPane.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -20),
+            listPane.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -20)
         ])
 
         self.view = container
@@ -203,7 +122,6 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         super.viewDidLoad()
         tableView.reloadData()
         updateRemoveButtonState()
-        rebuildDetail()
     }
 
     // MARK: - List pane
@@ -225,6 +143,8 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         table.delegate = self
         table.headerView = nil
         table.rowSizeStyle = .default
+        table.target = self
+        table.doubleAction = #selector(sourceRowDoubleClicked(_:))
 
         let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("name"))
         column.title = NSLocalizedString("Name", comment: "")
@@ -278,23 +198,10 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     }
 
     func numberOfRows(in tableView: NSTableView) -> Int {
-        if tableView === discoveredFieldsTable { return discoveredFields.count }
-        if tableView === mappingTableView {
-            guard let index = selectedIndex, sources.indices.contains(index) else { return 0 }
-            // +1 for the trailing Artwork URL Path row -- see mappingRowCell.
-            return sources[index].visibleFields.count + 1
-        }
         return sources.count
     }
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        if tableView === discoveredFieldsTable {
-            return discoveredFieldCell(for: row)
-        }
-        if tableView === mappingTableView {
-            return mappingRowCell(for: row)
-        }
-
         guard sources.indices.contains(row) else { return nil }
 
         let identifier = NSUserInterfaceItemIdentifier("nameCell")
@@ -322,81 +229,23 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         return cell
     }
 
-    func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
-        guard tableView === discoveredFieldsTable, discoveredFields.indices.contains(row) else { return nil }
-        let item = NSPasteboardItem()
-        _ = item.setString(discoveredFields[row].path, forType: .string)
-        return item
-    }
-
-    private func discoveredFieldCell(for row: Int) -> NSView? {
-        guard discoveredFields.indices.contains(row) else { return nil }
-
-        let identifier = NSUserInterfaceItemIdentifier("discoveredFieldCell")
-        let cell: NSTableCellView
-        if let reused = discoveredFieldsTable.makeView(withIdentifier: identifier, owner: self) as? NSTableCellView {
-            cell = reused
-        } else {
-            let newCell = NSTableCellView()
-            let textField = NSTextField(labelWithString: "")
-            textField.lineBreakMode = .byTruncatingTail
-            textField.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
-            textField.translatesAutoresizingMaskIntoConstraints = false
-            newCell.addSubview(textField)
-            newCell.textField = textField
-            newCell.identifier = identifier
-            NSLayoutConstraint.activate([
-                textField.leadingAnchor.constraint(equalTo: newCell.leadingAnchor, constant: 4),
-                textField.trailingAnchor.constraint(equalTo: newCell.trailingAnchor, constant: -4),
-                textField.centerYAnchor.constraint(equalTo: newCell.centerYAnchor)
-            ])
-            cell = newCell
-        }
-
-        let field = discoveredFields[row]
-        // JSONPath.discoverFields already caps sample-value length -- this
-        // is a defense-in-depth backstop against an oversized string
-        // making this table cell expensive to build.
-        let displaySample = field.sampleValue.count > 200 ? String(field.sampleValue.prefix(200)) + "\u{2026}" : field.sampleValue
-        cell.textField?.stringValue = "\(field.path)  —  \(displaySample)"
-        cell.textField?.toolTip = NSLocalizedString("Drag onto a field below to map it.", comment: "") + " (\(field.path))"
-        return cell
-    }
-
     func tableViewSelectionDidChange(_ notification: Notification) {
-        guard let changedTable = notification.object as? NSTableView else { return }
-        if changedTable === tableView {
-            let row = tableView.selectedRow
-            selectedIndex = row >= 0 ? row : nil
-            updateRemoveButtonState()
-            rebuildDetail()
-        } else if changedTable === mappingTableView {
-            updateRemoveMappingButtonState()
-        }
+        let row = tableView.selectedRow
+        selectedIndex = row >= 0 ? row : nil
+        updateRemoveButtonState()
     }
 
     private func updateRemoveButtonState() {
         removeButton.isEnabled = tableView.selectedRow != -1
     }
 
-    /// Disabled with nothing selected, same as the Sources list's remove
-    /// button -- and also disabled when the Artwork URL Path row (always
-    /// the table's last row) is selected, since it isn't part of
-    /// visibleFields and so isn't removable, only editable.
-    private func updateRemoveMappingButtonState() {
-        guard let mappingTableView = mappingTableView, let index = selectedIndex, sources.indices.contains(index) else {
-            removeMappingButton?.isEnabled = false
-            return
-        }
-        let row = mappingTableView.selectedRow
-        removeMappingButton?.isEnabled = sources[index].visibleFields.indices.contains(row)
-    }
-
     @objc private func addSource(_ sender: Any) {
         sources.append(CustomMetadataSource(name: NSLocalizedString("New Source", comment: "")))
         save()
         tableView.reloadData()
-        tableView.selectRowIndexes(IndexSet(integer: sources.count - 1), byExtendingSelection: false)
+        let newIndex = sources.count - 1
+        tableView.selectRowIndexes(IndexSet(integer: newIndex), byExtendingSelection: false)
+        openDetailWindow(for: newIndex)
     }
 
     @objc private func removeSource(_ sender: Any) {
@@ -406,17 +255,283 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         tableView.reloadData()
         selectedIndex = nil
         updateRemoveButtonState()
-        rebuildDetail()
+
+        // The removed row might be the one the detail window is showing
+        // (close it -- there's nothing left to edit), or an earlier one
+        // (everything after it just shifted down one, so the open window
+        // needs to keep pointing at the same source, not the row that took
+        // its old spot).
+        if let controller = detailWindowController {
+            if controller.editingIndex == index {
+                controller.close()
+            } else if controller.editingIndex > index {
+                controller.editingIndex -= 1
+            }
+        }
     }
 
     private func save() {
         MetadataPrefs.additionalMetadataSources = sources
     }
 
-    private func updateSelected(_ mutate: (inout CustomMetadataSource) -> Void) {
-        guard let index = selectedIndex, sources.indices.contains(index) else { return }
-        mutate(&sources[index])
+    // MARK: - Detail window
+
+    @objc private func sourceRowDoubleClicked(_ sender: Any) {
+        let row = tableView.clickedRow
+        guard sources.indices.contains(row) else { return }
+        tableView.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
+        openDetailWindow(for: row)
+    }
+
+    private func openDetailWindow(for index: Int) {
+        guard sources.indices.contains(index) else { return }
+        if let existing = detailWindowController {
+            existing.reconfigure(index: index, source: sources[index])
+            existing.window?.makeKeyAndOrderFront(nil)
+        } else {
+            let controller = CustomSourceDetailWindowController(index: index, source: sources[index], delegate: self)
+            self.detailWindowController = controller
+            controller.window?.center()
+            controller.window?.makeKeyAndOrderFront(nil)
+        }
+        NSApp.activate(ignoringOtherApps: true)
+    }
+}
+
+extension SourcesPrefsViewController: CustomSourceDetailWindowDelegate {
+
+    func customSourceDetail(_ controller: CustomSourceDetailWindowController, didUpdate source: CustomMetadataSource, at index: Int) {
+        guard sources.indices.contains(index) else { return }
+        sources[index] = source
         save()
+        tableView.reloadData()
+    }
+
+    func customSourceDetailWindowWillClose(_ controller: CustomSourceDetailWindowController) {
+        if detailWindowController === controller {
+            detailWindowController = nil
+        }
+    }
+}
+
+// MARK: - Detail window controller
+
+/// Notifies the sources list of live edits made in the detail window (so
+/// the list can persist them and reflect a renamed source immediately) and
+/// of the window closing (so the list can drop its reference and let a
+/// later "+"/double-click build a fresh one).
+protocol CustomSourceDetailWindowDelegate: AnyObject {
+    func customSourceDetail(_ controller: CustomSourceDetailWindowController, didUpdate source: CustomMetadataSource, at index: Int)
+    func customSourceDetailWindowWillClose(_ controller: CustomSourceDetailWindowController)
+}
+
+/// Hosts a single CustomSourceDetailViewController in its own resizable
+/// window -- opened by SourcesPrefsViewController for either a
+/// brand-new source (right after "+" appends it) or an existing one
+/// (double-click). Editing is live, same as the old inline pane: every
+/// field commit round-trips through the delegate immediately, there's no
+/// separate Save/Cancel step, and closing the window (any way -- the
+/// close button, Cmd-W) is always safe.
+final class CustomSourceDetailWindowController: NSWindowController, NSWindowDelegate {
+
+    private let contentController: CustomSourceDetailViewController
+    private weak var delegate: CustomSourceDetailWindowDelegate?
+
+    /// Which row in the sources list this window is currently editing.
+    /// Kept up to date by the list controller when an earlier row is
+    /// removed out from under an open window (see
+    /// SourcesPrefsViewController.removeSource).
+    var editingIndex: Int
+
+    init(index: Int, source: CustomMetadataSource, delegate: CustomSourceDetailWindowDelegate) {
+        self.editingIndex = index
+        self.delegate = delegate
+
+        let contentController = CustomSourceDetailViewController(source: source)
+        self.contentController = contentController
+
+        let window = NSWindow(contentViewController: contentController)
+        window.styleMask = [.titled, .closable, .resizable]
+        window.setContentSize(NSSize(width: 700, height: 640))
+        window.minSize = NSSize(width: 620, height: 480)
+        window.title = CustomSourceDetailWindowController.title(for: source)
+
+        super.init(window: window)
+
+        window.delegate = self
+        contentController.onChange = { [weak self] updated in
+            guard let self = self else { return }
+            window.title = CustomSourceDetailWindowController.title(for: updated)
+            self.delegate?.customSourceDetail(self, didUpdate: updated, at: self.editingIndex)
+        }
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    /// Repoints an already-open window at a different source -- used when
+    /// "+" or a double-click asks for one while this window is still open,
+    /// rather than letting several of these windows pile up at once.
+    func reconfigure(index: Int, source: CustomMetadataSource) {
+        editingIndex = index
+        contentController.setSource(source)
+        window?.title = CustomSourceDetailWindowController.title(for: source)
+    }
+
+    private static func title(for source: CustomMetadataSource) -> String {
+        return source.name.trimmingCharacters(in: .whitespaces).isEmpty ? NSLocalizedString("New Source", comment: "") : source.name
+    }
+
+    func windowWillClose(_ notification: Notification) {
+        delegate?.customSourceDetailWindowWillClose(self)
+    }
+}
+
+// MARK: - Detail view controller
+
+/// One source's settings: name, applies-to, search request, authentication,
+/// and field mapping (with Test/Retrieve and Discovered Fields) -- exactly
+/// what used to be the inline detail pane next to the sources list, now
+/// standalone in its own window (see CustomSourceDetailWindowController).
+/// Editing is live: every field commit calls `onChange` immediately with
+/// the updated source, same as the old pane's direct writes into
+/// MetadataPrefs.additionalMetadataSources.
+final class CustomSourceDetailViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+
+    private var source: CustomMetadataSource
+    var onChange: ((CustomMetadataSource) -> Void)?
+
+    private var detailContainer: NSView!
+
+    /// Test Connection / field discovery state for this source. Rebuilt
+    /// fresh whenever the form is rebuilt; not persisted -- it's a
+    /// scratchpad for filling in field mappings, not part of
+    /// CustomMetadataSource itself.
+    private var testQueryField: NSTextField!
+    private var testButton: NSButton!
+    private var statusLabel: NSTextField!
+    private var copyStatusButton: NSButton!
+    private var discoveredFieldsTable: NSTableView!
+    private var discoveredFields: [DiscoveredField] = []
+
+    /// The field-mapping list itself, plus its own +/- buttons (styled and
+    /// sized like the Sources list's) for adding/removing which fields a
+    /// source maps at all. Rebuilt fresh in rebuildDetail, same as the
+    /// other detail-pane controls.
+    ///
+    /// "+" is an NSPopUpButton (pullsDown, "NSAddTemplate" face) rather
+    /// than a plain button with a custom popover -- this matches Subler's
+    /// own field picker exactly (MovieViewController's tagsPopUp, the "+"
+    /// below the main metadata table): one flat menu of every mappable
+    /// field plus a couple of "add a whole set" shortcuts at the top,
+    /// single click to add, no separate Add/Cancel step. Its menu is
+    /// static (built once in makeDetailPane) since -- unlike the old
+    /// popover -- it no longer greys out already-mapped fields: clicking
+    /// one that's already in the list just reveals its existing row,
+    /// exactly like addTag(_:) does for the main table.
+    private var mappingTableView: NSTableView!
+    private var addMappingButton: NSPopUpButton!
+    private var removeMappingButton: NSButton!
+
+    /// Bumped on every Test Connection click and every time the form is
+    /// rebuilt for a new source; a completion or timeout callback that
+    /// doesn't match the current generation is stale and is ignored
+    /// instead of touching the UI.
+    private var testGeneration = 0
+
+    /// The live mapping-row text fields for this source, keyed by which
+    /// annotation they map, so a best-guess or a drop can update a row's
+    /// displayed text without rebuilding the whole detail form (which
+    /// would also throw away whatever the user just typed into the test
+    /// query field).
+    private var mappingFields: [MetadataResult.Key: NSTextField] = [:]
+
+    /// The Artwork URL Path field, kept around the same way mappingFields
+    /// are -- so a best-guess fill-in can update its displayed text
+    /// without rebuilding the whole detail form. Artwork isn't a
+    /// MetadataResult.Key mapping (it's its own CustomMetadataSource
+    /// property), so it can't live in mappingFields alongside those.
+    private var artworkPathField: NSTextField?
+
+    /// The API Key row keeps a masked field and a plain one stacked in the
+    /// same spot, toggled by the reveal button -- a masked-only field made
+    /// it impossible to visually confirm the key matches what actually
+    /// worked outside the app (e.g. in a curl test), which is exactly the
+    /// question that matters when a source keeps failing to authenticate.
+    private var apiKeySecureField: NSSecureTextField!
+    private var apiKeyPlainField: NSTextField!
+    private var apiKeyRevealButton: NSButton!
+
+    /// Tags for the detail form's fixed, one-of-a-kind text fields.
+    /// Field-mapping rows are tagged starting at mappingTagOffset instead,
+    /// as mappingTagOffset + the row's index into this source's own
+    /// visibleFields array, since there's one row per visible field rather
+    /// than one overall.
+    private enum FieldTag: Int {
+        case name = 0
+        case urlTemplate = 1
+        case resultsPath = 2
+        case authName = 3
+        case apiKey = 4
+        case artworkPath = 5
+    }
+    private let mappingTagOffset = 1000
+
+    /// Height given to the field-mapping table and the Discovered Fields
+    /// table, side by side -- a fixed value (rather than tied to a sibling
+    /// list's height, as when this was an inline pane next to the sources
+    /// list) since this window has no such sibling anymore. The window
+    /// itself is resizable and everything above sits in its own scroll
+    /// view, so this is just a comfortable default, not a hard limit on
+    /// how many mapped fields are usable.
+    private let fieldTablesHeight: CGFloat = 280
+
+    init(source: CustomMetadataSource) {
+        self.source = source
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    /// Repoints this same view controller at a different source, for when
+    /// the detail window is reused rather than recreated (see
+    /// CustomSourceDetailWindowController.reconfigure).
+    func setSource(_ newSource: CustomMetadataSource) {
+        source = newSource
+        if isViewLoaded {
+            rebuildDetail()
+        }
+    }
+
+    override func loadView() {
+        let container = NSView(frame: NSRect(x: 0, y: 0, width: 700, height: 640))
+        self.view = container
+        // The actual content is a single scrollable form -- see
+        // rebuildDetail -- built the same way the old inline detail pane
+        // was, just filling this window's whole content view instead of
+        // sharing a split view with the sources list.
+        let pane = makeDetailPane()
+        pane.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(pane)
+        NSLayoutConstraint.activate([
+            pane.topAnchor.constraint(equalTo: container.topAnchor),
+            pane.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            pane.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            pane.bottomAnchor.constraint(equalTo: container.bottomAnchor)
+        ])
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        rebuildDetail()
+    }
+
+    private func update(_ mutate: (inout CustomMetadataSource) -> Void) {
+        mutate(&source)
+        onChange?(source)
     }
 
     // MARK: - Detail pane
@@ -446,19 +561,13 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
         // The field-mapping list's own +/- buttons live here, outside the
         // scrollable form, rather than inline underneath the mapping table
-        // -- built once (like the Sources list's own, in makeListPane)
-        // rather than rebuilt with the rest of the form on every selection
-        // change. Pinned to this pane's own bottom edge exactly the way
-        // the Sources list pane pins its +/- buttons to its bottom edge,
-        // so with both panes filling the same split view height, the two
-        // button rows land at the same Y position -- a shared footer
-        // rather than the mapping ones drifting wherever the mapping
-        // section happens to scroll to.
+        // -- built once rather than rebuilt with the rest of the form on
+        // every rebuild. Pinned to this pane's own bottom edge.
         // A pulldown NSPopUpButton with a "+" face, exactly like Subler's
         // own field-adding control below the main metadata table
         // (MovieViewController's tagsPopUp): one flat menu, click a field
         // to add it, no separate popover/Add/Cancel step. Static content,
-        // so it's built once here rather than per selection change -- see
+        // so it's built once here rather than per rebuild -- see
         // appendMappingFieldMenuItems.
         let addButton = NSPopUpButton(frame: .zero, pullsDown: true)
         addButton.bezelStyle = .rounded
@@ -520,28 +629,12 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         mappingFields = [:]
         artworkPathField = nil
         mappingTableView = nil
-        // Invalidates any Test Connection still in flight for whatever was
-        // selected before -- its completion/timeout callback checks this
-        // and will now no-op instead of writing into the new source's pane.
+        // Invalidates any Test Connection still in flight from before this
+        // rebuild -- its completion/timeout callback checks this and will
+        // now no-op instead of writing into a form that's just been torn
+        // down and rebuilt.
         testGeneration += 1
 
-        guard let index = selectedIndex, sources.indices.contains(index) else {
-            let placeholder = NSTextField(wrappingLabelWithString: NSLocalizedString("Select a source on the left, or click + to add one.", comment: ""))
-            placeholder.textColor = .secondaryLabelColor
-            placeholder.translatesAutoresizingMaskIntoConstraints = false
-            detailContainer.addSubview(placeholder)
-            NSLayoutConstraint.activate([
-                placeholder.topAnchor.constraint(equalTo: detailContainer.topAnchor, constant: 12),
-                placeholder.leadingAnchor.constraint(equalTo: detailContainer.leadingAnchor, constant: 12),
-                placeholder.trailingAnchor.constraint(equalTo: detailContainer.trailingAnchor, constant: -12),
-                placeholder.bottomAnchor.constraint(equalTo: detailContainer.bottomAnchor, constant: -12)
-            ])
-            addMappingButton?.isEnabled = false
-            updateRemoveMappingButtonState()
-            return
-        }
-
-        let source = sources[index]
         let stack = NSStackView()
         stack.orientation = .vertical
         stack.alignment = .leading
@@ -777,8 +870,8 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     /// mappingRowCell) on the left, and the Discovered Fields table
     /// (populated by Test Connection) on the right. The table's own +/-
     /// buttons live in the detail pane's footer (see makeDetailPane), not
-    /// here, so they stay aligned with the Sources list's own instead of
-    /// scrolling away with the rest of the form.
+    /// here, so they stay put rather than scrolling away with the rest of
+    /// the form.
     private func makeFieldMappingSplit(source: CustomMetadataSource) -> NSView {
         let mappingTableColumn = makeMappingTableColumn()
         let discoveredColumn = makeDiscoveredFieldsTable()
@@ -791,11 +884,11 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         return split
     }
 
-    /// The scrolling list of the selected source's currently-mapped
-    /// fields, sized to match the Sources list's height (see
-    /// sourceListVisibleHeight). Its last row is always Artwork URL Path
-    /// (see mappingRowCell) -- grouped in with the other mapped fields
-    /// rather than broken out on its own, even though it isn't itself
+    /// The scrolling list of this source's currently-mapped fields, sized
+    /// to match the Discovered Fields table beside it (see
+    /// fieldTablesHeight). Its last row is always Artwork URL Path (see
+    /// mappingRowCell) -- grouped in with the other mapped fields rather
+    /// than broken out on its own, even though it isn't itself
     /// addable/removable via the "+"/"-" buttons in the detail pane's
     /// footer, since it isn't a MetadataResult.Key mapping.
     private func makeMappingTableColumn() -> NSView {
@@ -823,22 +916,20 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
         NSLayoutConstraint.activate([
             scrollView.widthAnchor.constraint(equalToConstant: 380),
-            scrollView.heightAnchor.constraint(equalToConstant: sourceListVisibleHeight)
+            scrollView.heightAnchor.constraint(equalToConstant: fieldTablesHeight)
         ])
 
         return scrollView
     }
 
     /// One row of the mapping table. Every row except the last is one of
-    /// the selected source's visibleFields, tagged mappingTagOffset + its
-    /// index for commitMappingRowValue; the last row (index ==
-    /// visibleFields.count) is always Artwork URL Path, tagged and
-    /// committed the same way it always has been (FieldTag.artworkPath),
-    /// since it's a CustomMetadataSource property rather than a
-    /// MetadataResult.Key mapping.
+    /// this source's visibleFields, tagged mappingTagOffset + its index
+    /// for commitMappingRowValue; the last row (index == visibleFields.
+    /// count) is always Artwork URL Path, tagged and committed the same
+    /// way it always has been (FieldTag.artworkPath), since it's a
+    /// CustomMetadataSource property rather than a MetadataResult.Key
+    /// mapping.
     private func mappingRowCell(for row: Int) -> NSView? {
-        guard let index = selectedIndex, sources.indices.contains(index) else { return nil }
-        let source = sources[index]
         let keys = source.visibleFields
 
         if row == keys.count {
@@ -949,7 +1040,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
         NSLayoutConstraint.activate([
             scrollView.widthAnchor.constraint(equalToConstant: 260),
-            scrollView.heightAnchor.constraint(equalToConstant: sourceListVisibleHeight)
+            scrollView.heightAnchor.constraint(equalToConstant: fieldTablesHeight)
         ])
 
         return scrollView
@@ -1127,16 +1218,90 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         }
     }
 
+    // MARK: - Table view data source / delegate
+
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        if tableView === discoveredFieldsTable { return discoveredFields.count }
+        // Must be mappingTableView -- +1 for the trailing Artwork URL Path
+        // row -- see mappingRowCell.
+        return source.visibleFields.count + 1
+    }
+
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        if tableView === discoveredFieldsTable {
+            return discoveredFieldCell(for: row)
+        }
+        return mappingRowCell(for: row)
+    }
+
+    func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
+        guard tableView === discoveredFieldsTable, discoveredFields.indices.contains(row) else { return nil }
+        let item = NSPasteboardItem()
+        _ = item.setString(discoveredFields[row].path, forType: .string)
+        return item
+    }
+
+    private func discoveredFieldCell(for row: Int) -> NSView? {
+        guard discoveredFields.indices.contains(row) else { return nil }
+
+        let identifier = NSUserInterfaceItemIdentifier("discoveredFieldCell")
+        let cell: NSTableCellView
+        if let reused = discoveredFieldsTable.makeView(withIdentifier: identifier, owner: self) as? NSTableCellView {
+            cell = reused
+        } else {
+            let newCell = NSTableCellView()
+            let textField = NSTextField(labelWithString: "")
+            textField.lineBreakMode = .byTruncatingTail
+            textField.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
+            textField.translatesAutoresizingMaskIntoConstraints = false
+            newCell.addSubview(textField)
+            newCell.textField = textField
+            newCell.identifier = identifier
+            NSLayoutConstraint.activate([
+                textField.leadingAnchor.constraint(equalTo: newCell.leadingAnchor, constant: 4),
+                textField.trailingAnchor.constraint(equalTo: newCell.trailingAnchor, constant: -4),
+                textField.centerYAnchor.constraint(equalTo: newCell.centerYAnchor)
+            ])
+            cell = newCell
+        }
+
+        let field = discoveredFields[row]
+        // JSONPath.discoverFields already caps sample-value length -- this
+        // is a defense-in-depth backstop against an oversized string
+        // making this table cell expensive to build.
+        let displaySample = field.sampleValue.count > 200 ? String(field.sampleValue.prefix(200)) + "\u{2026}" : field.sampleValue
+        cell.textField?.stringValue = "\(field.path)  —  \(displaySample)"
+        cell.textField?.toolTip = NSLocalizedString("Drag onto a field below to map it.", comment: "") + " (\(field.path))"
+        return cell
+    }
+
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        guard let changedTable = notification.object as? NSTableView, changedTable === mappingTableView else { return }
+        updateRemoveMappingButtonState()
+    }
+
+    /// Disabled with nothing selected, and also disabled when the Artwork
+    /// URL Path row (always the table's last row) is selected, since it
+    /// isn't part of visibleFields and so isn't removable, only editable.
+    private func updateRemoveMappingButtonState() {
+        guard let mappingTableView = mappingTableView else {
+            removeMappingButton?.isEnabled = false
+            return
+        }
+        let row = mappingTableView.selectedRow
+        removeMappingButton?.isEnabled = source.visibleFields.indices.contains(row)
+    }
+
     // MARK: - Actions
 
     @objc private func movieTypeToggled(_ sender: NSButton) {
-        updateSelected { source in
+        update { source in
             if sender.state == .on { source.mediaTypes.insert(.movie) } else { source.mediaTypes.remove(.movie) }
         }
     }
 
     @objc private func tvTypeToggled(_ sender: NSButton) {
-        updateSelected { source in
+        update { source in
             if sender.state == .on { source.mediaTypes.insert(.tvShow) } else { source.mediaTypes.remove(.tvShow) }
         }
     }
@@ -1183,8 +1348,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
     private func addMappingFields(_ keys: [MetadataResult.Key]) {
         guard keys.isEmpty == false else { return }
-        guard let index = selectedIndex, sources.indices.contains(index) else { return }
-        updateSelected { source in
+        update { source in
             for key in keys where source.visibleFields.contains(key) == false {
                 source.visibleFields.append(key)
             }
@@ -1194,23 +1358,22 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         // Matches addTag(_:)'s behavior on the main metadata table:
         // picking a single field that's already mapped doesn't duplicate
         // it, it just reveals the existing row.
-        if keys.count == 1, let key = keys.first, sources.indices.contains(index),
-           let row = sources[index].visibleFields.firstIndex(of: key) {
+        if keys.count == 1, let key = keys.first,
+           let row = source.visibleFields.firstIndex(of: key) {
             mappingTableView?.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
             mappingTableView?.scrollRowToVisible(row)
         }
     }
 
     @objc private func removeMappingField(_ sender: Any) {
-        guard let index = selectedIndex, sources.indices.contains(index) else { return }
         let row = mappingTableView.selectedRow
-        guard sources[index].visibleFields.indices.contains(row) else { return }
+        guard source.visibleFields.indices.contains(row) else { return }
 
         // Removes by index, entirely inside the mutation closure, rather
         // than resolving a key beforehand and matching by equality --
         // guarantees exactly the one selected row goes, never anything
         // else, regardless of how MetadataResult.Key equality behaves.
-        updateSelected { source in
+        update { source in
             let key = source.visibleFields.remove(at: row)
             source.fieldMappings.removeAll { $0.field == key }
         }
@@ -1218,7 +1381,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     }
 
     @objc private func authTypeChanged(_ sender: NSPopUpButton) {
-        updateSelected { source in
+        update { source in
             switch sender.indexOfSelectedItem {
             case 1:
                 // Switching *into* Query Parameter: keep a name the user
@@ -1241,21 +1404,20 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
     // MARK: - Test Connection / field discovery
 
-    /// Network timeout used elsewhere (NetworkUtilities.dataTask) is 30s;
-    /// this is the outer watchdog on the UI side of a test, a little more
-    /// generous so a real (if slow) response always wins the race, but
-    /// still tight enough that a stuck test never leaves the button
-    /// disabled and the status line reading "Testing…" indefinitely.
+    /// Network timeout used elsewhere (NetworkUtilities.dataTask, and
+    /// CustomSourceService's own bounded semaphore wait) is 30-32s; this is
+    /// the outer watchdog on the UI side of a test, a little more generous
+    /// so a real (if slow) response always wins the race, but still tight
+    /// enough that a stuck test never leaves the button disabled and the
+    /// status line reading "Testing…" indefinitely.
     private let testConnectionWatchdogInterval: TimeInterval = 35
 
     @objc private func testConnection(_ sender: Any) {
-        guard let index = selectedIndex, sources.indices.contains(index) else { return }
-
         // Commit whatever's mid-edit (e.g. the URL template, if focus is
         // still in that field) before reading the source out to test it.
         view.window?.makeFirstResponder(nil)
 
-        let urlTemplate = sources[index].searchURLTemplate.trimmingCharacters(in: .whitespaces)
+        let urlTemplate = source.searchURLTemplate.trimmingCharacters(in: .whitespaces)
         guard urlTemplate.isEmpty == false else {
             showInputError(NSLocalizedString("Value required: enter a Search URL above before testing.", comment: ""),
                             highlighting: detailContainer.viewWithTag(FieldTag.urlTemplate.rawValue) as? NSTextField)
@@ -1268,25 +1430,25 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
             return
         }
 
-        let source = sources[index]
+        let currentSource = source
         setStatusMessage(NSLocalizedString("Testing…", comment: ""), isError: false)
         testButton.isEnabled = false
 
         testGeneration += 1
         let generation = testGeneration
 
-        let service = CustomSourceService(source: source)
+        let service = CustomSourceService(source: currentSource)
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             let result = service.discoverFields(forQuery: query)
             DispatchQueue.main.async {
                 guard let self = self, self.testGeneration == generation else { return }
                 self.testButton.isEnabled = true
-                self.handleDiscovery(result, source: source)
+                self.handleDiscovery(result, source: currentSource)
             }
         }
 
         // Belt-and-suspenders: if nothing has come back (success, failure,
-        // or the network layer's own 30s timeout) by the watchdog interval,
+        // or the network layer's own timeout) by the watchdog interval,
         // stop waiting and tell the user, rather than leaving "Testing…"
         // and a disabled button on screen indefinitely.
         DispatchQueue.main.asyncAfter(deadline: .now() + testConnectionWatchdogInterval) { [weak self] in
@@ -1332,8 +1494,8 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         // that's taller than its scroll area (more rows than fit
         // on-screen at once) can have rows further down that haven't been
         // built yet. A full reload guarantees every row reflects the
-        // model (which updateSelected already updated) once, regardless
-        // of what's been scrolled into view yet.
+        // model (which update already updated) once, regardless of what's
+        // been scrolled into view yet.
         mappingTableView?.reloadData()
     }
 
@@ -1366,7 +1528,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
             guard let match = discoveredFields.first(where: { candidates.contains(normalizedLeaf(of: $0.path)) }) else { continue }
 
-            updateSelected { source in
+            update { source in
                 source.fieldMappings.removeAll { $0.field == key }
                 source.fieldMappings.append(CustomSourceFieldMapping(field: key, jsonPath: match.path))
             }
@@ -1383,7 +1545,7 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
         if source.artworkPath.trimmingCharacters(in: .whitespaces).isEmpty {
             let artworkCandidates = ["poster", "image", "cover", "coverimage", "thumbnail", "thumb", "artwork", "backdrop", "posterurl", "boxart", "art"]
             if let match = discoveredFields.first(where: { artworkCandidates.contains(normalizedLeaf(of: $0.path)) }) {
-                updateSelected { $0.artworkPath = match.path }
+                update { $0.artworkPath = match.path }
                 artworkPathField?.stringValue = match.path
             }
         }
@@ -1409,23 +1571,22 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
     /// controlTextDidEndEditing does for typed input.
     private func commitDroppedValue(tag: Int, value: String) {
         guard tag == FieldTag.artworkPath.rawValue else { return }
-        updateSelected { $0.artworkPath = value.trimmingCharacters(in: .whitespaces) }
+        update { $0.artworkPath = value.trimmingCharacters(in: .whitespaces) }
     }
 
     /// Commits a mapping-table row's text, looking the row's key up by its
-    /// index into the *selected source's* visibleFields -- see
-    /// mappingRowCell, which tags each row mappingTagOffset + its index.
-    /// Unlike the old fixed-array scheme, this stays correct as fields are
-    /// added/removed, since a tag is only ever read back against the same
-    /// source state it was created for (any add/remove rebuilds the whole
-    /// detail pane, handing out fresh tags).
+    /// index into this source's own visibleFields -- see mappingRowCell,
+    /// which tags each row mappingTagOffset + its index. Unlike a fixed-
+    /// array scheme, this stays correct as fields are added/removed, since
+    /// a tag is only ever read back against the same source state it was
+    /// created for (any add/remove rebuilds the whole detail pane, handing
+    /// out fresh tags).
     private func commitMappingRowValue(tag: Int, value: String) {
-        guard let index = selectedIndex, sources.indices.contains(index) else { return }
         let row = tag - mappingTagOffset
-        guard sources[index].visibleFields.indices.contains(row) else { return }
-        let key = sources[index].visibleFields[row]
+        guard source.visibleFields.indices.contains(row) else { return }
+        let key = source.visibleFields[row]
         let path = value.trimmingCharacters(in: .whitespaces)
-        updateSelected { source in
+        update { source in
             source.fieldMappings.removeAll { $0.field == key }
             if path.isEmpty == false {
                 source.fieldMappings.append(CustomSourceFieldMapping(field: key, jsonPath: path))
@@ -1445,14 +1606,13 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
 
         switch tag {
         case .name:
-            updateSelected { $0.name = textField.stringValue }
-            tableView.reloadData()
+            update { $0.name = textField.stringValue }
         case .urlTemplate:
-            updateSelected { $0.searchURLTemplate = textField.stringValue }
+            update { $0.searchURLTemplate = textField.stringValue }
         case .resultsPath:
-            updateSelected { $0.resultsPath = textField.stringValue }
+            update { $0.resultsPath = textField.stringValue }
         case .authName:
-            updateSelected { source in
+            update { source in
                 switch source.authentication {
                 case .queryParameter: source.authentication = .queryParameter(name: textField.stringValue)
                 case .header: source.authentication = .header(name: textField.stringValue)
@@ -1460,9 +1620,9 @@ final class SourcesPrefsViewController: NSViewController, NSTableViewDataSource,
                 }
             }
         case .apiKey:
-            updateSelected { $0.apiKey = textField.stringValue }
+            update { $0.apiKey = textField.stringValue }
         case .artworkPath:
-            updateSelected { $0.artworkPath = textField.stringValue }
+            update { $0.artworkPath = textField.stringValue }
         }
     }
 }
