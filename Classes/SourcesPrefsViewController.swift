@@ -388,6 +388,17 @@ final class CustomSourceDetailWindowController: NSWindowController, NSWindowDele
     }
 }
 
+/// A plain container whose origin is the top-left rather than AppKit's
+/// default bottom-left. Used as the detail form's scroll-view document
+/// view (see makeDetailPane) so that when the window is taller than the
+/// form actually needs, the form sits at the top with the extra space
+/// below it -- the natural place for a growing window's slack to go --
+/// instead of AppKit's default of anchoring a document view shorter than
+/// its scroll view to the bottom.
+private final class FlippedView: NSView {
+    override var isFlipped: Bool { true }
+}
+
 // MARK: - Detail view controller
 
 /// One source's settings: name, applies-to, search request, authentication,
@@ -546,7 +557,7 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         scrollView.autohidesScrollers = true
         scrollView.drawsBackground = false
 
-        let container = NSView()
+        let container = FlippedView()
         container.translatesAutoresizingMaskIntoConstraints = false
         scrollView.documentView = container
 
@@ -648,11 +659,13 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         stack.addArrangedSubview(makeTextRow(label: NSLocalizedString("Search URL", comment: ""),
                                               value: source.searchURLTemplate, tag: FieldTag.urlTemplate.rawValue,
                                               placeholder: "https://api.example.com/search?q={query}",
-                                              help: NSLocalizedString("\u{201c}{query}\u{201d} is replaced with the URL-encoded search text.", comment: "")))
+                                              help: NSLocalizedString("\u{201c}{query}\u{201d} is replaced with the URL-encoded search text.", comment: ""),
+                                              stretchesToFillWidth: true))
         stack.addArrangedSubview(makeTextRow(label: NSLocalizedString("Results Path", comment: ""),
                                               value: source.resultsPath, tag: FieldTag.resultsPath.rawValue,
                                               placeholder: "results",
-                                              help: NSLocalizedString("JSON path to the array of matches in the response. Leave blank if the response itself is that array.", comment: "")))
+                                              help: NSLocalizedString("JSON path to the array of matches in the response. Leave blank if the response itself is that array.", comment: ""),
+                                              stretchesToFillWidth: true))
 
         stack.addArrangedSubview(makeSectionLabel(NSLocalizedString("Authentication", comment: "")))
         stack.addArrangedSubview(makeAuthRow(source: source))
@@ -691,6 +704,19 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         return label
     }
 
+    /// Pins `row`'s trailing edge to the form's own trailing edge -- a
+    /// required upper bound (so it can never push past the window, even
+    /// at the window's minimum size) plus a high-but-not-required
+    /// preference to actually reach it, so the row grows to use whatever
+    /// width the window currently has rather than only ever sitting at
+    /// its content's natural minimum size.
+    private func stretchRowToFillDetailWidth(_ row: NSView) {
+        row.trailingAnchor.constraint(lessThanOrEqualTo: detailContainer.trailingAnchor, constant: -12).isActive = true
+        let preferredWidth = row.trailingAnchor.constraint(equalTo: detailContainer.trailingAnchor, constant: -12)
+        preferredWidth.priority = .defaultHigh
+        preferredWidth.isActive = true
+    }
+
     /// A label + text field row, with optional help text on the line
     /// below. Pass `label: nil, disabled: true` for a help-text-only row
     /// (used as the intro line above the field-mapping list). Pass
@@ -698,9 +724,17 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
     /// Fields table) as well as typed input; `fieldCreated` hands back the
     /// text field itself, so a caller that needs to update it later (a
     /// best-guess fill-in) doesn't have to rebuild the whole form.
+    ///
+    /// `fieldWidth` is a *minimum*, not a fixed size: pass
+    /// `stretchesToFillWidth: true` for a field whose value is worth
+    /// seeing more of when there's room for it (a URL, a JSON path) and
+    /// this row grows to use the window's full width, handing all of the
+    /// resulting slack to the field itself (the label stays pinned at
+    /// 130) -- so widening the window actually shows more of a long value
+    /// instead of just adding blank space to its right.
     private func makeTextRow(label: String?, value: String, tag: Int, placeholder: String = "",
                               secure: Bool = false, disabled: Bool = false, help: String? = nil,
-                              fieldWidth: CGFloat = 400, droppable: Bool = false,
+                              fieldWidth: CGFloat = 400, stretchesToFillWidth: Bool = false, droppable: Bool = false,
                               fieldCreated: ((NSTextField) -> Void)? = nil) -> NSView {
         let container = NSStackView()
         container.orientation = .vertical
@@ -729,13 +763,18 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
             textField.tag = tag
             textField.delegate = self
             textField.translatesAutoresizingMaskIntoConstraints = false
-            textField.widthAnchor.constraint(equalToConstant: fieldWidth).isActive = true
+            textField.widthAnchor.constraint(greaterThanOrEqualToConstant: fieldWidth).isActive = true
 
             let row = NSStackView(views: [labelField, textField])
             row.orientation = .horizontal
             row.alignment = .firstBaseline
+            row.distribution = .fill
             row.spacing = 8
             container.addArrangedSubview(row)
+
+            if stretchesToFillWidth {
+                stretchRowToFillDetailWidth(row)
+            }
 
             fieldCreated?(textField)
         }
@@ -879,8 +918,18 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         let split = NSStackView(views: [mappingTableColumn, discoveredColumn])
         split.orientation = .horizontal
         split.alignment = .top
+        split.distribution = .fill
         split.spacing = 16
         split.translatesAutoresizingMaskIntoConstraints = false
+
+        // The two columns grow together as the window widens, keeping
+        // their original ~3:2 proportions (matching their old fixed
+        // 380/260 widths) rather than only one soaking up the extra
+        // space -- a discovered field's own path can run just as long as
+        // a mapped one's, so both benefit from the room.
+        discoveredColumn.widthAnchor.constraint(equalTo: mappingTableColumn.widthAnchor, multiplier: 260.0 / 380.0).isActive = true
+        stretchRowToFillDetailWidth(split)
+
         return split
     }
 
@@ -909,13 +958,19 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         let tableColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("mappingField"))
         tableColumn.title = NSLocalizedString("Field Mapping", comment: "")
         tableColumn.width = 360
+        tableColumn.minWidth = 220
+        tableColumn.resizingMask = .autoresizingMask
         table.addTableColumn(tableColumn)
+        table.columnAutoresizingStyle = .uniformColumnAutoresizingStyle
 
         scrollView.documentView = table
         self.mappingTableView = table
 
+        // A minimum, not a fixed width, so this column (and the JSON path
+        // field inside each of its rows -- see mappingRowCell) grows along
+        // with the window instead of leaving the extra width unused.
         NSLayoutConstraint.activate([
-            scrollView.widthAnchor.constraint(equalToConstant: 380),
+            scrollView.widthAnchor.constraint(greaterThanOrEqualToConstant: 380),
             scrollView.heightAnchor.constraint(equalToConstant: fieldTablesHeight)
         ])
 
@@ -955,19 +1010,23 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         dropField.tag = tag
         dropField.delegate = self
         dropField.translatesAutoresizingMaskIntoConstraints = false
-        dropField.widthAnchor.constraint(equalToConstant: 220).isActive = true
+        dropField.widthAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true
         mappingFields[key] = dropField
 
         let rowStack = NSStackView(views: [labelField, dropField])
         rowStack.orientation = .horizontal
         rowStack.alignment = .firstBaseline
+        rowStack.distribution = .fill
         rowStack.spacing = 8
         rowStack.translatesAutoresizingMaskIntoConstraints = false
 
         cell.addSubview(rowStack)
+        let preferredTrailing = rowStack.trailingAnchor.constraint(equalTo: cell.trailingAnchor, constant: -4)
+        preferredTrailing.priority = .defaultHigh
         NSLayoutConstraint.activate([
             rowStack.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: 4),
             rowStack.trailingAnchor.constraint(lessThanOrEqualTo: cell.trailingAnchor, constant: -4),
+            preferredTrailing,
             rowStack.centerYAnchor.constraint(equalTo: cell.centerYAnchor)
         ])
 
@@ -996,19 +1055,23 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         dropField.tag = FieldTag.artworkPath.rawValue
         dropField.delegate = self
         dropField.translatesAutoresizingMaskIntoConstraints = false
-        dropField.widthAnchor.constraint(equalToConstant: 220).isActive = true
+        dropField.widthAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true
         self.artworkPathField = dropField
 
         let rowStack = NSStackView(views: [labelField, dropField])
         rowStack.orientation = .horizontal
         rowStack.alignment = .firstBaseline
+        rowStack.distribution = .fill
         rowStack.spacing = 8
         rowStack.translatesAutoresizingMaskIntoConstraints = false
 
         cell.addSubview(rowStack)
+        let preferredTrailing = rowStack.trailingAnchor.constraint(equalTo: cell.trailingAnchor, constant: -4)
+        preferredTrailing.priority = .defaultHigh
         NSLayoutConstraint.activate([
             rowStack.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: 4),
             rowStack.trailingAnchor.constraint(lessThanOrEqualTo: cell.trailingAnchor, constant: -4),
+            preferredTrailing,
             rowStack.centerYAnchor.constraint(equalTo: cell.centerYAnchor)
         ])
 
@@ -1033,13 +1096,20 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
 
         let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("discoveredField"))
         column.title = NSLocalizedString("Discovered Fields", comment: "")
+        column.minWidth = 180
+        column.resizingMask = .autoresizingMask
         table.addTableColumn(column)
+        table.columnAutoresizingStyle = .uniformColumnAutoresizingStyle
 
         scrollView.documentView = table
         self.discoveredFieldsTable = table
 
+        // A minimum, not a fixed width -- see makeMappingTableColumn; its
+        // width is actually driven from there (kept at a fixed ratio of
+        // it, in makeFieldMappingSplit) rather than independently, so both
+        // columns grow together.
         NSLayoutConstraint.activate([
-            scrollView.widthAnchor.constraint(equalToConstant: 260),
+            scrollView.widthAnchor.constraint(greaterThanOrEqualToConstant: 260),
             scrollView.heightAnchor.constraint(equalToConstant: fieldTablesHeight)
         ])
 
@@ -1088,12 +1158,14 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         nameField.placeholderString = NSLocalizedString("name, e.g. api_key or Authorization", comment: "")
         nameField.isEnabled = (source.authentication != .none)
         nameField.translatesAutoresizingMaskIntoConstraints = false
-        nameField.widthAnchor.constraint(equalToConstant: 220).isActive = true
+        nameField.widthAnchor.constraint(greaterThanOrEqualToConstant: 220).isActive = true
 
         let row = NSStackView(views: [labelField, popup, nameField])
         row.orientation = .horizontal
         row.alignment = .firstBaseline
+        row.distribution = .fill
         row.spacing = 8
+        stretchRowToFillDetailWidth(row)
         return row
     }
 
@@ -1126,7 +1198,7 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         fieldContainer.addSubview(secureField)
         fieldContainer.addSubview(plainField)
         NSLayoutConstraint.activate([
-            fieldContainer.widthAnchor.constraint(equalToConstant: 400),
+            fieldContainer.widthAnchor.constraint(greaterThanOrEqualToConstant: 400),
             secureField.leadingAnchor.constraint(equalTo: fieldContainer.leadingAnchor),
             secureField.trailingAnchor.constraint(equalTo: fieldContainer.trailingAnchor),
             secureField.topAnchor.constraint(equalTo: fieldContainer.topAnchor),
@@ -1163,7 +1235,9 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         let row = NSStackView(views: [labelField, fieldContainer, revealButton])
         row.orientation = .horizontal
         row.alignment = .centerY
+        row.distribution = .fill
         row.spacing = 8
+        stretchRowToFillDetailWidth(row)
 
         let help = NSTextField(wrappingLabelWithString: NSLocalizedString("Sent exactly as entered -- for a header like \u{201c}Authorization: Bearer <key>\u{201d}, enter \u{201c}Bearer abc123\u{201d} here, not just the key.", comment: ""))
         help.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize - 1)
