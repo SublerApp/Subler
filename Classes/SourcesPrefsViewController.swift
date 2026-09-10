@@ -612,7 +612,14 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
             container.leadingAnchor.constraint(equalTo: scrollView.contentView.leadingAnchor),
             container.trailingAnchor.constraint(equalTo: scrollView.contentView.trailingAnchor),
             container.topAnchor.constraint(equalTo: scrollView.contentView.topAnchor),
-            container.widthAnchor.constraint(equalTo: scrollView.contentView.widthAnchor)
+            container.widthAnchor.constraint(equalTo: scrollView.contentView.widthAnchor),
+            // Never shorter than the visible scroll area -- so when the
+            // window is taller than the form's natural content, the form
+            // is stretched to fill that height (see rebuildDetail's
+            // content-hugging priorities, which direct that extra height
+            // to the field-mapping/discovered-fields section specifically)
+            // instead of just leaving blank space below it.
+            container.heightAnchor.constraint(greaterThanOrEqualTo: scrollView.contentView.heightAnchor)
         ])
 
         self.detailContainer = container
@@ -725,6 +732,19 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
                                               help: NSLocalizedString("JSON path (relative to each result) for each annotation below. Leave a field blank to skip it.", comment: "")))
         stack.addArrangedSubview(makeDiscoverRow())
         stack.addArrangedSubview(makeFieldMappingSplit(source: source))
+
+        // Only the field-mapping/discovered-fields section (always the
+        // last row added above) should grow when the window is resized
+        // taller -- everything above it should stay at its natural size.
+        // A low vertical hugging priority on that row and a high one on
+        // every other row tells the stack view's gravity-area
+        // distribution which one should absorb any extra height
+        // detailContainer ends up with (see its height constraint in
+        // makeDetailPane).
+        for row in stack.arrangedSubviews.dropLast() {
+            row.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        }
+        stack.arrangedSubviews.last?.setContentHuggingPriority(.defaultLow, for: .vertical)
 
         detailContainer.addSubview(stack)
         NSLayoutConstraint.activate([
@@ -984,7 +1004,11 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
 
         let split = NSStackView(views: [mappingTableColumn, discoveredColumn])
         split.orientation = .horizontal
-        split.alignment = .top
+        // .height (not .top) so both tables stretch to match whatever
+        // height this row ends up with -- see rebuildDetail's hugging
+        // priorities and the two tables' now-minimum-only height
+        // constraints (makeMappingTableColumn / makeDiscoveredFieldsTable).
+        split.alignment = .height
         split.distribution = .fill
         split.spacing = 16
         split.translatesAutoresizingMaskIntoConstraints = false
@@ -1038,7 +1062,11 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         // with the window instead of leaving the extra width unused.
         NSLayoutConstraint.activate([
             scrollView.widthAnchor.constraint(greaterThanOrEqualToConstant: 380),
-            scrollView.heightAnchor.constraint(equalToConstant: fieldTablesHeight)
+            // A minimum, not a fixed height -- see split.alignment = .height
+            // in makeFieldMappingSplit and rebuildDetail's hugging
+            // priorities, which together let this table (and its sibling)
+            // grow taller when the window is resized taller.
+            scrollView.heightAnchor.constraint(greaterThanOrEqualToConstant: fieldTablesHeight)
         ])
 
         return scrollView
@@ -1177,7 +1205,11 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
         // columns grow together.
         NSLayoutConstraint.activate([
             scrollView.widthAnchor.constraint(greaterThanOrEqualToConstant: 260),
-            scrollView.heightAnchor.constraint(equalToConstant: fieldTablesHeight)
+            // A minimum, not a fixed height -- see split.alignment = .height
+            // in makeFieldMappingSplit and rebuildDetail's hugging
+            // priorities, which together let this table (and its sibling)
+            // grow taller when the window is resized taller.
+            scrollView.heightAnchor.constraint(greaterThanOrEqualToConstant: fieldTablesHeight)
         ])
 
         return scrollView
