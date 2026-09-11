@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24127" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24127"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -179,11 +179,11 @@
                 </popUpButton>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1q-Xr-y6R">
                     <rect key="frame" x="20" y="142" width="138" height="311"/>
-                    <clipView key="contentView" id="KId-fX-q1q">
+                    <clipView key="contentView" ambiguous="YES" id="KId-fX-q1q">
                         <rect key="frame" x="1" y="1" width="136" height="309"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="plain" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="Eh9-8P-dr0" viewBased="YES" id="nXW-oy-rtu">
+                            <tableView verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="plain" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="Eh9-8P-dr0" viewBased="YES" id="nXW-oy-rtu">
                                 <rect key="frame" x="0.0" y="0.0" width="136" height="286"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -285,7 +285,7 @@
                     </textFieldCell>
                 </textField>
                 <button horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="ZMK-Xt-bJh">
-                    <rect key="frame" x="18" y="19" width="173" height="41"/>
+                    <rect key="frame" x="18" y="42" width="173" height="18"/>
                     <buttonCell key="cell" type="check" title="Keep empty annotations" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7Ek-lI-5Lo">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -294,8 +294,19 @@
                         <binding destination="LQR-UU-5Gl" name="value" keyPath="values.SBMetadataKeepEmptyAnnotations" id="ZWu-yg-7bJ"/>
                     </connections>
                 </button>
+                <button horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="SZd-pK-hWX">
+                    <rect key="frame" x="18" y="20" width="210" height="18"/>
+                    <buttonCell key="cell" type="check" title="Overwrite existing annotations" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7KC-Up-hGn">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="LQR-UU-5Gl" name="value" keyPath="values.SBMetadataOverwriteExistingAnnotations" id="gMZ-eG-GV4"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
+                <constraint firstItem="SZd-pK-hWX" firstAttribute="leading" secondItem="ZMK-Xt-bJh" secondAttribute="leading" id="00b-Uc-cOS"/>
                 <constraint firstItem="Jdh-Cj-6ef" firstAttribute="bottom" secondItem="sd5-qb-K5v" secondAttribute="bottom" id="0SP-GV-ri1"/>
                 <constraint firstItem="Jdh-Cj-6ef" firstAttribute="leading" secondItem="1XK-zr-YdW" secondAttribute="leading" id="1EI-3q-Cy7"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="2i2-lP-HkJ"/>
@@ -304,13 +315,16 @@
                 <constraint firstAttribute="trailing" secondItem="1XK-zr-YdW" secondAttribute="trailing" constant="20" symbolic="YES" id="9fj-nw-Dnj"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="bottom" secondItem="1XK-zr-YdW" secondAttribute="bottom" id="BRg-Qn-cnk"/>
                 <constraint firstItem="ZpH-Zy-mAt" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" symbolic="YES" id="BpM-Kf-SfT"/>
+                <constraint firstItem="SZd-pK-hWX" firstAttribute="top" secondItem="ZMK-Xt-bJh" secondAttribute="bottom" constant="6" symbolic="YES" id="DHM-ZO-C7P"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZMK-Xt-bJh" secondAttribute="trailing" constant="20" id="GLC-tk-eTl"/>
                 <constraint firstItem="8sr-aI-VZy" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="HFP-B1-ScR"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="leading" secondItem="Y15-gP-AOw" secondAttribute="leading" id="HMX-Qb-8MC"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="centerY" secondItem="1XK-zr-YdW" secondAttribute="centerY" id="JHk-tE-xQI"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SZd-pK-hWX" secondAttribute="trailing" constant="20" symbolic="YES" id="MBW-h8-eD8"/>
                 <constraint firstItem="Jdh-Cj-6ef" firstAttribute="top" secondItem="h1q-Xr-y6R" secondAttribute="bottom" constant="8" id="NcZ-Os-USj"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZpH-Zy-mAt" secondAttribute="trailing" constant="20" symbolic="YES" id="P7f-Fl-xTL"/>
                 <constraint firstItem="h1q-Xr-y6R" firstAttribute="top" secondItem="ZpH-Zy-mAt" secondAttribute="bottom" constant="8" symbolic="YES" id="S2n-Cv-TwB"/>
+                <constraint firstAttribute="bottom" secondItem="SZd-pK-hWX" secondAttribute="bottom" constant="21" id="WKQ-4s-IWN"/>
                 <constraint firstItem="BkU-sx-jUf" firstAttribute="centerY" secondItem="sd5-qb-K5v" secondAttribute="centerY" id="ZWW-ZP-Xp1"/>
                 <constraint firstItem="BkU-sx-jUf" firstAttribute="trailing" secondItem="1XK-zr-YdW" secondAttribute="trailing" id="bp9-bU-BRc"/>
                 <constraint firstItem="1XK-zr-YdW" firstAttribute="leading" secondItem="h1q-Xr-y6R" secondAttribute="trailing" constant="8" symbolic="YES" id="cCT-Qp-Bxz"/>
@@ -321,12 +335,11 @@
                 <constraint firstItem="BkU-sx-jUf" firstAttribute="height" secondItem="Jdh-Cj-6ef" secondAttribute="height" id="lyO-6Z-Osi"/>
                 <constraint firstItem="Y15-gP-AOw" firstAttribute="top" secondItem="8sr-aI-VZy" secondAttribute="bottom" constant="8" id="mFt-Ao-lHu"/>
                 <constraint firstItem="Y15-gP-AOw" firstAttribute="trailing" secondItem="8sr-aI-VZy" secondAttribute="trailing" id="mXF-1R-Sbp"/>
-                <constraint firstAttribute="bottom" secondItem="ZMK-Xt-bJh" secondAttribute="bottom" constant="20" symbolic="YES" id="qbM-tp-ooC"/>
                 <constraint firstItem="ZpH-Zy-mAt" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" symbolic="YES" id="ttK-B9-wyu"/>
                 <constraint firstItem="sd5-qb-K5v" firstAttribute="leading" secondItem="Jdh-Cj-6ef" secondAttribute="trailing" constant="2" id="vIk-e5-WB3"/>
                 <constraint firstItem="1XK-zr-YdW" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="166" id="yZg-V9-bxH"/>
             </constraints>
-            <point key="canvasLocation" x="-295.5" y="-469.5"/>
+            <point key="canvasLocation" x="-296" y="-469.5"/>
         </customView>
         <arrayController objectClassName="NSString" id="RId-BH-Y2G" userLabel="Types Controller">
             <classReference key="objectClass" className="NSString"/>

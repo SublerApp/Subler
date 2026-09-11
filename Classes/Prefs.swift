@@ -170,7 +170,8 @@ enum MetadataPrefs {
                                _movieImporter, _movieiTunesStoreLanguage,
                                _tvShowImporter, _tvShowiTunesStoreLanguage,
                                _tvShowTheTVDBLanguage, _tvShowTheMovieDBLanguage,
-                               _keepEmptyAnnotations, _keepImportedFilesMetadata])
+                               _keepEmptyAnnotations, _overwriteExistingAnnotations,
+                               _keepImportedFilesMetadata])
     }
 
     @StoredCodable(key: "SBMovieFormatTokens", defaultValue: [Token(text: "{Name}")])
@@ -218,6 +219,9 @@ enum MetadataPrefs {
 
     @Stored(key: "SBMetadataKeepEmptyAnnotations", defaultValue: false)
     static var keepEmptyAnnotations: Bool
+
+    @Stored(key: "SBMetadataOverwriteExistingAnnotations", defaultValue: true)
+    static var overwriteExistingAnnotations: Bool
 
     @Stored(key: "SBFileImporterImportMetadata", defaultValue: false)
     static var keepImportedFilesMetadata: Bool

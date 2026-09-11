@@ -118,7 +118,7 @@ class SBFetchMetadataScriptCommand: NSScriptCommand, ScriptCommandDocumentTarget
             DispatchQueue.main.async {
                 if let metadata = metadata {
                     // Apply the metadata to the file
-                    mp4File.metadata.merge(metadata)
+                    mp4File.metadata.merge(metadata, overwrite: true)
                     sublerDoc.updateChangeCount(.changeDone)
                     
                     // Trigger UI refresh by calling reloadData on the window controller
@@ -806,7 +806,7 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
                         // Apply the metadata
                         DispatchQueue.main.async {
                             if let sublerDoc = self.targetedDocument() {
-                                sublerDoc.mp4.metadata.merge(mappedMetadata)
+                                sublerDoc.mp4.metadata.merge(mappedMetadata, overwrite: true)
                                 sublerDoc.updateChangeCount(.changeDone)
                                 completion(true)
                             } else {
@@ -856,7 +856,7 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
                         // Apply the metadata
                         DispatchQueue.main.async {
                             if let sublerDoc = self.targetedDocument() {
-                                sublerDoc.mp4.metadata.merge(mappedMetadata)
+                                sublerDoc.mp4.metadata.merge(mappedMetadata, overwrite: true)
                                 sublerDoc.updateChangeCount(.changeDone)
                                 completion(true)
                             } else {

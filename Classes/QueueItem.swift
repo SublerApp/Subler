@@ -262,7 +262,7 @@ import MP42Foundation
                 let importer = try MP42FileImporter(url: fileURL)
                 let activeTracks = importer.tracks.filter { isTrackMuxable($0.format) || trackNeedConversion($0.format) }
 
-                mp4.metadata.merge(importer.metadata)
+                mp4.metadata.merge(importer.metadata, overwrite: true)
 
                 for track in activeTracks {
 

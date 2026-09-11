@@ -403,9 +403,10 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
     func didSelect(metadata: MetadataResult) {
         let map = metadata.mediaKind == .movie ? MetadataPrefs.movieResultMap : MetadataPrefs.tvShowResultMap
         let keepEmptyKeys = MetadataPrefs.keepEmptyAnnotations
+        let overwriteExisting = MetadataPrefs.overwriteExistingAnnotations
 
         let result = metadata.mappedMetadata(to: map, keepEmptyKeys: keepEmptyKeys)
-        mp4.metadata.merge(result)
+        mp4.metadata.merge(result, overwrite: overwriteExisting)
 
         if let hdType = mp4.hdType {
             for item in mp4.metadata.metadataItemsFiltered(byIdentifier: MP42MetadataKeyHDVideo) {
@@ -447,11 +448,11 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
     private func addMetadata(fileURL: URL) {
         let ext = fileURL.pathExtension.lowercased()
         if ext == "xml" || ext == "nfo", let metadata = MP42Metadata(url: fileURL) {
-            mp4.metadata.merge(metadata)
+            mp4.metadata.merge(metadata, overwrite: true)
             doc.updateChangeCount(.changeDone)
             metadataViewController?.metadata = mp4.metadata
         } else if let file = try? MP42File(url: fileURL) {
-            mp4.metadata.merge(file.metadata)
+            mp4.metadata.merge(file.metadata, overwrite: true)
             doc.updateChangeCount(.changeDone)
             metadataViewController?.metadata = mp4.metadata
         }
@@ -552,7 +553,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         }
 
         if let metadata = metadata {
-            mp4.metadata.merge(metadata)
+            mp4.metadata.merge(metadata, overwrite: true)
             doc.updateChangeCount(.changeDone)
             metadataViewController?.metadata = mp4.metadata
         }
