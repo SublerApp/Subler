@@ -748,7 +748,12 @@ final class CustomSourceDetailViewController: NSViewController, NSTableViewDataS
 
         detailContainer.addSubview(stack)
         NSLayoutConstraint.activate([
-            stack.topAnchor.constraint(equalTo: detailContainer.topAnchor, constant: 4),
+            // 20pt to match the gap between the Preferences toolbar and the
+            // Providers/Custom Sources segmented control on the Sources
+            // list page (SourcesPrefsViewController.loadView's tabSwitcher
+            // top constant) -- this window's title bar is this form's
+            // equivalent of that toolbar.
+            stack.topAnchor.constraint(equalTo: detailContainer.topAnchor, constant: 20),
             stack.leadingAnchor.constraint(equalTo: detailContainer.leadingAnchor, constant: 12),
             stack.trailingAnchor.constraint(equalTo: detailContainer.trailingAnchor, constant: -12),
             stack.bottomAnchor.constraint(equalTo: detailContainer.bottomAnchor, constant: -12)
