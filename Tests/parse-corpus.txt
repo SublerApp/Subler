@@ -1,0 +1,102 @@
+D01E02.Episode_name.avi
+Series Name.D01E02.Episode_name.avi
+Series Name/D01E02.Episode_name.avi
+Series Name/D01E02/Episode_name.avi
+Series Name.D01E02a.Episode_name.avi
+Series Name.D01E02p4.Episode_name.avi
+Series Name.D01E02-03.Episode_name.avi
+Series Name.D01E02-E03.Episode_name.avi
+Series Name.D01E02E.03.Episode_name.avi
+Series Name/D01E02E03/Episode_name.avi
+D01E02E03/Episode name.avi
+Series Name.DVD_01.Episode_02.Episode_name.avi
+Series Name.disk_V.Episode_XI.Episode_name.avi
+Series Name.disc_V.Episode_XI.Part.XXV.Episode_name.avi
+Series Name.DVD01.Ep02.Episode_name.avi
+Series Name/dvd_01.Episode_02.Episode_name.avi
+Series Name/disk_01/Episode_02.Episode_name.avi
+Series Name/D.I/Ep02.Episode_name.avi
+Series Name/D three/Ep five Episode_name.avi
+S01E02.Episode_name.avi
+Series Name.S01E02.Episode_name.avi
+Series Name/S01E02.Episode_name.avi
+Series Name/S01E02/Episode_name.avi
+Series/Name/S01E02/Episode_name.avi
+Series/Name/S01940E0237/Episode_name.avi
+Series Name.S01E02a.Episode_name.avi
+Series Name.S01E02p4.Episode_name.avi
+Series Name.S01E02-03.Episode_name.avi
+Series Name.S01E02-E03.Episode_name.avi
+Series Name.S01E02E.03.Episode_name.avi
+Series Name/S01E02E03/Episode_name.avi
+S01E02E03/Episode name.avi
+Series Name.Season_01.Episode_02.Episode_name.avi
+Series Name.Season_V.Episode_XI.Episode_name.avi
+Series Name.Season_V.Episode_XI.Part.XXV.Episode_name.avi
+Series Name.Se01.Ep02.Episode_name.avi
+Series Name/Season_01.Episode_02.Episode_name.avi
+Series Name/Season_01/Episode_02.Episode_name.avi
+Series Name/Season_01/02.Episode_name.avi
+Series Name/S.I/Ep02.Episode_name.avi
+Series Name/S.one/Ep twelve.Episode_name.avi
+Movie Name [1996] [imdb 1234567].mkv
+Movie Name [1996] [imdb tt1234567].mkv
+Movie Name [1996] [1234567].avi
+Movie Name [1996] [tt1234567] foo.avi
+Movie Name [1996]/tt1234567-foo.avi
+Movie/Name/tt1234567_foo.avi
+Movie Name.[tt0096657] bar.avi
+Movie Name.tt0096657-foo.avi
+Movie.Name.tt0096657foo.avi
+Movie Name.tt0096657_foo.avi
+Movie Name.tt0096657.avi
+Movie Name.[0096657].avi
+imdb-tt0096657.avi
+tt0096657.mov
+tt0096857
+1234576
+Movie (1988).avi
+Movie.[1988].avi
+Movie.2000.title.avi
+Movie/2009.title.avi
+SN102.Episode_name.avi
+Series Name.102.Episode_name.avi
+Series Name/102.Episode_name.avi
+Series Name.1x02.Episode_name.avi
+Series Name/1x02.Episode_name.avi
+Series Name.[1x02].Episode_name.avi
+Series Name.1x02-03.Episode_name.avi
+Series Name.1x02-1x03.Episode_name.avi
+Series Name.s1.Episode_name.avi
+Series Name.s01.Episode_name.avi
+Series Name/se01.Episode_name.avi
+Series Name.season_1.Episode_name.avi
+Series Name/season_1/Episode_name.avi
+Series Name/season ten/Episode_name.avi
+Series Name.Episode_02.Episode_name.avi
+Series Name/Episode_02.Episode_name.avi
+Series Name/Ep02.Episode_name.avi
+E02.Episode_name.avi
+Series Name.E02.Episode_name.avi
+Series Name.02.Episode_name.avi
+Series Name/E02.Episode_name.avi
+Series Name/02.Episode_name.avi
+Series Name/E02/Episode_name.avi
+Series Name/02/Episode_name.avi
+Series Name.E02a.Episode_name.avi
+Series Name.E02p3.Episode_name.avi
+Series Name.E02-03.Episode_name.avi
+Series Name.E02-E03.Episode_name.avi
+Movie.mov
+Pluribus-S01E04.mp4
+Seinfeld S03E05.m4v
+Seinfeld.S03E05.The.Library.720p.WEB-DL.mkv
+The Matrix (1999).mp4
+The.Matrix.1999.1080p.x264.mkv
+Some.Show.S01E02.720p.HDTV.x264-GROUP.mkv
+Movie.Name.2023.2160p.WEB-DL.mkv
+Breaking Bad 1x02.mkv
+Breaking.Bad.1x02.Cat's.in.the.Bag.mkv
+Show Name - S05E12 - Episode Title.m4v
+My Movie.mp4
+randomfile.mp4

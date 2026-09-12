@@ -50,7 +50,6 @@
 		A9433A8D1F2F5C3600BB38CA /* ChapterResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */; };
 		A9433A911F2F5D8A00BB38CA /* ChapterDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */; };
 		A944E5921F498FC4002E43F6 /* PresetPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A944E5911F498FC4002E43F6 /* PresetPrefsViewController.swift */; };
-		A94A6A591ED1C5CC00049F7D /* ParseFilename in Resources */ = {isa = PBXBuildFile; fileRef = A94A6A581ED1C5CA00049F7D /* ParseFilename */; };
 		A956C1E4202F1B170050C5E2 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956C1E3202F1B170050C5E2 /* Document.swift */; };
 		A956CE651F99E5BB00093992 /* ActivityWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956CE641F99E5BB00093992 /* ActivityWindowController.swift */; };
 		A956CE691F99E93D00093992 /* ButtonToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A956CE681F99E93D00093992 /* ButtonToolbarItem.swift */; };
@@ -100,6 +99,7 @@
 		A9ACF03222A2BCF200AD5B12 /* OCRPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9ACF03422A2BCF200AD5B12 /* OCRPrefsViewController.xib */; };
 		A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE26BD1F3B66470041A57D /* SquaredTVArt.swift */; };
 		A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */; };
+		A9AE70F11F2F7B3D001CF27C /* VideoFilename.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AE70F01F2F7B3D001CF27C /* VideoFilename.swift */; };
 		A9AF2D1D206116680088CE91 /* SectionsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AF2D1C206116680088CE91 /* SectionsTableView.swift */; };
 		A9B1056E2025D9B9009E91FC /* TracksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B1056C2025D9B9009E91FC /* TracksViewController.swift */; };
 		A9B514191EFC12310055A035 /* TheTVDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B514181EFC12310055A035 /* TheTVDB.swift */; };
@@ -365,6 +365,7 @@
 		A9ACF03322A2BCF200AD5B12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OCRPrefsViewController.xib; sourceTree = "<group>"; };
 		A9AE26BD1F3B66470041A57D /* SquaredTVArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SquaredTVArt.swift; path = Classes/MetadataImporters/SquaredTVArt.swift; sourceTree = "<group>"; };
 		A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataHelper.swift; path = Classes/MetadataImporters/MetadataHelper.swift; sourceTree = "<group>"; };
+		A9AE70F01F2F7B3D001CF27C /* VideoFilename.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VideoFilename.swift; path = Classes/MetadataImporters/VideoFilename.swift; sourceTree = "<group>"; };
 		A9AF2D1C206116680088CE91 /* SectionsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SectionsTableView.swift; path = Classes/SectionsTableView.swift; sourceTree = "<group>"; };
 		A9B1056C2025D9B9009E91FC /* TracksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TracksViewController.swift; path = Classes/TracksViewController.swift; sourceTree = "<group>"; };
 		A9B4EE4E1643EBF3009AF6BC /* Subler.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Subler.entitlements; sourceTree = "<group>"; };
@@ -714,6 +715,7 @@
 			children = (
 				A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */,
 				A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */,
+				A9AE70F01F2F7B3D001CF27C /* VideoFilename.swift */,
 				A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */,
 				A900CE3D1F3ACF9700CCA08E /* MetadataResultMap.swift */,
 				A97FA41D23E9837000EE5833 /* Ratings.swift */,
@@ -877,7 +879,6 @@
 				A92BBABE1F5584EA007EA182 /* PresetEditorViewController.xib in Resources */,
 				A90CD5C51FD177280070A067 /* OutputPrefsViewController.xib in Resources */,
 				A9A4A966202F51FA00482D12 /* SaveOptions.xib in Resources */,
-				A94A6A591ED1C5CC00049F7D /* ParseFilename in Resources */,
 				A9ECA05D2029A11500D5F30C /* DetailsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -974,6 +975,7 @@
 				A9E385782C316FBE000A050D /* CollectionView.swift in Sources */,
 				A9C09C9C1F9A08A9007939EE /* MultiSelectViewController.swift in Sources */,
 				A9AE70E11F2F7B3D001CF27C /* MetadataHelper.swift in Sources */,
+				A9AE70F11F2F7B3D001CF27C /* VideoFilename.swift in Sources */,
 				A90057B61F99DE2700FA4ED1 /* ComboBoxCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
