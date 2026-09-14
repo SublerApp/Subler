@@ -131,7 +131,14 @@ public enum MetadataSearch {
 
 extension MetadataSearch {
 
-    public static var movieProviders: [String] { get { return [AppleTV().name, TheMovieDB().name, TheTVDB().name, iTunesStore().name] } }
+    /// Plugin-provided movie sources, loaded once at first use from
+    /// ~/Library/Application Support/Subler/Plugins -- see
+    /// MetadataPluginLoader and SublerMetadataPlugin. Empty when no
+    /// plugin bundles are installed, which is the common case; nothing
+    /// else here behaves any differently when it's empty.
+    private static let pluginServices: [PluginMetadataService] = MetadataPluginLoader.loadPlugins().map { PluginMetadataService(plugin: $0) }
+
+    public static var movieProviders: [String] { get { return [AppleTV().name, TheMovieDB().name, TheTVDB().name, iTunesStore().name] + pluginServices.map { $0.name } } }
     public static var tvProviders: [String] { get { return [AppleTV().name, TheMovieDB().name, TheTVDB().name,  iTunesStore().name] } }
 
     public static func service(name: String?) -> MetadataService {
@@ -145,6 +152,9 @@ extension MetadataSearch {
         case TheTVDB().name?:
             return TheTVDB()
         default:
+            if let name = name, let plugin = pluginServices.first(where: { $0.name == name }) {
+                return plugin
+            }
             return TheMovieDB()
         }
     }

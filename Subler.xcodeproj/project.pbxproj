@@ -26,6 +26,9 @@
 		A90B023B10F3290A000416F3 /* PrefsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90B023910F3290A000416F3 /* PrefsWindowController.xib */; };
 		A90B094C235614D200F1B191 /* AppleTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90B094B235614D200F1B191 /* AppleTV.swift */; };
 		A90BC5E31F3A139700F9F3F3 /* MetadataResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */; };
+		3792216AEDF7F5D341FEF315 /* SublerMetadataPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77DDD7A234A42B74E027A1 /* SublerMetadataPlugin.swift */; };
+		4D362AB2056E3D8EA387A788 /* MetadataPluginLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294D32E71106886D9BB9DFE5 /* MetadataPluginLoader.swift */; };
+		D41C667D2EA4633901CB5983 /* PluginMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4DBCB811E1AEDD1642E30D /* PluginMetadataService.swift */; };
 		A90C3E0C1FD16AF200F64532 /* TokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */; };
 		A90CD5C01FD177230070A067 /* TokensViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90CD5C21FD177230070A067 /* TokensViewController.xib */; };
 		A90CD5C51FD177280070A067 /* OutputPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90CD5C71FD177280070A067 /* OutputPrefsViewController.xib */; };
@@ -215,6 +218,9 @@
 		A9067A0B1F3CA4E6008011DC /* MetadataPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataPrefsViewController.swift; path = Classes/MetadataPrefsViewController.swift; sourceTree = "<group>"; };
 		A90B094B235614D200F1B191 /* AppleTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppleTV.swift; path = Classes/MetadataImporters/AppleTV.swift; sourceTree = "<group>"; };
 		A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataResult.swift; path = Classes/MetadataImporters/MetadataResult.swift; sourceTree = "<group>"; };
+		BB77DDD7A234A42B74E027A1 /* SublerMetadataPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SublerMetadataPlugin.swift; path = Classes/Plugins/SublerMetadataPlugin.swift; sourceTree = "<group>"; };
+		294D32E71106886D9BB9DFE5 /* MetadataPluginLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataPluginLoader.swift; path = Classes/Plugins/MetadataPluginLoader.swift; sourceTree = "<group>"; };
+		1F4DBCB811E1AEDD1642E30D /* PluginMetadataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PluginMetadataService.swift; path = Classes/Plugins/PluginMetadataService.swift; sourceTree = "<group>"; };
 		A90C3E0A1FD16AF200F64532 /* TokensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokensViewController.swift; path = Classes/TokensViewController.swift; sourceTree = "<group>"; };
 		A90CD5C11FD177230070A067 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TokensViewController.xib; sourceTree = "<group>"; };
 		A90D327C2C4931A700BC7A48 /* DocumentToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentToolbarDelegate.swift; path = Classes/DocumentToolbarDelegate.swift; sourceTree = "<group>"; };
@@ -778,6 +784,9 @@
 				A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */,
 				A9AE70E01F2F7B3D001CF27C /* MetadataHelper.swift */,
 				A90BC5E21F3A139700F9F3F3 /* MetadataResult.swift */,
+				BB77DDD7A234A42B74E027A1 /* SublerMetadataPlugin.swift */,
+				294D32E71106886D9BB9DFE5 /* MetadataPluginLoader.swift */,
+				1F4DBCB811E1AEDD1642E30D /* PluginMetadataService.swift */,
 				A900CE3D1F3ACF9700CCA08E /* MetadataResultMap.swift */,
 				A97FA41D23E9837000EE5833 /* Ratings.swift */,
 				A9E97F131F274F1100DBA586 /* iTunesStore.swift */,
@@ -983,6 +992,9 @@
 				A92CE72522FAFED0000962A4 /* ViewController.swift in Sources */,
 				A9915AC31F4B293B003C57D1 /* PresetManager.swift in Sources */,
 				A90BC5E31F3A139700F9F3F3 /* MetadataResult.swift in Sources */,
+				3792216AEDF7F5D341FEF315 /* SublerMetadataPlugin.swift in Sources */,
+				4D362AB2056E3D8EA387A788 /* MetadataPluginLoader.swift in Sources */,
+				D41C667D2EA4633901CB5983 /* PluginMetadataService.swift in Sources */,
 				A99189CD1F2F87EC00623ED7 /* ChapterImporter.swift in Sources */,
 				A99D23212029CD32002E7F27 /* PrefsWindow.swift in Sources */,
 				A9915ABF1F4B26CF003C57D1 /* MetadataPreset.swift in Sources */,
