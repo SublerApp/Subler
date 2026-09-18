@@ -1,0 +1,33 @@
+name: Build
+
+# Compile-only verification, no signing/notarization/tests. Runs on every
+# push and PR so a branch (main, a PR branch, a personal-build branch,
+# whatever) shows red/green on GitHub before anyone has to open Xcode.
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+
+    steps:
+      - name: Check out repo (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Build Subler
+        run: |
+          xcodebuild \
+            -project Subler.xcodeproj \
+            -target Subler \
+            -configuration Debug \
+            CODE_SIGNING_ALLOWED=NO \
+            build
