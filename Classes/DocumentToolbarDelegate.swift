@@ -14,6 +14,7 @@ private extension NSToolbarItem.Identifier {
     static let searchMetadata: NSToolbarItem.Identifier = NSToolbarItem.Identifier(rawValue: "SearchMetadata")
     static let sendToQueue: NSToolbarItem.Identifier = NSToolbarItem.Identifier(rawValue: "SendToQueue")
     static let showQueue: NSToolbarItem.Identifier = NSToolbarItem.Identifier(rawValue: "ShowQueue")
+    static let saveAndOpen: NSToolbarItem.Identifier = NSToolbarItem.Identifier(rawValue: "SaveAndOpen")
 }
 
 class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
@@ -143,17 +144,25 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      symbolName: "photo.stack",
                                      target: nil,
                                      action: #selector(AppDelegate.showQueueWindow(_:)))
+        } else if itemIdentifier == .saveAndOpen {
+            return ButtonToolbarItem(itemIdentifier: itemIdentifier,
+                                     label: NSLocalizedString("Save and Open", comment: "Toolbar"),
+                                     toolTip: NSLocalizedString("Save the document and open the file", comment: "Toolbar"),
+                                     image: "NSShareTemplate",
+                                     symbolName: "arrow.up.forward.app",
+                                     target: target,
+                                     action: #selector(Document.saveAndOpen(_:)))
         }
 
         return nil
     }
 
     @MainActor func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return [.importTracks, .searchMetadata, .space, .actions, .space, .deleteTracks, .flexibleSpace, .sendToQueue, .showQueue,]
+        return [.importTracks, .searchMetadata, .space, .actions, .space, .deleteTracks, .flexibleSpace, .sendToQueue, .saveAndOpen, .showQueue,]
     }
 
     @MainActor func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return [.importTracks, .deleteTracks, .actions, .searchMetadata, .sendToQueue, .showQueue, .flexibleSpace, .space]
+        return [.importTracks, .deleteTracks, .actions, .searchMetadata, .sendToQueue, .saveAndOpen, .showQueue, .flexibleSpace, .space]
     }
 
 }

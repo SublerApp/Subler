@@ -110,6 +110,17 @@ final class Document: NSDocument {
         save(self)
     }
 
+    /// Whether the next completed save should open the resulting file in
+    /// its default application (see saveAndOpen(_:) below). Consumed and
+    /// reset to false as soon as that save finishes, so a plain save
+    /// triggered afterwards (Cmd-S, etc.) doesn't also open the file.
+    private var openAfterSave: Bool = false
+
+    @IBAction func saveAndOpen(_ sender: Any) {
+        openAfterSave = true
+        save(self)
+    }
+
     override func canAsynchronouslyWrite(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType) -> Bool { return true }
 
     override func save(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType, completionHandler: @escaping (Error?) -> Void) {
@@ -125,6 +136,10 @@ final class Document: NSDocument {
                     let reloadedFile = try MP42File(url: url)
                     self.mp4 = reloadedFile
                     docController?.reloadData()
+                    if self.openAfterSave {
+                        self.openAfterSave = false
+                        NSWorkspace.shared.open(url)
+                    }
                     completionHandler(error)
                 } catch {
                     completionHandler(error)
