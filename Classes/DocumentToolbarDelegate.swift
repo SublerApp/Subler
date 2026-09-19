@@ -146,7 +146,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                                      action: #selector(AppDelegate.showQueueWindow(_:)))
         } else if itemIdentifier == .saveAndOpen {
             return ButtonToolbarItem(itemIdentifier: itemIdentifier,
-                                     label: NSLocalizedString("Save and Open", comment: "Toolbar"),
+                                     label: NSLocalizedString("Open and Save", comment: "Toolbar"),
                                      toolTip: NSLocalizedString("Save the document and open the file", comment: "Toolbar"),
                                      image: "NSShareTemplate",
                                      symbolName: "arrow.up.forward.app",

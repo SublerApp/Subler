@@ -46,7 +46,15 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
 
         toolbarDelegate.target = self
 
-        let toolbar = NSToolbar(identifier: "SublerDocumentToolbar")
+        // Identifier bumped (was "SublerDocumentToolbar") so that anyone
+        // with a toolbar layout already saved from before "Open and
+        // Save" existed gets the current toolbarDefaultItemIdentifiers()
+        // set again -- with autosavesConfiguration on, NSToolbar only
+        // ever falls back to the delegate's defaults for a layout it
+        // hasn't seen before, otherwise it keeps replaying whatever was
+        // saved under this exact identifier indefinitely, new default
+        // items and all.
+        let toolbar = NSToolbar(identifier: "SublerDocumentToolbar2")
         toolbar.delegate = toolbarDelegate
         toolbar.allowsUserCustomization = true
         toolbar.autosavesConfiguration = true
