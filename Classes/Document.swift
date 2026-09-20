@@ -284,6 +284,8 @@ final class Document: NSDocument {
             return true
         case #selector(save(_:)) where isDocumentEdited == true:
             return true
+        case #selector(saveAndOpen(_:)) where isDocumentEdited == true:
+            return true
         case #selector(saveAs(_:)),
              #selector(sendToQueue(_:)):
             return true
