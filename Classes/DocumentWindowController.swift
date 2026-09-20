@@ -307,6 +307,18 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         doc.sendToQueue(self)
     }
 
+    /// The "Open and Save" toolbar item's target is this window controller
+    /// (see DocumentToolbarDelegate), not the document, following the same
+    /// pattern as sendToQueue(_:) above -- so this forwarding method has to
+    /// exist here under the same selector name for the click to actually
+    /// reach Document.saveAndOpen(_:). Without it, NSApplication.sendAction
+    /// silently does nothing when the toolbar item's explicit target
+    /// doesn't respond to the action, even though menu/toolbar validation
+    /// (which walks the responder chain) still reports the item as enabled.
+    @IBAction func saveAndOpen(_ sender: Any) {
+        doc.saveAndOpen(self)
+    }
+
     @IBAction func sendToExternalApp(_ sender: Any) {
         if let fileURL = doc.fileURL {
             _ = sendToFileExternalApp(fileURL: fileURL)
