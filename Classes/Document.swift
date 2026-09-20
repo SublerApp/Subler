@@ -110,12 +110,21 @@ final class Document: NSDocument {
         save(self)
     }
 
-    /// Whether the next completed save should open the resulting file in
-    /// its default application (see saveAndOpen(_:) below). Consumed and
-    /// reset to false as soon as that save finishes, so a plain save
-    /// triggered afterwards (Cmd-S, etc.) doesn't also open the file.
+    /// Whether the next completed save should prompt to open another file
+    /// once it finishes (see saveAndOpen(_:) below). Consumed and reset to
+    /// false as soon as that save finishes, so a plain save triggered
+    /// afterwards (Cmd-S, etc.) doesn't also bring up the Open panel.
     private var openAfterSave: Bool = false
 
+    /// Saves the current document, then -- once that finishes -- brings up
+    /// the same Open panel Subler shows an untitled launch with
+    /// (AppDelegate.applicationShouldOpenUntitledFile(_:) /
+    /// NSDocumentController.openDocument(_:)), so picking up the next file
+    /// in a batch never needs a trip to File > Open. This previously
+    /// opened the just-saved file in its default external application
+    /// instead (e.g. QuickTime) -- a different, unrelated feature that
+    /// didn't serve the actual goal here: an easy way to move on to
+    /// another file once the current one is done.
     @IBAction func saveAndOpen(_ sender: Any) {
         openAfterSave = true
         save(self)
@@ -138,7 +147,7 @@ final class Document: NSDocument {
                     docController?.reloadData()
                     if self.openAfterSave {
                         self.openAfterSave = false
-                        NSWorkspace.shared.open(url)
+                        NSDocumentController.shared.openDocument(self)
                     }
                     completionHandler(error)
                 } catch {
