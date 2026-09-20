@@ -175,6 +175,25 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         }
     }
 
+    /// Marks the document as edited (or un-edited, on a real undo) without
+    /// depending on view.undoManager being available.
+    ///
+    /// Every call site below used to nest its updateChangeCount call
+    /// inside `if let undo = view.undoManager { ... }`, on the assumption
+    /// that undo registration and "mark this document dirty" always
+    /// succeed or fail together. They don't: view.undoManager can come
+    /// back nil for a real, user-initiated edit (observed when editing a
+    /// field's value immediately after it was added blank by a Set, before
+    /// any save), which silently skipped updateChangeCount too and left
+    /// Save permanently disabled even though the edit had already been
+    /// applied to `metadata`. Marking the document edited is mandatory
+    /// bookkeeping for a real change; undo registration is a best-effort
+    /// nicety layered on top, so the two are no longer coupled.
+    private func markDocumentEdited() {
+        let undoing = view.undoManager?.isUndoing ?? false
+        view.window?.windowController?.document?.updateChangeCount(undoing ? .changeUndone : .changeDone)
+    }
+
     private func add(metadataItems items: [MP42MetadataItem]) {
         for item in items {
             metadata.addItem(item)
@@ -186,21 +205,11 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
                 target.remove(metadataItems: items)
             }
 
-            // Without this, adding a field -- individually via the "+"
-            // menu, or in bulk via a Set (addMetadataSet(_:)/
-            // applySet(_:)) -- never marked the document as having
-            // unsaved changes, even though the field really was added to
-            // `metadata`: registering an undo action alone doesn't do
-            // that here. A blank field added this way (e.g. Content
-            // Rating from the "All" Set, still empty) needs to be
-            // saveable exactly like a filled-in one.
             if undo.isUndoing == false {
                 undo.setActionName(NSLocalizedString("Insert", comment: "Undo tag insert."))
-                view.window?.windowController?.document?.updateChangeCount(.changeDone)
-            } else {
-                view.window?.windowController?.document?.updateChangeCount(.changeUndone)
             }
         }
+        markDocumentEdited()
 
         updateMetadataArray()
         metadataTableView.reloadData()
@@ -218,11 +227,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
             if undo.isUndoing == false {
                 undo.setActionName(NSLocalizedString("Delete", comment: "Undo tag delete."))
-                view.window?.windowController?.document?.updateChangeCount(.changeDone)
-            } else {
-                view.window?.windowController?.document?.updateChangeCount(.changeUndone)
             }
         }
+        markDocumentEdited()
 
         updateMetadataArray()
         metadataTableView.reloadData()
@@ -239,11 +246,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
             if undo.isUndoing == false {
                 undo.setActionName(NSLocalizedString("Editing", comment: "Undo tag editing."))
-                view.window?.windowController?.document?.updateChangeCount(.changeDone)
-            } else {
-                view.window?.windowController?.document?.updateChangeCount(.changeUndone)
             }
         }
+        markDocumentEdited()
 
         updateMetadataArray()
 
@@ -866,16 +871,11 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
                 target.remove(metadataArtworks: items)
             }
 
-            // See the matching comment on add(metadataItems:) above --
-            // registering the undo action alone doesn't mark the
-            // document as having unsaved changes here.
             if undo.isUndoing == false {
                 undo.setActionName(NSLocalizedString("Insert", comment: "Undo cover art insert."))
-                view.window?.windowController?.document?.updateChangeCount(.changeDone)
-            } else {
-                view.window?.windowController?.document?.updateChangeCount(.changeUndone)
             }
         }
+        markDocumentEdited()
 
         updateArtworksArray()
         artworksView.reloadData()
@@ -891,11 +891,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
             if undo.isUndoing == false {
                 undo.setActionName(NSLocalizedString("Delete", comment: "Undo cover art delete"))
-                view.window?.windowController?.document?.updateChangeCount(.changeDone)
-            } else {
-                view.window?.windowController?.document?.updateChangeCount(.changeUndone)
             }
         }
+        markDocumentEdited()
 
         updateArtworksArray()
         artworksView.reloadData()
@@ -913,11 +911,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
             if undo.isUndoing == false {
                 undo.setActionName(NSLocalizedString("Move", comment: "Undo cover art delete"))
-                view.window?.windowController?.document?.updateChangeCount(.changeDone)
-            } else {
-                view.window?.windowController?.document?.updateChangeCount(.changeUndone)
             }
         }
+        markDocumentEdited()
 
         updateArtworksArray()
         artworksView.reloadData()
