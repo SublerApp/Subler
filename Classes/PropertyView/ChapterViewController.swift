@@ -127,7 +127,7 @@ final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTable
 
     @IBAction func renameChapters(_ sender: Any) {
         for (index, chapter) in track.chapters.enumerated() {
-            let title = "Chapter \(index + 1)"
+            let title = "\(index + 1) - Chapter"
             track.setTitle(title, forChapter: chapter)
         }
         tableView.reloadData()
