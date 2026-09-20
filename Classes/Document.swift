@@ -123,6 +123,28 @@ final class Document: NSDocument {
             } else {
                 do {
                     let reloadedFile = try MP42File(url: url)
+
+                    // A metadata item added blank (e.g. by applying a Set)
+                    // has no data for the underlying MP4 tag-writing library
+                    // to persist -- these atoms have no way to represent
+                    // "present but empty", so it's silently dropped when the
+                    // file is written. Re-reading the just-saved file below
+                    // would otherwise make that field vanish from the table
+                    // the instant Save completes, which reads as "my blank
+                    // Set fields didn't save" even though nothing was lost
+                    // that the file format could actually hold on to. Carry
+                    // forward whatever was in the table before this save
+                    // that the reload doesn't already account for, so the
+                    // field only disappears once the document is closed and
+                    // reopened -- when the file on disk genuinely is the
+                    // only source of truth left.
+                    let previousItems = self.mp4.metadata.items
+                    let reloadedIdentifiers = Set(reloadedFile.metadata.items.map { $0.identifier })
+                    let droppedOnWrite = previousItems.filter { reloadedIdentifiers.contains($0.identifier) == false }
+                    if droppedOnWrite.isEmpty == false {
+                        reloadedFile.metadata.addItems(droppedOnWrite)
+                    }
+
                     self.mp4 = reloadedFile
                     docController?.reloadData()
                     completionHandler(error)
