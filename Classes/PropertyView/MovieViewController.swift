@@ -186,8 +186,19 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
                 target.remove(metadataItems: items)
             }
 
+            // Without this, adding a field -- individually via the "+"
+            // menu, or in bulk via a Set (addMetadataSet(_:)/
+            // applySet(_:)) -- never marked the document as having
+            // unsaved changes, even though the field really was added to
+            // `metadata`: registering an undo action alone doesn't do
+            // that here. A blank field added this way (e.g. Content
+            // Rating from the "All" Set, still empty) needs to be
+            // saveable exactly like a filled-in one.
             if undo.isUndoing == false {
                 undo.setActionName(NSLocalizedString("Insert", comment: "Undo tag insert."))
+                view.window?.windowController?.document?.updateChangeCount(.changeDone)
+            } else {
+                view.window?.windowController?.document?.updateChangeCount(.changeUndone)
             }
         }
 
@@ -207,6 +218,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
             if undo.isUndoing == false {
                 undo.setActionName(NSLocalizedString("Delete", comment: "Undo tag delete."))
+                view.window?.windowController?.document?.updateChangeCount(.changeDone)
+            } else {
+                view.window?.windowController?.document?.updateChangeCount(.changeUndone)
             }
         }
 
@@ -852,8 +866,14 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
                 target.remove(metadataArtworks: items)
             }
 
+            // See the matching comment on add(metadataItems:) above --
+            // registering the undo action alone doesn't mark the
+            // document as having unsaved changes here.
             if undo.isUndoing == false {
                 undo.setActionName(NSLocalizedString("Insert", comment: "Undo cover art insert."))
+                view.window?.windowController?.document?.updateChangeCount(.changeDone)
+            } else {
+                view.window?.windowController?.document?.updateChangeCount(.changeUndone)
             }
         }
 
@@ -871,6 +891,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
             if undo.isUndoing == false {
                 undo.setActionName(NSLocalizedString("Delete", comment: "Undo cover art delete"))
+                view.window?.windowController?.document?.updateChangeCount(.changeDone)
+            } else {
+                view.window?.windowController?.document?.updateChangeCount(.changeUndone)
             }
         }
 
@@ -890,6 +913,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
             if undo.isUndoing == false {
                 undo.setActionName(NSLocalizedString("Move", comment: "Undo cover art delete"))
+                view.window?.windowController?.document?.updateChangeCount(.changeDone)
+            } else {
+                view.window?.windowController?.document?.updateChangeCount(.changeUndone)
             }
         }
 
