@@ -10,7 +10,8 @@ import AVFoundation
 
 final class ArtworkSelectorViewItemLabel : NSTextField {
 
-    @IBInspectable var highlightColor: NSColor = .selectedContentBackgroundColor
+
+    @IBInspectable var highlightColor: NSColor = .alternateSelectedControlColor //.selectedContentBackgroundColor
     @IBInspectable var highlightTextColor: NSColor = .alternateSelectedControlTextColor
     @IBInspectable var cornerRadius: CGFloat = 3
 
@@ -162,7 +163,11 @@ final class ArtworkSelectorViewItemView: NSView {
 
         backgroundLayer.anchorPoint = CGPoint.zero
         backgroundLayer.position = CGPoint(x: 0, y: paddingBottom)
-        backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+        if #available(macOS 10.14, *) {
+            backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+        } else {
+            backgroundLayer.backgroundColor = NSColor.controlHighlightColor.cgColor
+        }
         backgroundLayer.cornerRadius = 8
         backgroundLayer.isHidden = true
         backgroundLayer.isOpaque = true
@@ -171,7 +176,11 @@ final class ArtworkSelectorViewItemView: NSView {
         emptyLayer.position = CGPoint(x: padding, y: padding + paddingBottom)
         emptyLayer.lineWidth = 3.0
         emptyLayer.lineDashPattern = [12,5]
-        emptyLayer.strokeColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+        if #available(macOS 10.14, *) {
+            emptyLayer.strokeColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+        } else {
+            emptyLayer.strokeColor = NSColor.secondarySelectedControlColor.cgColor
+        }
         emptyLayer.fillColor = NSColor.windowBackgroundColor.cgColor
         emptyLayer.isOpaque = true
 
@@ -209,7 +218,9 @@ final class ArtworkSelectorViewItemView: NSView {
             NSAppearance.current = effectiveAppearance
 
             imageLayer.shadowColor = NSColor.labelColor.cgColor
-            backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+            if #available(macOS 10.14, *) {
+                backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+            }
             emptyLayer.strokeColor = NSColor.secondarySelectedControlColor.cgColor
             emptyLayer.fillColor = NSColor.windowBackgroundColor.cgColor
 

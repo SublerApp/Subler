@@ -219,6 +219,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
 
     //MARK: Notification delegate
 
+    @available(macOS 10.14, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.sound])
     }
