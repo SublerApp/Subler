@@ -74,9 +74,9 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         toolbar.allowsUserCustomization = true
         toolbar.autosavesConfiguration = true
         if #available(macOS 26, *) {
-            toolbar.displayMode = .iconAndLabel
-        } else {
             toolbar.displayMode = .iconOnly
+        } else {
+            toolbar.displayMode = .iconAndLabel
         }
         self.window?.toolbar = toolbar
 
