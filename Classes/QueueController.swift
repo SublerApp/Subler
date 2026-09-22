@@ -6,9 +6,10 @@
 //
 
 import Cocoa
+import UserNotifications
 import MP42Foundation
 
-final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate, ItemViewDelegate, NSTableViewDataSource, NSTableViewDelegate, ExpandedTableViewDelegate, NSUserInterfaceValidations {
+final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate, ItemViewDelegate, NSTableViewDataSource, NSTableViewDelegate, ExpandedTableViewDelegate, UNUserNotificationCenterDelegate, NSUserInterfaceValidations {
 
     static let shared = QueueController()
 
@@ -82,6 +83,12 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         table.registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL, .tableViewIndex])
         progressBar.isHidden = true
 
+        if #available(macOS 11, *) {
+            let center = UNUserNotificationCenter.current()
+            center.delegate = self
+            center.requestAuthorization(options: [.sound, .alert], completionHandler: {_,_ in })
+        }
+
         let main = OperationQueue.main
         let nc = NotificationCenter.default
 
@@ -115,18 +122,36 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
             self.updateUI()
 
             if self.prefs.showDoneNotification, let info = note.userInfo {
-                let notification = NSUserNotification()
-                notification.title = NSLocalizedString("Queue Done", comment: "")
+                let title = NSLocalizedString("Queue Done", comment: "")
+                let informativeText = {
+                    if let failedCount = info["FailedCount"] as? UInt, failedCount > 0,
+                       let completedCount = info["CompletedCount"] as? UInt {
+                        return "Completed: \(completedCount); Failed: \(failedCount)"
+                    }
+                    else if let completedCount = info["CompletedCount"] as? UInt {
+                        return "Completed: \(completedCount)"
+                    } else {
+                        return ""
+                    }
+                }()
 
-                if let failedCount = info["FailedCount"] as? UInt, failedCount > 0,
-                    let completedCount = info["CompletedCount"] as? UInt {
-                    notification.informativeText = "Completed: \(completedCount); Failed: \(failedCount)"
+                if #available(macOS 11, *) {
+                    let notification = UNMutableNotificationContent()
+                    notification.title = title
+                    notification.body  = informativeText
+                    notification.sound = UNNotificationSound.default
+
+                    let request = UNNotificationRequest(identifier: UUID().uuidString,
+                                                        content: notification,
+                                                        trigger: nil)
+                    UNUserNotificationCenter.current().add(request) { _ in }
+                } else {
+                    let notification = NSUserNotification()
+                    notification.title = title
+                    notification.informativeText = informativeText
+                    notification.soundName = NSUserNotificationDefaultSoundName
+                    NSUserNotificationCenter.default.deliver(notification)
                 }
-                else if let completedCount = info["CompletedCount"] as? UInt {
-                    notification.informativeText = "Completed: \(completedCount)"
-                }
-                notification.soundName = NSUserNotificationDefaultSoundName
-                NSUserNotificationCenter.default.deliver(notification)
             }
 
             for script in self.scripts {
@@ -190,6 +215,12 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         default:
             return false
         }
+    }
+
+    //MARK: Notification delegate
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.sound])
     }
 
     //MARK: Queue
