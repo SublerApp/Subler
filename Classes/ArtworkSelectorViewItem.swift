@@ -283,6 +283,9 @@ final class ArtworkSelectorViewItem: NSCollectionViewItem {
     override func viewDidLoad() {
         super.viewDidLoad()
         textField?.layer?.isOpaque = true
+        let recognizer = NSClickGestureRecognizer(target: self, action: #selector(handleGesture))
+        recognizer.numberOfClicksRequired = 2
+        self.view.addGestureRecognizer(recognizer)
     }
 
     private func updateLabels() {
@@ -344,12 +347,9 @@ final class ArtworkSelectorViewItem: NSCollectionViewItem {
 
     // MARK: Actions
 
-    // FIXME
-    override func mouseUp(with event: NSEvent) {
-        if event.clickCount > 1, let action = doubleAction {
+    @objc func handleGesture() {
+        if let action = doubleAction {
             target?.performSelector(onMainThread: action, with: nil, waitUntilDone: true)
-        } else {
-            super.mouseUp(with: event)
         }
     }
 
