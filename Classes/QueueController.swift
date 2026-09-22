@@ -19,10 +19,15 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     private var windowController: OptionsViewController?
     private let toolbarDelegate = QueueToolbarDelegate()
 
-    private let tablePasteboardType = NSPasteboard.PasteboardType("SublerQueueTableViewDataType")
     private lazy var docImg: NSImage = {
         // Load a generic movie icon to display in the table view
-        let img = NSWorkspace.shared.icon(forFileType: "mov")
+        let img = {
+            if #available(macOS 12, *) {
+                return NSWorkspace.shared.icon(for: .quickTimeMovie)
+            } else {
+                return NSWorkspace.shared.icon(forFileType: "mov")
+            }
+        }()
         img.size = NSSize(width: 16, height: 16)
         return img
     }()
@@ -74,7 +79,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         }
         self.window?.toolbar = toolbar
 
-        table.registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL, tablePasteboardType])
+        table.registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL, .tableViewIndex])
         progressBar.isHidden = true
 
         let main = OperationQueue.main
@@ -771,41 +776,48 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
 
     //MARK: Drag & Drop
 
-    func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
-        let data = try? NSKeyedArchiver.archivedData(withRootObject: rowIndexes, requiringSecureCoding: true)
-        pboard.declareTypes([tablePasteboardType], owner: self)
-        pboard.setData(data, forType: tablePasteboardType)
-        return true
+    func tableView(_ tableView: NSTableView,
+                   pasteboardWriterForRow row: Int) -> (any NSPasteboardWriting)? {
+        let item = PasteboardItem(index: row, type: .tableViewIndex)
+        return item
     }
 
-    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
-        if info.draggingSource == nil {
-            tableView.setDropRow(row, dropOperation: .above)
+    func tableView(_ tableView: NSTableView,
+                   validateDrop info: NSDraggingInfo,
+                   proposedRow row: Int,
+                   proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        guard dropOperation == .above else { return [] }
+
+        if let source = info.draggingSource as? NSTableView,
+           tableView == source
+        {
+            return .move
+        } else if info.draggingSource == nil {
             return .copy
-        } else if let source = info.draggingSource as? NSTableView, tableView == source && dropOperation == .above {
-            return .every
         } else {
             return []
         }
     }
 
-    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
-        let pboard = info.draggingPasteboard
+    func tableView(_ tableView: NSTableView,
+                   acceptDrop info: NSDraggingInfo,
+                   row: Int,
+                   dropOperation: NSTableView.DropOperation) -> Bool {
+        guard let pasteboardItems = info.draggingPasteboard.pasteboardItems
+                else { return false }
 
-        if let source = info.draggingSource as? NSTableView, source == tableView, let rowData = pboard.data(forType: tablePasteboardType), let rowIndexes = NSKeyedUnarchiver.unarchiveObject(with: rowData) as? IndexSet {
-
+        if let source = info.draggingSource as? NSTableView,
+           source == tableView
+        {
+            let rowIndexes = IndexSet(pasteboardItems.compactMap { $0.integer(forType: .tableViewIndex) })
             let items = queue.items(at: rowIndexes)
             move(items: items, at: row)
             return true
-
-        } else {
-
-            if pboard.types?.contains(NSPasteboard.PasteboardType.fileURL) ?? false {
-                if let items = pboard.readObjects(forClasses: [NSURL.classForCoder()], options: [:]) as? [URL] {
-                    insert(contentOf: items, at: row)
-                }
-                return true
+        } else if info.draggingPasteboard.types?.contains(NSPasteboard.PasteboardType.fileURL) ?? false {
+            if let items = info.draggingPasteboard.readObjects(forClasses: [NSURL.classForCoder()], options: [:]) as? [URL] {
+                insert(contentOf: items, at: row)
             }
+            return true
         }
 
         return false

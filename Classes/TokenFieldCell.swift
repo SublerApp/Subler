@@ -18,7 +18,7 @@ final class TokenFieldCell : NSTokenFieldCell {
         set (newBackgroundStyle) {
             super.backgroundStyle = newBackgroundStyle
             if newBackgroundStyle == NSView.BackgroundStyle.emphasized {
-                textColor = NSColor.controlHighlightColor
+                textColor = NSColor.highlightColor
             } else {
                 textColor = NSColor.controlTextColor
             }

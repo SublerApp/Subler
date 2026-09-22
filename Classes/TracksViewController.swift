@@ -30,7 +30,6 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
     }
 
     @IBOutlet var tracksTable: ExpandedTableView!
-    private let pasteboardType = NSPasteboard.PasteboardType(rawValue: "SublerTableViewDataType")
 
     private static let languagesMenu: NSMenu = {
         let menu = NSMenu()
@@ -50,7 +49,7 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tracksTable.registerForDraggedTypes([pasteboardType])
+        tracksTable.registerForDraggedTypes([.tableViewIndex])
         tracksTable.doubleAction = #selector(doubleClickAction)
         tracksTable.scrollRowToVisible(0)
     }
@@ -245,32 +244,26 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
     // MARK: Drag & drop
 
     func tableView(_ tableView: NSTableView,
-                   writeRowsWith rowIndexes: IndexSet,
-                   to pboard: NSPasteboard) -> Bool {
-        guard let firstRow = rowIndexes.first,
-            let track = track(at: firstRow), track.isMuxed == false
-            else { return false }
-
-        let data = try? NSKeyedArchiver.archivedData(withRootObject: rowIndexes, requiringSecureCoding: true)
-        pboard.declareTypes([pasteboardType], owner: self)
-        pboard.setData(data, forType: pasteboardType)
-        return true
+                   pasteboardWriterForRow row: Int) -> (any NSPasteboardWriting)? {
+        return PasteboardItem(index: row, type: .tableViewIndex)
     }
 
     func tableView(_ tableView: NSTableView,
                    validateDrop info: NSDraggingInfo,
                    proposedRow row: Int,
-                   proposedDropOperation: NSTableView.DropOperation) -> NSDragOperation {
-        let count = mp4.tracks.count + 1
+                   proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        guard dropOperation == .above else { return [] }
 
-        if proposedDropOperation == .above {
-            if row < count && row != 0, let track = track(at: row), track.isMuxed == false {
-                return .every
-            }
-            else if row == count {
-                return .every
-            }
+        guard let source = info.draggingSource as? NSTableView,
+              tableView == source else { return [] }
+
+        let count = mp4.tracks.count + 1
+        if row < count && row != 0, let track = track(at: row), track.isMuxed == false {
+            return .move
+        } else if row == count {
+            return .move
         }
+
         return []
     }
 
@@ -278,12 +271,15 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
                    acceptDrop info: NSDraggingInfo,
                    row: Int,
                    dropOperation: NSTableView.DropOperation) -> Bool {
-        let data: Data = info.draggingPasteboard.data(forType: pasteboardType)!
-        if let rowIndexes: IndexSet = NSKeyedUnarchiver.unarchiveObject(with: data) as? IndexSet, rowIndexes.isEmpty == false {
+        guard let pasteboardItems = info.draggingPasteboard.pasteboardItems
+                else { return false }
 
+        if let source = info.draggingSource as? NSTableView,
+           source == tableView
+        {
+            let rowIndexes = IndexSet(pasteboardItems.compactMap { $0.integer(forType: .tableViewIndex) })
             let tracks = mp4.tracks.enumerated().filter { rowIndexes.contains($0.offset + 1)} .map { $0.element }
             mp4.moveTracks(tracks, to: UInt(row - 1))
-
             tableView.reloadData()
             return true
         }

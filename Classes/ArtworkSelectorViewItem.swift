@@ -10,7 +10,7 @@ import AVFoundation
 
 final class ArtworkSelectorViewItemLabel : NSTextField {
 
-    @IBInspectable var highlightColor: NSColor = .alternateSelectedControlColor
+    @IBInspectable var highlightColor: NSColor = .selectedContentBackgroundColor
     @IBInspectable var highlightTextColor: NSColor = .alternateSelectedControlTextColor
     @IBInspectable var cornerRadius: CGFloat = 3
 
@@ -162,7 +162,7 @@ final class ArtworkSelectorViewItemView: NSView {
 
         backgroundLayer.anchorPoint = CGPoint.zero
         backgroundLayer.position = CGPoint(x: 0, y: paddingBottom)
-        backgroundLayer.backgroundColor = NSColor.controlHighlightColor.cgColor
+        backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
         backgroundLayer.cornerRadius = 8
         backgroundLayer.isHidden = true
         backgroundLayer.isOpaque = true
@@ -171,7 +171,7 @@ final class ArtworkSelectorViewItemView: NSView {
         emptyLayer.position = CGPoint(x: padding, y: padding + paddingBottom)
         emptyLayer.lineWidth = 3.0
         emptyLayer.lineDashPattern = [12,5]
-        emptyLayer.strokeColor = NSColor.secondarySelectedControlColor.cgColor
+        emptyLayer.strokeColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
         emptyLayer.fillColor = NSColor.windowBackgroundColor.cgColor
         emptyLayer.isOpaque = true
 
@@ -197,7 +197,14 @@ final class ArtworkSelectorViewItemView: NSView {
     }
 
     private func updateBackgroundColor() {
-        if #available(OSX 10.14, *) {
+        if #available(macOS 11, *) {
+            effectiveAppearance.performAsCurrentDrawingAppearance {
+                imageLayer.shadowColor = NSColor.labelColor.cgColor
+                backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+                emptyLayer.strokeColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+                emptyLayer.fillColor = NSColor.windowBackgroundColor.cgColor
+            }
+        } else {
             let saved = NSAppearance.current
             NSAppearance.current = effectiveAppearance
 
@@ -337,6 +344,7 @@ final class ArtworkSelectorViewItem: NSCollectionViewItem {
 
     // MARK: Actions
 
+    // FIXME
     override func mouseUp(with event: NSEvent) {
         if event.clickCount > 1, let action = doubleAction {
             target?.performSelector(onMainThread: action, with: nil, waitUntilDone: true)

@@ -35,6 +35,7 @@
 		A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91B196B1F2B0DCB0008675F /* QueueAction.swift */; };
 		A91EB969205ABAF400392E1C /* NSWindowAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91EB968205ABAF400392E1C /* NSWindowAdditions.swift */; };
 		A91F0FA023797F2800C9DCC9 /* PropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91F0F9F23797F2800C9DCC9 /* PropertyView.swift */; };
+		A92395043062A588008061F3 /* PasteboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92395023062A584008061F3 /* PasteboardItem.swift */; };
 		A924A51E1D4B9E93008301A7 /* MetadataPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A924A5201D4B9E93008301A7 /* MetadataPrefsViewController.xib */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -252,6 +253,7 @@
 		A91B196B1F2B0DCB0008675F /* QueueAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueAction.swift; path = Classes/QueueAction.swift; sourceTree = "<group>"; };
 		A91EB968205ABAF400392E1C /* NSWindowAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSWindowAdditions.swift; path = Classes/NSWindowAdditions.swift; sourceTree = "<group>"; };
 		A91F0F9F23797F2800C9DCC9 /* PropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PropertyView.swift; path = Classes/PropertyView/PropertyView.swift; sourceTree = "<group>"; };
+		A92395023062A584008061F3 /* PasteboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardItem.swift; sourceTree = "<group>"; };
 		A924A50D1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/ChapterView.xib; sourceTree = "<group>"; };
 		A924A50E1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/EmptyView.xib; sourceTree = "<group>"; };
 		A924A50F1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/MovieView.xib; sourceTree = "<group>"; };
@@ -527,6 +529,7 @@
 				A9A77C4D1F306FA70018023B /* AttributedStyles.swift */,
 				A956CE681F99E93D00093992 /* ButtonToolbarItem.swift */,
 				A9E385772C316FBE000A050D /* CollectionView.swift */,
+				A92395023062A584008061F3 /* PasteboardItem.swift */,
 				A9E3857B2C317010000A050D /* FilePromiseProvider.swift */,
 			);
 			name = "Other Sources";
@@ -945,6 +948,7 @@
 				A98D44102036F661005CB092 /* AppDelegate.swift in Sources */,
 				A9C31E572029A75F00CEF474 /* GeneralPrefsViewController.swift in Sources */,
 				A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */,
+				A92395043062A588008061F3 /* PasteboardItem.swift in Sources */,
 				A9B1056E2025D9B9009E91FC /* TracksViewController.swift in Sources */,
 				A9C51DF42E4B4548003E82E6 /* ScriptCommand.swift in Sources */,
 				A99B7FD82D53764F0027BCB5 /* AppleTVv3.swift in Sources */,

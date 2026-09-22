@@ -43,10 +43,15 @@ final class SaveOptions: NSViewController {
         let types = doc.writableTypes(for: .saveAsOperation)
 
         fileFormat.removeAllItems()
-        
+
         for type in types {
-            let name = UTTypeCopyDescription(type as CFString)?.takeRetainedValue() as String? ?? type
-            fileFormat.addItem(withTitle: name)
+            if #available(macOS 11, *) {
+                let name = UTType(type)?.localizedDescription ?? type
+                fileFormat.addItem(withTitle: name)
+            } else {
+                let name = UTTypeCopyDescription(type as CFString)?.takeRetainedValue() as String? ?? type
+                fileFormat.addItem(withTitle: name)
+            }
         }
     }
 

@@ -7,6 +7,7 @@
 
 import Cocoa
 import MP42Foundation
+import UniformTypeIdentifiers
 
 final class DocumentWindowController: NSWindowController, TracksViewControllerDelegate, MetadataSearchViewControllerDelegate, FileImportControllerDelegate, ProgressViewControllerDelegate, NSDraggingDestination, NSUserInterfaceValidations {
 
@@ -464,7 +465,13 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         panel.allowsMultipleSelection = false
         panel.canChooseFiles = true
         panel.canChooseDirectories = false
-        panel.allowedFileTypes = ["mp4", "m4v", "m4a", "xml", "nfo"]
+        if #available(macOS 12, *) {
+            panel.allowedContentTypes = [.mpeg4Movie, .mpeg4Audio,
+                                         .appleProtectedMPEG4Video,
+                                         .xml, UTType(filenameExtension: "nfo")!]
+        } else {
+            panel.allowedFileTypes = ["mp4", "m4v", "m4a", "xml", "nfo"]
+        }
 
         panel.beginSheetModal(for: windowForSheet) { (response) in
             if response == NSApplication.ModalResponse.OK, let url = panel.url {
