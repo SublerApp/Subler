@@ -1,5 +1,5 @@
 /* Class = "NSTextFieldCell"; title = "Middle"; ObjectID = "2o1-dB-mt1"; */
-"2o1-dB-mt1.title" = "Media";
+"2o1-dB-mt1.title" = "Central";
 
 /* Class = "NSButtonCell"; title = "Automatically check for update daily"; ObjectID = "2Pf-pq-4IX"; */
 "2Pf-pq-4IX.title" = "Comprobar automáticamente actualizaciones diariamente";
@@ -35,11 +35,14 @@
 "140.title" = "Privacidad:";
 
 /* Class = "NSTextFieldCell"; title = "Show ratings for:"; ObjectID = "207"; */
-"207.title" = "Mostrar clasificación para:";
+"207.title" = "Mostrar clasificaciones para:";
 
 /* Class = "NSTextFieldCell"; title = "USA ratings are always shown."; ObjectID = "250"; */
-"250.title" = "Las calificaciones de EE.UU. (USA) siempre se mostrarán.";
+"250.title" = "Las clasificaciones de EE.UU. siempre se muestran.";
 
 /* Class = "NSTextFieldCell"; title = "End"; ObjectID = "He0-rl-DBi"; */
 "He0-rl-DBi.title" = "Final";
+
+/* Class = "NSTextFieldCell"; title = "Log Format:"; ObjectID = "logFormatLabelCell"; */
+"logFormatLabelCell.title" = "Formato de registro:";
 

@@ -1,0 +1,75 @@
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Metadata Provider"; ObjectID = "0aO-Wz-ASZ"; */
+"0aO-Wz-ASZ.ibExternalAccessibilityDescription" = "元数据提供方";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Language"; ObjectID = "4yY-id-JNb"; */
+"4yY-id-JNb.ibExternalAccessibilityDescription" = "语言";
+
+/* Class = "NSButtonCell"; title = "Search"; ObjectID = "5Mu-cI-Uiu"; */
+"5Mu-cI-Uiu.title" = "搜索";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Result details"; ObjectID = "7Te-u0-Sax"; */
+"7Te-u0-Sax.ibExternalAccessibilityDescription" = "详细结果";
+
+/* Class = "NSTabViewItem"; label = "Movie"; ObjectID = "apc-8c-iyM"; */
+"apc-8c-iyM.label" = "电影";
+
+/* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "d9Q-FE-uuK"; */
+"d9Q-FE-uuK.headerCell.title" = "值";
+
+/* Class = "NSMenuItem"; title = "TheMovieDB"; ObjectID = "FoR-26-u9n"; */
+"FoR-26-u9n.title" = "TheMovieDB";
+
+/* Class = "NSTabViewItem"; label = "TV Episode"; ObjectID = "GPk-3A-rQI"; */
+"GPk-3A-rQI.label" = "电视剧集";
+
+/* Class = "NSTextFieldCell"; title = "Progress status"; ObjectID = "gYx-cY-5Xj"; */
+"gYx-cY-5Xj.title" = "进度状态";
+
+/* Class = "NSButtonCell"; title = "Search"; ObjectID = "HF1-WK-lv1"; */
+"HF1-WK-lv1.title" = "搜索";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Search results"; ObjectID = "IDz-Ox-2sW"; */
+"IDz-Ox-2sW.ibExternalAccessibilityDescription" = "搜索结果";
+
+/* Class = "NSMenuItem"; title = "iTunes Store"; ObjectID = "j44-FV-Lpy"; */
+"j44-FV-Lpy.title" = "iTunes Store";
+
+/* Class = "NSMenuItem"; title = "TheMovieDB"; ObjectID = "KpX-If-oKC"; */
+"KpX-If-oKC.title" = "TheMovieDB";
+
+/* Class = "NSTextFieldCell"; title = "Season #"; ObjectID = "kz7-mH-DuT"; */
+"kz7-mH-DuT.title" = "季";
+
+/* Class = "NSTextFieldCell"; title = "TV Show:"; ObjectID = "lE4-J1-ySV"; */
+"lE4-J1-ySV.title" = "电视节目：";
+
+/* Class = "NSMenuItem"; title = "iTunes Store"; ObjectID = "nn6-mR-Bh1"; */
+"nn6-mR-Bh1.title" = "iTunes Store";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "PJC-dF-B1z"; */
+"PJC-dF-B1z.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "Add"; ObjectID = "PqB-NK-OtT"; */
+"PqB-NK-OtT.title" = "添加";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Language"; ObjectID = "qsS-B6-c2q"; */
+"qsS-B6-c2q.ibExternalAccessibilityDescription" = "语言";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Metadata provider"; ObjectID = "UTG-O0-5RG"; */
+"UTG-O0-5RG.ibExternalAccessibilityDescription" = "元数据提供方";
+
+/* Class = "NSTextFieldCell"; title = "Movie:"; ObjectID = "uyt-vh-nv6"; */
+"uyt-vh-nv6.title" = "电影：";
+
+/* Class = "NSTableColumn"; headerCell.title = "Annotation"; ObjectID = "XgL-ec-DEt"; */
+"XgL-ec-DEt.headerCell.title" = "注释";
+
+/* Class = "NSMenuItem"; title = "TheTVDB"; ObjectID = "xjQ-ex-5kU"; */
+"xjQ-ex-5kU.title" = "TheTVDB";
+
+/* Class = "NSTextFieldCell"; title = "Episode #"; ObjectID = "Zik-QU-m81"; */
+"Zik-QU-m81.title" = "剧集";
+
+/* Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "ZZg-QL-MyD"; */
+"ZZg-QL-MyD.headerCell.title" = "标题";
+

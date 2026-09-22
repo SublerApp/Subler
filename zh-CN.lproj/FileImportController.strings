@@ -1,0 +1,51 @@
+/* Class = "NSButtonCell"; title = "Import Metadata"; ObjectID = "0dA-so-rlU"; */
+"0dA-so-rlU.title" = "导入元数据";
+
+/* Class = "NSTextFieldCell"; title = "Select tracks:"; ObjectID = "1JV-df-zeq"; */
+"1JV-df-zeq.title" = "选择轨道：";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "2LD-y7-Ko1"; */
+"2LD-y7-Ko1.title" = "0";
+
+/* Class = "NSTableColumn"; headerCell.title = "Id"; ObjectID = "a2Q-90-iMO"; */
+"a2Q-90-iMO.headerCell.title" = "ID";
+
+/* Class = "NSMenuItem"; title = "Check only tracks with the same language"; ObjectID = "D3Y-pV-hxZ"; */
+"D3Y-pV-hxZ.title" = "仅选择相同语言的轨道";
+
+/* Class = "NSTableColumn"; headerCell.title = "Language"; ObjectID = "dyL-5A-jbn"; */
+"dyL-5A-jbn.headerCell.title" = "语言";
+
+/* Class = "NSMenuItem"; title = "Check"; ObjectID = "GIM-Js-R4l"; */
+"GIM-Js-R4l.title" = "选择";
+
+/* Class = "NSTableColumn"; headerCell.title = "Duration"; ObjectID = "jac-jE-VHr"; */
+"jac-jE-VHr.headerCell.title" = "持续时间";
+
+/* Class = "NSTextFieldCell"; title = "Info"; ObjectID = "JH3-2P-Na2"; */
+"JH3-2P-Na2.title" = "简介";
+
+/* Class = "NSTextFieldCell"; title = "Lang"; ObjectID = "KM9-Op-UNe"; */
+"KM9-Op-UNe.title" = "语言";
+
+/* Class = "NSTextFieldCell"; title = "id"; ObjectID = "Nrs-BO-n8T"; */
+"Nrs-BO-n8T.title" = "id";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "oS0-t5-87P"; */
+"oS0-t5-87P.headerCell.title" = "名称";
+
+/* Class = "NSButtonCell"; title = "Add"; ObjectID = "QCb-5J-Vfs"; */
+"QCb-5J-Vfs.title" = "添加";
+
+/* Class = "NSTableColumn"; headerCell.title = "Info"; ObjectID = "qRv-Tq-YMF"; */
+"qRv-Tq-YMF.headerCell.title" = "简介";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "vW6-FN-zyM"; */
+"vW6-FN-zyM.title" = "取消";
+
+/* Class = "NSMenuItem"; title = "Uncheck"; ObjectID = "w6q-DP-C0O"; */
+"w6q-DP-C0O.title" = "取消选择";
+
+/* Class = "NSTableColumn"; headerCell.title = "Action"; ObjectID = "zFW-wr-9sg"; */
+"zFW-wr-9sg.headerCell.title" = "行为";
+

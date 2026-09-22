@@ -31,12 +31,6 @@
 /* Class = "NSMenuItem"; title = "Save"; ObjectID = "75"; */
 "75.title" = "Enregistrer";
 
-/* Class = "NSMenuItem"; title = "Page Setup..."; ObjectID = "77"; */
-"77.title" = "Mise en page...";
-
-/* Class = "NSMenuItem"; title = "Print…"; ObjectID = "78"; */
-"78.title" = "Imprimer...";
-
 /* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "80"; */
 "80.title" = "Enregistrer sous...";
 

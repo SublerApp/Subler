@@ -13,6 +13,9 @@
 /* Class = "NSMenuItem"; title = "Rec. 709 (1-1-1)"; ObjectID = "1uU-j6-SSj"; */
 "1uU-j6-SSj.title" = "Rec. 709 (1-1-1)";
 
+/* Class = "NSButton"; ibShadowedToolTip = "In files with multiple audio tracks in different languages, this will enable the preferred langauge and disable all other tracks. For AppleTV and some other players, this allows the preferred language audio to play by default. An audio track labeled with the selected language and tagged as main program content must exist. "; ObjectID = "3et-YT-WBR"; */
+"3et-YT-WBR.ibShadowedToolTip" = "En archivos con múltiples pistas de audio en diferentes idiomas, esto habilitará el idioma preferido y deshabilitará todas las demás pistas. Para Apple TV y algunos otros reproductores, esto permite que el audio del idioma preferido se reproduzca de forma predeterminada. Debe existir una pista de audio marcada con el idioma seleccionado y etiquetada como contenido del programa principal.";
+
 /* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "3w0-jj-Nkk"; */
 "3w0-jj-Nkk.ibShadowedIsNilPlaceholder" = "Ninguno";
 
@@ -133,8 +136,14 @@
 /* Class = "NSMenuItem"; title = "Rec. 2100 PQ (9-16-9)"; ObjectID = "kyg-my-fCL"; */
 "kyg-my-fCL.title" = "Rec. 2100 PQ (9-16-9)";
 
+/* Class = "NSButtonCell"; title = "Enable subtitles track with language"; ObjectID = "LD5-Kv-x0M"; */
+"LD5-Kv-x0M.title" = "Habilitar pista de subtítulos con el idioma";
+
 /* Class = "NSMenuItem"; title = "Square"; ObjectID = "LFE-HX-iBV"; */
 "LFE-HX-iBV.title" = "Cuadrado";
+
+/* Class = "NSButton"; ibShadowedToolTip = "In files with multiple subtitle tracks in different languages, this will enable the preferred langauge and disable all other tracks. For AppleTV and some other players, this allows the preferred language subtitles to play by default. A subtitle track labeled with the preferred language must exist in the file."; ObjectID = "LiA-V6-VEx"; */
+"LiA-V6-VEx.ibShadowedToolTip" = "En archivos con múltiples pistas de subtítulos en diferentes idiomas, esto habilitará el idioma preferido y deshabilitará todas las demás pistas. Para Apple TV y algunos otros reproductores, esto permite que los subtítulos del idioma preferido se reproduzcan de forma predeterminada. Debe existir una pista de subtítulos marcada con el idioma preferido.";
 
 /* Class = "NSButtonCell"; title = "Auto-Start the queue"; ObjectID = "LYO-G0-9jA"; */
 "LYO-G0-9jA.title" = "Iniciar cola automáticamente";
@@ -151,6 +160,9 @@
 /* Class = "NSTextFieldCell"; title = "Global options:"; ObjectID = "NBN-VA-pg2"; */
 "NBN-VA-pg2.title" = "Opciones generales:";
 
+/* Class = "NSButtonCell"; title = "Enable audio track with language"; ObjectID = "nC7-4d-Is1"; */
+"nC7-4d-Is1.title" = "Habilitar pista de audio con el idioma";
+
 /* Class = "NSButtonCell"; title = "Optimize"; ObjectID = "nig-pN-efw"; */
 "nig-pN-efw.title" = "Optimizar";
 
@@ -158,7 +170,7 @@
 "PCe-Pw-D2s.title" = "Programas de TV:";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Set the color space of video tracks to the selected one"; ObjectID = "Pdq-s0-erT"; */
-"Pdq-s0-erT.ibShadowedToolTip" = "Establecer espacio de color de pistas de vídeo en la seleccionada";
+"Pdq-s0-erT.ibShadowedToolTip" = "Establecer espacio de color de pistas de video en la seleccionada";
 
 /* Class = "NSMenuItem"; title = "Implicit"; ObjectID = "psY-0V-t0k"; */
 "psY-0V-t0k.title" = "Implícito";

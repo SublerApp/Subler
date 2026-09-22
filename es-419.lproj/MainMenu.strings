@@ -31,12 +31,6 @@
 /* Class = "NSMenuItem"; title = "Save"; ObjectID = "75"; */
 "75.title" = "Guardar";
 
-/* Class = "NSMenuItem"; title = "Page Setup..."; ObjectID = "77"; */
-"77.title" = "Configuración de página…";
-
-/* Class = "NSMenuItem"; title = "Print…"; ObjectID = "78"; */
-"78.title" = "Imprimir…";
-
 /* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "80"; */
 "80.title" = "Guardar como…";
 
@@ -274,6 +268,9 @@
 /* Class = "NSMenuItem"; title = "1 minutes"; ObjectID = "662"; */
 "662.title" = "1 minuto";
 
+/* Class = "NSMenuItem"; title = "Remove completed items from queue"; ObjectID = "Cre-T6-PID"; */
+"Cre-T6-PID.title" = "Quitar elementos completados de la cola";
+
 /* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "fm8-d2-1Yi"; */
 "fm8-d2-1Yi.title" = "Mejorar nombres de pistas de audio";
 
@@ -285,6 +282,9 @@
 
 /* Class = "NSMenuItem"; title = "Donate…"; ObjectID = "ojS-sZ-qGM"; */
 "ojS-sZ-qGM.title" = "Hacer una donación…";
+
+/* Class = "NSMenuItem"; title = "Start Queue"; ObjectID = "TRh-ZN-Id8"; */
+"TRh-ZN-Id8.title" = "Iniciar cola";
 
 /* Class = "NSMenuItem"; title = "Open in Queue…"; ObjectID = "YfF-TG-cvE"; */
 "YfF-TG-cvE.title" = "Abrir en la cola…";

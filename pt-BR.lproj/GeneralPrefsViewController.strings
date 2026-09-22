@@ -1,0 +1,48 @@
+/* Class = "NSTextFieldCell"; title = "Middle"; ObjectID = "2o1-dB-mt1"; */
+"2o1-dB-mt1.title" = "Central";
+
+/* Class = "NSButtonCell"; title = "Automatically check for update daily"; ObjectID = "2Pf-pq-4IX"; */
+"2Pf-pq-4IX.title" = "Verificar Atualizações Automaticamente Todos os Dias";
+
+/* Class = "NSTextFieldCell"; title = "Beginning"; ObjectID = "3Vs-qA-7Z6"; */
+"3Vs-qA-7Z6.title" = "Inicial";
+
+/* Class = "NSButtonCell"; title = "Create Preview Images at position:"; ObjectID = "84"; */
+"84.title" = "Criar Imagens de Pré-visualização na Posição:";
+
+/* Class = "NSTextFieldCell"; title = "Chapters:"; ObjectID = "85"; */
+"85.title" = "Capítulos:";
+
+/* Class = "NSButtonCell"; title = "Remember Size"; ObjectID = "86"; */
+"86.title" = "Lembrar Tamanho";
+
+/* Class = "NSButtonCell"; title = "Show open panel"; ObjectID = "87"; */
+"87.title" = "Mostrar Painel de Abertura de Arquivo";
+
+/* Class = "NSTextFieldCell"; title = "Window:"; ObjectID = "88"; */
+"88.title" = "Janela:";
+
+/* Class = "NSTextFieldCell"; title = "At Launch:"; ObjectID = "89"; */
+"89.title" = "Ao Iniciar:";
+
+/* Class = "NSButtonCell"; title = "Clear recent searches"; ObjectID = "134"; */
+"134.title" = "Limpar Buscas Recentes";
+
+/* Class = "NSButtonCell"; title = "Delete cached metadata"; ObjectID = "137"; */
+"137.title" = "Excluir Cache de Metadados";
+
+/* Class = "NSTextFieldCell"; title = "Privacy:"; ObjectID = "140"; */
+"140.title" = "Privacidade:";
+
+/* Class = "NSTextFieldCell"; title = "Show ratings for:"; ObjectID = "207"; */
+"207.title" = "Mostrar Classificações para:";
+
+/* Class = "NSTextFieldCell"; title = "USA ratings are always shown."; ObjectID = "250"; */
+"250.title" = "As classificações dos EUA sempre são mostradas.";
+
+/* Class = "NSTextFieldCell"; title = "End"; ObjectID = "He0-rl-DBi"; */
+"He0-rl-DBi.title" = "Final";
+
+/* Class = "NSTextFieldCell"; title = "Log Format:"; ObjectID = "logFormatLabelCell"; */
+"logFormatLabelCell.title" = "Formato de registro:";
+

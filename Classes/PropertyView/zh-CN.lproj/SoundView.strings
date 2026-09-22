@@ -1,0 +1,54 @@
+/* Class = "NSMenuItem"; title = "3"; ObjectID = "1xu-y0-sPc"; */
+"1xu-y0-sPc.title" = "3";
+
+/* Class = "NSTextFieldCell"; title = "+ 0 db"; ObjectID = "5af-rM-3Vd"; */
+"5af-rM-3Vd.title" = "+0 db";
+
+/* Class = "NSTextFieldCell"; title = "+6 db"; ObjectID = "5ZH-ms-h3O"; */
+"5ZH-ms-h3O.title" = "+6 db";
+
+/* Class = "NSTabViewItem"; label = "Sound Settings"; ObjectID = "6"; */
+"6.label" = "声音设置";
+
+/* Class = "NSTextFieldCell"; title = "Fallback:"; ObjectID = "8KY-0L-cm1"; */
+"8KY-0L-cm1.title" = "回退：";
+
+/* Class = "NSTabViewItem"; label = "Media Characteristics"; ObjectID = "22R-da-Q3B"; */
+"22R-da-Q3B.label" = "媒体特征";
+
+/* Class = "NSTextFieldCell"; title = "Alternate Group:"; ObjectID = "CTV-P7-IaD"; */
+"CTV-P7-IaD.title" = "轨道分组：";
+
+/* Class = "NSTextFieldCell"; title = "Subtitles:"; ObjectID = "dbp-55-tUy"; */
+"dbp-55-tUy.title" = "字幕：";
+
+/* Class = "NSTextFieldCell"; title = "-∞ db"; ObjectID = "dCR-ej-bsH"; */
+"dCR-ej-bsH.title" = "-∞ db";
+
+/* Class = "NSMenuItem"; title = "4"; ObjectID = "e5A-Zf-BwW"; */
+"e5A-Zf-BwW.title" = "4";
+
+/* Class = "NSMenuItem"; title = "5"; ObjectID = "F8Z-GJ-QaV"; */
+"F8Z-GJ-QaV.title" = "5";
+
+/* Class = "NSMenuItem"; title = "1"; ObjectID = "mXc-eW-usD"; */
+"mXc-eW-usD.title" = "1";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "QBa-Jt-TO2"; */
+"QBa-Jt-TO2.title" = "无";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "Qdb-gu-B3h"; */
+"Qdb-gu-B3h.title" = "无";
+
+/* Class = "NSMenuItem"; title = "6"; ObjectID = "RPZ-ZF-Pvg"; */
+"RPZ-ZF-Pvg.title" = "6";
+
+/* Class = "NSMenuItem"; title = "2"; ObjectID = "xjR-b6-VG2"; */
+"xjR-b6-VG2.title" = "2";
+
+/* Class = "NSTextFieldCell"; title = "Volume:"; ObjectID = "Z5x-Oq-P8Z"; */
+"Z5x-Oq-P8Z.title" = "音量：";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "Zgh-b7-8aY"; */
+"Zgh-b7-8aY.title" = "无";
+

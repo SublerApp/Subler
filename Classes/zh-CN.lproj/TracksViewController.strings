@@ -1,0 +1,33 @@
+/* Class = "NSTableColumn"; headerCell.title = "Duration"; ObjectID = "0dC-Ux-mUt"; */
+"0dC-Ux-mUt.headerCell.title" = "持续时间";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "3zj-cH-wWV"; */
+"3zj-cH-wWV.headerCell.title" = "名称";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Tracks"; ObjectID = "Bpi-e7-pHx"; */
+"Bpi-e7-pHx.ibExternalAccessibilityDescription" = "轨道";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Enabled"; ObjectID = "JD5-tO-uQc"; */
+"JD5-tO-uQc.ibExternalAccessibilityDescription" = "已启用";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Enable or disable the track"; ObjectID = "JD5-tO-uQc"; */
+"JD5-tO-uQc.ibShadowedToolTip" = "启用/禁用轨道";
+
+/* Class = "NSTextFieldCell"; title = "00:00:00"; ObjectID = "LAW-aU-7Ie"; */
+"LAW-aU-7Ie.title" = "00:00:00";
+
+/* Class = "NSTextFieldCell"; title = "Text"; ObjectID = "LgC-JT-Lsx"; */
+"LgC-JT-Lsx.title" = "文本";
+
+/* Class = "NSTableColumn"; headerCell.title = "Language"; ObjectID = "qGd-Uo-RvP"; */
+"qGd-Uo-RvP.headerCell.title" = "语言";
+
+/* Class = "NSTableColumn"; headerCell.title = "Id"; ObjectID = "sB1-FL-VRd"; */
+"sB1-FL-VRd.headerCell.title" = "ID";
+
+/* Class = "NSTableColumn"; headerCell.title = "Format"; ObjectID = "vmh-dT-zIv"; */
+"vmh-dT-zIv.headerCell.title" = "格式";
+
+/* Class = "NSTableColumn"; headerCell.title = "Enabled"; ObjectID = "Znw-bQ-tsE"; */
+"Znw-bQ-tsE.headerCell.title" = "已启用";
+

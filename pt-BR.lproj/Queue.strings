@@ -1,0 +1,33 @@
+/* Class = "NSWindow"; title = "Queue"; ObjectID = "1"; */
+"1.title" = "Fila";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Queue"; ObjectID = "7"; */
+"7.ibExternalAccessibilityDescription" = "Fila";
+
+/* Class = "NSTableColumn"; headerCell.title = "nameColumn"; ObjectID = "8"; */
+"8.headerCell.title" = "nameColumn";
+
+/* Class = "NSMenuItem"; title = "Reveal in Finder"; ObjectID = "8gi-57-i6u"; */
+"8gi-57-i6u.title" = "Mostrar no Finder";
+
+/* Class = "NSTextFieldCell"; title = "Queue items"; ObjectID = "13"; */
+"13.title" = "Itens da Fila";
+
+/* Class = "NSMenuItem"; title = "Remove from queue"; ObjectID = "79"; */
+"79.title" = "Remover da Fila";
+
+/* Class = "NSMenuItem"; title = "Remove completed items"; ObjectID = "86"; */
+"86.title" = "Remover Itens Concluídos";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Info"; ObjectID = "o98-wM-YAQ"; */
+"o98-wM-YAQ.ibExternalAccessibilityDescription" = "Informação";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Show item info"; ObjectID = "o98-wM-YAQ"; */
+"o98-wM-YAQ.ibShadowedToolTip" = "Mostrar Informações do Item";
+
+/* Class = "NSMenuItem"; title = "Edit…"; ObjectID = "qHz-Zh-l5L"; */
+"qHz-Zh-l5L.title" = "Editar…";
+
+/* Class = "NSTextFieldCell"; title = "Name"; ObjectID = "srx-EJ-mK6"; */
+"srx-EJ-mK6.title" = "Nome";
+

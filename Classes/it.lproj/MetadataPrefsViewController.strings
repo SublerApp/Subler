@@ -4,6 +4,9 @@
 /* Class = "NSButtonCell"; title = "Keep empty annotations"; ObjectID = "7Ek-lI-5Lo"; */
 "7Ek-lI-5Lo.title" = "Mantieni le annotazioni vuote";
 
+/* Class = "NSButtonCell"; title = "Overwrite existing annotations"; ObjectID = "7KC-Up-hGn"; */
+"7KC-Up-hGn.title" = "Sovrascrivi le annotazioni esistenti";
+
 /* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "Aj4-bk-6RK"; */
 "Aj4-bk-6RK.headerCell.title" = "Valore";
 

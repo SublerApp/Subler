@@ -1,0 +1,39 @@
+/* Class = "NSWindow"; title = "Preferences"; ObjectID = "1"; */
+"1.title" = "偏好设置";
+
+/* Class = "NSToolbarItem"; label = "General"; ObjectID = "5r6-9s-apQ"; */
+"5r6-9s-apQ.label" = "通用";
+
+/* Class = "NSToolbarItem"; paletteLabel = "General"; ObjectID = "5r6-9s-apQ"; */
+"5r6-9s-apQ.paletteLabel" = "通用";
+
+/* Class = "NSToolbarItem"; label = "OCR"; ObjectID = "btg-Uy-o7I"; */
+"btg-Uy-o7I.label" = "OCR";
+
+/* Class = "NSToolbarItem"; paletteLabel = "OCR"; ObjectID = "btg-Uy-o7I"; */
+"btg-Uy-o7I.paletteLabel" = "OCR";
+
+/* Class = "NSToolbarItem"; label = "Sets"; ObjectID = "PFq-0J-qih"; */
+"PFq-0J-qih.label" = "预设";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Sets"; ObjectID = "PFq-0J-qih"; */
+"PFq-0J-qih.paletteLabel" = "预设";
+
+/* Class = "NSToolbarItem"; label = "Advanced"; ObjectID = "udf-m4-mG8"; */
+"udf-m4-mG8.label" = "高级";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Advanced"; ObjectID = "udf-m4-mG8"; */
+"udf-m4-mG8.paletteLabel" = "高级";
+
+/* Class = "NSToolbarItem"; label = "Filename"; ObjectID = "uxW-fx-zpe"; */
+"uxW-fx-zpe.label" = "文件名";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Filename"; ObjectID = "uxW-fx-zpe"; */
+"uxW-fx-zpe.paletteLabel" = "文件名";
+
+/* Class = "NSToolbarItem"; label = "Metadata"; ObjectID = "Z2w-05-k1g"; */
+"Z2w-05-k1g.label" = "元数据";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Metadata"; ObjectID = "Z2w-05-k1g"; */
+"Z2w-05-k1g.paletteLabel" = "元数据";
+

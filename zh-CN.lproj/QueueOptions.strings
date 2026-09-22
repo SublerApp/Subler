@@ -1,0 +1,255 @@
+/* Class = "NSButtonCell"; title = "Apply color space"; ObjectID = "0By-RQ-4mS"; */
+"0By-RQ-4mS.title" = "应用色域";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Rename chapters titles to \"Chapter N\" format."; ObjectID = "0qr-Nt-Pan"; */
+"0qr-Nt-Pan.ibShadowedToolTip" = "将章节标题重命名至 \"Chapter N\" 格式。";
+
+/* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "1dC-y4-0rx"; */
+"1dC-y4-0rx.title" = "语言：";
+
+/* Class = "NSTextFieldCell"; title = "Artwork:"; ObjectID = "1HP-Np-D97"; */
+"1HP-Np-D97.title" = "插图：";
+
+/* Class = "NSMenuItem"; title = "Rec. 709 (1-1-1)"; ObjectID = "1uU-j6-SSj"; */
+"1uU-j6-SSj.title" = "Rec. 709 (1-1-1)";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "3w0-jj-Nkk"; */
+"3w0-jj-Nkk.ibShadowedIsNilPlaceholder" = "无";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "None"; ObjectID = "3w0-jj-Nkk"; */
+"3w0-jj-Nkk.ibShadowedNoSelectionPlaceholder" = "无";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "3w0-jj-Nkk"; */
+"3w0-jj-Nkk.ibShadowedNotApplicablePlaceholder" = "无";
+
+/* Class = "NSButtonCell"; title = "Send to AppleTV/iTunes"; ObjectID = "4an-VK-S2u"; */
+"4an-VK-S2u.title" = "发送到 TV/iTunes";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "4rl-TJ-0yZ"; */
+"4rl-TJ-0yZ.ibShadowedIsNilPlaceholder" = "无";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "None"; ObjectID = "4rl-TJ-0yZ"; */
+"4rl-TJ-0yZ.ibShadowedNoSelectionPlaceholder" = "无";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "4rl-TJ-0yZ"; */
+"4rl-TJ-0yZ.ibShadowedNotApplicablePlaceholder" = "无";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Clear existing metadata"; ObjectID = "9GN-f6-r2j"; */
+"9GN-f6-r2j.ibShadowedToolTip" = "清除元数据";
+
+/* Class = "NSTextFieldCell"; title = "Apply Set:"; ObjectID = "9gt-mI-zIV"; */
+"9gt-mI-zIV.title" = "应用预设：";
+
+/* Class = "NSTextFieldCell"; title = "Add item:"; ObjectID = "9ls-xq-YGz"; */
+"9ls-xq-YGz.title" = "添加项目：";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Unknown"; ObjectID = "9YX-tj-U0D"; */
+"9YX-tj-U0D.ibShadowedIsNilPlaceholder" = "未知";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "Unknown"; ObjectID = "9YX-tj-U0D"; */
+"9YX-tj-U0D.ibShadowedNoSelectionPlaceholder" = "未知";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "Unknown"; ObjectID = "9YX-tj-U0D"; */
+"9YX-tj-U0D.ibShadowedNotApplicablePlaceholder" = "未知";
+
+/* Class = "NSTextFieldCell"; title = "Location:"; ObjectID = "17e-9u-rVn"; */
+"17e-9u-rVn.title" = "位置：";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Delete all custom track names"; ObjectID = "22k-mA-HyA"; */
+"22k-mA-HyA.ibShadowedToolTip" = "删除所有自定轨道名称";
+
+/* Class = "NSButtonCell"; title = "Load external subtitles"; ObjectID = "59T-kp-mV1"; */
+"59T-kp-mV1.title" = "加载外置字幕";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Rename audio tracks according to channel count (Mono, Stereo, Surround)"; ObjectID = "81E-pQ-vyQ"; */
+"81E-pQ-vyQ.ibShadowedToolTip" = "根据声道数量重命名音轨（单声道、立体声、环绕声）";
+
+/* Class = "NSButtonCell"; title = "Organize Groups"; ObjectID = "240-c7-2UW"; */
+"240-c7-2UW.title" = "整理轨道分组";
+
+/* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "963-dI-WCB"; */
+"963-dI-WCB.title" = "语言：";
+
+/* Class = "NSMenuItem"; title = "Backdrop"; ObjectID = "Aaf-km-GUP"; */
+"Aaf-km-GUP.title" = "背景";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "aF7-XO-EMK"; */
+"aF7-XO-EMK.ibShadowedIsNilPlaceholder" = "无";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "None"; ObjectID = "aF7-XO-EMK"; */
+"aF7-XO-EMK.ibShadowedNoSelectionPlaceholder" = "无";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "aF7-XO-EMK"; */
+"aF7-XO-EMK.ibShadowedNotApplicablePlaceholder" = "无";
+
+/* Class = "NSButtonCell"; title = "Prettify audio track names"; ObjectID = "akF-dR-OPB"; */
+"akF-dR-OPB.title" = "美化音轨名称";
+
+/* Class = "NSMenuItem"; title = "Rec. 601 (6-1-6)"; ObjectID = "AZx-uM-CmZ"; */
+"AZx-uM-CmZ.title" = "Rec. 601 (6-1-6)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Organize the mp4 alternate groups"; ObjectID = "ccd-Xn-Dj3"; */
+"ccd-Xn-Dj3.ibShadowedToolTip" = "整理 mp4 轨道分组";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "crR-iB-g3d"; */
+"crR-iB-g3d.ibShadowedIsNilPlaceholder" = "无";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "None"; ObjectID = "crR-iB-g3d"; */
+"crR-iB-g3d.ibShadowedNoSelectionPlaceholder" = "无";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "crR-iB-g3d"; */
+"crR-iB-g3d.ibShadowedNotApplicablePlaceholder" = "无";
+
+/* Class = "NSButtonCell"; title = "Complete tracks language"; ObjectID = "cxz-2q-RIP"; */
+"cxz-2q-RIP.title" = "补全轨道语言";
+
+/* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "E4E-3v-z24"; */
+"E4E-3v-z24.title" = "语言：";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Load the external srt subtitles file"; ObjectID = "etc-K7-Atw"; */
+"etc-K7-Atw.ibShadowedToolTip" = "从外置 SRT 文件加载字幕";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "Fid-Wo-2Eb"; */
+"Fid-Wo-2Eb.title" = "无";
+
+/* Class = "NSMenuItem"; title = "m4v"; ObjectID = "FrC-Ub-23H"; */
+"FrC-Ub-23H.title" = "m4v";
+
+/* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "GBM-Sa-9GJ"; */
+"GBM-Sa-9GJ.title" = "语言：";
+
+/* Class = "NSMenuItem"; title = "Rec. 601 (5-1-6)"; ObjectID = "ge0-Fr-3vK"; */
+"ge0-Fr-3vK.title" = "Rec. 601 (5-1-6)";
+
+/* Class = "NSMenuItem"; title = "Standard"; ObjectID = "goC-ck-how"; */
+"goC-ck-how.title" = "标准";
+
+/* Class = "NSButtonCell"; title = "Fetch Metadata"; ObjectID = "h5x-un-6cJ"; */
+"h5x-un-6cJ.title" = "获取元数据";
+
+/* Class = "NSMenuItem"; title = "mp4"; ObjectID = "iXb-rA-1f3"; */
+"iXb-rA-1f3.title" = "mp4";
+
+/* Class = "NSMenuItem"; title = "Rec. 2100 PQ (9-16-9)"; ObjectID = "kyg-my-fCL"; */
+"kyg-my-fCL.title" = "Rec. 2100 PQ (9-16-9)";
+
+/* Class = "NSMenuItem"; title = "Square"; ObjectID = "LFE-HX-iBV"; */
+"LFE-HX-iBV.title" = "正方形";
+
+/* Class = "NSButtonCell"; title = "Auto-Start the queue"; ObjectID = "LYO-G0-9jA"; */
+"LYO-G0-9jA.title" = "自动开始任务队列";
+
+/* Class = "NSMenuItem"; title = "Episode"; ObjectID = "mps-yj-l7z"; */
+"mps-yj-l7z.title" = "剧集";
+
+/* Class = "NSButtonCell"; title = "Clear tracks names"; ObjectID = "mtK-5C-Pzh"; */
+"mtK-5C-Pzh.title" = "清除轨道名称";
+
+/* Class = "NSButtonCell"; title = "Show Notification When Done"; ObjectID = "n6P-IC-SEp"; */
+"n6P-IC-SEp.title" = "完成时显示通知";
+
+/* Class = "NSTextFieldCell"; title = "Global options:"; ObjectID = "NBN-VA-pg2"; */
+"NBN-VA-pg2.title" = "全局选项：";
+
+/* Class = "NSButtonCell"; title = "Optimize"; ObjectID = "nig-pN-efw"; */
+"nig-pN-efw.title" = "优化";
+
+/* Class = "NSTextFieldCell"; title = "TV Shows:"; ObjectID = "PCe-Pw-D2s"; */
+"PCe-Pw-D2s.title" = "电视节目：";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Set the color space of video tracks to the selected one"; ObjectID = "Pdq-s0-erT"; */
+"Pdq-s0-erT.ibShadowedToolTip" = "将视频轨道的色域设为所选项";
+
+/* Class = "NSMenuItem"; title = "Implicit"; ObjectID = "psY-0V-t0k"; */
+"psY-0V-t0k.title" = "缺省";
+
+/* Class = "NSButtonCell"; title = "Set output filename"; ObjectID = "Qld-0F-DsX"; */
+"Qld-0F-DsX.title" = "设定输出文件名";
+
+/* Class = "NSButtonCell"; title = "Clear existing metadata"; ObjectID = "QNO-e1-WUJ"; */
+"QNO-e1-WUJ.title" = "清除元数据";
+
+/* Class = "NSMenuItem"; title = "Season"; ObjectID = "QR6-hq-GZL"; */
+"QR6-hq-GZL.title" = "季";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "Rh9-LC-qBz"; */
+"Rh9-LC-qBz.ibShadowedIsNilPlaceholder" = "无";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "None"; ObjectID = "Rh9-LC-qBz"; */
+"Rh9-LC-qBz.ibShadowedNoSelectionPlaceholder" = "无";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "Rh9-LC-qBz"; */
+"Rh9-LC-qBz.ibShadowedNotApplicablePlaceholder" = "无";
+
+/* Class = "NSMenuItem"; title = "P3-D65 (12-17-6)"; ObjectID = "RHU-Y8-mhX"; */
+"RHU-Y8-mhX.title" = "P3-D65 (12-17-6)";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Unknown"; ObjectID = "RXT-iv-V6g"; */
+"RXT-iv-V6g.ibShadowedIsNilPlaceholder" = "未知";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "Unknown"; ObjectID = "RXT-iv-V6g"; */
+"RXT-iv-V6g.ibShadowedNoSelectionPlaceholder" = "未知";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "Unknown"; ObjectID = "RXT-iv-V6g"; */
+"RXT-iv-V6g.ibShadowedNotApplicablePlaceholder" = "未知";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Search metadata online"; ObjectID = "s8r-Cf-VfB"; */
+"s8r-Cf-VfB.ibShadowedToolTip" = "在线搜索元数据";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Set tracks without a language to the selected one"; ObjectID = "slL-2h-MPl"; */
+"slL-2h-MPl.ibShadowedToolTip" = "将未知语言的轨道设为所选项";
+
+/* Class = "NSMenuItem"; title = "Rec. 2020 (9-1-9)"; ObjectID = "Tjn-8g-7PM"; */
+"Tjn-8g-7PM.title" = "Rec. 2020 (9-1-9)";
+
+/* Class = "NSTextFieldCell"; title = "Color Space:"; ObjectID = "tMS-Tg-pPf"; */
+"tMS-Tg-pPf.title" = "色域：";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Organize the audio fallbacks"; ObjectID = "TV6-Sk-Bqr"; */
+"TV6-Sk-Bqr.ibShadowedToolTip" = "整理音频回退";
+
+/* Class = "NSMenuItem"; title = "sRGB (1-13-1)"; ObjectID = "Twp-Zx-xTw"; */
+"Twp-Zx-xTw.title" = "sRGB (1-13-1)";
+
+/* Class = "NSTextFieldCell"; title = "File Type:"; ObjectID = "UbR-KJ-8iR"; */
+"UbR-KJ-8iR.title" = "文件类型：";
+
+/* Class = "NSMenuItem"; title = "P3-DCI (11-17-6)"; ObjectID = "uEf-L0-ykH"; */
+"uEf-L0-ykH.title" = "P3-DCI (11-17-6)";
+
+/* Class = "NSMenuItem"; title = "Other…"; ObjectID = "veS-S3-uYt"; */
+"veS-S3-uYt.title" = "其他…";
+
+/* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "VkG-jW-ibO"; */
+"VkG-jW-ibO.title" = "语言：";
+
+/* Class = "NSTextFieldCell"; title = "Movies:"; ObjectID = "W6m-cd-JMe"; */
+"W6m-cd-JMe.title" = "电影：";
+
+/* Class = "NSButtonCell"; title = "Fix audio fallbacks"; ObjectID = "W6u-1c-BsI"; */
+"W6u-1c-BsI.title" = "修复音频回退";
+
+/* Class = "NSMenuItem"; title = "Same as file"; ObjectID = "WKY-e5-5Mn"; */
+"WKY-e5-5Mn.title" = "与源文件相同";
+
+/* Class = "NSMenuItem"; title = "Rectangle"; ObjectID = "wR3-qj-uQj"; */
+"wR3-qj-uQj.title" = "矩形";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Unknown"; ObjectID = "Xnw-Nt-5dZ"; */
+"Xnw-Nt-5dZ.ibShadowedIsNilPlaceholder" = "未知";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNoSelectionPlaceholder = "Unknown"; ObjectID = "Xnw-Nt-5dZ"; */
+"Xnw-Nt-5dZ.ibShadowedNoSelectionPlaceholder" = "未知";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "Unknown"; ObjectID = "Xnw-Nt-5dZ"; */
+"Xnw-Nt-5dZ.ibShadowedNotApplicablePlaceholder" = "未知";
+
+/* Class = "NSButtonCell"; title = "Rename chapters titles"; ObjectID = "yFm-Nq-s66"; */
+"yFm-Nq-s66.title" = "重命名章节名称";
+
+/* Class = "NSMenuItem"; title = "Poster"; ObjectID = "YjX-6f-SPu"; */
+"YjX-6f-SPu.title" = "海报";
+
+/* Class = "NSMenuItem"; title = "Rec. 2100 HLG (9-18-9)"; ObjectID = "YSd-rH-Uvg"; */
+"YSd-rH-Uvg.title" = "Rec. 2100 HLG (9-18-9)";
+

@@ -76,6 +76,9 @@
 /* Class = "NSTextFieldCell"; title = "x"; ObjectID = "ILN-KP-l0z"; */
 "ILN-KP-l0z.title" = "x";
 
+/* Class = "NSMenuItem"; title = "IPT-C2 (9-16-15)"; ObjectID = "J66-Ah-thQ"; */
+"J66-Ah-thQ.title" = "IPT-C2 (9-16-15)";
+
 /* Class = "NSMenuItem"; title = "No"; ObjectID = "KOg-FR-dr6"; */
 "KOg-FR-dr6.title" = "No";
 

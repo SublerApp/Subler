@@ -1,0 +1,291 @@
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
+"5.title" = "Trazer Todas para a Frente";
+
+/* Class = "NSMenuItem"; title = "Show Message Log"; ObjectID = "9t4-R8-Exy"; */
+"9t4-R8-Exy.title" = "Mostrar Registro de Mensagens";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
+"19.title" = "Janela";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "23"; */
+"23.title" = "Minimizar";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "24"; */
+"24.title" = "Janela";
+
+/* Class = "NSMenuItem"; title = "Subler"; ObjectID = "56"; */
+"56.title" = "Subler";
+
+/* Class = "NSMenu"; title = "Subler"; ObjectID = "57"; */
+"57.title" = "Subler";
+
+/* Class = "NSMenuItem"; title = "About Subler"; ObjectID = "58"; */
+"58.title" = "Sobre o Subler";
+
+/* Class = "NSMenuItem"; title = "Open…"; ObjectID = "72"; */
+"72.title" = "Abrir…";
+
+/* Class = "NSMenuItem"; title = "Close"; ObjectID = "73"; */
+"73.title" = "Fechar";
+
+/* Class = "NSMenuItem"; title = "Save"; ObjectID = "75"; */
+"75.title" = "Salvar";
+
+/* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "80"; */
+"80.title" = "Salvar Como…";
+
+/* Class = "NSMenu"; title = "File"; ObjectID = "81"; */
+"81.title" = "Arquivo";
+
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "83"; */
+"83.title" = "Arquivo";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "103"; */
+"103.title" = "Ajuda";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "106"; */
+"106.title" = "Ajuda";
+
+/* Class = "NSMenuItem"; title = "Subler Help"; ObjectID = "111"; */
+"111.title" = "Ajuda do Subler";
+
+/* Class = "NSMenuItem"; title = "Revert to Saved"; ObjectID = "112"; */
+"112.title" = "Reverter para Salvo";
+
+/* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "124"; */
+"124.title" = "Abrir Recente";
+
+/* Class = "NSMenu"; title = "Open Recent"; ObjectID = "125"; */
+"125.title" = "Abrir Recente";
+
+/* Class = "NSMenuItem"; title = "Clear Menu"; ObjectID = "126"; */
+"126.title" = "Limpar Menu";
+
+/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "129"; */
+"129.title" = "Configurações…";
+
+/* Class = "NSMenu"; title = "Services"; ObjectID = "130"; */
+"130.title" = "Serviços";
+
+/* Class = "NSMenuItem"; title = "Services"; ObjectID = "131"; */
+"131.title" = "Serviços";
+
+/* Class = "NSMenuItem"; title = "Hide Subler"; ObjectID = "134"; */
+"134.title" = "Ocultar Subler";
+
+/* Class = "NSMenuItem"; title = "Quit Subler"; ObjectID = "136"; */
+"136.title" = "Encerrar Subler";
+
+/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "145"; */
+"145.title" = "Ocultar Outros";
+
+/* Class = "NSMenuItem"; title = "Show All"; ObjectID = "150"; */
+"150.title" = "Mostrar Tudo";
+
+/* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "195"; */
+"195.title" = "Parar de Falar";
+
+/* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "196"; */
+"196.title" = "Começar a Falar";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "197"; */
+"197.title" = "Copiar";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "198"; */
+"198.title" = "Selecionar Tudo";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "199"; */
+"199.title" = "Cortar";
+
+/* Class = "NSMenu"; title = "Spelling and Grammar"; ObjectID = "200"; */
+"200.title" = "Ortografia e Gramática";
+
+/* Class = "NSMenuItem"; title = "Check Spelling"; ObjectID = "201"; */
+"201.title" = "Verificar Ortografia";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "202"; */
+"202.title" = "Apagar";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "203"; */
+"203.title" = "Colar";
+
+/* Class = "NSMenuItem"; title = "Show Spelling…"; ObjectID = "204"; */
+"204.title" = "Mostrar Ortografia e Gramática";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "205"; */
+"205.title" = "Editar";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "207"; */
+"207.title" = "Desfazer";
+
+/* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "208"; */
+"208.title" = "Buscar Seguinte";
+
+/* Class = "NSMenuItem"; title = "Find…"; ObjectID = "209"; */
+"209.title" = "Buscar...";
+
+/* Class = "NSMenuItem"; title = "Jump to Selection"; ObjectID = "210"; */
+"210.title" = "Saltar para Seleção";
+
+/* Class = "NSMenuItem"; title = "Speech"; ObjectID = "211"; */
+"211.title" = "Fala";
+
+/* Class = "NSMenu"; title = "Speech"; ObjectID = "212"; */
+"212.title" = "Fala";
+
+/* Class = "NSMenuItem"; title = "Find Previous"; ObjectID = "213"; */
+"213.title" = "Buscar Anterior";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "215"; */
+"215.title" = "Refazer";
+
+/* Class = "NSMenuItem"; title = "Spelling and Grammar"; ObjectID = "216"; */
+"216.title" = "Ortografia e Gramática";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "217"; */
+"217.title" = "Editar";
+
+/* Class = "NSMenuItem"; title = "Find"; ObjectID = "218"; */
+"218.title" = "Buscar";
+
+/* Class = "NSMenuItem"; title = "Check Spelling While Typing"; ObjectID = "219"; */
+"219.title" = "Verificar Ortografia Durante Digitação";
+
+/* Class = "NSMenu"; title = "Find"; ObjectID = "220"; */
+"220.title" = "Buscar";
+
+/* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "221"; */
+"221.title" = "Usar Seleção para Buscar";
+
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "239"; */
+"239.title" = "Zoom";
+
+/* Class = "NSMenuItem"; title = "View"; ObjectID = "295"; */
+"295.title" = "Visualizar";
+
+/* Class = "NSMenu"; title = "View"; ObjectID = "296"; */
+"296.title" = "Visualizar";
+
+/* Class = "NSMenuItem"; title = "Show Toolbar"; ObjectID = "297"; */
+"297.title" = "Mostrar Barra de Ferramentas";
+
+/* Class = "NSMenuItem"; title = "Customize Toolbar…"; ObjectID = "298"; */
+"298.title" = "Personalizar Barra de Ferramentas…";
+
+/* Class = "NSMenuItem"; title = "Check Grammar With Spelling"; ObjectID = "346"; */
+"346.title" = "Verificar Gramática com Ortografia";
+
+/* Class = "NSMenuItem"; title = "Substitutions"; ObjectID = "348"; */
+"348.title" = "Substituições";
+
+/* Class = "NSMenu"; title = "Substitutions"; ObjectID = "349"; */
+"349.title" = "Substituições";
+
+/* Class = "NSMenuItem"; title = "Smart Copy/Paste"; ObjectID = "350"; */
+"350.title" = "Copiar/Colar Inteligente";
+
+/* Class = "NSMenuItem"; title = "Smart Quotes"; ObjectID = "351"; */
+"351.title" = "Aspas Inteligentes";
+
+/* Class = "NSMenuItem"; title = "Smart Links"; ObjectID = "354"; */
+"354.title" = "Links Inteligentes";
+
+/* Class = "NSMenuItem"; title = "Optimize"; ObjectID = "451"; */
+"451.title" = "Otimizar";
+
+/* Class = "NSMenuItem"; title = "Check for Updates…"; ObjectID = "529"; */
+"529.title" = "Buscar Atualizações…";
+
+/* Class = "NSMenuItem"; title = "Import"; ObjectID = "544"; */
+"544.title" = "Importar";
+
+/* Class = "NSMenu"; title = "Import"; ObjectID = "545"; */
+"545.title" = "Importar";
+
+/* Class = "NSMenuItem"; title = "Search metadata online…"; ObjectID = "549"; */
+"549.title" = "Buscar Metadados On-line…";
+
+/* Class = "NSMenuItem"; title = "File…"; ObjectID = "550"; */
+"550.title" = "Arquivo…";
+
+/* Class = "NSMenuItem"; title = "New"; ObjectID = "555"; */
+"555.title" = "Novo";
+
+/* Class = "NSMenuItem"; title = "Send To Queue"; ObjectID = "561"; */
+"561.title" = "Enviar para a Fila";
+
+/* Class = "NSMenuItem"; title = "Metadata…"; ObjectID = "564"; */
+"564.title" = "Metadados…";
+
+/* Class = "NSMenuItem"; title = "Offset…"; ObjectID = "567"; */
+"567.title" = "Deslocamento…";
+
+/* Class = "NSMenuItem"; title = "Insert a Chapter"; ObjectID = "573"; */
+"573.title" = "Inserir um Capítulo";
+
+/* Class = "NSMenu"; title = "Insert a Chapter"; ObjectID = "574"; */
+"574.title" = "Inserir um Capítulo";
+
+/* Class = "NSMenuItem"; title = "Export…"; ObjectID = "589"; */
+"589.title" = "Exportar…";
+
+/* Class = "NSMenuItem"; title = "Show Queue"; ObjectID = "595"; */
+"595.title" = "Mostrar Fila";
+
+/* Class = "NSMenuItem"; title = "Send To iTunes"; ObjectID = "597"; */
+"597.title" = "Enviar para o iTunes";
+
+/* Class = "NSMenuItem"; title = "At the Beginning"; ObjectID = "633"; */
+"633.title" = "No início";
+
+/* Class = "NSMenuItem"; title = "Every"; ObjectID = "634"; */
+"634.title" = "A cada";
+
+/* Class = "NSMenuItem"; title = "Organize alternate groups"; ObjectID = "652"; */
+"652.title" = "Organizar Grupos Alternativos";
+
+/* Class = "NSMenu"; title = "Every"; ObjectID = "655"; */
+"655.title" = "A cada";
+
+/* Class = "NSMenuItem"; title = "30 minutes"; ObjectID = "656"; */
+"656.title" = "30 minutos";
+
+/* Class = "NSMenuItem"; title = "20 minutes"; ObjectID = "657"; */
+"657.title" = "20 minutos";
+
+/* Class = "NSMenuItem"; title = "15 minutes"; ObjectID = "658"; */
+"658.title" = "15 minutos";
+
+/* Class = "NSMenuItem"; title = "10 minutes"; ObjectID = "659"; */
+"659.title" = "10 minutos";
+
+/* Class = "NSMenuItem"; title = "5 minutes"; ObjectID = "660"; */
+"660.title" = "5 minutos";
+
+/* Class = "NSMenuItem"; title = "2 minutes"; ObjectID = "661"; */
+"661.title" = "2 minutos";
+
+/* Class = "NSMenuItem"; title = "1 minutes"; ObjectID = "662"; */
+"662.title" = "1 minuto";
+
+/* Class = "NSMenuItem"; title = "Remove completed items from queue"; ObjectID = "Cre-T6-PID"; */
+"Cre-T6-PID.title" = "Remover Itens Concluídos da Fila";
+
+/* Class = "NSMenuItem"; title = "Prettify audio track names"; ObjectID = "fm8-d2-1Yi"; */
+"fm8-d2-1Yi.title" = "Melhorar Nomes das Faixas de Áudio";
+
+/* Class = "NSMenuItem"; title = "Fix audio fallbacks"; ObjectID = "FXb-bX-0Wb"; */
+"FXb-bX-0Wb.title" = "Corrigir Alternativas de Áudio";
+
+/* Class = "NSMenuItem"; title = "Clear tracks names"; ObjectID = "hKY-N2-NzK"; */
+"hKY-N2-NzK.title" = "Limpar Nomes das Faixas";
+
+/* Class = "NSMenuItem"; title = "Donate…"; ObjectID = "ojS-sZ-qGM"; */
+"ojS-sZ-qGM.title" = "Fazer uma doação…";
+
+/* Class = "NSMenuItem"; title = "Start Queue"; ObjectID = "TRh-ZN-Id8"; */
+"TRh-ZN-Id8.title" = "Processar Fila";
+
+/* Class = "NSMenuItem"; title = "Open in Queue…"; ObjectID = "YfF-TG-cvE"; */
+"YfF-TG-cvE.title" = "Abrir na Fila...";
+

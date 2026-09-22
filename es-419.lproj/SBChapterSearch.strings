@@ -1,5 +1,5 @@
 /* Class = "NSTableView"; ibExternalAccessibilityDescription = "Search results"; ObjectID = "1tx-ei-5Gq"; */
-"1tx-ei-5Gq.ibExternalAccessibilityDescription" = "Resultados de búsqueda";
+"1tx-ei-5Gq.ibExternalAccessibilityDescription" = "Resultados de la búsqueda";
 
 /* Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "3iF-NJ-e1F"; */
 "3iF-NJ-e1F.headerCell.title" = "Título";
@@ -14,7 +14,7 @@
 "CPc-iU-dzR.title" = "Buscar";
 
 /* Class = "NSTableView"; ibExternalAccessibilityDescription = "Result details"; ObjectID = "EaL-hZ-8qa"; */
-"EaL-hZ-8qa.ibExternalAccessibilityDescription" = "Detalles de los resultados";
+"EaL-hZ-8qa.ibExternalAccessibilityDescription" = "Detalles del resultado";
 
 /* Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "kEl-ZX-dAp"; */
 "kEl-ZX-dAp.headerCell.title" = "Título";

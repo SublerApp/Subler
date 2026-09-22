@@ -1,0 +1,15 @@
+/* Bundle name */
+"CFBundleName" = "Subler";
+
+/* No comment provided by engineer. */
+"Matroska video" = "Matroska 视频";
+
+/* Privacy - AppleEvents Sending Usage Description */
+"NSAppleEventsUsageDescription" = "Subler 需要将电影添加到 iTunes 或“电视”的访问权限";
+
+/* No comment provided by engineer. */
+"SRT Subtitles" = "SRT 字幕";
+
+/* No comment provided by engineer. */
+"SSA Subtitles" = "SSA 字幕";
+

@@ -1,0 +1,18 @@
+/* Bundle name */
+"CFBundleName" = "Subler";
+
+/* No comment provided by engineer. */
+"Matroska video" = "Vídeo Matroska";
+
+/* Privacy - AppleEvents Sending Usage Description */
+"NSAppleEventsUsageDescription" = "Subler precisa de acesso para adicionar filmes ao iTunes ou Apple TV";
+
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "Copyright © 2009-2025, Damiano Galassi";
+
+/* No comment provided by engineer. */
+"SRT Subtitles" = "Legendas SRT";
+
+/* No comment provided by engineer. */
+"SSA Subtitles" = "Legendas SSA";
+
