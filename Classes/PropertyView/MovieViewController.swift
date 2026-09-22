@@ -907,7 +907,16 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
             if let url = artwork as? URL {
                 let value = try? url.resourceValues(forKeys: [URLResourceKey.typeIdentifierKey])
 
-                if let type = value?.typeIdentifier, UTTypeConformsTo(type as CFString, "public.jpeg" as CFString), let data = try? Data(contentsOf: url) {
+                var isJpeg = false
+                if #available(macOS 11, *) {
+                    isJpeg = value?.contentType?.conforms(to: .jpeg) ?? false
+                } else {
+                    if let type = value?.typeIdentifier, UTTypeConformsTo(type as CFString, "public.jpeg" as CFString) {
+                        isJpeg = true
+                    }
+                }
+
+                if isJpeg, let data = try? Data(contentsOf: url) {
                     return MP42Image(data: data, type: MP42_ART_JPEG)
                 } else if let image = NSImage(contentsOf: url) {
                     return MP42Image(image: image)

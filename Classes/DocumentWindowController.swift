@@ -482,13 +482,17 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
 
     @IBAction func selectFile(_ sender: Any) {
         guard let windowForSheet = doc.windowForSheet else { return }
-        let supportedFileFormats = MP42FileImporter.supportedFileFormats() + ["txt", "csv"]
 
         let panel = NSOpenPanel()
         panel.allowsMultipleSelection = true
         panel.canChooseFiles = true
         panel.canChooseDirectories = false
-        panel.allowedFileTypes = supportedFileFormats
+
+        if #available(macOS 11, *) {
+            panel.allowedContentTypes = MP42FileImporter.supportedContentTypes() + [.text, .commaSeparatedText]
+        } else {
+            panel.allowedFileTypes = MP42FileImporter.supportedFileFormats() + ["txt", "csv"]
+        }
 
         panel.beginSheetModal(for: windowForSheet) { (response) in
             if response == NSApplication.ModalResponse.OK {

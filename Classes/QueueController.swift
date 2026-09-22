@@ -280,9 +280,18 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     private func destination(for url: URL) -> URL {
         let value = try? url.resourceValues(forKeys: [URLResourceKey.typeIdentifierKey])
 
+        var isMpeg4 = false
+        if #available(macOS 11, *) {
+            isMpeg4 = value?.contentType?.conforms(to: .mpeg4Movie) ?? false
+        } else {
+            if let type = value?.typeIdentifier, UTTypeConformsTo(type as CFString, "public.mpeg-4" as CFString) {
+                isMpeg4 = true
+            }
+        }
+
         if let destination = prefs.destination {
             return destination.appendingPathComponent(url.lastPathComponent).deletingPathExtension().appendingPathExtension(prefs.fileType)
-        } else if let type = value?.typeIdentifier, UTTypeConformsTo(type as CFString, "public.mpeg-4" as CFString) {
+        } else if isMpeg4 {
             return url
         } else {
             return url.deletingPathExtension().appendingPathExtension(prefs.fileType)
@@ -719,7 +728,12 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         panel.allowsMultipleSelection = true
         panel.canChooseFiles = true
         panel.canChooseDirectories = true
-        panel.allowedFileTypes = MP42FileImporter.supportedFileFormats()
+
+        if #available(macOS 11, *) {
+            panel.allowedContentTypes = MP42FileImporter.supportedContentTypes()
+        } else {
+            panel.allowedFileTypes = MP42FileImporter.supportedFileFormats()
+        }
 
         panel.beginSheetModal(for: windowForSheet) { (response) in
             if response == NSApplication.ModalResponse.OK {
