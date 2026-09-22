@@ -116,6 +116,10 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
             }
         }
 
+        if #available(macOS 26, *) {
+            setsPopUp.menu?.items.first?.image = NSImage.init(systemSymbolName: "ellipsis", accessibilityDescription: nil)
+        }
+
         columnWidth = column.width
 
         metadataTableView.defaultEditingColumn = 1
