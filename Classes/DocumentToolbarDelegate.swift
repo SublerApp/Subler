@@ -92,7 +92,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
                 if #available(macOS 26.0, *) {
                     item.showsIndicator = false
                     item.image = NSImage.init(systemSymbolName: "ellipsis", accessibilityDescription: nil)
-                } else if #available(macOS 26.0, *) {
+                } else if #available(macOS 11.0, *) {
                     item.image = NSImage.init(systemSymbolName: "ellipsis.circle", accessibilityDescription: nil)
                 } else {
                     item.image = NSImage(named:"NSActionTemplate")
