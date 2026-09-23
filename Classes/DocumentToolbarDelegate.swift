@@ -149,7 +149,7 @@ class DocumentToolbarDelegate: NSObject, NSToolbarDelegate {
     }
 
     @MainActor func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return [.importTracks, .searchMetadata, .actions, .space, .deleteTracks, .flexibleSpace, .sendToQueue, .showQueue,]
+        return [.importTracks, .searchMetadata, .space, .actions, .space, .deleteTracks, .flexibleSpace, .sendToQueue, .showQueue,]
     }
 
     @MainActor func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
