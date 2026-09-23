@@ -68,7 +68,7 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             splitViewController.splitView.identifier = DocumentWindowController.splitViewResorationIdentifier
         }
         else {
-            window.setContentSize(NSSize(width: 690, height: 510))
+            window.setContentSize(NSSize(width: 692, height: 510))
             splitViewController.splitView.setPosition(160, ofDividerAt: 0)
         }
 
