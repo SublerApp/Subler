@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import MP42Foundation
 
 private let ud = UserDefaults.standard
 
@@ -183,28 +182,10 @@ enum Prefs {
 
     private static let saveAsCustomLocationKey = "SBSaveAsCustomLocation"
 
-    /// The folder used when saveAsLocation is set to custom, stored as a
-    /// security scoped bookmark so it stays reachable after a relaunch.
+    /// The folder used when saveAsLocation is set to custom.
     static var saveAsCustomLocation: URL? {
-        get {
-            guard let bookmark = ud.data(forKey: saveAsCustomLocationKey) else { return nil }
-
-            var stale = ObjCBool(false)
-            guard let url = try? MP42SecurityAccessToken.url(fromBookmark: bookmark, bookmarkDataIsStale: &stale) else { return nil }
-
-            if stale.boolValue, let refreshed = try? MP42SecurityAccessToken.bookmark(from: url) {
-                ud.set(refreshed, forKey: saveAsCustomLocationKey)
-            }
-
-            return url
-        }
-        set {
-            if let url = newValue, let bookmark = try? MP42SecurityAccessToken.bookmark(from: url) {
-                ud.set(bookmark, forKey: saveAsCustomLocationKey)
-            } else {
-                ud.removeObject(forKey: saveAsCustomLocationKey)
-            }
-        }
+        get { ud.url(forKey: saveAsCustomLocationKey) }
+        set { ud.set(newValue, forKey: saveAsCustomLocationKey) }
     }
 }
 
