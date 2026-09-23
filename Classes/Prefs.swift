@@ -26,13 +26,38 @@ struct Stored<T> : Registable {
     let key: String
     let defaultValue: T
 
-    init(key: String, defaultValue: T) {
-        self.key = key
-        self.defaultValue = defaultValue
-    }
-
     var wrappedValue: T {
         get { ud.object(forKey: key) as? T ?? defaultValue }
+        set { ud.set(newValue, forKey: key) }
+    }
+
+    func register(in dictionary: inout [String :Any]) {
+        dictionary[key] = defaultValue
+    }
+}
+
+@propertyWrapper
+struct StoredEnum<T: RawRepresentable> : Registable {
+    let key: String
+    let defaultValue: T
+
+    var wrappedValue: T {
+        get { T(rawValue: (ud.object(forKey: key) as? T.RawValue) ?? defaultValue.rawValue) ?? defaultValue }
+        set { ud.set(newValue.rawValue, forKey: key) }
+    }
+
+    func register(in dictionary: inout [String :Any]) {
+        dictionary[key] = defaultValue.rawValue
+    }
+}
+
+@propertyWrapper
+struct StoredURL : Registable {
+    let key: String
+    let defaultValue: URL?
+
+    var wrappedValue: URL? {
+        get { ud.url(forKey: key) ?? defaultValue }
         set { ud.set(newValue, forKey: key) }
     }
 
@@ -45,11 +70,6 @@ struct Stored<T> : Registable {
 struct StoredCodable<T: Codable> : Registable {
     let key: String
     let defaultValue: T
-
-    init(key: String, defaultValue: T) {
-        self.key = key
-        self.defaultValue = defaultValue
-    }
 
     var wrappedValue: T {
         get {
@@ -88,7 +108,7 @@ enum Prefs {
                                _audioBitrate, _audioDRC, _audioConvertAC3, _audioKeepAC3, _audioConvertDts,
                                _audioDtsOptions, _subtitleConvertBitmap, _ratingsCountry, _chaptersPreviewPosition,
                                _chaptersPreviewTrack, _mp464bitOffset, _mp464bitTimes, _mp4SaveAsOptimize, _forceHvc1,
-                               _logFormat, _saveAsLocationValue])
+                               _logFormat, _saveAsLocation])
     }
 
     @Stored(key: "NSApplicationCrashOnException", defaultValue: true)
@@ -172,21 +192,12 @@ enum Prefs {
     @Stored(key: "SBLogFormat", defaultValue: 0)
     static var logFormat: Int  // 0 = Time Only, 1 = Date and Time
 
-    @Stored(key: "SBSaveAsLocationMode", defaultValue: 0)
-    private static var saveAsLocationValue: Int
-
-    static var saveAsLocation: SaveAsLocation {
-        get { SaveAsLocation(rawValue: saveAsLocationValue) ?? .lastUsed }
-        set { saveAsLocationValue = newValue.rawValue }
-    }
-
-    private static let saveAsCustomLocationKey = "SBSaveAsCustomLocation"
+    @StoredEnum(key: "SBSaveAsLocationMode", defaultValue: .lastUsed)
+    static var saveAsLocation: SaveAsLocation
 
     /// The folder used when saveAsLocation is set to custom.
-    static var saveAsCustomLocation: URL? {
-        get { ud.url(forKey: saveAsCustomLocationKey) }
-        set { ud.set(newValue, forKey: saveAsCustomLocationKey) }
-    }
+    @StoredURL(key: "SBSaveAsCustomLocation", defaultValue: nil)
+    static var saveAsCustomLocation: URL?
 }
 
 enum MetadataPrefs {

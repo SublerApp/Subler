@@ -91,7 +91,7 @@ extension MP42File {
         }
     }
 
-    func preferredFileDirectory() -> URL? {
+    func firstSourceDirectoryURL() -> URL? {
         return tracks.compactMap { $0.url }.first?.deletingLastPathComponent()
     }
 

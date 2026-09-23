@@ -55,7 +55,8 @@ class GeneralPrefsViewController: NSViewController {
         }
 
         if let url = Prefs.saveAsCustomLocation {
-            menu.insertItem(menuItem(url: url), at: 2)
+            menu.insertItem(NSMenuItem.separator(), at: 2)
+            menu.insertItem(menuItem(url: url), at: 3)
         }
 
         selectCurrentSaveLocation()

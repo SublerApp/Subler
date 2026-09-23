@@ -62,7 +62,7 @@ final class SaveOptions: NSViewController {
         case .lastUsed:
             return nil
         case .sameAsFile:
-            return doc.fileURL?.deletingLastPathComponent() ?? doc.mp4.preferredFileDirectory()
+            return doc.fileURL?.deletingLastPathComponent() ?? doc.mp4.firstSourceDirectoryURL()
         case .custom:
             return Prefs.saveAsCustomLocation
         }
@@ -83,8 +83,8 @@ final class SaveOptions: NSViewController {
             savePanel?.nameFieldStringValue = filename
         }
 
-        if let directory = preferredDirectory(for: doc) {
-            savePanel?.directoryURL = directory
+        if let url = preferredDirectory(for: doc) {
+            savePanel?.directoryURL = url
         }
 
         setFileType(filenameExtension: fileType)
