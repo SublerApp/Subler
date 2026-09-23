@@ -17,7 +17,6 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     private let prefs = QueuePreferences()
     private var popover: NSPopover?
     private var itemPopover: NSPopover?
-    private var windowController: OptionsViewController?
     private let toolbarDelegate = QueueToolbarDelegate()
 
     private lazy var docImg: NSImage = {
@@ -44,7 +43,6 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     private init() {
         popover = nil
         itemPopover = nil
-        windowController = nil
         if let url = prefs.queueURL {
             queue = Queue(url: url)
         } else {
@@ -614,10 +612,6 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         if itemPopover == closedPopover {
             itemPopover = nil
         }
-    }
-
-    func windowWillClose(_ notification: Notification) {
-        windowController = nil
     }
 
     //MARK: UI
