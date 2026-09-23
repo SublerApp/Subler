@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GeneralPrefsViewController" customModule="Subler" customModuleProvider="target">
             <connections>
+                <outlet property="saveLocationPopUp" destination="saveLocationPopUp" id="saveLocationOutlet"/>
                 <outlet property="view" destination="76" id="u5x-9E-WAf"/>
             </connections>
         </customObject>
@@ -25,11 +26,11 @@
             </declaredKeys>
         </userDefaultsController>
         <customView id="76">
-            <rect key="frame" x="0.0" y="0.0" width="660" height="328"/>
+            <rect key="frame" x="0.0" y="0.0" width="660" height="363"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="dxI-5Q-gDD">
-                    <rect key="frame" x="133" y="0.0" width="394" height="328"/>
+                    <rect key="frame" x="133" y="0.0" width="394" height="363"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="754" translatesAutoresizingMaskIntoConstraints="NO" id="XPF-Mh-XYC">
                             <rect key="frame" x="147" y="156" width="57" height="14"/>
@@ -220,6 +221,47 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
+                        <textField horizontalHuggingPriority="249" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="saveLocationLabel">
+                            <rect key="frame" x="18" y="200" width="107" height="16"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save As:" id="saveLocationLabelCell">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <popUpButton verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="saveLocationPopUp">
+                            <rect key="frame" x="128" y="193" width="187" height="25"/>
+                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="saveLocationLastUsed" id="saveLocationCell">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="message"/>
+                                <menu key="menu" id="saveLocationMenu">
+                                    <items>
+                                        <menuItem title="Last Used Folder" state="on" id="saveLocationLastUsed">
+                                            <connections>
+                                                <action selector="setSaveLocation:" target="-2" id="saveLocationLastUsedAction"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Same as File" tag="1" id="saveLocationSameAsFile">
+                                            <connections>
+                                                <action selector="setSaveLocation:" target="-2" id="saveLocationSameAsFileAction"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="saveLocationSeparator"/>
+                                        <menuItem title="Other…" tag="3" id="saveLocationOther">
+                                            <connections>
+                                                <action selector="chooseSaveLocation:" target="-2" id="saveLocationOtherAction"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="saveLocationWidth"/>
+                            </constraints>
+                            <connections>
+                                <accessibilityConnection property="title" destination="saveLocationLabel" id="saveLocationAccessibility"/>
+                            </connections>
+                        </popUpButton>
                     </subviews>
                     <constraints>
                         <constraint firstItem="133" firstAttribute="width" secondItem="136" secondAttribute="width" id="05F-cw-fMw"/>
@@ -237,7 +279,13 @@
                         <constraint firstItem="XPF-Mh-XYC" firstAttribute="firstBaseline" secondItem="mNP-6I-gV4" secondAttribute="firstBaseline" id="AFc-cn-ab1"/>
                         <constraint firstItem="77" firstAttribute="top" secondItem="dxI-5Q-gDD" secondAttribute="top" constant="20" symbolic="YES" id="D9x-E1-HxF"/>
                         <constraint firstItem="82" firstAttribute="leading" secondItem="JhA-jk-CGt" secondAttribute="leading" constant="-18" id="E8S-ti-ghL"/>
-                        <constraint firstItem="82" firstAttribute="top" secondItem="80" secondAttribute="bottom" constant="10" id="ELH-2G-UJe"/>
+                        <constraint firstItem="82" firstAttribute="top" secondItem="saveLocationPopUp" secondAttribute="bottom" constant="10" id="ELH-2G-UJe"/>
+                        <constraint firstItem="saveLocationPopUp" firstAttribute="top" secondItem="80" secondAttribute="bottom" constant="10" id="saveLocationTop"/>
+                        <constraint firstItem="saveLocationLabel" firstAttribute="leading" secondItem="206" secondAttribute="leading" id="saveLocationLeading"/>
+                        <constraint firstItem="saveLocationLabel" firstAttribute="width" secondItem="206" secondAttribute="width" id="saveLocationLabelWidth"/>
+                        <constraint firstItem="saveLocationPopUp" firstAttribute="leading" secondItem="saveLocationLabel" secondAttribute="trailing" constant="8" symbolic="YES" id="saveLocationHorizontalSpace"/>
+                        <constraint firstItem="saveLocationLabel" firstAttribute="firstBaseline" secondItem="saveLocationPopUp" secondAttribute="firstBaseline" id="saveLocationBaseline"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="saveLocationPopUp" secondAttribute="trailing" id="saveLocationTrailing"/>
                         <constraint firstItem="mNP-6I-gV4" firstAttribute="firstBaseline" secondItem="tVb-Qq-sU7" secondAttribute="firstBaseline" id="ElQ-mv-Pfd"/>
                         <constraint firstItem="206" firstAttribute="width" secondItem="logFormatLabel" secondAttribute="width" id="G5L-ax-8Io"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="B5v-6Q-3Qa" secondAttribute="trailing" id="Ies-Bx-zqg"/>
