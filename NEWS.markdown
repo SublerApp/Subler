@@ -1,5 +1,12 @@
 # Subler News
 
+## Subler 1.9.3
+
+-  Improved TVDB scraper
+- Added a settings to the Metadata preferences to not override the existing metadata
+- Minor UI improvements and bug fixes
+- Updated localizations
+
 ## Subler 1.9.2
 
 - Updated the TVDB scraper to use the v4 API
