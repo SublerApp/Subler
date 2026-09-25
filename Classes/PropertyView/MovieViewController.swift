@@ -905,12 +905,12 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     private func add(artworks: [Any], toIndexPath: IndexPath) -> Bool {
         let items = artworks.compactMap { (artwork: Any) -> MP42Image? in
             if let url = artwork as? URL {
-                let value = try? url.resourceValues(forKeys: [URLResourceKey.typeIdentifierKey])
-
                 var isJpeg = false
                 if #available(macOS 11, *) {
+                    let value = try? url.resourceValues(forKeys: [URLResourceKey.contentTypeKey])
                     isJpeg = value?.contentType?.conforms(to: .jpeg) ?? false
                 } else {
+                    let value = try? url.resourceValues(forKeys: [URLResourceKey.typeIdentifierKey])
                     if let type = value?.typeIdentifier, UTTypeConformsTo(type as CFString, "public.jpeg" as CFString) {
                         isJpeg = true
                     }
