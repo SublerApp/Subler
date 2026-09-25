@@ -66,7 +66,7 @@ class GeneralPrefsViewController: NSViewController {
         let location = Prefs.saveAsLocation
 
         if location == .custom && Prefs.saveAsCustomLocation == nil {
-            saveLocationPopUp.selectItem(withTag: SaveAsLocation.lastUsed.rawValue)
+            saveLocationPopUp.selectItem(withTag: SaveAsLocation.automatic.rawValue)
         } else {
             saveLocationPopUp.selectItem(withTag: location.rawValue)
         }
@@ -77,7 +77,7 @@ class GeneralPrefsViewController: NSViewController {
             Prefs.saveAsCustomLocation = url
             Prefs.saveAsLocation = .custom
         } else {
-            Prefs.saveAsLocation = SaveAsLocation(rawValue: sender.tag) ?? .lastUsed
+            Prefs.saveAsLocation = SaveAsLocation(rawValue: sender.tag) ?? .automatic
         }
     }
 

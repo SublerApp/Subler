@@ -59,7 +59,7 @@ final class SaveOptions: NSViewController {
     /// at the last folder used.
     private func preferredDirectory(for doc: Document) -> URL? {
         switch Prefs.saveAsLocation {
-        case .lastUsed:
+        case .automatic:
             return nil
         case .sameAsFile:
             return doc.fileURL?.deletingLastPathComponent() ?? doc.mp4.firstSourceDirectoryURL()

@@ -231,12 +231,12 @@
                         </textField>
                         <popUpButton verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="saveLocationPopUp">
                             <rect key="frame" x="136" y="242" width="180" height="24"/>
-                            <popUpButtonCell key="cell" type="push" title="Last Used Folder" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="saveLocationLastUsed" id="saveLocationCell">
+                            <popUpButtonCell key="cell" type="push" title="Automatic" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="saveLocationLastUsed" id="saveLocationCell">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="message"/>
                                 <menu key="menu" id="saveLocationMenu">
                                     <items>
-                                        <menuItem title="Last Used Folder" state="on" id="saveLocationLastUsed">
+                                        <menuItem title="Automatic" state="on" id="saveLocationLastUsed">
                                             <connections>
                                                 <action selector="setSaveLocation:" target="-2" id="saveLocationLastUsedAction"/>
                                             </connections>

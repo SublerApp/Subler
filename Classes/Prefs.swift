@@ -90,13 +90,9 @@ struct StoredCodable<T: Codable> : Registable {
     }
 }
 
-/// The folder the Save As… panel opens at.
 enum SaveAsLocation: Int {
-    /// The last folder used, the standard AppKit behaviour.
-    case lastUsed = 0
-    /// The folder holding the file the tracks were imported from.
+    case automatic = 0
     case sameAsFile = 1
-    /// A folder picked by the user.
     case custom = 2
 }
 
@@ -192,7 +188,7 @@ enum Prefs {
     @Stored(key: "SBLogFormat", defaultValue: 0)
     static var logFormat: Int  // 0 = Time Only, 1 = Date and Time
 
-    @StoredEnum(key: "SBSaveAsLocationMode", defaultValue: .lastUsed)
+    @StoredEnum(key: "SBSaveAsLocationMode", defaultValue: .automatic)
     static var saveAsLocation: SaveAsLocation
 
     /// The folder used when saveAsLocation is set to custom.
