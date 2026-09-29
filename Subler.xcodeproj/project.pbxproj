@@ -35,7 +35,6 @@
 		A91B196C1F2B0DCB0008675F /* QueueAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91B196B1F2B0DCB0008675F /* QueueAction.swift */; };
 		A91EB969205ABAF400392E1C /* NSWindowAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91EB968205ABAF400392E1C /* NSWindowAdditions.swift */; };
 		A91F0FA023797F2800C9DCC9 /* PropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91F0F9F23797F2800C9DCC9 /* PropertyView.swift */; };
-		A92395043062A588008061F3 /* PasteboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92395023062A584008061F3 /* PasteboardItem.swift */; };
 		A924A51E1D4B9E93008301A7 /* MetadataPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A924A5201D4B9E93008301A7 /* MetadataPrefsViewController.xib */; };
 		A925AA8518378D8A00BE84D4 /* MP42Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; };
 		A925AA8818378DD000BE84D4 /* MP42Foundation.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A925AA8218378D7900BE84D4 /* MP42Foundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -67,7 +66,6 @@
 		A97C3AA5204F18C90007AD38 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97C3AA4204F18C90007AD38 /* TokenCellView.swift */; };
 		A97D99DA22A0240C001FA3A7 /* OCRManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97D99D922A0240C001FA3A7 /* OCRManager.swift */; };
 		A97FA41E23E9837000EE5833 /* Ratings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97FA41D23E9837000EE5833 /* Ratings.swift */; };
-		A97FA42223E9877900EE5833 /* Ratings.json in Resources */ = {isa = PBXBuildFile; fileRef = A97FA42123E9877900EE5833 /* Ratings.json */; };
 		A97FBE3C21FC7F1C00F1FD35 /* QueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */; };
 		A983E80B22365B5400221BAE /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A983E80A22365B5400221BAE /* MovieViewController.swift */; };
 		A98542D720D197D300EB9803 /* ArtworkSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98542D520D197D300EB9803 /* ArtworkSelector.xib */; };
@@ -115,11 +113,14 @@
 		A9C31E602029A80F00CEF474 /* AdvancedPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C31E5E2029A80F00CEF474 /* AdvancedPrefsViewController.swift */; };
 		A9C31E642029A82200CEF474 /* AdvancedPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C31E622029A82200CEF474 /* AdvancedPrefsViewController.xib */; };
 		A9C3E44A205C07F4004DE24E /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C3E449205C07F4004DE24E /* OptionsViewController.swift */; };
+		A9C4989C306BC624009F332A /* PasteboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C4989B306BC624009F332A /* PasteboardItem.swift */; };
+		A9C498C4306BC6B9009F332A /* Ratings.json in Resources */ = {isa = PBXBuildFile; fileRef = A9C498C2306BC6B9009F332A /* Ratings.json */; };
+		A9C498C5306BC6B9009F332A /* Alpha2.json in Resources */ = {isa = PBXBuildFile; fileRef = A9C498C0306BC6B9009F332A /* Alpha2.json */; };
+		A9C498C6306BC6B9009F332A /* iTunesStores.json in Resources */ = {isa = PBXBuildFile; fileRef = A9C498C1306BC6B9009F332A /* iTunesStores.json */; };
+		A9C498C7306BC6B9009F332A /* Storefronts.json in Resources */ = {isa = PBXBuildFile; fileRef = A9C498C3306BC6B9009F332A /* Storefronts.json */; };
 		A9C51DF42E4B4548003E82E6 /* ScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C51DF32E4B4548003E82E6 /* ScriptCommand.swift */; };
 		A9C5FA7419FA2FEC0051F3FF /* SBActivityWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C5FA7219FA2FEC0051F3FF /* SBActivityWindow.xib */; };
 		A9C73536206B8F9900794673 /* QueuePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C73535206B8F9900794673 /* QueuePreferences.swift */; };
-		A9CB19022D10415D0074DC9F /* Storefronts.json in Resources */ = {isa = PBXBuildFile; fileRef = A9CB19012D10415D0074DC9F /* Storefronts.json */; };
-		A9CB19052D10417D0074DC9F /* Alpha2.json in Resources */ = {isa = PBXBuildFile; fileRef = A9CB19042D10417D0074DC9F /* Alpha2.json */; };
 		A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */; };
 		A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */; };
 		A9D64527202CA92400BA172B /* SaveOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D64525202CA92400BA172B /* SaveOptions.swift */; };
@@ -142,7 +143,6 @@
 		A9F7F8E01837C44B0036AE7E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9ED7B21180067A2008FD3A8 /* IOKit.framework */; };
 		A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */; };
 		CD71FEA612F1B62600F0A98D /* MetadataSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */; };
-		CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */ = {isa = PBXBuildFile; fileRef = CDE8E451174CBBD4009410B5 /* iTunesStores.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -253,7 +253,6 @@
 		A91B196B1F2B0DCB0008675F /* QueueAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueAction.swift; path = Classes/QueueAction.swift; sourceTree = "<group>"; };
 		A91EB968205ABAF400392E1C /* NSWindowAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSWindowAdditions.swift; path = Classes/NSWindowAdditions.swift; sourceTree = "<group>"; };
 		A91F0F9F23797F2800C9DCC9 /* PropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PropertyView.swift; path = Classes/PropertyView/PropertyView.swift; sourceTree = "<group>"; };
-		A92395023062A584008061F3 /* PasteboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardItem.swift; sourceTree = "<group>"; };
 		A924A50D1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/ChapterView.xib; sourceTree = "<group>"; };
 		A924A50E1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/EmptyView.xib; sourceTree = "<group>"; };
 		A924A50F1D4B9E66008301A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Classes/PropertyView/Base.lproj/MovieView.xib; sourceTree = "<group>"; };
@@ -397,7 +396,6 @@
 		A97C3AA4204F18C90007AD38 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenCellView.swift; path = Classes/TokenCellView.swift; sourceTree = "<group>"; };
 		A97D99D922A0240C001FA3A7 /* OCRManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OCRManager.swift; path = Classes/OCRManager.swift; sourceTree = "<group>"; };
 		A97FA41D23E9837000EE5833 /* Ratings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Ratings.swift; path = Classes/MetadataImporters/Ratings.swift; sourceTree = "<group>"; };
-		A97FA42123E9877900EE5833 /* Ratings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Ratings.json; sourceTree = "<group>"; };
 		A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueController.swift; path = Classes/QueueController.swift; sourceTree = "<group>"; };
 		A983E80A22365B5400221BAE /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieViewController.swift; path = Classes/PropertyView/MovieViewController.swift; sourceTree = "<group>"; };
 		A98542D620D197D300EB9803 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ArtworkSelector.xib; sourceTree = "<group>"; };
@@ -458,10 +456,13 @@
 		A9C31E5E2029A80F00CEF474 /* AdvancedPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AdvancedPrefsViewController.swift; path = Classes/AdvancedPrefsViewController.swift; sourceTree = "<group>"; };
 		A9C31E632029A82200CEF474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AdvancedPrefsViewController.xib; sourceTree = "<group>"; };
 		A9C3E449205C07F4004DE24E /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionsViewController.swift; path = Classes/OptionsViewController.swift; sourceTree = "<group>"; };
+		A9C4989B306BC624009F332A /* PasteboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PasteboardItem.swift; path = Classes/PasteboardItem.swift; sourceTree = "<group>"; };
+		A9C498C0306BC6B9009F332A /* Alpha2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = Alpha2.json; path = Resources/Alpha2.json; sourceTree = "<group>"; };
+		A9C498C1306BC6B9009F332A /* iTunesStores.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = iTunesStores.json; path = Resources/iTunesStores.json; sourceTree = "<group>"; };
+		A9C498C2306BC6B9009F332A /* Ratings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = Ratings.json; path = Resources/Ratings.json; sourceTree = "<group>"; };
+		A9C498C3306BC6B9009F332A /* Storefronts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = Storefronts.json; path = Resources/Storefronts.json; sourceTree = "<group>"; };
 		A9C51DF32E4B4548003E82E6 /* ScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScriptCommand.swift; path = Classes/ScriptCommand.swift; sourceTree = "<group>"; };
 		A9C73535206B8F9900794673 /* QueuePreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueuePreferences.swift; path = Classes/QueuePreferences.swift; sourceTree = "<group>"; };
-		A9CB19012D10415D0074DC9F /* Storefronts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Storefronts.json; sourceTree = "<group>"; };
-		A9CB19042D10417D0074DC9F /* Alpha2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Alpha2.json; sourceTree = "<group>"; };
 		A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataImporter.swift; path = Classes/MetadataImporters/MetadataImporter.swift; sourceTree = "<group>"; };
 		A9D64525202CA92400BA172B /* SaveOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveOptions.swift; path = Classes/SaveOptions.swift; sourceTree = "<group>"; };
 		A9D8CA812E798CBD007C7B59 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
@@ -512,7 +513,6 @@
 		A9F5820B1DCC861F005F3E92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9F680A61FD06E0200018371 /* OutputPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OutputPrefsViewController.swift; path = Classes/OutputPrefsViewController.swift; sourceTree = "<group>"; };
 		A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheTVDBService.swift; path = Classes/MetadataImporters/TheTVDBService.swift; sourceTree = "<group>"; };
-		CDE8E451174CBBD4009410B5 /* iTunesStores.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iTunesStores.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -589,7 +589,7 @@
 				A9A77C4D1F306FA70018023B /* AttributedStyles.swift */,
 				A956CE681F99E93D00093992 /* ButtonToolbarItem.swift */,
 				A9E385772C316FBE000A050D /* CollectionView.swift */,
-				A92395023062A584008061F3 /* PasteboardItem.swift */,
+				A9C4989B306BC624009F332A /* PasteboardItem.swift */,
 				A9E3857B2C317010000A050D /* FilePromiseProvider.swift */,
 			);
 			name = "Other Sources";
@@ -604,10 +604,10 @@
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				8D15AC360486D014006FF6A4 /* Info.plist */,
-				CDE8E451174CBBD4009410B5 /* iTunesStores.json */,
-				A9CB19012D10415D0074DC9F /* Storefronts.json */,
-				A9CB19042D10417D0074DC9F /* Alpha2.json */,
-				A97FA42123E9877900EE5833 /* Ratings.json */,
+				A9C498C0306BC6B9009F332A /* Alpha2.json */,
+				A9C498C1306BC6B9009F332A /* iTunesStores.json */,
+				A9C498C2306BC6B9009F332A /* Ratings.json */,
+				A9C498C3306BC6B9009F332A /* Storefronts.json */,
 				A94A6A581ED1C5CA00049F7D /* ParseFilename */,
 			);
 			name = Resources;
@@ -901,7 +901,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9EEA5F818D654B9008B54B4 /* QueueOptions.xib in Resources */,
-				A9CB19022D10415D0074DC9F /* Storefronts.json in Resources */,
 				A9AB486617F0AEFD000AA72E /* MovieView.xib in Resources */,
 				A9C31E5D2029A79000CEF474 /* GeneralPrefsViewController.xib in Resources */,
 				A98542DD20D1A7E500EB9803 /* ArtworkSelectorViewItem.xib in Resources */,
@@ -932,12 +931,13 @@
 				A98542D720D197D300EB9803 /* ArtworkSelector.xib in Resources */,
 				A9ECA0602029A13800D5F30C /* OffsetViewController.xib in Resources */,
 				A9ACF03222A2BCF200AD5B12 /* OCRPrefsViewController.xib in Resources */,
-				A9CB19052D10417D0074DC9F /* Alpha2.json in Resources */,
-				A97FA42223E9877900EE5833 /* Ratings.json in Resources */,
 				A961476713F568210068F161 /* Queue.xib in Resources */,
+				A9C498C4306BC6B9009F332A /* Ratings.json in Resources */,
+				A9C498C5306BC6B9009F332A /* Alpha2.json in Resources */,
+				A9C498C6306BC6B9009F332A /* iTunesStores.json in Resources */,
+				A9C498C7306BC6B9009F332A /* Storefronts.json in Resources */,
 				A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */,
 				A9ECA0572029A10B00D5F30C /* DocumentWindowController.xib in Resources */,
-				CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */,
 				A924A51E1D4B9E93008301A7 /* MetadataPrefsViewController.xib in Resources */,
 				A92BBABE1F5584EA007EA182 /* PresetEditorViewController.xib in Resources */,
 				A90CD5C51FD177280070A067 /* OutputPrefsViewController.xib in Resources */,
@@ -1010,7 +1010,7 @@
 				A98D44102036F661005CB092 /* AppDelegate.swift in Sources */,
 				A9C31E572029A75F00CEF474 /* GeneralPrefsViewController.swift in Sources */,
 				A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */,
-				A92395043062A588008061F3 /* PasteboardItem.swift in Sources */,
+				A9C4989C306BC624009F332A /* PasteboardItem.swift in Sources */,
 				A9B1056E2025D9B9009E91FC /* TracksViewController.swift in Sources */,
 				A9C51DF42E4B4548003E82E6 /* ScriptCommand.swift in Sources */,
 				A99B7FD82D53764F0027BCB5 /* AppleTVv3.swift in Sources */,
