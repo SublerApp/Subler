@@ -245,7 +245,11 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
 
     func tableView(_ tableView: NSTableView,
                    pasteboardWriterForRow row: Int) -> (any NSPasteboardWriting)? {
-        return PasteboardItem(index: row, type: .tableViewIndex)
+        if let track = track(at: row), track.isMuxed == false {
+            return PasteboardItem(index: row, type: .tableViewIndex)
+        } else {
+            return nil
+        }
     }
 
     func tableView(_ tableView: NSTableView,
