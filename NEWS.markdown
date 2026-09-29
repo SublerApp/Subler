@@ -2,10 +2,11 @@
 
 ## Subler 1.9.3
 
--  Improved TVDB scraper
+- Improved TVDB scraper
 - Added a setting to the Metadata preferences to not override the existing metadata
 - Minor UI improvements and bug fixes
 - Updated localizations
+
 
 ## Subler 1.9.2
 
@@ -33,7 +34,7 @@
 - Added additional keyboard shortcuts [Mock1]
 - Added support for unofficial metadata often used for Audiobooks
 - Make it possible to use the services ids in the metadata map
-- Fixed the "Insert a chaper at the beginning" menu item action
+- Fixed the "Insert a chapter at the beginning" menu item action
 - Fixed Swedish Ratings
 - Fixed the "None" artwork option in the Queue
 
@@ -138,7 +139,7 @@
 ## Subler 1.6.11
 
 * Fixed an issue in the Matroska importer that could cause wrong tracks durations.
-* Added HLG and more colorspaces to the video property view.
+* Added HLG and more color spaces to the video property view.
 
 
 ## Subler 1.6.10
@@ -161,7 +162,7 @@
 ## Subler 1.6.7
 
 * Improves AppleTV TV Shows seasons matching.
-* Fixes a regression that prevented Atmos tracks from being properly signaled.
+* Fixes a regression that prevented Atmos tracks from being properly signalled.
 * Adds Chinese localization.
 
 
@@ -179,7 +180,7 @@
 
 ## Subler 1.6.4
 
-* Fixes an issue that prevented uncheking tracks in the import sheet.
+* Fixes an issue that prevented unchecking tracks in the import sheet.
 * Fixes an issue that prevented the parsing of some metadata.
 * Improves Srt export. Subtitles tracks with edit lists are properly exported.
 * Improved VobSub OCR subtitles timing.
@@ -411,7 +412,7 @@
 
 * Restored 10.9 compatibility.
 * Fixed a crash when importing some mov files.
-* Fixed the subtitles "forced" option, it was not saved propertly in some cases.
+* Fixed the subtitles "forced" option, it was not saved properly in some cases.
 
 
 ## Subler 1.3.7 (2017-9-19)
