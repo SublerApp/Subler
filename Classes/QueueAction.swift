@@ -176,23 +176,6 @@ class QueueSetAction : NSObject, QueueActionProtocol {
 
 }
 
-extension Array where Element == Artwork {
-
-    func filter(by type: ArtworkType, size: ArtworkSize, service: String) -> Artwork? {
-        if type == .backdrop || type == .episode {
-            let serviceArtwork = self.filter { $0.type == type && $0.service == service }.first
-            let artwork = self.filter { $0.type == type }.first
-            return serviceArtwork != nil ? serviceArtwork : artwork
-        }
-        else {
-            let serviceArtwork = self.filter { $0.type == type && $0.size == size && $0.service == service }.first
-            let artwork = self.filter { $0.type == type && $0.size == size}.first
-            return serviceArtwork != nil ? serviceArtwork : artwork
-        }
-    }
-
-}
-
 /// An action that fetches metadata online.
 class QueueMetadataAction : NSObject, QueueActionProtocol {
 
@@ -263,13 +246,13 @@ class QueueMetadataAction : NSObject, QueueActionProtocol {
             let artwork: Artwork? = {
                 let provider = terms.isMovie ? self.movieProvider : self.tvShowProvider
                 let type = terms.isMovie && preferredArtwork.isMovieType == false ? .poster : preferredArtwork
-                if let artwork = artworks.filter(by: type, size: preferredArtworkSize, service: provider) {
+                if let artwork = artworks.first(by: type, size: preferredArtworkSize, service: provider) {
                     return artwork
                 }
-                else if let artwork = artworks.filter(by: .season, size: preferredArtworkSize, service: provider) {
+                else if let artwork = artworks.first(by: .season, size: preferredArtworkSize, service: provider) {
                     return artwork
                 }
-                else if let artwork = artworks.filter(by: .poster, size: .standard, service: provider) {
+                else if let artwork = artworks.first(by: .poster, size: .standard, service: provider) {
                     return artwork
                 }
                 else {

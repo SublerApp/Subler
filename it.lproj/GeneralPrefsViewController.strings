@@ -46,3 +46,15 @@
 /* Class = "NSTextFieldCell"; title = "Log Format:"; ObjectID = "logFormatLabelCell"; */
 "logFormatLabelCell.title" = "Formato resoconto:";
 
+/* Class = "NSTextFieldCell"; title = "Save As Location:"; ObjectID = "saveLocationLabelCell"; */
+"saveLocationLabelCell.title" = "Posizione Salva col nome:";
+
+/* Class = "NSMenuItem"; title = "Automatic"; ObjectID = "saveLocationLastUsed"; */
+"saveLocationLastUsed.title" = "Automatica";
+
+/* Class = "NSMenuItem"; title = "Other…"; ObjectID = "saveLocationOther"; */
+"saveLocationOther.title" = "Altro…";
+
+/* Class = "NSMenuItem"; title = "Same as File"; ObjectID = "saveLocationSameAsFile"; */
+"saveLocationSameAsFile.title" = "Stessa del file";
+
