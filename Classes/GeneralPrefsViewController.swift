@@ -37,7 +37,11 @@ class GeneralPrefsViewController: NSViewController {
     private func menuItem(url: URL) -> NSMenuItem {
         let icon = NSWorkspace.shared.icon(forFile: url.path)
         icon.size = NSSize(width: 16, height: 16)
-        let item = NSMenuItem(title: url.lastPathComponent, action: #selector(setSaveLocation(_:)), keyEquivalent: "")
+
+        let values = try? url.resourceValues(forKeys: [.localizedNameKey])
+        let title = values?.localizedName ?? url.lastPathComponent
+
+        let item = NSMenuItem(title: title, action: #selector(setSaveLocation(_:)), keyEquivalent: "")
         item.image = icon
         item.target = self
         item.representedObject = url

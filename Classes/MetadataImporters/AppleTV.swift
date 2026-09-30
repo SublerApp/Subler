@@ -66,6 +66,7 @@ private extension MetadataResult {
         }
 
         self.remoteArtworks = [item.images.coverArt16X9, item.images.coverArt].compactMap { $0?.artwork(type: .poster) }
+        self.remoteArtworks += [item.images.previewFrame].compactMap { $0?.artwork(type: .backdrop) }
         self.remoteArtworks += [episode.seasonImages.coverArt16X9, episode.seasonImages.coverArt].compactMap { $0?.artwork(type: .season) }
         self.remoteArtworks += [episode.images.previewFrame].compactMap { $0?.artwork(type: .episode) }
     }
@@ -163,9 +164,14 @@ public struct AppleTV: MetadataService {
 
         if let season = metadata[.season] as? Int {
             let index = metadata.remoteArtworks.count > 1 ? 1 : 0
-            metadata.remoteArtworks.insert(contentsOf: searchSeasons(id: id, season: season, store: store), at: index)
+            let seasonArtworks = searchSeasons(id: id, season: season, store: store)
+
+            if let season16x9 = seasonArtworks.first(where: { $0.size == .rectangle } ) {
+                metadata.remoteArtworks.insert(season16x9, at: index)
+            }
         }
 
+        metadata.remoteArtworks.sortTopPicks(service: self.name)
         return metadata
     }
 
@@ -221,7 +227,8 @@ public struct AppleTV: MetadataService {
         let urlString = "\(seasonsURL)\(id)/itunesSeasons?sf=\(store.storeCode)&locale=\(store.language2)\(options)"
         if let url = URL(string: urlString), let results = sendJSONRequest(url: url, type: Wrapper<Seasons>.self) {
             let filteredResults =  results.data.seasons.values.joined().filter { $0.seasonNumber == season }
-            return filteredResults.compactMap { $0.images.coverArt16X9?.artwork(type: .season) }
+            return filteredResults.compactMap { $0.images.coverArt16X9?.artwork(type: .season) } +
+                   filteredResults.compactMap { $0.images.coverArt?.artwork(type: .season) }
         }
         return []
     }
@@ -236,7 +243,7 @@ public struct AppleTV: MetadataService {
                 let items = results.data.canvas?.shelves.first?.items
                     .filter { $0.type == type.description }
 
-                if let result = items?.filter({ $0.title == normalizedTerm }).first {
+                if let result = items?.filter({ $0.title?.caseInsensitiveCompare(normalizedTerm) == .orderedSame }).first {
                     return result
                 } else if let result = items?.filter({ $0.title?.minimumEditDistance(other: normalizedTerm) ?? Int.max < 8 }).first {
                     return result
@@ -247,15 +254,29 @@ public struct AppleTV: MetadataService {
 
             if let filteredResult = filteredResult {
 
-                if let artworks = filteredResult.images.coverArt16X9?.artwork(type: .poster) {
+                var artworksSet = Set<Artwork>()
 
-                    if case let MediaType.tvShow(season) = type {
-                        if let season = season {
-                            return [artworks] + searchSeasons(id: filteredResult.id, season: season, store: store)
+                if let poster = filteredResult.images.coverArt16X9?.artwork(type: .poster) {
+                    artworksSet.insert(poster)
+                }
+
+                if let poster = filteredResult.images.coverArt?.artwork(type: .poster) {
+                    artworksSet.insert(poster)
+                }
+
+                if case let MediaType.tvShow(season) = type {
+                    if let season = season {
+                        let seasonArtworks = searchSeasons(id: filteredResult.id, season: season, store: store)
+                        if let season16x9 = seasonArtworks.first(where: { $0.size == .rectangle } ) {
+                            artworksSet.insert(season16x9)
+                        }
+                        if let seasonSquare = seasonArtworks.first(where: { $0.size == .square } ) {
+                            artworksSet.insert(seasonSquare)
                         }
                     }
-                    return [artworks]
                 }
+
+                return Array(artworksSet)
             }
         }
         return []

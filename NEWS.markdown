@@ -1,5 +1,14 @@
 # Subler News
 
+## Subler 1.9.4
+
+- Added an option to select a default "Save as" location [mindprint]
+- Fixed manually added JPEG artworks being saved as PNG
+- Fixed mismatching track languages when two different languages are defined for the same track [brettpynn]
+- Fixed some minor UI issues
+- Updated localizations
+
+
 ## Subler 1.9.3
 
 - Improved TVDB scraper

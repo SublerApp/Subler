@@ -113,6 +113,55 @@ public struct Artwork: Equatable, Hashable {
     }
 }
 
+extension Array where Element == Artwork {
+
+    func first(by type: ArtworkType, size: ArtworkSize, service: String) -> Artwork? {
+        if type == .backdrop || type == .episode {
+            let serviceArtwork = self.filter { $0.type == type && $0.service == service }.first
+            let artwork = self.filter { $0.type == type }.first
+            return serviceArtwork != nil ? serviceArtwork : artwork
+        }
+        else {
+            let serviceArtwork = self.filter { $0.type == type && $0.size == size && $0.service == service }.first
+            let artwork = self.filter { $0.type == type && $0.size == size}.first
+            return serviceArtwork != nil ? serviceArtwork : artwork
+        }
+    }
+
+    mutating func sortTopPicks(service: String) {
+        let poster = first(by: .poster, size: .standard, service: service)
+        let posterRect = first(by: .poster, size: .rectangle, service: AppleTV().name)
+        let posterSquare = first(by: .poster, size: .square, service: AppleTV().name)
+        let season = first(by: .season, size: .standard, service: service)
+        let seasonRect = first(by: .season, size: .rectangle, service: AppleTV().name)
+        let seasonSquare = first(by: .season, size: .square, service: AppleTV().name)
+        let backdrop = first(by: .backdrop, size: .standard, service: service)
+        let episode = first(by: .episode, size: .standard, service: service)
+
+        let topPicks = [poster, posterRect, posterSquare,
+                        season, seasonRect, seasonSquare,
+                        backdrop, episode]
+
+        for pick in topPicks {
+            if let pick, let index = firstIndex(of: pick) {
+                remove(at: index)
+            }
+        }
+
+        for pick in topPicks.reversed() {
+            if let pick {
+                insert(pick, at: 0)
+            }
+        }
+    }
+
+    func sortedTopPicks(service: String) -> [Self.Element] {
+        var sorted = self
+        sorted.sortTopPicks(service: service)
+        return sorted
+    }
+}
+
 public enum MediaKind: Int {
     case tvShow = 10
     case movie = 9
