@@ -165,9 +165,9 @@ class SBFetchMetadataScriptCommand: NSScriptCommand, ScriptCommandDocumentTarget
                             if preferredArtwork != .none && artworks.isEmpty == false {
                                 let artwork: Artwork? = {
                                     let type = preferredArtwork.isMovieType ? preferredArtwork : .poster
-                                    if let artwork = artworks.filter(by: type, size: preferredArtworkSize, service: movieService.name) {
+                                    if let artwork = artworks.first(by: type, size: preferredArtworkSize, service: movieService.name) {
                                         return artwork
-                                    } else if let artwork = artworks.filter(by: .poster, size: .standard, service: movieService.name) {
+                                    } else if let artwork = artworks.first(by: .poster, size: .standard, service: movieService.name) {
                                         return artwork
                                     } else {
                                         return artworks.first
@@ -207,11 +207,11 @@ class SBFetchMetadataScriptCommand: NSScriptCommand, ScriptCommandDocumentTarget
                             
                             if preferredArtwork != .none && artworks.isEmpty == false {
                                 let artwork: Artwork? = {
-                                    if let artwork = artworks.filter(by: preferredArtwork, size: preferredArtworkSize, service: tvShowService.name) {
+                                    if let artwork = artworks.first(by: preferredArtwork, size: preferredArtworkSize, service: tvShowService.name) {
                                         return artwork
-                                    } else if let artwork = artworks.filter(by: .season, size: preferredArtworkSize, service: tvShowService.name) {
+                                    } else if let artwork = artworks.first(by: .season, size: preferredArtworkSize, service: tvShowService.name) {
                                         return artwork
-                                    } else if let artwork = artworks.filter(by: .poster, size: .standard, service: tvShowService.name) {
+                                    } else if let artwork = artworks.first(by: .poster, size: .standard, service: tvShowService.name) {
                                         return artwork
                                     } else {
                                         return artworks.first
@@ -783,9 +783,9 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
                         if preferredArtwork != .none && artworks.isEmpty == false {
                             let artwork: Artwork? = {
                                 let type = preferredArtwork.isMovieType ? preferredArtwork : .poster
-                                if let artwork = artworks.filter(by: type, size: preferredArtworkSize, service: movieService.name) {
+                                if let artwork = artworks.first(by: type, size: preferredArtworkSize, service: movieService.name) {
                                     return artwork
-                                } else if let artwork = artworks.filter(by: .poster, size: .standard, service: movieService.name) {
+                                } else if let artwork = artworks.first(by: .poster, size: .standard, service: movieService.name) {
                                     return artwork
                                 } else {
                                     return artworks.first
@@ -833,9 +833,9 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
                         if preferredArtwork != .none && artworks.isEmpty == false {
                             let artwork: Artwork? = {
                                 let type = preferredArtwork.isMovieType ? preferredArtwork : .poster
-                                if let artwork = artworks.filter(by: type, size: preferredArtworkSize, service: tvShowService.name) {
+                                if let artwork = artworks.first(by: type, size: preferredArtworkSize, service: tvShowService.name) {
                                     return artwork
-                                } else if let artwork = artworks.filter(by: .poster, size: .standard, service: tvShowService.name) {
+                                } else if let artwork = artworks.first(by: .poster, size: .standard, service: tvShowService.name) {
                                     return artwork
                                 } else {
                                     return artworks.first
