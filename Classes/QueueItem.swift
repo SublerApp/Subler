@@ -285,7 +285,10 @@ import MP42Foundation
         for action in actions.filter({ $0.type == .pre }) {
             localizedWorkingDescription = action.localizedDescription
             delegate?.updateProgress(0)
-            _ = action.runAction(self)
+            let succeeded = action.runAction(self)
+            if succeeded == false {
+                Logger.shared.write(toLog: "Queue action '\(action.localizedDescription)' did not make a change for \(fileURL.lastPathComponent); continuing")
+            }
         }
     }
 
