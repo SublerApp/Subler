@@ -440,6 +440,7 @@ public struct TheTVDB : MetadataService {
         }
 
         metadata.remoteArtworks.insert(contentsOf: artworks, at: 0)
+        metadata.remoteArtworks.sortTopPicks(service: self.name)
 
         return metadata
     }
@@ -467,6 +468,7 @@ public struct TheTVDB : MetadataService {
 
     public func loadMovieMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
         guard let movieID = metadata[.serviceContentID] as? String,
+              let name = metadata[.name] as? String,
               let info = session.fetch(movieInfo: movieID)
             else { return metadata }
 
@@ -492,14 +494,14 @@ public struct TheTVDB : MetadataService {
 
         queue.async(group: group) {
             // add iTunes artwork
-            if let iTunesMetadata = iTunesStore.quickiTunesSearch(movieName: info.name) {
+            if let iTunesMetadata = iTunesStore.quickiTunesSearch(movieName: name) {
                 iTunesImage = iTunesMetadata.remoteArtworks
             }
         }
 
         queue.async(group: group) {
            if let store = iTunesStore.Store(language: "USA (English)") {
-               appleTV = AppleTV().searchArtwork(term: info.name, store: store, type: .movie)
+               appleTV = AppleTV().searchArtwork(term: name, store: store, type: .movie)
             }
         }
         group.wait()
@@ -507,7 +509,7 @@ public struct TheTVDB : MetadataService {
         artworks.insert(contentsOf: iTunesImage, at: 0)
         artworks.insert(contentsOf: appleTV, at: 0)
 
-        metadata.remoteArtworks = artworks
+        metadata.remoteArtworks = artworks.sortedTopPicks(service: self.name)
 
         return metadata
     }

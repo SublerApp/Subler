@@ -154,7 +154,7 @@ public struct TheMovieDB: MetadataService {
 
         }
 
-        return artworks
+        return artworks.sortedTopPicks(service: self.name)
     }
 
     private func metadata(forResult result: TMDBMovie, language: String?) -> MetadataResult {
@@ -408,7 +408,7 @@ public struct TheMovieDB: MetadataService {
         artworks.insert(contentsOf: squareTVArt, at: 0)
         artworks.insert(contentsOf: appleTV, at: 0)
 
-        metadata.remoteArtworks = artworks
+        metadata.remoteArtworks = artworks.sortedTopPicks(service: self.name)
 
         return metadata
     }
