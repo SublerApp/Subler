@@ -278,6 +278,10 @@ import MP42Foundation
             }
         }
 
+        runPreActions()
+    }
+
+    private func runPreActions() {
         for action in actions.filter({ $0.type == .pre }) {
             localizedWorkingDescription = action.localizedDescription
             delegate?.updateProgress(0)
@@ -301,6 +305,8 @@ import MP42Foundation
         // The file has been added directly to the queue
         if mp4File == nil {
             try prepare()
+        } else {
+            runPreActions()
         }
 
         guard let mp4 = mp4File else { return }
