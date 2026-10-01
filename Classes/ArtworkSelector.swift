@@ -294,7 +294,8 @@ final class ArtworkSelectorController: NSViewController, NSCollectionViewDataSou
     }
 
     private func selectedArtworks() -> [ArtworkImageObject] {
-        return imageBrowser.selectionIndexPaths.map { artworks[$0.item] }
+        let indexes = imageBrowser.selectionIndexPaths.map { $0.item } .sorted()
+        return indexes.map { artworks[$0] }
     }
 
     // MARK - UI state
