@@ -278,10 +278,17 @@ import MP42Foundation
             }
         }
 
+        runPreActions()
+    }
+
+    private func runPreActions() {
         for action in actions.filter({ $0.type == .pre }) {
             localizedWorkingDescription = action.localizedDescription
             delegate?.updateProgress(0)
-            _ = action.runAction(self)
+            let succeeded = action.runAction(self)
+            if succeeded == false {
+                Logger.shared.write(toLog: "Queue action '\(action.localizedDescription)' did not make a change for \(fileURL.lastPathComponent); continuing")
+            }
         }
     }
 
@@ -301,6 +308,8 @@ import MP42Foundation
         // The file has been added directly to the queue
         if mp4File == nil {
             try prepare()
+        } else {
+            runPreActions()
         }
 
         guard let mp4 = mp4File else { return }
