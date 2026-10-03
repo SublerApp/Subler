@@ -608,13 +608,13 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, Trac
             }
         }
 
-        if let metadata = metadata {
+        if let metadata, metadata.items.isEmpty == false {
             mp4.metadata.merge(metadata, overwrite: true)
         }
 
         tracksViewController.reloadData()
 
-        if metadata != nil {
+        if let metadata, metadata.items.isEmpty == false {
             tracksViewController.selectTracks([])
         } else if tracks.isEmpty == false {
             tracksViewController.selectTracks(tracks)
