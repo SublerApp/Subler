@@ -352,6 +352,7 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, Trac
         }
 
         tracksViewController.reloadData()
+        tracksViewController.selectTracks([track])
     }
 
     @IBAction func iTunesFriendlyTrackGroups(_ sender: Any) {
@@ -442,6 +443,7 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, Trac
                                                   dataType: .integer, extendedLanguageTag: nil))
         }
         metadataViewController?.metadata = mp4.metadata
+        tracksViewController.selectTracks([])
     }
 
     @IBAction func searchChapters(_ sender: Any?) {
@@ -455,20 +457,23 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, Trac
     }
 
     func didSelect(chapters: [MP42TextSample]) {
-           let chapterTrack = MP42ChapterTrack()
-           for chapter in chapters {
-               chapterTrack.addChapter(chapter)
-           }
+        let chapterTrack = MP42ChapterTrack()
+        for chapter in chapters {
+            chapterTrack.addChapter(chapter)
+        }
 
-           mp4.addTrack(chapterTrack)
-           tracksViewController.reloadData()
-       }
+        mp4.addTrack(chapterTrack)
+        tracksViewController.reloadData()
+        tracksViewController.selectTracks([chapterTrack])
+    }
 
     // MARK: File import
 
     private func addChapters(fileURL: URL) {
-        mp4.addTrack(MP42ChapterTrack(fromFile: fileURL))
+        let track = MP42ChapterTrack(fromFile: fileURL)
+        mp4.addTrack(track)
         tracksViewController.reloadData()
+        tracksViewController.selectTracks([track])
     }
 
     private func updateChapters(fileURL: URL) {
@@ -476,6 +481,7 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, Trac
             try mp4.chapters?.update(fromCSVFile: fileURL)
             if let track = mp4.chapters {
                 chapterViewController?.track = track
+                tracksViewController.selectTracks([track])
             }
         }
         catch {
@@ -492,9 +498,11 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, Trac
         if ext == "xml" || ext == "nfo", let metadata = MP42Metadata(url: fileURL) {
             mp4.metadata.merge(metadata, overwrite: true)
             metadataViewController?.metadata = mp4.metadata
+            tracksViewController.selectTracks([])
         } else if let file = try? MP42File(url: fileURL) {
             mp4.metadata.merge(file.metadata, overwrite: true)
             metadataViewController?.metadata = mp4.metadata
+            tracksViewController.selectTracks([])
         }
     }
 
@@ -602,10 +610,15 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, Trac
 
         if let metadata = metadata {
             mp4.metadata.merge(metadata, overwrite: true)
-            metadataViewController?.metadata = mp4.metadata
         }
 
         tracksViewController.reloadData()
+
+        if metadata != nil {
+            tracksViewController.selectTracks([])
+        } else if tracks.isEmpty == false {
+            tracksViewController.selectTracks(tracks)
+        }
     }
 
     // MARK: Drag & drop

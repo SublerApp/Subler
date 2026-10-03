@@ -74,6 +74,20 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
         delegate?.didSelect(tracks: selectedTracks)
     }
 
+    func selectTracks(_ tracks: [MP42Track]) {
+        var indexes = IndexSet()
+        for track in tracks {
+            if let trackIndex = mp4.tracks.firstIndex(of: track) {
+                indexes.insert(trackIndex + 1)
+            }
+        }
+
+        if indexes.isEmpty {
+            indexes.insert(0)
+        }
+        tracksTable.selectRowIndexes(indexes, byExtendingSelection: false)
+    }
+
     var selectedTracks: [MP42Track] {
         return tracksTable != nil ? tracksTable.selectedRowIndexes.compactMap { track(at: $0) } : []
     }
