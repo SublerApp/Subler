@@ -37,7 +37,6 @@ final class OffsetViewController: NSViewController {
     @IBAction func setOffset(_ sender: Any) {
         if track.startOffset != offsetField.doubleValue {
             track.startOffset = offsetField.doubleValue
-            doc.updateChangeCount(.changeDone)
         }
         presentingViewController?.dismiss(self)
     }

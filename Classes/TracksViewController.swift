@@ -100,7 +100,6 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
         let row = tracksTable.row(for: sender)
         if let track = track(at: row) {
             track.isEnabled = sender.state == NSControl.StateValue.on ? true : false
-            document.updateChangeCount(.changeDone)
         }
     }
 
@@ -108,7 +107,6 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
         let row = tracksTable.row(for: sender)
         if let track = track(at: row), track.name != sender.stringValue {
             track.name = sender.stringValue
-            document.updateChangeCount(.changeDone)
             let column = tracksTable.column(for: sender)
             tracksTable.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: IndexSet(integer: column))
         }
@@ -127,7 +125,6 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
 
         if let track = track(at: row), track.language != language {
             track.language = language ?? "und"
-            document.updateChangeCount(.changeDone)
         }
     }
 

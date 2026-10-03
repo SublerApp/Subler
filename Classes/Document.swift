@@ -22,6 +22,7 @@ final class Document: NSDocument {
         self.unsupportedMp4Brand = false
         self.mp4 = MP42File()
         super.init()
+        self.mp4.undo = undoManager
     }
 
     init(mp4: MP42File) {
@@ -37,6 +38,7 @@ final class Document: NSDocument {
         } else {
             updateChangeCount(.changeDone)
         }
+        self.mp4.undo = undoManager
     }
 
     override func makeWindowControllers() {
@@ -60,6 +62,7 @@ final class Document: NSDocument {
     override func read(from url: URL, ofType typeName: String) throws {
         do {
             mp4 = try MP42File(url: url)
+            mp4.undo = undoManager
         } catch {
             unsupportedMp4Brand = true
         }
@@ -67,9 +70,11 @@ final class Document: NSDocument {
 
     override func revert(toContentsOf url: URL, ofType typeName: String) throws {
         mp4 = try MP42File(url: url)
+        mp4.undo = undoManager
 
         if let docController = windowControllers.first as? DocumentWindowController {
             docController.reloadData()
+            undoManager?.removeAllActions()
         }
 
         updateChangeCount(.changeCleared)
@@ -124,6 +129,8 @@ final class Document: NSDocument {
                 do {
                     let reloadedFile = try MP42File(url: url)
                     self.mp4 = reloadedFile
+                    self.mp4.undo = self.undoManager
+                    self.undoManager?.removeAllActions()
                     docController?.reloadData()
                     completionHandler(error)
                 } catch {

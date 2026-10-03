@@ -18,7 +18,11 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
     var metadata: MP42Metadata {
         didSet {
+            let metadataIndexes = self.metadataTableView.selectedRowIndexes
+//            let artworkIndexes = self.artworksView.selectionIndexPaths;
             reloadData()
+            self.metadataTableView.selectRowIndexes(metadataIndexes, byExtendingSelection: false)
+//            self.artworksView.selectItems(at: artworkIndexes, scrollPosition: .top)
         }
     }
 
@@ -152,7 +156,6 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         metadataTableView.reloadData()
         updateArtworksArray()
         artworksView.reloadData()
-        view.undoManager?.removeAllActions(withTarget: self)
     }
 
     // MARK: Metadata
@@ -180,17 +183,6 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
             metadata.addItem(item)
             rowHeights[item.identifier] = nil
         }
-
-        if let undo = view.undoManager {
-            undo.registerUndo(withTarget: self) { (target) in
-                target.remove(metadataItems: items)
-            }
-
-            if undo.isUndoing == false {
-                undo.setActionName(NSLocalizedString("Insert", comment: "Undo tag insert."))
-            }
-        }
-
         updateMetadataArray()
         metadataTableView.reloadData()
     }
@@ -199,17 +191,6 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         for item in items {
             metadata.removeItem(item)
         }
-
-        if let undo = view.undoManager {
-            undo.registerUndo(withTarget: self) { (target) in
-                target.add(metadataItems: items)
-            }
-
-            if undo.isUndoing == false {
-                undo.setActionName(NSLocalizedString("Delete", comment: "Undo tag delete."))
-            }
-        }
-
         updateMetadataArray()
         metadataTableView.reloadData()
     }
@@ -217,19 +198,6 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     private func replace(metadataItem item: MP42MetadataItem, withItem newItem: MP42MetadataItem) {
         metadata.removeItem(item)
         metadata.addItem(newItem)
-
-        if let undo = view.undoManager {
-            undo.registerUndo(withTarget: self) { (target) in
-                target.replace(metadataItem: newItem, withItem: item)
-            }
-
-            if undo.isUndoing == false {
-                undo.setActionName(NSLocalizedString("Editing", comment: "Undo tag editing."))
-                view.window?.windowController?.document?.updateChangeCount(.changeDone)
-            } else {
-                view.window?.windowController?.document?.updateChangeCount(.changeUndone)
-            }
-        }
 
         updateMetadataArray()
 
@@ -846,34 +814,12 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
     private func add(metadataArtworks items: [MP42MetadataItem]) {
         metadata.addItems(items)
-
-        if let undo = view.undoManager {
-            undo.registerUndo(withTarget: self) { (target) in
-                target.remove(metadataArtworks: items)
-            }
-
-            if undo.isUndoing == false {
-                undo.setActionName(NSLocalizedString("Insert", comment: "Undo cover art insert."))
-            }
-        }
-
         updateArtworksArray()
         artworksView.reloadData()
     }
 
     private func remove(metadataArtworks items: [MP42MetadataItem]) {
         metadata.removeItems(items)
-
-        if let undo = view.undoManager {
-            undo.registerUndo(withTarget: self) { (target) in
-                target.add(metadataArtworks: items)
-            }
-
-            if undo.isUndoing == false {
-                undo.setActionName(NSLocalizedString("Delete", comment: "Undo cover art delete"))
-            }
-        }
-
         updateArtworksArray()
         artworksView.reloadData()
         updateSelection()
@@ -882,17 +828,6 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     private func replace(metadataArtworks items: [MP42MetadataItem], withItems newItems: [MP42MetadataItem]) {
         metadata.removeItems(items)
         metadata.addItems(newItems)
-
-        if let undo = view.undoManager {
-            undo.registerUndo(withTarget: self) { (target) in
-                target.replace(metadataArtworks: newItems, withItems: items)
-            }
-
-            if undo.isUndoing == false {
-                undo.setActionName(NSLocalizedString("Move", comment: "Undo cover art delete"))
-            }
-        }
-
         updateArtworksArray()
         artworksView.reloadData()
         updateSelection()

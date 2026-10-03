@@ -254,10 +254,6 @@ final class VideoViewController: PropertyView {
 
     // MARK: Actions
 
-    private func updateChangeCount() {
-        view.window?.windowController?.document?.updateChangeCount(NSDocument.ChangeType.changeDone)
-    }
-
     @IBAction func setSize(_ sender: NSTextField) {
         if sender == trackWidth {
             let value = trackWidth.floatValue
@@ -267,13 +263,11 @@ final class VideoViewController: PropertyView {
                     trackHeight.floatValue = track.trackHeight
                 }
                 track.trackWidth = value
-                updateChangeCount()
             }
         } else if sender == trackHeight {
             let value = trackHeight.floatValue
             if track.trackHeight != value {
                 track.trackHeight = value
-                updateChangeCount()
             }
         } else if sender == offsetX {
             let value = CGFloat(offsetX.integerValue)
@@ -281,7 +275,6 @@ final class VideoViewController: PropertyView {
                 var transform = track.transform
                 transform.tx = value
                 track.transform = transform
-                updateChangeCount()
             }
         } else if sender == offsetY {
             let value = CGFloat(offsetY.integerValue)
@@ -289,7 +282,6 @@ final class VideoViewController: PropertyView {
                 var transform = track.transform
                 transform.ty = value
                 track.transform = transform
-                updateChangeCount()
             }
         }
     }
@@ -299,14 +291,12 @@ final class VideoViewController: PropertyView {
             let value = UInt64(hSpacing.integerValue)
             if track.hSpacing != value {
                 track.hSpacing = value
-                updateChangeCount()
             }
         }
         else if sender == vSpacing {
             let value = UInt64(vSpacing.intValue)
             if track.vSpacing != value {
                 track.vSpacing = value
-                updateChangeCount()
             }
         }
     }
@@ -346,7 +336,6 @@ final class VideoViewController: PropertyView {
             track.colorPrimaries = colorTag.0
             track.transferCharacteristics = colorTag.1
             track.matrixCoefficients = colorTag.2
-            updateChangeCount()
         }
     }
 
@@ -370,7 +359,6 @@ final class VideoViewController: PropertyView {
         default:
             return
         }
-        updateChangeCount()
     }
 
     @IBAction func setForcedSubtitles(_ sender: NSPopUpButton) {
@@ -391,7 +379,6 @@ final class VideoViewController: PropertyView {
             if track.someSamplesAreForced != value.0 || track.allSamplesAreForced != value.1 {
                 track.someSamplesAreForced = value.0
                 track.allSamplesAreForced = value.1
-                updateChangeCount()
             }
         }
     }
@@ -401,12 +388,10 @@ final class VideoViewController: PropertyView {
             if let newForcedTrack = sender.representedObject as? MP42SubtitleTrack {
                 if newForcedTrack != track.forcedTrack {
                     track.forcedTrack = newForcedTrack
-                    updateChangeCount()
                 }
             }
             else {
                 track.forcedTrack = nil
-                updateChangeCount()
             }
         }
     }
@@ -415,7 +400,6 @@ final class VideoViewController: PropertyView {
         if let group = sender.selectedItem?.tag {
             if track.alternateGroup != group {
                 track.alternateGroup = UInt64(group)
-                updateChangeCount()
             }
         }
     }

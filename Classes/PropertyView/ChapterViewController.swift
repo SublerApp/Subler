@@ -77,7 +77,6 @@ final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTable
             track.setTitle(sender.stringValue, forChapter: chapter)
 
             tableView.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: IndexSet(integer: 1))
-            updateChangeCount()
         }
     }
 
@@ -89,7 +88,6 @@ final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTable
             track.setTimestamp(timestamp, forChapter: chapter)
 
             tableView.reloadData()
-            updateChangeCount()
         }
     }
 
@@ -101,10 +99,6 @@ final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTable
 
     // MARK: Actions
 
-    private func updateChangeCount() {
-        view.window?.windowController?.document?.updateChangeCount(NSDocument.ChangeType.changeDone)
-    }
-
     @IBAction func removeChapter(_ sender: Any) {
         let currentIndex = tableView.selectedRow
         if currentIndex < track.chapterCount() {
@@ -113,8 +107,6 @@ final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTable
             let indexes = IndexSet(integer: currentIndex)
             tableView.removeRows(at: indexes, withAnimation: NSTableView.AnimationOptions.slideUp)
             tableView.selectRowIndexes(indexes, byExtendingSelection: false)
-
-            updateChangeCount()
         }
     }
 
@@ -122,7 +114,6 @@ final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTable
         track.addChapter("Chapter", timestamp: 0)
 
         tableView.reloadData()
-        updateChangeCount()
     }
 
     @IBAction func renameChapters(_ sender: Any) {
@@ -131,7 +122,6 @@ final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTable
             track.setTitle(title, forChapter: chapter)
         }
         tableView.reloadData()
-        updateChangeCount()
     }
 
 }
