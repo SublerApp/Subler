@@ -156,6 +156,11 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         metadataTableView.reloadData()
         updateArtworksArray()
         artworksView.reloadData()
+        updateUI()
+    }
+
+    private func updateUI() {
+        removeTagButton.isEnabled = self.metadataTableView.selectedRow != -1
     }
 
     // MARK: Metadata
@@ -192,7 +197,10 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
             metadata.removeItem(item)
         }
         updateMetadataArray()
+        let index = metadataTableView.selectedRowIndexes.first ?? 0
         metadataTableView.reloadData()
+        metadataTableView.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
+        updateUI()
     }
 
     private func replace(metadataItem item: MP42MetadataItem, withItem newItem: MP42MetadataItem) {
@@ -802,8 +810,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     }
 
     func tableViewSelectionDidChange(_ notification: Notification) {
-        let enabled = metadataTableView.selectedRow != -1 ? true : false
-        removeTagButton.isEnabled = enabled
+        updateUI()
     }
 
     // MARK: Artworks

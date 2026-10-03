@@ -8,7 +8,7 @@
 import Cocoa
 import MP42Foundation
 
-final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTableViewDelegate {
+final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTableViewDelegate, ExpandedTableViewDelegate {
 
     var track: MP42ChapterTrack {
         didSet {
@@ -18,6 +18,7 @@ final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTable
 
     @IBOutlet var tableView: ExpandedTableView!
     @IBOutlet var removeChapter: NSButton!
+    @IBOutlet var actions: NSPopUpButton!
 
     override var nibName: NSNib.Name? {
         return "ChapterView"
@@ -36,6 +37,10 @@ final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTable
         super.viewDidLoad()
         tableView.defaultEditingColumn = 1
         tableView.doubleAction = #selector(doubleClickAction(_:))
+
+        if #available(macOS 26, *) {
+            actions.menu?.items.first?.image = NSImage.init(systemSymbolName: "ellipsis", accessibilityDescription: nil)
+        }
     }
 
     // MARK: Table View
@@ -97,23 +102,27 @@ final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTable
         }
     }
 
-    // MARK: Actions
-
-    @IBAction func removeChapter(_ sender: Any) {
-        let currentIndex = tableView.selectedRow
-        if currentIndex < track.chapterCount() {
-            track.removeChapter(at: UInt(currentIndex))
-
-            let indexes = IndexSet(integer: currentIndex)
+    func deleteSelection(in tableview: NSTableView) {
+        let indexes = tableView.selectedRowIndexes
+        if indexes.isEmpty == false {
+            track.removeChapters(at: indexes)
             tableView.removeRows(at: indexes, withAnimation: NSTableView.AnimationOptions.slideUp)
-            tableView.selectRowIndexes(indexes, byExtendingSelection: false)
+            tableView.selectRowIndexes(IndexSet(integer: indexes.first ?? 0), byExtendingSelection: false)
         }
     }
 
-    @IBAction func addChapter(_ sender: Any) {
-        track.addChapter("Chapter", timestamp: 0)
+    // MARK: Actions
 
-        tableView.reloadData()
+    @IBAction func removeChapter(_ sender: Any) {
+        deleteSelection(in: tableView)
+    }
+
+    @IBAction func addChapter(_ sender: Any) {
+        let index = track.addChapter("Chapter", timestamp: 0)
+        let indexSet = IndexSet(integer: Int(index))
+        tableView.insertRows(at: indexSet, withAnimation: .slideDown)
+        tableView.selectRowIndexes(indexSet, byExtendingSelection: false)
+        view.window?.makeFirstResponder(tableView)
     }
 
     @IBAction func renameChapters(_ sender: Any) {

@@ -213,8 +213,12 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, Trac
     }
 
     func reloadDataAfterAnUndo() {
+        let firstResponder = self.window?.firstResponder;
         saveTabIndexes()
         tracksViewController.mp4 = doc.mp4
+        if let firstResponder = firstResponder as? NSView, firstResponder.window != nil {
+            self.window?.makeFirstResponder(firstResponder)
+        }
     }
 
     // MARK: Tracks controller delegate
