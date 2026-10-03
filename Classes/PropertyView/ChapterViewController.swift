@@ -12,7 +12,11 @@ final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTable
 
     var track: MP42ChapterTrack {
         didSet {
+            let indexes = tableView.selectedRowIndexes
             tableView.reloadData()
+            if let last = indexes.last, last < track.chapters.count {
+                tableView.selectRowIndexes(indexes, byExtendingSelection: false)
+            }
         }
     }
 
@@ -107,7 +111,9 @@ final class ChapterViewController : PropertyView, NSTableViewDataSource, NSTable
         if indexes.isEmpty == false {
             track.removeChapters(at: indexes)
             tableView.removeRows(at: indexes, withAnimation: NSTableView.AnimationOptions.slideUp)
-            tableView.selectRowIndexes(IndexSet(integer: indexes.first ?? 0), byExtendingSelection: false)
+            if let index = indexes.first, index < track.chapters.count {
+                tableView.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
+            }
         }
     }
 

@@ -88,7 +88,6 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, Trac
                                                object: doc.undoManager,
                                                queue: OperationQueue.main,
                                                using: update)
-
     }
 
     private static let splitViewResorationIdentifier = NSUserInterfaceItemIdentifier(rawValue: "splitViewSave")
@@ -215,7 +214,7 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, Trac
     func reloadDataAfterAnUndo() {
         let firstResponder = self.window?.firstResponder;
         saveTabIndexes()
-        tracksViewController.mp4 = doc.mp4
+        tracksViewController.reloadData()
         if let firstResponder = firstResponder as? NSView, firstResponder.window != nil {
             self.window?.makeFirstResponder(firstResponder)
         }

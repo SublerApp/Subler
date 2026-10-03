@@ -23,7 +23,7 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
         didSet {
             let selectedIndexes = tracksTable.selectedRowIndexes
             reloadData()
-            if let max = selectedIndexes.max(), mp4.tracks.count >= max {
+            if let last = selectedIndexes.last, last <= mp4.tracks.count {
                 tracksTable.selectRowIndexes(selectedIndexes, byExtendingSelection: false)
             }
         }
@@ -66,7 +66,11 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
     }
 
     func reloadData() {
+        let indexes = tracksTable.selectedRowIndexes
         tracksTable.reloadData()
+        if let last = indexes.last, last <= mp4.tracks.count {
+            tracksTable.selectRowIndexes(indexes, byExtendingSelection: false)
+        }
         delegate?.didSelect(tracks: selectedTracks)
     }
 

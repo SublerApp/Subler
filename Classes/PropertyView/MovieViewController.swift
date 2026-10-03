@@ -21,7 +21,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
             let metadataIndexes = self.metadataTableView.selectedRowIndexes
 //            let artworkIndexes = self.artworksView.selectionIndexPaths;
             reloadData()
-            self.metadataTableView.selectRowIndexes(metadataIndexes, byExtendingSelection: false)
+            if let last = metadataIndexes.last, last < tags.count {
+                self.metadataTableView.selectRowIndexes(metadataIndexes, byExtendingSelection: false)
+            }
 //            self.artworksView.selectItems(at: artworkIndexes, scrollPosition: .top)
         }
     }
@@ -199,7 +201,9 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         updateMetadataArray()
         let index = metadataTableView.selectedRowIndexes.first ?? 0
         metadataTableView.reloadData()
-        metadataTableView.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
+        if index < tags.count {
+            metadataTableView.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
+        }
         updateUI()
     }
 
