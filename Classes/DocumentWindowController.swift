@@ -9,7 +9,7 @@ import Cocoa
 import MP42Foundation
 import UniformTypeIdentifiers
 
-final class DocumentWindowController: NSWindowController, TracksViewControllerDelegate, MetadataSearchViewControllerDelegate, ChapterSearchControllerDelegate, FileImportControllerDelegate, ProgressViewControllerDelegate, NSDraggingDestination, NSUserInterfaceValidations {
+final class DocumentWindowController: NSWindowController, NSWindowDelegate, TracksViewControllerDelegate, MetadataSearchViewControllerDelegate, ChapterSearchControllerDelegate, FileImportControllerDelegate, ProgressViewControllerDelegate, NSDraggingDestination, NSUserInterfaceValidations {
 
     private var doc: Document {
         return document as! Document
@@ -73,6 +73,21 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         }
 
         didSelect(tracks: [])
+
+        let update: (Notification) -> Void = { [weak self] notification in
+            guard let s = self else { return }
+            s.reloadDataAfterAnUndo()
+        }
+
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSUndoManagerDidUndoChange,
+                                               object: doc.undoManager,
+                                               queue: OperationQueue.main,
+                                               using: update)
+
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSUndoManagerDidRedoChange,
+                                               object: doc.undoManager,
+                                               queue: OperationQueue.main,
+                                               using: update)
     }
 
     private static let splitViewResorationIdentifier = NSUserInterfaceItemIdentifier(rawValue: "splitViewSave")
@@ -128,14 +143,18 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
     }
 
     private func clearDetailsViewControllers() {
-        saveTabIndex(metadataViewController)
+        saveTabIndexes()
         metadataViewController = nil
-        saveTabIndex(videoViewController)
         videoViewController = nil
-        saveTabIndex(soundViewController)
         soundViewController = nil
         chapterViewController = nil
         multiViewController = nil
+    }
+
+    private func saveTabIndexes() {
+        saveTabIndex(metadataViewController)
+        saveTabIndex(videoViewController)
+        saveTabIndex(soundViewController)
     }
 
     private func detailsViewController(_ tracks: [MP42Track]) -> PropertyView {
@@ -176,7 +195,10 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
                 return emptyViewController!
 
             default:
-                if metadataViewController == nil {
+                if let metadataViewController = metadataViewController {
+                    metadataViewController.metadata = mp4.metadata
+                }
+                else {
                     metadataViewController = MovieViewController(mp4: mp4, metadata: mp4.metadata)
                 }
                 return metadataViewController!
@@ -189,12 +211,20 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         tracksViewController.mp4 = doc.mp4
     }
 
+    func reloadDataAfterAnUndo() {
+        let firstResponder = self.window?.firstResponder;
+        saveTabIndexes()
+        tracksViewController.reloadData()
+        if let firstResponder = firstResponder as? NSView, firstResponder.window != nil {
+            self.window?.makeFirstResponder(firstResponder)
+        }
+    }
+
     // MARK: Tracks controller delegate
 
     func didSelect(tracks: [MP42Track]) {
         let detailsItem = splitViewController.splitViewItems[1]
         if let detailsViewController = detailsItem.viewController.children.first {
-            doc.undoManager?.removeAllActions(withTarget: detailsViewController)
             detailsViewController.view.removeFromSuperviewWithoutNeedingDisplay()
             detailsItem.viewController.removeChild(at: 0)
         }
@@ -215,7 +245,6 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             if Prefs.organizeAlternateGroups { mp4.organizeAlternateGroups() }
             if Prefs.inferMediaCharacteristics { mp4.inferMediaCharacteristics() }
 
-            doc.updateChangeCount(.changeDone)
             tracksViewController.reloadData()
         }
     }
@@ -322,8 +351,8 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             track.addChapter("Chapter 1", timestamp: 0)
         }
 
-        doc.updateChangeCount(.changeDone)
         tracksViewController.reloadData()
+        tracksViewController.selectTracks([track])
     }
 
     @IBAction func iTunesFriendlyTrackGroups(_ sender: Any) {
@@ -331,7 +360,6 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         mp4.inferTracksLanguages()
         mp4.inferMediaCharacteristics()
 
-        doc.updateChangeCount(.changeDone)
         tracksViewController.reloadData()
     }
 
@@ -340,7 +368,6 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             track.name = ""
         }
 
-        doc.updateChangeCount(.changeDone)
         tracksViewController.reloadData()
     }
 
@@ -350,13 +377,11 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             track.name = track.prettyTrackName
         }
 
-        doc.updateChangeCount(.changeDone)
         tracksViewController.reloadData()
     }
 
     @IBAction func fixAudioFallbacks(_ sender: Any) {
         mp4.setAutoFallback()
-        doc.updateChangeCount(.changeDone)
         tracksViewController.reloadData()
     }
 
@@ -417,8 +442,8 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             mp4.metadata.addItem(MP42MetadataItem(identifier: MP42MetadataKeyHDVideo, value: NSNumber(value: hdType.rawValue),
                                                   dataType: .integer, extendedLanguageTag: nil))
         }
-        doc.updateChangeCount(.changeDone)
         metadataViewController?.metadata = mp4.metadata
+        tracksViewController.selectTracks([])
     }
 
     @IBAction func searchChapters(_ sender: Any?) {
@@ -432,31 +457,31 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
     }
 
     func didSelect(chapters: [MP42TextSample]) {
-           let chapterTrack = MP42ChapterTrack()
-           for chapter in chapters {
-               chapterTrack.addChapter(chapter)
-           }
+        let chapterTrack = MP42ChapterTrack()
+        for chapter in chapters {
+            chapterTrack.addChapter(chapter)
+        }
 
-           mp4.addTrack(chapterTrack)
-           doc.updateChangeCount(.changeDone)
-           tracksViewController.reloadData()
-       }
+        mp4.addTrack(chapterTrack)
+        tracksViewController.reloadData()
+        tracksViewController.selectTracks([chapterTrack])
+    }
 
     // MARK: File import
 
     private func addChapters(fileURL: URL) {
-        mp4.addTrack(MP42ChapterTrack(fromFile: fileURL))
-
-        doc.updateChangeCount(.changeDone)
+        let track = MP42ChapterTrack(fromFile: fileURL)
+        mp4.addTrack(track)
         tracksViewController.reloadData()
+        tracksViewController.selectTracks([track])
     }
 
     private func updateChapters(fileURL: URL) {
         do {
             try mp4.chapters?.update(fromCSVFile: fileURL)
-            doc.updateChangeCount(.changeDone)
             if let track = mp4.chapters {
                 chapterViewController?.track = track
+                tracksViewController.selectTracks([track])
             }
         }
         catch {
@@ -472,12 +497,12 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         let ext = fileURL.pathExtension.lowercased()
         if ext == "xml" || ext == "nfo", let metadata = MP42Metadata(url: fileURL) {
             mp4.metadata.merge(metadata, overwrite: true)
-            doc.updateChangeCount(.changeDone)
             metadataViewController?.metadata = mp4.metadata
+            tracksViewController.selectTracks([])
         } else if let file = try? MP42File(url: fileURL) {
             mp4.metadata.merge(file.metadata, overwrite: true)
-            doc.updateChangeCount(.changeDone)
             metadataViewController?.metadata = mp4.metadata
+            tracksViewController.selectTracks([])
         }
     }
 
@@ -574,8 +599,6 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
         }
 
         if tracks.isEmpty == false {
-            doc.updateChangeCount(.changeDone)
-
             if Prefs.organizeAlternateGroups {
                 mp4.organizeAlternateGroups()
                 if Prefs.inferMediaCharacteristics {
@@ -585,13 +608,17 @@ final class DocumentWindowController: NSWindowController, TracksViewControllerDe
             }
         }
 
-        if let metadata = metadata {
+        if let metadata, metadata.items.isEmpty == false {
             mp4.metadata.merge(metadata, overwrite: true)
-            doc.updateChangeCount(.changeDone)
-            metadataViewController?.metadata = mp4.metadata
         }
 
         tracksViewController.reloadData()
+
+        if let metadata, metadata.items.isEmpty == false {
+            tracksViewController.selectTracks([])
+        } else if tracks.isEmpty == false {
+            tracksViewController.selectTracks(tracks)
+        }
     }
 
     // MARK: Drag & drop

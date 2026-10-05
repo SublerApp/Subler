@@ -455,7 +455,9 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         }
 
         table.removeRows(at: indexes, withAnimation: .slideUp)
-        table.selectRowIndexes(IndexSet(integer: indexes.first!), byExtendingSelection: false)
+        if let index = indexes.first, index < queue.count {
+            table.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
+        }
 
         table.endUpdates()
         updateState()

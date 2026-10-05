@@ -38,7 +38,7 @@ public struct TheTVDB : MetadataService {
         var results: Set<String> = Set()
 
         let series = session.fetch(series: tvShow)
-        results.formUnion(series.compactMap { $0.translations?[language] } )
+        results.formUnion(series.compactMap { $0.translations?[language] ?? $0.name } )
 
         if results.isEmpty {
             return TheMovieDB().search(tvShow: tvShow, language: language)
@@ -49,8 +49,9 @@ public struct TheTVDB : MetadataService {
 
     // MARK: - TV Series ID search
 
-    private func match(series: TVDBSearchResult, name: String) -> Bool {
-        if let seriesName = series.name, seriesName.caseInsensitiveCompare(name) == .orderedSame  {
+    private func match(series: TVDBSearchResult, name: String, language: String) -> Bool {
+        if let seriesName = series.translations?[language] ?? series.name,
+           seriesName.caseInsensitiveCompare(name) == .orderedSame  {
             return true
         }
 
@@ -72,7 +73,9 @@ public struct TheTVDB : MetadataService {
             let order = name?.caseInsensitiveCompare(seriesName)
             return order == .orderedSame ? true : false
         }
-        let filteredSeries = sorted.filter { $0.status?.isEmpty == false && match(series: $0, name: seriesName) }.map { $0.tvdb_id }
+        let filteredSeries = sorted.filter {
+            $0.status?.isEmpty == false && match(series: $0, name: seriesName, language: language)
+        }.map { $0.tvdb_id }
 
         if filteredSeries.isEmpty == false {
             return filteredSeries

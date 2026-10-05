@@ -23,7 +23,7 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
         didSet {
             let selectedIndexes = tracksTable.selectedRowIndexes
             reloadData()
-            if let max = selectedIndexes.max(), mp4.tracks.count >= max {
+            if let last = selectedIndexes.last, last <= mp4.tracks.count {
                 tracksTable.selectRowIndexes(selectedIndexes, byExtendingSelection: false)
             }
         }
@@ -66,8 +66,26 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
     }
 
     func reloadData() {
+        let indexes = tracksTable.selectedRowIndexes
         tracksTable.reloadData()
+        if let last = indexes.last, last <= mp4.tracks.count {
+            tracksTable.selectRowIndexes(indexes, byExtendingSelection: false)
+        }
         delegate?.didSelect(tracks: selectedTracks)
+    }
+
+    func selectTracks(_ tracks: [MP42Track]) {
+        var indexes = IndexSet()
+        for track in tracks {
+            if let trackIndex = mp4.tracks.firstIndex(of: track) {
+                indexes.insert(trackIndex + 1)
+            }
+        }
+
+        if indexes.isEmpty && tracksTable.selectedRow == 0 {
+            indexes.insert(0)
+        }
+        tracksTable.selectRowIndexes(indexes, byExtendingSelection: false)
     }
 
     var selectedTracks: [MP42Track] {
@@ -100,7 +118,6 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
         let row = tracksTable.row(for: sender)
         if let track = track(at: row) {
             track.isEnabled = sender.state == NSControl.StateValue.on ? true : false
-            document.updateChangeCount(.changeDone)
         }
     }
 
@@ -108,7 +125,6 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
         let row = tracksTable.row(for: sender)
         if let track = track(at: row), track.name != sender.stringValue {
             track.name = sender.stringValue
-            document.updateChangeCount(.changeDone)
             let column = tracksTable.column(for: sender)
             tracksTable.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: IndexSet(integer: column))
         }
@@ -127,7 +143,6 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
 
         if let track = track(at: row), track.language != language {
             track.language = language ?? "und"
-            document.updateChangeCount(.changeDone)
         }
     }
 
