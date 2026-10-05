@@ -82,7 +82,7 @@ final class TracksViewController: NSViewController, NSTableViewDataSource, NSTab
             }
         }
 
-        if indexes.isEmpty {
+        if indexes.isEmpty && tracksTable.selectedRow == 0 {
             indexes.insert(0)
         }
         tracksTable.selectRowIndexes(indexes, byExtendingSelection: false)
