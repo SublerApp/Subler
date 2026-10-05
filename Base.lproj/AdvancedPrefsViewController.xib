@@ -24,11 +24,11 @@
             </declaredKeys>
         </userDefaultsController>
         <customView id="94" userLabel="Advanced View">
-            <rect key="frame" x="0.0" y="0.0" width="610" height="417"/>
+            <rect key="frame" x="0.0" y="0.0" width="610" height="384"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="W4x-d1-Fk8">
-                    <rect key="frame" x="91" y="-1" width="429" height="418"/>
+                    <rect key="frame" x="91" y="-1" width="429" height="385"/>
                     <subviews>
                         <textField focusRingType="none" horizontalHuggingPriority="249" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="101">
                             <rect key="frame" x="18" y="324" width="133" height="16"/>
@@ -260,7 +260,7 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <button translatesAutoresizingMaskIntoConstraints="NO" id="4KV-Md-Tg1">
+                        <button toolTip="4K metadata may cause streaming issues with some Apple TV configurations." translatesAutoresizingMaskIntoConstraints="NO" id="4KV-Md-Tg1">
                             <rect key="frame" x="157" y="53" width="231" height="32"/>
                             <buttonCell key="cell" type="check" title="Autodetect 4K HD Video Metadata" bezelStyle="regularSquare" imagePosition="left" inset="2" id="4KV-Md-Cel">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -270,14 +270,6 @@
                                 <binding destination="3" name="value" keyPath="values.SBSet4KHDVideoMetadata" id="4KV-Md-Bnd"/>
                             </connections>
                         </button>
-                        <textField focusRingType="none" horizontalHuggingPriority="249" verticalHuggingPriority="750" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="4KV-Md-Info">
-                            <rect key="frame" x="157" y="20" width="254" height="28"/>
-                            <textFieldCell key="cell" title="4K metadata may cause streaming issues with some Apple TV configurations." id="4KV-Md-InfC">
-                                <font key="font" metaFont="smallSystem"/>
-                                <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                        </textField>
                     </subviews>
                     <constraints>
                         <constraint firstItem="113" firstAttribute="leading" secondItem="101" secondAttribute="leading" id="1YE-JW-6A6"/>
@@ -287,18 +279,14 @@
                         <constraint firstItem="edJ-A5-eyf" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="7" id="2AJ-dD-Kor"/>
                         <constraint firstItem="olE-Dy-uJm" firstAttribute="trailing" secondItem="99" secondAttribute="trailing" id="2p6-fw-8YB"/>
                         <constraint firstItem="ETf-LE-57P" firstAttribute="top" secondItem="191" secondAttribute="bottom" constant="8" id="40j-P6-EiA"/>
-                        <constraint firstItem="4KV-Md-Info" firstAttribute="leading" secondItem="4KV-Md-Tg1" secondAttribute="leading" constant="2" id="4KV-Inf-Ldg"/>
-                        <constraint firstItem="4KV-Md-Info" firstAttribute="top" secondItem="4KV-Md-Tg1" secondAttribute="bottom" constant="5" id="4KV-Inf-Top"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4KV-Md-Info" secondAttribute="trailing" constant="20" symbolic="YES" id="4KV-Inf-Trl"/>
-                        <constraint firstItem="4KV-Md-Info" firstAttribute="width" constant="250" id="4KV-Inf-Wid"/>
                         <constraint firstItem="4KV-Md-Lbl" firstAttribute="baseline" secondItem="4KV-Md-Tg1" secondAttribute="baseline" id="4KV-Lbl-Bas"/>
                         <constraint firstItem="4KV-Md-Lbl" firstAttribute="leading" secondItem="Z2f-U9-9ZT" secondAttribute="leading" id="4KV-Lbl-Ldg"/>
                         <constraint firstItem="4KV-Md-Lbl" firstAttribute="width" secondItem="Z2f-U9-9ZT" secondAttribute="width" id="4KV-Lbl-Wid"/>
                         <constraint firstItem="4KV-Md-Tg1" firstAttribute="leading" secondItem="fTk-UL-aoX" secondAttribute="leading" id="4KV-Md-Ldg"/>
                         <constraint firstItem="4KV-Md-Tg1" firstAttribute="top" secondItem="fTk-UL-aoX" secondAttribute="bottom" constant="8" id="4KV-Md-Top"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4KV-Md-Tg1" secondAttribute="trailing" constant="20" symbolic="YES" id="4KV-Md-Trl"/>
+                        <constraint firstAttribute="bottom" secondItem="4KV-Md-Tg1" secondAttribute="bottom" constant="20" symbolic="YES" id="4KV-Md-Btm"/>
                         <constraint firstItem="101" firstAttribute="baseline" secondItem="hjZ-wQ-Sbb" secondAttribute="baseline" id="8Vo-He-oN4"/>
-                        <constraint firstAttribute="bottom" secondItem="4KV-Md-Info" secondAttribute="bottom" constant="20" symbolic="YES" id="9Kv-mG-JeK"/>
                         <constraint firstItem="hjZ-wQ-Sbb" firstAttribute="top" secondItem="QpA-Yd-jpF" secondAttribute="bottom" constant="20" id="9b8-nh-LgA"/>
                         <constraint firstItem="191" firstAttribute="top" secondItem="115" secondAttribute="bottom" constant="10" symbolic="YES" id="9lu-EL-fZW"/>
                         <constraint firstItem="fTk-UL-aoX" firstAttribute="leading" secondItem="Z2f-U9-9ZT" secondAttribute="trailing" constant="8" id="A9N-WD-P3O"/>
