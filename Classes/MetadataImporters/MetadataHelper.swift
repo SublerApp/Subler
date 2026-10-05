@@ -54,40 +54,33 @@ private func parseAnimeFilename(_ filename: String) -> MetadataSearchTerms? {
     return result
 }
 
+// Formerly invoked the bundled ParseFilename perl script; now calls the
+// native Swift port in VideoFilename.swift. Result handling matches the
+// original perl-output parsing: a TV match is only returned when series
+// name, season and episode were all found (the perl pipeline dropped empty
+// output lines, so partial matches fell through to nil), and a movie match
+// requires a non-empty title.
 private func parseFilename(_ filename: String) -> MetadataSearchTerms? {
-    guard let path = Bundle.main.path(forResource: "ParseFilename", ofType: "") else { return nil }
+    let file = ParsedVideoFilename.parse(filename)
 
-    let stdOut = Pipe()
-    let stdOutWrite = stdOut.fileHandleForWriting
-
-    // Use the ParseFilename perl script
-    let task = Process()
-    task.launchPath = "/usr/bin/perl"
-    task.arguments = ["-I\(path)/lib", "\(path)/ParseFilename.pl", filename]
-    task.standardOutput = stdOutWrite
-
-    task.launch()
-    task.waitUntilExit()
-    stdOutWrite.closeFile()
-
-    let outputData = stdOut.fileHandleForReading.readDataToEndOfFile()
-    guard let outputString = String(data: outputData, encoding: .utf8) else { return nil }
-    let lines = outputString.split(separator: "\n")
-
-    if lines.isEmpty == false {
-        if lines.first == "tv" && lines.count >= 4 {
-            let newSeriesName = lines[1].isEmpty == false ? lines[1].replacingOccurrences(of: ".", with: " ") : filename
-            return MetadataSearchTerms.tvShow(seriesName: newSeriesName, season: Int(lines[2]), episode: Int(lines[3]))
-        }
-        else if lines.first == "movie" && lines.count >= 2 {
-            let newTitle = lines[1].replacingOccurrences(of: ".", with: " ")
-            .replacingOccurrences(of: "(", with: " ")
-            .replacingOccurrences(of: ")", with: " ")
-            .replacingOccurrences(of: "[", with: " ")
-            .replacingOccurrences(of: "]", with: " ")
-            .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            return MetadataSearchTerms.movie(title: newTitle)
-        }
+    if let name = file.name, name.isEmpty == false,
+       let season = file.seasonInt, let episode = file.episodeInt {
+        let newSeriesName = name.replacingOccurrences(of: ".", with: " ")
+        return MetadataSearchTerms.tvShow(seriesName: newSeriesName, season: season, episode: episode)
+    }
+    else if file.isEpisode {
+        // Episode without a usable series name or season; like the original
+        // pipeline, do not guess.
+        return nil
+    }
+    else if let movie = file.movie, movie.isEmpty == false {
+        let newTitle = movie.replacingOccurrences(of: ".", with: " ")
+        .replacingOccurrences(of: "(", with: " ")
+        .replacingOccurrences(of: ")", with: " ")
+        .replacingOccurrences(of: "[", with: " ")
+        .replacingOccurrences(of: "]", with: " ")
+        .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        return MetadataSearchTerms.movie(title: newTitle)
     }
 
     return nil
