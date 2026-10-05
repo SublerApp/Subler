@@ -1,5 +1,16 @@
 # Subler News
 
+## Subler 1.9.5
+
+- Expanded undo/redo support
+- Improved artworks order in the artwork selector
+- Improved specials (season 0) lookup from file names [brettpynn]
+- Improved TVDB tv shows name search
+- Added an option to set the 4k HD Video tag when needed [brettpynn]
+- Fixed a crash that happened if a queue item contained a "Set language" action
+- Minor UI improvements and bug fixes
+
+
 ## Subler 1.9.4
 
 - Added an option to select a default "Save as" location [mindprint]
