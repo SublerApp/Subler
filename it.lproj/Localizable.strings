@@ -140,9 +140,7 @@ Toolbar */
 /* No comment provided by engineer. */
 "Day" = "Giorno";
 
-/* Toolbar
-Undo cover art delete
-Undo tag delete. */
+/* Toolbar */
 "Delete" = "Elimina";
 
 /* Toolbar */
@@ -189,9 +187,6 @@ Undo tag delete. */
 
 /* Media characteristic. */
 "Easy To Read" = "Semplice da leggere";
-
-/* Undo tag editing. */
-"Editing" = "Modifico";
 
 /* Enable audio track action description
 Enable audio track local description */
@@ -255,10 +250,6 @@ Enable subtitles track local description */
 /* Toolbar */
 "Import tracks from external files" = "Importa le tracce da un file esterno";
 
-/* Undo cover art insert.
-Undo tag insert. */
-"Insert" = "Inserisci";
-
 /* Toolbar */
 "Insert a chapter every" = "Inserisci un capitolo ogni";
 
@@ -303,9 +294,6 @@ Undo tag insert. */
 
 /* No comment provided by engineer. */
 "Month" = "Mese";
-
-/* Undo cover art delete */
-"Move" = "Muovi";
 
 /* Queue -> move add item. */
 "Move Queue Item" = "sposta elemento coda";
