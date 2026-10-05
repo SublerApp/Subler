@@ -104,7 +104,7 @@ enum Prefs {
                                _audioBitrate, _audioDRC, _audioConvertAC3, _audioKeepAC3, _audioConvertDts,
                                _audioDtsOptions, _subtitleConvertBitmap, _ratingsCountry, _chaptersPreviewPosition,
                                _chaptersPreviewTrack, _mp464bitOffset, _mp464bitTimes, _mp4SaveAsOptimize, _forceHvc1,
-                               _logFormat, _saveAsLocation])
+                               _logFormat, _saveAsLocation, _set4KHDVideoMetadata])
     }
 
     @Stored(key: "NSApplicationCrashOnException", defaultValue: true)
@@ -175,6 +175,9 @@ enum Prefs {
 
     @Stored(key: "SBForceHvc1", defaultValue: true)
     static var forceHvc1: Bool
+
+    @Stored(key: "SBSet4KHDVideoMetadata", defaultValue: false)
+    static var set4KHDVideoMetadata: Bool
 
     @Stored(key: "SBArtworkSelectorZoomLevel", defaultValue: 50)
     static var artworkSelectorZoomLevel: Float
