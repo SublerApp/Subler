@@ -159,7 +159,10 @@ class PresetPrefsViewController: NSViewController, SectionsTableViewDataSource, 
             }
         }
 
-        tableView.selectRowIndexes(rowIndexes, byExtendingSelection: false)
+        let count = presetManager.metadataPresets.count + presetManager.queuePresets.count
+        if let index = rowIndexes.last, index < count {
+            tableView.selectRowIndexes(rowIndexes, byExtendingSelection: false)
+        }
     }
 
     @IBAction func editPreset(_ sender: NSView) {

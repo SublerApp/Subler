@@ -415,8 +415,8 @@ import MP42Foundation
 
         statusInternal = QueueItem.Status(rawValue: Int(aDecoder.decodeInt32(forKey: "SBQueueItemStatus"))) ?? .failed
         mp4File = aDecoder.decodeObject(of: [MP42File.classForCoder()], forKey: "SBQueueItemMp4File") as? MP42File
-        uniqueID = aDecoder.decodeObject(of: [NSString.classForCoder()], forKey: "SBQueueItemID") as! String
-        attributes = aDecoder.decodeObject(of: [NSDictionary.classForCoder(), NSString.classForCoder(), NSNumber.classForCoder()], forKey: "SBQueueItemAttributes") as! [String : Any]
+        uniqueID = aDecoder.decodeObject(of: [NSString.classForCoder()], forKey: "SBQueueItemID") as? String ?? UUID().uuidString
+        attributes = aDecoder.decodeObject(of: [NSDictionary.classForCoder(), NSString.classForCoder(), NSNumber.classForCoder()], forKey: "SBQueueItemAttributes") as? [String : Any] ?? [:]
 
         #if SB_SANDBOX
         if var bookmark = aDecoder.decodeObject(of: [NSData.classForCoder()], forKey: "SBQueueItemFileURLBookmark") as? Data {
@@ -449,8 +449,14 @@ import MP42Foundation
             return nil
         }
         #else
-        fileURL = aDecoder.decodeObject(of: [NSURL.classForCoder()], forKey: "SBQueueItemFileURL") as! URL
-        destURLInternal = aDecoder.decodeObject(of: [NSURL.classForCoder()], forKey: "SBQueueItemDestURL") as! URL
+        if let fileURL = aDecoder.decodeObject(of: [NSURL.classForCoder()], forKey: "SBQueueItemFileURL") as? URL,
+           let destURLInternal = aDecoder.decodeObject(of: [NSURL.classForCoder()], forKey: "SBQueueItemDestURL") as? URL {
+            self.fileURL = fileURL
+            self.destURLInternal = destURLInternal
+        } else {
+            return nil
+        }
+
         #endif
 
         actionsInternal = aDecoder.decodeObject(of: [NSArray.classForCoder(), QueueSetAction.classForCoder(),
@@ -460,7 +466,8 @@ import MP42Foundation
                                                      QueueRenameChaptersAction.classForCoder(),
                                                      QueueOrganizeGroupsAction.classForCoder(), QueueColorSpaceAction.classForCoder(),
                                                      QueueSetOutputFilenameAction.classForCoder(), QueueClearExistingMetadataAction.classForCoder(),
-                                                     QueueOptimizeAction.classForCoder(), QueueSendToiTunesAction.classForCoder()], forKey: "SBQueueItemActions") as! [QueueActionProtocol]
+                                                     QueueOptimizeAction.classForCoder(), QueueSendToiTunesAction.classForCoder(),
+                                                     QueueChangeAudioLanguageAction.classForCoder(), QueueChangeSubtitleLanguageAction.classForCoder()], forKey: "SBQueueItemActions") as? [QueueActionProtocol] ?? []
     }
 }
 
