@@ -76,7 +76,7 @@ import MP42Foundation
         if let fileSize = value?.fileSize, fileSize > 3800000000 {
             attributes[MP4264BitData] = true
         }
-
+      
         if Prefs.chaptersPreviewTrack {
             attributes[MP42GenerateChaptersPreviewTrack] = true
             attributes[MP42ChaptersPreviewPosition] = Prefs.chaptersPreviewPosition
@@ -463,7 +463,7 @@ import MP42Foundation
                                                      QueueMetadataAction.classForCoder(), QueueSubtitlesAction.classForCoder(),
                                                      QueueSetLanguageAction.classForCoder(), QueueFixFallbacksAction.classForCoder(),
                                                      QueueClearTrackNameAction.classForCoder(), QueuePrettifyAudioTrackNameAction.classForCoder(),
-                                                     QueueRenameChaptersAction.classForCoder(),
+                                                     QueueRenameChaptersAction.classForCoder(), QueueAddChaptersAction.classForCoder(),
                                                      QueueOrganizeGroupsAction.classForCoder(), QueueColorSpaceAction.classForCoder(),
                                                      QueueSetOutputFilenameAction.classForCoder(), QueueClearExistingMetadataAction.classForCoder(),
                                                      QueueOptimizeAction.classForCoder(), QueueSendToiTunesAction.classForCoder(),

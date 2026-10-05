@@ -18,6 +18,33 @@ private extension String {
 
 extension MP42File {
 
+    enum ChaptersInsertPolicy: Int {
+        case replace = 0
+        case merge = 1
+    }
+
+    func addChapters(everyMinutes minutes: Int, policy: ChaptersInsertPolicy = .merge) {
+        let track: MP42ChapterTrack = chapters ?? {
+            let track = MP42ChapterTrack()
+            addTrack(track)
+            return track
+        }()
+
+        if policy == .replace, track.chapterCount() > 0 {
+            track.removeChapters(at: IndexSet(integersIn: 0..<Int(track.chapterCount())))
+        }
+
+        let interval = minutes * 60 * 1000
+
+        if interval > 0 {
+            for (index, timestamp) in stride(from: 0, to: duration, by: interval).enumerated() {
+                track.addChapter("Chapter \(index + 1)", timestamp: UInt64(timestamp))
+            }
+        } else {
+            track.addChapter("Chapter 1", timestamp: 0)
+        }
+    }
+
     enum TrackHDType : Int {
         case hd720p = 1
         case hd1080p = 2
