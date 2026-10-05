@@ -46,8 +46,7 @@ final class Queue {
 
         do {
             let data = try Data(contentsOf: url)
-            let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
-            unarchiver.requiresSecureCoding = true
+            let unarchiver = try NSKeyedUnarchiver(forReadingFrom: data)
             if let decodedItems = try unarchiver.decodeTopLevelObject(of: [NSArray.classForCoder(), NSMutableArray.classForCoder(), QueueItem.classForCoder()], forKey: NSKeyedArchiveRootObjectKey) as? [QueueItem] {
                 items = decodedItems
             } else {
@@ -55,6 +54,7 @@ final class Queue {
             }
             unarchiver.finishDecoding()
         } catch {
+            self.logger.writeError(toLog: error)
             items = []
         }
 
@@ -63,13 +63,11 @@ final class Queue {
 
     func saveToDisk() throws {
         arrayQueue.sync {
-            let data = NSMutableData()
-            let archiver = NSKeyedArchiver(forWritingWith: data)
-            archiver.requiresSecureCoding = true
+            let archiver = NSKeyedArchiver(requiringSecureCoding: true)
             archiver.encode(items, forKey: NSKeyedArchiveRootObjectKey)
             archiver.finishEncoding()
 
-            data.write(to: url, atomically: true)
+            try? archiver.encodedData.write(to: url, options: [.atomic])
         }
     }
 

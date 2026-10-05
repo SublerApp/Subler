@@ -10,7 +10,8 @@ import AVFoundation
 
 final class ArtworkSelectorViewItemLabel : NSTextField {
 
-    @IBInspectable var highlightColor: NSColor = .alternateSelectedControlColor
+
+    @IBInspectable var highlightColor: NSColor = .alternateSelectedControlColor //.selectedContentBackgroundColor
     @IBInspectable var highlightTextColor: NSColor = .alternateSelectedControlTextColor
     @IBInspectable var cornerRadius: CGFloat = 3
 
@@ -162,7 +163,11 @@ final class ArtworkSelectorViewItemView: NSView {
 
         backgroundLayer.anchorPoint = CGPoint.zero
         backgroundLayer.position = CGPoint(x: 0, y: paddingBottom)
-        backgroundLayer.backgroundColor = NSColor.controlHighlightColor.cgColor
+        if #available(macOS 10.14, *) {
+            backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+        } else {
+            backgroundLayer.backgroundColor = NSColor.controlHighlightColor.cgColor
+        }
         backgroundLayer.cornerRadius = 8
         backgroundLayer.isHidden = true
         backgroundLayer.isOpaque = true
@@ -171,7 +176,11 @@ final class ArtworkSelectorViewItemView: NSView {
         emptyLayer.position = CGPoint(x: padding, y: padding + paddingBottom)
         emptyLayer.lineWidth = 3.0
         emptyLayer.lineDashPattern = [12,5]
-        emptyLayer.strokeColor = NSColor.secondarySelectedControlColor.cgColor
+        if #available(macOS 10.14, *) {
+            emptyLayer.strokeColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+        } else {
+            emptyLayer.strokeColor = NSColor.secondarySelectedControlColor.cgColor
+        }
         emptyLayer.fillColor = NSColor.windowBackgroundColor.cgColor
         emptyLayer.isOpaque = true
 
@@ -197,12 +206,21 @@ final class ArtworkSelectorViewItemView: NSView {
     }
 
     private func updateBackgroundColor() {
-        if #available(OSX 10.14, *) {
+        if #available(macOS 11, *) {
+            effectiveAppearance.performAsCurrentDrawingAppearance {
+                imageLayer.shadowColor = NSColor.labelColor.cgColor
+                backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+                emptyLayer.strokeColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+                emptyLayer.fillColor = NSColor.windowBackgroundColor.cgColor
+            }
+        } else {
             let saved = NSAppearance.current
             NSAppearance.current = effectiveAppearance
 
             imageLayer.shadowColor = NSColor.labelColor.cgColor
-            backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+            if #available(macOS 10.14, *) {
+                backgroundLayer.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+            }
             emptyLayer.strokeColor = NSColor.secondarySelectedControlColor.cgColor
             emptyLayer.fillColor = NSColor.windowBackgroundColor.cgColor
 
@@ -276,6 +294,9 @@ final class ArtworkSelectorViewItem: NSCollectionViewItem {
     override func viewDidLoad() {
         super.viewDidLoad()
         textField?.layer?.isOpaque = true
+        let recognizer = NSClickGestureRecognizer(target: self, action: #selector(handleGesture))
+        recognizer.numberOfClicksRequired = 2
+        self.view.addGestureRecognizer(recognizer)
     }
 
     private func updateLabels() {
@@ -337,11 +358,9 @@ final class ArtworkSelectorViewItem: NSCollectionViewItem {
 
     // MARK: Actions
 
-    override func mouseUp(with event: NSEvent) {
-        if event.clickCount > 1, let action = doubleAction {
+    @objc func handleGesture() {
+        if let action = doubleAction {
             target?.performSelector(onMainThread: action, with: nil, waitUntilDone: true)
-        } else {
-            super.mouseUp(with: event)
         }
     }
 

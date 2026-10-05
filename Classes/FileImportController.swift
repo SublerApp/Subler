@@ -455,6 +455,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
             case checkColumn?:
                 let cell = tableView.makeView(withIdentifier: checkColumn, owner:self) as? CheckBoxCellView
                 cell?.checkboxButton?.state = settings.checked ? .on : .off
+                cell?.checkboxButton?.isEnabled = settings.importable
                 return cell
 
             case trackIdColumn?:

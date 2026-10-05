@@ -1,0 +1,27 @@
+/* Class = "NSWindow"; title = "Queue"; ObjectID = "1"; */
+"1.title" = "任务队列";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Queue"; ObjectID = "7"; */
+"7.ibExternalAccessibilityDescription" = "任务队列";
+
+/* Class = "NSMenuItem"; title = "Reveal in Finder"; ObjectID = "8gi-57-i6u"; */
+"8gi-57-i6u.title" = "在访达中显示";
+
+/* Class = "NSTextFieldCell"; title = "Queue items"; ObjectID = "13"; */
+"13.title" = "队列项";
+
+/* Class = "NSMenuItem"; title = "Remove from queue"; ObjectID = "79"; */
+"79.title" = "从队列中移除";
+
+/* Class = "NSMenuItem"; title = "Remove completed items"; ObjectID = "86"; */
+"86.title" = "移除已完成项";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Info"; ObjectID = "o98-wM-YAQ"; */
+"o98-wM-YAQ.ibExternalAccessibilityDescription" = "简介";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Show item info"; ObjectID = "o98-wM-YAQ"; */
+"o98-wM-YAQ.ibShadowedToolTip" = "显示项目简介";
+
+/* Class = "NSMenuItem"; title = "Edit…"; ObjectID = "qHz-Zh-l5L"; */
+"qHz-Zh-l5L.title" = "编辑…";
+

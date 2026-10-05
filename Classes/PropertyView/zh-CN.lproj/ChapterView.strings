@@ -1,0 +1,21 @@
+/* Class = "NSTabViewItem"; label = "Chapters"; ObjectID = "11"; */
+"11.label" = "章节";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Chapters"; ObjectID = "22"; */
+"22.ibExternalAccessibilityDescription" = "章节";
+
+/* Class = "NSTableColumn"; headerCell.title = "Time"; ObjectID = "24"; */
+"24.headerCell.title" = "时间";
+
+/* Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "25"; */
+"25.headerCell.title" = "标题";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Delete selected chapter"; ObjectID = "31"; */
+"31.ibShadowedToolTip" = "删除所选章节";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add chapter"; ObjectID = "42"; */
+"42.ibShadowedToolTip" = "添加章节";
+
+/* Class = "NSMenuItem"; title = "Rename every chapter"; ObjectID = "SOg-Lz-v5L"; */
+"SOg-Lz-v5L.title" = "重命名所有章节";
+

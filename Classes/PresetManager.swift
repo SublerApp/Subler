@@ -117,12 +117,12 @@ final class PresetManager {
         let resourceValues = try fileURL.resourceValues(forKeys: [.isDirectoryKey])
         if resourceValues.isDirectory == false, let version = version(of: fileURL) {
             let data = try Data(contentsOf: fileURL)
-            let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
-            unarchiver.requiresSecureCoding = true
-            defer { unarchiver.finishDecoding() }
+            if let unarchiver = try? NSKeyedUnarchiver(forReadingFrom: data) {
+                defer { unarchiver.finishDecoding() }
 
-            if version == 2, let preset = try? unarchiver.decodeTopLevelObject(of: [MetadataPreset.self], forKey: NSKeyedArchiveRootObjectKey) as? MetadataPreset {
-                return preset
+                if version == 2, let preset = try? unarchiver.decodeTopLevelObject(of: [MetadataPreset.self], forKey: NSKeyedArchiveRootObjectKey) as? MetadataPreset {
+                    return preset
+                }
             }
         }
         throw LoadError.unsupportedFile
@@ -148,13 +148,11 @@ final class PresetManager {
     }
 
     private func save(preset: Preset) throws {
-        let data = NSMutableData()
-        let archiver = NSKeyedArchiver(forWritingWith: data)
-        archiver.requiresSecureCoding = true
+        let archiver = NSKeyedArchiver(requiringSecureCoding: true)
         archiver.encode(preset, forKey: NSKeyedArchiveRootObjectKey)
         archiver.finishEncoding()
 
-        try data.write(to: preset.fileURL, options: [.atomic])
+        try archiver.encodedData.write(to: preset.fileURL, options: [.atomic])
         preset.changed = false
     }
 

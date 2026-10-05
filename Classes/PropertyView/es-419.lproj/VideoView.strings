@@ -56,7 +56,7 @@
 "Fye-Hi-zqu.title" = "Grupo alternativo:";
 
 /* Class = "NSTextFieldCell"; title = "You should only change the video profile if you want to load the file onto one of the devices listed and have been unable to do so.  However, if the video file uses advanced features of the codec, then the file may still be unplayable on the device."; ObjectID = "gcL-yf-yxF"; */
-"gcL-yf-yxF.title" = "Debes cambiar el perfil de vídeo solo si quieres reproducir el archivo en uno de los dispositivos de la lista y no lo has logrado. Sin embargo, si el archivo de vídeo utiliza características avanzadas del códec, es posible que aún no puedas reproducirlo en el dispositivo.";
+"gcL-yf-yxF.title" = "Debes cambiar el perfil de video solo si quieres reproducir el archivo en uno de los dispositivos de la lista y no lo has logrado. Sin embargo, si el archivo de video utiliza características avanzadas del códec, es posible que aún no puedas reproducirlo en el dispositivo.";
 
 /* Class = "NSTextFieldCell"; title = "x"; ObjectID = "GfY-OY-SWL"; */
 "GfY-OY-SWL.title" = "x";
@@ -75,6 +75,9 @@
 
 /* Class = "NSTextFieldCell"; title = "x"; ObjectID = "ILN-KP-l0z"; */
 "ILN-KP-l0z.title" = "x";
+
+/* Class = "NSMenuItem"; title = "IPT-C2 (9-16-15)"; ObjectID = "J66-Ah-thQ"; */
+"J66-Ah-thQ.title" = "IPT-C2 (9-16-15)";
 
 /* Class = "NSMenuItem"; title = "No"; ObjectID = "KOg-FR-dr6"; */
 "KOg-FR-dr6.title" = "No";
@@ -107,7 +110,10 @@
 "nr0-Jc-cUj.title" = "Mantener relación de aspecto";
 
 /* Class = "NSTextFieldCell"; title = "H.264 Video Profile/Level:"; ObjectID = "nrd-22-FZl"; */
-"nrd-22-FZl.title" = "Perfil/Nivel del vídeo H.264:";
+"nrd-22-FZl.title" = "Perfil/Nivel del video H.264:";
+
+/* Class = "NSMenuItem"; title = "Undefined (2-2-2)"; ObjectID = "Pxl-vS-IAs"; */
+"Pxl-vS-IAs.title" = "No definido (2-2-2)";
 
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Aspect Ratio Numerator"; ObjectID = "Q0D-6k-Hgx"; */
 "Q0D-6k-Hgx.ibExternalAccessibilityDescription" = "Numerador de relación de aspecto";

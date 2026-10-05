@@ -20,7 +20,7 @@
 "104.title" = "Audio AC-3 a AAC";
 
 /* Class = "NSTextFieldCell"; title = "Downmix audio to:"; ObjectID = "114"; */
-"114.title" = "Audio Downmix a:";
+"114.title" = "Canales de salida:";
 
 /* Class = "NSMenuItem"; title = "Multi-Channel"; ObjectID = "118"; */
 "118.title" = "Multicanal";

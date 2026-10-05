@@ -1,0 +1,48 @@
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "4p7-7v-cUB"; */
+"4p7-7v-cUB.title" = "Salvar";
+
+/* Class = "NSTabViewItem"; label = "Metadata"; ObjectID = "11"; */
+"11.label" = "Tags";
+
+/* Class = "NSTabViewItem"; label = "Artwork"; ObjectID = "15"; */
+"15.label" = "Capa";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Add metadata item"; ObjectID = "30"; */
+"30.ibExternalAccessibilityDescription" = "Adicionar Tag";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Add a new metadata item"; ObjectID = "30"; */
+"30.ibShadowedToolTip" = "Adicionar Tag";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove selected item"; ObjectID = "53"; */
+"53.ibExternalAccessibilityDescription" = "Remover Tag";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove selected item"; ObjectID = "53"; */
+"53.ibShadowedToolTip" = "Remover Tag";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "179"; */
+"179.ibExternalAccessibilityDescription" = "Preset";
+
+/* Class = "NSButtonCell"; title = "Keep existing annotations"; ObjectID = "aiW-0y-PWH"; */
+"aiW-0y-PWH.title" = "Manter Tags Existentes";
+
+/* Class = "NSButtonCell"; title = "Keep existing artworks"; ObjectID = "doa-uZ-CNr"; */
+"doa-uZ-CNr.title" = "Manter Capas Existentes";
+
+/* Class = "NSTableColumn"; headerCell.title = "Annotation"; ObjectID = "j7q-XE-YXB"; */
+"j7q-XE-YXB.headerCell.title" = "Tag";
+
+/* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "os0-Yb-exW"; */
+"os0-Yb-exW.headerCell.title" = "Valor";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Metadata"; ObjectID = "qg5-r0-E4V"; */
+"qg5-r0-E4V.ibExternalAccessibilityDescription" = "Tags";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "sNX-Z3-AtD"; */
+"sNX-Z3-AtD.title" = "Cancelar";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "ZqF-j8-NeN"; */
+"ZqF-j8-NeN.title" = "Nome:";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "ZRj-hi-qeJ"; */
+"ZRj-hi-qeJ.title" = "Janela";
+

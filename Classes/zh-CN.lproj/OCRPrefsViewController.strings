@@ -1,0 +1,9 @@
+/* Class = "NSTableColumn"; headerCell.title = "Language data files"; ObjectID = "7YG-8f-1AH"; */
+"7YG-8f-1AH.headerCell.title" = "语言支持文件";
+
+/* Class = "NSButtonCell"; title = "Get"; ObjectID = "DIS-cU-NvL"; */
+"DIS-cU-NvL.title" = "获取";
+
+/* Class = "NSTextFieldCell"; title = "Language specific OCR data files can improve the optical character recognition results."; ObjectID = "LFI-zD-ohi"; */
+"LFI-zD-ohi.title" = "特定语言的 OCR 支持文件可以改善光学文字识别的结果";
+

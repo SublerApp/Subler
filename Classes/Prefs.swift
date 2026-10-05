@@ -26,13 +26,38 @@ struct Stored<T> : Registable {
     let key: String
     let defaultValue: T
 
-    init(key: String, defaultValue: T) {
-        self.key = key
-        self.defaultValue = defaultValue
-    }
-
     var wrappedValue: T {
         get { ud.object(forKey: key) as? T ?? defaultValue }
+        set { ud.set(newValue, forKey: key) }
+    }
+
+    func register(in dictionary: inout [String :Any]) {
+        dictionary[key] = defaultValue
+    }
+}
+
+@propertyWrapper
+struct StoredEnum<T: RawRepresentable> : Registable {
+    let key: String
+    let defaultValue: T
+
+    var wrappedValue: T {
+        get { T(rawValue: (ud.object(forKey: key) as? T.RawValue) ?? defaultValue.rawValue) ?? defaultValue }
+        set { ud.set(newValue.rawValue, forKey: key) }
+    }
+
+    func register(in dictionary: inout [String :Any]) {
+        dictionary[key] = defaultValue.rawValue
+    }
+}
+
+@propertyWrapper
+struct StoredURL : Registable {
+    let key: String
+    let defaultValue: URL?
+
+    var wrappedValue: URL? {
+        get { ud.url(forKey: key) ?? defaultValue }
         set { ud.set(newValue, forKey: key) }
     }
 
@@ -45,11 +70,6 @@ struct Stored<T> : Registable {
 struct StoredCodable<T: Codable> : Registable {
     let key: String
     let defaultValue: T
-
-    init(key: String, defaultValue: T) {
-        self.key = key
-        self.defaultValue = defaultValue
-    }
 
     var wrappedValue: T {
         get {
@@ -70,6 +90,12 @@ struct StoredCodable<T: Codable> : Registable {
     }
 }
 
+enum SaveAsLocation: Int {
+    case automatic = 0
+    case sameAsFile = 1
+    case custom = 2
+}
+
 enum Prefs {
 
     static func register() {
@@ -78,7 +104,7 @@ enum Prefs {
                                _audioBitrate, _audioDRC, _audioConvertAC3, _audioKeepAC3, _audioConvertDts,
                                _audioDtsOptions, _subtitleConvertBitmap, _ratingsCountry, _chaptersPreviewPosition,
                                _chaptersPreviewTrack, _mp464bitOffset, _mp464bitTimes, _mp4SaveAsOptimize, _forceHvc1,
-                               _logFormat])
+                               _logFormat, _saveAsLocation, _set4KHDVideoMetadata])
     }
 
     @Stored(key: "NSApplicationCrashOnException", defaultValue: true)
@@ -150,6 +176,9 @@ enum Prefs {
     @Stored(key: "SBForceHvc1", defaultValue: true)
     static var forceHvc1: Bool
 
+    @Stored(key: "SBSet4KHDVideoMetadata", defaultValue: false)
+    static var set4KHDVideoMetadata: Bool
+
     @Stored(key: "SBArtworkSelectorZoomLevel", defaultValue: 50)
     static var artworkSelectorZoomLevel: Float
 
@@ -161,6 +190,13 @@ enum Prefs {
 
     @Stored(key: "SBLogFormat", defaultValue: 0)
     static var logFormat: Int  // 0 = Time Only, 1 = Date and Time
+
+    @StoredEnum(key: "SBSaveAsLocationMode", defaultValue: .automatic)
+    static var saveAsLocation: SaveAsLocation
+
+    /// The folder used when saveAsLocation is set to custom.
+    @StoredURL(key: "SBSaveAsCustomLocation", defaultValue: nil)
+    static var saveAsCustomLocation: URL?
 }
 
 enum MetadataPrefs {
@@ -170,7 +206,8 @@ enum MetadataPrefs {
                                _movieImporter, _movieiTunesStoreLanguage,
                                _tvShowImporter, _tvShowiTunesStoreLanguage,
                                _tvShowTheTVDBLanguage, _tvShowTheMovieDBLanguage,
-                               _keepEmptyAnnotations, _keepImportedFilesMetadata])
+                               _keepEmptyAnnotations, _overwriteExistingAnnotations,
+                               _keepImportedFilesMetadata])
     }
 
     @StoredCodable(key: "SBMovieFormatTokens", defaultValue: [Token(text: "{Name}")])
@@ -218,6 +255,9 @@ enum MetadataPrefs {
 
     @Stored(key: "SBMetadataKeepEmptyAnnotations", defaultValue: false)
     static var keepEmptyAnnotations: Bool
+
+    @Stored(key: "SBMetadataOverwriteExistingAnnotations", defaultValue: true)
+    static var overwriteExistingAnnotations: Bool
 
     @Stored(key: "SBFileImporterImportMetadata", defaultValue: false)
     static var keepImportedFilesMetadata: Bool

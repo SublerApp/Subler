@@ -1,5 +1,5 @@
-/* Class = "NSButtonCell"; title = "Load more artwork..."; ObjectID = "40h-Rv-m31"; */
-"40h-Rv-m31.title" = "Carica più illustrazioni…";
+/* Class = "NSButtonCell"; title = "Load more artworks"; ObjectID = "40h-Rv-m31"; */
+"40h-Rv-m31.title" = "Carica più illustrazioni";
 
 /* Class = "NSSlider"; ibExternalAccessibilityDescription = "Zoom"; ObjectID = "fMj-Ew-Qej"; */
 "fMj-Ew-Qej.ibExternalAccessibilityDescription" = "Ingrandisci";

@@ -1,0 +1,9 @@
+/* Class = "NSTableColumn"; headerCell.title = "Language data files"; ObjectID = "7YG-8f-1AH"; */
+"7YG-8f-1AH.headerCell.title" = "Arquivos de dados de idioma";
+
+/* Class = "NSButtonCell"; title = "Get"; ObjectID = "DIS-cU-NvL"; */
+"DIS-cU-NvL.title" = "Obter";
+
+/* Class = "NSTextFieldCell"; title = "Language specific OCR data files can improve the optical character recognition results."; ObjectID = "LFI-zD-ohi"; */
+"LFI-zD-ohi.title" = "Os arquivos de dados OCR específicos do idioma podem melhorar os resultados do reconhecimento óptico de caracteres.";
+

@@ -37,9 +37,6 @@
 /* Class = "NSTextFieldCell"; title = "Season #"; ObjectID = "kz7-mH-DuT"; */
 "kz7-mH-DuT.title" = "# Stagione";
 
-/* Class = "NSTextFieldCell"; title = "TV Show:"; ObjectID = "lE4-J1-ySV"; */
-"lE4-J1-ySV.title" = "Serie TV:";
-
 /* Class = "NSMenuItem"; title = "iTunes Store"; ObjectID = "nn6-mR-Bh1"; */
 "nn6-mR-Bh1.title" = "iTunes Store";
 
@@ -54,9 +51,6 @@
 
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Metadata provider"; ObjectID = "UTG-O0-5RG"; */
 "UTG-O0-5RG.ibExternalAccessibilityDescription" = "Provider metadata";
-
-/* Class = "NSTextFieldCell"; title = "Movie:"; ObjectID = "uyt-vh-nv6"; */
-"uyt-vh-nv6.title" = "Film:";
 
 /* Class = "NSTableColumn"; headerCell.title = "Annotation"; ObjectID = "XgL-ec-DEt"; */
 "XgL-ec-DEt.headerCell.title" = "Annotazione";

@@ -1,0 +1,21 @@
+/* Class = "NSButton"; ibShadowedToolTip = "Note: don't use this option if you are not sure of what it is doing, it's not needed in almost every case.\nEnable 64bit timescale and duration support. Normally, it's only needed if a track will be longer than 10 hours."; ObjectID = "3CX-Vp-T0h"; */
+"3CX-Vp-T0h.ibShadowedToolTip" = "注意：如果不确定该选项的作用，请不要使用此选项，几乎在每种情况下都不需要使用此选项。\n启用64位时标和持续时间支持：通常，仅当时长超过10小时才需要。";
+
+/* Class = "NSButtonCell"; title = "64 bits chunk offset"; ObjectID = "14x-xv-HKI"; */
+"14x-xv-HKI.title" = "64位块偏移";
+
+/* Class = "NSTextFieldCell"; title = "Options:"; ObjectID = "BXP-AU-x3T"; */
+"BXP-AU-x3T.title" = "选项：";
+
+/* Class = "NSTextFieldCell"; title = "File Format:"; ObjectID = "caN-zU-chS"; */
+"caN-zU-chS.title" = "文件格式：";
+
+/* Class = "NSButtonCell"; title = "64 bits times"; ObjectID = "DCI-a5-K73"; */
+"DCI-a5-K73.title" = "64位时间";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Needed for mp4 larger than 4GB."; ObjectID = "emp-1S-F7H"; */
+"emp-1S-F7H.ibShadowedToolTip" = "当 mp4 文件超过 4GB 时需要此项";
+
+/* Class = "NSButtonCell"; title = "Optimize"; ObjectID = "OZC-sc-82O"; */
+"OZC-sc-82O.title" = "优化";
+

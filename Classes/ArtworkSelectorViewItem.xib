@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24127" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="25098" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24127"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="25098"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="128" height="171"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wkh-6c-0tU" customClass="ArtworkSelectorViewItemLabel" customModule="Subler" customModuleProvider="target">
+                <textField wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wkh-6c-0tU" customClass="ArtworkSelectorViewItemLabel" customModule="Subler" customModuleProvider="target">
                     <rect key="frame" x="-4" y="17" width="136" height="15"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="center" title="Label" usesSingleLineMode="YES" id="TsL-Ak-xnf">
                         <font key="font" metaFont="cellTitle"/>
@@ -27,7 +27,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGU-Kh-WjD">
+                <textField wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGU-Kh-WjD">
                     <rect key="frame" x="-4" y="4" width="136" height="13"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" alignment="center" title="Label" usesSingleLineMode="YES" id="ggX-Q2-CZ0">
                         <font key="font" metaFont="system" size="10"/>
@@ -40,7 +40,6 @@
                 <constraint firstItem="fGU-Kh-WjD" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="-2" id="0Wf-6t-6Lg"/>
                 <constraint firstAttribute="trailing" secondItem="Wkh-6c-0tU" secondAttribute="trailing" constant="-2" id="9df-FA-2lX"/>
                 <constraint firstAttribute="bottom" secondItem="Wkh-6c-0tU" secondAttribute="bottom" constant="17" id="EOh-x3-ntT"/>
-                <constraint firstItem="Wkh-6c-0tU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="HaR-VX-NRg"/>
                 <constraint firstAttribute="bottom" secondItem="fGU-Kh-WjD" secondAttribute="bottom" constant="4" id="Xx6-ak-lcw"/>
                 <constraint firstItem="Wkh-6c-0tU" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="-2" id="cPi-y8-nFz"/>
                 <constraint firstAttribute="trailing" secondItem="fGU-Kh-WjD" secondAttribute="trailing" constant="-2" id="fLm-DU-mGT"/>

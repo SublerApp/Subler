@@ -79,8 +79,11 @@
 /* Quit alert title. */
 "Are you sure you want to quit Subler?" = "¿De verdad quieres salir de Subler?";
 
-/* No comment provided by engineer. */
-"artistID" = "Id del artista";
+/* nil */
+"artistID" = "ID del artista";
+
+/* Toolbar */
+"At the Beginning" = "Al principio";
 
 /* No comment provided by engineer. */
 "Audiobook" = "Audiolibro";
@@ -100,7 +103,7 @@
 /* No comment provided by engineer. */
 "Capitalize" = "Mayúscula inicial";
 
-/* No comment provided by engineer. */
+/* nil */
 "Cast" = "Reparto";
 
 /* No comment provided by engineer. */
@@ -110,7 +113,7 @@
 "Clear Metadata" = "Borrar metadatos";
 
 /* Action description
-   Toolbar */
+Toolbar */
 "Clear tracks names" = "Limpiar nombres de pistas";
 
 /* Action localized description. */
@@ -119,45 +122,48 @@
 /* Action localized description */
 "Clearing tracks names" = "Limpiando nombres de pistas";
 
-/* No comment provided by engineer. */
-"Composer" = "Compositor";
+/* nil */
+"Composer" = "Composición";
 
 /* Media characteristic. */
 "Contains Only Forced Subtitles" = "Contiene solo subtítulos forzados";
 
-/* No comment provided by engineer. */
-"contentID" = "Id del contenido";
+/* nil */
+"contentID" = "ID del contenido";
 
-/* No comment provided by engineer. */
+/* nil */
 "Copyright" = "Copyright";
 
 /* No comment provided by engineer. */
 "Current profile:" = "Perfil actual:";
 
 /* No comment provided by engineer. */
+"Date and Time" = "Fecha y hora";
+
+/* No comment provided by engineer. */
 "Day" = "Día";
 
 /* Toolbar
-   Undo cover art delete
-   Undo tag delete. */
+Undo cover art delete
+Undo tag delete. */
 "Delete" = "Eliminar";
 
 /* Toolbar */
 "Delete the selected track" = "Eliminar pista seleccionada";
 
 /* Media characteristic. */
-"Describes Music And Sound For Accessibility" = "Describe la música y el sonido para la accesibilidad";
+"Describes Music And Sound For Accessibility" = "Describe la música y el sonido para accesibilidad";
 
 /* Media characteristic. */
-"Describes Video For Accessibility" = "Describe el vídeo para la accesibilidad";
+"Describes Video For Accessibility" = "Describe el video para accesibilidad";
 
-/* No comment provided by engineer. */
+/* nil */
 "Description" = "Descripción";
 
-/* No comment provided by engineer. */
-"Director" = "Director";
+/* nil */
+"Director" = "Dirección";
 
-/* No comment provided by engineer. */
+/* nil */
 "Disk #" = "Disco nro.";
 
 /* Donation -> button */
@@ -185,7 +191,7 @@
 "Downloading artworks…" = "Descargando ilustraciones…";
 
 /* Media characteristic. */
-"Dubbed Translation" = "Traducción doblada";
+"Dubbed Translation" = "Traducción de doblaje";
 
 /* Media characteristic. */
 "Easy To Read" = "Fácil de leer";
@@ -193,14 +199,25 @@
 /* Undo tag editing. */
 "Editing" = "Edición";
 
-/* No comment provided by engineer. */
+/* Enable audio track action description
+Enable audio track local description */
+"Enabling audio track with selected language" = "Habilitando la pista de audio con el idioma seleccionado";
+
+/* Enable subtitles track action description
+Enable subtitles track local description */
+"Enabling subtitles track with selected language" = "Habilitando la pista de subtítulos con el idioma seleccionado";
+
+/* Media characteristic. */
+"Enhances speech intelligibility" = "Mejora la inteligibilidad del habla";
+
+/* nil */
 "Episode #" = "Episodio nro.";
 
-/* No comment provided by engineer. */
-"Episode ID" = "Id del episodio";
+/* nil */
+"Episode ID" = "ID del episodio";
 
-/* No comment provided by engineer. */
-"Executive Producer" = "Productor ejecutivo";
+/* nil */
+"Executive Producer" = "Producción ejecutiva";
 
 /* No comment provided by engineer. */
 "Explicit" = "Explícito";
@@ -226,14 +243,14 @@
 /* No comment provided by engineer. */
 "General" = "General";
 
-/* No comment provided by engineer. */
+/* nil */
 "Genre" = "Género";
 
 /* No comment provided by engineer. */
 "Get" = "Obtener";
 
 /* No comment provided by engineer. */
-"Home Video" = "Vídeo casero";
+"Home Video" = "Video casero";
 
 /* Implicit color profile */
 "Implicit" = "Implícito";
@@ -245,19 +262,22 @@
 "Import tracks from external files" = "Importar pistas desde archivo externo";
 
 /* Undo cover art insert.
-   Undo tag insert. */
+Undo tag insert. */
 "Insert" = "insertar";
 
 /* Toolbar */
 "Insert a chapter every" = "Insertar un capítulo cada";
 
-/* No comment provided by engineer. */
+/* color profile */
+"IPT-C2 (9-16-15)" = "IPT-C2 (9-16-15)";
+
+/* nil */
 "iTunes Country" = "País de iTunes";
 
 /* No comment provided by engineer. */
 "iTunes U" = "iTunes U";
 
-/* No comment provided by engineer. */
+/* nil */
 "iTunes URL" = "URL de iTunes";
 
 /* Media characteristic. */
@@ -272,7 +292,7 @@
 /* Action localized description. */
 "Loading subtitles" = "Cargando subtítulos";
 
-/* No comment provided by engineer. */
+/* nil */
 "Long Description" = "Descripción completa";
 
 /* No comment provided by engineer. */
@@ -283,6 +303,9 @@
 
 /* No comment provided by engineer. */
 "Metadata" = "Metadatos";
+
+/* No comment provided by engineer. */
+"Mono Audio" = "Audio mono";
 
 /* No comment provided by engineer. */
 "Month" = "Mes";
@@ -305,10 +328,10 @@
 /* No comment provided by engineer. */
 "na" = "na";
 
-/* No comment provided by engineer. */
+/* nil */
 "Name" = "Título";
 
-/* No comment provided by engineer. */
+/* nil */
 "Network" = "Cadena de TV";
 
 /* No comment provided by engineer. */
@@ -350,6 +373,9 @@
 /* Organize Groups action local description */
 "Organizing groups" = "Organizando grupos";
 
+/* Media characteristic. */
+"Original Content" = "Contenido original";
+
 /* color profile */
 "P3-D65 (12-17-6)" = "P3-D65 (12-17-6)";
 
@@ -359,8 +385,8 @@
 /* File Import action menu item. */
 "Passthru" = "Passthru";
 
-/* No comment provided by engineer. */
-"playlistID" = "Id de la playlist";
+/* nil */
+"playlistID" = "ID de la playlist";
 
 /* No comment provided by engineer. */
 "Please enter a different name for the preset." = "Por favor, ingresa un nombre diferente para el preset.";
@@ -375,14 +401,14 @@
 "Podcast" = "Podcast";
 
 /* Action description
-   Toolbar */
+Toolbar */
 "Prettify audio track names" = "Mejorar nombres de pistas de audio";
 
 /* Action localized description */
 "Prettifying audio track names" = "Mejorando nombres de pistas de audio";
 
-/* No comment provided by engineer. */
-"Producers" = "Productores";
+/* nil */
+"Producers" = "Producción";
 
 /* Toolbar */
 "Queue" = "Cola";
@@ -393,7 +419,7 @@
 /* Quit alert default action. */
 "Quit" = "Salir";
 
-/* No comment provided by engineer. */
+/* nil */
 "Rating" = "Clasificación";
 
 /* color profile */
@@ -414,7 +440,7 @@
 /* color profile */
 "Rec. 2100 PQ (9-16-9)" = "Rec. 2100 PQ (9-16-9)";
 
-/* No comment provided by engineer. */
+/* nil */
 "Release Date" = "Fecha de lanzamiento";
 
 /* No comment provided by engineer. */
@@ -429,11 +455,14 @@
 /* Set menu */
 "Save Set…" = "Guardar preset…";
 
-/* No comment provided by engineer. */
-"Screenwriters" = "Guionistas";
+/* Document Save sheet. */
+"Saving…" = "Guardando…";
+
+/* nil */
+"Screenwriters" = "Guión";
 
 /* Action description.
-   Toolbar */
+Toolbar */
 "Search Metadata" = "Buscar metadatos";
 
 /* Toolbar */
@@ -454,11 +483,11 @@
 /* No comment provided by engineer. */
 "Searching…" = "Buscando…";
 
-/* No comment provided by engineer. */
+/* nil */
 "Season" = "Temporada";
 
 /* Toolbar */
-"Send the current document to the queue" = "Enviar documento actual a la cola";
+"Send the current document to the queue" = "Enviar el archivo actual a la cola";
 
 /* Action description. */
 "Send to iTunes" = "Agregar a iTunes";
@@ -470,19 +499,25 @@
 "Send To Queue" = "Enviar a la cola";
 
 /* Send to tv app menu item */
-"Send to TV" = "Agregar a TV";
+"Send to TV" = "Agregar a Apple TV";
 
 /* Action localized description. */
 "Sending to iTunes" = "Agregando a iTunes";
 
-/* No comment provided by engineer. */
+/* nil */
 "Series Description" = "Descripción del programa";
 
-/* No comment provided by engineer. */
+/* nil */
 "Series Name" = "Programa";
 
-/* No comment provided by engineer. */
-"Service ID" = "Id del servicio";
+/* nil */
+"Service Additional Content ID" = "ID del contenido adicional del servicio";
+
+/* nil */
+"Service Content ID" = "ID del contenido del servicio";
+
+/* nil */
+"Service Episode ID" = "ID del episodio del servicio";
 
 /* Set track color space action description */
 "Set color space" = "Asignar espacio de color";
@@ -509,6 +544,9 @@
 "Settings" = "Configuración";
 
 /* Toolbar */
+"Show the Queue window" = "Mostrar ventana de cola";
+
+/* Toolbar */
 "Show/Hide settings" = "Mostrar/Ocultar configuración";
 
 /* No comment provided by engineer. */
@@ -520,17 +558,29 @@
 /* Toolbar */
 "Start" = "Iniciar";
 
+/* Main Menu -> Start Queue */
+"Start Queue" = "Iniciar cola";
+
 /* Toolbar */
 "Start/Stop queue" = "Iniciar/Detener cola";
 
-/* Toolbar */
-"Stop" = "Stop";
-
 /* No comment provided by engineer. */
+"Stereo Audio" = "Audio estéreo";
+
+/* Toolbar */
+"Stop" = "Detener";
+
+/* Main Menu -> Stop Queue */
+"Stop Queue" = "Detener cola";
+
+/* nil */
 "Studio" = "Estudio";
 
 /* Donation -> title */
 "Support Subler" = "Apoyar a Subler";
+
+/* No comment provided by engineer. */
+"Surround Audio" = "Audio envolvente";
 
 /* QueueItem Error */
 "The file couldn't be optimized." = "El archivo no pudo ser optimizado.";
@@ -545,13 +595,16 @@
 "There was a problem creating the file " = "Hubo un problema al crear el archivo ";
 
 /* No comment provided by engineer. */
+"Time Only" = "Solo hora";
+
+/* nil */
 "Track #" = "Pista nro.";
 
 /* No comment provided by engineer. */
 "train-case" = "train-case";
 
 /* Media characteristic. */
-"Transcribes Spoken Dialog For Accessibility" = "Transcribe el diálogo hablado para la accesibilidad";
+"Transcribes Spoken Dialog For Accessibility" = "Transcribe el diálogo hablado para accesibilidad";
 
 /* QueueItem Error */
 "Try to use another name for the destination file." = "Intenta usar otro nombre para el archivo de destino.";
@@ -561,6 +614,9 @@
 
 /* File Import action menu item. */
 "Tx3g" = "Tx3g";
+
+/* color profile */
+"Undefined (2-2-2)" = "No definido (2-2-2)";
 
 /* No comment provided by engineer. */
 "Unknown" = "Desconocido";
@@ -584,5 +640,5 @@
 "Year" = "Año";
 
 /* Quit alert description. */
-"Your current queue will be lost. Do you want to quit anyway?" = "La cola actual se perderá. ¿De verdad quieres salir?";
+"Your current queue will be lost. Do you want to quit anyway?" = "La cola actual se perderá. ¿Quieres salir de todos modos?";
 

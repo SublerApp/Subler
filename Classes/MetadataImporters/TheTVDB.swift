@@ -38,7 +38,7 @@ public struct TheTVDB : MetadataService {
         var results: Set<String> = Set()
 
         let series = session.fetch(series: tvShow)
-        results.formUnion(series.compactMap { $0.translations?[language] } )
+        results.formUnion(series.compactMap { $0.translations?[language] ?? $0.name } )
 
         if results.isEmpty {
             return TheMovieDB().search(tvShow: tvShow, language: language)
@@ -49,8 +49,9 @@ public struct TheTVDB : MetadataService {
 
     // MARK: - TV Series ID search
 
-    private func match(series: TVDBSearchResult, name: String) -> Bool {
-        if let seriesName = series.name, seriesName.caseInsensitiveCompare(name) == .orderedSame  {
+    private func match(series: TVDBSearchResult, name: String, language: String) -> Bool {
+        if let seriesName = series.translations?[language] ?? series.name,
+           seriesName.caseInsensitiveCompare(name) == .orderedSame  {
             return true
         }
 
@@ -65,12 +66,16 @@ public struct TheTVDB : MetadataService {
         return false
     }
 
-    private func searchIDs(seriesName: String) -> [String] {
+    private func searchIDs(seriesName: String, language: String) -> [String] {
         let series = session.fetch(series: seriesName)
         let sorted = series.sorted { el1, el2 -> Bool in
-            return el1.name?.caseInsensitiveCompare(seriesName) == .orderedSame ? true : false
+            let name = el1.translations?[language] ?? el1.name
+            let order = name?.caseInsensitiveCompare(seriesName)
+            return order == .orderedSame ? true : false
         }
-        let filteredSeries = sorted.filter { $0.status?.isEmpty == false && match(series: $0, name: seriesName) }.map { $0.tvdb_id }
+        let filteredSeries = sorted.filter {
+            $0.status?.isEmpty == false && match(series: $0, name: seriesName, language: language)
+        }.map { $0.tvdb_id }
 
         if filteredSeries.isEmpty == false {
             return filteredSeries
@@ -148,8 +153,8 @@ public struct TheTVDB : MetadataService {
                 size = .square
             case (let width, let height) where width >= height:
                 size = .rectangle
-            case (let width, let height) where height < width:
-                size = .default
+            case (let width, let height) where height > width:
+                size = .standard
             default:
                 break
             }
@@ -196,8 +201,8 @@ public struct TheTVDB : MetadataService {
                 size = .square
             case (let width, let height) where width >= height:
                 size = .rectangle
-            case (let width, let height) where height < width:
-                size = .default
+            case (let width, let height) where height > width:
+                size = .standard
             default:
                 break
             }
@@ -339,7 +344,7 @@ public struct TheTVDB : MetadataService {
     // MARK: - TV Search
 
     public func search(tvShow: String, language: String, season: Int?, episode: Int?) -> [MetadataResult] {
-        let seriesIDs: [String] = self.searchIDs(seriesName: tvShow)
+        let seriesIDs: [String] = self.searchIDs(seriesName: tvShow, language: language)
 
         for id in seriesIDs {
             if let info = session.fetch(seriesInfo: id) {
@@ -366,16 +371,6 @@ public struct TheTVDB : MetadataService {
     }
 
     // MARK: - Additional metadata
-
-    private func loadiTunesArtwork(_ metadata: MetadataResult) -> [Artwork] {
-        guard let name = metadata[.seriesName] as? String,
-            let seasonNum = metadata[.season] as? Int,
-            let episodeNum = metadata[.episodeNumber] as? Int,
-            let result =  iTunesStore.quickiTunesSearch(tvSeriesName: name, seasonNum: seasonNum, episodeNum: episodeNum)
-            else { return [] }
-
-        return result.remoteArtworks
-    }
 
     private func loadSquareTVArtwork(_ metadata: MetadataResult) -> [Artwork] {
         guard let tvShow = metadata[.seriesName] as? String,
@@ -419,11 +414,8 @@ public struct TheTVDB : MetadataService {
 
         // Get additionals images
         if ((metadata[.season] as? Int) != nil) {
-            var iTunesImage = [Artwork](), appleTV = [Artwork](), squareTVArt = [Artwork]()
+            var appleTV = [Artwork](), squareTVArt = [Artwork]()
             let group = DispatchGroup()
-            DispatchQueue.global().async(group: group) {
-                iTunesImage = self.loadiTunesArtwork(metadata)
-            }
             DispatchQueue.global().async(group: group) {
                 squareTVArt = self.loadSquareTVArtwork(metadata)
             }
@@ -432,12 +424,12 @@ public struct TheTVDB : MetadataService {
             }
             group.wait()
 
-            artworks.insert(contentsOf: iTunesImage, at: 0)
             artworks.insert(contentsOf: squareTVArt, at: 0)
             artworks.insert(contentsOf: appleTV, at: 0)
         }
 
         metadata.remoteArtworks.insert(contentsOf: artworks, at: 0)
+        metadata.remoteArtworks.sortTopPicks(service: self.name)
 
         return metadata
     }
@@ -465,6 +457,7 @@ public struct TheTVDB : MetadataService {
 
     public func loadMovieMetadata(_ metadata: MetadataResult, language: String) -> MetadataResult {
         guard let movieID = metadata[.serviceContentID] as? String,
+              let name = metadata[.name] as? String,
               let info = session.fetch(movieInfo: movieID)
             else { return metadata }
 
@@ -484,28 +477,20 @@ public struct TheTVDB : MetadataService {
         var artworks: [Artwork] = []
         artworks += cleanArtworks(info.artworks)
 
-        var iTunesImage = [Artwork](), appleTV = [Artwork]()
+        var appleTV = [Artwork]()
         let group = DispatchGroup()
         let queue = DispatchQueue.global()
 
         queue.async(group: group) {
-            // add iTunes artwork
-            if let iTunesMetadata = iTunesStore.quickiTunesSearch(movieName: info.name) {
-                iTunesImage = iTunesMetadata.remoteArtworks
-            }
-        }
-
-        queue.async(group: group) {
            if let store = iTunesStore.Store(language: "USA (English)") {
-               appleTV = AppleTV().searchArtwork(term: info.name, store: store, type: .movie)
+               appleTV = AppleTV().searchArtwork(term: name, store: store, type: .movie)
             }
         }
         group.wait()
 
-        artworks.insert(contentsOf: iTunesImage, at: 0)
         artworks.insert(contentsOf: appleTV, at: 0)
 
-        metadata.remoteArtworks = artworks
+        metadata.remoteArtworks = artworks.sortedTopPicks(service: self.name)
 
         return metadata
     }

@@ -66,7 +66,6 @@
 		A97C3AA5204F18C90007AD38 /* TokenCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97C3AA4204F18C90007AD38 /* TokenCellView.swift */; };
 		A97D99DA22A0240C001FA3A7 /* OCRManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97D99D922A0240C001FA3A7 /* OCRManager.swift */; };
 		A97FA41E23E9837000EE5833 /* Ratings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97FA41D23E9837000EE5833 /* Ratings.swift */; };
-		A97FA42223E9877900EE5833 /* Ratings.json in Resources */ = {isa = PBXBuildFile; fileRef = A97FA42123E9877900EE5833 /* Ratings.json */; };
 		A97FBE3C21FC7F1C00F1FD35 /* QueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */; };
 		A983E80B22365B5400221BAE /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A983E80A22365B5400221BAE /* MovieViewController.swift */; };
 		A98542D720D197D300EB9803 /* ArtworkSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98542D520D197D300EB9803 /* ArtworkSelector.xib */; };
@@ -114,11 +113,14 @@
 		A9C31E602029A80F00CEF474 /* AdvancedPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C31E5E2029A80F00CEF474 /* AdvancedPrefsViewController.swift */; };
 		A9C31E642029A82200CEF474 /* AdvancedPrefsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C31E622029A82200CEF474 /* AdvancedPrefsViewController.xib */; };
 		A9C3E44A205C07F4004DE24E /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C3E449205C07F4004DE24E /* OptionsViewController.swift */; };
+		A9C4989C306BC624009F332A /* PasteboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C4989B306BC624009F332A /* PasteboardItem.swift */; };
+		A9C498C4306BC6B9009F332A /* Ratings.json in Resources */ = {isa = PBXBuildFile; fileRef = A9C498C2306BC6B9009F332A /* Ratings.json */; };
+		A9C498C5306BC6B9009F332A /* Alpha2.json in Resources */ = {isa = PBXBuildFile; fileRef = A9C498C0306BC6B9009F332A /* Alpha2.json */; };
+		A9C498C6306BC6B9009F332A /* iTunesStores.json in Resources */ = {isa = PBXBuildFile; fileRef = A9C498C1306BC6B9009F332A /* iTunesStores.json */; };
+		A9C498C7306BC6B9009F332A /* Storefronts.json in Resources */ = {isa = PBXBuildFile; fileRef = A9C498C3306BC6B9009F332A /* Storefronts.json */; };
 		A9C51DF42E4B4548003E82E6 /* ScriptCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C51DF32E4B4548003E82E6 /* ScriptCommand.swift */; };
 		A9C5FA7419FA2FEC0051F3FF /* SBActivityWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C5FA7219FA2FEC0051F3FF /* SBActivityWindow.xib */; };
 		A9C73536206B8F9900794673 /* QueuePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C73535206B8F9900794673 /* QueuePreferences.swift */; };
-		A9CB19022D10415D0074DC9F /* Storefronts.json in Resources */ = {isa = PBXBuildFile; fileRef = A9CB19012D10415D0074DC9F /* Storefronts.json */; };
-		A9CB19052D10417D0074DC9F /* Alpha2.json in Resources */ = {isa = PBXBuildFile; fileRef = A9CB19042D10417D0074DC9F /* Alpha2.json */; };
 		A9CBAB1E1F29C083001C26B3 /* MetadataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */; };
 		A9D4B8671C05BD04007845C4 /* SBChapterSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9D4B8651C05BD04007845C4 /* SBChapterSearch.xib */; };
 		A9D64527202CA92400BA172B /* SaveOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D64525202CA92400BA172B /* SaveOptions.swift */; };
@@ -141,7 +143,6 @@
 		A9F7F8E01837C44B0036AE7E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9ED7B21180067A2008FD3A8 /* IOKit.framework */; };
 		A9FC6FF61EF2E3280034CCED /* TheTVDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */; };
 		CD71FEA612F1B62600F0A98D /* MetadataSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD71FEA412F1B62600F0A98D /* MetadataSearch.xib */; };
-		CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */ = {isa = PBXBuildFile; fileRef = CDE8E451174CBBD4009410B5 /* iTunesStores.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -276,6 +277,66 @@
 		A93105361F9758EC00605146 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FileImportController.xib; sourceTree = "<group>"; };
 		A932C9F2205C268A004E52FE /* QueueScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueScriptCommand.swift; path = Classes/QueueScriptCommand.swift; sourceTree = "<group>"; };
 		A9395E341F8B9ACA004C402B /* MP42FileAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MP42FileAdditions.swift; path = Classes/MP42FileAdditions.swift; sourceTree = "<group>"; };
+		A939EEE33062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Classes/PropertyView/pt-BR.lproj/ChapterView.strings"; sourceTree = "<group>"; };
+		A939EEE43062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Classes/PropertyView/pt-BR.lproj/MovieView.strings"; sourceTree = "<group>"; };
+		A939EEE53062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Classes/PropertyView/pt-BR.lproj/MultiSelectView.strings"; sourceTree = "<group>"; };
+		A939EEE63062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Classes/PropertyView/pt-BR.lproj/SoundView.strings"; sourceTree = "<group>"; };
+		A939EEE73062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Classes/PropertyView/pt-BR.lproj/VideoView.strings"; sourceTree = "<group>"; };
+		A939EEE83062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/DocumentWindowController.strings"; sourceTree = "<group>"; };
+		A939EEE93062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/MetadataPrefsViewController.strings"; sourceTree = "<group>"; };
+		A939EEEA3062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/OCRPrefsViewController.strings"; sourceTree = "<group>"; };
+		A939EEEB3062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/OffsetViewController.strings"; sourceTree = "<group>"; };
+		A939EEEC3062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/OutputPrefsViewController.strings"; sourceTree = "<group>"; };
+		A939EEED3062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "Classes/pt-BR.lproj/PresetEditorViewController.strings"; sourceTree = "<group>"; };
+		A939EEEE3062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/PresetPrefsViewController.strings"; sourceTree = "<group>"; };
+		A939EEEF3062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/ProgressViewController.strings"; sourceTree = "<group>"; };
+		A939EEF03062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/SaveOptions.strings"; sourceTree = "<group>"; };
+		A939EEF13062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/TracksViewController.strings"; sourceTree = "<group>"; };
+		A939EEF23062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/AdvancedPrefsViewController.strings"; sourceTree = "<group>"; };
+		A939EEF33062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/ArtworkSelector.strings"; sourceTree = "<group>"; };
+		A939EEF43062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/FileImportController.strings"; sourceTree = "<group>"; };
+		A939EEF53062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/GeneralPrefsViewController.strings"; sourceTree = "<group>"; };
+		A939EEF63062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A939EEF73062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A939EEF83062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		A939EEF93062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/MediaTagsController.strings"; sourceTree = "<group>"; };
+		A939EEFA3062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/MetadataSearch.strings"; sourceTree = "<group>"; };
+		A939EEFB3062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/PrefsWindowController.strings"; sourceTree = "<group>"; };
+		A939EEFC3062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Queue.strings"; sourceTree = "<group>"; };
+		A939EEFD3062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QueueItem.strings"; sourceTree = "<group>"; };
+		A939EEFE3062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QueueOptions.strings"; sourceTree = "<group>"; };
+		A939EEFF3062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/SBActivityWindow.strings"; sourceTree = "<group>"; };
+		A939EF003062F87300E830A4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/SBChapterSearch.strings"; sourceTree = "<group>"; };
+		A939EF023062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "Classes/PropertyView/zh-CN.lproj/ChapterView.strings"; sourceTree = "<group>"; };
+		A939EF033062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "Classes/PropertyView/zh-CN.lproj/MovieView.strings"; sourceTree = "<group>"; };
+		A939EF043062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "Classes/PropertyView/zh-CN.lproj/MultiSelectView.strings"; sourceTree = "<group>"; };
+		A939EF053062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "Classes/PropertyView/zh-CN.lproj/SoundView.strings"; sourceTree = "<group>"; };
+		A939EF063062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "Classes/PropertyView/zh-CN.lproj/VideoView.strings"; sourceTree = "<group>"; };
+		A939EF073062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/DocumentWindowController.strings"; sourceTree = "<group>"; };
+		A939EF083062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/MetadataPrefsViewController.strings"; sourceTree = "<group>"; };
+		A939EF093062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/OCRPrefsViewController.strings"; sourceTree = "<group>"; };
+		A939EF0A3062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/OffsetViewController.strings"; sourceTree = "<group>"; };
+		A939EF0B3062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/OutputPrefsViewController.strings"; sourceTree = "<group>"; };
+		A939EF0C3062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "Classes/zh-CN.lproj/PresetEditorViewController.strings"; sourceTree = "<group>"; };
+		A939EF0D3062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/PresetPrefsViewController.strings"; sourceTree = "<group>"; };
+		A939EF0E3062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/ProgressViewController.strings"; sourceTree = "<group>"; };
+		A939EF0F3062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/SaveOptions.strings"; sourceTree = "<group>"; };
+		A939EF103062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/TracksViewController.strings"; sourceTree = "<group>"; };
+		A939EF113062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/AdvancedPrefsViewController.strings"; sourceTree = "<group>"; };
+		A939EF123062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/ArtworkSelector.strings"; sourceTree = "<group>"; };
+		A939EF133062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/FileImportController.strings"; sourceTree = "<group>"; };
+		A939EF143062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/GeneralPrefsViewController.strings"; sourceTree = "<group>"; };
+		A939EF153062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A939EF163062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A939EF173062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		A939EF183062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/MediaTagsController.strings"; sourceTree = "<group>"; };
+		A939EF193062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/MetadataSearch.strings"; sourceTree = "<group>"; };
+		A939EF1A3062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/PrefsWindowController.strings"; sourceTree = "<group>"; };
+		A939EF1B3062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/Queue.strings"; sourceTree = "<group>"; };
+		A939EF1C3062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/QueueItem.strings"; sourceTree = "<group>"; };
+		A939EF1D3062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/QueueOptions.strings"; sourceTree = "<group>"; };
+		A939EF1E3062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/SBActivityWindow.strings"; sourceTree = "<group>"; };
+		A939EF1F3062F8D400E830A4 /* zh-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-CN"; path = "zh-CN.lproj/SBChapterSearch.strings"; sourceTree = "<group>"; };
 		A9433A8C1F2F5C3600BB38CA /* ChapterResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterResult.swift; path = Classes/MetadataImporters/ChapterResult.swift; sourceTree = "<group>"; };
 		A9433A901F2F5D8A00BB38CA /* ChapterDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChapterDB.swift; path = Classes/MetadataImporters/ChapterDB.swift; sourceTree = "<group>"; };
 		A944E5911F498FC4002E43F6 /* PresetPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PresetPrefsViewController.swift; path = Classes/PresetPrefsViewController.swift; sourceTree = "<group>"; };
@@ -335,7 +396,6 @@
 		A97C3AA4204F18C90007AD38 /* TokenCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenCellView.swift; path = Classes/TokenCellView.swift; sourceTree = "<group>"; };
 		A97D99D922A0240C001FA3A7 /* OCRManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OCRManager.swift; path = Classes/OCRManager.swift; sourceTree = "<group>"; };
 		A97FA41D23E9837000EE5833 /* Ratings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Ratings.swift; path = Classes/MetadataImporters/Ratings.swift; sourceTree = "<group>"; };
-		A97FA42123E9877900EE5833 /* Ratings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Ratings.json; sourceTree = "<group>"; };
 		A97FBE3B21FC7F1C00F1FD35 /* QueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueueController.swift; path = Classes/QueueController.swift; sourceTree = "<group>"; };
 		A983E80A22365B5400221BAE /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieViewController.swift; path = Classes/PropertyView/MovieViewController.swift; sourceTree = "<group>"; };
 		A98542D620D197D300EB9803 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ArtworkSelector.xib; sourceTree = "<group>"; };
@@ -396,10 +456,13 @@
 		A9C31E5E2029A80F00CEF474 /* AdvancedPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AdvancedPrefsViewController.swift; path = Classes/AdvancedPrefsViewController.swift; sourceTree = "<group>"; };
 		A9C31E632029A82200CEF474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AdvancedPrefsViewController.xib; sourceTree = "<group>"; };
 		A9C3E449205C07F4004DE24E /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionsViewController.swift; path = Classes/OptionsViewController.swift; sourceTree = "<group>"; };
+		A9C4989B306BC624009F332A /* PasteboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PasteboardItem.swift; path = Classes/PasteboardItem.swift; sourceTree = "<group>"; };
+		A9C498C0306BC6B9009F332A /* Alpha2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = Alpha2.json; path = Resources/Alpha2.json; sourceTree = "<group>"; };
+		A9C498C1306BC6B9009F332A /* iTunesStores.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = iTunesStores.json; path = Resources/iTunesStores.json; sourceTree = "<group>"; };
+		A9C498C2306BC6B9009F332A /* Ratings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = Ratings.json; path = Resources/Ratings.json; sourceTree = "<group>"; };
+		A9C498C3306BC6B9009F332A /* Storefronts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = Storefronts.json; path = Resources/Storefronts.json; sourceTree = "<group>"; };
 		A9C51DF32E4B4548003E82E6 /* ScriptCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScriptCommand.swift; path = Classes/ScriptCommand.swift; sourceTree = "<group>"; };
 		A9C73535206B8F9900794673 /* QueuePreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QueuePreferences.swift; path = Classes/QueuePreferences.swift; sourceTree = "<group>"; };
-		A9CB19012D10415D0074DC9F /* Storefronts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Storefronts.json; sourceTree = "<group>"; };
-		A9CB19042D10417D0074DC9F /* Alpha2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Alpha2.json; sourceTree = "<group>"; };
 		A9CBAB1D1F29C083001C26B3 /* MetadataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MetadataImporter.swift; path = Classes/MetadataImporters/MetadataImporter.swift; sourceTree = "<group>"; };
 		A9D64525202CA92400BA172B /* SaveOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveOptions.swift; path = Classes/SaveOptions.swift; sourceTree = "<group>"; };
 		A9D8CA812E798CBD007C7B59 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
@@ -450,7 +513,6 @@
 		A9F5820B1DCC861F005F3E92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9F680A61FD06E0200018371 /* OutputPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OutputPrefsViewController.swift; path = Classes/OutputPrefsViewController.swift; sourceTree = "<group>"; };
 		A9FC6FF51EF2E3280034CCED /* TheTVDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TheTVDBService.swift; path = Classes/MetadataImporters/TheTVDBService.swift; sourceTree = "<group>"; };
-		CDE8E451174CBBD4009410B5 /* iTunesStores.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iTunesStores.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -527,6 +589,7 @@
 				A9A77C4D1F306FA70018023B /* AttributedStyles.swift */,
 				A956CE681F99E93D00093992 /* ButtonToolbarItem.swift */,
 				A9E385772C316FBE000A050D /* CollectionView.swift */,
+				A9C4989B306BC624009F332A /* PasteboardItem.swift */,
 				A9E3857B2C317010000A050D /* FilePromiseProvider.swift */,
 			);
 			name = "Other Sources";
@@ -541,10 +604,10 @@
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				8D15AC360486D014006FF6A4 /* Info.plist */,
-				CDE8E451174CBBD4009410B5 /* iTunesStores.json */,
-				A9CB19012D10415D0074DC9F /* Storefronts.json */,
-				A9CB19042D10417D0074DC9F /* Alpha2.json */,
-				A97FA42123E9877900EE5833 /* Ratings.json */,
+				A9C498C0306BC6B9009F332A /* Alpha2.json */,
+				A9C498C1306BC6B9009F332A /* iTunesStores.json */,
+				A9C498C2306BC6B9009F332A /* Ratings.json */,
+				A9C498C3306BC6B9009F332A /* Storefronts.json */,
 				A94A6A581ED1C5CA00049F7D /* ParseFilename */,
 			);
 			name = Resources;
@@ -767,7 +830,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 2630;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					8D15AC270486D014006FF6A4 = {
 						LastSwiftMigration = 1020;
@@ -794,6 +857,8 @@
 				"zh-Hans",
 				fr,
 				"es-419",
+				"pt-BR",
+				"zh-CN",
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* MP4Sub */;
 			packageReferences = (
@@ -836,7 +901,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9EEA5F818D654B9008B54B4 /* QueueOptions.xib in Resources */,
-				A9CB19022D10415D0074DC9F /* Storefronts.json in Resources */,
 				A9AB486617F0AEFD000AA72E /* MovieView.xib in Resources */,
 				A9C31E5D2029A79000CEF474 /* GeneralPrefsViewController.xib in Resources */,
 				A98542DD20D1A7E500EB9803 /* ArtworkSelectorViewItem.xib in Resources */,
@@ -867,12 +931,13 @@
 				A98542D720D197D300EB9803 /* ArtworkSelector.xib in Resources */,
 				A9ECA0602029A13800D5F30C /* OffsetViewController.xib in Resources */,
 				A9ACF03222A2BCF200AD5B12 /* OCRPrefsViewController.xib in Resources */,
-				A9CB19052D10417D0074DC9F /* Alpha2.json in Resources */,
-				A97FA42223E9877900EE5833 /* Ratings.json in Resources */,
 				A961476713F568210068F161 /* Queue.xib in Resources */,
+				A9C498C4306BC6B9009F332A /* Ratings.json in Resources */,
+				A9C498C5306BC6B9009F332A /* Alpha2.json in Resources */,
+				A9C498C6306BC6B9009F332A /* iTunesStores.json in Resources */,
+				A9C498C7306BC6B9009F332A /* Storefronts.json in Resources */,
 				A9BA1AF31DBF7DD800FD0B38 /* Localizable.strings in Resources */,
 				A9ECA0572029A10B00D5F30C /* DocumentWindowController.xib in Resources */,
-				CDE8E452174CBBD4009410B5 /* iTunesStores.json in Resources */,
 				A924A51E1D4B9E93008301A7 /* MetadataPrefsViewController.xib in Resources */,
 				A92BBABE1F5584EA007EA182 /* PresetEditorViewController.xib in Resources */,
 				A90CD5C51FD177280070A067 /* OutputPrefsViewController.xib in Resources */,
@@ -945,6 +1010,7 @@
 				A98D44102036F661005CB092 /* AppDelegate.swift in Sources */,
 				A9C31E572029A75F00CEF474 /* GeneralPrefsViewController.swift in Sources */,
 				A9AE26C01F3B66470041A57D /* SquaredTVArt.swift in Sources */,
+				A9C4989C306BC624009F332A /* PasteboardItem.swift in Sources */,
 				A9B1056E2025D9B9009E91FC /* TracksViewController.swift in Sources */,
 				A9C51DF42E4B4548003E82E6 /* ScriptCommand.swift in Sources */,
 				A99B7FD82D53764F0027BCB5 /* AppleTVv3.swift in Sources */,
@@ -997,6 +1063,8 @@
 				A9E059B02529DCA9000E0E9A /* zh-Hans */,
 				A9146863278D8EFB00860468 /* fr */,
 				A96FE3ED2C355A3D009B3AFC /* es-419 */,
+				A939EEF63062F87300E830A4 /* pt-BR */,
+				A939EF153062F8D400E830A4 /* zh-CN */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1009,6 +1077,8 @@
 				A9E059B92529DCA9000E0E9A /* zh-Hans */,
 				A914684B278D8EFB00860468 /* fr */,
 				A96FE3D52C355A3D009B3AFC /* es-419 */,
+				A939EEF83062F87300E830A4 /* pt-BR */,
+				A939EF173062F8D400E830A4 /* zh-CN */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -1030,6 +1100,8 @@
 				A9E059BA2529DCA9000E0E9A /* zh-Hans */,
 				A9146860278D8EFB00860468 /* fr */,
 				A96FE3EA2C355A3D009B3AFC /* es-419 */,
+				A939EEE53062F87300E830A4 /* pt-BR */,
+				A939EF043062F8D400E830A4 /* zh-CN */,
 			);
 			name = MultiSelectView.xib;
 			sourceTree = "<group>";
@@ -1042,6 +1114,8 @@
 				A9E059C82529DCAA000E0E9A /* zh-Hans */,
 				A914685A278D8EFB00860468 /* fr */,
 				A96FE3E42C355A3D009B3AFC /* es-419 */,
+				A939EEEE3062F87300E830A4 /* pt-BR */,
+				A939EF0D3062F8D400E830A4 /* zh-CN */,
 			);
 			name = PresetPrefsViewController.xib;
 			path = Classes;
@@ -1055,6 +1129,8 @@
 				A9E059BF2529DCAA000E0E9A /* zh-Hans */,
 				A914684E278D8EFB00860468 /* fr */,
 				A96FE3D82C355A3D009B3AFC /* es-419 */,
+				A939EEFB3062F87300E830A4 /* pt-BR */,
+				A939EF1A3062F8D400E830A4 /* zh-CN */,
 			);
 			name = PrefsWindowController.xib;
 			sourceTree = "<group>";
@@ -1076,6 +1152,8 @@
 				A9E059CB2529DCAA000E0E9A /* zh-Hans */,
 				A9146858278D8EFB00860468 /* fr */,
 				A96FE3E22C355A3D009B3AFC /* es-419 */,
+				A939EEEC3062F87300E830A4 /* pt-BR */,
+				A939EF0B3062F8D400E830A4 /* zh-CN */,
 			);
 			name = OutputPrefsViewController.xib;
 			path = Classes;
@@ -1089,6 +1167,8 @@
 				A9E059CD2529DCAA000E0E9A /* zh-Hans */,
 				A9146855278D8EFB00860468 /* fr */,
 				A96FE3DF2C355A3D009B3AFC /* es-419 */,
+				A939EEE93062F87300E830A4 /* pt-BR */,
+				A939EF083062F8D400E830A4 /* zh-CN */,
 			);
 			name = MetadataPrefsViewController.xib;
 			path = Classes;
@@ -1102,6 +1182,8 @@
 				A9E059C12529DCAA000E0E9A /* zh-Hans */,
 				A9146859278D8EFB00860468 /* fr */,
 				A96FE3E32C355A3D009B3AFC /* es-419 */,
+				A939EEED3062F87300E830A4 /* pt-BR */,
+				A939EF0C3062F8D400E830A4 /* zh-CN */,
 			);
 			name = PresetEditorViewController.xib;
 			sourceTree = "<group>";
@@ -1114,6 +1196,8 @@
 				A9E059C22529DCAA000E0E9A /* zh-Hans */,
 				A9146849278D8EFB00860468 /* fr */,
 				A96FE3D32C355A3D009B3AFC /* es-419 */,
+				A939EEF43062F87300E830A4 /* pt-BR */,
+				A939EF133062F8D400E830A4 /* zh-CN */,
 			);
 			name = FileImportController.xib;
 			sourceTree = "<group>";
@@ -1126,6 +1210,8 @@
 				A9E059C92529DCAA000E0E9A /* zh-Hans */,
 				A914684F278D8EFB00860468 /* fr */,
 				A96FE3D92C355A3D009B3AFC /* es-419 */,
+				A939EEFC3062F87300E830A4 /* pt-BR */,
+				A939EF1B3062F8D400E830A4 /* zh-CN */,
 			);
 			name = Queue.xib;
 			sourceTree = "<group>";
@@ -1138,6 +1224,8 @@
 				A9E059B82529DCA9000E0E9A /* zh-Hans */,
 				A9146848278D8EFB00860468 /* fr */,
 				A96FE3D22C355A3D009B3AFC /* es-419 */,
+				A939EEF33062F87300E830A4 /* pt-BR */,
+				A939EF123062F8D400E830A4 /* zh-CN */,
 			);
 			name = ArtworkSelector.xib;
 			sourceTree = "<group>";
@@ -1150,6 +1238,8 @@
 				A9E059C62529DCAA000E0E9A /* zh-Hans */,
 				A914684C278D8EFB00860468 /* fr */,
 				A96FE3D62C355A3D009B3AFC /* es-419 */,
+				A939EEF93062F87300E830A4 /* pt-BR */,
+				A939EF183062F8D400E830A4 /* zh-CN */,
 			);
 			name = MediaTagsController.xib;
 			sourceTree = "<group>";
@@ -1162,6 +1252,8 @@
 				A9E059B52529DCA9000E0E9A /* zh-Hans */,
 				A914685C278D8EFB00860468 /* fr */,
 				A96FE3E62C355A3D009B3AFC /* es-419 */,
+				A939EEF03062F87300E830A4 /* pt-BR */,
+				A939EF0F3062F8D400E830A4 /* zh-CN */,
 			);
 			name = SaveOptions.xib;
 			path = Classes;
@@ -1175,6 +1267,8 @@
 				A9E059C72529DCAA000E0E9A /* zh-Hans */,
 				A914685B278D8EFB00860468 /* fr */,
 				A96FE3E52C355A3D009B3AFC /* es-419 */,
+				A939EEEF3062F87300E830A4 /* pt-BR */,
+				A939EF0E3062F8D400E830A4 /* zh-CN */,
 			);
 			name = ProgressViewController.xib;
 			path = Classes;
@@ -1188,6 +1282,8 @@
 				A9E059BC2529DCA9000E0E9A /* zh-Hans */,
 				A914685E278D8EFB00860468 /* fr */,
 				A96FE3E82C355A3D009B3AFC /* es-419 */,
+				A939EEE33062F87300E830A4 /* pt-BR */,
+				A939EF023062F8D400E830A4 /* zh-CN */,
 			);
 			name = ChapterView.xib;
 			sourceTree = "<group>";
@@ -1209,6 +1305,8 @@
 				A9E059B62529DCA9000E0E9A /* zh-Hans */,
 				A914685F278D8EFB00860468 /* fr */,
 				A96FE3E92C355A3D009B3AFC /* es-419 */,
+				A939EEE43062F87300E830A4 /* pt-BR */,
+				A939EF033062F8D400E830A4 /* zh-CN */,
 			);
 			name = MovieView.xib;
 			sourceTree = "<group>";
@@ -1221,6 +1319,8 @@
 				A9E059C42529DCAA000E0E9A /* zh-Hans */,
 				A9146861278D8EFB00860468 /* fr */,
 				A96FE3EB2C355A3D009B3AFC /* es-419 */,
+				A939EEE63062F87300E830A4 /* pt-BR */,
+				A939EF053062F8D400E830A4 /* zh-CN */,
 			);
 			name = SoundView.xib;
 			sourceTree = "<group>";
@@ -1233,6 +1333,8 @@
 				A9E059C32529DCAA000E0E9A /* zh-Hans */,
 				A9146862278D8EFB00860468 /* fr */,
 				A96FE3EC2C355A3D009B3AFC /* es-419 */,
+				A939EEE73062F87300E830A4 /* pt-BR */,
+				A939EF063062F8D400E830A4 /* zh-CN */,
 			);
 			name = VideoView.xib;
 			sourceTree = "<group>";
@@ -1245,6 +1347,8 @@
 				A9E059BB2529DCA9000E0E9A /* zh-Hans */,
 				A9146856278D8EFB00860468 /* fr */,
 				A96FE3E02C355A3D009B3AFC /* es-419 */,
+				A939EEEA3062F87300E830A4 /* pt-BR */,
+				A939EF093062F8D400E830A4 /* zh-CN */,
 			);
 			name = OCRPrefsViewController.xib;
 			path = Classes;
@@ -1257,6 +1361,8 @@
 				A9E059B12529DCA9000E0E9A /* zh-Hans */,
 				A9146864278D8EFB00860468 /* fr */,
 				A96FE3EE2C355A3D009B3AFC /* es-419 */,
+				A939EEF73062F87300E830A4 /* pt-BR */,
+				A939EF163062F8D400E830A4 /* zh-CN */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1269,6 +1375,8 @@
 				A9E059CA2529DCAA000E0E9A /* zh-Hans */,
 				A9146850278D8EFB00860468 /* fr */,
 				A96FE3DA2C355A3D009B3AFC /* es-419 */,
+				A939EEFD3062F87300E830A4 /* pt-BR */,
+				A939EF1C3062F8D400E830A4 /* zh-CN */,
 			);
 			name = QueueItem.xib;
 			sourceTree = "<group>";
@@ -1281,6 +1389,8 @@
 				A9E059B42529DCA9000E0E9A /* zh-Hans */,
 				A914684A278D8EFB00860468 /* fr */,
 				A96FE3D42C355A3D009B3AFC /* es-419 */,
+				A939EEF53062F87300E830A4 /* pt-BR */,
+				A939EF143062F8D400E830A4 /* zh-CN */,
 			);
 			name = GeneralPrefsViewController.xib;
 			sourceTree = "<group>";
@@ -1293,6 +1403,8 @@
 				A9E059C02529DCAA000E0E9A /* zh-Hans */,
 				A9146847278D8EFB00860468 /* fr */,
 				A96FE3D12C355A3D009B3AFC /* es-419 */,
+				A939EEF23062F87300E830A4 /* pt-BR */,
+				A939EF113062F8D400E830A4 /* zh-CN */,
 			);
 			name = AdvancedPrefsViewController.xib;
 			sourceTree = "<group>";
@@ -1305,6 +1417,8 @@
 				A9E059BD2529DCAA000E0E9A /* zh-Hans */,
 				A9146852278D8EFB00860468 /* fr */,
 				A96FE3DC2C355A3D009B3AFC /* es-419 */,
+				A939EEFF3062F87300E830A4 /* pt-BR */,
+				A939EF1E3062F8D400E830A4 /* zh-CN */,
 			);
 			name = SBActivityWindow.xib;
 			sourceTree = "<group>";
@@ -1317,6 +1431,8 @@
 				A9E059B22529DCA9000E0E9A /* zh-Hans */,
 				A9146853278D8EFB00860468 /* fr */,
 				A96FE3DD2C355A3D009B3AFC /* es-419 */,
+				A939EF003062F87300E830A4 /* pt-BR */,
+				A939EF1F3062F8D400E830A4 /* zh-CN */,
 			);
 			name = SBChapterSearch.xib;
 			sourceTree = "<group>";
@@ -1329,6 +1445,8 @@
 				A9E059CC2529DCAA000E0E9A /* zh-Hans */,
 				A9146854278D8EFB00860468 /* fr */,
 				A96FE3DE2C355A3D009B3AFC /* es-419 */,
+				A939EEE83062F87300E830A4 /* pt-BR */,
+				A939EF073062F8D400E830A4 /* zh-CN */,
 			);
 			name = DocumentWindowController.xib;
 			path = Classes;
@@ -1342,6 +1460,8 @@
 				A9E059B72529DCA9000E0E9A /* zh-Hans */,
 				A914685D278D8EFB00860468 /* fr */,
 				A96FE3E72C355A3D009B3AFC /* es-419 */,
+				A939EEF13062F87300E830A4 /* pt-BR */,
+				A939EF103062F8D400E830A4 /* zh-CN */,
 			);
 			name = TracksViewController.xib;
 			path = Classes;
@@ -1364,6 +1484,8 @@
 				A9E059C52529DCAA000E0E9A /* zh-Hans */,
 				A9146857278D8EFB00860468 /* fr */,
 				A96FE3E12C355A3D009B3AFC /* es-419 */,
+				A939EEEB3062F87300E830A4 /* pt-BR */,
+				A939EF0A3062F8D400E830A4 /* zh-CN */,
 			);
 			name = OffsetViewController.xib;
 			path = Classes;
@@ -1377,6 +1499,8 @@
 				A9E059BE2529DCAA000E0E9A /* zh-Hans */,
 				A9146851278D8EFB00860468 /* fr */,
 				A96FE3DB2C355A3D009B3AFC /* es-419 */,
+				A939EEFE3062F87300E830A4 /* pt-BR */,
+				A939EF1D3062F8D400E830A4 /* zh-CN */,
 			);
 			name = QueueOptions.xib;
 			sourceTree = "<group>";
@@ -1389,6 +1513,8 @@
 				A9E059B32529DCA9000E0E9A /* zh-Hans */,
 				A914684D278D8EFB00860468 /* fr */,
 				A96FE3D72C355A3D009B3AFC /* es-419 */,
+				A939EEFA3062F87300E830A4 /* pt-BR */,
+				A939EF193062F8D400E830A4 /* zh-CN */,
 			);
 			name = MetadataSearch.xib;
 			sourceTree = "<group>";
@@ -1411,7 +1537,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1.9.2;
+				CURRENT_PROJECT_VERSION = 1.9.5;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
@@ -1431,7 +1557,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.9.5;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				OTHER_SWIFT_FLAGS = "";
@@ -1457,7 +1583,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.9.2;
+				CURRENT_PROJECT_VERSION = 1.9.5;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
@@ -1476,7 +1602,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.2;
+				MARKETING_VERSION = 1.9.5;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
 				OTHER_SWIFT_FLAGS = "";

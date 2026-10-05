@@ -6,9 +6,10 @@
 //
 
 import Cocoa
+import UserNotifications
 import MP42Foundation
 
-final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate, ItemViewDelegate, NSTableViewDataSource, NSTableViewDelegate, ExpandedTableViewDelegate, NSUserInterfaceValidations {
+final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDelegate, ItemViewDelegate, NSTableViewDataSource, NSTableViewDelegate, ExpandedTableViewDelegate, UNUserNotificationCenterDelegate, NSUserInterfaceValidations {
 
     static let shared = QueueController()
 
@@ -16,13 +17,17 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     private let prefs = QueuePreferences()
     private var popover: NSPopover?
     private var itemPopover: NSPopover?
-    private var windowController: OptionsViewController?
     private let toolbarDelegate = QueueToolbarDelegate()
 
-    private let tablePasteboardType = NSPasteboard.PasteboardType("SublerQueueTableViewDataType")
     private lazy var docImg: NSImage = {
         // Load a generic movie icon to display in the table view
-        let img = NSWorkspace.shared.icon(forFileType: "mov")
+        let img = {
+            if #available(macOS 12, *) {
+                return NSWorkspace.shared.icon(for: .quickTimeMovie)
+            } else {
+                return NSWorkspace.shared.icon(forFileType: "mov")
+            }
+        }()
         img.size = NSSize(width: 16, height: 16)
         return img
     }()
@@ -38,7 +43,6 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     private init() {
         popover = nil
         itemPopover = nil
-        windowController = nil
         if let url = prefs.queueURL {
             queue = Queue(url: url)
         } else {
@@ -68,14 +72,20 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         toolbar.allowsUserCustomization = true
         toolbar.autosavesConfiguration = true
         if #available(macOS 26, *) {
-            toolbar.displayMode = .iconAndLabel
-        } else {
             toolbar.displayMode = .iconOnly
+        } else {
+            toolbar.displayMode = .iconAndLabel
         }
         self.window?.toolbar = toolbar
 
-        table.registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL, tablePasteboardType])
+        table.registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL, .tableViewIndex])
         progressBar.isHidden = true
+
+        if #available(macOS 11, *) {
+            let center = UNUserNotificationCenter.current()
+            center.delegate = self
+            center.requestAuthorization(options: [.sound, .alert], completionHandler: {_,_ in })
+        }
 
         let main = OperationQueue.main
         let nc = NotificationCenter.default
@@ -110,18 +120,36 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
             self.updateUI()
 
             if self.prefs.showDoneNotification, let info = note.userInfo {
-                let notification = NSUserNotification()
-                notification.title = NSLocalizedString("Queue Done", comment: "")
+                let title = NSLocalizedString("Queue Done", comment: "")
+                let informativeText = {
+                    if let failedCount = info["FailedCount"] as? UInt, failedCount > 0,
+                       let completedCount = info["CompletedCount"] as? UInt {
+                        return "Completed: \(completedCount); Failed: \(failedCount)"
+                    }
+                    else if let completedCount = info["CompletedCount"] as? UInt {
+                        return "Completed: \(completedCount)"
+                    } else {
+                        return ""
+                    }
+                }()
 
-                if let failedCount = info["FailedCount"] as? UInt, failedCount > 0,
-                    let completedCount = info["CompletedCount"] as? UInt {
-                    notification.informativeText = "Completed: \(completedCount); Failed: \(failedCount)"
+                if #available(macOS 11, *) {
+                    let notification = UNMutableNotificationContent()
+                    notification.title = title
+                    notification.body  = informativeText
+                    notification.sound = UNNotificationSound.default
+
+                    let request = UNNotificationRequest(identifier: UUID().uuidString,
+                                                        content: notification,
+                                                        trigger: nil)
+                    UNUserNotificationCenter.current().add(request) { _ in }
+                } else {
+                    let notification = NSUserNotification()
+                    notification.title = title
+                    notification.informativeText = informativeText
+                    notification.soundName = NSUserNotificationDefaultSoundName
+                    NSUserNotificationCenter.default.deliver(notification)
                 }
-                else if let completedCount = info["CompletedCount"] as? UInt {
-                    notification.informativeText = "Completed: \(completedCount)"
-                }
-                notification.soundName = NSUserNotificationDefaultSoundName
-                NSUserNotificationCenter.default.deliver(notification)
             }
 
             for script in self.scripts {
@@ -194,6 +222,13 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         }
     }
 
+    //MARK: Notification delegate
+
+    @available(macOS 10.14, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.sound])
+    }
+
     //MARK: Queue
 
     func saveToDisk() throws {
@@ -251,9 +286,18 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
     private func destination(for url: URL) -> URL {
         let value = try? url.resourceValues(forKeys: [URLResourceKey.typeIdentifierKey])
 
+        var isMpeg4 = false
+        if #available(macOS 11, *) {
+            isMpeg4 = value?.contentType?.conforms(to: .mpeg4Movie) ?? false
+        } else {
+            if let type = value?.typeIdentifier, UTTypeConformsTo(type as CFString, "public.mpeg-4" as CFString) {
+                isMpeg4 = true
+            }
+        }
+
         if let destination = prefs.destination {
             return destination.appendingPathComponent(url.lastPathComponent).deletingPathExtension().appendingPathExtension(prefs.fileType)
-        } else if let type = value?.typeIdentifier, UTTypeConformsTo(type as CFString, "public.mpeg-4" as CFString) {
+        } else if isMpeg4 {
             return url
         } else {
             return url.deletingPathExtension().appendingPathExtension(prefs.fileType)
@@ -418,7 +462,9 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         }
 
         table.removeRows(at: indexes, withAnimation: .slideUp)
-        table.selectRowIndexes(IndexSet(integer: indexes.first!), byExtendingSelection: false)
+        if let index = indexes.first, index < queue.count {
+            table.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
+        }
 
         table.endUpdates()
         updateState()
@@ -577,10 +623,6 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         }
     }
 
-    func windowWillClose(_ notification: Notification) {
-        windowController = nil
-    }
-
     //MARK: UI
 
     /// Updates the count on the app dock icon.
@@ -690,7 +732,12 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         panel.allowsMultipleSelection = true
         panel.canChooseFiles = true
         panel.canChooseDirectories = true
-        panel.allowedFileTypes = MP42FileImporter.supportedFileFormats()
+
+        if #available(macOS 11, *) {
+            panel.allowedContentTypes = MP42FileImporter.supportedContentTypes()
+        } else {
+            panel.allowedFileTypes = MP42FileImporter.supportedFileFormats()
+        }
 
         panel.beginSheetModal(for: windowForSheet) { (response) in
             if response == NSApplication.ModalResponse.OK {
@@ -797,41 +844,48 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
 
     //MARK: Drag & Drop
 
-    func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
-        let data = try? NSKeyedArchiver.archivedData(withRootObject: rowIndexes, requiringSecureCoding: true)
-        pboard.declareTypes([tablePasteboardType], owner: self)
-        pboard.setData(data, forType: tablePasteboardType)
-        return true
+    func tableView(_ tableView: NSTableView,
+                   pasteboardWriterForRow row: Int) -> (any NSPasteboardWriting)? {
+        let item = PasteboardItem(index: row, type: .tableViewIndex)
+        return item
     }
 
-    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
-        if info.draggingSource == nil {
-            tableView.setDropRow(row, dropOperation: .above)
+    func tableView(_ tableView: NSTableView,
+                   validateDrop info: NSDraggingInfo,
+                   proposedRow row: Int,
+                   proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        guard dropOperation == .above else { return [] }
+
+        if let source = info.draggingSource as? NSTableView,
+           tableView == source
+        {
+            return .move
+        } else if info.draggingSource == nil {
             return .copy
-        } else if let source = info.draggingSource as? NSTableView, tableView == source && dropOperation == .above {
-            return .every
         } else {
             return []
         }
     }
 
-    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
-        let pboard = info.draggingPasteboard
+    func tableView(_ tableView: NSTableView,
+                   acceptDrop info: NSDraggingInfo,
+                   row: Int,
+                   dropOperation: NSTableView.DropOperation) -> Bool {
+        guard let pasteboardItems = info.draggingPasteboard.pasteboardItems
+                else { return false }
 
-        if let source = info.draggingSource as? NSTableView, source == tableView, let rowData = pboard.data(forType: tablePasteboardType), let rowIndexes = NSKeyedUnarchiver.unarchiveObject(with: rowData) as? IndexSet {
-
+        if let source = info.draggingSource as? NSTableView,
+           source == tableView
+        {
+            let rowIndexes = IndexSet(pasteboardItems.compactMap { $0.integer(forType: .tableViewIndex) })
             let items = queue.items(at: rowIndexes)
             move(items: items, at: row)
             return true
-
-        } else {
-
-            if pboard.types?.contains(NSPasteboard.PasteboardType.fileURL) ?? false {
-                if let items = pboard.readObjects(forClasses: [NSURL.classForCoder()], options: [:]) as? [URL] {
-                    insert(contentOf: items, at: row)
-                }
-                return true
+        } else if info.draggingPasteboard.types?.contains(NSPasteboard.PasteboardType.fileURL) ?? false {
+            if let items = info.draggingPasteboard.readObjects(forClasses: [NSURL.classForCoder()], options: [:]) as? [URL] {
+                insert(contentOf: items, at: row)
             }
+            return true
         }
 
         return false

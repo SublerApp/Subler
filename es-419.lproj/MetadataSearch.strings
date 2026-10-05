@@ -8,7 +8,7 @@
 "5Mu-cI-Uiu.title" = "Buscar";
 
 /* Class = "NSTableView"; ibExternalAccessibilityDescription = "Result details"; ObjectID = "7Te-u0-Sax"; */
-"7Te-u0-Sax.ibExternalAccessibilityDescription" = "Detalles de resultados";
+"7Te-u0-Sax.ibExternalAccessibilityDescription" = "Detalles del resultado";
 
 /* Class = "NSTabViewItem"; label = "Movie"; ObjectID = "apc-8c-iyM"; */
 "apc-8c-iyM.label" = "Película";
@@ -29,7 +29,7 @@
 "HF1-WK-lv1.title" = "Buscar";
 
 /* Class = "NSTableView"; ibExternalAccessibilityDescription = "Search results"; ObjectID = "IDz-Ox-2sW"; */
-"IDz-Ox-2sW.ibExternalAccessibilityDescription" = "Resultados de búsqueda";
+"IDz-Ox-2sW.ibExternalAccessibilityDescription" = "Resultados de la búsqueda";
 
 /* Class = "NSMenuItem"; title = "iTunes Store"; ObjectID = "j44-FV-Lpy"; */
 "j44-FV-Lpy.title" = "iTunes Store";
@@ -38,7 +38,7 @@
 "KpX-If-oKC.title" = "TheMovieDB";
 
 /* Class = "NSTextFieldCell"; title = "Season #"; ObjectID = "kz7-mH-DuT"; */
-"kz7-mH-DuT.title" = "Temporada nro.:";
+"kz7-mH-DuT.title" = "Temporada nro.";
 
 /* Class = "NSTextFieldCell"; title = "TV Show:"; ObjectID = "lE4-J1-ySV"; */
 "lE4-J1-ySV.title" = "Programa:";
@@ -62,13 +62,13 @@
 "uyt-vh-nv6.title" = "Película:";
 
 /* Class = "NSTableColumn"; headerCell.title = "Annotation"; ObjectID = "XgL-ec-DEt"; */
-"XgL-ec-DEt.headerCell.title" = "Propiedad";
+"XgL-ec-DEt.headerCell.title" = "Etiqueta";
 
 /* Class = "NSMenuItem"; title = "TheTVDB"; ObjectID = "xjQ-ex-5kU"; */
 "xjQ-ex-5kU.title" = "TheTVDB";
 
 /* Class = "NSTextFieldCell"; title = "Episode #"; ObjectID = "Zik-QU-m81"; */
-"Zik-QU-m81.title" = "Episodio nro.:";
+"Zik-QU-m81.title" = "Episodio nro.";
 
 /* Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "ZZg-QL-MyD"; */
 "ZZg-QL-MyD.headerCell.title" = "Título";

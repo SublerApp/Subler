@@ -118,9 +118,8 @@ class SBFetchMetadataScriptCommand: NSScriptCommand, ScriptCommandDocumentTarget
             DispatchQueue.main.async {
                 if let metadata = metadata {
                     // Apply the metadata to the file
-                    mp4File.metadata.merge(metadata)
-                    sublerDoc.updateChangeCount(.changeDone)
-                    
+                    mp4File.metadata.merge(metadata, overwrite: true)
+
                     // Trigger UI refresh by calling reloadData on the window controller
                     if let windowController = sublerDoc.windowControllers.first as? DocumentWindowController {
                         windowController.reloadData()
@@ -165,9 +164,9 @@ class SBFetchMetadataScriptCommand: NSScriptCommand, ScriptCommandDocumentTarget
                             if preferredArtwork != .none && artworks.isEmpty == false {
                                 let artwork: Artwork? = {
                                     let type = preferredArtwork.isMovieType ? preferredArtwork : .poster
-                                    if let artwork = artworks.filter(by: type, size: preferredArtworkSize, service: movieService.name) {
+                                    if let artwork = artworks.first(by: type, size: preferredArtworkSize, service: movieService.name) {
                                         return artwork
-                                    } else if let artwork = artworks.filter(by: .poster, size: .standard, service: movieService.name) {
+                                    } else if let artwork = artworks.first(by: .poster, size: .standard, service: movieService.name) {
                                         return artwork
                                     } else {
                                         return artworks.first
@@ -207,11 +206,11 @@ class SBFetchMetadataScriptCommand: NSScriptCommand, ScriptCommandDocumentTarget
                             
                             if preferredArtwork != .none && artworks.isEmpty == false {
                                 let artwork: Artwork? = {
-                                    if let artwork = artworks.filter(by: preferredArtwork, size: preferredArtworkSize, service: tvShowService.name) {
+                                    if let artwork = artworks.first(by: preferredArtwork, size: preferredArtworkSize, service: tvShowService.name) {
                                         return artwork
-                                    } else if let artwork = artworks.filter(by: .season, size: preferredArtworkSize, service: tvShowService.name) {
+                                    } else if let artwork = artworks.first(by: .season, size: preferredArtworkSize, service: tvShowService.name) {
                                         return artwork
-                                    } else if let artwork = artworks.filter(by: .poster, size: .standard, service: tvShowService.name) {
+                                    } else if let artwork = artworks.first(by: .poster, size: .standard, service: tvShowService.name) {
                                         return artwork
                                     } else {
                                         return artworks.first
@@ -386,8 +385,7 @@ class SBSaveAsScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
                                 
                                 // Update the document's file URL and mark as saved
                                 sublerDoc.fileURL = destinationURL
-                                sublerDoc.updateChangeCount(.changeCleared)
-                                
+
                                 // End progress reporting and refresh the UI
                                 windowController.endProgressReporting()
                                 windowController.reloadData()
@@ -396,8 +394,7 @@ class SBSaveAsScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
                     } else {
                         // Update the document's file URL and mark as saved
                         sublerDoc.fileURL = destinationURL
-                        sublerDoc.updateChangeCount(.changeCleared)
-                        
+
                         // End progress reporting and refresh the UI
                         windowController.endProgressReporting()
                         windowController.reloadData()
@@ -783,9 +780,9 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
                         if preferredArtwork != .none && artworks.isEmpty == false {
                             let artwork: Artwork? = {
                                 let type = preferredArtwork.isMovieType ? preferredArtwork : .poster
-                                if let artwork = artworks.filter(by: type, size: preferredArtworkSize, service: movieService.name) {
+                                if let artwork = artworks.first(by: type, size: preferredArtworkSize, service: movieService.name) {
                                     return artwork
-                                } else if let artwork = artworks.filter(by: .poster, size: .standard, service: movieService.name) {
+                                } else if let artwork = artworks.first(by: .poster, size: .standard, service: movieService.name) {
                                     return artwork
                                 } else {
                                     return artworks.first
@@ -806,8 +803,7 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
                         // Apply the metadata
                         DispatchQueue.main.async {
                             if let sublerDoc = self.targetedDocument() {
-                                sublerDoc.mp4.metadata.merge(mappedMetadata)
-                                sublerDoc.updateChangeCount(.changeDone)
+                                sublerDoc.mp4.metadata.merge(mappedMetadata, overwrite: true)
                                 completion(true)
                             } else {
                                 completion(false)
@@ -833,9 +829,9 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
                         if preferredArtwork != .none && artworks.isEmpty == false {
                             let artwork: Artwork? = {
                                 let type = preferredArtwork.isMovieType ? preferredArtwork : .poster
-                                if let artwork = artworks.filter(by: type, size: preferredArtworkSize, service: tvShowService.name) {
+                                if let artwork = artworks.first(by: type, size: preferredArtworkSize, service: tvShowService.name) {
                                     return artwork
-                                } else if let artwork = artworks.filter(by: .poster, size: .standard, service: tvShowService.name) {
+                                } else if let artwork = artworks.first(by: .poster, size: .standard, service: tvShowService.name) {
                                     return artwork
                                 } else {
                                     return artworks.first
@@ -856,8 +852,7 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
                         // Apply the metadata
                         DispatchQueue.main.async {
                             if let sublerDoc = self.targetedDocument() {
-                                sublerDoc.mp4.metadata.merge(mappedMetadata)
-                                sublerDoc.updateChangeCount(.changeDone)
+                                sublerDoc.mp4.metadata.merge(mappedMetadata, overwrite: true)
                                 completion(true)
                             } else {
                                 completion(false)

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24127" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="25098" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24127"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="25098"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -38,7 +38,7 @@
                             <menuItem isSeparatorItem="YES" id="236">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Preferences…" keyEquivalent="," id="129" userLabel="121">
+                            <menuItem title="Preferences…" preferredImageVisibility="hidden" keyEquivalent="," id="129" userLabel="121">
                                 <connections>
                                     <action selector="showPrefsWindow:" target="-1" id="558"/>
                                 </connections>
@@ -201,8 +201,8 @@ CA
                             </menuItem>
                             <menuItem title="Remove all items from queue" id="Rma-Al-Que">
                                 <string key="keyEquivalent" base64-UTF8="YES">
-CA
-</string>
+                                  CA
+                                </string>
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" shift="YES" command="YES"/>
                                 <connections>
                                     <action selector="removeAllItems:" target="-1" id="ral-ac-t01"/>
@@ -515,7 +515,7 @@ CA
                     </menu>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="106" y="-246"/>
+            <point key="canvasLocation" x="214" y="-221"/>
         </menu>
         <customObject id="419" customClass="NSFontManager"/>
         <customObject id="449" userLabel="AppDelegate" customClass="AppDelegate" customModule="Subler" customModuleProvider="target">

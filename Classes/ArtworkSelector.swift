@@ -186,7 +186,7 @@ final class ArtworkSelectorController: NSViewController, NSCollectionViewDataSou
         view.wantsLayer = true
 
         imageBrowser.register(ArtworkSelectorViewItem.self, forItemWithIdentifier: ArtworkSelectorController.itemView)
-        loadMoreArtworks(count: 8)
+        loadMoreArtworks(count: 11)
 
         let type = metadata.mediaKind.description
 
@@ -245,7 +245,7 @@ final class ArtworkSelectorController: NSViewController, NSCollectionViewDataSou
             imageBrowser.reloadItems(at: [indexPath])
         }
 
-            imageBrowser.selectionIndexPaths = selectionIndexPaths
+        imageBrowser.selectionIndexPaths = selectionIndexPaths
     }
 
     private func selectArtwork(at index: Int) {
@@ -294,7 +294,8 @@ final class ArtworkSelectorController: NSViewController, NSCollectionViewDataSou
     }
 
     private func selectedArtworks() -> [ArtworkImageObject] {
-        return imageBrowser.selectionIndexPaths.map { artworks[$0.item] }
+        let indexes = imageBrowser.selectionIndexPaths.map { $0.item } .sorted()
+        return indexes.map { artworks[$0] }
     }
 
     // MARK - UI state

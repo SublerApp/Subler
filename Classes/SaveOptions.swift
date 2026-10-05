@@ -43,10 +43,28 @@ final class SaveOptions: NSViewController {
         let types = doc.writableTypes(for: .saveAsOperation)
 
         fileFormat.removeAllItems()
-        
+
         for type in types {
-            let name = UTTypeCopyDescription(type as CFString)?.takeRetainedValue() as String? ?? type
-            fileFormat.addItem(withTitle: name)
+            if #available(macOS 11, *) {
+                let name = UTType(type)?.localizedDescription ?? type
+                fileFormat.addItem(withTitle: name)
+            } else {
+                let name = UTTypeCopyDescription(type as CFString)?.takeRetainedValue() as String? ?? type
+                fileFormat.addItem(withTitle: name)
+            }
+        }
+    }
+
+    /// The folder the save panel should open at, or nil to leave it
+    /// at the last folder used.
+    private func preferredDirectory(for doc: Document) -> URL? {
+        switch Prefs.saveAsLocation {
+        case .automatic:
+            return nil
+        case .sameAsFile:
+            return doc.fileURL?.deletingLastPathComponent() ?? doc.mp4.firstSourceDirectoryURL()
+        case .custom:
+            return Prefs.saveAsCustomLocation
         }
     }
 
@@ -63,6 +81,10 @@ final class SaveOptions: NSViewController {
 
         if let filename = doc.mp4.preferredFileName() {
             savePanel?.nameFieldStringValue = filename
+        }
+
+        if let url = preferredDirectory(for: doc) {
+            savePanel?.directoryURL = url
         }
 
         setFileType(filenameExtension: fileType)

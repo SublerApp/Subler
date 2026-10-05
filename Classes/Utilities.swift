@@ -17,12 +17,22 @@ func automationConsent(bundleIdentifier: String, promptIfNeeded: Bool) -> Privac
     var result: PrivacyConsentState = .denied
     if #available(macOS 10.14, *) {
         bundleIdentifier.withCString { (identifier) in
-            var addressDesc = AEAddressDesc()
+            let workspace = NSWorkspace.shared
+
+//            if #available(macOS 12, *) {
+//                // Make sure the target is running, if not the consent alert will not be shown.
+//                if let url = workspace.urlsForApplications(withBundleIdentifier: bundleIdentifier).first {
+//                    let configuration = NSWorkspace.OpenConfiguration()
+//                    workspace.openApplication(at: url, configuration: configuration) {_,_ in
+//                    }
+//                }
+//            }
 
             // Mare sure the target is running, if not the consent alert will not be shown.
-            NSWorkspace.shared.launchApplication(withBundleIdentifier: bundleIdentifier, options: [],
-                                                 additionalEventParamDescriptor: nil, launchIdentifier: nil)
+            workspace.launchApplication(withBundleIdentifier: bundleIdentifier, options: [],
+                                        additionalEventParamDescriptor: nil, launchIdentifier: nil)
 
+            var addressDesc = AEAddressDesc()
             let createDescResult = AECreateDesc(typeApplicationBundleID, identifier, strlen(identifier), &addressDesc)
             if createDescResult == noErr {
                 let appleScriptPermission = AEDeterminePermissionToAutomateTarget(&addressDesc, typeWildCard, typeWildCard, promptIfNeeded)

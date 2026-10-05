@@ -1,0 +1,48 @@
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "4p7-7v-cUB"; */
+"4p7-7v-cUB.title" = "存储";
+
+/* Class = "NSTabViewItem"; label = "Metadata"; ObjectID = "11"; */
+"11.label" = "元数据";
+
+/* Class = "NSTabViewItem"; label = "Artwork"; ObjectID = "15"; */
+"15.label" = "插图";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Add metadata item"; ObjectID = "30"; */
+"30.ibExternalAccessibilityDescription" = "添加元数据条目";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Add a new metadata item"; ObjectID = "30"; */
+"30.ibShadowedToolTip" = "添加一个新的元数据条目";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove selected item"; ObjectID = "53"; */
+"53.ibExternalAccessibilityDescription" = "移除所选项";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Remove selected item"; ObjectID = "53"; */
+"53.ibShadowedToolTip" = "移除所选项";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Sets"; ObjectID = "179"; */
+"179.ibExternalAccessibilityDescription" = "预设";
+
+/* Class = "NSButtonCell"; title = "Keep existing annotations"; ObjectID = "aiW-0y-PWH"; */
+"aiW-0y-PWH.title" = "保留现有注释";
+
+/* Class = "NSButtonCell"; title = "Keep existing artworks"; ObjectID = "doa-uZ-CNr"; */
+"doa-uZ-CNr.title" = "保留现有插图";
+
+/* Class = "NSTableColumn"; headerCell.title = "Annotation"; ObjectID = "j7q-XE-YXB"; */
+"j7q-XE-YXB.headerCell.title" = "注释";
+
+/* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "os0-Yb-exW"; */
+"os0-Yb-exW.headerCell.title" = "值";
+
+/* Class = "NSTableView"; ibExternalAccessibilityDescription = "Metadata"; ObjectID = "qg5-r0-E4V"; */
+"qg5-r0-E4V.ibExternalAccessibilityDescription" = "元数据";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "sNX-Z3-AtD"; */
+"sNX-Z3-AtD.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "ZqF-j8-NeN"; */
+"ZqF-j8-NeN.title" = "名称：";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "ZRj-hi-qeJ"; */
+"ZRj-hi-qeJ.title" = "窗口";
+

@@ -1,0 +1,9 @@
+/* Class = "NSTextFieldCell"; title = "Set the format to create a custom filename in the Save As… panel and in the queue."; ObjectID = "hE3-zH-XFE"; */
+"hE3-zH-XFE.title" = "在“另存为…”面板和队列中设置格式以创建自定义文件名。";
+
+/* Class = "NSButtonCell"; title = "Set filename of TV Shows to:"; ObjectID = "kQC-bu-0by"; */
+"kQC-bu-0by.title" = "将电视节目文件名设置为：";
+
+/* Class = "NSButtonCell"; title = "Set filename of Movies to:"; ObjectID = "wci-gO-GWT"; */
+"wci-gO-GWT.title" = "将电影文件名设置为：";
+

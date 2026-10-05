@@ -124,7 +124,11 @@ final class OptionsViewController: NSViewController, NSUserInterfaceValidations 
     private func menuItem(url: URL) -> NSMenuItem {
         let icon = NSWorkspace.shared.icon(forFile: url.path)
         icon.size = NSSize(width: 16, height: 16)
-        let item = NSMenuItem(title: url.lastPathComponent, action: #selector(destination(_:)), keyEquivalent: "")
+
+        let values = try? url.resourceValues(forKeys: [.localizedNameKey])
+        let title = values?.localizedName ?? url.lastPathComponent
+
+        let item = NSMenuItem(title: title, action: #selector(destination(_:)), keyEquivalent: "")
         item.image = icon
         item.target = self
         item.representedObject = url

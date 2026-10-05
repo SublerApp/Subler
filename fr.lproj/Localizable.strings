@@ -79,7 +79,7 @@
 /* Quit alert title. */
 "Are you sure you want to quit Subler?" = "Êtes-vous sûr de vouloir quitter Subler ?";
 
-/* No comment provided by engineer. */
+/* nil */
 "artistID" = "artistID";
 
 /* No comment provided by engineer. */
@@ -100,7 +100,7 @@
 /* No comment provided by engineer. */
 "Capitalize" = "Mettre en majuscules";
 
-/* No comment provided by engineer. */
+/* nil */
 "Cast" = "Distribution des rôles";
 
 /* No comment provided by engineer. */
@@ -110,7 +110,7 @@
 "Clear Metadata" = "Nettoyer les métadonnées";
 
 /* Action description
-   Toolbar */
+Toolbar */
 "Clear tracks names" = "Effacer les noms des pistes";
 
 /* Action localized description. */
@@ -119,16 +119,16 @@
 /* Action localized description */
 "Clearing tracks names" = "Effacement des noms des pistes";
 
-/* No comment provided by engineer. */
+/* nil */
 "Composer" = "Compositeur";
 
 /* Media characteristic. */
 "Contains Only Forced Subtitles" = "Contient seulement les sous-titres forcés";
 
-/* No comment provided by engineer. */
+/* nil */
 "contentID" = "contentID";
 
-/* No comment provided by engineer. */
+/* nil */
 "Copyright" = "Droits d'auteur";
 
 /* No comment provided by engineer. */
@@ -138,8 +138,8 @@
 "Day" = "Jour";
 
 /* Toolbar
-   Undo cover art delete
-   Undo tag delete. */
+Undo cover art delete
+Undo tag delete. */
 "Delete" = "Supprimer";
 
 /* Toolbar */
@@ -151,13 +151,13 @@
 /* Media characteristic. */
 "Describes Video For Accessibility" = "Décrit la vidéo pour l'accessibilité";
 
-/* No comment provided by engineer. */
+/* nil */
 "Description" = "Description";
 
-/* No comment provided by engineer. */
+/* nil */
 "Director" = "Réalisateur";
 
-/* No comment provided by engineer. */
+/* nil */
 "Disk #" = "Disque #";
 
 /* Donation -> button */
@@ -193,13 +193,13 @@
 /* Undo tag editing. */
 "Editing" = "Rédaction";
 
-/* No comment provided by engineer. */
+/* nil */
 "Episode #" = "Épisode #";
 
-/* No comment provided by engineer. */
+/* nil */
 "Episode ID" = "ID Épisode";
 
-/* No comment provided by engineer. */
+/* nil */
 "Executive Producer" = "Producteur exécutif";
 
 /* No comment provided by engineer. */
@@ -226,7 +226,7 @@
 /* No comment provided by engineer. */
 "General" = "Général";
 
-/* No comment provided by engineer. */
+/* nil */
 "Genre" = "Genre";
 
 /* No comment provided by engineer. */
@@ -245,19 +245,19 @@
 "Import tracks from external files" = "Importer les pistes de fichiers externes";
 
 /* Undo cover art insert.
-   Undo tag insert. */
+Undo tag insert. */
 "Insert" = "Insérer";
 
 /* Toolbar */
 "Insert a chapter every" = "Insérer un chapitre à chaque";
 
-/* No comment provided by engineer. */
+/* nil */
 "iTunes Country" = "Pays iTunes";
 
 /* No comment provided by engineer. */
 "iTunes U" = "U iTunes";
 
-/* No comment provided by engineer. */
+/* nil */
 "iTunes URL" = "URL iTunes";
 
 /* Media characteristic. */
@@ -272,7 +272,7 @@
 /* Action localized description. */
 "Loading subtitles" = "Chargement des sous-titres";
 
-/* No comment provided by engineer. */
+/* nil */
 "Long Description" = "Description longue";
 
 /* No comment provided by engineer. */
@@ -305,10 +305,10 @@
 /* No comment provided by engineer. */
 "na" = "na";
 
-/* No comment provided by engineer. */
+/* nil */
 "Name" = "Nom";
 
-/* No comment provided by engineer. */
+/* nil */
 "Network" = "Réseau";
 
 /* No comment provided by engineer. */
@@ -359,7 +359,7 @@
 /* File Import action menu item. */
 "Passthru" = "Passthru";
 
-/* No comment provided by engineer. */
+/* nil */
 "playlistID" = "playlistID";
 
 /* No comment provided by engineer. */
@@ -375,13 +375,13 @@
 "Podcast" = "Podcast";
 
 /* Action description
-   Toolbar */
+Toolbar */
 "Prettify audio track names" = "Embellir les noms des pistes audio";
 
 /* Action localized description */
 "Prettifying audio track names" = "Embellissement des noms des pistes audio";
 
-/* No comment provided by engineer. */
+/* nil */
 "Producers" = "Producteurs";
 
 /* Toolbar */
@@ -393,7 +393,7 @@
 /* Quit alert default action. */
 "Quit" = "Quitter";
 
-/* No comment provided by engineer. */
+/* nil */
 "Rating" = "Évaluation";
 
 /* color profile */
@@ -414,7 +414,7 @@
 /* color profile */
 "Rec. 2100 PQ (9-16-9)" = "Rec. 2100 PQ (9-16-9)";
 
-/* No comment provided by engineer. */
+/* nil */
 "Release Date" = "Date de sortie";
 
 /* No comment provided by engineer. */
@@ -429,11 +429,11 @@
 /* Set menu */
 "Save Set…" = "Enregistrer l'ensemble...";
 
-/* No comment provided by engineer. */
+/* nil */
 "Screenwriters" = "Scénaristes";
 
 /* Action description.
-   Toolbar */
+Toolbar */
 "Search Metadata" = "Rechercher les métadonnées";
 
 /* Toolbar */
@@ -454,7 +454,7 @@
 /* No comment provided by engineer. */
 "Searching…" = "Recherche...";
 
-/* No comment provided by engineer. */
+/* nil */
 "Season" = "Saison";
 
 /* Toolbar */
@@ -475,14 +475,11 @@
 /* Action localized description. */
 "Sending to iTunes" = "Envoi à iTunes";
 
-/* No comment provided by engineer. */
+/* nil */
 "Series Description" = "Description de la série";
 
-/* No comment provided by engineer. */
+/* nil */
 "Series Name" = "Nom de la série";
-
-/* No comment provided by engineer. */
-"Service ID" = "ID Service";
 
 /* Set track color space action description */
 "Set color space" = "Définir l'espace colorimétrique";
@@ -526,7 +523,7 @@
 /* Toolbar */
 "Stop" = "Arrêter";
 
-/* No comment provided by engineer. */
+/* nil */
 "Studio" = "Studio";
 
 /* Donation -> title */
@@ -544,7 +541,7 @@
 /* Export alert panel -> message */
 "There was a problem creating the file " = "Il y a eu un problème pour créer le fichier";
 
-/* No comment provided by engineer. */
+/* nil */
 "Track #" = "Numéro de piste";
 
 /* No comment provided by engineer. */

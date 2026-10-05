@@ -8,10 +8,10 @@
 "Bpi-e7-pHx.ibExternalAccessibilityDescription" = "Pistas";
 
 /* Class = "NSButton"; ibExternalAccessibilityDescription = "Enabled"; ObjectID = "JD5-tO-uQc"; */
-"JD5-tO-uQc.ibExternalAccessibilityDescription" = "Activado";
+"JD5-tO-uQc.ibExternalAccessibilityDescription" = "Habilitado";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Enable or disable the track"; ObjectID = "JD5-tO-uQc"; */
-"JD5-tO-uQc.ibShadowedToolTip" = "Activar o desactivar pista";
+"JD5-tO-uQc.ibShadowedToolTip" = "Habilitar o deshabilitar pista";
 
 /* Class = "NSTextFieldCell"; title = "00:00:00"; ObjectID = "LAW-aU-7Ie"; */
 "LAW-aU-7Ie.title" = "00:00:00";
@@ -23,11 +23,11 @@
 "qGd-Uo-RvP.headerCell.title" = "Idioma";
 
 /* Class = "NSTableColumn"; headerCell.title = "Id"; ObjectID = "sB1-FL-VRd"; */
-"sB1-FL-VRd.headerCell.title" = "Id";
+"sB1-FL-VRd.headerCell.title" = "ID";
 
 /* Class = "NSTableColumn"; headerCell.title = "Format"; ObjectID = "vmh-dT-zIv"; */
 "vmh-dT-zIv.headerCell.title" = "Formato";
 
 /* Class = "NSTableColumn"; headerCell.title = "Enabled"; ObjectID = "Znw-bQ-tsE"; */
-"Znw-bQ-tsE.headerCell.title" = "Activado";
+"Znw-bQ-tsE.headerCell.title" = "Habilitado";
 

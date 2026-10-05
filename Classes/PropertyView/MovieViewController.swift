@@ -18,7 +18,13 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
     var metadata: MP42Metadata {
         didSet {
+            let metadataIndexes = self.metadataTableView.selectedRowIndexes
+//            let artworkIndexes = self.artworksView.selectionIndexPaths;
             reloadData()
+            if let last = metadataIndexes.last, last < tags.count {
+                self.metadataTableView.selectRowIndexes(metadataIndexes, byExtendingSelection: false)
+            }
+//            self.artworksView.selectItems(at: artworkIndexes, scrollPosition: .top)
         }
     }
 
@@ -116,6 +122,10 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
             }
         }
 
+        if #available(macOS 26, *) {
+            setsPopUp.menu?.items.first?.image = NSImage.init(systemSymbolName: "ellipsis", accessibilityDescription: nil)
+        }
+
         columnWidth = column.width
 
         metadataTableView.defaultEditingColumn = 1
@@ -148,7 +158,11 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         metadataTableView.reloadData()
         updateArtworksArray()
         artworksView.reloadData()
-        view.undoManager?.removeAllActions(withTarget: self)
+        updateUI()
+    }
+
+    private func updateUI() {
+        removeTagButton.isEnabled = self.metadataTableView.selectedRow != -1
     }
 
     // MARK: Metadata
@@ -176,17 +190,6 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
             metadata.addItem(item)
             rowHeights[item.identifier] = nil
         }
-
-        if let undo = view.undoManager {
-            undo.registerUndo(withTarget: self) { (target) in
-                target.remove(metadataItems: items)
-            }
-
-            if undo.isUndoing == false {
-                undo.setActionName(NSLocalizedString("Insert", comment: "Undo tag insert."))
-            }
-        }
-
         updateMetadataArray()
         metadataTableView.reloadData()
     }
@@ -195,37 +198,18 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         for item in items {
             metadata.removeItem(item)
         }
-
-        if let undo = view.undoManager {
-            undo.registerUndo(withTarget: self) { (target) in
-                target.add(metadataItems: items)
-            }
-
-            if undo.isUndoing == false {
-                undo.setActionName(NSLocalizedString("Delete", comment: "Undo tag delete."))
-            }
-        }
-
         updateMetadataArray()
+        let index = metadataTableView.selectedRowIndexes.first ?? 0
         metadataTableView.reloadData()
+        if index < tags.count {
+            metadataTableView.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
+        }
+        updateUI()
     }
 
     private func replace(metadataItem item: MP42MetadataItem, withItem newItem: MP42MetadataItem) {
         metadata.removeItem(item)
         metadata.addItem(newItem)
-
-        if let undo = view.undoManager {
-            undo.registerUndo(withTarget: self) { (target) in
-                target.replace(metadataItem: newItem, withItem: item)
-            }
-
-            if undo.isUndoing == false {
-                undo.setActionName(NSLocalizedString("Editing", comment: "Undo tag editing."))
-                view.window?.windowController?.document?.updateChangeCount(.changeDone)
-            } else {
-                view.window?.windowController?.document?.updateChangeCount(.changeUndone)
-            }
-        }
 
         updateMetadataArray()
 
@@ -830,8 +814,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     }
 
     func tableViewSelectionDidChange(_ notification: Notification) {
-        let enabled = metadataTableView.selectedRow != -1 ? true : false
-        removeTagButton.isEnabled = enabled
+        updateUI()
     }
 
     // MARK: Artworks
@@ -842,34 +825,12 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
 
     private func add(metadataArtworks items: [MP42MetadataItem]) {
         metadata.addItems(items)
-
-        if let undo = view.undoManager {
-            undo.registerUndo(withTarget: self) { (target) in
-                target.remove(metadataArtworks: items)
-            }
-
-            if undo.isUndoing == false {
-                undo.setActionName(NSLocalizedString("Insert", comment: "Undo cover art insert."))
-            }
-        }
-
         updateArtworksArray()
         artworksView.reloadData()
     }
 
     private func remove(metadataArtworks items: [MP42MetadataItem]) {
         metadata.removeItems(items)
-
-        if let undo = view.undoManager {
-            undo.registerUndo(withTarget: self) { (target) in
-                target.add(metadataArtworks: items)
-            }
-
-            if undo.isUndoing == false {
-                undo.setActionName(NSLocalizedString("Delete", comment: "Undo cover art delete"))
-            }
-        }
-
         updateArtworksArray()
         artworksView.reloadData()
         updateSelection()
@@ -878,17 +839,6 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     private func replace(metadataArtworks items: [MP42MetadataItem], withItems newItems: [MP42MetadataItem]) {
         metadata.removeItems(items)
         metadata.addItems(newItems)
-
-        if let undo = view.undoManager {
-            undo.registerUndo(withTarget: self) { (target) in
-                target.replace(metadataArtworks: newItems, withItems: items)
-            }
-
-            if undo.isUndoing == false {
-                undo.setActionName(NSLocalizedString("Move", comment: "Undo cover art delete"))
-            }
-        }
-
         updateArtworksArray()
         artworksView.reloadData()
         updateSelection()
@@ -901,9 +851,18 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     private func add(artworks: [Any], toIndexPath: IndexPath) -> Bool {
         let items = artworks.compactMap { (artwork: Any) -> MP42Image? in
             if let url = artwork as? URL {
-                let value = try? url.resourceValues(forKeys: [URLResourceKey.typeIdentifierKey])
+                var isJpeg = false
+                if #available(macOS 11, *) {
+                    let value = try? url.resourceValues(forKeys: [URLResourceKey.contentTypeKey])
+                    isJpeg = value?.contentType?.conforms(to: .jpeg) ?? false
+                } else {
+                    let value = try? url.resourceValues(forKeys: [URLResourceKey.typeIdentifierKey])
+                    if let type = value?.typeIdentifier, UTTypeConformsTo(type as CFString, "public.jpeg" as CFString) {
+                        isJpeg = true
+                    }
+                }
 
-                if let type = value?.typeIdentifier, UTTypeConformsTo(type as CFString, "public.jpeg" as CFString), let data = try? Data(contentsOf: url) {
+                if isJpeg, let data = try? Data(contentsOf: url) {
                     return MP42Image(data: data, type: MP42_ART_JPEG)
                 } else if let image = NSImage(contentsOf: url) {
                     return MP42Image(image: image)
@@ -932,7 +891,11 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
         panel.allowsMultipleSelection = true
         panel.canChooseFiles = true
         panel.canChooseDirectories = false
-        panel.allowedFileTypes = ["public.image"]
+        if #available(macOS 11, *) {
+            panel.allowedContentTypes = [.image]
+        } else {
+            panel.allowedFileTypes = ["public.image"]
+        }
 
         guard let window = view.window else { return }
 
@@ -994,14 +957,11 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
     func filePromiseProvider(_ filePromiseProvider: NSFilePromiseProvider, writePromiseTo url: URL, completionHandler: @escaping (Error?) -> Void) {
         if let userInfo = filePromiseProvider.userInfo as? [String: AnyObject] {
             do {
-                if let indexPathData = userInfo[FilePromiseProvider.UserInfoKeys.indexPathKey] as? Data {
-                    if let indexPath = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(indexPathData) as? IndexPath {
-                        let item = artworks[indexPath.last!]
-                        if let image = item.imageValue {
-                            try image.data?.write(to: url)
-                            completionHandler(nil)
-                        }
-                    }
+                if let indexPathData = userInfo[FilePromiseProvider.UserInfoKeys.indexPathKey] as? Data,
+                   let indexPath = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSIndexPath.classForCoder()], from: indexPathData) as? IndexPath,
+                   let image = artworks[indexPath.last!].imageValue {
+                    try image.data?.write(to: url)
+                    completionHandler(nil)
                 }
             } catch {
                 fatalError("failed to unarchive indexPath from promise provider.")
@@ -1114,7 +1074,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
                 if let pasteboardItem = draggingItem.item as? NSPasteboardItem {
                     do {
                         if let indexPathData = pasteboardItem.data(forType: .artworkDragType),
-                           let itemIndexPath = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(indexPathData) as? IndexPath {
+                           let itemIndexPath = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSIndexPath.classForCoder()], from:indexPathData) as? IndexPath {
                             indexes.insert(itemIndexPath)
                         }
                     } catch {
@@ -1246,7 +1206,7 @@ class MovieViewController: PropertyView, NSTableViewDataSource, ExpandedTableVie
             for pasteboardItem in items {
                 do {
                     if let indexPathData = pasteboardItem.data(forType: .artworkDragType),
-                       let itemIndexPath = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(indexPathData) as? IndexPath {
+                       let itemIndexPath = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSIndexPath.classForCoder()], from:indexPathData) as? IndexPath {
                         indexes.insert(itemIndexPath)
                     }
                 } catch {
