@@ -118,15 +118,10 @@ final class SoundViewController : PropertyView {
     
     // MARK: Actions
 
-    private func updateChangeCount() {
-        view.window?.windowController?.document?.updateChangeCount(NSDocument.ChangeType.changeDone)
-    }
-
     @IBAction func setTrackVolume(_ sender: NSSlider) {
         let value = sender.floatValue / 100
         if value != track.volume {
             track.volume = value
-            updateChangeCount()
         }
     }
 
@@ -134,12 +129,10 @@ final class SoundViewController : PropertyView {
         if let newFallbackTrack = sender.representedObject as? MP42AudioTrack {
             if newFallbackTrack != track.fallbackTrack {
                 track.fallbackTrack = newFallbackTrack
-                updateChangeCount()
             }
         }
         else {
             track.fallbackTrack = nil
-            updateChangeCount()
         }
     }
 
@@ -147,12 +140,10 @@ final class SoundViewController : PropertyView {
         if let newFollowsTrack = sender.representedObject as? MP42SubtitleTrack {
             if newFollowsTrack != track.followsTrack {
                 track.followsTrack = newFollowsTrack
-                updateChangeCount()
             }
         }
         else {
             track.followsTrack = nil
-            updateChangeCount()
         }
     }
 
@@ -160,7 +151,6 @@ final class SoundViewController : PropertyView {
         if let group = sender.selectedItem?.tag {
             if track.alternateGroup != group {
                 track.alternateGroup = UInt64(group)
-                updateChangeCount()
             }
         }
     }

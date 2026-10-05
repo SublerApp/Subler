@@ -119,8 +119,7 @@ class SBFetchMetadataScriptCommand: NSScriptCommand, ScriptCommandDocumentTarget
                 if let metadata = metadata {
                     // Apply the metadata to the file
                     mp4File.metadata.merge(metadata, overwrite: true)
-                    sublerDoc.updateChangeCount(.changeDone)
-                    
+
                     // Trigger UI refresh by calling reloadData on the window controller
                     if let windowController = sublerDoc.windowControllers.first as? DocumentWindowController {
                         windowController.reloadData()
@@ -386,8 +385,7 @@ class SBSaveAsScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
                                 
                                 // Update the document's file URL and mark as saved
                                 sublerDoc.fileURL = destinationURL
-                                sublerDoc.updateChangeCount(.changeCleared)
-                                
+
                                 // End progress reporting and refresh the UI
                                 windowController.endProgressReporting()
                                 windowController.reloadData()
@@ -396,8 +394,7 @@ class SBSaveAsScriptCommand: NSScriptCommand, ScriptCommandDocumentTargeting {
                     } else {
                         // Update the document's file URL and mark as saved
                         sublerDoc.fileURL = destinationURL
-                        sublerDoc.updateChangeCount(.changeCleared)
-                        
+
                         // End progress reporting and refresh the UI
                         windowController.endProgressReporting()
                         windowController.reloadData()
@@ -807,7 +804,6 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
                         DispatchQueue.main.async {
                             if let sublerDoc = self.targetedDocument() {
                                 sublerDoc.mp4.metadata.merge(mappedMetadata, overwrite: true)
-                                sublerDoc.updateChangeCount(.changeDone)
                                 completion(true)
                             } else {
                                 completion(false)
@@ -857,7 +853,6 @@ class SBFetchAndSetMetadataResultScriptCommand: NSScriptCommand, ScriptCommandDo
                         DispatchQueue.main.async {
                             if let sublerDoc = self.targetedDocument() {
                                 sublerDoc.mp4.metadata.merge(mappedMetadata, overwrite: true)
-                                sublerDoc.updateChangeCount(.changeDone)
                                 completion(true)
                             } else {
                                 completion(false)

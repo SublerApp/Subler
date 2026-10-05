@@ -176,7 +176,5 @@ final class MediaTagsController: NSViewController, NSTableViewDataSource, NSTabl
     private func updateTrack() {
         let updatedTags = tags.filter { $0.state }.map { $0.value }
         track.mediaCharacteristicTags = Set(updatedTags)
-
-        view.window?.windowController?.document?.updateChangeCount(.changeDone)
     }
 }

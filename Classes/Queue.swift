@@ -54,6 +54,7 @@ final class Queue {
             }
             unarchiver.finishDecoding()
         } catch {
+            self.logger.writeError(toLog: error)
             items = []
         }
 
