@@ -55,6 +55,15 @@ import Foundation
 
 }
 
+@objc(SBQueueRemoveAllScriptCommand) class QueueRemoveAllScriptCommand: NSScriptCommand {
+
+    @MainActor override func performDefaultImplementation() -> Any? {
+        QueueController.shared.removeAllItems(self)
+        return nil
+    }
+
+}
+
 @objc(SBQueueStatusScriptCommand) class SBQueueStatusScriptCommand: NSScriptCommand {
 
     @MainActor override func performDefaultImplementation() -> Any? {
