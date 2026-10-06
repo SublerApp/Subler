@@ -557,39 +557,71 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, Trac
         }
     }
 
+    private func loadImporters(fileURLs: [URL], completion: @escaping ([MP42FileImporter]) -> Void) {
+        let progressController = ProgressViewController()
+        progressController.showsCancelButton = false
+
+        // Load the view before configuring its outlets, then give AppKit a
+        // main-run-loop turn to present the sheet before importer work starts.
+        _ = progressController.view
+        progressController.progressTitle = NSLocalizedString("Importing…", comment: "Import progress title")
+        progressController.progress = 0
+        contentViewController?.presentAsSheet(progressController)
+
+        DispatchQueue.main.async {
+            DispatchQueue.global(qos: .default).async {
+                do {
+                    var importers = [MP42FileImporter]()
+                    let fileCount = Double(fileURLs.count)
+
+                    for (index, url) in fileURLs.enumerated() {
+                        let importer = try MP42FileImporter(url: url) { progress in
+                            let overallProgress = (Double(index) + progress) / fileCount
+                            DispatchQueue.main.async {
+                                progressController.progress = overallProgress * 100
+                            }
+                        }
+                        importers.append(importer)
+                    }
+
+                    DispatchQueue.main.async {
+                        self.contentViewController?.dismiss(progressController)
+                        completion(importers)
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        self.contentViewController?.dismiss(progressController)
+                        if let windowForSheet = self.doc.windowForSheet {
+                            self.presentError(error, modalFor: windowForSheet, delegate: nil, didPresent: nil, contextInfo: nil)
+                        } else {
+                            self.presentError(error)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     func showImportSheet(fileURLs: [URL]) {
-        do {
-            let controller = try FileImportController(fileURLs: fileURLs, delegate: self)
+        loadImporters(fileURLs: fileURLs) { importers in
+            let controller = FileImportController(importers: importers, delegate: self)
 
             if controller.onlyContainsSubtitles {
                 controller.addTracks(self)
-                tracksViewController.reloadData()
+                self.tracksViewController.reloadData()
             } else {
-                contentViewController?.presentAsSheet(controller)
-            }
-        }
-        catch {
-            if let windowForSheet = doc.windowForSheet {
-                presentError(error, modalFor: windowForSheet, delegate: nil, didPresent: nil, contextInfo: nil)
-            } else {
-                presentError(error)
+                self.contentViewController?.presentAsSheet(controller)
             }
         }
     }
 
     @objc func importFilesDirectly(_ fileURLs: [URL]) {
-        do {
-            let controller = try FileImportController(fileURLs: fileURLs, delegate: self)
+        loadImporters(fileURLs: fileURLs) { importers in
+            let controller = FileImportController(importers: importers, delegate: self)
 
             // Call addTracks directly - the Settings initialization logic runs when the controller is created
             controller.addTracks(self)
-            tracksViewController.reloadData()
-        } catch {
-            if let windowForSheet = doc.windowForSheet {
-                presentError(error, modalFor: windowForSheet, delegate: nil, didPresent: nil, contextInfo: nil)
-            } else {
-                presentError(error)
-            }
+            self.tracksViewController.reloadData()
         }
     }
 

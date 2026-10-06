@@ -18,6 +18,7 @@ final class ProgressViewController: NSViewController {
     @IBOutlet var progressBar: NSProgressIndicator!
 
     weak var delegate: ProgressViewControllerDelegate?
+    var showsCancelButton = true
 
     private var isIndeterminate: Bool = true
 
@@ -28,6 +29,7 @@ final class ProgressViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         progressBar.isIndeterminate = true
+        cancelButton.isHidden = !showsCancelButton
     }
 
     var progress: Double {
