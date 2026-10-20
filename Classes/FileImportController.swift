@@ -188,8 +188,7 @@ final class FileImportController: ViewController, NSTableViewDataSource, NSTable
         return "FileImportController"
     }
     
-    init(fileURLs: [URL], delegate: FileImportControllerDelegate) throws {
-        let importers = try fileURLs.map { try MP42FileImporter(url: $0) }
+    init(importers: [MP42FileImporter], delegate: FileImportControllerDelegate) {
         self.items = importers.flatMap { [ItemType.file($0)] + $0.tracks.map { ItemType.track(Settings(track: $0)) } }
         self.metadata = importers.first?.metadata
         self.importMetadata = metadata != nil && MetadataPrefs.keepImportedFilesMetadata
