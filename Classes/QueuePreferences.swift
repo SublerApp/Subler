@@ -15,6 +15,9 @@ final class QueuePreferences: NSObject {
     static private let SBQueueClearTrackName: String = "SBQueueClearTrackName"
     static private let SBQueuePrettifyAudioTrackName: String = "SBQueuePrettifyAudioTrackName"
     static private let SBQueueRenameChapters: String = "SBQueueRenameChapters"
+    static private let SBQueueAddChapters: String = "SBQueueAddChapters"
+    static private let SBQueueAddChaptersInterval: String = "SBQueueAddChaptersInterval"
+    static private let SBQueueAddChaptersPolicy: String = "SBQueueAddChaptersPolicy"
     static private let SBQueueMetadata: String = "SBQueueMetadata"
     static private let SBQueueSubtitles: String = "SBQueueSubtitles"
     static private let SBQueueSet: String = "SBQueueSet"
@@ -62,6 +65,9 @@ final class QueuePreferences: NSObject {
     @objc dynamic var clearTrackName: Bool
     @objc dynamic var prettifyAudioTrackName: Bool
     @objc dynamic var renameChapters: Bool
+    @objc dynamic var addChapters: Bool
+    @objc dynamic var addChaptersInterval: Int
+    @objc dynamic var addChaptersPolicy: Int
     @objc dynamic var subtitles: Bool
     @objc dynamic var metadataSet: MetadataPreset?
 
@@ -106,6 +112,9 @@ final class QueuePreferences: NSObject {
         self.clearTrackName = ud.bool(forKey: QueuePreferences.SBQueueClearTrackName)
         self.prettifyAudioTrackName = ud.bool(forKey: QueuePreferences.SBQueuePrettifyAudioTrackName)
         self.renameChapters = ud.bool(forKey: QueuePreferences.SBQueueRenameChapters)
+        self.addChapters = ud.bool(forKey: QueuePreferences.SBQueueAddChapters)
+        self.addChaptersInterval = ud.integer(forKey: QueuePreferences.SBQueueAddChaptersInterval)
+        self.addChaptersPolicy = ud.integer(forKey: QueuePreferences.SBQueueAddChaptersPolicy)
         self.subtitles = ud.bool(forKey: QueuePreferences.SBQueueSubtitles)
         if let presetName = ud.string(forKey: QueuePreferences.SBQueueSet) {
             self.metadataSet = PresetManager.shared.item(name: presetName) as? MetadataPreset
@@ -148,6 +157,9 @@ final class QueuePreferences: NSObject {
                      QueuePreferences.SBQueueClearTrackName: false,
                      QueuePreferences.SBQueuePrettifyAudioTrackName: false,
                      QueuePreferences.SBQueueRenameChapters: false,
+                     QueuePreferences.SBQueueAddChapters: false,
+                     QueuePreferences.SBQueueAddChaptersInterval: 5,
+                     QueuePreferences.SBQueueAddChaptersPolicy: 0,
                      QueuePreferences.SBQueueMetadata: false,
                      QueuePreferences.SBQueueSubtitles: true,
                      QueuePreferences.SBQueueApplyColorSpace: false,
@@ -188,6 +200,9 @@ final class QueuePreferences: NSObject {
         ud.set(clearTrackName, forKey: QueuePreferences.SBQueueClearTrackName)
         ud.set(prettifyAudioTrackName, forKey: QueuePreferences.SBQueuePrettifyAudioTrackName)
         ud.set(renameChapters, forKey: QueuePreferences.SBQueueRenameChapters)
+        ud.set(addChapters, forKey: QueuePreferences.SBQueueAddChapters)
+        ud.set(addChaptersInterval, forKey: QueuePreferences.SBQueueAddChaptersInterval)
+        ud.set(addChaptersPolicy, forKey: QueuePreferences.SBQueueAddChaptersPolicy)
         ud.set(subtitles, forKey: QueuePreferences.SBQueueSubtitles)
         ud.set(metadataSet?.title, forKey: QueuePreferences.SBQueueSet)
 

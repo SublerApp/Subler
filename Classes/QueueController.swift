@@ -328,6 +328,10 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         if prefs.prettifyAudioTrackName {
             item.addAction(QueuePrettifyAudioTrackNameAction())
         }
+        if prefs.addChapters {
+            let policy = MP42File.ChaptersInsertPolicy(rawValue: prefs.addChaptersPolicy) ?? .replace
+            item.addAction(QueueAddChaptersAction(minutes: prefs.addChaptersInterval, policy: policy))
+        }
         if prefs.renameChapters {
             item.addAction(QueueRenameChaptersAction())
         }
@@ -608,7 +612,7 @@ final class QueueController : NSWindowController, NSWindowDelegate, NSPopoverDel
         guard let closedPopover = notification.object as? NSPopover
             else { return }
 
-        if popover == closedPopover {
+        if popover == closedPopover {            
             popover = nil
         }
         if itemPopover == closedPopover {
