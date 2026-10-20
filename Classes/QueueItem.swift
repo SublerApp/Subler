@@ -95,12 +95,20 @@ import MP42Foundation
             attributes[MP42GenerateChaptersPreviewTrack] = true
             attributes[MP42ChaptersPreviewPosition] = Prefs.chaptersPreviewPosition
         }
+
+        if Prefs.forceHvc1 {
+            attributes[MP42ForceHvc1] = true
+        }
     }
 
     convenience init(mp4: MP42File, destURL: URL, attributes: [String : Any] = [:], optimize: Bool = false) {
         self.init(fileURL: destURL, destURL: destURL)
         self.mp4File = mp4
         self.attributes = attributes
+
+        if Prefs.forceHvc1 {
+            self.attributes[MP42ForceHvc1] = true
+        }
 
         if optimize {
             addAction(QueueOptimizeAction())
