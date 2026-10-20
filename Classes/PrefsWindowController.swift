@@ -67,14 +67,14 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
 
     // MARK: Panel switching
 
-    private func view(for identifier: NSToolbarItem.Identifier) -> NSView? {
+    private func view(for identifier: NSToolbarItem.Identifier) -> NSView {
         if identifier == general { return generalController.view }
         if identifier == metadata { return metadataController.view }
         if identifier == presets { return presetController.view }
         if identifier == output { return outputController.view }
         if identifier == ocr { return ocrController.view }
         if identifier == advanced { return advancedController.view }
-        return nil
+        return generalController.view
     }
 
     private func animationDuration(view: NSView, previousView: NSView?) -> TimeInterval {
@@ -82,34 +82,61 @@ class PrefsWindowController: NSWindowController, NSWindowDelegate {
         return TimeInterval(abs(previousView.frame.size.height - view.frame.height)) * 0.0011
     }
 
+    func resizeWindow(toFitView view: NSView) {
+        guard let window, let contentView = window.contentView else {
+            return
+        }
+
+        view.setFrameSize(view.fittingSize)
+
+        let viewFrame = view.frame
+        let windowFrame = window.frame
+        let contentViewFrame = contentView.frame
+
+        let windowWidth =  max(windowFrame.width, viewFrame.width)
+        let deltaHeight = contentViewFrame.height - viewFrame.height
+        let heightForWindow = windowFrame.height - deltaHeight
+        let windowOriginY = windowFrame.minY + deltaHeight
+
+        var updatedWindowFrame = windowFrame
+        updatedWindowFrame.size.height = heightForWindow
+        updatedWindowFrame.origin.y = windowOriginY
+        updatedWindowFrame.size.width = windowWidth
+
+        var updatedViewFrame = viewFrame
+        updatedViewFrame.origin = NSPoint.zero
+        updatedViewFrame.size.width = windowWidth
+        if viewFrame != updatedViewFrame {
+            view.frame = updatedViewFrame
+        }
+
+        if windowFrame != updatedWindowFrame {
+            contentView.isHidden = true
+            window.setFrame(updatedWindowFrame, display: true, animate: true)
+            contentView.isHidden = false
+        }
+    }
+
+    var currentView: NSView? {
+        window?.contentView?.subviews.first
+    }
+
     private func selectItem(_ item: NSToolbarItem, animate: Bool) {
-        guard let window = self.window,
-            let view = self.view(for: item.itemIdentifier),
-            window.contentView != view
-            else { return }
+        guard let window, let contentView = window.contentView else { return }
 
-        let duration = animationDuration(view: view, previousView: window.contentView)
-        window.contentView = view
-
-        if window.isVisible && animate {
-            NSAnimationContext.runAnimationGroup({ context in
-                context.allowsImplicitAnimation = true
-                context.duration = duration
-                window.layoutIfNeeded()
-
-                NSAnimationContext.beginGrouping()
-                NSAnimationContext.current.duration = 0
-                view.isHidden = true
-                NSAnimationContext.endGrouping()
-            }, completionHandler: {
-                view.isHidden = false
-                window.title = item.label
-                self.window?.makeFirstResponder(view.nextKeyView)
-            })
+        let newView = view(for: item.itemIdentifier)
+        if newView == currentView {
+            return
         }
-        else {
-            window.title = item.label
-        }
+
+        currentView?.removeFromSuperview()
+
+        resizeWindow(toFitView: newView)
+
+        contentView.addSubview(newView)
+
+        window.title = item.label
+        window.makeFirstResponder(newView)
     }
 
     @IBAction func setPrefView(_ sender: NSToolbarItem) {
