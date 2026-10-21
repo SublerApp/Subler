@@ -111,6 +111,10 @@
             <cocoa class="SBQueueRemoveCompletedScriptCommand"/>
         </command>
 
+        <command name="remove all items from queue" code="SublQRAl" description="Remove all items from the queue.">
+            <cocoa class="SBQueueRemoveAllScriptCommand"/>
+        </command>
+
         <command name="get queue status" code="SublQSts" description="Get the current status of the queue.">
             <cocoa class="SBQueueStatusScriptCommand"/>
             <result description="The status of the queue.">
